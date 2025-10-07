@@ -1,0 +1,43 @@
+services:
+  migrate:
+    build:
+      context: .
+      target: base 
+    container_name: nestoraMigrationRunner
+    command: python manage.py migrate
+    volumes:
+      - ./:/app
+    working_dir: /app
+    env_file:
+      - .env
+    environment:
+      DJANGO_SETTINGS_MODULE: lunastore.settings
+      PYTHONPATH: /app
+    networks:
+      - storenetwork
+    restart: on-failure
+
+  web:
+    build:
+      context: .
+      target: web
+    container_name: lunaStoreWeb
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    environment:
+      PYTHONPATH: /app
+      DJANGO_SETTINGS_MODULE: lunastore.settings
+    working_dir: /app
+    ports:
+      - "8088:8088"
+    env_file:
+      - .env
+    command: python manage.py runserver 0.0.0.0:8088
+    restart: unless-stopped
+    networks:
+      - storenetwork
+
+networks:
+  storenetwork:
+    driver: bridge
