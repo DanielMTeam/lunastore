@@ -3,7 +3,7 @@ services:
     build:
       context: .
       target: base 
-    container_name: nestoraMigrationRunner
+    container_name: lunaStoreMigrator
     command: python manage.py migrate
     volumes:
       - ./:/app
