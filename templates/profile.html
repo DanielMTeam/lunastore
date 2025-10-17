@@ -1,0 +1,273 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Профиль пользвателя dm - LunaStore</title>
+<script src="./js/search_mini.js"></script>
+<link rel="stylesheet" href="./css/main.css">
+<link rel="shortcut icon" href="./favicon.ico">
+
+</head>
+
+
+<body>
+  <div class="announcement">Вы сейчас открыли версию сайта <b>на русском языке</b>, однако у нас есть локализация именно под <b>Ваш</b> регион<br>Желаете ли переключиться? <br><br> <a href="?hl=en" id="primary">Yes, change my language</a> - <a href="">Нет, спасибо</a></div>
+<div class="container">
+
+  <div class="dm_menu">
+    Вы вошли как <a href="/profile.php"><b>dm</b></a> - <a href="/index.php?act=logout&hash=3476ty89mR_hf9er8">выйти</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a>
+  </div>
+
+  <div class="header">
+    
+    <div class="rl_l"><h1 class="txtr">LunaStore</h1>
+    <div class="subtitle txtr">Windows XP Professional</div>
+    </div>
+    
+    <div class="searchbar">
+  <!--[if IE 6]>
+  <style type="text/css">
+   .searchbar button {padding: 1px 1px;}
+   .tail{display: none;}
+  </style>
+  <![endif]-->
+      <input type="text" id="q" placeholder="Например: Total Commander">
+      <button type="button" onclick="doSearch()">поиск</button>
+      <br>
+      <div class="subtitle"><a href="/settings.php?act=search">Уточнить параметры поиска</a></div>
+    </div>
+  </div>
+
+
+  <div class="headerline"></div>
+
+  <div class="main">
+    <div class="sidebar">
+      <div class="boxhead_primary"><b>Аккаунт</b></div>
+      <div class="box">
+        
+        <ul>
+          <a href="/profile.php"><li class="myhome" id="active">Мой профиль</li></a>
+          <a href="/settings.php"><li class="settings">Настройки</li></a>
+          <a href="/profile.php?act=invite"><li class="newbie">Пригласить</li></a>
+        </ul>
+      </div>
+
+        <div class="boxhead"><b>Категории</b></div>
+      <div class="box">
+        
+        <ul>
+          <a href="/index.php"><li class="myhome">Главная страница</li></a>
+          <a href="/store.php?show=top20"><li class="top">Приложения месяца</li></a>
+          <a href="/store.php?show=updates"><li class="updates">Центр обновлений</li></a>
+          <a href="/store.php?cat=1"><li class="entertainment">Игры и развлечения</li></a>
+          <a href="/store.php?cat=2"><li class="util">Инструменты</li></a>
+          <a href="/store.php?cat=3"><li class="media">Мультимедиа</li></a>
+          <a href="/store.php?cat=4"><li class="office">Офисные приложения</li></a>
+          <a href="/store.php?cat=5"><li class="internet">Интернет и сети</li></a>
+          <a href="/store.php?cat=6"><li class="other">Прочее</li></a>
+          <a href="/store.php?show=themes"><li class="themes">Темы оформления</li></a>
+        </ul>
+      </div>
+      
+      <div class="adv_block">
+        <a href="{ad_link}"><img src="./ad/ad.png" class="adv_img_splash" alt="Реклама"></a>
+      </div>
+
+    </div>
+
+    <div class="content">
+
+      <div class="profile_card">
+          <div class="profile_avatar" id="{uid}"></div>
+          <div class="profile_info" id="{uid}">
+            <div class="profile_name">dm  <img src="./img/tabs/about.png" alt="Команда LunaStore" title="Команда LunaStore"></div>
+            <div class="profile_desc">gkjdfjgkldhgjklhdfughkdfjgidruhtguidgfyhdfiugydhukfghukdfhgjkdukghkdfgkhdfghjfhd</div>
+            <small><span class="last-visit">2 приложения, 69 отзывов - участник с 31 августа 2025</span></small>
+            <div style="clear: both"></div>
+
+          </div>
+      </div>
+      <link rel="stylesheet" href="./css/profile.css">  
+      <link rel="stylesheet" href="./css/tabs.css">
+      <link rel="stylesheet" href="./css/reviews.css"> 
+      <!--[if lte IE 6]> <link rel="stylesheet" href="./css/profile_ie6.css" media="screen, projection"> <![endif]-->  
+
+        <div class="tabs">
+  <div class="tab-bar">
+    <div class="tab active" href="/help.php">
+      <img src="./img/tabs/faq.png" class="tab-icon" alt="">
+      Основное
+    </div>
+    <div class="tab" href="/help.php?page=about">
+      <img src="./img/tabs/about.png" class="tab-icon" alt="">
+      Отзывы
+    </div>
+    <div class="tab" href="/help.php?page=privacy">
+      <img src="./img/tabs/privacy.png" class="tab-icon" alt="">
+      Приложения
+    </div>
+  </div>
+
+  <div class="tab-content" id="tab-view">
+    <div class="profile_block">Контактная информация</div>
+    <div class="profile_block_content">
+      <div class="profile_desc_element_head">Веб-сайт: <div class="profile_desc_element">{site}</div></div>
+      <div class="profile_desc_element_head">Telegram: <div class="profile_desc_element">{tg}</div></div>
+      <div class="profile_desc_element_head">E-mail: <div class="profile_desc_element">{email}</div></div>
+    </div>
+    <br>
+    <div class="profile_block">Опубликованные приложения<span class="rl_l"><a href="/search.php?section=apps&pubid=1">все</a></span></div>
+    <div class="profile_block_content">
+      <div class="icon">
+        <img src="./cdn/appsicons/totalcmd.png" alt="Total Commander" class="icon-img">
+        <div class="icon-text"><a href="/app4">Total Commander</a></div>
+      </div>
+      <div class="icon">
+        <img src="./cdn/appsicons/copilot.png" alt="Microsoft Copilot" class="icon-img">
+        <div class="icon-text"><a href="/app7">Microsoft Copilot</a></div>
+      </div>
+      <div class="icon">
+        <img src="./cdn/appsicons/copilot.png" alt="Microsoft Copilot" class="icon-img">
+        <div class="icon-text"><a href="/app7">Microsoft Copilot</a></div>
+      </div>
+      <div class="icon">
+        <img src="./cdn/appsicons/copilot.png" alt="Microsoft Copilot" class="icon-img">
+        <div class="icon-text"><a href="/app7">Microsoft Copilot</a></div>
+      </div>
+      <div class="icon">
+        <img src="./cdn/appsicons/copilot.png" alt="Microsoft Copilot" class="icon-img">
+        <div class="icon-text"><a href="/app7">Microsoft Copilot</a></div>
+      </div>
+    </div>
+    <br>
+    <div class="profile_block">dm пригласил 3 человек (показаны первые 5)</div>
+    <div class="profile_block_content">
+      <div class="user">
+        <a href="/id5"><img src="./cdn/avatar/1/avatar.jpg" alt="eversiege" class="user-img"></a>
+        <div class="user-text"><a href="/id5">eversiege</a></div>
+      </div>
+      <div class="user">
+        <a href="/id68"><img src="./cdn/avatar/1/avatar.jpg" alt="beelive" class="user-img"></a>
+        <div class="user-text"><a href="/id68">beelive</a></div>
+      </div>
+      <div class="user">
+        <a href="/id9"><img src="./cdn/avatar/1/avatar.jpg" alt="BAGMAY904" class="user-img"></a>
+        <div class="user-text"><a href="/id9">BAGMAY904</a></div>
+      </div>
+    </div>
+    <br>
+    <div class="profile_block">Отзывы<span class="rl_l"><a href="/profile.php?act=show_reviews&authorid=1">все</a></span></div>
+    <div class="profile_subblock">69 отзывов (показаны последние 5)</div>
+    <div class="profile_block_content">
+      
+      <div class="review_body" id="app4">
+        <div class="review_author"><a href="/id1">dm</a> к приложению <a href="/app4">Total Commander</a></div>
+        <div class="review_date">31 августа 2025 в 19:34</div>
+        <hr>
+        <div class="review_text">Очень позитивное и православное приложение! 10 из 10.</div>
+        <hr>
+        <div class="rating r5"></div>
+        <div class="review_actions"><a href="/">редактировать</a> - <a href="/">удалить</a></div>
+      </div>
+
+      <div class="review_body" id="app3">
+        <div class="review_author"><a href="/id1">dm</a> к приложению <a href="/app3">Microsoft Copilot</a></div>
+        <div class="review_date">31 августа 2025 в 16:55</div>
+        <hr>
+        <div class="review_text">Microsoft Copilot мне показался очень удобным способом для улучшения сложных текстов и юмористических подколов мошенников, которые звонят на мой номер практически каждую неделю. Однако могу подметить минус в не особо успешном генерации изображений. Залил его сюда, вдруг кому-нибудь пригодится, попробуйте.</div>
+        <hr>
+        <div class="rating r4_5"></div>
+        <div class="review_actions"><a href="/">редактировать</a> - <a href="/">удалить</a></div>
+      </div>
+
+      <div class="review_body" id="app446">
+        <div class="review_author"><a href="/id1">dm</a> к приложению <a href="/app3">Мессенджер Антонио</a></div>
+        <div class="review_date">31 августа 2025 в 11:44</div>
+        <hr>
+        <div class="review_text">Оно взорвало мой ПК своими фишками. Фурычит даже на текстолите.</div>
+        <hr>
+        <div class="rating r1_5"></div>
+        <div class="review_actions"><a href="/">редактировать</a> - <a href="/">удалить</a></div>
+      </div>
+
+      <div class="review_body" id="app14">
+        <div class="review_author"><a href="/id1">dm</a> к приложению <a href="/app3">.NET Framework</a></div>
+        <div class="review_date">31 августа 2025 в 11:41</div>
+        <hr>
+        <div class="review_text">Вещь первой необходимости, рекомендую</div>
+        <hr>
+        <div class="rating r5"></div>
+        <div class="review_actions"><a href="/">редактировать</a> - <a href="/">удалить</a></div>
+      </div>
+
+      <div class="review_body" id="app47">
+        <div class="review_author"><a href="/id1">dm</a> к приложению <a href="/app3">Spotify</a></div>
+        <div class="review_date">31 августа 2025 в 09:41</div>
+        <hr>
+        <div class="review_text">норм</div>
+        <hr>
+        <div class="rating r4"></div>
+        <div class="review_actions"><a href="/">редактировать</a> - <a href="/">удалить</a></div>
+      </div>
+    
+    </div>
+
+  </div>
+
+</div>
+
+
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="/help.php?page=about">О нас</a> - <a href="/help.php">FAQ</a> - <a href="/help.php?act=privacy">Политика конфиденциальности</a>
+    <div style="text-align: right; font-size: 11px;">С душой сделано командой DM, 2025<br>Все права принадлежат исходным правообладателям</div>
+  </div>
+
+
+
+
+<!-- Всплывающее окно -->
+<div id="login-popup" class="xp-popup">
+  <div class="popup-content">
+    <b>Авторизация</b><br>У Вас уже есть аккаунт? Представьтесь.<hr>
+    <form id="login-form">
+      Логин: <br>
+      <input type="text" name="login"><br>
+      Пароль: <br>
+      <input type="password" name="password"><br>
+      <button type="submit">Войти</button>
+    </form>
+  </div>
+  <div class="tail"></div>
+</div>
+<link rel="stylesheet" href="./css/ntf.css">
+<script src="./js/ntf.js"></script>
+
+
+<script type="text/javascript">
+/* Балун, совместимый с IE6.
+   Как использовать:
+     initBalloon('loginBtn'); // привязка к кнопке входа по id
+*/
+
+
+</script>
+
+<!-- Пример: привязать к кнопке с id="loginBtn" -->
+<script type="text/javascript">
+if (window.attachEvent) {
+  window.attachEvent('onload', function(){ initBalloon('loginBtn'); });
+} else if (window.addEventListener) {
+  window.addEventListener('load', function(){ initBalloon('loginBtn'); }, false);
+} else {
+  window.onload = function(){ initBalloon('loginBtn'); };
+}
+</script>
+
+</body>
+
+</html>

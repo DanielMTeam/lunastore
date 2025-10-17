@@ -14,6 +14,8 @@ COPY . /app
 
 FROM base AS web
 
+CMD python manage.py runserver 0.0.0.0:8088
+
 ENV DJANGO_SETTINGS_MODULE=lunastore.settings
 
 EXPOSE 8088
