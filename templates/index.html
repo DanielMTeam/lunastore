@@ -1,11 +1,12 @@
-﻿<!DOCTYPE html>
+﻿{% load static %}
+<!DOCTYPE html>
 <html>
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Магазин Windows XP</title>
-<script src="./js/search_mini.js"></script>
-<link rel="stylesheet" href="./css/main.css">
+<script src="{% static './js/search_mini.js'%}"></script>
+<link rel="stylesheet" href='{% static "./css/main.css"%}'>
 
 </head>
 
@@ -71,42 +72,42 @@
         <h2>Выбор редакции</h2>
         <div class="separator_store"></div>
         <div class="card">
-          <img src="./cdn/appsicons/totalcmd.png" alt="">
+          <img src='{% static "./cdn/appsicons/totalcmd.png"%}' alt="">
           <h3>Total Commander</h3>
           <p>Лучший файловый менеджер для Windows...</p>
           <div class="badge demo">Демо, далее $49.99</div>
-          <div class="action"><a href="./storepage.html">Демо</a></div>
+          <div class="action"><a href='{% static "./storepage.html"%}'>Демо</a></div>
         </div>
         <div class="card">
-          <img src="./cdn/appsicons/dymvoip.png" alt="">
+          <img src='{% static "./cdn/appsicons/dymvoip.png"%}' alt="">
           <h3>DymVOIP</h3>
           <p>Телефон больше не нужен! Звоните друзьям без теле...</p>
           <div class="badge">$0.99</div>
           <div class="action"><a href="#">Купить</a></div>
         </div>
         <div class="card">
-          <img src="./cdn/appsicons/winamp.png" alt="">
+          <img src='{% static "./cdn/appsicons/winamp.png"%}' alt="">
           <h3>Winamp</h3>
           <p>It really whips the llama's ass!</p>
           <div class="badge free">Бесплатно</div>
           <div class="action"><a href="#">Установить</a></div>
         </div>
         <div class="card">
-          <img src="./cdn/appsicons/spotify.png" alt="">
+          <img src='{% static "./cdn/appsicons/spotify.png"%}' alt="">
           <h3>Spotify</h3>
           <p>Музыка для всех</p>
           <div class="badge free">Бесплатно</div>
           <div class="action"><a href="#">Установить</a></div>
         </div>
         <div class="card">
-          <img src="./cdn/appsicons/winamp.png" alt="">
+          <img src='{% static "./cdn/appsicons/winamp.png"%}' alt="">
           <h3>Winamp</h3>
           <p>It really whips the llama's ass!</p>
           <div class="badge free">Бесплатно</div>
           <div class="action"><a href="#">Установить</a></div>
         </div>
         <div class="card">
-          <img src="./cdn/appsicons/spotify.png" alt="">
+          <img src='{% static "./cdn/appsicons/spotify.png"%}' alt="">
           <h3>Spotify</h3>
           <p>Музыка для всех</p>
           <div class="badge free">Бесплатно</div>
@@ -121,14 +122,14 @@
         <h2>Востребованные за последний месяц, по скачиваниям</h2>
         <div class="separator_store"></div>
         <div class="card">
-          <img src="./cdn/appsicons/totalcmd.png" alt="">
+          <img src='{% static "./cdn/appsicons/totalcmd.png"%}' alt="">
           <h3>Total Commander</h3>
           <p>Лучший файловый менеджер для Windows...</p>
           <div class="badge demo">Демо, далее $49.99</div>
           <div class="action"><a href="./storepage.html">Демо</a></div>
         </div>
         <div class="card">
-          <img src="./cdn/appsicons/dymvoip.png" alt="">
+          <img src='{% static "./cdn/appsicons/dymvoip.png"%}' alt="">
           <h3>DymVOIP</h3>
           <p>Телефон больше не нужен! Звоните друзьям без теле...</p>
           <div class="badge">$0.99</div>
@@ -143,14 +144,14 @@
       <div class="section">
 
         <div class="card">
-          <img src="./cdn/appsicons/gimp.png" alt="">
+          <img src='{% static "./cdn/appsicons/gimp.png"%}' alt="">
           <h3>GIMP</h3>
           <p>GNU Image Manipulation Program</p>
           <div class="badge free">Бесплатно</div>
           <div class="action"><a href="#">Скачать</a></div>
         </div>
         <div class="card">
-          <img src="./cdn/appsicons/copilot.png" alt="">
+          <img src='{% static "./cdn/appsicons/copilot.png"%}' alt="">
           <h3>Microsoft Copilot</h3>
           <p>Ваш ИИ-компаньон</p>
           <div class="badge free">Бесплатно</div>
@@ -158,28 +159,28 @@
         </div>
 
         <div class="card">
-          <img src="./cdn/appsicons/office2k3.png" alt="">
+          <img src='{% static "./cdn/appsicons/office2k3.png"%}' alt="">
           <h3>Microsoft Office 2003</h3>
           <p>Дирижёр для вашего офисного планктона</p>
           <div class="badge demo">Демо</div>
           <div class="action"><a href="#">Установить</a></div>
         </div>
         <div class="card">
-          <img src="./cdn/appsicons/supermium.png" alt="">
+          <img src='{% static "./cdn/appsicons/supermium.png"%}' alt="">
           <h3>Supernium</h3>
           <p>Интернет-обозреватель</p>
           <div class="badge free">Бесплатно</div>
           <div class="action"><a href="#">Установить</a></div>
         </div>
         <div class="card">
-          <img src="./cdn/appsicons/office2k3.png" alt="">
+          <img src='{% static "./cdn/appsicons/office2k3.png"%}' alt="">
           <h3>Microsoft Office 2003</h3>
           <p>Дирижёр для вашего офисного планктона</p>
           <div class="badge demo">Демо</div>
           <div class="action"><a href="#">Установить</a></div>
         </div>
         <div class="card">
-          <img src="./cdn/appsicons/supermium.png" alt="">
+          <img src='{% static "./cdn/appsicons/supermium.png"%}' alt="">
           <h3>Supernium</h3>
           <p>Интернет-обозреватель</p>
           <div class="badge free">Бесплатно</div>
@@ -195,14 +196,14 @@
         <h2>Темы оформления</h2>
         <div class="separator_store"></div>
         <div class="card">
-          <img src="./cdn/appsicons/gimp.png" alt="">
+          <img src='{% static "./cdn/appsicons/gimp.png"%}' alt="">
           <h3>GIMP</h3>
           <p>GNU Image Manipulation Program</p>
           <div class="badge free">Бесплатно</div>
           <div class="action"><a href="#">Скачать</a></div>
         </div>
         <div class="card">
-          <img src="./cdn/appsicons/copilot.png" alt="">
+          <img src='{% static "./cdn/appsicons/copilot.png"%}' alt="">
           <h3>Microsoft Copilot</h3>
           <p>Ваш ИИ-компаньон</p>
           <div class="badge free">Бесплатно</div>
@@ -210,14 +211,14 @@
         </div>
 
         <div class="card">
-          <img src="./cdn/appsicons/office2k3.png" alt="">
+          <img src='{% static "./cdn/appsicons/office2k3.png"%}' alt="">
           <h3>Microsoft Office 2003</h3>
           <p>Дирижёр для вашего офисного планктона</p>
           <div class="badge demo">Демо</div>
           <div class="action"><a href="#">Установить</a></div>
         </div>
         <div class="card">
-          <img src="./cdn/appsicons/supermium.png" alt="">
+          <img src='{% static "./cdn/appsicons/supermium.png"%}' alt="">
           <h3>Supernium</h3>
           <p>Интернет-обозреватель</p>
           <div class="badge free">Бесплатно</div>
@@ -253,8 +254,8 @@
   </div>
   <div class="tail"></div>
 </div>
-<link rel="stylesheet" href="./css/ntf.css">
-<script src="./js/ntf.js"></script>
+<link rel="stylesheet" href='{% static "./css/ntf.css"%}'>
+<script src='{% static "./js/ntf.js"%}'></script>
 
 
 <script type="text/javascript">

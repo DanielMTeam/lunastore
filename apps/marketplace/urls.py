@@ -3,5 +3,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.marketplace, name='index.php')
+    path('', views.homeRedirect, name='home'),
+    path('index.php', views.marketplace, name='index.php')
 ]
