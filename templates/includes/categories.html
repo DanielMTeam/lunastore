@@ -2,7 +2,7 @@
 <script src="{% static './js/search_mini.js'%}"></script>
 <link rel="stylesheet" href='{% static "./css/main.css"%}'>
 {% for category in categories %}
-<a href="{{ category.get_absolute_url }}"><li class="top">{{ category.name }}</li></a>
+<a href="{{ category.shortcode }}"><li class="top">{{ category.name }}</li></a>
 {% empty %}
     <li>пустаааа....</li>
 {% endfor %}
