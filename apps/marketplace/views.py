@@ -15,4 +15,10 @@ def category(request):
     pass
 
 def app(request):
-    pass
+    query = request.GET.get('q')  # get the value associated with 'q'
+    id = request.GET.get('id')
+    print(f'{id}, type: {type(id)}')
+    context = {
+        'app_id': id
+    }
+    return render(request, 'storepage.html', context)
