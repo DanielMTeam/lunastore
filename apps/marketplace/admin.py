@@ -18,8 +18,8 @@ class ApplicationAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ('Основная информация', {
-            'fields': ('title',
-                       'description', 'icon')
+            'fields': ('title', 'category',
+                       'description', 'slogan', 'icon', 'developer_site', 'is_demo', 'is_under_dmca')
         }),
         ('Загрузка скриншотов', {
             'fields': ('screenshot1', 'screenshot2', 'screenshot3')
@@ -39,6 +39,12 @@ class ApplicationAdmin(admin.ModelAdmin):
         return format_html(html or "Нет скриншотов")
     display_screenshots.short_description = 'Предпросмотр'
 
+    # boolean values
+
+    list_display = ['title', 'is_demo', 'is_under_dmca']
+    list_editable = ['is_demo','is_under_dmca']
+    list_filter = ['is_demo','is_under_dmca']
+    search_fields = ['title']
 @admin.register(Distribution)
 class DistributionAdmin(admin.ModelAdmin):
     pass

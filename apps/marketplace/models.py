@@ -23,10 +23,14 @@ class Application(models.Model):
     id = models.AutoField(primary_key=True)
     category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
     title = models.CharField(max_length=80)
-    description = models.CharField(max_length=210)
+    description = models.CharField(max_length=1400)
+    slogan = models.CharField(max_length=240, null=True, blank=True)
     icon = models.FileField(upload_to='staticfiles/ugc/app_icons',max_length=140, null=True)
     #screenshots = models.FileField(upload_to='staticfiles/ugc/screenshots', max_length=525, null=True)
     screenshots = models.JSONField(default=list, blank=True, null=True)
+    developer_site = models.URLField(max_length=160, null=True, blank=True)
+    is_demo = models.BooleanField(default=False)
+    is_under_dmca = models.BooleanField(default=False)
 
     class Meta:
         ordering = ["title"]
