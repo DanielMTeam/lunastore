@@ -1,4 +1,5 @@
 ﻿{% load static %}
+{% load category %}
 <!DOCTYPE html>
 <html>
 
@@ -43,8 +44,8 @@
 
   <div class="main">
     <div class="sidebar">
-        <div class="boxhead"><b>Категории</b></div>
-      <div class="box">
+      <div class="boxhead"><b>Категории</b></div>
+      <!-- <div class="box">
         
         <ul>
           <a href="/index.php"><li class="myhome" id="active">Главная страница</li></a>
@@ -57,6 +58,12 @@
           <a href="/store.php?cat=5"><li class="internet">Интернет и сети</li></a>
           <a href="/store.php?cat=6"><li class="other">Прочее</li></a>
           <a href="/store.php?show=themes"><li class="themes">Темы оформления</li></a>
+        </ul>
+      </div> -->
+      <div class="box">
+        <ul>
+            <a href="/index.php"><li class="myhome" id="active">Главная страница</li></a>
+            <aside>{% showCategories %}</aside>
         </ul>
       </div>
       
