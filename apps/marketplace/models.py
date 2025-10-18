@@ -20,12 +20,13 @@ class Category(models.Model):
 
 
 class Application(models.Model):
+    id = models.AutoField(primary_key=True)
     category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
     title = models.CharField(max_length=80)
     description = models.CharField(max_length=210)
     icon = models.FileField(upload_to='staticfiles/ugc/app_icons',max_length=140, null=True)
-    screenshots = models.FileField(upload_to='staticfiles/ugc/screenshots', max_length=525, null=True)
-    #screenshots = models.JSONField(default=list)
+    #screenshots = models.FileField(upload_to='staticfiles/ugc/screenshots', max_length=525, null=True)
+    screenshots = models.JSONField(default=list, blank=True, null=True)
 
     class Meta:
         ordering = ["title"]
