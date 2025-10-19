@@ -1,0 +1,33 @@
+{% if is_demo and not is_dmca %}
+<div class="st_general_card">
+    {% if app.price > 0 %}
+    <div class="st_price demo">Демо, далее ${{ app.price }}</div>
+    {% else %}
+    <div class="st_price demo">Демо</div>
+    {% endif %}
+</div>
+{% elif not is_demo and not is_dmca %}
+<div class="st_general_card">
+    {% if app.price > 0 %}
+    <div class="st_price demo">Платное: ${{ app.price }}</div>
+    {% else %}
+    <div class="st_price demo">Бесплатно</div>
+    {% endif %}
+</div>
+{% endif %}
+
+{% if not is_dmca %}
+<div class="st_clearb"></div>
+<b class="setup"><a href="{{ app.download_url }}">
+    <div class="setup_button_img"></div>
+    {% if app.price > 0 and not is_demo %}
+    <div class="st_inst_button">Купить</div>
+    {% elif app.price == 0 and not is_demo %}
+    <div class="st_inst_button">Установить</div>
+    {% elif is_demo %}
+    <div class="st_inst_button">Установить</div>
+    {% endif %}
+</a>
+</b>
+{% endif %}
+<div class="st_clearb"></div>

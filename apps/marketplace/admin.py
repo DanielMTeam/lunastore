@@ -19,15 +19,17 @@ class ApplicationAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Основная информация', {
             'fields': ('title', 'category',
-                       'description', 'slogan', 'icon', 'developer_site', 'is_demo', 'is_under_dmca')
+                       'description', 'slogan', 'icon', 'developer_site', 'is_demo', 'is_under_dmca', 'price')
         }),
-        ('Загрузка скриншотов', {
-            'fields': ('screenshot1', 'screenshot2', 'screenshot3')
+        ('Управление скриншотами', {
+            'description': 'загрузи новый файл, чтобы заменить текущий ' \
+                           'или, поставь галочку "удалить", чтобы убрать скриншот',
+            'fields': (
+                ('screenshot1', 'clear_screenshot1'),
+                ('screenshot2', 'clear_screenshot2'),
+                ('screenshot3', 'clear_screenshot3'),
+            )
         }),
-        ('Текущие скриншоты', {
-            'fields': 
-            ('display_screenshots',)
-        })
     )
 
     def display_screenshots(self, obj):
@@ -41,7 +43,7 @@ class ApplicationAdmin(admin.ModelAdmin):
 
     # boolean values
 
-    list_display = ['title', 'is_demo', 'is_under_dmca']
+    list_display = ['title', 'category', 'is_demo', 'is_under_dmca', 'price']
     list_editable = ['is_demo','is_under_dmca']
     list_filter = ['is_demo','is_under_dmca']
     search_fields = ['title']
