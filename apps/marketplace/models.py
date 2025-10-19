@@ -26,6 +26,7 @@ class Application(models.Model):
     description = models.CharField(max_length=1400)
     slogan = models.CharField(max_length=240, null=True, blank=True)
     icon = models.FileField(upload_to='staticfiles/ugc/app_icons',max_length=140, null=True)
+    price = models.IntegerField(default=0) 
     #screenshots = models.FileField(upload_to='staticfiles/ugc/screenshots', max_length=525, null=True)
     screenshots = models.JSONField(default=list, blank=True, null=True)
     developer_site = models.URLField(max_length=160, null=True, blank=True)

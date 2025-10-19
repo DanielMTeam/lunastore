@@ -44,14 +44,7 @@
     <div><div class="sidebar">
 
       <div class="boxhead"><b>Приложение</b></div>
-      <div class="box">
-        
-        <ul>
-          <a href="{cdn_app_source}"><li class="setup"><b>Установить</b></li></a>
-          <a href="{developer_official_site}"><li class="other">Сайт разработчика</li></a>
-          <a href="/report.php?act=new&app_id={aid}"><li class="alert">Пожаловаться</li></a>
-        </ul>
-      </div>
+      {% install_app_box app_id %}
 
       <div class="boxhead"><b>Аккаунт</b></div>
       <div class="box">

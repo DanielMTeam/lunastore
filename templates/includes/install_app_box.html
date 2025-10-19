@@ -1,0 +1,18 @@
+{% load app %}
+{% if is_dmca %}
+<div class="box">
+        
+        <ul>
+          <a href="{{ app.developer_site }}"><li class="other">Сайт разработчика</li></a>
+          <a href="/report.php?act=new&app_id={aid}"><li class="alert">Пожаловаться</li></a>
+        </ul>
+      </div>
+{% else %}
+<div class="box">
+        <ul>
+          <a href="{{ app.download_url }}"><li class="setup"><b>Установить</b></li></a>
+          <a href="{{ app.developer_site }}"><li class="other">Сайт разработчика</li></a>
+          <a href="/report.php?act=new&app_id={aid}"><li class="alert">Пожаловаться</li></a>
+        </ul>
+      </div>
+{% endif %}
