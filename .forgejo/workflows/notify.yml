@@ -17,7 +17,7 @@ jobs:
           BRANCH=${FORGEJO_REF##*/}
           COMMIT_MSG=$(echo "$FORGEJO_COMMIT_MESSAGE" | head -n 1)
 
-          MESSAGE="📢 *${EVENT_TYPE}* in [${REPO}](https://forgejo.yourdomain.com/${REPO}) by *${ACTOR}*"
+          MESSAGE="📢 *${EVENT_TYPE}* in [${REPO}](https://git.myslivets.com/${REPO}) by *${ACTOR}*"
           if [ "$EVENT_TYPE" = "push" ]; then
             MESSAGE="${MESSAGE}%0A🪄 Branch: ${BRANCH}%0A💬 ${COMMIT_MSG}"
           fi
