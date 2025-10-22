@@ -1,0 +1,235 @@
+﻿{% load static %}
+{% load category %}
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Магазин Windows XP</title>
+<link rel="stylesheet" href='{% static "./css/main.css"%}'>
+<script src="{% static './js/search_mini.js'%}"></script>
+<link rel="stylesheet" href='{% static "./css/stpage.css"%}'>
+</head>
+
+
+<body>
+<div class="container">
+
+  <div class="dm_menu">
+    Вы вошли как <a href="/profile.php"><b>dm</b></a> - <a href="/index.php?act=logout&hash=3476ty89mR_hf9er8">выйти</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a>
+  </div>
+
+  <div class="header">
+    
+    <div class="rl_l"><h1>Магазин Windows</h1>
+    <div class="subtitle txtr">Windows XP Professional</div>
+    </div>
+    
+    <div class="searchbar">
+  <!--[if IE 6]>
+  <style type="text/css">
+   .searchbar button {padding: 1px 1px;}
+  </style>
+  <![endif]-->
+      <input type="text" id="q" placeholder="Например: Total Commander">
+      <button type="button" onclick="doSearch()">поиск</button>
+      <br>
+      <div class="subtitle"><a href="/settings.php?act=search">Уточнить параметры поиска</a></div>
+    </div>
+  </div>
+
+
+  <div class="headerline"></div>
+
+  <div class="main">
+    <div><div class="sidebar">
+
+      <div class="boxhead"><b>Приложение</b></div>
+      {% if is_dmca %}
+      <div class="box">
+              
+              <ul>
+                <a href="{{ developer_site }}"><li class="other">Сайт разработчика</li></a>
+                <a href="/report.php?act=new&app_id={aid}"><li class="alert">Пожаловаться</li></a>
+              </ul>
+            </div>
+      {% else %}
+      <div class="box">
+              <ul>
+                <a href="{{ download_url }}"><li class="setup"><b>Установить</b></li></a>
+                <a href="{{ developer_site }}"><li class="other">Сайт разработчика</li></a>
+                <a href="/report.php?act=new&app_id={aid}"><li class="alert">Пожаловаться</li></a>
+              </ul>
+            </div>
+      {% endif %}
+
+      <div class="boxhead"><b>Аккаунт</b></div>
+      <div class="box">
+        
+        <ul>
+          <a href="/profile.php"><li class="myhome">Мой профиль</li></a>
+          <a href="/settings.php"><li class="settings">Настройки</li></a>
+          <a href="/profile.php?act=invite"><li class="newbie">Пригласить</li></a>
+        </ul>
+      </div>
+
+      <div class="boxhead"><b>Категории</b></div>
+      <div class="box">
+        <ul>
+            <a href="/index.php"><li class="myhome">Главная страница</li></a>
+            <aside>{% show_categories %}</aside>
+        </ul>
+      </div>
+      
+      <div class="adv_block">
+        <a href="{ad_link}"><img src="./ad/ad.png" alt="Реклама"></a>
+      </div>
+
+    </div></div>
+
+    <div class="content">
+        <!--[if IE 6]>
+  <style type="text/css">
+   .splash_text{display: inline-block!important;}
+  </style>
+  <![endif]-->
+        
+      <div class="backb"><li class="back"><a href="/">Назад</a></li></div>
+        <div class="separator_store"></div>
+
+
+      <div class="section">
+        <div class="st_general_card">
+          
+          <div class="st_app_icon"><img src='{{ icon_url }}' alt="{{ title }} icon" style="height: 100px; width: 100px;"></div>
+          <div class="st_card_info"></div>
+          <div class="st_card_title">{{ title }}</div>
+          <div class="st_precard">
+          <div class="st_card_desc">{{ slogan }}</div>
+          </div>
+
+          <div class="st_card_author">Автор: <a href="/profile.php?id=685">ghisler.com</a></div>
+          
+          {% if is_demo and not is_dmca %}
+          <div class="st_general_card">
+              {% if price > 0 %}
+              <div class="st_price demo">Демо, далее ${{ price }}</div>
+              {% else %}
+              <div class="st_price demo">Демо</div>
+              {% endif %}
+          </div>
+          {% elif not is_demo and not is_dmca %}
+          <div class="st_general_card">
+              {% if price > 0 %}
+              <div class="st_price demo">Платное: ${{ price }}</div>
+              {% else %}
+              <div class="st_price demo">Бесплатно</div>
+              {% endif %}
+          </div>
+          {% endif %}
+
+          {% if not is_dmca %}
+          <div class="st_clearb"></div>
+          <b class="setup"><a href="{{ download_url }}">
+              <div class="setup_button_img"></div>
+              {% if price > 0 and not is_demo %}
+              <div class="st_inst_button">Купить</div>
+              {% elif price == 0 and not is_demo %}
+              <div class="st_inst_button">Установить</div>
+              {% elif is_demo %}
+              <div class="st_inst_button">Установить</div>
+              {% endif %}
+          </a>
+          </b>
+          {% endif %}
+<div class="st_clearb"></div>
+        </div>
+      </div>
+      <div class="st_headerline"></div>
+
+          
+<div class="st_general_card">
+  
+  <!-- div class="splash"><div class="info_splash"><div class="info_icon_small"></div><div class="splash_text">Страница в магазине создана, однако её владелец пока что ещё ничего не загрузил. Зайдите на эту страницу позже.</div></div></div -->
+   {% if is_demo %}
+    <div class="splash">
+      <div class="alert_splash"><div class="warning_icon_small"></div>
+      <div class="splash_text">Программа распространяется в виде демо-версии, за полную версию стоит заплатить её автору. Файл предоставлен с официального сайта разработчика.</div>
+      </div>
+      </div>
+    {% endif %}  
+   {% if is_dmca %}
+    <div class="splash"><div class="error_splash">
+        <div class="error_icon_small"></div>
+        <div class="splash_text">По запросу исходного правообладателя скачать файл на данный момент не получится. Приносим свои извинения.</div></div></div>
+    {% endif %}
+  <!-- div class="splash"><div class="error_splash"><div class="error_icon_small"></div><div class="splash_text">По запросу исходного правообладателя скачать файл на данный момент не получится. Приносим свои извинения.</div></div></div -->
+
+</div>
+        
+
+<div class="st_other_card">
+<h2>Скриншоты</h2>
+        <div class="separator_store"></div>
+        <div class="st_screenshots_container">
+        {% for screenshot_path in screenshots %}
+        <div class="st_scr">
+            <a href="{% static screenshot_path %}"><img src="{% static screenshot_path %}" alt="Скриншот" style="width: 120px; height: 90px; float: n;"></a>
+            {% empty %}
+            <p>Скриншотов нет.</p>
+        {% endfor %}
+        </div>
+        </div>
+
+        </div>
+
+        <div class="st_other_card">
+        <h2>Дополнительная информация</h2>
+        <div class="separator_store"></div>
+
+        <div class="st_desc">{{ description }}</div>
+
+        </div>
+
+        <div class="st_other_card">
+        <h2>Действия</h2>
+        <div class="separator_store"></div>
+          <div class="actionsm">
+            <li class="offsite"><a href="{{ developer_site }}">Перейти на официальный сайт разработчика</a></li>
+            <li class="alert"><a href="/report.php?act=new&app_id={aid}">Пожаловаться на приложение</a></li>
+            <li class="otherapps"><a href="/search.php?page=apps&author_id={pid}">Посмотреть другие программы автора</a></li>
+          </div>
+          <i>Количество скачиваний: 465688</i>
+        </div>
+
+        <div class="st_clearb"> </div>
+
+    </div>
+  </div>
+
+
+</div>
+  <div class="footer">
+    <a href="/help.php?page=about">О нас</a> - <a href="/help.php">FAQ</a> - <a href="/help.php?act=privacy">Политика конфиденциальности</a>
+    <div style="text-align: right; font-size: 11px;">С душой сделано командой DM, 2025<br>Все права принадлежат исходным правообладателям</div>
+  </div>
+<script type="text/javascript">
+function doSearch() {
+  var q = document.getElementById("q").value.toLowerCase();
+  var cards = document.getElementsByTagName("div");
+  for (var i=0;i<cards.length;i++) {
+    if(cards[i].className=="card") {
+      var text = cards[i].innerText || cards[i].textContent;
+      if(text.toLowerCase().indexOf(q)!=-1) {
+        cards[i].style.display="block";
+      } else {
+        cards[i].style.display="none";
+      }
+    }
+  }
+}
+</script>
+
+</body>
+
+</html>
