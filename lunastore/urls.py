@@ -18,6 +18,6 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls, name='admin.php'),
+    path('admin/', admin.site.urls, name='admin'),
     path('', include("apps.marketplace.urls"))
 ]
