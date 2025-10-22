@@ -3,20 +3,11 @@
 
 .st_general_card{
     padding: 10px;
-    display: flex;           
-    align-items: flex-start; 
-    gap: 15px;
-}
-
-.st_card_info {
-    overflow: hidden;
 }
 
 .st_app_icon{
     float: left;
-    display: block; 
-    width: 80px;  
-    height: 80px;
+    display: inline-block;
 }
 
 .st_card_title{
@@ -114,24 +105,17 @@
 }
 
 .st_scr {
-  max-width: 100px;
-  max-height: 90px;
-  width: 100px;
+  width: 120px;
   height: 90px;
   border:3px solid #d2e9ff;
   background:#fff;
+  float:left;
   margin:5px;
-  padding: 3px;
 }
 .st_scr img {
-  width: 100px;
-  height: 90px;
+  width: 120px;
+  float:left;
   margin-right:6px;
-}
-.st_screenshots_container::after {
-    content: "";
-    display: block;
-    clear: both;
 }
 
 .st_scr a {

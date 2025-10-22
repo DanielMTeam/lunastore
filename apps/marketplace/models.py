@@ -32,6 +32,7 @@ class Application(models.Model):
     developer_site = models.URLField(max_length=160, null=True, blank=True)
     is_demo = models.BooleanField(default=False)
     is_under_dmca = models.BooleanField(default=False)
+    published = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ["title"]
