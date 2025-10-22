@@ -1,0 +1,263 @@
+﻿{% load static %}
+{% load category %}
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Магазин Windows XP</title>
+<script src="{% static './js/search_mini.js'%}"></script>
+<link rel="stylesheet" href="{% static './css/main.css'%}">
+
+</head>
+
+
+<body>
+<div class="container">
+
+  <div class="dm_menu">
+    <a href="/login.php" id="login-link">вход</a> - <a href="reg0">регистрация</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a>
+  </div>
+
+  <div class="header">
+    
+    <div class="rl_l"><h1 class="txtr">LunaStore</h1>
+    <div class="subtitle txtr">Windows XP Professional</div>
+    </div>
+    
+    <div class="searchbar">
+  <!--[if IE 6]>
+  <style type="text/css">
+   .searchbar button {padding: 1px 1px;}
+   .tail{display: none;}
+  </style>
+  <![endif]-->
+      <input type="text" id="q" placeholder="Например: Total Commander">
+      <button type="button" onclick="doSearch()">поиск</button>
+      <br>
+      <div class="subtitle"><a href="/settings.php?act=search">Уточнить параметры поиска</a></div>
+    </div>
+  </div>
+
+
+  <div class="headerline"></div>
+
+  <div class="main">
+    <div class="sidebar">
+        <div class="boxhead"><b>Категории</b></div>
+      <div class="box">
+        
+        <ul>
+          <a href="/index.php"><li class="myhome">Главная страница</li></a>
+          <aside>{% show_categories active_category=active_category %}</aside>
+        </ul>
+      </div>
+      
+      <div class="adv_block">
+        <a href="{ad_link}"><img src="./ad/ad.png" class="adv_img_splash" alt="Реклама"></a>
+      </div>
+
+    </div>
+
+    <div class="content">
+    <div class="banner_image"><div id="welcome"><div class="banner_text">{{ name }}</div><div class="banner_text_mini">{{ description }}</div></div></div>
+            <div class="list_settings">
+          <div class="selector">
+            <select onchange="location = this.options[this.selectedIndex].value;">
+              <option>Показывать содержимое...</option>
+              <option value="{url}">Показывать содержимое плитками</option>
+              <option value="{url}&view=list">Показывать содержимое списком</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="section">
+        <h2>Количество результатов: {{ count }}</h2>
+        </div> 
+
+
+
+      <div class="section">
+        
+    
+    <div class="section">
+      
+      <div class="search_full">
+      <input type="text" id="q" class="search_icon" placeholder="Поиск по категории &quot;Игры и развлечения&quot;">
+      <button type="button" onclick="doSearch()">поиск</button>
+      </div>
+     </div>  
+
+      {% if is_demo and not is_under_dmca %}
+          <div class="st_general_card">
+              {% if price > 0 %}
+              <div class="st_price demo">Демо, далее ${{ price }}</div>
+              {% else %}
+              <div class="st_price demo">Демо</div>
+              {% endif %}
+          </div>
+          {% elif not is_demo and not is_under_dmca %}
+          <div class="st_general_card">
+              {% if price > 0 %}
+              <div class="st_price demo">Платное: ${{ price }}</div>
+              {% else %}
+              <div class="st_price demo">Бесплатно</div>
+              {% endif %}
+          </div>
+          {% endif %}
+
+        {% for app in page_obj %}
+        <div class="card listview">
+          <img src="{{ app.icon.url }}" alt="">
+          <h3>{{ app.title }}</h3>
+          <p>{{ app.slogan }}</p>
+          {% if app.is_demo %}
+            {% if app.price > 0 %}
+              <div class="badge demo">Демо, далее ${{ app.price }}</div>
+            {% else %}
+              <div class="badge demo">Демо</div>
+            {% endif %}
+          {% elif not app.is_demo %}
+            {% if app.price > 0 %}
+              <div class="badge paid">${{ app.price }}</div>
+            {% else %}  
+              <div class="badge free">Бесплатно</div>
+            {% endif %}
+          {% endif %}
+
+          {% if not app.is_under_dmca %}
+            {% if app.is_demo %}
+              <div class="action"><a href="./app.php?id={{ app.id }}">Демо</a></div>
+            {% elif not app.is_demo and app.price > 0 %}
+              <div class="action"><a href="./app.php?id={{ app.id }}">Купить</a></div>
+            {% elif not app.is_demo and app.price == 0 %}
+              <div class="action"><a href="./app.php?id={{ app.id }}">Установить</a></div>
+            {% endif %}
+          {% endif %}
+        </div>
+        <!-- <div class="card listview">
+          <img src="./cdn/appsicons/dymvoip.png" alt="">
+          <h3>DymVOIP</h3>
+          <p>Телефон больше не нужен! Звоните друзьям без теле...</p>
+          <div class="badge">$0.99</div>
+          <div class="action"><a href="#">Купить</a></div>
+        </div>
+        <div class="card listview">
+          <img src="./cdn/appsicons/winamp.png" alt="">
+          <h3>Winamp</h3>
+          <p>It really whips the llama's ass!</p>
+          <div class="badge free">Бесплатно</div>
+          <div class="action"><a href="#">Установить</a></div>
+        </div>
+        <div class="card listview">
+          <img src="./cdn/appsicons/spotify.png" alt="">
+          <h3>Spotify</h3>
+          <p>Музыка для всех</p>
+          <div class="badge free">Бесплатно</div>
+          <div class="action"><a href="#">Установить</a></div>
+        </div>
+        <div class="card listview">
+          <img src="./cdn/appsicons/winamp.png" alt="">
+          <h3>Winamp</h3>
+          <p>It really whips the llama's ass!</p>
+          <div class="badge free">Бесплатно</div>
+          <div class="action"><a href="#">Установить</a></div>
+        </div>
+        <div class="card listview">
+          <img src="./cdn/appsicons/spotify.png" alt="">
+          <h3>Spotify</h3>
+          <p>Музыка для всех</p>
+          <div class="badge free">Бесплатно</div>
+          <div class="action"><a href="#">Установить</a></div>
+        </div>
+        <div class="card listview">
+          <img src="./cdn/appsicons/totalcmd.png" alt="">
+          <h3>Total Commander</h3>
+          <p>Лучший файловый менеджер для Windows...</p>
+          <div class="badge demo">Демо, далее $49.99</div>
+          <div class="action"><a href="./storepage.html">Демо</a></div>
+        </div>
+        <div class="card listview">
+          <img src="./cdn/appsicons/totalcmd.png" alt="">
+          <h3>Total Commander</h3>
+          <p>Лучший файловый менеджер для Windows...</p>
+          <div class="badge demo">Демо, далее $49.99</div>
+          <div class="action"><a href="./storepage.html">Демо</a></div>
+        </div>
+        <div class="card listview">
+          <img src="./cdn/appsicons/totalcmd.png" alt="">
+          <h3>Total Commander</h3>
+          <p>Лучший файловый менеджер для Windows...</p>
+          <div class="badge demo">Демо, далее $49.99</div>
+          <div class="action"><a href="./storepage.html">Демо</a></div>
+        </div>
+        <div class="card listview">
+          <img src="./cdn/appsicons/totalcmd.png" alt="">
+          <h3>Total Commander</h3>
+          <p>Лучший файловый менеджер для Windows...</p>
+          <div class="badge demo">Демо, далее $49.99</div>
+          <div class="action"><a href="./storepage.html">Демо</a></div>
+        </div> -->
+        <div style="clear:both"></div>
+        {% endfor %}
+        
+      </div>
+
+    <div class="section">
+      <div class="paginator">
+        {% for page_num in page_range %}
+          {% if page_num == page_obj.paginator.ELLIPSIS %}
+            <span>{{ page_num }}</span>
+          {% elif page_num == page_obj.number %}
+            <a class="active" href="/category.php?id={{ active_category.id }}&page={{ page_num }}">{{ page_num }}</a>
+          {% else %}
+            <a href="/category.php?id={{ active_category.id }}&page={{ page_num }}">{{ page_num }}</a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="/help.php?page=about">О нас</a> - <a href="/help.php">FAQ</a> - <a href="/help.php?act=privacy">Политика конфиденциальности</a>
+    <div style="text-align: right; font-size: 11px;">С душой сделано командой DM, 2025<br>Все права принадлежат исходным правообладателям</div>
+  </div>
+
+
+
+
+<!-- Всплывающее окно -->
+<div id="login-popup" class="xp-popup">
+  <div class="popup-content">
+    <b>Авторизация</b><br>У Вас уже есть аккаунт? Представьтесь.<hr>
+    <form id="login-form">
+      Логин: <br>
+      <input type="text" name="login"><br>
+      Пароль: <br>
+      <input type="password" name="password"><br>
+      <button type="submit">Войти</button>
+    </form>
+  </div>
+  <div class="tail"></div>
+</div>
+<link rel="stylesheet" href="{% static './css/ntf.css'%}">
+<script src="{% static './js/ntf.js'%}"></script>
+
+
+<script type="text/javascript">
+/* Балун, совместимый с IE6.
+   Как использовать:
+     initBalloon('loginBtn'); // привязка к кнопке входа по id
+*/
+
+
+</script>
+
+<!-- Пример: привязать к кнопке с id="loginBtn" -->
+
+
+</body>
+
+</html>

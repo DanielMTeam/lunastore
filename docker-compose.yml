@@ -37,6 +37,8 @@ services:
     restart: unless-stopped
     networks:
       - storenetwork
+    volumes:
+      - .:/app
 
 networks:
   storenetwork:
