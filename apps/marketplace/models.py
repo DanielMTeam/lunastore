@@ -1,6 +1,5 @@
 from django.db import models
 from django.conf import settings
-import os 
 
 class Category(models.Model):
     name = models.CharField(max_length=80)
@@ -20,7 +19,6 @@ class Category(models.Model):
 
 
 class Application(models.Model):
-    id = models.AutoField(primary_key=True)
     category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
     title = models.CharField(max_length=80)
     description = models.CharField(max_length=1400)
