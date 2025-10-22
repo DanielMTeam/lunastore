@@ -84,13 +84,10 @@ body {
 .main {
   overflow:hidden;
   padding:10px;
-  display: flex;
-  gap: 20px;
 }
 .sidebar {
   float:left;
   width:200px;
-  flex-shrink: 0;
 }
 .sidebar .box {
   background: #d6dff7;
@@ -98,7 +95,6 @@ body {
   margin-bottom:10px;
   padding:6px;
   color: #215dc6;
-  flex-shrink: 0;
 }
 
 .adv_block {
@@ -182,6 +178,10 @@ body {
   color:#163b6f;
 }
 
+.card_other_button a{
+  color:#163b6f;
+}
+
 .content {
   width: 460px;
   display: inline-block;
@@ -210,6 +210,11 @@ body {
   margin:5px;
   padding:5px;
 }
+
+.listview {
+  width:425px;
+}
+
 .card img {
   float:left;
   margin-right:6px;
@@ -431,4 +436,76 @@ body {
   float:left;
   width: 24px;
   height: 24px;
+}
+
+.list_settings{
+	float: right;
+}
+
+.selector {
+  border: 1px solid #7f9db9;
+  background: #2b67b3;
+  padding: 2px;
+  width: 200px;
+  margin: 5px;
+}
+
+.selector select {
+  width: 100%;
+  border: 1px solid #7f9db9;
+  background-color: #ffffff;
+  font: 11px Tahoma, sans-serif;
+  color: #000;
+  padding: 1px;
+}
+
+.selector select:focus {
+  border-color: #316ac5;
+  background-color: #fffef2;
+}
+
+.paginator{
+  padding: 10px;
+}
+
+.paginator a{
+  padding: 5px;
+  color: #163b6f;
+  text-decoration: none;
+}
+
+.paginator a:hover{
+    border-bottom: 3px solid #7aa0e6;
+}
+
+.paginator a.active{
+    border-bottom: 3px solid #2b67b3;
+    font-weight: bold;
+}
+
+.search_icon{
+    background: url('../img/search_icon_small.png') no-repeat;
+}
+
+.search_full {
+  margin-top:1px;
+  text-align: center; /* wtf но оно работает lmao */
+}
+.search_full input {
+  width: 75%;
+  border: 1px solid #7aa0e6;
+  padding: 3px 3px 3px 25px;
+}
+.search_full button {
+  border:1px solid #006000;
+  background:#5fa359;
+  color:#fff;
+  font-weight:bold;
+  padding:2px 5px;
+  cursor:pointer;
+}
+
+.search_full button:active {
+  border:1px solid #5fa359;
+  background:#006000;
 }
