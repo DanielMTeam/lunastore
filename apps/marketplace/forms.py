@@ -1,10 +1,11 @@
 from django import forms
-from .models import Application
-from django.core.files.storage import default_storage
+from .models import Application, User, UserBan
 from django.conf import settings
 from django.utils.safestring import mark_safe
 import os
 import uuid
+
+
 
 class app_screenshot(forms.ModelForm):
     screenshot1 = forms.ImageField(required=False, label='Скриншот 1')
@@ -107,4 +108,36 @@ class app_screenshot(forms.ModelForm):
             app_instance.save()
         
         return app_instance
-    
+
+class user_ban(forms.ModelForm):
+    username = forms.CharField(label='Юзернейм', max_length=150)
+
+    class Meta:
+        model = UserBan
+        fields = ['reason'] 
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        if self.instance and self.instance.pk:
+            self.initial['username'] = self.instance.user.username
+            self.fields['username'].disabled = True
+            self.fields['username'].required = False
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        
+        if not username:
+             return None 
+        
+        try:
+            user = User.objects.get(username=username)
+            return user 
+        except User.DoesNotExist:
+            raise forms.ValidationError("Пользователь с таким юзернеймом не найден.")
+
+    def save(self, commit=True):
+        if not self.instance.pk:
+            self.instance.user = self.cleaned_data['username']
+        
+        return super().save(commit=commit)

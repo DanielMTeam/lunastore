@@ -7,6 +7,7 @@ from django.core.paginator import Paginator
 # account authentication models and functions
 from django.contrib.auth import login as dj_login, logout as dj_logout
 from django.contrib.auth.forms import AuthenticationForm
+from .models import UserBan
 import json
 
 # views of home page 
@@ -72,8 +73,12 @@ def login(request):
         
         if form.is_valid():
             user = form.get_user()
-            dj_login(request, user)
-            return JsonResponse({'success': True, 'username': user.username})
+            ban = UserBan.objects.filter(user=user).first()
+            if ban:
+                return JsonResponse({'success': False, 'errors': f'This account is banned. Reason: {ban.reason}'}, status=403)
+            else:
+                dj_login(request, user)
+                return JsonResponse({'success': True, 'username': user.username})
         else:
             return JsonResponse({'success': False, 'errors': 'Password or username is not correct'}, status=400)
     return JsonResponse({'success': False, 'errors': 'Only POST method is allowed'}, status=405)
