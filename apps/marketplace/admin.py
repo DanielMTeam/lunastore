@@ -2,6 +2,7 @@ from django.contrib import admin
 from .models import *
 from .forms import app_screenshot
 from django.utils.html import format_html
+from django.contrib.auth.admin import UserAdmin
 
 
 @admin.register(Category)
@@ -50,3 +51,20 @@ class ApplicationAdmin(admin.ModelAdmin):
 @admin.register(Distribution)
 class DistributionAdmin(admin.ModelAdmin):
     pass
+
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+    
+    fieldsets = (
+        ('Основная информация', {
+            'fields': ('username', 'email',
+                       'password', 'avatar', 'role')
+        }),
+        ('Дополнительная информация', {
+            'fields': ('telegram', 'discord', 'website')
+        })
+    )
+    
+    list_display = ['username', 'email', 'role', 'avatar']
+    list_filter = ['role']
+    search_fields = ['username', 'email']
