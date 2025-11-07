@@ -1,13 +1,19 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from .models import Application, Distribution, Category
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
+
+# account authentication models and functions
+from django.contrib.auth import login as dj_login, logout as dj_logout
+from django.contrib.auth.forms import AuthenticationForm
+import json
 
 # views of home page 
 
 # redirect to home (index.php) page from (/) page
 def home_redirect(request):
+    
     return redirect('/index.php')
 
 # home page
@@ -57,3 +63,21 @@ def app(request):
         'screenshots': obj.screenshots
     }
     return render(request, 'storepage.html', context)
+
+def login(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        form_data = {'username': data.get('username'), 'password': data.get('password')}
+        form = AuthenticationForm(request, data=form_data)
+        
+        if form.is_valid():
+            user = form.get_user()
+            dj_login(request, user)
+            return JsonResponse({'success': True, 'username': user.username})
+        else:
+            return JsonResponse({'success': False, 'errors': 'Password or username is not correct'}, status=400)
+    return JsonResponse({'success': False, 'errors': 'Only POST method is allowed'}, status=405)
+
+def logout(request):
+    dj_logout(request)
+    return redirect('/index.php')
