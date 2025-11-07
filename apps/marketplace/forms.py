@@ -107,3 +107,4 @@ class app_screenshot(forms.ModelForm):
             app_instance.save()
         
         return app_instance
+    
