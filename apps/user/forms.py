@@ -2,7 +2,12 @@ from django import forms
 from .models import User, UserBan
 from django.utils.safestring import mark_safe
 from django.contrib.auth.forms import UserCreationForm
-
+from captcha.fields import CaptchaField
+from captcha.models import CaptchaStore
+from captcha.helpers import captcha_image_url
+from django.views.generic.edit import CreateView
+from django.http import HttpResponse
+import json
 
 class user_ban(forms.ModelForm):
     username = forms.CharField(label='Юзернейм', max_length=150)
@@ -40,6 +45,7 @@ class user_ban(forms.ModelForm):
 class user_registration(UserCreationForm):
     username = forms.CharField(max_length=45, min_length=2)
     email = forms.EmailField(max_length=45)
+    captcha = CaptchaField(label='Введите символы с картинки')
     agree_with_site_rules = forms.BooleanField(label='Я согласен с правилами сайта и осведомлён о последствиях их нарушения', widget=forms.CheckboxInput, required=True)
     agree_with_privacy_policy = forms.BooleanField(label='Я принимаю условия конфиденциальности', widget=forms.CheckboxInput, required=True)
     
