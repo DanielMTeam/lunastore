@@ -7,5 +7,6 @@ class UserConfig(AppConfig):
     name = 'apps.user'
     
     def ready(self):
-        from .signals import create_groups
+        from .signals import create_groups, update_ipban_cache
         post_migrate.connect(create_groups, sender=self)
+        

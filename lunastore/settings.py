@@ -117,6 +117,9 @@ AUTH_USER_MODEL = "user.User"
 # if REGISTRATION_IS_ENABLED = True, we will render register.html on '/register.php' path; if False, we will render register_on.html
 REGISTRATION_IS_ENABLED = True
 
+# User Activity Log (include IPs) retention period in days (because storage limitation gdpr; we must store data for the shortest time possible)
+RETENTION_ACTIVITY_LOG_DAYS = 0
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
