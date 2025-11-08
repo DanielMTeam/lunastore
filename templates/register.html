@@ -1,10 +1,12 @@
-﻿<!DOCTYPE html>
+﻿{% load static %}
+{% load category %}
+<!DOCTYPE html>
 <html>
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Магазин Windows XP</title>
-<link rel="stylesheet" href="./css/main.css">
+<link rel="stylesheet" href="{% static './css/main.css'%}">
 </head>
 
 
@@ -17,7 +19,7 @@
   </div>
   {% else %}
   <div class="dm_menu">
-    <a href="/login.php" id="login-link">вход</a> - <a href="reg0">регистрация</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a>
+    <a href="/login.php" id="login-link">вход</a> - <a href="/register.php">регистрация</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a>
   </div>
   {% endif %}
 
@@ -50,15 +52,7 @@
         
         <ul>
           <a href="/index.php"><li class="myhome">Главная страница</li></a>
-          <a href="/store.php?show=top20"><li class="top">Приложения месяца</li></a>
-          <a href="/store.php?show=updates"><li class="updates">Центр обновлений</li></a>
-          <a href="/store.php?cat=1"><li class="entertainment">Игры и развлечения</li></a>
-          <a href="/store.php?cat=2"><li class="util">Инструменты</li></a>
-          <a href="/store.php?cat=3"><li class="media">Мультимедиа</li></a>
-          <a href="/store.php?cat=4"><li class="office">Офисные приложения</li></a>
-          <a href="/store.php?cat=5"><li class="internet">Интернет и сети</li></a>
-          <a href="/store.php?cat=6"><li class="other">Прочее</li></a>
-          <a href="/store.php?show=themes"><li class="themes">Темы оформления</li></a>
+          <aside>{% show_categories active_category=active_category %}</aside>
         </ul>
       </div>
       

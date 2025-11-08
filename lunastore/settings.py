@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.marketplace.apps.MarketplaceConfig'
+    'apps.marketplace.apps.MarketplaceConfig',
+    'apps.user.apps.UserConfig',
 ]
 
 MIDDLEWARE = [
@@ -110,8 +111,10 @@ PASSWORD_HASHERS = [
 
 BCRYPT_ROUNDS = 12 # default number of rounds in bcrypt ¯\_(ツ)_/¯; if you want, you can change this number
 
-AUTH_USER_MODEL = "marketplace.User"
+AUTH_USER_MODEL = "user.User"
 
+# if REGISTRATION_IS_ENABLED = True, we will render register.html on '/register.php' path; if False, we will render register_on.html
+REGISTRATION_IS_ENABLED = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
