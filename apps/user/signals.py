@@ -1,8 +1,32 @@
 from django.contrib.auth.models import Group, Permission
-from django.db.models.signals import post_migrate
+from django.db.models.signals import post_save, post_delete
 from .models import UserBan 
 from apps.marketplace.models import Category, Application, Distribution
 from django.contrib.contenttypes.models import ContentType
+from .middleware import block_banned_ip
+from django.dispatch import receiver
+from django.contrib.sessions.models import Session
+from django.conf import settings
+
+User = settings.AUTH_USER_MODEL
+
+@receiver([post_save, post_delete], sender=UserBan)
+def update_ipban_cache(sender, **kwargs):
+    print(f"[signal apps.user] 'UserBan' model changed, refreshing banned IPs cache...")
+    block_banned_ip.refresh_banned_ips()
+
+@receiver(post_save, sender=User)
+def kick_from_session_on_ban(sender, instance, created, **kwargs):
+    if not created and not instance.is_active:
+        deleted_sessions = 0
+        for session in Session.objects.all():
+            session_data = session.get_decoded()
+            
+            if session_data.get('_auth_user_id') == str(instance.id):
+                session.delete()
+                deleted_sessions += 1
+
+
 
 def create_groups(sender, **kwargs):
     # 'Moderator' group

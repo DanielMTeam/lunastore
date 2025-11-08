@@ -1,10 +1,10 @@
 from django import forms
-from .models import User, UserBan
+from .models import User, UserBan, UserActivityLog
 from django.contrib.auth.forms import UserCreationForm
 from captcha.fields import CaptchaField
 from django.contrib.admin.widgets import FilteredSelectMultiple    
 from django.contrib.auth.models import Group
-
+from .middleware import get_client_ip, block_banned_ip  
 class user_ban(forms.ModelForm):
     username = forms.CharField(label='Юзернейм', max_length=150)
 
@@ -19,36 +19,69 @@ class user_ban(forms.ModelForm):
             self.initial['username'] = self.instance.user.username
             self.fields['username'].disabled = True
             self.fields['username'].required = False
+        else:
+            self.fields['username'].disabled = False
+            self.fields['username'].required = True
 
     def clean_username(self):
-        username = self.cleaned_data.get('username')
+        if self.instance and self.instance.pk:
+            return self.instance.user
         
-        if not username:
-             return None 
-        
+        username = self.cleaned_data['username']
         try:
             user = User.objects.get(username=username)
-            return user 
         except User.DoesNotExist:
-            raise forms.ValidationError("Пользователь с таким юзернеймом не найден.")
+            raise forms.ValidationError('user with this username does not exist')
+        
+        if UserBan.objects.filter(user=user).exists():
+            raise forms.ValidationError('this user is already banned')
+        
+        latest_ip = UserActivityLog.objects.filter(user=user).order_by('-timestamp').first()
+        
+        if not latest_ip:
+            raise forms.ValidationError('cannot ban user without activity log')
+        
+        self.found_ip = latest_ip.ip
+        self.found_user = user
+        return user
 
     def save(self, commit=True):
         if not self.instance.pk:
-            self.instance.user = self.cleaned_data['username']
+            user_to_ban = self.found_user
+            ip_to_ban = self.found_ip
+            
+            user_to_ban.is_active = False
+            user_to_ban.save()
+            self.instance.user = user_to_ban
+            self.instance.ip = ip_to_ban
         
-        return super().save(commit=commit)
+        ban_instance = super().save(commit=commit)
+        return ban_instance
     
 class user_registration(UserCreationForm):
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super().__init__(*args, **kwargs)
+        
+    def clean(self):
+        cleaned_data = super().clean()
+        
+        if self.request:
+            ip = get_client_ip(self.request)
+            if ip in block_banned_ip._banned_ips:
+                raise forms.ValidationError('Ваш IP-адрес заблокирован. Вы не можете зарегистрироваться (как и войти, лол)')
+    
     username = forms.CharField(max_length=45, min_length=2)
     email = forms.EmailField(max_length=45)
     captcha = CaptchaField(label='Введите символы с картинки')
     agree_with_site_rules = forms.BooleanField(label='Я согласен с правилами сайта и осведомлён о последствиях их нарушения', widget=forms.CheckboxInput, required=True)
     agree_with_privacy_policy = forms.BooleanField(label='Я принимаю условия конфиденциальности', widget=forms.CheckboxInput, required=True)
     
+    
     class Meta:
         model = User 
         fields = ['username', 'email']
-
+        
 # поскольку у django нет стандартного метода добавления пользователя в группу, я это сделал сам лмао (●'◡'●)
 class add_user_to_group(forms.ModelForm):
     class Meta:
