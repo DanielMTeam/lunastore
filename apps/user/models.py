@@ -3,8 +3,7 @@ from django.contrib.auth.models import AbstractUser
 
 class Role(models.IntegerChoices):
     USER = 1, "User"
-    ADMIN = 2, "Admin"
-    ROOT = 3, "Root"
+    DEVELOPER = 2, "Developer"
 
 class User(AbstractUser, models.Model):
     telegram = models.CharField(max_length=45)
