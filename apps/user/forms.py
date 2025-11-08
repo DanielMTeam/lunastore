@@ -1,13 +1,9 @@
 from django import forms
 from .models import User, UserBan
-from django.utils.safestring import mark_safe
 from django.contrib.auth.forms import UserCreationForm
 from captcha.fields import CaptchaField
-from captcha.models import CaptchaStore
-from captcha.helpers import captcha_image_url
-from django.views.generic.edit import CreateView
-from django.http import HttpResponse
-import json
+from django.contrib.admin.widgets import FilteredSelectMultiple    
+from django.contrib.auth.models import Group
 
 class user_ban(forms.ModelForm):
     username = forms.CharField(label='Юзернейм', max_length=150)
@@ -52,4 +48,35 @@ class user_registration(UserCreationForm):
     class Meta:
         model = User 
         fields = ['username', 'email']
-        
+
+# поскольку у django нет стандартного метода добавления пользователя в группу, я это сделал сам лмао (●'◡'●)
+class add_user_to_group(forms.ModelForm):
+    class Meta:
+        model = Group
+        exclude = []
+
+    # add user field
+    users = forms.ModelMultipleChoiceField(
+         queryset=User.objects.all(), 
+         required=False,
+         # use more normal widget lol
+         widget=FilteredSelectMultiple('users', False)
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(add_user_to_group, self).__init__(*args, **kwargs)
+        # if it is a existing group
+        if self.instance.pk:
+            # populate the users field with current users in the group
+            self.fields['users'].initial = self.instance.user_set.all()
+
+    def save_m2m(self):
+        # add the users to the group
+        self.instance.user_set.set(self.cleaned_data['users'])
+
+    def save(self, *args, **kwargs):
+        # default save
+        instance = super(add_user_to_group, self).save()
+        # save many-to-many data
+        self.save_m2m()
+        return instance

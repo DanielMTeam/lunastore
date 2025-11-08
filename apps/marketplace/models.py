@@ -35,6 +35,10 @@ class Application(models.Model):
         ordering = ["title"]
         verbose_name = "Приложение"
         verbose_name_plural = "Приложения"
+        permissions = [
+            ("set_dmca_flag", "Can set DMCA flag on application"),
+            ("set_demo_flag", "Can set demo flag on application"),
+        ]
 
     def __str__(self):
         return self.title

@@ -1,16 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-class Role(models.IntegerChoices):
-    USER = 1, "User"
-    DEVELOPER = 2, "Developer"
-
 class User(AbstractUser, models.Model):
     telegram = models.CharField(max_length=45)
     discord = models.CharField(max_length=32)
     website = models.URLField(max_length=45)
     avatar = models.FileField(upload_to='staticfiles/ugc/user_avatars', max_length=80, null=True)
-    role = models.IntegerField(choices=Role.choices, default=Role.USER)
 
 class UserBan(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
