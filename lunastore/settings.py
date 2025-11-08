@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.marketplace.apps.MarketplaceConfig',
     'apps.user.apps.UserConfig',
+    'captcha',
 ]
 
 MIDDLEWARE = [

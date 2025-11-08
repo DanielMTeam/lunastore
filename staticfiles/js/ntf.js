@@ -113,12 +113,6 @@
       if (error_div) {
         error_div.innerHTML = '<p>Произошла ошибка при отправке запроса.</p>';
     }});
-    // тут можно отправить на сервер (через XMLHttpRequest)
-    // а пока просто показываем alert
-    //alert("Логин: " + login + "\nПароль: " + password);
-
-    //hidePopup();
-    //return false; // не отправлять форму по умолчанию
   }
 
   if (window.attachEvent) {

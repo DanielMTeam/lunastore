@@ -94,7 +94,13 @@
 
             <label>
                 <div class="reg_pad"><div class="reg_title">E-mail:</div>
-                {{form.email.errors}}{{form.email}}
+                {% if form.email.errors %}
+                    <div class="error_splash" style="margin-bottom: 5px;"> 
+                        {% for error in form.email.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}{{form.email}}
                 <div class="regform_label">Будет использоваться для входа в аккаунт и для восстановления пароля</div>
                 </div>
             </label>
@@ -124,10 +130,24 @@
 
             <h2>Подтверждение регистрации</h2>
 
-            <div class="alert_splash">
+            <div class="alert_splash"> 
+
                 Введите символы с картинки:<br><br>
-                <b>тут как-то нужно придумать защиту</b>
+
+                {% if form.captcha.errors %}
+                    <div class="error_splash" style="margin-bottom: 5px;"> 
+                        {% for error in form.captcha.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %} 
+
+                <div >
+                    {{ form.captcha }}
+                </div>
+
             </div>
+
             
             
             <label class="agree" for="{{ form.agree_with_site_rules.id_for_label }}">
