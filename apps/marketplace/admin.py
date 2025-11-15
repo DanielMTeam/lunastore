@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import *
-from .forms import app_screenshot
+from .forms import AppScreenshotForm 
 from django.utils.html import format_html
 
 
@@ -12,7 +12,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Application)
 class ApplicationAdmin(admin.ModelAdmin):
-    form = app_screenshot
+    form = AppScreenshotForm
 
     readonly_fields = ('display_screenshots',)
 

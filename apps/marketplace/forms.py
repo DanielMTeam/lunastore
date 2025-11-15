@@ -2,14 +2,11 @@ from django import forms
 from .models import Application
 from django.conf import settings
 from django.utils.safestring import mark_safe
-from django.contrib.auth.forms import UserCreationForm
 import os
 import uuid
 
 
-
-
-class app_screenshot(forms.ModelForm):
+class AppScreenshotForm(forms.ModelForm):
     screenshot1 = forms.ImageField(required=False, label='Скриншот 1')
     screenshot2 = forms.ImageField(required=False, label='Скриншот 2')
     screenshot3 = forms.ImageField(required=False, label='Скриншот 3')
@@ -110,3 +107,4 @@ class app_screenshot(forms.ModelForm):
             app_instance.save()
         
         return app_instance
+

@@ -1,0 +1,56 @@
+INFO 2025-11-15 17:30:19,319 autoreload 11 134683997670336 Watching for file changes with StatReloader
+INFO 2025-11-15 18:30:43,019 autoreload 7 126894665165760 Watching for file changes with StatReloader
+INFO 2025-11-15 18:31:38,012 autoreload 7 126894665165760 /app/apps/marketplace/forms.py changed, reloading.
+INFO 2025-11-15 18:31:39,944 autoreload 9 135413472951232 Watching for file changes with StatReloader
+INFO 2025-11-15 18:32:24,525 autoreload 9 135413472951232 /app/apps/user/forms.py changed, reloading.
+INFO 2025-11-15 18:32:26,273 autoreload 11 123972719631296 Watching for file changes with StatReloader
+INFO 2025-11-15 18:32:41,630 autoreload 11 123972719631296 /app/apps/user/forms.py changed, reloading.
+INFO 2025-11-15 18:32:43,227 autoreload 13 135205862153152 Watching for file changes with StatReloader
+INFO 2025-11-15 18:33:00,709 autoreload 13 135205862153152 /app/apps/user/forms.py changed, reloading.
+INFO 2025-11-15 18:33:02,226 autoreload 15 123674281188288 Watching for file changes with StatReloader
+INFO 2025-11-15 18:34:11,181 autoreload 15 123674281188288 /app/apps/marketplace/forms.py changed, reloading.
+INFO 2025-11-15 18:34:13,014 autoreload 17 129814494354368 Watching for file changes with StatReloader
+INFO 2025-11-15 18:34:24,047 autoreload 17 129814494354368 /app/apps/marketplace/forms.py changed, reloading.
+INFO 2025-11-15 18:34:25,741 autoreload 19 125010809359296 Watching for file changes with StatReloader
+INFO 2025-11-15 18:34:52,400 autoreload 19 125010809359296 /app/apps/user/forms.py changed, reloading.
+INFO 2025-11-15 18:34:53,890 autoreload 21 140366335802304 Watching for file changes with StatReloader
+INFO 2025-11-15 18:36:48,372 autoreload 7 135939298257856 Watching for file changes with StatReloader
+INFO 2025-11-15 18:37:17,965 basehttp 7 135939238160064 "GET /admin HTTP/1.1" 301 0
+INFO 2025-11-15 18:37:18,062 basehttp 7 135939238160064 "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-11-15 18:37:18,129 basehttp 7 135939238160064 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4389
+INFO 2025-11-15 18:37:18,241 basehttp 7 135939221374656 "GET /staticfiles/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2025-11-15 18:37:18,244 basehttp 7 135939212981952 "GET /staticfiles/admin/css/login.css HTTP/1.1" 200 951
+INFO 2025-11-15 18:37:18,245 basehttp 7 135939229767360 "GET /staticfiles/admin/css/dark_mode.css HTTP/1.1" 200 2808
+INFO 2025-11-15 18:37:18,246 basehttp 7 135939238160064 "GET /staticfiles/admin/css/base.css HTTP/1.1" 200 22120
+INFO 2025-11-15 18:37:18,248 basehttp 7 135938869032640 "GET /staticfiles/admin/css/responsive.css HTTP/1.1" 200 16565
+INFO 2025-11-15 18:37:18,265 basehttp 7 135939238160064 "GET /staticfiles/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2025-11-15 18:37:18,284 basehttp 7 135939238160064 "GET /staticfiles/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+WARNING 2025-11-15 18:37:18,411 log 7 135939238160064 Not Found: /favicon.ico
+WARNING 2025-11-15 18:37:18,412 basehttp 7 135939238160064 "GET /favicon.ico HTTP/1.1" 404 4154
+INFO 2025-11-15 18:37:24,521 basehttp 7 135938869032640 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-11-15 18:37:24,564 basehttp 7 135938869032640 "GET /admin/ HTTP/1.1" 200 14654
+INFO 2025-11-15 18:37:24,641 basehttp 7 135938869032640 "GET /staticfiles/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-11-15 18:37:24,725 basehttp 7 135938869032640 "GET /staticfiles/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-11-15 18:37:24,725 basehttp 7 135939221374656 "GET /staticfiles/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-11-15 18:37:24,726 basehttp 7 135939229767360 "GET /staticfiles/admin/img/icon-deletelink.svg HTTP/1.1" 200 392
+INFO 2025-11-15 18:37:29,431 basehttp 7 135938869032640 "GET /admin/marketplace/application/ HTTP/1.1" 200 13356
+INFO 2025-11-15 18:37:29,519 basehttp 7 135938869032640 "GET /staticfiles/admin/css/changelists.css HTTP/1.1" 200 6878
+INFO 2025-11-15 18:37:29,521 basehttp 7 135939221374656 "GET /staticfiles/admin/css/forms.css HTTP/1.1" 200 8525
+INFO 2025-11-15 18:37:29,531 basehttp 7 135938869032640 "GET /staticfiles/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2025-11-15 18:37:29,534 basehttp 7 135939221374656 "GET /staticfiles/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-11-15 18:37:29,545 basehttp 7 135939229767360 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-11-15 18:37:29,551 basehttp 7 135939212981952 "GET /staticfiles/admin/css/widgets.css HTTP/1.1" 200 11973
+INFO 2025-11-15 18:37:29,580 basehttp 7 135939229767360 "GET /staticfiles/admin/img/search.svg HTTP/1.1" 200 458
+INFO 2025-11-15 18:37:29,837 basehttp 7 135939212981952 "GET /staticfiles/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+INFO 2025-11-15 18:37:29,838 basehttp 7 135938869032640 "GET /staticfiles/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2025-11-15 18:37:29,839 basehttp 7 135939221374656 "GET /staticfiles/admin/js/actions.js HTTP/1.1" 200 8076
+INFO 2025-11-15 18:37:29,844 basehttp 7 135939229767360 "GET /staticfiles/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2025-11-15 18:37:29,858 basehttp 7 135939212981952 "GET /staticfiles/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-11-15 18:37:29,859 basehttp 7 135938869032640 "GET /staticfiles/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-11-15 18:37:29,868 basehttp 7 135939238160064 "GET /staticfiles/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2025-11-15 18:37:29,917 basehttp 7 135939238160064 "GET /staticfiles/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+INFO 2025-11-15 18:37:29,918 basehttp 7 135939229767360 "GET /staticfiles/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-11-15 18:37:31,873 basehttp 7 135939238160064 "GET /admin/marketplace/application/add/ HTTP/1.1" 200 23156
+INFO 2025-11-15 18:37:31,952 basehttp 7 135938869032640 "GET /staticfiles/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2025-11-15 18:37:31,953 basehttp 7 135939229767360 "GET /staticfiles/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2025-11-15 18:37:31,961 basehttp 7 135939238160064 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
