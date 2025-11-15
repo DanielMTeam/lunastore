@@ -6,3 +6,4 @@ staticfiles/ugc/app_icons/
 staticfiles/ugc/screenshots/
 staticfiles/ugc/distributions/
 staticfiles/ugc/user_avatars/
+debug.log

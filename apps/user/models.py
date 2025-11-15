@@ -8,7 +8,7 @@ class User(AbstractUser, models.Model):
     website = models.URLField(max_length=45)
     avatar = models.FileField(upload_to='staticfiles/ugc/user_avatars', max_length=80, null=True)
 
-class UserBanForm(models.Model):
+class UserBan(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     ip = models.CharField(max_length=256, null=True, blank=True, db_index=True)
     reason = models.CharField(max_length=255)

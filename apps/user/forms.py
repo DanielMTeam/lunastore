@@ -1,5 +1,5 @@
 from django import forms
-from .models import User, UserBanForm, UserActivityLog
+from .models import User, UserBan, UserActivityLog
 from django.contrib.auth.forms import UserCreationForm
 from captcha.fields import CaptchaField
 from django.contrib.admin.widgets import FilteredSelectMultiple    
@@ -9,7 +9,7 @@ class UserBanForm(forms.ModelForm):
     username = forms.CharField(label='Юзернейм', max_length=150)
 
     class Meta:
-        model = UserBanForm
+        model = UserBan
         fields = ['reason'] 
 
     def __init__(self, *args, **kwargs):

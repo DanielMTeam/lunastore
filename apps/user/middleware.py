@@ -1,5 +1,5 @@
 from django.utils.deprecation import MiddlewareMixin
-from .models import UserBanForm
+from .models import UserBan
 
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -19,7 +19,7 @@ class BlockBannedIP(MiddlewareMixin):
     @classmethod
     def refresh_banned_ips(cls):
         cls._banned_ips = set(
-            UserBanForm.objects.values_list('ip', flat=True)
+            UserBan.objects.values_list('ip', flat=True)
         )
         print(f"[BlockBannedIP | MDW] loaded {len(cls._banned_ips)} banned IPs")
         

@@ -5,7 +5,7 @@ from django.contrib.auth.models import Group
 
 from django.contrib.auth import login as dj_login, logout as dj_logout
 from django.contrib.auth.forms import AuthenticationForm
-from .models import UserBanForm, UserActivityLog
+from .models import UserBan, UserActivityLog
 from .forms import UserRegistrationForm
 import json
 from .middleware import get_client_ip, BlockBannedIP
@@ -27,7 +27,7 @@ def login(request):
     
     if form.is_valid():
         user = form.get_user()
-        ban = UserBanForm.objects.filter(user=user).first()
+        ban = UserBan.objects.filter(user=user).first()
         if ban:
             return JsonResponse({'success': False, 'errors': f'Your account is banned. Reason: {ban.reason}'}, status=403)
         else:
