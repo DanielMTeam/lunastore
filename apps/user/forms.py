@@ -1,15 +1,15 @@
 from django import forms
-from .models import User, UserBan, UserActivityLog
+from .models import User, UserBanForm, UserActivityLog
 from django.contrib.auth.forms import UserCreationForm
 from captcha.fields import CaptchaField
 from django.contrib.admin.widgets import FilteredSelectMultiple    
 from django.contrib.auth.models import Group
-from .middleware import get_client_ip, block_banned_ip  
-class user_ban(forms.ModelForm):
+from .middleware import get_client_ip, BlockBannedIP
+class UserBanForm(forms.ModelForm):
     username = forms.CharField(label='Юзернейм', max_length=150)
 
     class Meta:
-        model = UserBan
+        model = UserBanForm
         fields = ['reason'] 
 
     def __init__(self, *args, **kwargs):
@@ -33,7 +33,7 @@ class user_ban(forms.ModelForm):
         except User.DoesNotExist:
             raise forms.ValidationError('user with this username does not exist')
         
-        if UserBan.objects.filter(user=user).exists():
+        if UserBanForm.objects.filter(user=user).exists():
             raise forms.ValidationError('this user is already banned')
         
         latest_ip = UserActivityLog.objects.filter(user=user).order_by('-timestamp').first()
@@ -58,7 +58,7 @@ class user_ban(forms.ModelForm):
         ban_instance = super().save(commit=commit)
         return ban_instance
     
-class user_registration(UserCreationForm):
+class UserRegistrationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
         super().__init__(*args, **kwargs)
@@ -68,7 +68,7 @@ class user_registration(UserCreationForm):
         
         if self.request:
             ip = get_client_ip(self.request)
-            if ip in block_banned_ip._banned_ips:
+            if ip in BlockBannedIP._banned_ips:
                 raise forms.ValidationError('Ваш IP-адрес заблокирован. Вы не можете зарегистрироваться (как и войти, лол)')
     
     username = forms.CharField(max_length=45, min_length=2)
@@ -83,7 +83,7 @@ class user_registration(UserCreationForm):
         fields = ['username', 'email']
         
 # поскольку у django нет стандартного метода добавления пользователя в группу, я это сделал сам лмао (●'◡'●)
-class add_user_to_group(forms.ModelForm):
+class AddToGroupForm(forms.ModelForm):
     class Meta:
         model = Group
         exclude = []
@@ -97,7 +97,7 @@ class add_user_to_group(forms.ModelForm):
     )
 
     def __init__(self, *args, **kwargs):
-        super(add_user_to_group, self).__init__(*args, **kwargs)
+        super(AddToGroupForm, self).__init__(*args, **kwargs)
         # if it is a existing group
         if self.instance.pk:
             # populate the users field with current users in the group
@@ -109,7 +109,7 @@ class add_user_to_group(forms.ModelForm):
 
     def save(self, *args, **kwargs):
         # default save
-        instance = super(add_user_to_group, self).save()
+        instance = super(AddToGroupForm, self).save()
         # save many-to-many data
         self.save_m2m()
         return instance

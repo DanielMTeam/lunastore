@@ -1,19 +1,23 @@
 from django.contrib.auth.models import Group, Permission
 from django.db.models.signals import post_save, post_delete
-from .models import UserBan 
+from .models import UserBanForm
 from apps.marketplace.models import Category, Application, Distribution
 from django.contrib.contenttypes.models import ContentType
-from .middleware import block_banned_ip
+from .middleware import BlockBannedIP
 from django.dispatch import receiver
 from django.contrib.sessions.models import Session
 from django.conf import settings
+from logging import getLogger
 
 User = settings.AUTH_USER_MODEL
+log = getLogger(__name__)
 
-@receiver([post_save, post_delete], sender=UserBan)
+
+@receiver([post_save, post_delete], sender=UserBanForm)
 def update_ipban_cache(sender, **kwargs):
-    print(f"[signal apps.user] 'UserBan' model changed, refreshing banned IPs cache...")
-    block_banned_ip.refresh_banned_ips()
+    log.info("[signal apps.user] 'UserBanForm' model changed, refreshing banned IPs cache...")
+    BlockBannedIP.refresh_banned_ips()
+
 
 @receiver(post_save, sender=User)
 def kick_from_session_on_ban(sender, instance, created, **kwargs):
@@ -27,18 +31,17 @@ def kick_from_session_on_ban(sender, instance, created, **kwargs):
                 deleted_sessions += 1
 
 
-
 def create_groups(sender, **kwargs):
     # 'Moderator' group
     moderator_group, created = Group.objects.get_or_create(name='Модераторы')
     
     if created:
-        print("moderators group created")
+        log.info("moderators group created")
         try:
             category_ct = ContentType.objects.get_for_model(Category)
             app_ct = ContentType.objects.get_for_model(Application)
             distribution_ct = ContentType.objects.get_for_model(Distribution)
-            ban_ct = ContentType.objects.get_for_model(UserBan)
+            ban_ct = ContentType.objects.get_for_model(UserBanForm)
             permissions = [
                 # 'Category' model permissions
                 Permission.objects.get(codename='view_category', content_type=category_ct),
@@ -57,21 +60,21 @@ def create_groups(sender, **kwargs):
                 Permission.objects.get(codename='delete_distribution', content_type=distribution_ct),
                 Permission.objects.get(codename='add_distribution', content_type=distribution_ct),
 
-                # 'UserBan' model permissions
-                Permission.objects.get(codename='view_userban', content_type=ban_ct),
-                Permission.objects.get(codename='change_userban', content_type=ban_ct),
-                Permission.objects.get(codename='delete_userban', content_type=ban_ct),
-                Permission.objects.get(codename='add_userban', content_type=ban_ct),
+                # 'UserBanForm' model permissions
+                Permission.objects.get(codename='view_UserBanForm', content_type=ban_ct),
+                Permission.objects.get(codename='change_UserBanForm', content_type=ban_ct),
+                Permission.objects.get(codename='delete_UserBanForm', content_type=ban_ct),
+                Permission.objects.get(codename='add_UserBanForm', content_type=ban_ct),
             ]
             moderator_group.permissions.set(permissions)
-            print("permissions assigned to 'Moderators' group")
+            log.info("permissions assigned to 'Moderators' group")
         except (ContentType.DoesNotExist, Permission.DoesNotExist) as e:
-            print(f"Error assigning permissions. Maybe models or permissions was not created? Log: {e}")
+            log.info(f"Error assigning permissions. Maybe models or permissions was not created? Log: {e}")
             
     developer_group, created = Group.objects.get_or_create(name='Разработчики')
     
     if created:
-        print("developers group created")
+        log.info("developers group created")
         try:
             app_ct = ContentType.objects.get_for_model(Application)
             distribution_ct = ContentType.objects.get_for_model(Distribution)
@@ -87,11 +90,10 @@ def create_groups(sender, **kwargs):
                 Permission.objects.get(codename='delete_distribution', content_type=distribution_ct),
             ]
             developer_group.permissions.set(permissions)
-            print("permissions assigned to 'Developers' group")
+            log.info("permissions assigned to 'Developers' group")
         except (ContentType.DoesNotExist, Permission.DoesNotExist) as e:
-            print(f"Error assigning permissions. Maybe models or permissions was not created? Log: {e}")
-            
+            log.info(f"Error assigning permissions. Maybe models or permissions was not created? Log: {e}")      
     user_group, created = Group.objects.get_or_create(name='Пользователи')
     if created:
         # there is no permissions for users group yet ¯\_(ツ)_/¯
-        print("users group created")
+        log.info("users group created")

@@ -5,39 +5,41 @@ from django.contrib.auth.models import Group
 
 from django.contrib.auth import login as dj_login, logout as dj_logout
 from django.contrib.auth.forms import AuthenticationForm
-from .models import UserBan, UserActivityLog
-from .forms import user_registration
+from .models import UserBanForm, UserActivityLog
+from .forms import UserRegistrationForm
 import json
-from .middleware import get_client_ip, block_banned_ip
+from .middleware import get_client_ip, BlockBannedIP
+
 
 def login(request):
     ip = get_client_ip(request)
     
-    if request.method == 'POST':
-        if ip in block_banned_ip.get_banned_set():
-            return JsonResponse({'success': False, 'errors': 'Your IP address is banned.'}, status=403)
-        if request.user.is_authenticated:
-            return redirect('home')
-        data = json.loads(request.body)
-        form_data = {'username': data.get('username'), 'password': data.get('password')}
-        form = AuthenticationForm(request, data=form_data)
-        
-        if form.is_valid():
-            user = form.get_user()
-            ban = UserBan.objects.filter(user=user).first()
-            if ban:
-                return JsonResponse({'success': False, 'errors': f'Your account is banned. Reason: {ban.reason}'}, status=403)
-            else:
-                dj_login(request, user)
-                UserActivityLog.objects.create(
-                    user=user,
-                    ip=get_client_ip(request),
-                    action='login_save_ip'
-                )
-                return JsonResponse({'success': True, 'username': user.username})
+    if request.method != 'POST':
+        return JsonResponse({'success': False, 'errors': 'Only POST method is allowed'}, status=405)
+    
+    if ip in BlockBannedIP.get_banned_set():
+        return JsonResponse({'success': False, 'errors': 'Your IP address is banned.'}, status=403)
+    if request.user.is_authenticated:
+        return redirect('home')
+    data = json.loads(request.body)
+    form_data = {'username': data.get('username'), 'password': data.get('password')}
+    form = AuthenticationForm(request, data=form_data)
+    
+    if form.is_valid():
+        user = form.get_user()
+        ban = UserBanForm.objects.filter(user=user).first()
+        if ban:
+            return JsonResponse({'success': False, 'errors': f'Your account is banned. Reason: {ban.reason}'}, status=403)
         else:
-            return JsonResponse({'success': False, 'errors': 'Password or username is not correct'}, status=400)
-    return JsonResponse({'success': False, 'errors': 'Only POST method is allowed'}, status=405)
+            dj_login(request, user)
+            UserActivityLog.objects.create(
+                user=user,
+                ip=get_client_ip(request),
+                action='login_save_ip'
+            )
+            return JsonResponse({'success': True, 'username': user.username})
+    else:
+        return JsonResponse({'success': False, 'errors': 'Password or username is not correct'}, status=400)
 
 def logout(request):
     dj_logout(request)
@@ -52,7 +54,7 @@ def register(request):
     if request.method == 'POST':
         if request.user.is_authenticated:
             return redirect('home')
-        form = user_registration(request.POST, request=request)
+        form = UserRegistrationForm(request.POST, request=request)
         if form.is_valid():
             user = form.save()
             user.save()
@@ -68,5 +70,5 @@ def register(request):
     else:
         if request.user.is_authenticated:
             return redirect('home')
-        form = user_registration(request=request)    
-    return render(request, 'register_on.html', { "form": form })
+        form = UserRegistrationForm(request=request)    
+    return render(request, 'register_on.html', {"form": form})
