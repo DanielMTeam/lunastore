@@ -1,6 +1,6 @@
 from django.contrib.auth.models import Group, Permission
 from django.db.models.signals import post_save, post_delete
-from .models import UserBanForm
+from .models import UserBan
 from apps.marketplace.models import Category, Application, Distribution
 from django.contrib.contenttypes.models import ContentType
 from .middleware import BlockBannedIP
@@ -13,7 +13,7 @@ User = settings.AUTH_USER_MODEL
 log = getLogger(__name__)
 
 
-@receiver([post_save, post_delete], sender=UserBanForm)
+@receiver([post_save, post_delete], sender=UserBan)
 def update_ipban_cache(sender, **kwargs):
     log.info("[signal apps.user] 'UserBanForm' model changed, refreshing banned IPs cache...")
     BlockBannedIP.refresh_banned_ips()
@@ -41,7 +41,7 @@ def create_groups(sender, **kwargs):
             category_ct = ContentType.objects.get_for_model(Category)
             app_ct = ContentType.objects.get_for_model(Application)
             distribution_ct = ContentType.objects.get_for_model(Distribution)
-            ban_ct = ContentType.objects.get_for_model(UserBanForm)
+            ban_ct = ContentType.objects.get_for_model(UserBan)
             permissions = [
                 # 'Category' model permissions
                 Permission.objects.get(codename='view_category', content_type=category_ct),

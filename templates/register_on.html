@@ -1,130 +1,61 @@
-﻿{% load static %}
-{% load category %}
-<!DOCTYPE html>
-<html>
+﻿{% extends 'base.html' %}
+{% load static %}
 
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Магазин Windows XP</title>
-<link rel="stylesheet" href="{% static './css/main.css'%}">
-<script src='{% static "./js/ntf.js"%}'></script>
-</head>
-
-
-<body>
-<div class="container">
-
-  {% if user.is_authenticated %}
-  <div class="dm_menu">
-    Вы вошли как <a href="/profile.php"><b>{{ user.username }}</b></a> - <a href="/logout.php">выйти</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a>
-  </div>
-  {% else %}
-  <div class="dm_menu">
-    <a href="/login.php" id="login-link">вход</a> - <a href="/register.php">регистрация</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a>
-  </div>
-  {% endif %}
-
-  <div class="header">
-    
-    <div class="rl_l"><h1 class="txtr">LunaStore</h1>
-    <div class="subtitle txtr">Windows XP Professional</div>
-    </div>
-    
-    <div class="searchbar">
-  <!--[if IE 6]>
-  <style type="text/css">
-   .searchbar button {padding: 1px 1px;}
-  </style>
-  <![endif]-->
-      <input type="text" id="q" placeholder="Например: Total Commander">
-      <button type="button" onclick="doSearch()">поиск</button>
-      <br>
-      <div class="subtitle"><a href="/settings.php?act=search">Уточнить параметры поиска</a></div>
-    </div>
-  </div>
-
-
-  <div class="headerline"></div>
-
-  <div class="main">
-    <div class="sidebar">
-        <div class="boxhead_primary"><b>Категории</b></div>
-      <div class="box">
-        
-        <ul>
-          <a href="/index.php"><li class="myhome">Главная страница</li></a>
-          <aside>{% show_categories active_category=active_category %}</aside>
-        </ul>
-      </div>
-      
-      <div class="adv_block">
-        <a href="{ad_link}"><img src="./ad/ad.png" alt="Реклама"></a>
-      </div>
-
-    </div>
-
-    <div class="content">
-      <div class="section">
-        <h2>Регистрация</h2>
-        <div class="separator_store"></div>
-        <link rel="stylesheet" href="{% static './css/register.css'%}">
-
-        <div class="regform">
-
-        <div class="info_splash">Создав аккаунт, вы сможете выкладывать свои приложения, оставлять отзывы к уже загруженным программам и вести собственную библиотеку избранных элементов. Регистрация открытая и бесплатная.</div>
-          <div class="register_card">
-          <h2>Основная информация</h2>
-
-        <form method="post" action="{% url 'register' %}">
-            {% csrf_token %}
-
-            {{form.non_field_errors}}
-
-            <label>
-                <div class="reg_pad"><div class="reg_title">Имя пользователя:</div>
-                {% if form.username.errors %}
-                    <div class="error_splash" style="margin-bottom: 5px;"> 
-                        {% for error in form.username.errors %}
-                            {{ error }}
-                        {% endfor %}
-                    </div>
-                {% endif %}{{form.username}}
-                <div class="regform_label">Минимум 2 символа. По имени пользователя вас можно будет найти. После регистрации изменить его не получится.</div>
-              </div>
-            </label>
-
-            <label>
-                <div class="reg_pad"><div class="reg_title">E-mail:</div>
-                {% if form.email.errors %}
-                    <div class="error_splash" style="margin-bottom: 5px;"> 
-                        {% for error in form.email.errors %}
-                            {{ error }}
-                        {% endfor %}
-                    </div>
-                {% endif %}{{form.email}}
-                <div class="regform_label">Будет использоваться для входа в аккаунт и для восстановления пароля</div>
+{% block content %}
+<div class="content">
+  <div class="section">
+    <h2>Регистрация</h2>
+    <div class="separator_store"></div>
+    <link rel="stylesheet" href="{% static './css/register.css'%}">
+    <div class="regform">
+    <div class="info_splash">Создав аккаунт, вы сможете выкладывать свои приложения, оставлять отзывы к уже загруженным программам и вести собственную библиотеку избранных элементов. Регистрация открытая и бесплатная.</div>
+      <div class="register_card">
+      <h2>Основная информация</h2>
+    <form method="post" action="{% url 'register' %}">
+        {% csrf_token %}
+        {{form.non_field_errors}}
+        <label>
+            <div class="reg_pad"><div class="reg_title">Имя пользователя:</div>
+            {% if form.username.errors %}
+                <div class="error_splash" style="margin-bottom: 5px;"> 
+                    {% for error in form.username.errors %}
+                        {{ error }}
+                    {% endfor %}
                 </div>
-            </label>
-
-            <label>
-                <div class="reg_pad"><div class="reg_title">Пароль:</div>
-                {{form.password1.errors}}{{form.password1}}
-                <div class="regform_label">Придумывайте надёжные пароли. Это важно, чорт побери!</div>
+            {% endif %}{{form.username}}
+            <div class="regform_label">Минимум 2 символа. По имени пользователя вас можно будет найти. После регистрации изменить его не получится.</div>
+          </div>
+        </label>
+        <label>
+            <div class="reg_pad"><div class="reg_title">E-mail:</div>
+            {% if form.email.errors %}
+                <div class="error_splash" style="margin-bottom: 5px;"> 
+                    {% for error in form.email.errors %}
+                        {{ error }}
+                    {% endfor %}
                 </div>
-            </label>
-
-            <label>
-                <div class="reg_pad"><div class="reg_title">Повторите пароль:</div>
-                {% if form.password2.errors %}
-                    <div class="error_splash" style="margin-bottom: 5px;"> 
-                        {% for error in form.password2.errors %}
-                            {{ error }}
-                        {% endfor %}
-                    </div>
-                {% endif %} {{form.password2}}
-                <div class="regform_label">Повторение - мать учения :D</div>
+            {% endif %}{{form.email}}
+            <div class="regform_label">Будет использоваться для входа в аккаунт и для восстановления пароля</div>
+            </div>
+        </label>
+        <label>
+            <div class="reg_pad"><div class="reg_title">Пароль:</div>
+            {{form.password1.errors}}{{form.password1}}
+            <div class="regform_label">Придумывайте надёжные пароли. Это важно, чорт побери!</div>
+            </div>
+        </label>
+        <label>
+            <div class="reg_pad"><div class="reg_title">Повторите пароль:</div>
+            {% if form.password2.errors %}
+                <div class="error_splash" style="margin-bottom: 5px;"> 
+                    {% for error in form.password2.errors %}
+                        {{ error }}
+                    {% endfor %}
                 </div>
-            </label>
+            {% endif %} {{form.password2}}
+            <div class="regform_label">Повторение - мать учения :D</div>
+            </div>
+        </label>
 
 
  <label>
@@ -181,29 +112,4 @@
 
     </div>
   </div>
-
-  <div class="footer">
-    <a href="/help.php?page=about">О нас</a> - <a href="/help.php">FAQ</a> - <a href="/help.php?act=privacy">Политика конфиденциальности</a>
-    <div style="text-align: right; font-size: 11px;">С душой сделано командой DM, 2025<br>Все права принадлежат исходным правообладателям</div>
-  </div>
-
-<script type="text/javascript">
-function doSearch() {
-  var q = document.getElementById("q").value.toLowerCase();
-  var cards = document.getElementsByTagName("div");
-  for (var i=0;i<cards.length;i++) {
-    if(cards[i].className=="card") {
-      var text = cards[i].innerText || cards[i].textContent;
-      if(text.toLowerCase().indexOf(q)!=-1) {
-        cards[i].style.display="block";
-      } else {
-        cards[i].style.display="none";
-      }
-    }
-  }
-}
-</script>
-
-</body>
-
-</html>
+{% endblock %}

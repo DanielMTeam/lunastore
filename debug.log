@@ -54,3 +54,803 @@ INFO 2025-11-15 18:37:31,873 basehttp 7 135939238160064 "GET /admin/marketplace/
 INFO 2025-11-15 18:37:31,952 basehttp 7 135938869032640 "GET /staticfiles/admin/js/prepopulate_init.js HTTP/1.1" 200 586
 INFO 2025-11-15 18:37:31,953 basehttp 7 135939229767360 "GET /staticfiles/admin/js/change_form.js HTTP/1.1" 200 606
 INFO 2025-11-15 18:37:31,961 basehttp 7 135939238160064 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-11-15 19:37:57,339 autoreload 7 135056507771840 Watching for file changes with StatReloader
+WARNING 2025-11-15 19:38:15,191 log 7 135056380896960 Not Found: /app.php
+WARNING 2025-11-15 19:38:15,193 basehttp 7 135056380896960 "GET /app.php?1 HTTP/1.1" 404 3398
+WARNING 2025-11-15 19:38:20,605 log 7 135056380896960 Not Found: /app.php
+WARNING 2025-11-15 19:38:20,606 basehttp 7 135056380896960 "GET /app.php?id=1 HTTP/1.1" 404 3401
+INFO 2025-11-15 19:38:28,809 basehttp 7 135056372504256 "GET /admin/ HTTP/1.1" 200 14963
+INFO 2025-11-15 19:38:28,870 basehttp 7 135056372504256 "GET /staticfiles/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-11-15 19:38:28,917 basehttp 7 135056364111552 "GET /staticfiles/admin/css/dark_mode.css HTTP/1.1" 200 2808
+INFO 2025-11-15 19:38:28,919 basehttp 7 135056372504256 "GET /staticfiles/admin/css/base.css HTTP/1.1" 200 22120
+INFO 2025-11-15 19:38:28,920 basehttp 7 135056355718848 "GET /staticfiles/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2025-11-15 19:38:28,931 basehttp 7 135056372504256 "GET /staticfiles/admin/css/responsive.css HTTP/1.1" 200 16565
+INFO 2025-11-15 19:38:28,951 basehttp 7 135056372504256 "GET /staticfiles/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2025-11-15 19:38:28,983 basehttp 7 135056372504256 "GET /staticfiles/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-11-15 19:38:29,001 basehttp 7 135056372504256 "GET /staticfiles/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-11-15 19:38:29,002 basehttp 7 135056364111552 "GET /staticfiles/admin/img/icon-deletelink.svg HTTP/1.1" 200 392
+INFO 2025-11-15 19:38:29,003 basehttp 7 135056355718848 "GET /staticfiles/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+WARNING 2025-11-15 19:38:29,083 log 7 135056372504256 Not Found: /favicon.ico
+WARNING 2025-11-15 19:38:29,084 basehttp 7 135056372504256 "GET /favicon.ico HTTP/1.1" 404 4154
+INFO 2025-11-15 19:38:31,705 basehttp 7 135056372504256 "GET /admin/marketplace/application/ HTTP/1.1" 200 13336
+INFO 2025-11-15 19:38:31,779 basehttp 7 135056372504256 "GET /staticfiles/admin/css/changelists.css HTTP/1.1" 200 6878
+INFO 2025-11-15 19:38:31,789 basehttp 7 135056372504256 "GET /staticfiles/admin/css/forms.css HTTP/1.1" 200 8525
+INFO 2025-11-15 19:38:31,791 basehttp 7 135056364111552 "GET /staticfiles/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-11-15 19:38:31,797 basehttp 7 135056346261184 "GET /staticfiles/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2025-11-15 19:38:31,807 basehttp 7 135056355718848 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-11-15 19:38:31,813 basehttp 7 135056372504256 "GET /staticfiles/admin/img/search.svg HTTP/1.1" 200 458
+INFO 2025-11-15 19:38:31,827 basehttp 7 135056355718848 "GET /staticfiles/admin/css/widgets.css HTTP/1.1" 200 11973
+INFO 2025-11-15 19:38:32,092 basehttp 7 135056364111552 "GET /staticfiles/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+INFO 2025-11-15 19:38:32,093 basehttp 7 135056355718848 "GET /staticfiles/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2025-11-15 19:38:32,094 basehttp 7 135056346261184 "GET /staticfiles/admin/js/actions.js HTTP/1.1" 200 8076
+INFO 2025-11-15 19:38:32,103 basehttp 7 135056364111552 "GET /staticfiles/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-11-15 19:38:32,105 basehttp 7 135056355718848 "GET /staticfiles/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-11-15 19:38:32,110 basehttp 7 135056372504256 "GET /staticfiles/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2025-11-15 19:38:32,114 basehttp 7 135056346261184 "GET /staticfiles/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2025-11-15 19:38:32,178 basehttp 7 135056346261184 "GET /staticfiles/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+INFO 2025-11-15 19:38:32,180 basehttp 7 135056372504256 "GET /staticfiles/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-11-15 19:38:33,996 basehttp 7 135056346261184 "GET /admin/marketplace/application/add/ HTTP/1.1" 200 23136
+INFO 2025-11-15 19:38:34,193 basehttp 7 135056346261184 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-11-15 19:38:34,222 basehttp 7 135056346261184 "GET /staticfiles/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2025-11-15 19:38:34,222 basehttp 7 135056372504256 "GET /staticfiles/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2025-11-15 19:38:59,746 basehttp 7 135056346261184 "POST /admin/marketplace/application/add/ HTTP/1.1" 200 23647
+INFO 2025-11-15 19:38:59,829 basehttp 7 135056346261184 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-11-15 19:39:02,225 basehttp 7 135056346261184 "GET /admin/marketplace/category/add/?_to_field=id&_popup=1 HTTP/1.1" 200 5871
+INFO 2025-11-15 19:39:02,391 basehttp 7 135056346261184 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-11-15 19:39:07,676 basehttp 7 135056346261184 "POST /admin/marketplace/category/add/?_to_field=id&_popup=1 HTTP/1.1" 200 374
+INFO 2025-11-15 19:39:07,713 basehttp 7 135056346261184 "GET /staticfiles/admin/js/popup_response.js HTTP/1.1" 200 532
+INFO 2025-11-15 19:39:10,707 basehttp 7 135056346261184 "POST /admin/marketplace/application/add/ HTTP/1.1" 200 23678
+INFO 2025-11-15 19:39:10,798 basehttp 7 135056346261184 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-11-15 19:39:16,402 basehttp 7 135056346261184 "POST /admin/marketplace/application/add/ HTTP/1.1" 302 0
+INFO 2025-11-15 19:39:16,451 basehttp 7 135056346261184 "GET /admin/marketplace/application/ HTTP/1.1" 200 16472
+INFO 2025-11-15 19:39:16,547 basehttp 7 135056346261184 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-11-15 19:39:16,612 basehttp 7 135056346261184 "GET /staticfiles/admin/img/icon-yes.svg HTTP/1.1" 200 436
+INFO 2025-11-15 19:39:16,613 basehttp 7 135056372504256 "GET /staticfiles/admin/img/sorting-icons.svg HTTP/1.1" 200 1097
+ERROR 2025-11-15 19:39:19,065 log 7 135056380896960 Internal Server Error: /app.php
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'static'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/app/apps/marketplace/views.py", line 61, in app
+    return render(request, 'storepage.html', context)
+  File "/usr/local/lib/python3.13/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "/usr/local/lib/python3.13/site-packages/django/template/defaulttags.py", line 862, in do_for
+    nodelist_loop = parser.parse(
+        (
+    ...<2 lines>...
+        )
+    )
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 567, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 91: 'static', expected 'empty' or 'endfor'. Did you forget to register or load this tag?
+ERROR 2025-11-15 19:39:19,078 basehttp 7 135056380896960 "GET /app.php?id=1 HTTP/1.1" 500 166865
+ERROR 2025-11-15 19:39:42,333 log 7 135056380896960 Internal Server Error: /app.php
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endblock'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/app/apps/marketplace/views.py", line 61, in app
+    return render(request, 'storepage.html', context)
+  File "/usr/local/lib/python3.13/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 577, in invalid_block_tag
+    raise self.error(
+    ...<3 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 147: 'endblock'. Did you forget to register or load this tag?
+ERROR 2025-11-15 19:39:42,340 basehttp 7 135056380896960 "GET /app.php?id=1 HTTP/1.1" 500 146133
+ERROR 2025-11-15 19:40:19,393 log 7 135056380896960 Internal Server Error: /app.php
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'static'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/app/apps/marketplace/views.py", line 61, in app
+    return render(request, 'storepage.html', context)
+  File "/usr/local/lib/python3.13/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "/usr/local/lib/python3.13/site-packages/django/template/defaulttags.py", line 862, in do_for
+    nodelist_loop = parser.parse(
+        (
+    ...<2 lines>...
+        )
+    )
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 567, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 93: 'static', expected 'empty' or 'endfor'. Did you forget to register or load this tag?
+ERROR 2025-11-15 19:40:19,402 basehttp 7 135056380896960 "GET /app.php?id=1 HTTP/1.1" 500 166851
+ERROR 2025-11-15 19:42:31,287 log 7 135056380896960 Internal Server Error: /app.php
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'static'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/app/apps/marketplace/views.py", line 61, in app
+    return render(request, 'storepage.html', context)
+  File "/usr/local/lib/python3.13/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "/usr/local/lib/python3.13/site-packages/django/template/defaulttags.py", line 862, in do_for
+    nodelist_loop = parser.parse(
+        (
+    ...<2 lines>...
+        )
+    )
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 567, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 93: 'static', expected 'empty' or 'endfor'. Did you forget to register or load this tag?
+ERROR 2025-11-15 19:42:31,294 basehttp 7 135056380896960 "GET /app.php?id=1 HTTP/1.1" 500 166893
+ERROR 2025-11-15 19:46:09,636 log 7 135056380896960 Internal Server Error: /app.php
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endblock'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/app/apps/marketplace/views.py", line 61, in app
+    return render(request, 'storepage.html', context)
+  File "/usr/local/lib/python3.13/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 577, in invalid_block_tag
+    raise self.error(
+    ...<3 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 148: 'endblock'. Did you forget to register or load this tag?
+ERROR 2025-11-15 19:46:09,644 basehttp 7 135056380896960 "GET /app.php?id=1 HTTP/1.1" 500 145765
+ERROR 2025-11-15 19:50:44,703 log 7 135056380896960 Internal Server Error: /app.php
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endblock'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/app/apps/marketplace/views.py", line 61, in app
+    return render(request, 'storepage.html', context)
+  File "/usr/local/lib/python3.13/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 577, in invalid_block_tag
+    raise self.error(
+    ...<3 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 148: 'endblock'. Did you forget to register or load this tag?
+ERROR 2025-11-15 19:50:44,711 basehttp 7 135056380896960 "GET /app.php?id=1 HTTP/1.1" 500 160280
+ERROR 2025-11-15 19:50:45,783 log 7 135056380896960 Internal Server Error: /app.php
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endblock'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/app/apps/marketplace/views.py", line 61, in app
+    return render(request, 'storepage.html', context)
+  File "/usr/local/lib/python3.13/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 577, in invalid_block_tag
+    raise self.error(
+    ...<3 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 148: 'endblock'. Did you forget to register or load this tag?
+ERROR 2025-11-15 19:50:45,790 basehttp 7 135056380896960 "GET /app.php?id=1 HTTP/1.1" 500 160280
+INFO 2025-11-15 19:51:06,396 basehttp 7 135056380896960 "GET /app.php?id=1 HTTP/1.1" 200 6129
+INFO 2025-11-15 19:51:06,461 basehttp 7 135056380896960 "GET /staticfiles/css/main.css HTTP/1.1" 200 8992
+INFO 2025-11-15 19:51:06,461 basehttp 7 135056364111552 "GET /staticfiles/js/search_mini.js HTTP/1.1" 200 441
+INFO 2025-11-15 19:51:06,462 basehttp 7 135056372504256 "GET /staticfiles/js/ntf.js HTTP/1.1" 200 3745
+WARNING 2025-11-15 19:51:06,479 log 7 135056380896960 Not Found: /ad/ad.png
+WARNING 2025-11-15 19:51:06,480 basehttp 7 135056380896960 "GET /ad/ad.png HTTP/1.1" 404 4148
+INFO 2025-11-15 19:51:06,502 basehttp 7 135056372504256 "GET /staticfiles/ugc/app_icons/photo_2024-09-19_15-48-26.jpg HTTP/1.1" 200 59195
+INFO 2025-11-15 19:51:06,546 basehttp 7 135056372504256 "GET /staticfiles/img/headline.png HTTP/1.1" 200 2438
+INFO 2025-11-15 19:51:06,547 basehttp 7 135056364111552 "GET /staticfiles/img/blockheadtop_p.png HTTP/1.1" 200 2255
+INFO 2025-11-15 19:51:06,550 basehttp 7 135056334878400 "GET /staticfiles/img/separatorstore.png HTTP/1.1" 200 2264
+INFO 2025-11-15 19:51:06,552 basehttp 7 135056380896960 "GET /staticfiles/img/xhead2.png HTTP/1.1" 200 17885
+INFO 2025-11-15 19:51:06,554 basehttp 7 135056355718848 "GET /staticfiles/img/icons.png HTTP/1.1" 200 18913
+ERROR 2025-11-15 19:51:40,827 log 7 135056380896960 Internal Server Error: /app.php
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'static'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/app/apps/marketplace/views.py", line 61, in app
+    return render(request, 'storepage.html', context)
+  File "/usr/local/lib/python3.13/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 567, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 6: 'static', expected 'endblock'. Did you forget to register or load this tag?
+ERROR 2025-11-15 19:51:40,836 basehttp 7 135056380896960 "GET /app.php?id=1 HTTP/1.1" 500 211530
+INFO 2025-11-15 19:55:19,416 basehttp 7 135056380896960 "GET /app.php?id=1 HTTP/1.1" 200 6129
+WARNING 2025-11-15 19:55:19,475 log 7 135056380896960 Not Found: /ad/ad.png
+WARNING 2025-11-15 19:55:19,478 basehttp 7 135056380896960 "GET /ad/ad.png HTTP/1.1" 404 4148
+INFO 2025-11-15 19:55:19,494 basehttp 7 135056364111552 "GET /staticfiles/ugc/app_icons/photo_2024-09-19_15-48-26.jpg HTTP/1.1" 304 0
+ERROR 2025-11-15 20:06:15,722 log 7 135056380896960 Internal Server Error: /app.php
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'static'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/app/apps/marketplace/views.py", line 61, in app
+    return render(request, 'storepage.html', context)
+  File "/usr/local/lib/python3.13/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 567, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 6: 'static', expected 'endblock'. Did you forget to register or load this tag?
+ERROR 2025-11-15 20:06:15,733 basehttp 7 135056380896960 "GET /app.php?id=1 HTTP/1.1" 500 211651
+ERROR 2025-11-15 20:08:33,750 log 7 135056380896960 Internal Server Error: /app.php
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'static'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/app/apps/marketplace/views.py", line 61, in app
+    return render(request, 'storepage.html', context)
+  File "/usr/local/lib/python3.13/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 567, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 6: 'static', expected 'endblock'. Did you forget to register or load this tag?
+ERROR 2025-11-15 20:08:33,758 basehttp 7 135056380896960 "GET /app.php?id=1 HTTP/1.1" 500 213223
+ERROR 2025-11-15 20:08:43,779 log 7 135056380896960 Internal Server Error: /app.php
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'static'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/app/apps/marketplace/views.py", line 61, in app
+    return render(request, 'storepage.html', context)
+  File "/usr/local/lib/python3.13/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "/usr/local/lib/python3.13/site-packages/django/template/loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/template/base.py", line 567, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 8: 'static', expected 'endblock'. Did you forget to register or load this tag?
+ERROR 2025-11-15 20:08:43,787 basehttp 7 135056380896960 "GET /app.php?id=1 HTTP/1.1" 500 209950
+INFO 2025-11-15 20:09:35,057 basehttp 7 135056380896960 "GET /app.php?id=1 HTTP/1.1" 200 6190
+INFO 2025-11-15 20:09:35,126 basehttp 7 135056380896960 "GET /staticfiles/css/stpage.css HTTP/1.1" 200 2405
+WARNING 2025-11-15 20:09:35,142 log 7 135056364111552 Not Found: /ad/ad.png
+WARNING 2025-11-15 20:09:35,143 basehttp 7 135056364111552 "GET /ad/ad.png HTTP/1.1" 404 4148
+INFO 2025-11-15 20:09:35,155 basehttp 7 135056380896960 "GET /staticfiles/ugc/app_icons/photo_2024-09-19_15-48-26.jpg HTTP/1.1" 304 0
+INFO 2025-11-15 20:09:35,205 basehttp 7 135056364111552 "GET /staticfiles/img/arrowsprite.png HTTP/1.1" 200 2862
+INFO 2025-11-15 20:09:48,031 basehttp 7 135056380896960 "GET /app.php?id=1 HTTP/1.1" 200 6129
+WARNING 2025-11-15 20:09:48,100 log 7 135056380896960 Not Found: /ad/ad.png
+WARNING 2025-11-15 20:09:48,101 basehttp 7 135056380896960 "GET /ad/ad.png HTTP/1.1" 404 4148
+INFO 2025-11-15 20:10:03,226 basehttp 7 135056380896960 "GET /app.php?id=1 HTTP/1.1" 200 6190
+WARNING 2025-11-15 20:10:03,279 log 7 135056380896960 Not Found: /ad/ad.png
+WARNING 2025-11-15 20:10:03,280 basehttp 7 135056380896960 "GET /ad/ad.png HTTP/1.1" 404 4148
+WARNING 2025-11-15 20:10:03,325 log 7 135056380896960 Not Found: /ad/ad.png
+WARNING 2025-11-15 20:10:03,326 basehttp 7 135056380896960 "GET /ad/ad.png HTTP/1.1" 404 4148
+INFO 2025-11-15 20:12:07,024 basehttp 7 135056380896960 "GET /app.php?id=1 HTTP/1.1" 200 6193
+WARNING 2025-11-15 20:12:07,085 log 7 135056380896960 Not Found: /ad/ad.png
+WARNING 2025-11-15 20:12:07,087 basehttp 7 135056380896960 "GET /ad/ad.png HTTP/1.1" 404 4148
+INFO 2025-11-15 20:17:58,015 basehttp 7 135056380896960 "GET /app.php?id=1 HTTP/1.1" 200 6193
+WARNING 2025-11-15 20:17:58,094 log 7 135056380896960 Not Found: /ad/ad.png
+WARNING 2025-11-15 20:17:58,096 basehttp 7 135056380896960 "GET /ad/ad.png HTTP/1.1" 404 4148
+WARNING 2025-11-15 20:17:58,189 log 7 135056364111552 Not Found: /ad/ad.png
+WARNING 2025-11-15 20:17:58,191 basehttp 7 135056364111552 "GET /ad/ad.png HTTP/1.1" 404 4148
+INFO 2025-11-15 20:17:58,200 basehttp 7 135056380896960 "GET /staticfiles/ugc/app_icons/photo_2024-09-19_15-48-26.jpg HTTP/1.1" 304 0
+INFO 2025-11-15 20:18:00,507 basehttp 7 135056380896960 "GET /logout.php HTTP/1.1" 302 0
+INFO 2025-11-15 20:18:00,536 basehttp 7 135056380896960 "GET /index.php HTTP/1.1" 200 12804
+INFO 2025-11-15 20:18:00,658 basehttp 7 135056380896960 "GET /staticfiles/css/ntf.css HTTP/1.1" 200 695
+WARNING 2025-11-15 20:18:00,666 log 7 135056364111552 Not Found: /ad/ad.png
+WARNING 2025-11-15 20:18:00,668 basehttp 7 135056364111552 "GET /ad/ad.png HTTP/1.1" 404 4148
+INFO 2025-11-15 20:18:00,691 basehttp 7 135056380896960 "GET /staticfiles/cdn/appsicons/totalcmd.png HTTP/1.1" 200 1430
+INFO 2025-11-15 20:18:00,698 basehttp 7 135056346261184 "GET /staticfiles/cdn/appsicons/winamp.png HTTP/1.1" 200 2420
+INFO 2025-11-15 20:18:00,701 basehttp 7 135056355718848 "GET /staticfiles/cdn/appsicons/spotify.png HTTP/1.1" 200 4012
+INFO 2025-11-15 20:18:00,702 basehttp 7 135056364111552 "GET /staticfiles/cdn/appsicons/dymvoip.png HTTP/1.1" 200 4541
+INFO 2025-11-15 20:18:00,705 basehttp 7 135056372504256 "GET /staticfiles/cdn/appsicons/gimp.png HTTP/1.1" 200 3419
+INFO 2025-11-15 20:18:00,707 basehttp 7 135056334878400 "GET /staticfiles/cdn/appsicons/copilot.png HTTP/1.1" 200 3898
+INFO 2025-11-15 20:18:00,709 basehttp 7 135056380896960 "GET /staticfiles/cdn/appsicons/office2k3.png HTTP/1.1" 200 2539
+INFO 2025-11-15 20:18:00,714 basehttp 7 135056346261184 "GET /staticfiles/cdn/appsicons/supermium.png HTTP/1.1" 200 4949
+INFO 2025-11-15 20:18:00,762 basehttp 7 135056380896960 "GET /staticfiles/img/blockheadtop.png HTTP/1.1" 200 2820
+INFO 2025-11-15 20:18:00,795 basehttp 7 135056380896960 "GET /staticfiles/img/categorybanner/welcome.png HTTP/1.1" 200 12075
+INFO 2025-11-15 20:18:00,797 basehttp 7 135056346261184 "GET /staticfiles/img/categorybanner/top20.png HTTP/1.1" 200 16794
+INFO 2025-11-15 20:18:00,801 basehttp 7 135056364111552 "GET /staticfiles/img/categorybanner/popular.png HTTP/1.1" 200 11385
+INFO 2025-11-15 20:18:00,809 basehttp 7 135056355718848 "GET /staticfiles/img/categorybanner/themes.png HTTP/1.1" 200 25414
+INFO 2025-11-15 20:18:01,804 basehttp 7 135056355718848 "GET /register.php HTTP/1.1" 200 6968
+INFO 2025-11-15 20:18:01,942 basehttp 7 135056355718848 "GET /staticfiles/css/register.css HTTP/1.1" 200 944
+WARNING 2025-11-15 20:18:01,958 log 7 135056346261184 Not Found: /ad/ad.png
+WARNING 2025-11-15 20:18:01,960 basehttp 7 135056346261184 "GET /ad/ad.png HTTP/1.1" 404 4148
+INFO 2025-11-15 20:18:02,059 basehttp 7 135056380896960 "GET /captcha/image/1bad6a9843e6eabe36f4f12160109ccd5a85c2ef/ HTTP/1.1" 200 4034
+INFO 2025-11-15 20:20:34,256 basehttp 7 135056380896960 "GET / HTTP/1.1" 302 0
+INFO 2025-11-15 20:20:34,383 basehttp 7 135056380896960 "GET /index.php HTTP/1.1" 200 11521
+WARNING 2025-11-15 20:20:34,474 log 7 135056380896960 Not Found: /ad/ad.png
+WARNING 2025-11-15 20:20:34,475 basehttp 7 135056380896960 "GET /ad/ad.png HTTP/1.1" 404 4148
+INFO 2025-11-15 20:23:31,070 basehttp 7 135056380896960 "GET /index.php HTTP/1.1" 200 11521
+WARNING 2025-11-15 20:23:31,138 log 7 135056380896960 Not Found: /ad/ad.png
+WARNING 2025-11-15 20:23:31,147 basehttp 7 135056380896960 "GET /ad/ad.png HTTP/1.1" 404 4148
+WARNING 2025-11-15 20:23:31,194 log 7 135056380896960 Not Found: /ad/ad.png
+WARNING 2025-11-15 20:23:31,195 basehttp 7 135056380896960 "GET /ad/ad.png HTTP/1.1" 404 4148
+INFO 2025-11-15 20:23:35,287 basehttp 7 135056380896960 "GET /register.php HTTP/1.1" 200 7956
+WARNING 2025-11-15 20:23:35,353 log 7 135056380896960 Not Found: /ad/ad.png
+WARNING 2025-11-15 20:23:35,357 basehttp 7 135056380896960 "GET /ad/ad.png HTTP/1.1" 404 4148
+INFO 2025-11-15 20:23:35,378 basehttp 7 135056346261184 "GET /captcha/image/ad7a8b6e34242ffaf808a830ffbcace05bc78eca/ HTTP/1.1" 200 4337

@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import User, UserBanForm, UserActivityLog
-from .forms import UserBanForm as UserBanFormForm, AddToGroupForm   
+from .models import User, UserBan, UserActivityLog
+from .forms import UserBanForm, AddToGroupForm   
 from django.contrib.auth.models import Group
 
 admin.site.site_header = "Lunastore Admin Panel"
@@ -21,10 +21,9 @@ class UserAdmin(admin.ModelAdmin):
     list_display = ['username', 'email', 'avatar']
     search_fields = ['username', 'email']
     
-@admin.register(UserBanForm)
-class UserBanFormAdmin(admin.ModelAdmin):
-    form = UserBanFormForm
-    
+@admin.register(UserBan)
+class UserBanAdmin(admin.ModelAdmin):
+    form = UserBanForm
     list_display = ('get_username', 'reason', 'created_at')
     list_filter = ('created_at',)
     search_fields = ['user__username', 'reason'] 

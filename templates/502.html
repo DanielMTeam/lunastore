@@ -1,55 +1,14 @@
-﻿<!DOCTYPE html>
-<html>
-
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Магазин Windows XP - Что-то пошло не так...</title>
-<link rel="stylesheet" href="./css/main.css">
-</head>
-
-
-<body>
-<div class="container">
-
-  <div class="dm_menu">
-    <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a>
-  </div>
-
-  <div class="header">
-    
-    <div class="rl_l"><h1>Магазин Windows</h1>
-    <div class="subtitle txtr">Windows XP Professional</div>
-    </div>
-    
-
-  </div>
-
-
-  <div class="headerline"></div>
-
-  <div class="main">
-
-  <div class="warning_icon"></div>
-
-
-
-    <div class="content" style="width:620px!important;">
-      <div class="section">
-        <h2>Спасибо за интерес к магазину Windows!</h2>
-
-        Однако на данный момент сайт временно недоступен. Попробуйте повторить попытку позже.<br><br> Спасибо за понимание.
-        <br> <br>
-        <div class="action"><a href="/">Вернуться на главную</a></div>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="footer">
-С душой сделано командой DM, 2025<br>Все права принадлежат исходным правообладателям
+﻿{% extends 'base.html' %}
+{% block content %}
+<div class="headerline"></div>
+<div class="main">
+<div class="warning_icon"></div>
+<div class="content" style="width:620px!important;">
+  <div class="section">
+    <h2>Спасибо за интерес к магазину Windows!</h2>
+    Однако на данный момент сайт временно недоступен. Попробуйте повторить попытку позже.<br><br> Спасибо за понимание.
+    <br> <br>
+    <div class="action"><a href="/">Вернуться на главную</a></div>
   </div>
 </div>
-
-</body>
-
-</html>
+{% endblock %}
