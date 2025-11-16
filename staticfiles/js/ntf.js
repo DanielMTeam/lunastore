@@ -78,12 +78,41 @@
     var login = form.login.value;
     var password = form.password.value;
 
-    // тут можно отправить на сервер (через XMLHttpRequest)
-    // а пока просто показываем alert
-    alert("Логин: " + login + "\nПароль: " + password);
+    var csrf_token = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+    var url = '/login.php';
+    var error_div = document.getElementById('login-form-errors');
 
-    hidePopup();
-    return false; // не отправлять форму по умолчанию
+    if (error_div) error_div.innerHTML = '';
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrf_token
+      },
+      body: JSON.stringify
+      (
+        {'username': login, 
+        'password': password}
+      )
+    }
+    ).then(response => response.json().then(data => ({ok: response.ok, data}))) 
+    .then(result => {
+      if (result.ok) {
+      hidePopup();
+      window.location.reload();
+    } else {
+      if (error_div) {
+        error_div.innerHTML = '<p>${result.data.errors}</p>';
+      } 
+      else {
+        alert(result.data.errors);
+      } 
+    }}).catch(error => {
+      console.error('Login request failed:', error);
+      if (error_div) {
+        error_div.innerHTML = '<p>Произошла ошибка при отправке запроса.</p>';
+    }});
   }
 
   if (window.attachEvent) {

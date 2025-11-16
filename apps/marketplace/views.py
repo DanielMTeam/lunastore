@@ -1,18 +1,19 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from .models import Application, Distribution, Category
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
 
-# views of home page 
 
 # redirect to home (index.php) page from (/) page
 def home_redirect(request):
     return redirect('/index.php')
 
+
 # home page
 def marketplace(request):
     return render(request, 'index.html')
+
 
 def category(request):
     id = request.GET.get('id')
@@ -23,8 +24,8 @@ def category(request):
     obj_apps = Application.objects.filter(category__name=obj_category.name).order_by('-published')
     
     # paginator logic
-    paginator = Paginator(obj_apps,10)
-    page_obj=paginator.get_page(page)
+    paginator = Paginator(obj_apps, 10)
+    page_obj = paginator.get_page(page)
     page_range = paginator.get_elided_page_range(number=page_obj.number, on_each_side=2, on_ends=1)
     
     context = {
@@ -37,9 +38,9 @@ def category(request):
     }
     return render(request, 'category.html', context)
 
+
 def app(request):
     id = request.GET.get('id')
-
     obj = get_object_or_404(Application, id=id)
     obj_dist = Distribution.objects.filter(app__id=id).order_by('-published').first()
     

@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.marketplace.apps.MarketplaceConfig'
+    'apps.marketplace.apps.MarketplaceConfig',
+    'apps.user.apps.UserConfig',
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -99,6 +101,73 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# bcrypt2a hash in auth model in django
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+    'django.contrib.auth.hashers.ScryptPasswordHasher',
+]
+
+BCRYPT_ROUNDS = 12 # default number of rounds in bcrypt ¯\_(ツ)_/¯; if you want, you can change this number
+
+# name of custom user model; please do not change this unless you know what you are doing
+AUTH_USER_MODEL = "user.User"
+
+# if REGISTRATION_IS_ENABLED = True, we will render register.html on '/register.php' path; if False, we will render register_on.html
+REGISTRATION_IS_ENABLED = True
+
+# User Activity Log (include IPs) retention period in days (because storage limitation gdpr; we must store data for the shortest time possible)
+RETENTION_ACTIVITY_LOG_DAYS = 0
+
+# number of screenshots allowed per application
+SCREENSHOT_COUNT = 3
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'user': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'marketplace': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    }
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
