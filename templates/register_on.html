@@ -1,0 +1,115 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+  <div class="section">
+    <h2>Регистрация</h2>
+    <div class="separator_store"></div>
+    <link rel="stylesheet" href="{% static './css/register.css'%}">
+    <div class="regform">
+    <div class="info_splash">Создав аккаунт, вы сможете выкладывать свои приложения, оставлять отзывы к уже загруженным программам и вести собственную библиотеку избранных элементов. Регистрация открытая и бесплатная.</div>
+      <div class="register_card">
+      <h2>Основная информация</h2>
+    <form method="post" action="{% url 'register' %}">
+        {% csrf_token %}
+        {{form.non_field_errors}}
+        <label>
+            <div class="reg_pad"><div class="reg_title">Имя пользователя:</div>
+            {% if form.username.errors %}
+                <div class="error_splash" style="margin-bottom: 5px;"> 
+                    {% for error in form.username.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}{{form.username}}
+            <div class="regform_label">Минимум 2 символа. По имени пользователя вас можно будет найти. После регистрации изменить его не получится.</div>
+          </div>
+        </label>
+        <label>
+            <div class="reg_pad"><div class="reg_title">E-mail:</div>
+            {% if form.email.errors %}
+                <div class="error_splash" style="margin-bottom: 5px;"> 
+                    {% for error in form.email.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}{{form.email}}
+            <div class="regform_label">Будет использоваться для входа в аккаунт и для восстановления пароля</div>
+            </div>
+        </label>
+        <label>
+            <div class="reg_pad"><div class="reg_title">Пароль:</div>
+            {{form.password1.errors}}{{form.password1}}
+            <div class="regform_label">Придумывайте надёжные пароли. Это важно, чорт побери!</div>
+            </div>
+        </label>
+        <label>
+            <div class="reg_pad"><div class="reg_title">Повторите пароль:</div>
+            {% if form.password2.errors %}
+                <div class="error_splash" style="margin-bottom: 5px;"> 
+                    {% for error in form.password2.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %} {{form.password2}}
+            <div class="regform_label">Повторение - мать учения :D</div>
+            </div>
+        </label>
+
+
+ <label>
+
+            <h2>Подтверждение регистрации</h2>
+
+            <div class="alert_splash"> 
+
+                Введите символы с картинки:<br><br>
+
+                {% if form.captcha.errors %}
+                    <div class="error_splash" style="margin-bottom: 5px;"> 
+                        {% for error in form.captcha.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %} 
+
+                <div >
+                    {{ form.captcha }}
+                </div>
+
+            </div>
+
+            
+            
+            <label class="agree" for="{{ form.agree_with_site_rules.id_for_label }}">
+              {{form.agree_with_site_rules.errors}}
+              {{form.agree_with_site_rules}}  
+              {{ form.agree_with_site_rules.label }}
+            </label>
+            
+        
+            <label class="agree" for="{{ form.agree_with_privacy_policy.id_for_label }}">
+              {{form.agree_with_privacy_policy.errors}}
+              {{form.agree_with_privacy_policy}}  
+              {{form.agree_with_privacy_policy.label}}
+            </label>
+
+           
+
+            <br>
+            <input type="submit" class="action_button" value="Зарегистрироваться">
+
+        </form>
+
+        </div>
+
+    </div>
+
+        <div style="clear:both"></div>
+
+      </div>
+
+    </div>
+  </div>
+{% endblock %}

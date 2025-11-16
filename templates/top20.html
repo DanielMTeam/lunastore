@@ -11,9 +11,15 @@
 <body>
 <div class="container">
 
+  {% if user.is_authenticated %}
   <div class="dm_menu">
-    <a href="/login.php">вход</a> - <a href="reg0">регистрация</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a>
+    Вы вошли как <a href="/profile.php"><b>{{ user.username }}</b></a> - <a href="/logout.php">выйти</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a>
   </div>
+  {% else %}
+  <div class="dm_menu">
+    <a href="/login.php" id="login-link">вход</a> - <a href="/register.php">регистрация</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a>
+  </div>
+  {% endif %}
 
   <div class="header">
     

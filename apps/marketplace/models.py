@@ -1,5 +1,4 @@
 from django.db import models
-from django.conf import settings
 
 class Category(models.Model):
     name = models.CharField(max_length=80)
@@ -36,6 +35,10 @@ class Application(models.Model):
         ordering = ["title"]
         verbose_name = "Приложение"
         verbose_name_plural = "Приложения"
+        permissions = [
+            ("set_dmca_flag", "Can set DMCA flag on application"),
+            ("set_demo_flag", "Can set demo flag on application"),
+        ]
 
     def __str__(self):
         return self.title
@@ -62,7 +65,6 @@ class Distribution(models.Model):
 
     def __repr__(self):
         return f"<Distribution {self.app} {self.version}>"
-
 
 # TODO: create the authorization-specific models
 # class Review(models.Model):
