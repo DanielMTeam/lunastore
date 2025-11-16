@@ -6,7 +6,6 @@
 .profile_avatar{
 	width: 64px;
 	height: 64px;
-	background: url('../cdn/avatar/1/avatar.jpg');
 	float: right;
 }
 .profile_name{

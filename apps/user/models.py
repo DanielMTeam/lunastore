@@ -1,12 +1,19 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
+import uuid
 
 class User(AbstractUser, models.Model):
-    telegram = models.CharField(max_length=45)
-    discord = models.CharField(max_length=32)
-    website = models.URLField(max_length=45)
-    avatar = models.FileField(upload_to='staticfiles/ugc/user_avatars', max_length=80, null=True)
+    def unique_avatar_path(instance, filename):
+        ext = filename.split('.')[-1]
+        file_name = f"{uuid.uuid4().hex}.{ext}"
+        return f'staticfiles/ugc/user_avatars/{file_name}'
+    
+    telegram = models.CharField(max_length=45, null=True)
+    discord = models.CharField(max_length=32, null=True)
+    website = models.URLField(max_length=45, null=True)
+    avatar = models.ImageField(upload_to=unique_avatar_path, max_length=80, null=True)
+    description = models.CharField(max_length=255, default='Пока что, описания тут нету')
 
 class UserBan(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
