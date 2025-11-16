@@ -4,8 +4,9 @@ from django.conf import settings
 from django.contrib.auth.models import Group
 
 from django.contrib.auth import login as dj_login, logout as dj_logout
+from django.shortcuts import get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
-from .models import UserBan, UserActivityLog
+from .models import UserBan, UserActivityLog, User
 from .forms import UserRegistrationForm
 import json
 from .middleware import get_client_ip, BlockBannedIP
@@ -72,3 +73,12 @@ def register(request):
             return redirect('home')
         form = UserRegistrationForm(request=request)    
     return render(request, 'register_on.html', {"form": form})
+
+def profile(request):
+    id = request.GET.get('id')
+    obj = get_object_or_404(User, id=id)
+    context = {
+        'obj': obj
+    }
+    print(f'obj avatar obj avatar not url {obj.avatar}')
+    return render(request, 'profile.html', context)
