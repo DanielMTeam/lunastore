@@ -91,8 +91,12 @@
         <div class="separator_store"></div>
         <div class="st_screenshots_container">
         {% for screenshot_path in screenshots %}
-        <div class="st_scr">
-            <a href="{{ screenshot_path.url }}"><img src="{{ screenshot_path.url }}" alt="Скриншот" style="width: 120px; height: 90px; float: n;"></a>
+          {% if screenshot_path %}
+            <div class="st_scr">
+              <a href="{% static screenshot_path %}">
+                <img src="{% static screenshot_path %}" alt="Скриншот" style="width: 120px; height: 90px; float: n;">
+              </a>
+          {% endif %}
         {% empty %}
             <p>Скриншотов нет.</p>
         {% endfor %}

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import *
 from .forms import AppScreenshotForm 
+from django.conf import settings
 from django.utils.html import format_html
 
 
@@ -9,12 +10,15 @@ class CategoryAdmin(admin.ModelAdmin):
     pass
 
 
-
 @admin.register(Application)
 class ApplicationAdmin(admin.ModelAdmin):
     form = AppScreenshotForm
 
     readonly_fields = ('display_screenshots',)
+    
+    screenshot_fields = [
+        (f'screenshot_{i+1}', f'clear_screenshot_{i+1}') for i in range(settings.SCREENSHOT_COUNT)
+    ]
 
     fieldsets = (
         ('Основная информация', {
@@ -24,14 +28,14 @@ class ApplicationAdmin(admin.ModelAdmin):
         ('Управление скриншотами', {
             'description': 'загрузи новый файл, чтобы заменить текущий ' \
                            'или, поставь галочку "удалить", чтобы убрать скриншот',
-            'fields': (
-                ('screenshot1', 'clear_screenshot1'),
-                ('screenshot2', 'clear_screenshot2'),
-                ('screenshot3', 'clear_screenshot3'),
-            )
+            'fields': tuple(screenshot_fields)
         }),
     )
-
+    
+    def get_form(self, request, obj=None, **kwargs):
+        kwargs['fields'] = None
+        return super().get_form(request, obj, **kwargs)
+    
     def display_screenshots(self, obj):
         html = ''
         if obj.screenshots:
@@ -44,9 +48,11 @@ class ApplicationAdmin(admin.ModelAdmin):
     # boolean values
 
     list_display = ['title', 'category', 'is_demo', 'is_under_dmca', 'price']
-    list_editable = ['is_demo','is_under_dmca']
-    list_filter = ['is_demo','is_under_dmca']
+    list_editable = ['is_demo', 'is_under_dmca']
+    list_filter = ['is_demo', 'is_under_dmca']
     search_fields = ['title']
+
+
 @admin.register(Distribution)
 class DistributionAdmin(admin.ModelAdmin):
     pass
