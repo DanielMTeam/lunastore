@@ -1,5 +1,6 @@
 from django import forms
 from .models import Application
+from django.core.files.storage import default_storage
 from django.conf import settings
 from django.utils.safestring import mark_safe
 import os
@@ -7,13 +8,6 @@ import uuid
 
 
 class AppScreenshotForm(forms.ModelForm):
-    screenshot1 = forms.ImageField(required=False, label='Скриншот 1')
-    screenshot2 = forms.ImageField(required=False, label='Скриншот 2')
-    screenshot3 = forms.ImageField(required=False, label='Скриншот 3')
-
-    clear_screenshot1 = forms.BooleanField(required=False, label='Удалить скриншот 1')
-    clear_screenshot2 = forms.BooleanField(required=False, label='Удалить скриншот 2')
-    clear_screenshot3 = forms.BooleanField(required=False, label='Удалить скриншот 3')
 
     class Meta:
         model = Application
@@ -30,9 +24,9 @@ class AppScreenshotForm(forms.ModelForm):
             # get screenshots list
             screenshots = self.instance.screenshots or []
             
-            for i in range(1, 4):
-                field_name = f'screenshot{i}'
-                clear_field_name = f'clear_screenshot{i}'
+            for i in range(1, settings.SCREENSHOT_COUNT + 1):
+                field_name = f'screenshot_{i}'
+                clear_field_name = f'clear_screenshot_{i}'
                 list_index = i - 1
 
                 # check if screenshot exists
@@ -57,11 +51,11 @@ class AppScreenshotForm(forms.ModelForm):
         # put current screenshots in a list
         current_paths = app_instance.screenshots if isinstance(app_instance.screenshots, list) else []
         # we will build the final paths list here
-        final_paths = (current_paths + [None] * 3)[:3]
+        final_paths = (current_paths + [None] * settings.SCREENSHOT_COUNT)[:settings.SCREENSHOT_COUNT]
 
-        for i in range(1, 4):
-            clear_field_name = f'clear_screenshot{i}'
-            upload_field_name = f'screenshot{i}'
+        for i in range(1, settings.SCREENSHOT_COUNT + 1):
+            clear_field_name = f'clear_screenshot_{i}'
+            upload_field_name = f'screenshot_{i}'
             path_index = i - 1
 
             # get uploaded file
@@ -73,7 +67,7 @@ class AppScreenshotForm(forms.ModelForm):
                     full_path = os.path.join(settings.BASE_DIR, 'staticfiles', path_to_delete)
                     if os.path.exists(full_path):
                         os.remove(full_path)
-                final_paths[path_index] = None # <-- change to None
+                final_paths[path_index] = None  # <-- change to None
                 continue 
 
             # upload new file
@@ -86,7 +80,7 @@ class AppScreenshotForm(forms.ModelForm):
                 
                 # save new file
                 ext = os.path.splitext(uploaded_file.name)[1]
-                file_name = f"{uuid.uuid4().hex}{ext}" # hex to avoid dashes
+                file_name = f"{uuid.uuid4().hex}{ext}"  # hex to avoid dashes
                 file_path = os.path.join(destination_dir, file_name)
 
                 with open(file_path, 'wb+') as destination:
@@ -107,4 +101,9 @@ class AppScreenshotForm(forms.ModelForm):
             app_instance.save()
         
         return app_instance
+
+
+for i in range(1, settings.SCREENSHOT_COUNT + 1):
+    AppScreenshotForm.declared_fields[f'screenshot_{i}'] = forms.ImageField(required=False, label=f'Скриншот {i}')
+    AppScreenshotForm.declared_fields[f'clear_screenshot_{i}'] = forms.BooleanField(required=False, label='Удалить')
 

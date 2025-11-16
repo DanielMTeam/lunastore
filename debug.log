@@ -854,3 +854,46 @@ INFO 2025-11-15 20:23:35,287 basehttp 7 135056380896960 "GET /register.php HTTP/
 WARNING 2025-11-15 20:23:35,353 log 7 135056380896960 Not Found: /ad/ad.png
 WARNING 2025-11-15 20:23:35,357 basehttp 7 135056380896960 "GET /ad/ad.png HTTP/1.1" 404 4148
 INFO 2025-11-15 20:23:35,378 basehttp 7 135056346261184 "GET /captcha/image/ad7a8b6e34242ffaf808a830ffbcace05bc78eca/ HTTP/1.1" 200 4337
+INFO 2025-11-16 10:05:45,086 autoreload 39 134094338087872 Watching for file changes with StatReloader
+INFO 2025-11-16 10:06:08,986 autoreload 39 134094338087872 /app/apps/marketplace/forms.py changed, reloading.
+INFO 2025-11-16 10:06:10,539 autoreload 41 123314247273408 Watching for file changes with StatReloader
+INFO 2025-11-16 10:06:14,475 autoreload 41 123314247273408 /app/apps/marketplace/forms.py changed, reloading.
+INFO 2025-11-16 10:06:16,000 autoreload 43 127885380451264 Watching for file changes with StatReloader
+INFO 2025-11-16 10:06:25,426 autoreload 43 127885380451264 /app/apps/marketplace/forms.py changed, reloading.
+INFO 2025-11-16 10:06:26,925 autoreload 45 132912152103872 Watching for file changes with StatReloader
+INFO 2025-11-16 10:06:30,947 autoreload 45 132912152103872 /app/apps/marketplace/forms.py changed, reloading.
+INFO 2025-11-16 10:06:32,476 autoreload 47 123315801463744 Watching for file changes with StatReloader
+INFO 2025-11-16 10:06:48,650 autoreload 47 123315801463744 /app/apps/marketplace/forms.py changed, reloading.
+INFO 2025-11-16 10:06:50,244 autoreload 49 136315792546752 Watching for file changes with StatReloader
+INFO 2025-11-16 10:07:14,184 autoreload 49 136315792546752 /app/apps/marketplace/admin.py changed, reloading.
+INFO 2025-11-16 10:07:16,041 autoreload 51 127199556017088 Watching for file changes with StatReloader
+INFO 2025-11-16 10:07:29,927 autoreload 51 127199556017088 /app/apps/marketplace/admin.py changed, reloading.
+INFO 2025-11-16 10:07:31,511 autoreload 53 123673061460928 Watching for file changes with StatReloader
+INFO 2025-11-16 10:07:37,645 autoreload 53 123673061460928 /app/apps/marketplace/admin.py changed, reloading.
+INFO 2025-11-16 10:07:39,313 autoreload 55 136703011806144 Watching for file changes with StatReloader
+INFO 2025-11-16 10:08:23,328 autoreload 55 136703011806144 /app/apps/marketplace/views.py changed, reloading.
+INFO 2025-11-16 10:08:25,130 autoreload 57 126496261671872 Watching for file changes with StatReloader
+INFO 2025-11-16 10:08:34,626 autoreload 57 126496261671872 /app/apps/marketplace/views.py changed, reloading.
+INFO 2025-11-16 10:08:36,181 autoreload 59 128187991776192 Watching for file changes with StatReloader
+INFO 2025-11-16 10:08:37,867 autoreload 59 128187991776192 /app/apps/marketplace/views.py changed, reloading.
+INFO 2025-11-16 10:08:39,485 autoreload 61 129138599390144 Watching for file changes with StatReloader
+INFO 2025-11-16 10:08:54,562 autoreload 61 129138599390144 /app/apps/marketplace/views.py changed, reloading.
+INFO 2025-11-16 10:08:56,113 autoreload 63 134172484303808 Watching for file changes with StatReloader
+INFO 2025-11-16 10:09:02,313 autoreload 63 134172484303808 /app/apps/marketplace/views.py changed, reloading.
+INFO 2025-11-16 10:09:03,766 autoreload 65 125130985524160 Watching for file changes with StatReloader
+INFO 2025-11-16 10:09:08,745 autoreload 65 125130985524160 /app/apps/marketplace/views.py changed, reloading.
+INFO 2025-11-16 10:09:10,287 autoreload 67 132845766806464 Watching for file changes with StatReloader
+INFO 2025-11-16 10:09:18,625 autoreload 67 132845766806464 /app/apps/marketplace/views.py changed, reloading.
+INFO 2025-11-16 10:09:20,191 autoreload 69 128912763055040 Watching for file changes with StatReloader
+INFO 2025-11-16 10:09:25,226 autoreload 69 128912763055040 /app/apps/marketplace/views.py changed, reloading.
+INFO 2025-11-16 10:09:26,747 autoreload 71 134937964850112 Watching for file changes with StatReloader
+INFO 2025-11-16 10:09:45,105 autoreload 71 134937964850112 /app/apps/marketplace/views.py changed, reloading.
+INFO 2025-11-16 10:09:46,702 autoreload 73 129259062623168 Watching for file changes with StatReloader
+INFO 2025-11-16 10:09:59,460 autoreload 73 129259062623168 /app/apps/marketplace/views.py changed, reloading.
+INFO 2025-11-16 10:10:01,084 autoreload 75 138392804912064 Watching for file changes with StatReloader
+INFO 2025-11-16 10:10:02,779 autoreload 75 138392804912064 /app/apps/marketplace/views.py changed, reloading.
+INFO 2025-11-16 10:10:04,319 autoreload 77 132992630234048 Watching for file changes with StatReloader
+INFO 2025-11-16 10:10:09,358 autoreload 77 132992630234048 /app/apps/marketplace/views.py changed, reloading.
+INFO 2025-11-16 10:10:10,754 autoreload 79 133919792761792 Watching for file changes with StatReloader
+INFO 2025-11-16 10:10:37,930 autoreload 79 133919792761792 /app/apps/marketplace/views.py changed, reloading.
+INFO 2025-11-16 10:10:39,813 autoreload 81 125948303952832 Watching for file changes with StatReloader
