@@ -13,9 +13,16 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 from django.templatetags.static import static
 from django.utils.translation import gettext_lazy as _
+from dotenv import load_dotenv
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]
+dotenv_path = BASE_DIR / '.env'
+load_dotenv(dotenv_path)
 
 
 # Quick-start development settings - unsuitable for production
@@ -37,6 +44,7 @@ USE_I18N=True
 
 INSTALLED_APPS = [
     'django.contrib.auth',
+    'mozilla_django_oidc', # openid (myslivets authentik)
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -56,6 +64,23 @@ INSTALLED_APPS = [
     "unfold.contrib.constance",
     'django.contrib.admin',
 ]
+
+# openid AP configuration
+
+AUTHENTICATION_BACKENDS = [
+    'apps.user.auth.OIDCModel',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+OIDC_RP_CLIENT_ID = os.getenv('OIDC_CLIENT_ID')
+OIDC_RP_CLIENT_SECRET = os.getenv('OIDC_CLIENT_SECRET')
+OIDC_OP_AUTHORIZATION_ENDPOINT = os.getenv('OIDC_ENDPOINT')
+OIDC_OP_TOKEN_ENDPOINT = os.getenv('OIDC_TOKEN_ENDPOINT')
+OIDC_OP_USER_ENDPOINT = os.getenv('OIDC_USER_ENDPOINT')
+LOGIN_REDIRECT_URL = os.getenv('LOGIN_REDIRECT_URL')
+LOGOUT_REDIRECT_URL = os.getenv('LOGOUT_REDIRECT_URL')
+OIDC_OP_JWKS_ENDPOINT = os.getenv('OIDC_JWKS_ENDPOINT')
+OIDC_RP_SIGN_ALGO = os.getenv('OIDC_SIGN_ALGO')
 
 # customize unfold theme 
 UNFOLD = {
@@ -139,7 +164,8 @@ MIDDLEWARE = [
     "django.middleware.locale.LocaleMiddleware",
 ]
 
-ROOT_URLCONF = 'lunastore.urls'
+ROOT_URLCONF = os.environ.get('DJANGO_ROOT_URLCONF', 'lunastore.urls')
+print(ROOT_URLCONF)
 
 TEMPLATES = [
     {
