@@ -84,7 +84,7 @@ OIDC_RP_SIGN_ALGO = os.getenv('OIDC_SIGN_ALGO')
 
 # customize unfold theme 
 UNFOLD = {
-    "SITE_TITLE": "LunaStore Admin",
+    "SITE_TITLE": "Панель LunaStore",
     "SITE_HEADER": "LunaStore",
     "SITE_SUBHEADER": "панель для модерации сайта",
     "SITE_DROPDOWN": [
@@ -112,6 +112,9 @@ UNFOLD = {
             "href": lambda request: static("favicon.ico"),
         },
     ],
+    "LOGIN": {
+        "image": lambda request: static("img/ap_background.png"),
+    },
     "SHOW_HISTORY": True,
     "SHOW_VIEW_ON_SITE": True,
     "SHOW_BACK_BUTTON": False,
