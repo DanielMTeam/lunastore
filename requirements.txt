@@ -3,3 +3,4 @@ pillow
 django[bcrypt]
 django-simple-captcha
 pycodestyle
+django-unfold

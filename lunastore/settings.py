@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from django.templatetags.static import static
+from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,11 +29,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LANGUAGE_CODE = 'ru'
+USE_I18N=True
+
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -40,7 +44,89 @@ INSTALLED_APPS = [
     'apps.marketplace.apps.MarketplaceConfig',
     'apps.user.apps.UserConfig',
     'captcha',
+    # custom admin panel frontend
+    "unfold",
+    "unfold.contrib.filters", 
+    "unfold.contrib.forms", 
+    "unfold.contrib.inlines", 
+    "unfold.contrib.import_export",  
+    "unfold.contrib.guardian",
+    "unfold.contrib.simple_history", 
+    "unfold.contrib.location_field", 
+    "unfold.contrib.constance",
+    'django.contrib.admin',
 ]
+
+# customize unfold theme 
+UNFOLD = {
+    "SITE_TITLE": "LunaStore Admin",
+    "SITE_HEADER": "LunaStore",
+    "SITE_SUBHEADER": "панель для модерации сайта",
+    "SITE_DROPDOWN": [
+        {
+            "icon": "home",
+            "title": _("LunaStore"),
+            "link": "https://store.myslivets.com"
+        },
+    ],
+    "SITE_URL": "/",
+    "SITE_LOGO": {
+        "light": lambda request: static("img/logo.png"), 
+        "dark": lambda request: static("img/logo.png"), 
+    },
+    "SITE_ICON": {
+        "light": lambda request: static("img/logo.png"), 
+        "dark": lambda request: static("img/logo.png"), 
+    },
+    "SITE_SYMBOL": "speed",
+    "SITE_FAVICONS": [
+        {
+            "rel": "icon",
+            "sizes": "32x32",
+            "type": "image/svg+xml",
+            "href": lambda request: static("favicon.ico"),
+        },
+    ],
+    "SHOW_HISTORY": True,
+    "SHOW_VIEW_ON_SITE": True,
+    "SHOW_BACK_BUTTON": False,
+    "COLORS": {
+        "base": {
+            "50": "oklch(98.5% .002 252.0)",
+            "100": "oklch(96.7% .003 252.0)",
+            "200": "oklch(92.8% .006 252.0)",
+            "300": "oklch(87.2% .01 252.0)",
+            "400": "oklch(70.7% .022 252.0)",
+            "500": "oklch(55.1% .027 252.0)",
+            "600": "oklch(44.6% .03 252.0)",
+            "700": "oklch(37.3% .034 252.0)",
+            "800": "oklch(27.8% .033 252.0)",
+            "900": "oklch(21% .034 252.0)",
+            "950": "oklch(13% .028 252.0)"
+        },
+        "primary": {
+            "50": "oklch(97.1% .014 252.0)",
+            "100": "oklch(94.2% .033 252.0)",
+            "200": "oklch(89.5% .063 252.0)",
+            "300": "oklch(81.8% .119 252.0)",
+            "400": "oklch(70.1% .165 252.0)",
+            "500": "oklch(61.2% .195 252.0)",
+            "600": "oklch(53.5% .205 252.0)",
+            "700": "oklch(46.8% .190 252.0)",
+            "800": "oklch(40.2% .160 252.0)",
+            "900": "oklch(34.5% .130 252.0)",
+            "950": "oklch(26.0% .110 252.0)"
+        },
+        "font": {
+            "subtle-light": "var(--color-base-500)",
+            "subtle-dark": "var(--color-base-400)",
+            "default-light": "var(--color-base-600)",
+            "default-dark": "var(--color-base-300)",
+            "important-light": "var(--color-base-900)",
+            "important-dark": "var(--color-base-100)"
+        }
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -50,6 +136,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.locale.LocaleMiddleware",
 ]
 
 ROOT_URLCONF = 'lunastore.urls'

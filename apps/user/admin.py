@@ -1,11 +1,11 @@
+from unfold import admin as unfold_admin
 from django.contrib import admin
 from .models import User, UserBan, UserActivityLog
 from .forms import UserBanForm, AddToGroupForm   
 from django.contrib.auth.models import Group
 
-admin.site.site_header = "Lunastore Admin Panel"
 @admin.register(User)
-class UserAdmin(admin.ModelAdmin):
+class UserAdmin(unfold_admin.ModelAdmin):
     
     fieldsets = (
         ('Основная информация', {
@@ -22,7 +22,7 @@ class UserAdmin(admin.ModelAdmin):
     search_fields = ['username', 'email', 'pk']
     
 @admin.register(UserBan)
-class UserBanAdmin(admin.ModelAdmin):
+class UserBanAdmin(unfold_admin.ModelAdmin):
     form = UserBanForm
     list_display = ('get_username', 'reason', 'created_at')
     list_filter = ('created_at',)
@@ -50,7 +50,7 @@ class UserBanAdmin(admin.ModelAdmin):
             
     
 admin.site.unregister(Group)
-class GroupAdmin(admin.ModelAdmin):
+class GroupAdmin(unfold_admin.ModelAdmin):
     form = AddToGroupForm
     filter_horizontal = ['permissions']
 
