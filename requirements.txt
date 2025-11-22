@@ -4,3 +4,5 @@ django[bcrypt]
 django-simple-captcha
 pycodestyle
 django-unfold
+mozilla-django-oidc
+dotenv

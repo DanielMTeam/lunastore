@@ -1,16 +1,19 @@
 services:
-  migrate:
+  admin:
     build:
       context: .
       target: base 
-    container_name: lunaStoreMigrator
-    command: python manage.py migrate
+    container_name: lunaStoreAdmin
+    command: python manage.py runserver 0.0.0.0:8088
     volumes:
       - ./:/app
     working_dir: /app
     env_file:
       - .env
+    ports:
+      - "8088:8088"
     environment:
+      DJANGO_ROOT_URLCONF: lunastore.urls_private
       DJANGO_SETTINGS_MODULE: lunastore.settings
       PYTHONPATH: /app
     networks:
@@ -21,19 +24,17 @@ services:
     build:
       context: .
       target: web
-    container_name: lunaStoreWeb
-    depends_on:
-      migrate:
-        condition: service_completed_successfully
+    container_name: lunaStore
     environment:
       PYTHONPATH: /app
       DJANGO_SETTINGS_MODULE: lunastore.settings
+      DJANGO_ROOT_URLCONF: lunastore.urls
     working_dir: /app
     ports:
-      - "8088:8088"
+      - "9088:9088"
     env_file:
       - .env
-    command: python manage.py runserver 0.0.0.0:8088
+    command: python manage.py runserver 0.0.0.0:9088
     restart: unless-stopped
     networks:
       - storenetwork

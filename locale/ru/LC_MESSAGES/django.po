@@ -1,0 +1,39 @@
+# RUSSIAN LOCALIZATION FOR LUNASTORE
+# Copyright FAYZETWIN (C) 2025
+# This file is distributed under the same license as the PACKAGE package.
+# FAYZETWIN <CONTACT@FAYZETWIN.XYZ>, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-22 13:43+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FAYZETWIN <CONTACT@FAYZETWIN.XYZ>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+#: .\lunastore\settings.py:91
+msgid "LunaStore"
+msgstr ""
+
+msgid "No results found"
+msgstr "Результатов не найдено"
+
+msgid "This page yielded into no results. Create a new item or reset your filters."
+msgstr "Здесь пока ничего нет. Создайте новую запись или сбросьте фильтры."
+
+msgid "Reset filters"
+msgstr "Сбросить фильтры"
+
+msgid "Type to search"
+msgstr "Поиск..."
+
+msgid "Filters"
+msgstr "Фильтры"
