@@ -9,6 +9,10 @@ class User(AbstractUser, models.Model):
         file_name = f"{uuid.uuid4().hex}.{ext}"
         return f'staticfiles/ugc/user_avatars/{file_name}'
     
+    class Meta:
+        verbose_name = "Пользователь"
+        verbose_name_plural = "Пользователи"
+    
     telegram = models.CharField(max_length=45, null=True)
     discord = models.CharField(max_length=32, null=True)
     website = models.URLField(max_length=45, null=True)
