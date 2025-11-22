@@ -37,3 +37,9 @@ msgstr "Поиск..."
 
 msgid "Filters"
 msgstr "Фильтры"
+
+msgid "Welcome back to"
+msgstr "Добро пожаловать на"
+
+msgid "Return to site"
+msgstr "Вернуться на сайт"
