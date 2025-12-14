@@ -1,4 +1,4 @@
-Django==5.2.7
+Django==6.0
 pillow
 django[bcrypt]
 django-simple-captcha
@@ -6,3 +6,4 @@ pycodestyle
 django-unfold
 mozilla-django-oidc
 dotenv
+django-tasks

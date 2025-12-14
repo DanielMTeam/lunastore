@@ -41,6 +41,24 @@ services:
     volumes:
       - .:/app
 
+  task_worker:
+    build:
+      context: .
+      target: base 
+    container_name: lunaStoreWorker
+    command: python manage.py db_worker
+    volumes:
+      - ./:/app
+    working_dir: /app
+    env_file:
+      - .env
+    environment:
+      DJANGO_SETTINGS_MODULE: lunastore.settings
+      PYTHONPATH: /app
+    networks:
+      - storenetwork
+    restart: on-failure
+
 networks:
   storenetwork:
     driver: bridge
