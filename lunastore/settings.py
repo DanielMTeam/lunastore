@@ -36,9 +36,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-LANGUAGE_CODE = 'ru'
-USE_I18N=True
-
 
 # Application definition
 
@@ -63,7 +60,24 @@ INSTALLED_APPS = [
     "unfold.contrib.location_field", 
     "unfold.contrib.constance",
     'django.contrib.admin',
+    'django_tasks',
+    'django_tasks.backends.database'
 ]
+# tasks configuration
+
+TASKS = {
+    "default": {
+        "BACKEND": "django_tasks.backends.database.DatabaseBackend",
+    },
+}
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'cache',
+    }
+}
+
 
 # openid AP configuration
 
@@ -113,7 +127,7 @@ UNFOLD = {
         },
     ],
     "LOGIN": {
-        "image": lambda request: static("img/ap_background.png"),
+        "image": lambda request: static("img/ap_bg_lunastore.png"),
     },
     "SHOW_HISTORY": True,
     "SHOW_VIEW_ON_SITE": True,
@@ -153,7 +167,7 @@ UNFOLD = {
             "important-light": "var(--color-base-900)",
             "important-dark": "var(--color-base-100)"
         }
-    }
+    },
 }
 
 MIDDLEWARE = [
@@ -232,7 +246,7 @@ BCRYPT_ROUNDS = 12 # default number of rounds in bcrypt ¯\_(ツ)_/¯; if you wa
 AUTH_USER_MODEL = "user.User"
 
 # if REGISTRATION_IS_ENABLED = True, we will render register.html on '/register.php' path; if False, we will render register_on.html
-REGISTRATION_IS_ENABLED = True
+REGISTRATION_IS_ENABLED = False
 
 # User Activity Log (include IPs) retention period in days (because storage limitation gdpr; we must store data for the shortest time possible)
 RETENTION_ACTIVITY_LOG_DAYS = 0
