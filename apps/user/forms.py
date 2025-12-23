@@ -4,7 +4,11 @@ from django.contrib.auth.forms import UserCreationForm
 from captcha.fields import CaptchaField
 from django.contrib.admin.widgets import FilteredSelectMultiple    
 from django.contrib.auth.models import Group
+from django.contrib.auth import password_validation
 from .middleware import get_client_ip, BlockBannedIP
+from django.core.exceptions import ValidationError
+import os
+from PIL import Image
 class UserBanForm(forms.ModelForm):
     username = forms.CharField(label='Юзернейм', max_length=150)
 
@@ -64,8 +68,6 @@ class UserRegistrationForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         
     def clean(self):
-        cleaned_data = super().clean()
-        
         if self.request:
             ip = get_client_ip(self.request)
             if ip in BlockBannedIP._banned_ips:
@@ -81,6 +83,96 @@ class UserRegistrationForm(UserCreationForm):
     class Meta:
         model = User 
         fields = ['username', 'email']
+        
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['telegram', 'website', 'description']
+            
+    username = forms.CharField(
+        label="Имя пользователя",
+        disabled=True,
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'input-text', 'readonly': 'readonly'})
+    )
+    telegram = forms.CharField(
+        label="Telegram",
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'input-text'})
+    )
+    website = forms.URLField(
+        label="Веб-сайт",
+        required=False,
+        widget=forms.URLInput(attrs={'class': 'input-text'})
+    )
+    description = forms.CharField(
+        label="Описание профиля",
+        required=False,
+        widget=forms.Textarea(attrs={'class': 'brief_intro', 'cols': 90})
+    )
+
+class PasswordChangeForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None) 
+        super().__init__(*args, **kwargs)
+        
+    current_password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'input-text'})
+    )
+    new_password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'input-text'}),
+        help_text=password_validation.password_validators_help_text_html()
+    )
+    confirm_password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'input-text'})
+    )
+    
+    def clean_password(self):
+        current_password = self.cleaned_data.get('current_password')
+        if not self.user.check_password(current_password):
+            raise ValidationError("Текущий пароль неверен.")
+        return current_password
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        new_password = cleaned_data.get("new_password")
+        confirm_new_password = cleaned_data.get("confirm_new_password")
+
+        if new_password and confirm_new_password:
+            if new_password != confirm_new_password:
+                raise ValidationError("Новые пароли не совпадают.")
+            password_validation.validate_password(new_password, self.user)
+        return cleaned_data
+    
+class AvatarUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['avatar']
+    
+    avatar = forms.ImageField(
+        label="Выберите файл",
+        widget=forms.FileInput(attrs={'class': 'action_button', 'id': 'file-upload'}), # Или кастомный стиль кнопки
+        help_text="Рекомендуемый размер: 64x64. Форматы: PNG, JPG. Макс: 2 МБ."
+    )
+    
+    def clean_avatar(self):
+        avatar = self.cleaned_data.get('avatar')
+        if avatar:
+            limit_mb = 2 # in megabytes
+            if avatar.size > limit_mb * 1024 * 1024:
+                raise ValidationError(f"Максимальный размер файла: {limit_mb} МБ.")
+
+            ext = os.path.splitext(avatar.name)[1].lower()
+            valid_extensions = ['.jpg', '.jpeg', '.png']
+            if ext not in valid_extensions:
+                raise ValidationError("Допустимые форматы: .JPG, .PNG")
+            
+            image = Image.open(avatar)
+            if image.width > 64 or image.height > 64: 
+                raise ValidationError("Изображение слишком большое по пикселям.")
+                
+        return avatar
         
 # поскольку у django нет стандартного метода добавления пользователя в группу, я это сделал сам лмао (●'◡'●)
 class AddToGroupForm(forms.ModelForm):

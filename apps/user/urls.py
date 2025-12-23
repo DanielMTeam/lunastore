@@ -8,5 +8,6 @@ urlpatterns = [
     path('logout.php', views.logout, name='logout'),
     path('register.php', views.register, name='register'),
     # profile
-    path('profile.php', views.profile, name='profile')
+    path('profile.php', views.profile, name='profile'),
+    path('settings.php', views.settings, name='settings')
 ]

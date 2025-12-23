@@ -3,6 +3,9 @@ from .models import UserBan
 from .tasks import refresh_banned_ips_cache, CACHE_KEY
 from django.http import HttpResponseForbidden
 from django.core.cache import cache
+import logging
+
+logger = logging.getLogger('user')
 
 
 def get_client_ip(request):
@@ -26,3 +29,23 @@ class BlockBannedIP(MiddlewareMixin):
 
         if ip in banned_ips:
             return HttpResponseForbidden("Your IP has been banned. If you believe there's a mistake here and you've been banned 'for no reason', please, email us: daniel@myslivets.com")
+
+    @classmethod
+    def get_banned_set(cls):
+        banned_ips = cache.get(CACHE_KEY)
+        
+        if banned_ips is None:
+            logging.info("[BlockBannedIP] Cache miss. Fetching from DB directly...")
+            
+            from .models import UserBan 
+            
+            banned_ips = set(UserBan.objects.values_list('ip', flat=True))
+            
+            cache.set(CACHE_KEY, banned_ips, timeout=300)
+            
+            try:
+                refresh_banned_ips_cache.enqueue()
+            except Exception as e:
+                logging.error(f"Task enqueue failed: {e}")
+
+        return banned_ips
