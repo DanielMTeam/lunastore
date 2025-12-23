@@ -5,29 +5,29 @@
 <title>Профиль пользвателя {{ obj.username }} - LunaStore</title>
 <div class="content">
   <div class="profile_card">
-    <div class="profile_avatar" id="{uid}">
-      {% if obj.avatar %}
+      <div class="profile_avatar" id="{uid}">
+        {% if obj.avatar %}
         <img src="{{ obj.avatar.url }}" alt="{{ obj.avatar.url }}" style="height: 64px; width: 64px;">
-      {% else %}
+        {% else %}
         <img src="{% static '../cdn/avatar/1/avatar.jpg'%}">
-      {% endif %}
-    </div>
+        {% endif %}
+      </div>
       <div class="profile_info" id="{uid}">
-        <div class="profile_name">{{ obj.username }} 
+        <div class="profile_name">{{ obj.username }}  
           {% if obj.is_staff %}
-            <img src="{% static './img/tabs/about.png'%}" alt="Команда LunaStore" title="Команда LunaStore">
+          <img src="{% static './img/tabs/about.png'%}" alt="Команда LunaStore" title="Команда LunaStore">
           {% endif %}
         </div>
         <div class="profile_desc">{{ obj.description }}</div>
-        <small><span class="last-visit">0 приложения, 0 отзывов - участник с {{ obj.date_joined }}</span></small>
+        <small><span class="last-visit">2 приложения, 69 отзывов - участник с {{ obj.date_joined }}</span></small>
         <div style="clear: both"></div>
       </div>
   </div>
   <link rel="stylesheet" href="{% static './css/profile.css'%}">  
   <link rel="stylesheet" href="{% static './css/tabs.css'%}">
   <link rel="stylesheet" href="{% static './css/reviews.css'%}"> 
-
-<div class="tabs">
+  <!--[if lte IE 6]> <link rel="stylesheet" href="./css/profile_ie6.css" media="screen, projection"> <![endif]-->  
+  <div class="tabs">
   <div class="tab-bar">
     <div class="tab active" href="/help.php">
       <img src="{% static './img/tabs/faq.png'%}" class="tab-icon" alt="">
@@ -43,105 +43,109 @@
     </div>
   </div>
 
-<div class="tab-content" id="tab-view">
-  <div class="profile_block">Контактная информация</div>
-  <div class="profile_block_content">
-    <div class="profile_desc_element_head">Веб-сайт: <div class="profile_desc_element">{{ obj.website }}</div></div>
-    <div class="profile_desc_element_head">Telegram: <div class="profile_desc_element">{{ obj.telegram }}</div></div>
-    <div class="profile_desc_element_head">E-mail: <div class="profile_desc_element">{{ obj.email }}</div></div>
-  </div>
-  <br>
-  <div class="profile_block">Опубликованные приложения<span class="rl_l"><a href="/search.php?section=apps&pubid=1">все</a></span></div>
-  <div class="profile_block_content">
-    <div class="icon">
-      <img src="{% static './cdn/appsicons/totalcmd.png'%}" alt="Total Commander" class="icon-img">
-      <div class="icon-text"><a href="/app4">Total Commander</a></div>
+  <div class="tab-content" id="tab-view">
+    <div class="profile_block">Контактная информация</div>
+    <div class="profile_block_content">
+      <div class="profile_desc_element_head">Веб-сайт: <div class="profile_desc_element">{{ obj.website }}</div></div>
+      <div class="profile_desc_element_head">Telegram: <div class="profile_desc_element">{{ obj.telegram }}</div></div>
+      <div class="profile_desc_element_head">E-mail: <div class="profile_desc_element">{{ obj.email }}</div></div>
     </div>
-    <div class="icon">
-      <img src="./cdn/appsicons/copilot.png" alt="Microsoft Copilot" class="icon-img">
-      <div class="icon-text"><a href="/app7">Microsoft Copilot</a></div>
+    <br>
+    <div class="profile_block">Опубликованные приложения<span class="rl_l"><a href="/search.php?section=apps&pubid=1">все</a></span></div>
+    <div class="profile_block_content">
+      <div class="icon">
+        <img src="./cdn/appsicons/totalcmd.png" alt="Total Commander" class="icon-img">
+        <div class="icon-text"><a href="/app4">Total Commander</a></div>
+      </div>
+      <div class="icon">
+        <img src="./cdn/appsicons/copilot.png" alt="Microsoft Copilot" class="icon-img">
+        <div class="icon-text"><a href="/app7">Microsoft Copilot</a></div>
+      </div>
+      <div class="icon">
+        <img src="./cdn/appsicons/copilot.png" alt="Microsoft Copilot" class="icon-img">
+        <div class="icon-text"><a href="/app7">Microsoft Copilot</a></div>
+      </div>
+      <div class="icon">
+        <img src="./cdn/appsicons/copilot.png" alt="Microsoft Copilot" class="icon-img">
+        <div class="icon-text"><a href="/app7">Microsoft Copilot</a></div>
+      </div>
+      <div class="icon">
+        <img src="./cdn/appsicons/copilot.png" alt="Microsoft Copilot" class="icon-img">
+        <div class="icon-text"><a href="/app7">Microsoft Copilot</a></div>
+      </div>
     </div>
-    <div class="icon">
-      <img src="./cdn/appsicons/copilot.png" alt="Microsoft Copilot" class="icon-img">
-      <div class="icon-text"><a href="/app7">Microsoft Copilot</a></div>
+    <br>
+    <div class="profile_block">dm пригласил 3 человек (показаны первые 5)</div>
+    <div class="profile_block_content">
+      <div class="user">
+        <a href="/id5"><img src="./cdn/avatar/1/avatar.jpg" alt="eversiege" class="user-img"></a>
+        <div class="user-text"><a href="/id5">eversiege</a></div>
+      </div>
+      <div class="user">
+        <a href="/id68"><img src="./cdn/avatar/1/avatar.jpg" alt="beelive" class="user-img"></a>
+        <div class="user-text"><a href="/id68">beelive</a></div>
+      </div>
+      <div class="user">
+        <a href="/id9"><img src="./cdn/avatar/1/avatar.jpg" alt="BAGMAY904" class="user-img"></a>
+        <div class="user-text"><a href="/id9">BAGMAY904</a></div>
+      </div>
     </div>
-    <div class="icon">
-      <img src="./cdn/appsicons/copilot.png" alt="Microsoft Copilot" class="icon-img">
-      <div class="icon-text"><a href="/app7">Microsoft Copilot</a></div>
-    </div>
-    <div class="icon">
-      <img src="./cdn/appsicons/copilot.png" alt="Microsoft Copilot" class="icon-img">
-      <div class="icon-text"><a href="/app7">Microsoft Copilot</a></div>
-    </div>
-  </div>
-  <br>
-  <div class="profile_block">dm пригласил 3 человек (показаны первые 5)</div>
-  <div class="profile_block_content">
-    <div class="user">
-      <a href="/id5"><img src="{% static './cdn/avatar/1/avatar.jpg'%}" alt="eversiege" class="user-img"></a>
-      <div class="user-text"><a href="/id5">eversiege</a></div>
-    </div>
-    <div class="user">
-      <a href="/id68"><img src="./cdn/avatar/1/avatar.jpg" alt="beelive" class="user-img"></a>
-      <div class="user-text"><a href="/id68">beelive</a></div>
-    </div>
-    <div class="user">
-      <a href="/id9"><img src="./cdn/avatar/1/avatar.jpg" alt="BAGMAY904" class="user-img"></a>
-      <div class="user-text"><a href="/id9">BAGMAY904</a></div>
-    </div>
-  </div>
-  <br>
-  <div class="profile_block">Отзывы<span class="rl_l"><a href="/profile.php?act=show_reviews&authorid=1">все</a></span></div>
-  <div class="profile_subblock">69 отзывов (показаны последние 5)</div>
-  <div class="profile_block_content">
+    <br>
+    <div class="profile_block">Отзывы<span class="rl_l"><a href="/profile.php?act=show_reviews&authorid=1">все</a></span></div>
+    <div class="profile_subblock">69 отзывов (показаны последние 5)</div>
+    <div class="profile_block_content">
+      
+      <div class="review_body" id="app4">
+        <div class="review_author"><a href="/id1">dm</a> к приложению <a href="/app4">Total Commander</a></div>
+        <div class="review_date">31 августа 2025 в 19:34</div>
+        <hr>
+        <div class="review_text">Очень позитивное и православное приложение! 10 из 10.</div>
+        <hr>
+        <div class="rating r5"></div>
+        <div class="review_actions"><a href="/">редактировать</a> - <a href="/">удалить</a></div>
+      </div>
+
+      <div class="review_body" id="app3">
+        <div class="review_author"><a href="/id1">dm</a> к приложению <a href="/app3">Microsoft Copilot</a></div>
+        <div class="review_date">31 августа 2025 в 16:55</div>
+        <hr>
+        <div class="review_text">Microsoft Copilot мне показался очень удобным способом для улучшения сложных текстов и юмористических подколов мошенников, которые звонят на мой номер практически каждую неделю. Однако могу подметить минус в не особо успешном генерации изображений. Залил его сюда, вдруг кому-нибудь пригодится, попробуйте.</div>
+        <hr>
+        <div class="rating r4_5"></div>
+        <div class="review_actions"><a href="/">редактировать</a> - <a href="/">удалить</a></div>
+      </div>
+
+      <div class="review_body" id="app446">
+        <div class="review_author"><a href="/id1">dm</a> к приложению <a href="/app3">Мессенджер Антонио</a></div>
+        <div class="review_date">31 августа 2025 в 11:44</div>
+        <hr>
+        <div class="review_text">Оно взорвало мой ПК своими фишками. Фурычит даже на текстолите.</div>
+        <hr>
+        <div class="rating r1_5"></div>
+        <div class="review_actions"><a href="/">редактировать</a> - <a href="/">удалить</a></div>
+      </div>
+
+      <div class="review_body" id="app14">
+        <div class="review_author"><a href="/id1">dm</a> к приложению <a href="/app3">.NET Framework</a></div>
+        <div class="review_date">31 августа 2025 в 11:41</div>
+        <hr>
+        <div class="review_text">Вещь первой необходимости, рекомендую</div>
+        <hr>
+        <div class="rating r5"></div>
+        <div class="review_actions"><a href="/">редактировать</a> - <a href="/">удалить</a></div>
+      </div>
+
+      <div class="review_body" id="app47">
+        <div class="review_author"><a href="/id1">dm</a> к приложению <a href="/app3">Spotify</a></div>
+        <div class="review_date">31 августа 2025 в 09:41</div>
+        <hr>
+        <div class="review_text">норм</div>
+        <hr>
+        <div class="rating r4"></div>
+        <div class="review_actions"><a href="/">редактировать</a> - <a href="/">удалить</a></div>
+      </div>
     
-    <div class="review_body" id="app4">
-      <div class="review_author"><a href="/id1">dm</a> к приложению <a href="/app4">Total Commander</a></div>
-      <div class="review_date">31 августа 2025 в 19:34</div>
-      <hr>
-      <div class="review_text">Очень позитивное и православное приложение! 10 из 10.</div>
-      <hr>
-      <div class="rating r5"></div>
-      <div class="review_actions"><a href="/">редактировать</a> - <a href="/">удалить</a></div>
     </div>
-    <div class="review_body" id="app3">
-      <div class="review_author"><a href="/id1">dm</a> к приложению <a href="/app3">Microsoft Copilot</a></div>
-      <div class="review_date">31 августа 2025 в 16:55</div>
-      <hr>
-      <div class="review_text">Microsoft Copilot мне показался очень удобным способом для улучшения сложных текстов и юмористических подколов мошенников, которые звонят на мой номер практически каждую неделю. Однако могу подметить минус в не особо успешном генерации изображений. Залил его сюда, вдруг кому-нибудь пригодится, попробуйте.</div>
-      <hr>
-      <div class="rating r4_5"></div>
-      <div class="review_actions"><a href="/">редактировать</a> - <a href="/">удалить</a></div>
-    </div>
-    <div class="review_body" id="app446">
-      <div class="review_author"><a href="/id1">dm</a> к приложению <a href="/app3">Мессенджер Антонио</a></div>
-      <div class="review_date">31 августа 2025 в 11:44</div>
-      <hr>
-      <div class="review_text">Оно взорвало мой ПК своими фишками. Фурычит даже на текстолите.</div>
-      <hr>
-      <div class="rating r1_5"></div>
-      <div class="review_actions"><a href="/">редактировать</a> - <a href="/">удалить</a></div>
-    </div>
-    <div class="review_body" id="app14">
-      <div class="review_author"><a href="/id1">dm</a> к приложению <a href="/app3">.NET Framework</a></div>
-      <div class="review_date">31 августа 2025 в 11:41</div>
-      <hr>
-      <div class="review_text">Вещь первой необходимости, рекомендую</div>
-      <hr>
-      <div class="rating r5"></div>
-      <div class="review_actions"><a href="/">редактировать</a> - <a href="/">удалить</a></div>
-    </div>
-    <div class="review_body" id="app47">
-      <div class="review_author"><a href="/id1">dm</a> к приложению <a href="/app3">Spotify</a></div>
-      <div class="review_date">31 августа 2025 в 09:41</div>
-      <hr>
-      <div class="review_text">норм</div>
-      <hr>
-      <div class="rating r4"></div>
-      <div class="review_actions"><a href="/">редактировать</a> - <a href="/">удалить</a></div>
-    </div>
-  
-  </div>
 
   </div>
 
@@ -150,4 +154,5 @@
 
     </div>
   </div>
+
 {% endblock %}
