@@ -1,15 +1,15 @@
 body {
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
   font-family: Tahoma, Arial, sans-serif, 'Franklin Gothic Medium';
-  font-size:12px;
-  background:#2b67b3;
+  font-size: 12px;
+  background: #2b67b3;
 }
 .container {
-  width:700px;
-  margin:10px auto;
-  background:#f2f6fc;
-  border:1px solid #7aa0e6;
+  width: 700px;
+  margin: 10px auto;
+  background: #f2f6fc;
+  border: 1px solid #7aa0e6;
 }
 .rl_l{
   float: right;
@@ -42,7 +42,7 @@ body {
 }
 
 .header {
-  background:#3f78d6 url('../img/xhead2.png');
+  background:#3f78d6 url('../img/xhead3.png');
   color:#fff;
   padding:6px 10px;
   height:50px;
@@ -61,6 +61,7 @@ body {
 }
 .searchbar {
   margin-top:6px;
+  margin-left: 95px;
 }
 .searchbar input {
   width:200px;
@@ -355,6 +356,15 @@ body {
 .actionsm li.alert{background:url(../img/icons.png) no-repeat 0px -248px;}
 .actionsm li.otherapps{background:url(../img/icons.png) no-repeat 0px -293px;}
 
+.action_button{
+	border:1px solid #7aa0e6;
+	background:#2f78d6;
+	color:#fff;
+	padding:4px 6px;
+	font-size:12px;
+	text-decoration: none;
+}
+
 .banner_image{
   width: 460px;
 }
@@ -394,6 +404,10 @@ body {
 
 .banner_image #popular{
   background: url(../img/categorybanner/popular.png) no-repeat;
+}
+
+.banner_image #updates{
+  background: url(../img/categorybanner/updates.png) no-repeat;
 }
 
 .info_icon{
@@ -508,4 +522,16 @@ body {
 .search_full button:active {
   border:1px solid #5fa359;
   background:#006000;
+}
+
+.ls_dm_logo{
+	width: 96px;
+	height: 48px;
+	float: left;
+}
+
+.brief_intro{
+    resize: none;
+    width: 390px;
+    height: 120px;
 }

@@ -5,27 +5,38 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Магазин Windows XP</title>
 <link rel="stylesheet" href="{% static './css/main.css'%}">
-<script src='{% static "./js/ntf.js"%}'></script>
+<link rel="stylesheet" href="{% static './css/oprj.css'%}">
+<script src="./js/search_mini.js"></script>
 </head>
 
 
 <body>
 <div class="container">
 
-  {% if user.is_authenticated %}
   <div class="dm_menu">
-    Вы вошли как <a href="/profile.php"><b>{{ user.username }}</b></a> - <a href="/logout.php">выйти</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a>
-  </div>
+    {% if user.is_authenticated %}
+    Вы вошли как <a href="/profile.php"><b>{{ user.username }}</b></a> - <a href="/logout.php">выйти</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a> |
   {% else %}
-  <div class="dm_menu">
-    <a href="/login.php" id="login-link">вход</a> - <a href="/register.php">регистрация</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a>
-  </div>
+  <a href="/login.php" id="login-link">вход</a> - <a href="/register.php">регистрация</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a> |
   {% endif %}
+  <div class="oprj_layout" id="oprj_layout">
+  <div class="oprj" id="oprj">прочие проекты</div>
+  <div class="oprj_list" id="oprj_list">
+  
+    <div class="oprj_item" data-h="https://myslivets.com">Myslivets.com</div>
+    <div class="oprj_item" data-h="http://store.myslivets.com"><b>LunaStore</b></div>
+    <div class="oprj_item" data-h="http://games.myslivets.com">Игры</div>
+    <div class="oprj_item" data-h="/">Renaissance<small><font color="red"> new</font></small></div>
+    <hr>
+    <div class="oprj_item" data-h="https://myslivets.com/projects">Все проекты »</div>
+  </div>
+  </div>
+  </div>
+  
 
   <div class="header">
-    
+    <a href="https://myslivets.com"><div class="ls_dm_logo"></div></a>
     <div class="rl_l"><h1 class="txtr">LunaStore</h1>
     <div class="subtitle txtr">Windows XP Professional</div>
     </div>
@@ -47,7 +58,33 @@
   <div class="headerline"></div>
 
   <div class="main">
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+  {% endif %}
+  
     <div class="sidebar">
+      
+      {% if user.is_authenticated %}
+      <div class="boxhead_primary"><b>Аккаунт</b></div>
+      <div class="box">
+        {% with route=request.resolver_match.url_name %}
+        <ul>
+          <a href="{% url 'profile' %}"><li class="myhome" 
+            {% if route == 'profile' %} 
+            id="active"{% endif %}>Мой профиль</li></a>
+          <a href="{% url 'settings' %}"><li class="settings"
+            {% if route == 'settings' %} 
+            id="active"{% endif %}>Настройки</li></a>
+          <a href="/profile.php?act=invite"><li class="newbie">Пригласить</li></a>
+        </ul>
+        {% endwith %}
+      </div>
+      {% endif %}
+
         <div class="boxhead_primary"><b>Категории</b></div>
       <div class="box">
         
@@ -114,3 +151,6 @@ function doSearch() {
 }
 </script>
   </div>
+
+<script src="{% static './js/oprj.js' %}"></script>
+<script src='{% static "./js/ntf.js"%}'></script>

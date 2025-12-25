@@ -1,22 +1,22 @@
 from django.shortcuts import render, redirect
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from django.conf import settings
 from django.contrib.auth.models import Group
-
-from django.contrib.auth import login as dj_login, logout as dj_logout
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.contrib.auth import login as dj_login, logout as dj_logout, update_session_auth_hash
+from django.shortcuts import get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
-from .models import UserBan, UserActivityLog
-from .forms import UserRegistrationForm
+from .models import UserBan, UserActivityLog, User, DevRequestsModel
+from .forms import UserRegistrationForm, AvatarUpdateForm, ProfileUpdateForm, PasswordChangeForm, DevStatusForm
 import json
 from .middleware import get_client_ip, BlockBannedIP
 
 
 def login(request):
     ip = get_client_ip(request)
-    
     if request.method != 'POST':
         return JsonResponse({'success': False, 'errors': 'Only POST method is allowed'}, status=405)
-    
     if ip in BlockBannedIP.get_banned_set():
         return JsonResponse({'success': False, 'errors': 'Your IP address is banned.'}, status=403)
     if request.user.is_authenticated:
@@ -24,7 +24,6 @@ def login(request):
     data = json.loads(request.body)
     form_data = {'username': data.get('username'), 'password': data.get('password')}
     form = AuthenticationForm(request, data=form_data)
-    
     if form.is_valid():
         user = form.get_user()
         ban = UserBan.objects.filter(user=user).first()
@@ -41,9 +40,11 @@ def login(request):
     else:
         return JsonResponse({'success': False, 'errors': 'Password or username is not correct'}, status=400)
 
+
 def logout(request):
     dj_logout(request)
     return redirect('/index.php')
+
 
 def register(request):
     if not settings.REGISTRATION_IS_ENABLED:
@@ -70,5 +71,84 @@ def register(request):
     else:
         if request.user.is_authenticated:
             return redirect('home')
-        form = UserRegistrationForm(request=request)    
+        form = UserRegistrationForm(request=request)
     return render(request, 'register_on.html', {"form": form})
+
+
+def profile(request):
+    id = request.GET.get('id')
+    if id:
+        obj = get_object_or_404(User, id=id)
+        return render(request, 'profile.html', context={'obj': obj})
+    else:
+        if not request.user.is_authenticated:
+            raise Http404("No ID provided and you (maybe; or you just have a problem with your cookie) is anonymous")
+        obj = get_object_or_404(User, id=request.user.id)
+        return render(request, 'profile.html', context={'obj': obj})
+
+
+@login_required
+def profile_settings(request):
+    user = request.user
+    forms = {
+        'profile_form': ProfileUpdateForm(instance=user),
+        'password_form': PasswordChangeForm(user=user),
+        'avatar_form': AvatarUpdateForm(instance=user),
+    }
+    if request.method == 'POST':
+        # Определяем, какая форма была отправлена
+        form_type = request.POST.get('form_type')
+
+        if form_type == 'profile':
+            forms['profile_form'] = ProfileUpdateForm(request.POST, instance=user)
+            if forms['profile_form'].is_valid():
+                forms['profile_form'].save()
+                messages.success(request, "Профиль обновлен")
+                return redirect('settings')
+        elif form_type == 'password':
+            forms['password_form'] = PasswordChangeForm(user=user, data=request.POST)
+            if forms['password_form'].is_valid():
+                user.set_password(forms['password_form'].cleaned_data['new_password'])
+                user.save()
+                update_session_auth_hash(request, user)
+                messages.success(request, "Пароль успешно изменен")
+                return redirect('settings')
+        elif form_type == 'avatar':
+            forms['avatar_form'] = AvatarUpdateForm(request.POST, request.FILES, instance=user)
+            if forms['avatar_form'].is_valid():
+                forms['avatar_form'].save()
+                messages.success(request, "Аватар обновлен")
+                return redirect('settings')
+    return render(request, 'settings.html', forms)
+
+
+@login_required
+def dev_status(request):
+    user = request.user
+    is_developer = request.user.groups.filter(name='Разработчики').exists()
+    has_pending_request = DevRequestsModel.objects.filter(user=request.user).exists()
+    # initialize the form
+    if request.method == 'POST':
+        form = DevStatusForm(request.POST, instance=user)
+        if form.is_valid():
+            # save model data
+            form.save()
+            # get cleaned data
+            cd = form.cleaned_data
+
+            # create DevRequestsModel entry
+            DevRequestsModel.objects.create(
+                user=user,
+                github=cd.get('github'),
+                mail=cd.get('mail'),
+                about_you=cd.get('about_you'),
+                why_you_choose_us=cd.get('why_you_choose_us')
+            )
+
+            messages.success(request, "Заявка отправлена на рассмотрение")
+            return redirect('home')
+    else:
+        form = DevStatusForm(instance=user)
+
+    # render the template with the form
+    return render(request, 'dev_add.html', {'dev_request_form': form, 'is_developer': is_developer, 'has_pending_request': has_pending_request, "registration_enabled_status": settings.DEVELOPER_REGISTRATION_IS_ENABLED})

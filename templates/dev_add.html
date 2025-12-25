@@ -1,0 +1,147 @@
+﻿{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<title>Регистрация в качестве разработчика - LunaStore</title>
+<link rel="stylesheet" href="{% static './css/main.css'%}">
+<link rel="stylesheet" href="{% static './css/oprj.css'%}">
+<link rel="shortcut icon" href="{% static './favicon.ico'%}">
+
+<div class="content">
+  <div class="section">
+    <h2>Регистрация в качестве разработчика</h2>
+    <div class="separator_store"></div>
+    <link rel="stylesheet" href="{% static './css/register.css'%}">
+    <div class="regform">
+    <div class="info_splash"><b>Вы являетесь представителем или разработчиком своего софта?</b><br>Улучшите свой профиль до аккаунта разработчика и выкладывайте ПО официально на LunaStore. Официальные загрузки будут помечены соответствующим знаком.</div>
+    {% if not registration_enabled_status %}
+        <div class="alert-splash" style="margin-bottom: 5px;">
+            <h3>Регистрация разработчиков временно отключена</h3>
+            <p>В данный момент мы не принимаем новые заявки на статус разработчика. Пожалуйста, попробуйте позже.</p>
+        </div>
+    {% else %}
+    {% if is_developer %}
+        <div class="alert-splash" style="margin-bottom: 5px;">
+            <h3>Вы уже разработчик!</h3>
+            <p>У вас уже есть статус разработчика. Вам уже доступны все дополнительные варианты загрузки приложений на LunaStore.</p>
+        </div>
+    {% elif has_pending_request %}
+        <div class="alert-splash" style="margin-bottom: 5px;">
+            <h3>Заявка на рассмотрении</h3>
+            <p>Вы уже подали заявку. Администратор рассмотрит её в ближайшее время.</p>
+            <p>Если её <b>одобрят</b> — вы получите уведомление и статус.</p>
+            <p>Если <b>отклонят</b> — вы сможете подать заявку повторно.</p>
+        </div>
+    {% else %}  
+    <div class="register_card">
+      <h2>Основная информация</h2>
+    <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="form_type" value="profile">
+
+            <div class="profile_block_content">
+                <label>
+                    <div class="reg_pad"><div class="reg_title">Имя пользователя:</div>
+                    {% if dev_request_form.username.errors %}
+                        <div class="error_splash" style="margin-bottom: 5px;"> 
+                            {% for error in dev_request_form.username.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {{ dev_request_form.username }}
+                    <div class="regform_label">Имя пользователя изменить нельзя. Если это не тот аккаунт, перезайдите в необходимый.</div>
+                  </div>
+                </label>
+
+                <label>
+                    <div class="reg_pad"><div class="reg_title">Контактный Email:</div>
+                    {% if dev_request_form.mail.errors %}
+                        <div class="error_splash" style="margin-bottom: 5px;"> 
+                            {% for error in dev_request_form.mail.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {{ dev_request_form.mail }}
+                    <div class="regform_label">Мы обязательно свяжемся с Вами. По крайней мере постараемся.</div>
+                  </div>
+                </label>
+
+                <label>
+                    <div class="reg_pad"><div class="reg_title">GitHub:</div>
+                    {% if dev_request_form.github.errors %}
+                        <div class="error_splash" style="margin-bottom: 5px;"> 
+                            {% for error in dev_request_form.github.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {{ dev_request_form.github }}
+                    <div class="regform_label">А почему нет? Мы хотим посмотреть на ваши красивые разработки :3</div>
+                  </div>
+                </label>
+
+                <label>
+                    <div class="reg_pad"><div class="reg_title">Расскажите о себе (1000 символов):</div>
+                    {% if dev_request_form.about_you.errors %}
+                        <div class="error_splash" style="margin-bottom: 5px;"> 
+                            {% for error in dev_request_form.about_you.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {{ dev_request_form.about_you }}
+                  </div>
+                </label>
+
+                <label>
+                    <div class="reg_pad"><div class="reg_title">Почему Вы решили выбрать нас? (250 символов):</div>
+                    {% if dev_request_form.why_you_choose_us.errors %}
+                        <div class="error_splash" style="margin-bottom: 5px;"> 
+                            {% for error in dev_request_form.why_you_choose_us.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {{ dev_request_form.why_you_choose_us }}
+                  </div>
+                </label>
+
+                <h2>Подтверждение регистрации</h2>
+                <div class="alert_splash">
+                    Введите символы с картинки:<br><br>
+                    {{ dev_request_form.captcha }}
+                    {% if form.captcha.errors %}
+                    <div class="error_splash" style="margin-bottom: 5px;"> 
+                        {% for error in form.captcha.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %} 
+                </div>
+                
+                <label class="agree" for="{{ form.agree_with_site_rules.id_for_label }}">
+                  {{dev_request_form.agree_with_site_rules.errors}}
+                  {{dev_request_form.agree_with_site_rules}}  
+                  {{dev_request_form.agree_with_site_rules.label}}
+                </label>
+            
+        
+                <label class="agree" for="{{ form.agree_with_privacy_policy.id_for_label }}">
+                  {{dev_request_form.agree_with_privacy_policy.errors}}
+                  {{dev_request_form.agree_with_privacy_policy}}  
+                  {{dev_request_form.agree_with_privacy_policy.label}}
+                </label>
+              
+                <br>
+                <input type="submit" class="action_button" value="Подать заявку">
+        </form>
+        </div>
+        {%endif%}
+        {%endif%}
+</div>
+<div style="clear:both"></div>
+</div>
+</div>
+</div>
+{% endblock %}

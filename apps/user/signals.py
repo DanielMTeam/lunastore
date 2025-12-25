@@ -3,20 +3,20 @@ from django.db.models.signals import post_save, post_delete
 from .models import UserBan
 from apps.marketplace.models import Category, Application, Distribution
 from django.contrib.contenttypes.models import ContentType
-from .middleware import BlockBannedIP
 from django.dispatch import receiver
 from django.contrib.sessions.models import Session
 from django.conf import settings
 from logging import getLogger
+from .tasks import refresh_banned_ips_cache
 
 User = settings.AUTH_USER_MODEL
-log = getLogger(__name__)
+log = getLogger('user')
 
 
 @receiver([post_save, post_delete], sender=UserBan)
 def update_ipban_cache(sender, **kwargs):
     log.info("[signal apps.user] 'UserBanForm' model changed, refreshing banned IPs cache...")
-    BlockBannedIP.refresh_banned_ips()
+    refresh_banned_ips_cache.enquenue()
 
 
 @receiver(post_save, sender=User)
@@ -25,7 +25,6 @@ def kick_from_session_on_ban(sender, instance, created, **kwargs):
         deleted_sessions = 0
         for session in Session.objects.all():
             session_data = session.get_decoded()
-            
             if session_data.get('_auth_user_id') == str(instance.id):
                 session.delete()
                 deleted_sessions += 1
@@ -34,7 +33,6 @@ def kick_from_session_on_ban(sender, instance, created, **kwargs):
 def create_groups(sender, **kwargs):
     # 'Moderator' group
     moderator_group, created = Group.objects.get_or_create(name='Модераторы')
-    
     if created:
         log.info("moderators group created")
         try:
@@ -45,7 +43,6 @@ def create_groups(sender, **kwargs):
             permissions = [
                 # 'Category' model permissions
                 Permission.objects.get(codename='view_category', content_type=category_ct),
-                
                 # 'Application' model permissions
                 Permission.objects.get(codename='view_application', content_type=app_ct),
                 Permission.objects.get(codename='change_application', content_type=app_ct),
@@ -53,13 +50,11 @@ def create_groups(sender, **kwargs):
                 Permission.objects.get(codename='add_application', content_type=app_ct),
                 Permission.objects.get(codename='set_dmca_flag', content_type=app_ct),
                 Permission.objects.get(codename='set_demo_flag', content_type=app_ct),
-                
                 # 'Distribution' model permissions
                 Permission.objects.get(codename='view_distribution', content_type=distribution_ct),
                 Permission.objects.get(codename='change_distribution', content_type=distribution_ct),
                 Permission.objects.get(codename='delete_distribution', content_type=distribution_ct),
                 Permission.objects.get(codename='add_distribution', content_type=distribution_ct),
-
                 # 'UserBanForm' model permissions
                 Permission.objects.get(codename='view_UserBanForm', content_type=ban_ct),
                 Permission.objects.get(codename='change_UserBanForm', content_type=ban_ct),
@@ -87,8 +82,7 @@ def create_groups(sender, **kwargs):
                 # 'Distribution' model permissions
                 Permission.objects.get(codename='add_distribution', content_type=distribution_ct),
                 Permission.objects.get(codename='change_distribution', content_type=distribution_ct),
-                Permission.objects.get(codename='delete_distribution', content_type=distribution_ct),
-            ]
+                Permission.objects.get(codename='delete_distribution', content_type=distribution_ct)]
             developer_group.permissions.set(permissions)
             log.info("permissions assigned to 'Developers' group")
         except (ContentType.DoesNotExist, Permission.DoesNotExist) as e:
