@@ -1,3 +1,4 @@
+from unfold import admin as unfold_admin
 from django.contrib import admin
 from .models import *
 from .forms import AppScreenshotForm 
@@ -6,12 +7,12 @@ from django.utils.html import format_html
 
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(unfold_admin.ModelAdmin):
     pass
 
 
 @admin.register(Application)
-class ApplicationAdmin(admin.ModelAdmin):
+class ApplicationAdmin(unfold_admin.ModelAdmin):
     form = AppScreenshotForm
 
     readonly_fields = ('display_screenshots',)
@@ -54,5 +55,5 @@ class ApplicationAdmin(admin.ModelAdmin):
 
 
 @admin.register(Distribution)
-class DistributionAdmin(admin.ModelAdmin):
+class DistributionAdmin(unfold_admin.ModelAdmin):
     pass
