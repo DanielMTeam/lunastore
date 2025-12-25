@@ -9,5 +9,6 @@ urlpatterns = [
     path('register.php', views.register, name='register'),
     # profile
     path('profile.php', views.profile, name='profile'),
-    path('settings.php', views.settings, name='settings')
+    path('settings.php', views.profile_settings, name='settings'),
+    path('dev_status.php', views.dev_status, name='dev_status'),
 ]
