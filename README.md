@@ -7,14 +7,13 @@
 # <center>LunaStore</center>
 
 <center><b><i>App store for older systems (Windows XP, etc.)</i></b>
-<br>
+<br><br>
 
 <a href="RU-README.md">RU Documentation</a>
 
 
 <img alt="Website" src="https://img.shields.io/website?url=https%3A%2F%2Fstore.myslivets.com&up_color=blue&style=plastic">
 <img alt="Telegram Channel" src="https://img.shields.io/website?url=https%3A%2F%2Ft.me%2Flunastore_official&up_message=telegram%20channel&up_color=blue&style=plastic&label=our">
-<img alt="Language" src="https://img.shields.io/badge/Python, HTML, CSS, JS-blue?label=language">
 </center>
 
 <br>
