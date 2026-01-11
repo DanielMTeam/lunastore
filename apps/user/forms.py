@@ -69,7 +69,7 @@ class UserRegistrationForm(UserCreationForm):
     def clean(self):
         if self.request:
             ip = get_client_ip(self.request)
-            if ip in BlockBannedIP._banned_ips:
+            if ip in BlockBannedIP.get_banned_set():
                 raise forms.ValidationError('Ваш IP-адрес заблокирован. Вы не можете зарегистрироваться (как и войти, лол)')
     username = forms.CharField(max_length=45, min_length=2)
     email = forms.EmailField(max_length=45)
