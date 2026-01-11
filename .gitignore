@@ -7,3 +7,5 @@ staticfiles/ugc/screenshots/
 staticfiles/ugc/distributions/
 staticfiles/ugc/user_avatars/
 debug.log
+dev.log.md
+.editorconfig
