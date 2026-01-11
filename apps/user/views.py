@@ -30,6 +30,7 @@ def login(request):
         if ban:
             return JsonResponse({'success': False, 'errors': f'Your account is banned. Reason: {ban.reason}'}, status=403)
         else:
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
             dj_login(request, user)
             UserActivityLog.objects.create(
                 user=user,
@@ -66,6 +67,7 @@ def register(request):
                     ip=get_client_ip(request),
                     action='register_save_ip'
                 )
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
             dj_login(request, user)
             return redirect('home')
     else:
