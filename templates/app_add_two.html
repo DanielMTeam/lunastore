@@ -1,0 +1,216 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Добавление приложения - LunaStore</title>
+<link rel="stylesheet" href="./css/main.css">
+<link rel="stylesheet" href="./css/oprj.css">
+<link rel="shortcut icon" href="./favicon.ico">
+</head>
+
+
+<body>
+<div class="container">
+
+  <div class="dm_menu">
+    Вы вошли как <a href="/profile.php"><b>dm</b></a> - <a href="/index.php?act=logout&hash=3476ty89mR_hf9er8">выйти</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a> |
+    <div class="oprj_layout" id="oprj_layout">
+  <div class="oprj" id="oprj">прочие проекты</div>
+  <div class="oprj_list" id="oprj_list">
+    <div class="oprj_item" data-h="https://myslivets.com">Myslivets.com</div>
+    <div class="oprj_item" data-h="http://store.myslivets.com"><b>LunaStore</b></div>
+    <div class="oprj_item" data-h="http://games.myslivets.com">Игры</div>
+    <div class="oprj_item" data-h="/">Renaissance<small><font color="red"> new</font></small></div>
+    <hr>
+    <div class="oprj_item" data-h="https://myslivets.com/projects">Все проекты »</div>
+  </div>
+</div>
+
+  </div>
+
+  <div class="header">
+    
+    <div class="rl_l"><h1 class="txtr">LunaStore</h1>
+    <div class="subtitle txtr">Windows XP Professional</div>
+    </div>
+    
+    <div class="searchbar">
+  <!--[if IE 6]>
+  <style type="text/css">
+   .searchbar button {padding: 1px 1px;}
+  </style>
+  <![endif]-->
+      <input type="text" id="q" placeholder="Например: Total Commander">
+      <button type="button" onclick="doSearch()">поиск</button>
+      <br>
+      <div class="subtitle"><a href="/settings.php?act=search">Уточнить параметры поиска</a></div>
+    </div>
+  </div>
+
+
+  <div class="headerline"></div>
+
+  <div class="main">
+<div class="sidebar">
+      <div class="boxhead_primary"><b>Аккаунт</b></div>
+      <div class="box">
+        
+        <ul>
+          <a href="/profile.php"><li class="myhome">Мой профиль</li></a>
+          <a href="/settings.php"><li class="settings">Настройки</li></a>
+          <a href="/profile.php?act=invite"><li class="newbie">Пригласить</li></a>
+        </ul>
+      </div>
+
+        <div class="boxhead"><b>Категории</b></div>
+      <div class="box">
+        
+        <ul>
+          <a href="/index.php"><li class="myhome">Главная страница</li></a>
+          <a href="/store.php?show=top20"><li class="top">Приложения месяца</li></a>
+          <a href="/store.php?show=updates"><li class="updates">Центр обновлений</li></a>
+          <a href="/store.php?cat=1"><li class="entertainment">Игры и развлечения</li></a>
+          <a href="/store.php?cat=2"><li class="util">Инструменты</li></a>
+          <a href="/store.php?cat=3"><li class="media">Мультимедиа</li></a>
+          <a href="/store.php?cat=4"><li class="office">Офисные приложения</li></a>
+          <a href="/store.php?cat=5"><li class="internet">Интернет и сети</li></a>
+          <a href="/store.php?cat=6"><li class="other">Прочее</li></a>
+          <a href="/store.php?show=themes"><li class="themes">Темы оформления</li></a>
+        </ul>
+      </div>
+      
+      <div class="adv_block">
+        <a href="{ad_link}"><img src="./ad/ad.png" class="adv_img_splash" alt="Реклама"></a>
+      </div>
+
+    </div>
+
+    <div class="content">
+      <div class="section">
+        
+        <h2>Добавление приложения</h2>
+        <div class="separator_store"></div>
+        <link rel="stylesheet" href="./css/add_ui.css">
+
+        <div class="add_app_form">
+
+                  <div class="steps">
+    <table>
+        <tr>
+
+            <td class="step">
+                <div class="step_number">1</div>
+                <div class="step_title">Этап 1</div>
+                <div class="step_text">
+                    Начало<br>
+                </div>
+            </td>
+
+            <td class="step step_active">
+                <div class="step_number step_number_active">2</div>
+                <div class="step_title">Этап 2</div>
+                <div class="step_text">
+                    Дополнительная<br>
+                    информация
+                </div>
+            </td>
+
+            <td class="step step_last">
+                <div class="step_number">3</div>
+                <div class="step_title">Этап 3</div>
+                <div class="step_text">
+                    Просмотр перед<br>
+                    публикацией
+                </div>
+            </td>
+
+        </tr>
+    </table>
+</div>
+<br>
+          <div class="add_app_card">
+          <h1>Дополнительная информация</h1>
+
+        <form method="post" action="editapp.php?act=step2">
+
+            <label>
+                <div class="add_app_pad"><div class="add_app_title">Официальный сайт разработчика:</div>
+                <input type="text" name="app_web_site" class="input-text">
+                </div>
+            </label>
+
+             <label>
+                <div class="add_app_pad"><div class="add_app_title">Описание (1000 символов):</div>
+                <textarea class="brief_intro" name="desc" cols="1000">gkjdfjgkldhgjklhdfughkdfjgidruhtguidgfyhdfiugydhukfghukdfhgjkdukghkdfgkhdfghjfhd</textarea>
+              <div class="add_app_form_label">Описание будет показываться на странице приложения в блоке "Дополнительная информация"</div>  
+              </div>
+                
+            </label>
+
+             <label>
+                <div class="add_app_pad"><div class="add_app_title">Категория:</div>
+                <select name="category">
+                    <option value="1">Игры и развлечения</option>
+                    <option value="2">Инструменты</option>
+                    <option value="3">Мультимедиа</option>
+                    <option value="4">Офисные приложения</option>
+                    <option value="5">Интернет и сети</option>
+                    <option value="6">Прочее</option>
+                </select>
+                    <div class="add_app_form_label">Это очень важно для правильного поиска и показа приложения в соответствующих блоках. Администрация имеет право изменить категорию по своему усмотрению</div>
+                    </div>
+            </label>
+
+            <label>
+            <div class="add_app_pad"><div class="add_app_title">Скриншоты:</div>
+            <div class="info_splash">Максимальное количество скриншотов: 3<br>Допустимые форматы: .PNG, .JPG<br>Максимальный размер: 2 Мб</div>
+                <form action="/editapp.php?act=upload_scr" method="POST" enctype="multipart/form-data">
+                 <input type="file" id="scr-upload" class="action_button" name="scrfiles" multiple accept="image/*, .jpg" multiple>
+            </form>
+            </label>
+
+            <br><br>
+            <input type="submit" class="action_button" value="Далее">
+
+        </form>
+
+        </div>
+
+    </div>
+
+        <div style="clear:both"></div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="/help.php?page=about">О нас</a> - <a href="/help.php">FAQ</a> - <a href="/help.php?act=privacy">Политика конфиденциальности</a>
+    <div style="text-align: right; font-size: 11px;">С душой сделано командой DM, 2025<br>Все права принадлежат исходным правообладателям</div>
+  </div>
+<link rel="stylesheet" href="./css/ntf.css">
+<script src="./js/ntf.js"></script>
+<script src="./js/oprj.js"></script>
+
+<script type="text/javascript">
+function doSearch() {
+  var q = document.getElementById("q").value.toLowerCase();
+  var cards = document.getElementsByTagName("div");
+  for (var i=0;i<cards.length;i++) {
+    if(cards[i].className=="card") {
+      var text = cards[i].innerText || cards[i].textContent;
+      if(text.toLowerCase().indexOf(q)!=-1) {
+        cards[i].style.display="block";
+      } else {
+        cards[i].style.display="none";
+      }
+    }
+  }
+}
+</script>
+
+</body>
+
+</html>

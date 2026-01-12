@@ -110,3 +110,17 @@
   color:#333;
   overflow:hidden;
 }
+
+.appcat select {
+    border: 1px solid #7f9db9;
+    font: 11px Tahoma;
+    padding: 5px;
+    background: #fff;
+    width: 390px;
+}
+
+.adm_editapp_warn_label{
+    margin-left: 25px;
+    margin-top: 5px;
+    color: #757575;
+}

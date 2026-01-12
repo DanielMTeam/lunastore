@@ -3,10 +3,9 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Администрируемые приложения - LunaStore</title>
+<title>Файлы - Total Commadner - LunaStore</title>
 <script src="./js/search_mini.js"></script>
 <link rel="stylesheet" href="./css/main.css">
-<link rel="stylesheet" href="./css/oprj.css">
 <link rel="shortcut icon" href="./favicon.ico">
 
 </head>
@@ -17,18 +16,7 @@
 <div class="container">
 
   <div class="dm_menu">
-    Вы вошли как <a href="/profile.php"><b>dm</b></a> - <a href="/index.php?act=logout&hash=3476ty89mR_hf9er8">выйти</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a> |
-    <div class="oprj_layout" id="oprj_layout">
-  <div class="oprj" id="oprj">прочие проекты</div>
-  <div class="oprj_list" id="oprj_list">
-    <div class="oprj_item" data-h="https://myslivets.com">Myslivets.com</div>
-    <div class="oprj_item" data-h="http://store.myslivets.com"><b>LunaStore</b></div>
-    <div class="oprj_item" data-h="http://games.myslivets.com">Игры</div>
-    <div class="oprj_item" data-h="/">Renaissance<small><font color="red"> new</font></small></div>
-    <hr>
-    <div class="oprj_item" data-h="https://myslivets.com/projects">Все проекты »</div>
-  </div>
-</div>
+    Вы вошли как <a href="/profile.php"><b>dm</b></a> - <a href="/index.php?act=logout&hash=3476ty89mR_hf9er8">выйти</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a> | <a href="/help.php?page=projects">прочие проекты</a>
 
   </div>
 
@@ -62,7 +50,7 @@
         
         <ul>
           <a href="/profile.php"><li class="myhome">Мой профиль</li></a>
-          <a href="/settings.php"><li class="settings" id="active">Настройки</li></a>
+          <a href="/settings.php"><li class="settings">Настройки</li></a>
           <a href="/profile.php?act=invite"><li class="newbie">Пригласить</li></a>
         </ul>
       </div>
@@ -94,7 +82,7 @@
 
       <div class="preferences">
           <div class="preferences_info" id="{uid}">
-            <div class="preferences_title">Настройки</div>
+            <div class="preferences_title">Редактирование приложения</div>
             <div style="clear: both"></div>
 
           </div>
@@ -106,38 +94,73 @@
 
         <div class="tabs">
   <div class="tab-bar">
-    <div class="tab" href="/settings.php">
-      <img src="./img/tabs/account.png" class="tab-icon" alt="">
-      Аккаунт
+    <div class="tab" href="/app14?page=edit">
+      <img src="./img/tabs/main.png" class="tab-icon" alt="">
+      Инфо
     </div>
-    <div class="tab active" href="/settings.php?page=manage_apps">
+    <div class="tab active" href="/app14?page=edit_files">
       <img src="./img/tabs/programs.png" class="tab-icon" alt="">
-      Приложения
+      Файлы
+    </div>
+    <div class="tab" href="/app14?page=edit_rights">
+      <img src="./img/tabs/rights.png" class="tab-icon" alt="">
+      Права
+    </div>
+    <div class="tab" href="/app14?page=stats">
+      <img src="./img/tabs/stats.png" class="tab-icon" alt="">
+      Статистика
+    </div>
+    <div class="tab" href="/app14?page=scr">
+      <img src="./img/tabs/cam.png" class="tab-icon" alt="">
+      Фото
     </div>
   </div>
 
   <div class="tab-content" id="tab-view">
-    <div class="profile_block">Администрируемые страницы приложений</div>
-       <div class="profile_subblock">2 приложения</div>
+    <div class="profile_block">Добавление файла</div>
     <div class="profile_block_content">
 
-        <div class="list-app-tile">
-          <img src="./cdn/appsicons/totalcmd.png" alt="">
-          <h3>Total Commander</h3>
-          <p><b>создатель</b></p>
-          <a href="/app1?act=edit">редактировать</a>
-        </div>
-
-        <div class="list-app-tile">
-          <img src="./cdn/appsicons/copilot.png" alt="">
-          <h3>Microsoft Copilot</h3>
-          <p><b>администратор</b></p>
-          <a href="/app4?act=edit">редактировать</a>
-        </div>
+        <div class="info_splash">Допустимые форматы: .EXE, .CAB, .MSI<br>Максимальный размер файла: 256 Мб</div>
+        <form action="/editapp.php?act=upload_file" method="POST" enctype="multipart/form-data">
+            <input type="file" id="file-upload" class="action_button" name="myFile" accept=".exe, .cab, .msi" multiple>
+        </form>
 
     </div>
     <br>
+    <div class="profile_block">Загруженные версии</div>
+    <div class="profile_block_content">
+    <table class="app_version_table" cellpadding="0" cellspacing="0">
+    <tr>
+        <th>Версия</th>
+        <th>Дата загрузки</th>
+        <th>Действия</th>
+        <th>Автор</th>
+    </tr>
 
+    <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
+        <td>11.56</td>
+        <td>31 авг 2025 в 13:56</td>
+        <td class="notes"><b>нынешняя</b></td>
+        <td>dm</td>
+    </tr>
+
+    <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
+        <td>11.55</td>
+        <td>30 авг 2025 в 9:41</td>
+        <td class="notes"><a href="">откатить</a></td>
+        <td>alexv</td>
+    </tr>
+
+    <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
+        <td>11.00</td>
+        <td>1 янв 1970 в 3:00</td>
+        <td class="notes"><a href="">откатить</a></td>
+        <td>rem</td>
+    </tr>
+</table>
+    </div>
+    <br>
+            <input type="submit" class="action_button" value="Сохранить">
   </div>
 
 </div>
@@ -170,7 +193,6 @@
 </div>
 <link rel="stylesheet" href="./css/ntf.css">
 <script src="./js/ntf.js"></script>
-<script src="./js/oprj.js"></script>
 
 
 <script type="text/javascript">

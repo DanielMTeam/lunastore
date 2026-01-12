@@ -3,10 +3,9 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Администрируемые приложения - LunaStore</title>
+<title>Редактирование прав - Total Commadner - LunaStore</title>
 <script src="./js/search_mini.js"></script>
 <link rel="stylesheet" href="./css/main.css">
-<link rel="stylesheet" href="./css/oprj.css">
 <link rel="shortcut icon" href="./favicon.ico">
 
 </head>
@@ -17,18 +16,7 @@
 <div class="container">
 
   <div class="dm_menu">
-    Вы вошли как <a href="/profile.php"><b>dm</b></a> - <a href="/index.php?act=logout&hash=3476ty89mR_hf9er8">выйти</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a> |
-    <div class="oprj_layout" id="oprj_layout">
-  <div class="oprj" id="oprj">прочие проекты</div>
-  <div class="oprj_list" id="oprj_list">
-    <div class="oprj_item" data-h="https://myslivets.com">Myslivets.com</div>
-    <div class="oprj_item" data-h="http://store.myslivets.com"><b>LunaStore</b></div>
-    <div class="oprj_item" data-h="http://games.myslivets.com">Игры</div>
-    <div class="oprj_item" data-h="/">Renaissance<small><font color="red"> new</font></small></div>
-    <hr>
-    <div class="oprj_item" data-h="https://myslivets.com/projects">Все проекты »</div>
-  </div>
-</div>
+    Вы вошли как <a href="/profile.php"><b>dm</b></a> - <a href="/index.php?act=logout&hash=3476ty89mR_hf9er8">выйти</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a> | <a href="/help.php?page=projects">прочие проекты</a>
 
   </div>
 
@@ -62,7 +50,7 @@
         
         <ul>
           <a href="/profile.php"><li class="myhome">Мой профиль</li></a>
-          <a href="/settings.php"><li class="settings" id="active">Настройки</li></a>
+          <a href="/settings.php"><li class="settings">Настройки</li></a>
           <a href="/profile.php?act=invite"><li class="newbie">Пригласить</li></a>
         </ul>
       </div>
@@ -94,7 +82,7 @@
 
       <div class="preferences">
           <div class="preferences_info" id="{uid}">
-            <div class="preferences_title">Настройки</div>
+            <div class="preferences_title">Редактирование приложения</div>
             <div style="clear: both"></div>
 
           </div>
@@ -106,38 +94,68 @@
 
         <div class="tabs">
   <div class="tab-bar">
-    <div class="tab" href="/settings.php">
-      <img src="./img/tabs/account.png" class="tab-icon" alt="">
-      Аккаунт
+    <div class="tab" href="/app14?page=edit">
+      <img src="./img/tabs/main.png" class="tab-icon" alt="">
+      Инфо
     </div>
-    <div class="tab active" href="/settings.php?page=manage_apps">
+    <div class="tab" href="/app14?page=edit_files">
       <img src="./img/tabs/programs.png" class="tab-icon" alt="">
-      Приложения
+      Файлы
+    </div>
+    <div class="tab active" href="/app14?page=edit_rights">
+      <img src="./img/tabs/rights.png" class="tab-icon" alt="">
+      Права
+    </div>
+    <div class="tab" href="/app14?page=stats">
+      <img src="./img/tabs/stats.png" class="tab-icon" alt="">
+      Статистика
+    </div>
+    <div class="tab" href="/app14?page=scr">
+      <img src="./img/tabs/cam.png" class="tab-icon" alt="">
+      Фото
     </div>
   </div>
 
   <div class="tab-content" id="tab-view">
-    <div class="profile_block">Администрируемые страницы приложений</div>
-       <div class="profile_subblock">2 приложения</div>
+    <div class="profile_block">Редактирование прав доступа</div>
     <div class="profile_block_content">
 
-        <div class="list-app-tile">
-          <img src="./cdn/appsicons/totalcmd.png" alt="">
-          <h3>Total Commander</h3>
-          <p><b>создатель</b></p>
-          <a href="/app1?act=edit">редактировать</a>
+        <div class="brief_admin">
+          <img src="./cdn/avatar/4/avatar.png" alt="">
+          <h3><p>Редактирование прав доступа для <a href="/profile.php?id=4">rem</a></p></h3>
+          <p>Текущая роль: <b>редактор</b></p>
+          <p>Приложение: <a href="/app14">Total Commander</a></p>
         </div>
 
-        <div class="list-app-tile">
-          <img src="./cdn/appsicons/copilot.png" alt="">
-          <h3>Microsoft Copilot</h3>
-          <p><b>администратор</b></p>
-          <a href="/app4?act=edit">редактировать</a>
+        <h4>Выберите должность</h4>
+        <div class="separator_store"></div>
+
+        <form>
+          <div class="radio_group">
+            <div class="radio_item">
+              <input type="radio" name="choice" id="r1" value="1">
+              <label for="r1">Администратор</label>
+              <div class="pref_warn_label adm_editapp_warn_label">Получит полный доступ к странице редактирования приложения. Может заливать новые версии и откатывать старые. Смотреть статистику и работать со скриншотами. Не сможет удалить страницу приложения.</div>  
+            </div>
+
+            <div class="radio_item">
+              <input type="radio" name="choice" id="r2" value="2" checked>
+              <label for="r2">Редактор</label>
+              <div class="pref_warn_label adm_editapp_warn_label">Сможет редактировать базовую информацию на странице приложения и смотреть статистику. Не сможет работать со списком версий.</div> 
+            </div>
+
+            <div class="radio_item">
+              <input type="radio" name="choice" id="r3" value="3">
+              <label for="r3">Никто</label>
+              <div class="pref_warn_label adm_editapp_warn_label">Обычный пользователь. Убирает все права к этому приложению.</div> 
+            </div>
+          </div>
+        </form>
+
+        <button type="submit" class="action_button">Сохранить</button>
+
+
         </div>
-
-    </div>
-    <br>
-
   </div>
 
 </div>
@@ -170,7 +188,6 @@
 </div>
 <link rel="stylesheet" href="./css/ntf.css">
 <script src="./js/ntf.js"></script>
-<script src="./js/oprj.js"></script>
 
 
 <script type="text/javascript">

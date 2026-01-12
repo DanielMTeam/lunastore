@@ -3,7 +3,7 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Администрируемые приложения - LunaStore</title>
+<title>Пригласить - LunaStore</title>
 <script src="./js/search_mini.js"></script>
 <link rel="stylesheet" href="./css/main.css">
 <link rel="stylesheet" href="./css/oprj.css">
@@ -17,19 +17,7 @@
 <div class="container">
 
   <div class="dm_menu">
-    Вы вошли как <a href="/profile.php"><b>dm</b></a> - <a href="/index.php?act=logout&hash=3476ty89mR_hf9er8">выйти</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a> |
-    <div class="oprj_layout" id="oprj_layout">
-  <div class="oprj" id="oprj">прочие проекты</div>
-  <div class="oprj_list" id="oprj_list">
-    <div class="oprj_item" data-h="https://myslivets.com">Myslivets.com</div>
-    <div class="oprj_item" data-h="http://store.myslivets.com"><b>LunaStore</b></div>
-    <div class="oprj_item" data-h="http://games.myslivets.com">Игры</div>
-    <div class="oprj_item" data-h="/">Renaissance<small><font color="red"> new</font></small></div>
-    <hr>
-    <div class="oprj_item" data-h="https://myslivets.com/projects">Все проекты »</div>
-  </div>
-</div>
-
+    Вы вошли как <a href="/profile.php"><b>dm</b></a> - <a href="/index.php?act=logout&hash=3476ty89mR_hf9er8">выйти</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a> | <a href="/help.php?page=projects">прочие проекты</a>
   </div>
 
   <div class="header">
@@ -62,8 +50,8 @@
         
         <ul>
           <a href="/profile.php"><li class="myhome">Мой профиль</li></a>
-          <a href="/settings.php"><li class="settings" id="active">Настройки</li></a>
-          <a href="/profile.php?act=invite"><li class="newbie">Пригласить</li></a>
+          <a href="/settings.php"><li class="settings">Настройки</li></a>
+          <a href="/profile.php?act=invite"><li class="newbie" id="active">Пригласить</li></a>
         </ul>
       </div>
 
@@ -91,60 +79,44 @@
     </div>
 
     <div class="content">
-
+      <link rel="stylesheet" href="./css/settings.css"> 
       <div class="preferences">
           <div class="preferences_info" id="{uid}">
-            <div class="preferences_title">Настройки</div>
+            <div class="preferences_title">Пригласить человека</div>
             <div style="clear: both"></div>
-
           </div>
       </div>
-      <link rel="stylesheet" href="./css/settings.css"> 
-      <link rel="stylesheet" href="./css/profile.css">   
-      <link rel="stylesheet" href="./css/tabs.css">
-      <!--[if lte IE 6]> <link rel="stylesheet" href="./css/profile_ie6.css" media="screen, projection"> <![endif]-->  
 
-        <div class="tabs">
-  <div class="tab-bar">
-    <div class="tab" href="/settings.php">
-      <img src="./img/tabs/account.png" class="tab-icon" alt="">
-      Аккаунт
-    </div>
-    <div class="tab active" href="/settings.php?page=manage_apps">
-      <img src="./img/tabs/programs.png" class="tab-icon" alt="">
-      Приложения
-    </div>
-  </div>
+      <div class="section">
+        <div class="invite_block">Вы можете пригласить своего друга или знакомого с одинаковыми интересами по ретро-тематике в LunaStore. </div>
+<div class="splash"><div class="info_splash"><div class="info_icon_small"></div><div class="splash_text">На данный момент Вы можете пригласить <b>1</b> человека. После принятия пользователем вашего приглашения, следующее можно будет создать только через неделю</div></div></div>
+ 
+        
+        <div class="invite_block">
+          Скопируйте этот код ниже и отправьте его нужному Вам человеку
+          <br>
+          <div class="pre_invite_code_padding">
+            <div class="invite_code">H8fd3ve4
+            </div>
+          </div>
+          По E-mail, по телефону, в чате, при встрече - совершенно не важно. Код обязательно нужно ввести приглашаемому пользователю в процессе регистрации.
+        </div>
+        <br>
+        <div class="splash"><div class="alert_splash"><div class="warning_icon_small"></div><div class="splash_text"><b>Важно:</b> на данный момент времени, пригласительный код нового участника меняется каждые 24 часа</div></div></div>
+        <br>
+        
 
-  <div class="tab-content" id="tab-view">
-    <div class="profile_block">Администрируемые страницы приложений</div>
-       <div class="profile_subblock">2 приложения</div>
-    <div class="profile_block_content">
-
-        <div class="list-app-tile">
-          <img src="./cdn/appsicons/totalcmd.png" alt="">
-          <h3>Total Commander</h3>
-          <p><b>создатель</b></p>
-          <a href="/app1?act=edit">редактировать</a>
+        <h2>Приглашённые пользователи</h2>
+        <div class="separator_store"></div>
+        <div class="invite_block">
+          <div class="search_error">
+            <span>Вы пока ещё никого не приглашали</span>
+          </div>
         </div>
 
-        <div class="list-app-tile">
-          <img src="./cdn/appsicons/copilot.png" alt="">
-          <h3>Microsoft Copilot</h3>
-          <p><b>администратор</b></p>
-          <a href="/app4?act=edit">редактировать</a>
-        </div>
+      </div>
 
-    </div>
-    <br>
-
-  </div>
-
-</div>
-
-
-    </div>
-  </div>
+  </div> </div>
 
   <div class="footer">
     <a href="/help.php?page=about">О нас</a> - <a href="/help.php">FAQ</a> - <a href="/help.php?act=privacy">Политика конфиденциальности</a>

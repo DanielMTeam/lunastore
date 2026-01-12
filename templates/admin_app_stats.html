@@ -3,10 +3,9 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Администрируемые приложения - LunaStore</title>
+<title>Статистика - Total Commadner - LunaStore</title>
 <script src="./js/search_mini.js"></script>
 <link rel="stylesheet" href="./css/main.css">
-<link rel="stylesheet" href="./css/oprj.css">
 <link rel="shortcut icon" href="./favicon.ico">
 
 </head>
@@ -17,18 +16,7 @@
 <div class="container">
 
   <div class="dm_menu">
-    Вы вошли как <a href="/profile.php"><b>dm</b></a> - <a href="/index.php?act=logout&hash=3476ty89mR_hf9er8">выйти</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a> |
-    <div class="oprj_layout" id="oprj_layout">
-  <div class="oprj" id="oprj">прочие проекты</div>
-  <div class="oprj_list" id="oprj_list">
-    <div class="oprj_item" data-h="https://myslivets.com">Myslivets.com</div>
-    <div class="oprj_item" data-h="http://store.myslivets.com"><b>LunaStore</b></div>
-    <div class="oprj_item" data-h="http://games.myslivets.com">Игры</div>
-    <div class="oprj_item" data-h="/">Renaissance<small><font color="red"> new</font></small></div>
-    <hr>
-    <div class="oprj_item" data-h="https://myslivets.com/projects">Все проекты »</div>
-  </div>
-</div>
+    Вы вошли как <a href="/profile.php"><b>dm</b></a> - <a href="/index.php?act=logout&hash=3476ty89mR_hf9er8">выйти</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a> | <a href="/help.php?page=projects">прочие проекты</a>
 
   </div>
 
@@ -62,7 +50,7 @@
         
         <ul>
           <a href="/profile.php"><li class="myhome">Мой профиль</li></a>
-          <a href="/settings.php"><li class="settings" id="active">Настройки</li></a>
+          <a href="/settings.php"><li class="settings">Настройки</li></a>
           <a href="/profile.php?act=invite"><li class="newbie">Пригласить</li></a>
         </ul>
       </div>
@@ -94,7 +82,7 @@
 
       <div class="preferences">
           <div class="preferences_info" id="{uid}">
-            <div class="preferences_title">Настройки</div>
+            <div class="preferences_title">Редактирование приложения</div>
             <div style="clear: both"></div>
 
           </div>
@@ -106,37 +94,123 @@
 
         <div class="tabs">
   <div class="tab-bar">
-    <div class="tab" href="/settings.php">
-      <img src="./img/tabs/account.png" class="tab-icon" alt="">
-      Аккаунт
+    <div class="tab" href="/app14?page=edit">
+      <img src="./img/tabs/main.png" class="tab-icon" alt="">
+      Инфо
     </div>
-    <div class="tab active" href="/settings.php?page=manage_apps">
+    <div class="tab" href="/app14?page=edit_files">
       <img src="./img/tabs/programs.png" class="tab-icon" alt="">
-      Приложения
+      Файлы
+    </div>
+    <div class="tab" href="/app14?page=edit_rights">
+      <img src="./img/tabs/rights.png" class="tab-icon" alt="">
+      Права
+    </div>
+    <div class="tab active" href="/app14?page=stats">
+      <img src="./img/tabs/stats.png" class="tab-icon" alt="">
+      Статистика
+    </div>
+    <div class="tab" href="/app14?page=scr">
+      <img src="./img/tabs/cam.png" class="tab-icon" alt="">
+      Фото
     </div>
   </div>
 
   <div class="tab-content" id="tab-view">
-    <div class="profile_block">Администрируемые страницы приложений</div>
-       <div class="profile_subblock">2 приложения</div>
+      
+      <div class="brief_admin">
+        <img src="./cdn/appsicons/totalcmd.png" alt="">
+        <h3><p>Total Commander</p></h3>
+        <p>Лучший файловый менеджер для Windows</p>
+        <p><a href="/app14">Вернуться к странице</a></p>
+      </div>
+
+    <div class="stats_wrapper">
+    <h4>Визуальная статистика за 30 дней</h4>
+    <div class="separator_store"></div><br>
+      <div class="search_error">Нет данных</div>
+
+        <h4>Детальная статистика</h4>
+        <div class="separator_store"></div><br>
+
+    <div class="profile_block">Скачивания</div>
     <div class="profile_block_content">
+      Количество скачиваний за сегодня: <b>527</b><br>
+      Количество скачиваний за вчера: <b>4 739</b><br>
+      Количество скачиваний за месяц: <b>143 570</b><hr>
+      Скачивания за всё время (с 30.08.2025): <b>465 688</b><br>
 
-        <div class="list-app-tile">
-          <img src="./cdn/appsicons/totalcmd.png" alt="">
-          <h3>Total Commander</h3>
-          <p><b>создатель</b></p>
-          <a href="/app1?act=edit">редактировать</a>
-        </div>
-
-        <div class="list-app-tile">
-          <img src="./cdn/appsicons/copilot.png" alt="">
-          <h3>Microsoft Copilot</h3>
-          <p><b>администратор</b></p>
-          <a href="/app4?act=edit">редактировать</a>
-        </div>
-
+      <div class="pref_warn_label">Статистика записывается после нажатия на кнопку "Установить" в странице приложения</div>
     </div>
-    <br>
+
+  <br>
+      <div class="profile_block">Просмотры</div>
+    <div class="profile_block_content">
+      Просмотры за сегодня: <b>6 675</b><br>
+      Просмотры за вчера: <b>14578</b><br>
+      Просмотры за месяц: <b>437 340</b><hr>
+      Просмотры за всё время (с 30.08.2025): <b>1 365 984</b>
+    </div>
+
+    <h4>Топ-10 по странам за 30 дней</h4>
+        <div class="separator_store"></div><br>
+            <table class="app_version_table" cellpadding="0" cellspacing="0">
+    <tr>
+        <th>Страна</th>
+        <th>Количество скачиваний</th>
+    </tr>
+
+    <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
+        <td>Россия</td>
+        <td>число</td>
+    </tr>
+
+    <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
+        <td>Казахстан</td>
+        <td>число</td>
+    </tr>
+
+    <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
+        <td>Украина</td>
+        <td>число</td>
+    </tr>
+
+    <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
+        <td>Беларусь</td>
+        <td>число</td>
+    </tr>
+
+    <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
+        <td>Германия</td>
+        <td>число</td>
+    </tr>
+
+    <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
+        <td>Нидерланды</td>
+        <td>число</td>
+    </tr>
+
+    <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
+        <td>Грузия</td>
+        <td>число</td>
+    </tr>
+
+    <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
+        <td>Турция</td>
+        <td>число</td>
+    </tr>
+
+    <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
+        <td>США</td>
+        <td>число</td>
+    </tr>
+
+    <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
+        <td>Великобритания</td>
+        <td>число</td>
+    </tr>
+</table>
+</div>
 
   </div>
 
@@ -170,7 +244,6 @@
 </div>
 <link rel="stylesheet" href="./css/ntf.css">
 <script src="./js/ntf.js"></script>
-<script src="./js/oprj.js"></script>
 
 
 <script type="text/javascript">
