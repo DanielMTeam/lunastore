@@ -58,3 +58,6 @@ def app(request):
         'screenshots': obj.screenshots
     }
     return render(request, 'storepage.html', context)
+
+def faq(request):
+    return render(request, 'faq.html')

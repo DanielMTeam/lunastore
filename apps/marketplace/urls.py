@@ -7,4 +7,5 @@ urlpatterns = [
     path('index.php', views.marketplace, name='index'),
     path('category.php', views.category, name='category'),
     path('app.php', views.app, name='app'),
+    path('faq.php', views.faq, name='faq')
 ]

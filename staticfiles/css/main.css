@@ -1,3 +1,15 @@
+/* 
+
+	Привет любителям покопаться в коде.
+	Жизнь слишком коротка, чтобы тратить её на ссоры и конфликты
+	
+	Этот код был написан собственными силами. Понимаю, что он
+	может быть неидеальным, но самое главное - оно работает.
+	
+	Желаю всего наилучшего!
+	01.01.2026, 14:41
+
+*/
 body {
   margin: 0;
   padding: 0;
@@ -13,6 +25,11 @@ body {
 }
 .rl_l{
   float: right;
+}
+
+h4{
+  font-size: 14px;
+  margin: 5px auto;
 }
 
 .announcement{
@@ -78,6 +95,41 @@ body {
 }
 
 .searchbar button:active {
+  border:1px solid #5fa359;
+  background:#006000;
+}
+
+.search_error{
+  border: 1px solid #e6e6e6;
+  padding: 75px; /* we af tehnologi bruhh */
+  text-align: center;
+  color: #bbb;
+  background: #fff;
+}
+
+.search_tools{
+  text-decoration: none;
+}
+
+.search_full {
+  text-align: center; /* wtf но оно работает lmao */
+}
+.search_full input {
+  width: 75%;
+  border: 1px solid #7aa0e6;
+  padding: 3px 3px 3px 25px;
+}
+.search_full button {
+  border:1px solid #006000;
+  background:#5fa359;
+  color:#fff;
+  font-weight:bold;
+  cursor:pointer;
+  width: 64px;
+  height: 22px;
+}
+
+.search_full button:active {
   border:1px solid #5fa359;
   background:#006000;
 }
@@ -173,6 +225,13 @@ body {
 .sidebar li.settings{background:url(../img/icons.png) no-repeat 0px -268px;}
 .sidebar li.alert{background:url(../img/icons.png) no-repeat 0px -246px;}
 
+.sidebar_info{
+  border: 1px solid #e6e6e6;
+  padding: 25px;
+  text-align: center;
+  color: #bbb;
+  background: #fff;
+}
 
 .card_other_button{
   padding: 10px;
@@ -202,6 +261,9 @@ body {
 .separator_store{
   background: url(../img/separatorstore.png);
   height: 1px;
+  line-height: 1px;
+  font-size: 0;
+  overflow: hidden; /* я манал это под IE верстать */
 }
 .card {
   width:200px;
@@ -292,6 +354,9 @@ body {
 .headerline{
     height: 6px;
     background: #294b76 url('../img/headline.png');
+    line-height: 1px;
+    font-size: 0;
+    overflow: hidden; 
 }
 .separator{
     height: 1px;
@@ -300,8 +365,22 @@ body {
 
 .backb{
   font-size: 14px;
-  margin-bottom: 5px;
+  font-weight: bold;
 }
+
+.backb a{
+  text-decoration: none;
+  color: #000;
+}
+
+.backb a:hover{
+  color: #990000;
+}
+
+.backb a:active{
+  color: #b20000;
+}
+
 .backb li{
     list-style: none;
     padding-left: 24px;
@@ -324,14 +403,16 @@ body {
   background:#faebeb;
   border:1px solid #d68383;
   margin-bottom:10px;
-  line-height:17px
+  line-height:17px;
+  min-height: 28px;
 }
 
 .info_splash{
   padding:10px;
   background:#f4f7fa;
   border:1px solid #bfd2e4;
-  margin-bottom:10px
+  margin-bottom:10px;
+  min-height: 28px;
 }
 
 .alert_splash{
@@ -339,6 +420,15 @@ body {
   background-color: #F9F6E7;
   margin-bottom:10px;
   padding:10px;
+  min-height: 28px;
+}
+
+.good_splash{
+  border: 1px solid #77D44C;
+  background-color: #E8F9E7;
+  margin-bottom:10px;
+  padding:10px;
+  min-height: 28px;
 }
 
 .actionsm{
@@ -355,6 +445,7 @@ body {
 .actionsm li.offsite{background:url(../img/icons.png) no-repeat 0px -180px;}
 .actionsm li.alert{background:url(../img/icons.png) no-repeat 0px -248px;}
 .actionsm li.otherapps{background:url(../img/icons.png) no-repeat 0px -293px;}
+.actionsm li.editapp{background:url(../img/icons.png) no-repeat 0px -271px;}
 
 .action_button{
 	border:1px solid #7aa0e6;
@@ -410,6 +501,11 @@ body {
   background: url(../img/categorybanner/updates.png) no-repeat;
 }
 
+.banner_image #otherprj{
+  background: url(../img/categorybanner/otherprj.png) no-repeat;
+  height: 75px;
+}
+
 .info_icon{
   background: url(../img/info_small.png) no-repeat;
   float:left;
@@ -433,6 +529,20 @@ body {
 
 .warning_icon_small{
   background: url(../img/alert_micro.png) no-repeat;
+  float:left;
+  width: 24px;
+  height: 24px;
+}
+
+.warning_icon{
+  background: url(../img/good_small.png) no-repeat;
+  float:left;
+  width: 48px;
+  height: 48px;
+}
+
+.good_icon_small{
+  background: url(../img/good_micro.png) no-repeat;
   float:left;
   width: 24px;
   height: 24px;
@@ -501,28 +611,6 @@ body {
     background: url('../img/search_icon_small.png') no-repeat;
 }
 
-.search_full {
-  margin-top:1px;
-  text-align: center; /* wtf но оно работает lmao */
-}
-.search_full input {
-  width: 75%;
-  border: 1px solid #7aa0e6;
-  padding: 3px 3px 3px 25px;
-}
-.search_full button {
-  border:1px solid #006000;
-  background:#5fa359;
-  color:#fff;
-  font-weight:bold;
-  padding:2px 5px;
-  cursor:pointer;
-}
-
-.search_full button:active {
-  border:1px solid #5fa359;
-  background:#006000;
-}
 
 .ls_dm_logo{
 	width: 96px;
@@ -535,3 +623,385 @@ body {
     width: 390px;
     height: 120px;
 }
+
+/* СТРАНИЦА ДОБАВЛЕНИЯ ПРИЛОЖЕНИЯ Я ЗАКОЛЕБАЛСЯ ЭТО ВЕРСТАТЬ */
+.steps {
+    width: 422px;
+    border: 1px solid #7f9db9;
+    background: #ffffff;
+}
+
+.steps table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.step {
+    border-right: 1px solid #7f9db9;
+    padding: 10px;
+    vertical-align: top;
+    background: #f4f4f4;
+    color: #666;
+}
+
+.step_last {
+    border-right: none;
+}
+
+.step_active {
+    background: #ffffff;
+    color: #000;
+}
+
+.step_title {
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.step_number {
+    font-size: 48px;
+    font-weight: bold;
+    color: #316ac5;
+    float: right;
+    line-height: 36px;
+}
+
+.step_number_active{
+  color: #ffa500;
+}
+
+.step_text {
+    font-size: 11px;
+    margin-top: 20px;
+    width: 100px;
+}
+
+/* СТРАНИЦА С ЧАСТО ЗАДАВАЕМЫМИ ВОПРОСАМИ, УЖЕ НАРАБОТКА БЫЛА */
+.faq_card{
+    margin-top: 5px;
+}
+
+#faq_title {
+    background: #fbf3c3;
+    margin: 0 5px;
+    padding: 5px;
+    font-weight: bold;
+    border: 1px solid #d7cf9e;
+    border-bottom: 0;
+}
+
+#faq_content {
+    background: #fafafa;
+    margin: 0 5px 10px;
+    padding: 5px 5px 5px 10px;
+    border: 1px solid #ddd;
+}
+.project_card{
+  padding: 5px;
+}
+
+.project_info{
+  width: 355px;
+  display: inline-block;
+}
+
+.project_logo{
+  display: block;
+  float: left;
+}
+
+.project_logo img{
+  width: 48px;
+  height: 48px;
+  margin-right: 15px;
+}
+
+.project_name{
+  font-weight: bold;
+}
+
+.project_desc{
+  font-weight: normal;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.project_button{
+  font-weight: bold;
+  text-decoration: none;
+  color: #000;
+}
+
+.project_button:hover{
+  text-decoration: none;
+  color: #990000;
+}
+
+.project_button:active{
+  text-decoration: none;
+  color: #b20000;
+}
+
+.invite_block{
+	padding: 10px;
+}
+
+.pre_invite_code_padding{
+  padding: 20px;
+}
+
+.invite_code{
+  font-size: 36px;
+  background: #fffbe1;
+  border: 3px solid #D4BC4C;
+  font-weight: bold;
+  padding: 5px;
+  width: 255px;
+  text-align: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 0 auto;
+  border-style: dashed;
+}
+
+.register_invite_code{
+  padding: 10px;
+  margin: 0 auto;
+}
+
+/* Надо потом переделать кнопки по всему
+сайту на более адекватную релизацию */
+input[type=submit] {
+	border:1px solid #7aa0e6;
+	background:#2f78d6;
+	color:#fff;
+	padding:4px 6px;
+	font-size:12px;
+	text-decoration: none;
+}
+
+/* Прогресс-бар */
+/* А почему нет, на всякий пускай будет */
+.progress_bar {
+    width: 300px;
+    height: 16px;
+    border: 1px solid #80b57e;
+    background: #ffffff;
+    padding: 1px;
+}
+.progress_bar_fill{
+    height: 14px;
+    background: #44c531;
+    border: 1px solid #9deba2;
+}
+.progress_bar_gloss{
+    height: 6px;
+    background: #8de396;
+    font-size: 1px;
+    line-height: 1px;
+}
+
+.backblock{
+  padding: 5px;
+  background: white;
+  border-top: 1px solid #cfe1ff;
+  border-left: 1px solid #cfe1ff;
+  border-right: 1px solid #cfe1ff;
+}
+
+.actionsm a{
+  color: #000;
+  text-decoration: none;
+}
+
+.actionsm a:hover{
+  color: #b20000;
+}
+
+.actionsm a:active{
+  color: #990000;
+  font-weight: bold;
+}
+
+.editapp_icon_view{
+  float: left;
+  width: 48px;
+  height: 48px;
+  padding: 5px;
+}
+
+.editapp_splash{
+  float: left;
+  width: 325px;
+  margin-right: 5px;
+}
+
+.app_version_table {
+    border-collapse: collapse;
+    background-color: #FFFFFF;
+    border: 1px solid #7F9DB9;
+    width: 415px;
+}
+
+.app_version_table th {
+    background-color: #D6E3F2;
+    border: 1px solid #7F9DB9;
+    padding: 6px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.app_version_table td {
+    border: 1px solid #7F9DB9;
+    padding: 5px;
+    text-align: center;
+    background-color: #FFFFFF;
+}
+
+.app_version_table td.notes {
+    background-color: #F5F8FC;
+    text-decoration: none;
+}
+
+.app_version_table td.notes a{
+    text-decoration: none;
+}
+
+.app_version_table td.notes a:hover {
+    color: #cc0000;
+}
+
+.counter_list{
+  padding: 5px;
+}
+
+.brief_admin{
+    padding: 5px;
+    min-height: 48px;
+    margin-bottom: 5px;
+}
+
+.brief_admin img {
+  float:left;
+  margin-right:6px;
+  width:48px;
+  height:48px;
+}
+.brief_admin h3 {
+  margin:0;
+  font-size:13px;
+  color:#0b3a72;
+}
+.brief_admin p {
+  margin:3px 0;
+  font-size:11px;
+  color:#333;
+  overflow:hidden;
+}
+
+.radio_group {
+  padding: 10px;
+}
+
+.radio_item {
+  margin-bottom: 6px;
+  padding: 1px;
+}
+
+.stats_wrapper{
+  padding: 10px;
+}
+
+
+/* Login page */
+.login_block {
+  float: left;
+  width: 45%;
+  background: #eaf1fb;
+  border-right: 1px solid #9db6d8;
+  height: 100%;
+  min-height: 100%;
+}
+
+.login_header {
+  background: #3a6ea5;
+  color: #ffffff;
+  padding: 8px;
+  font-weight: bold;
+  height: 32px;
+}
+
+.field {
+  padding: 10px;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.input_text {
+  width: 90%;
+  padding: 3px;
+  border: 1px solid #7f9db9;
+  font-size: 12px;
+}
+
+.actions {
+  padding: 10px;
+}
+
+.info_block {
+  float: left;
+  width: 45%;
+  padding: 20px;
+  background: #ffffff;
+}
+
+.info_block h2 {
+  margin-top: 0;
+  font-size: 16px;
+  color: #003366;
+}
+
+.info_block ul {
+  margin: 10px 0 0 0;
+  padding: 0;
+}
+
+.info_block li {
+  margin-bottom: 6px;
+  list-style: none;
+  padding-left: 24px;
+  line-height: 22px;
+}
+
+.login_user_tile{
+  background: url(../img/user_tile_x.png);
+  width: 32px;
+  height: 32px;
+  margin-right: 5px;
+  float: left;
+}
+
+.login_header_text{
+  float: left;
+  height: 32px;
+  line-height: 32px;
+}
+
+.login_wrap{
+  border: 1px solid #9db6d8;
+}
+
+.info_block li.top{background:url(../img/icons.png) no-repeat 0px -24px;}
+.info_block li.uni{background:url(../img/icons.png) no-repeat 0px -200px;}
+.info_block li.com{background:url(../img/icons.png) no-repeat 0px -291px;}
+.info_block li.nxt{background:url(../img/icons.png) no-repeat 0px -224px;}
+
+/*
+бебебе
+(привет от backend разработчика)
+*/
+

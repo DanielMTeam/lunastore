@@ -3,17 +3,14 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Администрируемые приложения - LunaStore</title>
-<script src="./js/search_mini.js"></script>
+<title>Добавление приложения - LunaStore</title>
 <link rel="stylesheet" href="./css/main.css">
 <link rel="stylesheet" href="./css/oprj.css">
 <link rel="shortcut icon" href="./favicon.ico">
-
 </head>
 
 
 <body>
-  <div class="announcement">Вы сейчас открыли версию сайта <b>на русском языке</b>, однако у нас есть локализация именно под <b>Ваш</b> регион<br>Желаете ли переключиться? <br><br> <a href="?hl=en" id="primary">Yes, change my language</a> - <a href="">Нет, спасибо</a></div>
 <div class="container">
 
   <div class="dm_menu">
@@ -33,7 +30,7 @@
   </div>
 
   <div class="header">
-    <a href="https://myslivets.com"><div class="ls_dm_logo"></div></a>
+    
     <div class="rl_l"><h1 class="txtr">LunaStore</h1>
     <div class="subtitle txtr">Windows XP Professional</div>
     </div>
@@ -42,7 +39,6 @@
   <!--[if IE 6]>
   <style type="text/css">
    .searchbar button {padding: 1px 1px;}
-   .tail{display: none;}
   </style>
   <![endif]-->
       <input type="text" id="q" placeholder="Например: Total Commander">
@@ -56,13 +52,13 @@
   <div class="headerline"></div>
 
   <div class="main">
-    <div class="sidebar">
+<div class="sidebar">
       <div class="boxhead_primary"><b>Аккаунт</b></div>
       <div class="box">
         
         <ul>
           <a href="/profile.php"><li class="myhome">Мой профиль</li></a>
-          <a href="/settings.php"><li class="settings" id="active">Настройки</li></a>
+          <a href="/settings.php"><li class="settings">Настройки</li></a>
           <a href="/profile.php?act=invite"><li class="newbie">Пригласить</li></a>
         </ul>
       </div>
@@ -91,57 +87,74 @@
     </div>
 
     <div class="content">
+      <div class="section">
+        
+        <h2>Добавление приложения</h2>
+        <div class="separator_store"></div>
+        <link rel="stylesheet" href="./css/add_ui.css">
 
-      <div class="preferences">
-          <div class="preferences_info" id="{uid}">
-            <div class="preferences_title">Настройки</div>
-            <div style="clear: both"></div>
+        <div class="add_app_form">
 
-          </div>
-      </div>
-      <link rel="stylesheet" href="./css/settings.css"> 
-      <link rel="stylesheet" href="./css/profile.css">   
-      <link rel="stylesheet" href="./css/tabs.css">
-      <!--[if lte IE 6]> <link rel="stylesheet" href="./css/profile_ie6.css" media="screen, projection"> <![endif]-->  
+                  <div class="steps">
+    <table>
+        <tr>
 
-        <div class="tabs">
-  <div class="tab-bar">
-    <div class="tab" href="/settings.php">
-      <img src="./img/tabs/account.png" class="tab-icon" alt="">
-      Аккаунт
-    </div>
-    <div class="tab active" href="/settings.php?page=manage_apps">
-      <img src="./img/tabs/programs.png" class="tab-icon" alt="">
-      Приложения
-    </div>
-  </div>
+            <td class="step">
+                <div class="step_number">1</div>
+                <div class="step_title">Этап 1</div>
+                <div class="step_text">
+                    Начало<br>
+                </div>
+            </td>
 
-  <div class="tab-content" id="tab-view">
-    <div class="profile_block">Администрируемые страницы приложений</div>
-       <div class="profile_subblock">2 приложения</div>
-    <div class="profile_block_content">
+            <td class="step">
+                <div class="step_number">2</div>
+                <div class="step_title">Этап 2</div>
+                <div class="step_text">
+                    Дополнительная<br>
+                    информация
+                </div>
+            </td>
 
-        <div class="list-app-tile">
-          <img src="./cdn/appsicons/totalcmd.png" alt="">
-          <h3>Total Commander</h3>
-          <p><b>создатель</b></p>
-          <a href="/app1?act=edit">редактировать</a>
-        </div>
+            <td class="step step_last step_active">
+                <div class="step_number step_number_active">3</div>
+                <div class="step-title">Этап 3</div>
+                <div class="step_text">
+                    Просмотр перед<br>
+                    публикацией
+                </div>
+            </td>
 
-        <div class="list-app-tile">
-          <img src="./cdn/appsicons/copilot.png" alt="">
-          <h3>Microsoft Copilot</h3>
-          <p><b>администратор</b></p>
-          <a href="/app4?act=edit">редактировать</a>
-        </div>
-
-    </div>
-    <br>
-
-  </div>
-
+        </tr>
+    </table>
 </div>
+<br>
 
+<div class="info_splash">Проверьте всю информацию перед публикацией. Вот так будет выглядеть страница вашего приложения. В случае положительного результата рассмотрения, мы опубликуем его в каталог.</div>
+
+          <div class="add_app_card">
+
+          [визуализировать страницу приложения, но вставить все данные, которые загрузил пользователь]  
+        <br><br>
+        <form method="post" action="editapp.php?act=step3">
+
+            <div class="alert_splash">
+                Введите символы с картинки:<br><br>
+                <b>тут как-то нужно придумать защиту</b>
+            </div>
+           
+            <br>
+            <input type="submit" class="action_button" value="Отправить на рассмотрение">  
+
+        </form>
+
+        </div>
+
+    </div>
+
+        <div style="clear:both"></div>
+
+      </div>
 
     </div>
   </div>
@@ -150,46 +163,24 @@
     <a href="/help.php?page=about">О нас</a> - <a href="/help.php">FAQ</a> - <a href="/help.php?act=privacy">Политика конфиденциальности</a>
     <div style="text-align: right; font-size: 11px;">С душой сделано командой DM, 2025<br>Все права принадлежат исходным правообладателям</div>
   </div>
-
-
-
-
-<!-- Всплывающее окно -->
-<div id="login-popup" class="xp-popup">
-  <div class="popup-content">
-    <b>Авторизация</b><br>У Вас уже есть аккаунт? Представьтесь.<hr>
-    <form id="login-form">
-      Логин: <br>
-      <input type="text" name="login"><br>
-      Пароль: <br>
-      <input type="password" name="password"><br>
-      <button type="submit">Войти</button>
-    </form>
-  </div>
-  <div class="tail"></div>
-</div>
 <link rel="stylesheet" href="./css/ntf.css">
 <script src="./js/ntf.js"></script>
 <script src="./js/oprj.js"></script>
 
-
 <script type="text/javascript">
-/* Балун, совместимый с IE6.
-   Как использовать:
-     initBalloon('loginBtn'); // привязка к кнопке входа по id
-*/
-
-
-</script>
-
-<!-- Пример: привязать к кнопке с id="loginBtn" -->
-<script type="text/javascript">
-if (window.attachEvent) {
-  window.attachEvent('onload', function(){ initBalloon('loginBtn'); });
-} else if (window.addEventListener) {
-  window.addEventListener('load', function(){ initBalloon('loginBtn'); }, false);
-} else {
-  window.onload = function(){ initBalloon('loginBtn'); };
+function doSearch() {
+  var q = document.getElementById("q").value.toLowerCase();
+  var cards = document.getElementsByTagName("div");
+  for (var i=0;i<cards.length;i++) {
+    if(cards[i].className=="card") {
+      var text = cards[i].innerText || cards[i].textContent;
+      if(text.toLowerCase().indexOf(q)!=-1) {
+        cards[i].style.display="block";
+      } else {
+        cards[i].style.display="none";
+      }
+    }
+  }
 }
 </script>
 

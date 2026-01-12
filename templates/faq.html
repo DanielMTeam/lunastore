@@ -1,155 +1,61 @@
-﻿<!DOCTYPE html>
-<html>
-
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+﻿{% extends 'base.html' %}
+{% load static %}
+{% block content %}
 <title>Справка - LunaStore</title>
-<script src="./js/search_mini.js"></script>
-<link rel="stylesheet" href="./css/main.css">
-<link rel="shortcut icon" href="./favicon.ico">
-
-</head>
-
-
-<body>
-<div class="container">
-
-  {% if user.is_authenticated %}
-  <div class="dm_menu">
-    Вы вошли как <a href="/profile.php"><b>{{ user.username }}</b></a> - <a href="/logout.php">выйти</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a>
+<div class="content">
+  <div class="banner_image"><div id="help_center"><div class="banner_text">Справочный центр</div><div class="banner_text_mini">У Вас появились вопросы? На этой странице собрана вся информация, касаемо данного LunaStore</div></div></div>
+    <link rel="stylesheet" href="{% static './css/tabs.css'%}">
+    <div class="tabs">
+<div class="tab-bar">
+  <div class="tab active" href="/help.php">
+    <img src="{% static './img/tabs/faq.png'%}" class="tab-icon" alt="">
+    FAQ
   </div>
-  {% else %}
-  <div class="dm_menu">
-    <a href="/login.php" id="login-link">вход</a> - <a href="/register.php">регистрация</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a>
+  <div class="tab" href="/help.php?page=privacy">
+    <img src="{% static './img/tabs/privacy.png'%}" class="tab-icon" alt="">
+    Конфиденциальность
   </div>
-  {% endif %}
-
-  <div class="header">
-    
-    <div class="rl_l"><h1 class="txtr">LunaStore</h1>
-    <div class="subtitle txtr">Windows XP Professional</div>
-    </div>
-    
-    <div class="searchbar">
-  <!--[if IE 6]>
-  <style type="text/css">
-   .searchbar button {padding: 1px 1px;}
-   .tail{display: none;}
-  </style>
-  <![endif]-->
-      <input type="text" id="q" placeholder="Например: Total Commander">
-      <button type="button" onclick="doSearch()">поиск</button>
-      <br>
-      <div class="subtitle"><a href="/settings.php?act=search">Уточнить параметры поиска</a></div>
-    </div>
+</div>
+<div class="tab-content" id="tab-view">
+  <img src="{% static './img/splash/main_logo.png'%}" style="width: 430px;">
+  <hr>
+  <div class="faq_card">
+          <div id="faq_title">Куда я попал и что это?</div>
+          <div id="faq_content"><p><b>LunaStore</b> - своего рода альтернативный "магазин" приложений и игр. На данный момент целимся на эпоху Windows XP.</p></div>
+        </div>
+  <div class="faq_card">
+          <div id="faq_title">Почему "магазин" написано в кавычках?</div>
+          <div id="faq_content"><p>Мы являемся <b>фанатским сайтом</b> и не думаем, что такое прям вырастет до огромного магазина. Хотя кто знает. Однако реклама в левом меню абсолютно несерьёзная, а сам проект как общее хобби.</p></div>
   </div>
-
-
-  <div class="headerline"></div>
-
-  <div class="main">
-    <div class="sidebar">
-        <div class="boxhead"><b>Категории</b></div>
-      <div class="box">
-        
-        <ul>
-          <a href="/index.php"><li class="myhome">Главная страница</li></a>
-          <a href="/store.php?show=top20"><li class="top">Приложения месяца</li></a>
-          <a href="/store.php?show=updates"><li class="updates">Центр обновлений</li></a>
-          <a href="/store.php?cat=1"><li class="entertainment">Игры и развлечения</li></a>
-          <a href="/store.php?cat=2"><li class="util">Инструменты</li></a>
-          <a href="/store.php?cat=3"><li class="media">Мультимедиа</li></a>
-          <a href="/store.php?cat=4"><li class="office">Офисные приложения</li></a>
-          <a href="/store.php?cat=5"><li class="internet">Интернет и сети</li></a>
-          <a href="/store.php?cat=6"><li class="other">Прочее</li></a>
-          <a href="/store.php?show=themes"><li class="themes">Темы оформления</li></a>
-        </ul>
-      </div>
-      
-      <div class="adv_block">
-        <a href="{ad_link}"><img src="./ad/ad.png" class="adv_img_splash" alt="Реклама"></a>
-      </div>
-
-    </div>
-
-    <div class="content">
-
-      <div class="banner_image"><div id="help_center"><div class="banner_text">Справочный центр</div><div class="banner_text_mini">У Вас появились вопросы? На этой странице собрана вся информация, касаемо данного LunaStore</div></div></div>
-        <link rel="stylesheet" href="./css/tabs.css">
-
-        <div class="tabs">
-  <div class="tab-bar">
-    <div class="tab active" href="/help.php">
-      <img src="./img/tabs/faq.png" class="tab-icon" alt="">
-      FAQ
-    </div>
-    <div class="tab" href="/help.php?page=about">
-      <img src="./img/tabs/about.png" class="tab-icon" alt="">
-      О нас
-    </div>
-    <div class="tab" href="/help.php?page=privacy">
-      <img src="./img/tabs/privacy.png" class="tab-icon" alt="">
-      Конфиденциальность
-    </div>
+  <div class="faq_card">
+          <div id="faq_title">Всмысле "общее хобби"?</div>
+          <div id="faq_content"><p>Не поверишь. Над этим проектом трудилось множество неравнодушных людей с одинаковой идеей. <br><br>Самое время перечислить их: <br><b>Daniel Myslivets</b> - автор идеи, дизайн, <span title="КОСТЫЛИ ВЕЛОСИПЕДЫ ЙОООУ">вёрстка интерфейса (frontend)</span><br><b>synzr</b> - backend разработка, консультации и вдохновение<br><b>eversiege</b> - закадровая работа, CDN, внутренний Git<br><b>flydelick</b> - разработчик<br><b>fayzetwin</b> - основной backend разработчик, API<br><b>MondySpartan</b> - логотип<br><br>Также благодарим других разработчиков:<br><b>nocha3</b> - нативный клиент для Windows XP<br><b>chelka0</b> - оформление сайта за кадром<br><br>И о тестировщиках не забываем:<br><b>[ники тестировщиков через запятую]</b></p></div>
   </div>
-
-  <div class="tab-content" id="tab-view">
-    <h2>Просмотр</h2>
-    <p>Раздел отображает содержимое и доступные ресурсы.</p>
+  <div class="faq_card">
+          <div id="faq_title">Как здесь создать аккаунт?</div>
+          <div id="faq_content"><p>В верхней шапке сайта нажмите кнопку "регистрация"</p></div>
   </div>
-
+  <div class="faq_card">
+          <div id="faq_title">А что вообще даёт наличие аккаунта на LunaStore?</div>
+          <div id="faq_content"><p>С помощью аккаунта Вы сможете оставлять свои отзывы к приложениям, красиво заявить о себе в этом зарождающемся сообществе и загружать свои приложения в общий каталог после строгой модерации</p></div>
+  </div>
+  <div class="faq_card">
+          <div id="faq_title">Окей, а как сюда добавить приложение?</div>
+          <div id="faq_content"><p>Пока никак. Мы только начинаем, поэтому берём ПО со своих списков. Следите за обновленями этой страницы.</p></div>
+  </div>
+  <div class="faq_card">
+          <div id="faq_title">"Хмм, а это всё легально?"</div>
+          <div id="faq_content"><p>Обычно такой вопрос задаёт разработчик ПО. Однако, если Вас очень сильно воротит от существования старой версии вашей программы на данном сайте, то можете связаться с нами по E-mail. Но очень надеемся, что вы войдёте в наше положение и поймёте цель проекта.</p></div>
+  </div>
+  <div class="faq_card">
+          <div id="faq_title">Зачем этот сайт существует?</div>
+          <div id="faq_content"><p>Отличный вопрос. Началось всё с того, что у одного из участников проекта появилось желание загрузить на один сайт со старым ПО скринсейвер 3D Windows XP, который по факту мало кто видел и еле сохранился на веб-архиве.<br>Через пару дней после загрузки, скринсейвер был удалён из сайта с причиной "не подходит под тематику сайта". А на вопрос "почему у Вас тогда хранятся образы ХР?" внятного ответа из администрации никто толком не дал.<br><br>Ничего страшного, мы никак не расстроены и конкурировать не хотим, просто решили сделать свой маленький каталог :3</p></div>
+  </div>
+  <i>Последнее обновление: 01.01.2026</i>
+  </div>
 </div>
 
 
     </div>
   </div>
-
-  <div class="footer">
-    <a href="/help.php?page=about">О нас</a> - <a href="/help.php">FAQ</a> - <a href="/help.php?act=privacy">Политика конфиденциальности</a>
-    <div style="text-align: right; font-size: 11px;">С душой сделано командой DM, 2025<br>Все права принадлежат исходным правообладателям</div>
-  </div>
-
-
-
-
-<!-- Всплывающее окно -->
-<div id="login-popup" class="xp-popup">
-  <div class="popup-content">
-    <b>Авторизация</b><br>У Вас уже есть аккаунт? Представьтесь.<hr>
-    <form id="login-form">
-      Логин: <br>
-      <input type="text" name="login"><br>
-      Пароль: <br>
-      <input type="password" name="password"><br>
-      <button type="submit">Войти</button>
-    </form>
-  </div>
-  <div class="tail"></div>
-</div>
-<link rel="stylesheet" href="./css/ntf.css">
-<script src="./js/ntf.js"></script>
-
-
-<script type="text/javascript">
-/* Балун, совместимый с IE6.
-   Как использовать:
-     initBalloon('loginBtn'); // привязка к кнопке входа по id
-*/
-
-
-</script>
-
-<!-- Пример: привязать к кнопке с id="loginBtn" -->
-<script type="text/javascript">
-if (window.attachEvent) {
-  window.attachEvent('onload', function(){ initBalloon('loginBtn'); });
-} else if (window.addEventListener) {
-  window.addEventListener('load', function(){ initBalloon('loginBtn'); }, false);
-} else {
-  window.onload = function(){ initBalloon('loginBtn'); };
-}
-</script>
-
-</body>
-
-</html>
+{% endblock %}

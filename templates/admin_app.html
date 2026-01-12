@@ -3,10 +3,9 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Администрируемые приложения - LunaStore</title>
+<title>Редактирование приложения - Total Commadner - LunaStore</title>
 <script src="./js/search_mini.js"></script>
 <link rel="stylesheet" href="./css/main.css">
-<link rel="stylesheet" href="./css/oprj.css">
 <link rel="shortcut icon" href="./favicon.ico">
 
 </head>
@@ -17,18 +16,7 @@
 <div class="container">
 
   <div class="dm_menu">
-    Вы вошли как <a href="/profile.php"><b>dm</b></a> - <a href="/index.php?act=logout&hash=3476ty89mR_hf9er8">выйти</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a> |
-    <div class="oprj_layout" id="oprj_layout">
-  <div class="oprj" id="oprj">прочие проекты</div>
-  <div class="oprj_list" id="oprj_list">
-    <div class="oprj_item" data-h="https://myslivets.com">Myslivets.com</div>
-    <div class="oprj_item" data-h="http://store.myslivets.com"><b>LunaStore</b></div>
-    <div class="oprj_item" data-h="http://games.myslivets.com">Игры</div>
-    <div class="oprj_item" data-h="/">Renaissance<small><font color="red"> new</font></small></div>
-    <hr>
-    <div class="oprj_item" data-h="https://myslivets.com/projects">Все проекты »</div>
-  </div>
-</div>
+    Вы вошли как <a href="/profile.php"><b>dm</b></a> - <a href="/index.php?act=logout&hash=3476ty89mR_hf9er8">выйти</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a> | <a href="/help.php?page=projects">прочие проекты</a>
 
   </div>
 
@@ -62,7 +50,7 @@
         
         <ul>
           <a href="/profile.php"><li class="myhome">Мой профиль</li></a>
-          <a href="/settings.php"><li class="settings" id="active">Настройки</li></a>
+          <a href="/settings.php"><li class="settings">Настройки</li></a>
           <a href="/profile.php?act=invite"><li class="newbie">Пригласить</li></a>
         </ul>
       </div>
@@ -94,7 +82,7 @@
 
       <div class="preferences">
           <div class="preferences_info" id="{uid}">
-            <div class="preferences_title">Настройки</div>
+            <div class="preferences_title">Редактирование приложения</div>
             <div style="clear: both"></div>
 
           </div>
@@ -106,38 +94,86 @@
 
         <div class="tabs">
   <div class="tab-bar">
-    <div class="tab" href="/settings.php">
-      <img src="./img/tabs/account.png" class="tab-icon" alt="">
-      Аккаунт
+    <div class="tab active" href="/app14?page=edit">
+      <img src="./img/tabs/main.png" class="tab-icon" alt="">
+      Инфо
     </div>
-    <div class="tab active" href="/settings.php?page=manage_apps">
+    <div class="tab" href="/app14?page=edit_files">
       <img src="./img/tabs/programs.png" class="tab-icon" alt="">
-      Приложения
+      Файлы
+    </div>
+    <div class="tab" href="/app14?page=edit_rights">
+      <img src="./img/tabs/rights.png" class="tab-icon" alt="">
+      Права
+    </div>
+    <div class="tab" href="/app14?page=stats">
+      <img src="./img/tabs/stats.png" class="tab-icon" alt="">
+      Статистика
+    </div>
+    <div class="tab" href="/app14?page=scr">
+      <img src="./img/tabs/cam.png" class="tab-icon" alt="">
+      Фото
     </div>
   </div>
 
   <div class="tab-content" id="tab-view">
-    <div class="profile_block">Администрируемые страницы приложений</div>
-       <div class="profile_subblock">2 приложения</div>
+    <div class="profile_block">Основная информация</div>
     <div class="profile_block_content">
 
-        <div class="list-app-tile">
-          <img src="./cdn/appsicons/totalcmd.png" alt="">
-          <h3>Total Commander</h3>
-          <p><b>создатель</b></p>
-          <a href="/app1?act=edit">редактировать</a>
+        <div class="pref_pad"><div class="pref_item_title">Название приложения:</div>
+            <input type="text" name="app_name" class="input-text" placeholder="Моё прекрасное приложение" value="Total Commander">
+            <div class="pref_warn_label">Отличное и запоминающиеся название даст приложению бонус к узнаваемости среди пользователей</div>
+        </div>  
+
+        <div class="pref_pad"><div class="pref_item_title">ID приложения:</div>
+            store.myslivets.com/ <input style="width: 280px" type="text" class="input-text" placeholder="app14" value="app14" disabled>
+            <div class="pref_warn_label">Эту информацию изменить нельзя</div>
         </div>
 
-        <div class="list-app-tile">
-          <img src="./cdn/appsicons/copilot.png" alt="">
-          <h3>Microsoft Copilot</h3>
-          <p><b>администратор</b></p>
-          <a href="/app4?act=edit">редактировать</a>
+        <div class="pref_pad"><div class="pref_item_title">Слоган (140 символов):</div>
+            <textarea class="brief_intro" name="whois" cols="140">gkjdfjgkldhgjklhdfughkdfjgidruhtguidgfyhdfiugydhukfghukdfhgjkdukghkdfgkhdfghjfhd</textarea>
+        <div class="pref_warn_label">Слоган будет отображаться на самой странице приложения, на главной и в поиске<br>Краткость - сестра таланта :)</div>
         </div>
+
+        <div class="pref_pad"><div class="pref_item_title">Описание (1000 символов):</div>
+                <textarea class="brief_intro" name="desc" cols="1000">gkjdfjgkldhgjklhdfughkdfjgidruhtguidgfyhdfiugydhukfghukdfhgjkdukghkdfgkhdfghjfhd</textarea>
+              <div class="pref_warn_label">Описание будет показываться на странице приложения в блоке "Дополнительная информация"</div>  
+              </div>
+
+        <label>
+                <div class="pref_pad appcat"><div class="pref_item_title">Категория:</div>
+                <select name="category">
+                    <option value="1">Игры и развлечения</option>
+                    <option value="2">Инструменты</option>
+                    <option value="3">Мультимедиа</option>
+                    <option value="4">Офисные приложения</option>
+                    <option value="5">Интернет и сети</option>
+                    <option value="6">Прочее</option>
+                </select>
+                  <div class="pref_warn_label">Это очень важно для правильного поиска и показа приложения в соответствующих блоках. Администрация имеет право изменить категорию по своему усмотрению</div>
+                </div>
+        </label>
+
+        <label>
+            <div class="pref_pad"><div class="pref_item_title">Официальный сайт разработчика:</div>
+            <input type="text" name="app_web_site" class="input-text">
+            </div>
+        </label>
 
     </div>
     <br>
-
+    <div class="profile_block">Значок приложения</div>
+    <div class="profile_block_content">
+      <div class="info_splash editapp_splash">Рекомендуемый размер аватара: 64x64.<br>Допустимые форматы: .PNG, .JPG<br>Максимальный размер: 2 Мб</div>
+          <div class="editapp_icon_view">
+              <img src="./cdn/appsicons/totalcmd.png" alt="">
+          </div>
+        <form action="/editapp.php?act=upload_icon" method="POST" enctype="multipart/form-data">
+            <input type="file" id="file-upload" class="action_button" name="myFile" accept="image/*, .jpg" multiple>
+        </form>
+    </div>
+    <br>
+            <input type="submit" class="action_button" value="Сохранить">
   </div>
 
 </div>
@@ -170,7 +206,6 @@
 </div>
 <link rel="stylesheet" href="./css/ntf.css">
 <script src="./js/ntf.js"></script>
-<script src="./js/oprj.js"></script>
 
 
 <script type="text/javascript">

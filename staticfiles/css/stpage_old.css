@@ -1,16 +1,18 @@
-﻿/* ура новый выпуск шоу "костыли" */
+/* ура новый выпуск шоу "костыли" */
 /* зато работает кста */
+
 .st_general_card{
     padding: 10px;
-    zoom: 1;
 }
 
 .st_app_icon{
     float: left;
+    display: inline-block;
 }
 
 .st_card_title{
     float: left;
+    display: inline-block;
     margin-left: 15px;
     font-size: 18px;
     font-weight: bold;
@@ -18,36 +20,34 @@
 
 .st_card_author{
     float: left;
+    display: inline-block;
     margin-left: 15px;
     font-size: 11px;
 }
 
 .st_card_desc{
     float: left;
+    display: inline-block;
     margin-left: 15px;
     font-size: 14px;
 }
 
 .st_clearb{
     clear: both;
-    height: 0;
-    overflow: hidden;
-    font-size: 0;
 }
 
 .st_price{
-    float: right;
-    font-weight: bold;
-    font-size: 14px;
-    color: #b20000;
+  float: right;
+  font-weight:bold;
+  font-size:14px;
+  color:#b20000;
 }
-
-.st_price.free{
-    color: #5fa359;
+.st_price.free {
+  color:#5fa359;
 }
 
 .st_price.demo{
-    color: #ff7300;
+  color:#ff7300;
 }
 
 .st_headerline{
@@ -59,66 +59,69 @@
 }
 
 .st_inst_button{
+    display: block;
     font-weight: bold;
     margin-left: 35px;
     font-size: 16px;
     margin-top: 3px;
-}
-
-.setup_button_img{
-    float: left;
-    width: 28px;
-    height: 28px;
-    background: url(../img/arrowsprite.png) no-repeat;
-    margin-left: 5px;
-}
-
-.setup_button_img:active{
-    background-position: -56px 0;
-}
-
-.setup_button_img:disabled{
-    background-position: -84px 0;
+    float: right;
 }
 
 .setup_button_img a{
-    color: #000;
     text-decoration: none;
+    color: #000;
 }
 
 .setup_button_img a:hover{
+    text-decoration: none;
     color: #414141;
 }
 
 .setup_button_img a:active{
+    text-decoration: none;
     color: #b20000;
 }
 
+.setup_button_img{
+    /*! position: absolute; */
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    background: url(../img/arrowsprite.png) no-repeat;
+    float: right;
+    margin-left: 5px;
+}
+.setup_button_img:active {
+    background-position: -56px 0;
+}
+
+.setup_button_img:disabled {
+    background-position: -84px 0;
+}
+
 .section{
-    padding: 0;
-    zoom: 1;
+    padding: 0px;
 }
 
 .st_other_card{
     padding: 10px;
-    zoom: 1;
 }
 
-.st_scr{
-    width: 120px;
-    height: 90px;
-    border: 3px solid #d2e9ff;
-    background: #fff;
-    float: left;
-    margin: 5px;
+.st_scr {
+  width: 120px;
+  height: 90px;
+  border:3px solid #d2e9ff;
+  background:#fff;
+  float:left;
+  margin:5px;
+}
+.st_scr img {
+  width: 120px;
+  float:left;
+  margin-right:6px;
 }
 
-.st_scr img{
-    width: 120px;
-    display: block;
-}
-
-.st_scr a{
+.st_scr a {
     color: #000;
     text-decoration: none;
 }
@@ -130,22 +133,23 @@
 
 .setup a:hover{
     color: #5fa359;
+    text-decoration: none;
 }
 
 .setup a:active{
     color: #b20000;
+    text-decoration: none;
 }
 
 .st_desc{
     padding: 10px;
 }
 
+/* костыль для адекватного отображения описания приложения в IE6 */
 .st_precard{
     float: left;
-    width: 345px;
-    margin-left: 15px;
     text-align: left;
-
+	width: 345px;
 }
 
 .app_badge{
@@ -171,58 +175,10 @@
     padding-left: 24px;
     list-style: none;
 }
-
 .app_badge #award{
-    background: url(../img/icons.png) no-repeat 0px -28px;
+    background:url(../img/icons.png) no-repeat 0px -28px;
 }
 
 .app_badge #official{
-    background: url(../img/icons.png) no-repeat 0px -50px;
-}
-
-/* IE6 MOMENT */
-.st_card_title,
-.st_card_author,
-.st_card_desc{
-    float: none;
-    margin-left: 0;
-}
-
-.st_rate_block{
-    display: inline-block;
-    padding: 10px;
-}
-
-.st_rate_block_left{
-    padding: 10px;
-    float: left;
-}
-
-.st_rate_block_right{
-    padding: 15px;
-    width: 66%;
-    float: left;
-}
-
-.st_rate_summary{
-    font-size: 48px;
-    font-weight: bold;
-}
-.st_rate_info{
-    padding: 10px;
-    display: inline-block;
-}
-
-.st_rate_block a{
-    color: #000;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.st_rate_block a:active{
-    color: #b20000;
-}
-
-.st_rate_block a:hover{
-    color: #990000;
+    background:url(../img/icons.png) no-repeat 0px -50px;
 }
