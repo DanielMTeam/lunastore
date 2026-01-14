@@ -7,10 +7,11 @@ from django.contrib import messages
 from django.contrib.auth import login as dj_login, logout as dj_logout, update_session_auth_hash
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
-from .models import UserBan, UserActivityLog, User, DevRequestsModel
+from .models import UserBan, UserActivityLog, User, DevRequestsModel, BlacklistedUsername
 from .forms import UserRegistrationForm, AvatarUpdateForm, ProfileUpdateForm, PasswordChangeForm, DevStatusForm
 import json
 from .middleware import get_client_ip, BlockBannedIP
+import re
 
 
 def login(request):
@@ -30,6 +31,7 @@ def login(request):
         if ban:
             return JsonResponse({'success': False, 'errors': f'Your account is banned. Reason: {ban.reason}'}, status=403)
         else:
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
             dj_login(request, user)
             UserActivityLog.objects.create(
                 user=user,
@@ -53,8 +55,28 @@ def register(request):
         return render(request, 'register.html')
 
     if request.method == 'POST':
+        print("--- DEBUG START ---")
+        print("POST Data:", request.POST) 
+        print("Ищем слово:", request.POST.get('username', 'НЕ НАШЕЛ'))
+        print("Список бана:", [b.word for b in BlacklistedUsername.objects.all()])
+        print("--- DEBUG END ---")
         if request.user.is_authenticated:
             return redirect('home')
+        raw_username = request.POST.get('username', '').lower().strip()
+        blacklist = BlacklistedUsername.objects.all()
+        is_blocked = False
+        
+        for item in blacklist:
+            if item.is_regex:
+                if re.search(item.word, raw_username):
+                    is_blocked = True
+                    break
+            else:
+                if item.word.lower() in raw_username:
+                    is_blocked = True
+                    break
+        if is_blocked:
+            return redirect('502_error')
         form = UserRegistrationForm(request.POST, request=request)
         if form.is_valid():
             user = form.save()
@@ -66,6 +88,7 @@ def register(request):
                     ip=get_client_ip(request),
                     action='register_save_ip'
                 )
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
             dj_login(request, user)
             return redirect('home')
     else:
@@ -152,3 +175,6 @@ def dev_status(request):
 
     # render the template with the form
     return render(request, 'dev_add.html', {'dev_request_form': form, 'is_developer': is_developer, 'has_pending_request': has_pending_request, "registration_enabled_status": settings.DEVELOPER_REGISTRATION_IS_ENABLED})
+
+def critical_error(request):
+    return render(request, '502.html')

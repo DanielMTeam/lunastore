@@ -34,7 +34,7 @@ SECRET_KEY = 'django-insecure-p^k2e1ke^c8_&-k+^u)=_b1#u^y30icvro+3izpg16883wuns9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.1.10']
 
 
 # Application definition
@@ -60,16 +60,10 @@ INSTALLED_APPS = [
     "unfold.contrib.location_field", 
     "unfold.contrib.constance",
     'django.contrib.admin',
-    'django_tasks',
-    'django_tasks.backends.database'
 ]
 # tasks configuration
 
-TASKS = {
-    "default": {
-        "BACKEND": "django_tasks.backends.database.DatabaseBackend",
-    },
-}
+TASKS = {"default": {"BACKEND": "django.tasks.backends.immediate.ImmediateBackend"}}
 
 CACHES = {
     'default': {
@@ -78,6 +72,10 @@ CACHES = {
     }
 }
 
+# media path
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # openid AP configuration
 

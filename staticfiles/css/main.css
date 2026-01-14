@@ -920,8 +920,8 @@ input[type=submit] {
   width: 45%;
   background: #eaf1fb;
   border-right: 1px solid #9db6d8;
-  height: 100%;
-  min-height: 100%;
+  padding-bottom: 9999px;
+  margin-bottom: -9999px; 
 }
 
 .login_header {
@@ -991,17 +991,13 @@ input[type=submit] {
   line-height: 32px;
 }
 
-.login_wrap{
+.login_wrap {
   border: 1px solid #9db6d8;
+  overflow: hidden; 
+  width: 100%;    
 }
 
 .info_block li.top{background:url(../img/icons.png) no-repeat 0px -24px;}
 .info_block li.uni{background:url(../img/icons.png) no-repeat 0px -200px;}
 .info_block li.com{background:url(../img/icons.png) no-repeat 0px -291px;}
 .info_block li.nxt{background:url(../img/icons.png) no-repeat 0px -224px;}
-
-/*
-бебебе
-(привет от backend разработчика)
-*/
-

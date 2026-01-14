@@ -1,207 +1,354 @@
-﻿<!DOCTYPE html>
-<html>
+﻿{% extends 'base.html' %}
+{% load static %}
 
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+{% block content %}
 <title>Добавление приложения - LunaStore</title>
-<link rel="stylesheet" href="./css/main.css">
-<link rel="stylesheet" href="./css/oprj.css">
-<link rel="shortcut icon" href="./favicon.ico">
-</head>
-
-
-<body>
-<div class="container">
-
-  <div class="dm_menu">
-    Вы вошли как <a href="/profile.php"><b>dm</b></a> - <a href="/index.php?act=logout&hash=3476ty89mR_hf9er8">выйти</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a> |
-    <div class="oprj_layout" id="oprj_layout">
-  <div class="oprj" id="oprj">прочие проекты</div>
-  <div class="oprj_list" id="oprj_list">
-    <div class="oprj_item" data-h="https://myslivets.com">Myslivets.com</div>
-    <div class="oprj_item" data-h="http://store.myslivets.com"><b>LunaStore</b></div>
-    <div class="oprj_item" data-h="http://games.myslivets.com">Игры</div>
-    <div class="oprj_item" data-h="/">Renaissance<small><font color="red"> new</font></small></div>
-    <hr>
-    <div class="oprj_item" data-h="https://myslivets.com/projects">Все проекты »</div>
-  </div>
-</div>
-
-  </div>
-
-  <div class="header">
+<link rel="stylesheet" href="{% static './css/add_ui.css'%}">
+<link rel="stylesheet" href="{% static './css/stpage.css'%}">
+<style>
+    .add_app_card, 
+    .step-content, 
+    .preview-container-box, 
+    .info-notification,
+    #step-content-3 > div { 
+        box-sizing: border-box !important;
+        width: auto !important; 
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
     
-    <div class="rl_l"><h1 class="txtr">LunaStore</h1>
-    <div class="subtitle txtr">Windows XP Professional</div>
-    </div>
+    .error-msg-box {
+        color: #cc0000;
+        background: #ffebe8;
+        border: 1px solid #dd8888;
+        padding: 5px 10px;
+        margin-top: 5px;
+        font-size: 11px;
+        display: none; 
+    }
+
+    .st_scr img { 
+        border: 1px solid #ccc; 
+        padding: 2px; 
+        background: #fff; 
+        object-fit: cover; 
+    }
+
+    .bottom-actions {
+        display: flex;
+        justify-content: space-between; 
+        align-items: center;
+        margin-top: 15px;
+        border-top: 1px solid #ddd;
+        padding-top: 15px;
+    }
+
+    .content * { box-sizing: border-box; }
+    .content { padding-bottom: 60px; }
     
-    <div class="searchbar">
-  <!--[if IE 6]>
-  <style type="text/css">
-   .searchbar button {padding: 1px 1px;}
-  </style>
-  <![endif]-->
-      <input type="text" id="q" placeholder="Например: Total Commander">
-      <button type="button" onclick="doSearch()">поиск</button>
-      <br>
-      <div class="subtitle"><a href="/settings.php?act=search">Уточнить параметры поиска</a></div>
-    </div>
-  </div>
+    .step-content { display: none; }
+    .step-content.active { display: block; }
+    
+    .action_button {
+        cursor: pointer;
+        font-family: Tahoma, sans-serif;
+        font-size: 13px;
+    }
+</style>
 
-
-  <div class="headerline"></div>
-
-  <div class="main">
-<div class="sidebar">
-      <div class="boxhead_primary"><b>Аккаунт</b></div>
-      <div class="box">
+<div class="content">
+    <div class="section">
         
-        <ul>
-          <a href="/profile.php"><li class="myhome">Мой профиль</li></a>
-          <a href="/settings.php"><li class="settings">Настройки</li></a>
-          <a href="/profile.php?act=invite"><li class="newbie">Пригласить</li></a>
-        </ul>
-      </div>
-
-        <div class="boxhead"><b>Категории</b></div>
-      <div class="box">
-        
-        <ul>
-          <a href="/index.php"><li class="myhome">Главная страница</li></a>
-          <a href="/store.php?show=top20"><li class="top">Приложения месяца</li></a>
-          <a href="/store.php?show=updates"><li class="updates">Центр обновлений</li></a>
-          <a href="/store.php?cat=1"><li class="entertainment">Игры и развлечения</li></a>
-          <a href="/store.php?cat=2"><li class="util">Инструменты</li></a>
-          <a href="/store.php?cat=3"><li class="media">Мультимедиа</li></a>
-          <a href="/store.php?cat=4"><li class="office">Офисные приложения</li></a>
-          <a href="/store.php?cat=5"><li class="internet">Интернет и сети</li></a>
-          <a href="/store.php?cat=6"><li class="other">Прочее</li></a>
-          <a href="/store.php?show=themes"><li class="themes">Темы оформления</li></a>
-        </ul>
-      </div>
-      
-      <div class="adv_block">
-        <a href="{ad_link}"><img src="./ad/ad.png" class="adv_img_splash" alt="Реклама"></a>
-      </div>
-
-    </div>
-
-    <div class="content">
-      <div class="section">
-        
-        <h2>Добавление приложения</h2>
+        <h2 style="margin-top: 10px; margin-bottom: 8px; padding-left: 7px;">Добавление приложения</h2>
         <div class="separator_store"></div>
-        <link rel="stylesheet" href="./css/add_ui.css">
 
         <div class="add_app_form">
+            
+            <div class="steps">
+                <table>
+                    <tr>
+                        <td class="step step_active" id="tab-1">
+                            <div class="step_number step_number_active">1</div>
+                            <div class="step_title">Этап 1</div>
+                            <div class="step_text">Начало</div>
+                        </td>
+                        
+                        <td class="step" id="tab-2">
+                            <div class="step_number">2</div>
+                            <div class="step_title">Этап 2</div>
+                            <div class="step_text">Дополнительная<br>информация</div>
+                        </td>
 
-                  <div class="steps">
-    <table>
-        <tr>
+                        <td class="step step_last" id="tab-3">
+                            <div class="step_number">3</div>
+                            <div class="step_title">Этап 3</div>
+                            <div class="step_text">Просмотр перед<br>публикацией</div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
 
-            <td class="step step_active">
-                <div class="step_number step_number_active">1</div>
-                <div class="step_title">Этап 1</div>
-                <div class="step_text">
-                    Начало<br>
+            <div class="add_app_card">
+                
+                <div id="step-content-1" class="step-content active">
+                    <h1>Основная информация</h1>
+                    <div id="form-step-1">
+                        <label>
+                            <div class="add_app_pad">
+                                <div class="add_app_title">Название:</div>
+                                <input type="text" id="inp_name" class="input-text">
+                                <div class="add_app_form_label">Отличное и запоминающиеся название даст приложению бонус к узнаваемости среди пользователей</div>
+                            </div>
+                        </label>
+
+                        <label>
+                            <div class="add_app_pad">
+                                <div class="add_app_title">Слоган (140 символов):</div>
+                                <textarea class="brief_intro" id="inp_slogan" cols="140"></textarea>
+                                <div class="add_app_form_label">Слоган будет отображаться на самой странице приложения, на главной и в поиске<br>Краткость - сестра таланта :)</div>  
+                            </div>
+                        </label>
+
+                        <label>
+                            <div class="add_app_pad">
+                                <div class="add_app_title">Значок приложения:</div>
+                                <div class="info_splash">Рекомендуемый размер аватара: 64x64.<br>Допустимые форматы: .PNG, .JPG<br>Максимальный размер: 2 Мб</div>
+                                <input type="file" id="inp_icon" class="action_button" accept="image/*" onchange="previewIcon(this)">
+                            </div>
+                        </label>
+
+                        <label class="agree">
+                            <input type="checkbox" id="inp_agree">
+                            Я согласен с правилами сайта и осведомлён о последствиях их нарушения
+                        </label>
+
+                        <br>
+                        <button type="button" class="action_button" onclick="goToStep(2)">Далее</button>
+                    </div>
                 </div>
-            </td>
 
-            <td class="step">
-                <div class="step_number">2</div>
-                <div class="step_title">Этап 2</div>
-                <div class="step_text">
-                    Дополнительная<br>
-                    информация
+                <div id="step-content-2" class="step-content">
+                    <h1>Дополнительная информация</h1>
+
+                    <div id="form-step-2">
+                        <label>
+                            <div class="add_app_pad">
+                                <div class="add_app_title">Официальный сайт разработчика:</div>
+                                <input type="text" id="inp_site" class="input-text">
+                            </div>
+                        </label>
+
+                        <label>
+                            <div class="add_app_pad">
+                                <div class="add_app_title">Описание (1000 символов):</div>
+                                <textarea class="brief_intro" id="inp_desc" cols="1000" style="height: 150px;"></textarea>
+                            <div class="add_app_form_label">Описание будет показываться на странице приложения в блоке "Дополнительная информация"</div>  
+                            </div>
+                        </label>
+
+                        <label>
+                            <div class="add_app_pad"><div class="add_app_title">Категория:</div>
+                            <select name="category">
+                                <option value="1">Игры и развлечения</option>
+                                <option value="2">Инструменты</option>
+                                <option value="3">Мультимедиа</option>
+                                <option value="4">Офисные приложения</option>
+                                <option value="5">Интернет и сети</option>
+                                <option value="6">Прочее</option>
+                            </select>
+                                <div class="add_app_form_label">Это очень важно для правильного поиска и показа приложения в соответствующих блоках. Администрация имеет право изменить категорию по своему усмотрению</div>
+                                </div>
+                        </label>
+
+                        <label>
+                            <div class="add_app_pad">
+                                <div class="add_app_title">Скриншоты:</div>
+                                <div class="info_splash">Максимальное количество скриншотов: 3<br>Допустимые форматы: .PNG, .JPG<br>Максимальный размер: 2 Мб</div>
+                                
+                                <input type="file" id="inp_scr" class="action_button" multiple accept="image/*" onchange="previewScreenshots(this)">
+                                
+                                <div id="error-scr-box" class="error-msg-box"></div>
+                                
+                                <div id="info-scr" style="font-size: 11px; margin-top: 5px; color: green;"></div>
+                            </div>
+                        </label>
+
+                        <br><br>
+                        <div style="display: flex; gap: 10px;">
+                            <button type="button" class="action_button" style="background-color: #e0e0e0; color: #000; border: 1px solid #999;" onclick="goToStep(1)">&larr; Назад</button>
+                            <button type="button" class="action_button" onclick="goToStep(3)">Далее</button>
+                        </div>
+                    </div>
                 </div>
-            </td>
 
-            <td class="step step_last">
-                <div class="step_number">3</div>
-                <div class="step_title">Этап 3</div>
-                <div class="step_text">
-                  Просмотр перед<br>
-                  публикацией
+                <div id="step-content-3" class="step-content">
+                    
+                    <div class="info-notification" style="background: #eff7ff; border: 1px solid #a0c2e6; padding: 10px; margin-bottom: 20px; font-size: 12px; color: #333;">
+                        Проверьте всю информацию перед публикацией. Вот так будет выглядеть страница вашего приложения. 
+                    </div>
+
+                    <div class="preview-container-box" style="border: 1px solid #ccc; padding: 15px; background: #fff;">
+                        
+                        <div class="preview-header-row" style="display: flex; gap: 15px; margin-bottom: 20px;">
+                            <img id="prev_icon" src="" alt="icon" style="width: 64px; height: 64px; border-radius: 4px; object-fit: cover; border: 1px solid #999; flex-shrink: 0;">
+                            
+                            <div style="min-width: 0;">
+                                <div id="prev_title" style="font-size: 18px; font-weight: bold; color: #003399; word-wrap: break-word;">Название</div>
+                                <div id="prev_slogan" style="color: #555; font-size: 12px; margin: 4px 0; word-wrap: break-word;">Слоган...</div>
+                                <div style="font-size: 11px;">Автор: <a href="#">dm</a></div>
+                            </div>
+                        </div>
+
+                        <h2>Скриншоты</h2>
+                        <div class="separator_store"></div>
+                        <div class="st_screenshots_container" id="js_screenshots_placeholder" style="display: flex; gap: 10px; flex-wrap: nowrap; overflow-x: auto; margin-top: 8px;">
+                            <span style="color:#999; font-size:11px;">Нет скриншотов</span>
+                        </div>
+                        
+
+                        <h2 style="margin-top: 6px;">Дополнительная информация</h2>
+                        <div class="separator_store"></div>
+                        <div id="prev_desc_block" style="white-space: pre-line; font-size: 12px; line-height: 1.4; word-wrap: break-word; overflow-wrap: break-word; margin-top: 8px;"></div>
+
+                        <h2 style="margin-top: 6px;">Действия</h2>
+                        <div class="separator_store"></div>
+                        <div style="margin-top: 8px;">
+                             <li class="offsite"><a href="#" id="prev_link" target="_blank" style="color: #003399; text-decoration: underline; font-size: 12px; word-break: break-all;">Перейти на официальный сайт разработчика</a></li>
+                        </div>
+
+                    </div>
+                    
+                    <div style="margin-top: 20px; border: 1px solid #ccc; background: #f9f9f9; padding: 15px;">
+                        <div class="info-box-yellow">
+                            <strong>Введите символы с картинки:</strong><br><br>
+                            <span style="color: #777;">[защита]</span>
+                        </div>
+                        
+                        <div class="bottom-actions">
+                            <button type="button" class="action_button" style="background-color: #e0e0e0; color: #000; border: 1px solid #999;" onclick="goToStep(2)">&larr; Редактировать</button>
+                            
+                            <button type="button" class="action_button" onclick="alert('Данные готовы к отправке!')">Отправить на рассмотрение</button>
+                        </div>
+                    </div>
+
                 </div>
-            </td>
 
-        </tr>
-    </table>
-</div>
-<br>
-          <div class="add_app_card">
-          <h1>Основная информация</h1>
-
-        <form method="post" action="editapp.php">
-
-            <label>
-                <div class="add_app_pad"><div class="add_app_title">Название:</div>
-                <input type="text" name="app_name" class="input-text">
-                <div class="add_app_form_label">Отличное и запоминающиеся название даст приложению бонус к узнаваемости среди пользователей</div>
-                </div>
-            </label>
-
-             <label>
-                <div class="add_app_pad"><div class="add_app_title">Слоган (140 символов):</div>
-                <textarea class="brief_intro" name="whois" cols="140">gkjdfjgkldhgjklhdfughkdfjgidruhtguidgfyhdfiugydhukfghukdfhgjkdukghkdfgkhdfghjfhd</textarea>
-              <div class="add_app_form_label">Слоган будет отображаться на самой странице приложения, на главной и в поиске<br>Краткость - сестра таланта :)</div>  
-              </div>
-            </label>
-
-            <label>
-            <div class="add_app_pad"><div class="add_app_title">Значок приложения:</div>
-            <div class="info_splash">Рекомендуемый размер аватара: 64x64.<br>Допустимые форматы: .PNG, .JPG<br>Максимальный размер: 2 Мб</div>
-                <form action="/editapp.php?act=upload_icon" method="POST" enctype="multipart/form-data">
-                 <input type="file" id="file-upload" class="action_button" name="myFile" accept="image/*, .jpg" multiple>
-            </form>
-            </label>
-
-            <label class="agree">
-                <input type="checkbox" name="agree1">
-                Я согласен с правилами сайта и осведомлён о последствиях их нарушения
-            </label>
-
-            <br>
-            <input type="submit" class="action_button" value="Создать">
-
-        </form>
-
+            </div>
         </div>
-
     </div>
+</div>
+</div>
 
-        <div style="clear:both"></div>
+<script>
+    let iconDataUrl = null;
+    let screenshotsArray = [];
 
-      </div>
-
-    </div>
-  </div>
-
-  <div class="footer">
-    <a href="/help.php?page=about">О нас</a> - <a href="/help.php">FAQ</a> - <a href="/help.php?act=privacy">Политика конфиденциальности</a>
-    <div style="text-align: right; font-size: 11px;">С душой сделано командой DM, 2025<br>Все права принадлежат исходным правообладателям</div>
-  </div>
-<link rel="stylesheet" href="./css/ntf.css">
-<script src="./js/ntf.js"></script>
-<script src="./js/oprj.js"></script>
-
-<script type="text/javascript">
-function doSearch() {
-  var q = document.getElementById("q").value.toLowerCase();
-  var cards = document.getElementsByTagName("div");
-  for (var i=0;i<cards.length;i++) {
-    if(cards[i].className=="card") {
-      var text = cards[i].innerText || cards[i].textContent;
-      if(text.toLowerCase().indexOf(q)!=-1) {
-        cards[i].style.display="block";
-      } else {
-        cards[i].style.display="none";
-      }
+    function previewIcon(input) {
+        if (input.files && input.files[0]) {
+            let reader = new FileReader();
+            reader.onload = function(e) { iconDataUrl = e.target.result; };
+            reader.readAsDataURL(input.files[0]);
+        }
     }
-  }
-}
+
+    function previewScreenshots(input) {
+        screenshotsArray = []; 
+        let info = document.getElementById('info-scr');
+        let errorBox = document.getElementById('error-scr-box');
+        
+        info.innerText = "";
+        errorBox.style.display = 'none';
+        errorBox.innerText = "";
+
+        if (input.files && input.files.length > 0) {
+            if (input.files.length > 3) {
+                errorBox.innerText = "Ошибка: Выбрано " + input.files.length + " файлов. Максимально допустимо: 3. Пожалуйста, выберите файлы заново.";
+                errorBox.style.display = 'block';
+
+                input.value = ""; 
+                return;
+            }
+            let count = input.files.length;
+            info.innerText = "Выбрано файлов: " + count;
+            
+            for (let i = 0; i < count; i++) {
+                let reader = new FileReader();
+                reader.onload = function(e) { screenshotsArray.push(e.target.result); };
+                reader.readAsDataURL(input.files[i]);
+            }
+        }
+    }
+
+    function goToStep(n) {
+        if (n === 2) {
+            let name = document.getElementById('inp_name').value;
+            let agree = document.getElementById('inp_agree').checked;
+            
+            if (!name.trim()) { alert('Введите название приложения!'); return; }
+            if (!agree) { alert('Вы должны согласиться с правилами!'); return; }
+        }
+        
+        if (n === 3) renderPreview();
+
+        document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
+        document.getElementById('step-content-' + n).classList.add('active');
+
+        updateTabs(n);
+        window.scrollTo(0, 0);
+    }
+
+    function updateTabs(n) {
+        for(let i=1; i<=3; i++) {
+            let tab = document.getElementById('tab-' + i);
+            let num = tab.querySelector('.step_number');
+            
+            if (i === 3) { tab.className = 'step step_last'; } 
+            else { tab.className = 'step'; }
+            num.className = 'step_number'; 
+
+            if (i === n) {
+                tab.classList.add('step_active');
+                num.classList.add('step_number_active');
+            }
+        }
+    }
+
+    function renderPreview() {
+        document.getElementById('prev_title').innerText = document.getElementById('inp_name').value || "Без названия";
+        document.getElementById('prev_slogan').innerText = document.getElementById('inp_slogan').value || "Нет слогана";
+        document.getElementById('prev_desc_block').innerText = document.getElementById('inp_desc').value || "Нет описания";
+        
+        let site = document.getElementById('inp_site').value;
+        let link = document.getElementById('prev_link');
+        
+        if (site && site.trim() !== "") {
+            link.href = site.match(/^https?:/) ? site : 'http://' + site;
+            link.style.display = 'inline';
+        } else {
+            link.style.display = 'none';
+        }
+
+        let iconImg = document.getElementById('prev_icon');
+        iconImg.src = iconDataUrl ? iconDataUrl : "{% static 'img/default_icon.png' %}";
+
+        let scrCont = document.getElementById('js_screenshots_placeholder');
+        scrCont.innerHTML = "";
+        
+        if (screenshotsArray.length > 0) {
+            screenshotsArray.forEach(src => {
+                let img = document.createElement('img');
+                img.src = src;
+                img.style.width = '120px';
+                img.style.height = '90px';
+                img.style.objectFit = 'cover';
+                img.style.border = '1px solid #ccc';
+                img.style.padding = '2px';
+                scrCont.appendChild(img);
+            });
+        } else {
+            scrCont.innerHTML = "<span style='color:#999; font-size:11px;'>Нет скриншотов</span>";
+        }
+    }
 </script>
-
-</body>
-
-</html>
+{% endblock %}

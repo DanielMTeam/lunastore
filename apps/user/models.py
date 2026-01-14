@@ -8,7 +8,7 @@ class User(AbstractUser, models.Model):
     def unique_avatar_path(instance, filename):
         ext = filename.split('.')[-1]
         file_name = f"{uuid.uuid4().hex}.{ext}"
-        return f'staticfiles/ugc/user_avatars/{file_name}'
+        return f'media/ugc/user_avatars/{file_name}'
     
     class Meta:
         verbose_name = "Пользователь"
@@ -66,3 +66,14 @@ class DevRequestsModel(models.Model):
         ordering = ['-id']
         verbose_name = "Заявка на статус разработчика"
         verbose_name_plural = "Заявки на статус разработчика"
+
+class BlacklistedUsername(models.Model):
+    word = models.CharField(max_length=50,unique=True,verbose_name="Запрещённый юзернейм")
+    is_regex = models.BooleanField(default=False,verbose_name="Это регулярное выражение? (regex type)")
+    
+    def __str__(self):
+        return self.word
+    
+    class Meta:
+        verbose_name = 'Бан-ворд (юзернейм)'
+        verbose_name_plural = 'Бан-ворды (юзернеймы)'
