@@ -55,11 +55,6 @@ def register(request):
         return render(request, 'register.html')
 
     if request.method == 'POST':
-        print("--- DEBUG START ---")
-        print("POST Data:", request.POST) 
-        print("Ищем слово:", request.POST.get('username', 'НЕ НАШЕЛ'))
-        print("Список бана:", [b.word for b in BlacklistedUsername.objects.all()])
-        print("--- DEBUG END ---")
         if request.user.is_authenticated:
             return redirect('home')
         raw_username = request.POST.get('username', '').lower().strip()
