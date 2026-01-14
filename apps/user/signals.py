@@ -56,15 +56,15 @@ def create_groups(sender, **kwargs):
                 Permission.objects.get(codename='delete_distribution', content_type=distribution_ct),
                 Permission.objects.get(codename='add_distribution', content_type=distribution_ct),
                 # 'UserBanForm' model permissions
-                Permission.objects.get(codename='view_UserBanForm', content_type=ban_ct),
-                Permission.objects.get(codename='change_UserBanForm', content_type=ban_ct),
-                Permission.objects.get(codename='delete_UserBanForm', content_type=ban_ct),
-                Permission.objects.get(codename='add_UserBanForm', content_type=ban_ct),
+                Permission.objects.get(codename='view_userban', content_type=ban_ct),
+                Permission.objects.get(codename='change_userban', content_type=ban_ct),
+                Permission.objects.get(codename='delete_userban', content_type=ban_ct),
+                Permission.objects.get(codename='add_userban', content_type=ban_ct),
             ]
             moderator_group.permissions.set(permissions)
             log.info("permissions assigned to 'Moderators' group")
         except (ContentType.DoesNotExist, Permission.DoesNotExist) as e:
-            log.info(f"Error assigning permissions. Maybe models or permissions was not created? Log: {e}")
+            log.error(f"Error assigning permissions. Maybe models or permissions was not created? Log: {e}")
             
     developer_group, created = Group.objects.get_or_create(name='Разработчики')
     
@@ -86,7 +86,7 @@ def create_groups(sender, **kwargs):
             developer_group.permissions.set(permissions)
             log.info("permissions assigned to 'Developers' group")
         except (ContentType.DoesNotExist, Permission.DoesNotExist) as e:
-            log.info(f"Error assigning permissions. Maybe models or permissions was not created? Log: {e}")      
+            log.error(f"Error assigning permissions. Maybe models or permissions was not created? Log: {e}")      
     user_group, created = Group.objects.get_or_create(name='Пользователи')
     if created:
         # there is no permissions for users group yet ¯\_(ツ)_/¯

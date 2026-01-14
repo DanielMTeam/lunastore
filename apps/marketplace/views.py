@@ -3,6 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from .models import Application, Distribution, Category
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
+from apps.user.decorators import developer_required
 
 
 # redirect to home (index.php) page from (/) page
@@ -61,3 +62,7 @@ def app(request):
 
 def faq(request):
     return render(request, 'faq.html')
+
+@developer_required
+def app_add(request):
+    return render(request, 'app_add.html')
