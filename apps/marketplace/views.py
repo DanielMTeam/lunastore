@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
 from apps.user.decorators import developer_required
 from .forms import AppCreateForm
+from django.contrib.auth.decorators import login_required
 
 
 # redirect to home (index.php) page from (/) page
@@ -69,8 +70,6 @@ def app_add(request):
         form = AppCreateForm(request.POST, request.FILES)
         print("POST Data:", request.POST)
         print("FILES Data:", request.FILES)
-        
-        # Проверяем конкретно поле screenshots
         files = request.FILES.getlist('upload_screenshots')
         print(f"Screenshots count: {len(files)}")
         if form.is_valid():
@@ -81,3 +80,8 @@ def app_add(request):
     else:
         form = AppCreateForm()
     return render(request, 'app_add.html', {'form':form})
+
+@login_required
+def settings_apps(request):
+    managed_apps = Application.objects.filter(user=request.user)
+    return render(request, 'settings_apps.html', {'managed_apps':managed_apps})
