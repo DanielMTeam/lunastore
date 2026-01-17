@@ -3,8 +3,9 @@ from .models import Application, Distribution, Category
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
 from apps.user.decorators import developer_required
-from .forms import AppCreateForm
+from .forms import AppCreateForm, AppEditForm
 from django.contrib.auth.decorators import login_required
+from .decorators import user_is_owner
 
 
 # redirect to home (index.php) page from (/) page
@@ -68,10 +69,6 @@ def faq(request):
 def app_add(request):
     if request.method == 'POST':
         form = AppCreateForm(request.POST, request.FILES)
-        print("POST Data:", request.POST)
-        print("FILES Data:", request.FILES)
-        files = request.FILES.getlist('upload_screenshots')
-        print(f"Screenshots count: {len(files)}")
         if form.is_valid():
             form.save()
             return redirect('home')
@@ -85,3 +82,17 @@ def app_add(request):
 def settings_apps(request):
     managed_apps = Application.objects.filter(user=request.user)
     return render(request, 'settings_apps.html', {'managed_apps':managed_apps})
+
+@login_required
+@user_is_owner(Application)
+def application_edit_info(request, pk):
+    obj = get_object_or_404(Application,pk=pk)
+    
+    if request.method == 'POST':
+        form = AppEditForm(request.POST, request.FILES, instance=obj)
+        if form.is_valid():
+            form.save()
+            return redirect('edit_app_info', pk=obj.pk)
+    else:
+        form = AppEditForm(instance=obj)
+    return render(request, 'admin_app.html', {'obj':obj,'form':form})

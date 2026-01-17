@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     "unfold.contrib.location_field", 
     "unfold.contrib.constance",
     'django.contrib.admin',
+    'django_cleanup.apps.CleanupConfig',
 ]
 # tasks configuration
 
@@ -192,6 +193,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },

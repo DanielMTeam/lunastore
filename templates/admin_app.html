@@ -1,233 +1,215 @@
-﻿<!DOCTYPE html>
-<html>
+﻿{% extends 'base.html' %}
+{% load static %}
 
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Редактирование приложения - Total Commadner - LunaStore</title>
-<script src="./js/search_mini.js"></script>
-<link rel="stylesheet" href="./css/main.css">
-<link rel="shortcut icon" href="./favicon.ico">
-
-</head>
-
-
-<body>
-  <div class="announcement">Вы сейчас открыли версию сайта <b>на русском языке</b>, однако у нас есть локализация именно под <b>Ваш</b> регион<br>Желаете ли переключиться? <br><br> <a href="?hl=en" id="primary">Yes, change my language</a> - <a href="">Нет, спасибо</a></div>
-<div class="container">
-
-  <div class="dm_menu">
-    Вы вошли как <a href="/profile.php"><b>dm</b></a> - <a href="/index.php?act=logout&hash=3476ty89mR_hf9er8">выйти</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a> | <a href="/help.php?page=projects">прочие проекты</a>
-
+{% block content %}
+<title>Редактирование приложения - LunaStore</title>
+<div class="content">
+  <div class="preferences">
+      <div class="preferences_info" id="{uid}">
+        <div class="preferences_title">Редактирование приложения</div>
+        <div style="clear: both"></div>
+      </div>
   </div>
-
-  <div class="header">
-    <a href="https://myslivets.com"><div class="ls_dm_logo"></div></a>
-    <div class="rl_l"><h1 class="txtr">LunaStore</h1>
-    <div class="subtitle txtr">Windows XP Professional</div>
-    </div>
-    
-    <div class="searchbar">
-  <!--[if IE 6]>
-  <style type="text/css">
-   .searchbar button {padding: 1px 1px;}
-   .tail{display: none;}
-  </style>
-  <![endif]-->
-      <input type="text" id="q" placeholder="Например: Total Commander">
-      <button type="button" onclick="doSearch()">поиск</button>
-      <br>
-      <div class="subtitle"><a href="/settings.php?act=search">Уточнить параметры поиска</a></div>
-    </div>
-  </div>
-
-
-  <div class="headerline"></div>
-
-  <div class="main">
-    <div class="sidebar">
-      <div class="boxhead_primary"><b>Аккаунт</b></div>
-      <div class="box">
-        
-        <ul>
-          <a href="/profile.php"><li class="myhome">Мой профиль</li></a>
-          <a href="/settings.php"><li class="settings">Настройки</li></a>
-          <a href="/profile.php?act=invite"><li class="newbie">Пригласить</li></a>
-        </ul>
-      </div>
-
-        <div class="boxhead"><b>Категории</b></div>
-      <div class="box">
-        
-        <ul>
-          <a href="/index.php"><li class="myhome">Главная страница</li></a>
-          <a href="/store.php?show=top20"><li class="top">Приложения месяца</li></a>
-          <a href="/store.php?show=updates"><li class="updates">Центр обновлений</li></a>
-          <a href="/store.php?cat=1"><li class="entertainment">Игры и развлечения</li></a>
-          <a href="/store.php?cat=2"><li class="util">Инструменты</li></a>
-          <a href="/store.php?cat=3"><li class="media">Мультимедиа</li></a>
-          <a href="/store.php?cat=4"><li class="office">Офисные приложения</li></a>
-          <a href="/store.php?cat=5"><li class="internet">Интернет и сети</li></a>
-          <a href="/store.php?cat=6"><li class="other">Прочее</li></a>
-          <a href="/store.php?show=themes"><li class="themes">Темы оформления</li></a>
-        </ul>
-      </div>
-      
-      <div class="adv_block">
-        <a href="{ad_link}"><img src="./ad/ad.png" class="adv_img_splash" alt="Реклама"></a>
-      </div>
-
-    </div>
-
-    <div class="content">
-
-      <div class="preferences">
-          <div class="preferences_info" id="{uid}">
-            <div class="preferences_title">Редактирование приложения</div>
-            <div style="clear: both"></div>
-
-          </div>
-      </div>
-      <link rel="stylesheet" href="./css/settings.css"> 
-      <link rel="stylesheet" href="./css/profile.css">   
-      <link rel="stylesheet" href="./css/tabs.css">
-      <!--[if lte IE 6]> <link rel="stylesheet" href="./css/profile_ie6.css" media="screen, projection"> <![endif]-->  
-
-        <div class="tabs">
+  <link rel="stylesheet" href="{% static './css/settings.css'%}"> 
+  <link rel="stylesheet" href="{% static './css/profile.css'%}">   
+  <link rel="stylesheet" href="{% static './css/tabs.css'%}">
+  <!--[if lte IE 6]> <link rel="stylesheet" href="./css/profile_ie6.css" media="screen, projection"> <![endif]-->  
+    <div class="tabs">
   <div class="tab-bar">
-    <div class="tab active" href="/app14?page=edit">
-      <img src="./img/tabs/main.png" class="tab-icon" alt="">
+    <div class="tab active" href="/edit_app_info.php">
+      <img src="{% static './img/tabs/main.png'%}" class="tab-icon" alt="">
       Инфо
-    </div>
-    <div class="tab" href="/app14?page=edit_files">
-      <img src="./img/tabs/programs.png" class="tab-icon" alt="">
-      Файлы
-    </div>
-    <div class="tab" href="/app14?page=edit_rights">
-      <img src="./img/tabs/rights.png" class="tab-icon" alt="">
-      Права
-    </div>
-    <div class="tab" href="/app14?page=stats">
-      <img src="./img/tabs/stats.png" class="tab-icon" alt="">
-      Статистика
-    </div>
-    <div class="tab" href="/app14?page=scr">
-      <img src="./img/tabs/cam.png" class="tab-icon" alt="">
-      Фото
     </div>
   </div>
 
   <div class="tab-content" id="tab-view">
     <div class="profile_block">Основная информация</div>
     <div class="profile_block_content">
-
-        <div class="pref_pad"><div class="pref_item_title">Название приложения:</div>
-            <input type="text" name="app_name" class="input-text" placeholder="Моё прекрасное приложение" value="Total Commander">
-            <div class="pref_warn_label">Отличное и запоминающиеся название даст приложению бонус к узнаваемости среди пользователей</div>
-        </div>  
-
-        <div class="pref_pad"><div class="pref_item_title">ID приложения:</div>
-            store.myslivets.com/ <input style="width: 280px" type="text" class="input-text" placeholder="app14" value="app14" disabled>
-            <div class="pref_warn_label">Эту информацию изменить нельзя</div>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="pref_pad">
+                <div class="pref_item_title">Название приложения:</div>
+                {{ form.title }}
+                {% if form.title.errors %}
+                    <div style="color: red; font-size: 12px;">{{ form.title.errors }}</div>
+                {% endif %}
+                <div class="pref_warn_label">Отличное и запоминающиеся название даст приложению бонус к узнаваемости среди пользователей</div>
         </div>
 
-        <div class="pref_pad"><div class="pref_item_title">Слоган (140 символов):</div>
-            <textarea class="brief_intro" name="whois" cols="140">gkjdfjgkldhgjklhdfughkdfjgidruhtguidgfyhdfiugydhukfghukdfhgjkdukghkdfgkhdfghjfhd</textarea>
-        <div class="pref_warn_label">Слоган будет отображаться на самой странице приложения, на главной и в поиске<br>Краткость - сестра таланта :)</div>
-        </div>
-
-        <div class="pref_pad"><div class="pref_item_title">Описание (1000 символов):</div>
-                <textarea class="brief_intro" name="desc" cols="1000">gkjdfjgkldhgjklhdfughkdfjgidruhtguidgfyhdfiugydhukfghukdfhgjkdukghkdfgkhdfghjfhd</textarea>
-              <div class="pref_warn_label">Описание будет показываться на странице приложения в блоке "Дополнительная информация"</div>  
-              </div>
-
-        <label>
-                <div class="pref_pad appcat"><div class="pref_item_title">Категория:</div>
-                <select name="category">
-                    <option value="1">Игры и развлечения</option>
-                    <option value="2">Инструменты</option>
-                    <option value="3">Мультимедиа</option>
-                    <option value="4">Офисные приложения</option>
-                    <option value="5">Интернет и сети</option>
-                    <option value="6">Прочее</option>
-                </select>
-                  <div class="pref_warn_label">Это очень важно для правильного поиска и показа приложения в соответствующих блоках. Администрация имеет право изменить категорию по своему усмотрению</div>
+        <div class="pref_pad">
+                <div class="pref_item_title">ID приложения:</div>
+                <div style="display: flex; align-items: center;">
+                    <span style="margin-right: 5px;">store.myslivets.com/app.php?id=</span>
+                    <input style="width: 100px" type="text" class="input-text" value="{{ obj.pk }}" disabled>
                 </div>
-        </label>
+                <div class="pref_warn_label">Эту информацию изменить нельзя</div>
+        </div>
 
-        <label>
-            <div class="pref_pad"><div class="pref_item_title">Официальный сайт разработчика:</div>
-            <input type="text" name="app_web_site" class="input-text">
-            </div>
-        </label>
+        <div class="pref_pad">
+                <div class="pref_item_title">Слоган (140 символов):</div>
+                {{ form.slogan }}
+                <div class="pref_warn_label">Слоган будет отображаться на самой странице приложения, на главной и в поиске<br>Краткость - сестра таланта :)</div>
+        </div>
+
+        <div class="pref_pad">
+                <div class="pref_item_title">Описание (1000 символов):</div>
+                {{ form.description }}
+                <div class="pref_warn_label">Описание будет показываться на странице приложения в блоке "Дополнительная информация"</div>  
+        </div>
+
+        <div class="pref_pad appcat">
+            <div class="pref_item_title">Категория:</div>
+            {{ form.category }}
+            <div class="pref_warn_label">Это очень важно для правильного поиска...</div>
+        </div>
+
+        <div class="pref_pad">
+                <div class="pref_item_title">Официальный сайт разработчика:</div>
+                {{ form.developer_site }}
+        </div>
 
     </div>
     <br>
     <div class="profile_block">Значок приложения</div>
+        <div class="profile_block_content">
+            <div class="info_splash editapp_splash">
+                Рекомендуемый размер аватара: 64x64.<br>
+                Допустимые форматы: .PNG, .JPG<br>
+                Максимальный размер: 2 Мб
+            </div>
+            
+            <div class="editapp_icon_view">
+                {% if obj.icon %}
+                    <img src="{{ obj.icon.url }}" alt="App Icon" style="width: 64px; height: 64px;">
+                {% else %}
+                    <div style="width: 64px; height: 64px;">Нет иконки</div>
+                {% endif %}
+            </div>
+
+            <div>
+                {{ form.icon }}
+            </div>
+    </div>
+    <div class="profile_block">Скриншоты</div>
     <div class="profile_block_content">
-      <div class="info_splash editapp_splash">Рекомендуемый размер аватара: 64x64.<br>Допустимые форматы: .PNG, .JPG<br>Максимальный размер: 2 Мб</div>
-          <div class="editapp_icon_view">
-              <img src="./cdn/appsicons/totalcmd.png" alt="">
-          </div>
-        <form action="/editapp.php?act=upload_icon" method="POST" enctype="multipart/form-data">
-            <input type="file" id="file-upload" class="action_button" name="myFile" accept="image/*, .jpg" multiple>
-        </form>
+        
+        {% if obj.screenshots %}
+        <div class="pref_pad">
+            <div class="pref_item_title">Текущие скриншоты:</div>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
+                {% for screen in obj.screenshots %}
+                    <div style="border: 1px solid #ccc; padding: 2px;">
+                        <img src="{{ MEDIA_URL }}{{ screen }}" style="height: 80px; display: block;">
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="pref_warn_label" style="color: #d9534f;">Внимание: Загрузка новых файлов удалит все текущие скриншоты!</div>
+        </div>
+        {% endif %}
+
+        <div class="pref_pad">
+            <div class="pref_item_title">Загрузить новые (макс 3 шт.):</div>
+            {{ form.upload_screenshots }}
+            
+            <div id="error-scr-box" class="error-box"></div>
+            <div id="info-scr" style="font-size: 11px; color: green; margin-top: 5px;"></div>
+        </div>
     </div>
     <br>
             <input type="submit" class="action_button" value="Сохранить">
   </div>
-
+</form>
 </div>
-
-
-    </div>
-  </div>
-
-  <div class="footer">
-    <a href="/help.php?page=about">О нас</a> - <a href="/help.php">FAQ</a> - <a href="/help.php?act=privacy">Политика конфиденциальности</a>
-    <div style="text-align: right; font-size: 11px;">С душой сделано командой DM, 2025<br>Все права принадлежат исходным правообладателям</div>
-  </div>
-
-
-
-
-<!-- Всплывающее окно -->
-<div id="login-popup" class="xp-popup">
-  <div class="popup-content">
-    <b>Авторизация</b><br>У Вас уже есть аккаунт? Представьтесь.<hr>
-    <form id="login-form">
-      Логин: <br>
-      <input type="text" name="login"><br>
-      Пароль: <br>
-      <input type="password" name="password"><br>
-      <button type="submit">Войти</button>
-    </form>
-  </div>
-  <div class="tail"></div>
 </div>
-<link rel="stylesheet" href="./css/ntf.css">
-<script src="./js/ntf.js"></script>
+</div>
+<script>
+    const allowedExtensions = ['jpg', 'jpeg', 'png'];
 
+    function validateFileExtension(file) {
+        const fileName = file.name.toLowerCase();
+        const extension = fileName.split('.').pop();
+        return allowedExtensions.includes(extension);
+    }
 
-<script type="text/javascript">
-/* Балун, совместимый с IE6.
-   Как использовать:
-     initBalloon('loginBtn'); // привязка к кнопке входа по id
-*/
+    function previewIcon(input) {
+        if (!input.files || !input.files[0]) return;
 
+        const file = input.files[0];
+        const imgPreview = document.getElementById('prev_icon');
 
+        if (!validateFileExtension(file)) {
+            alert("Ошибка: Недопустимый формат файла! \nРазрешены только: .JPG, .JPEG, .PNG");
+            input.value = ""; 
+            return;
+        }
+
+        if (file.size > 2 * 1024 * 1024) {
+            alert("Ошибка: Размер файла превышает 2 Мб!");
+            input.value = "";
+            return;
+        }
+
+        let reader = new FileReader();
+        reader.onload = function(e) {
+            if (imgPreview) {
+                imgPreview.src = e.target.result;
+            }
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function previewScreenshots(input) {
+        let info = document.getElementById('info-scr');
+        let errorBox = document.getElementById('error-scr-box');
+        if (info) info.innerText = "";
+        if (errorBox) {
+            errorBox.style.display = 'none';
+            errorBox.innerText = "";
+        }
+
+        if (input.files && input.files.length > 0) {
+            if (input.files.length > 3) {
+                if (errorBox) {
+                    errorBox.innerText = "Ошибка: Выбрано " + input.files.length + " файлов. Максимум 3.";
+                    errorBox.style.display = 'block';
+                } else {
+                    alert("Максимум 3 файла!");
+                }
+                input.value = ""; 
+                return;
+            }
+
+            let count = input.files.length;
+            
+            for (let i = 0; i < count; i++) {
+                const file = input.files[i];
+                if (!validateFileExtension(file)) {
+                    let msg = "Ошибка: Файл \"" + file.name + "\" имеет недопустимый формат.";
+                    if (errorBox) {
+                        errorBox.innerText = msg;
+                        errorBox.style.display = 'block';
+                    } else {
+                        alert(msg);
+                    }
+                    input.value = "";
+                    return; 
+                }
+                
+                if (file.size > 2 * 1024 * 1024) {
+                    let msg = "Ошибка: Файл \"" + file.name + "\" слишком большой (макс 2 Мб).";
+                    if (errorBox) {
+                        errorBox.innerText = msg;
+                        errorBox.style.display = 'block';
+                    } else {
+                        alert(msg);
+                    }
+                    input.value = "";
+                    return;
+                }
+            }
+            
+            if (info) info.innerText = "Файлы прошли проверку: " + count + " шт. Готовы к загрузке.";
+        }
+    }
 </script>
-
-<!-- Пример: привязать к кнопке с id="loginBtn" -->
-<script type="text/javascript">
-if (window.attachEvent) {
-  window.attachEvent('onload', function(){ initBalloon('loginBtn'); });
-} else if (window.addEventListener) {
-  window.addEventListener('load', function(){ initBalloon('loginBtn'); }, false);
-} else {
-  window.onload = function(){ initBalloon('loginBtn'); };
-}
-</script>
-
-</body>
-
-</html>
+{% endblock %}

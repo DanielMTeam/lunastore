@@ -202,6 +202,14 @@ class AppCreateForm(forms.ModelForm):
         files = self.files.getlist('upload_screenshots')
         
         if files:
+            if app_instance.pk and app_instance.screenshots:
+                for old_path in app_instance.screenshots:
+                    full_old_path = os.path.join(settings.MEDIA_ROOT, old_path)
+                    try:
+                        if os.path.isfile(full_old_path):
+                            os.remove(full_old_path)
+                    except OSError as e:
+                        print(f"Ошибка при удалении файла {full_old_path}: {e}")
             destination_dir = os.path.join(settings.MEDIA_ROOT, 'ugc', 'screenshots')
             os.makedirs(destination_dir, exist_ok=True)
             
@@ -211,19 +219,29 @@ class AppCreateForm(forms.ModelForm):
                 ext = os.path.splitext(uploaded_file.name)[1]
                 file_name = f"{uuid.uuid4().hex}{ext}"
                 file_path = os.path.join(destination_dir, file_name)
+                
                 with open(file_path, 'wb+') as destination:
                     for chunk in uploaded_file.chunks():
                         destination.write(chunk)
                 path_for_json = f'ugc/screenshots/{file_name}'
                 final_paths.append(path_for_json)
+            
             limit = getattr(settings, 'SCREENSHOT_COUNT', 3)
             app_instance.screenshots = final_paths[:limit]
         
         else:
             if not app_instance.screenshots:
-                 app_instance.screenshots = []
-
+                app_instance.screenshots = []
+                
         if commit:
             app_instance.save()
             
         return app_instance
+    
+class AppEditForm(AppCreateForm):
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args, **kwargs)
+        if 'captcha' in self.fields:
+            del self.fields['captcha']
+        if 'agree_with_site_rules' in self.fields:
+            del self.fields['agree_with_site_rules']
