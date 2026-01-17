@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, JsonResponse
 from .models import Application, Distribution, Category
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
 from apps.user.decorators import developer_required
+from .forms import AppCreateForm
 
 
 # redirect to home (index.php) page from (/) page
@@ -65,4 +65,19 @@ def faq(request):
 
 @developer_required
 def app_add(request):
-    return render(request, 'app_add.html')
+    if request.method == 'POST':
+        form = AppCreateForm(request.POST, request.FILES)
+        print("POST Data:", request.POST)
+        print("FILES Data:", request.FILES)
+        
+        # Проверяем конкретно поле screenshots
+        files = request.FILES.getlist('upload_screenshots')
+        print(f"Screenshots count: {len(files)}")
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+        else:
+            print("Form Errors:", form.errors)
+    else:
+        form = AppCreateForm()
+    return render(request, 'app_add.html', {'form':form})

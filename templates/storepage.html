@@ -93,8 +93,8 @@
         {% for screenshot_path in screenshots %}
           {% if screenshot_path %}
             <div class="st_scr">
-              <a href="{% static screenshot_path %}">
-                <img src="{% static screenshot_path %}" alt="Скриншот" style="width: 120px; height: 90px; float: n;">
+              <a href="/media/{{screenshot_path}}">
+                <img src="/media/{{screenshot_path}}" alt="Скриншот" style="width: 120px; height: 90px; float: n;">
               </a>
           {% endif %}
         {% empty %}
@@ -128,7 +128,4 @@
 
     </div>
   </div>
-
-
-</div>
 {% endblock %}

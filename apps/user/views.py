@@ -49,6 +49,7 @@ def logout(request):
 
 
 def register(request):
+    print(request.META.get('REMOTE_ADDR'))
     if not settings.REGISTRATION_IS_ENABLED:
         if request.user.is_authenticated:
             return redirect('home')
@@ -114,7 +115,6 @@ def profile_settings(request):
         'avatar_form': AvatarUpdateForm(instance=user),
     }
     if request.method == 'POST':
-        # Определяем, какая форма была отправлена
         form_type = request.POST.get('form_type')
 
         if form_type == 'profile':
