@@ -1,9 +1,10 @@
 from django import forms
-from .models import Application
+from .models import Application, AppCreateRequests, AppEditRequests
 from django.core.validators import FileExtensionValidator
 from django.conf import settings
 from django.utils.safestring import mark_safe
 from captcha.fields import CaptchaField
+from django.forms.models import model_to_dict
 import os
 import uuid
 
@@ -152,7 +153,7 @@ class AppCreateForm(forms.ModelForm):
     captcha = CaptchaField(label='Введите символы с картинки')
     
     class Meta:
-        model = Application
+        model = AppCreateRequests
         fields = ['category', 'title', 'slogan', 'icon', 'developer_site', 'description']
 
         widgets = {
@@ -239,9 +240,27 @@ class AppCreateForm(forms.ModelForm):
         return app_instance
     
 class AppEditForm(AppCreateForm):
-    def __init__(self,*args,**kwargs):
+    class Meta:
+        model = AppEditRequests
+        fields = ['category', 'title', 'slogan', 'icon', 'developer_site', 'description']
+        
+    def __init__(self, target_app=None, *args, **kwargs):
+        if target_app:
+            initial_data = model_to_dict(target_app)
+            kwargs['initial'] = initial_data
+            self.target_app = target_app
         super().__init__(*args, **kwargs)
-        if 'captcha' in self.fields:
-            del self.fields['captcha']
-        if 'agree_with_site_rules' in self.fields:
-            del self.fields['agree_with_site_rules']
+        if 'captcha' in self.fields: del self.fields['captcha']
+        if 'agree_with_site_rules' in self.fields: del self.fields['agree_with_site_rules']
+        
+    def save(self, commit=True):
+        submission = super().save(commit=False)
+        if hasattr(self, 'target_app'):
+            submission.target_application = self.target_app
+            if not submission.icon and self.target_app.icon:
+                submission.icon = self.target_app.icon
+            if not submission.screenshots and self.target_app.screenshots:
+                submission.screenshots = self.target_app.screenshots
+        if commit:
+            submission.save()
+        return submission

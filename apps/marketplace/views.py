@@ -70,7 +70,9 @@ def app_add(request):
     if request.method == 'POST':
         form = AppCreateForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            app_request = form.save(commit=False)
+            app_request.user = request.user
+            app_request.save()
             return redirect('home')
         else:
             print("Form Errors:", form.errors)
@@ -89,10 +91,12 @@ def application_edit_info(request, pk):
     obj = get_object_or_404(Application,pk=pk)
     
     if request.method == 'POST':
-        form = AppEditForm(request.POST, request.FILES, instance=obj)
+        form = AppEditForm(target_app=obj, data=request.POST, files=request.FILES)
         if form.is_valid():
-            form.save()
+            edit_request = form.save(commit=False)
+            edit_request.user = request.user
+            edit_request.save()
             return redirect('edit_app_info', pk=obj.pk)
     else:
-        form = AppEditForm(instance=obj)
+        form = AppEditForm(target_app=obj)
     return render(request, 'admin_app.html', {'obj':obj,'form':form})
