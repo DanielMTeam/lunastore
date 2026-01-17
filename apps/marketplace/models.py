@@ -1,4 +1,11 @@
 from django.db import models
+import uuid, os
+
+def get_icon_path(instance,filename):
+    # for application model
+    ext = filename.split('.')[-1]
+    filename=f"{uuid.uuid4().hex}.{ext}"
+    return os.path.join('ugc/app_icons',filename)
 
 class Category(models.Model):
     name = models.CharField(max_length=80)
@@ -22,7 +29,7 @@ class Application(models.Model):
     title = models.CharField(max_length=80)
     description = models.CharField(max_length=1400)
     slogan = models.CharField(max_length=240, null=True, blank=True)
-    icon = models.FileField(upload_to='media/ugc/app_icons',max_length=140, null=True)
+    icon = models.FileField(upload_to=get_icon_path,max_length=140, null=True)
     price = models.IntegerField(default=0) 
     #screenshots = models.FileField(upload_to='staticfiles/ugc/screenshots', max_length=525, null=True)
     screenshots = models.JSONField(default=list, blank=True, null=True)
@@ -50,7 +57,7 @@ class Application(models.Model):
 class Distribution(models.Model):
     app = models.ForeignKey(Application, on_delete=models.PROTECT)
     version = models.CharField(max_length=20)
-    file = models.FileField(upload_to='media/ugc/distributions',max_length=80, null=True)
+    file = models.FileField(upload_to='ugc/distributions',max_length=80, null=True)
     url = models.URLField(max_length=140, null=True)
     changelog = models.CharField(max_length=210)
     published = models.DateTimeField(auto_now=True)

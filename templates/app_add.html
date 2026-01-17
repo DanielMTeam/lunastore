@@ -5,6 +5,7 @@
 <title>Добавление приложения - LunaStore</title>
 <link rel="stylesheet" href="{% static './css/add_ui.css'%}">
 <link rel="stylesheet" href="{% static './css/stpage.css'%}">
+
 <style>
     .add_app_card, 
     .step-content, 
@@ -55,6 +56,15 @@
         font-family: Tahoma, sans-serif;
         font-size: 13px;
     }
+    
+    /* Django Error Styles */
+    .errorlist {
+        color: #cc0000;
+        font-size: 11px;
+        margin-top: 5px;
+        padding: 0;
+        list-style: none;
+    }
 </style>
 
 <div class="content">
@@ -63,7 +73,8 @@
         <h2 style="margin-top: 10px; margin-bottom: 8px; padding-left: 7px;">Добавление приложения</h2>
         <div class="separator_store"></div>
 
-        <div class="add_app_form">
+        <form method="post" enctype="multipart/form-data" class="add_app_form">
+            {% csrf_token %}
             
             <div class="steps">
                 <table>
@@ -73,13 +84,11 @@
                             <div class="step_title">Этап 1</div>
                             <div class="step_text">Начало</div>
                         </td>
-                        
                         <td class="step" id="tab-2">
                             <div class="step_number">2</div>
                             <div class="step_title">Этап 2</div>
                             <div class="step_text">Дополнительная<br>информация</div>
                         </td>
-
                         <td class="step step_last" id="tab-3">
                             <div class="step_number">3</div>
                             <div class="step_title">Этап 3</div>
@@ -89,24 +98,27 @@
                 </table>
             </div>
 
-            <div class="add_app_card">
+            <div class="add_app_card" style="margin-top: 25px;">
                 
                 <div id="step-content-1" class="step-content active">
                     <h1>Основная информация</h1>
                     <div id="form-step-1">
+                        
                         <label>
                             <div class="add_app_pad">
                                 <div class="add_app_title">Название:</div>
-                                <input type="text" id="inp_name" class="input-text">
+                                {{ form.title }}
                                 <div class="add_app_form_label">Отличное и запоминающиеся название даст приложению бонус к узнаваемости среди пользователей</div>
+                                {{ form.title.errors }}
                             </div>
                         </label>
 
                         <label>
                             <div class="add_app_pad">
                                 <div class="add_app_title">Слоган (140 символов):</div>
-                                <textarea class="brief_intro" id="inp_slogan" cols="140"></textarea>
+                                {{ form.slogan }}
                                 <div class="add_app_form_label">Слоган будет отображаться на самой странице приложения, на главной и в поиске<br>Краткость - сестра таланта :)</div>  
+                                {{ form.slogan.errors }}
                             </div>
                         </label>
 
@@ -114,13 +126,15 @@
                             <div class="add_app_pad">
                                 <div class="add_app_title">Значок приложения:</div>
                                 <div class="info_splash">Рекомендуемый размер аватара: 64x64.<br>Допустимые форматы: .PNG, .JPG<br>Максимальный размер: 2 Мб</div>
-                                <input type="file" id="inp_icon" class="action_button" accept="image/*" onchange="previewIcon(this)">
+                                {{ form.icon }}
+                                {{ form.icon.errors }}
                             </div>
                         </label>
 
                         <label class="agree">
-                            <input type="checkbox" id="inp_agree">
+                            {{ form.agree_with_site_rules }}
                             Я согласен с правилами сайта и осведомлён о последствиях их нарушения
+                            {{ form.agree_with_site_rules.errors }}
                         </label>
 
                         <br>
@@ -135,30 +149,27 @@
                         <label>
                             <div class="add_app_pad">
                                 <div class="add_app_title">Официальный сайт разработчика:</div>
-                                <input type="text" id="inp_site" class="input-text">
+                                {{ form.developer_site }}
+                                {{ form.developer_site.errors }}
                             </div>
                         </label>
 
                         <label>
                             <div class="add_app_pad">
                                 <div class="add_app_title">Описание (1000 символов):</div>
-                                <textarea class="brief_intro" id="inp_desc" cols="1000" style="height: 150px;"></textarea>
-                            <div class="add_app_form_label">Описание будет показываться на странице приложения в блоке "Дополнительная информация"</div>  
+                                {{ form.description }}
+                                <div class="add_app_form_label">Описание будет показываться на странице приложения в блоке "Дополнительная информация"</div>  
+                                {{ form.description.errors }}
                             </div>
                         </label>
 
                         <label>
-                            <div class="add_app_pad"><div class="add_app_title">Категория:</div>
-                            <select name="category">
-                                <option value="1">Игры и развлечения</option>
-                                <option value="2">Инструменты</option>
-                                <option value="3">Мультимедиа</option>
-                                <option value="4">Офисные приложения</option>
-                                <option value="5">Интернет и сети</option>
-                                <option value="6">Прочее</option>
-                            </select>
+                            <div class="add_app_pad">
+                                <div class="add_app_title">Категория:</div>
+                                {{ form.category }}
                                 <div class="add_app_form_label">Это очень важно для правильного поиска и показа приложения в соответствующих блоках. Администрация имеет право изменить категорию по своему усмотрению</div>
-                                </div>
+                                {{ form.category.errors }}
+                            </div>
                         </label>
 
                         <label>
@@ -166,10 +177,19 @@
                                 <div class="add_app_title">Скриншоты:</div>
                                 <div class="info_splash">Максимальное количество скриншотов: 3<br>Допустимые форматы: .PNG, .JPG<br>Максимальный размер: 2 Мб</div>
                                 
-                                <input type="file" id="inp_scr" class="action_button" multiple accept="image/*" onchange="previewScreenshots(this)">
+                                <input type="file" 
+                                    name="upload_screenshots" 
+                                    id="inp_scr" 
+                                    class="action_button" 
+                                    multiple 
+                                    accept="image/*" 
+                                    onchange="previewScreenshots(this)">
+                                
+                                <div style="color: red; font-size: 11px;">
+                                    {{ form.upload_screenshots.errors }}
+                                </div>
                                 
                                 <div id="error-scr-box" class="error-msg-box"></div>
-                                
                                 <div id="info-scr" style="font-size: 11px; margin-top: 5px; color: green;"></div>
                             </div>
                         </label>
@@ -196,7 +216,7 @@
                             <div style="min-width: 0;">
                                 <div id="prev_title" style="font-size: 18px; font-weight: bold; color: #003399; word-wrap: break-word;">Название</div>
                                 <div id="prev_slogan" style="color: #555; font-size: 12px; margin: 4px 0; word-wrap: break-word;">Слоган...</div>
-                                <div style="font-size: 11px;">Автор: <a href="#">dm</a></div>
+                                <div style="font-size: 11px;">Автор: <a href="#">Вы</a></div>
                             </div>
                         </div>
 
@@ -222,20 +242,29 @@
                     <div style="margin-top: 20px; border: 1px solid #ccc; background: #f9f9f9; padding: 15px;">
                         <div class="info-box-yellow">
                             <strong>Введите символы с картинки:</strong><br><br>
-                            <span style="color: #777;">[защита]</span>
+                            {% if form.captcha.errors %}
+                                <div class="error_splash" style="margin-bottom: 5px;"> 
+                                    {% for error in form.captcha.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %} 
+
+                            <div >
+                                {{ form.captcha }}
+                            </div>
                         </div>
                         
                         <div class="bottom-actions">
                             <button type="button" class="action_button" style="background-color: #e0e0e0; color: #000; border: 1px solid #999;" onclick="goToStep(2)">&larr; Редактировать</button>
                             
-                            <button type="button" class="action_button" onclick="alert('Данные готовы к отправке!')">Отправить на рассмотрение</button>
+                            <button type="submit" class="action_button">Отправить на рассмотрение</button>
                         </div>
                     </div>
-
                 </div>
 
             </div>
-        </div>
+        </form>
     </div>
 </div>
 </div>
@@ -244,12 +273,36 @@
     let iconDataUrl = null;
     let screenshotsArray = [];
 
+    const allowedExtensions = ['jpg', 'jpeg', 'png'];
+
+    function validateFileExtension(file) {
+        const fileName = file.name.toLowerCase();
+        const extension = fileName.split('.').pop();
+        return allowedExtensions.includes(extension);
+    }
+
     function previewIcon(input) {
-        if (input.files && input.files[0]) {
-            let reader = new FileReader();
-            reader.onload = function(e) { iconDataUrl = e.target.result; };
-            reader.readAsDataURL(input.files[0]);
+        if (!input.files || !input.files[0]) return;
+
+        const file = input.files[0];
+
+        if (!validateFileExtension(file)) {
+            alert("Ошибка: Недопустимый формат файла! \nРазрешены только: .JPG, .JPEG, .PNG");
+            input.value = ""; 
+            iconDataUrl = null;
+            document.getElementById('prev_icon').src = "{% static 'img/default_icon.png' %}";
+            return;
         }
+
+        if (file.size > 2 * 1024 * 1024) {
+            alert("Ошибка: Размер файла превышает 2 Мб!");
+            input.value = "";
+            return;
+        }
+
+        let reader = new FileReader();
+        reader.onload = function(e) { iconDataUrl = e.target.result; };
+        reader.readAsDataURL(file);
     }
 
     function previewScreenshots(input) {
@@ -263,20 +316,39 @@
 
         if (input.files && input.files.length > 0) {
             if (input.files.length > 3) {
-                errorBox.innerText = "Ошибка: Выбрано " + input.files.length + " файлов. Максимально допустимо: 3. Пожалуйста, выберите файлы заново.";
+                errorBox.innerText = "Ошибка: Выбрано " + input.files.length + " файлов. Максимум 3.";
                 errorBox.style.display = 'block';
-
                 input.value = ""; 
                 return;
             }
+
             let count = input.files.length;
-            info.innerText = "Выбрано файлов: " + count;
             
             for (let i = 0; i < count; i++) {
+                const file = input.files[i];
+
+                if (!validateFileExtension(file)) {
+                    errorBox.innerText = "Ошибка: Файл \"" + file.name + "\" имеет недопустимый формат. Разрешены только JPG и PNG.";
+                    errorBox.style.display = 'block';
+                    input.value = "";
+                    screenshotsArray = [];
+                    return; 
+                }
+                
+                if (file.size > 2 * 1024 * 1024) {
+                    errorBox.innerText = "Ошибка: Файл \"" + file.name + "\" слишком большой (макс 2 Мб).";
+                    errorBox.style.display = 'block';
+                    input.value = "";
+                    screenshotsArray = [];
+                    return;
+                }
+
                 let reader = new FileReader();
                 reader.onload = function(e) { screenshotsArray.push(e.target.result); };
-                reader.readAsDataURL(input.files[i]);
+                reader.readAsDataURL(file);
             }
+            
+            info.innerText = "Выбрано файлов: " + count;
         }
     }
 

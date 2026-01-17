@@ -8,7 +8,7 @@ class User(AbstractUser, models.Model):
     def unique_avatar_path(instance, filename):
         ext = filename.split('.')[-1]
         file_name = f"{uuid.uuid4().hex}.{ext}"
-        return f'media/ugc/user_avatars/{file_name}'
+        return f'ugc/user_avatars/{file_name}'
     
     class Meta:
         verbose_name = "Пользователь"

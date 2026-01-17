@@ -34,7 +34,7 @@ SECRET_KEY = 'django-insecure-p^k2e1ke^c8_&-k+^u)=_b1#u^y30icvro+3izpg16883wuns9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.10']
+ALLOWED_HOSTS = ['192.168.1.10','192.168.32.231','luna.fayzetw.in','lunap.fayzetw.in']
 
 
 # Application definition
