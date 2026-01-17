@@ -1,214 +1,92 @@
-﻿<!DOCTYPE html>
-<html>
+﻿{% extends 'base.html' %}
+{% load static %}
 
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+{% block content %}
 <title>Настройки аккаунта - LunaStore</title>
-<script src="./js/search_mini.js"></script>
-<link rel="stylesheet" href="./css/main.css">
-<link rel="stylesheet" href="./css/oprj.css">
-<link rel="shortcut icon" href="./favicon.ico">
-
-</head>
-
-
-<body>
-  <div class="announcement">Вы сейчас открыли версию сайта <b>на русском языке</b>, однако у нас есть локализация именно под <b>Ваш</b> регион<br>Желаете ли переключиться? <br><br> <a href="?hl=en" id="primary">Yes, change my language</a> - <a href="">Нет, спасибо</a></div>
-<div class="container">
-
-  <div class="dm_menu">
-    Вы вошли как <a href="/profile.php"><b>dm</b></a> - <a href="/index.php?act=logout&hash=3476ty89mR_hf9er8">выйти</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a> |
-    <div class="oprj_layout" id="oprj_layout">
-  <div class="oprj" id="oprj">прочие проекты</div>
-  <div class="oprj_list" id="oprj_list">
-    <div class="oprj_item" data-h="https://myslivets.com">Myslivets.com</div>
-    <div class="oprj_item" data-h="http://store.myslivets.com"><b>LunaStore</b></div>
-    <div class="oprj_item" data-h="http://games.myslivets.com">Игры</div>
-    <div class="oprj_item" data-h="/">Renaissance<small><font color="red"> new</font></small></div>
-    <hr>
-    <div class="oprj_item" data-h="https://myslivets.com/projects">Все проекты »</div>
+<div class="content">
+  <div class="preferences">
+      <div class="preferences_info" id="{uid}">
+        <div class="preferences_title">Настройки</div>
+        <div style="clear: both"></div>
+      </div>
   </div>
-</div>
-
-  </div>
-
-  <div class="header">
-    <a href="https://myslivets.com"><div class="ls_dm_logo"></div></a>
-    <div class="rl_l"><h1 class="txtr">LunaStore</h1>
-    <div class="subtitle txtr">Windows XP Professional</div>
+  
+  <link rel="stylesheet" href="{% static './css/settings.css'%}"> 
+  <link rel="stylesheet" href="{% static './css/profile.css'%}">   
+  <link rel="stylesheet" href="{% static './css/tabs.css'%}">
+  <div class="tabs">
+    <div class="tab-bar">
+      <div class="tab active">
+        <img src="{% static './img/tabs/account.png'%}" class="tab-icon" alt="">
+        Удаление аккаунта
+      </div>
     </div>
-    
-    <div class="searchbar">
-  <!--[if IE 6]>
-  <style type="text/css">
-   .searchbar button {padding: 1px 1px;}
-   .tail{display: none;}
-  </style>
-  <![endif]-->
-      <input type="text" id="q" placeholder="Например: Total Commander">
-      <button type="button" onclick="doSearch()">поиск</button>
-      <br>
-      <div class="subtitle"><a href="/settings.php?act=search">Уточнить параметры поиска</a></div>
-    </div>
-  </div>
 
-
-  <div class="headerline"></div>
-
-  <div class="main">
-    <div class="sidebar">
-      <div class="boxhead_primary"><b>Аккаунт</b></div>
-      <div class="box">
+    <div class="tab-content" id="tab-view">
+      <div class="delete_account_block">Прошу обратить внимание!</div>
+      <div class="delete_account_content">
+        Вы уже нажали кнопку удаления аккаунта в настройках профиля, понимаем ваше решение. <br><br> Однако ещё раз хотим сказать, что данное действие повлечёт за собой уничтожение данных профиля <b>БЕЗ возможности восстановления</b>. Доступ к управляемым страницам приложений будет потерян, а отправленные отзывы будут обезличены.<hr>Самое время перечислить статистику вашего профиля:<br><br>
         
-        <ul>
-          <a href="/profile.php"><li class="myhome">Мой профиль</li></a>
-          <a href="/settings.php"><li class="settings" id="active">Настройки</li></a>
-          <a href="/profile.php?act=invite"><li class="newbie">Пригласить</li></a>
-        </ul>
+        <table class="app_version_table" cellpadding="0" cellspacing="0">
+            <tr>
+                <th>Вы оставили здесь...</th>
+                <th>Повод задуматься</th>
+            </tr>
+
+            <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
+                <td>NULL отзыва</td> <td>Никто не узнает вашего правдивого мнения</td>
+            </tr>
+
+            <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
+                <td>Вот столько вы загрузили приложений: {{ apps_count }}</td>
+                <td>Вы не сможете управлять ими после удаления аккаунта</td>
+            </tr>
+
+            <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
+                <td>Ваш прекрасный аватар</td>
+                <td>Прими себя такого, какой ты есть</td>
+            </tr>
+
+            <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
+                <td>Историю загруженных приложений</td>
+                <td>Ладно, вы хоть раз туда заглядывали?</td>
+            </tr>
+
+            <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
+                <td>NULL приглашённых человека</td>
+                <td>Они останутся без вас и будут расстроены</td>
+            </tr>
+        </table>
+        <hr>
+
+        Если Вы приняли прям твёрдое и чёткое решение, то для окончательного подтверждения введите Ваш пароль в последний раз<br>
+
+        <form method="post" id="delete_confirm_form">
+            {% csrf_token %}
+            
+            <div class="pref_pad">
+                <div class="pref_item_title">Текущий пароль:</div>
+                <input type="password" name="password" class="input-text" required>
+                
+                {% if form.password.errors %}
+                    <div style="color: red; font-size: 0.9em; margin-top: 5px;">
+                        {{ form.password.errors.0 }}
+                    </div>
+                {% endif %}
+            </div>
+            <br>
+
+            <div class="action">
+                <a href="#" id="delete_acc" onclick="document.getElementById('delete_confirm_form').submit(); return false;">
+                    Удалить аккаунт
+                </a>
+            </div>
+
+        </form>
+
       </div>
-
-        <div class="boxhead"><b>Категории</b></div>
-      <div class="box">
-        
-        <ul>
-          <a href="/index.php"><li class="myhome">Главная страница</li></a>
-          <a href="/store.php?show=top20"><li class="top">Приложения месяца</li></a>
-          <a href="/store.php?show=updates"><li class="updates">Центр обновлений</li></a>
-          <a href="/store.php?cat=1"><li class="entertainment">Игры и развлечения</li></a>
-          <a href="/store.php?cat=2"><li class="util">Инструменты</li></a>
-          <a href="/store.php?cat=3"><li class="media">Мультимедиа</li></a>
-          <a href="/store.php?cat=4"><li class="office">Офисные приложения</li></a>
-          <a href="/store.php?cat=5"><li class="internet">Интернет и сети</li></a>
-          <a href="/store.php?cat=6"><li class="other">Прочее</li></a>
-          <a href="/store.php?show=themes"><li class="themes">Темы оформления</li></a>
-        </ul>
-      </div>
-      
-      <div class="adv_block">
-        <a href="{ad_link}"><img src="./ad/ad.png" class="adv_img_splash" alt="Реклама"></a>
-      </div>
-
-    </div>
-
-    <div class="content">
-
-      <div class="preferences">
-          <div class="preferences_info" id="{uid}">
-            <div class="preferences_title">Настройки</div>
-            <div style="clear: both"></div>
-
-          </div>
-      </div>
-      <link rel="stylesheet" href="./css/settings.css"> 
-      <link rel="stylesheet" href="./css/profile.css">   
-      <link rel="stylesheet" href="./css/tabs.css">
-      <!--[if lte IE 6]> <link rel="stylesheet" href="./css/profile_ie6.css" media="screen, projection"> <![endif]-->  
-
-        <div class="tabs">
-  <div class="tab-bar">
-    <div class="tab active" href="/settings.php">
-      <img src="./img/tabs/account.png" class="tab-icon" alt="">
-      Удаление аккаунта
-    </div>
-  </div>
-
-  <div class="tab-content" id="tab-view">
-    <div class="delete_account_block">Прошу обратить внимание!</div>
-    <div class="delete_account_content">
-      Вы уже нажали кнопку удаления аккаунта в настройках профиля, понимаем ваше решение. <br><br> Однако ещё раз хотим сказать, что данное действие повлечёт за собой уничтожение данных профиля <b>БЕЗ возможности восстановления</b>. Доступ к управляемым страницам приложений будет потерян, а отправленные отзывы будут обезличены.<hr>Самое время перечислить статистику вашего профиля:<br><br>
-<table class="app_version_table" cellpadding="0" cellspacing="0">
-    <tr>
-        <th>Вы оставили здесь...</th>
-        <th>Повод задуматься</th>
-    </tr>
-
-    <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
-        <td>64 отзыва</td>
-        <td>Никто не узнает вашего правдивого мнения</td>
-    </tr>
-
-    <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
-        <td>2 страницы приложения</td>
-        <td>Вы не сможете управлять ими после удаления аккаунта</td>
-    </tr>
-
-    <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
-        <td>Ваш прекрасный аватар</td>
-        <td>Прими себя такого, какой ты есть</td>
-    </tr>
-
-    <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
-        <td>Историю загруженных приложений</td>
-        <td>Ладно, вы хоть раз туда заглядывали?</td>
-    </tr>
-
-    <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
-        <td>4 приглашённых человека</td>
-        <td>Они останутся без вас и будут расстроены</td>
-    </tr>
-</table><hr>
-Если Вы приняли прям твёрдое и чёткое решение, то для окончательного подтверждения введите Ваш пароль в последний раз<br>
-<div class="pref_pad"><div class="pref_item_title">Текущий пароль:</div>
-            <input type="password" name="current-pass" class="input-text">
-        </div>
-<br>
-      <div class="action"><a href="/settings.php?page=delete_account" id="delete_acc">Удалить аккаунт</a></div>
     </div>
   </div>
-
 </div>
-
-
-    </div>
-  </div>
-
-  <div class="footer">
-    <a href="/help.php?page=about">О нас</a> - <a href="/help.php">FAQ</a> - <a href="/help.php?act=privacy">Политика конфиденциальности</a>
-    <div style="text-align: right; font-size: 11px;">С душой сделано командой DM, 2025<br>Все права принадлежат исходным правообладателям</div>
-  </div>
-
-
-
-
-<!-- Всплывающее окно -->
-<div id="login-popup" class="xp-popup">
-  <div class="popup-content">
-    <b>Авторизация</b><br>У Вас уже есть аккаунт? Представьтесь.<hr>
-    <form id="login-form">
-      Логин: <br>
-      <input type="text" name="login"><br>
-      Пароль: <br>
-      <input type="password" name="password"><br>
-      <button type="submit">Войти</button>
-    </form>
-  </div>
-  <div class="tail"></div>
 </div>
-<link rel="stylesheet" href="./css/ntf.css">
-<script src="./js/ntf.js"></script>
-<script src="./js/oprj.js"></script>
-
-
-<script type="text/javascript">
-/* Балун, совместимый с IE6.
-   Как использовать:
-     initBalloon('loginBtn'); // привязка к кнопке входа по id
-*/
-
-
-</script>
-
-<!-- Пример: привязать к кнопке с id="loginBtn" -->
-<script type="text/javascript">
-if (window.attachEvent) {
-  window.attachEvent('onload', function(){ initBalloon('loginBtn'); });
-} else if (window.addEventListener) {
-  window.addEventListener('load', function(){ initBalloon('loginBtn'); }, false);
-} else {
-  window.onload = function(){ initBalloon('loginBtn'); };
-}
-</script>
-
-</body>
-
-</html>
+{% endblock %}

@@ -3,171 +3,152 @@
 {% block content %}
 <title>Настройки аккаунта - LunaStore</title>
 <div class="content">
-  <div class="preferences">
-      <div class="preferences_info">
-        <div class="preferences_title">Настройки</div>
-        <div style="clear: both"></div>
+<div class="preferences">
+    <div class="preferences_info">
+      <div class="preferences_title">Настройки</div>
+      <div style="clear: both"></div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="{% static './css/settings.css'%}"> 
+<link rel="stylesheet" href="{% static './css/profile.css'%}">  
+<link rel="stylesheet" href="{% static './css/tabs.css'%}">
+  <div class="tabs">
+    <div class="tab-bar">
+      <div class="tab active" href="#">
+        <img src="{% static './img/tabs/faq.png' %}" class="tab-icon" alt=""> Аккаунт
+      </div>
+      <div class="tab" href="#">
+        <img src="{% static './img/tabs/about.png' %}" class="tab-icon" alt=""> Приложения
+      </div>
+    </div>
+    <div class="tab-content" id="tab-view">
+      <form method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="form_type" value="profile">
+          
+          <div class="profile_block">Основная информация</div>
+          <div class="profile_block_content">
+              <div class="pref_pad">
+                  <div class="pref_item_title">Имя пользователя:</div>
+                  {{ profile_form.username }}
+                  <div class="pref_warn_label">Имя пользователя после регистрации изменить нельзя</div>
+              </div>
+              <div class="pref_pad">
+                  <div class="pref_item_title">Контактный E-mail:</div>
+                  {{ profile_form.email }}
+                  {{ profile_form.email.errors }}
+              </div>
+              <div class="pref_pad">
+                  <div class="pref_item_title">Telegram:</div>
+                  {{ profile_form.telegram }}
+              </div>
+              <div class="pref_pad">
+                  <div class="pref_item_title">Веб-сайт:</div>
+                  {{ profile_form.website }}
+              </div>
+              <div class="pref_pad">
+                  <div class="pref_item_title">Описание профиля:</div>
+                  {{ profile_form.bio }}
+              </div>
+          </div>
+          <input type="submit" class="action_button" value="Сохранить">
+      </form>
+      <br>
+      <form method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="form_type" value="privacy">
+          <div class="profile_block">Приватность</div>
+          <div class="profile_block_content">
+              {{ privacy_form.reviews_visible }}
+              Ограничить доступ к моим отзывам для других пользователей
+              <br><br>
+              <input type="submit" class="action_button" value="Сохранить">
+          </div>
+      </form>
+      <br>
+      <form method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="form_type" value="password">
+          <div class="profile_block">Изменить пароль</div>
+          <div class="profile_block_content">
+              <div class="pref_pad">
+                  <div class="pref_item_title">Текущий пароль:</div>
+                  {{ password_form.current_password }}
+                  {{ password_form.current_password.errors }}
+              </div>
+              <div class="pref_pad">
+                  <div class="pref_item_title">Новый пароль:</div>
+                  {{ password_form.new_password }}
+                  {{ password_form.new_password.errors }}
+              </div>
+              <div class="pref_pad">
+                  <div class="pref_item_title">Повторите пароль:</div>
+                  {{ password_form.confirm_password }}
+                  {{ password_form.confirm_password.errors }}
+              </div>
+              <input type="submit" class="action_button" value="Сохранить">
+          </div>
+      </form>
+      <br>
+      <form method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="form_type" value="email">
+          <div class="profile_block">Изменить E-mail</div>
+          <div class="profile_block_content">
+              <div class="info_splash">Изменение E-mail требует подтверждения паролем.</div>
+              <div class="pref_pad">
+                  <div class="pref_item_title">Текущий E-mail:</div>
+                  {{ email_form.current_email_display }}
+              </div>
+              <div class="pref_pad">
+                  <div class="pref_item_title">Новый E-mail:</div>
+                  {{ email_form.new_email }}
+                  {{ email_form.new_email.errors }}
+              </div>
+              <hr>
+              <div class="pref_pad">
+                  <div class="pref_item_title">Текущий пароль:</div>
+                  {{ email_form.password_check }}
+                  {{ email_form.password_check.errors }}
+              </div>
+              <input type="submit" class="action_button" value="Сохранить">
+          </div>
+      </form>
+      <br>
+      <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <input type="hidden" name="form_type" value="avatar">
+          <div class="profile_block">Изменить аватар</div>
+          <div class="profile_block_content">
+              <div class="info_splash">Рекомендуемый размер аватара: 64x64.<br>Допустимые форматы: .PNG, .JPG<br>Максимальный размер: 2 Мб</div>
+              
+              <label for="file-upload">Выберите файл:</label>
+              {{ avatar_form.avatar }}
+              {{ avatar_form.avatar.errors }}
+              
+              <button type="submit" class="action_button">Загрузить</button>
+          </div>
+      </form>
+      <br>
+      <div class="delete_account_block">Удаление аккаунта</div>
+      <div class="delete_account_content">
+          Если Вы не хотите пользоваться сайтом, то имеете полное право удалить свой аккаунт. <br><br>
+          Однако стоит понимать, что данное действие повлечёт за собой уничтожение данных профиля <b>БЕЗ возможности восстановления</b>. 
+          Доступ к управляемым страницам приложений будет потерян, а отправленные отзывы будут обезличены.<br><br>
+          <div class="action">
+            <form method="post" id="delete_init_form">
+                {% csrf_token %}
+                <input type="hidden" name="form_type" value="init_delete">
+
+                <div class="action">
+                    <a href="delete_account.php" id="delete_acc" onclick="document.getElementById('delete_init_form').submit(); return false;">
+                        Удалить аккаунт
+                    </a>
+                </div>
+            </form>
+          </div>
       </div>
   </div>
-  
-  <link rel="stylesheet" href="{% static './css/settings.css'%}"> 
-  <link rel="stylesheet" href="{% static './css/profile.css'%}">  
-  <link rel="stylesheet" href="{% static './css/tabs.css'%}">
-  
-  {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li class="{{ message.tags }}">{{ message }}</li>
-        {% endfor %}
-    </ul>
-  {% endif %}
-
-    <div class="tabs">
-      <div class="tab-bar">
-        <div class="tab active" href="#">
-          <img src="{% static './img/tabs/faq.png' %}" class="tab-icon" alt=""> Аккаунт
-        </div>
-        <div class="tab" href="#">
-          <img src="{% static './img/tabs/about.png' %}" class="tab-icon" alt=""> Приложения
-        </div>
-      </div>
-
-      <div class="tab-content" id="tab-view">
-
-        <form method="POST">
-            {% csrf_token %}
-            <input type="hidden" name="form_type" value="profile">
-            
-            <div class="profile_block">Основная информация</div>
-            <div class="profile_block_content">
-                <div class="pref_pad">
-                    <div class="pref_item_title">Имя пользователя:</div>
-                    {{ profile_form.username }}
-                    <div class="pref_warn_label">Имя пользователя после регистрации изменить нельзя</div>
-                </div>
-
-                <div class="pref_pad">
-                    <div class="pref_item_title">Контактный E-mail:</div>
-                    {{ profile_form.email }}
-                    {{ profile_form.email.errors }}
-                </div>
-
-                <div class="pref_pad">
-                    <div class="pref_item_title">Telegram:</div>
-                    {{ profile_form.telegram }}
-                </div>
-
-                <div class="pref_pad">
-                    <div class="pref_item_title">Веб-сайт:</div>
-                    {{ profile_form.website }}
-                </div>
-
-                <div class="pref_pad">
-                    <div class="pref_item_title">Описание профиля:</div>
-                    {{ profile_form.bio }}
-                </div>
-            </div>
-            <input type="submit" class="action_button" value="Сохранить">
-        </form>
-        <br>
-
-        <form method="POST">
-            {% csrf_token %}
-            <input type="hidden" name="form_type" value="privacy">
-
-            <div class="profile_block">Приватность</div>
-            <div class="profile_block_content">
-                {{ privacy_form.reviews_visible }}
-                Ограничить доступ к моим отзывам для других пользователей
-                <br><br>
-                <input type="submit" class="action_button" value="Сохранить">
-            </div>
-        </form>
-        <br>
-
-        <form method="POST">
-            {% csrf_token %}
-            <input type="hidden" name="form_type" value="password">
-
-            <div class="profile_block">Изменить пароль</div>
-            <div class="profile_block_content">
-                <div class="pref_pad">
-                    <div class="pref_item_title">Текущий пароль:</div>
-                    {{ password_form.current_password }}
-                    {{ password_form.current_password.errors }}
-                </div>
-
-                <div class="pref_pad">
-                    <div class="pref_item_title">Новый пароль:</div>
-                    {{ password_form.new_password }}
-                    {{ password_form.new_password.errors }}
-                </div>
-
-                <div class="pref_pad">
-                    <div class="pref_item_title">Повторите пароль:</div>
-                    {{ password_form.confirm_password }}
-                    {{ password_form.confirm_password.errors }}
-                </div>
-
-                <input type="submit" class="action_button" value="Сохранить">
-            </div>
-        </form>
-        <br>
-
-        <form method="POST">
-            {% csrf_token %}
-            <input type="hidden" name="form_type" value="email">
-
-            <div class="profile_block">Изменить E-mail</div>
-            <div class="profile_block_content">
-                <div class="info_splash">Изменение E-mail требует подтверждения паролем.</div>
-
-                <div class="pref_pad">
-                    <div class="pref_item_title">Текущий E-mail:</div>
-                    {{ email_form.current_email_display }}
-                </div>
-
-                <div class="pref_pad">
-                    <div class="pref_item_title">Новый E-mail:</div>
-                    {{ email_form.new_email }}
-                    {{ email_form.new_email.errors }}
-                </div>
-                <hr>
-
-                <div class="pref_pad">
-                    <div class="pref_item_title">Текущий пароль:</div>
-                    {{ email_form.password_check }}
-                    {{ email_form.password_check.errors }}
-                </div>
-
-                <input type="submit" class="action_button" value="Сохранить">
-            </div>
-        </form>
-        <br>
-
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <input type="hidden" name="form_type" value="avatar">
-
-            <div class="profile_block">Изменить аватар</div>
-            <div class="profile_block_content">
-                <div class="info_splash">Рекомендуемый размер аватара: 64x64.<br>Допустимые форматы: .PNG, .JPG<br>Максимальный размер: 2 Мб</div>
-                
-                <label for="file-upload">Выберите файл:</label>
-                {{ avatar_form.avatar }}
-                {{ avatar_form.avatar.errors }}
-                
-                <button type="submit" class="action_button">Загрузить</button>
-            </div>
-        </form>
-        <br>
-
-        <div class="delete_account_block">Удаление аккаунта</div>
-        <div class="delete_account_content">
-        Если Вы не хотите пользоваться сайтом, то имеете полное право удалить свой аккаунт. <br><br>Однако стоит понимать, что данное действие повлечёт за собой уничтожение данных профиля <b>БЕЗ возможности восстановления</b>. Доступ к управляемым страницам приложений будет потерян, а отправленные отзывы будут обезличены.<br><br>
-        <div class="action"><a href="/settings.php?page=delete_account" id="delete_acc">Удалить аккаунт</a></div>
-        </div>
-
-    </div>
 </div>
 {% endblock %}
