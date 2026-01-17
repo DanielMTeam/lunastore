@@ -45,7 +45,7 @@
                             <img src="{{ app.icon.url }}" alt="{{ app.name }}">
                             <h3>{{ app.title }}</h3>
                             <p><b>Владелец</b></p>
-                            <a href="{{ app.get_edit_url }}">редактировать</a>
+                            <a href="{% url 'edit_app_info' pk=app.pk %}">редактировать</a>
                         </div>
                     {% endfor %}
                 {% else %}
