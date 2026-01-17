@@ -250,3 +250,23 @@ class AddToGroupForm(forms.ModelForm):
         # save many-to-many data
         self.save_m2m()
         return instance
+
+class PasswordConfirmationForm(forms.Form):
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Введите текущий пароль'
+        }),
+        label='Подтвердите пароль',
+        required=True
+    )
+    
+    def __init__(self,user,*args,**kwargs):
+        self.user = user
+        super().__init__(*args, **kwargs)
+        
+    def clean_password(self):
+        password = self.cleaned_data.get('password')
+        if not self.user.check_password(password):
+            raise ValidationError('Неверный пароль. Пожалуйста, попробуйте снова.')
+        return password

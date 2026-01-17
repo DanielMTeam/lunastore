@@ -8,7 +8,8 @@ from django.contrib.auth import login as dj_login, logout as dj_logout, update_s
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
 from .models import UserBan, UserActivityLog, User, DevRequestsModel, BlacklistedUsername
-from .forms import UserRegistrationForm, AvatarUpdateForm, ProfileUpdateForm, PasswordChangeForm, DevStatusForm
+from apps.marketplace.models import Application
+from .forms import UserRegistrationForm, AvatarUpdateForm, ProfileUpdateForm, PasswordChangeForm, DevStatusForm, PasswordConfirmationForm
 import json
 from .middleware import get_client_ip, BlockBannedIP
 import re
@@ -113,6 +114,7 @@ def profile_settings(request):
         'profile_form': ProfileUpdateForm(instance=user),
         'password_form': PasswordChangeForm(user=user),
         'avatar_form': AvatarUpdateForm(instance=user),
+        'del_acc_form': PasswordConfirmationForm(user=user),
     }
     if request.method == 'POST':
         form_type = request.POST.get('form_type')
@@ -137,6 +139,9 @@ def profile_settings(request):
                 forms['avatar_form'].save()
                 messages.success(request, "Аватар обновлен")
                 return redirect('settings')
+        elif form_type == 'init_delete':
+            request.session['can_view_delete_page'] = True
+            return redirect('delete_account')
     return render(request, 'settings.html', forms)
 
 
@@ -173,3 +178,21 @@ def dev_status(request):
 
 def critical_error(request):
     return render(request, '502.html')
+
+@login_required 
+def delete_account(request):
+    if not request.session.get('can_view_delete_page'):
+        messages.warning(request, "Доступ запрещен. Начните с настроек профиля.")
+        return redirect('settings')
+    if request.method == 'POST':
+        form = PasswordConfirmationForm(request.user, request.POST)
+        if form.is_valid():
+            user = request.user
+            user.delete()
+            messages.success(request, 'Ваш аккаунт был успешно удален. Если надумаете вернуться - мы всегда вас ждем на нашем сайте!')
+            return redirect('home')
+    else:
+        form = PasswordConfirmationForm(request.user)
+    apps_loaded_count = Application.objects.filter(user=request.user).count()
+    print(apps_loaded_count)
+    return render(request, 'del_acc.html', {'apps_count':apps_loaded_count,'form':form})

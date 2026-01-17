@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 import uuid, os
 
 def get_icon_path(instance,filename):
@@ -26,6 +27,7 @@ class Category(models.Model):
 
 class Application(models.Model):
     category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='applications')
     title = models.CharField(max_length=80)
     description = models.CharField(max_length=1400)
     slogan = models.CharField(max_length=240, null=True, blank=True)
