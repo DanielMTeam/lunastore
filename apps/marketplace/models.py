@@ -120,8 +120,8 @@ class AppEditRequests(BaseApplicationInfo):
 
     class Meta:
         ordering = ['-created_at']
-        verbose_name = "Заявка на редактирование"
-        verbose_name_plural = "Заявки на редактирование"
+        verbose_name = "Заявка на изменение"
+        verbose_name_plural = "Заявки на изменения"
 
 # TODO: create the authorization-specific models
 # class Review(models.Model):
