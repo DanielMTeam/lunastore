@@ -1,198 +1,63 @@
-﻿<!DOCTYPE html>
-<html>
+﻿{% extends "base.html" %}
+{% load static %}
 
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+{% block content %}
 <title>Администрируемые приложения - LunaStore</title>
-<script src="./js/search_mini.js"></script>
-<link rel="stylesheet" href="./css/main.css">
-<link rel="stylesheet" href="./css/oprj.css">
-<link rel="shortcut icon" href="./favicon.ico">
 
-</head>
+<link rel="stylesheet" href="{% static './css/settings.css'%}"> 
+<link rel="stylesheet" href="{% static './css/profile.css'%}">  
+<link rel="stylesheet" href="{% static './css/tabs.css'%}">
 
-
-<body>
-  <div class="announcement">Вы сейчас открыли версию сайта <b>на русском языке</b>, однако у нас есть локализация именно под <b>Ваш</b> регион<br>Желаете ли переключиться? <br><br> <a href="?hl=en" id="primary">Yes, change my language</a> - <a href="">Нет, спасибо</a></div>
-<div class="container">
-
-  <div class="dm_menu">
-    Вы вошли как <a href="/profile.php"><b>dm</b></a> - <a href="/index.php?act=logout&hash=3476ty89mR_hf9er8">выйти</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a> |
-    <div class="oprj_layout" id="oprj_layout">
-  <div class="oprj" id="oprj">прочие проекты</div>
-  <div class="oprj_list" id="oprj_list">
-    <div class="oprj_item" data-h="https://myslivets.com">Myslivets.com</div>
-    <div class="oprj_item" data-h="http://store.myslivets.com"><b>LunaStore</b></div>
-    <div class="oprj_item" data-h="http://games.myslivets.com">Игры</div>
-    <div class="oprj_item" data-h="/">Renaissance<small><font color="red"> new</font></small></div>
-    <hr>
-    <div class="oprj_item" data-h="https://myslivets.com/projects">Все проекты »</div>
-  </div>
-</div>
-
-  </div>
-
-  <div class="header">
-    <a href="https://myslivets.com"><div class="ls_dm_logo"></div></a>
-    <div class="rl_l"><h1 class="txtr">LunaStore</h1>
-    <div class="subtitle txtr">Windows XP Professional</div>
-    </div>
-    
-    <div class="searchbar">
-  <!--[if IE 6]>
-  <style type="text/css">
-   .searchbar button {padding: 1px 1px;}
-   .tail{display: none;}
-  </style>
-  <![endif]-->
-      <input type="text" id="q" placeholder="Например: Total Commander">
-      <button type="button" onclick="doSearch()">поиск</button>
-      <br>
-      <div class="subtitle"><a href="/settings.php?act=search">Уточнить параметры поиска</a></div>
-    </div>
-  </div>
-
-
-  <div class="headerline"></div>
-
-  <div class="main">
-    <div class="sidebar">
-      <div class="boxhead_primary"><b>Аккаунт</b></div>
-      <div class="box">
-        
-        <ul>
-          <a href="/profile.php"><li class="myhome">Мой профиль</li></a>
-          <a href="/settings.php"><li class="settings" id="active">Настройки</li></a>
-          <a href="/profile.php?act=invite"><li class="newbie">Пригласить</li></a>
-        </ul>
-      </div>
-
-        <div class="boxhead"><b>Категории</b></div>
-      <div class="box">
-        
-        <ul>
-          <a href="/index.php"><li class="myhome">Главная страница</li></a>
-          <a href="/store.php?show=top20"><li class="top">Приложения месяца</li></a>
-          <a href="/store.php?show=updates"><li class="updates">Центр обновлений</li></a>
-          <a href="/store.php?cat=1"><li class="entertainment">Игры и развлечения</li></a>
-          <a href="/store.php?cat=2"><li class="util">Инструменты</li></a>
-          <a href="/store.php?cat=3"><li class="media">Мультимедиа</li></a>
-          <a href="/store.php?cat=4"><li class="office">Офисные приложения</li></a>
-          <a href="/store.php?cat=5"><li class="internet">Интернет и сети</li></a>
-          <a href="/store.php?cat=6"><li class="other">Прочее</li></a>
-          <a href="/store.php?show=themes"><li class="themes">Темы оформления</li></a>
-        </ul>
-      </div>
-      
-      <div class="adv_block">
-        <a href="{ad_link}"><img src="./ad/ad.png" class="adv_img_splash" alt="Реклама"></a>
-      </div>
-
-    </div>
-
-    <div class="content">
-
-      <div class="preferences">
-          <div class="preferences_info" id="{uid}">
+<div class="content">
+    <div class="preferences">
+        <div class="preferences_info">
             <div class="preferences_title">Настройки</div>
             <div style="clear: both"></div>
-
-          </div>
-      </div>
-      <link rel="stylesheet" href="./css/settings.css"> 
-      <link rel="stylesheet" href="./css/profile.css">   
-      <link rel="stylesheet" href="./css/tabs.css">
-      <!--[if lte IE 6]> <link rel="stylesheet" href="./css/profile_ie6.css" media="screen, projection"> <![endif]-->  
-
-        <div class="tabs">
-  <div class="tab-bar">
-    <div class="tab" href="/settings.php">
-      <img src="./img/tabs/faq.png" class="tab-icon" alt="">
-      Аккаунт
+        </div>
     </div>
-    <div class="tab active" href="/settings.php?page=manage_apps">
-      <img src="./img/tabs/about.png" class="tab-icon" alt="">
-      Приложения
-    </div>
-  </div>
 
-  <div class="tab-content" id="tab-view">
-    <div class="profile_block">Администрируемые страницы приложений</div>
-       <div class="profile_subblock">2 приложения</div>
-    <div class="profile_block_content">
+    <div class="tabs">
+        <div class="tab-bar">
+            <a href="{% url 'settings' %}" class="tab" style="display: block; text-decoration: none; color: inherit;">
+                <img src="{% static './img/tabs/account.png' %}" class="tab-icon" alt=""> Аккаунт
+            </a>
 
-        <div class="list-app-tile">
-          <img src="./cdn/appsicons/totalcmd.png" alt="">
-          <h3>Total Commander</h3>
-          <p><b>создатель</b></p>
-          <a href="/app1?act=edit">редактировать</a>
+            <div class="tab active">
+                <img src="{% static './img/tabs/programs.png' %}" class="tab-icon" alt=""> Приложения
+            </div>
         </div>
 
-        <div class="list-app-tile">
-          <img src="./cdn/appsicons/copilot.png" alt="">
-          <h3>Microsoft Copilot</h3>
-          <p><b>администратор</b></p>
-          <a href="/app4?act=edit">редактировать</a>
+        <div class="tab-content" id="tab-view">
+            <div class="profile_block">Администрируемые страницы приложений</div>
+            
+            <div class="profile_subblock">
+                {% if managed_apps %}
+                    Всего приложений: {{ managed_apps|length }}
+                {% else %}
+                    Мои приложения
+                {% endif %}
+            </div>
+            
+            <div class="profile_block_content">
+                {% if managed_apps %}
+                    {% for app in managed_apps %}
+                        <div class="list-app-tile">
+                            <img src="{{ app.icon.url }}" alt="{{ app.name }}">
+                            <h3>{{ app.title }}</h3>
+                            <p><b>Владелец</b></p>
+                            <a href="{% url 'edit_app_info' pk=app.pk %}">редактировать</a>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div style="text-align: center; padding: 50px 20px; color: #555;">
+                        <h3 style="margin-bottom: 10px;">Приложений нет ＞︿＜</h3>
+                        <span style="font-size: 12px; color: #888;">Вы пока что не управляете ни одним приложением.</span>
+                    </div>
+                {% endif %}
+            </div>
+            <br>
         </div>
-
     </div>
-    <br>
-
-  </div>
-
 </div>
-
-
-    </div>
-  </div>
-
-  <div class="footer">
-    <a href="/help.php?page=about">О нас</a> - <a href="/help.php">FAQ</a> - <a href="/help.php?act=privacy">Политика конфиденциальности</a>
-    <div style="text-align: right; font-size: 11px;">С душой сделано командой DM, 2025<br>Все права принадлежат исходным правообладателям</div>
-  </div>
-
-
-
-
-<!-- Всплывающее окно -->
-<div id="login-popup" class="xp-popup">
-  <div class="popup-content">
-    <b>Авторизация</b><br>У Вас уже есть аккаунт? Представьтесь.<hr>
-    <form id="login-form">
-      Логин: <br>
-      <input type="text" name="login"><br>
-      Пароль: <br>
-      <input type="password" name="password"><br>
-      <button type="submit">Войти</button>
-    </form>
-  </div>
-  <div class="tail"></div>
 </div>
-<link rel="stylesheet" href="./css/ntf.css">
-<script src="./js/ntf.js"></script>
-<script src="./js/oprj.js"></script>
-
-
-<script type="text/javascript">
-/* Балун, совместимый с IE6.
-   Как использовать:
-     initBalloon('loginBtn'); // привязка к кнопке входа по id
-*/
-
-
-</script>
-
-<!-- Пример: привязать к кнопке с id="loginBtn" -->
-<script type="text/javascript">
-if (window.attachEvent) {
-  window.attachEvent('onload', function(){ initBalloon('loginBtn'); });
-} else if (window.addEventListener) {
-  window.addEventListener('load', function(){ initBalloon('loginBtn'); }, false);
-} else {
-  window.onload = function(){ initBalloon('loginBtn'); };
-}
-</script>
-
-</body>
-
-</html>
+{% endblock %}

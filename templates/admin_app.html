@@ -1,0 +1,215 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<title>Редактирование приложения - LunaStore</title>
+<div class="content">
+  <div class="preferences">
+      <div class="preferences_info" id="{uid}">
+        <div class="preferences_title">Редактирование приложения</div>
+        <div style="clear: both"></div>
+      </div>
+  </div>
+  <link rel="stylesheet" href="{% static './css/settings.css'%}"> 
+  <link rel="stylesheet" href="{% static './css/profile.css'%}">   
+  <link rel="stylesheet" href="{% static './css/tabs.css'%}">
+  <!--[if lte IE 6]> <link rel="stylesheet" href="./css/profile_ie6.css" media="screen, projection"> <![endif]-->  
+    <div class="tabs">
+  <div class="tab-bar">
+    <div class="tab active" href="/edit_app_info.php">
+      <img src="{% static './img/tabs/main.png'%}" class="tab-icon" alt="">
+      Инфо
+    </div>
+  </div>
+
+  <div class="tab-content" id="tab-view">
+    <div class="profile_block">Основная информация</div>
+    <div class="profile_block_content">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="pref_pad">
+                <div class="pref_item_title">Название приложения:</div>
+                {{ form.title }}
+                {% if form.title.errors %}
+                    <div style="color: red; font-size: 12px;">{{ form.title.errors }}</div>
+                {% endif %}
+                <div class="pref_warn_label">Отличное и запоминающиеся название даст приложению бонус к узнаваемости среди пользователей</div>
+        </div>
+
+        <div class="pref_pad">
+                <div class="pref_item_title">ID приложения:</div>
+                <div style="display: flex; align-items: center;">
+                    <span style="margin-right: 5px;">store.myslivets.com/app.php?id=</span>
+                    <input style="width: 100px" type="text" class="input-text" value="{{ obj.pk }}" disabled>
+                </div>
+                <div class="pref_warn_label">Эту информацию изменить нельзя</div>
+        </div>
+
+        <div class="pref_pad">
+                <div class="pref_item_title">Слоган (140 символов):</div>
+                {{ form.slogan }}
+                <div class="pref_warn_label">Слоган будет отображаться на самой странице приложения, на главной и в поиске<br>Краткость - сестра таланта :)</div>
+        </div>
+
+        <div class="pref_pad">
+                <div class="pref_item_title">Описание (1000 символов):</div>
+                {{ form.description }}
+                <div class="pref_warn_label">Описание будет показываться на странице приложения в блоке "Дополнительная информация"</div>  
+        </div>
+
+        <div class="pref_pad appcat">
+            <div class="pref_item_title">Категория:</div>
+            {{ form.category }}
+            <div class="pref_warn_label">Это очень важно для правильного поиска...</div>
+        </div>
+
+        <div class="pref_pad">
+                <div class="pref_item_title">Официальный сайт разработчика:</div>
+                {{ form.developer_site }}
+        </div>
+
+    </div>
+    <br>
+    <div class="profile_block">Значок приложения</div>
+        <div class="profile_block_content">
+            <div class="info_splash editapp_splash">
+                Рекомендуемый размер аватара: 64x64.<br>
+                Допустимые форматы: .PNG, .JPG<br>
+                Максимальный размер: 2 Мб
+            </div>
+            
+            <div class="editapp_icon_view">
+                {% if obj.icon %}
+                    <img src="{{ obj.icon.url }}" alt="App Icon" style="width: 64px; height: 64px;">
+                {% else %}
+                    <div style="width: 64px; height: 64px;">Нет иконки</div>
+                {% endif %}
+            </div>
+
+            <div>
+                {{ form.icon }}
+            </div>
+    </div>
+    <div class="profile_block">Скриншоты</div>
+    <div class="profile_block_content">
+        
+        {% if obj.screenshots %}
+        <div class="pref_pad">
+            <div class="pref_item_title">Текущие скриншоты:</div>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
+                {% for screen in obj.screenshots %}
+                    <div style="border: 1px solid #ccc; padding: 2px;">
+                        <img src="{{ MEDIA_URL }}{{ screen }}" style="height: 80px; display: block;">
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="pref_warn_label" style="color: #d9534f;">Внимание: Загрузка новых файлов удалит все текущие скриншоты!</div>
+        </div>
+        {% endif %}
+
+        <div class="pref_pad">
+            <div class="pref_item_title">Загрузить новые (макс 3 шт.):</div>
+            {{ form.upload_screenshots }}
+            
+            <div id="error-scr-box" class="error-box"></div>
+            <div id="info-scr" style="font-size: 11px; color: green; margin-top: 5px;"></div>
+        </div>
+    </div>
+    <br>
+            <input type="submit" class="action_button" value="Сохранить">
+  </div>
+</form>
+</div>
+</div>
+</div>
+<script>
+    const allowedExtensions = ['jpg', 'jpeg', 'png'];
+
+    function validateFileExtension(file) {
+        const fileName = file.name.toLowerCase();
+        const extension = fileName.split('.').pop();
+        return allowedExtensions.includes(extension);
+    }
+
+    function previewIcon(input) {
+        if (!input.files || !input.files[0]) return;
+
+        const file = input.files[0];
+        const imgPreview = document.getElementById('prev_icon');
+
+        if (!validateFileExtension(file)) {
+            alert("Ошибка: Недопустимый формат файла! \nРазрешены только: .JPG, .JPEG, .PNG");
+            input.value = ""; 
+            return;
+        }
+
+        if (file.size > 2 * 1024 * 1024) {
+            alert("Ошибка: Размер файла превышает 2 Мб!");
+            input.value = "";
+            return;
+        }
+
+        let reader = new FileReader();
+        reader.onload = function(e) {
+            if (imgPreview) {
+                imgPreview.src = e.target.result;
+            }
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function previewScreenshots(input) {
+        let info = document.getElementById('info-scr');
+        let errorBox = document.getElementById('error-scr-box');
+        if (info) info.innerText = "";
+        if (errorBox) {
+            errorBox.style.display = 'none';
+            errorBox.innerText = "";
+        }
+
+        if (input.files && input.files.length > 0) {
+            if (input.files.length > 3) {
+                if (errorBox) {
+                    errorBox.innerText = "Ошибка: Выбрано " + input.files.length + " файлов. Максимум 3.";
+                    errorBox.style.display = 'block';
+                } else {
+                    alert("Максимум 3 файла!");
+                }
+                input.value = ""; 
+                return;
+            }
+
+            let count = input.files.length;
+            
+            for (let i = 0; i < count; i++) {
+                const file = input.files[i];
+                if (!validateFileExtension(file)) {
+                    let msg = "Ошибка: Файл \"" + file.name + "\" имеет недопустимый формат.";
+                    if (errorBox) {
+                        errorBox.innerText = msg;
+                        errorBox.style.display = 'block';
+                    } else {
+                        alert(msg);
+                    }
+                    input.value = "";
+                    return; 
+                }
+                
+                if (file.size > 2 * 1024 * 1024) {
+                    let msg = "Ошибка: Файл \"" + file.name + "\" слишком большой (макс 2 Мб).";
+                    if (errorBox) {
+                        errorBox.innerText = msg;
+                        errorBox.style.display = 'block';
+                    } else {
+                        alert(msg);
+                    }
+                    input.value = "";
+                    return;
+                }
+            }
+            
+            if (info) info.innerText = "Файлы прошли проверку: " + count + " шт. Готовы к загрузке.";
+        }
+    }
+</script>
+{% endblock %}

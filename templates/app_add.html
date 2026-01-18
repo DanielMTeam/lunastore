@@ -1,0 +1,426 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<title>Добавление приложения - LunaStore</title>
+<link rel="stylesheet" href="{% static './css/add_ui.css'%}">
+<link rel="stylesheet" href="{% static './css/stpage.css'%}">
+
+<style>
+    .add_app_card, 
+    .step-content, 
+    .preview-container-box, 
+    .info-notification,
+    #step-content-3 > div { 
+        box-sizing: border-box !important;
+        width: auto !important; 
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+    
+    .error-msg-box {
+        color: #cc0000;
+        background: #ffebe8;
+        border: 1px solid #dd8888;
+        padding: 5px 10px;
+        margin-top: 5px;
+        font-size: 11px;
+        display: none; 
+    }
+
+    .st_scr img { 
+        border: 1px solid #ccc; 
+        padding: 2px; 
+        background: #fff; 
+        object-fit: cover; 
+    }
+
+    .bottom-actions {
+        display: flex;
+        justify-content: space-between; 
+        align-items: center;
+        margin-top: 15px;
+        border-top: 1px solid #ddd;
+        padding-top: 15px;
+    }
+
+    .content * { box-sizing: border-box; }
+    .content { padding-bottom: 60px; }
+    
+    .step-content { display: none; }
+    .step-content.active { display: block; }
+    
+    .action_button {
+        cursor: pointer;
+        font-family: Tahoma, sans-serif;
+        font-size: 13px;
+    }
+    
+    /* Django Error Styles */
+    .errorlist {
+        color: #cc0000;
+        font-size: 11px;
+        margin-top: 5px;
+        padding: 0;
+        list-style: none;
+    }
+</style>
+
+<div class="content">
+    <div class="section">
+        
+        <h2 style="margin-top: 10px; margin-bottom: 8px; padding-left: 7px;">Добавление приложения</h2>
+        <div class="separator_store"></div>
+
+        <form method="post" enctype="multipart/form-data" class="add_app_form">
+            {% csrf_token %}
+            
+            <div class="steps">
+                <table>
+                    <tr>
+                        <td class="step step_active" id="tab-1">
+                            <div class="step_number step_number_active">1</div>
+                            <div class="step_title">Этап 1</div>
+                            <div class="step_text">Начало</div>
+                        </td>
+                        <td class="step" id="tab-2">
+                            <div class="step_number">2</div>
+                            <div class="step_title">Этап 2</div>
+                            <div class="step_text">Дополнительная<br>информация</div>
+                        </td>
+                        <td class="step step_last" id="tab-3">
+                            <div class="step_number">3</div>
+                            <div class="step_title">Этап 3</div>
+                            <div class="step_text">Просмотр перед<br>публикацией</div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="add_app_card" style="margin-top: 25px;">
+                
+                <div id="step-content-1" class="step-content active">
+                    <h1>Основная информация</h1>
+                    <div id="form-step-1">
+                        
+                        <label>
+                            <div class="add_app_pad">
+                                <div class="add_app_title">Название:</div>
+                                {{ form.title }}
+                                <div class="add_app_form_label">Отличное и запоминающиеся название даст приложению бонус к узнаваемости среди пользователей</div>
+                                {{ form.title.errors }}
+                            </div>
+                        </label>
+
+                        <label>
+                            <div class="add_app_pad">
+                                <div class="add_app_title">Слоган (140 символов):</div>
+                                {{ form.slogan }}
+                                <div class="add_app_form_label">Слоган будет отображаться на самой странице приложения, на главной и в поиске<br>Краткость - сестра таланта :)</div>  
+                                {{ form.slogan.errors }}
+                            </div>
+                        </label>
+
+                        <label>
+                            <div class="add_app_pad">
+                                <div class="add_app_title">Значок приложения:</div>
+                                <div class="info_splash">Рекомендуемый размер аватара: 64x64.<br>Допустимые форматы: .PNG, .JPG<br>Максимальный размер: 2 Мб</div>
+                                {{ form.icon }}
+                                {{ form.icon.errors }}
+                            </div>
+                        </label>
+
+                        <label class="agree">
+                            {{ form.agree_with_site_rules }}
+                            Я согласен с правилами сайта и осведомлён о последствиях их нарушения
+                            {{ form.agree_with_site_rules.errors }}
+                        </label>
+
+                        <br>
+                        <button type="button" class="action_button" onclick="goToStep(2)">Далее</button>
+                    </div>
+                </div>
+
+                <div id="step-content-2" class="step-content">
+                    <h1>Дополнительная информация</h1>
+
+                    <div id="form-step-2">
+                        <label>
+                            <div class="add_app_pad">
+                                <div class="add_app_title">Официальный сайт разработчика:</div>
+                                {{ form.developer_site }}
+                                {{ form.developer_site.errors }}
+                            </div>
+                        </label>
+
+                        <label>
+                            <div class="add_app_pad">
+                                <div class="add_app_title">Описание (1000 символов):</div>
+                                {{ form.description }}
+                                <div class="add_app_form_label">Описание будет показываться на странице приложения в блоке "Дополнительная информация"</div>  
+                                {{ form.description.errors }}
+                            </div>
+                        </label>
+
+                        <label>
+                            <div class="add_app_pad">
+                                <div class="add_app_title">Категория:</div>
+                                {{ form.category }}
+                                <div class="add_app_form_label">Это очень важно для правильного поиска и показа приложения в соответствующих блоках. Администрация имеет право изменить категорию по своему усмотрению</div>
+                                {{ form.category.errors }}
+                            </div>
+                        </label>
+
+                        <label>
+                            <div class="add_app_pad">
+                                <div class="add_app_title">Скриншоты:</div>
+                                <div class="info_splash">Максимальное количество скриншотов: 3<br>Допустимые форматы: .PNG, .JPG<br>Максимальный размер: 2 Мб</div>
+                                
+                                <input type="file" 
+                                    name="upload_screenshots" 
+                                    id="inp_scr" 
+                                    class="action_button" 
+                                    multiple 
+                                    accept="image/*" 
+                                    onchange="previewScreenshots(this)">
+                                
+                                <div style="color: red; font-size: 11px;">
+                                    {{ form.upload_screenshots.errors }}
+                                </div>
+                                
+                                <div id="error-scr-box" class="error-msg-box"></div>
+                                <div id="info-scr" style="font-size: 11px; margin-top: 5px; color: green;"></div>
+                            </div>
+                        </label>
+
+                        <br><br>
+                        <div style="display: flex; gap: 10px;">
+                            <button type="button" class="action_button" style="background-color: #e0e0e0; color: #000; border: 1px solid #999;" onclick="goToStep(1)">&larr; Назад</button>
+                            <button type="button" class="action_button" onclick="goToStep(3)">Далее</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="step-content-3" class="step-content">
+                    
+                    <div class="info-notification" style="background: #eff7ff; border: 1px solid #a0c2e6; padding: 10px; margin-bottom: 20px; font-size: 12px; color: #333;">
+                        Проверьте всю информацию перед публикацией. Вот так будет выглядеть страница вашего приложения. 
+                    </div>
+
+                    <div class="preview-container-box" style="border: 1px solid #ccc; padding: 15px; background: #fff;">
+                        
+                        <div class="preview-header-row" style="display: flex; gap: 15px; margin-bottom: 20px;">
+                            <img id="prev_icon" src="" alt="icon" style="width: 64px; height: 64px; border-radius: 4px; object-fit: cover; border: 1px solid #999; flex-shrink: 0;">
+                            
+                            <div style="min-width: 0;">
+                                <div id="prev_title" style="font-size: 18px; font-weight: bold; color: #003399; word-wrap: break-word;">Название</div>
+                                <div id="prev_slogan" style="color: #555; font-size: 12px; margin: 4px 0; word-wrap: break-word;">Слоган...</div>
+                                <div style="font-size: 11px;">Автор: <a href="#">Вы</a></div>
+                            </div>
+                        </div>
+
+                        <h2>Скриншоты</h2>
+                        <div class="separator_store"></div>
+                        <div class="st_screenshots_container" id="js_screenshots_placeholder" style="display: flex; gap: 10px; flex-wrap: nowrap; overflow-x: auto; margin-top: 8px;">
+                            <span style="color:#999; font-size:11px;">Нет скриншотов</span>
+                        </div>
+                        
+
+                        <h2 style="margin-top: 6px;">Дополнительная информация</h2>
+                        <div class="separator_store"></div>
+                        <div id="prev_desc_block" style="white-space: pre-line; font-size: 12px; line-height: 1.4; word-wrap: break-word; overflow-wrap: break-word; margin-top: 8px;"></div>
+
+                        <h2 style="margin-top: 6px;">Действия</h2>
+                        <div class="separator_store"></div>
+                        <div style="margin-top: 8px;">
+                             <li class="offsite"><a href="#" id="prev_link" target="_blank" style="color: #003399; text-decoration: underline; font-size: 12px; word-break: break-all;">Перейти на официальный сайт разработчика</a></li>
+                        </div>
+
+                    </div>
+                    
+                    <div style="margin-top: 20px; border: 1px solid #ccc; background: #f9f9f9; padding: 15px;">
+                        <div class="info-box-yellow">
+                            <strong>Введите символы с картинки:</strong><br><br>
+                            {% if form.captcha.errors %}
+                                <div class="error_splash" style="margin-bottom: 5px;"> 
+                                    {% for error in form.captcha.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %} 
+
+                            <div >
+                                {{ form.captcha }}
+                            </div>
+                        </div>
+                        
+                        <div class="bottom-actions">
+                            <button type="button" class="action_button" style="background-color: #e0e0e0; color: #000; border: 1px solid #999;" onclick="goToStep(2)">&larr; Редактировать</button>
+                            
+                            <button type="submit" class="action_button">Отправить на рассмотрение</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+
+<script>
+    let iconDataUrl = null;
+    let screenshotsArray = [];
+
+    const allowedExtensions = ['jpg', 'jpeg', 'png'];
+
+    function validateFileExtension(file) {
+        const fileName = file.name.toLowerCase();
+        const extension = fileName.split('.').pop();
+        return allowedExtensions.includes(extension);
+    }
+
+    function previewIcon(input) {
+        if (!input.files || !input.files[0]) return;
+
+        const file = input.files[0];
+
+        if (!validateFileExtension(file)) {
+            alert("Ошибка: Недопустимый формат файла! \nРазрешены только: .JPG, .JPEG, .PNG");
+            input.value = ""; 
+            iconDataUrl = null;
+            document.getElementById('prev_icon').src = "{% static 'img/default_icon.png' %}";
+            return;
+        }
+
+        if (file.size > 2 * 1024 * 1024) {
+            alert("Ошибка: Размер файла превышает 2 Мб!");
+            input.value = "";
+            return;
+        }
+
+        let reader = new FileReader();
+        reader.onload = function(e) { iconDataUrl = e.target.result; };
+        reader.readAsDataURL(file);
+    }
+
+    function previewScreenshots(input) {
+        screenshotsArray = []; 
+        let info = document.getElementById('info-scr');
+        let errorBox = document.getElementById('error-scr-box');
+        
+        info.innerText = "";
+        errorBox.style.display = 'none';
+        errorBox.innerText = "";
+
+        if (input.files && input.files.length > 0) {
+            if (input.files.length > 3) {
+                errorBox.innerText = "Ошибка: Выбрано " + input.files.length + " файлов. Максимум 3.";
+                errorBox.style.display = 'block';
+                input.value = ""; 
+                return;
+            }
+
+            let count = input.files.length;
+            
+            for (let i = 0; i < count; i++) {
+                const file = input.files[i];
+
+                if (!validateFileExtension(file)) {
+                    errorBox.innerText = "Ошибка: Файл \"" + file.name + "\" имеет недопустимый формат. Разрешены только JPG и PNG.";
+                    errorBox.style.display = 'block';
+                    input.value = "";
+                    screenshotsArray = [];
+                    return; 
+                }
+                
+                if (file.size > 2 * 1024 * 1024) {
+                    errorBox.innerText = "Ошибка: Файл \"" + file.name + "\" слишком большой (макс 2 Мб).";
+                    errorBox.style.display = 'block';
+                    input.value = "";
+                    screenshotsArray = [];
+                    return;
+                }
+
+                let reader = new FileReader();
+                reader.onload = function(e) { screenshotsArray.push(e.target.result); };
+                reader.readAsDataURL(file);
+            }
+            
+            info.innerText = "Выбрано файлов: " + count;
+        }
+    }
+
+    function goToStep(n) {
+        if (n === 2) {
+            let name = document.getElementById('inp_name').value;
+            let agree = document.getElementById('inp_agree').checked;
+            
+            if (!name.trim()) { alert('Введите название приложения!'); return; }
+            if (!agree) { alert('Вы должны согласиться с правилами!'); return; }
+        }
+        
+        if (n === 3) renderPreview();
+
+        document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
+        document.getElementById('step-content-' + n).classList.add('active');
+
+        updateTabs(n);
+        window.scrollTo(0, 0);
+    }
+
+    function updateTabs(n) {
+        for(let i=1; i<=3; i++) {
+            let tab = document.getElementById('tab-' + i);
+            let num = tab.querySelector('.step_number');
+            
+            if (i === 3) { tab.className = 'step step_last'; } 
+            else { tab.className = 'step'; }
+            num.className = 'step_number'; 
+
+            if (i === n) {
+                tab.classList.add('step_active');
+                num.classList.add('step_number_active');
+            }
+        }
+    }
+
+    function renderPreview() {
+        document.getElementById('prev_title').innerText = document.getElementById('inp_name').value || "Без названия";
+        document.getElementById('prev_slogan').innerText = document.getElementById('inp_slogan').value || "Нет слогана";
+        document.getElementById('prev_desc_block').innerText = document.getElementById('inp_desc').value || "Нет описания";
+        
+        let site = document.getElementById('inp_site').value;
+        let link = document.getElementById('prev_link');
+        
+        if (site && site.trim() !== "") {
+            link.href = site.match(/^https?:/) ? site : 'http://' + site;
+            link.style.display = 'inline';
+        } else {
+            link.style.display = 'none';
+        }
+
+        let iconImg = document.getElementById('prev_icon');
+        iconImg.src = iconDataUrl ? iconDataUrl : "{% static 'img/default_icon.png' %}";
+
+        let scrCont = document.getElementById('js_screenshots_placeholder');
+        scrCont.innerHTML = "";
+        
+        if (screenshotsArray.length > 0) {
+            screenshotsArray.forEach(src => {
+                let img = document.createElement('img');
+                img.src = src;
+                img.style.width = '120px';
+                img.style.height = '90px';
+                img.style.objectFit = 'cover';
+                img.style.border = '1px solid #ccc';
+                img.style.padding = '2px';
+                scrCont.appendChild(img);
+            });
+        } else {
+            scrCont.innerHTML = "<span style='color:#999; font-size:11px;'>Нет скриншотов</span>";
+        }
+    }
+</script>
+{% endblock %}

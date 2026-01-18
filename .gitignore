@@ -2,10 +2,7 @@ venv/
 __pycache__/
 db.sqlite3
 .env
-staticfiles/ugc/app_icons/
-staticfiles/ugc/screenshots/
-staticfiles/ugc/distributions/
-staticfiles/ugc/user_avatars/
 debug.log
 dev.log.md
 .editorconfig
+media

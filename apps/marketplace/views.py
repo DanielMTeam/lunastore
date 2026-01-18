@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, JsonResponse
 from .models import Application, Distribution, Category
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
+from apps.user.decorators import developer_required
+from .forms import AppCreateForm, AppEditForm
+from django.contrib.auth.decorators import login_required
+from .decorators import user_is_owner
 
 
 # redirect to home (index.php) page from (/) page
@@ -58,3 +61,42 @@ def app(request):
         'screenshots': obj.screenshots
     }
     return render(request, 'storepage.html', context)
+
+def faq(request):
+    return render(request, 'faq.html')
+
+@developer_required
+def app_add(request):
+    if request.method == 'POST':
+        form = AppCreateForm(request.POST, request.FILES)
+        if form.is_valid():
+            app_request = form.save(commit=False)
+            app_request.user = request.user
+            app_request.save()
+            return redirect('home')
+        else:
+            print("Form Errors:", form.errors)
+    else:
+        form = AppCreateForm()
+    return render(request, 'app_add.html', {'form':form})
+
+@login_required
+def settings_apps(request):
+    managed_apps = Application.objects.filter(user=request.user)
+    return render(request, 'settings_apps.html', {'managed_apps':managed_apps})
+
+@login_required
+@user_is_owner(Application)
+def application_edit_info(request, pk):
+    obj = get_object_or_404(Application,pk=pk)
+    
+    if request.method == 'POST':
+        form = AppEditForm(target_app=obj, data=request.POST, files=request.FILES)
+        if form.is_valid():
+            edit_request = form.save(commit=False)
+            edit_request.user = request.user
+            edit_request.save()
+            return redirect('edit_app_info', pk=obj.pk)
+    else:
+        form = AppEditForm(target_app=obj)
+    return render(request, 'admin_app.html', {'obj':obj,'form':form})

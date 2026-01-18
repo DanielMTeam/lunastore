@@ -1,6 +1,6 @@
 from unfold import admin as unfold_admin
 from django.contrib import admin
-from .models import User, UserBan, UserActivityLog, DevRequestsModel
+from .models import User, UserBan, UserActivityLog, DevRequestsModel, BlacklistedUsername
 from .forms import UserBanForm, AddToGroupForm
 from django.contrib.auth.models import Group
 from django.shortcuts import redirect
@@ -133,3 +133,9 @@ class DevRequestsAdmin(unfold_admin.ModelAdmin):
             'description': 'Информация о пользователе, подавшем заявку'
         })
     )
+
+@admin.register(BlacklistedUsername)
+class BlacklistedUsernameAdmin(unfold_admin.ModelAdmin):
+    list_display = ('word', 'is_regex')
+    search_fields = ['word']
+    list_filter = ('is_regex', )
