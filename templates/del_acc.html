@@ -1,0 +1,92 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<title>Настройки аккаунта - LunaStore</title>
+<div class="content">
+  <div class="preferences">
+      <div class="preferences_info" id="{uid}">
+        <div class="preferences_title">Настройки</div>
+        <div style="clear: both"></div>
+      </div>
+  </div>
+  
+  <link rel="stylesheet" href="{% static './css/settings.css'%}"> 
+  <link rel="stylesheet" href="{% static './css/profile.css'%}">   
+  <link rel="stylesheet" href="{% static './css/tabs.css'%}">
+  <div class="tabs">
+    <div class="tab-bar">
+      <div class="tab active">
+        <img src="{% static './img/tabs/account.png'%}" class="tab-icon" alt="">
+        Удаление аккаунта
+      </div>
+    </div>
+
+    <div class="tab-content" id="tab-view">
+      <div class="delete_account_block">Прошу обратить внимание!</div>
+      <div class="delete_account_content">
+        Вы уже нажали кнопку удаления аккаунта в настройках профиля, понимаем ваше решение. <br><br> Однако ещё раз хотим сказать, что данное действие повлечёт за собой уничтожение данных профиля <b>БЕЗ возможности восстановления</b>. Доступ к управляемым страницам приложений будет потерян, а отправленные отзывы будут обезличены.<hr>Самое время перечислить статистику вашего профиля:<br><br>
+        
+        <table class="app_version_table" cellpadding="0" cellspacing="0">
+            <tr>
+                <th>Вы оставили здесь...</th>
+                <th>Повод задуматься</th>
+            </tr>
+
+            <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
+                <td>NULL отзыва</td> <td>Никто не узнает вашего правдивого мнения</td>
+            </tr>
+
+            <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
+                <td>Вот столько вы загрузили приложений: {{ apps_count }}</td>
+                <td>Вы не сможете управлять ими после удаления аккаунта</td>
+            </tr>
+
+            <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
+                <td>Ваш прекрасный аватар</td>
+                <td>Прими себя такого, какой ты есть</td>
+            </tr>
+
+            <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
+                <td>Историю загруженных приложений</td>
+                <td>Ладно, вы хоть раз туда заглядывали?</td>
+            </tr>
+
+            <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
+                <td>NULL приглашённых человека</td>
+                <td>Они останутся без вас и будут расстроены</td>
+            </tr>
+        </table>
+        <hr>
+
+        Если Вы приняли прям твёрдое и чёткое решение, то для окончательного подтверждения введите Ваш пароль в последний раз<br>
+
+        <form method="post" id="delete_confirm_form">
+            {% csrf_token %}
+            
+            <div class="pref_pad">
+                <div class="pref_item_title">Текущий пароль:</div>
+                <input type="password" name="password" class="input-text" required>
+                
+                {% if form.password.errors %}
+                    <div style="color: red; font-size: 0.9em; margin-top: 5px;">
+                        {{ form.password.errors.0 }}
+                    </div>
+                {% endif %}
+            </div>
+            <br>
+
+            <div class="action">
+                <a href="#" id="delete_acc" onclick="document.getElementById('delete_confirm_form').submit(); return false;">
+                    Удалить аккаунт
+                </a>
+            </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}

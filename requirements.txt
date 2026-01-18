@@ -6,4 +6,4 @@ pycodestyle
 django-unfold
 mozilla-django-oidc
 dotenv
-django-tasks
+django-cleanup

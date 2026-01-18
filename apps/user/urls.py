@@ -11,4 +11,6 @@ urlpatterns = [
     path('profile.php', views.profile, name='profile'),
     path('settings.php', views.profile_settings, name='settings'),
     path('dev_status.php', views.dev_status, name='dev_status'),
+    path('502.php', views.critical_error, name='502_error'),
+    path('delete_account.php', views.delete_account, name='delete_account')
 ]

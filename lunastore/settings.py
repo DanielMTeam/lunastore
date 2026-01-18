@@ -34,7 +34,7 @@ SECRET_KEY = 'django-insecure-p^k2e1ke^c8_&-k+^u)=_b1#u^y30icvro+3izpg16883wuns9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.10']
+ALLOWED_HOSTS = ['192.168.1.10','192.168.32.231','luna.fayzetw.in','lunap.fayzetw.in']
 
 
 # Application definition
@@ -60,16 +60,11 @@ INSTALLED_APPS = [
     "unfold.contrib.location_field", 
     "unfold.contrib.constance",
     'django.contrib.admin',
-    'django_tasks',
-    'django_tasks.backends.database'
+    'django_cleanup.apps.CleanupConfig',
 ]
 # tasks configuration
 
-TASKS = {
-    "default": {
-        "BACKEND": "django_tasks.backends.database.DatabaseBackend",
-    },
-}
+TASKS = {"default": {"BACKEND": "django.tasks.backends.immediate.ImmediateBackend"}}
 
 CACHES = {
     'default': {
@@ -78,6 +73,10 @@ CACHES = {
     }
 }
 
+# media path
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # openid AP configuration
 
@@ -194,6 +193,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
