@@ -140,7 +140,7 @@ class AppCreateRequestsAdmin(unfold_admin.ModelAdmin):
     fieldsets = (
         ('Основная информация по заявке', {
             'fields': ('user', 'category', 'title', 'slogan', 'description', 'price', 'icon', 'screenshots', 'developer_site'),
-            'description': 'Информация, предоставленная пользователем в заявке на статус разработчика'
+            'description': 'Информация, предоставленная пользователем в заявке на создание приложения'
         }),
         ('Информация по объекту User (пользователю)', {
             'fields': ('user_info_link',),
@@ -235,7 +235,7 @@ class AppEditRequestsAdmin(unfold_admin.ModelAdmin):
     fieldsets = (
         ('Основная информация по заявке', {
             'fields': ('user', 'category', 'title', 'slogan', 'description', 'price', 'icon', 'screenshots', 'developer_site'),
-            'description': 'Информация, предоставленная пользователем в заявке на статус разработчика'
+            'description': 'Информация, предоставленная пользователем в заявке на изменение информации в приложении'
         }),
         ('Информация по объекту User (пользователю)', {
             'fields': ('user_info_link',),
