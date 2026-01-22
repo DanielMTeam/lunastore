@@ -6,6 +6,7 @@ from apps.user.decorators import developer_required
 from .forms import AppCreateForm, AppEditForm
 from django.contrib.auth.decorators import login_required
 from .decorators import user_is_owner
+from django.contrib.postgres.search import TrigramSimilarity
 
 
 # redirect to home (index.php) page from (/) page
@@ -100,3 +101,25 @@ def application_edit_info(request, pk):
     else:
         form = AppEditForm(target_app=obj)
     return render(request, 'admin_app.html', {'obj':obj,'form':form})
+
+def search(request):
+    query = request.GET.get('q')
+    view_mode = request.GET.get('view', 'tiles')
+    
+    results = []
+    
+    if query:
+        results = Application.objects.annotate(similarity=TrigramSimilarity('title', query) + TrigramSimilarity('description', query) + TrigramSimilarity('slogan', query),).filter(similarity__gt=0.1).order_by('-similarity')
+    else:
+        results = Application.objects.none()
+        
+    paginator = Paginator(results, 10) 
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    context = {
+        'results': page_obj,  
+        'query': query,       
+        'view_mode': view_mode
+    }
+    return render(request, 'search.html', context)

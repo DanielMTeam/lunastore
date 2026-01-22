@@ -48,10 +48,12 @@
    .searchbar button {padding: 1px 1px;}
   </style>
   <![endif]-->
-      <input type="text" id="q" placeholder="Например: Total Commander">
-      <button type="button" onclick="doSearch()">поиск</button>
+      <form action="{% url 'search' %}" method="get" style="display: inline;">
+        <input type="text" name="q" id="q" value="{{ request.GET.q|default_if_none:'' }}" placeholder="Например: Total Commander">
+        <button type="submit">поиск</button>
+      </form>
       <br>
-      <div class="subtitle"><a href="/settings.php?act=search">Уточнить параметры поиска</a></div>
+      <div class="subtitle"><a href="...">Уточнить параметры поиска</a></div>
     </div>
   </div>
 
