@@ -7,3 +7,4 @@ django-unfold
 mozilla-django-oidc
 dotenv
 django-cleanup
+psycopg[binary]

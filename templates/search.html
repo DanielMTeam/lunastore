@@ -1,0 +1,102 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<title>Поиск - LunaStore</title>
+<div class="content">
+<div class="list_settings">
+<div class="selector">
+  <select onchange="location = this.value;">
+      <option value="" disabled selected>Показывать содержимое...</option>
+      <option value="?q={{ query }}&view=tiles">Показывать содержимое плитками</option>
+      <option value="?q={{ query }}&view=list">Показывать содержимое списком</option>
+  </select>
+</div>
+</div>
+<div class="section">
+  <h2>Введите запрос</h2>
+  
+</div> 
+<div class="section">
+   <form action="{% url 'search' %}" method="get" class="search_full">
+       <input type="text" name="q" id="q" class="search_icon" 
+              placeholder="Например: Total Commander" 
+              value="{{ query }}">
+       {% if view_mode == 'list' %}
+           <input type="hidden" name="view" value="list">
+       {% endif %}
+       <button type="submit">поиск</button>
+   </form>
+</div>
+<div class="section">
+  
+  <a class="search_tools" href="/settings.php?act=search">Уточнить параметры поиска</a>
+ </div> 
+  <div class="section"> 
+  
+    {% for app in results %}
+    <div class="card {% if view_mode == 'list' %}listview{% endif %}">
+        
+        {% if app.icon %}
+            <img src="{{ app.icon.url }}" alt="{{ app.title }}">
+        {% else %}
+            <img src="{% static 'img/default_icon.png' %}" alt="No icon">
+        {% endif %}
+
+        <h3>{{ app.title }}</h3>
+        <p>{{ app.slogan }}</p>
+        
+        {% if app.is_demo %}
+        {% if app.price > 0 %}
+          <div class="badge demo">Демо, далее ${{ app.price }}</div>
+        {% else %}
+          <div class="badge demo">Демо</div>
+        {% endif %}
+        {% elif not app.is_demo %}
+          {% if app.price > 0 %}
+            <div class="badge paid">${{ app.price }}</div>
+          {% else %}  
+            <div class="badge free">Бесплатно</div>
+          {% endif %}
+        {% endif %}
+
+        {% if not app.is_under_dmca %}
+        <div class="action">
+            <a href="./app.php?id={{ app.id }}">Подробнее</a>
+        </div>
+        {% endif %}
+    </div>
+
+    {% empty %}
+        <div style="clear:both"></div>
+        <div class="search_error">
+            <span>Поиск не дал результатов по запросу "{{ query }}"</span>
+        </div>
+    {% endfor %}
+    <div style="clear:both"></div>
+    
+  </div>
+{% if results.has_other_pages %}
+<div class="section">
+    <div class="paginator">
+        {% if results.has_previous %}
+            <a href="?q={{ query }}&page={{ results.previous_page_number }}">&laquo;</a>
+        {% endif %}
+
+        {% for num in results.paginator.page_range %}
+            {% if results.number == num %}
+                <a class="active" href="#">{{ num }}</a>
+            {% elif num > results.number|add:'-3' and num < results.number|add:'3' %}
+                <a href="?q={{ query }}&page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if results.has_next %}
+            <a href="?q={{ query }}&page={{ results.next_page_number }}">&raquo;</a>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+</div>
+</div>
+{%endblock%}
