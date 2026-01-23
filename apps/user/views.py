@@ -13,6 +13,7 @@ from .forms import UserRegistrationForm, AvatarUpdateForm, ProfileUpdateForm, Pa
 import json
 from .middleware import get_client_ip, BlockBannedIP
 import re
+import django,sys,platform
 
 
 def login(request):
@@ -196,3 +197,15 @@ def delete_account(request):
     apps_loaded_count = Application.objects.filter(user=request.user).count()
     print(apps_loaded_count)
     return render(request, 'del_acc.html', {'apps_count':apps_loaded_count,'form':form})
+
+def debug_info(request):
+    if settings.DEBUG:
+        method = request.method 
+        user_ip = request.META.get('REMOTE_ADDR')
+        user_agent = request.META.get('HTTP_USER_AGENT')
+        
+        django_version = django.get_version()
+        python_version = sys.version
+        os_info = platform.platform()
+        return render(request, 'debug_info.html', {'method':method,'user_ip':user_ip,'user_agent':user_agent,'django_version':django_version,'python_version':python_version,'os_info':os_info})
+    return redirect('home')
