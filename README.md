@@ -9,7 +9,7 @@
 <center><b><i>App store for older systems (Windows XP, etc.)</i></b>
 <br><br>
 
-<a href="https://git.myslivets.com/myslivets/lunastore/src/branch/main/RU-README.md">RU Documentation</a>
+> [RU Documentation](RU-README.md)
 
 
 <a href="https://store.myslivets.com"><img alt="Website" src="https://img.shields.io/website?url=https%3A%2F%2Fstore.myslivets.com&up_color=blue&style=plastic"></a>
