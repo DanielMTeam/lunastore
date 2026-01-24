@@ -1,6 +1,8 @@
 from django.db import models
 from django.conf import settings
 import uuid, os
+from django.contrib.postgres.indexes import GinIndex
+from django.contrib.postgres.search import TrigramSimilarity
 
 def get_icon_path(instance,filename):
     # for application model
@@ -51,6 +53,13 @@ class Application(BaseApplicationInfo):
         permissions = [
             ("set_dmca_flag", "Can set DMCA flag on application"),
             ("set_demo_flag", "Can set demo flag on application"),
+        ]
+        indexes = [
+            GinIndex(
+                name='app_trgm_idx',
+                fields=['title','description','slogan'],
+                opclasses=['gin_trgm_ops','gin_trgm_ops','gin_trgm_ops']
+            ),
         ]
 
     def __str__(self):
