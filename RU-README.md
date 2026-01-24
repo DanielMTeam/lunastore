@@ -9,7 +9,7 @@
 <center><b><i>Магазин приложений для старых систем (Windows XP, и так далее)</i></b>
 <br><br>
 
-<a href="https://git.myslivets.com/myslivets/lunastore/src/branch/main/README.md">EN Documentation</a>
+> [RU Documentation](RU-README.md)
 
 
 <a href="https://store.myslivets.com"><img alt="Вебсайт" src="https://img.shields.io/website?url=https%3A%2F%2Fstore.myslivets.com&up_color=blue&style=plastic"></a>
