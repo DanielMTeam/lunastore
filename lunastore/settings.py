@@ -61,8 +61,25 @@ INSTALLED_APPS = [
     "unfold.contrib.constance",
     'django.contrib.admin',
     'django_cleanup.apps.CleanupConfig',
-    'django.contrib.postgres'
+    'django.contrib.postgres',
+    'rest_framework',
+    'apps.api.apps.APIConfig',
+    'drf_spectacular',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'EXCEPTION_HANDLER': 'apps.api.handlers.luna_exception_handler',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'LunaStore API',
+    'DESCRIPTION': 'API Documentation for LunaStore',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False, 
+}
+
+
 # tasks configuration
 
 TASKS = {"default": {"BACKEND": "django.tasks.backends.immediate.ImmediateBackend"}}
