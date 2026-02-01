@@ -8,3 +8,5 @@ mozilla-django-oidc
 dotenv
 django-cleanup
 psycopg[binary]
+djangorestframework
+drf-spectacular

@@ -1,0 +1,8 @@
+class ErrorCodes:
+    EVERYTHING_IS_ALRIGHT = 0
+    UNKNOWN_ERROR = 1
+    VALIDATION_ERROR = 2
+    NOT_FOUND = 3
+    
+    USER_NOT_FOUND = 1000
+    USER_IS_BLOCKED = 1001
