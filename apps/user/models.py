@@ -4,7 +4,7 @@ from django.conf import settings
 import uuid
 
 
-class User(AbstractUser, models.Model):
+class User(AbstractUser):
     def unique_avatar_path(instance, filename):
         ext = filename.split('.')[-1]
         file_name = f"{uuid.uuid4().hex}.{ext}"
