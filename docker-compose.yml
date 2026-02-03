@@ -41,6 +41,27 @@ services:
     volumes:
       - .:/app
 
+  api:
+    build:
+      context: .
+      target: base
+    container_name: lunaStoreAPI
+    environment:
+      PYTHONPATH: /app
+      DJANGO_SETTINGS_MODULE: lunastore.settings
+      DJANGO_ROOT_URLCONF: lunastore.urls_api
+    working_dir: /app
+    ports:
+      - "7088:7088"
+    env_file:
+      - .env
+    command: python manage.py runserver 0.0.0.0:7088
+    restart: unless-stopped
+    networks:
+      - storenetwork
+    volumes:
+      - .:/app    
+
 # task_worker:
 #    build:
 #      context: .
