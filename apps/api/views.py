@@ -7,9 +7,12 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from .exceptions import LunaException
 from .constants import ErrorCodes
-from drf_spectacular.utils import extend_schema, OpenApiParameter
+from drf_spectacular.utils import extend_schema, OpenApiParameter, inline_serializer
 from drf_spectacular.types import OpenApiTypes
 from django.contrib.postgres.search import TrigramSimilarity
+from rest_framework import serializers
+from datetime import datetime
+from django.conf import settings
 
 class UserViewSet(viewsets.GenericViewSet):
     queryset = User.objects.filter(is_active=True)
@@ -176,3 +179,53 @@ class CategoryViewSet(viewsets.GenericViewSet):
             for index, apps in enumerate(serializer.data)
         }
         return Response(enumerated_data)
+    
+
+class ServiceViewSet(viewsets.GenericViewSet):
+    @extend_schema(
+        summary="check API status",
+        description="API method like 'heartbeat' type; returns current time, status and version",
+        responses={
+            200: inline_serializer(
+                name='HeartbeatResponse',
+                fields={
+                    'status': serializers.CharField(),
+                    'timestamp': serializers.DateTimeField(),
+                    'version': serializers.CharField(),
+                }
+            )
+        }
+    )
+    @action(detail=False, methods=['get'], url_path='heartbeat')
+    def heartbeat(self, request):
+        return Response({
+            "status": "ok",
+            "timestamp": datetime.now(),
+            "version": settings.VERSION
+        })
+    
+    
+    @extend_schema(
+        summary="returns list of LunaStore developers",
+        description="returns list of LunaStore developers",
+    )
+    @action(detail=False, methods=['get'], url_path='developers_list')
+    def developers(self, request):
+        return Response({
+            "creator": "Daniel Myslivets",
+            "backend": "fayzetwin, synzr, filldor",
+            "frontend": "Daniel Myslivets", 
+            "system-administration": "eversiege, thefoxmilya",
+            "design": "chelka0",
+            "special_thanks": "MondySpartan (logotype), nocha3 (native client of LunaStore for Windows XP)"
+        })
+        
+    @extend_schema(
+        summary="returns one cool thing",
+        description="returns one cool thing",
+    )
+    @action(detail=False, methods=['get'], url_path='kunyakin')
+    def kunyakin(self, request):
+        return Response({
+            "answer": "влад кунякин пробудил шаринган"
+        })
