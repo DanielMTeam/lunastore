@@ -24,7 +24,7 @@ class UserViewSet(viewsets.GenericViewSet):
         parameters=[
             OpenApiParameter(
                 name='id',             
-                description='ID of user',
+                description='User ID',
                 required=True,         
                 type=OpenApiTypes.INT,  
                 location=OpenApiParameter.QUERY
@@ -65,7 +65,7 @@ class MarketplaceViewSet(viewsets.GenericViewSet):
         parameters=[
             OpenApiParameter(
                 name='id',             
-                description='ID of application',
+                description='Application ID',
                 required=True,         
                 type=OpenApiTypes.INT,  
                 location=OpenApiParameter.QUERY
@@ -93,7 +93,7 @@ class MarketplaceViewSet(viewsets.GenericViewSet):
         if app.is_under_dmca:
             raise LunaException(
                 code=ErrorCodes.APPLICATION_IS_UNDER_DMCA,
-                message=f"Application with id {id} is under DMCA strike",
+                message=f"Application (id: {id}) unavailable because his creators/uploaders received a DMCA strike",
                 status_code=403
             )
 
@@ -145,7 +145,7 @@ class CategoryViewSet(viewsets.GenericViewSet):
         parameters=[
             OpenApiParameter(
                 name='id',             
-                description='ID of category',
+                description='Category ID',
                 required=True,         
                 type=OpenApiTypes.INT,  
                 location=OpenApiParameter.QUERY
@@ -241,7 +241,7 @@ class DistributionViewSet(viewsets.GenericViewSet):
         parameters=[
             OpenApiParameter(
                 name='id',             
-                description='ID of app',
+                description='Application ID',
                 required=True,         
                 type=OpenApiTypes.INT,  
                 location=OpenApiParameter.QUERY
