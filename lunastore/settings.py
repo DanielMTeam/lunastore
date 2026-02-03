@@ -110,7 +110,7 @@ UNFOLD = {
     "SITE_DROPDOWN": [
         {
             "icon": "home",
-            "title": _("LunaStore"),
+            "title": "LunaStore",
             "link": "https://store.myslivets.com"
         },
     ],
@@ -305,7 +305,13 @@ LOGGING = {
     }
 }
 
-LANGUAGE_CODE = 'ru-ru'
+LANGUAGE_CODE = 'ru'
+
+LANGUAGES = [
+    ('ru', 'Russian'),
+    ('en', 'English'),
+    ('be', 'Belarusian')
+]
 
 TIME_ZONE = 'UTC'
 

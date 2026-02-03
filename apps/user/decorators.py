@@ -3,6 +3,7 @@ from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 from django.contrib import messages
 from functools import wraps
+from django.utils.translation import gettext_lazy as _
 
 # check developer account status
 def developer_required(view_func=None, redirect_url='index'):
@@ -15,7 +16,7 @@ def developer_required(view_func=None, redirect_url='index'):
             )
             
             if not is_developer:
-                messages.error(request, "У вас нет статуса разработчика для просмотра этой страницы")
+                messages.error(request, _("ERROR_YOU_DONT_HAVE_DEVSTATUS"))
                 return redirect(redirect_url)
             
             return view_func(request, *args, **kwargs)
