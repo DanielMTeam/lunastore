@@ -12,3 +12,6 @@ class ErrorCodes:
     # Application ErrorCode constants (2xxx like)
     APPLICATION_NOT_FOUND = 2000
     APPLICATION_IS_UNDER_DMCA = 2001
+    
+    # Category ErrorCode constants (3xxx like)
+    CATEGORY_NOT_FOUND = 3000
