@@ -1,4 +1,5 @@
 ﻿{% extends 'base.html' %}
+{% use i18n %}
 {% load static %}
 
 {% block content %}
@@ -68,7 +69,7 @@
 <div class="content">
     <div class="section">
         
-        <h2 style="margin-top: 10px; margin-bottom: 8px; padding-left: 7px;">Добавление приложения</h2>
+        <h2 style="margin-top: 10px; margin-bottom: 8px; padding-left: 7px;">{% trans "PAGE_ADDAPP_PAGETITLE"%}</h2>
         <div class="separator_store"></div>
 
         <form method="post" enctype="multipart/form-data" class="add_app_form">
@@ -79,18 +80,18 @@
                     <tr>
                         <td class="step step_active" id="tab-1">
                             <div class="step_number step_number_active">1</div>
-                            <div class="step_title">Этап 1</div>
-                            <div class="step_text">Начало</div>
+                            <div class="step_title">{% trans "PAGE_ADDAPP_STEP1"%}</div>
+                            <div class="step_text">{% trans "PAGE_ADDAPP_STEP1_DESC"%}</div>
                         </td>
                         <td class="step" id="tab-2">
                             <div class="step_number">2</div>
-                            <div class="step_title">Этап 2</div>
-                            <div class="step_text">Дополнительная<br>информация</div>
+                            <div class="step_title">{% trans "PAGE_ADDAPP_STEP2"%}</div>
+                            <div class="step_text">{% trans "PAGE_ADDAPP_STEP2_DESC_1"%}<br>{% trans "PAGE_ADDAPP_STEP2_DESC_2"%}</div>
                         </td>
                         <td class="step step_last" id="tab-3">
                             <div class="step_number">3</div>
-                            <div class="step_title">Этап 3</div>
-                            <div class="step_text">Просмотр перед<br>публикацией</div>
+                            <div class="step_title">{% trans "PAGE_ADDAPP_STEP3"%}</div>
+                            <div class="step_text">{% trans "PAGE_ADDAPP_STEP3_DESC_1"%}<br>{% trans "PAGE_ADDAPP_STEP3_DESC_2"%}</div>
                         </td>
                     </tr>
                 </table>
