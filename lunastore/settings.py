@@ -93,7 +93,7 @@ CACHES = {
 
 # media path
 
-MEDIA_URL = '/media/'
+MEDIA_URL = os.getenv('EXTERNAL_MEDIA_URL', 'http://192.168.1.10:9088/media/')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # openid AP configuration
