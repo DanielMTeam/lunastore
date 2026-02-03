@@ -1,8 +1,8 @@
 from rest_framework import viewsets
 from apps.user.models import User 
-from apps.marketplace.models import Application, Category
+from apps.marketplace.models import Application, Category, Distribution
 from apps.user.serializers import UserSerializer
-from apps.marketplace.serializers import ApplicationSerializer, CategorySerializer
+from apps.marketplace.serializers import ApplicationSerializer, CategorySerializer, DistributionSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from .exceptions import LunaException
@@ -229,3 +229,50 @@ class ServiceViewSet(viewsets.GenericViewSet):
         return Response({
             "answer": "влад кунякин пробудил шаринган"
         })
+        
+
+class DistributionViewSet(viewsets.GenericViewSet):
+    queryset = Distribution.objects.filter()
+    serializer_class = DistributionSerializer
+    
+    @extend_schema(
+        summary="get list of distributions from app",
+        description="returns list of distributions from app",
+        parameters=[
+            OpenApiParameter(
+                name='id',             
+                description='ID of app',
+                required=True,         
+                type=OpenApiTypes.INT,  
+                location=OpenApiParameter.QUERY
+            )
+        ],
+        responses={200: DistributionSerializer(many=True)}
+    )
+    @action(detail=False, methods=['get'], url_path='getDistributionsList')
+    def get_distributions_list(self, request):
+        id = request.query_params.get('id')
+        
+        if not id:
+            raise LunaException(
+                code=ErrorCodes.VALIDATION_ERROR,
+                message="'ID' field missing",
+                status_code=400
+            )
+        try:
+            app = Application.objects.get(pk=id)
+            distributions = self.get_queryset().filter(app=app)
+        except Application.DoesNotExist: 
+            raise LunaException(
+                code=ErrorCodes.APPLICATION_NOT_FOUND,
+                message=f"Application with id {id} was not found",
+                status_code=404
+            )
+
+        serializer = DistributionSerializer(distributions, many=True)
+        enumerated_data = {
+            str(index + 1): distributions
+            for index, distributions in enumerate(serializer.data)
+        }
+        return Response(enumerated_data)
+    
