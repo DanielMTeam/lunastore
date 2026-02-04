@@ -1,12 +1,13 @@
 ﻿{% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 
 {% block content %}
-<title>Настройки аккаунта - LunaStore</title>
+<title>LunaStore</title>
 <div class="content">
   <div class="preferences">
       <div class="preferences_info" id="{uid}">
-        <div class="preferences_title">Настройки</div>
+        <div class="preferences_title">{% trans "PAGE_DELACC_BLOCK_TITLE" %}</div>
         <div style="clear: both"></div>
       </div>
   </div>
@@ -18,19 +19,19 @@
     <div class="tab-bar">
       <div class="tab active">
         <img src="{% static './img/tabs/account.png'%}" class="tab-icon" alt="">
-        Удаление аккаунта
+        {% trans "PAGE_DELACC_TITLE" %}
       </div>
     </div>
 
     <div class="tab-content" id="tab-view">
-      <div class="delete_account_block">Прошу обратить внимание!</div>
+      <div class="delete_account_block">{% trans "PAGE_DELACC_WARNTITLE" %}</div>
       <div class="delete_account_content">
-        Вы уже нажали кнопку удаления аккаунта в настройках профиля, понимаем ваше решение. <br><br> Однако ещё раз хотим сказать, что данное действие повлечёт за собой уничтожение данных профиля <b>БЕЗ возможности восстановления</b>. Доступ к управляемым страницам приложений будет потерян, а отправленные отзывы будут обезличены.<hr>Самое время перечислить статистику вашего профиля:<br><br>
+        {% trans "PAGE_DELACC_WARNDESC_1" %}<br><br> {% trans "PAGE_DELACC_WARNDESC_2" %} <b>{% trans "PAGE_DELACC_WARNDESC_3" %}</b>. {% trans "PAGE_DELACC_WARNDESC_4" %}<hr>{% trans "PAGE_DELACC_WARNDESC_5" %}<br><br>
         
         <table class="app_version_table" cellpadding="0" cellspacing="0">
             <tr>
-                <th>Вы оставили здесь...</th>
-                <th>Повод задуматься</th>
+                <th>{% trans "PAGE_DELACC_YOULEFTHERE_TITLE" %}</th>
+                <th>{% trans "PAGE_DELACC_YOULEFTHERE_1" %}</th>
             </tr>
 
             <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
@@ -38,18 +39,18 @@
             </tr>
 
             <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
-                <td>Вот столько вы загрузили приложений: {{ apps_count }}</td>
-                <td>Вы не сможете управлять ими после удаления аккаунта</td>
+                <td>{% trans "PAGE_DELACC_YOULEFTHERE_APP_1" %} {{ apps_count }}</td>
+                <td>{% trans "PAGE_DELACC_YOULEFTHERE_APP_2" %}</td>
             </tr>
 
             <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
-                <td>Ваш прекрасный аватар</td>
-                <td>Прими себя такого, какой ты есть</td>
+                <td>{% trans "PAGE_DELACC_YOULEFTHERE_AVATAR_1" %}</td>
+                <td>{% trans "PAGE_DELACC_YOULEFTHERE_AVATAR_2" %}</td>
             </tr>
 
             <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
-                <td>Историю загруженных приложений</td>
-                <td>Ладно, вы хоть раз туда заглядывали?</td>
+                <td>{% trans "PAGE_DELACC_YOULEFTHERE_HISTORY_1" %}</td>
+                <td>{% trans "PAGE_DELACC_YOULEFTHERE_HISTORY_2" %}</td>
             </tr>
 
             <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
@@ -59,13 +60,13 @@
         </table>
         <hr>
 
-        Если Вы приняли прям твёрдое и чёткое решение, то для окончательного подтверждения введите Ваш пароль в последний раз<br>
+        {% trans "PAGE_DELACC_LASTPASS_TITLE" %}<br>
 
         <form method="post" id="delete_confirm_form">
             {% csrf_token %}
             
             <div class="pref_pad">
-                <div class="pref_item_title">Текущий пароль:</div>
+                <div class="pref_item_title"></div>
                 <input type="password" name="password" class="input-text" required>
                 
                 {% if form.password.errors %}
@@ -78,7 +79,7 @@
 
             <div class="action">
                 <a href="#" id="delete_acc" onclick="document.getElementById('delete_confirm_form').submit(); return false;">
-                    Удалить аккаунт
+                    {% trans "PAGE_DELAPP_DELACCOUNTBTN" %}
                 </a>
             </div>
 

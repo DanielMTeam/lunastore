@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 
 {% block content %}
 <title>Debug - LunaStore</title>
 <div class="content">
-    <h2>Информация для тестирования (Debug)</h2>
-    <div class="info_splash">Данная страница используется ИСКЛЮЧИТЕЛЬНО для тестирования и для сбора информации для более граммотной подачи bug-report'а. Если Вы видите эту страницу, это значит что в вашем settings.py константа DEBUG = True.</div>
-    <h3>Основная информация</h3>
+    <h2>{% trans "PAGE_DEBUG_TITLE" %}</h2>
+    <div class="info_splash">{% trans "PAGE_DEBUG_DESC" %}</div>
+    <h3>{% trans "PAGE_DEBUG_MAININFO_TITLE" %}</h3>
     
     <h>Method: {{ method }}</h>
     <br>

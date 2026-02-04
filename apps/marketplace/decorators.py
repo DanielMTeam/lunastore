@@ -1,6 +1,7 @@
 from functools import wraps
 from django.shortcuts import get_object_or_404
 from django.core.exceptions import PermissionDenied
+from django.utils.translation import gettext_lazy as _
 
 # check, if user is a owner of something
 def user_is_owner(model, url_param='pk', owner_field='user'):
@@ -10,7 +11,7 @@ def user_is_owner(model, url_param='pk', owner_field='user'):
             obj = get_object_or_404(model,pk=kwargs.get(url_param))
             owner = getattr(obj,owner_field)
             if owner != request.user:
-                raise PermissionDenied("Вы не являетесь администратором данного приложения.")
+                raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
             return view_func(request,*args,**kwargs)
         return _wrapped_view
     return decorator

@@ -4,6 +4,7 @@ from .tasks import refresh_banned_ips_cache, CACHE_KEY
 from django.http import HttpResponseForbidden
 from django.core.cache import cache
 import logging
+from django.utils.translation import gettext_lazy as _
 
 logger = logging.getLogger('user')
 
@@ -28,7 +29,7 @@ class BlockBannedIP(MiddlewareMixin):
             cache.set(CACHE_KEY, banned_ips, timeout=60*5)
 
         if ip in banned_ips:
-            return HttpResponseForbidden("Your IP has been banned. If you believe there's a mistake here and you've been banned 'for no reason', please, email us: daniel@myslivets.com")
+            return HttpResponseForbidden(_("INFO_YOUR_IP_WAS_BANNED"))
 
     @classmethod
     def get_banned_set(cls):

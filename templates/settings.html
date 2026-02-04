@@ -1,8 +1,9 @@
 ﻿{% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block content %}
-<title>Настройки аккаунта - LunaStore</title>
+<title>{% trans "PAGE_SETTINGS_HTML_TITLE" %} - LunaStore</title>
 
 <link rel="stylesheet" href="{% static './css/settings.css'%}"> 
 <link rel="stylesheet" href="{% static './css/profile.css'%}">  
@@ -11,7 +12,7 @@
 <div class="content">
     <div class="preferences">
         <div class="preferences_info">
-            <div class="preferences_title">Настройки</div>
+            <div class="preferences_title">{% trans "PAGE_SETTINGS_TITLE" %}</div>
             <div style="clear: both"></div>
         </div>
     </div>
@@ -19,11 +20,11 @@
     <div class="tabs">
         <div class="tab-bar">
             <div class="tab active">
-                <img src="{% static './img/tabs/account.png' %}" class="tab-icon" alt=""> Аккаунт
+                <img src="{% static './img/tabs/account.png' %}" class="tab-icon" alt=""> {% trans "PAGE_SETTINGS_TAB_ACCOUNT" %}
             </div>
             
             <a href="{% url 'settings_apps' %}" class="tab" style="display: block; text-decoration: none; color: inherit;">
-                <img src="{% static './img/tabs/programs.png' %}" class="tab-icon" alt=""> Приложения
+                <img src="{% static './img/tabs/programs.png' %}" class="tab-icon" alt=""> {% trans "PAGE_SETTINGS_TAB_APPS" %}
             </a>
         </div>
 
@@ -32,115 +33,118 @@
                 {% csrf_token %}
                 <input type="hidden" name="form_type" value="profile">
                 
-                <div class="profile_block">Основная информация</div>
+                <div class="profile_block">{% trans "PAGE_SETTINGS_SECTION_BASIC" %}</div>
                 <div class="profile_block_content">
                     <div class="pref_pad">
-                        <div class="pref_item_title">Имя пользователя:</div>
+                        <div class="pref_item_title">{% trans "PAGE_SETTINGS_LABEL_USERNAME" %}</div>
                         {{ profile_form.username }}
-                        <div class="pref_warn_label">Имя пользователя после регистрации изменить нельзя</div>
+                        <div class="pref_warn_label">{% trans "PAGE_SETTINGS_WARN_USERNAME_FROZEN" %}</div>
                     </div>
                     <div class="pref_pad">
-                        <div class="pref_item_title">Контактный E-mail:</div>
+                        <div class="pref_item_title">{% trans "PAGE_SETTINGS_LABEL_EMAIL" %}</div>
                         {{ profile_form.email }}
                         {{ profile_form.email.errors }}
                     </div>
                     <div class="pref_pad">
-                        <div class="pref_item_title">Telegram:</div>
+                        <div class="pref_item_title">{% trans "PAGE_SETTINGS_LABEL_TELEGRAM" %}</div>
                         {{ profile_form.telegram }}
                     </div>
                     <div class="pref_pad">
-                        <div class="pref_item_title">Веб-сайт:</div>
+                        <div class="pref_item_title">{% trans "PAGE_SETTINGS_LABEL_WEBSITE" %}</div>
                         {{ profile_form.website }}
                     </div>
                     <div class="pref_pad">
-                        <div class="pref_item_title">Описание профиля:</div>
+                        <div class="pref_item_title">{% trans "PAGE_SETTINGS_LABEL_BIO" %}</div>
                         {{ profile_form.bio }}
                     </div>
                 </div>
-                <input type="submit" class="action_button" value="Сохранить">
+                <input type="submit" class="action_button" value="{% trans 'PAGE_SETTINGS_BTN_SAVE' %}">
             </form>
             <br>
+
             <form method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="form_type" value="privacy">
-                <div class="profile_block">Приватность</div>
+                <div class="profile_block">{% trans "PAGE_SETTINGS_SECTION_PRIVACY" %}</div>
                 <div class="profile_block_content">
                     {{ privacy_form.reviews_visible }}
-                    Ограничить доступ к моим отзывам для других пользователей
+                    {% trans "PAGE_SETTINGS_LABEL_HIDE_REVIEWS" %}
                     <br><br>
-                    <input type="submit" class="action_button" value="Сохранить">
+                    <input type="submit" class="action_button" value="{% trans 'PAGE_SETTINGS_BTN_SAVE' %}">
                 </div>
             </form>
             <br>
+
             <form method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="form_type" value="password">
-                <div class="profile_block">Изменить пароль</div>
+                <div class="profile_block">{% trans "PAGE_SETTINGS_SECTION_PASSWORD" %}</div>
                 <div class="profile_block_content">
                     <div class="pref_pad">
-                        <div class="pref_item_title">Текущий пароль:</div>
+                        <div class="pref_item_title">{% trans "PAGE_SETTINGS_LABEL_CUR_PASS" %}</div>
                         {{ password_form.current_password }}
                         {{ password_form.current_password.errors }}
                     </div>
                     <div class="pref_pad">
-                        <div class="pref_item_title">Новый пароль:</div>
+                        <div class="pref_item_title">{% trans "PAGE_SETTINGS_LABEL_NEW_PASS" %}</div>
                         {{ password_form.new_password }}
                         {{ password_form.new_password.errors }}
                     </div>
                     <div class="pref_pad">
-                        <div class="pref_item_title">Повторите пароль:</div>
+                        <div class="pref_item_title">{% trans "PAGE_SETTINGS_LABEL_CONFIRM_PASS" %}</div>
                         {{ password_form.confirm_password }}
                         {{ password_form.confirm_password.errors }}
                     </div>
-                    <input type="submit" class="action_button" value="Сохранить">
+                    <input type="submit" class="action_button" value="{% trans 'PAGE_SETTINGS_BTN_SAVE' %}">
                 </div>
             </form>
             <br>
+
             <form method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="form_type" value="email">
-                <div class="profile_block">Изменить E-mail</div>
+                <div class="profile_block">{% trans "PAGE_SETTINGS_SECTION_CHANGE_EMAIL" %}</div>
                 <div class="profile_block_content">
-                    <div class="info_splash">Изменение E-mail требует подтверждения паролем.</div>
+                    <div class="info_splash">{% trans "PAGE_SETTINGS_INFO_EMAIL_CHANGE" %}</div>
                     <div class="pref_pad">
-                        <div class="pref_item_title">Текущий E-mail:</div>
+                        <div class="pref_item_title">{% trans "PAGE_SETTINGS_LABEL_CUR_EMAIL" %}</div>
                         {{ email_form.current_email_display }}
                     </div>
                     <div class="pref_pad">
-                        <div class="pref_item_title">Новый E-mail:</div>
+                        <div class="pref_item_title">{% trans "PAGE_SETTINGS_LABEL_NEW_EMAIL" %}</div>
                         {{ email_form.new_email }}
                         {{ email_form.new_email.errors }}
                     </div>
                     <hr>
                     <div class="pref_pad">
-                        <div class="pref_item_title">Текущий пароль:</div>
+                        <div class="pref_item_title">{% trans "PAGE_SETTINGS_LABEL_CUR_PASS" %}</div>
                         {{ email_form.password_check }}
                         {{ email_form.password_check.errors }}
                     </div>
-                    <input type="submit" class="action_button" value="Сохранить">
+                    <input type="submit" class="action_button" value="{% trans 'PAGE_SETTINGS_BTN_SAVE' %}">
                 </div>
             </form>
             <br>
+
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <input type="hidden" name="form_type" value="avatar">
-                <div class="profile_block">Изменить аватар</div>
+                <div class="profile_block">{% trans "PAGE_SETTINGS_SECTION_AVATAR" %}</div>
                 <div class="profile_block_content">
-                    <div class="info_splash">Рекомендуемый размер аватара: 64x64.<br>Допустимые форматы: .PNG, .JPG<br>Максимальный размер: 2 Мб</div>
+                    <div class="info_splash">{% trans "PAGE_SETTINGS_INFO_AVATAR_RULES" %}</div>
                     
-                    <label for="file-upload">Выберите файл:</label>
+                    <label for="file-upload">{% trans "PAGE_SETTINGS_LABEL_CHOOSE_FILE" %}</label>
                     {{ avatar_form.avatar }}
                     {{ avatar_form.avatar.errors }}
                     
-                    <button type="submit" class="action_button">Загрузить</button>
+                    <button type="submit" class="action_button">{% trans "PAGE_SETTINGS_BTN_UPLOAD" %}</button>
                 </div>
             </form>
             <br>
-            <div class="delete_account_block">Удаление аккаунта</div>
+
+            <div class="delete_account_block">{% trans "PAGE_SETTINGS_SECTION_DELETE" %}</div>
             <div class="delete_account_content">
-                Если Вы не хотите пользоваться сайтом, то имеете полное право удалить свой аккаунт. <br><br>
-                Однако стоит понимать, что данное действие повлечёт за собой уничтожение данных профиля <b>БЕЗ возможности восстановления</b>. 
-                Доступ к управляемым страницам приложений будет потерян, а отправленные отзывы будут обезличены.<br><br>
+                {% trans "PAGE_SETTINGS_DELETE_WARNING" %}
                 <div class="action">
                     <form method="post" id="delete_init_form">
                         {% csrf_token %}
@@ -148,7 +152,7 @@
 
                         <div class="action">
                             <a href="#" id="delete_acc" onclick="document.getElementById('delete_init_form').submit(); return false;">
-                                Удалить аккаунт
+                                {% trans "PAGE_SETTINGS_BTN_DELETE" %}
                             </a>
                         </div>
                     </form>
