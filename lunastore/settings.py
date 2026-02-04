@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import os
 
 # PLEASE, do not change this, if you don't understand what you do
-VERSION = '1.1.0'
+VERSION = '1.1.1'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
