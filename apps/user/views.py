@@ -14,6 +14,7 @@ import json
 from .middleware import get_client_ip, BlockBannedIP
 import re
 import django,sys,platform
+from django.utils.translation import gettext_lazy as _
 
 
 def login(request):
@@ -124,7 +125,7 @@ def profile_settings(request):
             forms['profile_form'] = ProfileUpdateForm(request.POST, instance=user)
             if forms['profile_form'].is_valid():
                 forms['profile_form'].save()
-                messages.success(request, "Профиль обновлен")
+                messages.success(request, _("INFO_PROFILE_IS_UPDATED"))
                 return redirect('settings')
         elif form_type == 'password':
             forms['password_form'] = PasswordChangeForm(user=user, data=request.POST)
@@ -132,13 +133,13 @@ def profile_settings(request):
                 user.set_password(forms['password_form'].cleaned_data['new_password'])
                 user.save()
                 update_session_auth_hash(request, user)
-                messages.success(request, "Пароль успешно изменен")
+                messages.success(request, _("INFO_PASSWORD_WAS_CHANGED"))
                 return redirect('settings')
         elif form_type == 'avatar':
             forms['avatar_form'] = AvatarUpdateForm(request.POST, request.FILES, instance=user)
             if forms['avatar_form'].is_valid():
                 forms['avatar_form'].save()
-                messages.success(request, "Аватар обновлен")
+                messages.success(request, _("INFO_AVATAR_WAS_CHANGED"))
                 return redirect('settings')
         elif form_type == 'init_delete':
             request.session['can_view_delete_page'] = True
@@ -169,7 +170,7 @@ def dev_status(request):
                 why_you_choose_us=cd.get('why_you_choose_us')
             )
 
-            messages.success(request, "Заявка отправлена на рассмотрение")
+            messages.success(request, _("INFO_APP_CREATE_REQUEST_WAS_SENT"))
             return redirect('home')
     else:
         form = DevStatusForm(instance=user)
@@ -183,14 +184,14 @@ def critical_error(request):
 @login_required 
 def delete_account(request):
     if not request.session.get('can_view_delete_page'):
-        messages.warning(request, "Доступ запрещен. Начните с настроек профиля.")
+        messages.warning(request, _("ERROR_ACCESS_DENIED_PROFILE"))
         return redirect('settings')
     if request.method == 'POST':
         form = PasswordConfirmationForm(request.user, request.POST)
         if form.is_valid():
             user = request.user
             user.delete()
-            messages.success(request, 'Ваш аккаунт был успешно удален. Если надумаете вернуться - мы всегда вас ждем на нашем сайте!')
+            messages.success(request, _('INFO_ACCOUNT_WAS_DELETED'))
             return redirect('home')
     else:
         form = PasswordConfirmationForm(request.user)

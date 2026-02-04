@@ -1,21 +1,22 @@
 ﻿{% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 {% load category %}
 {% block content %}
-<title>Магазин Windows XP</title>
+<title>LunaStore</title>
 <div class="content">
 <div class="banner_image"><div id="welcome"><div class="banner_text">{{ name }}</div><div class="banner_text_mini">{{ description }}</div></div></div>
         <div class="list_settings">
       <div class="selector">
         <select onchange="location = this.options[this.selectedIndex].value;">
-          <option>Показывать содержимое...</option>
-          <option value="{url}">Показывать содержимое плитками</option>
-          <option value="{url}&view=list">Показывать содержимое списком</option>
+          <option>{% trans "PAGE_CATEGORY_SHOWCONTENTAS" %}</option>
+          <option value="{url}">{% trans "PAGE_CATEGORY_SHOWCONTENTASTILES" %}</option>
+          <option value="{url}&view=list">{% trans "PAGE_CATEGORY_SHOWCONTENTASLIST" %}</option>
         </select>
       </div>
     </div>
     <div class="section">
-    <h2>Количество результатов: {{ count }}</h2>
+    <h2>{% trans "PAGE_CATEGORY_COUNTOFRESULTS" %} {{ count }}</h2>
     </div> 
   <div class="section">
     
@@ -24,23 +25,23 @@
   
   <div class="search_full">
   <input type="text" id="q" class="search_icon" placeholder="Поиск по категории &quot;Игры и развлечения&quot;">
-  <button type="button" onclick="doSearch()">поиск</button>
+  <button type="button" onclick="doSearch()">{% trans "BASE_SEARCHBTN" %}</button>
   </div>
  </div>  
   {% if is_demo and not is_under_dmca %}
       <div class="st_general_card">
           {% if price > 0 %}
-          <div class="st_price demo">Демо, далее ${{ price }}</div>
+          <div class="st_price demo">{% trans "INFO_APP_DEMOWITHPRICE" %} ${{ price }}</div>
           {% else %}
-          <div class="st_price demo">Демо</div>
+          <div class="st_price demo">{% trans "INFO_APP_DEMO" %}</div>
           {% endif %}
       </div>
       {% elif not is_demo and not is_under_dmca %}
       <div class="st_general_card">
           {% if price > 0 %}
-          <div class="st_price demo">Платное: ${{ price }}</div>
+          <div class="st_price demo">{% trans "INFO_APP_WITHPRICE" %} ${{ price }}</div>
           {% else %}
-          <div class="st_price demo">Бесплатно</div>
+          <div class="st_price demo">{% trans "INFO_APP_FREE" %}</div>
           {% endif %}
       </div>
       {% endif %}
@@ -51,24 +52,24 @@
       <p>{{ app.slogan }}</p>
       {% if app.is_demo %}
         {% if app.price > 0 %}
-          <div class="badge demo">Демо, далее ${{ app.price }}</div>
+          <div class="badge demo">{% trans "INFO_APP_DEMOWITHPRICE" %} ${{ app.price }}</div>
         {% else %}
-          <div class="badge demo">Демо</div>
+          <div class="badge demo">{% trans "INFO_APP_DEMO" %}</div>
         {% endif %}
       {% elif not app.is_demo %}
         {% if app.price > 0 %}
           <div class="badge paid">${{ app.price }}</div>
         {% else %}  
-          <div class="badge free">Бесплатно</div>
+          <div class="badge free">{% trans "INFO_APP_FREE" %}</div>
         {% endif %}
       {% endif %}
       {% if not app.is_under_dmca %}
         {% if app.is_demo %}
-          <div class="action"><a href="./app.php?id={{ app.id }}">Демо</a></div>
+          <div class="action"><a href="./app.php?id={{ app.id }}">{% trans "PAGE_CATEGORY_DEMOBTN" %}</a></div>
         {% elif not app.is_demo and app.price > 0 %}
-          <div class="action"><a href="./app.php?id={{ app.id }}">Купить</a></div>
+          <div class="action"><a href="./app.php?id={{ app.id }}">{% trans "PAGE_CATEGORY_BUYBTN" %}</a></div>
         {% elif not app.is_demo and app.price == 0 %}
-          <div class="action"><a href="./app.php?id={{ app.id }}">Установить</a></div>
+          <div class="action"><a href="./app.php?id={{ app.id }}">{% trans "PAGE_CATEGORY_INSTALLBTN" %}</a></div>
         {% endif %}
       {% endif %}
     </div>

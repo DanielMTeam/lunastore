@@ -1,14 +1,15 @@
 ﻿{% extends 'base.html' %}
+{% load i18n %}
 {% block content %}
 <div class="headerline"></div>
 <div class="main">
 <div class="info_icon"></div>
   <div class="content" style="width:620px!important;">
     <div class="section">
-      <h2>Спасибо за интерес к магазину Windows!</h2>
-      Для полноценного использования этого веб-сервиса рекомендуется иметь установленный браузер Internet Explorer 6 и выше или RetroZilla.
+      <h2>{% trans "PAGE_BADBROWSER_TITLE" %}</h2>
+      {% trans "PAGE_BADBROWSER_DESC_1" %}
       <br><br>
-      Скачать Internet Explorer 6 можно как напрямую, так и с помощью сервисов <a href="http://legacyupdate.net">Legacy Update</a> и <a href="http://windowsupdaterestored.com">Windows Update Restored</a>. Спасибо за понимание.
+      {% trans "PAGE_BADBROWSER_DESC_2" %} <a href="http://legacyupdate.net">Legacy Update</a> & <a href="http://windowsupdaterestored.com">Windows Update Restored</a>. {% trans "PAGE_BADBROSER_DESC_3" %}
     </div>
   </div>
 </div>

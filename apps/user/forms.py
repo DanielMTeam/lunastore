@@ -7,9 +7,9 @@ from django.contrib.auth.models import Group
 from django.contrib.auth import password_validation
 from .middleware import get_client_ip, BlockBannedIP
 from django.core.exceptions import ValidationError
-from .validators import validate_username_blacklist
 import os
 from PIL import Image
+from django.utils.translation import gettext_lazy as _
 
 
 class UserBanForm(forms.ModelForm):
@@ -71,7 +71,7 @@ class UserRegistrationForm(UserCreationForm):
         if self.request:
             ip = get_client_ip(self.request)
             if ip in BlockBannedIP.get_banned_set():
-                raise forms.ValidationError('Ваш IP-адрес заблокирован. Вы не можете зарегистрироваться (как и войти, лол)')
+                raise forms.ValidationError(_('INFO_YOUR_IP_WAS_BANNED'))
     username = forms.CharField(max_length=45, min_length=2)
     email = forms.EmailField(max_length=45)
     captcha = CaptchaField(label='Введите символы с картинки')
@@ -130,7 +130,7 @@ class PasswordChangeForm(forms.Form):
     def clean_password(self):
         current_password = self.cleaned_data.get('current_password')
         if not self.user.check_password(current_password):
-            raise ValidationError("Текущий пароль неверен.")
+            raise ValidationError(_("ERROR_CURRENT_PASSWORD_IS_WRONG"))
         return current_password
     
     def clean(self):
@@ -140,7 +140,7 @@ class PasswordChangeForm(forms.Form):
 
         if new_password and confirm_new_password:
             if new_password != confirm_new_password:
-                raise ValidationError("Новые пароли не совпадают.")
+                raise ValidationError(_("ERROR_NEW_PASSWORDS_DONT_MATCH"))
             password_validation.validate_password(new_password, self.user)
         return cleaned_data
 
@@ -151,9 +151,9 @@ class AvatarUpdateForm(forms.ModelForm):
         fields = ['avatar']
     
     avatar = forms.ImageField(
-        label="Выберите файл",
-        widget=forms.FileInput(attrs={'class': 'action_button', 'id': 'file-upload'}), # Или кастомный стиль кнопки
-        help_text="Рекомендуемый размер: 64x64. Форматы: PNG, JPG. Макс: 2 МБ."
+        label=_("ACTION_CHOOSE_FILE"),
+        widget=forms.FileInput(attrs={'class': 'action_button', 'id': 'file-upload'}), 
+        help_text=_("INFO_RECOMENDATIONS_FOR_UPLOAD_AVATAR")
     )
     
     def clean_avatar(self):
@@ -161,16 +161,16 @@ class AvatarUpdateForm(forms.ModelForm):
         if avatar:
             limit_mb = 2 # in megabytes
             if avatar.size > limit_mb * 1024 * 1024:
-                raise ValidationError(f"Максимальный размер файла: {limit_mb} МБ.")
+                raise ValidationError(_("INFO_MAXIMUM_AVATAR_SIZE"))
 
             ext = os.path.splitext(avatar.name)[1].lower()
             valid_extensions = ['.jpg', '.jpeg', '.png']
             if ext not in valid_extensions:
-                raise ValidationError("Допустимые форматы: .JPG, .PNG")
+                raise ValidationError(_("INFO_ACCEPTED_AVATAR_FORMATS"))
             
             image = Image.open(avatar)
             if image.width > 64 or image.height > 64: 
-                raise ValidationError("Изображение слишком большое по пикселям.")
+                raise ValidationError("")
                 
         return avatar
 
@@ -181,42 +181,42 @@ class DevStatusForm(forms.ModelForm):
         fields = ['mail', 'github', 'about_you', 'why_you_choose_us', 'username'] 
 
     username = forms.CharField(
-        label="Имя пользователя",
+        label=_("FORM_DEVSTATUS_YOUR_USERNAME"),
         disabled=True,
         required=False,
         widget=forms.TextInput(attrs={'class': 'input-text', 'readonly': 'readonly'})
     )
     
     mail = forms.EmailField(
-        label="Ваш Email",
+        label=_("FORM_DEVSTATUS_YOUR_EMAIL"),
         max_length=128,
         widget=forms.EmailInput(attrs={'class': 'input-text'}),
-        help_text="Мы обязательно свяжемся с Вами. По крайней мере постараемся."
+        help_text=_("FORM_DEVSTATUS_WE_WILL_CONTACT")
     )
     
     github = forms.URLField(
-        label="Ссылка на ваш GitHub",
+        label=_("FORM_DEVSTATUS_GITHUB"),
         max_length=128,
         widget=forms.URLInput(attrs={'class': 'input-text'}),
-        help_text="А почему нет? Мы хотим посмотреть на ваши красивые разработки :3"
+        help_text=_("FORM_DEVSTATUS_GITHUB_HELP")
     )
     
     about_you = forms.CharField(
-        label="Расскажите о себе (до 1000 символов)",
+        label=_("FORM_DEVSTATUS_ABOUT_YOU"),
         max_length=1000,
         widget=forms.Textarea(attrs={'class': 'brief_intro', 'cols': 90})
     )
     
     why_you_choose_us = forms.CharField(
-        label="Почему Вы решили выбрать нас? (до 250 символов)",
+        label=_("FORM_DEVSTATUS_WHY_YOU_CHOOSE"),
         max_length=250,
         widget=forms.Textarea(attrs={'class': 'brief_intro', 'cols': 90})
     )
     
-    agree_with_site_rules = forms.BooleanField(label='Я согласен с правилами сайта и осведомлён о последствиях их нарушения', widget=forms.CheckboxInput, required=True)
-    agree_with_privacy_policy = forms.BooleanField(label='Я принимаю условия конфиденциальности', widget=forms.CheckboxInput, required=True)
+    agree_with_site_rules = forms.BooleanField(label=_('FORM_AGREE_RULES'), widget=forms.CheckboxInput, required=True)
+    agree_with_privacy_policy = forms.BooleanField(label=_('FORM_AGREE_POLICY'), widget=forms.CheckboxInput, required=True)
     
-    captcha = CaptchaField(label='Введите символы с картинки')
+    captcha = CaptchaField(label=_('FORM_CAPTCHA'))
 
 
 # поскольку у django нет стандартного метода добавления пользователя в группу, я это сделал сам лмао (●'◡'●)
@@ -255,9 +255,9 @@ class PasswordConfirmationForm(forms.Form):
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Введите текущий пароль'
+            'placeholder': _('FORM_PASSWORDCONFIRM_ENTER')
         }),
-        label='Подтвердите пароль',
+        label=_('FORM_PASSWORDCONFIRM_CONFIRM'),
         required=True
     )
     
@@ -268,5 +268,5 @@ class PasswordConfirmationForm(forms.Form):
     def clean_password(self):
         password = self.cleaned_data.get('password')
         if not self.user.check_password(password):
-            raise ValidationError('Неверный пароль. Пожалуйста, попробуйте снова.')
+            raise ValidationError(_('FORM_PASSWORDCONFIRM_WRONGPASS'))
         return password
