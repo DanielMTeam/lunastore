@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-03 18:42+0000\n"
+"POT-Creation-Date: 2026-02-04 06:58+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,6 +30,7 @@ msgid "FORM_AGREE_RULES"
 msgstr "Я согласен с правилами сайта и осведомлён о последствиях их нарушения"
 
 #: apps/marketplace/forms.py:154 apps/user/forms.py:219
+#: templates/app_add.html:243
 msgid "FORM_CAPTCHA"
 msgstr "Введите символы с картинки"
 
@@ -272,23 +273,23 @@ msgstr "Внимание: Загрузка новых файлов удалит 
 msgid "PAGE_ADMIN_APP_LOAD_SCRN"
 msgstr "Загрузить новые (макс 3 шт.):"
 
-#: templates/admin_app.html:142
+#: templates/admin_app.html:142 templates/app_add.html:289
 msgid "ERROR_INVALID_FILE_FORMAT"
 msgstr "Ошибка: Недопустимый формат файла!"
 
-#: templates/admin_app.html:142
+#: templates/admin_app.html:142 templates/app_add.html:289
 msgid "INFO_ACCEPTED_ICON_FORMATS"
 msgstr "Разрешены только: .JPG, .JPEG, .PNG"
 
-#: templates/admin_app.html:148
+#: templates/admin_app.html:148 templates/app_add.html:297
 msgid "ERROR_INVALID_SIZE_ICON"
 msgstr "Ошибка: Размер файла превышает 2 Мб!"
 
-#: templates/admin_app.html:174
+#: templates/admin_app.html:174 templates/app_add.html:318
 msgid "ERROR_PREVIEWSCRNS_1_COUNT"
 msgstr "Ошибка: Выбрано "
 
-#: templates/admin_app.html:174
+#: templates/admin_app.html:174 templates/app_add.html:318
 msgid "ERROR_PREVIEWSCRNS_2_COUNT"
 msgstr " файлов. Максимум 3."
 
@@ -296,15 +297,15 @@ msgstr " файлов. Максимум 3."
 msgid "ERROR_PREVIEWSCRNS_3_COUNT"
 msgstr "Максимум 3 файла!"
 
-#: templates/admin_app.html:188
+#: templates/admin_app.html:188 templates/app_add.html:330
 msgid "ERROR_PREVIEWSCRNS_1_INVALIDFORMAT"
 msgstr "Ошибка: Файл "
 
-#: templates/admin_app.html:188
+#: templates/admin_app.html:188 templates/app_add.html:330
 msgid "ERROR_PREVIEWSCRNS_2_INVALIDFORMAT"
 msgstr " имеет недопустимый формат."
 
-#: templates/admin_app.html:200
+#: templates/admin_app.html:200 templates/app_add.html:338
 msgid "ERROR_PREVIEWSCRNS_1_BIGSIZE"
 msgstr "Ошибка: Файл "
 
@@ -358,7 +359,289 @@ msgstr "Просмотр перед"
 msgid "PAGE_ADDAPP_STEP3_DESC_2"
 msgstr "публикацией"
 
+#: templates/app_add.html:103
+msgid "PAGE_ADDAPP_STEP1_NAME"
+msgstr "Основная информация"
 
+#: templates/app_add.html:108
+msgid "PAGE_ADDAPP_STEP1_TITLE"
+msgstr "Название:"
+
+#: templates/app_add.html:110
+msgid "PAGE_ADDAPP_STEP1_TITLEDESC"
+msgstr ""
+"Отличное и запоминающиеся название даст приложению бонус к узнаваемости "
+"среди пользователей"
+
+#: templates/app_add.html:117
+msgid "PAGE_ADDAPP_STEP1_SLOGAN"
+msgstr "Слоган (140 символов):"
+
+#: templates/app_add.html:119
+msgid "PAGE_ADDAPP_STEP1_SLOGANDESC_1"
+msgstr ""
+"Слоган будет отображаться на самой странице приложения, на главной и в поиске"
+
+#: templates/app_add.html:119
+msgid "PAGE_ADDAPP_STEP1_SLOGANDESC_2"
+msgstr "Краткость - сестра таланта :)"
+
+#: templates/app_add.html:126
+msgid "PAGE_ADDAPP_STEP1_ICON"
+msgstr "Значок приложения:"
+
+#: templates/app_add.html:127
+msgid "PAGE_ADDAPP_STEP1_ICONDESC_1"
+msgstr "Рекомендуемый размер аватара: 64x64."
+
+#: templates/app_add.html:127
+msgid "PAGE_ADDAPP_STEP1_ICONDESC_2"
+msgstr "Допустимые форматы: .PNG, .JPG"
+
+#: templates/app_add.html:127
+msgid "PAGE_ADDAPP_STEP1_ICONDESC_3"
+msgstr "Максимальный размер: 2 Мб"
+
+#: templates/app_add.html:135
+msgid "PAGE_ADDAPP_STEP1_AGREE_RULES"
+msgstr "Я согласен с правилами сайта и осведомлён о последствиях их нарушения"
+
+#: templates/app_add.html:145
+msgid "PAGE_ADDAPP_STEP2_NAME"
+msgstr "Дополнительная информация"
+
+#: templates/app_add.html:150
+msgid "PAGE_ADDAPP_STEP2_DEVSITE"
+msgstr "Официальный сайт разработчика:"
+
+#: templates/app_add.html:158
+msgid "PAGE_ADDAPP_STEP2_DESC"
+msgstr "Описание (1000 символов):"
+
+#: templates/app_add.html:160
+msgid "PAGE_ADDAPP_STEP2_DESCDESC"
+msgstr ""
+"Описание будет показываться на странице приложения в блоке 'Дополнительная "
+"информация'"
+
+#: templates/app_add.html:167
+msgid "PAGE_ADDAPP_STEP2_CATEGORY"
+msgstr "Категория:"
+
+#: templates/app_add.html:169
+msgid "PAGE_ADDAPP_STEP2_CATEGORYDESC"
+msgstr ""
+"Это очень важно для правильного поиска и показа приложения в соответствующих "
+"блоках. Администрация имеет право изменить категорию по своему усмотрению"
+
+#: templates/app_add.html:176
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTS"
+msgstr "Скриншоты:"
+
+#: templates/app_add.html:177
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_1"
+msgstr "Максимальное количество скриншотов: 3"
+
+#: templates/app_add.html:177
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_2"
+msgstr "Допустимые форматы: .PNG, .JPG"
+
+#: templates/app_add.html:177
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_3"
+msgstr "Максимальный размер: 2 Мб"
+
+#: templates/app_add.html:198
+msgid "PAGE_ADDAPP_BACKBTN"
+msgstr "Назад"
+
+#: templates/app_add.html:199
+msgid "PAGE_ADDAPP_NEXTBTN"
+msgstr "Далее"
+
+#: templates/app_add.html:207
+msgid "PAGE_ADDAPP_CHECKINFO_NOTIFY"
+msgstr ""
+"Проверьте всю информацию перед публикацией. Вот так будет выглядеть страница "
+"вашего приложения."
+
+#: templates/app_add.html:216
+msgid "PAGE_ADDAPP_CHECKINFO_NAME"
+msgstr "Название"
+
+#: templates/app_add.html:217
+msgid "PAGE_ADDAPP_CHECKINFO_SLOGAN"
+msgstr "Слоган..."
+
+#: templates/app_add.html:218
+msgid "PAGE_ADDAPP_CHECKINFO_AUTHOR_1"
+msgstr "Автор:"
+
+#: templates/app_add.html:218
+msgid "PAGE_ADDAPP_CHECKINFO_AUTHOR_2"
+msgstr "Вы"
+
+#: templates/app_add.html:222
+msgid "PAGE_ADDAPP_CHECKINFO_SCREENSHOTS"
+msgstr "Скриншоты"
+
+#: templates/app_add.html:225 templates/app_add.html:421
+msgid "INFO_NO_SCREENSHOTS"
+msgstr "Нет скриншотов"
+
+#: templates/app_add.html:229
+msgid "PAGE_ADDAPP_CHECKINFO_OTHERINFO"
+msgstr "Дополнительная информация"
+
+#: templates/app_add.html:233
+msgid "PAGE_ADDAPP_CHECKINFO_ACTIONS"
+msgstr "Действия"
+
+#: templates/app_add.html:236
+msgid "PAGE_ADDAPP_CHECKINFO_GOTODEVSITE"
+msgstr "Перейти на официальный сайт разработчика"
+
+#: templates/app_add.html:258
+msgid "PAGE_ADDAPP_EDITAPPBTN"
+msgstr "Редактировать"
+
+#: templates/app_add.html:260
+msgid "PAGE_ADDAPP_SENDAPPBTN"
+msgstr "Отправить на рассмотрениеS"
+
+#: templates/app_add.html:350
+msgid "INFO_SELECTED_FILES"
+msgstr "Выбрано файлов: "
+
+#: templates/app_add.html:359
+msgid "ERROR_NO_APPNAME"
+msgstr "Введите название приложения!"
+
+#: templates/app_add.html:360
+msgid "ERROR_NO_AGREERULES"
+msgstr "Вы должны согласиться с правилами!"
+
+#: templates/app_add.html:389
+msgid "TEXT_APP_NO_NAME"
+msgstr "Без названия"
+
+#: templates/app_add.html:390
+msgid "TEXT_APP_NO_SLOGAN"
+msgstr "Нет слогана"
+
+#: templates/app_add.html:391
+msgid "TEXT_APP_NO_DESC"
+msgstr "Нет описания"
+
+#: templates/badbrowser.html:9
+msgid "PAGE_BADBROWSER_TITLE"
+msgstr "Спасибо за интерес к магазину Windows!"
+
+#: templates/badbrowser.html:10
+msgid "PAGE_BADBROWSER_DESC_1"
+msgstr ""
+"Для полноценного использования этого веб-сервиса рекомендуется иметь "
+"установленный браузер Internet Explorer 6 и выше или RetroZilla."
+
+#: templates/badbrowser.html:12
+msgid "PAGE_BADBROWSER_DESC_2"
+msgstr ""
+"Скачать Internet Explorer 6 можно как напрямую, так и с помощью сервисов"
+
+#: templates/badbrowser.html:12
+msgid "PAGE_BADBROSER_DESC_3"
+msgstr "Спасибо за понимание."
+
+#: templates/base.html:21
+msgid "BASE_AUTHLIKE"
+msgstr "Вы вошли как "
+
+#: templates/base.html:21
+msgid "BASE_LOGOUTBTN"
+msgstr "выйти"
+
+#: templates/base.html:23
+msgid "BASE_LOGINBTN"
+msgstr "вход"
+
+#: templates/base.html:23
+msgid "BASE_REGISTERBTN"
+msgstr "регистрация"
+
+#: templates/base.html:26
+msgid "BASE_OPRJ_TITLE"
+msgstr "прочие проекты"
+
+#: templates/base.html:31
+msgid "BASE_OPRJ_GAMESBTN"
+msgstr "Игры"
+
+#: templates/base.html:34
+msgid "BASE_OPRJ_OTHERPROJECTSBTN"
+msgstr "Все проекты »"
+
+#: templates/base.html:54
+msgid "BASE_SEARCHBTN"
+msgstr "поиск"
+
+#: templates/base.html:57
+msgid "BASE_CONFIGSEARCHBTN"
+msgstr "Уточнить параметры поиска"
+
+#: templates/base.html:76
+msgid "BASE_SIDEBAR_ACCOUNT_TITLE"
+msgstr "Аккаунт"
+
+#: templates/base.html:82
+msgid "BASE_SIDEBAR_ACCOUNT_PROFILEBTN"
+msgstr "Мой профиль"
+
+#: templates/base.html:85
+msgid "BASE_SIDEBAR_ACCOUNT_SETTINGSBTN"
+msgstr "Настройки"
+
+#: templates/base.html:86
+msgid "BASE_SIDEBAR_ACCOUNT_INVITEBTN"
+msgstr "Пригласить"
+
+#: templates/base.html:92
+msgid "BASE_SIDEBAR_CATEGORIES_TITLE"
+msgstr "Категории"
+
+#: templates/base.html:96
+msgid "BASE_SIDEBAR_CATEGORIES_HOME"
+msgstr "Главная страница"
+
+#: templates/base.html:111
+msgid "BASE_PRIVACYPOLICYBTN"
+msgstr "Политика конфиденциальности"
+
+#: templates/base.html:112
+msgid "BASE_FOOTER_TEXT_1"
+msgstr "С душой сделано командой DM, 2026"
+
+#: templates/base.html:112
+msgid "BASE_FOOTER_TEXT_2"
+msgstr "Все права принадлежат исходным правообладателям"
+
+#: templates/base.html:117
+msgid "BASE_LOGINPOPUP_TITLE"
+msgstr "Авторизация"
+
+#: templates/base.html:117
+msgid "BASE_LOGINPOPUP_DESC"
+msgstr "У Вас уже есть аккаунт? Представьтесь."
+
+#: templates/base.html:120
+msgid "BASE_LOGINPOPUP_LOGINFIELD"
+msgstr "Логин:"
+
+#: templates/base.html:122
+msgid "BASE_LOGINPOPUP_PASSWORDFIELD"
+msgstr "Пароль:"
+
+#: templates/base.html:124
+msgid "BASE_LOGINPOPUP_LOGINBTN"
+msgstr "Войти"
 
 #: templates/includes/categories.html:12
 msgid "INFO_CATEGORY_LIST_EMPTY"
