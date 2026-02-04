@@ -616,7 +616,7 @@ msgstr "Политика конфиденциальности"
 
 #: templates/base.html:112
 msgid "BASE_FOOTER_TEXT_1"
-msgstr "С душой сделано командой DM, 2026"
+msgstr "С душой сделано командой DM,"
 
 #: templates/base.html:112
 msgid "BASE_FOOTER_TEXT_2"
