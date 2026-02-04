@@ -1,131 +1,122 @@
 ﻿{% extends 'base.html' %}
 {% load static %}
-
-
+{% load i18n %}
 
 {% block content %}
 <div class="content">
-  <link rel="stylesheet" href='{% static "./css/stpage.css"%}'>
-        <!--[if IE 6]>
-  <style type="text/css">
-   .splash_text{display: inline-block!important;}
-  </style>
-  <![endif]-->
-        
-      <div class="backb"><li class="back"><a href="/">Назад</a></li></div>
-        <div class="separator_store"></div>
+    <link rel="stylesheet" href='{% static "./css/stpage.css"%}'>
+    
+    <div class="backb"><li class="back"><a href="/">{% trans "PAGE_APP_BTN_BACK" %}</a></li></div>
+    <div class="separator_store"></div>
 
-
-      <div class="section">
+    <div class="section">
         <div class="st_general_card">
-          
-          <div class="st_app_icon"><img src='{{ icon_url }}' alt="{{ title }} icon" style="height: 100px; width: 100px;"></div>
-          <div class="st_card_info"></div>
-          <div class="st_card_title">{{ title }}</div>
-          <div class="st_precard">
-          <div class="st_card_desc">{{ slogan }}</div>
-          </div>
+            
+            <div class="st_app_icon"><img src='{{ icon_url }}' alt="{{ title }} icon" style="height: 100px; width: 100px;"></div>
+            <div class="st_card_info"></div>
+            <div class="st_card_title">{{ title }}</div>
+            <div class="st_precard">
+                <div class="st_card_desc">{{ slogan }}</div>
+            </div>
 
-          <div class="st_card_author">Автор: <a href="/profile.php?id=685">ghisler.com</a></div>
-          
-          {% if is_demo and not is_dmca %}
-          <div class="st_general_card">
-              {% if price > 0 %}
-              <div class="st_price demo">Демо, далее ${{ price }}</div>
-              {% else %}
-              <div class="st_price demo">Демо</div>
-              {% endif %}
-          </div>
-          {% elif not is_demo and not is_dmca %}
-          <div class="st_general_card">
-              {% if price > 0 %}
-              <div class="st_price demo">Платное: ${{ price }}</div>
-              {% else %}
-              <div class="st_price demo">Бесплатно</div>
-              {% endif %}
-          </div>
-          {% endif %}
+            <div class="st_card_author">{% trans "PAGE_APP_LABEL_AUTHOR" %} <a href="/profile.php?id=685">ghisler.com</a></div>
+            
+            {% if not is_dmca %}
+            <div class="st_general_card">
+                <div class="st_price demo">
+                  {% if is_demo %}
+                      {% if price > 0 %}
+                          {% trans "PAGE_APP_PRICE_DEMO_WITH_COST" %} ${{ price }}
+                      {% else %}
+                          {% trans "PAGE_APP_PRICE_DEMO_FREE" %}
+                      {% endif %}
+                  {% else %}
+                      {% if price > 0 %}
+                          {% trans "PAGE_APP_PRICE_PAID" %} ${{ price }}
+                      {% else %}
+                          {% trans "PAGE_APP_PRICE_FREE" %}
+                      {% endif %}
+                  {% endif %}
+              </div>
+            </div>
+            {% endif %}
 
-          {% if not is_dmca %}
-          <div class="st_clearb"></div>
-          <b class="setup"><a href="{{ download_url }}">
-              <div class="setup_button_img"></div>
-              {% if price > 0 and not is_demo %}
-              <div class="st_inst_button">Купить</div>
-              {% elif price == 0 and not is_demo %}
-              <div class="st_inst_button">Установить</div>
-              {% elif is_demo %}
-              <div class="st_inst_button">Установить</div>
-              {% endif %}
-          </a>
-          </b>
-          {% endif %}
-<div class="st_clearb"></div>
+            {% if not is_dmca %}
+            <div class="st_clearb"></div>
+            <b class="setup">
+                <a href="{{ download_url }}">
+                    <div class="setup_button_img"></div>
+                    <div class="st_inst_button">
+                        {% if price > 0 and not is_demo %}
+                            {% trans "PAGE_APP_BTN_BUY" %}
+                        {% else %}
+                            {% trans "PAGE_APP_BTN_INSTALL" %}
+                        {% endif %}
+                    </div>
+                </a>
+            </b>
+            {% endif %}
+            <div class="st_clearb"></div>
         </div>
-      </div>
-      <div class="st_headerline"></div>
+    </div>
+    
+    <div class="st_headerline"></div>
 
-          
-<div class="st_general_card">
-  
-  <!-- div class="splash"><div class="info_splash"><div class="info_icon_small"></div><div class="splash_text">Страница в магазине создана, однако её владелец пока что ещё ничего не загрузил. Зайдите на эту страницу позже.</div></div></div -->
-   {% if is_demo %}
-    <div class="splash">
-      <div class="alert_splash"><div class="warning_icon_small"></div>
-      <div class="splash_text">Программа распространяется в виде демо-версии, за полную версию стоит заплатить её автору. Файл предоставлен с официального сайта разработчика.</div>
-      </div>
-      </div>
-    {% endif %}  
-   {% if is_dmca %}
-    <div class="splash"><div class="error_splash">
-        <div class="error_icon_small"></div>
-        <div class="splash_text">По запросу исходного правообладателя скачать файл на данный момент не получится. Приносим свои извинения.</div></div></div>
-    {% endif %}
-  <!-- div class="splash"><div class="error_splash"><div class="error_icon_small"></div><div class="splash_text">По запросу исходного правообладателя скачать файл на данный момент не получится. Приносим свои извинения.</div></div></div -->
-
-</div>
+    <div class="st_general_card">
+        {% if is_demo %}
+        <div class="splash">
+            <div class="alert_splash">
+                <div class="warning_icon_small"></div>
+                <div class="splash_text">{% trans "PAGE_APP_MSG_DEMO_WARNING" %}</div>
+            </div>
+        </div>
+        {% endif %}
         
-
-<div class="st_other_card">
-<h2>Скриншоты</h2>
+        {% if is_dmca %}
+        <div class="splash">
+            <div class="error_splash">
+                <div class="error_icon_small"></div>
+                <div class="splash_text">{% trans "PAGE_APP_MSG_DMCA_ERROR" %}</div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+        
+    <div class="st_other_card">
+        <h2>{% trans "PAGE_APP_SECTION_SCREENSHOTS" %}</h2>
         <div class="separator_store"></div>
         <div class="st_screenshots_container">
-        {% for screenshot_path in screenshots %}
-          {% if screenshot_path %}
-            <div class="st_scr">
-              <a href="/media/{{screenshot_path}}">
-                <img src="/media/{{screenshot_path}}" alt="Скриншот" style="width: 120px; height: 90px; float: n;">
-              </a>
-          {% endif %}
-        {% empty %}
-            <p>Скриншотов нет.</p>
-        {% endfor %}
+            {% for screenshot_path in screenshots %}
+                {% if screenshot_path %}
+                <div class="st_scr">
+                    <a href="/media/{{screenshot_path}}">
+                    <img src="/media/{{screenshot_path}}" alt="{% trans 'PAGE_APP_IMG_ALT_SCREENSHOT' %}" style="width: 120px; height: 90px; float: n;">
+                    </a>
+                </div>
+                {% endif %}
+            {% empty %}
+                <p>{% trans "PAGE_APP_MSG_NO_SCREENSHOTS" %}</p>
+            {% endfor %}
         </div>
-        </div>
-
-        </div>
-
-        <div class="st_other_card">
-        <h2>Дополнительная информация</h2>
-        <div class="separator_store"></div>
-
-        <div class="st_desc">{{ description }}</div>
-
-        </div>
-
-        <div class="st_other_card">
-        <h2>Действия</h2>
-        <div class="separator_store"></div>
-          <div class="actionsm">
-            <li class="offsite"><a href="{{ developer_site }}">Перейти на официальный сайт разработчика</a></li>
-            <li class="alert"><a href="/report.php?act=new&app_id={aid}">Пожаловаться на приложение</a></li>
-            <li class="otherapps"><a href="/search.php?page=apps&author_id={pid}">Посмотреть другие программы автора</a></li>
-          </div>
-          <i>Количество скачиваний: 465688</i>
-        </div>
-
-        <div class="st_clearb"> </div>
-
     </div>
-  </div>
+
+    <div class="st_other_card">
+        <h2>{% trans "PAGE_APP_SECTION_DESC" %}</h2>
+        <div class="separator_store"></div>
+        <div class="st_desc">{{ description }}</div>
+    </div>
+
+    <div class="st_other_card">
+        <h2>{% trans "PAGE_APP_SECTION_ACTIONS" %}</h2>
+        <div class="separator_store"></div>
+        <div class="actionsm">
+            <li class="offsite"><a href="{{ developer_site }}">{% trans "PAGE_APP_ACTION_SITE" %}</a></li>
+            <li class="alert"><a href="/report.php?act=new&app_id={aid}">{% trans "PAGE_APP_ACTION_REPORT" %}</a></li>
+            <li class="otherapps"><a href="/search.php?page=apps&author_id={pid}">{% trans "PAGE_APP_ACTION_MORE_APPS" %}</a></li>
+        </div>
+        <i>{% trans "PAGE_APP_LABEL_DOWNLOADS" %}: 465688</i>
+    </div>
+
+    <div class="st_clearb"> </div>
+</div></div>
 {% endblock %}

@@ -1,158 +1,119 @@
 ﻿{% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block content %}
-<title>Профиль пользвателя {{ obj.username }} - LunaStore</title>
+<title>{% trans "PAGE_PROFILE_TITLE" %} {{ obj.username }} - LunaStore</title>
+
 <div class="content">
   <div class="profile_card">
       <div class="profile_avatar" id="{uid}">
         {% if obj.avatar %}
-        <img src="{{ obj.avatar.url }}" alt="{{ obj.avatar.url }}" style="height: 64px; width: 64px;">
+            <img src="{{ obj.avatar.url }}" alt="{{ obj.username }}" style="height: 64px; width: 64px;">
         {% else %}
-        <img src="{% static '../cdn/avatar/1/avatar.jpg'%}">
+            <img src="{% static '../cdn/avatar/1/avatar.jpg'%}">
         {% endif %}
       </div>
+
       <div class="profile_info" id="{uid}">
-        <div class="profile_name">{{ obj.username }}  
-          {% if obj.is_staff %}
-          <img src="{% static './img/tabs/about.png'%}" alt="Команда LunaStore" title="Команда LunaStore">
-          {% endif %}
+        
+        <div class="profile_name" style="margin-bottom: 0;">
+            {{ obj.username }}  
+            {% if obj.is_staff %}
+                <img src="{% static './img/tabs/about.png'%}" alt="{% trans 'PAGE_PROFILE_STAFF_ALT' %}" title="{% trans 'PAGE_PROFILE_STAFF_ALT' %}" style="vertical-align: middle;">
+            {% endif %}
         </div>
-        <div class="profile_desc">{{ obj.description }}</div>
-        <small><span class="last-visit">2 приложения, 69 отзывов - участник с {{ obj.date_joined }}</span></small>
-        <div style="clear: both"></div>
+
+        <div class="profile_desc" style="clear: both; margin-bottom: 2px;">
+            {% if obj.description %}
+                {{ obj.description }}
+            {% else %}
+                {% trans "CARD_USER_NO_DESC" %}
+            {% endif %}
+        </div>
+        
+        <div style="clear: both; color: #808080;">
+            <small>
+                <span class="last-visit">
+                    {{ obj.apps_count|default:"0" }} {% trans "PAGE_PROFILE_STATS_APPS" %} 
+                    {{ obj.reviews_count|default:"0" }} {% trans "PAGE_PROFILE_STATS_REVIEWS" %} 
+                    {% trans "PAGE_PROFILE_STATS_MEMBER_SINCE" %} {{ obj.date_joined|date:"d E Y" }}
+                </span>
+            </small>
+        </div>
       </div>
   </div>
+  
   <link rel="stylesheet" href="{% static './css/profile.css'%}">  
   <link rel="stylesheet" href="{% static './css/tabs.css'%}">
   <link rel="stylesheet" href="{% static './css/reviews.css'%}"> 
-  <!--[if lte IE 6]> <link rel="stylesheet" href="./css/profile_ie6.css" media="screen, projection"> <![endif]-->  
+  
   <div class="tabs">
-  <div class="tab-bar">
-    <div class="tab active" href="/help.php">
-      <img src="{% static './img/tabs/faq.png'%}" class="tab-icon" alt="">
-      Основное
-    </div>
-    <div class="tab" href="/help.php?page=about">
-      <img src="{% static './img/tabs/about.png'%}" class="tab-icon" alt="">
-      Отзывы
-    </div>
-    <div class="tab" href="/help.php?page=privacy">
-      <img src="{% static './img/tabs/privacy.png'%}" class="tab-icon" alt="">
-      Приложения
-    </div>
+      <div class="tab-bar">
+        <div class="tab active" href="/help.php">
+          <img src="{% static './img/tabs/faq.png'%}" class="tab-icon" alt="">
+          {% trans "PAGE_PROFILE_TAB_MAIN" %}
+        </div>
+        <div class="tab" href="/help.php?page=about">
+          <img src="{% static './img/tabs/about.png'%}" class="tab-icon" alt="">
+          {% trans "PAGE_PROFILE_TAB_REVIEWS" %}
+        </div>
+        <div class="tab" href="/help.php?page=privacy">
+          <img src="{% static './img/tabs/privacy.png'%}" class="tab-icon" alt="">
+          {% trans "PAGE_PROFILE_TAB_APPS" %}
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-view">
+        <div class="profile_block">{% trans "PAGE_PROFILE_CONTACT_INFO" %}</div>
+        <div class="profile_block_content">
+          <div class="profile_desc_element_head">{% trans "PAGE_PROFILE_LABEL_WEBSITE" %} <div class="profile_desc_element">{{ obj.website|default:"-" }}</div></div>
+          <div class="profile_desc_element_head">{% trans "PAGE_PROFILE_LABEL_TELEGRAM" %} <div class="profile_desc_element">{{ obj.telegram|default:"-" }}</div></div>
+          <div class="profile_desc_element_head">{% trans "PAGE_PROFILE_LABEL_EMAIL" %} <div class="profile_desc_element">{{ obj.email }}</div></div>
+        </div>
+        <br>
+        
+        <div class="profile_block">
+            {% trans "PAGE_PROFILE_APPS_TITLE" %}
+            <span class="rl_l"><a href="/search.php?section=apps&pubid={{ obj.id }}">{% trans "PAGE_PROFILE_LINK_ALL" %}</a></span>
+        </div>
+        
+        <div class="profile_block_content">
+          {% for app in obj.apps.all|slice:":5" %}
+          <div class="icon">
+            <img src="{{ app.icon.url }}" alt="{{ app.title }}" class="icon-img">
+            <div class="icon-text"><a href="{{ app.get_absolute_url }}">{{ app.title }}</a></div>
+          </div>
+          {% empty %}
+             <div class="icon">
+                <img src="./cdn/appsicons/totalcmd.png" alt="Total Commander" class="icon-img">
+                <div class="icon-text"><a href="/app4">Total Commander</a></div>
+             </div>
+             {% endfor %}
+        </div>
+        <br>
+        
+        <div class="profile_block">
+            {{ obj.username }} {% trans "PAGE_PROFILE_INVITES_TEXT" %} {{ obj.invited_count|default:"0" }} {% trans "PAGE_PROFILE_INVITES_PEOPLE" %}
+        </div>
+        
+        <div class="profile_block_content">
+          <div class="user">
+            <a href="/id5"><img src="./cdn/avatar/1/avatar.jpg" alt="eversiege" class="user-img"></a>
+            <div class="user-text"><a href="/id5">eversiege</a></div>
+          </div>
+          <div class="user">
+            <a href="/id68"><img src="./cdn/avatar/1/avatar.jpg" alt="beelive" class="user-img"></a>
+            <div class="user-text"><a href="/id68">beelive</a></div>
+          </div>
+          <div class="user">
+            <a href="/id9"><img src="./cdn/avatar/1/avatar.jpg" alt="BAGMAY904" class="user-img"></a>
+            <div class="user-text"><a href="/id9">BAGMAY904</a></div>
+          </div>
+        </div>
+        <br>
+      </div>
   </div>
-
-  <div class="tab-content" id="tab-view">
-    <div class="profile_block">Контактная информация</div>
-    <div class="profile_block_content">
-      <div class="profile_desc_element_head">Веб-сайт: <div class="profile_desc_element">{{ obj.website }}</div></div>
-      <div class="profile_desc_element_head">Telegram: <div class="profile_desc_element">{{ obj.telegram }}</div></div>
-      <div class="profile_desc_element_head">E-mail: <div class="profile_desc_element">{{ obj.email }}</div></div>
-    </div>
-    <br>
-    <div class="profile_block">Опубликованные приложения<span class="rl_l"><a href="/search.php?section=apps&pubid=1">все</a></span></div>
-    <div class="profile_block_content">
-      <div class="icon">
-        <img src="./cdn/appsicons/totalcmd.png" alt="Total Commander" class="icon-img">
-        <div class="icon-text"><a href="/app4">Total Commander</a></div>
-      </div>
-      <div class="icon">
-        <img src="./cdn/appsicons/copilot.png" alt="Microsoft Copilot" class="icon-img">
-        <div class="icon-text"><a href="/app7">Microsoft Copilot</a></div>
-      </div>
-      <div class="icon">
-        <img src="./cdn/appsicons/copilot.png" alt="Microsoft Copilot" class="icon-img">
-        <div class="icon-text"><a href="/app7">Microsoft Copilot</a></div>
-      </div>
-      <div class="icon">
-        <img src="./cdn/appsicons/copilot.png" alt="Microsoft Copilot" class="icon-img">
-        <div class="icon-text"><a href="/app7">Microsoft Copilot</a></div>
-      </div>
-      <div class="icon">
-        <img src="./cdn/appsicons/copilot.png" alt="Microsoft Copilot" class="icon-img">
-        <div class="icon-text"><a href="/app7">Microsoft Copilot</a></div>
-      </div>
-    </div>
-    <br>
-    <div class="profile_block">dm пригласил 3 человек (показаны первые 5)</div>
-    <div class="profile_block_content">
-      <div class="user">
-        <a href="/id5"><img src="./cdn/avatar/1/avatar.jpg" alt="eversiege" class="user-img"></a>
-        <div class="user-text"><a href="/id5">eversiege</a></div>
-      </div>
-      <div class="user">
-        <a href="/id68"><img src="./cdn/avatar/1/avatar.jpg" alt="beelive" class="user-img"></a>
-        <div class="user-text"><a href="/id68">beelive</a></div>
-      </div>
-      <div class="user">
-        <a href="/id9"><img src="./cdn/avatar/1/avatar.jpg" alt="BAGMAY904" class="user-img"></a>
-        <div class="user-text"><a href="/id9">BAGMAY904</a></div>
-      </div>
-    </div>
-    <br>
-    <div class="profile_block">Отзывы<span class="rl_l"><a href="/profile.php?act=show_reviews&authorid=1">все</a></span></div>
-    <div class="profile_subblock">69 отзывов (показаны последние 5)</div>
-    <div class="profile_block_content">
-      
-      <div class="review_body" id="app4">
-        <div class="review_author"><a href="/id1">dm</a> к приложению <a href="/app4">Total Commander</a></div>
-        <div class="review_date">31 августа 2025 в 19:34</div>
-        <hr>
-        <div class="review_text">Очень позитивное и православное приложение! 10 из 10.</div>
-        <hr>
-        <div class="rating r5"></div>
-        <div class="review_actions"><a href="/">редактировать</a> - <a href="/">удалить</a></div>
-      </div>
-
-      <div class="review_body" id="app3">
-        <div class="review_author"><a href="/id1">dm</a> к приложению <a href="/app3">Microsoft Copilot</a></div>
-        <div class="review_date">31 августа 2025 в 16:55</div>
-        <hr>
-        <div class="review_text">Microsoft Copilot мне показался очень удобным способом для улучшения сложных текстов и юмористических подколов мошенников, которые звонят на мой номер практически каждую неделю. Однако могу подметить минус в не особо успешном генерации изображений. Залил его сюда, вдруг кому-нибудь пригодится, попробуйте.</div>
-        <hr>
-        <div class="rating r4_5"></div>
-        <div class="review_actions"><a href="/">редактировать</a> - <a href="/">удалить</a></div>
-      </div>
-
-      <div class="review_body" id="app446">
-        <div class="review_author"><a href="/id1">dm</a> к приложению <a href="/app3">Мессенджер Антонио</a></div>
-        <div class="review_date">31 августа 2025 в 11:44</div>
-        <hr>
-        <div class="review_text">Оно взорвало мой ПК своими фишками. Фурычит даже на текстолите.</div>
-        <hr>
-        <div class="rating r1_5"></div>
-        <div class="review_actions"><a href="/">редактировать</a> - <a href="/">удалить</a></div>
-      </div>
-
-      <div class="review_body" id="app14">
-        <div class="review_author"><a href="/id1">dm</a> к приложению <a href="/app3">.NET Framework</a></div>
-        <div class="review_date">31 августа 2025 в 11:41</div>
-        <hr>
-        <div class="review_text">Вещь первой необходимости, рекомендую</div>
-        <hr>
-        <div class="rating r5"></div>
-        <div class="review_actions"><a href="/">редактировать</a> - <a href="/">удалить</a></div>
-      </div>
-
-      <div class="review_body" id="app47">
-        <div class="review_author"><a href="/id1">dm</a> к приложению <a href="/app3">Spotify</a></div>
-        <div class="review_date">31 августа 2025 в 09:41</div>
-        <hr>
-        <div class="review_text">норм</div>
-        <hr>
-        <div class="rating r4"></div>
-        <div class="review_actions"><a href="/">редактировать</a> - <a href="/">удалить</a></div>
-      </div>
-    
-    </div>
-
-  </div>
-
 </div>
-
-
-    </div>
-  </div>
-
+</div>
 {% endblock %}
