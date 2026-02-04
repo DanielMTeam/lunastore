@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static %}
 {% load category %}
 <!DOCTYPE html>
@@ -17,20 +18,20 @@
 
   <div class="dm_menu">
     {% if user.is_authenticated %}
-    Вы вошли как <a href="/profile.php"><b>{{ user.username }}</b></a> - <a href="/logout.php">выйти</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a> |
+    {% trans "BASE_AUTHLIKE" %}<a href="/profile.php"><b>{{ user.username }}</b></a> - <a href="/logout.php">{% trans "BASE_LOGOUTBTN" %}</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a> |
   {% else %}
-  <a href="/login.php" id="login-link">вход</a> - <a href="/register.php">регистрация</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a> |
+  <a href="/login.php" id="login-link">{% trans "BASE_LOGINBTN" %}</a> - <a href="/register.php">{% trans "BASE_REGISTERBTN" %}</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a> |
   {% endif %}
   <div class="oprj_layout" id="oprj_layout">
-  <div class="oprj" id="oprj">прочие проекты</div>
+  <div class="oprj" id="oprj">{% trans "BASE_OPRJ_TITLE" %}</div>
   <div class="oprj_list" id="oprj_list">
   
     <div class="oprj_item" data-h="https://myslivets.com">Myslivets.com</div>
     <div class="oprj_item" data-h="http://store.myslivets.com"><b>LunaStore</b></div>
-    <div class="oprj_item" data-h="http://games.myslivets.com">Игры</div>
+    <div class="oprj_item" data-h="http://games.myslivets.com">{% trans "BASE_OPRJ_GAMESBTN" %}</div>
     <div class="oprj_item" data-h="https://mrim.su">Renaissance<small><font color="red"> new</font></small></div>
     <hr>
-    <div class="oprj_item" data-h="https://myslivets.com/projects">Все проекты »</div>
+    <div class="oprj_item" data-h="https://myslivets.com/projects">{% trans "BASE_OPRJ_OTHERPROJECTSBTN" %}</div>
   </div>
   </div>
   </div>
@@ -50,10 +51,10 @@
   <![endif]-->
       <form action="{% url 'search' %}" method="get" style="display: inline;">
         <input type="text" name="q" id="q" value="{{ request.GET.q|default_if_none:'' }}" placeholder="Например: Total Commander">
-        <button type="submit">поиск</button>
+        <button type="submit">{% trans "BASE_SEARCHBTN" %}</button>
       </form>
       <br>
-      <div class="subtitle"><a href="...">Уточнить параметры поиска</a></div>
+      <div class="subtitle"><a href="...">{% trans "BASE_CONFIGSEARCHBTN" %}</a></div>
     </div>
   </div>
 
@@ -72,33 +73,33 @@
     <div class="sidebar">
       
       {% if user.is_authenticated %}
-      <div class="boxhead_primary"><b>Аккаунт</b></div>
+      <div class="boxhead_primary"><b>{% trans "BASE_SIDEBAR_ACCOUNT_TITLE" %}</b></div>
       <div class="box">
         {% with route=request.resolver_match.url_name %}
         <ul>
           <a href="{% url 'profile' %}"><li class="myhome" 
             {% if route == 'profile' %} 
-            id="active"{% endif %}>Мой профиль</li></a>
+            id="active"{% endif %}>{% trans "BASE_SIDEBAR_ACCOUNT_PROFILEBTN" %}</li></a>
           <a href="{% url 'settings' %}"><li class="settings"
             {% if route == 'settings' %} 
-            id="active"{% endif %}>Настройки</li></a>
-          <a href="/profile.php?act=invite"><li class="newbie">Пригласить</li></a>
+            id="active"{% endif %}>{% trans "BASE_SIDEBAR_ACCOUNT_SETTINGSBTN" %}</li></a>
+          <a href="/profile.php?act=invite"><li class="newbie">{% trans "BASE_SIDEBAR_ACCOUNT_INVITEBTN" %}</li></a>
         </ul>
         {% endwith %}
       </div>
       {% endif %}
 
-        <div class="boxhead"><b>Категории</b></div>
+        <div class="boxhead"><b>{% trans "BASE_SIDEBAR_CATEGORIES_TITLE" %}</b></div>
       <div class="box">
         
         <ul>
-          <a href="/index.php"><li class="myhome">Главная страница</li></a>
+          <a href="/index.php"><li class="myhome">{% trans "BASE_SIDEBAR_CATEGORIES_HOME" %}</li></a>
           <aside>{% show_categories active_category=active_category %}</aside>
         </ul>
       </div>
       
       <div class="adv_block">
-        <a href="{ad_link}"><img src="./ad/ad.png" alt="Реклама"></a>
+        <a href="{ad_link}"><img src="./ad/ad.png" alt="Ad"></a>
       </div>
 
     </div>
@@ -107,20 +108,20 @@
     {% endblock %}
 
     <div class="footer">
-    <a href="/faq.php">О нас (FAQ)</a> - <a href="/help.php?act=privacy">Политика конфиденциальности</a>
-    <div style="text-align: right; font-size: 11px;">С душой сделано командой DM, 2026<br>Все права принадлежат исходным правообладателям</div>
+    <a href="/faq.php">О нас (FAQ)</a> - <a href="/help.php?act=privacy">{% trans "BASE_PRIVACYPOLICYBTN" %}</a>
+    <div style="text-align: right; font-size: 11px;">{% trans "BASE_FOOTER_TEXT_1" %}<br>{% trans "BASE_FOOTER_TEXT_2" %}</div>
   </div>
 
   <div id="login-popup" class="xp-popup" action="/login.php">
   <div class="popup-content">
-    <b>Авторизация</b><br>У Вас уже есть аккаунт? Представьтесь.<hr>
+    <b>{% trans "BASE_LOGINPOPUP_TITLE" %}</b><br>{% trans "BASE_LOGINPOPUP_DESC" %}<hr>
     {% csrf_token %}
     <form id="login-form">
-      Логин: <br>
+      {% trans "BASE_LOGINPOPUP_LOGINFIELD" %} <br>
       <input type="text" name="login"><br>
-      Пароль: <br>
+      {% trans "BASE_LOGINPOPUP_PASSWORDFIELD" %} <br>
       <input type="password" name="password"><br>
-      <button type="submit">Войти</button>
+      <button type="submit">{% trans "BASE_LOGINPOPUP_LOGINBTN" %}</button>
     </form>
   </div>
   <div class="tail"></div>

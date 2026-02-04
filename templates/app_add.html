@@ -100,31 +100,31 @@
             <div class="add_app_card" style="margin-top: 25px;">
                 
                 <div id="step-content-1" class="step-content active">
-                    <h1>Основная информация</h1>
+                    <h1>{% trans "PAGE_ADDAPP_STEP1_NAME" %}</h1>
                     <div id="form-step-1">
                         
                         <label>
                             <div class="add_app_pad">
-                                <div class="add_app_title">Название:</div>
+                                <div class="add_app_title">{% trans "PAGE_ADDAPP_STEP1_TITLE" %}</div>
                                 {{ form.title }}
-                                <div class="add_app_form_label">Отличное и запоминающиеся название даст приложению бонус к узнаваемости среди пользователей</div>
+                                <div class="add_app_form_label">{% trans "PAGE_ADDAPP_STEP1_TITLEDESC" %}</div>
                                 {{ form.title.errors }}
                             </div>
                         </label>
 
                         <label>
                             <div class="add_app_pad">
-                                <div class="add_app_title">Слоган (140 символов):</div>
+                                <div class="add_app_title">{% trans "PAGE_ADDAPP_STEP1_SLOGAN" %}</div>
                                 {{ form.slogan }}
-                                <div class="add_app_form_label">Слоган будет отображаться на самой странице приложения, на главной и в поиске<br>Краткость - сестра таланта :)</div>  
+                                <div class="add_app_form_label">{% trans "PAGE_ADDAPP_STEP1_SLOGANDESC_1" %}<br>{% trans "PAGE_ADDAPP_STEP1_SLOGANDESC_2" %}</div>  
                                 {{ form.slogan.errors }}
                             </div>
                         </label>
 
                         <label>
                             <div class="add_app_pad">
-                                <div class="add_app_title">Значок приложения:</div>
-                                <div class="info_splash">Рекомендуемый размер аватара: 64x64.<br>Допустимые форматы: .PNG, .JPG<br>Максимальный размер: 2 Мб</div>
+                                <div class="add_app_title">{% trans "PAGE_ADDAPP_STEP1_ICON" %}</div>
+                                <div class="info_splash">{% trans "PAGE_ADDAPP_STEP1_ICONDESC_1" %}<br>{% trans "PAGE_ADDAPP_STEP1_ICONDESC_2" %}<br>{% trans "PAGE_ADDAPP_STEP1_ICONDESC_3" %}</div>
                                 {{ form.icon }}
                                 {{ form.icon.errors }}
                             </div>
@@ -132,7 +132,7 @@
 
                         <label class="agree">
                             {{ form.agree_with_site_rules }}
-                            Я согласен с правилами сайта и осведомлён о последствиях их нарушения
+                            {% trans "PAGE_ADDAPP_STEP1_AGREE_RULES" %}
                             {{ form.agree_with_site_rules.errors }}
                         </label>
 
@@ -142,12 +142,12 @@
                 </div>
 
                 <div id="step-content-2" class="step-content">
-                    <h1>Дополнительная информация</h1>
+                    <h1>{% trans "PAGE_ADDAPP_STEP2_NAME" %}</h1>
 
                     <div id="form-step-2">
                         <label>
                             <div class="add_app_pad">
-                                <div class="add_app_title">Официальный сайт разработчика:</div>
+                                <div class="add_app_title">{% trans "PAGE_ADDAPP_STEP2_DEVSITE" %}</div>
                                 {{ form.developer_site }}
                                 {{ form.developer_site.errors }}
                             </div>
@@ -155,26 +155,26 @@
 
                         <label>
                             <div class="add_app_pad">
-                                <div class="add_app_title">Описание (1000 символов):</div>
+                                <div class="add_app_title">{% trans "PAGE_ADDAPP_STEP2_DESC" %}</div>
                                 {{ form.description }}
-                                <div class="add_app_form_label">Описание будет показываться на странице приложения в блоке "Дополнительная информация"</div>  
+                                <div class="add_app_form_label">{% trans "PAGE_ADDAPP_STEP2_DESCDESC" %}</div>  
                                 {{ form.description.errors }}
                             </div>
                         </label>
 
                         <label>
                             <div class="add_app_pad">
-                                <div class="add_app_title">Категория:</div>
+                                <div class="add_app_title">{% trans "PAGE_ADDAPP_STEP2_CATEGORY" %}</div>
                                 {{ form.category }}
-                                <div class="add_app_form_label">Это очень важно для правильного поиска и показа приложения в соответствующих блоках. Администрация имеет право изменить категорию по своему усмотрению</div>
+                                <div class="add_app_form_label">{% trans "PAGE_ADDAPP_STEP2_CATEGORYDESC" %}</div>
                                 {{ form.category.errors }}
                             </div>
                         </label>
 
                         <label>
                             <div class="add_app_pad">
-                                <div class="add_app_title">Скриншоты:</div>
-                                <div class="info_splash">Максимальное количество скриншотов: 3<br>Допустимые форматы: .PNG, .JPG<br>Максимальный размер: 2 Мб</div>
+                                <div class="add_app_title">{% trans "PAGE_ADDAPP_STEP2_SCREENSHOTS" %}</div>
+                                <div class="info_splash">{% trans "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_1" %}<br>{% trans "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_2" %}<br>{% trans "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_3" %}</div>
                                 
                                 <input type="file" 
                                     name="upload_screenshots" 
@@ -195,8 +195,8 @@
 
                         <br><br>
                         <div style="display: flex; gap: 10px;">
-                            <button type="button" class="action_button" style="background-color: #e0e0e0; color: #000; border: 1px solid #999;" onclick="goToStep(1)">&larr; Назад</button>
-                            <button type="button" class="action_button" onclick="goToStep(3)">Далее</button>
+                            <button type="button" class="action_button" style="background-color: #e0e0e0; color: #000; border: 1px solid #999;" onclick="goToStep(1)">&larr; {% trans "PAGE_ADDAPP_BACKBTN" %}</button>
+                            <button type="button" class="action_button" onclick="goToStep(3)">{% trans "PAGE_ADDAPP_NEXTBTN" %}</button>
                         </div>
                     </div>
                 </div>
@@ -204,7 +204,7 @@
                 <div id="step-content-3" class="step-content">
                     
                     <div class="info-notification" style="background: #eff7ff; border: 1px solid #a0c2e6; padding: 10px; margin-bottom: 20px; font-size: 12px; color: #333;">
-                        Проверьте всю информацию перед публикацией. Вот так будет выглядеть страница вашего приложения. 
+                        {% trans "PAGE_ADDAPP_CHECKINFO_NOTIFY" %}
                     </div>
 
                     <div class="preview-container-box" style="border: 1px solid #ccc; padding: 15px; background: #fff;">
@@ -213,34 +213,34 @@
                             <img id="prev_icon" src="" alt="icon" style="width: 64px; height: 64px; border-radius: 4px; object-fit: cover; border: 1px solid #999; flex-shrink: 0;">
                             
                             <div style="min-width: 0;">
-                                <div id="prev_title" style="font-size: 18px; font-weight: bold; color: #003399; word-wrap: break-word;">Название</div>
-                                <div id="prev_slogan" style="color: #555; font-size: 12px; margin: 4px 0; word-wrap: break-word;">Слоган...</div>
-                                <div style="font-size: 11px;">Автор: <a href="#">Вы</a></div>
+                                <div id="prev_title" style="font-size: 18px; font-weight: bold; color: #003399; word-wrap: break-word;">{% trans "PAGE_ADDAPP_CHECKINFO_NAME" %}</div>
+                                <div id="prev_slogan" style="color: #555; font-size: 12px; margin: 4px 0; word-wrap: break-word;">{% trans "PAGE_ADDAPP_CHECKINFO_SLOGAN" %}</div>
+                                <div style="font-size: 11px;">{% trans "PAGE_ADDAPP_CHECKINFO_AUTHOR_1" %} <a href="#">{% trans "PAGE_ADDAPP_CHECKINFO_AUTHOR_2" %}</a></div>
                             </div>
                         </div>
 
-                        <h2>Скриншоты</h2>
+                        <h2>{% trans "PAGE_ADDAPP_CHECKINFO_SCREENSHOTS" %}</h2>
                         <div class="separator_store"></div>
                         <div class="st_screenshots_container" id="js_screenshots_placeholder" style="display: flex; gap: 10px; flex-wrap: nowrap; overflow-x: auto; margin-top: 8px;">
-                            <span style="color:#999; font-size:11px;">Нет скриншотов</span>
+                            <span style="color:#999; font-size:11px;">{% trans "INFO_NO_SCREENSHOTS" %}</span>
                         </div>
                         
 
-                        <h2 style="margin-top: 6px;">Дополнительная информация</h2>
+                        <h2 style="margin-top: 6px;">{% trans "PAGE_ADDAPP_CHECKINFO_OTHERINFO" %}</h2>
                         <div class="separator_store"></div>
                         <div id="prev_desc_block" style="white-space: pre-line; font-size: 12px; line-height: 1.4; word-wrap: break-word; overflow-wrap: break-word; margin-top: 8px;"></div>
 
-                        <h2 style="margin-top: 6px;">Действия</h2>
+                        <h2 style="margin-top: 6px;">{% trans "PAGE_ADDAPP_CHECKINFO_ACTIONS" %}</h2>
                         <div class="separator_store"></div>
                         <div style="margin-top: 8px;">
-                             <li class="offsite"><a href="#" id="prev_link" target="_blank" style="color: #003399; text-decoration: underline; font-size: 12px; word-break: break-all;">Перейти на официальный сайт разработчика</a></li>
+                             <li class="offsite"><a href="#" id="prev_link" target="_blank" style="color: #003399; text-decoration: underline; font-size: 12px; word-break: break-all;">{% trans "PAGE_ADDAPP_CHECKINFO_GOTODEVSITE" %}</a></li>
                         </div>
 
                     </div>
                     
                     <div style="margin-top: 20px; border: 1px solid #ccc; background: #f9f9f9; padding: 15px;">
                         <div class="info-box-yellow">
-                            <strong>Введите символы с картинки:</strong><br><br>
+                            <strong>{% trans "FORM_CAPTCHA" %}</strong><br><br>
                             {% if form.captcha.errors %}
                                 <div class="error_splash" style="margin-bottom: 5px;"> 
                                     {% for error in form.captcha.errors %}
@@ -255,9 +255,9 @@
                         </div>
                         
                         <div class="bottom-actions">
-                            <button type="button" class="action_button" style="background-color: #e0e0e0; color: #000; border: 1px solid #999;" onclick="goToStep(2)">&larr; Редактировать</button>
+                            <button type="button" class="action_button" style="background-color: #e0e0e0; color: #000; border: 1px solid #999;" onclick="goToStep(2)">&larr; {% trans "PAGE_ADDAPP_EDITAPPBTN" %}</button>
                             
-                            <button type="submit" class="action_button">Отправить на рассмотрение</button>
+                            <button type="submit" class="action_button">{% trans "PAGE_ADDAPP_SENDAPPBTN" %}</button>
                         </div>
                     </div>
                 </div>
@@ -286,7 +286,7 @@
         const file = input.files[0];
 
         if (!validateFileExtension(file)) {
-            alert("Ошибка: Недопустимый формат файла! \nРазрешены только: .JPG, .JPEG, .PNG");
+            alert('{% trans "ERROR_INVALID_FILE_FORMAT" %} \n{% trans "INFO_ACCEPTED_ICON_FORMATS" %}');
             input.value = ""; 
             iconDataUrl = null;
             document.getElementById('prev_icon').src = "{% static 'img/default_icon.png' %}";
@@ -294,7 +294,7 @@
         }
 
         if (file.size > 2 * 1024 * 1024) {
-            alert("Ошибка: Размер файла превышает 2 Мб!");
+            alert('{% trans "ERROR_INVALID_SIZE_ICON" %}');
             input.value = "";
             return;
         }
@@ -315,7 +315,7 @@
 
         if (input.files && input.files.length > 0) {
             if (input.files.length > 3) {
-                errorBox.innerText = "Ошибка: Выбрано " + input.files.length + " файлов. Максимум 3.";
+                errorBox.innerText = '{% trans "ERROR_PREVIEWSCRNS_1_COUNT" %}' + input.files.length + '{% trans "ERROR_PREVIEWSCRNS_2_COUNT" %}';
                 errorBox.style.display = 'block';
                 input.value = ""; 
                 return;
@@ -327,7 +327,7 @@
                 const file = input.files[i];
 
                 if (!validateFileExtension(file)) {
-                    errorBox.innerText = "Ошибка: Файл \"" + file.name + "\" имеет недопустимый формат. Разрешены только JPG и PNG.";
+                    errorBox.innerText = '{% trans "ERROR_PREVIEWSCRNS_1_INVALIDFORMAT" %}' + file.name + '{% trans "ERROR_PREVIEWSCRNS_2_INVALIDFORMAT" %}';
                     errorBox.style.display = 'block';
                     input.value = "";
                     screenshotsArray = [];
@@ -335,7 +335,7 @@
                 }
                 
                 if (file.size > 2 * 1024 * 1024) {
-                    errorBox.innerText = "Ошибка: Файл \"" + file.name + "\" слишком большой (макс 2 Мб).";
+                    errorBox.innerText = '{% trans "ERROR_PREVIEWSCRNS_1_BIGSIZE" }' + file.name + '{% trans "ERROR_PREVIEWSCRNS_1_BIGSIZE" %}';
                     errorBox.style.display = 'block';
                     input.value = "";
                     screenshotsArray = [];
@@ -347,7 +347,7 @@
                 reader.readAsDataURL(file);
             }
             
-            info.innerText = "Выбрано файлов: " + count;
+            info.innerText = '{% trans "INFO_SELECTED_FILES" %}' + count;
         }
     }
 
@@ -356,8 +356,8 @@
             let name = document.getElementById('inp_name').value;
             let agree = document.getElementById('inp_agree').checked;
             
-            if (!name.trim()) { alert('Введите название приложения!'); return; }
-            if (!agree) { alert('Вы должны согласиться с правилами!'); return; }
+            if (!name.trim()) { alert('{% trans "ERROR_NO_APPNAME" %}'); return; }
+            if (!agree) { alert('{% trans "ERROR_NO_AGREERULES" %}'); return; }
         }
         
         if (n === 3) renderPreview();
@@ -386,9 +386,9 @@
     }
 
     function renderPreview() {
-        document.getElementById('prev_title').innerText = document.getElementById('inp_name').value || "Без названия";
-        document.getElementById('prev_slogan').innerText = document.getElementById('inp_slogan').value || "Нет слогана";
-        document.getElementById('prev_desc_block').innerText = document.getElementById('inp_desc').value || "Нет описания";
+        document.getElementById('prev_title').innerText = document.getElementById('inp_name').value || '{% trans "TEXT_APP_NO_NAME" %}';
+        document.getElementById('prev_slogan').innerText = document.getElementById('inp_slogan').value || '{% trans "TEXT_APP_NO_SLOGAN" %}';
+        document.getElementById('prev_desc_block').innerText = document.getElementById('inp_desc').value || '{% trans "TEXT_APP_NO_DESC" %}';
         
         let site = document.getElementById('inp_site').value;
         let link = document.getElementById('prev_link');
@@ -418,7 +418,7 @@
                 scrCont.appendChild(img);
             });
         } else {
-            scrCont.innerHTML = "<span style='color:#999; font-size:11px;'>Нет скриншотов</span>";
+            scrCont.innerHTML = '<span style="color:#999; font-size:11px;">{% trans "INFO_NO_SCREENSHOTS" %}</span>';
         }
     }
 </script>
