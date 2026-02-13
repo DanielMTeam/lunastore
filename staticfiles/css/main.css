@@ -15,7 +15,7 @@ body {
   padding: 0;
   font-family: Tahoma, Arial, sans-serif, 'Franklin Gothic Medium';
   font-size: 12px;
-  background: #2b67b3;
+  background: #2b67b3 url('../img/cover.jpg');
 }
 .container {
   width: 700px;
@@ -920,8 +920,8 @@ input[type=submit] {
   width: 45%;
   background: #eaf1fb;
   border-right: 1px solid #9db6d8;
-  padding-bottom: 9999px;
-  margin-bottom: -9999px; 
+  height: 100%;
+  min-height: 100%;
 }
 
 .login_header {
@@ -991,10 +991,8 @@ input[type=submit] {
   line-height: 32px;
 }
 
-.login_wrap {
+.login_wrap{
   border: 1px solid #9db6d8;
-  overflow: hidden; 
-  width: 100%;    
 }
 
 .info_block li.top{background:url(../img/icons.png) no-repeat 0px -24px;}
