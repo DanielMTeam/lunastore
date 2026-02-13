@@ -1,7 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
+from django.utils.crypto import get_random_string
 import uuid
+from django.utils import timezone
+import datetime
 
 
 class User(AbstractUser):
@@ -19,6 +22,13 @@ class User(AbstractUser):
     website = models.URLField(max_length=45, null=True)
     avatar = models.ImageField(upload_to=unique_avatar_path, max_length=80, null=True)
     description = models.CharField(max_length=255, default='Пока что, описания тут нету')
+    invited_by = models.ForeignKey(
+        'self',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='invited_users'
+    )
 
 
 class UserBan(models.Model):
@@ -67,6 +77,7 @@ class DevRequestsModel(models.Model):
         verbose_name = "Заявка на статус разработчика"
         verbose_name_plural = "Заявки на статус разработчика"
 
+
 class BlacklistedUsername(models.Model):
     word = models.CharField(max_length=50,unique=True,verbose_name="Запрещённый юзернейм")
     is_regex = models.BooleanField(default=False,verbose_name="Это регулярное выражение? (regex type)")
@@ -77,3 +88,24 @@ class BlacklistedUsername(models.Model):
     class Meta:
         verbose_name = 'Бан-ворд (юзернейм)'
         verbose_name_plural = 'Бан-ворды (юзернеймы)'
+        
+
+class InviteToken(models.Model):
+    owner = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='invite_token'
+    )
+    code = models.CharField(max_length=12,unique=True,blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    @property
+    def is_expired(self):
+        return timezone.now() > self.created_at + datetime.timedelta(hours=24)
+    
+    def refresh_code_if_expired(self):
+        if not self.code or timezone.now() > self.created_at + datetime.timedelta(hours=24):
+            self.code = get_random_string(8) 
+            self.created_at = timezone.now()
+            self.save()
+        return self.code

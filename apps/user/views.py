@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.contrib.auth import login as dj_login, logout as dj_logout, update_session_auth_hash
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
-from .models import UserBan, UserActivityLog, User, DevRequestsModel, BlacklistedUsername
+from .models import UserBan, UserActivityLog, User, DevRequestsModel, BlacklistedUsername, InviteToken
 from apps.marketplace.models import Application
 from .forms import UserRegistrationForm, AvatarUpdateForm, ProfileUpdateForm, PasswordChangeForm, DevStatusForm, PasswordConfirmationForm
 import json
@@ -15,6 +15,7 @@ from .middleware import get_client_ip, BlockBannedIP
 import re
 import django,sys,platform
 from django.utils.translation import gettext_lazy as _
+from .validators import validate_invite_limit
 
 
 def login(request):
@@ -52,7 +53,17 @@ def logout(request):
 
 
 def register(request):
-    print(request.META.get('REMOTE_ADDR'))
+    invite_code = request.session.get('allowed_invite_code')
+    
+    if not invite_code:
+        return redirect('invite_gate_url')
+    
+    try:
+        invite_obj = InviteToken.objects.get(code=invite_code)
+    except InviteToken.DoesNotExist:
+        del request.session['allowed_invite_code']
+        return redirect('invite_gate_url')
+    
     if not settings.REGISTRATION_IS_ENABLED:
         if request.user.is_authenticated:
             return redirect('home')
@@ -78,8 +89,12 @@ def register(request):
             return redirect('502_error')
         form = UserRegistrationForm(request.POST, request=request)
         if form.is_valid():
-            user = form.save()
+            if not validate_invite_limit(invite_obj.owner):
+                 return redirect('invite_gate_url')
+            user = form.save(commit=False)
+            user.invited_by = invite_obj.owner
             user.save()
+            del request.session['allowed_invite_code']
             user_group = Group.objects.get(name='Пользователи')
             user.groups.add(user_group)
             UserActivityLog.objects.create(
@@ -210,3 +225,8 @@ def debug_info(request):
         os_info = platform.platform()
         return render(request, 'debug_info.html', {'method':method,'user_ip':user_ip,'user_agent':user_agent,'django_version':django_version,'python_version':python_version,'os_info':os_info})
     return redirect('home')
+
+@login_required
+def invite_person(request):
+    invite,created = InviteToken.objects.get_or_create(owner=request.user)
+    return render(request, 'invite.html', {'invite_code':invite.refresh_code_if_expired()})

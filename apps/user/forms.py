@@ -1,5 +1,5 @@
 from django import forms
-from .models import User, UserBan, UserActivityLog
+from .models import User, UserBan, UserActivityLog, InviteToken
 from django.contrib.auth.forms import UserCreationForm
 from captcha.fields import CaptchaField
 from django.contrib.admin.widgets import FilteredSelectMultiple
@@ -10,6 +10,8 @@ from django.core.exceptions import ValidationError
 import os
 from PIL import Image
 from django.utils.translation import gettext_lazy as _
+from .validators import validate_invite_limit
+
 
 
 class UserBanForm(forms.ModelForm):
@@ -270,3 +272,22 @@ class PasswordConfirmationForm(forms.Form):
         if not self.user.check_password(password):
             raise ValidationError(_('FORM_PASSWORDCONFIRM_WRONGPASS'))
         return password
+    
+
+class InviteCodeForm(forms.Form):
+    code = forms.CharField(label='Код приглашения', max_length=12)
+    
+    def clean_code(self):
+        code = self.cleaned_data['code']
+        try:
+            invite = InviteToken.objects.get(code=code)
+        except InviteToken.DoesNotExist:
+            raise ValidationError(_('FORM_INVITECODE_DOESNOTEXIST_ERROR'))
+        
+        if invite.is_expired:
+            raise ValidationError(_('FORM_INVITECODE_EXPIRED_ERROR'))
+        
+        is_limit_ok = validate_invite_limit(invite.owner)
+        
+        if not is_limit_ok:
+            raise ValidationError(_('FORM_INVITECODE_CODELIMITISNTOK_ERROR'))
