@@ -1,5 +1,5 @@
 .add_app_form {
-    padding: 18px;
+    padding: 12px;
     background: #ffffff;
     border-top: 1px solid #7f9db9;
 }
@@ -57,7 +57,6 @@
 	border:1px solid #cfe1ff;
 	background:#ffffff;
 	padding:6px;
-    margin-top: 10px
 }
 
 .add_app_title{

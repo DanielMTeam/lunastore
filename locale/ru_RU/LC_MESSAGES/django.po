@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-04 08:48+0000\n"
+"POT-Creation-Date: 2026-02-13 22:43+0000\n"
 "PO-Revision-Date: 2026-04-02\n"
 "Last-Translator: Fayzetwin <contact@fayzetw.in>\n"
 "Language-Team: DM Team <daniel@myslivets.com>\n"
@@ -24,11 +24,11 @@ msgstr "Вы не являетесь администратором данног
 msgid "FORM_SCREENSHOTS"
 msgstr "Скриншоты"
 
-#: apps/marketplace/forms.py:151 apps/user/forms.py:216
+#: apps/marketplace/forms.py:151 apps/user/forms.py:218
 msgid "FORM_AGREE_RULES"
 msgstr "Я согласен с правилами сайта и осведомлён о последствиях их нарушения"
 
-#: apps/marketplace/forms.py:154 apps/user/forms.py:219
+#: apps/marketplace/forms.py:154 apps/user/forms.py:221
 #: templates/app_add.html:243 templates/dev_add.html:113
 msgid "FORM_CAPTCHA"
 msgstr "Введите символы с картинки"
@@ -45,80 +45,92 @@ msgstr "Максимум 3 скриншота."
 msgid "ERROR_YOU_DONT_HAVE_DEVSTATUS"
 msgstr "У вас нет статуса разработчика для просмотра этой страницы"
 
-#: apps/user/forms.py:74 apps/user/middleware.py:32
+#: apps/user/forms.py:76 apps/user/middleware.py:32
 msgid "INFO_YOUR_IP_WAS_BANNED"
 msgstr ""
 "Ваш IP-адрес заблокирован. Если вы считаете, что произошла ошибка и вас "
 "заблокировали 'без причины', пожалуйста, напишите нам по электронной почте: "
 "daniel@myslivets.com"
 
-#: apps/user/forms.py:133
+#: apps/user/forms.py:135
 msgid "ERROR_CURRENT_PASSWORD_IS_WRONG"
 msgstr "Текущий пароль неверен"
 
-#: apps/user/forms.py:143
+#: apps/user/forms.py:145
 msgid "ERROR_NEW_PASSWORDS_DONT_MATCH"
 msgstr "Новые пароли не совпадают"
 
-#: apps/user/forms.py:154
+#: apps/user/forms.py:156
 msgid "ACTION_CHOOSE_FILE"
 msgstr "Выберите файл"
 
-#: apps/user/forms.py:156
+#: apps/user/forms.py:158
 msgid "INFO_RECOMENDATIONS_FOR_UPLOAD_AVATAR"
 msgstr "Рекомендуемый размер: 64x64. Форматы: PNG, JPG. Макс: 2 МБ."
 
-#: apps/user/forms.py:164
+#: apps/user/forms.py:166
 msgid "INFO_MAXIMUM_AVATAR_SIZE"
 msgstr "Максимальный размер файла: 2 МБ."
 
-#: apps/user/forms.py:169
+#: apps/user/forms.py:171
 msgid "INFO_ACCEPTED_AVATAR_FORMATS"
 msgstr "Допустимые форматы: .JPG, .PNG"
 
-#: apps/user/forms.py:184
+#: apps/user/forms.py:186
 msgid "FORM_DEVSTATUS_YOUR_USERNAME"
 msgstr "Имя пользователя"
 
-#: apps/user/forms.py:191
+#: apps/user/forms.py:193
 msgid "FORM_DEVSTATUS_YOUR_EMAIL"
 msgstr "Ваш Email"
 
-#: apps/user/forms.py:194
+#: apps/user/forms.py:196
 msgid "FORM_DEVSTATUS_WE_WILL_CONTACT"
 msgstr "Мы обязательно свяжемся с Вами. По крайней мере постараемся."
 
-#: apps/user/forms.py:198
+#: apps/user/forms.py:200
 msgid "FORM_DEVSTATUS_GITHUB"
 msgstr "Ссылка на ваш GitHub"
 
-#: apps/user/forms.py:201
+#: apps/user/forms.py:203
 msgid "FORM_DEVSTATUS_GITHUB_HELP"
 msgstr "А почему нет? Мы хотим посмотреть на ваши красивые разработки :3"
 
-#: apps/user/forms.py:205
+#: apps/user/forms.py:207
 msgid "FORM_DEVSTATUS_ABOUT_YOU"
 msgstr "Расскажите о себе (до 1000 символов)"
 
-#: apps/user/forms.py:211
+#: apps/user/forms.py:213
 msgid "FORM_DEVSTATUS_WHY_YOU_CHOOSE"
 msgstr "Почему Вы решили выбрать нас? (до 250 символов)"
 
-#: apps/user/forms.py:217
+#: apps/user/forms.py:219
 msgid "FORM_AGREE_POLICY"
 msgstr "Я принимаю условия конфиденциальности"
 
-#: apps/user/forms.py:258
+#: apps/user/forms.py:260
 msgid "FORM_PASSWORDCONFIRM_ENTER"
 msgstr "Введите текущий пароль"
 
-#: apps/user/forms.py:260
+#: apps/user/forms.py:262
 msgid "FORM_PASSWORDCONFIRM_CONFIRM"
 msgstr "Подтвердите пароль"
 
-#: apps/user/forms.py:271
+#: apps/user/forms.py:273
 msgid "FORM_PASSWORDCONFIRM_WRONGPASS"
 msgstr "Неверный пароль. Пожалуйста, попробуйте снова."
+
+#: apps/user/forms.py:285
+msgid "FORM_INVITECODE_DOESNOTEXIST_ERROR"
+msgstr "Такой инвайт-код не найден."
+
+#: apps/user/forms.py:288
+msgid "FORM_INVITECODE_EXPIRED_ERROR"
+msgstr "Срок действия кода истек (24 часа). Попросите новый."
+
+#: apps/user/forms.py:293
+msgid "FORM_INVITECODE_CODELIMITISNTOK_ERROR"
+msgstr "Лимит приглашений по этому коду исчерпан. Владелец пригласил слишком много людей за последнее время."
 
 #: apps/user/views.py:128
 msgid "INFO_PROFILE_IS_UPDATED"
@@ -329,8 +341,6 @@ msgid "PAGE_ADDAPP_STEP1"
 msgstr "Этап 1"
 
 #: templates/app_add.html:84
-#, fuzzy
-#| msgid "PAGE_ADDAPP_STEP1"
 msgid "PAGE_ADDAPP_STEP1_DESC"
 msgstr "Начало"
 
@@ -782,8 +792,6 @@ msgid "PAGE_DELAPP_DELACCOUNTBTN"
 msgstr "Удалить аккаунт"
 
 #: templates/dev_add.html:5 templates/dev_add.html:12
-#, fuzzy
-#| msgid "PAGE_DELACC_TITLE"
 msgid "PAGE_DEVADD_TITLE"
 msgstr "Удаление аккаунта"
 
@@ -1053,6 +1061,119 @@ msgstr "Последнее обновление"
 msgid "INFO_CATEGORY_LIST_EMPTY"
 msgstr "пустаааа...."
 
+#: templates/invite.html:5
+msgid "PAGE_INVITE_BROWSER_TITLE"
+msgstr "Пригласить"
+
+#: templates/invite.html:11
+msgid "PAGE_INVITE_MAIN_TITLE"
+msgstr "Пригласить человека"
+
+#: templates/invite.html:17
+msgid "PAGE_INVITE_DESCRIPTION"
+msgstr ""
+"Вы можете пригласить своего друга или знакомого с одинаковыми интересами по "
+"ретро-тематике в LunaStore."
+
+#: templates/invite.html:18
+msgid "PAGE_INVITE_LIMIT_INFO"
+msgstr ""
+"На данный момент Вы можете пригласить <b>1</b> человека. После принятия "
+"пользователем вашего приглашения, следующее можно будет создать только через "
+"неделю"
+
+#: templates/invite.html:22
+msgid "PAGE_INVITE_COPY_CODE"
+msgstr "Скопируйте этот код ниже и отправьте его нужному Вам человеку"
+
+#: templates/invite.html:28
+msgid "PAGE_INVITE_HOW_TO_SEND"
+msgstr ""
+"По E-mail, по телефону, в чате, при встрече - совершенно не важно. Код "
+"обязательно нужно ввести приглашаемому пользователю в процессе регистрации."
+
+#: templates/invite.html:31
+msgid "PAGE_INVITE_CODE_ROTATION_WARN"
+msgstr ""
+"<b>Важно:</b> на данный момент времени, пригласительный код нового участника "
+"меняется каждые 24 часа"
+
+#: templates/invite.html:35
+msgid "PAGE_INVITE_LIST_HEADER"
+msgstr "Приглашённые пользователи"
+
+#: templates/invite.html:39
+msgid "PAGE_INVITE_LIST_EMPTY"
+msgstr "Вы пока ещё никого не приглашали"
+
+#: templates/profile.html:6
+msgid "PAGE_PROFILE_TITLE"
+msgstr "Профиль пользователя"
+
+#: templates/profile.html:23
+msgid "PAGE_PROFILE_STAFF_ALT"
+msgstr "Команда LunaStore"
+
+#: templates/profile.html:31
+msgid "CARD_USER_NO_DESC"
+msgstr ""
+
+#: templates/profile.html:38
+msgid "PAGE_PROFILE_STATS_APPS"
+msgstr "приложения,"
+
+#: templates/profile.html:39
+msgid "PAGE_PROFILE_STATS_REVIEWS"
+msgstr "отзывов -"
+
+#: templates/profile.html:40
+msgid "PAGE_PROFILE_STATS_MEMBER_SINCE"
+msgstr "участник с"
+
+#: templates/profile.html:55
+msgid "PAGE_PROFILE_TAB_MAIN"
+msgstr "Основное"
+
+#: templates/profile.html:59
+msgid "PAGE_PROFILE_TAB_REVIEWS"
+msgstr "Отзывы"
+
+#: templates/profile.html:63
+msgid "PAGE_PROFILE_TAB_APPS"
+msgstr "Приложения"
+
+#: templates/profile.html:68
+msgid "PAGE_PROFILE_CONTACT_INFO"
+msgstr "Контактная информация"
+
+#: templates/profile.html:70
+msgid "PAGE_PROFILE_LABEL_WEBSITE"
+msgstr "Веб-сайт:"
+
+#: templates/profile.html:71
+msgid "PAGE_PROFILE_LABEL_TELEGRAM"
+msgstr "Telegram:"
+
+#: templates/profile.html:72
+msgid "PAGE_PROFILE_LABEL_EMAIL"
+msgstr "E-mail:"
+
+#: templates/profile.html:77
+msgid "PAGE_PROFILE_APPS_TITLE"
+msgstr "Опубликованные приложения"
+
+#: templates/profile.html:78
+msgid "PAGE_PROFILE_LINK_ALL"
+msgstr "все"
+
+#: templates/profile.html:97
+msgid "PAGE_PROFILE_INVITES_TEXT"
+msgstr "пригласил"
+
+#: templates/profile.html:97
+msgid "PAGE_PROFILE_INVITES_PEOPLE"
+msgstr "человек (показаны первые 5)"
+
 #: templates/register.html:8 templates/register_on.html:8
 msgid "PAGE_REGISTER_TITLE"
 msgstr "Регистрация"
@@ -1157,8 +1278,13 @@ msgid "PAGE_SEARCH_IMG_ALT_NONE"
 msgstr "Нет иконки"
 
 #: templates/search.html:53
-msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
-msgstr "Демо, далее $%(price)s"
+msgid ""
+"\n"
+"                PAGE_SEARCH_BADGE_DEMO_PRICE\n"
+"            "
+msgstr ""
+"\n"
+"Поиск не дал результатов по запросу \"%(q)s\""
 
 #: templates/search.html:58
 msgid "PAGE_SEARCH_BADGE_DEMO"
@@ -1337,7 +1463,7 @@ msgstr "Приложений нет ＞︿＜"
 msgid "PAGE_MANAGE_APPS_EMPTY_DESC"
 msgstr "Вы пока что не управляете ни одним приложением."
 
-#: templates/storepage.html:8
+#: templates/storepage.html:9
 msgid "PAGE_APP_BTN_BACK"
 msgstr "Назад"
 
@@ -1345,37 +1471,37 @@ msgstr "Назад"
 msgid "PAGE_APP_LABEL_AUTHOR"
 msgstr "Автор:"
 
-#: templates/storepage.html:28
+#: templates/storepage.html:29
 msgid "PAGE_APP_PRICE_DEMO_WITH_COST"
 msgstr "Демо, далее"
 
-#: templates/storepage.html:33
+#: templates/storepage.html:31
 msgid "PAGE_APP_PRICE_DEMO_FREE"
 msgstr "Демо"
 
-#: templates/storepage.html:40
+#: templates/storepage.html:35
 msgid "PAGE_APP_PRICE_PAID"
 msgstr "Платное:"
 
-#: templates/storepage.html:43
+#: templates/storepage.html:37
 msgid "PAGE_APP_PRICE_FREE"
 msgstr "Бесплатно"
 
-#: templates/storepage.html:53
+#: templates/storepage.html:51
 msgid "PAGE_APP_BTN_BUY"
 msgstr "Купить"
 
-#: templates/storepage.html:55 templates/storepage.html:57
+#: templates/storepage.html:53
 msgid "PAGE_APP_BTN_INSTALL"
 msgstr "Установить"
 
-#: templates/storepage.html:73
+#: templates/storepage.html:70
 msgid "PAGE_APP_MSG_DEMO_WARNING"
 msgstr ""
 "Программа распространяется в виде демо-версии, за полную версию стоит "
 "заплатить её автору. Файл предоставлен с официального сайта разработчика."
 
-#: templates/storepage.html:80
+#: templates/storepage.html:79
 msgid "PAGE_APP_MSG_DMCA_ERROR"
 msgstr ""
 "По запросу исходного правообладателя скачать файл на данный момент не "
@@ -1389,94 +1515,75 @@ msgstr "Скриншоты"
 msgid "PAGE_APP_IMG_ALT_SCREENSHOT"
 msgstr "Скриншот"
 
-#: templates/storepage.html:97
+#: templates/storepage.html:98
 msgid "PAGE_APP_MSG_NO_SCREENSHOTS"
 msgstr "Скриншотов нет."
 
-#: templates/storepage.html:105
+#: templates/storepage.html:104
 msgid "PAGE_APP_SECTION_DESC"
 msgstr "Дополнительная информация"
 
-#: templates/storepage.html:113
+#: templates/storepage.html:110
 msgid "PAGE_APP_SECTION_ACTIONS"
 msgstr "Действия"
 
-#: templates/storepage.html:116
+#: templates/storepage.html:113
 msgid "PAGE_APP_ACTION_SITE"
 msgstr "Перейти на официальный сайт разработчика"
 
-#: templates/storepage.html:117
+#: templates/storepage.html:114
 msgid "PAGE_APP_ACTION_REPORT"
 msgstr "Пожаловаться на приложение"
 
-#: templates/storepage.html:118
+#: templates/storepage.html:115
 msgid "PAGE_APP_ACTION_MORE_APPS"
 msgstr "Посмотреть другие программы автора"
 
-#: templates/storepage.html:120
+#: templates/storepage.html:117
 msgid "PAGE_APP_LABEL_DOWNLOADS"
 msgstr "Количество скачиваний"
 
-#: templates/profile.html:5
-msgid "PAGE_PROFILE_TITLE"
-msgstr "Профиль пользователя"
+#~ msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
+#~ msgstr "Демо, далее $%(price)s"
 
-#: templates/profile.html:15
-msgid "PAGE_PROFILE_STAFF_ALT"
-msgstr "Команда LunaStore"
+msgid "PAGE_REGISTER_HAVE_INVITE_TITLE"
+msgstr "У Вас есть приглашение?"
 
-#: templates/profile.html:19
-msgid "PAGE_PROFILE_STATS_APPS"
-msgstr "приложения,"
+msgid "PAGE_REGISTER_HAVE_INVITE_TEXT"
+msgstr "Есть код приглашения? Нажмите"
 
-#: templates/profile.html:19
-msgid "PAGE_PROFILE_STATS_REVIEWS"
-msgstr "отзывов -"
+msgid "PAGE_REGISTER_CLICK_HERE"
+msgstr "сюда"
 
-#: templates/profile.html:19
-msgid "PAGE_PROFILE_STATS_MEMBER_SINCE"
-msgstr "участник с"
+msgid "PAGE_INVITE_INPUT_TITLE"
+msgstr "Ввод пригласительного кода"
 
-#: templates/profile.html:31
-msgid "PAGE_PROFILE_TAB_MAIN"
-msgstr "Основное"
+msgid "PAGE_INVITE_INPUT_HEADER"
+msgstr "Ввод кода приглашения"
 
-#: templates/profile.html:35
-msgid "PAGE_PROFILE_TAB_REVIEWS"
-msgstr "Отзывы"
+msgid "PAGE_INVITE_INPUT_DESC_1"
+msgstr "Вы можете ввести код приглашения, который Вы получили от уже <b>зарегистрированного участника</b>"
 
-#: templates/profile.html:39
-msgid "PAGE_PROFILE_TAB_APPS"
-msgstr "Приложения"
+msgid "PAGE_INVITE_INPUT_DESC_2"
+msgstr "Таким образом, Вы получаете уникальную возможность создать аккаунт <b>в обход закрытой публичной регистрации</b>"
 
-#: templates/profile.html:43
-msgid "PAGE_PROFILE_CONTACT_INFO"
-msgstr "Контактная информация"
+msgid "PAGE_INVITE_INPUT_LABEL"
+msgstr "Код"
 
-#: templates/profile.html:45
-msgid "PAGE_PROFILE_LABEL_WEBSITE"
-msgstr "Веб-сайт:"
+msgid "PAGE_INVITE_INPUT_BTN"
+msgstr "Начать регистрацию"
 
-#: templates/profile.html:46
-msgid "PAGE_PROFILE_LABEL_TELEGRAM"
-msgstr "Telegram:"
+msgid "PAGE_INVITE_REGDATE"
+msgstr "Регистрация"
 
-#: templates/profile.html:47
-msgid "PAGE_PROFILE_LABEL_EMAIL"
-msgstr "E-mail:"
+msgid "PAGE_INVITE_ADMINSTATUS"
+msgstr "Модератор"
 
-#: templates/profile.html:50
-msgid "PAGE_PROFILE_APPS_TITLE"
-msgstr "Опубликованные приложения"
+msgid "PAGE_INVITE_USERSTATUS"
+msgstr "Пользователь"
 
-#: templates/profile.html:50
-msgid "PAGE_PROFILE_LINK_ALL"
-msgstr "все"
+msgid "FORM_INVITECODE_TITLE"
+msgstr "Код"
 
-#: templates/profile.html:73
-msgid "PAGE_PROFILE_INVITES_TEXT"
-msgstr "пригласил"
-
-#: templates/profile.html:73
-msgid "PAGE_PROFILE_INVITES_PEOPLE"
-msgstr "человек (показаны первые 5)"
+msgid "FORM_INVITECODE_ENTER"
+msgstr "Введите код"

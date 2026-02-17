@@ -7,14 +7,15 @@ from django.contrib import messages
 from django.contrib.auth import login as dj_login, logout as dj_logout, update_session_auth_hash
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
-from .models import UserBan, UserActivityLog, User, DevRequestsModel, BlacklistedUsername
+from .models import UserBan, UserActivityLog, User, DevRequestsModel, BlacklistedUsername, InviteToken
 from apps.marketplace.models import Application
-from .forms import UserRegistrationForm, AvatarUpdateForm, ProfileUpdateForm, PasswordChangeForm, DevStatusForm, PasswordConfirmationForm
+from .forms import UserRegistrationForm, AvatarUpdateForm, ProfileUpdateForm, PasswordChangeForm, DevStatusForm, PasswordConfirmationForm, InviteCodeForm
 import json
 from .middleware import get_client_ip, BlockBannedIP
 import re
 import django,sys,platform
 from django.utils.translation import gettext_lazy as _
+from .validators import validate_invite_limit
 
 
 def login(request):
@@ -52,7 +53,20 @@ def logout(request):
 
 
 def register(request):
-    print(request.META.get('REMOTE_ADDR'))
+    invite_obj = None
+    
+    if settings.INVITES_ON_REGISTER:
+        invite_code = request.session.get('allowed_invite_code')
+        
+        if not invite_code:
+            return redirect('invite_code') 
+        
+        try:
+            invite_obj = InviteToken.objects.get(code=invite_code)
+        except InviteToken.DoesNotExist:
+            del request.session['allowed_invite_code']
+            return redirect('invite_code')
+    
     if not settings.REGISTRATION_IS_ENABLED:
         if request.user.is_authenticated:
             return redirect('home')
@@ -78,8 +92,15 @@ def register(request):
             return redirect('502_error')
         form = UserRegistrationForm(request.POST, request=request)
         if form.is_valid():
-            user = form.save()
+            if settings.INVITES_ON_REGISTER and invite_obj:
+                if not validate_invite_limit(invite_obj.owner):
+                     return redirect('invite_code')
+            user = form.save(commit=False)
+            if invite_obj:
+                user.invited_by = invite_obj.owner
             user.save()
+            if settings.INVITES_ON_REGISTER:
+                request.session.pop('allowed_invite_code', None)
             user_group = Group.objects.get(name='Пользователи')
             user.groups.add(user_group)
             UserActivityLog.objects.create(
@@ -94,7 +115,7 @@ def register(request):
         if request.user.is_authenticated:
             return redirect('home')
         form = UserRegistrationForm(request=request)
-    return render(request, 'register_on.html', {"form": form})
+    return render(request, 'register_on.html', {"form": form, "invite_obj": invite_obj})
 
 
 def profile(request):
@@ -210,3 +231,26 @@ def debug_info(request):
         os_info = platform.platform()
         return render(request, 'debug_info.html', {'method':method,'user_ip':user_ip,'user_agent':user_agent,'django_version':django_version,'python_version':python_version,'os_info':os_info})
     return redirect('home')
+
+@login_required
+def invite_person(request):
+    invite,created = InviteToken.objects.get_or_create(owner=request.user)
+    invited_users_list = request.user.invited_users.all().order_by('-date_joined')
+    return render(request, 'invite.html', {'invite_code':invite.refresh_code_if_expired(),'invited_users': invited_users_list,})
+
+def invite_code(request):
+    if not settings.INVITES_ON_REGISTER:
+        return redirect('home')
+    if request.user.is_authenticated:
+        return redirect('home')
+    if request.method == 'POST':
+        form = InviteCodeForm(request.POST)
+        if form.is_valid():
+            request.session['allowed_invite_code'] = form.cleaned_data['code']
+            request.session.modified = True
+            request.session.save()
+            return redirect('register') 
+    else:
+        form = InviteCodeForm()
+
+    return render(request, 'invite_input.html', {'form': form})

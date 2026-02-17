@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import os
 
 # PLEASE, do not change this, if you don't understand what you do
-VERSION = '1.1.1'
+VERSION = '1.2.0'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -259,6 +259,10 @@ RETENTION_ACTIVITY_LOG_DAYS = 0
 
 # number of screenshots allowed per application
 SCREENSHOT_COUNT = 3
+
+INVITES_ON_REGISTER = True
+MAX_INVITE_USES_COUNT = 3
+MAX_INVITE_DAYS_LIMIT = 7
 
 LOGGING = {
     'version': 1,
