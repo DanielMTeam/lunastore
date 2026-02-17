@@ -20,8 +20,8 @@ COPY . /app
 
 FROM base AS web
 
-CMD python manage.py runserver 0.0.0.0:8088
-
 ENV DJANGO_SETTINGS_MODULE=lunastore.settings
 
-EXPOSE 8088
+EXPOSE 9088
+
+CMD ["gunicorn", "lunastore.wsgi:application", "--bind", "0.0.0.0:9088", "--workers", "3"]
