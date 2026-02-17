@@ -53,8 +53,6 @@ def logout(request):
 
 
 def register(request):
-    print(f"DEBUG: Settings value: {getattr(settings, 'INVITES_ON_REGISTER', 'NOT FOUND')}")
-    print(f"DEBUG: Session code: {request.session.get('allowed_invite_code')}")
     invite_obj = None
     
     if settings.INVITES_ON_REGISTER:
