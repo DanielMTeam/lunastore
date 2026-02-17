@@ -275,7 +275,15 @@ class PasswordConfirmationForm(forms.Form):
     
 
 class InviteCodeForm(forms.Form):
-    code = forms.CharField(label='Код приглашения', max_length=12)
+    code = forms.CharField(
+        label=_("Код"),
+        max_length=12,
+        widget=forms.TextInput(attrs={
+            'id': 'code',                
+            'placeholder': _('Введите код'),  
+            'name': 'code'                 
+        })
+    )
     
     def clean_code(self):
         code = self.cleaned_data['code']
@@ -291,3 +299,5 @@ class InviteCodeForm(forms.Form):
         
         if not is_limit_ok:
             raise ValidationError(_('FORM_INVITECODE_CODELIMITISNTOK_ERROR'))
+        
+        return code

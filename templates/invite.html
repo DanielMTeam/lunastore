@@ -1,46 +1,84 @@
 ﻿{% extends 'base.html' %}
 {% load i18n %}
 {% load static %}
+
 {% block content %}
 <title>{% trans "PAGE_INVITE_BROWSER_TITLE" %} - LunaStore</title>
 
-    <div class="content">
-      <link rel="stylesheet" href="{% static './css/settings.css'%}"> 
-      <div class="preferences">
-          <div class="preferences_info" id="{uid}">
+<div class="content">
+    <link rel="stylesheet" href="{% static './css/settings.css'%}"> 
+    
+    <div class="preferences">
+        <div class="preferences_info" id="{uid}">
             <div class="preferences_title">{% trans "PAGE_INVITE_MAIN_TITLE" %}</div>
             <div style="clear: both"></div>
-          </div>
-      </div>
+        </div>
+    </div>
 
-      <div class="section">
+    <div class="section">
         <div class="invite_block">{% trans "PAGE_INVITE_DESCRIPTION" %}</div>
-        <div class="splash"><div class="info_splash"><div class="info_icon_small"></div><div class="splash_text">{% trans "PAGE_INVITE_LIMIT_INFO" %}</div></div></div>
- 
-        
-        <div class="invite_block">
-          {% trans "PAGE_INVITE_COPY_CODE" %}
-          <br>
-          <div class="pre_invite_code_padding">
-            <div class="invite_code">{{ invite_code }}
+        <div class="splash">
+            <div class="info_splash">
+                <div class="info_icon_small"></div>
+                <div class="splash_text">{% trans "PAGE_INVITE_LIMIT_INFO" %}</div>
             </div>
-          </div>
-          {% trans "PAGE_INVITE_HOW_TO_SEND" %}
+        </div>
+
+        <div class="invite_block">
+            {% trans "PAGE_INVITE_COPY_CODE" %}
+            <br>
+            <div class="pre_invite_code_padding">
+                <div class="invite_code">{{ invite_code }}</div>
+            </div>
+            {% trans "PAGE_INVITE_HOW_TO_SEND" %}
         </div>
         <br>
-        <div class="splash"><div class="alert_splash"><div class="warning_icon_small"></div><div class="splash_text">{% trans "PAGE_INVITE_CODE_ROTATION_WARN" %}</div></div></div>
-        <br>
         
+        <div class="splash">
+            <div class="alert_splash">
+                <div class="warning_icon_small"></div>
+                <div class="splash_text">{% trans "PAGE_INVITE_CODE_ROTATION_WARN" %}</div>
+            </div>
+        </div>
+        <br>
 
         <h2>{% trans "PAGE_INVITE_LIST_HEADER" %}</h2>
         <div class="separator_store"></div>
-        <div class="invite_block">
-          <div class="search_error">
-            <span>{% trans "PAGE_INVITE_LIST_EMPTY" %}</span>
-          </div>
-        </div>
 
-      </div>
+        {% if invited_users %}
+            <div style="overflow: hidden;"> {% for user in invited_users %}
+                <div class="card listview">
+                    <img src="{% static 'img/logo.png' %}" alt="Avatar">
+                    
+                    {% if user.is_staff %}
+                        <div class="badge demo">{% trans "PAGE_INVITE_ADMINSTATUS" %}</div>
+                    {% else %}
+                        <div class="badge free">{% trans "PAGE_INVITE_USERSTATUS" %}</div>
+                    {% endif %}
 
-  </div> </div>
+                    <h3>
+                        <a href="/profile.php?id={{ user.id }}" style="text-decoration: none; color: inherit;">
+                            {{ user.username }}
+                        </a>
+                    </h3>
+
+                    <p>{% trans "PAGE_INVITE_REGDATE" %}: {{ user.date_joined|date:"d.m.Y H:i" }}</p>
+
+                </div>
+                {% endfor %}
+            </div>
+            
+            <div style="clear: both;"></div>
+
+        {% else %}
+            <div class="invite_block">
+                <div class="search_error">
+                    <span>{% trans "PAGE_INVITE_LIST_EMPTY" %}</span>
+                </div>
+            </div>
+        {% endif %}
+
+    </div>
+</div>
+</div>
 {% endblock %}
