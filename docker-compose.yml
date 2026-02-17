@@ -1,10 +1,7 @@
 services:
   admin:
-    build:
-      context: .
-      target: base 
+    image: git.myslivets.com/myslivets/project-luna/lunastore
     container_name: lunaStoreAdmin
-    command: python manage.py runserver 0.0.0.0:8088
     volumes:
       - ./:/app
     working_dir: /app
@@ -12,6 +9,7 @@ services:
       - .env
     ports:
       - "8088:8088"
+    command: gunicorn lunastore.wsgi:application --bind 0.0.0.0:8088
     environment:
       DJANGO_ROOT_URLCONF: lunastore.urls_private
       DJANGO_SETTINGS_MODULE: lunastore.settings
@@ -21,9 +19,7 @@ services:
     restart: on-failure
 
   web:
-    build:
-      context: .
-      target: web
+    image: git.myslivets.com/myslivets/project-luna/lunastore
     container_name: lunaStore
     environment:
       PYTHONPATH: /app
@@ -34,7 +30,6 @@ services:
       - "9088:9088"
     env_file:
       - .env
-    command: python manage.py runserver 0.0.0.0:9088
     restart: unless-stopped
     networks:
       - storenetwork
@@ -42,9 +37,7 @@ services:
       - .:/app
 
   api:
-    build:
-      context: .
-      target: base
+    image: git.myslivets.com/myslivets/project-luna/lunastore/
     container_name: lunaStoreAPI
     environment:
       PYTHONPATH: /app
@@ -61,24 +54,6 @@ services:
       - storenetwork
     volumes:
       - .:/app    
-
-# task_worker:
-#    build:
-#      context: .
-#      target: base 
-#    container_name: lunaStoreWorker
-#    command: python manage.py db_worker
-#    volumes:
-#      - ./:/app
-#    working_dir: /app
-#    env_file:
-#      - .env
-#    environment:
-#      DJANGO_SETTINGS_MODULE: lunastore.settings
-#      PYTHONPATH: /app
-#    networks:
-#      - storenetwork
-#    restart: on-failure
 
 networks:
   storenetwork:
