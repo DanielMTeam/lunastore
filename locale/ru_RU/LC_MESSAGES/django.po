@@ -1561,11 +1561,9 @@ msgstr "Ввод пригласительного кода"
 msgid "PAGE_INVITE_INPUT_HEADER"
 msgstr "Ввод кода приглашения"
 
-# Первая часть текста с жирным выделением
 msgid "PAGE_INVITE_INPUT_DESC_1"
 msgstr "Вы можете ввести код приглашения, который Вы получили от уже <b>зарегистрированного участника</b>"
 
-# Вторая часть текста с жирным выделением
 msgid "PAGE_INVITE_INPUT_DESC_2"
 msgstr "Таким образом, Вы получаете уникальную возможность создать аккаунт <b>в обход закрытой публичной регистрации</b>"
 
@@ -1583,3 +1581,9 @@ msgstr "Модератор"
 
 msgid "PAGE_INVITE_USERSTATUS"
 msgstr "Пользователь"
+
+msgid "FORM_INVITECODE_TITLE"
+msgstr "Код"
+
+msgid "FORM_INVITECODE_ENTER"
+msgstr "Введите код"

@@ -276,11 +276,11 @@ class PasswordConfirmationForm(forms.Form):
 
 class InviteCodeForm(forms.Form):
     code = forms.CharField(
-        label=_("Код"),
+        label=_("FORM_INVITECODE_TITLE"),
         max_length=12,
         widget=forms.TextInput(attrs={
             'id': 'code',                
-            'placeholder': _('Введите код'),  
+            'placeholder': _('FORM_INVITECODE_ENTER'),  
             'name': 'code'                 
         })
     )
