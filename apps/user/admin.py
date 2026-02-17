@@ -1,6 +1,6 @@
 from unfold import admin as unfold_admin
 from django.contrib import admin
-from .models import User, UserBan, UserActivityLog, DevRequestsModel, BlacklistedUsername
+from .models import User, UserBan, UserActivityLog, DevRequestsModel, BlacklistedUsername, InviteToken
 from .forms import UserBanForm, AddToGroupForm
 from django.contrib.auth.models import Group
 from django.shortcuts import redirect
@@ -14,14 +14,14 @@ class UserAdmin(unfold_admin.ModelAdmin):
     fieldsets = (
         ('Основная информация', {
             'fields': ('username', 'email', 'description',
-                       'password', 'avatar', 'is_staff', 'is_superuser', 'is_active'),
+                       'password', 'avatar', 'is_staff', 'is_superuser', 'is_active', 'invited_by'),
             'description': 'флаг is_staff является так называемым "пропуском" в админ-панель Django. флаг is_superuser дает все права без исключения. подумай дважды, прежде чем ставить эти флаги! (да блять, я серьезно)'
         }),
         ('Дополнительная информация', {
             'fields': ('telegram', 'discord', 'website')
         })
     )
-    list_display = ['pk', 'username', 'email', 'avatar']
+    list_display = ['pk', 'username', 'email', 'avatar','invited_by']
     search_fields = ['username', 'email', 'pk']
 
 
@@ -139,3 +139,8 @@ class BlacklistedUsernameAdmin(unfold_admin.ModelAdmin):
     list_display = ('word', 'is_regex')
     search_fields = ['word']
     list_filter = ('is_regex', )
+    
+@admin.register(InviteToken)
+class InviteTokenAdmin(unfold_admin.ModelAdmin):
+    list_display = ('owner','code','created_at')
+    list_filter = ('created_at',)

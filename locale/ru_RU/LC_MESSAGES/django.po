@@ -1545,3 +1545,41 @@ msgstr "Количество скачиваний"
 
 #~ msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
 #~ msgstr "Демо, далее $%(price)s"
+
+msgid "PAGE_REGISTER_HAVE_INVITE_TITLE"
+msgstr "У Вас есть приглашение?"
+
+msgid "PAGE_REGISTER_HAVE_INVITE_TEXT"
+msgstr "Есть код приглашения? Нажмите"
+
+msgid "PAGE_REGISTER_CLICK_HERE"
+msgstr "сюда"
+
+msgid "PAGE_INVITE_INPUT_TITLE"
+msgstr "Ввод пригласительного кода"
+
+msgid "PAGE_INVITE_INPUT_HEADER"
+msgstr "Ввод кода приглашения"
+
+# Первая часть текста с жирным выделением
+msgid "PAGE_INVITE_INPUT_DESC_1"
+msgstr "Вы можете ввести код приглашения, который Вы получили от уже <b>зарегистрированного участника</b>"
+
+# Вторая часть текста с жирным выделением
+msgid "PAGE_INVITE_INPUT_DESC_2"
+msgstr "Таким образом, Вы получаете уникальную возможность создать аккаунт <b>в обход закрытой публичной регистрации</b>"
+
+msgid "PAGE_INVITE_INPUT_LABEL"
+msgstr "Код"
+
+msgid "PAGE_INVITE_INPUT_BTN"
+msgstr "Начать регистрацию"
+
+msgid "PAGE_INVITE_REGDATE"
+msgstr "Регистрация"
+
+msgid "PAGE_INVITE_ADMINSTATUS"
+msgstr "Модератор"
+
+msgid "PAGE_INVITE_USERSTATUS"
+msgstr "Пользователь"
