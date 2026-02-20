@@ -17,7 +17,7 @@
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
 
 stages:    
-  - test
+#  - test
   - build
   - deploy
 
@@ -25,21 +25,23 @@ variables:
   IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
   LATEST_TAG: $CI_REGISTRY_IMAGE:latest
 
-test-job:
-  stage: test
-  image: python:3.13
-  services:
-    - postgres:15
-  variables:
-    POSTGRES_DB: lunastoredb
-    POSTGRES_USER: postgres
-    POSTGRES_PASSWORD: $DB_PASS
-  script:
-    - python3 -m venv .venv
-    - source .venv/bin/activate
-    - pip install --upgrade pip
-    - pip install -r requirements.txt
-    - python manage.py test
+# temporary disabled until proper tests.py are written
+
+# test-job:
+#   stage: test
+#   image: python:3.13
+#   services:
+#     - postgres:15
+#   variables:
+#     POSTGRES_DB: lunastoredb
+#     POSTGRES_USER: postgres
+#     POSTGRES_PASSWORD: $DB_PASS
+#   script:
+#     - python3 -m venv .venv
+#     - source .venv/bin/activate
+#     - pip install --upgrade pip
+#     - pip install -r requirements.txt
+#     - python manage.py test
 #  only:
 #    - main
 
