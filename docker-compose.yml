@@ -2,7 +2,7 @@ services:
   admin:
     image: git.myslivets.com/myslivets/project-luna/lunastore:latest
     container_name: lunastore_admin
-    command: gunicorn lunastore.wsgi:application --bind 0.0.0.0:8001 --workers 3
+    command: gunicorn lunastore.wsgi:application --bind 0.0.0.0:8088 --workers 3
     environment:
       DJANGO_ROOT_URLCONF: lunastore.urls_private
     expose:
@@ -14,7 +14,6 @@ services:
   web:
     image: git.myslivets.com/myslivets/project-luna/lunastore:latest
     container_name: lunastore_web
-    command: gunicorn lunastore.wsgi:application --bind 0.0.0.0:8000 --workers 3
     env_file:
       - .env
     expose:
@@ -26,7 +25,6 @@ services:
   api:
     image: git.myslivets.com/myslivets/project-luna/lunastore:latest
     container_name: lunastore_api
-    command: gunicorn lunastore.wsgi:application --bind 0.0.0.0:8002 --workers 3
     environment:
       DJANGO_ROOT_URLCONF: lunastore.urls_api
     expose:
@@ -37,7 +35,7 @@ services:
     networks:
       - storenetwork 
 
-    nginx:
+  nginx:
     image: nginx:alpine
     container_name: lunastore_nginx
     ports:
