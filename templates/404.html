@@ -1,13 +1,16 @@
 ﻿{% extends 'base.html' %}
+{% load i18n %}
 {% block content %}
 <div class="headerline"></div>
 <div class="main">
 <div class="error_icon"></div>
   <div class="content" style="width:620px!important;">
     <div class="section">
-      <h2>Произошла ошибка</h2>
-      Запрашиваемый элемент или ссылка, которую вы хотите посетить, не найдены на нашем сайте.<br>Мы изо всех сил пытались найти, правда.<br><br>Если это было доступно раньше, то, вероятно, страница была перемещена либо удалена автором или администрацией. Попробуйте повторить попытку позже. Спасибо за понимание.<br><br>
-      <div class="action"><a href="/">Вернуться на главную</a></div>
+      <h2>{% trans "404_TITLE" %}</h2>
+      {% trans "404_ELEMENT_NOT_FOUND" %}<br>
+      {% trans "404_ELEMENT_NOT_FOUND_2" %}<br>
+      <br>{% trans "404_ELEMENT_NOT_FOUND_3" %}<br><br>
+      <div class="action"><a href="/">{% trans "404_GO_TO_HOME" %}</a></div>
     </div>
   </div>
 </div>

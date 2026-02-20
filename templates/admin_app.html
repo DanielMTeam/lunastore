@@ -1,12 +1,13 @@
 ﻿{% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 
 {% block content %}
-<title>Редактирование приложения - LunaStore</title>
+<title>{% trans "PAGE_ADMIN_APP_PAGETITLE" %} - LunaStore</title>
 <div class="content">
   <div class="preferences">
       <div class="preferences_info" id="{uid}">
-        <div class="preferences_title">Редактирование приложения</div>
+        <div class="preferences_title">{% trans "PAGE_ADMIN_APP_PAGETITLE" %}</div>
         <div style="clear: both"></div>
       </div>
   </div>
@@ -18,71 +19,71 @@
   <div class="tab-bar">
     <div class="tab active" href="/edit_app_info.php">
       <img src="{% static './img/tabs/main.png'%}" class="tab-icon" alt="">
-      Инфо
+      {% trans "PAGE_ADMIN_APP_FIRST_BLOCK" %}
     </div>
   </div>
 
   <div class="tab-content" id="tab-view">
-    <div class="profile_block">Основная информация</div>
+    <div class="profile_block">{% trans "PAGE_ADMIN_APP_PROFILE_BLOCK" %}</div>
     <div class="profile_block_content">
       <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="pref_pad">
-                <div class="pref_item_title">Название приложения:</div>
+                <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_TITLE" %}</div>
                 {{ form.title }}
                 {% if form.title.errors %}
                     <div style="color: red; font-size: 12px;">{{ form.title.errors }}</div>
                 {% endif %}
-                <div class="pref_warn_label">Отличное и запоминающиеся название даст приложению бонус к узнаваемости среди пользователей</div>
+                <div class="pref_warn_label">{% trans "PAGE_ADMIN_APP_TITLEDESC" %}</div>
         </div>
 
         <div class="pref_pad">
-                <div class="pref_item_title">ID приложения:</div>
+                <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_ID" %}</div>
                 <div style="display: flex; align-items: center;">
                     <span style="margin-right: 5px;">store.myslivets.com/app.php?id=</span>
                     <input style="width: 100px" type="text" class="input-text" value="{{ obj.pk }}" disabled>
                 </div>
-                <div class="pref_warn_label">Эту информацию изменить нельзя</div>
+                <div class="pref_warn_label">{% trans "PAGE_ADMIN_APP_IDDESC" %}</div>
         </div>
 
         <div class="pref_pad">
-                <div class="pref_item_title">Слоган (140 символов):</div>
+                <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_SLOGAN" %}</div>
                 {{ form.slogan }}
-                <div class="pref_warn_label">Слоган будет отображаться на самой странице приложения, на главной и в поиске<br>Краткость - сестра таланта :)</div>
+                <div class="pref_warn_label">{% trans "PAGE_ADMIN_APP_SLOGANDESC" %}<br>{% trans "PAGE_ADMIN_APP_SLOGANDESC_2" %}</div>
         </div>
 
         <div class="pref_pad">
-                <div class="pref_item_title">Описание (1000 символов):</div>
+                <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_DESC" %}</div>
                 {{ form.description }}
-                <div class="pref_warn_label">Описание будет показываться на странице приложения в блоке "Дополнительная информация"</div>  
+                <div class="pref_warn_label">{% trans "PAGE_ADMIN_APP_DESCDESC" %}</div>  
         </div>
 
         <div class="pref_pad appcat">
-            <div class="pref_item_title">Категория:</div>
+            <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_CATEGORY" %}</div>
             {{ form.category }}
-            <div class="pref_warn_label">Это очень важно для правильного поиска...</div>
+            <div class="pref_warn_label">{% trans "PAGE_ADMIN_APP_CATEGORYDESC" %}</div>
         </div>
 
         <div class="pref_pad">
-                <div class="pref_item_title">Официальный сайт разработчика:</div>
+                <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_DEVSITE" %}</div>
                 {{ form.developer_site }}
         </div>
 
     </div>
     <br>
-    <div class="profile_block">Значок приложения</div>
+    <div class="profile_block">{% trans "PAGE_ADMIN_APP_ICON" %}</div>
         <div class="profile_block_content">
             <div class="info_splash editapp_splash">
-                Рекомендуемый размер аватара: 64x64.<br>
-                Допустимые форматы: .PNG, .JPG<br>
-                Максимальный размер: 2 Мб
+                {% trans "PAGE_ADMIN_APP_ICON_REQ1" %}<br>
+                {% trans "PAGE_ADMIN_APP_ICON_REQ2" %}<br>
+                {% trans "PAGE_ADMIN_APP_ICON_REQ3" %}
             </div>
             
             <div class="editapp_icon_view">
                 {% if obj.icon %}
                     <img src="{{ obj.icon.url }}" alt="App Icon" style="width: 64px; height: 64px;">
                 {% else %}
-                    <div style="width: 64px; height: 64px;">Нет иконки</div>
+                    <div style="width: 64px; height: 64px;">{% trans "PAGE_ADMIN_APP_NOICON" %}</div>
                 {% endif %}
             </div>
 
@@ -90,12 +91,12 @@
                 {{ form.icon }}
             </div>
     </div>
-    <div class="profile_block">Скриншоты</div>
+    <div class="profile_block">{% trans "PAGE_ADMIN_APP_SCRNS_TITLE" %}</div>
     <div class="profile_block_content">
         
         {% if obj.screenshots %}
         <div class="pref_pad">
-            <div class="pref_item_title">Текущие скриншоты:</div>
+            <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_CURRENTSCRN" %}</div>
             <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
                 {% for screen in obj.screenshots %}
                     <div style="border: 1px solid #ccc; padding: 2px;">
@@ -103,12 +104,12 @@
                     </div>
                 {% endfor %}
             </div>
-            <div class="pref_warn_label" style="color: #d9534f;">Внимание: Загрузка новых файлов удалит все текущие скриншоты!</div>
+            <div class="pref_warn_label" style="color: #d9534f;">{% trans "PAGE_ADMIN_APP_WARN_SCRN" %}</div>
         </div>
         {% endif %}
 
         <div class="pref_pad">
-            <div class="pref_item_title">Загрузить новые (макс 3 шт.):</div>
+            <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_LOAD_SCRN" %}</div>
             {{ form.upload_screenshots }}
             
             <div id="error-scr-box" class="error-box"></div>
@@ -138,13 +139,13 @@
         const imgPreview = document.getElementById('prev_icon');
 
         if (!validateFileExtension(file)) {
-            alert("Ошибка: Недопустимый формат файла! \nРазрешены только: .JPG, .JPEG, .PNG");
+            alert('{% trans "ERROR_INVALID_FILE_FORMAT" %} \n{% trans "INFO_ACCEPTED_ICON_FORMATS" %}');
             input.value = ""; 
             return;
         }
 
         if (file.size > 2 * 1024 * 1024) {
-            alert("Ошибка: Размер файла превышает 2 Мб!");
+            alert('{% trans "ERROR_INVALID_SIZE_ICON" %}');
             input.value = "";
             return;
         }
@@ -170,10 +171,10 @@
         if (input.files && input.files.length > 0) {
             if (input.files.length > 3) {
                 if (errorBox) {
-                    errorBox.innerText = "Ошибка: Выбрано " + input.files.length + " файлов. Максимум 3.";
+                    errorBox.innerText = '{% trans "ERROR_PREVIEWSCRNS_1_COUNT" %}' + input.files.length + '{% trans "ERROR_PREVIEWSCRNS_2_COUNT" %}';
                     errorBox.style.display = 'block';
                 } else {
-                    alert("Максимум 3 файла!");
+                    alert('{% trans "ERROR_PREVIEWSCRNS_3_COUNT" %}');
                 }
                 input.value = ""; 
                 return;
@@ -184,7 +185,7 @@
             for (let i = 0; i < count; i++) {
                 const file = input.files[i];
                 if (!validateFileExtension(file)) {
-                    let msg = "Ошибка: Файл \"" + file.name + "\" имеет недопустимый формат.";
+                    let msg = '{% trans "ERROR_PREVIEWSCRNS_1_INVALIDFORMAT" %} ' + file.name + '{% trans "ERROR_PREVIEWSCRNS_2_INVALIDFORMAT" %}';
                     if (errorBox) {
                         errorBox.innerText = msg;
                         errorBox.style.display = 'block';
@@ -196,7 +197,7 @@
                 }
                 
                 if (file.size > 2 * 1024 * 1024) {
-                    let msg = "Ошибка: Файл \"" + file.name + "\" слишком большой (макс 2 Мб).";
+                    let msg = '{% trans "ERROR_PREVIEWSCRNS_1_BIGSIZE" %}' + file.name + '{% trans "ERROR_PREVIEWSCRNS_2_BIGSIZE" %}';
                     if (errorBox) {
                         errorBox.innerText = msg;
                         errorBox.style.display = 'block';
@@ -208,7 +209,7 @@
                 }
             }
             
-            if (info) info.innerText = "Файлы прошли проверку: " + count + " шт. Готовы к загрузке.";
+            if (info) info.innerText = '{% trans "SCRIPT_PREVIEWSCRNS_ARE_COOL_1" %}' + count + '{% trans "SCRIPT_PREVIEWSCRNS_ARE_COOL_2" %}';
         }
     }
 </script>

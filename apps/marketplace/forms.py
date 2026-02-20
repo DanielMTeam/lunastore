@@ -7,6 +7,7 @@ from captcha.fields import CaptchaField
 from django.forms.models import model_to_dict
 import os
 import uuid
+from django.utils.translation import gettext_lazy as _
 
 class MultipleFileInput(forms.ClearableFileInput):
     allow_multiple_selected = True
@@ -129,7 +130,7 @@ class AppCreateForm(forms.ModelForm):
             'accept': 'image/png, image/jpeg',
             'onchange': 'previewScreenshots(this)' # for js
         }),
-        label="Скриншоты",
+        label=_("FORM_SCREENSHOTS"),
         required=False,
         validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])]
     )
@@ -147,10 +148,10 @@ class AppCreateForm(forms.ModelForm):
     agree_with_site_rules = forms.BooleanField(
         required=True,
         widget=forms.CheckboxInput(attrs={'id':'inp_agree'}),
-        label='Я согласен с правилами сайта'
+        label=_('FORM_AGREE_RULES')
     )
     
-    captcha = CaptchaField(label='Введите символы с картинки')
+    captcha = CaptchaField(label=_('FORM_CAPTCHA'))
     
     class Meta:
         model = AppCreateRequests
@@ -164,7 +165,7 @@ class AppCreateForm(forms.ModelForm):
             'title': forms.TextInput(attrs={
                 'id': 'inp_name', # for js  
                 'class': 'input-text',
-                'placeholder': 'Например: Total Commander'
+                'placeholder': _('FORM_APPCREATE_TITLE_EXAMPLE')
             }),
             'slogan': forms.Textarea(attrs={
                 'id': 'inp_slogan', # for js
@@ -195,7 +196,7 @@ class AppCreateForm(forms.ModelForm):
         files = self.files.getlist('upload_screenshots')
         limit = getattr(settings, 'SCREENSHOT_COUNT', 3)
         if len(files) > limit:
-            raise forms.ValidationError(f"Максимум {limit} скриншота.")
+            raise forms.ValidationError(_("FORM_APPCREATE_MAXIMUM_SCREENSHOTS"))
         return files
 
     def save(self, commit=True):
@@ -210,7 +211,7 @@ class AppCreateForm(forms.ModelForm):
                         if os.path.isfile(full_old_path):
                             os.remove(full_old_path)
                     except OSError as e:
-                        print(f"Ошибка при удалении файла {full_old_path}: {e}")
+                        print(f"Error while delete {full_old_path}: {e}")
             destination_dir = os.path.join(settings.MEDIA_ROOT, 'ugc', 'screenshots')
             os.makedirs(destination_dir, exist_ok=True)
             

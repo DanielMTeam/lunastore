@@ -37,6 +37,11 @@ class ApplicationAdmin(unfold_admin.ModelAdmin):
         }),
     )
     
+    def save_model(self, request, obj, form, change):
+        if not obj.user_id:
+            obj.user = request.user
+        super().save_model(request, obj, form, change)
+    
     def get_form(self, request, obj=None, **kwargs):
         kwargs['fields'] = None
         return super().get_form(request, obj, **kwargs)
