@@ -31,9 +31,9 @@ test-job:
   services:
     - postgres:15
   variables:
-    POSTGRES_DB: test_db
-    POSTGRES_USER: test_user
-    POSTGRES_PASSWORD: test_pass
+    POSTGRES_DB: lunastoredb
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: $DB_PASS
   script:
     - pip install -r requirements.txt
     - python manage.py test
