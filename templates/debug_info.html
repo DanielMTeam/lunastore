@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+<title>Debug - LunaStore</title>
+<div class="content">
+    <h2>{% trans "PAGE_DEBUG_TITLE" %}</h2>
+    <div class="info_splash">{% trans "PAGE_DEBUG_DESC" %}</div>
+    <h3>{% trans "PAGE_DEBUG_MAININFO_TITLE" %}</h3>
+    
+    <h>Method: {{ method }}</h>
+    <br>
+    <h>User-IP: {{ user_ip }}</h>
+    <br>
+    <h>User-Agent: {{ user_agent }}</h>
+    <br>
+    <h>Django Version: {{ django_version }}</h>
+    <br>
+    <h>Python Version: {{ python_version }}</h>
+    <br>
+    <h>Server Info: {{ os_info }}</h>
+</div>
+</div>
+{% endblock %}

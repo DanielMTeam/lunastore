@@ -1,21 +1,23 @@
 ﻿{% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block content %}
 <div class="content">
   <div class="section">
-    <h2>Регистрация</h2>
+    <h2>{% trans "PAGE_REGISTER_TITLE" %}</h2>
     <div class="separator_store"></div>
     <link rel="stylesheet" href="{% static './css/register.css'%}">
     <div class="regform">
-    <div class="info_splash">Создав аккаунт, вы сможете выкладывать свои приложения, оставлять отзывы к уже загруженным программам и вести собственную библиотеку избранных элементов. Регистрация открытая и бесплатная.</div>
+    <div class="info_splash">{% trans "PAGE_REGISTER_INFO_SPLASH" %}</div>
       <div class="register_card">
-      <h2>Основная информация</h2>
+      <h2>{% trans "PAGE_REGISTER_SECTION_MAIN" %}</h2>
     <form method="post" action="{% url 'register' %}">
         {% csrf_token %}
         {{form.non_field_errors}}
+        
         <label>
-            <div class="reg_pad"><div class="reg_title">Имя пользователя:</div>
+            <div class="reg_pad"><div class="reg_title">{% trans "PAGE_REGISTER_LABEL_USERNAME" %}</div>
             {% if form.username.errors %}
                 <div class="error_splash" style="margin-bottom: 5px;"> 
                     {% for error in form.username.errors %}
@@ -23,11 +25,12 @@
                     {% endfor %}
                 </div>
             {% endif %}{{form.username}}
-            <div class="regform_label">Минимум 2 символа. По имени пользователя вас можно будет найти. После регистрации изменить его не получится.</div>
+            <div class="regform_label">{% trans "PAGE_REGISTER_HELP_USERNAME" %}</div>
           </div>
         </label>
+
         <label>
-            <div class="reg_pad"><div class="reg_title">E-mail:</div>
+            <div class="reg_pad"><div class="reg_title">{% trans "PAGE_REGISTER_LABEL_EMAIL" %}</div>
             {% if form.email.errors %}
                 <div class="error_splash" style="margin-bottom: 5px;"> 
                     {% for error in form.email.errors %}
@@ -35,17 +38,19 @@
                     {% endfor %}
                 </div>
             {% endif %}{{form.email}}
-            <div class="regform_label">Будет использоваться для входа в аккаунт и для восстановления пароля</div>
+            <div class="regform_label">{% trans "PAGE_REGISTER_HELP_EMAIL" %}</div>
             </div>
         </label>
+
         <label>
-            <div class="reg_pad"><div class="reg_title">Пароль:</div>
+            <div class="reg_pad"><div class="reg_title">{% trans "PAGE_REGISTER_LABEL_PASS1" %}</div>
             {{form.password1.errors}}{{form.password1}}
-            <div class="regform_label">Придумывайте надёжные пароли. Это важно, чорт побери!</div>
+            <div class="regform_label">{% trans "PAGE_REGISTER_HELP_PASS1" %}</div>
             </div>
         </label>
+
         <label>
-            <div class="reg_pad"><div class="reg_title">Повторите пароль:</div>
+            <div class="reg_pad"><div class="reg_title">{% trans "PAGE_REGISTER_LABEL_PASS2" %}</div>
             {% if form.password2.errors %}
                 <div class="error_splash" style="margin-bottom: 5px;"> 
                     {% for error in form.password2.errors %}
@@ -53,18 +58,17 @@
                     {% endfor %}
                 </div>
             {% endif %} {{form.password2}}
-            <div class="regform_label">Повторение - мать учения :D</div>
+            <div class="regform_label">{% trans "PAGE_REGISTER_HELP_PASS2" %}</div>
             </div>
         </label>
 
-
  <label>
 
-            <h2>Подтверждение регистрации</h2>
+            <h2>{% trans "PAGE_REGISTER_SECTION_CONFIRM" %}</h2>
 
             <div class="alert_splash"> 
 
-                Введите символы с картинки:<br><br>
+                {% trans "PAGE_REGISTER_CAPTCHA_INSTRUCTION" %}<br><br>
 
                 {% if form.captcha.errors %}
                     <div class="error_splash" style="margin-bottom: 5px;"> 
@@ -80,7 +84,6 @@
 
             </div>
 
-            
             
             <label class="agree" for="{{ form.agree_with_site_rules.id_for_label }}">
               {{form.agree_with_site_rules.errors}}
@@ -98,7 +101,7 @@
            
 
             <br>
-            <input type="submit" class="action_button" value="Зарегистрироваться">
+            <input type="submit" class="action_button" value="{% trans 'PAGE_REGISTER_BTN_SUBMIT' %}">
 
         </form>
 

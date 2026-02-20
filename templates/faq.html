@@ -1,9 +1,15 @@
 ﻿{% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 {% block content %}
-<title>Справка - LunaStore</title>
+<title>{% trans "PAGE_FAQ_TITLE" %} - LunaStore</title>
 <div class="content">
-  <div class="banner_image"><div id="help_center"><div class="banner_text">Справочный центр</div><div class="banner_text_mini">У Вас появились вопросы? На этой странице собрана вся информация, касаемо данного LunaStore</div></div></div>
+  <div class="banner_image">
+    <div id="help_center">
+      <div class="banner_text">{% trans "PAGE_FAQ_TITLE_2" %}</div>
+      <div class="banner_text_mini">{% trans "PAGE_FAQ_DESC" %}</div>
+    </div>
+  </div>
     <link rel="stylesheet" href="{% static './css/tabs.css'%}">
     <div class="tabs">
 <div class="tab-bar">
@@ -13,48 +19,84 @@
   </div>
   <div class="tab" href="/help.php?page=privacy">
     <img src="{% static './img/tabs/privacy.png'%}" class="tab-icon" alt="">
-    Конфиденциальность
+    {% trans "PAGE_FAQ_PRIVACYTAB" %}
   </div>
 </div>
 <div class="tab-content" id="tab-view">
   <img src="{% static './img/splash/main_logo.png'%}" style="width: 430px;">
   <hr>
+  
   <div class="faq_card">
-          <div id="faq_title">Куда я попал и что это?</div>
-          <div id="faq_content"><p><b>LunaStore</b> - своего рода альтернативный "магазин" приложений и игр. На данный момент целимся на эпоху Windows XP.</p></div>
-        </div>
-  <div class="faq_card">
-          <div id="faq_title">Почему "магазин" написано в кавычках?</div>
-          <div id="faq_content"><p>Мы являемся <b>фанатским сайтом</b> и не думаем, что такое прям вырастет до огромного магазина. Хотя кто знает. Однако реклама в левом меню абсолютно несерьёзная, а сам проект как общее хобби.</p></div>
+      <div id="faq_title">{% trans "PAGE_FAQ_CARD_WHATISIT" %}</div>
+      <div id="faq_content"><p><b>LunaStore</b> - {% trans "PAGE_FAQ_CARD_WHATISITDESC" %}</p></div>
   </div>
+
   <div class="faq_card">
-          <div id="faq_title">Всмысле "общее хобби"?</div>
-          <div id="faq_content"><p>Не поверишь. Над этим проектом трудилось множество неравнодушных людей с одинаковой идеей. <br><br>Самое время перечислить их: <br><b>Daniel Myslivets</b> - автор идеи, дизайн, <span title="КОСТЫЛИ ВЕЛОСИПЕДЫ ЙОООУ">вёрстка интерфейса (frontend)</span><br><b>synzr</b> - backend разработка, консультации и вдохновение<br><b>eversiege</b> - закадровая работа, CDN, внутренний Git<br><b>flydelick</b> - разработчик<br><b>fayzetwin</b> - основной backend разработчик, API<br><b>MondySpartan</b> - логотип<br><br>Также благодарим других разработчиков:<br><b>nocha3</b> - нативный клиент для Windows XP<br><b>chelka0</b> - оформление сайта за кадром<br><br>И о тестировщиках не забываем:<br><b>[ники тестировщиков через запятую]</b></p></div>
+      <div id="faq_title">{% trans "PAGE_FAQ_CARD_WHYWESHOP" %}</div>
+      <div id="faq_content"><p>{% trans "PAGE_FAQ_CARD_WHYWESHOPDESC" %}</p></div>
   </div>
+
   <div class="faq_card">
-          <div id="faq_title">Как здесь создать аккаунт?</div>
-          <div id="faq_content"><p>В верхней шапке сайта нажмите кнопку "регистрация"</p></div>
+      <div id="faq_title">{% trans "PAGE_FAQ_CARD_TEAM" %}</div>
+      <div id="faq_content">
+        <p>
+            {% trans "PAGE_FAQ_CARD_TEAMDESC_1" %} <br><br>
+            {% trans "PAGE_FAQ_CARD_TEAMDESC_2" %} <br>
+            
+            <b>Daniel Myslivets</b> {% trans "PAGE_FAQ_CARD_TEAM_AUTHOR" %} 
+            <span title="{% trans 'PAGE_FAQ_TOOLTIP_EASTEREGG' %}">{% trans "PAGE_FAQ_CARD_TEAM_FRONTEND" %}</span><br>
+            
+            <b>synzr</b> {% trans "PAGE_FAQ_CARD_TEAM_BACKEND" %}<br>
+            <b>eversiege</b> {% trans "PAGE_FAQ_CARD_TEAM_CDNANDGIT" %}<br>
+            <b>flydelick</b> {% trans "PAGE_FAQ_CARD_TEAM_DEV" %}<br>
+            
+            <b>fayzetwin</b> - {% trans "PAGE_FAQ_TEAM_ROLE_FAYZETWIN" %}<br>
+            <b>MondySpartan</b> - {% trans "PAGE_FAQ_TEAM_ROLE_MONDY" %}<br><br>
+
+            {% trans "PAGE_FAQ_TEAM_HEADER_OTHER" %}<br>
+            <b>nocha3</b> - {% trans "PAGE_FAQ_TEAM_ROLE_NOCHA3" %}<br>
+            <b>chelka0</b> - {% trans "PAGE_FAQ_TEAM_ROLE_CHELKA0" %}<br><br>
+
+            {% trans "PAGE_FAQ_TEAM_HEADER_TESTERS" %}<br>
+            <b>{% trans "PAGE_FAQ_TEAM_TESTERS_LIST" %}</b>
+        </p>
+      </div>
   </div>
+
   <div class="faq_card">
-          <div id="faq_title">А что вообще даёт наличие аккаунта на LunaStore?</div>
-          <div id="faq_content"><p>С помощью аккаунта Вы сможете оставлять свои отзывы к приложениям, красиво заявить о себе в этом зарождающемся сообществе и загружать свои приложения в общий каталог после строгой модерации</p></div>
+      <div id="faq_title">{% trans "PAGE_FAQ_Q_CREATE_ACC" %}</div>
+      <div id="faq_content"><p>{% trans "PAGE_FAQ_A_CREATE_ACC" %}</p></div>
   </div>
+
   <div class="faq_card">
-          <div id="faq_title">Окей, а как сюда добавить приложение?</div>
-          <div id="faq_content"><p>Пока никак. Мы только начинаем, поэтому берём ПО со своих списков. Следите за обновленями этой страницы.</p></div>
+      <div id="faq_title">{% trans "PAGE_FAQ_Q_ACC_BENEFITS" %}</div>
+      <div id="faq_content"><p>{% trans "PAGE_FAQ_A_ACC_BENEFITS" %}</p></div>
   </div>
+
   <div class="faq_card">
-          <div id="faq_title">"Хмм, а это всё легально?"</div>
-          <div id="faq_content"><p>Обычно такой вопрос задаёт разработчик ПО. Однако, если Вас очень сильно воротит от существования старой версии вашей программы на данном сайте, то можете связаться с нами по E-mail. Но очень надеемся, что вы войдёте в наше положение и поймёте цель проекта.</p></div>
+      <div id="faq_title">{% trans "PAGE_FAQ_Q_ADD_APP" %}</div>
+      <div id="faq_content"><p>{% trans "PAGE_FAQ_A_ADD_APP" %}</p></div>
   </div>
+
   <div class="faq_card">
-          <div id="faq_title">Зачем этот сайт существует?</div>
-          <div id="faq_content"><p>Отличный вопрос. Началось всё с того, что у одного из участников проекта появилось желание загрузить на один сайт со старым ПО скринсейвер 3D Windows XP, который по факту мало кто видел и еле сохранился на веб-архиве.<br>Через пару дней после загрузки, скринсейвер был удалён из сайта с причиной "не подходит под тематику сайта". А на вопрос "почему у Вас тогда хранятся образы ХР?" внятного ответа из администрации никто толком не дал.<br><br>Ничего страшного, мы никак не расстроены и конкурировать не хотим, просто решили сделать свой маленький каталог :3</p></div>
+      <div id="faq_title">{% trans "PAGE_FAQ_Q_LEGAL" %}</div>
+      <div id="faq_content"><p>{% trans "PAGE_FAQ_A_LEGAL" %}</p></div>
   </div>
-  <i>Последнее обновление: 01.01.2026</i>
+
+  <div class="faq_card">
+      <div id="faq_title">{% trans "PAGE_FAQ_Q_WHY_EXIST" %}</div>
+      <div id="faq_content">
+        <p>
+            {% trans "PAGE_FAQ_A_WHY_EXIST_PART1" %}<br>
+            {% trans "PAGE_FAQ_A_WHY_EXIST_PART2" %}<br><br>
+            {% trans "PAGE_FAQ_A_WHY_EXIST_PART3" %}
+        </p>
+      </div>
+  </div>
+  
+  <i>{% trans "PAGE_FAQ_LAST_UPDATE" %}: 01.01.2026</i>
   </div>
 </div>
-
 
     </div>
   </div>
