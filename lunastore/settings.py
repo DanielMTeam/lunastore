@@ -15,12 +15,13 @@ LOCALE_PATHS = [
 dotenv_path = BASE_DIR / '.env'
 load_dotenv(dotenv_path)
 
-SECRET_KEY = 'django-insecure-p^k2e1ke^c8_&-k+^u)=_b1#u^y30icvro+3izpg16883wuns9'
-
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "False") == "True"
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 ALLOWED_HOSTS = ['192.168.1.10','192.168.32.231','luna.fayzetw.in','lunap.fayzetw.in']
 
+STATIC_ROOT = BASE_DIR / "static"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Application definition
 

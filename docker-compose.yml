@@ -1,60 +1,64 @@
 services:
   admin:
-    image: git.myslivets.com/myslivets/project-luna/lunastore
-    container_name: lunaStoreAdmin
-    volumes:
-      - ./:/app
-    working_dir: /app
-    env_file:
-      - .env
-    ports:
-      - "8088:8088"
-    command: gunicorn lunastore.wsgi:application --bind 0.0.0.0:8088
+    image: git.myslivets.com/myslivets/project-luna/lunastore:latest
+    container_name: lunastore_admin
+    command: gunicorn lunastore.wsgi:application --bind 0.0.0.0:8001 --workers 3
     environment:
       DJANGO_ROOT_URLCONF: lunastore.urls_private
-      DJANGO_SETTINGS_MODULE: lunastore.settings
-      PYTHONPATH: /app
+    expose:
+      - "8088"
     networks:
       - storenetwork
     restart: on-failure
 
   web:
-    image: git.myslivets.com/myslivets/project-luna/lunastore
-    container_name: lunaStore
-    environment:
-      PYTHONPATH: /app
-      DJANGO_SETTINGS_MODULE: lunastore.settings
-      DJANGO_ROOT_URLCONF: lunastore.urls
-    working_dir: /app
-    ports:
-      - "9088:9088"
+    image: git.myslivets.com/myslivets/project-luna/lunastore:latest
+    container_name: lunastore_web
+    command: gunicorn lunastore.wsgi:application --bind 0.0.0.0:8000 --workers 3
     env_file:
       - .env
+    expose:
+      - "9088"
     restart: unless-stopped
     networks:
       - storenetwork
-    volumes:
-      - .:/app
 
   api:
-    image: git.myslivets.com/myslivets/project-luna/lunastore/
-    container_name: lunaStoreAPI
+    image: git.myslivets.com/myslivets/project-luna/lunastore:latest
+    container_name: lunastore_api
+    command: gunicorn lunastore.wsgi:application --bind 0.0.0.0:8002 --workers 3
     environment:
-      PYTHONPATH: /app
-      DJANGO_SETTINGS_MODULE: lunastore.settings
       DJANGO_ROOT_URLCONF: lunastore.urls_api
-    working_dir: /app
-    ports:
-      - "7088:7088"
+    expose:
+      - "7088"
     env_file:
       - .env
-    command: python manage.py runserver 0.0.0.0:7088
+    restart: unless-stopped
+    networks:
+      - storenetwork 
+
+    nginx:
+    image: nginx:alpine
+    container_name: lunastore_nginx
+    ports:
+      - "80:80"
+      - "8088:8088"   # admin port for SSO
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - static_volume:/static
+      - media_volume:/media
+    depends_on:
+      - web
+      - admin
+      - api
     restart: unless-stopped
     networks:
       - storenetwork
-    volumes:
-      - .:/app    
 
 networks:
   storenetwork:
     driver: bridge
+
+volumes:
+  static_volume:
+  media_volume:
