@@ -16,7 +16,7 @@ log = getLogger('user')
 @receiver([post_save, post_delete], sender=UserBan)
 def update_ipban_cache(sender, **kwargs):
     log.info("[signal apps.user] 'UserBanForm' model changed, refreshing banned IPs cache...")
-    refresh_banned_ips_cache.enquenue()
+    refresh_banned_ips_cache.enqueue()
 
 
 @receiver(post_save, sender=User)
