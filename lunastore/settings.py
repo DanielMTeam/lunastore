@@ -16,6 +16,12 @@ dotenv_path = BASE_DIR / '.env'
 load_dotenv(dotenv_path)
 
 DEBUG = os.getenv("DEBUG", "False") == "True"
+
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 ALLOWED_HOSTS = ['192.168.1.10','192.168.32.231','luna.fayzetw.in','lunap.fayzetw.in']
