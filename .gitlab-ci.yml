@@ -27,24 +27,18 @@ variables:
 
 test-job:
   stage: test
-  image: python:3.12
+  image: python:3.13
   services:
-    - name: postgres:15
-      alias: postgres
-
+    - postgres:15
   variables:
-    variables:
-    DB_NAME: lunastoredb
-    DB_USER: postgres
-    DB_PASSWORD: $DB_PASS
-    DB_HOST: postgres
-    DB_PORT: 5432
     POSTGRES_DB: lunastoredb
     POSTGRES_USER: postgres
     POSTGRES_PASSWORD: $DB_PASS
   script:
+    - python3 -m venv $VENV_PATH
+    - source $VENV_PATH/bin/activate
+    - pip install --upgrade pip
     - pip install -r requirements.txt
-    - python manage.py migrate
     - python manage.py test
 #  only:
 #    - main
