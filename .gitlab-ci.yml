@@ -46,7 +46,7 @@ build-job:
   services:
     - docker:dind
   before_script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker login registry.myslivets.com
   script:
     - echo "|| Building container..."
     - docker build -t $IMAGE_TAG -t $LATEST_TAG .
@@ -72,7 +72,7 @@ deploy-job:
         set -e
 
         echo "Logging into registry..."
-        docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+        docker login registry.myslivets.com
 
         cd /srv/lunastore
 
