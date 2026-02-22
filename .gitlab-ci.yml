@@ -34,12 +34,16 @@ test-job:
     POSTGRES_DB: lunastoredb
     POSTGRES_USER: postgres
     POSTGRES_PASSWORD: $DB_PASS
+  before_script:
+    - cp "$DJANGO_ENV_FILE" .env 
   script:
     - python3 -m venv .venv
     - source .venv/bin/activate
     - pip install --upgrade pip
     - pip install -r requirements.txt
     - python manage.py test
+  after_script:
+    - rm -f .env
 #  only:
 #    - main
 
