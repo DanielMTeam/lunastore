@@ -7,6 +7,7 @@ from django.shortcuts import redirect
 from django.contrib import messages
 from django.utils.html import format_html
 from unfold.decorators import action
+from lunastore.mixins import SafeDeleteAdmin
 
 
 @admin.register(User)
@@ -26,10 +27,10 @@ class UserAdmin(unfold_admin.ModelAdmin):
 
 
 @admin.register(UserBan)
-class UserBanAdmin(unfold_admin.ModelAdmin):
+class UserBanAdmin(SafeDeleteAdmin):
     form = UserBanForm
     list_display = ('get_username', 'reason', 'created_at')
-    list_filter = ('created_at',)
+    list_filter = SafeDeleteAdmin.list_filter + ['created_at',]
     search_fields = ['user__username', 'reason']
     actions = ['unban_selected_users']
 
@@ -64,10 +65,10 @@ admin.site.register(UserActivityLog)
 
 
 @admin.register(DevRequestsModel)
-class DevRequestsAdmin(unfold_admin.ModelAdmin):
+class DevRequestsAdmin(SafeDeleteAdmin):
     list_display = ('id', 'user', 'github', 'mail')
     search_fields = ['github', 'mail']
-    list_filter = ('id', )
+    list_filter = SafeDeleteAdmin.list_filter + ['id', ]
     actions = ['approve_request', 'reject_request']
     actions_detail = ['approve_request', 'reject_request']
     readonly_fields = ('user_info_link', 'user', 'mail', 'github', 'about_you', 'why_you_choose_us')
@@ -135,12 +136,14 @@ class DevRequestsAdmin(unfold_admin.ModelAdmin):
     )
 
 @admin.register(BlacklistedUsername)
-class BlacklistedUsernameAdmin(unfold_admin.ModelAdmin):
+class BlacklistedUsernameAdmin(SafeDeleteAdmin):
     list_display = ('word', 'is_regex')
     search_fields = ['word']
-    list_filter = ('is_regex', )
-    
+    list_filter = SafeDeleteAdmin.list_filter + ['is_regex', ]
+
+
 @admin.register(InviteToken)
 class InviteTokenAdmin(unfold_admin.ModelAdmin):
     list_display = ('owner','code','created_at')
     list_filter = ('created_at',)
+    

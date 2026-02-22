@@ -10,3 +10,4 @@ django-cleanup
 psycopg[binary]
 djangorestframework
 drf-spectacular
+django-safedelete

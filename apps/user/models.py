@@ -5,9 +5,12 @@ from django.utils.crypto import get_random_string
 import uuid
 from django.utils import timezone
 import datetime
+from safedelete.models import SafeDeleteModel, SOFT_DELETE_CASCADE
 
 
-class User(AbstractUser):
+class User(AbstractUser, SafeDeleteModel):
+    _safedelete_policy = SOFT_DELETE_CASCADE
+    
     def unique_avatar_path(instance, filename):
         ext = filename.split('.')[-1]
         file_name = f"{uuid.uuid4().hex}.{ext}"
@@ -31,7 +34,9 @@ class User(AbstractUser):
     )
 
 
-class UserBan(models.Model):
+class UserBan(SafeDeleteModel):
+    _safedelete_policy = SOFT_DELETE_CASCADE
+    
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     ip = models.CharField(max_length=256, null=True, blank=True, db_index=True)
     reason = models.CharField(max_length=255)
@@ -65,7 +70,9 @@ class UserActivityLog(models.Model):
         verbose_name_plural = "Журналы активности"
 
 
-class DevRequestsModel(models.Model):
+class DevRequestsModel(SafeDeleteModel):
+    _safedelete_policy = SOFT_DELETE_CASCADE
+    
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="developer_status_requests")
     github = models.URLField(max_length=128)
     mail = models.EmailField(max_length=128)
@@ -78,7 +85,9 @@ class DevRequestsModel(models.Model):
         verbose_name_plural = "Заявки на статус разработчика"
 
 
-class BlacklistedUsername(models.Model):
+class BlacklistedUsername(SafeDeleteModel):
+    _safedelete_policy = SOFT_DELETE_CASCADE
+    
     word = models.CharField(max_length=50,unique=True,verbose_name="Запрещённый юзернейм")
     is_regex = models.BooleanField(default=False,verbose_name="Это регулярное выражение? (regex type)")
     
