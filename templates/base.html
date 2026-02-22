@@ -83,7 +83,11 @@
           <a href="{% url 'settings' %}"><li class="settings"
             {% if route == 'settings' %} 
             id="active"{% endif %}>{% trans "BASE_SIDEBAR_ACCOUNT_SETTINGSBTN" %}</li></a>
-          <a href="/profile.php?act=invite"><li class="newbie">{% trans "BASE_SIDEBAR_ACCOUNT_INVITEBTN" %}</li></a>
+          <a href="{% url 'invite_person' %}">
+              <li class="newbie" {% if route == 'invite_person' %}id="active"{% endif %}>
+                  {% trans "BASE_SIDEBAR_ACCOUNT_INVITEBTN" %}
+              </li>
+          </a>
         </ul>
         {% endwith %}
       </div>

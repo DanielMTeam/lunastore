@@ -7,6 +7,8 @@
 
 .st_app_icon{
     float: left;
+	width: 48px;
+	height: 48px;
 }
 
 .st_card_title{
