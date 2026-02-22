@@ -91,6 +91,7 @@
     padding: 5px;
     min-height: 48px;
     margin-bottom: 5px;
+    zoom: 1;
 }
 
 .list-app-tile img {
