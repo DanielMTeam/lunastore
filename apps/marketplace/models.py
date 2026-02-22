@@ -2,7 +2,8 @@ from django.db import models
 from django.conf import settings
 import uuid, os
 from django.contrib.postgres.indexes import GinIndex
-from django.contrib.postgres.search import TrigramSimilarity
+from django.utils.translation import gettext_lazy as _
+from safedelete.models import SafeDeleteModel, SOFT_DELETE_CASCADE, SOFT_DELETE
 
 def get_icon_path(instance,filename):
     # for application model
@@ -10,7 +11,9 @@ def get_icon_path(instance,filename):
     filename=f"{uuid.uuid4().hex}.{ext}"
     return os.path.join('ugc/app_icons',filename)
 
-class Category(models.Model):
+class Category(SafeDeleteModel):
+    _safedelete_policy = SOFT_DELETE_CASCADE
+    
     name = models.CharField(max_length=80)
     description = models.CharField(max_length=140)
     shortcode = models.CharField(max_length=50,default='index.php')
@@ -26,7 +29,9 @@ class Category(models.Model):
     def __repr__(self):
         return f"<Category {self.name}>"
 
-class BaseApplicationInfo(models.Model):
+class BaseApplicationInfo(SafeDeleteModel):
+    _safedelete_policy = SOFT_DELETE_CASCADE
+    
     category = models.ForeignKey('Category', null=True, on_delete=models.SET_NULL, verbose_name="Категория")
     title = models.CharField(max_length=80, verbose_name="Название")
     description = models.CharField(max_length=1400, verbose_name="Описание")
@@ -39,7 +44,9 @@ class BaseApplicationInfo(models.Model):
     class Meta:
         abstract = True
 
-class Application(BaseApplicationInfo):
+class Application(BaseApplicationInfo, SafeDeleteModel):
+    _safedelete_policy = SOFT_DELETE_CASCADE
+    
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='applications', verbose_name="Автор")
     
     is_demo = models.BooleanField(default=False)
@@ -66,7 +73,9 @@ class Application(BaseApplicationInfo):
         return self.title
 
 
-class Distribution(models.Model):
+class Distribution(SafeDeleteModel):
+    _safedelete_policy = SOFT_DELETE
+    
     app = models.ForeignKey(Application, on_delete=models.PROTECT)
     version = models.CharField(max_length=20)
     file = models.FileField(upload_to='ugc/distributions',max_length=80, null=True)
@@ -85,7 +94,9 @@ class Distribution(models.Model):
     def __repr__(self):
         return f"<Distribution {self.app} {self.version}>"
     
-class AppCreateRequests(BaseApplicationInfo):
+class AppCreateRequests(BaseApplicationInfo, SafeDeleteModel):
+    _safedelete_policy = SOFT_DELETE
+    
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, 
         on_delete=models.CASCADE, 
@@ -106,7 +117,9 @@ class AppCreateRequests(BaseApplicationInfo):
         verbose_name = "Заявка на создание"
         verbose_name_plural = "Заявки на создание"
 
-class AppEditRequests(BaseApplicationInfo):
+class AppEditRequests(BaseApplicationInfo, SafeDeleteModel):
+    _safedelete_policy = SOFT_DELETE
+    
     target_application = models.ForeignKey(
         Application, 
         on_delete=models.CASCADE,
@@ -131,6 +144,40 @@ class AppEditRequests(BaseApplicationInfo):
         ordering = ['-created_at']
         verbose_name = "Заявка на изменение"
         verbose_name_plural = "Заявки на изменения"
+
+
+class AppReportRequests(SafeDeleteModel):
+    _safedelete_policy = SOFT_DELETE
+    
+    REPORT_REASONS = [
+        ('1', _("PAGE_REPORTAPP_REASON_MALWARE")),
+        ('2', _("PAGE_REPORTAPP_REASON_INCORRECT")),
+        ('3', _("PAGE_REPORTAPP_REASON_OTHER")),
+    ]
+    
+    STATUS_CHOICES = [
+        ('pending', 'Новая'),
+        ('resolved', 'Рассматривается'),
+        ('dismissed', 'Отклонено'),
+    ]
+
+    app = models.ForeignKey('Application', on_delete=models.CASCADE, related_name='reports')
+    
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, 
+        on_delete=models.CASCADE, 
+        verbose_name=_("PAGE_REPORTAPP_AUTHOR")
+    )
+    
+    reason = models.CharField(max_length=1, choices=REPORT_REASONS, default='1')
+    description = models.TextField(max_length=500)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending', verbose_name="Статус")
+
+    class Meta:
+        verbose_name = _("PAGE_REPORTAPP_TITLE")
+
 
 # TODO: create the authorization-specific models
 # class Review(models.Model):
