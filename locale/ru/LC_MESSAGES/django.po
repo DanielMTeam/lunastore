@@ -1614,3 +1614,36 @@ msgstr "Вернуться на сайт"
 
 msgid "Search apps and models..."
 msgstr "Поиск разделов..."
+
+msgid "PAGE_REPORTAPP_PAGE_TITLE"
+msgstr "Жалоба на приложение"
+
+msgid "PAGE_REPORTAPP_BACK"
+msgstr "Назад"
+
+msgid "PAGE_REPORTAPP_TITLE"
+msgstr "Жалоба на приложение"
+
+msgid "PAGE_REPORTAPP_INFO_1"
+msgstr "Вы собираетесь пожаловаться на приложение"
+
+msgid "PAGE_REPORTAPP_INFO_2"
+msgstr "Укажите причину вашей жалобы и максимально обоснуйте её. Это поможет нам быстрее разобраться с проблемой"
+
+msgid "PAGE_REPORTAPP_REASON_MALWARE"
+msgstr "Это приложение является вредоносным/фейковым"
+
+msgid "PAGE_REPORTAPP_REASON_INCORRECT"
+msgstr "Некорректная информация о приложении"
+
+msgid "PAGE_REPORTAPP_REASON_OTHER"
+msgstr "Другое"
+
+msgid "PAGE_REPORTAPP_EXPLAIN_LABEL"
+msgstr "Распишите ниже, почему Вы так считаете? (500 символов)"
+
+msgid "PAGE_REPORTAPP_SUBMIT_BTN"
+msgstr "Отправить жалобу"
+
+msgid "PAGE_REPORTAPP_SUCCESS_MSG"
+msgstr "Ваша жалоба успешно отправлена. Мы рассмотрим её в ближайшее время."

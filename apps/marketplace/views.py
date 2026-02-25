@@ -3,10 +3,12 @@ from .models import Application, Distribution, Category
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
 from apps.user.decorators import developer_required
-from .forms import AppCreateForm, AppEditForm
+from .forms import AppCreateForm, AppEditForm, AppReportForm
 from django.contrib.auth.decorators import login_required
 from .decorators import user_is_owner
 from django.contrib.postgres.search import TrigramSimilarity
+from django.contrib import messages
+from django.utils.translation import gettext as _
 
 
 # redirect to home (index.php) page from (/) page
@@ -123,3 +125,27 @@ def search(request):
         'view_mode': view_mode
     }
     return render(request, 'search.html', context)
+
+@login_required
+def report_app(request):
+    id = request.GET.get('id')
+    obj = get_object_or_404(Application, id=id)
+    
+    if request.method == 'POST':
+        form = AppReportForm(request.POST)
+        if form.is_valid():
+            report = form.save(commit=False)
+            report.user = request.user
+            report.app = obj
+            report.save()
+            messages.success(request, _("PAGE_REPORTAPP_SUCCESS_MSG"))
+            return redirect('home')
+    else:
+        form = AppReportForm()    
+    context = {
+        'form': form,
+        'name': obj.title,
+        'slogan': obj.slogan,
+        'icon': obj.icon.url,
+    }
+    return render(request, 'report_app.html', context)
