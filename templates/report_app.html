@@ -1,181 +1,67 @@
-﻿<!DOCTYPE html>
-<html>
+﻿{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
 
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Жалоба на приложение - Total Commander - LunaStore</title>
-<link rel="stylesheet" href="./css/main.css">
-</head>
+{% block content %}
+<title>{% trans "PAGE_REPORTAPP_PAGE_TITLE" %} - {{ name }} - LunaStore</title>
 
+<link rel="stylesheet" href="{% static './css/stpage.css' %}">
+<link rel="stylesheet" href="{% static './css/reviews.css' %}">
 
-<body>
-<div class="container">
-
-  <div class="dm_menu">
-    Вы вошли как <a href="/profile.php"><b>dm</b></a> - <a href="/index.php?act=logout&hash=3476ty89mR_hf9er8">выйти</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a> | <a href="/help.php?page=other_projects">прочие проекты</a>
-  </div>
-
-  <div class="header">
-    <a href="http://store.myslivets.com"><div class="ls_dm_logo"></div></a>
-    <div class="rl_l"><h1 class="txtr">LunaStore</h1>
-    <div class="subtitle txtr">Мы ночами не спали, чтобы сделать чудо</div>
-    </div>
-    
-    <div class="searchbar">
-  <!--[if IE 6]>
-  <style type="text/css">
-   .searchbar button {padding: 1px 1px;}
-  </style>
-  <![endif]-->
-      <input type="text" id="q" placeholder="Например: Total Commander">
-      <button type="button" onclick="doSearch()">поиск</button>
-      <br>
-      <div class="subtitle"><a href="/settings.php?act=search">Уточнить параметры поиска</a></div>
-    </div>
-  </div>
-
-
-  <div class="headerline"></div>
-
-  <div class="main">
-    <div><div class="sidebar">
-
-      <div class="boxhead_primary"><b>Приложение</b></div>
-      <div class="box">
-        
-        <ul>
-          <a href="{cdn_app_source}"><li class="setup"><b>Установить</b></li></a>
-          <a href="{developer_official_site}"><li class="other">Сайт разработчика</li></a>
-          <a href="/report.php?act=new&app_id={aid}"><li class="alert" id="active">Пожаловаться</li></a>
-          <a href="/app14?page=create_review"><li class="top">Оставить свой отзыв</li></a>
-        </ul>
-      </div>
-
-      <div class="boxhead"><b>Аккаунт</b></div>
-      <div class="box">
-        
-        <ul>
-          <a href="/profile.php"><li class="myhome">Мой профиль</li></a>
-          <a href="/settings.php"><li class="settings">Настройки</li></a>
-          <a href="/profile.php?act=invite"><li class="newbie">Пригласить</li></a>
-        </ul>
-      </div>
-
-      <div class="boxhead"><b>Категории</b></div>
-      <div class="box">
-        
-        <ul>
-          <a href="/index.php"><li class="myhome">Главная страница</li></a>
-          <a href="/store.php?show=top20"><li class="top">Приложения месяца</li></a>
-          <a href="/store.php?show=updates"><li class="updates">Центр обновлений</li></a>
-          <a href="/store.php?cat=1"><li class="entertainment">Игры и развлечения</li></a>
-          <a href="/store.php?cat=2"><li class="util">Инструменты</li></a>
-          <a href="/store.php?cat=3"><li class="media">Мультимедиа</li></a>
-          <a href="/store.php?cat=4"><li class="office">Офисные приложения</li></a>
-          <a href="/store.php?cat=5"><li class="internet">Интернет и сети</li></a>
-          <a href="/store.php?cat=6"><li class="other">Прочее</li></a>
-          <a href="/store.php?show=themes"><li class="themes">Темы оформления</li></a>
-        </ul>
-      </div>
-      
-      <div class="adv_block">
-        <a href="{ad_link}"><img src="./ad/ad.png" alt="Реклама"></a>
-      </div>
-
-    </div></div>
-
-    <div class="content">
-        <!--[if IE 6]>
-  <style type="text/css">
-   .splash_text{display: inline-block!important;}
-  </style>
-  <![endif]-->
-      <link rel="stylesheet" href="./css/stpage.css">
-      <link rel="stylesheet" href="./css/reviews.css">
-        <div class="separator_store"></div>
-          <div class="backblock">
-            <div class="backb">
-              <li class="back">
-                <a href="/">Назад</a>
-              </li>
-            </div>
-          </div>
-
-      <div class="section">
-        <div class="st_general_card">
-          
-          <div class="st_app_icon">
-              <img src="./cdn/appsicons/totalcmd.png" alt="">
-          </div>
-
-          <div class="st_precard">
-              <div class="st_card_title">Total Commander</div>
-              <div class="st_card_desc">Лучший файловый менеджер для Windows</div>
-              <div class="st_card_author">Автор: <a href="/search.php?user_id=66">ghisler.com</a></div>
-          </div>
-        <div class="st_clearb"> </div></div>
-                            <div class="st_headerline"></div>
-
-
-<div class="st_other_card">
-      <link rel="stylesheet" href="./css/profile.css">   
-      <!--[if lte IE 6]> <link rel="stylesheet" href="./css/profile_ie6.css" media="screen, projection"> <![endif]-->  
-<div class="profile_block">Жалоба на приложение</div>
-<div class="profile_block_content">
-Вы собираетесь пожаловаться на приложение <b>Total Commander</b><br><br>Укажите причину вашей жалобы и максимально обоснуйте её. Это поможет нам быстрее разобраться с проблемой<br><br>
-           <div class="radio_group">
-            <div class="radio_item">
-              <input type="radio" name="choice" id="r1" value="1">
-              <label for="r1">Это приложение является вредоносным/фейковым</label>
-            </div>
-
-            <div class="radio_item">
-              <input type="radio" name="choice" id="r2" value="2">
-              <label for="r2">Некорректная информация о приложении</label>
-            </div>
-
-            <div class="radio_item">
-              <input type="radio" name="choice" id="r3" value="3">
-              <label for="r3">Другое</label>
-            </div>
-          </div>
-
-        Распишите ниже, почему Вы так считаете? (500 символов)<br><br>
-        <textarea class="brief_intro" name="whois" cols="500">dfhgfdhfghfgh</textarea>
-    </div>
-    <br>
-<input type="button" value="Отправить жалобу" class="action_button">
+<div class="content">
+    <div class="separator_store"></div>
+    <div class="backblock">
+        <div class="backb">
+            <li class="back">
+                <a href="/">{% trans "PAGE_REPORTAPP_BACK" %}</a>
+            </li>
         </div>
-
-
-        <div class="st_clearb"> </div>
-
     </div>
-  </div>
 
+    <div class="section">
+        <div class="st_general_card">
+            <div class="st_app_icon">
+                <img src="{{ icon }}" alt="{{ name }}">
+            </div>
+            <div class="st_precard">
+                <div class="st_card_title">{{ name }}</div>
+                <div class="st_card_desc">{{ slogan }}</div>
+            </div>
+            <div class="st_clearb"> </div>
+        </div>
+        
+        <div class="st_headerline"></div>
 
+        <div class="st_other_card">
+            <link rel="stylesheet" href="{% static './css/profile.css' %}">
+            <div class="profile_block">{% trans "PAGE_REPORTAPP_TITLE" %}</div>
+            <form method="POST">
+            {% csrf_token %}
+            <div class="profile_block_content">
+                {% trans "PAGE_REPORTAPP_INFO_1" %} <b>{{ app.title }}</b><br><br>
+                {% trans "PAGE_REPORTAPP_INFO_2" %}<br><br>
+                
+                <div class="radio_group">
+                    {% for radio in form.reason %}
+                        <div class="radio_item">
+                            {{ radio.tag }}
+                            <label for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                {% trans "PAGE_REPORTAPP_EXPLAIN_LABEL" %}<br><br>
+                {{ form.description }}
+                {% if form.description.errors %}
+                    <div class="error_splash">{{ form.description.errors }}</div>
+                {% endif %}
+            </div>
+            <br>
+            <input type="submit" value="{% trans 'PAGE_REPORTAPP_SUBMIT_BTN' %}" class="action_button">
+        </form>
+        </div>
+        <div class="st_clearb"> </div>
+    </div>
 </div>
-  <div class="footer">
-    <a href="/help.php?page=about">О нас</a> - <a href="/help.php">FAQ</a> - <a href="/help.php?act=privacy">Политика конфиденциальности</a>
-    <div style="text-align: right; font-size: 11px;">С душой сделано командой DM, 2025<br>Все права принадлежат исходным правообладателям</div>
-  </div>
-<script type="text/javascript">
-function doSearch() {
-  var q = document.getElementById("q").value.toLowerCase();
-  var cards = document.getElementsByTagName("div");
-  for (var i=0;i<cards.length;i++) {
-    if(cards[i].className=="card") {
-      var text = cards[i].innerText || cards[i].textContent;
-      if(text.toLowerCase().indexOf(q)!=-1) {
-        cards[i].style.display="block";
-      } else {
-        cards[i].style.display="none";
-      }
-    }
-  }
-}
-</script>
-
-</body>
-
-</html>
+</div>
+{% endblock %}

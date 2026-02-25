@@ -1,5 +1,5 @@
 from django import forms
-from .models import Application, AppCreateRequests, AppEditRequests
+from .models import Application, AppCreateRequests, AppEditRequests, AppReportRequests
 from django.core.validators import FileExtensionValidator
 from django.conf import settings
 from django.utils.safestring import mark_safe
@@ -265,3 +265,19 @@ class AppEditForm(AppCreateForm):
         if commit:
             submission.save()
         return submission
+    
+
+class AppReportForm(forms.ModelForm):
+    class Meta:
+        model = AppReportRequests
+        fields = ['reason', 'description'] 
+        widgets = {
+            'reason': forms.RadioSelect(attrs={'class': 'radio_item'}),
+            'description': forms.Textarea(attrs={
+                'class': 'brief_intro', 
+                'cols': '500', 
+                'name': 'whois'
+            }),
+        }
+    
+    
