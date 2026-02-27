@@ -71,6 +71,7 @@ deploy-job:
     - mkdir -p ~/.ssh
     - echo "$SSH_PRIVATE_KEY_B64" | base64 -d > ~/.ssh/id_ed25519
     - chmod 600 ~/.ssh/id_ed25519
+    - ssh-keygen -y -f ~/.ssh/id_ed25519 > /dev/null
     - ssh-keyscan -H "$PROD_HOST" >> ~/.ssh/known_hosts
 
   script:
