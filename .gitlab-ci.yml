@@ -66,16 +66,13 @@ build-job:
 deploy-job:      
   stage: deploy 
   environment: production
-
+  variables:
+    SSH_KEY: $SSH_PRIVATE_KEY # GitLab file variable
   before_script:
     - mkdir -p ~/.ssh
-    - cp "$SSH_PRIVATE_KEY" ~/.ssh/id_ed25519
-    - chmod 600 ~/.ssh/id_ed25519
-    - file ~/.ssh/id_ed25519
-    - wc -l ~/.ssh/id_ed25519
-    - ssh-keygen -y -f ~/.ssh/id_ed25519 > /dev/null
-    - ssh-keyscan -H "$PROD_HOST" >> ~/.ssh/known_hosts
-
+    - chmod 700 ~/.ssh
+    - chmod 600 "$SSH_KEY"
+    - ssh-keyscan -H "$PROD_HOST" > ~/.ssh/known_hosts
   script:
     - |
       ssh "$PROD_USER@$PROD_HOST" << EOF
