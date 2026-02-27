@@ -66,39 +66,32 @@ build-job:
 deploy-job:      
   stage: deploy 
   environment: production
-  variables:
-    SSH_KEY: $SSH_PRIVATE_KEY # GitLab file variable
+
   before_script:
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
-    - chmod 600 "$SSH_KEY"
+    - cp "$SSH_KEY" ~/.ssh/id_ed25519
+    - chmod 600 ~/.ssh/id_ed25519
     - ssh-keyscan -H "$PROD_HOST" > ~/.ssh/known_hosts
+
   script:
     - |
-      ssh "$PROD_USER@$PROD_HOST" << EOF
-        set -e
-
-        echo "Logging into registry..."
-        docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
-
-        cd /mnt/data/lunastore
-
-        echo "Pulling new image..."
-        docker pull "$IMAGE_TAG"
-        docker tag "$IMAGE_TAG" "$LATEST_TAG"
-
-        echo "Restarting containers..."
-        docker compose up -d --no-deps --force-recreate web admin api
-
-        echo "Running migrations..."
-        docker compose exec -T web python manage.py migrate
-        docker compose exec -T web python manage.py collectstatic --noinput
-
-        echo "Cleaning old images..."
-        docker image prune -f
-
-        echo "Deploy completed successfully."
-      EOF
+      ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no "$PROD_USER@$PROD_HOST" \
+      "set -e; \
+       echo 'Logging into registry...'; \
+       docker login -u '$CI_REGISTRY_USER' -p '$CI_REGISTRY_PASSWORD' '$CI_REGISTRY'; \
+       cd /mnt/data/lunastore; \
+       echo 'Pulling new image...'; \
+       docker pull '$IMAGE_TAG'; \
+       docker tag '$IMAGE_TAG' '$LATEST_TAG'; \
+       echo 'Restarting containers...'; \
+       docker compose up -d --no-deps --force-recreate web admin api; \
+       echo 'Running migrations...'; \
+       docker compose exec -T web python manage.py migrate; \
+       docker compose exec -T web python manage.py collectstatic --noinput; \
+       echo 'Cleaning old images...'; \
+       docker image prune -f; \
+       echo 'Deploy completed successfully.'"
 
 #  only:
 #    - main
