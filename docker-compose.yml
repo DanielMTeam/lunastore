@@ -1,6 +1,6 @@
 services:
   admin:
-    image: git.myslivets.com/myslivets/project-luna/lunastore:latest
+    image: registry.myslivets.com/myslivets/project-luna/lunastore:latest
     container_name: lunastore_admin
     command: gunicorn lunastore.wsgi:application --bind 0.0.0.0:8088 --workers 3
     environment:
@@ -10,9 +10,12 @@ services:
     networks:
       - storenetwork
     restart: on-failure
+    volumes: 
+      - static_volume:/app/staticfiles_build
+      - media_volume:/app/media
 
   web:
-    image: git.myslivets.com/myslivets/project-luna/lunastore:latest
+    image: registry.myslivets.com/myslivets/project-luna/lunastore:latest
     container_name: lunastore_web
     env_file:
       - .env
@@ -21,9 +24,12 @@ services:
     restart: unless-stopped
     networks:
       - storenetwork
+    volumes:
+      - static_volume:/app/staticfiles_build
+      - media_volume:/app/media
 
   api:
-    image: git.myslivets.com/myslivets/project-luna/lunastore:latest
+    image: registry.myslivets.com/myslivets/project-luna/lunastore:latest
     container_name: lunastore_api
     environment:
       DJANGO_ROOT_URLCONF: lunastore.urls_api
@@ -34,6 +40,9 @@ services:
     restart: unless-stopped
     networks:
       - storenetwork 
+    volumes: 
+      - static_volume:/app/staticfiles_build
+      - media_volume:/app/media
 
   nginx:
     image: nginx:alpine
