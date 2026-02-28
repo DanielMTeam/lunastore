@@ -27,7 +27,6 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 ALLOWED_HOSTS = ['192.168.1.10','192.168.32.231','luna.fayzetw.in','lunap.fayzetw.in']
 
 STATIC_ROOT = BASE_DIR / "static"
-MEDIA_ROOT = BASE_DIR / "media"
 
 # Application definition
 
@@ -331,7 +330,6 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = '/staticfiles/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build')  
 STATICFILES_DIRS = [BASE_DIR / "staticfiles"]      
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
