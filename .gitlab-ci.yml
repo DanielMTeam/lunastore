@@ -44,8 +44,8 @@ test-job:
     - python manage.py test --noinput --keepdb
   after_script:
     - rm -f .env
-#  only:
-#    - main
+  only:
+    - main
 
 build-job:      
   stage: build
@@ -60,8 +60,8 @@ build-job:
     - echo "|| Build complete. Attempting to push"
     - docker push $IMAGE_TAG
     - docker push $LATEST_TAG
-#  only:
-#    - main
+  only:
+    - main
 
 deploy-job:      
   stage: deploy 
@@ -94,5 +94,5 @@ deploy-job:
        docker image prune -f; \
        echo 'Deploy completed successfully.'"
 
-#  only:
-#    - main
+  only:
+    - main
