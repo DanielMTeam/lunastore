@@ -75,6 +75,7 @@ deploy-job:
     - ssh-keyscan -H "$PROD_HOST" > ~/.ssh/known_hosts
 
   script:
+    - scp -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no docker-compose.yml "$PROD_USER@$PROD_HOST":/mnt/data/docker/lunastore/docker-compose.yml
     - |
       ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no "$PROD_USER@$PROD_HOST" \
       "set -e; \
