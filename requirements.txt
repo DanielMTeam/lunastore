@@ -11,3 +11,4 @@ psycopg[binary]
 djangorestframework
 drf-spectacular
 django-safedelete
+gunicorn
