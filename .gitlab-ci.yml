@@ -44,8 +44,6 @@ test-job:
     - python manage.py test --noinput --keepdb
   after_script:
     - rm -f .env
-  only:
-    - main
 
 build-job:      
   stage: build
