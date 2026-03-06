@@ -18,7 +18,7 @@ dev-cachetable:
 	docker compose -f $(DEV_COMPOSE) exec web python manage.py createcachetable
 
 dev-collectstatic:
-	docker compose -f $(DEV_COMPOSE) exec web python manage.py collectstatic
+	docker compose -f $(DEV_COMPOSE) exec web python manage.py collectstatic --noinput
 
 dev-shell-web: 
 	docker compose -f $(DEV_COMPOSE) exec web bash
@@ -33,7 +33,7 @@ dev-build:
 	docker compose -f $(DEV_COMPOSE) build
 
 dev-up: 
-	docker compose -f $(DEV_COMPOSE) up -d
+	docker compose -f $(DEV_COMPOSE) up -d --no-deps --force-recreate
 
 dev-down: 
 	docker compose -f $(DEV_COMPOSE) down
@@ -60,7 +60,7 @@ cachetable:
 	docker compose -f $(PROD_COMPOSE) exec web python manage.py createcachetable
 
 collectstatic:
-	docker compose -f $(PROD_COMPOSE) exec web python manage.py collectstatic
+	docker compose -f $(PROD_COMPOSE) exec web python manage.py collectstatic --noinput
 
 shell-web: 
 	@echo "Entering into web-shell on production server..."
@@ -74,7 +74,7 @@ build:
 	docker-compose -f $(PROD_COMPOSE) build
 
 up: 
-	docker-compose -f $(PROD_COMPOSE) up -d
+	docker-compose -f $(PROD_COMPOSE) up -d --no-deps --force-recreate
 
 down:
 	@echo "Attention: now you will stop your PRODUCTION server"
