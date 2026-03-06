@@ -1,4 +1,24 @@
 services:
+  db:
+    image: postgres:18-alpine
+    container_name: lunastore_db
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${DB_NAME:-lunastore}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - storenetwork
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-lunastore}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  
   admin:
     image: registry.myslivets.com/myslivets/project-luna/lunastore:latest
     container_name: lunastore_admin
@@ -10,6 +30,10 @@ services:
     networks:
       - storenetwork
     restart: on-failure
+    env_file:             
+      - .env             
+    depends_on:           
+      - db
     volumes: 
       - static_volume:/app/staticfiles_build
       - media_volume:/app/media
@@ -19,6 +43,8 @@ services:
     container_name: lunastore_web
     env_file:
       - .env
+    depends_on:         
+      - db
     expose:
       - "9088"
     restart: unless-stopped
@@ -37,6 +63,8 @@ services:
       - "7088"
     env_file:
       - .env
+    depends_on:         
+      - db
     restart: unless-stopped
     networks:
       - storenetwork 
@@ -69,3 +97,4 @@ networks:
 volumes:
   static_volume:
   media_volume:
+  pg_data:
