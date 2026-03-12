@@ -42,18 +42,17 @@
             <div class="profile_block_content">
                 {% if managed_apps %}
                     {% for app in managed_apps %}
-            <div class="list-app-tile">
-                {% if app.icon %}
-                    <img src="{{ app.icon.url }}" alt="{{ app.name }}">
-                {% else %}
-                    <img src="{% static 'img/default_icon.png' %}" alt=""> 
-                {% endif %}
-                
-                <h3>{{ app.title }}</h3>
-                <p><b>{% trans "PAGE_MANAGE_APPS_ROLE_OWNER" %}</b></p>
-                <a href="{% url 'edit_app_info' pk=app.pk %}">{% trans "PAGE_MANAGE_APPS_BTN_EDIT" %}</a>
-                <a href="{% url 'manage_distributions' %}?id={{ app.pk }}">Управлять дистрибуциями</a>
-            </div>
+                        <div class="list-app-tile">
+                            {% if app.icon %}
+                                <img src="{{ app.icon.url }}" alt="{{ app.name }}">
+                            {% else %}
+                                <img src="{% static 'img/default_icon.png' %}" alt=""> 
+                            {% endif %}
+                            
+                            <h3>{{ app.title }}</h3>
+                            <p><b>{% trans "PAGE_MANAGE_APPS_ROLE_OWNER" %}</b></p>
+                            <a href="{% url 'edit_app_info' pk=app.pk %}">{% trans "PAGE_MANAGE_APPS_BTN_EDIT" %}</a>
+                        </div>
                     {% endfor %}
                 {% else %}
                     <div style="text-align: center; padding: 50px 20px; color: #555;">
