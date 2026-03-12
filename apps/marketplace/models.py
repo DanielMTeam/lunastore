@@ -177,6 +177,7 @@ class AppReportRequests(SafeDeleteModel):
 
     class Meta:
         verbose_name = _("PAGE_REPORTAPP_TITLE")
+        verbose_name_plural = _("PAGE_REPORTAPP_TITLE_PATH")
 
 
 # TODO: create the authorization-specific models
