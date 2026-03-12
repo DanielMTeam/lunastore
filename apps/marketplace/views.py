@@ -80,8 +80,23 @@ def download_list(request):
         return redirect('home')
 
     app_obj = get_object_or_404(Application, id=app_id)
-    distributions = Distribution.objects.filter(app=app_obj).order_by('-published')
-    latest_dist = distributions.first()
+    distributions = list(Distribution.objects.filter(app=app_obj))
+    sort_field = request.GET.get('sort', 'version')
+    order = request.GET.get('order', 'asc')
+
+    def sort_key(dist):
+        if sort_field == 'published':
+            return dist.published or dist.pk
+        return dist.version or ''
+
+    is_desc = order == 'desc'
+    distributions.sort(key=sort_key, reverse=is_desc)
+
+    sort_links = {}
+    for field in ('version', 'published'):
+        next_order = 'desc' if sort_field == field and order == 'asc' else 'asc'
+        sort_links[field] = f'{reverse("download_list")}?id={app_obj.id}&sort={field}&order={next_order}'
+    latest_dist = distributions[0] if distributions else None
     latest_id = latest_dist.id if latest_dist else None
 
     dist_rows = []
@@ -105,6 +120,9 @@ def download_list(request):
         'developer_site': app_obj.developer_site,
         'distributions': dist_rows,
         'manage_url': f'{reverse("manage_distributions")}?id={app_obj.id}',
+        'current_sort': sort_field,
+        'current_order': order,
+        'sort_links': sort_links,
         'owner_can_manage': request.user.is_authenticated and request.user == app_obj.user,
         'ad_link': 'https://store.myslivets.com',
         'app_link': f'/app.php?id={app_obj.id}',
