@@ -1548,6 +1548,18 @@ msgstr "Посмотреть другие программы автора"
 msgid "PAGE_APP_LABEL_DOWNLOADS"
 msgstr "Количество скачиваний"
 
+#: templates/report_app.html:37
+#: apps/marketplace/models.py:179
+msgid "PAGE_REPORTAPP_TITLE"
+msgstr "Жалобу на приложение"
+
+#: apps/marketplace/models.py:180
+msgid "PAGE_REPORTAPP_TITLE_PATH"
+msgstr "Жалобы на приложения"
+
+msgid "PAGE_REPORTAPP_REASON_MALWARE"
+msgstr "Ааа, помогите, тут вирусы!"
+
 msgid "PAGE_REGISTER_HAVE_INVITE_TITLE"
 msgstr "У Вас есть приглашение?"
 
@@ -1595,9 +1607,7 @@ msgid "FORM_INVITECODE_ENTER"
 msgstr "Введите код"
 
 msgid "PAGE_FAQ_TEAM_ROLE_COOKIE"
-msgstr ""
-"Второй backend разработчик, глав. разработчик пакетного менеджера luna, а такж"
-"е перевод на японский"
+msgstr "Второй backend разработчик, глав. разработчик пакетного менеджера luna, а также перевод на японский"
 
 #~ msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
 #~ msgstr "Демо, далее $%(price)s"
