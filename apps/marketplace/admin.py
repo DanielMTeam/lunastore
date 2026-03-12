@@ -11,6 +11,35 @@ from django.urls import reverse
 from lunastore.mixins import SafeDeleteAdmin
 
 
+class DistributionInline(admin.TabularInline):
+    model = Distribution
+    fields = ('version', 'file', 'url', 'changelog', 'published')
+    readonly_fields = ('published',)
+    extra = 0
+
+
+@admin.register(Distribution)
+class DistributionAdmin(SafeDeleteAdmin):
+    list_display = ('app', 'version', 'published', 'download_preview')
+    list_filter = SafeDeleteAdmin.list_filter + ['app']
+    readonly_fields = ('published', 'download_preview')
+    ordering = ['-published']
+
+    fieldsets = (
+        (None, {'fields': ('app', 'version', 'file', 'url', 'changelog', 'published')}),
+    )
+
+    @admin.display(description='Ссылка')
+    def download_preview(self, obj):
+        if obj.file:
+            return format_html('<a href="{}" target="_blank">файл</a>', obj.file.url)
+        if obj.url:
+            return format_html('<a href="{0}" target="_blank">{0}</a>', obj.url)
+        return '-'
+
+
+
+
 @admin.register(Category)
 class CategoryAdmin(SafeDeleteAdmin):
     pass
@@ -19,6 +48,8 @@ class CategoryAdmin(SafeDeleteAdmin):
 @admin.register(Application)
 class ApplicationAdmin(SafeDeleteAdmin):
     form = AppScreenshotForm
+
+    inlines = (DistributionInline,)
 
     readonly_fields = ('display_screenshots',)
     
@@ -63,10 +94,6 @@ class ApplicationAdmin(SafeDeleteAdmin):
     list_filter = SafeDeleteAdmin.list_filter + ['is_demo', 'is_under_dmca']
     search_fields = ['title']
 
-
-@admin.register(Distribution)
-class DistributionAdmin(SafeDeleteAdmin):
-    pass
 
 @admin.register(AppCreateRequests)
 class AppCreateRequestsAdmin(SafeDeleteAdmin):
