@@ -24,7 +24,7 @@ if not DEBUG:
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-ALLOWED_HOSTS = ['192.168.1.10','192.168.32.231','luna.fayzetw.in','lunap.fayzetw.in']
+ALLOWED_HOSTS = ['192.168.1.10','192.168.32.231','luna.fayzetw.in','lunap.fayzetw.in', '127.0.0.1']
 
 STATIC_ROOT = BASE_DIR / "static"
 

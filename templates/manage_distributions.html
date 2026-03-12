@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/settings.css' %}">
+
+    <div class="section">
+        <div class="profile_block">Управление дистрибуциями — {{ app.title }}</div>
+        <div class="profile_block_content">
+            {% if distributions %}
+            <table class="app_version_table" cellpadding="0" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Версия</th>
+                        <th>Дата</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for dist in distributions %}
+                    <tr>
+                        <td>{{ dist.version }}</td>
+                        <td>{{ dist.published }}</td>
+                        <td>
+                            <a href="{{ dist.edit_url }}">Изменить</a>
+                            <form method="post" action="{{ dist.delete_url }}" style="display: inline-block; margin-left: 10px;">
+                                {% csrf_token %}
+                                <button type="submit" class="action_button">Удалить</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><small>{{ dist.changelog|default:'Без примечаний' }}</small></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>Пока что нет загруженных версий.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="profile_block">Добавить новую версию</div>
+        <div class="profile_block_content">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                <div class="form-fields">
+                    {% for field in form %}
+                        <div class="form-row">
+                            {{ field.label_tag }}<br>
+                            {{ field }}
+                            {% if field.help_text %}<p class="help-text">{{ field.help_text }}</p>{% endif %}
+                            {{ field.errors }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <button type="submit" class="action_button">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="profile_block">Ссылка на страницу загрузок</div>
+        <div class="profile_block_content">
+            <a href="{{ download_list_url }}">Открыть список версий</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

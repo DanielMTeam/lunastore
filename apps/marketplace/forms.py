@@ -1,10 +1,11 @@
 from django import forms
-from .models import Application, AppCreateRequests, AppEditRequests, AppReportRequests
+from .models import Application, AppCreateRequests, AppEditRequests, AppReportRequests, Distribution
 from django.core.validators import FileExtensionValidator
 from django.conf import settings
 from django.utils.safestring import mark_safe
 from captcha.fields import CaptchaField
 from django.forms.models import model_to_dict
+from django.core.exceptions import ValidationError
 import os
 import uuid
 from django.utils.translation import gettext_lazy as _
@@ -280,4 +281,25 @@ class AppReportForm(forms.ModelForm):
             }),
         }
     
+
+class DistributionForm(forms.ModelForm):
+    file = forms.FileField(required=False)
+    url = forms.URLField(required=False)
+
+    class Meta:
+        model = Distribution
+        fields = ['version', 'file', 'url', 'changelog']
+        widgets = {
+            'version': forms.TextInput(attrs={'class': 'input-text', 'placeholder': _('например 1.2.0')}),
+            'changelog': forms.Textarea(attrs={'class': 'brief_intro', 'rows': 3, 'style': 'resize:none;'})
+        }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        file = cleaned_data.get('file')
+        url = cleaned_data.get('url')
+        has_existing = self.instance and (self.instance.file or self.instance.url)
+        if not file and not url and not has_existing:
+            raise ValidationError(_('Нужно указать файл или ссылку для скачивания'))
+        return cleaned_data
     
