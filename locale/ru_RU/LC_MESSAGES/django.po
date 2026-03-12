@@ -2,22 +2,19 @@
 # Copyright (C) DM Team, Fayzetwin; 2026
 # FAYZETWIN, <contact@fayzetw.in>, 2026
 #
-# SPDX-FileCopyrightText: 2026 Okabe Rintaro <okaberin@futuregadget-lab.ru>
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-13 22:43+0000\n"
-"PO-Revision-Date: 2026-03-13 00:00+0300\n"
-"Last-Translator: Okabe Rintaro <okaberin@futuregadget-lab.ru>\n"
-"Language-Team: Russian <kde-russian@lists.kde.ru>\n"
+"PO-Revision-Date: 2026-04-02\n"
+"Last-Translator: Fayzetwin <contact@fayzetw.in>\n"
+"Language-Team: DM Team <daniel@myslivets.com>\n"
 "Language: ru_RU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
-"4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 25.04.0\n"
 
 #: apps/marketplace/decorators.py:14
 msgid "ERROR_YOURE_NOT_OWNER_OF_APP"
@@ -133,9 +130,7 @@ msgstr "Срок действия кода истек (24 часа). Попро�
 
 #: apps/user/forms.py:293
 msgid "FORM_INVITECODE_CODELIMITISNTOK_ERROR"
-msgstr ""
-"Лимит приглашений по этому коду исчерпан. Владелец пригласил слишком много люд"
-"ей за последнее время."
+msgstr "Лимит приглашений по этому коду исчерпан. Владелец пригласил слишком много людей за последнее время."
 
 #: apps/user/views.py:128
 msgid "INFO_PROFILE_IS_UPDATED"
@@ -1548,6 +1543,9 @@ msgstr "Посмотреть другие программы автора"
 msgid "PAGE_APP_LABEL_DOWNLOADS"
 msgstr "Количество скачиваний"
 
+#~ msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
+#~ msgstr "Демо, далее $%(price)s"
+
 msgid "PAGE_REGISTER_HAVE_INVITE_TITLE"
 msgstr "У Вас есть приглашение?"
 
@@ -1564,14 +1562,10 @@ msgid "PAGE_INVITE_INPUT_HEADER"
 msgstr "Ввод кода приглашения"
 
 msgid "PAGE_INVITE_INPUT_DESC_1"
-msgstr ""
-"Вы можете ввести код приглашения, который Вы получили от уже <b>зарегистрирова"
-"нного участника</b>"
+msgstr "Вы можете ввести код приглашения, который Вы получили от уже <b>зарегистрированного участника</b>"
 
 msgid "PAGE_INVITE_INPUT_DESC_2"
-msgstr ""
-"Таким образом, Вы получаете уникальную возможность создать аккаунт <b>в обход "
-"закрытой публичной регистрации</b>"
+msgstr "Таким образом, Вы получаете уникальную возможность создать аккаунт <b>в обход закрытой публичной регистрации</b>"
 
 msgid "PAGE_INVITE_INPUT_LABEL"
 msgstr "Код"
@@ -1593,11 +1587,3 @@ msgstr "Код"
 
 msgid "FORM_INVITECODE_ENTER"
 msgstr "Введите код"
-
-msgid "PAGE_FAQ_TEAM_ROLE_COOKIE"
-msgstr ""
-"Второй backend разработчик, глав. разработчик пакетного менеджера luna, а такж"
-"е перевод на японский"
-
-#~ msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
-#~ msgstr "Демо, далее $%(price)s"
