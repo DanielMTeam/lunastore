@@ -20,10 +20,10 @@ class User(AbstractUser, SafeDeleteModel):
         verbose_name = "Пользователь"
         verbose_name_plural = "Пользователи"
     
-    telegram = models.CharField(max_length=45, null=True)
-    discord = models.CharField(max_length=32, null=True)
-    website = models.URLField(max_length=45, null=True)
-    avatar = models.ImageField(upload_to=unique_avatar_path, max_length=80, null=True)
+    telegram = models.CharField(max_length=45, null=True, blank=True)
+    discord = models.CharField(max_length=32, null=True, blank=True)
+    website = models.URLField(max_length=45, null=True, blank=True)
+    avatar = models.ImageField(upload_to=unique_avatar_path, max_length=80, null=True, blank=True)
     description = models.CharField(max_length=255, default='Пока что, описания тут нету')
     invited_by = models.ForeignKey(
         'self',
