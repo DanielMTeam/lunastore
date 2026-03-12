@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <div class="section">
+        <div class="profile_block">Редактировать дистрибуцию — {{ distribution.version }}</div>
+        <div class="profile_block_content">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                <div class="form-fields">
+                    {% for field in form %}
+                        <div class="form-row">
+                            {{ field.label_tag }}<br>
+                            {{ field }}
+                            {% if field.help_text %}<p class="help-text">{{ field.help_text }}</p>{% endif %}
+                            {{ field.errors }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <button type="submit" class="action_button">Сохранить</button>
+                <a class="action_button" href="{{ download_list_url }}">Отмена</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
