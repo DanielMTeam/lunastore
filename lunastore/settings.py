@@ -15,10 +15,10 @@ LOCALE_PATHS = [
 dotenv_path = BASE_DIR / ".env"
 load_dotenv(dotenv_path)
 
-DEBUG = os.getenv("DEBUG")
+DEBUG = os.getenv("DEBUG", "False") == "True"
 
 if not DEBUG:
-    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
 
@@ -31,6 +31,7 @@ ALLOWED_HOSTS = [
     "lunap.fayzetw.in",
 ]
 
+STATIC_ROOT = BASE_DIR / "static"
 
 # Application definition
 
@@ -325,7 +326,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = "/staticfiles/"
-STATICFILES_DIRS = [BASE_DIR / "staticfiles"]
+STATIC_URL = '/staticfiles/'
+STATICFILES_DIRS = [BASE_DIR / "staticfiles"]      
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
