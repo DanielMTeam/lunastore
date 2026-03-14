@@ -5,6 +5,7 @@ PROD_COMPOSE = docker-compose.yml
 # development commands
 #
 
+<<<<<<< HEAD
 dev-migrate:
 	docker compose -f $(DEV_COMPOSE) exec web python manage.py migrate
 
@@ -12,6 +13,15 @@ dev-makemigrations:
 	docker compose -f $(DEV_COMPOSE) exec web python manage.py makemigrations
 
 dev-superuser:
+=======
+dev-migrate: 
+	docker compose -f $(DEV_COMPOSE) exec web python manage.py migrate
+
+dev-makemigrations: 
+	docker compose -f $(DEV_COMPOSE) exec web python manage.py makemigrations
+
+dev-superuser: 
+>>>>>>> e2d8b654600ad1c1c9d08496e4229c895484d87d
 	docker compose -f $(DEV_COMPOSE) exec web python manage.py createsuperuser
 
 dev-cachetable:
@@ -20,6 +30,7 @@ dev-cachetable:
 dev-collectstatic:
 	docker compose -f $(DEV_COMPOSE) exec web python manage.py collectstatic --noinput
 
+<<<<<<< HEAD
 dev-shell-web:
 	docker compose -f $(DEV_COMPOSE) exec web bash
 
@@ -36,6 +47,24 @@ dev-up:
 	docker compose -f $(DEV_COMPOSE) up -d --no-deps --force-recreate
 
 dev-down:
+=======
+dev-shell-web: 
+	docker compose -f $(DEV_COMPOSE) exec web bash
+
+dev-shell-admin: 
+	docker compose -f $(DEV_COMPOSE) exec admin bash
+
+dev-shell-api: 
+	docker compose -f $(DEV_COMPOSE) exec api bash
+
+dev-build: 
+	docker compose -f $(DEV_COMPOSE) build
+
+dev-up: 
+	docker compose -f $(DEV_COMPOSE) up -d --no-deps --force-recreate
+
+dev-down: 
+>>>>>>> e2d8b654600ad1c1c9d08496e4229c895484d87d
 	docker compose -f $(DEV_COMPOSE) down
 
 dev-restart:
@@ -48,11 +77,11 @@ dev-logs:
 # production commands
 #
 
-migrate:
+migrate: 
 	@echo "Attention: Migrate will be on PRODUCTION database"
 	docker compose -f $(PROD_COMPOSE) exec web python manage.py migrate
 
-superuser:
+superuser: 
 	@echo "Creating superuser on production server..."
 	docker compose -f $(PROD_COMPOSE) exec web python manage.py createsuperuser
 
@@ -62,25 +91,25 @@ cachetable:
 collectstatic:
 	docker compose -f $(PROD_COMPOSE) exec web python manage.py collectstatic --noinput
 
-shell-web:
+shell-web: 
 	@echo "Entering into web-shell on production server..."
 	docker compose -f $(PROD_COMPOSE) exec web bash
 
-shell-api:
+shell-api: 
 	@echo "Entering into api-shell on production server..."
 	docker compose -f $(PROD_COMPOSE) exec api bash
 
-build:
+build: 
 	docker-compose -f $(PROD_COMPOSE) build
 
-up:
+up: 
 	docker-compose -f $(PROD_COMPOSE) up -d --no-deps --force-recreate
 
 down:
 	@echo "Attention: now you will stop your PRODUCTION server"
 	docker-compose -f $(PROD_COMPOSE) down
 
-restart:
+restart: 
 	docker-compose -f $(PROD_COMPOSE) restart
 
 logs:

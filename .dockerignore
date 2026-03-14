@@ -1,0 +1,5 @@
+.venv
+.git
+__pycache__
+staticfiles_collected
+staticfiles_build
