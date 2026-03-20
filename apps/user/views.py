@@ -327,3 +327,7 @@ def invite_code(request):
         form = InviteCodeForm()
 
     return render(request, "invite_input.html", {"form": form})
+
+
+def other_projects(request):
+    return render(request, "other_projects.html")
