@@ -20,12 +20,12 @@
     {% if user.is_authenticated %}
     {% trans "BASE_AUTHLIKE" %}<a href="/profile.php"><b>{{ user.username }}</b></a> - <a href="/logout.php">{% trans "BASE_LOGOUTBTN" %}</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a> |
   {% else %}
-  <a href="/login.php" id="login-link">{% trans "BASE_LOGINBTN" %}</a> - <a href="/register.php">{% trans "BASE_REGISTERBTN" %}</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a> |
+  <a href="{% url 'login' %}" id="login-link">{% trans "BASE_LOGINBTN" %}</a> - <a href="/register.php">{% trans "BASE_REGISTERBTN" %}</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a> |
   {% endif %}
   <div class="oprj_layout" id="oprj_layout">
   <div class="oprj" id="oprj">{% trans "BASE_OPRJ_TITLE" %}</div>
   <div class="oprj_list" id="oprj_list">
-  
+
     <div class="oprj_item" data-h="https://myslivets.com">Myslivets.com</div>
     <div class="oprj_item" data-h="http://store.myslivets.com"><b>LunaStore</b></div>
     <div class="oprj_item" data-h="http://games.myslivets.com">{% trans "BASE_OPRJ_GAMESBTN" %}</div>
@@ -35,21 +35,16 @@
   </div>
   </div>
   </div>
-  
+
 
   <div class="header">
-    <a href="https://myslivets.com"><div class="ls_dm_logo"></div></a>
+    <a href="/"><div class="ls_dm_logo"></div></a>
     <div class="rl_l"><h1 class="txtr">LunaStore</h1>
     <div class="subtitle txtr">Windows XP Professional</div>
     </div>
-    
+
     <div class="searchbar">
-  <!--[if IE 6]>
-  <style type="text/css">
-   .searchbar button {padding: 1px 1px;}
-  </style>
-  <![endif]-->
-      <form action="{% url 'search' %}" method="get" style="display: inline;">
+  <form action="{% url 'search' %}" method="get" style="display: inline;">
         <input type="text" name="q" id="q" value="{{ request.GET.q|default_if_none:'' }}" placeholder="Например: Total Commander">
         <button type="submit">{% trans "BASE_SEARCHBTN" %}</button>
       </form>
@@ -63,25 +58,28 @@
 
   <div class="main">
     {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li class="{{ message.tags }}">{{ message }}</li>
-        {% endfor %}
-    </ul>
-  {% endif %}
-  
+        <div class="splash" style="width: auto; margin-bottom: 10px;">
+            {% for message in messages %}
+                <div class="{% if message.tags == 'error' %}error_splash{% elif message.tags == 'success' %}good_splash{% else %}info_splash{% endif %}">
+                    <div class="{% if message.tags == 'error' %}error_icon_small{% elif message.tags == 'success' %}good_icon_small{% else %}info_icon_small{% endif %}"></div>
+                    <div class="splash_text">{{ message }}</div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <div class="sidebar">
-      
+
       {% if user.is_authenticated %}
       <div class="boxhead_primary"><b>{% trans "BASE_SIDEBAR_ACCOUNT_TITLE" %}</b></div>
       <div class="box">
         {% with route=request.resolver_match.url_name %}
         <ul>
-          <a href="{% url 'profile' %}"><li class="myhome" 
-            {% if route == 'profile' %} 
+          <a href="{% url 'profile' %}"><li class="myhome"
+            {% if route == 'profile' %}
             id="active"{% endif %}>{% trans "BASE_SIDEBAR_ACCOUNT_PROFILEBTN" %}</li></a>
           <a href="{% url 'settings' %}"><li class="settings"
-            {% if route == 'settings' %} 
+            {% if route == 'settings' %}
             id="active"{% endif %}>{% trans "BASE_SIDEBAR_ACCOUNT_SETTINGSBTN" %}</li></a>
           <a href="{% url 'invite_person' %}">
               <li class="newbie" {% if route == 'invite_person' %}id="active"{% endif %}>
@@ -95,13 +93,13 @@
 
         <div class="boxhead"><b>{% trans "BASE_SIDEBAR_CATEGORIES_TITLE" %}</b></div>
       <div class="box">
-        
+
         <ul>
           <a href="/index.php"><li class="myhome">{% trans "BASE_SIDEBAR_CATEGORIES_HOME" %}</li></a>
           <aside>{% show_categories active_category=active_category %}</aside>
         </ul>
       </div>
-      
+
       <div class="adv_block">
         <a href="{ad_link}"><img src="./ad/ad.png" alt="Ad"></a>
       </div>
@@ -116,31 +114,7 @@
     <div style="text-align: right; font-size: 11px;">{% trans "BASE_FOOTER_TEXT_1" %} {% now "Y" %}<br>{% trans "BASE_FOOTER_TEXT_2" %}</div>
   </div>
 
-  <div id="login-popup" class="xp-popup" action="/login.php">
-  <div class="popup-content">
-    <b>{% trans "BASE_LOGINPOPUP_TITLE" %}</b><br>{% trans "BASE_LOGINPOPUP_DESC" %}<hr>
-    {% csrf_token %}
-    <form id="login-form">
-      {% trans "BASE_LOGINPOPUP_LOGINFIELD" %} <br>
-      <input type="text" name="login"><br>
-      {% trans "BASE_LOGINPOPUP_PASSWORDFIELD" %} <br>
-      <input type="password" name="password"><br>
-      <button type="submit">{% trans "BASE_LOGINPOPUP_LOGINBTN" %}</button>
-    </form>
-  </div>
-  <div class="tail"></div>
-</div>
 <link rel="stylesheet" href='{% static "./css/ntf.css"%}'>
-
-<script type="text/javascript">
-if (window.attachEvent) {
-  window.attachEvent('onload', function(){ initBalloon('loginBtn'); });
-} else if (window.addEventListener) {
-  window.addEventListener('load', function(){ initBalloon('loginBtn'); }, false);
-} else {
-  window.onload = function(){ initBalloon('loginBtn'); };
-}
-</script>
 
 <script type="text/javascript">
 function doSearch() {
@@ -162,3 +136,5 @@ function doSearch() {
 
 <script src="{% static './js/oprj.js' %}"></script>
 <script src='{% static "./js/ntf.js"%}'></script>
+</body>
+</html>
