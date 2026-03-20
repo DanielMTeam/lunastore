@@ -1587,3 +1587,51 @@ msgstr "Код"
 
 msgid "FORM_INVITECODE_ENTER"
 msgstr "Введите код"
+
+msgid "PAGE_LOGIN_BROWSER_TITLE"
+msgstr "Вход"
+
+msgid "PAGE_LOGIN_REQUIRED_WARNING"
+msgstr "Чтобы продолжить данное действие, нужно войти на сайт"
+
+msgid "PAGE_LOGIN_MAIN_TITLE"
+msgstr "Вход"
+
+msgid "PAGE_LOGIN_GREETING"
+msgstr "Представьтесь..."
+
+msgid "PAGE_LOGIN_USERNAME_LABEL"
+msgstr "Логин:"
+
+msgid "PAGE_LOGIN_PASSWORD_LABEL"
+msgstr "Пароль:"
+
+msgid "PAGE_LOGIN_SUBMIT_BTN"
+msgstr "Войти"
+
+msgid "PAGE_LOGIN_INFO_TITLE_1"
+msgstr "Зачем нужен аккаунт?"
+
+msgid "PAGE_LOGIN_INFO_BULLET_1"
+msgstr "Оставляйте отзывы к ПО"
+
+msgid "PAGE_LOGIN_INFO_BULLET_2"
+msgstr "Покорите сообщество"
+
+msgid "PAGE_LOGIN_INFO_BULLET_3"
+msgstr "Загружайте ПО (скоро)"
+
+msgid "PAGE_LOGIN_INFO_TITLE_2"
+msgstr "У Вас нет аккаунта?"
+
+msgid "PAGE_LOGIN_INFO_DESC_2"
+msgstr "Создайте его. Это бесплатно."
+
+msgid "PAGE_LOGIN_REGISTER_BTN"
+msgstr "Зарегистрироваться"
+
+msgid "VIEW_LOGIN_BANNED_REASON"
+msgstr "Ваш аккаунт заблокирован. Причина: %(reason)s"
+
+msgid "VIEW_LOGIN_INVALID_CREDENTIALS"
+msgstr "Неверный логин или пароль."
