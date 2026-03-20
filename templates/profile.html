@@ -10,109 +10,150 @@
       <div class="profile_avatar" id="{uid}">
         {% if obj.avatar %}
             <img src="{{ obj.avatar.url }}" alt="{{ obj.username }}" style="height: 64px; width: 64px;">
-        {% else %}
-            <img src="{% static '../cdn/avatar/1/avatar.jpg'%}">
         {% endif %}
       </div>
 
       <div class="profile_info" id="{uid}">
-        
+
         <div class="profile_name" style="margin-bottom: 0;">
-            {{ obj.username }}  
+            {{ obj.username }}
             {% if obj.is_staff %}
                 <img src="{% static './img/tabs/about.png'%}" alt="{% trans 'PAGE_PROFILE_STAFF_ALT' %}" title="{% trans 'PAGE_PROFILE_STAFF_ALT' %}" style="vertical-align: middle;">
             {% endif %}
         </div>
 
-        <div class="profile_desc" style="clear: both; margin-bottom: 2px;">
+        <div class="profile_desc">
             {% if obj.description %}
                 {{ obj.description }}
             {% else %}
                 {% trans "CARD_USER_NO_DESC" %}
             {% endif %}
-        </div>
-        
-        <div style="clear: both; color: #808080;">
+            <br>
             <small>
                 <span class="last-visit">
-                    {{ obj.apps_count|default:"0" }} {% trans "PAGE_PROFILE_STATS_APPS" %} 
-                    {{ obj.reviews_count|default:"0" }} {% trans "PAGE_PROFILE_STATS_REVIEWS" %} 
-                    {% trans "PAGE_PROFILE_STATS_MEMBER_SINCE" %} {{ obj.date_joined|date:"d E Y" }}
-                </span>
+                        {% blocktranslate trimmed count counter=obj.apps_count|default:0 %}
+                            {{ counter }} PAGE_PROFILE_STATS_APP
+                        {% plural %}
+                            {{ counter }} PAGE_PROFILE_STATS_APPS
+                        {% endblocktranslate %}
+
+                        {% blocktranslate trimmed count counter=obj.reviews_count|default:0 %}
+                            {{ counter }} PAGE_PROFILE_STATS_REVIEW
+                        {% plural %}
+                            {{ counter }} PAGE_PROFILE_STATS_REVIEWS
+                        {% endblocktranslate %}
+
+                        {% trans "PAGE_PROFILE_STATS_MEMBER_SINCE" %} {{ obj.date_joined|date:"d E Y" }}
+                    </span>
             </small>
         </div>
+        <div style="clear: both;"></div>
       </div>
   </div>
-  
-  <link rel="stylesheet" href="{% static './css/profile.css'%}">  
+
+  <link rel="stylesheet" href="{% static './css/profile.css'%}">
   <link rel="stylesheet" href="{% static './css/tabs.css'%}">
-  <link rel="stylesheet" href="{% static './css/reviews.css'%}"> 
-  
+  <link rel="stylesheet" href="{% static './css/reviews.css'%}">
+
   <div class="tabs">
       <div class="tab-bar">
         <div class="tab active" href="/help.php">
           <img src="{% static './img/tabs/faq.png'%}" class="tab-icon" alt="">
           {% trans "PAGE_PROFILE_TAB_MAIN" %}
         </div>
-        <div class="tab" href="/help.php?page=about">
-          <img src="{% static './img/tabs/about.png'%}" class="tab-icon" alt="">
-          {% trans "PAGE_PROFILE_TAB_REVIEWS" %}
-        </div>
-        <div class="tab" href="/help.php?page=privacy">
-          <img src="{% static './img/tabs/privacy.png'%}" class="tab-icon" alt="">
-          {% trans "PAGE_PROFILE_TAB_APPS" %}
-        </div>
       </div>
 
       <div class="tab-content" id="tab-view">
-        <div class="profile_block">{% trans "PAGE_PROFILE_CONTACT_INFO" %}</div>
-        <div class="profile_block_content">
-          <div class="profile_desc_element_head">{% trans "PAGE_PROFILE_LABEL_WEBSITE" %} <div class="profile_desc_element">{{ obj.website|default:"-" }}</div></div>
-          <div class="profile_desc_element_head">{% trans "PAGE_PROFILE_LABEL_TELEGRAM" %} <div class="profile_desc_element">{{ obj.telegram|default:"-" }}</div></div>
-          <div class="profile_desc_element_head">{% trans "PAGE_PROFILE_LABEL_EMAIL" %} <div class="profile_desc_element">{{ obj.email }}</div></div>
-        </div>
-        <br>
-        
-        <div class="profile_block">
-            {% trans "PAGE_PROFILE_APPS_TITLE" %}
-            <span class="rl_l"><a href="/search.php?section=apps&pubid={{ obj.id }}">{% trans "PAGE_PROFILE_LINK_ALL" %}</a></span>
-        </div>
-        
-        <div class="profile_block_content">
-          {% for app in obj.apps.all|slice:":5" %}
-          <div class="icon">
-            <img src="{{ app.icon.url }}" alt="{{ app.title }}" class="icon-img">
-            <div class="icon-text"><a href="{{ app.get_absolute_url }}">{{ app.title }}</a></div>
+          <div class="profile_block">{% trans "PAGE_PROFILE_CONTACT_INFO" %}</div>
+          <div class="profile_block_content">
+
+              <div class="profile_desc_element_head">{% trans "PAGE_PROFILE_LABEL_WEBSITE" %}
+                  <div class="profile_desc_element">
+                      {% if obj.website %}
+                          <a href="{{ obj.website }}" target="_blank" rel="noopener noreferrer">{{ obj.website }}</a>
+                      {% else %}
+                          -
+                      {% endif %}
+                  </div>
+              </div>
+
+              <div class="profile_desc_element_head">{% trans "PAGE_PROFILE_LABEL_TELEGRAM" %}
+                  <div class="profile_desc_element">
+                      {% if obj.telegram %}
+                          <a href="https://t.me/{{ obj.telegram }}" target="_blank" rel="noopener noreferrer">{{ obj.telegram }}</a>
+                      {% else %}
+                          -
+                      {% endif %}
+                  </div>
+              </div>
+
+              <div class="profile_desc_element_head">Discord:
+                  <div class="profile_desc_element">{{ obj.discord|default:"-" }}</div>
+              </div>
+
+              <div class="profile_desc_element_head">{% trans "PAGE_PROFILE_LABEL_EMAIL" %}
+                  <div class="profile_desc_element">
+                      {% if obj.email %}
+                          <a href="mailto:{{ obj.email }}">{{ obj.email }}</a>
+                      {% else %}
+                          -
+                      {% endif %}
+                  </div>
+              </div>
+
           </div>
-          {% empty %}
-             <div class="icon">
-                <img src="./cdn/appsicons/totalcmd.png" alt="Total Commander" class="icon-img">
-                <div class="icon-text"><a href="/app4">Total Commander</a></div>
-             </div>
-             {% endfor %}
-        </div>
-        <br>
-        
-        <div class="profile_block">
-            {{ obj.username }} {% trans "PAGE_PROFILE_INVITES_TEXT" %} {{ obj.invited_count|default:"0" }} {% trans "PAGE_PROFILE_INVITES_PEOPLE" %}
-        </div>
-        
-        <div class="profile_block_content">
-          <div class="user">
-            <a href="/id5"><img src="./cdn/avatar/1/avatar.jpg" alt="eversiege" class="user-img"></a>
-            <div class="user-text"><a href="/id5">eversiege</a></div>
+          <br>
+
+          <div class="profile_block">
+                  {% trans "PAGE_PROFILE_APPS_TITLE" %}
+                  <span class="rl_l"><a href="/search.php?section=apps&pubid={{ obj.id }}">{% trans "PAGE_PROFILE_LINK_ALL" %}</a></span>
+              </div>
+
+              <div class="profile_block_content">
+                  {% for app in obj.applications.all|slice:":5" %}
+                      <div class="icon">
+                          {% if app.icon %}
+                              <img src="{{ app.icon.url }}" alt="{{ app.title }}" class="icon-img">
+                          {% else %}
+                              <img src="{% static '../img/noavatar_64.jpg' %}" alt="{{ app.title }}" class="icon-img">
+                          {% endif %}
+                          <div class="icon-text"><a href="{{ app.get_absolute_url|default:'#' }}">{{ app.title }}</a></div>
+                      </div>
+                  {% empty %}
+                      <div style="text-align: center; padding: 50px 20px; color: #555;">
+                          <h3 style="margin-bottom: 10px;">{% trans "PAGE_MANAGE_APPS_EMPTY_TITLE" %}</h3>
+                          <span style="font-size: 12px; color: #888;">{% trans "PAGE_PROFILE_APPS_EMPTY_DESC" %}</span>
+                      </div>
+                  {% endfor %}
+              </div>
+              <br>
+
+              <div class="profile_block">
+                  {{ obj.username }} {% trans "PAGE_PROFILE_INVITES_TEXT" %} {{ obj.invited_users.count }} {% trans "PAGE_PROFILE_INVITES_PEOPLE" %}
+              </div>
+
+              <div class="profile_block_content">
+                  {% for invited in obj.invited_users.all|slice:":5" %}
+                      <div class="user">
+                          <a href="?id={{ invited.id }}">
+                              {% if invited.avatar %}
+                                  <img src="{{ invited.avatar.url }}" alt="{{ invited.username }}" class="user-img">
+                              {% else %}
+                                  <img src="{% static '../img/noavatar_64.jpg' %}" alt="{{ invited.username }}" class="user-img">
+                              {% endif %}
+                          </a>
+                          <div class="user-text"><a href="?id={{ invited.id }}">{{ invited.username }}</a></div>
+                      </div>
+                  {% empty %}
+                      <div style="text-align: center; padding: 50px 20px; color: #555;">
+                          <h3 style="margin-bottom: 10px;">{% trans "PAGE_PROFILE_INVITES_EMPTY_TITLE" %}</h3>
+                          <span style="font-size: 12px; color: #888;">{% trans "PAGE_PROFILE_INVITES_EMPTY_DESC" %}</span>
+                      </div>
+                  {% endfor %}
+              </div>
+              <br>
+
           </div>
-          <div class="user">
-            <a href="/id68"><img src="./cdn/avatar/1/avatar.jpg" alt="beelive" class="user-img"></a>
-            <div class="user-text"><a href="/id68">beelive</a></div>
-          </div>
-          <div class="user">
-            <a href="/id9"><img src="./cdn/avatar/1/avatar.jpg" alt="BAGMAY904" class="user-img"></a>
-            <div class="user-text"><a href="/id9">BAGMAY904</a></div>
-          </div>
-        </div>
-        <br>
-      </div>
   </div>
 </div>
 </div>
