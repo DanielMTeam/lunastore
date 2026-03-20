@@ -1635,3 +1635,36 @@ msgstr "Ваш аккаунт заблокирован. Причина: %(reason
 
 msgid "VIEW_LOGIN_INVALID_CREDENTIALS"
 msgstr "Неверный логин или пароль."
+
+msgid "PAGE_OTHER_PROJECTS_BROWSER_TITLE"
+msgstr "Прочие проекты"
+
+msgid "PAGE_OTHER_PROJECTS_TITLE"
+msgstr "Прочие проекты"
+
+msgid "PAGE_OTHER_PROJECTS_SUBTITLE"
+msgstr "Сайты-друзья и прочие наши проекты"
+
+msgid "PAGE_OTHER_PROJECTS_SECTION_MAIN"
+msgstr "Основные"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_DM"
+msgstr "Сайт-визитка Daniel Myslivets (версия для старых компьютеров и браузеров)"
+
+msgid "PAGE_OTHER_PROJECTS_BTN_GO"
+msgstr "Перейти »"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_GAMES"
+msgstr "Реинкарнация интернет-игр для Windows XP/7 в виде стороннего кастомного сервера"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_RENAISSANCE"
+msgstr "Неофициальный проект, который восстанавливает работу Агента@Mail.ru"
+
+msgid "PAGE_OTHER_PROJECTS_SECTION_FRIENDS"
+msgstr "Сайты-друзья"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_KICQ"
+msgstr "Неофициальный проект, который восстанавливает работу ICQ"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_FOXCORP"
+msgstr "Личный сайт Milya Fox; сетевой инженер, который помогал с проектом"
