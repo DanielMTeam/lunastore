@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+<title>{% trans "PAGE_OTHER_PROJECTS_BROWSER_TITLE" %} - LunaStore</title>
+
+<div class="content">
+    <div class="banner_image">
+        <div id="otherprj">
+            <div class="banner_text">{% trans "PAGE_OTHER_PROJECTS_TITLE" %}</div>
+            <div class="banner_text_mini">{% trans "PAGE_OTHER_PROJECTS_SUBTITLE" %}</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>{% trans "PAGE_OTHER_PROJECTS_SECTION_MAIN" %}</h2>
+
+        <div class="project_card">
+            <div class="project_logo"><img src="{% static 'img/otherprj/dm.png' %}" alt="dm.png"></div>
+            <div class="project_info">
+                <div class="project_name">myslivets.com</div>
+                <div class="project_desc">{% trans "PAGE_OTHER_PROJECTS_DESC_DM" %}</div>
+                <a href="http://old.myslivets.com" class="project_button">{% trans "PAGE_OTHER_PROJECTS_BTN_GO" %}</a>
+            </div>
+        </div>
+
+        <div class="project_card">
+            <div class="project_logo"><img src="{% static 'img/otherprj/games.png' %}" alt="games.png"></div>
+            <div class="project_info">
+                <div class="project_name">Zone Games Revival</div>
+                <div class="project_desc">{% trans "PAGE_OTHER_PROJECTS_DESC_GAMES" %}</div>
+                <a href="http://games.myslivets.com" class="project_button">{% trans "PAGE_OTHER_PROJECTS_BTN_GO" %}</a>
+            </div>
+        </div>
+
+        <div class="project_card">
+            <div class="project_logo"><img src="{% static 'img/otherprj/renaissance.png' %}" alt="renaissance.png"></div>
+            <div class="project_info">
+                <div class="project_name">Renaissance <font color="red">(new)</font></div>
+                <div class="project_desc">{% trans "PAGE_OTHER_PROJECTS_DESC_RENAISSANCE" %}</div>
+                <a href="http://mrim.su" class="project_button">{% trans "PAGE_OTHER_PROJECTS_BTN_GO" %}</a>
+            </div>
+        </div>
+
+        <hr>
+
+        <h2>{% trans "PAGE_OTHER_PROJECTS_SECTION_FRIENDS" %}</h2>
+
+        <div class="project_card">
+            <div class="project_logo"><img src="{% static 'img/otherprj/kicq.png' %}" alt="kicq.png"></div>
+            <div class="project_info">
+                <div class="project_name">kICQ</div>
+                <div class="project_desc">{% trans "PAGE_OTHER_PROJECTS_DESC_KICQ" %}</div>
+                <a href="http://kicq.ru" class="project_button">{% trans "PAGE_OTHER_PROJECTS_BTN_GO" %}</a>
+            </div>
+        </div>
+
+        <div class="project_card">
+            <div class="project_logo"><img src="{% static 'img/otherprj/milya.png' %}" alt="milya.png"></div>
+            <div class="project_info">
+                <div class="project_name">FoxCorp</div>
+                <div class="project_desc">{% trans "PAGE_OTHER_PROJECTS_DESC_FOXCORP" %}</div>
+                <a href="http://lisikpng.com" class="project_button">{% trans "PAGE_OTHER_PROJECTS_BTN_GO" %}</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+{% endblock %}
