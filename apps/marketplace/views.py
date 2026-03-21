@@ -71,10 +71,6 @@ def app(request):
     return render(request, "storepage.html", context)
 
 
-def faq(request):
-    return render(request, "faq.html")
-
-
 @developer_required
 def app_add(request):
     if request.method == "POST":
