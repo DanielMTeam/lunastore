@@ -13,6 +13,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import Group
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
+from django.utils import translation
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import gettext_lazy as _
 
@@ -21,6 +22,7 @@ from apps.marketplace.models import Application
 from .forms import (
     AvatarUpdateForm,
     DevStatusForm,
+    EmailChangeForm,
     InviteCodeForm,
     PasswordChangeForm,
     PasswordConfirmationForm,
@@ -32,6 +34,7 @@ from .models import (
     BlacklistedUsername,
     DevRequestsModel,
     InviteToken,
+    LegalDocument,
     User,
     UserActivityLog,
     UserBan,
@@ -175,6 +178,7 @@ def profile_settings(request):
         "password_form": PasswordChangeForm(user=user),
         "avatar_form": AvatarUpdateForm(instance=user),
         "del_acc_form": PasswordConfirmationForm(user=user),
+        "email_form": EmailChangeForm(user=user),
     }
     if request.method == "POST":
         form_type = request.POST.get("form_type")
@@ -204,6 +208,17 @@ def profile_settings(request):
         elif form_type == "init_delete":
             request.session["can_view_delete_page"] = True
             return redirect("delete_account")
+        elif form_type == "email":
+            forms["email_form"] = EmailChangeForm(request.POST, user=user)
+            if forms["email_form"].is_valid():
+                user.email = forms["email_form"].cleaned_data["new_email"]
+                user.save()
+                messages.success(request, _("INFO_EMAIL_WAS_CHANGED"))
+                return redirect("settings")
+            else:
+                for field, errors in forms["email_form"].errors.items():
+                    for error in errors:
+                        messages.error(request, error)
     return render(request, "settings.html", forms)
 
 
@@ -331,3 +346,23 @@ def invite_code(request):
 
 def other_projects(request):
     return render(request, "other_projects.html")
+
+
+def help_center(request):
+    current_page = request.GET.get("page", "faq")
+    context = {
+        "current_page": current_page,
+    }
+    if current_page == "privacy":
+        current_lang = translation.get_language()
+        doc = LegalDocument.objects.filter(
+            doc_type="privacy", language=current_lang
+        ).first()
+        if not doc:
+            doc = LegalDocument.objects.filter(
+                doc_type="privacy", language="en"
+            ).first()
+
+        context["privacy_doc"] = doc
+
+    return render(request, "help_center.html", context)

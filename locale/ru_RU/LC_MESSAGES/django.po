@@ -965,6 +965,9 @@ msgstr "- разработчик"
 msgid "PAGE_FAQ_TEAM_ROLE_FAYZETWIN"
 msgstr "основной backend разработчик, API"
 
+msgid "PAGE_FAQ_TEAM_ROLE_ZAZIOS"
+msgstr "backend-разработчик (Go)"
+
 #: templates/faq.html:54
 msgid "PAGE_FAQ_TEAM_ROLE_MONDY"
 msgstr "логотип"
@@ -1684,3 +1687,24 @@ msgstr "Неофициальный проект, который восстана
 
 msgid "PAGE_OTHER_PROJECTS_DESC_FOXCORP"
 msgstr "Личный сайт Milya Fox; сетевой инженер, который помогал с проектом"
+
+msgid "ERROR_MAX_AVATAR_DIMENSIONS"
+msgstr "Максимальный размер изображения 64x64 пикселей."
+
+msgid "ERROR_EMAIL_IS_SAME"
+msgstr "Новый E-mail совпадает с текущим."
+
+msgid "ERROR_EMAIL_ALREADY_EXISTS"
+msgstr "Пользователь с таким E-mail уже существует."
+
+msgid "INFO_EMAIL_WAS_CHANGED"
+msgstr "Ваш E-mail был успешно изменен."
+
+msgid "ERROR_INVALID_IMAGE_FILE"
+msgstr "Не удалось обработать изображение. Возможно, файл поврежден."
+
+msgid "PAGE_FAQ_PRIVACY_TITLE"
+msgstr "Политика конфиденциальности"
+
+msgid "PAGE_FAQ_PRIVACY_EMPTY"
+msgstr "Документ еще не заполнен..."
