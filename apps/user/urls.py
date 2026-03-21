@@ -18,4 +18,5 @@ urlpatterns = [
     path("invite.php", views.invite_person, name="invite_person"),
     path("invite_code.php", views.invite_code, name="invite_code"),
     path("other_projects.php", views.other_projects, name="other_projects"),
+    path("help_center.php", views.help_center, name="help_center"),
 ]
