@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+<title>{% trans "PAGE_FAQ_TITLE" %} - LunaStore</title>
+<div class="content">
+    <div class="banner_image">
+        <div id="help_center">
+            <div class="banner_text">{% trans "PAGE_FAQ_TITLE_2" %}</div>
+            <div class="banner_text_mini">{% trans "PAGE_FAQ_DESC" %}</div>
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="{% static './css/tabs.css' %}" />
+
+    <div class="tabs">
+        <div class="tab-bar">
+            <a href="{% url 'help_center' %}" style="text-decoration: none; color: inherit">
+                <div class="tab {% if current_page == 'faq' %}active{% endif %}">
+                    <img src="{% static './img/tabs/faq.png' %}" class="tab-icon" alt="" />
+                    FAQ
+                </div>
+            </a>
+            <a href="{% url 'help_center' %}?page=privacy" style="text-decoration: none; color: inherit">
+                <div class="tab {% if current_page == 'privacy' %}active{% endif %}">
+                    <img src="{% static './img/tabs/privacy.png' %}" class="tab-icon" alt="" />
+                    {% trans "PAGE_FAQ_PRIVACYTAB" %}
+                </div>
+            </a>
+        </div>
+
+        <div class="tab-content" id="tab-view">
+
+            {% if current_page == 'faq' %}
+                <img src="{% static './img/splash/main_logo.png' %}" style="width: 430px" />
+                <hr />
+
+                <div class="faq_card">
+                    <div id="faq_title">{% trans "PAGE_FAQ_CARD_WHATISIT" %}</div>
+                    <div id="faq_content"><p><b>LunaStore</b> - {% trans "PAGE_FAQ_CARD_WHATISITDESC" %}</p></div>
+                </div>
+
+                <div class="faq_card">
+                    <div id="faq_title">{% trans "PAGE_FAQ_CARD_WHYWESHOP" %}</div>
+                    <div id="faq_content"><p>{% trans "PAGE_FAQ_CARD_WHYWESHOPDESC" %}</p></div>
+                </div>
+
+                <div class="faq_card">
+                    <div id="faq_title">{% trans "PAGE_FAQ_CARD_TEAM" %}</div>
+                    <div id="faq_content">
+                        <p>
+                            {% trans "PAGE_FAQ_CARD_TEAMDESC_1" %} <br><br>
+                            {% trans "PAGE_FAQ_CARD_TEAMDESC_2" %} <br>
+
+                            <b>Daniel Myslivets</b> {% trans "PAGE_FAQ_CARD_TEAM_AUTHOR" %}
+                            <span title="{% trans 'PAGE_FAQ_TOOLTIP_EASTEREGG' %}">{% trans "PAGE_FAQ_CARD_TEAM_FRONTEND" %}</span><br>
+
+                            <b>synzr</b> {% trans "PAGE_FAQ_CARD_TEAM_BACKEND" %}<br>
+                            <b>eversiege</b> {% trans "PAGE_FAQ_CARD_TEAM_CDNANDGIT" %}<br>
+                            <b>flydelick</b> {% trans "PAGE_FAQ_CARD_TEAM_DEV" %}<br>
+
+                            <b>fayzetwin</b> - {% trans "PAGE_FAQ_TEAM_ROLE_FAYZETWIN" %}<br>
+                            <b>zazios</b> - {% trans "PAGE_FAQ_TEAM_ROLE_ZAZIOS" %}<br>
+                            <b>MondySpartan</b> - {% trans "PAGE_FAQ_TEAM_ROLE_MONDY" %}<br><br>
+
+                            {% trans "PAGE_FAQ_TEAM_HEADER_OTHER" %}<br>
+                            <b>nocha3</b> - {% trans "PAGE_FAQ_TEAM_ROLE_NOCHA3" %}<br>
+                            <b>chelka0</b> - {% trans "PAGE_FAQ_TEAM_ROLE_CHELKA0" %}<br><br>
+
+                            {% trans "PAGE_FAQ_TEAM_HEADER_TESTERS" %}<br>
+                            <b>{% trans "PAGE_FAQ_TEAM_TESTERS_LIST" %}</b>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq_card">
+                    <div id="faq_title">{% trans "PAGE_FAQ_Q_CREATE_ACC" %}</div>
+                    <div id="faq_content"><p>{% trans "PAGE_FAQ_A_CREATE_ACC" %}</p></div>
+                </div>
+
+                <div class="faq_card">
+                    <div id="faq_title">{% trans "PAGE_FAQ_Q_ACC_BENEFITS" %}</div>
+                    <div id="faq_content"><p>{% trans "PAGE_FAQ_A_ACC_BENEFITS" %}</p></div>
+                </div>
+
+                <div class="faq_card">
+                    <div id="faq_title">{% trans "PAGE_FAQ_Q_ADD_APP" %}</div>
+                    <div id="faq_content"><p>{% trans "PAGE_FAQ_A_ADD_APP" %}</p></div>
+                </div>
+
+                <div class="faq_card">
+                    <div id="faq_title">{% trans "PAGE_FAQ_Q_LEGAL" %}</div>
+                    <div id="faq_content"><p>{% trans "PAGE_FAQ_A_LEGAL" %}</p></div>
+                </div>
+
+                <div class="faq_card">
+                    <div id="faq_title">{% trans "PAGE_FAQ_Q_WHY_EXIST" %}</div>
+                    <div id="faq_content">
+                        <p>
+                            {% trans "PAGE_FAQ_A_WHY_EXIST_PART1" %}<br>
+                            {% trans "PAGE_FAQ_A_WHY_EXIST_PART2" %}<br><br>
+                            {% trans "PAGE_FAQ_A_WHY_EXIST_PART3" %}
+                        </p>
+                    </div>
+                </div>
+
+                <i>{% trans "PAGE_FAQ_LAST_UPDATE" %}: 01.01.2026</i>
+
+            {% elif current_page == 'privacy' %}
+
+                <h3>{% trans "PAGE_FAQ_PRIVACY_TITLE" %}</h3>
+
+                {% if privacy_doc %}
+                    <div class="privacy-text">{{ privacy_doc.content|safe }}</div>
+                    <br /><br />
+                    <i>{% trans "PAGE_FAQ_LAST_UPDATE" %}: {{ privacy_doc.last_updated|date:"d.m.Y" }}</i>
+                {% else %}
+                    <p>{% trans "PAGE_FAQ_PRIVACY_EMPTY" %}</p>
+                {% endif %}
+
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
