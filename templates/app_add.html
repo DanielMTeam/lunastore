@@ -1,5 +1,5 @@
 ﻿{% extends 'base.html' %}
-{% use i18n %}
+{% load i18n %}
 {% load static %}
 
 {% block content %}
@@ -8,18 +8,18 @@
 <link rel="stylesheet" href="{% static './css/stpage.css'%}">
 
 <style>
-    .add_app_card, 
-    .step-content, 
-    .preview-container-box, 
+    .add_app_card,
+    .step-content,
+    .preview-container-box,
     .info-notification,
-    #step-content-3 > div { 
+    #step-content-3 > div {
         box-sizing: border-box !important;
-        width: auto !important; 
+        width: auto !important;
         max-width: 100% !important;
         margin-left: 0 !important;
         margin-right: 0 !important;
     }
-    
+
     .error-msg-box {
         color: #cc0000;
         background: #ffebe8;
@@ -27,19 +27,19 @@
         padding: 5px 10px;
         margin-top: 5px;
         font-size: 11px;
-        display: none; 
+        display: none;
     }
 
-    .st_scr img { 
-        border: 1px solid #ccc; 
-        padding: 2px; 
-        background: #fff; 
-        object-fit: cover; 
+    .st_scr img {
+        border: 1px solid #ccc;
+        padding: 2px;
+        background: #fff;
+        object-fit: cover;
     }
 
     .bottom-actions {
         display: flex;
-        justify-content: space-between; 
+        justify-content: space-between;
         align-items: center;
         margin-top: 15px;
         border-top: 1px solid #ddd;
@@ -48,10 +48,10 @@
 
     .content * { box-sizing: border-box; }
     .content { padding-bottom: 60px; }
-    
+
     .step-content { display: none; }
     .step-content.active { display: block; }
-    
+
     .action_button {
         cursor: pointer;
         font-family: Tahoma, sans-serif;
@@ -68,13 +68,13 @@
 
 <div class="content">
     <div class="section">
-        
+
         <h2 style="margin-top: 10px; margin-bottom: 8px; padding-left: 7px;">{% trans "PAGE_ADDAPP_PAGETITLE"%}</h2>
         <div class="separator_store"></div>
 
         <form method="post" enctype="multipart/form-data" class="add_app_form">
             {% csrf_token %}
-            
+
             <div class="steps">
                 <table>
                     <tr>
@@ -98,11 +98,11 @@
             </div>
 
             <div class="add_app_card" style="margin-top: 25px;">
-                
+
                 <div id="step-content-1" class="step-content active">
                     <h1>{% trans "PAGE_ADDAPP_STEP1_NAME" %}</h1>
                     <div id="form-step-1">
-                        
+
                         <label>
                             <div class="add_app_pad">
                                 <div class="add_app_title">{% trans "PAGE_ADDAPP_STEP1_TITLE" %}</div>
@@ -116,7 +116,7 @@
                             <div class="add_app_pad">
                                 <div class="add_app_title">{% trans "PAGE_ADDAPP_STEP1_SLOGAN" %}</div>
                                 {{ form.slogan }}
-                                <div class="add_app_form_label">{% trans "PAGE_ADDAPP_STEP1_SLOGANDESC_1" %}<br>{% trans "PAGE_ADDAPP_STEP1_SLOGANDESC_2" %}</div>  
+                                <div class="add_app_form_label">{% trans "PAGE_ADDAPP_STEP1_SLOGANDESC_1" %}<br>{% trans "PAGE_ADDAPP_STEP1_SLOGANDESC_2" %}</div>
                                 {{ form.slogan.errors }}
                             </div>
                         </label>
@@ -157,7 +157,7 @@
                             <div class="add_app_pad">
                                 <div class="add_app_title">{% trans "PAGE_ADDAPP_STEP2_DESC" %}</div>
                                 {{ form.description }}
-                                <div class="add_app_form_label">{% trans "PAGE_ADDAPP_STEP2_DESCDESC" %}</div>  
+                                <div class="add_app_form_label">{% trans "PAGE_ADDAPP_STEP2_DESCDESC" %}</div>
                                 {{ form.description.errors }}
                             </div>
                         </label>
@@ -175,19 +175,19 @@
                             <div class="add_app_pad">
                                 <div class="add_app_title">{% trans "PAGE_ADDAPP_STEP2_SCREENSHOTS" %}</div>
                                 <div class="info_splash">{% trans "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_1" %}<br>{% trans "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_2" %}<br>{% trans "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_3" %}</div>
-                                
-                                <input type="file" 
-                                    name="upload_screenshots" 
-                                    id="inp_scr" 
-                                    class="action_button" 
-                                    multiple 
-                                    accept="image/*" 
+
+                                <input type="file"
+                                    name="upload_screenshots"
+                                    id="inp_scr"
+                                    class="action_button"
+                                    multiple
+                                    accept="image/*"
                                     onchange="previewScreenshots(this)">
-                                
+
                                 <div style="color: red; font-size: 11px;">
                                     {{ form.upload_screenshots.errors }}
                                 </div>
-                                
+
                                 <div id="error-scr-box" class="error-msg-box"></div>
                                 <div id="info-scr" style="font-size: 11px; margin-top: 5px; color: green;"></div>
                             </div>
@@ -202,16 +202,16 @@
                 </div>
 
                 <div id="step-content-3" class="step-content">
-                    
+
                     <div class="info-notification" style="background: #eff7ff; border: 1px solid #a0c2e6; padding: 10px; margin-bottom: 20px; font-size: 12px; color: #333;">
                         {% trans "PAGE_ADDAPP_CHECKINFO_NOTIFY" %}
                     </div>
 
                     <div class="preview-container-box" style="border: 1px solid #ccc; padding: 15px; background: #fff;">
-                        
+
                         <div class="preview-header-row" style="display: flex; gap: 15px; margin-bottom: 20px;">
                             <img id="prev_icon" src="" alt="icon" style="width: 64px; height: 64px; border-radius: 4px; object-fit: cover; border: 1px solid #999; flex-shrink: 0;">
-                            
+
                             <div style="min-width: 0;">
                                 <div id="prev_title" style="font-size: 18px; font-weight: bold; color: #003399; word-wrap: break-word;">{% trans "PAGE_ADDAPP_CHECKINFO_NAME" %}</div>
                                 <div id="prev_slogan" style="color: #555; font-size: 12px; margin: 4px 0; word-wrap: break-word;">{% trans "PAGE_ADDAPP_CHECKINFO_SLOGAN" %}</div>
@@ -224,7 +224,7 @@
                         <div class="st_screenshots_container" id="js_screenshots_placeholder" style="display: flex; gap: 10px; flex-wrap: nowrap; overflow-x: auto; margin-top: 8px;">
                             <span style="color:#999; font-size:11px;">{% trans "INFO_NO_SCREENSHOTS" %}</span>
                         </div>
-                        
+
 
                         <h2 style="margin-top: 6px;">{% trans "PAGE_ADDAPP_CHECKINFO_OTHERINFO" %}</h2>
                         <div class="separator_store"></div>
@@ -237,26 +237,26 @@
                         </div>
 
                     </div>
-                    
+
                     <div style="margin-top: 20px; border: 1px solid #ccc; background: #f9f9f9; padding: 15px;">
                         <div class="info-box-yellow">
                             <strong>{% trans "FORM_CAPTCHA" %}</strong><br><br>
                             {% if form.captcha.errors %}
-                                <div class="error_splash" style="margin-bottom: 5px;"> 
+                                <div class="error_splash" style="margin-bottom: 5px;">
                                     {% for error in form.captcha.errors %}
                                         {{ error }}
                                     {% endfor %}
                                 </div>
-                            {% endif %} 
+                            {% endif %}
 
                             <div >
                                 {{ form.captcha }}
                             </div>
                         </div>
-                        
+
                         <div class="bottom-actions">
                             <button type="button" class="action_button" style="background-color: #e0e0e0; color: #000; border: 1px solid #999;" onclick="goToStep(2)">&larr; {% trans "PAGE_ADDAPP_EDITAPPBTN" %}</button>
-                            
+
                             <button type="submit" class="action_button">{% trans "PAGE_ADDAPP_SENDAPPBTN" %}</button>
                         </div>
                     </div>
@@ -287,7 +287,7 @@
 
         if (!validateFileExtension(file)) {
             alert('{% trans "ERROR_INVALID_FILE_FORMAT" %} \n{% trans "INFO_ACCEPTED_ICON_FORMATS" %}');
-            input.value = ""; 
+            input.value = "";
             iconDataUrl = null;
             document.getElementById('prev_icon').src = "{% static 'img/default_icon.png' %}";
             return;
@@ -305,10 +305,10 @@
     }
 
     function previewScreenshots(input) {
-        screenshotsArray = []; 
+        screenshotsArray = [];
         let info = document.getElementById('info-scr');
         let errorBox = document.getElementById('error-scr-box');
-        
+
         info.innerText = "";
         errorBox.style.display = 'none';
         errorBox.innerText = "";
@@ -317,12 +317,12 @@
             if (input.files.length > 3) {
                 errorBox.innerText = '{% trans "ERROR_PREVIEWSCRNS_1_COUNT" %}' + input.files.length + '{% trans "ERROR_PREVIEWSCRNS_2_COUNT" %}';
                 errorBox.style.display = 'block';
-                input.value = ""; 
+                input.value = "";
                 return;
             }
 
             let count = input.files.length;
-            
+
             for (let i = 0; i < count; i++) {
                 const file = input.files[i];
 
@@ -331,11 +331,11 @@
                     errorBox.style.display = 'block';
                     input.value = "";
                     screenshotsArray = [];
-                    return; 
+                    return;
                 }
-                
+
                 if (file.size > 2 * 1024 * 1024) {
-                    errorBox.innerText = '{% trans "ERROR_PREVIEWSCRNS_1_BIGSIZE" }' + file.name + '{% trans "ERROR_PREVIEWSCRNS_1_BIGSIZE" %}';
+                    errorBox.innerText = '{% trans "ERROR_PREVIEWSCRNS_1_BIGSIZE" %}' + file.name + '{% trans "ERROR_PREVIEWSCRNS_1_BIGSIZE" %}';
                     errorBox.style.display = 'block';
                     input.value = "";
                     screenshotsArray = [];
@@ -346,7 +346,7 @@
                 reader.onload = function(e) { screenshotsArray.push(e.target.result); };
                 reader.readAsDataURL(file);
             }
-            
+
             info.innerText = '{% trans "INFO_SELECTED_FILES" %}' + count;
         }
     }
@@ -355,11 +355,11 @@
         if (n === 2) {
             let name = document.getElementById('inp_name').value;
             let agree = document.getElementById('inp_agree').checked;
-            
+
             if (!name.trim()) { alert('{% trans "ERROR_NO_APPNAME" %}'); return; }
             if (!agree) { alert('{% trans "ERROR_NO_AGREERULES" %}'); return; }
         }
-        
+
         if (n === 3) renderPreview();
 
         document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
@@ -373,10 +373,10 @@
         for(let i=1; i<=3; i++) {
             let tab = document.getElementById('tab-' + i);
             let num = tab.querySelector('.step_number');
-            
-            if (i === 3) { tab.className = 'step step_last'; } 
+
+            if (i === 3) { tab.className = 'step step_last'; }
             else { tab.className = 'step'; }
-            num.className = 'step_number'; 
+            num.className = 'step_number';
 
             if (i === n) {
                 tab.classList.add('step_active');
@@ -389,10 +389,10 @@
         document.getElementById('prev_title').innerText = document.getElementById('inp_name').value || '{% trans "TEXT_APP_NO_NAME" %}';
         document.getElementById('prev_slogan').innerText = document.getElementById('inp_slogan').value || '{% trans "TEXT_APP_NO_SLOGAN" %}';
         document.getElementById('prev_desc_block').innerText = document.getElementById('inp_desc').value || '{% trans "TEXT_APP_NO_DESC" %}';
-        
+
         let site = document.getElementById('inp_site').value;
         let link = document.getElementById('prev_link');
-        
+
         if (site && site.trim() !== "") {
             link.href = site.match(/^https?:/) ? site : 'http://' + site;
             link.style.display = 'inline';
@@ -405,7 +405,7 @@
 
         let scrCont = document.getElementById('js_screenshots_placeholder');
         scrCont.innerHTML = "";
-        
+
         if (screenshotsArray.length > 0) {
             screenshotsArray.forEach(src => {
                 let img = document.createElement('img');
