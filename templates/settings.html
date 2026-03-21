@@ -5,8 +5,8 @@
 {% block content %}
 <title>{% trans "PAGE_SETTINGS_HTML_TITLE" %} - LunaStore</title>
 
-<link rel="stylesheet" href="{% static './css/settings.css'%}"> 
-<link rel="stylesheet" href="{% static './css/profile.css'%}">  
+<link rel="stylesheet" href="{% static './css/settings.css'%}">
+<link rel="stylesheet" href="{% static './css/profile.css'%}">
 <link rel="stylesheet" href="{% static './css/tabs.css'%}">
 
 <div class="content">
@@ -22,7 +22,7 @@
             <div class="tab active">
                 <img src="{% static './img/tabs/account.png' %}" class="tab-icon" alt=""> {% trans "PAGE_SETTINGS_TAB_ACCOUNT" %}
             </div>
-            
+
             <a href="{% url 'settings_apps' %}" class="tab" style="display: block; text-decoration: none; color: inherit;">
                 <img src="{% static './img/tabs/programs.png' %}" class="tab-icon" alt=""> {% trans "PAGE_SETTINGS_TAB_APPS" %}
             </a>
@@ -32,7 +32,7 @@
             <form method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="form_type" value="profile">
-                
+
                 <div class="profile_block">{% trans "PAGE_SETTINGS_SECTION_BASIC" %}</div>
                 <div class="profile_block_content">
                     <div class="pref_pad">
@@ -132,11 +132,11 @@
                 <div class="profile_block">{% trans "PAGE_SETTINGS_SECTION_AVATAR" %}</div>
                 <div class="profile_block_content">
                     <div class="info_splash">{% trans "PAGE_SETTINGS_INFO_AVATAR_RULES" %}</div>
-                    
+
                     <label for="file-upload">{% trans "PAGE_SETTINGS_LABEL_CHOOSE_FILE" %}</label>
                     {{ avatar_form.avatar }}
                     {{ avatar_form.avatar.errors }}
-                    
+
                     <button type="submit" class="action_button">{% trans "PAGE_SETTINGS_BTN_UPLOAD" %}</button>
                 </div>
             </form>
@@ -160,5 +160,6 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 {% endblock %}

@@ -516,7 +516,7 @@ msgstr "Редактировать"
 
 #: templates/app_add.html:260
 msgid "PAGE_ADDAPP_SENDAPPBTN"
-msgstr "Отправить на рассмотрениеS"
+msgstr "Отправить на рассмотрение"
 
 #: templates/app_add.html:350
 msgid "INFO_SELECTED_FILES"
