@@ -1635,7 +1635,7 @@ msgid "PAGE_LOGIN_INFO_BULLET_2"
 msgstr "Покорите сообщество"
 
 msgid "PAGE_LOGIN_INFO_BULLET_3"
-msgstr "Загружайте ПО (скоро)"
+msgstr "Загружайте ПО"
 
 msgid "PAGE_LOGIN_INFO_TITLE_2"
 msgstr "У Вас нет аккаунта?"
