@@ -1,61 +1,60 @@
-.preferences{
-	padding: 10px;
-	border: 1px solid #9a9a9a;
+.preferences {
+    padding: 10px;
+    border: 1px solid #9a9a9a;
     padding: 5px;
-	background: #2b67b3;
-	color: #fff;
-	font-weight: bold;
-	font-size: 12px;
+    background: #2b67b3;
+    color: #fff;
+    font-weight: bold;
+    font-size: 12px;
 }
-.preferences_title{
-	font-size: 12px;
-	font-weight: bold;
-	float: left;
+.preferences_title {
+    font-size: 12px;
+    font-weight: bold;
+    float: left;
 }
 
-.delete_account_block{
-	padding: 5px;
-	background: #b62822;
-	color: #fff;
-	font-weight: bold;
-	font-size: 12px;
+.delete_account_block {
+    padding: 5px;
+    background: #b62822;
+    color: #fff;
+    font-weight: bold;
+    font-size: 12px;
 }
-.delete_account_subblock{
-	padding: 5px;
-	background: #7db4fb;
-	color: #fff;
-	border-left: 1px solid #b62822;
-	border-right: 1px solid #b62822;
-	font-size: 10px;
+.delete_account_subblock {
+    padding: 5px;
+    background: #7db4fb;
+    color: #fff;
+    border-left: 1px solid #b62822;
+    border-right: 1px solid #b62822;
+    font-size: 10px;
 }
 .delete_account_content {
-  padding: 10px;
-  background: #ffffff;
-  border: 1px solid #b62822;
-  position: relative;
+    padding: 10px;
+    background: #ffffff;
+    border: 1px solid #b62822;
+    position: relative;
 }
-.action a#delete_acc{
+.action a#delete_acc {
     border: 1px solid #e67a7a;
-    background: #b62822!important;
+    background: #b62822 !important;
 }
 
-
-.pref_pad{
+.pref_pad {
     padding: 5px;
 }
 
-.register_card{
-	margin-bottom:12px;
-	border:1px solid #cfe1ff;
-	background:#ffffff;
-	padding:6px;
+.register_card {
+    margin-bottom: 12px;
+    border: 1px solid #cfe1ff;
+    background: #ffffff;
+    padding: 6px;
 }
 
-.pref_item_title{
+.pref_item_title {
     margin-bottom: 5px;
 }
 
-.pref_warn_label{
+.pref_warn_label {
     font-size: 10px;
     color: #b3b3b3;
 }
@@ -80,13 +79,13 @@
     background: #fff;
 }
 
-.brief_intro{
+.brief_intro {
     resize: none;
     width: 390px;
     height: 120px;
 }
 
-.list-app-tile{
+.list-app-tile {
     border: 1px solid #2b67b3;
     padding: 5px;
     min-height: 48px;
@@ -95,21 +94,21 @@
 }
 
 .list-app-tile img {
-  float:left;
-  margin-right:6px;
-  width:48px;
-  height:48px;
+    float: left;
+    margin-right: 6px;
+    width: 48px;
+    height: 48px;
 }
 .list-app-tile h3 {
-  margin:0;
-  font-size:13px;
-  color:#0b3a72;
+    margin: 0;
+    font-size: 13px;
+    color: #0b3a72;
 }
 .list-app-tile p {
-  margin:3px 0;
-  font-size:11px;
-  color:#333;
-  overflow:hidden;
+    margin: 3px 0;
+    font-size: 11px;
+    color: #333;
+    overflow: hidden;
 }
 
 .appcat select {
@@ -120,8 +119,49 @@
     width: 390px;
 }
 
-.adm_editapp_warn_label{
+.adm_editapp_warn_label {
     margin-left: 25px;
     margin-top: 5px;
     color: #757575;
+}
+
+.status-text.pending {
+    color: #f1c40f;
+}
+
+.status-text.rejected {
+    color: #e74c3c;
+}
+
+.list-app-tile.request-tile {
+    opacity: 0.7;
+    border-style: dashed;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+}
+
+.tile-icon-wrapper {
+    margin-right: 15px;
+}
+
+.tile-icon-wrapper img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+}
+
+.tile-info-wrapper h3 {
+    margin: 0 0 5px 0;
+}
+
+.tile-info-wrapper p {
+    margin: 0 0 10px 0;
+    font-size: 0.9em;
+}
+
+.status-text {
+    font-weight: bold;
+    font-size: 0.9em;
+    margin-top: 5px;
 }
