@@ -41,7 +41,7 @@ services:
             - db
         volumes:
             - static_volume:/app/staticfiles_build
-            - media_volume:/app/media
+            - ./media:/root/lunastore/medi
 
     web:
         image: registry.myslivets.com/myslivets/project-luna/lunastore:latest
@@ -57,7 +57,7 @@ services:
             - storenetwork
         volumes:
             - static_volume:/app/staticfiles_build
-            - media_volume:/app/media
+            - ./media:/root/lunastore/medi
 
     api:
         image: registry.myslivets.com/myslivets/project-luna/lunastore:latest
@@ -75,7 +75,7 @@ services:
             - storenetwork
         volumes:
             - static_volume:/app/staticfiles_build
-            - media_volume:/app/media
+            - ./media:/root/lunastore/medi
 
     nginx:
         image: nginx:alpine
@@ -86,7 +86,7 @@ services:
         volumes:
             - ./nginx.conf:/etc/nginx/nginx.conf:ro
             - static_volume:/static
-            - media_volume:/media
+            - ./media:/root/lunastore/medi
         depends_on:
             - web
             - admin

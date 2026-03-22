@@ -14,9 +14,6 @@ urlpatterns = [
     path("dev_status.php", views.dev_status, name="dev_status"),
     path("502.php", views.critical_error, name="502_error"),
     path("delete_account.php", views.delete_account, name="delete_account"),
-    path("debug_info.php", views.debug_info, name="debug_info"),
     path("invite.php", views.invite_person, name="invite_person"),
     path("invite_code.php", views.invite_code, name="invite_code"),
-    path("other_projects.php", views.other_projects, name="other_projects"),
-    path("help_center.php", views.help_center, name="help_center"),
 ]

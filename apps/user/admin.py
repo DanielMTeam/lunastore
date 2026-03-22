@@ -14,7 +14,6 @@ from .models import (
     BlacklistedUsername,
     DevRequestsModel,
     InviteToken,
-    LegalDocument,
     User,
     UserActivityLog,
     UserBan,
@@ -87,21 +86,6 @@ class GroupAdmin(unfold_admin.ModelAdmin):
 
 admin.site.register(Group, GroupAdmin)
 admin.site.register(UserActivityLog)
-
-
-@admin.register(LegalDocument)
-class LegalDocumentAdmin(SafeDeleteAdmin):
-    list_display = ("doc_type", "language", "last_updated")
-    list_filter = ("doc_type", "language")
-
-    search_fields = ("doc_type",)
-    search_fields = ("doc_type",)
-
-    formfield_overrides = {
-        models.TextField: {
-            "widget": WysiwygWidget,
-        }
-    }
 
 
 @admin.register(DevRequestsModel)

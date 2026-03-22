@@ -1,8 +1,5 @@
-import platform
 import re
-import sys
 
-import django
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login as dj_login
@@ -13,7 +10,6 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import Group
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
-from django.utils import translation
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import gettext_lazy as _
 
@@ -34,7 +30,6 @@ from .models import (
     BlacklistedUsername,
     DevRequestsModel,
     InviteToken,
-    LegalDocument,
     User,
     UserActivityLog,
     UserBan,
@@ -288,30 +283,6 @@ def delete_account(request):
     )
 
 
-def debug_info(request):
-    if settings.DEBUG:
-        method = request.method
-        user_ip = request.META.get("REMOTE_ADDR")
-        user_agent = request.META.get("HTTP_USER_AGENT")
-
-        django_version = django.get_version()
-        python_version = sys.version
-        os_info = platform.platform()
-        return render(
-            request,
-            "debug_info.html",
-            {
-                "method": method,
-                "user_ip": user_ip,
-                "user_agent": user_agent,
-                "django_version": django_version,
-                "python_version": python_version,
-                "os_info": os_info,
-            },
-        )
-    return redirect("home")
-
-
 @login_required
 def invite_person(request):
     invite, created = InviteToken.objects.get_or_create(owner=request.user)
@@ -342,27 +313,3 @@ def invite_code(request):
         form = InviteCodeForm()
 
     return render(request, "invite_input.html", {"form": form})
-
-
-def other_projects(request):
-    return render(request, "other_projects.html")
-
-
-def help_center(request):
-    current_page = request.GET.get("page", "faq")
-    context = {
-        "current_page": current_page,
-    }
-    if current_page == "privacy":
-        current_lang = translation.get_language()
-        doc = LegalDocument.objects.filter(
-            doc_type="privacy", language=current_lang
-        ).first()
-        if not doc:
-            doc = LegalDocument.objects.filter(
-                doc_type="privacy", language="en"
-            ).first()
-
-        context["privacy_doc"] = doc
-
-    return render(request, "help_center.html", context)

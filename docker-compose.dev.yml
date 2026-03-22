@@ -40,7 +40,7 @@ services:
         volumes:
             - .:/app
             - static_volume:/app/staticfiles_build
-            - media_volume:/app/media
+            - ./media:/root/lunastore/medi
 
     web:
         build: .
@@ -56,7 +56,7 @@ services:
         volumes:
             - .:/app
             - static_volume:/app/staticfiles_build
-            - media_volume:/app/media
+            - ./media:/root/lunastore/medi
 
     api:
         build: .
@@ -74,7 +74,7 @@ services:
         volumes:
             - .:/app
             - static_volume:/app/staticfiles_build
-            - media_volume:/app/media
+            - ./media:/root/lunastore/medi
 
 volumes:
     static_volume:

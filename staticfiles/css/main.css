@@ -1068,3 +1068,24 @@ input[type="submit"] {
 .info_block li.nxt {
     background: url(../img/icons.png) no-repeat 0px -224px;
 }
+
+.sidebar_image_box {
+    background: #fff;
+    margin-bottom: 10px;
+    border: 1px solid #7aa0e6;
+    width: 194px;
+    padding: 2px;
+    overflow: hidden;
+}
+
+.sidebar_image_box a {
+    display: block;
+    font-size: 0;
+    line-height: 0;
+}
+
+.sidebar_image_box img {
+    width: 194px;
+    border: 0;
+    display: block;
+}
