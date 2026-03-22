@@ -593,10 +593,6 @@ msgstr "Все проекты »"
 msgid "BASE_SEARCHBTN"
 msgstr "поиск"
 
-#: templates/base.html:57
-msgid "BASE_CONFIGSEARCHBTN"
-msgstr "Уточнить параметры поиска"
-
 #: templates/base.html:76
 msgid "BASE_SIDEBAR_ACCOUNT_TITLE"
 msgstr "Аккаунт"
@@ -696,6 +692,9 @@ msgstr "Купить"
 #: templates/category.html:72
 msgid "PAGE_CATEGORY_INSTALLBTN"
 msgstr "Установить"
+
+msgid "PAGE_CATEGORY_SEARCHOFCATEGORY"
+msgstr "Поиск по категории"
 
 #: templates/debug_info.html:8
 msgid "PAGE_DEBUG_TITLE"
@@ -1308,14 +1307,11 @@ msgstr "Бесплатно"
 msgid "PAGE_SEARCH_BTN_DETAILS"
 msgstr "Подробнее"
 
-#: templates/search.html:79
-msgid ""
-"\n"
-"                    PAGE_SEARCH_MSG_NO_RESULTS\n"
-"                "
-msgstr ""
-"\n"
-"Поиск не дал результатов по запросу \"%(q)s\""
+msgid "PAGE_SEARCH_MSG_NO_RESULTS %(q)s"
+msgstr "Поиск не дал результатов по запросу \"%(q)s\""
+
+msgid "PAGE_SEARCH_MSG_NO_RESULTS_EMPTY"
+msgstr "По вашему запросу ничего не найдено"
 
 #: templates/settings.html:6
 msgid "PAGE_SETTINGS_HTML_TITLE"
@@ -1708,3 +1704,18 @@ msgstr "Политика конфиденциальности"
 
 msgid "PAGE_FAQ_PRIVACY_EMPTY"
 msgstr "Документ еще не заполнен..."
+
+msgid "PAGE_SEARCH_FILTER_AUTHOR_ID"
+msgstr "ID автора"
+
+msgid "PAGE_SEARCH_FILTER_FREE"
+msgstr "Только бесплатные"
+
+msgid "PAGE_SEARCH_BTN_RESET"
+msgstr "Сбросить фильтры"
+
+msgid "PAGE_SEARCH_FILTER_CATEGORY"
+msgstr "Категория"
+
+msgid "PAGE_SEARCH_FILTER_CATEGORY_ALL"
+msgstr "Все категории"
