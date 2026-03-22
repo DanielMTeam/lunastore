@@ -1740,3 +1740,15 @@ msgstr "Или выберите нужную категорию:"
 
 msgid "INDEX_NO_CATEGORIES"
 msgstr "Категории пока не добавлены"
+
+msgid "BASE_COOKIE_MESSAGE"
+msgstr "Все дети любят печенье также, как и мы. Именно поэтому для стабильной работы сайта мы используем файлы Cookie. Более подробно об их использовании написано в нашей "
+
+msgid "BASE_COOKIE_PRIVACYPOLICY"
+msgstr "Политике конфиденциальности"
+
+msgid "BASE_COOKIE_ACCEPT"
+msgstr "Хорошо, принять"
+
+msgid "BASE_COOKIE_DECLINE"
+msgstr "Нет, спасибо"
