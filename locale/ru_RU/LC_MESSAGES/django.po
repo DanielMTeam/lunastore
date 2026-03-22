@@ -1719,3 +1719,24 @@ msgstr "Категория"
 
 msgid "PAGE_SEARCH_FILTER_CATEGORY_ALL"
 msgstr "Все категории"
+
+msgid "INDEX_WELCOME_TITLE"
+msgstr "Добро пожаловать"
+
+msgid "INDEX_WELCOME_TEXT"
+msgstr "Приветствуем в LunaStore!<br>Сборник приложений и дополнений для комфортной работы с данной ОС"
+
+msgid "INDEX_SEARCH_SECTION_TITLE"
+msgstr "Поиск по каталогу"
+
+msgid "INDEX_SEARCH_PLACEHOLDER"
+msgstr "Например: Total Commander"
+
+msgid "INDEX_SEARCH_BTN"
+msgstr "Искать"
+
+msgid "INDEX_CATEGORY_PROMPT"
+msgstr "Или выберите нужную категорию:"
+
+msgid "INDEX_NO_CATEGORIES"
+msgstr "Категории пока не добавлены"
