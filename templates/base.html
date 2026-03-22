@@ -10,10 +10,17 @@
 <link rel="stylesheet" href="{% static './css/oprj.css'%}">
 <script src="./js/search_mini.js"></script>
 <link rel="shortcut icon" href="{% static './favicon.ico'%}">
+<script src="{% static './js/cookie.js'%}"></script>
 </head>
 
 
 <body>
+<div class="announcement" id="cookie-banner" style="display: none;">
+    {% trans "BASE_COOKIE_MESSAGE" %}
+    <a href="/help_center.php?page=privacy"><i><b>{% trans "BASE_COOKIE_PRIVACYPOLICY" %}</b></i></a>.<br><br>
+    <a href="#" id="primary" onclick="acceptCookies(event)"><b>{% trans "BASE_COOKIE_ACCEPT" %}</b></a> -
+    <a href="#" onclick="closeCookieBanner(event)">{% trans "BASE_COOKIE_DECLINE" %}</a>
+</div>
 <div class="container">
 
   <div class="dm_menu">
