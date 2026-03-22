@@ -124,26 +124,49 @@ def search(request):
     query = request.GET.get("q")
     view_mode = request.GET.get("view", "tiles")
 
-    results = []
+    f_author = request.GET.get("author", "")
+    is_free = request.GET.get("is_free")
+    f_category = request.GET.get("category", "")
+
+    results = Application.objects.all()
+    categories = Category.objects.all()
+
+    if f_category:
+        results = results.filter(category_id=f_category)
 
     if query:
-        results = (
-            Application.objects.annotate(
-                similarity=TrigramSimilarity("title", query)
-                + TrigramSimilarity("description", query)
-                + TrigramSimilarity("slogan", query),
-            )
-            .filter(similarity__gt=0.1)
-            .order_by("-similarity")
-        )
+        results = results.annotate(
+            similarity=TrigramSimilarity("title", query)
+            + TrigramSimilarity("description", query)
+            + TrigramSimilarity("slogan", query),
+        ).filter(similarity__gt=0.1)
+
+    if f_author:
+        results = results.filter(user_id=f_author)
+    if is_free == "on":
+        results = results.filter(price=0)
+
+    if query:
+        results = results.order_by("-similarity")
     else:
-        results = Application.objects.none()
+        results = results.order_by("-id")
 
     paginator = Paginator(results, 10)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
-    context = {"results": page_obj, "query": query, "view_mode": view_mode}
+    query_params = request.GET.copy()
+    if "page" in query_params:
+        del query_params["page"]
+    url_params = query_params.urlencode()
+
+    context = {
+        "results": page_obj,
+        "query": query,
+        "view_mode": view_mode,
+        "url_params": url_params,
+        "categories": categories,
+    }
     return render(request, "search.html", context)
 
 

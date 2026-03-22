@@ -31,13 +31,11 @@
     <div class="subtitle txtr">Windows XP Professional</div>
     </div>
 
-    <div class="searchbar">
+    <div class="searchbar" style="margin-top: 13px;">
   <form action="{% url 'search' %}" method="get" style="display: inline;">
         <input type="text" name="q" id="q" value="{{ request.GET.q|default_if_none:'' }}" placeholder="Например: Total Commander">
         <button type="submit">{% trans "BASE_SEARCHBTN" %}</button>
       </form>
-      <br>
-      <div class="subtitle"><a href="...">{% trans "BASE_CONFIGSEARCHBTN" %}</a></div>
     </div>
   </div>
 
@@ -98,7 +96,7 @@
     {% endblock %}
 
     <div class="footer">
-    <a href="/help_center.php">О нас (FAQ)</a> - <a href="/help_center?page=privacy">{% trans "BASE_PRIVACYPOLICYBTN" %}</a>
+    <a href="/help_center.php">FAQ</a> - <a href="/help_center?page=privacy">{% trans "BASE_PRIVACYPOLICYBTN" %}</a>
     <div style="text-align: right; font-size: 11px;">{% trans "BASE_FOOTER_TEXT_1" %} {% now "Y" %}<br>{% trans "BASE_FOOTER_TEXT_2" %}</div>
   </div>
 
