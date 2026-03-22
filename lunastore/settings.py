@@ -5,7 +5,7 @@ from django.templatetags.static import static
 from dotenv import load_dotenv
 
 # PLEASE, do not change this, if you don't understand what you do
-VERSION = "1.3.0"
+VERSION = "1.5.0"
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -18,7 +18,7 @@ load_dotenv(dotenv_path)
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
 if not DEBUG:
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
 
@@ -30,6 +30,9 @@ ALLOWED_HOSTS = [
     "luna.fayzetw.in",
     "lunap.fayzetw.in",
 ]
+
+# MOTD List of site (you can see that in the header)
+MOTD_LIST = ["время подавать напитки и вершить судьбы", "Windows XP Professional"]
 
 STATIC_ROOT = BASE_DIR / "static"
 
@@ -208,6 +211,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "django.template.context_processors.media",
+                "apps.user.context_processors.motd_processor",
             ],
         },
     },
@@ -326,7 +330,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = '/staticfiles/'
-STATICFILES_DIRS = [BASE_DIR / "staticfiles"]      
+STATIC_URL = "/staticfiles/"
+STATICFILES_DIRS = [BASE_DIR / "staticfiles"]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
