@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "apps.marketplace.apps.MarketplaceConfig",
     "apps.user.apps.UserConfig",
+    "apps.core.apps.CoreConfig",
     "captcha",
     # custom admin panel frontend
     "unfold",
@@ -97,7 +98,7 @@ CACHES = {
 # media path
 
 MEDIA_URL = os.getenv("EXTERNAL_MEDIA_URL", "http://192.168.1.10:9088/media/")
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = BASE_DIR / "media"
 
 # openid AP configuration
 
@@ -211,7 +212,8 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "django.template.context_processors.media",
-                "apps.user.context_processors.motd_processor",
+                "apps.core.context_processors.motd_processor",
+                "apps.core.context_processors.random_banner",
             ],
         },
     },

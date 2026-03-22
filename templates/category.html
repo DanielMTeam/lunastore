@@ -38,23 +38,6 @@
         </form>
   </div>
  </div>
-  {% if is_demo and not is_under_dmca %}
-      <div class="st_general_card">
-          {% if price > 0 %}
-          <div class="st_price demo">{% trans "INFO_APP_DEMOWITHPRICE" %} ${{ price }}</div>
-          {% else %}
-          <div class="st_price demo">{% trans "INFO_APP_DEMO" %}</div>
-          {% endif %}
-      </div>
-      {% elif not is_demo and not is_under_dmca %}
-      <div class="st_general_card">
-          {% if price > 0 %}
-          <div class="st_price demo">{% trans "INFO_APP_WITHPRICE" %} ${{ price }}</div>
-          {% else %}
-          <div class="st_price demo">{% trans "INFO_APP_FREE" %}</div>
-          {% endif %}
-      </div>
-      {% endif %}
     {% for app in page_obj %}
     <div class="card listview">
       <img src="{{ app.icon.url }}" alt="">

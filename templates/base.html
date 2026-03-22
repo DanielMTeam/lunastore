@@ -86,8 +86,16 @@
         </ul>
       </div>
 
-      <div class="adv_block">
-        <a href="{ad_link}"><img src="./ad/ad.png" alt="Ad"></a>
+      <div class="sidebar_image_box">
+          {% if sidebar_banner %}
+              <a href="{{ sidebar_banner.url|default:'#' }}" {% if sidebar_banner.url %}target="_blank" rel="noopener noreferrer"{% endif %}>
+                  <img src="{{ sidebar_banner.image.url }}" alt="{{ sidebar_banner.title }}">
+              </a>
+          {% else %}
+              <a href="#">
+                  <img src="{% static 'assets/sidebar-placeholder.png' %}" alt="Info">
+              </a>
+          {% endif %}
       </div>
 
     </div>
