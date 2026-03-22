@@ -46,7 +46,7 @@
 
                         <span style="margin-right: 20px; vertical-align: middle;">
                             {% trans "PAGE_SEARCH_FILTER_AUTHOR_ID" %}:
-                            <input type="text" name="author" value="{{ query|default:'' }}"
+                            <input type="text" name="author" value="{{ f_author|default:'' }}"
                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');"
                                    style="width: 140px; padding: 1px; margin-left: 5px; border: 1px solid #7aa0e6; font-size: 11px; vertical-align: middle;">
                         </span>

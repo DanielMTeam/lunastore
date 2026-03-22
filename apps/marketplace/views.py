@@ -19,7 +19,8 @@ def home_redirect(request):
 
 # home page
 def marketplace(request):
-    return render(request, "index.html")
+    categories = Category.objects.all()
+    return render(request, "index.html", {"categories": categories})
 
 
 def category(request):
