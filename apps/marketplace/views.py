@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.postgres.search import TrigramSimilarity
+from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -10,8 +11,12 @@ from django.utils.translation import gettext as _
 from apps.user.decorators import developer_required
 
 from .decorators import user_is_owner
-from .forms import AppCreateForm, AppEditForm, AppReportForm
+from .forms import AppCreateForm, AppEditForm, AppReportForm, DistributionForm
 from .models import AppCreateRequests, Application, Category, Distribution
+
+
+def _format_legacy_date(value):
+    return value.strftime("%d.%m.%Y %H:%M") if value else ""
 
 
 # redirect to home (index.php) page from (/) page
@@ -57,7 +62,7 @@ def app(request):
     id = request.GET.get("id")
     obj = get_object_or_404(Application, id=id)
     obj_dist = Distribution.objects.filter(app__id=id).order_by("-published").first()
-    download_page_url = f"{reverse('download_list')}?id={obj.id}"
+    download_page_url = f"{reverse('download')}?id={obj.id}"
 
     context = {
         "app_id": obj.id,
@@ -101,7 +106,7 @@ def download_list(request):
     for field in ("version", "published"):
         next_order = "desc" if sort_field == field and order == "asc" else "asc"
         sort_links[field] = (
-            f"{reverse('download_list')}?id={app_obj.id}&sort={field}&order={next_order}"
+            f"{reverse('download')}?id={app_obj.id}&sort={field}&order={next_order}"
         )
     latest_dist = distributions[0] if distributions else None
     latest_id = latest_dist.id if latest_dist else None
@@ -123,7 +128,10 @@ def download_list(request):
 
     context = {
         "app": app_obj,
-        "icon_url": app_obj.icon.url if app_obj.icon else "",
+        "app_id": app_obj.id,
+        "developer_id": app_obj.user.id,
+        "is_download_page": True,
+        "icon_url": app_obj.icon_url,
         "slogan": app_obj.slogan,
         "description": app_obj.description,
         "developer_site": app_obj.developer_site,
@@ -137,7 +145,7 @@ def download_list(request):
         "ad_link": "https://store.myslivets.com",
         "app_link": f"/app.php?id={app_obj.id}",
     }
-    return render(request, "storepage.html", context)
+    return render(request, "download_list.html", context)
 
 
 @developer_required
@@ -280,3 +288,89 @@ def report_app(request):
         "icon": obj.icon.url,
     }
     return render(request, "report_app.html", context)
+
+
+@login_required
+def manage_distributions(request):
+    app_id = request.GET.get("id")
+    app_obj = get_object_or_404(Application, id=app_id)
+
+    if app_obj.user != request.user:
+        raise PermissionDenied("ERROR_YOURE_NOT_OWNER_OF_APP")
+
+    distributions = Distribution.objects.filter(app=app_obj).order_by("-published")
+    form = DistributionForm(request.POST or None, request.FILES or None)
+    if request.method == "POST" and form.is_valid():
+        print("FILES:", request.FILES)
+        distribution = form.save(commit=False)
+        distribution.app = app_obj
+        distribution.save()
+        messages.success(request, _("Новая дистрибуция создана"))
+        return redirect(reverse("manage_distributions") + "?id=" + str(app_obj.id))
+    elif not form.is_valid():
+        for field, errors in form.errors.items():
+            for error in errors:
+                messages.error(request, error)
+
+    dist_rows = []
+    for dist in distributions:
+        dist_rows.append(
+            {
+                "id": dist.id,
+                "version": dist.version,
+                "published": _format_legacy_date(dist.published),
+                "changelog": dist.changelog,
+                "edit_url": reverse("distribution_edit", kwargs={"dist_pk": dist.pk}),
+                "delete_url": reverse(
+                    "distribution_delete", kwargs={"dist_pk": dist.pk}
+                ),
+            }
+        )
+
+    context = {
+        "app": app_obj,
+        "form": form,
+        "distributions": dist_rows,
+        "download_list_url": reverse("download") + "?id=" + str(app_obj.id),
+    }
+    return render(request, "manage_distributions.html", context)
+
+
+@login_required
+def distribution_edit(request, dist_pk):
+    distribution = get_object_or_404(Distribution, pk=dist_pk)
+    if distribution.app.user != request.user:
+        raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
+
+    form = DistributionForm(
+        request.POST or None, request.FILES or None, instance=distribution
+    )
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        messages.success(request, _("PAGE_DIST_FORM_SAVED"))
+        return redirect(
+            reverse("manage_distributions") + "?id=" + str(distribution.app.id)
+        )
+
+    context = {
+        "form": form,
+        "app": distribution.app,
+        "distribution": distribution,
+        "download_list_url": reverse("download") + "?id=" + str(distribution.app.id),
+    }
+    return render(request, "distribution_form.html", context)
+
+
+@login_required
+def distribution_delete(request, dist_pk):
+    distribution = get_object_or_404(Distribution, pk=dist_pk)
+    if distribution.app.user != request.user:
+        raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
+
+    if request.method == "POST":
+        distribution.delete()
+        messages.success(request, _("Дистрибуция удалена"))
+    else:
+        messages.warning(request, _("Нужно подтвердить удаление через POST"))
+
+    return redirect(reverse("manage_distributions") + "?id=" + str(distribution.app.id))

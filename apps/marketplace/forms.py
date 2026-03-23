@@ -5,12 +5,19 @@ import uuid
 from captcha.fields import CaptchaField
 from django import forms
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.core.validators import FileExtensionValidator
 from django.forms.models import model_to_dict
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
-from .models import AppCreateRequests, AppEditRequests, Application, AppReportRequests
+from .models import (
+    AppCreateRequests,
+    AppEditRequests,
+    Application,
+    AppReportRequests,
+    Distribution,
+)
 
 
 class MultipleFileInput(forms.ClearableFileInput):
@@ -332,7 +339,6 @@ class ApplicationAdminForm(forms.ModelForm):
         scr_data = self.cleaned_data.get("cdn_screenshots_data")
         if scr_data:
             try:
-                # Сохраняем в поле screenshots модели
                 app_instance.screenshots = json.loads(scr_data)
             except (json.JSONDecodeError, TypeError):
                 pass
@@ -343,9 +349,54 @@ class ApplicationAdminForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        # Если есть ошибки, выводим их в консоль сервера (терминал)
-        if self.errors:
-            print("--- ОШИБКИ ВАЛИДАЦИИ ФОРМЫ ---")
-            print(self.errors.as_data())
-            print("------------------------------")
         return cleaned_data
+
+
+ALLOWED_EXTENSIONS = ["exe", "zip", "rar", "7z"]
+
+
+class DistributionForm(forms.ModelForm):
+    file = forms.FileField(required=False)
+    url = forms.URLField(
+        required=False,
+        validators=[FileExtensionValidator(allowed_extensions=ALLOWED_EXTENSIONS)],
+    )
+
+    class Meta:
+        model = Distribution
+        fields = ["version", "file", "url", "changelog"]
+        widgets = {
+            "version": forms.TextInput(attrs={"class": "input-text"}),
+            "url": forms.URLInput(attrs={"class": "input-text"}),
+            "changelog": forms.Textarea(
+                attrs={"class": "brief_intro", "rows": 3, "style": "resize:none;"}
+            ),
+        }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        file = cleaned_data.get("file")
+        url = cleaned_data.get("url")
+        has_existing = self.instance and (self.instance.file or self.instance.url)
+        if not file and not url and not has_existing:
+            raise ValidationError(_("Нужно указать файл или ссылку для скачивания"))
+        return cleaned_data
+
+    def clean_file(self):
+        file = self.cleaned_data.get("file")
+
+        if file:
+            ext = os.path.splitext(file.name)[1][1:].lower()
+
+            print(f"DEBUG: Uploaded file extension: {ext}")
+
+            if ext not in ALLOWED_EXTENSIONS:
+                allowed_str = ", ".join(ALLOWED_EXTENSIONS)
+                raise ValidationError(
+                    _(
+                        "Файлы с расширением .%(ext)s не поддерживаются. Разрешены только: %(allowed)s"
+                    )
+                    % {"ext": ext, "allowed": allowed_str}
+                )
+
+        return file
