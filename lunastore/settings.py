@@ -29,6 +29,7 @@ ALLOWED_HOSTS = [
     "192.168.32.231",
     "luna.fayzetw.in",
     "lunap.fayzetw.in",
+    "localhost",
 ]
 
 # MOTD List of site (you can see that in the header)
