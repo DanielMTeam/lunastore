@@ -174,6 +174,8 @@ def profile_settings(request):
         "avatar_form": AvatarUpdateForm(instance=user),
         "del_acc_form": PasswordConfirmationForm(user=user),
         "email_form": EmailChangeForm(user=user),
+        "cdn_base_url": settings.LUNASPIRE_URL,
+        "api_base_url": settings.API_URL,
     }
     if request.method == "POST":
         form_type = request.POST.get("form_type")
@@ -193,13 +195,45 @@ def profile_settings(request):
                 messages.success(request, _("INFO_PASSWORD_WAS_CHANGED"))
                 return redirect("settings")
         elif form_type == "avatar":
-            forms["avatar_form"] = AvatarUpdateForm(
-                request.POST, request.FILES, instance=user
-            )
+            forms["avatar_form"] = AvatarUpdateForm(request.POST, instance=user)
             if forms["avatar_form"].is_valid():
-                forms["avatar_form"].save()
-                messages.success(request, _("INFO_AVATAR_WAS_CHANGED"))
+                confirm_token = forms["avatar_form"].cleaned_data["confirm_token"]
+                filepath = forms["avatar_form"].cleaned_data["filepath"]
+                print(
+                    f"[DEBUG] Из формы получены:\nToken: {confirm_token}\nFilepath: {filepath}"
+                )
+                try:
+                    import jwt
+
+                    decoded = jwt.decode(
+                        confirm_token,
+                        settings.LUNASPIRE_SECRET_KEY,
+                        algorithms=["HS256"],
+                    )
+                    print(f"[DEBUG] Токен успешно расшифрован: {decoded}")
+
+                    if decoded.get("type") == "cdn-confirm":
+                        user.avatar_id = decoded.get("file_id")
+                        user.avatar_path = filepath
+                        user.save()
+                        print(
+                            f"[DEBUG] Юзер сохранен! ID: {user.avatar_id}, Path: {user.avatar_path}"
+                        )
+                        messages.success(request, _("INFO_AVATAR_WAS_UPLOADED"))
+                        return redirect("settings")
+                    else:
+                        print(
+                            f"[DEBUG] Ошибка: Неверный тип токена. Ожидался 'cdn-confirm', пришел '{decoded.get('type')}'"
+                        )
+                        messages.error(request, _("ERROR_INVALID_LUNASPIRE_TOKEN"))
+                except Exception as e:
+                    print(f"[DEBUG] Ошибка расшифровки JWT: {str(e)}")
+                    messages.error(request, _("ERROR_CDNSECURITY"))
                 return redirect("settings")
+            else:
+                print(
+                    f"[DEBUG] ФОРМА НЕ ВАЛИДНА! Ошибки: {forms['avatar_form'].errors}"
+                )
         elif form_type == "init_delete":
             request.session["can_view_delete_page"] = True
             return redirect("delete_account")

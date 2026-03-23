@@ -12,3 +12,5 @@ djangorestframework
 drf-spectacular
 django-safedelete
 gunicorn
+PyJWT
+django-cors-headers

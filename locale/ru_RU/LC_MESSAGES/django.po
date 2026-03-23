@@ -1766,3 +1766,27 @@ msgstr "Хорошо, принять"
 
 msgid "BASE_COOKIE_DECLINE"
 msgstr "Нет, спасибо"
+
+msgid "ERROR_INVALID_LUNASPIRE_TOKEN"
+msgstr "При загрузке был получен неверный тип токена от движка LunaSpire. Пожалуйста, обратитесь с данной ошибкой к администратору сайта, если вы видите эту ошибку не впервые."
+
+msgid "ERROR_CDNSECURITY"
+msgstr "При загрузке файла произошла ошибка безопасности движка LunaSpire. Пожалуйста, обратитесь с данной ошибкой к администратору сайта, если вы видите эту ошибку не впервые."
+
+msgid "PAGE_SETTINGS_JS_SELECT_FILE"
+msgstr "Пожалуйста, выберите файл для загрузки!"
+
+msgid "PAGE_SETTINGS_JS_UPLOADING"
+msgstr "Загрузка..."
+
+msgid "PAGE_SETTINGS_JS_ERR_TOKEN"
+msgstr "Не удалось получить безопасный токен LunaSpire для загрузки. Пожалуйста, обратитесь с данной ошибкой к администратору сайта."
+
+msgid "PAGE_SETTINGS_JS_ERR_CDN"
+msgstr "Произошла ошибка при сохранении файла на сервере LunaSpire. Пожалуйста, обратитесь с данной ошибкой к администратору сайта."
+
+msgid "PAGE_SETTINGS_JS_ERR_PREFIX"
+msgstr "Произошла ошибка:"
+
+msgid "INFO_AVATAR_WAS_UPLOADED"
+msgstr "Аватар успешно загружен!"
