@@ -199,9 +199,6 @@ def profile_settings(request):
             if forms["avatar_form"].is_valid():
                 confirm_token = forms["avatar_form"].cleaned_data["confirm_token"]
                 filepath = forms["avatar_form"].cleaned_data["filepath"]
-                print(
-                    f"[DEBUG] Из формы получены:\nToken: {confirm_token}\nFilepath: {filepath}"
-                )
                 try:
                     import jwt
 
@@ -210,30 +207,18 @@ def profile_settings(request):
                         settings.LUNASPIRE_SECRET_KEY,
                         algorithms=["HS256"],
                     )
-                    print(f"[DEBUG] Токен успешно расшифрован: {decoded}")
 
                     if decoded.get("type") == "cdn-confirm":
                         user.avatar_id = decoded.get("file_id")
                         user.avatar_path = filepath
                         user.save()
-                        print(
-                            f"[DEBUG] Юзер сохранен! ID: {user.avatar_id}, Path: {user.avatar_path}"
-                        )
                         messages.success(request, _("INFO_AVATAR_WAS_UPLOADED"))
                         return redirect("settings")
                     else:
-                        print(
-                            f"[DEBUG] Ошибка: Неверный тип токена. Ожидался 'cdn-confirm', пришел '{decoded.get('type')}'"
-                        )
                         messages.error(request, _("ERROR_INVALID_LUNASPIRE_TOKEN"))
                 except Exception as e:
-                    print(f"[DEBUG] Ошибка расшифровки JWT: {str(e)}")
                     messages.error(request, _("ERROR_CDNSECURITY"))
                 return redirect("settings")
-            else:
-                print(
-                    f"[DEBUG] ФОРМА НЕ ВАЛИДНА! Ошибки: {forms['avatar_form'].errors}"
-                )
         elif form_type == "init_delete":
             request.session["can_view_delete_page"] = True
             return redirect("delete_account")
@@ -311,7 +296,6 @@ def delete_account(request):
     else:
         form = PasswordConfirmationForm(request.user)
     apps_loaded_count = Application.objects.filter(user=request.user).count()
-    print(apps_loaded_count)
     return render(
         request, "del_acc.html", {"apps_count": apps_loaded_count, "form": form}
     )
