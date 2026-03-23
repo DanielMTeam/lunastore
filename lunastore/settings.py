@@ -4,16 +4,16 @@ from pathlib import Path
 from django.templatetags.static import static
 from dotenv import load_dotenv
 
-# PLEASE, do not change this, if you don't understand what you do
-VERSION = "1.5.0"
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+dotenv_path = BASE_DIR / ".env"
+load_dotenv(dotenv_path)
+
+# PLEASE, do not change this, if you don't understand what you do
+VERSION = os.getenv("VERSION", "1.7.0")
+
 LOCALE_PATHS = [
     BASE_DIR / "locale",
 ]
-dotenv_path = BASE_DIR / ".env"
-load_dotenv(dotenv_path)
 
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
@@ -25,14 +25,13 @@ if not DEBUG:
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 ALLOWED_HOSTS = [
-    "192.168.1.10",
-    "192.168.32.231",
-    "luna.fayzetw.in",
-    "lunap.fayzetw.in",
+    host.strip() for host in os.getenv("ALLOWED_HOSTS", "").split(";") if host.strip()
 ]
 
 # MOTD List of site (you can see that in the header)
-MOTD_LIST = ["время подавать напитки и вершить судьбы", "Windows XP Professional"]
+MOTD_LIST = [
+    msg.strip() for msg in os.getenv("MOTD_LIST", "").split(";") if msg.strip()
+]
 
 STATIC_ROOT = BASE_DIR / "static"
 
@@ -123,7 +122,7 @@ UNFOLD = {
     "SITE_HEADER": "LunaStore",
     "SITE_SUBHEADER": "панель для модерации сайта",
     "SITE_DROPDOWN": [
-        {"icon": "home", "title": "LunaStore", "link": "https://store.myslivets.com"},
+        {"icon": "home", "title": "LunaStore", "link": "https://lunastore.app"},
     ],
     "SITE_URL": "/",
     "SITE_LOGO": {
@@ -256,26 +255,28 @@ PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.ScryptPasswordHasher",
 ]
 
-BCRYPT_ROUNDS = 12  # default number of rounds in bcrypt ¯\_(ツ)_/¯; if you want, you can change this number
+BCRYPT_ROUNDS = os.getenv(
+    "BCRYPT_ROUNDS", 12
+)  # default number of rounds in bcrypt ¯\_(ツ)_/¯; if you want, you can change this number
 
 # name of custom user model; please do not change this unless you know what you are doing
 AUTH_USER_MODEL = "user.User"
 
 # if REGISTRATION_IS_ENABLED = True, we will render register.html on '/register.php' path; if False, we will render register_on.html
-REGISTRATION_IS_ENABLED = True
+REGISTRATION_IS_ENABLED = os.getenv("REGISTRATION_IS_ENABLED", True)
 
 # if DEVELOPER_REGISTRATION_IS_ENABLED = True, we will allow users to send dev status requests
-DEVELOPER_REGISTRATION_IS_ENABLED = True
+DEVELOPER_REGISTRATION_IS_ENABLED = os.getenv("DEVELOPER_REGISTRATION_IS_ENABLED", True)
 
 # User Activity Log (include IPs) retention period in days (because storage limitation gdpr; we must store data for the shortest time possible)
-RETENTION_ACTIVITY_LOG_DAYS = 0
+RETENTION_ACTIVITY_LOG_DAYS = os.getenv("RETENTION_ACTIVITY_LOG_DAYS", 0)
 
 # number of screenshots allowed per application
 SCREENSHOT_COUNT = 3
 
-INVITES_ON_REGISTER = True
-MAX_INVITE_USES_COUNT = 3
-MAX_INVITE_DAYS_LIMIT = 7
+INVITES_ON_REGISTER = os.getenv("INVITES_ON_REGISTER", False)
+MAX_INVITE_USES_COUNT = os.getenv("MAX_INVITE_USES_COUNT", 3)
+MAX_INVITE_DAYS_LIMIT = os.getenv("MAX_INVITE_DAYS_LIMIT", 7)
 
 LOGGING = {
     "version": 1,
