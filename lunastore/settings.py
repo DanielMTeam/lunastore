@@ -40,6 +40,7 @@ else:
     CORS_ALLOWED_ORIGINS = [
         "http://192.168.1.10:9088",
         "http://192.168.1.10:7088",
+        "http://192.168.1.10:8088",
         "http://192.168.1.10:8080",
     ]
 
@@ -87,6 +88,7 @@ INSTALLED_APPS = [
     "apps.api.apps.APIConfig",
     "drf_spectacular",
     "corsheaders",
+    "django_extensions",
 ]
 
 REST_FRAMEWORK = {
@@ -213,10 +215,10 @@ UNFOLD = {
 }
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
