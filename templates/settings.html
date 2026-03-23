@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="{% static './css/settings.css'%}">
 <link rel="stylesheet" href="{% static './css/profile.css'%}">
 <link rel="stylesheet" href="{% static './css/tabs.css'%}">
+<script src="{% static './js/profile_avatar_cdn.js' %}"></script>
 
 <div class="content">
     <div class="preferences">
@@ -107,17 +108,23 @@
             </form>
             <br>
 
-            <form method="POST" enctype="multipart/form-data">
+            <form method="POST" id="avatar-form">
                 {% csrf_token %}
                 <input type="hidden" name="form_type" value="avatar">
+
+                {{ avatar_form.confirm_token }}
+                {{ avatar_form.filepath }}
+
                 <div class="profile_block">{% trans "PAGE_SETTINGS_SECTION_AVATAR" %}</div>
                 <div class="profile_block_content">
                     <div class="info_splash">{% trans "PAGE_SETTINGS_INFO_AVATAR_RULES" %}</div>
 
-                    <label for="file-upload">{% trans "PAGE_SETTINGS_LABEL_CHOOSE_FILE" %}</label>
-                    {{ avatar_form.avatar }}
+                    <label for="avatar-file">{% trans "PAGE_SETTINGS_LABEL_CHOOSE_FILE" %}</label>
+                    <input type="file" id="avatar-file" accept="image/png, image/jpeg, image/webp">
 
-                    <button type="submit" class="action_button">{% trans "PAGE_SETTINGS_BTN_UPLOAD" %}</button>
+                    <button type="submit" id="avatar-submit-btn" class="action_button">
+                        {% trans "PAGE_SETTINGS_BTN_UPLOAD" %}
+                    </button>
                 </div>
             </form>
             <br>
@@ -142,4 +149,23 @@
     </div>
 </div>
 </div>
+<script>
+    {% trans "PAGE_SETTINGS_JS_SELECT_FILE" as js_select_file %}
+    {% trans "PAGE_SETTINGS_JS_UPLOADING" as js_uploading %}
+    {% trans "PAGE_SETTINGS_JS_ERR_TOKEN" as js_err_token %}
+    {% trans "PAGE_SETTINGS_JS_ERR_CDN" as js_err_cdn %}
+    {% trans "PAGE_SETTINGS_JS_ERR_PREFIX" as js_err_prefix %}
+
+    window.CDN_CONFIG = {
+        cdnUploadUrl: "{{ cdn_base_url|escapejs }}/cdn/upload",
+        apiTokenUrl: "{{ api_base_url|escapejs }}/method/user/getAvatarToken/",
+        i18n: {
+            selectFile: "{{ js_select_file|escapejs }}",
+            uploading: "{{ js_uploading|escapejs }}",
+            errToken: "{{ js_err_token|escapejs }}",
+            errCdn: "{{ js_err_cdn|escapejs }}",
+            errPrefix: "{{ js_err_prefix|escapejs }}"
+        }
+    };
+</script>
 {% endblock %}

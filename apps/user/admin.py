@@ -42,7 +42,7 @@ class UserAdmin(unfold_admin.ModelAdmin):
         ),
         ("Дополнительная информация", {"fields": ("telegram", "discord", "website")}),
     )
-    list_display = ["pk", "username", "email", "avatar", "invited_by"]
+    list_display = ["pk", "username", "email", "invited_by"]
     search_fields = ["username", "email", "pk"]
 
 

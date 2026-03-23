@@ -5,7 +5,7 @@ from django.templatetags.static import static
 from dotenv import load_dotenv
 
 # PLEASE, do not change this, if you don't understand what you do
-VERSION = "1.5.0"
+VERSION = "1.7.0"
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -17,10 +17,32 @@ load_dotenv(dotenv_path)
 
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
+LUNASPIRE_SECRET_KEY = os.getenv("LUNASPIRE_SECRET_KEY")
+LUNASPIRE_URL = os.getenv("LUNASPIRE_URL")
+API_URL = os.getenv("API_URL", "http://localhost:7088")
+
+CORS_ALLOW_CREDENTIALS = True
+
 if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
+    CORS_ALLOW_ALL_ORIGINS = False
+    CORS_ALLOWED_ORIGINS = [
+        "https://luna.fayzetw.in",
+        "https://lunap.fayzetw.in",
+    ]
+    SESSION_COOKIE_SAMESITE = "Lax"
+    SESSION_COOKIE_HTTPONLY = True
+    CSRF_COOKIE_HTTPONLY = True
+else:
+    CORS_ALLOW_ALL_ORIGINS = False
+    CORS_ALLOWED_ORIGINS = [
+        "http://192.168.1.10:9088",
+        "http://192.168.1.10:7088",
+        "http://192.168.1.10:8088",
+        "http://192.168.1.10:8080",
+    ]
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
@@ -66,6 +88,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "apps.api.apps.APIConfig",
     "drf_spectacular",
+    "corsheaders",
+    "django_extensions",
 ]
 
 REST_FRAMEWORK = {
@@ -75,6 +99,9 @@ REST_FRAMEWORK = {
         "rest_framework.renderers.JSONRenderer",
         # 'rest_framework.renderers.BrowsableAPIRenderer',
     ),
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+    ],
 }
 
 SPECTACULAR_SETTINGS = {
@@ -189,6 +216,7 @@ UNFOLD = {
 }
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",

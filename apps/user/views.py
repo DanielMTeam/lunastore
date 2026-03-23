@@ -174,6 +174,8 @@ def profile_settings(request):
         "avatar_form": AvatarUpdateForm(instance=user),
         "del_acc_form": PasswordConfirmationForm(user=user),
         "email_form": EmailChangeForm(user=user),
+        "cdn_base_url": settings.LUNASPIRE_URL,
+        "api_base_url": settings.API_URL,
     }
     if request.method == "POST":
         form_type = request.POST.get("form_type")
@@ -193,12 +195,29 @@ def profile_settings(request):
                 messages.success(request, _("INFO_PASSWORD_WAS_CHANGED"))
                 return redirect("settings")
         elif form_type == "avatar":
-            forms["avatar_form"] = AvatarUpdateForm(
-                request.POST, request.FILES, instance=user
-            )
+            forms["avatar_form"] = AvatarUpdateForm(request.POST, instance=user)
             if forms["avatar_form"].is_valid():
-                forms["avatar_form"].save()
-                messages.success(request, _("INFO_AVATAR_WAS_CHANGED"))
+                confirm_token = forms["avatar_form"].cleaned_data["confirm_token"]
+                filepath = forms["avatar_form"].cleaned_data["filepath"]
+                try:
+                    import jwt
+
+                    decoded = jwt.decode(
+                        confirm_token,
+                        settings.LUNASPIRE_SECRET_KEY,
+                        algorithms=["HS256"],
+                    )
+
+                    if decoded.get("type") == "cdn-confirm":
+                        user.avatar_id = decoded.get("file_id")
+                        user.avatar_path = filepath
+                        user.save()
+                        messages.success(request, _("INFO_AVATAR_WAS_UPLOADED"))
+                        return redirect("settings")
+                    else:
+                        messages.error(request, _("ERROR_INVALID_LUNASPIRE_TOKEN"))
+                except Exception as e:
+                    messages.error(request, _("ERROR_CDNSECURITY"))
                 return redirect("settings")
         elif form_type == "init_delete":
             request.session["can_view_delete_page"] = True
@@ -277,7 +296,6 @@ def delete_account(request):
     else:
         form = PasswordConfirmationForm(request.user)
     apps_loaded_count = Application.objects.filter(user=request.user).count()
-    print(apps_loaded_count)
     return render(
         request, "del_acc.html", {"apps_count": apps_loaded_count, "form": form}
     )

@@ -275,7 +275,7 @@ msgstr "Скриншоты"
 
 #: templates/admin_app.html:99
 msgid "PAGE_ADMIN_APP_CURRENTSCRN"
-msgstr "Текущие скриншоты:"
+msgstr "Текущие скриншоты"
 
 #: templates/admin_app.html:107
 msgid "PAGE_ADMIN_APP_WARN_SCRN"
@@ -283,7 +283,7 @@ msgstr "Внимание: Загрузка новых файлов удалит 
 
 #: templates/admin_app.html:112
 msgid "PAGE_ADMIN_APP_LOAD_SCRN"
-msgstr "Загрузить новые (макс 3 шт.):"
+msgstr "Загрузить новые скриншоты (максимум 3 шт.)"
 
 #: templates/admin_app.html:142 templates/app_add.html:289
 msgid "ERROR_INVALID_FILE_FORMAT"
@@ -1558,6 +1558,17 @@ msgstr "Посмотреть другие программы автора"
 msgid "PAGE_APP_LABEL_DOWNLOADS"
 msgstr "Количество скачиваний"
 
+#: templates/report_app.html:37
+#: apps/marketplace/models.py:179
+msgid "PAGE_REPORTAPP_TITLE"
+msgstr "Жалобу на приложение"
+
+#: apps/marketplace/models.py:180
+msgid "PAGE_REPORTAPP_TITLE_PATH"
+msgstr "Жалобы на приложения"
+
+msgid "PAGE_REPORTAPP_REASON_MALWARE"
+msgstr "Ааа, помогите, тут вирусы!"
 #~ msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
 #~ msgstr "Демо, далее $%(price)s"
 
@@ -1602,6 +1613,9 @@ msgstr "Код"
 
 msgid "FORM_INVITECODE_ENTER"
 msgstr "Введите код"
+
+msgid "PAGE_FAQ_TEAM_ROLE_COOKIE"
+msgstr "Второй backend разработчик, глав. разработчик пакетного менеджера luna, а также перевод на японский"
 
 msgid "PAGE_LOGIN_BROWSER_TITLE"
 msgstr "Вход"
@@ -1752,3 +1766,223 @@ msgstr "Хорошо, принять"
 
 msgid "BASE_COOKIE_DECLINE"
 msgstr "Нет, спасибо"
+
+msgid "ERROR_INVALID_LUNASPIRE_TOKEN"
+msgstr "При загрузке был получен неверный тип токена от движка LunaSpire. Пожалуйста, обратитесь с данной ошибкой к администратору сайта, если вы видите эту ошибку не впервые."
+
+msgid "ERROR_CDNSECURITY"
+msgstr "При загрузке файла произошла ошибка безопасности движка LunaSpire. Пожалуйста, обратитесь с данной ошибкой к администратору сайта, если вы видите эту ошибку не впервые."
+
+msgid "PAGE_SETTINGS_JS_SELECT_FILE"
+msgstr "Пожалуйста, выберите файл для загрузки!"
+
+msgid "PAGE_SETTINGS_JS_UPLOADING"
+msgstr "Загрузка..."
+
+msgid "PAGE_SETTINGS_JS_ERR_TOKEN"
+msgstr "Не удалось получить безопасный токен LunaSpire для загрузки. Пожалуйста, обратитесь с данной ошибкой к администратору сайта."
+
+msgid "PAGE_SETTINGS_JS_ERR_CDN"
+msgstr "Произошла ошибка при сохранении файла на сервере LunaSpire. Пожалуйста, обратитесь с данной ошибкой к администратору сайта."
+
+msgid "PAGE_SETTINGS_JS_ERR_PREFIX"
+msgstr "Произошла ошибка:"
+
+msgid "INFO_AVATAR_WAS_UPLOADED"
+msgstr "Аватар успешно загружен!"
+
+msgid "BASE_SIDEBAR_APP_TITLE"
+msgstr "Приложение"
+
+msgid "BASE_SIDEBAR_APP_INSTALL"
+msgstr "Установить"
+
+msgid "BASE_SIDEBAR_APP_DEV_SITE"
+msgstr "Сайт разработчика"
+
+msgid "BASE_SIDEBAR_APP_REPORT"
+msgstr "Пожаловаться"
+
+msgid "BASE_SIDEBAR_APP_EDIT"
+msgstr "Редактировать страницу"
+
+msgid "JS_MARKETPLACE_UPLOADING"
+msgstr "Загрузка..."
+
+msgid "JS_MARKETPLACE_ERROR"
+msgstr "Ошибка LunaSpire: "
+
+msgid "JS_MARKETPLACE_RETRY"
+msgstr "Попробовать снова"
+
+msgid "JS_MARKETPLACE_TOKEN_ERROR"
+msgstr "Не удалось получить токен загрузки"
+
+msgid "JS_MARKETPLACE_FILE_ERROR"
+msgstr "Ошибка при передаче файла "
+
+msgid "PAGE_ADMIN_APP_LOAD_ICON"
+msgstr "Загрузить значок"
+
+msgid "PAGE_DOWNLOAD_TITLE"
+msgstr "Скачивание"
+
+msgid "PAGE_DOWNLOAD_BACK"
+msgstr "Назад"
+
+msgid "PAGE_DOWNLOAD_VERSION_LIST"
+msgstr "Список версий"
+
+msgid "PAGE_DOWNLOAD_TABLE_VERSION"
+msgstr "Версия"
+
+msgid "PAGE_DOWNLOAD_TABLE_DATE"
+msgstr "Дата публикации"
+
+msgid "PAGE_DOWNLOAD_TABLE_LINK"
+msgstr "Ссылка"
+
+msgid "PAGE_DOWNLOAD_DL_ACTION"
+msgstr "скачать"
+
+msgid "PAGE_DOWNLOAD_NO_NOTES"
+msgstr "Без примечаний"
+
+msgid "PAGE_DOWNLOAD_NO_DISTRIBUTIONS"
+msgstr "Дистрибуции пока не добавлены."
+
+msgid "PAGE_DOWNLOAD_OFFICIAL_SOURCE"
+msgstr "Скачивание из официального источника"
+
+msgid "PAGE_DOWNLOAD_GO_OFFICIAL"
+msgstr "Перейти на официальный сайт"
+
+msgid "PAGE_DOWNLOAD_LOCAL_SOURCE"
+msgstr "Скачивание с нашего сайта"
+
+msgid "PAGE_DOWNLOAD_LATEST_VERSION_NOTE"
+msgstr "Последняя загруженная версия помечена жирным шрифтом"
+
+msgid "PAGE_DOWNLOAD_UPLOADED_VERSIONS"
+msgstr "Загруженные версии"
+
+msgid "PAGE_DOWNLOAD_TABLE_UPLOAD_DATE"
+msgstr "Дата загрузки"
+
+msgid "PAGE_DOWNLOAD_TABLE_ACTION"
+msgstr "Действие"
+
+msgid "PAGE_DOWNLOAD_DEMO_WARNING"
+msgstr "Программа распространяется в виде демо-версии, за полную версию стоит заплатить её автору. Файл предоставлен с официального сайта разработчика."
+
+msgid "PAGE_DOWNLOAD_MANAGE_DISTS"
+msgstr "Управление дистрибуциями"
+
+msgid "PAGE_ADMIN_APP_TAB_DISTRIBUTIONS"
+msgstr "Файлы"
+
+msgid "PAGE_ADMIN_APP_DIST_HEADER"
+msgstr "Управление дистрибуциями — "
+
+msgid "PAGE_ADMIN_APP_DIST_ADD_NEW"
+msgstr "Добавить новую версию"
+
+msgid "PAGE_ADMIN_APP_DIST_DL_LINK_BLOCK"
+msgstr "Ссылка на страницу загрузок"
+
+msgid "PAGE_ADMIN_APP_DIST_VERSION"
+msgstr "Версия"
+
+msgid "PAGE_ADMIN_APP_DIST_DATE"
+msgstr "Дата"
+
+msgid "PAGE_ADMIN_APP_DIST_ACTIONS"
+msgstr "Действия"
+
+msgid "PAGE_ADMIN_APP_DIST_ACTION_EDIT"
+msgstr "Изменить"
+
+msgid "PAGE_ADMIN_APP_DIST_ACTION_DELETE"
+msgstr "Удалить"
+
+msgid "PAGE_ADMIN_APP_DIST_NO_NOTES"
+msgstr "Без примечаний"
+
+msgid "PAGE_ADMIN_APP_DIST_EMPTY"
+msgstr "Пока что нет загруженных версий."
+
+msgid "PAGE_ADMIN_APP_DIST_SAVE"
+msgstr "Сохранить"
+
+msgid "PAGE_ADMIN_APP_DIST_DL_LINK_TEXT"
+msgstr "Открыть список версий"
+
+msgid "PAGE_DIST_FORM_VERSION"
+msgstr "Версия приложения:"
+
+msgid "PAGE_DIST_FORM_VERSION_DESC"
+msgstr "Например: 1.0.0 или 2.1.4-beta"
+
+
+msgid "PAGE_DIST_FORM_URL"
+msgstr "Внешняя ссылка (URL):"
+
+msgid "PAGE_DIST_FORM_CHANGELOG"
+msgstr "Список изменений (Changelog):"
+
+msgid "PAGE_DIST_FORM_CHANGELOG_DESC"
+msgstr "Опишите, что нового в этой версии"
+
+msgid "PAGE_DIST_FORM_FILE"
+msgstr "Файл:"
+
+msgid "PAGE_DIST_FORM_FILE_BUTTON"
+msgstr "Обзор..."
+
+msgid "PAGE_DIST_FORM_FILE_NO_FILE"
+msgstr "Файл не выбран."
+
+msgid "File extension “%(extension)s” is not allowed. Allowed extensions are: “%(allowed_extensions)s”."
+msgstr "Расширение “%(extension)s” не разрешено. Допустимые расширения: “%(allowed_extensions)s”."
+
+msgid "ERROR_DIST_SOURCE_REQUIRED"
+msgstr "Нужно указать файл или ссылку для скачивания."
+
+msgid "PAGE_DIST_FORM_FILE_DESC"
+msgstr "Допустимые форматы: .exe, .zip, .rar, .7z и другие архивы."
+
+msgid "PAGE_DIST_EDIT_HEADER"
+msgstr "Редактировать дистрибуцию"
+
+msgid "PAGE_DIST_EDIT_CURRENT_FILE"
+msgstr "Текущий файл:"
+
+msgid "PAGE_DIST_EDIT_CHANGE_FILE"
+msgstr "Заменить файл:"
+
+msgid "PAGE_DIST_FORM_SAVE"
+msgstr "Сохранить изменения"
+
+msgid "PAGE_DIST_FORM_SAVED"
+msgstr "Изменения дистрибуции успешно сохранены."
+
+msgid "PAGE_DIST_FORM_CANCEL"
+msgstr "Отмена"
+
+msgid "PAGE_DIST_FORM_URL_DESC"
+msgstr "Укажите, если файл размещен на другом ресурсе"
+
+msgid "PAGE_DIST_FORM_FILE_UPLOADING"
+msgstr "Загрузка..."
+
+msgid "PAGE_DIST_FORM_FILE_ALREADY_UPLOADED"
+msgstr "Файл уже загружен (ожидает сохранения)"
+
+msgid "PAGE_DIST_FORM_ERR_GET_TOKEN"
+msgstr "Ошибка получения токена загрузки от движка LunaSpire. Пожалуйста, обратитесь с данной ошибкой к администратору."
+
+msgid "PAGE_DIST_FORM_ERR_CDN_REJECT"
+msgstr "Движок LunaSpire отклонил загрузку файла. Пожалуйста, обратитесь с данной ошибкой к администратору."
+
+msgid "PAGE_DIST_FORM_ERR_NO_CONFIRM"
+msgstr "Движок LunaSpire не вернул токен подтверждения. Пожалуйста, обратитесь с данной ошибкой к администратору."

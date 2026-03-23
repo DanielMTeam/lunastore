@@ -39,6 +39,11 @@
     background: #b62822 !important;
 }
 
+.action_button#delete_dist {
+    border: 1px solid #e67a7a;
+    background: #b62822 !important;
+}
+
 .pref_pad {
     padding: 5px;
 }

@@ -1,11 +1,18 @@
+import uuid
 from datetime import datetime
 
+import jwt
 from django.conf import settings
-from django.contrib.postgres.search import TrigramSimilarity
-from drf_spectacular.types import OpenApiTypes
-from drf_spectacular.utils import OpenApiParameter, extend_schema, inline_serializer
+from django.shortcuts import get_object_or_404
+from drf_spectacular.utils import (
+    OpenApiParameter,
+    OpenApiTypes,
+    extend_schema,
+    inline_serializer,
+)
 from rest_framework import serializers, viewsets
-from rest_framework.decorators import action
+from rest_framework.decorators import action, api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from apps.marketplace.models import Application, Category, Distribution
@@ -60,6 +67,63 @@ class UserViewSet(viewsets.GenericViewSet):
 
         serializer = self.get_serializer(user)
         return Response(serializer.data)
+
+    @action(
+        detail=False,
+        methods=["get"],
+        url_path="getAvatarToken",
+        permission_classes=[IsAuthenticated],
+    )
+    def get_avatar_token(self, request):
+        guard_phrase = str(uuid.uuid4().hex)[:8]
+
+        payload = {
+            "type": "cdn-upload",
+            "object": "avatar",
+            "user": str(request.user.id),
+            "guard": guard_phrase,
+            "mode": "public",
+        }
+
+        upload_token = jwt.encode(
+            payload, settings.LUNASPIRE_SECRET_KEY, algorithm="HS256"
+        )
+
+        return Response({"upload_token": upload_token, "guard": guard_phrase})
+
+    @action(
+        detail=False,
+        methods=["get"],
+        url_path="getDistributionToken",
+        permission_classes=[IsAuthenticated],
+    )
+    def get_distribution_token(self, request):
+        app_id = request.query_params.get("app_id")
+
+        if not app_id:
+            return Response({"error": "app_id is required"}, status=400)
+
+        app_obj = get_object_or_404(Application, id=app_id)
+
+        # check ownership
+        if app_obj.user != request.user:
+            return Response({"error": "Not your app"}, status=403)
+
+        guard_phrase = str(uuid.uuid4().hex)[:8]
+
+        payload = {
+            "type": "cdn-upload",
+            "object": str(app_obj.id),  # str only
+            "user": str(request.user.id),  # str only
+            "guard": guard_phrase,
+            "mode": "private",
+        }
+
+        upload_token = jwt.encode(
+            payload, settings.LUNASPIRE_SECRET_KEY, algorithm="HS256"
+        )
+
+        return Response({"upload_token": upload_token, "guard": guard_phrase})
 
 
 class MarketplaceViewSet(viewsets.GenericViewSet):
