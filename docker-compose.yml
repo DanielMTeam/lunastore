@@ -24,16 +24,10 @@ services:
       timeout: 5s
       retries: 5
 
-  lunastore:
-    build: .
+  x-lunastore-template: &lunastore_base
     image: lunastore:local
-    container_name: lunastore_combined
     env_file:
       - .env
-    ports:
-      - "8088:8088" # Admin
-      - "9088:9088" # Web
-      - "7088:7088" # API
     restart: unless-stopped
     networks:
       - storenetwork
@@ -44,8 +38,7 @@ services:
       - static_volume:/app/staticfiles_build
       - media_volume:/root/lunastore/media
     command: >
-      sh -c "python manage.py migrate --noinput &&
-             python manage.py collectstatic --noinput &&
+      sh -c "python manage.py collectstatic --noinput &&
              DJANGO_ROOT_URLCONF=lunastore.urls_api      gunicorn lunastore.wsgi:application --bind 0.0.0.0:7088 --workers 2 &
              DJANGO_ROOT_URLCONF=lunastore.urls_private  gunicorn lunastore.wsgi:application --bind 0.0.0.0:8088 --workers 2 &
              DJANGO_ROOT_URLCONF=lunastore.urls          gunicorn lunastore.wsgi:application --bind 0.0.0.0:9088 --workers 2 &
@@ -55,6 +48,22 @@ services:
       interval: 10s
       retries: 3
       start_period: 60s
+
+  lunastore-blue:
+    <<: *lunastore_base
+    container_name: lunastore_blue
+    ports:
+      - "7081:7088" # API
+      - "8081:8088" # Admin
+      - "9081:9088" # Web
+
+  lunastore-green:
+    <<: *lunastore_base
+    container_name: lunastore_green
+    ports:
+      - "7082:7088"
+      - "8082:8088"
+      - "9082:9088"
 
 networks:
   storenetwork:
