@@ -5,7 +5,7 @@ from django.templatetags.static import static
 from dotenv import load_dotenv
 
 # PLEASE, do not change this, if you don't understand what you do
-VERSION = "1.5.0"
+VERSION = "1.7.0"
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent

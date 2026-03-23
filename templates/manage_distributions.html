@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+<title>{% trans "PAGE_ADMIN_APP_TAB_DISTRIBUTIONS" %} - LunaStore</title>
+<div class="content">
+    <div class="preferences">
+        <div class="preferences_info" id="{uid}">
+            <div class="preferences_title">{% trans "PAGE_ADMIN_APP_PAGETITLE" %}</div>
+            <div style="clear: both"></div>
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/settings.css' %}">
+    <link rel="stylesheet" href="{% static './css/tabs.css'%}">
+
+    <div class="tabs">
+        <div class="tab-bar">
+            <a href="{% url 'edit_app_info' pk=app.pk%}" class="tab" style="text-decoration: none; color: inherit;">
+                <img src="{% static './img/tabs/main.png'%}" class="tab-icon" alt="">
+                {% trans "PAGE_ADMIN_APP_FIRST_BLOCK" %}
+            </a>
+            <div class="tab active">
+                <img src="{% static './img/tabs/programs.png'%}" class="tab-icon" alt="">
+                {% trans "PAGE_ADMIN_APP_TAB_DISTRIBUTIONS" %}
+            </div>
+        </div>
+
+        <div class="tab-content" id="tab-view">
+            <div class="section" style="border: none; padding: 0;">
+                <div class="profile_block">{% trans "PAGE_ADMIN_APP_DIST_HEADER" %}{{ app.title }}</div>
+                <div class="profile_block_content">
+                    {% if distributions %}
+                    <table class="app_version_table" cellpadding="0" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>{% trans "PAGE_ADMIN_APP_DIST_VERSION" %}</th>
+                                <th>{% trans "PAGE_ADMIN_APP_DIST_DATE" %}</th>
+                                <th>{% trans "PAGE_ADMIN_APP_DIST_ACTIONS" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for dist in distributions %}
+                            <tr>
+                                <td>{{ dist.version }}</td>
+                                <td>{{ dist.published }}</td>
+                                <td>
+                                    <a class="action_button" href="{{ dist.edit_url }}">{% trans "PAGE_ADMIN_APP_DIST_ACTION_EDIT" %}</a>
+                                    <form method="post" action="{{ dist.delete_url }}" style="display: inline-block; margin-left: 10px;">
+                                        {% csrf_token %}
+
+                                        <button type="submit" class="action_button" id="delete_dist">{% trans "PAGE_ADMIN_APP_DIST_ACTION_DELETE" %}</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <small>
+                                        {% if dist.changelog %}
+                                            {{ dist.changelog }}
+                                        {% else %}
+                                            {% trans "PAGE_ADMIN_APP_DIST_NO_NOTES" %}
+                                        {% endif %}
+                                    </small>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <p>{% trans "PAGE_ADMIN_APP_DIST_EMPTY" %}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="section" style="border: none; padding: 0;">
+                <div class="profile_block">{% trans "PAGE_ADMIN_APP_DIST_ADD_NEW" %}</div>
+                <div class="profile_block_content">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="pref_pad">
+                            <div class="pref_item_title">{% trans "PAGE_DIST_FORM_VERSION" %}</div>
+                            {{ form.version }}
+                            <div class="pref_warn_label">{% trans "PAGE_DIST_FORM_VERSION_DESC" %}</div>
+                        </div>
+
+                        <div class="pref_pad">
+                            <div class="pref_item_title">{% trans "PAGE_DIST_FORM_FILE" %}</div>
+
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td valign="middle">
+                                        <label class="action_button" style="cursor: pointer; float: left; display: block;">
+                                            {% trans "PAGE_DIST_FORM_FILE_BUTTON" %}
+                                            <input type="file" name="file" id="id_file"
+                                                   accept=".exe,.zip,.rar,.7z"
+                                                   style="position: absolute; left: -9999px;">
+                                        </label>
+                                    </td>
+                                    <td valign="middle" style="padding-left: 10px;">
+                                        <span id="file-chosen" style="font-size: 11px; color: #555;">
+                                            {% trans "PAGE_DIST_FORM_FILE_NO_FILE" %}
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <div class="st_clearb"></div>
+                            <div class="pref_warn_label">{% trans "PAGE_DIST_FORM_FILE_DESC" %}</div>
+                        </div>
+
+                        <div class="pref_pad">
+                            <div class="pref_item_title">{% trans "PAGE_DIST_FORM_URL" %}</div>
+                            {{ form.url }}
+                            <div class="pref_warn_label">{% trans "PAGE_DIST_FORM_URL_DESC" %}</div>
+                        </div>
+
+                        <div class="pref_pad">
+                            <div class="pref_item_title">{% trans "PAGE_DIST_FORM_CHANGELOG" %}</div>
+                            {{ form.changelog }}
+                            <div class="pref_warn_label">{% trans "PAGE_DIST_FORM_CHANGELOG_DESC" %}</div>
+                        </div>
+
+                        <div class="pref_pad">
+                            <button type="submit" class="action_button">{% trans "PAGE_ADMIN_APP_DIST_SAVE" %}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="section" style="border: none; padding: 0;">
+                <div class="profile_block">{% trans "PAGE_ADMIN_APP_DIST_DL_LINK_BLOCK" %}</div>
+                <div class="profile_block_content">
+                    <a href="{{ download_list_url }}">{% trans "PAGE_ADMIN_APP_DIST_DL_LINK_TEXT" %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+    var fileInput = document.getElementById('id_file');
+    if (fileInput) {
+        fileInput.onchange = function() {
+            var fileName = this.value.split(/(\\|\/)/g).pop();
+            var displaySpan = document.getElementById('file-chosen');
+            if (displaySpan) {
+                displaySpan.innerHTML = fileName ? fileName : '{% trans "PAGE_DIST_FORM_FILE_NO_FILE" %}';
+                displaySpan.style.color = "#000";
+            }
+        };
+    }
+</script>
+{% endblock %}
