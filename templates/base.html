@@ -63,6 +63,35 @@
 
     <div class="sidebar">
 
+
+        {% if app_id %}
+            <div class="boxhead_primary"><b>{% trans "BASE_SIDEBAR_APP_TITLE" %}</b></div>
+            <div class="box">
+                <ul>
+                    {% if not is_download_page %}
+                    <a href="{{ download_url }}">
+                        <li class="setup"><b>{% trans "BASE_SIDEBAR_APP_INSTALL" %}</b></li>
+                    </a>
+                    {% endif %}
+
+                    {% if developer_site %}
+                    <a href="{{ developer_site }}">
+                        <li class="web">{% trans "BASE_SIDEBAR_APP_DEV_SITE" %}</li>
+                    </a>
+                    {% endif %}
+
+                    <a href="/report.php?act=new&app_id={{ app_id }}">
+                        <li class="alert">{% trans "BASE_SIDEBAR_APP_REPORT" %}</li>
+                    </a>
+
+                    {% if user.is_authenticated and user.id == developer_id %}
+                    <a href="/edit_app_info.php?id={{ app_id }}">
+                        <li class="editapp">{% trans "BASE_SIDEBAR_APP_EDIT" %}</li>
+                    </a>
+                    {% endif %}
+                </ul>
+            </div>
+        {% endif %}
       {% if user.is_authenticated %}
       <div class="boxhead_primary"><b>{% trans "BASE_SIDEBAR_ACCOUNT_TITLE" %}</b></div>
       <div class="box">

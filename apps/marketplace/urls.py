@@ -15,4 +15,17 @@ urlpatterns = [
     ),
     path("search.php", views.search, name="search"),
     path("report_app.php", views.report_app, name="report_app"),
+    path("download.php", views.download_list, name="download"),
+    path("distributions.php", views.manage_distributions, name="manage_distributions"),
+    path(
+        "distribution_edit.php/<int:dist_pk>/",
+        views.distribution_edit,
+        name="distribution_edit",
+    ),
+    path(
+        "distribution_delete.php/<int:dist_pk>/",
+        views.distribution_delete,
+        name="distribution_delete",
+    ),
+    path("get_dist_file/<int:dist_pk>/", views.get_file_action, name="download_action"),
 ]

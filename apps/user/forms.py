@@ -171,13 +171,19 @@ class PasswordChangeForm(forms.Form):
 class AvatarUpdateForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ["avatar"]
+        fields = []
 
     avatar = forms.ImageField(
+        required=False,
         label=_("ACTION_CHOOSE_FILE"),
         widget=forms.FileInput(attrs={"class": "action_button", "id": "file-upload"}),
         help_text=_("INFO_RECOMENDATIONS_FOR_UPLOAD_AVATAR"),
     )
+
+    confirm_token = forms.CharField(widget=forms.HiddenInput())
+    filepath = forms.CharField(widget=forms.HiddenInput())
+
+    client_guard = forms.CharField(widget=forms.HiddenInput(), required=False)
 
     def clean_avatar(self):
         avatar = self.cleaned_data.get("avatar")
