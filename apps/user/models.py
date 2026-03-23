@@ -1,4 +1,5 @@
 import datetime
+import os
 import uuid
 
 from django.conf import settings
@@ -12,11 +13,6 @@ from safedelete.models import SOFT_DELETE_CASCADE, SafeDeleteModel
 class User(AbstractUser, SafeDeleteModel):
     _safedelete_policy = SOFT_DELETE_CASCADE
 
-    def unique_avatar_path(instance, filename):
-        ext = filename.split(".")[-1]
-        file_name = f"{uuid.uuid4().hex}.{ext}"
-        return f"ugc/user_avatars/{file_name}"
-
     class Meta:
         verbose_name = "Пользователь"
         verbose_name_plural = "Пользователи"
@@ -24,7 +20,6 @@ class User(AbstractUser, SafeDeleteModel):
     telegram = models.CharField(max_length=45, null=True)
     discord = models.CharField(max_length=32, null=True)
     website = models.URLField(max_length=45, null=True)
-    avatar = models.ImageField(upload_to=unique_avatar_path, max_length=80, null=True)
     description = models.CharField(
         max_length=255, default="Пока что, описания тут нету"
     )
@@ -35,6 +30,15 @@ class User(AbstractUser, SafeDeleteModel):
         on_delete=models.SET_NULL,
         related_name="invited_users",
     )
+    avatar_id = models.PositiveIntegerField(null=True, blank=True)
+    avatar_path = models.CharField(max_length=255, null=True, blank=True)
+
+    @property
+    def avatar_url(self):
+        if self.avatar_path:
+            lunaspire_url = settings.LUNASPIRE_URL
+            return f"{lunaspire_url}/{self.avatar_path}"
+        return "/staticfiles/img/noavatar_64.jpg"
 
 
 class UserBan(SafeDeleteModel):

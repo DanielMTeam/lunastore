@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
     libz-dev \
     libjpeg-dev \
     libfreetype6-dev \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
