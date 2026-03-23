@@ -5,8 +5,8 @@
 {% block content %}
 <title>{% trans "PAGE_SETTINGS_HTML_TITLE" %} - LunaStore</title>
 
-<link rel="stylesheet" href="{% static './css/settings.css'%}"> 
-<link rel="stylesheet" href="{% static './css/profile.css'%}">  
+<link rel="stylesheet" href="{% static './css/settings.css'%}">
+<link rel="stylesheet" href="{% static './css/profile.css'%}">
 <link rel="stylesheet" href="{% static './css/tabs.css'%}">
 
 <div class="content">
@@ -22,7 +22,7 @@
             <div class="tab active">
                 <img src="{% static './img/tabs/account.png' %}" class="tab-icon" alt=""> {% trans "PAGE_SETTINGS_TAB_ACCOUNT" %}
             </div>
-            
+
             <a href="{% url 'settings_apps' %}" class="tab" style="display: block; text-decoration: none; color: inherit;">
                 <img src="{% static './img/tabs/programs.png' %}" class="tab-icon" alt=""> {% trans "PAGE_SETTINGS_TAB_APPS" %}
             </a>
@@ -32,7 +32,7 @@
             <form method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="form_type" value="profile">
-                
+
                 <div class="profile_block">{% trans "PAGE_SETTINGS_SECTION_BASIC" %}</div>
                 <div class="profile_block_content">
                     <div class="pref_pad">
@@ -43,7 +43,6 @@
                     <div class="pref_pad">
                         <div class="pref_item_title">{% trans "PAGE_SETTINGS_LABEL_EMAIL" %}</div>
                         {{ profile_form.email }}
-                        {{ profile_form.email.errors }}
                     </div>
                     <div class="pref_pad">
                         <div class="pref_item_title">{% trans "PAGE_SETTINGS_LABEL_TELEGRAM" %}</div>
@@ -55,21 +54,8 @@
                     </div>
                     <div class="pref_pad">
                         <div class="pref_item_title">{% trans "PAGE_SETTINGS_LABEL_BIO" %}</div>
-                        {{ profile_form.bio }}
+                        {{ profile_form.description }}
                     </div>
-                </div>
-                <input type="submit" class="action_button" value="{% trans 'PAGE_SETTINGS_BTN_SAVE' %}">
-            </form>
-            <br>
-
-            <form method="POST">
-                {% csrf_token %}
-                <input type="hidden" name="form_type" value="privacy">
-                <div class="profile_block">{% trans "PAGE_SETTINGS_SECTION_PRIVACY" %}</div>
-                <div class="profile_block_content">
-                    {{ privacy_form.reviews_visible }}
-                    {% trans "PAGE_SETTINGS_LABEL_HIDE_REVIEWS" %}
-                    <br><br>
                     <input type="submit" class="action_button" value="{% trans 'PAGE_SETTINGS_BTN_SAVE' %}">
                 </div>
             </form>
@@ -83,17 +69,14 @@
                     <div class="pref_pad">
                         <div class="pref_item_title">{% trans "PAGE_SETTINGS_LABEL_CUR_PASS" %}</div>
                         {{ password_form.current_password }}
-                        {{ password_form.current_password.errors }}
                     </div>
                     <div class="pref_pad">
                         <div class="pref_item_title">{% trans "PAGE_SETTINGS_LABEL_NEW_PASS" %}</div>
                         {{ password_form.new_password }}
-                        {{ password_form.new_password.errors }}
                     </div>
                     <div class="pref_pad">
                         <div class="pref_item_title">{% trans "PAGE_SETTINGS_LABEL_CONFIRM_PASS" %}</div>
                         {{ password_form.confirm_password }}
-                        {{ password_form.confirm_password.errors }}
                     </div>
                     <input type="submit" class="action_button" value="{% trans 'PAGE_SETTINGS_BTN_SAVE' %}">
                 </div>
@@ -113,13 +96,11 @@
                     <div class="pref_pad">
                         <div class="pref_item_title">{% trans "PAGE_SETTINGS_LABEL_NEW_EMAIL" %}</div>
                         {{ email_form.new_email }}
-                        {{ email_form.new_email.errors }}
                     </div>
                     <hr>
                     <div class="pref_pad">
                         <div class="pref_item_title">{% trans "PAGE_SETTINGS_LABEL_CUR_PASS" %}</div>
                         {{ email_form.password_check }}
-                        {{ email_form.password_check.errors }}
                     </div>
                     <input type="submit" class="action_button" value="{% trans 'PAGE_SETTINGS_BTN_SAVE' %}">
                 </div>
@@ -132,11 +113,10 @@
                 <div class="profile_block">{% trans "PAGE_SETTINGS_SECTION_AVATAR" %}</div>
                 <div class="profile_block_content">
                     <div class="info_splash">{% trans "PAGE_SETTINGS_INFO_AVATAR_RULES" %}</div>
-                    
+
                     <label for="file-upload">{% trans "PAGE_SETTINGS_LABEL_CHOOSE_FILE" %}</label>
                     {{ avatar_form.avatar }}
-                    {{ avatar_form.avatar.errors }}
-                    
+
                     <button type="submit" class="action_button">{% trans "PAGE_SETTINGS_BTN_UPLOAD" %}</button>
                 </div>
             </form>
@@ -160,5 +140,6 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 {% endblock %}

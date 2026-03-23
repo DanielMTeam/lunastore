@@ -1,138 +1,77 @@
-﻿<!DOCTYPE html>
-<html>
+﻿{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
 
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Вход - LunaStore</title>
-<link rel="stylesheet" href="./css/main.css">
-</head>
+{% block content %}
+<title>{% trans "PAGE_LOGIN_BROWSER_TITLE" %} - LunaStore</title>
 
+<div class="content">
 
-<body>
-<div class="container">
-
-  <div class="dm_menu">
-    <a href="/login.php">вход</a> - <a href="reg0">регистрация</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a> | <a href="/help.php?page=projects">прочие проекты</a>
-  </div>
-
-  <div class="header">
-    
-    <div class="rl_l"><h1>LunaStore</h1>
-    <div class="subtitle txtr">Windows XP Professional</div>
+    {% if request.GET.next or next %}
+    <div class="splash" style="max-width: 630px;">
+        <div class="alert_splash">
+            <div class="warning_icon_small"></div>
+            <div class="splash_text">{% trans "PAGE_LOGIN_REQUIRED_WARNING" %}</div>
+        </div>
     </div>
-    
-    <div class="searchbar">
-  <!--[if IE 6]>
-  <style type="text/css">
-   .searchbar button {padding: 1px 1px;}
-  </style>
-  <![endif]-->
-      <input type="text" id="q" placeholder="Например: Total Commander">
-      <button type="button" onclick="doSearch()">поиск</button>
-      <br>
-      <div class="subtitle"><a href="/settings.php?act=search">Уточнить параметры поиска</a></div>
-    </div>
-  </div>
+    {% endif %}
 
-
-  <div class="headerline"></div>
-
-  <div class="main">
-    <div class="sidebar">
-        <div class="boxhead"><b>Категории</b></div>
-      <div class="box">
-        
-        <ul>
-          <a href="/index.php"><li class="myhome">Главная страница</li></a>
-          <a href="/store.php?show=top20"><li class="top">Приложения месяца</li></a>
-          <a href="/store.php?show=updates"><li class="updates">Центр обновлений</li></a>
-          <a href="/store.php?cat=1"><li class="entertainment">Игры и развлечения</li></a>
-          <a href="/store.php?cat=2"><li class="util">Инструменты</li></a>
-          <a href="/store.php?cat=3"><li class="media">Мультимедиа</li></a>
-          <a href="/store.php?cat=4"><li class="office">Офисные приложения</li></a>
-          <a href="/store.php?cat=5"><li class="internet">Интернет и сети</li></a>
-          <a href="/store.php?cat=6"><li class="other">Прочее</li></a>
-          <a href="/store.php?show=themes"><li class="themes">Темы оформления</li></a>
-        </ul>
-      </div>
-      
-      <div class="adv_block">
-        <a href="{ad_link}"><img src="./ad/ad.png" alt="Реклама"></a>
-      </div>
-
-    </div>
-
-    <div class="content">
-	<div class="splash"><div class="alert_splash"><div class="warning_icon_small"></div><div class="splash_text">Чтобы продолжить данное действие, нужно войти на сайт</div></div></div>
-      <div class="section">
-        <h2>Вход</h2>
+    <div class="section">
+        <h2>{% trans "PAGE_LOGIN_MAIN_TITLE" %}</h2>
         <div class="separator_store"></div>
-      <div class="login_wrap">
-        <div class="login_block">
-        <div class="login_header">
-            <div class="login_user_tile"></div><div class="login_header_text">Представьтесь...</div>
+
+        <div class="login_wrap">
+
+            <div class="login_block" style="min-height: 250px;">
+                <div class="login_header">
+                    <div class="login_user_tile"></div>
+                    <div class="login_header_text">{% trans "PAGE_LOGIN_GREETING" %}</div>
+                </div>
+
+                <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    {% if request.GET.next %}
+                        <input type="hidden" name="next" value="{{ request.GET.next }}">
+                    {% elif next %}
+                        <input type="hidden" name="next" value="{{ next }}">
+                    {% endif %}
+
+                    <div class="field">
+                        <label>{% trans "PAGE_LOGIN_USERNAME_LABEL" %}</label>
+                        <input type="text" name="username" class="input_text" required>
+                    </div>
+
+                    <div class="field">
+                        <label>{% trans "PAGE_LOGIN_PASSWORD_LABEL" %}</label>
+                        <input type="password" name="password" class="input_text" required>
+                    </div>
+
+                    <div class="actions">
+                        <input type="submit" value="{% trans 'PAGE_LOGIN_SUBMIT_BTN' %}">
+                    </div>
+                </form>
+                <div style="clear:both"></div>
+            </div>
+
+            <div class="info_block">
+                <h2>{% trans "PAGE_LOGIN_INFO_TITLE_1" %}</h2>
+                <ul>
+                    <li class="top">{% trans "PAGE_LOGIN_INFO_BULLET_1" %}</li>
+                    <li class="com">{% trans "PAGE_LOGIN_INFO_BULLET_2" %}</li>
+                    <li class="uni">{% trans "PAGE_LOGIN_INFO_BULLET_3" %}</li>
+                </ul>
+                <br>
+                <h2>{% trans "PAGE_LOGIN_INFO_TITLE_2" %}</h2>
+                {% trans "PAGE_LOGIN_INFO_DESC_2" %}<br><br>
+                <a href="{% url 'register' %}">
+                    <input type="button" class="action_button" value="{% trans 'PAGE_LOGIN_REGISTER_BTN' %}">
+                </a>
+            </div>
+
+            <div style="clear:both"></div>
         </div>
 
-        <form>
-            <div class="field">
-                <label>Логин:</label>
-                <input type="text" class="input-text">
-            </div>
-
-            <div class="field">
-                <label>Пароль:</label>
-                <input type="password" class="input-text">
-            </div>
-
-            <div class="actions">
-                <input type="submit" value="Войти">
-            </div>
-        </form>
-        <div style="clear:both"></div>
     </div>
-    
-
-    <div class="info_block">
-        <h2>Зачем нужен аккаунт?</h2>
-        <ul>
-            <li class="top">Оставляйте отзывы к ПО</li>
-            <li class="com">Покорите сообщество</li>
-            <li class="uni">Загружайте ПО (скоро)</li>
-        </ul>
-        <br>
-        <h2>У Вас нет аккаунта?</h2>
-        Создайте его. Это бесплатно.<br><br>
-        <input type="submit" class="action_button" value="Зарегистрироваться">
-    </div>
-        <div style="clear:both"></div>
-      </div>
-    </div>
-
-    </div>
-  </div>
-
-  <div class="footer">
-    <a href="/help.php?page=about">О нас</a> - <a href="/help.php">FAQ</a> - <a href="/help.php?act=privacy">Политика конфиденциальности</a>
-    <div style="text-align: right; font-size: 11px;">С душой сделано командой DM, 2025<br>Все права принадлежат исходным правообладателям</div>
-  </div>
-
-<script type="text/javascript">
-function doSearch() {
-  var q = document.getElementById("q").value.toLowerCase();
-  var cards = document.getElementsByTagName("div");
-  for (var i=0;i<cards.length;i++) {
-    if(cards[i].className=="card") {
-      var text = cards[i].innerText || cards[i].textContent;
-      if(text.toLowerCase().indexOf(q)!=-1) {
-        cards[i].style.display="block";
-      } else {
-        cards[i].style.display="none";
-      }
-    }
-  }
-}
-</script>
-
-</body>
-
-</html>
+</div>
+</div>
+{% endblock %}

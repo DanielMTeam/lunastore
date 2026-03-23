@@ -2,22 +2,20 @@
 # Copyright (C) DM Team, Fayzetwin; 2026
 # FAYZETWIN, <contact@fayzetw.in>, 2026
 #
-# SPDX-FileCopyrightText: 2026 Okabe Rintaro <okaberin@futuregadget-lab.ru>
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-13 22:43+0000\n"
-"PO-Revision-Date: 2026-03-13 00:00+0300\n"
-"Last-Translator: Okabe Rintaro <okaberin@futuregadget-lab.ru>\n"
-"Language-Team: Russian <kde-russian@lists.kde.ru>\n"
+"PO-Revision-Date: 2026-04-02\n"
+"Last-Translator: Fayzetwin <contact@fayzetw.in>\n"
+"Language-Team: DM Team <daniel@myslivets.com>\n"
 "Language: ru_RU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
-"4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 25.04.0\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: apps/marketplace/decorators.py:14
 msgid "ERROR_YOURE_NOT_OWNER_OF_APP"
@@ -133,9 +131,7 @@ msgstr "Срок действия кода истек (24 часа). Попро�
 
 #: apps/user/forms.py:293
 msgid "FORM_INVITECODE_CODELIMITISNTOK_ERROR"
-msgstr ""
-"Лимит приглашений по этому коду исчерпан. Владелец пригласил слишком много люд"
-"ей за последнее время."
+msgstr "Лимит приглашений по этому коду исчерпан. Владелец пригласил слишком много людей за последнее время."
 
 #: apps/user/views.py:128
 msgid "INFO_PROFILE_IS_UPDATED"
@@ -520,7 +516,7 @@ msgstr "Редактировать"
 
 #: templates/app_add.html:260
 msgid "PAGE_ADDAPP_SENDAPPBTN"
-msgstr "Отправить на рассмотрениеS"
+msgstr "Отправить на рассмотрение"
 
 #: templates/app_add.html:350
 msgid "INFO_SELECTED_FILES"
@@ -596,10 +592,6 @@ msgstr "Все проекты »"
 #: templates/base.html:54 templates/category.html:28
 msgid "BASE_SEARCHBTN"
 msgstr "поиск"
-
-#: templates/base.html:57
-msgid "BASE_CONFIGSEARCHBTN"
-msgstr "Уточнить параметры поиска"
 
 #: templates/base.html:76
 msgid "BASE_SIDEBAR_ACCOUNT_TITLE"
@@ -700,6 +692,9 @@ msgstr "Купить"
 #: templates/category.html:72
 msgid "PAGE_CATEGORY_INSTALLBTN"
 msgstr "Установить"
+
+msgid "PAGE_CATEGORY_SEARCHOFCATEGORY"
+msgstr "Поиск по категории"
 
 #: templates/debug_info.html:8
 msgid "PAGE_DEBUG_TITLE"
@@ -969,6 +964,9 @@ msgstr "- разработчик"
 msgid "PAGE_FAQ_TEAM_ROLE_FAYZETWIN"
 msgstr "основной backend разработчик, API"
 
+msgid "PAGE_FAQ_TEAM_ROLE_ZAZIOS"
+msgstr "backend-разработчик (Go)"
+
 #: templates/faq.html:54
 msgid "PAGE_FAQ_TEAM_ROLE_MONDY"
 msgstr "логотип"
@@ -1124,12 +1122,18 @@ msgid "CARD_USER_NO_DESC"
 msgstr ""
 
 #: templates/profile.html:38
-msgid "PAGE_PROFILE_STATS_APPS"
-msgstr "приложения,"
+msgid "%(counter)s PAGE_PROFILE_STATS_APP"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
+msgstr[0] "%(counter)s приложение,"
+msgstr[1] "%(counter)s приложения,"
+msgstr[2] "%(counter)s приложений,"
 
 #: templates/profile.html:39
-msgid "PAGE_PROFILE_STATS_REVIEWS"
-msgstr "отзывов -"
+msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
+msgstr[0] "%(counter)s отзыв -"
+msgstr[1] "%(counter)s отзыва -"
+msgstr[2] "%(counter)s отзывов -"
 
 #: templates/profile.html:40
 msgid "PAGE_PROFILE_STATS_MEMBER_SINCE"
@@ -1303,14 +1307,11 @@ msgstr "Бесплатно"
 msgid "PAGE_SEARCH_BTN_DETAILS"
 msgstr "Подробнее"
 
-#: templates/search.html:79
-msgid ""
-"\n"
-"                    PAGE_SEARCH_MSG_NO_RESULTS\n"
-"                "
-msgstr ""
-"\n"
-"Поиск не дал результатов по запросу \"%(q)s\""
+msgid "PAGE_SEARCH_MSG_NO_RESULTS %(q)s"
+msgstr "Поиск не дал результатов по запросу \"%(q)s\""
+
+msgid "PAGE_SEARCH_MSG_NO_RESULTS_EMPTY"
+msgstr "По вашему запросу ничего не найдено"
 
 #: templates/settings.html:6
 msgid "PAGE_SETTINGS_HTML_TITLE"
@@ -1464,9 +1465,18 @@ msgstr "редактировать"
 msgid "PAGE_MANAGE_APPS_EMPTY_TITLE"
 msgstr "Приложений нет ＞︿＜"
 
+msgid "PAGE_PROFILE_INVITES_EMPTY_TITLE"
+msgstr "Приглашений нет ＞︿＜"
+
+msgid "PAGE_PROFILE_INVITES_EMPTY_DESC"
+msgstr "Пока что, ни один человек не зарегистрировался по приглашению данного пользователя."
+
 #: templates/settings_apps.html:60
 msgid "PAGE_MANAGE_APPS_EMPTY_DESC"
 msgstr "Вы пока что не управляете ни одним приложением."
+
+msgid "PAGE_PROFILE_APPS_EMPTY_DESC"
+msgstr "Пользователь пока что не опубликовал ни одного приложения."
 
 #: templates/storepage.html:9
 msgid "PAGE_APP_BTN_BACK"
@@ -1559,6 +1569,8 @@ msgstr "Жалобы на приложения"
 
 msgid "PAGE_REPORTAPP_REASON_MALWARE"
 msgstr "Ааа, помогите, тут вирусы!"
+#~ msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
+#~ msgstr "Демо, далее $%(price)s"
 
 msgid "PAGE_REGISTER_HAVE_INVITE_TITLE"
 msgstr "У Вас есть приглашение?"
@@ -1576,14 +1588,10 @@ msgid "PAGE_INVITE_INPUT_HEADER"
 msgstr "Ввод кода приглашения"
 
 msgid "PAGE_INVITE_INPUT_DESC_1"
-msgstr ""
-"Вы можете ввести код приглашения, который Вы получили от уже <b>зарегистрирова"
-"нного участника</b>"
+msgstr "Вы можете ввести код приглашения, который Вы получили от уже <b>зарегистрированного участника</b>"
 
 msgid "PAGE_INVITE_INPUT_DESC_2"
-msgstr ""
-"Таким образом, Вы получаете уникальную возможность создать аккаунт <b>в обход "
-"закрытой публичной регистрации</b>"
+msgstr "Таким образом, Вы получаете уникальную возможность создать аккаунт <b>в обход закрытой публичной регистрации</b>"
 
 msgid "PAGE_INVITE_INPUT_LABEL"
 msgstr "Код"
@@ -1609,5 +1617,152 @@ msgstr "Введите код"
 msgid "PAGE_FAQ_TEAM_ROLE_COOKIE"
 msgstr "Второй backend разработчик, глав. разработчик пакетного менеджера luna, а также перевод на японский"
 
-#~ msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
-#~ msgstr "Демо, далее $%(price)s"
+msgid "PAGE_LOGIN_BROWSER_TITLE"
+msgstr "Вход"
+
+msgid "PAGE_LOGIN_REQUIRED_WARNING"
+msgstr "Чтобы продолжить данное действие, нужно войти на сайт"
+
+msgid "PAGE_LOGIN_MAIN_TITLE"
+msgstr "Вход"
+
+msgid "PAGE_LOGIN_GREETING"
+msgstr "Представьтесь..."
+
+msgid "PAGE_LOGIN_USERNAME_LABEL"
+msgstr "Логин:"
+
+msgid "PAGE_LOGIN_PASSWORD_LABEL"
+msgstr "Пароль:"
+
+msgid "PAGE_LOGIN_SUBMIT_BTN"
+msgstr "Войти"
+
+msgid "PAGE_LOGIN_INFO_TITLE_1"
+msgstr "Зачем нужен аккаунт?"
+
+msgid "PAGE_LOGIN_INFO_BULLET_1"
+msgstr "Оставляйте отзывы к ПО"
+
+msgid "PAGE_LOGIN_INFO_BULLET_2"
+msgstr "Покорите сообщество"
+
+msgid "PAGE_LOGIN_INFO_BULLET_3"
+msgstr "Загружайте ПО"
+
+msgid "PAGE_LOGIN_INFO_TITLE_2"
+msgstr "У Вас нет аккаунта?"
+
+msgid "PAGE_LOGIN_INFO_DESC_2"
+msgstr "Создайте его. Это бесплатно."
+
+msgid "PAGE_LOGIN_REGISTER_BTN"
+msgstr "Зарегистрироваться"
+
+msgid "VIEW_LOGIN_BANNED_REASON"
+msgstr "Ваш аккаунт заблокирован. Причина: %(reason)s"
+
+msgid "VIEW_LOGIN_INVALID_CREDENTIALS"
+msgstr "Неверный логин или пароль."
+
+msgid "PAGE_OTHER_PROJECTS_BROWSER_TITLE"
+msgstr "Прочие проекты"
+
+msgid "PAGE_OTHER_PROJECTS_TITLE"
+msgstr "Прочие проекты"
+
+msgid "PAGE_OTHER_PROJECTS_SUBTITLE"
+msgstr "Сайты-друзья и прочие наши проекты"
+
+msgid "PAGE_OTHER_PROJECTS_SECTION_MAIN"
+msgstr "Основные"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_DM"
+msgstr "Сайт-визитка Daniel Myslivets (версия для старых компьютеров и браузеров)"
+
+msgid "PAGE_OTHER_PROJECTS_BTN_GO"
+msgstr "Перейти »"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_GAMES"
+msgstr "Реинкарнация интернет-игр для Windows XP/7 в виде стороннего кастомного сервера"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_RENAISSANCE"
+msgstr "Неофициальный проект, который восстанавливает работу Агента@Mail.ru"
+
+msgid "PAGE_OTHER_PROJECTS_SECTION_FRIENDS"
+msgstr "Сайты-друзья"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_KICQ"
+msgstr "Неофициальный проект, который восстанавливает работу ICQ"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_FOXCORP"
+msgstr "Личный сайт Milya Fox; сетевой инженер, который помогал с проектом"
+
+msgid "ERROR_MAX_AVATAR_DIMENSIONS"
+msgstr "Максимальный размер изображения 64x64 пикселей."
+
+msgid "ERROR_EMAIL_IS_SAME"
+msgstr "Новый E-mail совпадает с текущим."
+
+msgid "ERROR_EMAIL_ALREADY_EXISTS"
+msgstr "Пользователь с таким E-mail уже существует."
+
+msgid "INFO_EMAIL_WAS_CHANGED"
+msgstr "Ваш E-mail был успешно изменен."
+
+msgid "ERROR_INVALID_IMAGE_FILE"
+msgstr "Не удалось обработать изображение. Возможно, файл поврежден."
+
+msgid "PAGE_FAQ_PRIVACY_TITLE"
+msgstr "Политика конфиденциальности"
+
+msgid "PAGE_FAQ_PRIVACY_EMPTY"
+msgstr "Документ еще не заполнен..."
+
+msgid "PAGE_SEARCH_FILTER_AUTHOR_ID"
+msgstr "ID автора"
+
+msgid "PAGE_SEARCH_FILTER_FREE"
+msgstr "Только бесплатные"
+
+msgid "PAGE_SEARCH_BTN_RESET"
+msgstr "Сбросить фильтры"
+
+msgid "PAGE_SEARCH_FILTER_CATEGORY"
+msgstr "Категория"
+
+msgid "PAGE_SEARCH_FILTER_CATEGORY_ALL"
+msgstr "Все категории"
+
+msgid "INDEX_WELCOME_TITLE"
+msgstr "Добро пожаловать"
+
+msgid "INDEX_WELCOME_TEXT"
+msgstr "Приветствуем в LunaStore!<br>Сборник приложений и дополнений для комфортной работы с данной ОС"
+
+msgid "INDEX_SEARCH_SECTION_TITLE"
+msgstr "Поиск по каталогу"
+
+msgid "INDEX_SEARCH_PLACEHOLDER"
+msgstr "Например: Total Commander"
+
+msgid "INDEX_SEARCH_BTN"
+msgstr "Искать"
+
+msgid "INDEX_CATEGORY_PROMPT"
+msgstr "Или выберите нужную категорию:"
+
+msgid "INDEX_NO_CATEGORIES"
+msgstr "Категории пока не добавлены"
+
+msgid "BASE_COOKIE_MESSAGE"
+msgstr "Все дети любят печенье так же как и мы. Именно поэтому для стабильной работы сайта мы используем файлы Cookie. Более подробно об их использовании написано в нашей "
+
+msgid "BASE_COOKIE_PRIVACYPOLICY"
+msgstr "Политике конфиденциальности"
+
+msgid "BASE_COOKIE_ACCEPT"
+msgstr "Хорошо, принять"
+
+msgid "BASE_COOKIE_DECLINE"
+msgstr "Нет, спасибо"

@@ -1,77 +1,82 @@
-# THIS DOCKER-COMPOSE.YML ONLY FOR DEVELOPMENT 
+# THIS DOCKER-COMPOSE.YML ONLY FOR DEVELOPMENT
 # DO NOT USE IT IN PROD, PLEASE ~_~
 
 services:
-  db:
-    image: postgres:18-alpine
-    container_name: lunastore_db
-    environment:
-      POSTGRES_DB: ${DB_NAME:-lunastore_dev}
-      POSTGRES_USER: ${DB_USER:-postgres}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-password}
-    ports:
-      - "5432:5432" 
-    volumes:
-      - pg_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-lunastore}"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
+    db:
+        image: postgres:18-alpine
+        container_name: lunastore_db
+        environment:
+            POSTGRES_DB: ${DB_NAME:-lunastore_dev}
+            POSTGRES_USER: ${DB_USER:-postgres}
+            POSTGRES_PASSWORD: ${DB_PASSWORD:-password}
+            PGDATA: /var/lib/postgresql/data/pgdata
+        ports:
+            - "5432:5432"
+        volumes:
+            - pg_data:/var/lib/postgresql/data
+        healthcheck:
+            test:
+                [
+                    "CMD-SHELL",
+                    "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-lunastore}",
+                ]
+            interval: 5s
+            timeout: 5s
+            retries: 5
 
-  admin:
-    build: .
-    container_name: lunastore_admin
-    command: python manage.py runserver 0.0.0.0:8088
-    environment:
-      DJANGO_ROOT_URLCONF: lunastore.urls_private
-    ports:
-      - "8088:8088"
-    depends_on:
-      db:
-        condition: service_healthy
-    env_file:         
-      - .env              
-    volumes: 
-      - .:/app
-      - static_volume:/app/staticfiles_build
-      - media_volume:/app/media
+    admin:
+        build: .
+        container_name: lunastore_admin
+        command: python manage.py runserver 0.0.0.0:8088
+        environment:
+            DJANGO_ROOT_URLCONF: lunastore.urls_private
+        ports:
+            - "8088:8088"
+        depends_on:
+            db:
+                condition: service_healthy
+        env_file:
+            - .env
+        volumes:
+            - .:/app
+            - static_volume:/app/staticfiles_build
+            - ./media:/root/lunastore/medi
 
-  web:
-    build: .
-    container_name: lunastore_web
-    command: python manage.py runserver 0.0.0.0:9088
-    env_file:
-      - .env
-    ports:
-      - "9088:9088"
-    depends_on:
-      db:
-        condition: service_healthy
-    volumes:
-      - .:/app
-      - static_volume:/app/staticfiles_build
-      - media_volume:/app/media
+    web:
+        build: .
+        container_name: lunastore_web
+        command: python manage.py runserver 0.0.0.0:9088
+        env_file:
+            - .env
+        ports:
+            - "9088:9088"
+        depends_on:
+            db:
+                condition: service_healthy
+        volumes:
+            - .:/app
+            - static_volume:/app/staticfiles_build
+            - ./media:/root/lunastore/medi
 
-  api:
-    build: .
-    container_name: lunastore_api
-    command: python manage.py runserver 0.0.0.0:7088
-    environment:
-      DJANGO_ROOT_URLCONF: lunastore.urls_api
-    env_file:
-      - .env
-    ports:
-      - "7088:7088"
-    depends_on:
-      db:
-        condition: service_healthy
-    volumes: 
-      - .:/app
-      - static_volume:/app/staticfiles_build
-      - media_volume:/app/media
+    api:
+        build: .
+        container_name: lunastore_api
+        command: python manage.py runserver 0.0.0.0:7088
+        environment:
+            DJANGO_ROOT_URLCONF: lunastore.urls_api
+        env_file:
+            - .env
+        ports:
+            - "7088:7088"
+        depends_on:
+            db:
+                condition: service_healthy
+        volumes:
+            - .:/app
+            - static_volume:/app/staticfiles_build
+            - ./media:/root/lunastore/medi
 
 volumes:
-  static_volume:
-  media_volume:
-  pg_data: 
+    static_volume:
+    media_volume:
+    pg_data:

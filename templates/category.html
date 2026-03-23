@@ -17,34 +17,27 @@
     </div>
     <div class="section">
     <h2>{% trans "PAGE_CATEGORY_COUNTOFRESULTS" %} {{ count }}</h2>
-    </div> 
+    </div>
   <div class="section">
-    
+
 
 <div class="section">
-  
+
   <div class="search_full">
-  <input type="text" id="q" class="search_icon" placeholder="Поиск по категории &quot;Игры и развлечения&quot;">
-  <button type="button" onclick="doSearch()">{% trans "BASE_SEARCHBTN" %}</button>
+      <form action="{% url 'search' %}" method="get" class="search_full" style="margin: 0; padding: 0;">
+
+          <input type="text" name="q" id="q" class="search_icon"
+                 placeholder="{% trans 'PAGE_CATEGORY_SEARCHOFCATEGORY' %} &quot;{{ name }}&quot;"
+                 style="vertical-align: middle;">
+
+          <input type="hidden" name="category" value="{{ active_category.id }}">
+
+          <button type="submit" style="vertical-align: middle;">
+            {% trans "BASE_SEARCHBTN" %}
+          </button>
+        </form>
   </div>
- </div>  
-  {% if is_demo and not is_under_dmca %}
-      <div class="st_general_card">
-          {% if price > 0 %}
-          <div class="st_price demo">{% trans "INFO_APP_DEMOWITHPRICE" %} ${{ price }}</div>
-          {% else %}
-          <div class="st_price demo">{% trans "INFO_APP_DEMO" %}</div>
-          {% endif %}
-      </div>
-      {% elif not is_demo and not is_under_dmca %}
-      <div class="st_general_card">
-          {% if price > 0 %}
-          <div class="st_price demo">{% trans "INFO_APP_WITHPRICE" %} ${{ price }}</div>
-          {% else %}
-          <div class="st_price demo">{% trans "INFO_APP_FREE" %}</div>
-          {% endif %}
-      </div>
-      {% endif %}
+ </div>
     {% for app in page_obj %}
     <div class="card listview">
       <img src="{{ app.icon.url }}" alt="">
@@ -59,7 +52,7 @@
       {% elif not app.is_demo %}
         {% if app.price > 0 %}
           <div class="badge paid">${{ app.price }}</div>
-        {% else %}  
+        {% else %}
           <div class="badge free">{% trans "INFO_APP_FREE" %}</div>
         {% endif %}
       {% endif %}
@@ -138,7 +131,7 @@
     </div> -->
     <div style="clear:both"></div>
     {% endfor %}
-    
+
   </div>
 <div class="section">
   <div class="paginator">
