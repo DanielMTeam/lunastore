@@ -1,105 +1,66 @@
 services:
-    db:
-        image: postgres:18-alpine
-        container_name: lunastore_db
-        restart: unless-stopped
-        env_file:
-            - .env
-        environment:
-            POSTGRES_DB: ${DB_NAME:-lunastore}
-            POSTGRES_USER: ${DB_USER:-postgres}
-            POSTGRES_PASSWORD: ${DB_PASSWORD}
-            PGDATA: /var/lib/postgresql/data/pgdata
-        networks:
-            - storenetwork
-        volumes:
-            - pg_data:/var/lib/postgresql/data
-        healthcheck:
-            test:
-                [
-                    "CMD-SHELL",
-                    "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-lunastore}",
-                ]
-            interval: 5s
-            timeout: 5s
-            retries: 5
+  db:
+    image: postgres:18-alpine
+    container_name: lunastore_db
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${DB_NAME:-lunastore}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    networks:
+      - storenetwork
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-lunastore}",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
-    admin:
-        image: registry.myslivets.com/myslivets/project-luna/lunastore:latest
-        container_name: lunastore_admin
-        command: gunicorn lunastore.wsgi:application --bind 0.0.0.0:8088 --workers 3
-        environment:
-            DJANGO_ROOT_URLCONF: lunastore.urls_private
-        expose:
-            - "8088"
-        networks:
-            - storenetwork
-        restart: on-failure
-        env_file:
-            - .env
-        depends_on:
-            - db
-        volumes:
-            - static_volume:/app/staticfiles_build
-            - ./media:/root/lunastore/medi
-
-    web:
-        image: registry.myslivets.com/myslivets/project-luna/lunastore:latest
-        container_name: lunastore_web
-        env_file:
-            - .env
-        depends_on:
-            - db
-        expose:
-            - "9088"
-        restart: unless-stopped
-        networks:
-            - storenetwork
-        volumes:
-            - static_volume:/app/staticfiles_build
-            - ./media:/root/lunastore/medi
-
-    api:
-        image: registry.myslivets.com/myslivets/project-luna/lunastore:latest
-        container_name: lunastore_api
-        environment:
-            DJANGO_ROOT_URLCONF: lunastore.urls_api
-        expose:
-            - "7088"
-        env_file:
-            - .env
-        depends_on:
-            - db
-        restart: unless-stopped
-        networks:
-            - storenetwork
-        volumes:
-            - static_volume:/app/staticfiles_build
-            - ./media:/root/lunastore/medi
-
-    nginx:
-        image: nginx:alpine
-        container_name: lunastore_nginx
-        ports:
-            - "80:80"
-            - "8088:8088" # admin port for SSO
-        volumes:
-            - ./nginx.conf:/etc/nginx/nginx.conf:ro
-            - static_volume:/static
-            - ./media:/root/lunastore/medi
-        depends_on:
-            - web
-            - admin
-            - api
-        restart: unless-stopped
-        networks:
-            - storenetwork
+  lunastore:
+    build: .
+    image: lunastore:local
+    container_name: lunastore_combined
+    env_file:
+      - .env
+    ports:
+      - "8088:8088" # Admin
+      - "9088:9088" # Web
+      - "7088:7088" # API
+    restart: unless-stopped
+    networks:
+      - storenetwork
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - static_volume:/app/staticfiles_build
+      - media_volume:/root/lunastore/media
+    command: >
+      sh -c "python manage.py migrate --noinput &&
+             python manage.py collectstatic --noinput &&
+             DJANGO_ROOT_URLCONF=lunastore.urls_api      gunicorn lunastore.wsgi:application --bind 0.0.0.0:7088 --workers 2 &
+             DJANGO_ROOT_URLCONF=lunastore.urls_private  gunicorn lunastore.wsgi:application --bind 0.0.0.0:8088 --workers 2 &
+             DJANGO_ROOT_URLCONF=lunastore.urls          gunicorn lunastore.wsgi:application --bind 0.0.0.0:9088 --workers 2 &
+             wait"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fs http://localhost:7088/method/service/heartbeat && curl -fs http://localhost:8088/admin/login && curl -fs http://localhost:9088/ || exit 1"]
+      interval: 10s
+      retries: 3
+      start_period: 60s
 
 networks:
-    storenetwork:
-        driver: bridge
+  storenetwork:
+    driver: bridge
 
 volumes:
-    static_volume:
-    media_volume:
-    pg_data:
+  static_volume:
+  media_volume:
+  pg_data:
