@@ -4,6 +4,7 @@ import uuid
 from django.conf import settings
 from django.contrib.postgres.indexes import GinIndex
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from safedelete.models import SOFT_DELETE, SOFT_DELETE_CASCADE, SafeDeleteModel
 
@@ -117,7 +118,9 @@ class Distribution(SafeDeleteModel):
 
     app = models.ForeignKey(Application, on_delete=models.PROTECT)
     version = models.CharField(max_length=20)
-    file = models.FileField(upload_to="ugc/distributions", max_length=80, null=True)
+    cdn_file_id = models.PositiveIntegerField(
+        null=True, blank=True, verbose_name="ID файла в CDN"
+    )
     url = models.URLField(max_length=140, null=True)
     changelog = models.CharField(max_length=210)
     published = models.DateTimeField(auto_now=True)
@@ -132,6 +135,17 @@ class Distribution(SafeDeleteModel):
 
     def __repr__(self):
         return f"<Distribution {self.app} {self.version}>"
+
+    @property
+    def has_download(self):
+        # check, can be downloaded file now
+        return bool(self.cdn_file_id or self.url)
+
+    @property
+    def link(self):
+        if self.cdn_file_id:
+            return reverse("download_action", kwargs={"dist_pk": self.pk})
+        return self.url if self.url else "#"
 
 
 class AppCreateRequests(BaseApplicationInfo, SafeDeleteModel):

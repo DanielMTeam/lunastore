@@ -1,7 +1,9 @@
 import uuid
+from datetime import datetime
 
 import jwt
 from django.conf import settings
+from django.shortcuts import get_object_or_404
 from drf_spectacular.utils import (
     OpenApiParameter,
     OpenApiTypes,
@@ -81,6 +83,40 @@ class UserViewSet(viewsets.GenericViewSet):
             "user": str(request.user.id),
             "guard": guard_phrase,
             "mode": "public",
+        }
+
+        upload_token = jwt.encode(
+            payload, settings.LUNASPIRE_SECRET_KEY, algorithm="HS256"
+        )
+
+        return Response({"upload_token": upload_token, "guard": guard_phrase})
+
+    @action(
+        detail=False,
+        methods=["get"],
+        url_path="getDistributionToken",
+        permission_classes=[IsAuthenticated],
+    )
+    def get_distribution_token(self, request):
+        app_id = request.query_params.get("app_id")
+
+        if not app_id:
+            return Response({"error": "app_id is required"}, status=400)
+
+        app_obj = get_object_or_404(Application, id=app_id)
+
+        # check ownership
+        if app_obj.user != request.user:
+            return Response({"error": "Not your app"}, status=403)
+
+        guard_phrase = str(uuid.uuid4().hex)[:8]
+
+        payload = {
+            "type": "cdn-upload",
+            "object": str(app_obj.id),  # str only
+            "user": str(request.user.id),  # str only
+            "guard": guard_phrase,
+            "mode": "private",
         }
 
         upload_token = jwt.encode(

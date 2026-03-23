@@ -2,6 +2,7 @@ import json
 import os
 import uuid
 
+import jwt
 from captcha.fields import CaptchaField
 from django import forms
 from django.conf import settings
@@ -356,15 +357,12 @@ ALLOWED_EXTENSIONS = ["exe", "zip", "rar", "7z"]
 
 
 class DistributionForm(forms.ModelForm):
-    file = forms.FileField(required=False)
-    url = forms.URLField(
-        required=False,
-        validators=[FileExtensionValidator(allowed_extensions=ALLOWED_EXTENSIONS)],
-    )
+    cdn_confirm_token = forms.CharField(widget=forms.HiddenInput(), required=False)
+    url = forms.URLField(required=False)
 
     class Meta:
         model = Distribution
-        fields = ["version", "file", "url", "changelog"]
+        fields = ["version", "url", "changelog"]
         widgets = {
             "version": forms.TextInput(attrs={"class": "input-text"}),
             "url": forms.URLInput(attrs={"class": "input-text"}),
@@ -373,13 +371,44 @@ class DistributionForm(forms.ModelForm):
             ),
         }
 
+    def save(self, commit=True):
+        distribution = super().save(commit=False)
+
+        new_file_id = self.cleaned_data.get("cdn_file_id")
+        if new_file_id:
+            distribution.cdn_file_id = new_file_id
+
+        if commit:
+            distribution.save()
+        return distribution
+
     def clean(self):
         cleaned_data = super().clean()
-        file = cleaned_data.get("file")
+        cdn_token = cleaned_data.get("cdn_confirm_token")
         url = cleaned_data.get("url")
-        has_existing = self.instance and (self.instance.file or self.instance.url)
-        if not file and not url and not has_existing:
-            raise ValidationError(_("Нужно указать файл или ссылку для скачивания"))
+        has_existing = self.instance and (
+            self.instance.cdn_file_id or self.instance.url
+        )
+
+        if not cdn_token and not url and not has_existing:
+            raise ValidationError(
+                _("Нужно загрузить файл или указать ссылку для скачивания")
+            )
+
+        if cdn_token:
+            try:
+                decoded = jwt.decode(
+                    cdn_token, settings.LUNASPIRE_SECRET_KEY, algorithms=["HS256"]
+                )
+                if decoded.get("type") != "cdn-confirm":
+                    raise ValidationError(_("Неверный тип токена от CDN."))
+
+                cleaned_data["cdn_file_id"] = decoded.get("file_id")
+            except jwt.InvalidTokenError:
+                raise ValidationError(
+                    _("Ошибка валидации: недействительный токен CDN.")
+                )
+
         return cleaned_data
 
     def clean_file(self):

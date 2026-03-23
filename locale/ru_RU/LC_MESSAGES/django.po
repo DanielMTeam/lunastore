@@ -1971,3 +1971,18 @@ msgstr "Отмена"
 
 msgid "PAGE_DIST_FORM_URL_DESC"
 msgstr "Укажите, если файл размещен на другом ресурсе"
+
+msgid "PAGE_DIST_FORM_FILE_UPLOADING"
+msgstr "Загрузка..."
+
+msgid "PAGE_DIST_FORM_FILE_ALREADY_UPLOADED"
+msgstr "Файл уже загружен (ожидает сохранения)"
+
+msgid "PAGE_DIST_FORM_ERR_GET_TOKEN"
+msgstr "Ошибка получения токена загрузки от движка LunaSpire. Пожалуйста, обратитесь с данной ошибкой к администратору."
+
+msgid "PAGE_DIST_FORM_ERR_CDN_REJECT"
+msgstr "Движок LunaSpire отклонил загрузку файла. Пожалуйста, обратитесь с данной ошибкой к администратору."
+
+msgid "PAGE_DIST_FORM_ERR_NO_CONFIRM"
+msgstr "Движок LunaSpire не вернул токен подтверждения. Пожалуйста, обратитесь с данной ошибкой к администратору."

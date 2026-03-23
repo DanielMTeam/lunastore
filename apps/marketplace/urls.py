@@ -27,4 +27,5 @@ urlpatterns = [
         views.distribution_delete,
         name="distribution_delete",
     ),
+    path("get_dist_file/<int:dist_pk>/", views.get_file_action, name="download_action"),
 ]
