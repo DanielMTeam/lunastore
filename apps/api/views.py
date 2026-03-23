@@ -1,5 +1,18 @@
-from rest_framework import viewsets
-from apps.user.models import User 
+import uuid
+
+import jwt
+from django.conf import settings
+from drf_spectacular.utils import (
+    OpenApiParameter,
+    OpenApiTypes,
+    extend_schema,
+    inline_serializer,
+)
+from rest_framework import serializers, viewsets
+from rest_framework.decorators import action, api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+
 from apps.marketplace.models import Application, Category, Distribution
 from apps.marketplace.serializers import (
     ApplicationSerializer,
@@ -52,6 +65,29 @@ class UserViewSet(viewsets.GenericViewSet):
 
         serializer = self.get_serializer(user)
         return Response(serializer.data)
+
+    @action(
+        detail=False,
+        methods=["get"],
+        url_path="getAvatarToken",
+        permission_classes=[IsAuthenticated],
+    )
+    def get_avatar_token(self, request):
+        guard_phrase = str(uuid.uuid4().hex)[:8]
+
+        payload = {
+            "type": "cdn-upload",
+            "object": "avatar",
+            "user": str(request.user.id),
+            "guard": guard_phrase,
+            "mode": "public",
+        }
+
+        upload_token = jwt.encode(
+            payload, settings.LUNASPIRE_SECRET_KEY, algorithm="HS256"
+        )
+
+        return Response({"upload_token": upload_token, "guard": guard_phrase})
 
 
 class MarketplaceViewSet(viewsets.GenericViewSet):
