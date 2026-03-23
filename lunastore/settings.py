@@ -1,77 +1,86 @@
-from pathlib import Path
-from django.templatetags.static import static
-from django.utils.translation import gettext_lazy as _
-from dotenv import load_dotenv
 import os
+from pathlib import Path
+
+from django.templatetags.static import static
+from dotenv import load_dotenv
 
 # PLEASE, do not change this, if you don't understand what you do
-VERSION = '1.3.0'
+VERSION = "1.5.0"
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 LOCALE_PATHS = [
-    BASE_DIR / 'locale',
+    BASE_DIR / "locale",
 ]
-dotenv_path = BASE_DIR / '.env'
+dotenv_path = BASE_DIR / ".env"
 load_dotenv(dotenv_path)
 
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
 if not DEBUG:
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-ALLOWED_HOSTS = ['192.168.1.10','192.168.32.231','luna.fayzetw.in','lunap.fayzetw.in', '127.0.0.1']
+ALLOWED_HOSTS = [
+    "192.168.1.10",
+    "192.168.32.231",
+    "luna.fayzetw.in",
+    "lunap.fayzetw.in",
+]
+
+# MOTD List of site (you can see that in the header)
+MOTD_LIST = ["время подавать напитки и вершить судьбы", "Windows XP Professional"]
 
 STATIC_ROOT = BASE_DIR / "static"
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.auth',
-    'mozilla_django_oidc', # openid 
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'apps.marketplace.apps.MarketplaceConfig',
-    'apps.user.apps.UserConfig',
-    'captcha',
+    "django.contrib.auth",
+    "mozilla_django_oidc",  # openid
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "apps.marketplace.apps.MarketplaceConfig",
+    "apps.user.apps.UserConfig",
+    "apps.core.apps.CoreConfig",
+    "captcha",
     # custom admin panel frontend
     "unfold",
-    "unfold.contrib.filters", 
-    "unfold.contrib.forms", 
-    "unfold.contrib.inlines", 
-    "unfold.contrib.import_export",  
+    "unfold.contrib.filters",
+    "unfold.contrib.forms",
+    "unfold.contrib.inlines",
+    "unfold.contrib.import_export",
     "unfold.contrib.guardian",
-    "unfold.contrib.simple_history", 
-    "unfold.contrib.location_field", 
+    "unfold.contrib.simple_history",
+    "unfold.contrib.location_field",
     "unfold.contrib.constance",
-    'django.contrib.admin',
-    'django_cleanup.apps.CleanupConfig',
-    'django.contrib.postgres',
-    'rest_framework',
-    'apps.api.apps.APIConfig',
-    'drf_spectacular',
+    "django.contrib.admin",
+    "django_cleanup.apps.CleanupConfig",
+    "django.contrib.postgres",
+    "rest_framework",
+    "apps.api.apps.APIConfig",
+    "drf_spectacular",
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-    'EXCEPTION_HANDLER': 'apps.api.handlers.luna_exception_handler',
-    'DEFAULT_RENDERER_CLASSES': (
-        'rest_framework.renderers.JSONRenderer',
-        # 'rest_framework.renderers.BrowsableAPIRenderer', 
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "EXCEPTION_HANDLER": "apps.api.handlers.luna_exception_handler",
+    "DEFAULT_RENDERER_CLASSES": (
+        "rest_framework.renderers.JSONRenderer",
+        # 'rest_framework.renderers.BrowsableAPIRenderer',
     ),
 }
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'LunaStore API',
-    'DESCRIPTION': 'API Documentation for LunaStore',
-    'VERSION': VERSION,
-    'SERVE_INCLUDE_SCHEMA': False, 
+    "TITLE": "LunaStore API",
+    "DESCRIPTION": "API Documentation for LunaStore",
+    "VERSION": VERSION,
+    "SERVE_INCLUDE_SCHEMA": False,
 }
 
 
@@ -80,54 +89,50 @@ SPECTACULAR_SETTINGS = {
 TASKS = {"default": {"BACKEND": "django.tasks.backends.immediate.ImmediateBackend"}}
 
 CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        'LOCATION': 'cache',
+    "default": {
+        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+        "LOCATION": "cache",
     }
 }
 
 # media path
 
-MEDIA_URL = os.getenv('EXTERNAL_MEDIA_URL', 'http://192.168.1.10:9088/media/')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = os.getenv("EXTERNAL_MEDIA_URL", "http://192.168.1.10:9088/media/")
+MEDIA_ROOT = BASE_DIR / "media"
 
 # openid AP configuration
 
 AUTHENTICATION_BACKENDS = [
-    'apps.user.auth.OIDCModel',
-    'django.contrib.auth.backends.ModelBackend',
+    "apps.user.auth.OIDCModel",
+    "django.contrib.auth.backends.ModelBackend",
 ]
 
-OIDC_RP_CLIENT_ID = os.getenv('OIDC_CLIENT_ID')
-OIDC_RP_CLIENT_SECRET = os.getenv('OIDC_CLIENT_SECRET')
-OIDC_OP_AUTHORIZATION_ENDPOINT = os.getenv('OIDC_ENDPOINT')
-OIDC_OP_TOKEN_ENDPOINT = os.getenv('OIDC_TOKEN_ENDPOINT')
-OIDC_OP_USER_ENDPOINT = os.getenv('OIDC_USER_ENDPOINT')
-LOGIN_REDIRECT_URL = os.getenv('LOGIN_REDIRECT_URL')
-LOGOUT_REDIRECT_URL = os.getenv('LOGOUT_REDIRECT_URL')
-OIDC_OP_JWKS_ENDPOINT = os.getenv('OIDC_JWKS_ENDPOINT')
-OIDC_RP_SIGN_ALGO = os.getenv('OIDC_SIGN_ALGO')
+OIDC_RP_CLIENT_ID = os.getenv("OIDC_CLIENT_ID")
+OIDC_RP_CLIENT_SECRET = os.getenv("OIDC_CLIENT_SECRET")
+OIDC_OP_AUTHORIZATION_ENDPOINT = os.getenv("OIDC_ENDPOINT")
+OIDC_OP_TOKEN_ENDPOINT = os.getenv("OIDC_TOKEN_ENDPOINT")
+OIDC_OP_USER_ENDPOINT = os.getenv("OIDC_USER_ENDPOINT")
+LOGIN_REDIRECT_URL = os.getenv("LOGIN_REDIRECT_URL")
+LOGOUT_REDIRECT_URL = os.getenv("LOGOUT_REDIRECT_URL")
+OIDC_OP_JWKS_ENDPOINT = os.getenv("OIDC_JWKS_ENDPOINT")
+OIDC_RP_SIGN_ALGO = os.getenv("OIDC_SIGN_ALGO")
 
-# customize unfold theme 
+# customize unfold theme
 UNFOLD = {
     "SITE_TITLE": "Панель LunaStore",
     "SITE_HEADER": "LunaStore",
     "SITE_SUBHEADER": "панель для модерации сайта",
     "SITE_DROPDOWN": [
-        {
-            "icon": "home",
-            "title": "LunaStore",
-            "link": "https://store.myslivets.com"
-        },
+        {"icon": "home", "title": "LunaStore", "link": "https://store.myslivets.com"},
     ],
     "SITE_URL": "/",
     "SITE_LOGO": {
-        "light": lambda request: static("img/logo.png"), 
-        "dark": lambda request: static("img/logo.png"), 
+        "light": lambda request: static("img/logo.png"),
+        "dark": lambda request: static("img/logo.png"),
     },
     "SITE_ICON": {
-        "light": lambda request: static("img/logo.png"), 
-        "dark": lambda request: static("img/logo.png"), 
+        "light": lambda request: static("img/logo.png"),
+        "dark": lambda request: static("img/logo.png"),
     },
     "SITE_SYMBOL": "speed",
     "SITE_FAVICONS": [
@@ -156,7 +161,7 @@ UNFOLD = {
             "700": "oklch(37.3% .034 252.0)",
             "800": "oklch(27.8% .033 252.0)",
             "900": "oklch(21% .034 252.0)",
-            "950": "oklch(13% .028 252.0)"
+            "950": "oklch(13% .028 252.0)",
         },
         "primary": {
             "50": "oklch(97.1% .014 252.0)",
@@ -169,7 +174,7 @@ UNFOLD = {
             "700": "oklch(46.8% .190 252.0)",
             "800": "oklch(40.2% .160 252.0)",
             "900": "oklch(34.5% .130 252.0)",
-            "950": "oklch(26.0% .110 252.0)"
+            "950": "oklch(26.0% .110 252.0)",
         },
         "font": {
             "subtle-light": "var(--color-base-500)",
@@ -177,79 +182,81 @@ UNFOLD = {
             "default-light": "var(--color-base-600)",
             "default-dark": "var(--color-base-300)",
             "important-light": "var(--color-base-900)",
-            "important-dark": "var(--color-base-100)"
-        }
+            "important-dark": "var(--color-base-100)",
+        },
     },
 }
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = os.environ.get('DJANGO_ROOT_URLCONF', 'lunastore.urls')
+ROOT_URLCONF = os.environ.get("DJANGO_ROOT_URLCONF", "lunastore.urls")
 print(ROOT_URLCONF)
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.media',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [BASE_DIR / "templates"],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+                "django.template.context_processors.media",
+                "apps.core.context_processors.motd_processor",
+                "apps.core.context_processors.random_banner",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'lunastore.wsgi.application'
+WSGI_APPLICATION = "lunastore.wsgi.application"
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'), 
-        'PORT': os.getenv('DB_PORT'),    
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("DB_NAME"),
+        "USER": os.getenv("DB_USER"),
+        "PASSWORD": os.getenv("DB_PASSWORD"),
+        "HOST": os.getenv("DB_HOST"),
+        "PORT": os.getenv("DB_PORT"),
     }
 }
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
 # bcrypt2a hash in auth model in django
 PASSWORD_HASHERS = [
-    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
-    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
-    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
-    'django.contrib.auth.hashers.Argon2PasswordHasher',
-    'django.contrib.auth.hashers.ScryptPasswordHasher',
+    "django.contrib.auth.hashers.BCryptSHA256PasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2PasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
+    "django.contrib.auth.hashers.Argon2PasswordHasher",
+    "django.contrib.auth.hashers.ScryptPasswordHasher",
 ]
 
-BCRYPT_ROUNDS = 12 # default number of rounds in bcrypt ¯\_(ツ)_/¯; if you want, you can change this number
+BCRYPT_ROUNDS = 12  # default number of rounds in bcrypt ¯\_(ツ)_/¯; if you want, you can change this number
 
 # name of custom user model; please do not change this unless you know what you are doing
 AUTH_USER_MODEL = "user.User"
@@ -271,65 +278,61 @@ MAX_INVITE_USES_COUNT = 3
 MAX_INVITE_DAYS_LIMIT = 7
 
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
-            'style': '{',
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+            "style": "{",
         },
-        'simple': {
-            'format': '{levelname} {message}',
-            'style': '{',
-        },
-    },
-    'handlers': {
-        'console': {
-            'level': 'INFO',
-            'class': 'logging.StreamHandler',
-            'formatter': 'simple',
-        },
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': 'debug.log',
-            'formatter': 'verbose',
+        "simple": {
+            "format": "{levelname} {message}",
+            "style": "{",
         },
     },
-    'loggers': {
-        'django': {
-            'handlers': ['console', 'file'],
-            'level': 'INFO',
-            'propagate': True,
+    "handlers": {
+        "console": {
+            "level": "INFO",
+            "class": "logging.StreamHandler",
+            "formatter": "simple",
         },
-        'user': {
-            'handlers': ['console', 'file'],
-            'level': 'DEBUG',
-            'propagate': False,
+        "file": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "filename": "debug.log",
+            "formatter": "verbose",
         },
-        'marketplace': {
-            'handlers': ['console', 'file'],
-            'level': 'DEBUG',
-            'propagate': False,
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console", "file"],
+            "level": "INFO",
+            "propagate": True,
         },
-    }
+        "user": {
+            "handlers": ["console", "file"],
+            "level": "DEBUG",
+            "propagate": False,
+        },
+        "marketplace": {
+            "handlers": ["console", "file"],
+            "level": "DEBUG",
+            "propagate": False,
+        },
+    },
 }
 
-LANGUAGE_CODE = 'ru'
+LANGUAGE_CODE = "ru"
 
-LANGUAGES = [
-    ('ru', 'Russian'),
-    ('en', 'English'),
-    ('be', 'Belarusian')
-]
+LANGUAGES = [("ru", "Russian"), ("en", "English"), ("be", "Belarusian")]
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = '/staticfiles/'
-STATICFILES_DIRS = [BASE_DIR / "staticfiles"]      
+STATIC_URL = "/staticfiles/"
+STATICFILES_DIRS = [BASE_DIR / "staticfiles"]
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

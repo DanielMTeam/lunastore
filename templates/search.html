@@ -5,107 +5,162 @@
 {% block content %}
 <title>{% trans "PAGE_SEARCH_TITLE" %} - LunaStore</title>
 <div class="content">
+
 <div class="list_settings">
-<div class="selector">
-  <select onchange="location = this.value;">
-      <option value="" disabled selected>{% trans "PAGE_SEARCH_SORT_PLACEHOLDER" %}</option>
-      <option value="?q={{ query }}&view=tiles">{% trans "PAGE_SEARCH_SORT_TILES" %}</option>
-      <option value="?q={{ query }}&view=list">{% trans "PAGE_SEARCH_SORT_LIST" %}</option>
-  </select>
-</div>
-</div>
-<div class="section">
-  <h2>{% trans "PAGE_SEARCH_HEADING" %}</h2>
-  
-</div> 
-<div class="section">
-   <form action="{% url 'search' %}" method="get" class="search_full">
-       <input type="text" name="q" id="q" class="search_icon" 
-              placeholder="{% trans 'PAGE_SEARCH_INPUT_PLACEHOLDER' %}" 
-              value="{{ query }}">
-       {% if view_mode == 'list' %}
-           <input type="hidden" name="view" value="list">
-       {% endif %}
-       <button type="submit">{% trans "PAGE_SEARCH_BTN_SUBMIT" %}</button>
-   </form>
-</div>
-<div class="section">
-  
-  <a class="search_tools" href="/settings.php?act=search">{% trans "PAGE_SEARCH_LINK_ADVANCED" %}</a>
- </div> 
-  <div class="section"> 
-  
-    {% for app in results %}
-    <div class="card {% if view_mode == 'list' %}listview{% endif %}">
-        
-        {% if app.icon %}
-            <img src="{{ app.icon.url }}" alt="{{ app.title }}">
-        {% else %}
-            <img src="{% static 'img/default_icon.png' %}" alt="{% trans 'PAGE_SEARCH_IMG_ALT_NONE' %}">
-        {% endif %}
-
-        <h3>{{ app.title }}</h3>
-        <p>{{ app.slogan }}</p>
-        
-        {% if app.is_demo %}
-        {% if app.price > 0 %}
-          <div class="badge demo">
-            {% blocktrans with price=app.price %}
-                PAGE_SEARCH_BADGE_DEMO_PRICE
-            {% endblocktrans %}
-          </div>
-        {% else %}
-          <div class="badge demo">{% trans "PAGE_SEARCH_BADGE_DEMO" %}</div>
-        {% endif %}
-        {% elif not app.is_demo %}
-          {% if app.price > 0 %}
-            <div class="badge paid">${{ app.price }}</div>
-          {% else %}  
-            <div class="badge free">{% trans "PAGE_SEARCH_BADGE_FREE" %}</div>
-          {% endif %}
-        {% endif %}
-
-        {% if not app.is_under_dmca %}
-        <div class="action">
-            <a href="./app.php?id={{ app.id }}">{% trans "PAGE_SEARCH_BTN_DETAILS" %}</a>
-        </div>
-        {% endif %}
+    <div class="selector">
+        <select onchange="location = '?{{ url_params|safe }}&view=' + this.value;">
+            <option value="" disabled selected>{% trans "PAGE_SEARCH_SORT_PLACEHOLDER" %}</option>
+            <option value="tiles">{% trans "PAGE_SEARCH_SORT_TILES" %}</option>
+            <option value="list">{% trans "PAGE_SEARCH_SORT_LIST" %}</option>
+        </select>
     </div>
+</div>
+
+<div class="section">
+    <h2>{% trans "PAGE_SEARCH_HEADING" %}</h2>
+</div>
+
+<div class="section">
+    <form action="{% url 'search' %}" method="get" style="margin: 0; padding: 0;">
+
+        {% if view_mode == 'list' %}
+            <input type="hidden" name="view" value="list">
+        {% endif %}
+
+        <div class="search_full" style="text-align: left; margin-bottom: 10px;">
+            <input type="text" name="q" id="q" class="search_icon"
+                   placeholder="{% trans 'PAGE_SEARCH_INPUT_PLACEHOLDER' %}"
+                   value="{{ request.GET.q }}">
+            <button type="submit">{% trans "PAGE_SEARCH_BTN_SUBMIT" %}</button>
+        </div>
+
+        <div class="info_splash" style="margin-bottom: 0; padding: 8px;">
+
+            <div style="color: #215dc6; font-weight: bold; margin-bottom: 6px; border-bottom: 1px solid #bfd2e4; padding-bottom: 3px;">
+                {% trans "PAGE_SEARCH_LINK_ADVANCED" %}
+            </div>
+
+            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="font-size: 11px; table-layout: fixed;">
+                <tr>
+                    <td colspan="2" style="padding-bottom: 10px; white-space: nowrap;">
+
+                        <span style="margin-right: 20px; vertical-align: middle;">
+                            {% trans "PAGE_SEARCH_FILTER_AUTHOR_ID" %}:
+                            <input type="text" name="author" value="{{ f_author|default:'' }}"
+                                   oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                                   style="width: 140px; padding: 1px; margin-left: 5px; border: 1px solid #7aa0e6; font-size: 11px; vertical-align: middle;">
+                        </span>
+
+                        <span style="vertical-align: middle;">
+                            {% trans "PAGE_SEARCH_FILTER_CATEGORY" %}:
+                            <select name="category" style="width: 144px; border: 1px solid #7aa0e6; font-size: 11px; vertical-align: middle;">
+                                <option value="">{% trans "PAGE_SEARCH_FILTER_CATEGORY_ALL" %}</option>
+                                {% for cat in categories %}
+                                    <option value="{{ cat.id }}" {% if request.GET.category == cat.id|stringformat:"s" %}selected{% endif %}>
+                                        {{ cat.name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </span>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td valign="middle" style="white-space: nowrap;">
+                        <label style="cursor: pointer; margin: 0;">
+                            <input type="checkbox" name="is_free" style="margin: 0 4px 0 0; border: none; vertical-align: middle;" {% if request.GET.is_free == 'on' %}checked{% endif %}>
+                            <span style="vertical-align: middle;">{% trans "PAGE_SEARCH_FILTER_FREE" %}</span>
+                        </label>
+                    </td>
+
+                    <td align="right" valign="middle">
+                        <a href="{% url 'search' %}?view={{ view_mode }}"
+                           style="border: 1px solid #7aa0e6; background: #eaf1fb; color: #000; padding: 2px 8px; text-decoration: none; font-size: 11px; display: block; width: 100px; text-align: center; float: right;">
+                            {% trans "PAGE_SEARCH_BTN_RESET" %}
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>
+
+<div class="section">
+    {% for app in results %}
+        <div class="card {% if view_mode == 'list' %}listview{% endif %}">
+
+            {% if app.icon %}
+                <img src="{{ app.icon.url }}" alt="{{ app.title }}">
+            {% else %}
+                <img src="{% static 'img/default_icon.png' %}" alt="{% trans 'PAGE_SEARCH_IMG_ALT_NONE' %}">
+            {% endif %}
+
+            <h3>{{ app.title }}</h3>
+            <p>{{ app.slogan }}</p>
+
+            {% if app.is_demo %}
+                {% if app.price > 0 %}
+                    <div class="badge demo">
+                        {% blocktrans with price=app.price %}PAGE_SEARCH_BADGE_DEMO_PRICE{% endblocktrans %}
+                    </div>
+                {% else %}
+                    <div class="badge demo">{% trans "PAGE_SEARCH_BADGE_DEMO" %}</div>
+                {% endif %}
+            {% elif not app.is_demo %}
+                {% if app.price > 0 %}
+                    <div class="badge paid">${{ app.price }}</div>
+                {% else %}
+                    <div class="badge free">{% trans "PAGE_SEARCH_BADGE_FREE" %}</div>
+                {% endif %}
+            {% endif %}
+
+            {% if not app.is_under_dmca %}
+            <div class="action">
+                <a href="./app.php?id={{ app.id }}">{% trans "PAGE_SEARCH_BTN_DETAILS" %}</a>
+            </div>
+            {% endif %}
+        </div>
 
     {% empty %}
         <div style="clear:both"></div>
         <div class="search_error">
             <span>
-                {% blocktrans with q=query %}
-                    PAGE_SEARCH_MSG_NO_RESULTS
-                {% endblocktrans %}
+                {% if query %}
+                    {% blocktrans with q=query %}PAGE_SEARCH_MSG_NO_RESULTS {{ q }}{% endblocktrans %}
+                {% else %}
+                    {% trans "PAGE_SEARCH_MSG_NO_RESULTS_EMPTY" %}
+                {% endif %}
+                <br>
+                ＞︿＜
             </span>
         </div>
     {% endfor %}
     <div style="clear:both"></div>
-    
-  </div>
+</div>
+
 {% if results.has_other_pages %}
 <div class="section">
     <div class="paginator">
         {% if results.has_previous %}
-            <a href="?q={{ query }}&page={{ results.previous_page_number }}">&laquo;</a>
+            <a href="?{{ url_params }}&page={{ results.previous_page_number }}">&laquo;</a>
         {% endif %}
 
         {% for num in results.paginator.page_range %}
             {% if results.number == num %}
                 <a class="active" href="#">{{ num }}</a>
             {% elif num > results.number|add:'-3' and num < results.number|add:'3' %}
-                <a href="?q={{ query }}&page={{ num }}">{{ num }}</a>
+                <a href="?{{ url_params }}&page={{ num }}">{{ num }}</a>
             {% endif %}
         {% endfor %}
 
         {% if results.has_next %}
-            <a href="?q={{ query }}&page={{ results.next_page_number }}">&raquo;</a>
+            <a href="?{{ url_params }}&page={{ results.next_page_number }}">&raquo;</a>
         {% endif %}
     </div>
 </div>
 {% endif %}
+
 </div>
 </div>
-{%endblock%}
+{% endblock %}

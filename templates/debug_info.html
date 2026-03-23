@@ -8,7 +8,7 @@
     <h2>{% trans "PAGE_DEBUG_TITLE" %}</h2>
     <div class="info_splash">{% trans "PAGE_DEBUG_DESC" %}</div>
     <h3>{% trans "PAGE_DEBUG_MAININFO_TITLE" %}</h3>
-    
+
     <h>Method: {{ method }}</h>
     <br>
     <h>User-IP: {{ user_ip }}</h>
@@ -20,6 +20,21 @@
     <h>Python Version: {{ python_version }}</h>
     <br>
     <h>Server Info: {{ os_info }}</h>
+    <br>
+    <h>LunaStore version: {{ lunastore_version }}</h>
+    <br>
+    <br>
+    <br>
+    <h>Disk Info: {{ disk_info }}</h>
+    <br>
+    <h>Installed Packages: {{ installed_packages }}</h>
+    <br>
+    <h>Cache Status: {{ cache_status }}</h>
+    <br>
+    <h>Server Time: {{ server_time }}</h>
+    <br>
+    <h>Timezone: {{ time_zone }}</h>
+    <br>
 </div>
 </div>
 {% endblock %}
