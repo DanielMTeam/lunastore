@@ -12,8 +12,9 @@
             {% trans "PAGE_DIST_EDIT_HEADER" %} — {{ distribution.version }}
         </div>
         <div class="profile_block_content">
-            <form method="post" enctype="multipart/form-data">
+            <form method="post" id="distribution-form" enctype="multipart/form-data">
                 {% csrf_token %}
+                {{ form.cdn_confirm_token }}
 
                 <div class="pref_pad">
                     <div class="pref_item_title">{% trans "PAGE_DIST_FORM_VERSION" %}</div>
@@ -21,15 +22,13 @@
                     <div class="pref_warn_label">{% trans "PAGE_DIST_FORM_VERSION_DESC" %}</div>
                 </div>
 
-                {% if distribution.file %}
+                {% if distribution.cdn_file_id %}
                 <div class="pref_pad">
                     <div class="pref_item_title">{% trans "PAGE_DIST_EDIT_CURRENT_FILE" %}</div>
                     <div style="background: #f4f7fa; border: 1px solid #bfd2e4; padding: 5px; font-size: 11px;">
-
                         <li class="top" style="vertical-align: middle; margin-right: 5px; list-style: none; display: inline-block; width: 20px; height: 20px; padding: 0; background: url({% static 'img/icons.png' %}) no-repeat 0px -218px; *display: inline; *zoom: 1;"></li>
-
-                        <a href="{{ distribution.file.url }}" target="_blank" style="color: #2b67b3; text-decoration: underline; vertical-align: middle;">
-                            {{ distribution.file.name }}
+                        <a href="{% url 'download_distribution' dist_pk=distribution.pk %}" target="_blank" style="color: #2b67b3; text-decoration: underline; vertical-align: middle;">
+                            Файл загружен (ID: {{ distribution.cdn_file_id }})
                         </a>
                     </div>
                 </div>
@@ -82,6 +81,24 @@
     </div>
 </div>
 </div>
+<script type="text/javascript">
+    window.DIST_CDN_CONFIG = {
+        appId: "{{ app.id }}",
+        getTokenUrl: "{{ get_token_url }}",
+        cdnUploadUrl: "{{ cdn_upload_url|escapejs }}"
+    };
+
+    window.DIST_CDN_I18N = {
+        noFile: '{% trans "PAGE_DIST_FORM_FILE_NO_FILE"|escapejs %}',
+        uploading: '{% trans "PAGE_DIST_FORM_FILE_UPLOADING"|escapejs %}',
+        saveBtn: '{% trans "PAGE_ADMIN_APP_DIST_SAVE"|escapejs %}',
+        fileAlreadyUploaded: '{% trans "PAGE_DIST_FORM_FILE_ALREADY_UPLOADED"|escapejs %}',
+        errGetToken: '{% trans "PAGE_DIST_FORM_ERR_GET_TOKEN"|escapejs %}',
+        errCDNReject: '{% trans "PAGE_DIST_FORM_ERR_CDN_REJECT"|escapejs %}',
+        errNoConfirm: '{% trans "PAGE_DIST_FORM_ERR_NO_CONFIRM"|escapejs %}'
+    };
+</script>
+<script src="{% static 'js/distribution_cdn.js' %}"></script>
 <script type="text/javascript">
     var fileInput = document.getElementById('id_file');
     if (fileInput) {

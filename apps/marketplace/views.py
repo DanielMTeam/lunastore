@@ -1,9 +1,11 @@
+import jwt
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.postgres.search import TrigramSimilarity
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
+from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext as _
@@ -113,7 +115,6 @@ def download_list(request):
 
     dist_rows = []
     for dist in distributions:
-        link = dist.file.url if dist.file else dist.url
         dist_rows.append(
             {
                 "id": dist.id,
@@ -121,8 +122,8 @@ def download_list(request):
                 "changelog": dist.changelog,
                 "published": _format_legacy_date(dist.published),
                 "is_latest": dist.id == latest_id,
-                "link": link or "#",
-                "has_download": bool(link),
+                "link": dist.link,
+                "has_download": dist.has_download,
             }
         )
 
@@ -301,7 +302,6 @@ def manage_distributions(request):
     distributions = Distribution.objects.filter(app=app_obj).order_by("-published")
     form = DistributionForm(request.POST or None, request.FILES or None)
     if request.method == "POST" and form.is_valid():
-        print("FILES:", request.FILES)
         distribution = form.save(commit=False)
         distribution.app = app_obj
         distribution.save()
@@ -331,6 +331,8 @@ def manage_distributions(request):
         "app": app_obj,
         "form": form,
         "distributions": dist_rows,
+        "get_token_url": f"{settings.API_URL}/method/user/getDistributionToken",
+        "cdn_upload_url": f"{settings.LUNASPIRE_URL}/cdn/upload",
         "download_list_url": reverse("download") + "?id=" + str(app_obj.id),
     }
     return render(request, "manage_distributions.html", context)
@@ -356,6 +358,8 @@ def distribution_edit(request, dist_pk):
         "form": form,
         "app": distribution.app,
         "distribution": distribution,
+        "get_token_url": f"{settings.API_URL}/method/user/getDistributionToken",
+        "cdn_upload_url": f"{settings.LUNASPIRE_URL}/cdn/upload",
         "download_list_url": reverse("download") + "?id=" + str(distribution.app.id),
     }
     return render(request, "distribution_form.html", context)
@@ -374,3 +378,34 @@ def distribution_delete(request, dist_pk):
         messages.warning(request, _("Нужно подтвердить удаление через POST"))
 
     return redirect(reverse("manage_distributions") + "?id=" + str(distribution.app.id))
+
+
+def distribution_list_page(request, app_id):
+    app_obj = get_object_or_404(Application, id=app_id)
+    distributions = app_obj.distributions.filter(deleted__isnull=True).order_by(
+        "-published"
+    )
+    return render(
+        request,
+        "marketplace/download_list.html",
+        {"app": app_obj, "distributions": distributions},
+    )
+
+
+def get_file_action(request, dist_pk):
+    dist = get_object_or_404(Distribution, pk=dist_pk)
+
+    if dist.cdn_file_id:
+        payload = {"type": "cdn-download", "file_id": int(dist.cdn_file_id)}
+
+        download_token = jwt.encode(
+            payload, settings.LUNASPIRE_SECRET_KEY, algorithm="HS256"
+        )
+
+        cdn_url = f"{settings.LUNASPIRE_URL}/cdn/download?token={download_token}"
+        return redirect(cdn_url)
+
+    if dist.url:
+        return redirect(dist.url)
+
+    raise Http404("File not found")

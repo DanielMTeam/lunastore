@@ -1,19 +1,32 @@
 from rest_framework import serializers
+
 from .models import Application, Category, Distribution
+
 
 class ApplicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Application
-        fields = ['id','title','description','slogan','icon','price','screenshots','developer_site','is_demo']
-        
+        fields = [
+            "id",
+            "title",
+            "description",
+            "slogan",
+            "price",
+            "screenshots",
+            "developer_site",
+            "is_demo",
+            "icon_url",
+            "screenshot_urls",
+        ]
+
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ['id','name','description']
-        
+        fields = ["id", "name", "description"]
+
 
 class DistributionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Distribution
-        fields = ['id','app','version','file','url','changelog','published']
+        fields = ["id", "app", "version", "file", "url", "changelog", "published"]
