@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/settings.css' %}">
+
+    <div class="section" style="border: none; padding: 0;">
+        <div class="profile_block">
+            {% trans "PAGE_DIST_EDIT_HEADER" %} — {{ distribution.version }}
+        </div>
+        <div class="profile_block_content">
+            <form method="post" id="distribution-form" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.cdn_confirm_token }}
+
+                <div class="pref_pad">
+                    <div class="pref_item_title">{% trans "PAGE_DIST_FORM_VERSION" %}</div>
+                    {{ form.version }}
+                    <div class="pref_warn_label">{% trans "PAGE_DIST_FORM_VERSION_DESC" %}</div>
+                </div>
+
+                {% if distribution.cdn_file_id %}
+                <div class="pref_pad">
+                    <div class="pref_item_title">{% trans "PAGE_DIST_EDIT_CURRENT_FILE" %}</div>
+                    <div style="background: #f4f7fa; border: 1px solid #bfd2e4; padding: 5px; font-size: 11px;">
+                        <li class="top" style="vertical-align: middle; margin-right: 5px; list-style: none; display: inline-block; width: 20px; height: 20px; padding: 0; background: url({% static 'img/icons.png' %}) no-repeat 0px -218px; *display: inline; *zoom: 1;"></li>
+                        <a href="{% url 'download_distribution' dist_pk=distribution.pk %}" target="_blank" style="color: #2b67b3; text-decoration: underline; vertical-align: middle;">
+                            Файл загружен (ID: {{ distribution.cdn_file_id }})
+                        </a>
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="pref_pad">
+                    <div class="pref_item_title">
+                        {% if distribution.file %}{% trans "PAGE_DIST_EDIT_CHANGE_FILE" %}{% else %}{% trans "PAGE_DIST_FORM_FILE" %}{% endif %}
+                    </div>
+
+                    <table cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                            <td valign="middle">
+                                <label class="action_button" style="cursor: pointer; float: left; display: block;">
+                                    {% trans "PAGE_DIST_FORM_FILE_BUTTON" %}
+                                    <input type="file" name="file" id="id_file" accept=".exe,.zip,.rar,.7z" style="position: absolute; left: -9999px;">
+                                </label>
+                            </td>
+                            <td valign="middle" style="padding-left: 10px;">
+                                <span id="file-chosen" style="font-size: 11px; color: #555;">
+                                    {% trans "PAGE_DIST_FORM_FILE_NO_FILE" %}
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="st_clearb"></div>
+                    <div class="pref_warn_label">{% trans "PAGE_DIST_FORM_FILE_DESC" %}</div>
+                </div>
+
+                <div class="pref_pad">
+                    <div class="pref_item_title">{% trans "PAGE_DIST_FORM_URL" %}</div>
+                    {{ form.url }}
+                    <div class="pref_warn_label">{% trans "PAGE_DIST_FORM_URL_DESC" %}</div>
+                </div>
+
+                <div class="pref_pad">
+                    <div class="pref_item_title">{% trans "PAGE_DIST_FORM_CHANGELOG" %}</div>
+                    {{ form.changelog }}
+                    <div class="pref_warn_label">{% trans "PAGE_DIST_FORM_CHANGELOG_DESC" %}</div>
+                </div>
+
+                <div class="pref_pad" style="padding-top: 10px; border-top: 1px dashed #cfe1ff;">
+                    <input type="submit" class="action_button" value="{% trans 'PAGE_DIST_FORM_SAVE' %}">
+                    <a href="{{ download_list_url }}" class="action_button" style="background: #e0edff; color: #294b76; border-color: #bfd2e4; margin-left: 10px;">
+                        {% trans "PAGE_DIST_FORM_CANCEL" %}
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+    window.DIST_CDN_CONFIG = {
+        appId: "{{ app.id }}",
+        getTokenUrl: "{{ get_token_url }}",
+        cdnUploadUrl: "{{ cdn_upload_url|escapejs }}"
+    };
+
+    window.DIST_CDN_I18N = {
+        noFile: '{% trans "PAGE_DIST_FORM_FILE_NO_FILE"|escapejs %}',
+        uploading: '{% trans "PAGE_DIST_FORM_FILE_UPLOADING"|escapejs %}',
+        saveBtn: '{% trans "PAGE_ADMIN_APP_DIST_SAVE"|escapejs %}',
+        fileAlreadyUploaded: '{% trans "PAGE_DIST_FORM_FILE_ALREADY_UPLOADED"|escapejs %}',
+        errGetToken: '{% trans "PAGE_DIST_FORM_ERR_GET_TOKEN"|escapejs %}',
+        errCDNReject: '{% trans "PAGE_DIST_FORM_ERR_CDN_REJECT"|escapejs %}',
+        errNoConfirm: '{% trans "PAGE_DIST_FORM_ERR_NO_CONFIRM"|escapejs %}'
+    };
+</script>
+<script src="{% static 'js/distribution_cdn.js' %}"></script>
+<script type="text/javascript">
+    var fileInput = document.getElementById('id_file');
+    if (fileInput) {
+        fileInput.onchange = function() {
+            var fileName = this.value.split(/(\\|\/)/g).pop();
+            var displaySpan = document.getElementById('file-chosen');
+            if (displaySpan) {
+                displaySpan.innerHTML = fileName ? fileName : '{% trans "PAGE_DIST_FORM_FILE_NO_FILE" %}';
+                displaySpan.style.color = "#000";
+            }
+        };
+    }
+</script>
+{% endblock %}

@@ -44,7 +44,7 @@
                     {% for app in managed_apps %}
                         <div class="list-app-tile">
                             {% if app.icon %}
-                                <img src="{{ app.icon.url }}" alt="{{ app.name }}">
+                                <img src="{{ app.icon_url }}" alt="{{ app.name }}">
                             {% else %}
                                 <img src="{% static './img/noavatar_64.jpg' %}" alt="">
                             {% endif %}

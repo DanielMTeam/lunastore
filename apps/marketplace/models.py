@@ -4,6 +4,7 @@ import uuid
 from django.conf import settings
 from django.contrib.postgres.indexes import GinIndex
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from safedelete.models import SOFT_DELETE, SOFT_DELETE_CASCADE, SafeDeleteModel
 
@@ -47,9 +48,8 @@ class BaseApplicationInfo(SafeDeleteModel):
     slogan = models.CharField(
         max_length=240, null=True, blank=True, verbose_name="Слоган"
     )
-    icon = models.ImageField(
-        upload_to=get_icon_path, max_length=140, null=True, verbose_name="Иконка"
-    )
+    icon_id = models.PositiveIntegerField(null=True, blank=True)
+    icon_path = models.CharField(max_length=255, null=True, blank=True)
     price = models.IntegerField(default=0, verbose_name="Цена")
     screenshots = models.JSONField(
         default=list, blank=True, null=True, verbose_name="Скриншоты"
@@ -60,6 +60,23 @@ class BaseApplicationInfo(SafeDeleteModel):
 
     class Meta:
         abstract = True
+
+    @property
+    def icon_url(self):
+        if self.icon_path:
+            base_url = getattr(settings, "LUNASPIRE_URL", "").rstrip("/")
+            path = self.icon_path.lstrip("/")
+            return f"{base_url}/{path}"
+        return "/staticfiles/img/noavatar_64.jpg"
+
+    @property
+    def screenshot_urls(self):
+        base_url = getattr(settings, "LUNASPIRE_URL", "").rstrip("/")
+        urls = []
+        for path in self.screenshots or []:
+            clean_path = path.lstrip("/")
+            urls.append(f"{base_url}/{clean_path}")
+        return urls
 
 
 class Application(BaseApplicationInfo, SafeDeleteModel):
@@ -101,7 +118,9 @@ class Distribution(SafeDeleteModel):
 
     app = models.ForeignKey(Application, on_delete=models.PROTECT)
     version = models.CharField(max_length=20)
-    file = models.FileField(upload_to="ugc/distributions", max_length=80, null=True)
+    cdn_file_id = models.PositiveIntegerField(
+        null=True, blank=True, verbose_name="ID файла в CDN"
+    )
     url = models.URLField(max_length=140, null=True)
     changelog = models.CharField(max_length=210)
     published = models.DateTimeField(auto_now=True)
@@ -116,6 +135,17 @@ class Distribution(SafeDeleteModel):
 
     def __repr__(self):
         return f"<Distribution {self.app} {self.version}>"
+
+    @property
+    def has_download(self):
+        # check, can be downloaded file now
+        return bool(self.cdn_file_id or self.url)
+
+    @property
+    def link(self):
+        if self.cdn_file_id:
+            return reverse("download_action", kwargs={"dist_pk": self.pk})
+        return self.url if self.url else "#"
 
 
 class AppCreateRequests(BaseApplicationInfo, SafeDeleteModel):
@@ -210,6 +240,7 @@ class AppReportRequests(SafeDeleteModel):
 
     class Meta:
         verbose_name = _("PAGE_REPORTAPP_TITLE")
+        verbose_name_plural = _("PAGE_REPORTAPP_TITLE_PATH")
 
 
 # TODO: create the authorization-specific models
