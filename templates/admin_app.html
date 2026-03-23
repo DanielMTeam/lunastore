@@ -11,10 +11,10 @@
         <div style="clear: both"></div>
       </div>
   </div>
-  <link rel="stylesheet" href="{% static './css/settings.css'%}"> 
-  <link rel="stylesheet" href="{% static './css/profile.css'%}">   
+  <link rel="stylesheet" href="{% static './css/settings.css'%}">
+  <link rel="stylesheet" href="{% static './css/profile.css'%}">
   <link rel="stylesheet" href="{% static './css/tabs.css'%}">
-  <!--[if lte IE 6]> <link rel="stylesheet" href="./css/ie6/profile_ie6.css" media="screen, projection"> <![endif]-->  
+  <!--[if lte IE 6]> <link rel="stylesheet" href="./css/ie6/profile_ie6.css" media="screen, projection"> <![endif]-->
     <div class="tabs">
   <div class="tab-bar">
     <div class="tab active" href="/edit_app_info.php">
@@ -24,100 +24,113 @@
   </div>
 
   <div class="tab-content" id="tab-view">
-    <div class="profile_block">{% trans "PAGE_ADMIN_APP_PROFILE_BLOCK" %}</div>
-    <div class="profile_block_content">
-      <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="pref_pad">
-                <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_TITLE" %}</div>
-                {{ form.title }}
-                {% if form.title.errors %}
-                    <div style="color: red; font-size: 12px;">{{ form.title.errors }}</div>
-                {% endif %}
-                <div class="pref_warn_label">{% trans "PAGE_ADMIN_APP_TITLEDESC" %}</div>
-        </div>
+      <form method="post" enctype="multipart/form-data" id="app-upload-form">
+          {% csrf_token %}
+          {{ form.cdn_icon_path }}
+          {{ form.cdn_screenshots_data }}
+          {{ form.icon_path }}
+          {{ form.screenshots_data }}
 
-        <div class="pref_pad">
-                <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_ID" %}</div>
-                <div style="display: flex; align-items: center;">
-                    <span style="margin-right: 5px;">store.myslivets.com/app.php?id=</span>
-                    <input style="width: 100px" type="text" class="input-text" value="{{ obj.pk }}" disabled>
-                </div>
-                <div class="pref_warn_label">{% trans "PAGE_ADMIN_APP_IDDESC" %}</div>
-        </div>
+          <div class="profile_block">{% trans "PAGE_ADMIN_APP_PROFILE_BLOCK" %}</div>
+          <div class="profile_block_content">
 
-        <div class="pref_pad">
-                <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_SLOGAN" %}</div>
-                {{ form.slogan }}
-                <div class="pref_warn_label">{% trans "PAGE_ADMIN_APP_SLOGANDESC" %}<br>{% trans "PAGE_ADMIN_APP_SLOGANDESC_2" %}</div>
-        </div>
+              <div class="pref_pad">
+                  <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_TITLE" %}</div>
+                  {{ form.title }}
+                  {% if form.title.errors %}
+                      <div style="color: red; font-size: 12px;">{{ form.title.errors }}</div>
+                  {% endif %}
+                  <div class="pref_warn_label">{% trans "PAGE_ADMIN_APP_TITLEDESC" %}</div>
+              </div>
 
-        <div class="pref_pad">
-                <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_DESC" %}</div>
-                {{ form.description }}
-                <div class="pref_warn_label">{% trans "PAGE_ADMIN_APP_DESCDESC" %}</div>  
-        </div>
+              <div class="pref_pad">
+                  <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_ID" %}</div>
+                  <div style="display: flex; align-items: center;">
+                      <span style="margin-right: 5px;">store.myslivets.com/app.php?id=</span>
+                      <input style="width: 100px" type="text" class="input-text" value="{{ obj.pk }}" disabled>
+                  </div>
+                  <div class="pref_warn_label">{% trans "PAGE_ADMIN_APP_IDDESC" %}</div>
+              </div>
 
-        <div class="pref_pad appcat">
-            <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_CATEGORY" %}</div>
-            {{ form.category }}
-            <div class="pref_warn_label">{% trans "PAGE_ADMIN_APP_CATEGORYDESC" %}</div>
-        </div>
+              <div class="pref_pad">
+                  <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_SLOGAN" %}</div>
+                  {{ form.slogan }}
+                  <div class="pref_warn_label">{% trans "PAGE_ADMIN_APP_SLOGANDESC" %}<br>{% trans "PAGE_ADMIN_APP_SLOGANDESC_2" %}</div>
+              </div>
 
-        <div class="pref_pad">
-                <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_DEVSITE" %}</div>
-                {{ form.developer_site }}
-        </div>
+              <div class="pref_pad">
+                  <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_DESC" %}</div>
+                  {{ form.description }}
+                  <div class="pref_warn_label">{% trans "PAGE_ADMIN_APP_DESCDESC" %}</div>
+              </div>
 
-    </div>
-    <br>
-    <div class="profile_block">{% trans "PAGE_ADMIN_APP_ICON" %}</div>
-        <div class="profile_block_content">
-            <div class="info_splash editapp_splash">
-                {% trans "PAGE_ADMIN_APP_ICON_REQ1" %}<br>
-                {% trans "PAGE_ADMIN_APP_ICON_REQ2" %}<br>
-                {% trans "PAGE_ADMIN_APP_ICON_REQ3" %}
-            </div>
-            
-            <div class="editapp_icon_view">
-                {% if obj.icon %}
-                    <img src="{{ obj.icon.url }}" alt="App Icon" style="width: 64px; height: 64px;">
-                {% else %}
-                    <div style="width: 64px; height: 64px;">{% trans "PAGE_ADMIN_APP_NOICON" %}</div>
-                {% endif %}
-            </div>
+              <div class="pref_pad appcat">
+                  <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_CATEGORY" %}</div>
+                  {{ form.category }}
+                  <div class="pref_warn_label">{% trans "PAGE_ADMIN_APP_CATEGORYDESC" %}</div>
+              </div>
 
-            <div>
-                {{ form.icon }}
-            </div>
-    </div>
-    <div class="profile_block">{% trans "PAGE_ADMIN_APP_SCRNS_TITLE" %}</div>
-    <div class="profile_block_content">
-        
-        {% if obj.screenshots %}
-        <div class="pref_pad">
-            <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_CURRENTSCRN" %}</div>
-            <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
-                {% for screen in obj.screenshots %}
-                    <div style="border: 1px solid #ccc; padding: 2px;">
-                        <img src="{{ MEDIA_URL }}{{ screen }}" style="height: 80px; display: block;">
-                    </div>
-                {% endfor %}
-            </div>
-            <div class="pref_warn_label" style="color: #d9534f;">{% trans "PAGE_ADMIN_APP_WARN_SCRN" %}</div>
-        </div>
-        {% endif %}
+              <div class="pref_pad">
+                  <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_DEVSITE" %}</div>
+                  {{ form.developer_site }}
+              </div>
 
-        <div class="pref_pad">
-            <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_LOAD_SCRN" %}</div>
-            {{ form.upload_screenshots }}
-            
-            <div id="error-scr-box" class="error-box"></div>
-            <div id="info-scr" style="font-size: 11px; color: green; margin-top: 5px;"></div>
-        </div>
-    </div>
-    <br>
-            <input type="submit" class="action_button" value="Сохранить">
+          </div> <br>
+
+          <div class="profile_block">{% trans "PAGE_ADMIN_APP_ICON" %}</div>
+          <div class="profile_block_content">
+              <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                  <tr>
+                      <td valign="top">
+                          <div class="pref_pad">
+                              <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_LOAD_ICON" %}:</div>
+                              <div style="margin: 5px 0;">
+                                  {{ form.icon_file }}
+                              </div>
+                              <div class="pref_warn_label" style="line-height: 1.4;">
+                                  {% trans "PAGE_ADMIN_APP_ICON_REQ1" %}<br>
+                                  {% trans "PAGE_ADMIN_APP_ICON_REQ2" %}<br>
+                                  {% trans "PAGE_ADMIN_APP_ICON_REQ3" %}
+                              </div>
+                          </div>
+                      </td>
+                  </tr>
+              </table>
+          </div> <br>
+
+          <div class="profile_block">{% trans "PAGE_ADMIN_APP_SCRNS_TITLE" %}</div>
+          <div class="profile_block_content">
+
+              {% if obj.screenshots %}
+              <div class="pref_pad" style="padding-bottom: 0;">
+                  <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_CURRENTSCRN" %}:</div>
+                  <div style="zoom: 1; overflow: hidden; margin-top: 5px;">
+                      {% for screen in obj.screenshots %}
+                          <div style="float: left; border: 1px solid #cfe1ff; padding: 2px; margin-right: 10px; background: #f4f7fa;">
+                              <img src="{{ MEDIA_URL }}{{ screen }}" height="60" border="0" style="display: block;">
+                          </div>
+                      {% endfor %}
+                  </div>
+                  <div class="pref_warn_label" style="color: #b20000; margin-top: 5px;">
+                      {% trans "PAGE_ADMIN_APP_WARN_SCRN" %}
+                  </div>
+              </div>
+              <div style="border-top: 1px dashed #cfe1ff; height: 1px; margin: 10px 0; font-size: 0;"></div>
+              {% endif %}
+
+              <div class="pref_pad">
+                  <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_LOAD_SCRN" %}:</div>
+                  <div style="margin: 5px 0;">
+                      {{ form.upload_screenshots }}
+                  </div>
+
+                  <div id="error-scr-box" class="error-box" style="color: #e74c3c; font-size: 11px; margin-top: 5px; display: none;"></div>
+                  <div id="info-scr" style="font-size: 11px; color: #5fa359; font-weight: bold; margin-top: 5px;"></div>
+              </div>
+          </div> <br>
+          <input type="submit" class="action_button" value="Сохранить">
+      </form>
+    </form>
   </div>
 </form>
 </div>
@@ -140,7 +153,7 @@
 
         if (!validateFileExtension(file)) {
             alert('{% trans "ERROR_INVALID_FILE_FORMAT" %} \n{% trans "INFO_ACCEPTED_ICON_FORMATS" %}');
-            input.value = ""; 
+            input.value = "";
             return;
         }
 
@@ -176,12 +189,12 @@
                 } else {
                     alert('{% trans "ERROR_PREVIEWSCRNS_3_COUNT" %}');
                 }
-                input.value = ""; 
+                input.value = "";
                 return;
             }
 
             let count = input.files.length;
-            
+
             for (let i = 0; i < count; i++) {
                 const file = input.files[i];
                 if (!validateFileExtension(file)) {
@@ -193,9 +206,9 @@
                         alert(msg);
                     }
                     input.value = "";
-                    return; 
+                    return;
                 }
-                
+
                 if (file.size > 2 * 1024 * 1024) {
                     let msg = '{% trans "ERROR_PREVIEWSCRNS_1_BIGSIZE" %}' + file.name + '{% trans "ERROR_PREVIEWSCRNS_2_BIGSIZE" %}';
                     if (errorBox) {
@@ -208,9 +221,24 @@
                     return;
                 }
             }
-            
+
             if (info) info.innerText = '{% trans "SCRIPT_PREVIEWSCRNS_ARE_COOL_1" %}' + count + '{% trans "SCRIPT_PREVIEWSCRNS_ARE_COOL_2" %}';
         }
     }
 </script>
+<script type="text/javascript">
+    window.CDN_CONFIG = {
+        uploadUrl: "{{ cdn_upload_url }}",
+        tokenUrl: "{{ cdn_token_url }}"
+    };
+
+    window.LUNA_I18N = {
+        uploading: "{% trans 'JS_MARKETPLACE_UPLOADING' %}",
+        error: "{% trans 'JS_MARKETPLACE_ERROR' %}",
+        retry: "{% trans 'JS_MARKETPLACE_RETRY' %}",
+        tokenError: "{% trans 'JS_MARKETPLACE_TOKEN_ERROR' %}",
+        fileError: "{% trans 'JS_MARKETPLACE_FILE_ERROR' %}"
+    };
+</script>
+<script src="{% static 'js/marketplace_cdn.js' %}"></script>
 {% endblock %}

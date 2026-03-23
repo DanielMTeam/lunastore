@@ -72,9 +72,12 @@
         <h2 style="margin-top: 10px; margin-bottom: 8px; padding-left: 7px;">{% trans "PAGE_ADDAPP_PAGETITLE"%}</h2>
         <div class="separator_store"></div>
 
-        <form method="post" enctype="multipart/form-data" class="add_app_form">
+        <form method="post" enctype="multipart/form-data" class="add_app_form" id="app-upload-form">
             {% csrf_token %}
-
+            {{ form.icon_path }}
+            {{ form.screenshots_data }}
+            {{ form.cdn_icon_path }}
+            {{ form.cdn_screenshots_data }}
             <div class="steps">
                 <table>
                     <tr>
@@ -125,8 +128,8 @@
                             <div class="add_app_pad">
                                 <div class="add_app_title">{% trans "PAGE_ADDAPP_STEP1_ICON" %}</div>
                                 <div class="info_splash">{% trans "PAGE_ADDAPP_STEP1_ICONDESC_1" %}<br>{% trans "PAGE_ADDAPP_STEP1_ICONDESC_2" %}<br>{% trans "PAGE_ADDAPP_STEP1_ICONDESC_3" %}</div>
-                                {{ form.icon }}
-                                {{ form.icon.errors }}
+                                {{ form.icon_file }}
+                                {{ form.icon_file.errors }}
                             </div>
                         </label>
 
@@ -422,4 +425,19 @@
         }
     }
 </script>
+<script type="text/javascript">
+    window.CDN_CONFIG = {
+        uploadUrl: "{{ cdn_upload_url }}",
+        tokenUrl: "{{ token_upload_url }}"
+    };
+
+    window.LUNA_I18N = {
+        uploading: "{% trans 'JS_MARKETPLACE_UPLOADING' %}",
+        error: "{% trans 'JS_MARKETPLACE_ERROR' %}",
+        retry: "{% trans 'JS_MARKETPLACE_RETRY' %}",
+        tokenError: "{% trans 'JS_MARKETPLACE_TOKEN_ERROR' %}",
+        fileError: "{% trans 'JS_MARKETPLACE_FILE_ERROR' %}"
+    };
+</script>
+<script src="{% static 'js/marketplace_cdn.js' %}"></script>
 {% endblock %}

@@ -5,45 +5,50 @@
 {% block content %}
 <div class="content">
     <link rel="stylesheet" href='{% static "./css/stpage.css"%}'>
-    
-    <div class="backb"><li class="back"><a href="/">{% trans "PAGE_APP_BTN_BACK" %}</a></li></div>
+
     <div class="separator_store"></div>
 
     <div class="section">
-        <div class="st_general_card">
-            
-            <div class="st_app_icon"><img src='{{ icon_url }}' alt="{{ title }} icon" style="height: 100px; width: 100px;"></div>
-            <div class="st_card_info"></div>
-            <div class="st_card_title">{{ title }}</div>
-            <div class="st_precard">
-                <div class="st_card_desc">{{ slogan }}</div>
-            </div>
+    <div class="st_general_card">
 
-            <div class="st_card_author">{% trans "PAGE_APP_LABEL_AUTHOR" %} <a href="/profile.php?id=685">ghisler.com</a></div>
-            
-            {% if not is_dmca %}
-            <div class="st_general_card">
-                <div class="st_price demo">
-                  {% if is_demo %}
-                      {% if price > 0 %}
-                          {% trans "PAGE_APP_PRICE_DEMO_WITH_COST" %} ${{ price }}
-                      {% else %}
-                          {% trans "PAGE_APP_PRICE_DEMO_FREE" %}
-                      {% endif %}
-                  {% else %}
-                      {% if price > 0 %}
-                          {% trans "PAGE_APP_PRICE_PAID" %} ${{ price }}
-                      {% else %}
-                          {% trans "PAGE_APP_PRICE_FREE" %}
-                      {% endif %}
-                  {% endif %}
-              </div>
-            </div>
-            {% endif %}
+        <div class="st_app_icon" style="width: 64px; height: 64px; margin-right: 10px; float: left;">
+            <img src='{{ icon_url }}' alt="{{ title }} icon" style="width: 64px; height: 64px; border: 0;">
+        </div>
 
-            {% if not is_dmca %}
+        <div class="st_precard" style="width: 320px; float: left; margin-left: 0;">
+            <div class="st_card_title" style="font-size: 18px; margin-bottom: 2px;">{{ title }}</div>
             <div class="st_clearb"></div>
-            <b class="setup">
+
+            <div class="st_card_desc" style="font-size: 13px; margin-bottom: 2px;">{{ slogan }}</div>
+            <div class="st_clearb"></div>
+
+            <div class="st_card_author" style="font-size: 11px;">
+                {% trans "PAGE_APP_LABEL_AUTHOR" %} <a href="/profile.php?id={{ app_id }}">{{ developer_name }}</a>
+            </div>
+        </div>
+
+        <div class="st_clearb"></div>
+    </div>
+
+        {% if not is_dmca %}
+        <div class="st_general_card">
+            <div class="st_price demo">
+              {% if is_demo %}
+                  {% if price > 0 %}
+                      {% trans "PAGE_APP_PRICE_DEMO_WITH_COST" %} ${{ price }}
+                  {% else %}
+                      {% trans "PAGE_APP_PRICE_DEMO_FREE" %}
+                  {% endif %}
+              {% else %}
+                  {% if price > 0 %}
+                      {% trans "PAGE_APP_PRICE_PAID" %} ${{ price }}
+                  {% else %}
+                      {% trans "PAGE_APP_PRICE_FREE" %}
+                  {% endif %}
+              {% endif %}
+            </div>
+
+            <b class="setup" style="float: left;">
                 <a href="{{ download_url }}">
                     <div class="setup_button_img"></div>
                     <div class="st_inst_button">
@@ -55,11 +60,11 @@
                     </div>
                 </a>
             </b>
-            {% endif %}
             <div class="st_clearb"></div>
         </div>
+        {% endif %}
     </div>
-    
+
     <div class="st_headerline"></div>
 
     <div class="st_general_card">
@@ -71,7 +76,7 @@
             </div>
         </div>
         {% endif %}
-        
+
         {% if is_dmca %}
         <div class="splash">
             <div class="error_splash">
@@ -81,22 +86,22 @@
         </div>
         {% endif %}
     </div>
-        
+
     <div class="st_other_card">
         <h2>{% trans "PAGE_APP_SECTION_SCREENSHOTS" %}</h2>
         <div class="separator_store"></div>
+
         <div class="st_screenshots_container">
-            {% for screenshot_path in screenshots %}
-                {% if screenshot_path %}
+            {% for screenshot_url in screenshot_urls %}
                 <div class="st_scr">
-                    <a href="/media/{{screenshot_path}}">
-                    <img src="/media/{{screenshot_path}}" alt="{% trans 'PAGE_APP_IMG_ALT_SCREENSHOT' %}" style="width: 120px; height: 90px; float: n;">
+                    <a href="{{ screenshot_url }}" target="_blank">
+                        <img src="{{ screenshot_url }}" alt="{% trans 'PAGE_APP_IMG_ALT_SCREENSHOT' %}" style="width: 120px; height: 90px; border: 0;">
                     </a>
                 </div>
-                {% endif %}
             {% empty %}
                 <p>{% trans "PAGE_APP_MSG_NO_SCREENSHOTS" %}</p>
             {% endfor %}
+            <div class="st_clearb"></div>
         </div>
     </div>
 
@@ -111,12 +116,13 @@
         <div class="separator_store"></div>
         <div class="actionsm">
             <li class="offsite"><a href="{{ developer_site }}">{% trans "PAGE_APP_ACTION_SITE" %}</a></li>
-            <li class="alert"><a href="/report.php?act=new&app_id={aid}">{% trans "PAGE_APP_ACTION_REPORT" %}</a></li>
-            <li class="otherapps"><a href="/search.php?page=apps&author_id={pid}">{% trans "PAGE_APP_ACTION_MORE_APPS" %}</a></li>
+            <li class="alert"><a href="/report.php?act=new&app_id={{ app_id }}">{% trans "PAGE_APP_ACTION_REPORT" %}</a></li>
+            <li class="otherapps"><a href="/search.php?page=apps&author_id={{ developer_id|default:1 }}">{% trans "PAGE_APP_ACTION_MORE_APPS" %}</a></li>
         </div>
         <i>{% trans "PAGE_APP_LABEL_DOWNLOADS" %}: 465688</i>
     </div>
 
-    <div class="st_clearb"> </div>
-</div></div>
+    <div class="st_clearb"></div>
+</div>
+</div>
 {% endblock %}

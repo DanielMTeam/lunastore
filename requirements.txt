@@ -14,3 +14,4 @@ django-safedelete
 gunicorn
 PyJWT
 django-cors-headers
+django-extensions

@@ -47,9 +47,8 @@ class BaseApplicationInfo(SafeDeleteModel):
     slogan = models.CharField(
         max_length=240, null=True, blank=True, verbose_name="Слоган"
     )
-    icon = models.ImageField(
-        upload_to=get_icon_path, max_length=140, null=True, verbose_name="Иконка"
-    )
+    icon_id = models.PositiveIntegerField(null=True, blank=True)
+    icon_path = models.CharField(max_length=255, null=True, blank=True)
     price = models.IntegerField(default=0, verbose_name="Цена")
     screenshots = models.JSONField(
         default=list, blank=True, null=True, verbose_name="Скриншоты"
@@ -60,6 +59,23 @@ class BaseApplicationInfo(SafeDeleteModel):
 
     class Meta:
         abstract = True
+
+    @property
+    def icon_url(self):
+        if self.icon_path:
+            base_url = getattr(settings, "LUNASPIRE_URL", "").rstrip("/")
+            path = self.icon_path.lstrip("/")
+            return f"{base_url}/{path}"
+        return "/staticfiles/img/noavatar_64.jpg"
+
+    @property
+    def screenshot_urls(self):
+        base_url = getattr(settings, "LUNASPIRE_URL", "").rstrip("/")
+        urls = []
+        for path in self.screenshots or []:
+            clean_path = path.lstrip("/")
+            urls.append(f"{base_url}/{clean_path}")
+        return urls
 
 
 class Application(BaseApplicationInfo, SafeDeleteModel):

@@ -1790,3 +1790,36 @@ msgstr "Произошла ошибка:"
 
 msgid "INFO_AVATAR_WAS_UPLOADED"
 msgstr "Аватар успешно загружен!"
+
+msgid "BASE_SIDEBAR_APP_TITLE"
+msgstr "Приложение"
+
+msgid "BASE_SIDEBAR_APP_INSTALL"
+msgstr "Установить"
+
+msgid "BASE_SIDEBAR_APP_DEV_SITE"
+msgstr "Сайт разработчика"
+
+msgid "BASE_SIDEBAR_APP_REPORT"
+msgstr "Пожаловаться"
+
+msgid "BASE_SIDEBAR_APP_EDIT"
+msgstr "Редактировать страницу"
+
+msgid "JS_MARKETPLACE_UPLOADING"
+msgstr "Загрузка..."
+
+msgid "JS_MARKETPLACE_ERROR"
+msgstr "Ошибка LunaSpire: "
+
+msgid "JS_MARKETPLACE_RETRY"
+msgstr "Попробовать снова"
+
+msgid "JS_MARKETPLACE_TOKEN_ERROR"
+msgstr "Не удалось получить токен загрузки"
+
+msgid "JS_MARKETPLACE_FILE_ERROR"
+msgstr "Ошибка при передаче файла "
+
+msgid "PAGE_ADMIN_APP_LOAD_ICON"
+msgstr "Загрузить значок"

@@ -1,8 +1,10 @@
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.postgres.search import TrigramSimilarity
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.utils.translation import gettext as _
 
 from apps.user.decorators import developer_required
@@ -64,13 +66,15 @@ def app(request):
         "is_under_dmca": obj.is_under_dmca,
         "price": obj.price,
         "developer_site": obj.developer_site,
+        "developer_id": obj.user.id,
         "download_page_url": download_page_url,
         "latest_distribution": obj_dist,
-        "icon_url": obj.icon.url if obj.icon else "",
+        "icon_url": obj.icon_url,
         "title": obj.title,
         "slogan": obj.slogan,
         "description": obj.description,
-        "screenshots": obj.screenshots,
+        "screenshot_urls": obj.screenshot_urls,
+        "developer_name": obj.user.username,
     }
     return render(request, "storepage.html", context)
 
@@ -145,11 +149,18 @@ def app_add(request):
             app_request.user = request.user
             app_request.save()
             return redirect("home")
-        else:
-            print("Form Errors:", form.errors)
     else:
         form = AppCreateForm()
-    return render(request, "app_add.html", {"form": form})
+
+    return render(
+        request,
+        "app_add.html",
+        {
+            "form": form,
+            "cdn_upload_url": f"{settings.LUNASPIRE_URL}/cdn/upload",
+            "token_upload_url": f"{settings.API_URL}/method/user/getAvatarToken",
+        },
+    )
 
 
 @login_required
@@ -175,6 +186,7 @@ def application_edit_info(request, pk):
 
     if request.method == "POST":
         form = AppEditForm(target_app=obj, data=request.POST, files=request.FILES)
+
         if form.is_valid():
             edit_request = form.save(commit=False)
             edit_request.user = request.user
@@ -182,7 +194,17 @@ def application_edit_info(request, pk):
             return redirect("edit_app_info", pk=obj.pk)
     else:
         form = AppEditForm(target_app=obj)
-    return render(request, "admin_app.html", {"obj": obj, "form": form})
+
+    return render(
+        request,
+        "admin_app.html",
+        {
+            "obj": obj,
+            "form": form,
+            "cdn_upload_url": f"{settings.LUNASPIRE_URL}/cdn/upload",
+            "cdn_token_url": f"{settings.API_URL}/method/user/getAvatarToken",
+        },
+    )
 
 
 def search(request):
