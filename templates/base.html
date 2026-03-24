@@ -124,9 +124,9 @@
 
       <div class="sidebar_image_box">
           {% if sidebar_banner %}
-              <a href="{{ sidebar_banner.url|default:'#' }}" {% if sidebar_banner.url %}target="_blank" rel="noopener noreferrer"{% endif %}>
-                  <img src="{{ sidebar_banner.image.url }}" alt="{{ sidebar_banner.title }}">
-              </a>
+            <a href="{{ sidebar_banner.url|default:'#' }}" {% if sidebar_banner.url %}target="_blank" rel="noopener noreferrer"{% endif %}>
+              <img src="{{ sidebar_banner.image.url }}" alt="{{ sidebar_banner.title }}" style="max-width: 100%; height: auto; display: block;">
+            </a>
           {% else %}
               <a href="#">
                   <img src="{% static 'assets/sidebar-placeholder.png' %}" alt="Info">
@@ -176,8 +176,7 @@ function doSearch() {
     background-image: url('{% url "drm_bg" %}');
     background-repeat: repeat;
     pointer-events: none;
-    z-index: 9999;
-"></div>
+    z-index: 9999;"></div>
 {% endif %}
 </body>
 </html>
