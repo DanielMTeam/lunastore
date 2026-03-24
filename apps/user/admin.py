@@ -31,8 +31,8 @@ class UserAdmin(unfold_admin.ModelAdmin):
                     "email",
                     "description",
                     "password",
-                    "avatar",
-                    "is_staff",
+                    "avatar_path",
+                    "avatar_id",
                     "is_superuser",
                     "is_active",
                     "invited_by",
@@ -44,6 +44,15 @@ class UserAdmin(unfold_admin.ModelAdmin):
     )
     list_display = ["pk", "username", "email", "invited_by"]
     search_fields = ["username", "email", "pk"]
+
+    def save_model(self, request, obj, form, change):
+        if obj.password:
+            if not obj.password.startswith(
+                ("bcrypt", "pbkdf2_sha256", "pbkdf2_sha1", "argon2", "scrypt")
+            ):
+                obj.set_password(obj.password)
+
+            super().save_model(request, obj, form, change)
 
 
 @admin.register(UserBan)
