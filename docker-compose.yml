@@ -71,7 +71,7 @@ services:
              DJANGO_ROOT_URLCONF=lunastore.urls          gunicorn lunastore.wsgi:application --bind 0.0.0.0:9088 --workers 2 &
              wait"
     healthcheck:
-      test: ["CMD-SHELL", "curl -fs http://localhost:7088/method/service/heartbeat/ && curl -fs http://localhost:8088/${ADMIN_URL:-admin/}login/ && curl -fs http://localhost:9088/ || exit 1"]
+      test: ["CMD-SHELL", "curl -fs http://localhost:7088/method/service/heartbeat/ && curl -fs http://localhost:8088/${ADMIN_URL:-admin}/login/ && curl -fs http://localhost:9088/ || exit 1"]
       interval: 10s
       retries: 3
       start_period: 60s
