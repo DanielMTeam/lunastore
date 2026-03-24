@@ -28,6 +28,6 @@ def validate_invite_limit(owner):
         date_joined__gte=time_threshold
     ).count()
     
-    if recent_invites_count >= settings.MAX_INVITE_USES_COUNT:
+    if recent_invites_count >= int(settings.MAX_INVITE_USES_COUNT):
         return False
     return True
