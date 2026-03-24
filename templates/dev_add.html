@@ -31,7 +31,7 @@
             <p>{% trans "PAGE_DEVADD_NOWCHECKING_2" %}</p>
             <p>{% trans "PAGE_DEVADD_NOWCHECKING_3" %}</p>
         </div>
-    {% else %}  
+    {% else %}
     <div class="register_card">
       <h2>{% trans "PAGE_DEVADD_ENTERINFO_TITLE" %}</h2>
     <form method="POST">
@@ -42,7 +42,7 @@
                 <label>
                     <div class="reg_pad"><div class="reg_title">{% trans "PAGE_DEVADD_ENTERINFO_USERNAME" %}</div>
                     {% if dev_request_form.username.errors %}
-                        <div class="error_splash" style="margin-bottom: 5px;"> 
+                        <div class="error_splash" style="margin-bottom: 5px;">
                             {% for error in dev_request_form.username.errors %}
                                 {{ error }}
                             {% endfor %}
@@ -56,7 +56,7 @@
                 <label>
                     <div class="reg_pad"><div class="reg_title">{% trans "PAGE_DEVADD_ENTERINFO_EMAIL" %}</div>
                     {% if dev_request_form.mail.errors %}
-                        <div class="error_splash" style="margin-bottom: 5px;"> 
+                        <div class="error_splash" style="margin-bottom: 5px;">
                             {% for error in dev_request_form.mail.errors %}
                                 {{ error }}
                             {% endfor %}
@@ -70,7 +70,7 @@
                 <label>
                     <div class="reg_pad"><div class="reg_title">GitHub:</div>
                     {% if dev_request_form.github.errors %}
-                        <div class="error_splash" style="margin-bottom: 5px;"> 
+                        <div class="error_splash" style="margin-bottom: 5px;">
                             {% for error in dev_request_form.github.errors %}
                                 {{ error }}
                             {% endfor %}
@@ -84,7 +84,7 @@
                 <label>
                     <div class="reg_pad"><div class="reg_title">{% trans "PAGE_DEVADD_ENTERINFO_ABOUTYOU" %}</div>
                     {% if dev_request_form.about_you.errors %}
-                        <div class="error_splash" style="margin-bottom: 5px;"> 
+                        <div class="error_splash" style="margin-bottom: 5px;">
                             {% for error in dev_request_form.about_you.errors %}
                                 {{ error }}
                             {% endfor %}
@@ -97,7 +97,7 @@
                 <label>
                     <div class="reg_pad"><div class="reg_title">{% trans "PAGE_DEVADD_ENTERINFO_WHYCHOOSEUS" %}</div>
                     {% if dev_request_form.why_you_choose_us.errors %}
-                        <div class="error_splash" style="margin-bottom: 5px;"> 
+                        <div class="error_splash" style="margin-bottom: 5px;">
                             {% for error in dev_request_form.why_you_choose_us.errors %}
                                 {{ error }}
                             {% endfor %}
@@ -112,27 +112,27 @@
                     {% trans "FORM_CAPTCHA" %}<br><br>
                     {{ dev_request_form.captcha }}
                     {% if form.captcha.errors %}
-                    <div class="error_splash" style="margin-bottom: 5px;"> 
+                    <div class="error_splash" style="margin-bottom: 5px;">
                         {% for error in form.captcha.errors %}
                             {{ error }}
                         {% endfor %}
                     </div>
-                {% endif %} 
+                {% endif %}
                 </div>
-                
+
                 <label class="agree" for="{{ form.agree_with_site_rules.id_for_label }}">
                   {{dev_request_form.agree_with_site_rules.errors}}
-                  {{dev_request_form.agree_with_site_rules}}  
+                  {{dev_request_form.agree_with_site_rules}}
                   {{dev_request_form.agree_with_site_rules.label}}
                 </label>
-            
-        
+
+
                 <label class="agree" for="{{ form.agree_with_privacy_policy.id_for_label }}">
                   {{dev_request_form.agree_with_privacy_policy.errors}}
-                  {{dev_request_form.agree_with_privacy_policy}}  
+                  {{dev_request_form.agree_with_privacy_policy}}
                   {{dev_request_form.agree_with_privacy_policy.label}}
                 </label>
-              
+
                 <br>
                 <input type="submit" class="action_button" value='{% trans "PAGE_DEVADD_SENDALLBTN" %}'>
         </form>
@@ -141,6 +141,7 @@
         {%endif%}
 </div>
 <div style="clear:both"></div>
+</div>
 </div>
 </div>
 </div>

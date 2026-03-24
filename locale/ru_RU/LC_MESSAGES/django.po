@@ -793,7 +793,7 @@ msgstr "Удалить аккаунт"
 
 #: templates/dev_add.html:5 templates/dev_add.html:12
 msgid "PAGE_DEVADD_TITLE"
-msgstr "Удаление аккаунта"
+msgstr "Подача заявки на статус разработчика"
 
 #: templates/dev_add.html:16
 msgid "PAGE_DEVADD_DESC_1"
