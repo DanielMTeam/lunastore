@@ -43,13 +43,13 @@
                 {% if managed_apps or app_requests %}
                     {% for app in managed_apps %}
                         <div class="list-app-tile">
-                            {% if app.icon %}
+                            {% if app.icon_path %}
                                 <img src="{{ app.icon_url }}" alt="{{ app.name }}">
                             {% else %}
                                 <img src="{% static './img/noavatar_64.jpg' %}" alt="">
                             {% endif %}
 
-                            <h3>{{ app.title }}</h3>
+                            <a href="/app.php?id={{ app.pk }}"><h3>{{ app.title }}</h3></a>
                             <p><b>{% trans "PAGE_MANAGE_APPS_ROLE_OWNER" %}</b></p>
                             <a href="{% url 'edit_app_info' pk=app.pk %}">{% trans "PAGE_MANAGE_APPS_BTN_EDIT" %}</a>
                         </div>
@@ -58,7 +58,7 @@
                         <div class="list-app-tile request-tile">
                             <div class="tile-icon-wrapper">
                                 {% if req.icon %}
-                                    <img src="{{ req.icon.url }}" alt="{{ req.title }}">
+                                    <img src="{{ req.icon_url }}" alt="{{ req.title }}">
                                 {% else %}
                                     <img src="{% static './img/noavatar_64.jpg' %}" alt="">
                                 {% endif %}

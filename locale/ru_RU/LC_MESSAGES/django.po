@@ -1561,7 +1561,7 @@ msgstr "Количество скачиваний"
 #: templates/report_app.html:37
 #: apps/marketplace/models.py:179
 msgid "PAGE_REPORTAPP_TITLE"
-msgstr "Жалобу на приложение"
+msgstr "Жалоба на приложение"
 
 #: apps/marketplace/models.py:180
 msgid "PAGE_REPORTAPP_TITLE_PATH"
@@ -1986,3 +1986,30 @@ msgstr "Движок LunaSpire отклонил загрузку файла. П�
 
 msgid "PAGE_DIST_FORM_ERR_NO_CONFIRM"
 msgstr "Движок LunaSpire не вернул токен подтверждения. Пожалуйста, обратитесь с данной ошибкой к администратору."
+
+msgid "PAGE_ADMIN_APP_MSG_SAVE_SUCCESS"
+msgstr "Заявка на обновление данных успешно отправлена на модерацию."
+
+msgid "PAGE_ADMIN_APP_MSG_SAVE_ERROR"
+msgstr "Произошла ошибка при сохранении формы. Проверьте введенные данные."
+
+msgid "PAGE_REPORTAPP_PAGE_TITLE"
+msgstr "Жалоба на приложение"
+
+msgid "PAGE_REPORTAPP_INFO_1"
+msgstr "Вы собираетесь отправить жалобу на приложение"
+
+msgid "PAGE_REPORTAPP_INFO_2"
+msgstr "Пожалуйста, выберите причину и опишите проблему подробнее:"
+
+msgid "PAGE_REPORTAPP_REASON_INCORRECT"
+msgstr "Некорректные данные или описание"
+
+msgid "PAGE_REPORTAPP_REASON_OTHER"
+msgstr "Другая причина"
+
+msgid "PAGE_REPORTAPP_EXPLAIN_LABEL"
+msgstr "Дополнительная информация (обязательно):"
+
+msgid "PAGE_REPORTAPP_SUBMIT_BTN"
+msgstr "Отправить жалобу"

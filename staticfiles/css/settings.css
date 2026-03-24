@@ -57,6 +57,7 @@
 
 .pref_item_title {
     margin-bottom: 5px;
+    position: relative;
 }
 
 .pref_warn_label {

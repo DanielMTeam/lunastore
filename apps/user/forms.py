@@ -3,6 +3,7 @@ from io import BytesIO
 
 from captcha.fields import CaptchaField
 from django import forms
+from django.contrib import messages
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.contrib.auth import password_validation
 from django.contrib.auth.forms import UserCreationForm
@@ -188,12 +189,12 @@ class AvatarUpdateForm(forms.ModelForm):
     def clean_avatar(self):
         avatar = self.cleaned_data.get("avatar")
         if avatar:
-            limit_mb = 2  # in megabytes
+            limit_mb = 2
             if avatar.size > limit_mb * 1024 * 1024:
                 raise ValidationError(_("INFO_MAXIMUM_AVATAR_SIZE"))
 
             ext = os.path.splitext(avatar.name)[1].lower()
-            valid_extensions = [".jpg", ".jpeg", ".png"]
+            valid_extensions = [".jpg", ".jpeg", ".png", ".gif", ".webp"]
             if ext not in valid_extensions:
                 raise ValidationError(_("INFO_ACCEPTED_AVATAR_FORMATS"))
 
@@ -202,6 +203,9 @@ class AvatarUpdateForm(forms.ModelForm):
             except Exception:
                 raise ValidationError(_("ERROR_INVALID_IMAGE_FILE"))
 
+            if ext == ".gif":
+                return avatar
+
             target_size = (64, 64)
             width, height = img.size
 
@@ -209,20 +213,35 @@ class AvatarUpdateForm(forms.ModelForm):
                 img.thumbnail(target_size, Image.Resampling.LANCZOS)
 
                 img_format = "PNG" if ext == ".png" else "JPEG"
+                if ext == ".webp":
+                    img_format = "WEBP"
 
                 if img_format == "JPEG" and img.mode in ("RGBA", "LA"):
                     background = Image.new("RGB", img.size, (255, 255, 255))
                     background.paste(img, mask=img.split()[3])
                     img = background
+
                 buffer = BytesIO()
                 img.save(buffer, format=img_format, quality=90)
                 new_avatar_name = f"resized_{avatar.name}"
-                self.cleaned_data["avatar"] = ContentFile(
-                    buffer.getvalue(), name=new_avatar_name
-                )
-            else:
-                avatar.seek(0)
+                return ContentFile(buffer.getvalue(), name=new_avatar_name)
+
         return avatar
+
+    def clean_filepath(self):
+        filepath = self.cleaned_data.get("filepath", "")
+
+        if filepath:
+            valid_extensions = [".jpg", ".jpeg", ".png", ".gif", ".webp"]
+
+            ext = os.path.splitext(filepath)[1].lower()
+
+            if ext not in valid_extensions:
+                raise ValidationError(
+                    "Недопустимый формат файла на сервере хранения (CDN)."
+                )
+
+        return filepath
 
 
 class DevStatusForm(forms.ModelForm):

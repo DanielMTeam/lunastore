@@ -112,12 +112,12 @@
               <div class="profile_block_content">
                   {% for app in obj.applications.all|slice:":5" %}
                       <div class="icon">
-                          {% if app.icon %}
-                              <img src="{{ app.icon.url }}" alt="{{ app.title }}" class="icon-img">
+                          {% if app.icon_path %}
+                              <img src="{{ app.icon_url }}" alt="{{ app.title }}" class="icon-img">
                           {% else %}
                               <img src="{% static '../img/noavatar_64.jpg' %}" alt="{{ app.title }}" class="icon-img">
                           {% endif %}
-                          <div class="icon-text"><a href="{{ app.get_absolute_url|default:'#' }}">{{ app.title }}</a></div>
+                          <div class="icon-text"><a href="/app.php?id={{ app.id }}">{{ app.title }}</a></div>
                       </div>
                   {% empty %}
                       <div style="text-align: center; padding: 50px 20px; color: #555;">
@@ -135,9 +135,9 @@
               <div class="profile_block_content">
                   {% for invited in obj.invited_users.all|slice:":5" %}
                       <div class="user">
-                          <a href="?id={{ invited.id }}">
-                              {% if invited.avatar %}
-                                  <img src="{{ invited.avatar.url }}" alt="{{ invited.username }}" class="user-img">
+                          <a href="/profile.php?id={{ invited.id }}">
+                              {% if invited.avatar_path %}
+                                  <img src="{{ invited.avatar_url }}" alt="{{ invited.username }}" class="user-img">
                               {% else %}
                                   <img src="{% static '../img/noavatar_64.jpg' %}" alt="{{ invited.username }}" class="user-img">
                               {% endif %}

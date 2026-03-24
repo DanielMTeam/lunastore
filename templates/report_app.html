@@ -5,62 +5,62 @@
 {% block content %}
 <title>{% trans "PAGE_REPORTAPP_PAGE_TITLE" %} - {{ name }} - LunaStore</title>
 
-<link rel="stylesheet" href="{% static './css/stpage.css' %}">
-<link rel="stylesheet" href="{% static './css/reviews.css' %}">
+<link rel="stylesheet" href="{% static 'css/stpage.css' %}">
+<link rel="stylesheet" href="{% static 'css/reviews.css' %}">
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
 
 <div class="content">
     <div class="separator_store"></div>
-    <div class="backblock">
-        <div class="backb">
-            <li class="back">
-                <a href="/">{% trans "PAGE_REPORTAPP_BACK" %}</a>
-            </li>
-        </div>
-    </div>
 
     <div class="section">
         <div class="st_general_card">
             <div class="st_app_icon">
-                <img src="{{ icon }}" alt="{{ name }}">
+                <img src="{{ icon }}" alt="{{ name }}" style="width: 48px; height: 48px; display: block; object-fit: contain;">
             </div>
+
             <div class="st_precard">
                 <div class="st_card_title">{{ name }}</div>
                 <div class="st_card_desc">{{ slogan }}</div>
-            </div>
-            <div class="st_clearb"> </div>
+                </div>
+            <div class="st_clearb"></div>
         </div>
-        
+
         <div class="st_headerline"></div>
 
         <div class="st_other_card">
-            <link rel="stylesheet" href="{% static './css/profile.css' %}">
             <div class="profile_block">{% trans "PAGE_REPORTAPP_TITLE" %}</div>
-            <form method="POST">
-            {% csrf_token %}
-            <div class="profile_block_content">
-                {% trans "PAGE_REPORTAPP_INFO_1" %} <b>{{ app.title }}</b><br><br>
-                {% trans "PAGE_REPORTAPP_INFO_2" %}<br><br>
-                
-                <div class="radio_group">
-                    {% for radio in form.reason %}
-                        <div class="radio_item">
-                            {{ radio.tag }}
-                            <label for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
-                        </div>
-                    {% endfor %}
-                </div>
 
-                {% trans "PAGE_REPORTAPP_EXPLAIN_LABEL" %}<br><br>
-                {{ form.description }}
-                {% if form.description.errors %}
-                    <div class="error_splash">{{ form.description.errors }}</div>
-                {% endif %}
+            <div class="profile_block_content">
+                <form method="POST">
+                    {% csrf_token %}
+
+                    {% trans "PAGE_REPORTAPP_INFO_1" %} <b>{{ name }}</b><br><br>
+                    {% trans "PAGE_REPORTAPP_INFO_2" %}<br><br>
+
+                    <div class="radio_group">
+                        {% for radio in form.reason %}
+                            <div class="radio_item">
+                                {{ radio.tag }}
+                                <label for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    {% trans "PAGE_REPORTAPP_EXPLAIN_LABEL" %}<br><br>
+                    {{ form.description }}
+
+                    {% if form.description.errors %}
+                        <br>
+                        <div class="error_splash">{{ form.description.errors }}</div>
+                    {% endif %}
+
+                    <br><br>
+                    <input type="submit" value="{% trans 'PAGE_REPORTAPP_SUBMIT_BTN' %}" class="action_button">
+                </form>
             </div>
-            <br>
-            <input type="submit" value="{% trans 'PAGE_REPORTAPP_SUBMIT_BTN' %}" class="action_button">
-        </form>
         </div>
-        <div class="st_clearb"> </div>
+
+        <div class="st_clearb"></div>
     </div>
 </div>
 </div>

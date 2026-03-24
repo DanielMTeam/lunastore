@@ -253,6 +253,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "lunastore.wsgi.application"
 
+MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",

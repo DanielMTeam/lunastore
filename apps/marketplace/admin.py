@@ -15,7 +15,7 @@ from .models import *
 
 class DistributionInline(admin.TabularInline):
     model = Distribution
-    fields = ("version", "file", "url", "changelog", "published")
+    fields = ("version", "url", "changelog", "published")
     readonly_fields = ("published",)
     extra = 0
 
@@ -216,7 +216,7 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin):
 
         req.status = "approved"
         req.save()
-
+        req.delete()
         self.message_user(request, "Приложение(-ия) успешно создано!", messages.SUCCESS)
         return redirect(
             reverse("admin:marketplace_appcreaterequests_change", args=[object_id])
@@ -231,6 +231,7 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin):
         req = self.get_object(request, object_id)
         req.status = "rejected"
         req.save()
+        req.delete()
         self.message_user(request, "Заявка отклонена", messages.INFO)
         return redirect(
             reverse("admin:marketplace_appcreaterequests_change", args=[object_id])
@@ -361,7 +362,7 @@ class AppEditRequestsAdmin(SafeDeleteAdmin):
 
         req.status = "approved"
         req.save()
-
+        req.delete()
         self.message_user(request, "Приложение успешно обновлено!", messages.SUCCESS)
         return redirect(
             reverse("admin:marketplace_appeditrequests_change", args=[object_id])
@@ -376,6 +377,7 @@ class AppEditRequestsAdmin(SafeDeleteAdmin):
         req = self.get_object(request, object_id)
         req.status = "rejected"
         req.save()
+        req.delete()
         self.message_user(request, "Заявка отклонена", messages.INFO)
         return redirect(
             reverse("admin:marketplace_appeditrequests_change", args=[object_id])
