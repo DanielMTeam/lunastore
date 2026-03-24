@@ -19,7 +19,6 @@
 stages:    
   - test
   - build
-  - deploy
 
 variables:
   IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
@@ -58,39 +57,5 @@ build-job:
     - echo "|| Build complete. Attempting to push"
     - docker push $IMAGE_TAG
     - docker push $LATEST_TAG
-  only:
-    - main
-
-deploy-job:      
-  stage: deploy 
-  environment: production
-
-  before_script:
-    - mkdir -p ~/.ssh
-    - chmod 700 ~/.ssh
-    - cp "$SSH_PRIVATE_KEY" ~/.ssh/id_ed25519
-    - chmod 600 ~/.ssh/id_ed25519
-    - ssh-keyscan -H "$PROD_HOST" > ~/.ssh/known_hosts
-
-  script:
-    - scp -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no docker-compose.yml "$PROD_USER@$PROD_HOST":/mnt/data/docker/lunastore/docker-compose.yml
-    - |
-      ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no "$PROD_USER@$PROD_HOST" \
-      "set -e; \
-       echo 'Logging into registry...'; \
-       docker login -u '$CI_REGISTRY_USER' -p '$CI_REGISTRY_PASSWORD' '$CI_REGISTRY'; \
-       cd /mnt/data/docker/lunastore; \
-       echo 'Pulling new image...'; \
-       docker pull '$IMAGE_TAG'; \
-       docker tag '$IMAGE_TAG' '$LATEST_TAG'; \
-       echo 'Restarting containers...'; \
-       docker compose up -d --no-deps --force-recreate web admin api; \
-       echo 'Running migrations...'; \
-       docker compose exec -T web python manage.py migrate; \
-       docker compose exec -T web python manage.py collectstatic --noinput; \
-       echo 'Cleaning old images...'; \
-       docker image prune -f; \
-       echo 'Deploy completed successfully.'"
-
   only:
     - main
