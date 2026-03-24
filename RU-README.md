@@ -1,5 +1,6 @@
 <div align="center">
-  <img src="staticfiles/img/logo_full.png" alt="LunaStore Logo" width="300">
+  <img src="staticfiles/img/logo.png" alt="LunaStore Logo" width="300" height="300">
+  <br><br>
 
   # LunaStore
 
@@ -10,7 +11,7 @@
 
   <br>
 
-  [English Documentation](README.md) • [Русская документация](#)
+  [English](README.md) • [Русский](#)
 </div>
 
 ---

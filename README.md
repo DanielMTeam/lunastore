@@ -1,5 +1,6 @@
 <div align="center">
-  <img src="staticfiles/img/logo_full.png" alt="LunaStore Logo" width="300">
+  <img src="staticfiles/img/logo.png" alt="LunaStore Logo" width="300" height="300">
+  <br><br>
 
   # LunaStore
 
@@ -10,7 +11,7 @@
 
   <br>
 
-  [English Documentation](README.md) • [Русская документация](#)
+  [English](README.md) • [Русский](#)
 </div>
 
 ---
@@ -26,8 +27,8 @@
 
 ## 📚 Documentation
 
-* 🛠 **[Installation Guide](docs/installation_en.md)** — detailed deployment instructions
-* ⚙️ **[API Documentation](docs/api-documentation_en.md)** — description of API methods for developers
+* 🛠 **[Installation Guide](docs/installation.md)** — detailed deployment instructions
+* ⚙️ **[API Documentation](docs/api-documentation.md)** — description of API methods for developers
 
 ---
 
