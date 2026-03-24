@@ -24,6 +24,29 @@ services:
       timeout: 5s
       retries: 5
 
+  lunaspire:
+    build: ./lunaspire/
+    image: lunaspire:local
+    env_file:
+      - ./lunaspire/.env
+    restart: unless-stopped
+    networks:
+      - storenetwork
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./public/:/root/public/
+      - ./storage/:/root/storage/
+    command: >
+      sh -c "./main"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
   x-lunastore-template: &lunastore_base
     image: lunastore:local
     env_file:
@@ -33,6 +56,8 @@ services:
       - storenetwork
     depends_on:
       db:
+        condition: service_healthy
+      lunaspire:
         condition: service_healthy
     volumes:
       - static_volume:/app/staticfiles_build
