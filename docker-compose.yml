@@ -63,7 +63,7 @@ services:
         condition: service_healthy
     volumes:
       - static_volume:/app/staticfiles_build
-      - media_volume:/root/lunastore/media
+      - /opt/lunastore/media:/app/media
     command: >
       sh -c "python manage.py collectstatic --noinput &&
              DJANGO_ROOT_URLCONF=lunastore.urls_api      gunicorn lunastore.wsgi:application --bind 0.0.0.0:7088 --workers 2 &
