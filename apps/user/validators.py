@@ -18,7 +18,10 @@ def validate_username_blacklist(value):
             raise ValidationError('Nickname containcs ban-word(-s)')
 
 def validate_invite_limit(owner):
-    time_threshold = timezone.now() - timedelta(days=settings.MAX_INVITE_DAYS_LIMIT)
+    time_threshold = timezone.now() - timedelta(
+        days=int(settings.MAX_INVITE_DAYS_LIMIT)
+    )
+
     
     recent_invites_count = User.objects.filter(
         invited_by = owner,
