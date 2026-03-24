@@ -67,6 +67,7 @@ services:
 
 networks:
   storenetwork:
+    name: lunastore_network
     driver: bridge
 
 volumes:
