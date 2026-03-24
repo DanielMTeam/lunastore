@@ -15,3 +15,4 @@ gunicorn
 PyJWT
 django-cors-headers
 django-extensions
+whitenoise

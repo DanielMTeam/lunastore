@@ -49,6 +49,8 @@ MOTD_LIST = [
 
 STATIC_ROOT = BASE_DIR / "static"
 
+ENABLE_DRM = os.getenv("ENABLE_DRM", "False")
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -208,6 +210,7 @@ UNFOLD = {
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -224,7 +227,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [BASE_DIR / "templates"],
-        "APP_DIRS": True,
+        "APP_DIRS": True,gdsf
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.request",
@@ -233,6 +236,7 @@ TEMPLATES = [
                 "django.template.context_processors.media",
                 "apps.core.context_processors.motd_processor",
                 "apps.core.context_processors.random_banner",
+                "apps.core.context_processors.drm_settings",
             ],
         },
     },
