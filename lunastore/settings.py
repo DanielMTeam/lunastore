@@ -358,7 +358,7 @@ LOGGING = {
 
 LANGUAGE_CODE = "ru"
 
-LANGUAGES = [("ru", "Russian"), ("en", "English"), ("be", "Belarusian")]
+LANGUAGES = [("ru", "Russian")]
 
 TIME_ZONE = "UTC"
 
