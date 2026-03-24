@@ -156,16 +156,21 @@ def register(request):
 
 def profile(request):
     id = request.GET.get("id")
+
     if id:
         obj = get_object_or_404(User, id=id)
-        return render(request, "profile.html", context={"obj": obj})
     else:
         if not request.user.is_authenticated:
             raise Http404(
                 "No ID provided and you (maybe; or you just have a problem with your cookie) is anonymous"
             )
         obj = get_object_or_404(User, id=request.user.id)
-        return render(request, "profile.html", context={"obj": obj})
+    apps_count = Application.objects.filter(user=obj).count()
+    return render(
+        request,
+        "profile.html",
+        context={"obj": obj, "apps_count": apps_count},
+    )
 
 
 @login_required

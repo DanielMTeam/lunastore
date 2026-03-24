@@ -31,20 +31,14 @@
             <br>
             <small>
                 <span class="last-visit">
-                        {% blocktranslate trimmed count counter=obj.apps_count|default:0 %}
-                            {{ counter }} PAGE_PROFILE_STATS_APP
-                        {% plural %}
-                            {{ counter }} PAGE_PROFILE_STATS_APPS
-                        {% endblocktranslate %}
+                    {% blocktranslate trimmed count counter=apps_count|default:0 %}
+                        {{ counter }} PAGE_PROFILE_STATS_APP
+                    {% plural %}
+                        {{ counter }} PAGE_PROFILE_STATS_APPS
+                    {% endblocktranslate %}
 
-                        {% blocktranslate trimmed count counter=obj.reviews_count|default:0 %}
-                            {{ counter }} PAGE_PROFILE_STATS_REVIEW
-                        {% plural %}
-                            {{ counter }} PAGE_PROFILE_STATS_REVIEWS
-                        {% endblocktranslate %}
-
-                        {% trans "PAGE_PROFILE_STATS_MEMBER_SINCE" %} {{ obj.date_joined|date:"d E Y" }}
-                    </span>
+                    {% trans "PAGE_PROFILE_STATS_MEMBER_SINCE" %} {{ obj.date_joined|date:"d E Y" }}
+                </span>
             </small>
         </div>
         <div style="clear: both;"></div>
