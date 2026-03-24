@@ -36,8 +36,8 @@ services:
       db:
         condition: service_healthy
     volumes:
-      - ./public/:/root/public/
-      - ./storage/:/root/storage/
+      - ./lunaspire/public:/root/public
+      - ./lunaspire/storage:/root/storage
     command: >
       sh -c "./main"
     healthcheck:
