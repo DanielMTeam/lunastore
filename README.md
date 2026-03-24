@@ -1,27 +1,36 @@
-<center>
-<img src="staticfiles/img/logo_full.png">
-</center>
+<div align="center">
+  <img src="staticfiles/img/logo_full.png" alt="LunaStore Logo" width="300">
 
-<br>
+  # LunaStore
 
-# <center>LunaStore</center>
+  **An app store for old operating systems (Windows XP and others)**
 
-<center><b><i>App store for older systems (Windows XP, etc.)</i></b>
-<br><br>
+  [![Website](https://img.shields.io/website?url=https%3A%2F%2Flunastore.app&up_message=online&up_color=blue&style=flat-square&label=Website)](https://lunastore.app)
+  [![Telegram](https://img.shields.io/badge/Our_channel-Telegram-blue?style=flat-square&logo=telegram)](https://t.me/lunastore_official)
 
-> [RU Documentation](RU-README.md)
+  <br>
 
+  [English Documentation](README.md) • [Русская документация](#)
+</div>
 
-<a href="https://store.myslivets.com"><img alt="Website" src="https://img.shields.io/website?url=https%3A%2F%2Fstore.myslivets.com&up_color=blue&style=plastic"></a>
-<a href="https://t.me/lunastore_official"><img alt="Telegram Channel" src="https://img.shields.io/website?url=https%3A%2F%2Ft.me%2Flunastore_official&up_message=telegram%20channel&up_color=blue&style=plastic&label=our"></a>
-</center>
+---
 
-<br>
-LunaStore is an enthusiastic project that allows people who love retro aesthetics and similar styles to download applications for older systems, such as Windows XP or similar.
-<br><br>
+**LunaStore** is an enthusiast project created for lovers of retro aesthetics. It makes it easy to find and download programs for older operating systems, primarily Windows XP.
 
-> [Installation](docs/installation.md)
+**LunaStore** is built on a fairly modern stack to guarantee fast performance, good optimization, and compatibility even with Internet Explorer 6:
 
-> [API Documentation](docs/api-documentation.md)
+* **Language and framework:** Django (Python), our custom LunaSpire engine (written in Go; for CDN and other cool things in the future)
+* **Database:** PostgreSQL 18
+* **Infrastructure:** Docker, Docker Compose
+* **Authentication:** OpenID (OIDC) support is available
 
-<b>Made with love by DM Team ❤️</b>
+## 📚 Documentation
+
+* 🛠 **[Installation Guide](docs/installation_en.md)** — detailed deployment instructions
+* ⚙️ **[API Documentation](docs/api-documentation_en.md)** — description of API methods for developers
+
+---
+
+<div align="center">
+  <b>Made with love and soul by the DM Team ❤️</b>
+</div>
