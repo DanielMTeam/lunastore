@@ -31,7 +31,7 @@ class UserAdmin(unfold_admin.ModelAdmin):
                     "email",
                     "description",
                     "password",
-                    "avatar",
+                    "avatar_url",
                     "is_staff",
                     "is_superuser",
                     "is_active",
