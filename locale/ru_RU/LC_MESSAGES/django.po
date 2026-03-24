@@ -1119,7 +1119,7 @@ msgstr "Команда LunaStore"
 
 #: templates/profile.html:31
 msgid "CARD_USER_NO_DESC"
-msgstr ""
+msgstr "Описание профиля отсутствует"
 
 #: templates/profile.html:38
 msgid "%(counter)s PAGE_PROFILE_STATS_APP"
