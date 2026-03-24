@@ -42,6 +42,10 @@ ALLOWED_HOSTS = [
     host.strip() for host in os.getenv("ALLOWED_HOSTS", "").split(";") if host.strip()
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    c.strip() for c in os.getenv("CSRF_TRUSTED_ORIGINS", "").split(";") if c.strip()
+]
+
 # MOTD List of site (you can see that in the header)
 MOTD_LIST = [
     msg.strip() for msg in os.getenv("MOTD_LIST", "").split(";") if msg.strip()
