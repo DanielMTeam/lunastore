@@ -21,6 +21,9 @@ LUNASPIRE_SECRET_KEY = os.getenv("LUNASPIRE_SECRET_KEY")
 LUNASPIRE_URL = os.getenv("LUNASPIRE_URL")
 API_URL = os.getenv("API_URL", "http://localhost:7088")
 
+SESSION_COOKIE_DOMAIN = os.getenv("SESSION_COOKIE_DOMAIN", ".lunastore.app")
+CSRF_COOKIE_DOMAIN = os.getenv("CSRF_COOKIE_DOMAIN", ".lunastore.app")
+
 CORS_ALLOW_CREDENTIALS = True
 
 if not DEBUG:
