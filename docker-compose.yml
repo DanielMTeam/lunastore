@@ -38,6 +38,8 @@ services:
     volumes:
       - ./lunaspire/public:/root/public
       - ./lunaspire/storage:/root/storage
+    ports:
+      - "6080:8080"
     command: >
       sh -c "./main"
     healthcheck:
