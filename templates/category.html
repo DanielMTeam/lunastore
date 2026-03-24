@@ -40,7 +40,11 @@
  </div>
     {% for app in page_obj %}
     <div class="card listview">
-      <img src="{{ app.icon.url }}" alt="">
+        {% if app.icon_path %}
+            <img src="{{ app.icon_url }}" alt="{{ app.title }}">
+        {% else %}
+            <img src="{% static './img/noavatar_64.jpg' %}" alt="{{ app.title }}">
+        {% endif %}
       <h3>{{ app.title }}</h3>
       <p>{{ app.slogan }}</p>
       {% if app.is_demo %}
@@ -66,69 +70,6 @@
         {% endif %}
       {% endif %}
     </div>
-    <!-- <div class="card listview">
-      <img src="./cdn/appsicons/dymvoip.png" alt="">
-      <h3>DymVOIP</h3>
-      <p>Телефон больше не нужен! Звоните друзьям без теле...</p>
-      <div class="badge">$0.99</div>
-      <div class="action"><a href="#">Купить</a></div>
-    </div>
-    <div class="card listview">
-      <img src="./cdn/appsicons/winamp.png" alt="">
-      <h3>Winamp</h3>
-      <p>It really whips the llama's ass!</p>
-      <div class="badge free">Бесплатно</div>
-      <div class="action"><a href="#">Установить</a></div>
-    </div>
-    <div class="card listview">
-      <img src="./cdn/appsicons/spotify.png" alt="">
-      <h3>Spotify</h3>
-      <p>Музыка для всех</p>
-      <div class="badge free">Бесплатно</div>
-      <div class="action"><a href="#">Установить</a></div>
-    </div>
-    <div class="card listview">
-      <img src="./cdn/appsicons/winamp.png" alt="">
-      <h3>Winamp</h3>
-      <p>It really whips the llama's ass!</p>
-      <div class="badge free">Бесплатно</div>
-      <div class="action"><a href="#">Установить</a></div>
-    </div>
-    <div class="card listview">
-      <img src="./cdn/appsicons/spotify.png" alt="">
-      <h3>Spotify</h3>
-      <p>Музыка для всех</p>
-      <div class="badge free">Бесплатно</div>
-      <div class="action"><a href="#">Установить</a></div>
-    </div>
-    <div class="card listview">
-      <img src="./cdn/appsicons/totalcmd.png" alt="">
-      <h3>Total Commander</h3>
-      <p>Лучший файловый менеджер для Windows...</p>
-      <div class="badge demo">Демо, далее $49.99</div>
-      <div class="action"><a href="./storepage.html">Демо</a></div>
-    </div>
-    <div class="card listview">
-      <img src="./cdn/appsicons/totalcmd.png" alt="">
-      <h3>Total Commander</h3>
-      <p>Лучший файловый менеджер для Windows...</p>
-      <div class="badge demo">Демо, далее $49.99</div>
-      <div class="action"><a href="./storepage.html">Демо</a></div>
-    </div>
-    <div class="card listview">
-      <img src="./cdn/appsicons/totalcmd.png" alt="">
-      <h3>Total Commander</h3>
-      <p>Лучший файловый менеджер для Windows...</p>
-      <div class="badge demo">Демо, далее $49.99</div>
-      <div class="action"><a href="./storepage.html">Демо</a></div>
-    </div>
-    <div class="card listview">
-      <img src="./cdn/appsicons/totalcmd.png" alt="">
-      <h3>Total Commander</h3>
-      <p>Лучший файловый менеджер для Windows...</p>
-      <div class="badge demo">Демо, далее $49.99</div>
-      <div class="action"><a href="./storepage.html">Демо</a></div>
-    </div> -->
     <div style="clear:both"></div>
     {% endfor %}
 

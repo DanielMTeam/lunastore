@@ -18,6 +18,18 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+        const allowedExtensions = ["png", "jpg", "jpeg", "webp", "gif"];
+        const fileExtension = file.name.split(".").pop().toLowerCase();
+        const isImage = file.type.startsWith("image/");
+
+        if (!allowedExtensions.includes(fileExtension) || !isImage) {
+            alert(
+                "Ошибка: Можно загружать только изображения (PNG, JPG, WEBP, GIF).",
+            );
+            fileInput.value = "";
+            return;
+        }
+
         const originalBtnText = submitBtn.innerText;
         submitBtn.innerText = config.i18n.uploading;
         submitBtn.disabled = true;

@@ -200,7 +200,12 @@ def application_edit_info(request, pk):
             edit_request = form.save(commit=False)
             edit_request.user = request.user
             edit_request.save()
+            messages.success(request, _("PAGE_ADMIN_APP_MSG_SAVE_SUCCESS"))
+            request.session.save()
             return redirect("edit_app_info", pk=obj.pk)
+        else:
+            messages.error(request, _("PAGE_ADMIN_APP_MSG_SAVE_ERROR"))
+            request.session.save()
     else:
         form = AppEditForm(target_app=obj)
 
@@ -286,7 +291,7 @@ def report_app(request):
         "form": form,
         "name": obj.title,
         "slogan": obj.slogan,
-        "icon": obj.icon.url,
+        "icon": obj.icon_url,
     }
     return render(request, "report_app.html", context)
 

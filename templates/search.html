@@ -90,13 +90,13 @@
     {% for app in results %}
         <div class="card {% if view_mode == 'list' %}listview{% endif %}">
 
-            {% if app.icon %}
-                <img src="{{ app.icon.url }}" alt="{{ app.title }}">
+            {% if app.icon_path %}
+                <img src="{{ app.icon_url }}" alt="{{ app.title }}">
             {% else %}
-                <img src="{% static 'img/default_icon.png' %}" alt="{% trans 'PAGE_SEARCH_IMG_ALT_NONE' %}">
+                <img src="{% static './img/noavatar_64.jpg' %}" alt="{% trans 'PAGE_SEARCH_IMG_ALT_NONE' %}">
             {% endif %}
 
-            <h3>{{ app.title }}</h3>
+            <a href="/app.php?id={{ app.pk }}"><h3>{{ app.title }}</h3></a>
             <p>{{ app.slogan }}</p>
 
             {% if app.is_demo %}

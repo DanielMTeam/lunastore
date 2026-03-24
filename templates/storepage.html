@@ -23,7 +23,7 @@
             <div class="st_clearb"></div>
 
             <div class="st_card_author" style="font-size: 11px;">
-                {% trans "PAGE_APP_LABEL_AUTHOR" %} <a href="/profile.php?id={{ app_id }}">{{ developer_name }}</a>
+                {% trans "PAGE_APP_LABEL_AUTHOR" %} <a href="/profile.php?id={{ developer_id }}">{{ developer_name }}</a>
             </div>
         </div>
 
@@ -115,11 +115,12 @@
         <h2>{% trans "PAGE_APP_SECTION_ACTIONS" %}</h2>
         <div class="separator_store"></div>
         <div class="actionsm">
-            <li class="offsite"><a href="{{ developer_site }}">{% trans "PAGE_APP_ACTION_SITE" %}</a></li>
-            <li class="alert"><a href="/report.php?act=new&app_id={{ app_id }}">{% trans "PAGE_APP_ACTION_REPORT" %}</a></li>
+            {% if developer_site %}
+                <li class="offsite"><a href="{{ developer_site }}">{% trans "PAGE_APP_ACTION_SITE" %}</a></li>
+            {% endif %}
+            <li class="alert"><a href="/report_app.php?id={{ app_id }}">{% trans "PAGE_APP_ACTION_REPORT" %}</a></li>
             <li class="otherapps"><a href="/search.php?page=apps&author_id={{ developer_id|default:1 }}">{% trans "PAGE_APP_ACTION_MORE_APPS" %}</a></li>
         </div>
-        <i>{% trans "PAGE_APP_LABEL_DOWNLOADS" %}: 465688</i>
     </div>
 
     <div class="st_clearb"></div>
