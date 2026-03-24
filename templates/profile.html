@@ -91,16 +91,6 @@
                   <div class="profile_desc_element">{{ obj.discord|default:"-" }}</div>
               </div>
 
-              <div class="profile_desc_element_head">{% trans "PAGE_PROFILE_LABEL_EMAIL" %}
-                  <div class="profile_desc_element">
-                      {% if obj.email %}
-                          <a href="mailto:{{ obj.email }}">{{ obj.email }}</a>
-                      {% else %}
-                          -
-                      {% endif %}
-                  </div>
-              </div>
-
           </div>
           <br>
 
