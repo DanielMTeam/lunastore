@@ -23,10 +23,16 @@ API_URL = os.getenv("API_URL", "http://localhost:7088")
 
 ADMIN_URL = os.getenv("ADMIN_URL", "admin")
 
+<<<<<<< HEAD
 SESSION_COOKIE_DOMAIN = os.getenv("SESSION_COOKIE_DOMAIN", ".lunastore.app")
 CSRF_COOKIE_DOMAIN = os.getenv("CSRF_COOKIE_DOMAIN", ".lunastore.app")
 
+=======
+>>>>>>> fd172f14a06083285c90c8803e5a2621ac2b6e3b
 CORS_ALLOW_CREDENTIALS = True
+
+SESSION_COOKIE_DOMAIN = os.getenv("SESSION_COOKIE_DOMAIN", ".lunastore.app")
+CSRF_COOKIE_DOMAIN = os.getenv("CSRF_COOKIE_DOMAIN", ".lunastore.app")
 
 if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")

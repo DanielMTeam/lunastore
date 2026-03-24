@@ -33,6 +33,10 @@ class UserAdmin(unfold_admin.ModelAdmin):
                     "password",
                     "avatar_path",
                     "avatar_id",
+<<<<<<< HEAD
+=======
+                    "is_staff",
+>>>>>>> fd172f14a06083285c90c8803e5a2621ac2b6e3b
                     "is_superuser",
                     "is_active",
                     "invited_by",

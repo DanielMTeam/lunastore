@@ -1,0 +1,3 @@
+[submodule "lunaspire"]
+	path = lunaspire
+	url = https://git.myslivets.com/myslivets/project-luna/lunaspire.git
