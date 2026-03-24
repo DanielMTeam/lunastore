@@ -24,6 +24,31 @@ services:
       timeout: 5s
       retries: 5
 
+  lunaspire:
+    build: ./lunaspire/
+    image: lunaspire:local
+    env_file:
+      - ./lunaspire/.env
+    restart: unless-stopped
+    networks:
+      - storenetwork
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./lunaspire/public:/root/public
+      - ./lunaspire/storage:/root/storage
+    ports:
+      - "6080:8080"
+    command: >
+      sh -c "./main"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
   x-lunastore-template: &lunastore_base
     image: lunastore:local
     env_file:
@@ -34,9 +59,11 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      lunaspire:
+        condition: service_healthy
     volumes:
       - static_volume:/app/staticfiles_build
-      - media_volume:/root/lunastore/media
+      - /opt/lunastore/media:/app/media
     command: >
       sh -c "python manage.py collectstatic --noinput &&
              DJANGO_ROOT_URLCONF=lunastore.urls_api      gunicorn lunastore.wsgi:application --bind 0.0.0.0:7088 --workers 2 &
@@ -44,7 +71,7 @@ services:
              DJANGO_ROOT_URLCONF=lunastore.urls          gunicorn lunastore.wsgi:application --bind 0.0.0.0:9088 --workers 2 &
              wait"
     healthcheck:
-      test: ["CMD-SHELL", "curl -fs http://localhost:7088/method/service/heartbeat/ && curl -fs http://localhost:8088/admin/login/ && curl -fs http://localhost:9088/ || exit 1"]
+      test: ["CMD-SHELL", "curl -fs http://localhost:7088/method/service/heartbeat/ && curl -fs http://localhost:8088/${ADMIN_URL:-admin}/login/ && curl -fs http://localhost:9088/ || exit 1"]
       interval: 10s
       retries: 3
       start_period: 60s
@@ -67,6 +94,7 @@ services:
 
 networks:
   storenetwork:
+    name: lunastore_network
     driver: bridge
 
 volumes:

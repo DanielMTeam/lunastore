@@ -124,9 +124,9 @@
 
       <div class="sidebar_image_box">
           {% if sidebar_banner %}
-                <a href="{{ sidebar_banner.url|default:'#' }}" {% if sidebar_banner.url %}target="_blank" rel="noopener noreferrer"{% endif %}>
-                      <img src="{{ sidebar_banner.image.url }}" alt="{{ sidebar_banner.title }}" style="max-width: 100%; height: auto; display: block;">
-                </a>
+            <a href="{{ sidebar_banner.url|default:'#' }}" {% if sidebar_banner.url %}target="_blank" rel="noopener noreferrer"{% endif %}>
+              <img src="{{ sidebar_banner.image.url }}" alt="{{ sidebar_banner.title }}" style="max-width: 100%; height: auto; display: block;">
+            </a>
           {% else %}
               <a href="#">
                   <img src="{% static 'banner/banner.png' %}" alt="Info">
@@ -140,7 +140,7 @@
     {% endblock %}
 
     <div class="footer">
-    <a href="/help_center.php">FAQ</a> - <a href="/help_center?page=privacy">{% trans "BASE_PRIVACYPOLICYBTN" %}</a> - <a href="https://t.me/lunastore_official">Telegram</a>
+    <a href="/help_center.php">FAQ</a> - <a href="/help_center.php?page=privacy">{% trans "BASE_PRIVACYPOLICYBTN" %}</a> - <a href="https://t.me/lunastore_official">Telegram</a>
     <div style="text-align: right; font-size: 11px;">{% trans "BASE_FOOTER_TEXT_1" %} {% now "Y" %}<br>{% trans "BASE_FOOTER_TEXT_2" %}</div>
   </div>
 
@@ -176,8 +176,7 @@ function doSearch() {
     background-image: url('{% url "drm_bg" %}');
     background-repeat: repeat;
     pointer-events: none;
-    z-index: 9999;
-"></div>
+    z-index: 9999;"></div>
 {% endif %}
 </body>
 </html>
