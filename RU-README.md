@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="staticfiles/img/logo_full.png" alt="LunaStore Logo" width="300">
+  <img src="staticfiles/img/logo.png" alt="LunaStore Logo" width="300">
 
   # LunaStore
 

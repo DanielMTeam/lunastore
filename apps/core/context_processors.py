@@ -10,3 +10,7 @@ def random_banner(request):
 
 def motd_processor(request):
     return {"motds": getattr(settings, "MOTD_LIST", ["Windows XP Professional"])}
+
+
+def drm_settings(request):
+    return {"ENABLE_DRM": getattr(settings, "ENABLE_DRM", False)}
