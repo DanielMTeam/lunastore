@@ -53,7 +53,8 @@ class ApplicationAdmin(SafeDeleteAdmin):
 
     class Meta:
         model = Application
-        exclude = ["user"]
+
+    # exclude = ["user"]
 
     fieldsets = (
         (
@@ -112,10 +113,6 @@ class ApplicationAdmin(SafeDeleteAdmin):
         if not obj.user_id:
             obj.user = request.user
         super().save_model(request, obj, form, change)
-
-    def get_form(self, request, obj=None, **kwargs):
-        kwargs["fields"] = None
-        return super().get_form(request, obj, **kwargs)
 
     def display_screenshots(self, obj):
         html = ""
