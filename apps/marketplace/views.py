@@ -83,6 +83,7 @@ def app(request):
         "screenshot_urls": obj.screenshot_urls,
         "developer_name": obj.user.username,
         "icon_path": obj.icon_path,
+        "requirements": obj.requirements,
     }
     return render(request, "storepage.html", context)
 
