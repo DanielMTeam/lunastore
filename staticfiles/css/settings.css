@@ -140,7 +140,6 @@
 }
 
 .add_app_button {
-    /* --- Твой оригинальный блок (без изменений) --- */
     padding: 5px;
     border: 2px solid #559250;
     background: #5fa359;
@@ -149,15 +148,13 @@
     font-weight: bold;
     font-size: 14px;
 
-    /* --- Доработки для кликабельности, ширины и центровки --- */
-    display: block; /* Делаем блоком, чтобы работали отступы и ширина */
-    width: 100%; /* Растягиваем (можешь поставить больше или меньше) */
-    margin: 10px auto 20px; /* 10px сверху, auto по бокам (центровка), 25px снизу (отступ) */
-    text-decoration: none; /* Убираем подчеркивание ссылки */
-    box-sizing: border-box; /* Чтобы рамка не вылезала за пределы ширины */
+    display: block;
+    width: 100%;
+    margin: 10px auto 20px;
+    text-decoration: none;
+    box-sizing: border-box;
 }
 
-/* Эффект при наведении, чтобы кнопка "оживала" */
 .add_app_button:hover {
     background: #4a8a44;
     color: #fff;
