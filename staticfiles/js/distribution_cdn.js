@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const i18n = window.DIST_CDN_I18N || {};
 
     const fileInput = document.getElementById("id_file");
-    const displaySpan = document.getElementById("file-chosen");
     const form = document.getElementById("distribution-form");
     const tokenInput = document.querySelector(
         'input[name="cdn_confirm_token"]',
@@ -27,7 +26,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
                 try {
-                    // token by django
                     const tokenUrl = new URL(
                         config.getTokenUrl,
                         window.location.origin,
@@ -42,23 +40,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     const djangoJson = await tokenRes.json();
                     const uploadToken = djangoJson.upload_token;
+                    const file = fileInput.files[0];
+                    const uploadUrl = new URL(config.cdnUploadUrl);
+                    uploadUrl.searchParams.append("token", uploadToken);
 
-                    // send to lunaspire-cdn
                     const fd = new FormData();
-                    fd.append("token", uploadToken);
-                    fd.append("file", fileInput.files[0]);
+                    fd.append("file", file);
+                    fd.append("mime_type", file.type);
 
-                    const cdnRes = await fetch(config.cdnUploadUrl, {
+                    const cdnRes = await fetch(uploadUrl.toString(), {
                         method: "POST",
                         body: fd,
                         mode: "cors",
                     });
 
-                    if (!cdnRes.ok) {
+                    if (cdnRes.status !== 202 && !cdnRes.ok) {
                         const errorBody = await cdnRes.text();
-                        throw new Error(
-                            `CDN Rejected: ${cdnRes.status} - ${errorBody}`,
-                        );
+                        let errorMsg = `Ошибка CDN (${cdnRes.status}): ${errorBody}`;
+                        if (cdnRes.status === 415)
+                            errorMsg =
+                                "Ошибка: Недопустимый тип файла (415). Пожалуйста, обратитесь к администратору";
+                        if (cdnRes.status === 409)
+                            errorMsg =
+                                "Ошибка: Этот токен загрузки уже использован (409). Пожалуйста, обновите страницу и попробуйте снова";
+                        throw new Error(errorMsg);
                     }
 
                     const cdnJson = await cdnRes.json();

@@ -205,7 +205,7 @@ class AvatarUpdateForm(forms.ModelForm):
                 raise ValidationError(_("INFO_MAXIMUM_AVATAR_SIZE"))
 
             ext = os.path.splitext(avatar.name)[1].lower()
-            valid_extensions = [".jpg", ".jpeg", ".png", ".gif", ".webp"]
+            valid_extensions = [".jpg", ".jpeg", ".png", ".gif", ".webp", ".jfif"]
             if ext not in valid_extensions:
                 raise ValidationError(_("INFO_ACCEPTED_AVATAR_FORMATS"))
 
@@ -243,13 +243,13 @@ class AvatarUpdateForm(forms.ModelForm):
         filepath = self.cleaned_data.get("filepath", "")
 
         if filepath:
-            valid_extensions = [".jpg", ".jpeg", ".png", ".gif", ".webp"]
+            valid_extensions = [".jpg", ".jpeg", ".png", ".gif", ".webp", ".jfif"]
 
             ext = os.path.splitext(filepath)[1].lower()
 
             if ext not in valid_extensions:
                 raise ValidationError(
-                    "Недопустимый формат файла на сервере хранения (CDN)."
+                    "Недопустимый формат файла на сервере хранения (CDN). Пожалуйста, обратитесь к администратору."
                 )
 
         return filepath

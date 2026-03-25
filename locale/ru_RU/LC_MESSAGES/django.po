@@ -1601,8 +1601,9 @@ msgstr "Ваша жалоба отправлена."
 
 msgid "PAGE_REPORTAPP_REASON_MALWARE"
 msgstr "Ааа, помогите, тут вирусы!"
-#~ msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
-#~ msgstr "Демо, далее $%(price)s"
+
+msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
+msgstr "Демо, далее $%(price)s"
 
 msgid "PAGE_REGISTER_HAVE_INVITE_TITLE"
 msgstr "У Вас есть приглашение?"

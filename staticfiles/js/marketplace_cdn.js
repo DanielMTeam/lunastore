@@ -46,15 +46,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const uploadFile = async (file) => {
                 const fd = new FormData();
-                fd.append("token", upload_token);
+                const finalUrl = new URL(config.uploadUrl);
+                finalUrl.searchParams.append("token", upload_token);
                 fd.append("file", file);
-                const res = await fetch(config.uploadUrl, {
+                fd.append("mime_type", file.type);
+
+                const res = await fetch(finalUrl.toString(), {
                     method: "POST",
                     body: fd,
                 });
-                if (!res.ok) throw new Error(i18n.fileError);
+
+                if (res.status !== 202 && !res.ok) {
+                    let errMsg = i18n.fileError;
+                    if (res.status === 415)
+                        errMsg =
+                            "Недопустимый формат файла (415). Пожалуйста, обратитесь к администратору.";
+                    if (res.status === 409)
+                        errMsg =
+                            "Токен уже использован (409). Пожалуйста, обратитесь к администратору.";
+                    throw new Error(errMsg);
+                }
                 const data = await res.json();
-                return data.filepath;
+                return data.filepath || "";
             };
 
             const tasks = [];
@@ -79,9 +92,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 'input[name="cdn_screenshots_data"]',
             );
 
-            if (iconIdx !== -1 && cdnIconField) {
+            if (iconIdx !== -1 && cdnIconField)
                 cdnIconField.value = results[iconIdx];
-            }
             if (hasScreenshots && cdnScreenshotsField) {
                 cdnScreenshotsField.value = JSON.stringify(
                     results.slice(scrStartIdx),
