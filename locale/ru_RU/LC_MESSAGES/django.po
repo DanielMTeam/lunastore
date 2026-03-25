@@ -1917,6 +1917,9 @@ msgstr "Файлы"
 msgid "PAGE_ADMIN_APP_DIST_HEADER"
 msgstr "Управление дистрибуциями — "
 
+msgid "PAGE_MANAGEDIST_CREATE_SUCCESS"
+msgstr "Новая дистрибуция создана"
+
 msgid "PAGE_ADMIN_APP_DIST_ADD_NEW"
 msgstr "Добавить новую версию"
 
