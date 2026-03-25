@@ -489,23 +489,29 @@ h4 {
     text-decoration: none;
     font-size: 14px;
 }
+
 .actionsm li {
     margin: 5px;
     list-style: none;
     padding-left: 24px;
+    background: url(../img/icons.png);
 }
 
 .actionsm li.offsite {
-    background: url(../img/icons.png) no-repeat 0px -180px;
+    background-position: 0px -175px;
+    background-repeat: no-repeat;
 }
 .actionsm li.alert {
-    background: url(../img/icons.png) no-repeat 0px -248px;
+    background-position: 0px -242px;
+    background-repeat: no-repeat;
 }
 .actionsm li.otherapps {
-    background: url(../img/icons.png) no-repeat 0px -293px;
+    background-position: 0px -285px;
+    background-repeat: no-repeat;
 }
 .actionsm li.editapp {
-    background: url(../img/icons.png) no-repeat 0px -271px;
+    background-position: 0px -263px;
+    background-repeat: no-repeat;
 }
 
 .action_button {
@@ -1036,6 +1042,8 @@ input[type="submit"] {
     list-style: none;
     padding-left: 24px;
     line-height: 22px;
+    background: url(../img/icons.png);
+    background-repeat: no-repeat;
 }
 
 .login_user_tile {
@@ -1057,16 +1065,16 @@ input[type="submit"] {
 }
 
 .info_block li.top {
-    background: url(../img/icons.png) no-repeat 0px -24px;
+    background-position: 0px -24px;
 }
 .info_block li.uni {
-    background: url(../img/icons.png) no-repeat 0px -200px;
+    background-position: 0px -197px;
 }
 .info_block li.com {
-    background: url(../img/icons.png) no-repeat 0px -291px;
+    background-position: 0px -284px;
 }
 .info_block li.nxt {
-    background: url(../img/icons.png) no-repeat 0px -224px;
+    background-position: 0px -218px;
 }
 
 .sidebar_image_box {

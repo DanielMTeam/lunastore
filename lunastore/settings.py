@@ -9,17 +9,23 @@ dotenv_path = BASE_DIR / ".env"
 load_dotenv(dotenv_path)
 
 # PLEASE, do not change this, if you don't understand what you do
-VERSION = os.getenv("VERSION", "1.7.0")
+VERSION = os.getenv("VERSION", "1.8.0")
 
 LOCALE_PATHS = [
     BASE_DIR / "locale",
 ]
 
+LOGIN_URL = "login.php"
+
+LOGIN_REDIRECT_URL = "/index.php"
+
+LOGOUT_REDIRECT_URL = "/login.php"
+
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
 LUNASPIRE_SECRET_KEY = os.getenv("LUNASPIRE_SECRET_KEY")
-LUNASPIRE_URL = os.getenv("LUNASPIRE_URL")
-API_URL = os.getenv("API_URL", "http://localhost:7088")
+LUNASPIRE_URL = os.getenv("LUNASPIRE_URL", "spire.lunastore.app")
+API_URL = os.getenv("API_URL", "api.lunastore.app")
 
 ADMIN_URL = os.getenv("ADMIN_URL", "admin")
 

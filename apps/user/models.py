@@ -6,6 +6,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils import timezone
 from django.utils.crypto import get_random_string
+from django.utils.translation import gettext_lazy as _
 from safedelete.models import SOFT_DELETE_CASCADE, SafeDeleteModel
 
 
@@ -16,11 +17,17 @@ class User(AbstractUser, SafeDeleteModel):
         verbose_name = "Пользователь"
         verbose_name_plural = "Пользователи"
 
+    email = models.EmailField(
+        unique=True,
+        error_messages={
+            "unique": _("ERROR_EMAIL_ALREADY_IN_USE"),
+        },
+    )
     telegram = models.CharField(max_length=45, null=True, blank=True)
     discord = models.CharField(max_length=32, null=True, blank=True)
     website = models.URLField(max_length=45, null=True, blank=True)
     description = models.CharField(
-        max_length=255, default="Пока что, описания тут нету"
+        max_length=255, default="Пока что, описания тут нету", blank=True
     )
     invited_by = models.ForeignKey(
         "self",
