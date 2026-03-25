@@ -1,4 +1,5 @@
 import os
+import re
 import uuid
 
 from django.conf import settings
@@ -68,17 +69,21 @@ class BaseApplicationInfo(SafeDeleteModel):
     def icon_url(self):
         if self.icon_path:
             base_url = getattr(settings, "LUNASPIRE_URL", "").rstrip("/")
+            protocol_relative_url = re.sub(r"^https?:", "", base_url)
+
             path = self.icon_path.lstrip("/")
-            return f"{base_url}/{path}"
+            return f"{protocol_relative_url}/{path}"
         return "/staticfiles/img/noavatar_64.jpg"
 
     @property
     def screenshot_urls(self):
         base_url = getattr(settings, "LUNASPIRE_URL", "").rstrip("/")
+        protocol_relative_url = re.sub(r"^https?:", "", base_url)
+
         urls = []
         for path in self.screenshots or []:
             clean_path = path.lstrip("/")
-            urls.append(f"{base_url}/{clean_path}")
+            urls.append(f"{protocol_relative_url}/{clean_path}")
         return urls
 
 
