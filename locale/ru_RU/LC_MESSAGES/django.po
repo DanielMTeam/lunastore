@@ -2067,3 +2067,6 @@ msgstr "Статус разработчика: "
 
 msgid "PAGE_SETTINGS_DEV_STATUS_HAS"
 msgstr "имеется"
+
+msgid "PAGE_MANAGE_APPS_CREATE"
+msgstr "Создать приложение"
