@@ -8,7 +8,6 @@
 .profile_avatar {
     width: 64px;
     height: 64px;
-    background: url("../img/noavatar_64.jpg");
     float: left;
 }
 .profile_name {

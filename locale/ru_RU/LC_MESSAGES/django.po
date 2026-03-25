@@ -75,7 +75,7 @@ msgstr "Максимальный размер файла: 2 МБ."
 
 #: apps/user/forms.py:171
 msgid "INFO_ACCEPTED_AVATAR_FORMATS"
-msgstr "Допустимые форматы: .JPG, .PNG"
+msgstr "Допустимые форматы: .JPG, .PNG, .WEBP, .GIF"
 
 #: apps/user/forms.py:186
 msgid "FORM_DEVSTATUS_YOUR_USERNAME"
@@ -237,6 +237,15 @@ msgstr ""
 "Описание будет показываться на странице приложения в блоке 'Дополнительная "
 "информация'"
 
+msgid "PAGE_ADMIN_APP_REQ"
+msgstr "Системные требования (1400 символов):"
+
+#: templates/admin_app.html:79
+msgid "PAGE_ADMIN_APP_REQDESC"
+msgstr ""
+"Системные требования будут отображаться на странице приложения в блоке "
+"'Дополнительная информация'"
+
 #: templates/admin_app.html:62
 msgid "PAGE_ADMIN_APP_CATEGORY"
 msgstr "Категория:"
@@ -255,7 +264,7 @@ msgstr "Значок приложения"
 
 #: templates/admin_app.html:77
 msgid "PAGE_ADMIN_APP_ICON_REQ1"
-msgstr "Рекомендуемый размер аватара: 64x64."
+msgstr "Рекомендуемый размер значка: 64x64."
 
 #: templates/admin_app.html:78
 msgid "PAGE_ADMIN_APP_ICON_REQ2"
@@ -426,13 +435,23 @@ msgstr "Официальный сайт разработчика:"
 
 #: templates/app_add.html:158
 msgid "PAGE_ADDAPP_STEP2_DESC"
-msgstr "Описание (1000 символов):"
+msgstr "Описание (1400 символов):"
 
 #: templates/app_add.html:160
 msgid "PAGE_ADDAPP_STEP2_DESCDESC"
 msgstr ""
 "Описание будет показываться на странице приложения в блоке 'Дополнительная "
 "информация'"
+
+#: templates/app_add.html:167
+msgid "PAGE_ADDAPP_STEP2_REQ"
+msgstr "Системные требования (1400 символов):"
+
+#: templates/app_add.html:169
+msgid "PAGE_ADDAPP_STEP2_REQDESC"
+msgstr ""
+"Системные требования будут показываться на странице приложения в блоке "
+"'Дополнительная информация'"
 
 #: templates/app_add.html:167
 msgid "PAGE_ADDAPP_STEP2_CATEGORY"
@@ -780,6 +799,13 @@ msgstr "Историю загруженных приложений"
 #: templates/del_acc.html:53
 msgid "PAGE_DELACC_YOULEFTHERE_HISTORY_2"
 msgstr "Ладно, вы хоть раз туда заглядывали?"
+
+msgid "PAGE_DELACC_YOULEFTHERE_INVITES_1"
+msgstr "Вот столько людей, приглашенных вами:"
+
+msgid "PAGE_DELACC_YOULEFTHERE_INVITES_2"
+msgstr "Они останутся без вас и будут расстроены"
+
 
 #: templates/del_acc.html:63
 msgid "PAGE_DELACC_LASTPASS_TITLE"
@@ -1538,6 +1564,9 @@ msgstr "Скриншотов нет."
 msgid "PAGE_APP_SECTION_DESC"
 msgstr "Дополнительная информация"
 
+msgid "PAGE_APP_SECTION_REQ"
+msgstr "Системные требования"
+
 #: templates/storepage.html:110
 msgid "PAGE_APP_SECTION_ACTIONS"
 msgstr "Действия"
@@ -1566,6 +1595,9 @@ msgstr "Жалоба на приложение"
 #: apps/marketplace/models.py:180
 msgid "PAGE_REPORTAPP_TITLE_PATH"
 msgstr "Жалобы на приложения"
+
+msgid "PAGE_REPORTAPP_SUCCESS_MSG"
+msgstr "Ваша жалоба отправлена."
 
 msgid "PAGE_REPORTAPP_REASON_MALWARE"
 msgstr "Ааа, помогите, тут вирусы!"
@@ -2013,3 +2045,15 @@ msgstr "Дополнительная информация (обязательн�
 
 msgid "PAGE_REPORTAPP_SUBMIT_BTN"
 msgstr "Отправить жалобу"
+
+msgid "VIEW_LOGIN_SUCCESS"
+msgstr "Вход выполнен успешно! Привет, %(username)s!"
+
+msgid "ERROR_NEW_PASSWORD_SAME_AS_OLD"
+msgstr "Новый пароль совпадает с старым. Пожалуйста, введите другой пароль."
+
+msgid "ERROR_EMAIL_ALREADY_IN_USE"
+msgstr "Этот e-mail уже используется."
+
+msgid "PAGE_ADDAPP_SUCCESS"
+msgstr "Ваша заявка на добавление приложения успешно отправлена."

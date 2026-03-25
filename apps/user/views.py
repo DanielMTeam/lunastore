@@ -15,6 +15,7 @@ from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
 from PIL import Image
+from safedelete import HARD_DELETE
 
 from apps.marketplace.models import Application
 
@@ -78,6 +79,9 @@ def login(request):
             ):
                 return redirect(next_url)
 
+            messages.success(
+                request, _("VIEW_LOGIN_SUCCESS") % {"username": user.username}
+            )
             return redirect("home")
         else:
             messages.error(request, _("VIEW_LOGIN_INVALID_CREDENTIALS"))
@@ -195,13 +199,17 @@ def profile_settings(request):
                 messages.success(request, _("INFO_PROFILE_IS_UPDATED"))
                 return redirect("settings")
         elif form_type == "password":
-            forms["password_form"] = PasswordChangeForm(user=user, data=request.POST)
+            forms["password_form"] = PasswordChangeForm(request.POST, user=user)
             if forms["password_form"].is_valid():
                 user.set_password(forms["password_form"].cleaned_data["new_password"])
                 user.save()
                 update_session_auth_hash(request, user)
                 messages.success(request, _("INFO_PASSWORD_WAS_CHANGED"))
                 return redirect("settings")
+            else:
+                for field, errors in forms["password_form"].errors.items():
+                    for error in errors:
+                        messages.error(request, error)
         elif form_type == "avatar":
             forms["avatar_form"] = AvatarUpdateForm(request.POST, instance=user)
             if forms["avatar_form"].is_valid():
@@ -297,15 +305,18 @@ def delete_account(request):
     if request.method == "POST":
         form = PasswordConfirmationForm(request.user, request.POST)
         if form.is_valid():
-            user = request.user
-            user.delete()
+            request.user.delete(force_policy=HARD_DELETE)
+            logout(request)
             messages.success(request, _("INFO_ACCOUNT_WAS_DELETED"))
             return redirect("home")
     else:
         form = PasswordConfirmationForm(request.user)
     apps_loaded_count = Application.objects.filter(user=request.user).count()
+    invites = User.objects.filter(invited_by=request.user)
     return render(
-        request, "del_acc.html", {"apps_count": apps_loaded_count, "form": form}
+        request,
+        "del_acc.html",
+        {"apps_count": apps_loaded_count, "form": form, "invites": invites},
     )
 
 
@@ -335,6 +346,10 @@ def invite_code(request):
             request.session.modified = True
             request.session.save()
             return redirect("register")
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, error)
     else:
         form = InviteCodeForm()
 

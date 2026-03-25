@@ -45,6 +45,9 @@ class BaseApplicationInfo(SafeDeleteModel):
     )
     title = models.CharField(max_length=80, verbose_name="Название")
     description = models.CharField(max_length=1400, verbose_name="Описание")
+    requirements = models.CharField(
+        max_length=1400, null=True, verbose_name="Системные требования"
+    )
     slogan = models.CharField(
         max_length=240, null=True, blank=True, verbose_name="Слоган"
     )

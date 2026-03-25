@@ -11,9 +11,9 @@
         <div style="clear: both"></div>
       </div>
   </div>
-  
-  <link rel="stylesheet" href="{% static './css/settings.css'%}"> 
-  <link rel="stylesheet" href="{% static './css/profile.css'%}">   
+
+  <link rel="stylesheet" href="{% static './css/settings.css'%}">
+  <link rel="stylesheet" href="{% static './css/profile.css'%}">
   <link rel="stylesheet" href="{% static './css/tabs.css'%}">
   <div class="tabs">
     <div class="tab-bar">
@@ -27,15 +27,11 @@
       <div class="delete_account_block">{% trans "PAGE_DELACC_WARNTITLE" %}</div>
       <div class="delete_account_content">
         {% trans "PAGE_DELACC_WARNDESC_1" %}<br><br> {% trans "PAGE_DELACC_WARNDESC_2" %} <b>{% trans "PAGE_DELACC_WARNDESC_3" %}</b>. {% trans "PAGE_DELACC_WARNDESC_4" %}<hr>{% trans "PAGE_DELACC_WARNDESC_5" %}<br><br>
-        
+
         <table class="app_version_table" cellpadding="0" cellspacing="0">
             <tr>
                 <th>{% trans "PAGE_DELACC_YOULEFTHERE_TITLE" %}</th>
                 <th>{% trans "PAGE_DELACC_YOULEFTHERE_1" %}</th>
-            </tr>
-
-            <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
-                <td>NULL отзыва</td> <td>Никто не узнает вашего правдивого мнения</td>
             </tr>
 
             <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
@@ -54,8 +50,8 @@
             </tr>
 
             <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
-                <td>NULL приглашённых человека</td>
-                <td>Они останутся без вас и будут расстроены</td>
+                <td>{% trans "PAGE_DELACC_YOULEFTHERE_INVITES_1" %} {{ invites.count }}</td>
+                <td>{% trans "PAGE_DELACC_YOULEFTHERE_INVITES_2" %}</td>
             </tr>
         </table>
         <hr>
@@ -64,11 +60,11 @@
 
         <form method="post" id="delete_confirm_form">
             {% csrf_token %}
-            
+
             <div class="pref_pad">
                 <div class="pref_item_title"></div>
                 <input type="password" name="password" class="input-text" required>
-                
+
                 {% if form.password.errors %}
                     <div style="color: red; font-size: 0.9em; margin-top: 5px;">
                         {{ form.password.errors.0 }}

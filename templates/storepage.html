@@ -12,7 +12,11 @@
     <div class="st_general_card">
 
         <div class="st_app_icon" style="width: 64px; height: 64px; margin-right: 10px; float: left;">
-            <img src='{{ icon_url }}' alt="{{ title }} icon" style="width: 64px; height: 64px; border: 0;">
+            {% if icon_path %}
+                <img src='{{ icon_url }}' alt="{{ title }} icon" style="width: 64px; height: 64px; border: 0;">
+            {% else %}
+                <img src='{% static "img/noavatar_64.jpg" %}' alt="{{ title }} icon" style="width: 64px; height: 64px; border: 0;">
+            {% endif %}
         </div>
 
         <div class="st_precard" style="width: 320px; float: left; margin-left: 0;">
@@ -112,6 +116,12 @@
     </div>
 
     <div class="st_other_card">
+        <h2>{% trans "PAGE_APP_SECTION_REQ" %}</h2>
+        <div class="separator_store"></div>
+        <div class="st_desc">{{ description }}</div>
+    </div>
+
+    <div class="st_other_card">
         <h2>{% trans "PAGE_APP_SECTION_ACTIONS" %}</h2>
         <div class="separator_store"></div>
         <div class="actionsm">
@@ -119,7 +129,7 @@
                 <li class="offsite"><a href="{{ developer_site }}">{% trans "PAGE_APP_ACTION_SITE" %}</a></li>
             {% endif %}
             <li class="alert"><a href="/report_app.php?id={{ app_id }}">{% trans "PAGE_APP_ACTION_REPORT" %}</a></li>
-            <li class="otherapps"><a href="/search.php?page=apps&author_id={{ developer_id|default:1 }}">{% trans "PAGE_APP_ACTION_MORE_APPS" %}</a></li>
+            <li class="otherapps"><a href="/search.php?page=apps&author={{ developer_id|default:1 }}">{% trans "PAGE_APP_ACTION_MORE_APPS" %}</a></li>
         </div>
     </div>
 

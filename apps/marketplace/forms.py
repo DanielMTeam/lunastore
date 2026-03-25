@@ -191,7 +191,14 @@ class AppCreateForm(forms.ModelForm):
 
     class Meta:
         model = AppCreateRequests
-        fields = ["category", "title", "slogan", "developer_site", "description"]
+        fields = [
+            "category",
+            "title",
+            "slogan",
+            "developer_site",
+            "description",
+            "requirements",
+        ]
         widgets = {
             "category": forms.Select(
                 attrs={
@@ -219,6 +226,14 @@ class AppCreateForm(forms.ModelForm):
                 attrs={"id": "inp_site", "class": "input-text"}
             ),
             "description": forms.Textarea(
+                attrs={
+                    "id": "inp_desc",
+                    "class": "brief_intro",
+                    "cols": 100,
+                    "style": "height: 150px;",
+                }
+            ),
+            "requirements": forms.Textarea(
                 attrs={
                     "id": "inp_desc",
                     "class": "brief_intro",
