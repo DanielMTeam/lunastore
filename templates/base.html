@@ -8,7 +8,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="{% static './css/main.css'%}">
 <link rel="stylesheet" href="{% static './css/oprj.css'%}">
-<script src="./js/search_mini.js"></script>
 <link rel="shortcut icon" href="{% static './favicon.ico'%}">
 <script src="{% static './js/cookie.js'%}"></script>
 </head>
@@ -85,39 +84,41 @@
                     </a>
 
                     {% if user.is_authenticated and user.id == developer_id %}
-                    <a href="/edit_app_info.php?id={{ app_id }}">
+                    <a href="/edit_app_info.php/{{ app_id }}/">
                         <li class="editapp">{% trans "BASE_SIDEBAR_APP_EDIT" %}</li>
                     </a>
                     {% endif %}
                 </ul>
             </div>
         {% endif %}
-      {% if user.is_authenticated %}
-      <div class="boxhead_primary"><b>{% trans "BASE_SIDEBAR_ACCOUNT_TITLE" %}</b></div>
-      <div class="box">
-        {% with route=request.resolver_match.url_name %}
-        <ul>
-          <a href="/profile.php?id={{ user.id }}"><li class="myhome"
-            {% if route == 'profile' %}
-            id="active"{% endif %}>{% trans "BASE_SIDEBAR_ACCOUNT_PROFILEBTN" %}</li></a>
-          <a href="{% url 'settings' %}"><li class="settings"
-            {% if route == 'settings' %}
-            id="active"{% endif %}>{% trans "BASE_SIDEBAR_ACCOUNT_SETTINGSBTN" %}</li></a>
-          <a href="{% url 'invite_person' %}">
-              <li class="newbie" {% if route == 'invite_person' %}id="active"{% endif %}>
-                  {% trans "BASE_SIDEBAR_ACCOUNT_INVITEBTN" %}
-              </li>
-          </a>
-        </ul>
-        {% endwith %}
-      </div>
-      {% endif %}
+        {% if user.is_authenticated %}
+        <div class="boxhead_primary"><b>{% trans "BASE_SIDEBAR_ACCOUNT_TITLE" %}</b></div>
+        <div class="box">
+          {% with route=request.resolver_match.url_name %}
+          <ul>
+            <a href="/profile.php?id={{ request.user.id }}">
+              <li class="myhome"
+              {% if route == 'profile' and request.GET.id == request.user.id|stringformat:"s" %}
+              id="active"{% endif %}>{% trans "BASE_SIDEBAR_ACCOUNT_PROFILEBTN" %}</li>
+            </a>
+            <a href="{% url 'settings' %}"><li class="settings"
+              {% if route == 'settings' %}
+              id="active"{% endif %}>{% trans "BASE_SIDEBAR_ACCOUNT_SETTINGSBTN" %}</li></a>
+            <a href="{% url 'invite_person' %}">
+                <li class="newbie" {% if route == 'invite_person' %}id="active"{% endif %}>
+                    {% trans "BASE_SIDEBAR_ACCOUNT_INVITEBTN" %}
+                </li>
+            </a>
+          </ul>
+          {% endwith %}
+        </div>
+        {% endif %}
 
         <div class="boxhead"><b>{% trans "BASE_SIDEBAR_CATEGORIES_TITLE" %}</b></div>
       <div class="box">
 
         <ul>
-          <a href="/index.php"><li class="myhome">{% trans "BASE_SIDEBAR_CATEGORIES_HOME" %}</li></a>
+          <a href="/index.php"><li class="myhome" {% if request.resolver_match.url_name == 'index' %}id="active"{% endif %}>{% trans "BASE_SIDEBAR_CATEGORIES_HOME" %}</li></a>
           <aside>{% show_categories active_category=active_category %}</aside>
         </ul>
       </div>

@@ -122,7 +122,7 @@ class ProfileUpdateForm(forms.ModelForm):
         required=False,
         widget=forms.URLInput(attrs={"class": "input-text"}),
     )
-    discord = forms.URLField(
+    discord = forms.CharField(
         label="Discord",
         required=False,
         widget=forms.URLInput(attrs={"class": "input-text"}),
@@ -141,10 +141,6 @@ class ProfileUpdateForm(forms.ModelForm):
 
 
 class PasswordChangeForm(forms.Form):
-    def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop("user", None)
-        super().__init__(*args, **kwargs)
-
     current_password = forms.CharField(
         widget=forms.PasswordInput(attrs={"class": "input-text"})
     )
@@ -156,21 +152,31 @@ class PasswordChangeForm(forms.Form):
         widget=forms.PasswordInput(attrs={"class": "input-text"})
     )
 
-    def clean_password(self):
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop("user", None)
+        super().__init__(*args, **kwargs)
+
+    def clean_current_password(self):
         current_password = self.cleaned_data.get("current_password")
-        if not self.user.check_password(current_password):
+        if current_password and not self.user.check_password(current_password):
             raise ValidationError(_("ERROR_CURRENT_PASSWORD_IS_WRONG"))
         return current_password
 
     def clean(self):
         cleaned_data = super().clean()
+        current_password = cleaned_data.get("current_password")
         new_password = cleaned_data.get("new_password")
         confirm_password = cleaned_data.get("confirm_password")
 
         if new_password and confirm_password:
             if new_password != confirm_password:
                 raise ValidationError(_("ERROR_NEW_PASSWORDS_DONT_MATCH"))
+
+            if current_password and current_password == new_password:
+                raise ValidationError(_("ERROR_NEW_PASSWORD_SAME_AS_OLD"))
+
             password_validation.validate_password(new_password, self.user)
+
         return cleaned_data
 
 
@@ -346,7 +352,7 @@ class PasswordConfirmationForm(forms.Form):
         self.user = user
         super().__init__(*args, **kwargs)
 
-    def clean_current_password(self):
+    def clean_password(self):
         current_password = self.cleaned_data.get("current_password")
         if not self.user.check_password(current_password):
             raise ValidationError(_("ERROR_CURRENT_PASSWORD_IS_WRONG"))

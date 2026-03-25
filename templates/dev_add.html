@@ -11,138 +11,133 @@
     <h2>{% trans "PAGE_DEVADD_TITLE" %}</h2>
     <div class="separator_store"></div>
     <link rel="stylesheet" href="{% static './css/register.css'%}">
+
     <div class="regform">
-    <div class="info_splash"><b>{% trans "PAGE_DEVADD_DESC_1" %}</b><br>{% trans "PAGE_DEVADD_DESC_2" %}</div>
-    {% if not registration_enabled_status %}
+      <div class="info_splash"><b>{% trans "PAGE_DEVADD_DESC_1" %}</b><br>{% trans "PAGE_DEVADD_DESC_2" %}</div>
+
+      {% if not registration_enabled_status %}
         <div class="alert-splash" style="margin-bottom: 5px;">
             <h3>{% trans "PAGE_DEVADD_DISABLED_1" %}</h3>
             <p>{% trans "PAGE_DEVADD_DISABLED_2" %}</p>
         </div>
-    {% else %}
-    {% if is_developer %}
-        <div class="alert-splash" style="margin-bottom: 5px;">
-            <h3>{% trans "PAGE_DEVADD_ALREADYDEV_1" %}</h3>
-            <p>{% trans "PAGE_DEVADD_ALREADYDEV_2" %}</p>
-        </div>
-    {% elif has_pending_request %}
-        <div class="alert-splash" style="margin-bottom: 5px;">
-            <h3>{% trans "PAGE_DEVADD_NOWCHECKING_TITLE" %}</h3>
-            <p>{% trans "PAGE_DEVADD_NOWCHECKING_1" %}</p>
-            <p>{% trans "PAGE_DEVADD_NOWCHECKING_2" %}</p>
-            <p>{% trans "PAGE_DEVADD_NOWCHECKING_3" %}</p>
-        </div>
-    {% else %}
-    <div class="register_card">
-      <h2>{% trans "PAGE_DEVADD_ENTERINFO_TITLE" %}</h2>
-    <form method="POST">
-            {% csrf_token %}
-            <input type="hidden" name="form_type" value="profile">
+      {% else %}
+        {% if is_developer %}
+            <div class="alert-splash" style="margin-bottom: 5px;">
+                <h3>{% trans "PAGE_DEVADD_ALREADYDEV_1" %}</h3>
+                <p>{% trans "PAGE_DEVADD_ALREADYDEV_2" %}</p>
+            </div>
+        {% elif has_pending_request %}
+            <div class="alert-splash" style="margin-bottom: 5px;">
+                <h3>{% trans "PAGE_DEVADD_NOWCHECKING_TITLE" %}</h3>
+                <p>{% trans "PAGE_DEVADD_NOWCHECKING_1" %}</p>
+                <p>{% trans "PAGE_DEVADD_NOWCHECKING_2" %}</p>
+                <p>{% trans "PAGE_DEVADD_NOWCHECKING_3" %}</p>
+            </div>
+        {% else %}
+            <div class="register_card">
+                <h2>{% trans "PAGE_DEVADD_ENTERINFO_TITLE" %}</h2>
 
-            <div class="profile_block_content">
-                <label>
-                    <div class="reg_pad"><div class="reg_title">{% trans "PAGE_DEVADD_ENTERINFO_USERNAME" %}</div>
-                    {% if dev_request_form.username.errors %}
-                        <div class="error_splash" style="margin-bottom: 5px;">
-                            {% for error in dev_request_form.username.errors %}
-                                {{ error }}
-                            {% endfor %}
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="form_type" value="profile">
+
+                    <div class="profile_block_content">
+                        <label>
+                            <div class="reg_pad"><div class="reg_title">{% trans "PAGE_DEVADD_ENTERINFO_USERNAME" %}</div>
+                            {% if dev_request_form.username.errors %}
+                                <div class="error_splash" style="margin-bottom: 5px;">
+                                    {% for error in dev_request_form.username.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            {{ dev_request_form.username }}
+                            <div class="regform_label">{% trans "PAGE_DEVADD_ENTERINFO_USERNAMEDESC" %}</div>
+                          </div>
+                        </label>
+
+                        <label>
+                            <div class="reg_pad"><div class="reg_title">{% trans "PAGE_DEVADD_ENTERINFO_EMAIL" %}</div>
+                            {% if dev_request_form.mail.errors %}
+                                <div class="error_splash" style="margin-bottom: 5px;">
+                                    {% for error in dev_request_form.mail.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            {{ dev_request_form.mail }}
+                            <div class="regform_label">{% trans "PAGE_DEVADD_ENTERINFO_EMAILDESC" %}</div>
+                          </div>
+                        </label>
+
+                        <label>
+                            <div class="reg_pad"><div class="reg_title">GitHub:</div>
+                            {% if dev_request_form.github.errors %}
+                                <div class="error_splash" style="margin-bottom: 5px;">
+                                    {% for error in dev_request_form.github.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            {{ dev_request_form.github }}
+                            <div class="regform_label">{% trans "PAGE_DEVADD_ENTERINFO_GITHUBDESC" %}</div>
+                          </div>
+                        </label>
+
+                        <label>
+                            <div class="reg_pad"><div class="reg_title">{% trans "PAGE_DEVADD_ENTERINFO_ABOUTYOU" %}</div>
+                            {% if dev_request_form.about_you.errors %}
+                                <div class="error_splash" style="margin-bottom: 5px;">
+                                    {% for error in dev_request_form.about_you.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            {{ dev_request_form.about_you }}
+                          </div>
+                        </label>
+
+                        <label>
+                            <div class="reg_pad"><div class="reg_title">{% trans "PAGE_DEVADD_ENTERINFO_WHYCHOOSEUS" %}</div>
+                            {% if dev_request_form.why_you_choose_us.errors %}
+                                <div class="error_splash" style="margin-bottom: 5px;">
+                                    {% for error in dev_request_form.why_you_choose_us.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            {{ dev_request_form.why_you_choose_us }}
+                          </div>
+                        </label>
+
+                        <h2>{% trans "PAGE_DEVADD_ENTERINFO_CONFIRM" %}</h2>
+                        <div class="alert_splash">
+                            {% trans "FORM_CAPTCHA" %}<br><br>
+                            {{ dev_request_form.captcha }}
+                            {% if form.captcha.errors %}
+                            <div class="error_splash" style="margin-bottom: 5px;">
+                                {% for error in form.captcha.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
                         </div>
-                    {% endif %}
-                    {{ dev_request_form.username }}
-                    <div class="regform_label">{% trans "PAGE_DEVADD_ENTERINFO_USERNAMEDESC" %}</div>
-                  </div>
-                </label>
 
-                <label>
-                    <div class="reg_pad"><div class="reg_title">{% trans "PAGE_DEVADD_ENTERINFO_EMAIL" %}</div>
-                    {% if dev_request_form.mail.errors %}
-                        <div class="error_splash" style="margin-bottom: 5px;">
-                            {% for error in dev_request_form.mail.errors %}
-                                {{ error }}
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                    {{ dev_request_form.mail }}
-                    <div class="regform_label">{% trans "PAGE_DEVADD_ENTERINFO_EMAILDESC" %}</div>
-                  </div>
-                </label>
+                        <label class="agree" for="{{ form.agree_with_site_rules.id_for_label }}">
+                          {{dev_request_form.agree_with_site_rules.errors}}
+                          {{dev_request_form.agree_with_site_rules}}
+                          {{dev_request_form.agree_with_site_rules.label}}
+                        </label>
 
-                <label>
-                    <div class="reg_pad"><div class="reg_title">GitHub:</div>
-                    {% if dev_request_form.github.errors %}
-                        <div class="error_splash" style="margin-bottom: 5px;">
-                            {% for error in dev_request_form.github.errors %}
-                                {{ error }}
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                    {{ dev_request_form.github }}
-                    <div class="regform_label">{% trans "PAGE_DEVADD_ENTERINFO_GITHUBDESC" %}</div>
-                  </div>
-                </label>
+                        <label class="agree" for="{{ form.agree_with_privacy_policy.id_for_label }}">
+                          {{dev_request_form.agree_with_privacy_policy.errors}}
+                          {{dev_request_form.agree_with_privacy_policy}}
+                          {{dev_request_form.agree_with_privacy_policy.label}}
+                        </label>
 
-                <label>
-                    <div class="reg_pad"><div class="reg_title">{% trans "PAGE_DEVADD_ENTERINFO_ABOUTYOU" %}</div>
-                    {% if dev_request_form.about_you.errors %}
-                        <div class="error_splash" style="margin-bottom: 5px;">
-                            {% for error in dev_request_form.about_you.errors %}
-                                {{ error }}
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                    {{ dev_request_form.about_you }}
-                  </div>
-                </label>
-
-                <label>
-                    <div class="reg_pad"><div class="reg_title">{% trans "PAGE_DEVADD_ENTERINFO_WHYCHOOSEUS" %}</div>
-                    {% if dev_request_form.why_you_choose_us.errors %}
-                        <div class="error_splash" style="margin-bottom: 5px;">
-                            {% for error in dev_request_form.why_you_choose_us.errors %}
-                                {{ error }}
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                    {{ dev_request_form.why_you_choose_us }}
-                  </div>
-                </label>
-
-                <h2>{% trans "PAGE_DEVADD_ENTERINFO_CONFIRM" %}</h2>
-                <div class="alert_splash">
-                    {% trans "FORM_CAPTCHA" %}<br><br>
-                    {{ dev_request_form.captcha }}
-                    {% if form.captcha.errors %}
-                    <div class="error_splash" style="margin-bottom: 5px;">
-                        {% for error in form.captcha.errors %}
-                            {{ error }}
-                        {% endfor %}
-                    </div>
-                {% endif %}
-                </div>
-
-                <label class="agree" for="{{ form.agree_with_site_rules.id_for_label }}">
-                  {{dev_request_form.agree_with_site_rules.errors}}
-                  {{dev_request_form.agree_with_site_rules}}
-                  {{dev_request_form.agree_with_site_rules.label}}
-                </label>
-
-
-                <label class="agree" for="{{ form.agree_with_privacy_policy.id_for_label }}">
-                  {{dev_request_form.agree_with_privacy_policy.errors}}
-                  {{dev_request_form.agree_with_privacy_policy}}
-                  {{dev_request_form.agree_with_privacy_policy.label}}
-                </label>
-
-                <br>
-                <input type="submit" class="action_button" value='{% trans "PAGE_DEVADD_SENDALLBTN" %}'>
-        </form>
-        </div>
-        {%endif%}
-        {%endif%}
-</div>
-<div style="clear:both"></div>
-</div>
-</div>
-</div>
-</div>
-{% endblock %}
+                        <br>
+                        <input type="submit" class="action_button" value='{% trans "PAGE_DEVADD_SENDALLBTN" %}'>
+                    </div> </form>
+            </div> {% endif %}
+      {% endif %}
+    </div> </div> </div> </div> {% endblock %}

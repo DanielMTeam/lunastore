@@ -64,6 +64,13 @@
         padding: 0;
         list-style: none;
     }
+
+    input[type="file"] {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        cursor: pointer;
+    }
 </style>
 
 <div class="content">
@@ -162,6 +169,15 @@
                                 {{ form.description }}
                                 <div class="add_app_form_label">{% trans "PAGE_ADDAPP_STEP2_DESCDESC" %}</div>
                                 {{ form.description.errors }}
+                            </div>
+                        </label>
+
+                        <label>
+                            <div class="add_app_pad">
+                                <div class="add_app_title">{% trans "PAGE_ADDAPP_STEP2_REQ" %}</div>
+                                {{ form.requirements }}
+                                <div class="add_app_form_label">{% trans "PAGE_ADDAPP_STEP2_REQDESC" %}</div>
+                                {{ form.requirements.errors }}
                             </div>
                         </label>
 
