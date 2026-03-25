@@ -67,6 +67,12 @@
                       <div class="pref_warn_label">{% trans "PAGE_ADMIN_APP_DESCDESC" %}</div>
                   </div>
 
+                  <div class="pref_pad">
+                      <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_REQ" %}</div>
+                      {{ form.requirements }}
+                      <div class="pref_warn_label">{% trans "PAGE_ADMIN_APP_REQDESC" %}</div>
+                  </div>
+
                   <div class="pref_pad appcat">
                       <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_CATEGORY" %}</div>
                       {{ form.category }}

@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("application_form");
     if (!form) return;
 
-    // Берем конфиги из Django или ставим фолбэки
     const config = window.cdn_config ||
         window.CDN_CONFIG || {
             uploadUrl: "http://192.168.1.10:8080/cdn/upload",

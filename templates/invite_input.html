@@ -7,7 +7,7 @@
   <div class="section">
     <h2>{% trans "PAGE_INVITE_INPUT_HEADER" %}</h2>
     <div class="separator_store"></div>
-    
+
     <div class="invite_block">
         {% trans "PAGE_INVITE_INPUT_DESC_1"|safe %}
         <br><br>
@@ -25,14 +25,8 @@
                 {% endif %}
 
                 <label for="{{ form.code.id_for_label }}">{% trans "PAGE_INVITE_INPUT_LABEL" %}:</label>
-                
-                {{ form.code }}
 
-                {% if form.code.errors %}
-                    <span style="color: #c00; font-size: 11px; margin-left: 5px;">
-                        {{ form.code.errors.0 }}
-                    </span>
-                {% endif %}
+                {{ form.code }}
 
                 <input type="submit" value="{% trans "PAGE_INVITE_INPUT_BTN" %} »">
             </form>

@@ -157,6 +157,7 @@ def app_add(request):
             app_request = form.save(commit=False)
             app_request.user = request.user
             app_request.save()
+            messages.success(request, _("PAGE_ADDAPP_SUCCESS"))
             return redirect("home")
     else:
         form = AppCreateForm()
