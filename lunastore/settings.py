@@ -34,6 +34,10 @@ CORS_ALLOW_CREDENTIALS = True
 SESSION_COOKIE_DOMAIN = os.getenv("SESSION_COOKIE_DOMAIN", ".lunastore.app")
 CSRF_COOKIE_DOMAIN = os.getenv("CSRF_COOKIE_DOMAIN", ".lunastore.app")
 
+LUNASPIRE_URL_WITHOUT_PROTO = os.getenv(
+    "LUNASPIRE_URL_WITHOUT_PROTO", "spire.lunastore.app"
+)
+
 if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
     SESSION_COOKIE_SECURE = True

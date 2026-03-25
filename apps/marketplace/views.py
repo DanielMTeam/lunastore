@@ -1,4 +1,5 @@
 import jwt
+import requests
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -452,12 +453,20 @@ def get_file_action(request, dist_pk):
 
     if dist.cdn_file_id:
         payload = {"type": "cdn-download", "file_id": int(dist.cdn_file_id)}
-
         download_token = jwt.encode(
             payload, settings.LUNASPIRE_SECRET_KEY, algorithm="HS256"
         )
 
-        cdn_url = f"{settings.LUNASPIRE_URL}/cdn/download?token={download_token}"
+        user_agent = request.META.get("HTTP_USER_AGENT", "")
+        is_retro = any(
+            sig in user_agent for sig in ["MSIE 5", "MSIE 6", "MSIE 7", "MSIE 8"]
+        )
+
+        protocol = "http" if is_retro else "https"
+
+        domain = settings.LUNASPIRE_URL_WITHOUT_PROTO
+        cdn_url = f"{protocol}://{domain}/cdn/download?token={download_token}"
+        print(cdn_url)
         return redirect(cdn_url)
 
     if dist.url:

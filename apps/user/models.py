@@ -1,5 +1,6 @@
 import datetime
 import hashlib
+import re
 
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
@@ -43,8 +44,10 @@ class User(AbstractUser, SafeDeleteModel):
     @property
     def avatar_url(self):
         if self.avatar_path:
-            lunaspire_url = settings.LUNASPIRE_URL
-            return f"{lunaspire_url}/{self.avatar_path}"
+            base_url = getattr(settings, "LUNASPIRE_URL", "").rstrip("/")
+            protocol_relative_url = re.sub(r"^https?:", "", base_url)
+
+            return f"{protocol_relative_url}/{self.avatar_path.lstrip('/')}"
         return "/staticfiles/img/noavatar_64.jpg"
 
     def save(self, *args, **kwargs):
