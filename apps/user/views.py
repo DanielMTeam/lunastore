@@ -190,6 +190,8 @@ def profile_settings(request):
         "api_base_url": settings.API_URL,
     }
     if request.method == "POST":
+        print("--- NEW POST REQUEST ---")
+        print(f"POST DATA: {request.POST}")
         form_type = request.POST.get("form_type")
 
         if form_type == "profile":
@@ -231,10 +233,17 @@ def profile_settings(request):
                         messages.success(request, _("INFO_AVATAR_WAS_UPLOADED"))
                         return redirect("settings")
                     else:
-                        messages.error(request, _("ERROR_INVALID_LUNASPIRE_TOKEN"))
+                        messages.error(
+                            request,
+                            f"Ошибка типа токена: {decoded.get('type')}. Пожалуйста, обратитесь к администратору.",
+                        )
                 except Exception as e:
                     messages.error(request, _("ERROR_CDNSECURITY"))
                 return redirect("settings")
+            else:
+                for field, errors in forms["avatar_form"].errors.items():
+                    for error in errors:
+                        messages.error(request, error)
         elif form_type == "init_delete":
             request.session["can_view_delete_page"] = True
             return redirect("delete_account")

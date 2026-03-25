@@ -1,3 +1,4 @@
+import time
 import uuid
 from datetime import datetime
 
@@ -76,6 +77,8 @@ class UserViewSet(viewsets.GenericViewSet):
     )
     def get_avatar_token(self, request):
         guard_phrase = str(uuid.uuid4().hex)[:8]
+        current_time = int(time.time())
+        allowed_image_mimes = "image/jpeg,image/png,image/gif,image/webp"
 
         payload = {
             "type": "cdn-upload",
@@ -83,6 +86,9 @@ class UserViewSet(viewsets.GenericViewSet):
             "user": str(request.user.id),
             "guard": guard_phrase,
             "mode": "public",
+            "accept": allowed_image_mimes,
+            "iat": current_time,
+            "exp": current_time + 300,
         }
 
         upload_token = jwt.encode(
@@ -110,13 +116,28 @@ class UserViewSet(viewsets.GenericViewSet):
             return Response({"error": "Not your app"}, status=403)
 
         guard_phrase = str(uuid.uuid4().hex)[:8]
+        current_time = int(time.time())
+
+        allowed_mimes = ",".join(
+            [
+                "application/octet-stream",
+                "application/zip",
+                "application/x-rar-compressed",
+                "application/vnd.rar",
+                "application/x-msdownload",
+                "application/x-7z-compressed",
+            ]
+        )
 
         payload = {
             "type": "cdn-upload",
-            "object": str(app_obj.id),  # str only
-            "user": str(request.user.id),  # str only
+            "object": str(app_obj.id),
+            "user": str(request.user.id),
             "guard": guard_phrase,
             "mode": "private",
+            "accept": allowed_mimes,
+            "iat": current_time,
+            "exp": current_time + 300,
         }
 
         upload_token = jwt.encode(
