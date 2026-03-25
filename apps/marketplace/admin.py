@@ -28,15 +28,29 @@ class DistributionAdmin(SafeDeleteAdmin):
     ordering = ["-published"]
 
     fieldsets = (
-        (None, {"fields": ("app", "version", "file", "url", "changelog", "published")}),
+        (
+            None,
+            {
+                "fields": (
+                    "app",
+                    "version",
+                    "cdn_file_id",
+                    "url",
+                    "changelog",
+                    "published",
+                )
+            },
+        ),
     )
 
     @admin.display(description="Ссылка")
     def download_preview(self, obj):
-        if obj.file:
-            return format_html('<a href="{}" target="_blank">файл</a>', obj.file.url)
+        if obj.cdn_file_id:
+            return format_html(
+                '<a href="/get_dist_file/{}" target="_blank">файл</a>', obj.cdn_file_id
+            )
         if obj.url:
-            return format_html('<a href="{0}" target="_blank">{0}</a>', obj.url)
+            return format_html('<a href="{url}" target="_blank">{url}</a>', url=obj.url)
         return "-"
 
 
@@ -65,6 +79,7 @@ class ApplicationAdmin(SafeDeleteAdmin):
                     "category",
                     "description",
                     "slogan",
+                    "requirements",
                     "icon_file",
                     "cdn_icon_path",
                     "icon_path",
@@ -278,6 +293,7 @@ class AppEditRequestsAdmin(SafeDeleteAdmin):
         "category",
         "title",
         "description",
+        "requirements",
         "slogan",
         "icon_preview",
         "price",
@@ -348,6 +364,7 @@ class AppEditRequestsAdmin(SafeDeleteAdmin):
         app.slogan = req.slogan
         app.price = req.price
         app.developer_site = req.developer_site
+        app.requirements = req.requirements
 
         if req.icon_path:
             app.icon_id = req.icon_id
