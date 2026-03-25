@@ -6,8 +6,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const config = window.cdn_config ||
         window.CDN_CONFIG || {
-            uploadUrl: "http://192.168.1.10:8080/cdn/upload",
-            tokenUrl: "http://192.168.1.10:7088/method/user/getAvatarToken",
+            uploadUrl: "https://spire.lunastore.app/cdn/upload",
+            tokenUrl: "https://api.lunastore.app/method/user/getAvatarToken",
         };
 
     const i18n = window.luna_i18n ||

@@ -45,7 +45,7 @@ class UserBanForm(forms.ModelForm):
             user = User.objects.get(username=username)
         except User.DoesNotExist:
             raise forms.ValidationError("user with this username does not exist")
-        if UserBanForm.objects.filter(user=user).exists():
+        if UserBan.objects.filter(user=user).exists():
             raise forms.ValidationError("this user is already banned")
         latest_ip = (
             UserActivityLog.objects.filter(user=user).order_by("-timestamp").first()
