@@ -44,7 +44,7 @@ msgstr "Максимум 3 скриншота."
 
 #: apps/user/decorators.py:19
 msgid "ERROR_YOU_DONT_HAVE_DEVSTATUS"
-msgstr "У вас нет статуса разработчика для просмотра этой страницы"
+msgstr "У вас нет статуса разработчика для просмотра этой страницы. Получить его можно в настройках Вашего профиля."
 
 #: apps/user/forms.py:76 apps/user/middleware.py:32
 msgid "INFO_YOUR_IP_WAS_BANNED"
@@ -2061,3 +2061,9 @@ msgstr "Этот e-mail уже используется."
 
 msgid "PAGE_ADDAPP_SUCCESS"
 msgstr "Ваша заявка на добавление приложения успешно отправлена."
+
+msgid "PAGE_SETTINGS_LABEL_DEV_STATUS"
+msgstr "Статус разработчика: "
+
+msgid "PAGE_SETTINGS_DEV_STATUS_HAS"
+msgstr "имеется"

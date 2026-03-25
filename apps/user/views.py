@@ -188,6 +188,8 @@ def profile_settings(request):
         "email_form": EmailChangeForm(user=user),
         "cdn_base_url": settings.LUNASPIRE_URL,
         "api_base_url": settings.API_URL,
+        "is_developer": request.user.groups.filter(name="Разработчики").exists(),
+        "dev_status_enabled": settings.DEVELOPER_REGISTRATION_IS_ENABLED,
     }
     if request.method == "POST":
         print("--- NEW POST REQUEST ---")

@@ -61,6 +61,17 @@
                         <div class="pref_item_title">{% trans "PAGE_SETTINGS_LABEL_BIO" %}</div>
                         {{ profile_form.description }}
                     </div>
+                    {% if dev_status_enabled %}
+                        <div class="pref_pad">
+                            <strong>{% trans "PAGE_SETTINGS_LABEL_DEV_STATUS" %}</strong>
+                            {% if is_developer %}
+                                <span>{% trans "PAGE_SETTINGS_DEV_STATUS_HAS" %}</span>
+                            {% else %}
+                                <a href="{% url 'dev_status' %}" class="action_button">Получить</a>
+                            {% endif %}
+                        </div>
+                        <br>
+                    {% endif %}
                     <input type="submit" class="action_button" value="{% trans 'PAGE_SETTINGS_BTN_SAVE' %}">
                 </div>
             </form>
