@@ -27,7 +27,7 @@
                     <div class="pref_item_title">{% trans "PAGE_DIST_EDIT_CURRENT_FILE" %}</div>
                     <div style="background: #f4f7fa; border: 1px solid #bfd2e4; padding: 5px; font-size: 11px;">
                         <li class="top" style="vertical-align: middle; margin-right: 5px; list-style: none; display: inline-block; width: 20px; height: 20px; padding: 0; background: url({% static 'img/icons.png' %}) no-repeat 0px -218px; *display: inline; *zoom: 1;"></li>
-                        <a href="{% url 'download_distribution' dist_pk=distribution.pk %}" target="_blank" style="color: #2b67b3; text-decoration: underline; vertical-align: middle;">
+                        <a href="{% url 'download_action' dist_pk=distribution.pk %}" target="_blank" style="color: #2b67b3; text-decoration: underline; vertical-align: middle;">
                             Файл загружен (ID: {{ distribution.cdn_file_id }})
                         </a>
                     </div>

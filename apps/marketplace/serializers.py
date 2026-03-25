@@ -29,4 +29,12 @@ class CategorySerializer(serializers.ModelSerializer):
 class DistributionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Distribution
-        fields = ["id", "app", "version", "file", "url", "changelog", "published"]
+        fields = [
+            "id",
+            "app",
+            "version",
+            "cdn_file_id",
+            "url",
+            "changelog",
+            "published",
+        ]
