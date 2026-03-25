@@ -50,7 +50,6 @@
                                     <a class="action_button" href="{{ dist.edit_url }}">{% trans "PAGE_ADMIN_APP_DIST_ACTION_EDIT" %}</a>
                                     <form method="post" action="{{ dist.delete_url }}" style="display: inline-block; margin-left: 10px;">
                                         {% csrf_token %}
-
                                         <button type="submit" class="action_button" id="delete_dist">{% trans "PAGE_ADMIN_APP_DIST_ACTION_DELETE" %}</button>
                                     </form>
                                 </td>
@@ -69,6 +68,29 @@
                             {% endfor %}
                         </tbody>
                     </table>
+
+                    {% if page_obj.has_other_pages %}
+                    <div class="paginator" style="margin-top: 15px; padding: 10px 0; border-top: 1px solid #cfe1ff;">
+                        {% if page_obj.has_previous %}
+                            <a href="?id={{ app.id }}&page={{ page_obj.previous_page_number }}">«</a>
+                        {% endif %}
+
+                        {% for p in page_range %}
+                            {% if p == page_obj.number %}
+                                <a class="active">{{ p }}</a>
+                            {% elif p == "…" or p == "..." %}
+                                <span style="padding: 5px; color: #163b6f;">...</span>
+                            {% else %}
+                                <a href="?id={{ app.id }}&page={{ p }}">{{ p }}</a>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                            <a href="?id={{ app.id }}&page={{ page_obj.next_page_number }}">»</a>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+
                     {% else %}
                     <p>{% trans "PAGE_ADMIN_APP_DIST_EMPTY" %}</p>
                     {% endif %}

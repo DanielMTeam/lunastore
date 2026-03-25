@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.postgres.search import TrigramSimilarity
 from django.core.exceptions import PermissionDenied
-from django.core.paginator import Paginator
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -105,14 +105,45 @@ def download_list(request):
     is_desc = order == "desc"
     distributions.sort(key=sort_key, reverse=is_desc)
 
+    latest_dist = (
+        Distribution.objects.filter(app=app_obj).order_by("-published", "-id").first()
+    )
+    latest_id = latest_dist.id if latest_dist else None
+
+    dist_rows = []
+    for dist in distributions:
+        dist_rows.append(
+            {
+                "id": dist.id,
+                "version": dist.version,
+                "changelog": dist.changelog,
+                "published": _format_legacy_date(dist.published),
+                "is_latest": dist.id == latest_id,
+                "link": dist.link,
+                "has_download": dist.has_download,
+            }
+        )
+
+    page_num = request.GET.get("page", 1)
+    paginator = Paginator(dist_rows, 10)
+
+    try:
+        page_obj = paginator.page(page_num)
+    except PageNotAnInteger:
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        page_obj = paginator.page(paginator.num_pages)
+
+    page_range = page_obj.paginator.get_elided_page_range(
+        page_obj.number, on_each_side=1, on_ends=1
+    )
+
     sort_links = {}
     for field in ("version", "published"):
         next_order = "desc" if sort_field == field and order == "asc" else "asc"
         sort_links[field] = (
             f"{reverse('download')}?id={app_obj.id}&sort={field}&order={next_order}"
         )
-    latest_dist = distributions[0] if distributions else None
-    latest_id = latest_dist.id if latest_dist else None
 
     dist_rows = []
     for dist in distributions:
@@ -137,14 +168,15 @@ def download_list(request):
         "slogan": app_obj.slogan,
         "description": app_obj.description,
         "developer_site": app_obj.developer_site,
-        "distributions": dist_rows,
+        "distributions": page_obj,
+        "page_range": page_range,
+        "page_obj": page_obj,
         "manage_url": f"{reverse('manage_distributions')}?id={app_obj.id}",
         "current_sort": sort_field,
         "current_order": order,
         "sort_links": sort_links,
         "owner_can_manage": request.user.is_authenticated
         and request.user == app_obj.user,
-        "ad_link": "https://store.myslivets.com",
         "app_link": f"/app.php?id={app_obj.id}",
     }
     return render(request, "download_list.html", context)
@@ -308,13 +340,14 @@ def manage_distributions(request):
 
     distributions = Distribution.objects.filter(app=app_obj).order_by("-published")
     form = DistributionForm(request.POST or None, request.FILES or None)
+
     if request.method == "POST" and form.is_valid():
         distribution = form.save(commit=False)
         distribution.app = app_obj
         distribution.save()
-        messages.success(request, _("Новая дистрибуция создана"))
+        messages.success(request, _("PAGE_MANAGEDIST_CREATE_SUCCESS"))
         return redirect(reverse("manage_distributions") + "?id=" + str(app_obj.id))
-    elif not form.is_valid():
+    elif request.method == "POST" and not form.is_valid():
         for field, errors in form.errors.items():
             for error in errors:
                 messages.error(request, error)
@@ -334,10 +367,24 @@ def manage_distributions(request):
             }
         )
 
+    page_num = request.GET.get("page", 1)
+    paginator = Paginator(dist_rows, 10)
+
+    try:
+        page_obj = paginator.page(page_num)
+    except (PageNotAnInteger, EmptyPage):
+        page_obj = paginator.page(1)
+
+    page_range = page_obj.paginator.get_elided_page_range(
+        page_obj.number, on_each_side=1, on_ends=1
+    )
+
     context = {
         "app": app_obj,
         "form": form,
-        "distributions": dist_rows,
+        "distributions": page_obj,
+        "page_obj": page_obj,
+        "page_range": page_range,
         "get_token_url": f"{settings.API_URL}/method/user/getDistributionToken",
         "cdn_upload_url": f"{settings.LUNASPIRE_URL}/cdn/upload",
         "download_list_url": reverse("download") + "?id=" + str(app_obj.id),
