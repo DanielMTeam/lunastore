@@ -1,4 +1,5 @@
 import os
+import re
 from io import BytesIO
 
 from captcha.fields import CaptchaField
@@ -14,7 +15,7 @@ from django.utils.translation import gettext_lazy as _
 from PIL import Image
 
 from .middleware import BlockBannedIP, get_client_ip
-from .models import InviteToken, User, UserActivityLog, UserBan
+from .models import BlacklistedUsername, InviteToken, User, UserActivityLog, UserBan
 from .validators import validate_invite_limit
 
 
@@ -81,6 +82,26 @@ class UserRegistrationForm(UserCreationForm):
             ip = get_client_ip(self.request)
             if ip in BlockBannedIP.get_banned_set():
                 raise forms.ValidationError(_("INFO_YOUR_IP_WAS_BANNED"))
+
+    def clean_username(self):
+        username = self.cleaned_data.get("username")
+        if not username:
+            return username
+
+        banned_records = BlacklistedUsername.objects.all()
+
+        for record in banned_records:
+            if record.is_regex:
+                try:
+                    if re.search(record.word, username, re.IGNORECASE):
+                        raise forms.ValidationError(_("PAGE_ADMIN_APP_MSG_SAVE_ERROR"))
+                except re.error:
+                    continue
+            else:
+                if record.word.lower() == username.lower():
+                    raise forms.ValidationError(_("PAGE_ADMIN_APP_MSG_SAVE_ERROR"))
+
+        return username
 
     username = forms.CharField(max_length=45, min_length=2)
     email = forms.EmailField(max_length=45)
