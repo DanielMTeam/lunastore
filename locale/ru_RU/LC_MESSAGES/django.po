@@ -1510,7 +1510,10 @@ msgstr "Назад"
 
 #: templates/storepage.html:22
 msgid "PAGE_APP_LABEL_AUTHOR"
-msgstr "Автор:"
+msgstr "Опубликовал:"
+
+msgid "PAGE_APP_LABEL_ORIGINAL_AUTHOR"
+msgstr "Оригинальный автор:"
 
 #: templates/storepage.html:29
 msgid "PAGE_APP_PRICE_DEMO_WITH_COST"

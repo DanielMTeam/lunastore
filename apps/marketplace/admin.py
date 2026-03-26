@@ -78,6 +78,7 @@ class ApplicationAdmin(SafeDeleteAdmin):
                     "title",
                     "category",
                     "description",
+                    "original_author",
                     "slogan",
                     "requirements",
                     "icon_file",

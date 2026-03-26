@@ -73,6 +73,7 @@ def app(request):
         "is_dmca": obj.is_under_dmca,
         "is_under_dmca": obj.is_under_dmca,
         "price": obj.price,
+        "original_author": obj.original_author,
         "developer_site": obj.developer_site,
         "developer_id": obj.user.id,
         "download_page_url": download_page_url,
@@ -240,7 +241,6 @@ def application_edit_info(request, pk):
             request.session.save()
             return redirect("edit_app_info", pk=obj.pk)
         else:
-            print("ОШИБКИ ФОРМЫ:", form.errors)
             messages.error(request, _("PAGE_ADMIN_APP_MSG_SAVE_ERROR"))
             request.session.save()
     else:

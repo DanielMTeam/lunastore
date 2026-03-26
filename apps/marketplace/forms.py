@@ -195,6 +195,7 @@ class AppCreateForm(forms.ModelForm):
             "category",
             "title",
             "slogan",
+            "original_author",
             "developer_site",
             "description",
             "requirements",

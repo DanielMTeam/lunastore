@@ -133,6 +133,14 @@
 
                         <label>
                             <div class="add_app_pad">
+                                <div class="add_app_title">{% trans "PAGE_APP_LABEL_ORIGINAL_AUTHOR" %}</div>
+                                {{ form.original_author }}
+                                {{ form.original_author.errors }}
+                            </div>
+                        </label>
+
+                        <label>
+                            <div class="add_app_pad">
                                 <div class="add_app_title">{% trans "PAGE_ADDAPP_STEP1_ICON" %}</div>
                                 <div class="info_splash">{% trans "PAGE_ADDAPP_STEP1_ICONDESC_1" %}<br>{% trans "PAGE_ADDAPP_STEP1_ICONDESC_2" %}<br>{% trans "PAGE_ADDAPP_STEP1_ICONDESC_3" %}</div>
                                 {{ form.icon_file }}
