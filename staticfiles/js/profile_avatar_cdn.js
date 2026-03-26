@@ -22,7 +22,9 @@ document.addEventListener("DOMContentLoaded", function () {
         submitBtn.disabled = true;
 
         try {
-            const tokenResponse = await fetch(config.apiTokenUrl, {
+            const tokenUrl = new URL(config.apiTokenUrl);
+            tokenUrl.searchParams.append("target", "avatar");
+            const tokenResponse = await fetch(tokenUrl.toString(), {
                 method: "GET",
                 credentials: "include",
                 headers: { Accept: "application/json" },

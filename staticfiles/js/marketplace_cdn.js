@@ -7,7 +7,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const config = window.cdn_config ||
         window.CDN_CONFIG || {
             uploadUrl: "https://spire.lunastore.app/cdn/upload",
-            tokenUrl: "https://api.lunastore.app/method/user/getAvatarToken",
+            tokenBaseUrl:
+                "https://api.lunastore.app/method/user/getPubUploadToken",
         };
 
     const i18n = window.luna_i18n ||
@@ -38,13 +39,19 @@ document.addEventListener("DOMContentLoaded", function () {
         if (submitBtn) submitBtn.disabled = true;
 
         try {
-            const tokenRes = await fetch(config.tokenUrl, {
-                credentials: "include",
-            });
-            if (!tokenRes.ok) throw new Error(i18n.tokenError);
-            const { upload_token } = await tokenRes.json();
+            const uploadFile = async (file, targetContext) => {
+                // get personal token for file
+                const baseUrl = config.tokenBaseUrl || config.tokenUrl;
+                const tokenUrl = `${baseUrl}?target=${targetContext}`;
+                const tokenRes = await fetch(tokenUrl, {
+                    credentials: "include",
+                });
 
-            const uploadFile = async (file) => {
+                if (!tokenRes.ok)
+                    throw new Error(`${i18n.tokenError} (${targetContext})`);
+                const { upload_token } = await tokenRes.json();
+
+                // send file with unique token
                 const fd = new FormData();
                 const finalUrl = new URL(config.uploadUrl);
                 finalUrl.searchParams.append("token", upload_token);
@@ -59,11 +66,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (res.status !== 202 && !res.ok) {
                     let errMsg = i18n.fileError;
                     if (res.status === 415)
-                        errMsg =
-                            "Недопустимый формат файла (415). Пожалуйста, обратитесь к администратору.";
+                        errMsg = "Недопустимый формат файла (415).";
                     if (res.status === 409)
-                        errMsg =
-                            "Токен уже использован (409). Пожалуйста, обратитесь к администратору.";
+                        errMsg = "Токен уже использован (409).";
                     throw new Error(errMsg);
                 }
                 const data = await res.json();
@@ -72,17 +77,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const tasks = [];
             let iconIdx = -1;
+
+            // send app icons
             if (hasIcon) {
                 iconIdx = tasks.length;
-                tasks.push(uploadFile(iconInput.files[0]));
+                tasks.push(uploadFile(iconInput.files[0], "icon"));
             }
+
             let scrStartIdx = tasks.length;
+
+            // send screenshots
             if (hasScreenshots) {
                 Array.from(screenshotsInput.files).forEach((f) =>
-                    tasks.push(uploadFile(f)),
+                    tasks.push(uploadFile(f, "screenshot")),
                 );
             }
 
+            // waiting for result
             const results = await Promise.all(tasks);
 
             const cdnIconField = form.querySelector(

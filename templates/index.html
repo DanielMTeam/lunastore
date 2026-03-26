@@ -16,28 +16,37 @@
     <h2>{% trans "INDEX_SEARCH_SECTION_TITLE" %}</h2>
     <div class="separator_store"></div>
 
-    <div class="search_full" style="padding: 20px 0 15px;">
-        <div class="sidebar" style="display: inline-block; *display: inline; *zoom: 1; position: relative; background: none; border: none; width: auto; float: none; margin: 0; padding: 0;">
-          <form action="{% url 'search' %}" method="get" style="margin: 0; padding: 0;">
-            <li class="web" style="position: absolute; left: 2px; top: 3px; width: 24px; height: 18px; padding: 0; margin: 0; list-style: none; background-color: transparent; border: none; z-index: 5;"></li>
-            <input type="text" name="q" placeholder="{% trans 'INDEX_SEARCH_PLACEHOLDER' %}" style="vertical-align: middle; margin: 0; width: 250px;">
-            <button type="submit" style="vertical-align: middle; margin: 0 0 0 5px;">
-              {% trans 'INDEX_SEARCH_BTN' %}
-            </button>
-          </form>
-        </div>
+    <div class="search_full" style="padding: 20px 0 15px; text-align: center;">
+      <form action="{% url 'search' %}" method="get" style="margin: 0; padding: 0;">
+        <table border="0" cellpadding="0" cellspacing="0" align="center" style="margin: 0 auto; width: 330px;">
+          <tr>
+            <td style="vertical-align: middle; padding: 0; text-align: left;">
+              <div class="sidebar" style="position: relative; width: 280px; height: 26px; margin: 0; padding: 0; border: none; background: none; float: none; display: block; *display: inline; *zoom: 1;">
+
+                <li class="web" style="position: absolute; left: 4px; top: 4px; width: 24px; height: 18px; margin: 0; padding: 0; list-style: none; display: block; border: none; background-color: transparent; z-index: 10;"></li>
+
+                <input type="text" name="q" placeholder="{% trans 'INDEX_SEARCH_PLACEHOLDER' %}"
+                       style="width: 243px; border: 1px solid #7aa0e6; padding: 3px 3px 3px 30px; margin: 0; position: absolute; left: 0; top: 0; height: 18px; font-family: Tahoma, Arial, sans-serif;">
+              </div>
+            </td>
+
+            <td style="width: 70px; vertical-align: middle; padding: 0 0 0 5px; text-align: left;">
+              <button type="submit" style="margin: 0; height: 22px; width: 65px; display: block;">
+                {% trans 'INDEX_SEARCH_BTN' %}
+              </button>
+            </td>
+          </tr>
+        </table>
+      </form>
 
       <div style="margin-top: 15px; color: #333; font-size: 11px; text-align: center;">
         <span style="display: block; margin-bottom: 8px;">{% trans "INDEX_CATEGORY_PROMPT" %}</span>
-
         {% if categories %}
           {% for category in categories %}
             <a href="{% url 'category' %}?id={{ category.pk }}" style="color: #215dc6; text-decoration: none; font-weight: bold;">
               {{ category.name }}
             </a>
-            {% if not forloop.last %}
-              <span style="color: #9db6d8; margin: 0 4px;">|</span>
-            {% endif %}
+            {% if not forloop.last %}<span style="color: #9db6d8; margin: 0 4px;">|</span>{% endif %}
           {% endfor %}
         {% else %}
           <span style="color: #999;">{% trans "INDEX_NO_CATEGORIES" %}</span>
@@ -51,7 +60,7 @@
         </div>
       </div>
     </div>
+      </div>
+    </div>
   </div>
-</div>
-</div>
 {% endblock %}

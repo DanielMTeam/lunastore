@@ -259,6 +259,9 @@ h4 {
 .sidebar li.web {
     background-position: 0px -412px;
 }
+li.web {
+    background-position: 0px -412px;
+}
 .sidebar li.review {
     background-position: 0px -522px;
 }

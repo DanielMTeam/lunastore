@@ -32,46 +32,47 @@
         </div>
 
         <div class="st_clearb"></div>
-    </div>
 
         {% if not is_dmca %}
-        <div class="st_general_card">
-              {% if is_demo %}
-                  {% if price > 0 %}
-                    <div class="st_price demo">
-                      {% trans "PAGE_APP_PRICE_DEMO_WITH_COST" %} ${{ price }}
-                    </div>
-                  {% else %}
-                    <div class="st_price demo">
-                      {% trans "PAGE_APP_PRICE_DEMO_FREE" %}
-                    </div>
-                  {% endif %}
-              {% else %}
-                <div class="st_price free">
-                  {% if price > 0 %}
-                      {% trans "PAGE_APP_PRICE_PAID" %} ${{ price }}
-                  {% else %}
-                      {% trans "PAGE_APP_PRICE_FREE" %}
-                  {% endif %}
-                </div>
-              {% endif %}
+            <div style="clear: both; padding-top: 10px;">
 
-            <b class="setup" style="float: left;">
-                <a href="{{ download_page_url }}">
-                    <div class="setup_button_img"></div>
-                    <div class="st_inst_button">
-                        {% if price > 0 and not is_demo %}
-                            {% trans "PAGE_APP_BTN_BUY" %}
-                        {% else %}
-                            {% trans "PAGE_APP_BTN_INSTALL" %}
-                        {% endif %}
+                {% if is_demo %}
+                      {% if price > 0 %}
+                        <div class="st_price demo" style="line-height: 28px; margin: 0;">
+                          {% trans "PAGE_APP_PRICE_DEMO_WITH_COST" %} ${{ price }}
+                        </div>
+                      {% else %}
+                        <div class="st_price demo" style="line-height: 28px; margin: 0;">
+                          {% trans "PAGE_APP_PRICE_DEMO_FREE" %}
+                        </div>
+                      {% endif %}
+                  {% else %}
+                    <div class="st_price free" style="line-height: 28px; margin: 0;">
+                      {% if price > 0 %}
+                          {% trans "PAGE_APP_PRICE_PAID" %} ${{ price }}
+                      {% else %}
+                          {% trans "PAGE_APP_PRICE_FREE" %}
+                      {% endif %}
                     </div>
-                </a>
-            </b>
-            <div class="st_clearb"></div>
+                  {% endif %}
+
+                <div class="setup" style="float: left;">
+                    <a href="{{ download_page_url }}" style="display: block; text-decoration: none; height: 28px;">
+                        <div class="setup_button_img" style="float: left; margin: 0;"></div>
+                        <div class="st_inst_button" style="float: left; margin: 0 0 0 8px; line-height: 28px;">
+                            {% if price > 0 and not is_demo %}
+                                {% trans "PAGE_APP_BTN_BUY" %}
+                            {% else %}
+                                {% trans "PAGE_APP_BTN_INSTALL" %}
+                            {% endif %}
+                        </div>
+                    </a>
+                </div>
+
+                <div class="st_clearb"></div>
+            </div>
+            {% endif %}
         </div>
-        {% endif %}
-    </div>
 
     <div class="st_headerline"></div>
 
@@ -136,7 +137,7 @@
             <li class="otherapps"><a href="/search.php?page=apps&author={{ developer_id|default:1 }}">{% trans "PAGE_APP_ACTION_MORE_APPS" %}</a></li>
         </div>
     </div>
-
+    </div>
     <div class="st_clearb"></div>
 </div>
 </div>

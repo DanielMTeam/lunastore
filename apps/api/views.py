@@ -33,6 +33,27 @@ class UserViewSet(viewsets.GenericViewSet):
     queryset = User.objects.filter(is_active=True)
     serializer_class = UserSerializer
 
+    PUB_UPLOAD_POLICIES = {
+        "avatar": {
+            "mw": 512,
+            "mh": 512,
+            "mimes": "image/jpeg,image/png,image/webp",
+            "obj": "avatar",
+        },
+        "icon": {
+            "mw": 512,
+            "mh": 512,
+            "mimes": "image/jpeg,image/png,image/webp",
+            "obj": "icon",
+        },
+        "screenshot": {
+            "mw": 1920,
+            "mh": 1080,
+            "mimes": "image/jpeg,image/png,image/webp",
+            "obj": "screenshot",
+        },
+    }
+
     @extend_schema(
         summary="get user profile info",
         description="returns user info",
@@ -72,46 +93,53 @@ class UserViewSet(viewsets.GenericViewSet):
     @action(
         detail=False,
         methods=["get"],
-        url_path="getAvatarToken",
+        url_path="getPubUploadToken",
         permission_classes=[IsAuthenticated],
     )
-    def get_avatar_token(self, request):
+    def get_pub_upload_token(self, request):
+        target = request.query_params.get("target")
+
+        if not target or target not in self.PUB_UPLOAD_POLICIES:
+            return Response({"error": "Invalid target"}, status=400)
+
+        policy = self.PUB_UPLOAD_POLICIES[target]
         guard_phrase = str(uuid.uuid4().hex)[:8]
         current_time = int(time.time())
-        allowed_image_mimes = "image/jpeg,image/png,image/gif,image/webp"
 
         payload = {
             "type": "cdn-upload",
-            "object": "avatar",
+            "object": policy["obj"],
             "user": str(request.user.id),
             "guard": guard_phrase,
             "mode": "public",
-            "accept": allowed_image_mimes,
+            "accept": policy["mimes"],
             "iat": current_time,
             "exp": current_time + 300,
+            "img_opts": {"mw": policy["mw"], "mh": policy["mh"]},
         }
 
         upload_token = jwt.encode(
             payload, settings.LUNASPIRE_SECRET_KEY, algorithm="HS256"
         )
-
         return Response({"upload_token": upload_token, "guard": guard_phrase})
 
     @action(
         detail=False,
         methods=["get"],
-        url_path="getDistributionToken",
+        url_path="getPrivUploadToken",
         permission_classes=[IsAuthenticated],
     )
-    def get_distribution_token(self, request):
+    def get_priv_upload_token(self, request):
+        target = request.query_params.get(
+            "target", "distribution"
+        )  # for future updates
         app_id = request.query_params.get("app_id")
 
         if not app_id:
             return Response({"error": "app_id is required"}, status=400)
 
+        # check permissions
         app_obj = get_object_or_404(Application, id=app_id)
-
-        # check ownership
         if app_obj.user != request.user:
             return Response({"error": "Not your app"}, status=403)
 
@@ -131,10 +159,10 @@ class UserViewSet(viewsets.GenericViewSet):
 
         payload = {
             "type": "cdn-upload",
-            "object": str(app_obj.id),
+            "object": str(app_obj.id),  # object this is a id of the app
             "user": str(request.user.id),
             "guard": guard_phrase,
-            "mode": "private",
+            "mode": "private",  # private only
             "accept": allowed_mimes,
             "iat": current_time,
             "exp": current_time + 300,
@@ -143,7 +171,6 @@ class UserViewSet(viewsets.GenericViewSet):
         upload_token = jwt.encode(
             payload, settings.LUNASPIRE_SECRET_KEY, algorithm="HS256"
         )
-
         return Response({"upload_token": upload_token, "guard": guard_phrase})
 
 
