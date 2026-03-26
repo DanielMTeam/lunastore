@@ -45,6 +45,13 @@ class BaseApplicationInfo(SafeDeleteModel):
         "Category", null=True, on_delete=models.SET_NULL, verbose_name="Категория"
     )
     title = models.CharField(max_length=80, verbose_name="Название")
+    original_author = models.CharField(
+        max_length=80,
+        null=True,
+        blank=True,
+        verbose_name="Оригинальный автор",
+        default="неизвестен",
+    )
     description = models.CharField(max_length=1400, verbose_name="Описание")
     requirements = models.CharField(
         max_length=1400, null=True, verbose_name="Системные требования"
