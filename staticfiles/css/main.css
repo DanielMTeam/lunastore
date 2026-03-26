@@ -1084,7 +1084,7 @@ input[type="submit"] {
     background-position: 0px -218px;
 }
 
-.sidebar_image_box {
+.sidebar_additional_data {
     background: #fff;
     margin-bottom: 10px;
     border: 1px solid #7aa0e6;
@@ -1093,13 +1093,13 @@ input[type="submit"] {
     overflow: hidden;
 }
 
-.sidebar_image_box a {
+.sidebar_additional_data a {
     display: block;
     font-size: 0;
     line-height: 0;
 }
 
-.sidebar_image_box img {
+.sidebar_additional_data img {
     width: 194px;
     border: 0;
     display: block;
