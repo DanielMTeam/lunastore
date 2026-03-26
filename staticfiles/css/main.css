@@ -337,7 +337,8 @@ li.web {
     color: #0b3a72;
     overflow: hidden;
     text-overflow: ellipsis;
-    text-wrap: nowrap;
+    width: 140px;
+    white-space: nowrap;
 }
 .card p {
     margin: 3px 0;
