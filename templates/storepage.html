@@ -117,13 +117,13 @@
     <div class="st_other_card">
         <h2>{% trans "PAGE_APP_SECTION_DESC" %}</h2>
         <div class="separator_store"></div>
-        <div class="st_desc">{{ description }}</div>
+        <div class="st_desc">{{ description|linebreaksbr }}</div>
     </div>
 
     <div class="st_other_card">
         <h2>{% trans "PAGE_APP_SECTION_REQ" %}</h2>
         <div class="separator_store"></div>
-        <div class="st_desc">{{ requirements }}</div>
+        <div class="st_desc">{{ requirements|linebreaksbr }}</div>
     </div>
 
     <div class="st_other_card">
