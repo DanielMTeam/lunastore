@@ -9,7 +9,7 @@ def get_file_path(instance, filename):
 
 class Banner(models.Model):
     title = models.CharField(max_length=100, verbose_name="Название (для себя)")
-    image = models.ImageField(upload_to="banners/", verbose_name="Изображение")
+    image = models.ImageField(upload_to="otherdata/", verbose_name="Изображение")
     url = models.URLField(
         verbose_name="Ссылка", blank=True, help_text="Куда ведет клик"
     )
