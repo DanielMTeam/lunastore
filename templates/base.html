@@ -27,9 +27,9 @@
 
   <div class="dm_menu">
     {% if user.is_authenticated %}
-    {% trans "BASE_AUTHLIKE" %} <a href="/profile.php"><b>{{ user.username }}</b></a> - <a href="/logout.php">{% trans "BASE_LOGOUTBTN" %}</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a> | <a href="/other_projects.php">{% trans "BASE_OPRJ_TITLE" %}</a>
+    {% trans "BASE_AUTHLIKE" %} <a href="/profile.php"><b>{{ user.username }}</b></a> - <a href="/logout.php">{% trans "BASE_LOGOUTBTN" %}</a> | <a href="http://old.myslivets.com">myslivets.com</a>  | <a href="/other_projects.php">{% trans "BASE_OPRJ_TITLE" %}</a>
     {% else %}
-    <a href="{% url 'login' %}" id="login-link">{% trans "BASE_LOGINBTN" %}</a> - <a href="/register.php">{% trans "BASE_REGISTERBTN" %}</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="">< prev</a> - <a href="">webring</a> - <a href="">next ></a> | <b>рус</b> - <a href="">eng</a> | <a href="/other_projects.php">{% trans "BASE_OPRJ_TITLE" %}</a>
+    <a href="{% url 'login' %}" id="login-link">{% trans "BASE_LOGINBTN" %}</a> - <a href="/register.php">{% trans "BASE_REGISTERBTN" %}</a> | <a href="http://old.myslivets.com">myslivets.com</a> | <a href="/other_projects.php">{% trans "BASE_OPRJ_TITLE" %}</a>
     {% endif %}
   </div>
 
