@@ -325,6 +325,13 @@ li.web {
     width: 425px;
 }
 
+.listview h3 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 370px;
+    white-space: nowrap;
+}
+
 .card img {
     float: left;
     margin-right: 6px;
