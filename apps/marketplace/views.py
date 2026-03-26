@@ -203,7 +203,7 @@ def app_add(request):
         {
             "form": form,
             "cdn_upload_url": f"{settings.LUNASPIRE_URL}/cdn/upload",
-            "token_upload_url": f"{settings.API_URL}/method/user/getAvatarToken",
+            "token_upload_url": f"{settings.API_URL}/method/user/getPubUploadToken",
         },
     )
 
@@ -240,6 +240,7 @@ def application_edit_info(request, pk):
             request.session.save()
             return redirect("edit_app_info", pk=obj.pk)
         else:
+            print("ОШИБКИ ФОРМЫ:", form.errors)
             messages.error(request, _("PAGE_ADMIN_APP_MSG_SAVE_ERROR"))
             request.session.save()
     else:
@@ -252,7 +253,7 @@ def application_edit_info(request, pk):
             "obj": obj,
             "form": form,
             "cdn_upload_url": f"{settings.LUNASPIRE_URL}/cdn/upload",
-            "cdn_token_url": f"{settings.API_URL}/method/user/getAvatarToken",
+            "cdn_token_url": f"{settings.API_URL}/method/user/getPubUploadToken",
         },
     )
 
@@ -387,7 +388,7 @@ def manage_distributions(request):
         "distributions": page_obj,
         "page_obj": page_obj,
         "page_range": page_range,
-        "get_token_url": f"{settings.API_URL}/method/user/getDistributionToken",
+        "get_token_url": f"{settings.API_URL}/method/user/getPrivUploadToken",
         "cdn_upload_url": f"{settings.LUNASPIRE_URL}/cdn/upload",
         "download_list_url": reverse("download") + "?id=" + str(app_obj.id),
     }
@@ -414,7 +415,7 @@ def distribution_edit(request, dist_pk):
         "form": form,
         "app": distribution.app,
         "distribution": distribution,
-        "get_token_url": f"{settings.API_URL}/method/user/getDistributionToken",
+        "get_token_url": f"{settings.API_URL}/method/user/getPrivUploadToken",
         "cdn_upload_url": f"{settings.LUNASPIRE_URL}/cdn/upload",
         "download_list_url": reverse("download") + "?id=" + str(distribution.app.id),
     }

@@ -1,13 +1,13 @@
 import json
 import os
 import uuid
+from urllib.parse import urlparse
 
 import jwt
 from captcha.fields import CaptchaField
 from django import forms
 from django.conf import settings
 from django.core.exceptions import ValidationError
-from django.core.validators import FileExtensionValidator
 from django.forms.models import model_to_dict
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
@@ -275,15 +275,59 @@ class AppEditForm(AppCreateForm):
 
     def __init__(self, target_app=None, *args, **kwargs):
         if target_app:
-            initial_data = model_to_dict(target_app)
-            kwargs["initial"] = initial_data
+            kwargs["initial"] = model_to_dict(target_app)
             self.target_app = target_app
         super().__init__(*args, **kwargs)
 
-        if "captcha" in self.fields:
-            del self.fields["captcha"]
-        if "agree_with_site_rules" in self.fields:
-            del self.fields["agree_with_site_rules"]
+        self.fields.pop("captcha", None)
+        self.fields.pop("agree_with_site_rules", None)
+
+    def _is_valid_cdn_url(self, url):
+        if not url:
+            return False
+
+        if not url.startswith("http://") and not url.startswith("https://"):
+            if ":" in url:
+                return False
+            return True
+
+        parsed_url = urlparse(url)
+        expected_domain = getattr(settings, "LUNASPIRE_URL_WITHOUT_PROTO", "")
+
+        actual_hostname = parsed_url.hostname or parsed_url.netloc.split(":")[0]
+        expected_hostname = expected_domain.split(":")[0]
+
+        return actual_hostname == expected_hostname
+
+    def clean_cdn_icon_path(self):
+        icon_path = self.cleaned_data.get("cdn_icon_path")
+        if icon_path:
+            if not self._is_valid_cdn_url(icon_path):
+                raise ValidationError(
+                    "URL иконки не совпадает с изначальным доменом LunaSpire. Пожалуйста, обратитесь к администратору."
+                )
+        return icon_path
+
+    def clean_cdn_screenshots_data(self):
+        scr_data = self.cleaned_data.get("cdn_screenshots_data")
+        if scr_data:
+            try:
+                screenshots = json.loads(scr_data)
+                if not isinstance(screenshots, list):
+                    raise ValidationError(
+                        "Неверный формат данных скриншотов. Пожалуйста, проверьте данные."
+                    )
+
+                for scr_url in screenshots:
+                    if not self._is_valid_cdn_url(scr_url):
+                        raise ValidationError(
+                            "Один или несколько URL скриншотов недействительны. Пожалуйста, проверьте данные."
+                        )
+
+                return screenshots
+            except json.JSONDecodeError:
+                raise ValidationError("Ошибка чтения данных скриншотов.")
+        return None
 
     def save(self, commit=True):
         submission = super().save(commit=False)
@@ -292,24 +336,14 @@ class AppEditForm(AppCreateForm):
             submission.target_application = self.target_app
 
             new_icon = self.cleaned_data.get("cdn_icon_path")
-            if new_icon:
-                submission.icon_path = new_icon
-            elif not submission.icon_path and self.target_app.icon_path:
-                submission.icon_path = self.target_app.icon_path
+            submission.icon_path = new_icon if new_icon else self.target_app.icon_path
 
             new_scr = self.cleaned_data.get("cdn_screenshots_data")
-            if new_scr:
-                import json
-
-                try:
-                    submission.screenshots = json.loads(new_scr)
-                except (json.JSONDecodeError, TypeError):
-                    pass
-            elif not submission.screenshots and self.target_app.screenshots:
-                submission.screenshots = self.target_app.screenshots
+            submission.screenshots = new_scr if new_scr else self.target_app.screenshots
 
         if commit:
             submission.save()
+
         return submission
 
 
