@@ -28,6 +28,18 @@
                     {% trans "PAGE_FAQ_PRIVACYTAB" %}
                 </div>
             </a>
+            <a href="{% url 'help_center' %}?page=donate" style="text-decoration: none; color: inherit">
+                <div class="tab {% if current_page == 'donate' %}active{% endif %}">
+                    <img src="{% static './img/tabs/donate.png' %}" class="tab-icon" alt="" />
+                    {% trans "PAGE_FAQ_DONATETAB" %}
+                </div>
+            </a>
+            <a href="{% url 'help_center' %}?page=rules" style="text-decoration: none; color: inherit">
+                <div class="tab {% if current_page == 'rules' %}active{% endif %}">
+                    <img src="{% static './img/tabs/terms.png' %}" class="tab-icon" alt="" />
+                    {% trans "PAGE_FAQ_RULESTAB" %}
+                </div>
+            </a>
         </div>
 
         <div class="tab-content" id="tab-view">
@@ -119,8 +131,22 @@
                     <p>{% trans "PAGE_FAQ_PRIVACY_EMPTY" %}</p>
                 {% endif %}
 
-            {% endif %}
+            {% elif current_page == 'donate' %}
+                <h3>{% trans "PAGE_FAQ_DONATE_TITLE" %}</h3>
+                {% if donate_doc %}
+                    <div id="faq_content"><p>{{ donate_doc.content|safe }}</p></div>
+                {% else %}
+                    <p>{% trans "PAGE_FAQ_PRIVACY_EMPTY" %}</p>
+                {% endif %}
 
+            {% elif current_page == 'rules' %}
+                <h3>{% trans "PAGE_FAQ_RULESTAB" %}</h3>
+                {% if rules_doc %}
+                    <div id="faq_content"><p>{{ rules_doc.content|safe }}</p></div>
+                {% else %}
+                    <p>{% trans "PAGE_FAQ_PRIVACY_EMPTY" %}</p>
+                {% endif %}
+            {% endif %}
         </div>
     </div>
 </div>
