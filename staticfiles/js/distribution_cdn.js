@@ -8,6 +8,10 @@ document.addEventListener("DOMContentLoaded", function () {
         'input[name="cdn_confirm_token"]',
     );
 
+    const progressContainer = document.getElementById("progress-container");
+    const progressBar = document.getElementById("progress-bar-fill");
+    const progressText = document.getElementById("progress-text");
+
     if (form) {
         form.addEventListener("submit", async function (e) {
             if (fileInput && fileInput.files && fileInput.files.length > 0) {
@@ -23,6 +27,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (submitBtn) {
                     submitBtn.disabled = true;
                     submitBtn.textContent = i18n.uploading || "Загрузка...";
+                }
+
+                if (progressContainer) {
+                    progressContainer.style.display = "block";
+                    if (progressBar) progressBar.style.width = "0%";
+                    if (progressText) progressText.textContent = "0%";
                 }
 
                 try {
@@ -48,25 +58,61 @@ document.addEventListener("DOMContentLoaded", function () {
                     fd.append("file", file);
                     fd.append("mime_type", file.type);
 
-                    const cdnRes = await fetch(uploadUrl.toString(), {
-                        method: "POST",
-                        body: fd,
-                        mode: "cors",
+                    const cdnJson = await new Promise((resolve, reject) => {
+                        const xhr = new XMLHttpRequest();
+                        xhr.open("POST", uploadUrl.toString());
+
+                        xhr.upload.addEventListener("progress", (event) => {
+                            if (event.lengthComputable) {
+                                const percentComplete = Math.round(
+                                    (event.loaded / event.total) * 100,
+                                );
+                                if (progressBar)
+                                    progressBar.style.width = `${percentComplete}%`;
+                                if (progressText)
+                                    progressText.textContent = `${percentComplete}%`;
+                            }
+                        });
+
+                        xhr.onload = () => {
+                            if (
+                                xhr.status === 202 ||
+                                (xhr.status >= 200 && xhr.status < 300)
+                            ) {
+                                try {
+                                    const responseJson = JSON.parse(
+                                        xhr.responseText,
+                                    );
+                                    resolve(responseJson);
+                                } catch (e) {
+                                    reject(
+                                        new Error(
+                                            "Некорректынй JSON от LunaSpire. Пожалуйста, обратитесь к администратору.",
+                                        ),
+                                    );
+                                }
+                            } else {
+                                let errorMsg = `Ошибка LunaSpire (${xhr.status}): ${xhr.responseText}`;
+                                if (xhr.status === 415)
+                                    errorMsg =
+                                        "Ошибка: недопустимый тип файла (415 HTTP error). Пожалуйста, обратитесь к администратору.";
+                                if (xhr.status === 409)
+                                    errorMsg =
+                                        "Ошибка: этот токен загрузки уже использован (409 HTTP error). Пожалуйста, обновите страницу.";
+                                reject(new Error(errorMsg));
+                            }
+                        };
+
+                        xhr.onerror = () => {
+                            reject(
+                                new Error(
+                                    "Ошибка сети. Пожалуйста, проверьте подключение к интернету.",
+                                ),
+                            );
+                        };
+
+                        xhr.send(fd);
                     });
-
-                    if (cdnRes.status !== 202 && !cdnRes.ok) {
-                        const errorBody = await cdnRes.text();
-                        let errorMsg = `Ошибка CDN (${cdnRes.status}): ${errorBody}`;
-                        if (cdnRes.status === 415)
-                            errorMsg =
-                                "Ошибка: Недопустимый тип файла (415). Пожалуйста, обратитесь к администратору";
-                        if (cdnRes.status === 409)
-                            errorMsg =
-                                "Ошибка: Этот токен загрузки уже использован (409). Пожалуйста, обновите страницу и попробуйте снова";
-                        throw new Error(errorMsg);
-                    }
-
-                    const cdnJson = await cdnRes.json();
 
                     if (!cdnJson.confirm_token) {
                         throw new Error("CDN did not return confirm_token");
@@ -82,6 +128,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         submitBtn.disabled = false;
                         submitBtn.textContent = originalText;
                     }
+                    if (progressContainer)
+                        progressContainer.style.display = "none";
                 }
             }
         });
