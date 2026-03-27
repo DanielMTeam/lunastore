@@ -6,15 +6,15 @@
 <title>LunaStore</title>
 <div class="content">
 <div class="banner_image"><div id="welcome"><div class="banner_text">{{ name }}</div><div class="banner_text_mini">{{ description }}</div></div></div>
-        <div class="list_settings">
-      <div class="selector">
-        <select onchange="location = this.options[this.selectedIndex].value;">
-          <option>{% trans "PAGE_CATEGORY_SHOWCONTENTAS" %}</option>
-          <option value="{url}">{% trans "PAGE_CATEGORY_SHOWCONTENTASTILES" %}</option>
-          <option value="{url}&view=list">{% trans "PAGE_CATEGORY_SHOWCONTENTASLIST" %}</option>
-        </select>
-      </div>
+<div class="list_settings">
+    <div class="selector">
+        <select onchange="window.location.href = '?id={{ active_category.id }}&view=' + this.value;">
+                <option value="" disabled {% if not view_mode %}selected{% endif %}>{% trans "PAGE_SEARCH_SORT_PLACEHOLDER" %}</option>
+                <option value="tiles" {% if view_mode == 'tiles' %}selected{% endif %}>{% trans "PAGE_SEARCH_SORT_TILES" %}</option>
+                <option value="list" {% if view_mode == 'list' %}selected{% endif %}>{% trans "PAGE_SEARCH_SORT_LIST" %}</option>
+            </select>
     </div>
+</div>
     <div class="section">
     <h2>{% trans "PAGE_CATEGORY_COUNTOFRESULTS" %} {{ count }}</h2>
     </div>
@@ -25,6 +25,10 @@
 
   <div class="search_full">
       <form action="{% url 'search' %}" method="get" class="search_full" style="margin: 0; padding: 0;">
+
+          {% if view_mode == 'list' %}
+              <input type="hidden" name="view" value="list">
+          {% endif %}
 
           <input type="text" name="q" id="q" class="search_icon"
                  placeholder="{% trans 'PAGE_CATEGORY_SEARCHOFCATEGORY' %} &quot;{{ name }}&quot;"
@@ -39,7 +43,7 @@
   </div>
  </div>
     {% for app in page_obj %}
-    <div class="card listview">
+    <div class="card {% if view_mode == 'list' %}listview{% endif %}">
         {% if app.icon_path %}
             <img src="{{ app.icon_url }}" alt="{{ app.title }}">
         {% else %}
@@ -79,9 +83,9 @@
       {% if page_num == page_obj.paginator.ELLIPSIS %}
         <span>{{ page_num }}</span>
       {% elif page_num == page_obj.number %}
-        <a class="active" href="/category.php?id={{ active_category.id }}&page={{ page_num }}">{{ page_num }}</a>
+      <a class="active" href="/category.php?id={{ active_category.id }}&page={{ page_num }}{% if view_mode %}&view={{ view_mode }}{% endif %}">{{ page_num }}</a>
       {% else %}
-        <a href="/category.php?id={{ active_category.id }}&page={{ page_num }}">{{ page_num }}</a>
+      <a href="/category.php?id={{ active_category.id }}&page={{ page_num }}{% if view_mode %}&view={{ view_mode }}{% endif %}">{{ page_num }}</a>
       {% endif %}
     {% endfor %}
   </div>

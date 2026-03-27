@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="{% static './css/main.css'%}">
 <link rel="shortcut icon" href="{% static './favicon.ico'%}">
 <script src="{% static './js/cookie.js'%}"></script>
+<!--[if lte IE 6]> <link rel="stylesheet" href="./css/ie6/main_ie6.css" media="screen, projection"> <![endif]-->
 </head>
 
 
@@ -143,7 +144,7 @@
     {% endblock %}
 
     <div class="footer">
-    <a href="/help_center.php">FAQ</a> - <a href="/help_center.php?page=privacy">{% trans "BASE_PRIVACYPOLICYBTN" %}</a> - <a href="https://t.me/lunastore_official">Telegram</a>
+    <a href="/help_center.php">FAQ</a> - <a href="/help_center.php?page=privacy">{% trans "BASE_PRIVACYPOLICYBTN" %}</a> - <a href="/help_center.php?page=donate">{% trans "PAGE_FAQ_DONATETAB" %}</a> - <a href="/help_center.php?page=rules">{% trans "PAGE_FAQ_RULESTAB" %}</a> - <a href="https://t.me/lunastore_official">{% trans "BASE_FOOTER_TELEGRAM" %}</a>
     <div style="text-align: right; font-size: 11px;">{% trans "BASE_FOOTER_TEXT_1" %} {% now "Y" %}<br>{% trans "BASE_FOOTER_TEXT_2" %}</div>
   </div>
 
