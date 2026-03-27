@@ -316,7 +316,7 @@
             alert('{% trans "ERROR_INVALID_FILE_FORMAT" %} \n{% trans "INFO_ACCEPTED_ICON_FORMATS" %}');
             input.value = "";
             iconDataUrl = null;
-            document.getElementById('prev_icon').src = "{% static 'img/default_icon.png' %}";
+            document.getElementById('prev_icon').src = "{% static 'img/noavatar_64.jpg' %}";
             return;
         }
 
@@ -428,7 +428,7 @@
         }
 
         let iconImg = document.getElementById('prev_icon');
-        iconImg.src = iconDataUrl ? iconDataUrl : "{% static 'img/default_icon.png' %}";
+        iconImg.src = iconDataUrl ? iconDataUrl : "{% static 'img/noavatar_64.jpg' %}";
 
         let scrCont = document.getElementById('js_screenshots_placeholder');
         scrCont.innerHTML = "";
