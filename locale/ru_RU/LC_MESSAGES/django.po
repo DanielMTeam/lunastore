@@ -648,6 +648,9 @@ msgstr "С душой сделано командой DM,"
 msgid "BASE_FOOTER_TEXT_2"
 msgstr "Все права принадлежат исходным правообладателям"
 
+msgid "BASE_FOOTER_TELEGRAM"
+msgstr "Наш Telegram канал"
+
 #: templates/base.html:117
 msgid "BASE_LOGINPOPUP_TITLE"
 msgstr "Авторизация"
@@ -1199,7 +1202,10 @@ msgstr "Опубликованные приложения"
 
 #: templates/profile.html:78
 msgid "PAGE_PROFILE_LINK_ALL"
-msgstr "все"
+msgstr "показать все"
+
+msgid "PAGE_PROFILE_LINK_ADDAPP"
+msgstr "добавить"
 
 #: templates/profile.html:97
 msgid "PAGE_PROFILE_INVITES_TEXT"
@@ -2073,3 +2079,12 @@ msgstr "имеется"
 
 msgid "PAGE_MANAGE_APPS_CREATE"
 msgstr "Создать приложение"
+
+msgid "PAGE_FAQ_DONATETAB"
+msgstr "Задонатить"
+
+msgid "PAGE_FAQ_RULESTAB"
+msgstr "Правила"
+
+msgid "PAGE_FAQ_DONATE_TITLE"
+msgstr "Как нас поддержать?"
