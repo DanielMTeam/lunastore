@@ -36,6 +36,7 @@ def marketplace(request):
 def category(request):
     id = request.GET.get("id")
     page = request.GET.get("page")
+    view_mode = request.GET.get("view", "tiles")
 
     # get model objects
     obj_category = get_object_or_404(Category, id=id)
@@ -55,6 +56,7 @@ def category(request):
         "page_range": page_range,
         "active_category": obj_category,
         "name": obj_category.name,
+        "view_mode": view_mode,
         "description": obj_category.description,
         "count": obj_apps.count,
     }
