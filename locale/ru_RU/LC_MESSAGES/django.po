@@ -928,7 +928,7 @@ msgstr ""
 
 #: templates/faq.html:22
 msgid "PAGE_FAQ_PRIVACYTAB"
-msgstr "Конфиденциальность"
+msgstr "Приватность"
 
 #: templates/faq.html:30
 msgid "PAGE_FAQ_CARD_WHATISIT"
