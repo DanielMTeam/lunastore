@@ -1,4 +1,5 @@
 import os
+import sys
 from pathlib import Path
 
 from django.templatetags.static import static
@@ -392,3 +393,8 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
+
+if "test" in sys.argv:
+    STORAGES["staticfiles"] = {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    }
