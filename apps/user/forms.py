@@ -146,7 +146,7 @@ class ProfileUpdateForm(forms.ModelForm):
     discord = forms.CharField(
         label="Discord",
         required=False,
-        widget=forms.URLInput(attrs={"class": "input-text"}),
+        widget=forms.TextInput(attrs={"class": "input-text"}),
     )
     description = forms.CharField(
         label="Описание профиля",
