@@ -45,7 +45,7 @@ class User(AbstractUser, SafeDeleteModel):
     def avatar_url(self):
         if self.avatar_path:
             base_url = getattr(settings, "LUNASPIRE_URL", "").rstrip("/")
-            protocol_relative_url = re.sub(r"^https?:", "", base_url)
+            protocol_relative_url = base_url.replace("https:", "").replace("http:", "")
 
             return f"{protocol_relative_url}/{self.avatar_path.lstrip('/')}"
         return "/staticfiles/img/noavatar_64.jpg"

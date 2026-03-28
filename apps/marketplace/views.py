@@ -65,7 +65,7 @@ def category(request):
 
 def app(request):
     id = request.GET.get("id")
-    obj = get_object_or_404(Application, id=id)
+    obj = get_object_or_404(Application.objects.select_related("user"), id=id)
     obj_dist = Distribution.objects.filter(app__id=id).order_by("-published").first()
     download_page_url = f"{reverse('download')}?id={obj.id}"
 
@@ -98,17 +98,17 @@ def download_list(request):
         return redirect("home")
 
     app_obj = get_object_or_404(Application, id=app_id)
-    distributions = list(Distribution.objects.filter(app=app_obj))
     sort_field = request.GET.get("sort", "version")
     order = request.GET.get("order", "asc")
 
-    def sort_key(dist):
-        if sort_field == "published":
-            return dist.published or dist.pk
-        return dist.version or ""
+    valid_fields = {"version": "version", "published": "published"}
+    db_sort_field = valid_fields.get(sort_field, "version")
 
-    is_desc = order == "desc"
-    distributions.sort(key=sort_key, reverse=is_desc)
+    sort_prefix = "-" if order == "desc" else ""
+
+    distributions = Distribution.objects.filter(app=app_obj).order_by(
+        f"{sort_prefix}{db_sort_field}"
+    )
 
     latest_dist = (
         Distribution.objects.filter(app=app_obj).order_by("-published", "-id").first()

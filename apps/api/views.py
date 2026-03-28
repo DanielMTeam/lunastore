@@ -4,6 +4,7 @@ from datetime import datetime
 
 import jwt
 from django.conf import settings
+from django.contrib.postgres.search import TrigramSimilarity
 from django.shortcuts import get_object_or_404
 from drf_spectacular.utils import (
     OpenApiParameter,
@@ -381,8 +382,13 @@ class DistributionViewSet(viewsets.GenericViewSet):
                 status_code=400,
             )
         try:
-            app = Application.objects.get(pk=id)
-            distributions = self.get_queryset().filter(app=app)
+            distributions = self.get_queryset().filter(app_id=id)
+            if not distributions.exists():
+                raise LunaException(
+                    code=ErrorCodes.APPLICATION_NOT_FOUND,
+                    message=f"No distributions found for app id {id}",
+                    status_code=404,
+                )
         except Application.DoesNotExist:
             raise LunaException(
                 code=ErrorCodes.APPLICATION_NOT_FOUND,
