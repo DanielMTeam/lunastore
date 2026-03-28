@@ -90,3 +90,19 @@ restart:
 
 logs:
 	docker-compose -f $(PROD_COMPOSE) logs -f
+
+PYTHON ?= python
+
+i18n-make:
+	$(PYTHON) manage.py makemessages -a
+
+i18n-compile:
+	$(PYTHON) manage.py compilemessages
+
+tolgee-push:
+	tolgee push
+
+tolgee-pull:
+	tolgee pull
+
+i18n-sync: i18n-make tolgee-push tolgee-pull i18n-compile
