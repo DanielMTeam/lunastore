@@ -325,6 +325,8 @@ INVITES_ON_REGISTER = os.getenv("INVITES_ON_REGISTER", False)
 MAX_INVITE_USES_COUNT = os.getenv("MAX_INVITE_USES_COUNT", 3)
 MAX_INVITE_DAYS_LIMIT = os.getenv("MAX_INVITE_DAYS_LIMIT", 7)
 
+WHITENOISE_MANIFEST_STRICT = False
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
