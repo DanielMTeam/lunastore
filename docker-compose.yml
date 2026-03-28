@@ -1,103 +1,107 @@
 services:
-  db:
-    image: postgres:18-alpine
-    container_name: lunastore_db
-    restart: unless-stopped
-    env_file:
-      - .env
-    environment:
-      POSTGRES_DB: ${DB_NAME:-lunastore}
-      POSTGRES_USER: ${DB_USER:-postgres}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      PGDATA: /var/lib/postgresql/data/pgdata
-    networks:
-      - storenetwork
-    volumes:
-      - pg_data:/var/lib/postgresql/data
-    healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-lunastore}",
-        ]
-      interval: 5s
-      timeout: 5s
-      retries: 5
+    db:
+        image: postgres:18-alpine
+        container_name: lunastore_db
+        restart: unless-stopped
+        env_file:
+            - .env
+        environment:
+            POSTGRES_DB: ${DB_NAME:-lunastore}
+            POSTGRES_USER: ${DB_USER:-postgres}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
+            PGDATA: /var/lib/postgresql/data/pgdata
+        networks:
+            - storenetwork
+        volumes:
+            - pg_data:/var/lib/postgresql/data
+        healthcheck:
+            test:
+                [
+                    "CMD-SHELL",
+                    "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-lunastore}",
+                ]
+            interval: 5s
+            timeout: 5s
+            retries: 5
 
-  lunaspire:
-    build: ./lunaspire/
-    image: lunaspire:local
-    env_file:
-      - ./lunaspire/.env
-    restart: unless-stopped
-    networks:
-      - storenetwork
-    depends_on:
-      db:
-        condition: service_healthy
-    volumes:
-      - ./lunaspire/public:/root/public
-      - ./lunaspire/storage:/root/storage
-    ports:
-      - "6080:8080"
-    command: >
-      sh -c "./main"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
-      start_period: 5s
+    lunaspire:
+        build: ./lunaspire/
+        image: lunaspire:local
+        env_file:
+            - ./lunaspire/.env
+        restart: unless-stopped
+        networks:
+            - storenetwork
+        depends_on:
+            db:
+                condition: service_healthy
+        volumes:
+            - ./lunaspire/public:/root/public
+            - ./lunaspire/storage:/root/storage
+        ports:
+            - "6080:8080"
+        command: >
+            sh -c "./main"
+        healthcheck:
+            test: ["CMD", "curl", "-f", "http://localhost:8080/"]
+            interval: 10s
+            timeout: 5s
+            retries: 3
+            start_period: 5s
 
-  x-lunastore-template: &lunastore_base
-    image: lunastore:local
-    env_file:
-      - .env
-    restart: unless-stopped
-    networks:
-      - storenetwork
-    depends_on:
-      db:
-        condition: service_healthy
-      lunaspire:
-        condition: service_healthy
-    volumes:
-      - static_volume:/app/staticfiles_build
-      - /opt/lunastore/media:/app/media
-    command: >
-      sh -c "python manage.py collectstatic --noinput &&
-             DJANGO_ROOT_URLCONF=lunastore.urls_api      gunicorn lunastore.wsgi:application --bind 0.0.0.0:7088 --workers 2 &
-             DJANGO_ROOT_URLCONF=lunastore.urls_private  gunicorn lunastore.wsgi:application --bind 0.0.0.0:8088 --workers 2 &
-             DJANGO_ROOT_URLCONF=lunastore.urls          gunicorn lunastore.wsgi:application --bind 0.0.0.0:9088 --workers 2 &
-             wait"
-    healthcheck:
-      test: ["CMD-SHELL", "curl -fs http://localhost:7088/method/service/heartbeat/ && curl -fs http://localhost:8088/${ADMIN_URL:-admin}/login/ && curl -fs http://localhost:9088/ || exit 1"]
-      interval: 10s
-      retries: 3
-      start_period: 60s
+    x-lunastore-template: &lunastore_base
+        image: lunastore:local
+        env_file:
+            - .env
+        restart: unless-stopped
+        networks:
+            - storenetwork
+        depends_on:
+            db:
+                condition: service_healthy
+            lunaspire:
+                condition: service_healthy
+        volumes:
+            - static_volume:/app/staticfiles_build
+            - /opt/lunastore/media:/app/media
+        command: >
+            sh -c "python manage.py collectstatic --noinput &&
+                   DJANGO_ROOT_URLCONF=lunastore.urls_api      gunicorn lunastore.wsgi:application --bind 0.0.0.0:7088 --workers 5 &
+                   DJANGO_ROOT_URLCONF=lunastore.urls_private  gunicorn lunastore.wsgi:application --bind 0.0.0.0:8088 --workers 5 &
+                   DJANGO_ROOT_URLCONF=lunastore.urls          gunicorn lunastore.wsgi:application --bind 0.0.0.0:9088 --workers 5 &
+                   wait"
+        healthcheck:
+            test:
+                [
+                    "CMD-SHELL",
+                    "curl -fs http://localhost:7088/method/service/heartbeat/ && curl -fs http://localhost:8088/${ADMIN_URL:-admin}/login/ && curl -fs http://localhost:9088/ || exit 1",
+                ]
+            interval: 10s
+            retries: 3
+            start_period: 60s
 
-  lunastore-blue:
-    <<: *lunastore_base
-    container_name: lunastore_blue
-    ports:
-      - "7081:7088" # API
-      - "8081:8088" # Admin
-      - "9081:9088" # Web
+    lunastore-blue:
+        <<: *lunastore_base
+        container_name: lunastore_blue
+        ports:
+            - "7081:7088" # API
+            - "8081:8088" # Admin
+            - "9081:9088" # Web
 
-  lunastore-green:
-    <<: *lunastore_base
-    container_name: lunastore_green
-    ports:
-      - "7082:7088"
-      - "8082:8088"
-      - "9082:9088"
+    lunastore-green:
+        <<: *lunastore_base
+        container_name: lunastore_green
+        ports:
+            - "7082:7088"
+            - "8082:8088"
+            - "9082:9088"
 
 networks:
-  storenetwork:
-    name: lunastore_network
-    driver: bridge
+    storenetwork:
+        name: lunastore_network
+        driver: bridge
 
 volumes:
-  static_volume:
-  media_volume:
-  pg_data:
+    static_volume:
+    media_volume:
+    pg_data:
