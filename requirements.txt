@@ -1,4 +1,4 @@
-Django==6.0
+Django==6.0.3
 pillow
 django[bcrypt]
 django-simple-captcha

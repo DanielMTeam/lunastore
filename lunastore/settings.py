@@ -130,7 +130,7 @@ TASKS = {"default": {"BACKEND": "django.tasks.backends.immediate.ImmediateBacken
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.db.DatabaseCache",
-        "LOCATION": "cache",
+        "LOCATION": "unique-snowflake",
     }
 }
 
@@ -352,17 +352,17 @@ LOGGING = {
     },
     "loggers": {
         "django": {
-            "handlers": ["console", "file"],
+            "handlers": ["console"],
             "level": "INFO",
             "propagate": True,
         },
         "user": {
-            "handlers": ["console", "file"],
+            "handlers": ["console"],
             "level": "DEBUG",
             "propagate": False,
         },
         "marketplace": {
-            "handlers": ["console", "file"],
+            "handlers": ["console"],
             "level": "DEBUG",
             "propagate": False,
         },
@@ -383,3 +383,12 @@ STATIC_URL = "/staticfiles/"
 STATICFILES_DIRS = [BASE_DIR / "staticfiles"]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
