@@ -158,6 +158,7 @@ def register(request):
     return render(request, "register_on.html", {"form": form, "invite_obj": invite_obj})
 
 
+@login_required
 def profile(request):
     id = request.GET.get("id")
 
@@ -345,6 +346,7 @@ def invite_person(request):
     )
 
 
+@login_required
 def invite_code(request):
     if not settings.INVITES_ON_REGISTER:
         return redirect("home")
