@@ -1,5 +1,4 @@
 import jwt
-import requests
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -33,6 +32,7 @@ def marketplace(request):
     return render(request, "index.html", {"categories": categories})
 
 
+@login_required
 def category(request):
     id = request.GET.get("id")
     page = request.GET.get("page")
