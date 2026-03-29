@@ -18,6 +18,8 @@ LOCALE_PATHS = [
 
 LOGIN_URL = "login.php"
 
+ANALYTICS_URL = os.getenv("ANALYTICS_URL", None)
+
 LOGIN_REDIRECT_URL = "/index.php"
 
 LOGOUT_REDIRECT_URL = "/login.php"
