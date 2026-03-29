@@ -13,7 +13,7 @@
 <link rel="shortcut icon" href="{% static './favicon.ico'%}">
 <script src="{% static './js/cookie.js'%}"></script>
 {% if analytics_url %}
-<script async src="{{ analytics_url }}"></script>
+<script async src="{{ analytics_url }}" data-website-id="{{ analytics_id }}"></script>
 {% endif %}
 </head>
 
