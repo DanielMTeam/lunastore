@@ -14,11 +14,3 @@ def motd_processor(request):
 
 def drm_settings(request):
     return {"ENABLE_DRM": getattr(settings, "ENABLE_DRM", False)}
-
-
-def analytics_url(request):
-    return {"analytics_url": getattr(settings, "ANALYTICS_URL", None)}
-
-
-def analytics_id(request):
-    return {"analytics_id": getattr(settings, "ANALYTICS_ID", None)}
