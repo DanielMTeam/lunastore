@@ -2119,8 +2119,5 @@ msgstr "Связаться с технической поддержкой:"
 msgid "BANNED_IP_BACK_BUTTON"
 msgstr "Вернуться назад"
 
-msgid "BANNED_IP_ALL_RIGHTS_RESERVED"
-msgstr "Все права защищены."
-
 msgid "BANNED_IP_HOME_LINK"
 msgstr "На главную"
