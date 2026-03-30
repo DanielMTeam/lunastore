@@ -41,7 +41,10 @@ class UserAdmin(unfold_admin.ModelAdmin):
                 "description": 'флаг is_staff является так называемым "пропуском" в админ-панель Django. флаг is_superuser дает все права без исключения. подумай дважды, прежде чем ставить эти флаги! (да блять, я серьезно)',
             },
         ),
-        ("Дополнительная информация", {"fields": ("telegram", "discord", "website")}),
+        (
+            "Дополнительная информация",
+            {"fields": ("telegram", "discord", "openvk", "website")},
+        ),
     )
     list_display = ["pk", "username", "email", "invited_by"]
     search_fields = ["username", "email", "pk"]
@@ -59,16 +62,33 @@ class UserAdmin(unfold_admin.ModelAdmin):
 @admin.register(UserBan)
 class UserBanAdmin(SafeDeleteAdmin):
     form = UserBanForm
-    list_display = ("get_username", "reason", "created_at")
+    list_display = (
+        "get_username",
+        "reason",
+        "is_permanent_display",
+        "expires_at",
+        "ban_by_ip_display",
+        "created_at",
+    )
     list_filter = SafeDeleteAdmin.list_filter + [
         "created_at",
+        "is_permanent",
+        "ban_by_ip",
     ]
-    search_fields = ["user__username", "reason"]
+    search_fields = ["user__username", "reason", "ip"]
     actions = ["unban_selected_users"]
 
     @admin.display(description="Пользователь", ordering="user__username")
     def get_username(self, obj):
         return obj.user.username
+
+    @admin.display(description="Бан по IP?", ordering="ip")
+    def ban_by_ip_display(self, obj):
+        return obj.ip
+
+    @admin.display(description="Перманентный?", ordering="is_permanent")
+    def is_permanent_display(self, obj):
+        return obj.is_permanent
 
     @admin.action(description="Разблокировать пользователей")
     def unban_selected_users(self, request, queryset):
@@ -83,6 +103,21 @@ class UserBanAdmin(SafeDeleteAdmin):
         if users_unbanned_count > 0:
             self.message_user(
                 request, f"Успешно разблокировано {users_unbanned_count} пользователей."
+            )
+
+    @admin.action(description="Снять блокировку по IP (но, оставить бан аккаунта)")
+    def remove_ip_ban_only(self, request, queryset):
+        updated_count = queryset.filter(ban_by_ip=True).update(ban_by_ip=False)
+
+        if updated_count > 0:
+            self.message_user(
+                request, f"Успешно снята блокировка по IP для {updated_count} записей"
+            )
+        else:
+            self.message_user(
+                request,
+                "Среди выбранных записей нет блокировок по IP",
+                level=messages.WARNING,
             )
 
 

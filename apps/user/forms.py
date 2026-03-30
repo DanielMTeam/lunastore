@@ -4,18 +4,22 @@ from io import BytesIO
 
 from captcha.fields import CaptchaField
 from django import forms
-from django.contrib import messages
 from django.contrib.admin.widgets import FilteredSelectMultiple
-from django.contrib.auth import password_validation
+from django.contrib.auth import get_user_model, password_validation
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import Group
+from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from PIL import Image
 
+from apps.core.utils import force_logout
+
 from .middleware import BlockBannedIP, get_client_ip
 from .models import BlacklistedUsername, InviteToken, User, UserActivityLog, UserBan
+from .tasks import CACHE_KEY
 from .validators import validate_invite_limit
 
 
@@ -24,7 +28,7 @@ class UserBanForm(forms.ModelForm):
 
     class Meta:
         model = UserBan
-        fields = ["reason"]
+        fields = ["reason", "ban_by_ip", "is_permanent", "expires_at"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -37,38 +41,69 @@ class UserBanForm(forms.ModelForm):
             self.fields["username"].disabled = False
             self.fields["username"].required = True
 
-    def clean_username(self):
+    def clean(self):
+        cleaned_data = super().clean()
+
         if self.instance and self.instance.pk:
-            return self.instance.user
+            return cleaned_data
 
-        username = self.cleaned_data["username"]
-        try:
-            user = User.objects.get(username=username)
-        except User.DoesNotExist:
-            raise forms.ValidationError("user with this username does not exist")
-        if UserBan.objects.filter(user=user).exists():
-            raise forms.ValidationError("this user is already banned")
-        latest_ip = (
-            UserActivityLog.objects.filter(user=user).order_by("-timestamp").first()
-        )
-        if not latest_ip:
-            raise forms.ValidationError("cannot ban user without activity log")
+        username = cleaned_data.get("username")
+        ban_by_ip = cleaned_data.get("ban_by_ip")
+        is_permanent = cleaned_data.get("is_permanent")
+        expires_at = cleaned_data.get("expires_at")
 
-        self.found_ip = latest_ip.ip
-        self.found_user = user
-        return user
+        if not is_permanent:
+            if not expires_at:
+                self.add_error(
+                    "expires_at",
+                    "Для временной блокировки нужно уточнить время, до которого пользователь будет в блокировке",
+                )
+            elif expires_at < timezone.now():
+                self.add_error(
+                    "expires_at", "Дата окончания блокировки не может быть в прошлом"
+                )
+
+        if username:
+            try:
+                user = get_user_model().objects.get(username=username)
+            except get_user_model().DoesNotExist:
+                self.add_error("username", "Пользователь с таким юзернеймом не найден")
+                return cleaned_data
+
+            if UserBan.objects.filter(user=user).exists():
+                self.add_error("username", "Этот пользователь уже забанен")
+                return cleaned_data
+
+            self.found_user = user
+            self.found_ip = None
+
+            if ban_by_ip:
+                latest_ip = (
+                    UserActivityLog.objects.filter(user=user)
+                    .order_by("-timestamp")
+                    .first()
+                )
+                if not latest_ip:
+                    self.add_error(
+                        "username",
+                        "Не удалось найти последний IP пользователя, ибо логов активности нет",
+                    )
+                    return cleaned_data
+                else:
+                    self.found_ip = latest_ip.ip
+
+        return cleaned_data
 
     def save(self, commit=True):
         if not self.instance.pk:
             user_to_ban = self.found_user
-            ip_to_ban = self.found_ip
 
-            user_to_ban.is_active = False
-            user_to_ban.save()
             self.instance.user = user_to_ban
-            self.instance.ip = ip_to_ban
-
+            if self.cleaned_data.get("ban_by_ip"):
+                self.instance.ip = self.found_ip
+            force_logout(user_to_ban)
         ban_instance = super().save(commit=commit)
+        cache.delete(CACHE_KEY)
         return ban_instance
 
 
@@ -125,7 +160,15 @@ class UserRegistrationForm(UserCreationForm):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ["username", "email", "telegram", "website", "description"]
+        fields = [
+            "username",
+            "email",
+            "telegram",
+            "website",
+            "description",
+            "discord",
+            "openvk",
+        ]
 
     username = forms.CharField(
         label="Имя пользователя",
@@ -145,6 +188,11 @@ class ProfileUpdateForm(forms.ModelForm):
     )
     discord = forms.CharField(
         label="Discord",
+        required=False,
+        widget=forms.TextInput(attrs={"class": "input-text"}),
+    )
+    openvk = forms.CharField(
+        label="OpenVK",
         required=False,
         widget=forms.TextInput(attrs={"class": "input-text"}),
     )
