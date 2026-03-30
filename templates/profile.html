@@ -85,6 +85,16 @@
                   <div class="profile_desc_element">{{ obj.discord|default:"-" }}</div>
               </div>
 
+              <div class="profile_desc_element_head">OpenVK:
+                  <div class="profile_desc_element">
+                      {% if obj.openvk %}
+                          <a href="https://openvk.org/{{ obj.openvk }}" target="_blank" rel="noopener noreferrer">{{ obj.openvk }}</a>
+                      {% else %}
+                          -
+                      {% endif %}
+                  </div>
+              </div>
+
           </div>
           <br>
 

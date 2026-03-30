@@ -642,7 +642,7 @@ msgstr "Политика конфиденциальности"
 
 #: templates/base.html:112
 msgid "BASE_FOOTER_TEXT_1"
-msgstr "С душой сделано командой DM,"
+msgstr "С душой разработано командой DM,"
 
 #: templates/base.html:112
 msgid "BASE_FOOTER_TEXT_2"
@@ -2088,3 +2088,39 @@ msgstr "Правила"
 
 msgid "PAGE_FAQ_DONATE_TITLE"
 msgstr "Как нас поддержать?"
+
+msgid "SITE_DESCRIPTION"
+msgstr "LunaStore. Справочник приложений для твоего старого ПК. Скачивайте приложения, оставляйте отзывы и станьте частью сообщества любителей старых ПК."
+
+msgid "BANNED_IP_PAGE_TITLE"
+msgstr "Доступ запрещен"
+
+msgid "BANNED_IP_HEADER"
+msgstr "Доступ ограничен"
+
+msgid "BANNED_IP_SUBTITLE"
+msgstr "Ваш IP-адрес заблокирован"
+
+msgid "BANNED_IP_H2"
+msgstr "В доступе отказано"
+
+msgid "BANNED_IP_INTRO"
+msgstr "Доступ к сайту с вашего IP-адреса приостановлен."
+
+msgid "BANNED_IP_REASON"
+msgstr "Это могло произойти из-за нарушения правил ресурса, подозрительной активности или срабатывания системы безопасности. Мы заботимся о комфорте всех пользователей, поэтому вынуждены временно или навсегда ограничить вам доступ."
+
+msgid "BANNED_IP_RESOLUTION"
+msgstr "Если вы считаете, что блокировка произошла по ошибке, или у вас динамический IP-адрес, который ранее принадлежал нарушителю, пожалуйста, свяжитесь с администрацией."
+
+msgid "BANNED_IP_CONTACT_SUPPORT"
+msgstr "Связаться с технической поддержкой:"
+
+msgid "BANNED_IP_BACK_BUTTON"
+msgstr "Вернуться назад"
+
+msgid "BANNED_IP_ALL_RIGHTS_RESERVED"
+msgstr "Все права защищены."
+
+msgid "BANNED_IP_HOME_LINK"
+msgstr "На главную"

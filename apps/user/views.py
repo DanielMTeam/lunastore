@@ -1,5 +1,6 @@
 import io
 import re
+from multiprocessing.process import active_children
 
 from django.conf import settings
 from django.contrib import messages
@@ -11,6 +12,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import Group
 from django.http import FileResponse, Http404, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.utils import timezone
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
@@ -45,7 +47,21 @@ def login(request):
     ip = get_client_ip(request)
 
     if ip in BlockBannedIP.get_banned_set():
-        return render(request, "banned_ip.html", status=403)
+        return render(
+            request, "banned_ip.html", {"admin_email": settings.ADMIN_EMAIL}, status=403
+        )
+
+    active_ip_bans = UserBan.objects.filter(ip=ip, ban_by_ip=True)
+    for ip_ban in active_ip_bans:
+        if ip_ban.is_permanent or (
+            ip_ban.expires_at and ip_ban.expires_at > timezone.now()
+        ):
+            return render(
+                request,
+                "banned_ip.html",
+                {"admin_email": settings.ADMIN_EMAIL},
+                status=403,
+            )
 
     if request.user.is_authenticated:
         return redirect("home")
@@ -63,11 +79,24 @@ def login(request):
             user = form.get_user()
             ban = UserBan.objects.filter(user=user).first()
             if ban:
-                error_msg = _("VIEW_LOGIN_BANNED_REASON") % {"reason": ban.reason}
-                messages.error(request, error_msg)
-                return render(request, "login_splash.html", {"next": next_url})
+                if (
+                    not ban.is_permanent
+                    and ban.expires_at
+                    and ban.expires_at <= timezone.now()
+                ):
+                    ban.delete()
+                    user.is_active = True
+                    user.save(update_fields=["is_active"])
+                else:
+                    reason = ban.reason
+                    if not ban.is_permanent:
+                        exp_str = ban.expires_at.strftime("%d.%m.%Y %H:%M")
+                        reason += f" (до {exp_str})"
 
-            user.backend = "django.contrib.auth.backends.ModelBackend"
+                    error_msg = _("VIEW_LOGIN_BANNED_REASON") % {"reason": reason}
+                    messages.error(request, error_msg)
+                    return render(request, "login_splash.html", {"next": next_url})
+
             dj_login(request, user)
 
             UserActivityLog.objects.create(user=user, ip=ip, action="login_save_ip")
@@ -117,19 +146,28 @@ def register(request):
     if request.method == "POST":
         if request.user.is_authenticated:
             return redirect("home")
+        ip = get_client_ip(request)
+        active_ip_bans = UserBan.objects.filter(ip=ip, ban_by_ip=True)
+        for ip_ban in active_ip_bans:
+            if ip_ban.is_permanent or (
+                ip_ban.expires_at and ip_ban.expires_at > timezone.now()
+            ):
+                return render(
+                    request,
+                    "banned_ip.html",
+                    {"admin_email": settings.ADMIN_EMAIL},
+                    status=403,
+                )
         raw_username = request.POST.get("username", "").lower().strip()
         blacklist = BlacklistedUsername.objects.all()
         is_blocked = False
 
-        for item in blacklist:
-            if item.is_regex:
-                if re.search(item.word, raw_username):
-                    is_blocked = True
-                    break
-            else:
-                if item.word.lower() in raw_username:
-                    is_blocked = True
-                    break
+        is_blocked = any(
+            re.search(item.word, raw_username)
+            if item.is_regex
+            else item.word.lower() in raw_username
+            for item in blacklist
+        )
         if is_blocked:
             return redirect("502_error")
         form = UserRegistrationForm(request.POST, request=request)
