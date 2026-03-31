@@ -18,6 +18,7 @@ from .models import (
     UserActivityLog,
     UserBan,
 )
+from .tasks import CACHE_KEY
 
 
 @admin.register(User)
@@ -76,7 +77,7 @@ class UserBanAdmin(SafeDeleteAdmin):
         "ban_by_ip",
     ]
     search_fields = ["user__username", "reason", "ip"]
-    actions = ["unban_selected_users"]
+    actions = ["unban_selected_users", "remove_ip_ban_only"]
 
     @admin.display(description="Пользователь", ordering="user__username")
     def get_username(self, obj):
@@ -107,9 +108,12 @@ class UserBanAdmin(SafeDeleteAdmin):
 
     @admin.action(description="Снять блокировку по IP (но, оставить бан аккаунта)")
     def remove_ip_ban_only(self, request, queryset):
-        updated_count = queryset.filter(ban_by_ip=True).update(ban_by_ip=False)
+        updated_count = queryset.filter(ban_by_ip=True).update(ban_by_ip=False, ip=None)
 
         if updated_count > 0:
+            from django.core.cache import cache
+
+            cache.delete(CACHE_KEY)
             self.message_user(
                 request, f"Успешно снята блокировка по IP для {updated_count} записей"
             )

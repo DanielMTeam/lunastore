@@ -209,10 +209,21 @@ def profile(request):
             )
         obj = get_object_or_404(User, id=request.user.id)
     apps_count = Application.objects.filter(user=obj).count()
+    active_ban = None
+    ban_record = UserBan.objects.filter(user=obj).first()
+    if ban_record:
+        if ban_record.is_permanent or (
+            ban_record.expires_at and ban_record.expires_at > timezone.now()
+        ):
+            active_ban = ban_record
+        else:
+            ban_record.delete()
+            obj.is_active = True
+            obj.save(update_fields=["is_active"])
     return render(
         request,
         "profile.html",
-        context={"obj": obj, "apps_count": apps_count},
+        context={"obj": obj, "apps_count": apps_count, "active_ban": active_ban},
     )
 
 

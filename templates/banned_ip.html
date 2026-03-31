@@ -8,8 +8,8 @@
 </head>
 <body>
     <div class="container">
-        <div class="header">
-        </div>
+        <div class="header"></div>
+        <div class="headerline"></div>
 
         <div class="main">
             <div class="section" style="width: auto; float: none; margin: 10px;">
@@ -50,10 +50,9 @@
                     </div>
                 </div>
 
-        <div class="footer" style="padding: 12px 20px; overflow: hidden;">
-            <div class="fl">{% trans "BASE_FOOTER_TEXT_1" %} {% now "Y" %}</div>
-            <div class="fr"><a href="/">{% trans "BANNED_IP_HOME_LINK" %}</a></div>
-        </div>
+    <div class="footer">
+        <a href="/help_center.php">FAQ</a> - <a href="/help_center.php?page=privacy">{% trans "BASE_PRIVACYPOLICYBTN" %}</a> - <a href="/help_center.php?page=donate">{% trans "PAGE_FAQ_DONATETAB" %}</a> - <a href="/help_center.php?page=rules">{% trans "PAGE_FAQ_RULESTAB" %}</a> - <a href="https://t.me/lunastore_official">{% trans "BASE_FOOTER_TELEGRAM" %}</a>
+        <div style="text-align: right; font-size: 11px;">{% trans "BASE_FOOTER_TEXT_1" %} {% now "Y" %}<br>{% trans "BASE_FOOTER_TEXT_2" %}</div>
     </div>
 </body>
 </html>
