@@ -257,6 +257,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "django.template.context_processors.media",
                 "apps.core.context_processors.motd_processor",
+                "django.template.context_processors.i18n",
                 "apps.core.context_processors.random_banner",
                 "apps.core.context_processors.drm_settings",
             ],
@@ -376,7 +377,13 @@ LOGGING = {
 
 LANGUAGE_CODE = "ru"
 
-LANGUAGES = [("ru", "Russian")]
+LANGUAGES = [
+    ("ru", "рус"),
+    ("en", "eng"),
+    ("uk", "укр"),
+    ("be", "бел"),
+    ("kk", "қаз"),
+]
 
 TIME_ZONE = "UTC"
 

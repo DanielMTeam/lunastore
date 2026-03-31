@@ -23,12 +23,9 @@ def get_client_ip(request):
 class BlockBannedIP(MiddlewareMixin):
     def process_request(self, request):
         ip = get_client_ip(request)
-
-        # Переиспользуем логику get_banned_set, чтобы не дублировать код
         banned_ips = self.get_banned_set()
 
         if ip in banned_ips:
-            # Рендерим наш новый красивый шаблон вместо простого текста!
             context = {
                 "admin_email": getattr(settings, "ADMIN_EMAIL", "support@example.com")
             }

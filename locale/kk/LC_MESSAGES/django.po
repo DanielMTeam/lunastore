@@ -1,0 +1,542 @@
+msgid ""
+msgstr ""
+"Language: kk-KZ\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"X-Generator: Tolgee\n"
+
+msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
+msgstr "\"%%(q)s\" сұранысы бойынша нәтиже табылмады"
+
+msgid "%(counter)s PAGE_PROFILE_STATS_APP"
+msgstr "%%(counter)s қосымша,"
+
+msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
+msgstr "%%(counter)s пікір,"
+
+msgid "404_ELEMENT_NOT_FOUND"
+msgstr "Сұратылған элемент немесе сіз өткіңіз келетін сілтеме біздің сайттан табылмады."
+
+msgid "404_ELEMENT_NOT_FOUND_2"
+msgstr "Біз оны табуға барынша тырыстық, шынымен."
+
+msgid "404_ELEMENT_NOT_FOUND_3"
+msgstr "Егер бұл бұрын қолжетімді болса, онда бет авторымен немесе әкімшілікпен жылжытылған немесе жойылған болуы мүмкін. Кейінірек қайталап көріңіз. Түсінгеніңізге рақмет."
+
+msgid "404_GO_TO_HOME"
+msgstr "Басты бетке оралу"
+
+msgid "404_TITLE"
+msgstr "Қате орын алды"
+
+msgid "ACTION_CHOOSE_FILE"
+msgstr "Файлды таңдау"
+
+msgid "BASE_AUTHLIKE"
+msgstr "Сіз кірдіңіз: "
+
+msgid "BASE_COOKIE_ACCEPT"
+msgstr "Жақсы, қабылдау"
+
+msgid "BASE_COOKIE_DECLINE"
+msgstr "Жоқ, рақмет"
+
+msgid "BASE_COOKIE_MESSAGE"
+msgstr "Барлық балалар печеньені біз сияқты жақсы көреді. Сондықтан сайттың тұрақты жұмыс істеуі үшін біз Cookie файлдарын қолданамыз. Оларды пайдалану туралы толығырақ біздің"
+
+msgid "BASE_COOKIE_PRIVACYPOLICY"
+msgstr "Құпиялылық саясаты"
+
+msgid "BASE_FOOTER_TELEGRAM"
+msgstr "Біздің Telegram арнамыз"
+
+msgid "BASE_FOOTER_TEXT_1"
+msgstr "DM командасы жанымен жасаған,"
+
+msgid "BASE_FOOTER_TEXT_2"
+msgstr "Барлық құқықтар тиісті авторлық құқық иелеріне тиесілі"
+
+msgid "BASE_LOGINBTN"
+msgstr "кіру"
+
+msgid "BASE_LOGINPOPUP_DESC"
+msgstr "Сізде аккаунт бар ма? Кіріңіз."
+
+msgid "BASE_LOGINPOPUP_LOGINBTN"
+msgstr "Кіру"
+
+msgid "BASE_LOGINPOPUP_LOGINFIELD"
+msgstr "Логин:"
+
+msgid "BASE_LOGINPOPUP_PASSWORDFIELD"
+msgstr "Құпия сөз:"
+
+msgid "BASE_LOGINPOPUP_TITLE"
+msgstr "Авторизация"
+
+msgid "BASE_LOGOUTBTN"
+msgstr "шығу"
+
+msgid "BASE_OPRJ_GAMESBTN"
+msgstr "Ойындар"
+
+msgid "BASE_OPRJ_OTHERPROJECTSBTN"
+msgstr "Барлық жобалар »"
+
+msgid "BASE_OPRJ_TITLE"
+msgstr "басқа жобалар"
+
+msgid "BASE_PRIVACYPOLICYBTN"
+msgstr "Құпиялылық саясаты"
+
+msgid "BASE_REGISTERBTN"
+msgstr "тіркелу"
+
+msgid "BASE_SEARCHBTN"
+msgstr "іздеу"
+
+msgid "BASE_SIDEBAR_ACCOUNT_INVITEBTN"
+msgstr "Шақыру"
+
+msgid "BASE_SIDEBAR_ACCOUNT_PROFILEBTN"
+msgstr "Менің профилім"
+
+msgid "BASE_SIDEBAR_ACCOUNT_SETTINGSBTN"
+msgstr "Баптаулар"
+
+msgid "BASE_SIDEBAR_ACCOUNT_TITLE"
+msgstr "Аккаунт"
+
+msgid "BASE_SIDEBAR_APP_DEV_SITE"
+msgstr "Әзірлеуші сайты"
+
+msgid "BASE_SIDEBAR_APP_EDIT"
+msgstr "Бетті өңдеу"
+
+msgid "BASE_SIDEBAR_APP_INSTALL"
+msgstr "Орнату"
+
+msgid "BASE_SIDEBAR_APP_REPORT"
+msgstr "Шағымдану"
+
+msgid "BASE_SIDEBAR_APP_TITLE"
+msgstr "Қосымша"
+
+msgid "BASE_SIDEBAR_CATEGORIES_HOME"
+msgstr "Басты бет"
+
+msgid "BASE_SIDEBAR_CATEGORIES_TITLE"
+msgstr "Санаттар"
+
+msgid "CARD_USER_NO_DESC"
+msgstr "Профиль сипаттамасы жоқ"
+
+msgid "ERROR_ACCESS_DENIED_PROFILE"
+msgstr "Қатынас шектелген. Профиль баптауларынан бастаңыз."
+
+msgid "ERROR_CDNSECURITY"
+msgstr "Файлды жүктеу кезінде LunaSpire қозғалтқышының қауіпсіздік қатесі орын алды. Егер бұл қатені бірінші рет көріп тұрмасаңыз, сайт әкімшісіне хабарласыңыз."
+
+msgid "ERROR_CURRENT_PASSWORD_IS_WRONG"
+msgstr "Ағымдағы құпия сөз қате"
+
+msgid "ERROR_DIST_SOURCE_REQUIRED"
+msgstr "Жүктеп алу үшін файлды немесе сілтемені көрсету қажет."
+
+msgid "ERROR_EMAIL_ALREADY_EXISTS"
+msgstr "Бұл E-mail бар пайдаланушы бұрыннан бар."
+
+msgid "ERROR_EMAIL_ALREADY_IN_USE"
+msgstr "Бұл E-mail мекенжайы қолданыста."
+
+msgid "ERROR_EMAIL_IS_SAME"
+msgstr "Жаңа E-mail ағымдағысымен сәйкес келеді."
+
+msgid "ERROR_INVALID_FILE_FORMAT"
+msgstr "Қате: Файл пішімі жарамсыз!"
+
+msgid "ERROR_INVALID_IMAGE_FILE"
+msgstr "Суретті өңдеу мүмкін болмады. Файл зақымдалған болуы мүмкін."
+
+msgid "ERROR_INVALID_LUNASPIRE_TOKEN"
+msgstr "Файлды жүктеу кезінде LunaSpire қозғалтқышынан жарамсыз токен түрі алынды. Егер бұл қатені бірінші рет көріп тұрмасаңыз, сайт әкімшісіне хабарласыңыз."
+
+msgid "ERROR_INVALID_SIZE_ICON"
+msgstr "Қате: Файл өлшемі 2 Мб-тан асады!"
+
+msgid "ERROR_MAX_AVATAR_DIMENSIONS"
+msgstr "Суреттің максималды өлшемі — 64x64 пиксель."
+
+msgid "ERROR_NEW_PASSWORDS_DONT_MATCH"
+msgstr "Жаңа құпия сөздер сәйкес келмейді"
+
+msgid "ERROR_NEW_PASSWORD_SAME_AS_OLD"
+msgstr "Жаңа құпия сөз ескісімен бірдей. Басқа құпия сөз енгізіңіз."
+
+msgid "ERROR_NO_AGREERULES"
+msgstr "Ережелермен келісуіңіз керек!"
+
+msgid "ERROR_NO_APPNAME"
+msgstr "Қосымшаның атын енгізіңіз!"
+
+msgid "ERROR_PREVIEWSCRNS_1_BIGSIZE"
+msgstr "Қате: Файл "
+
+msgid "ERROR_PREVIEWSCRNS_1_COUNT"
+msgstr "Қате: Таңдалды "
+
+msgid "ERROR_PREVIEWSCRNS_1_INVALIDFORMAT"
+msgstr "Қате: Файл "
+
+msgid "ERROR_PREVIEWSCRNS_2_BIGSIZE"
+msgstr "өлшемі тым үлкен (макс. 2 МБ)."
+
+msgid "ERROR_PREVIEWSCRNS_2_COUNT"
+msgstr " файл. Максимум 3."
+
+msgid "ERROR_PREVIEWSCRNS_2_INVALIDFORMAT"
+msgstr "пішімі жарамсыз."
+
+msgid "ERROR_PREVIEWSCRNS_3_COUNT"
+msgstr "Максимум 3 файл!"
+
+msgid "ERROR_YOURE_NOT_OWNER_OF_APP"
+msgstr "Сіз бұл қолданбаның әкімшісі емессіз."
+
+msgid "ERROR_YOU_DONT_HAVE_DEVSTATUS"
+msgstr "Бұл бетті көру үшін сізде әзірлеуші мәртебесі жоқ. Оны профиль параметрлерінен алуға болады."
+
+msgid "FORM_AGREE_POLICY"
+msgstr "Мен құпиялылық шарттарын қабылдаймын"
+
+msgid "FORM_AGREE_RULES"
+msgstr "Мен сайт ережелерімен келісемін және оларды бұзған жағдайдағы салдары туралы хабардармын"
+
+msgid "FORM_APPCREATE_MAXIMUM_SCREENSHOTS"
+msgstr "Максимум 3 скриншот."
+
+msgid "FORM_APPCREATE_TITLE_EXAMPLE"
+msgstr "Мысалы: Total Commander"
+
+msgid "FORM_CAPTCHA"
+msgstr "Суреттегі таңбаларды енгізіңіз"
+
+msgid "FORM_DEVSTATUS_ABOUT_YOU"
+msgstr "Өзіңіз туралы айтыңыз (1000 таңбаға дейін)"
+
+msgid "FORM_DEVSTATUS_GITHUB"
+msgstr "GitHub сілтемесі"
+
+msgid "FORM_DEVSTATUS_GITHUB_HELP"
+msgstr "Неге болмасқа? Біз Сіздердің керемет әзірлемелеріңізді көргіміз келеді :3"
+
+msgid "FORM_DEVSTATUS_WE_WILL_CONTACT"
+msgstr "Біз Сізбен міндетті түрде хабарласамыз. Тым болмаса тырысып көреміз."
+
+msgid "FORM_DEVSTATUS_WHY_YOU_CHOOSE"
+msgstr "Бізді неліктен таңдадыңыз? (250 таңбаға дейін)"
+
+msgid "FORM_DEVSTATUS_YOUR_EMAIL"
+msgstr "Сіздің E-mail"
+
+msgid "FORM_DEVSTATUS_YOUR_USERNAME"
+msgstr "Пайдаланушы аты"
+
+msgid "FORM_INVITECODE_CODELIMITISNTOK_ERROR"
+msgstr "Бұл код бойынша шақыру лимиті таусылды. Иесі жақында тым көп адамды шақырды."
+
+msgid "FORM_INVITECODE_DOESNOTEXIST_ERROR"
+msgstr "Бұл инвайт-код табылмады."
+
+msgid "FORM_INVITECODE_ENTER"
+msgstr "Кодты енгізіңіз"
+
+msgid "FORM_INVITECODE_EXPIRED_ERROR"
+msgstr "Кодтың жарамдылық мерзімі өтті (24 сағат). Жаңасын сұраңыз."
+
+msgid "FORM_INVITECODE_TITLE"
+msgstr "Код"
+
+msgid "FORM_PASSWORDCONFIRM_CONFIRM"
+msgstr "Құпия сөзді растау"
+
+msgid "FORM_PASSWORDCONFIRM_ENTER"
+msgstr "Ағымдағы құпия сөзді енгізіңіз"
+
+msgid "FORM_PASSWORDCONFIRM_WRONGPASS"
+msgstr "Құпия сөз қате. Қайталап көріңіз."
+
+msgid "FORM_SCREENSHOTS"
+msgstr "Скриншоттар"
+
+msgid "File extension “%(extension)s” is not allowed. Allowed extensions are: “%(allowed_extensions)s”."
+msgstr "“%%(extension)s” файл кеңейтіліміне рұқсат жоқ. Рұқсат етілген кеңейтілімдер: “%%(allowed_extensions)s”."
+
+msgid "INDEX_CATEGORY_PROMPT"
+msgstr "Немесе қажетті санатты таңдаңыз:"
+
+msgid "INDEX_NO_CATEGORIES"
+msgstr "Санаттар әлі қосылған жоқ"
+
+msgid "INDEX_SEARCH_BTN"
+msgstr "Іздеу"
+
+msgid "INDEX_SEARCH_PLACEHOLDER"
+msgstr "Мысалы: Total Commander"
+
+msgid "INDEX_SEARCH_SECTION_TITLE"
+msgstr "Каталог бойынша іздеу"
+
+msgid "INDEX_WELCOME_TEXT"
+msgstr "LunaStore-ға қош келдіңіз!<br>Осы операциялық жүйемен ыңғайлы жұмыс істеуге арналған қолданбалар мен толықтырулар жинағы"
+
+msgid "INDEX_WELCOME_TITLE"
+msgstr "Қош келдіңіз"
+
+msgid "INFO_ACCEPTED_AVATAR_FORMATS"
+msgstr "Рұқсат етілген пішімдер: .JPG, .PNG, .WEBP, .GIF"
+
+msgid "INFO_ACCEPTED_ICON_FORMATS"
+msgstr "Тек мына пішімдер рұқсат етіледі: .JPG, .JPEG, .PNG"
+
+msgid "INFO_ACCOUNT_WAS_DELETED"
+msgstr "Аккаунтыңыз сәтті жойылды. Оралуды шешсеңіз — біз сізді сайтымызда әрқашан күтеміз!"
+
+msgid "INFO_APP_CREATE_REQUEST_WAS_SENT"
+msgstr "Өтінім қарауға жіберілді"
+
+msgid "INFO_APP_DEMO"
+msgstr "Демо"
+
+msgid "INFO_APP_DEMOWITHPRICE"
+msgstr "Демо, әрі қарай"
+
+msgid "INFO_APP_FREE"
+msgstr "Тегін"
+
+msgid "INFO_APP_WITHPRICE"
+msgstr "Ақылы:"
+
+msgid "INFO_AVATAR_WAS_CHANGED"
+msgstr "Аватар жаңартылды"
+
+msgid "INFO_AVATAR_WAS_UPLOADED"
+msgstr "Аватар сәтті жүктелді!"
+
+msgid "INFO_CATEGORY_LIST_EMPTY"
+msgstr "ойбай... бұл орын бооооос..."
+
+msgid "INFO_EMAIL_WAS_CHANGED"
+msgstr "E-mail сәтті өзгертілді."
+
+msgid "INFO_MAXIMUM_AVATAR_SIZE"
+msgstr "Файлдың максималды өлшемі: 2 МБ."
+
+msgid "INFO_NO_SCREENSHOTS"
+msgstr "Скриншоттер жоқ"
+
+msgid "INFO_PASSWORD_WAS_CHANGED"
+msgstr "Құпиясөз сәтті өзгертілді"
+
+msgid "INFO_PROFILE_IS_UPDATED"
+msgstr "Профиль жаңартылды"
+
+msgid "INFO_RECOMENDATIONS_FOR_UPLOAD_AVATAR"
+msgstr "Ұсынылатын өлшем: 64x64. Пішімдер: PNG, JPG. Макс: 2 МБ."
+
+msgid "INFO_SELECTED_FILES"
+msgstr "Таңдалған файлдар: "
+
+msgid "INFO_YOUR_IP_WAS_BANNED"
+msgstr "IP-мекенжайыңыз бұғатталды. Егер бұл қателік деп санасаңыз және сізді 'себепсіз' бұғаттаса, бізге E-mail арқылы жазыңыз: daniel@myslivets.com"
+
+msgid "JS_MARKETPLACE_ERROR"
+msgstr "LunaSpire қатесі: "
+
+msgid "JS_MARKETPLACE_FILE_ERROR"
+msgstr "Файлды тасымалдау кезінде қателік орын алды"
+
+msgid "JS_MARKETPLACE_RETRY"
+msgstr "Қайталау"
+
+msgid "JS_MARKETPLACE_TOKEN_ERROR"
+msgstr "Жүктеу токенін алу мүмкін болмады"
+
+msgid "JS_MARKETPLACE_UPLOADING"
+msgstr "Жүктелуде..."
+
+msgid "PAGE_ADDAPP_BACKBTN"
+msgstr "Артқа"
+
+msgid "PAGE_ADDAPP_CHECKINFO_ACTIONS"
+msgstr "Әрекеттер"
+
+msgid "PAGE_ADDAPP_CHECKINFO_AUTHOR_1"
+msgstr "Автор:"
+
+msgid "PAGE_ADDAPP_CHECKINFO_AUTHOR_2"
+msgstr "Сіз"
+
+msgid "PAGE_ADDAPP_CHECKINFO_GOTODEVSITE"
+msgstr "Әзірлеушінің ресми сайтына өту"
+
+msgid "PAGE_ADDAPP_CHECKINFO_NAME"
+msgstr "Атауы"
+
+msgid "PAGE_ADDAPP_CHECKINFO_NOTIFY"
+msgstr "Жариялау алдында барлық ақпаратты тексеріп алыңыз. Модерациядан өткеннен кейін бет автоматты түрде жарияланады және оған жаңа файлдарды жүктей аласыз."
+
+msgid "PAGE_ADDAPP_CHECKINFO_OTHERINFO"
+msgstr "Қосымша ақпарат"
+
+msgid "PAGE_ADDAPP_CHECKINFO_SCREENSHOTS"
+msgstr "Скриншоттар"
+
+msgid "PAGE_ADDAPP_CHECKINFO_SLOGAN"
+msgstr "Ұран..."
+
+msgid "PAGE_ADDAPP_EDITAPPBTN"
+msgstr "Өңдеу"
+
+msgid "PAGE_ADDAPP_NEXTBTN"
+msgstr "Әрі қарай"
+
+msgid "PAGE_ADDAPP_PAGETITLE"
+msgstr "Қосымшаны қосу"
+
+msgid "PAGE_ADDAPP_SENDAPPBTN"
+msgstr "Қарауға жіберу"
+
+msgid "PAGE_ADDAPP_STEP1"
+msgstr "1-ші кезең"
+
+msgid "PAGE_ADDAPP_STEP1_AGREE_RULES"
+msgstr "Мен сайт ережелерімен келісемін және оларды бұзған жағдайдағы салдары туралы хабардармын"
+
+msgid "PAGE_ADDAPP_STEP1_DESC"
+msgstr "Бастау"
+
+msgid "PAGE_ADDAPP_STEP1_ICON"
+msgstr "Қолданба белгішесі:"
+
+msgid "PAGE_ADDAPP_STEP1_ICONDESC_1"
+msgstr "Аватардың ұсынылатын өлшемі: 64x64."
+
+msgid "PAGE_ADDAPP_STEP1_ICONDESC_2"
+msgstr "Рұқсат етілген пішімдер: .PNG, .JPG"
+
+msgid "PAGE_ADDAPP_STEP1_ICONDESC_3"
+msgstr "Максималды өлшемі: 2 Мб"
+
+msgid "PAGE_ADDAPP_STEP1_NAME"
+msgstr "Негізгі ақпарат"
+
+msgid "PAGE_ADDAPP_STEP1_SLOGAN"
+msgstr "Ұран (140 таңба):"
+
+msgid "PAGE_ADDAPP_STEP1_SLOGANDESC_1"
+msgstr "Ұран қолданба бетінде, басты бетте және іздеуде көрсетіледі"
+
+msgid "PAGE_ADDAPP_STEP1_SLOGANDESC_2"
+msgstr "Қысқалық — таланттың әпкесі :)"
+
+msgid "PAGE_ADDAPP_STEP1_TITLE"
+msgstr "Атауы:"
+
+msgid "PAGE_ADDAPP_STEP1_TITLEDESC"
+msgstr "Тамаша әрі есте қаларлық атау қолданбаға пайдаланушылар арасында танымалдылық бонусы береді"
+
+msgid "PAGE_ADDAPP_STEP2"
+msgstr "2-ші кезең"
+
+msgid "PAGE_ADDAPP_STEP2_CATEGORY"
+msgstr "Санаты:"
+
+msgid "PAGE_ADDAPP_STEP2_CATEGORYDESC"
+msgstr "Бұл қолданбаны тиісті блоктарда дұрыс іздеу және көрсету үшін өте маңызды. Әкімшіліктің санатты өз қалауы бойынша өзгертуге құқығы бар"
+
+msgid "PAGE_ADDAPP_STEP2_DESC"
+msgstr "Сипаттама (1400 таңба):"
+
+msgid "PAGE_ADDAPP_STEP2_DESCDESC"
+msgstr "Сипаттама қолданба бетіндегі 'Қосымша ақпарат' блогында көрсетіледі"
+
+msgid "PAGE_ADDAPP_STEP2_DESC_1"
+msgstr "Қосымша"
+
+msgid "PAGE_ADDAPP_STEP2_DESC_2"
+msgstr "ақпарат"
+
+msgid "PAGE_ADDAPP_STEP2_DEVSITE"
+msgstr "Әзірлеушінің ресми сайты:"
+
+msgid "PAGE_ADDAPP_STEP2_NAME"
+msgstr "Қосымша ақпарат"
+
+msgid "PAGE_ADDAPP_STEP2_REQ"
+msgstr "Жүйелік талаптар (1400 таңба):"
+
+msgid "PAGE_ADDAPP_STEP2_REQDESC"
+msgstr "Жүйелік талаптар қолданба бетіндегі 'Қосымша ақпарат' блогында көрсетіледі"
+
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTS"
+msgstr "Скриншоттар:"
+
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_1"
+msgstr "Скриншоттардың максималды саны: 3"
+
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_2"
+msgstr "Рұқсат етілген пішімдер: .PNG, .JPG"
+
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_3"
+msgstr "Максималды өлшемі: 2 Мб"
+
+msgid "PAGE_ADDAPP_STEP3"
+msgstr "3-ші кезең"
+
+msgid "PAGE_ADDAPP_STEP3_DESC_1"
+msgstr "Алдын ала қарау"
+
+msgid "PAGE_ADDAPP_STEP3_DESC_2"
+msgstr "жариялаумен"
+
+msgid "PAGE_ADDAPP_SUCCESS"
+msgstr "Қосымша қосу туралы өтінішіңіз сәтті жіберілді."
+
+msgid "PAGE_ADMIN_APP_CATEGORY"
+msgstr "Санаты:"
+
+msgid "PAGE_ADMIN_APP_CATEGORYDESC"
+msgstr "Бұл дұрыс іздеу үшін өте маңызды..."
+
+msgid "PAGE_ADMIN_APP_CURRENTSCRN"
+msgstr "Ағымдағы скриншоттар"
+
+msgid "PAGE_ADMIN_APP_DESC"
+msgstr "Сипаттама (1000 таңба):"
+
+msgid "PAGE_ADMIN_APP_DESCDESC"
+msgstr "Сипаттама қолданба бетіндегі 'Қосымша ақпарат' блогында көрсетіледі"
+
+msgid "PAGE_ADMIN_APP_DEVSITE"
+msgstr "Әзірлеушінің ресми сайты:"
+
+msgid "PAGE_ADMIN_APP_DIST_ACTIONS"
+msgstr "Әрекеттер"
+
+msgid "PAGE_ADMIN_APP_DIST_ACTION_DELETE"
+msgstr "Жою"
+
+msgid "PAGE_ADMIN_APP_DIST_ACTION_EDIT"
+msgstr "Өңдеу"
+
+msgid "PAGE_ADMIN_APP_DIST_ADD_NEW"
+msgstr "Жаңа нұсқаны қосу"
+
+msgid "PAGE_ADMIN_APP_DIST_DATE"
+msgstr "Күні"
+
+msgid "PAGE_ADMIN_APP_DIST_DL_LINK_BLOCK"
+msgstr "Жүктеу бетіне сілтеме"
