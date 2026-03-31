@@ -31,12 +31,7 @@
             <br>
             <small>
                 <span class="last-visit">
-                    {% blocktranslate trimmed count counter=apps_count|default:0 %}
-                        {{ counter }} PAGE_PROFILE_STATS_APP
-                    {% plural %}
-                        {{ counter }} PAGE_PROFILE_STATS_APPS
-                    {% endblocktranslate %}
-
+                    {% blocktranslate count counter=apps_count|default:0 %}{{ counter }} PAGE_PROFILE_STATS_APP{% plural %}{{ counter }} PAGE_PROFILE_STATS_APPS{% endblocktranslate %}
                     {% trans "PAGE_PROFILE_STATS_MEMBER_SINCE" %} {{ obj.date_joined|date:"d E Y" }}
                 </span>
             </small>
