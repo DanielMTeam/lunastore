@@ -1,0 +1,677 @@
+msgid ""
+msgstr ""
+"Language: be\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n % 10 == 1 && n % 100 != 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2)\n"
+"X-Generator: Tolgee\n"
+
+msgid ""
+"\n"
+"                PAGE_SEARCH_BADGE_DEMO_PRICE\n"
+"            "
+msgstr "Пошук па запыце \"%%(q)s\" не даў вынікаў"
+
+msgid "%(counter)s PAGE_PROFILE_STATS_APP"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
+msgstr[0] "%%(counter)s прыкладанняў,"
+msgstr[1] "%%(counter)s прыкладанняў,"
+msgstr[2] "%%(counter)s прыкладанняў,"
+
+msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
+msgstr[0] "%%(counter)s водгукаў —"
+msgstr[1] "%%(counter)s водгукаў —"
+msgstr[2] "%%(counter)s водгукаў —"
+
+msgid "404_ELEMENT_NOT_FOUND"
+msgstr "Элемент або спасылка, якую вы хочаце наведаць, не знойдзены на нашым сайце."
+
+msgid "404_ELEMENT_NOT_FOUND_2"
+msgstr "Мы шукалі штосілы, праўда."
+
+msgid "404_ELEMENT_NOT_FOUND_3"
+msgstr "Калі гэты элемент быў даступны раней, то, верагодна, старонка была перамешчана або выдалена аўтарам або адміністрацыяй. Паспрабуйце паўтарыць спробу пазней. Дзякуй за разуменне."
+
+msgid "404_GO_TO_HOME"
+msgstr "Вярнуцца на галоўную"
+
+msgid "404_TITLE"
+msgstr "Адбылася памылка"
+
+msgid "ACTION_CHOOSE_FILE"
+msgstr "Выберыце файл"
+
+msgid "BASE_AUTHLIKE"
+msgstr "Вы ўвайшлі як"
+
+msgid "BASE_COOKIE_ACCEPT"
+msgstr "Добра, прыняць"
+
+msgid "BASE_COOKIE_DECLINE"
+msgstr "Не, дзякуй"
+
+msgid "BASE_COOKIE_MESSAGE"
+msgstr "Усе дзеці любяць печыва, і мы таксама! Менавіта таму для стабільнай працы сайта мы выкарыстоўваем файлы Cookie. Больш падрабязна аб іх выкарыстанні напісана ў нашай"
+
+msgid "BASE_COOKIE_PRIVACYPOLICY"
+msgstr "Палітыцы прыватнасці"
+
+msgid "BASE_FOOTER_TELEGRAM"
+msgstr "Наш Telegram-канал"
+
+msgid "BASE_FOOTER_TEXT_1"
+msgstr "З душою зроблена камандай DM,"
+
+msgid "BASE_FOOTER_TEXT_2"
+msgstr "Усе правы належаць зыходным праваўладальнікам"
+
+msgid "BASE_LOGINBTN"
+msgstr "уваход"
+
+msgid "BASE_LOGINPOPUP_DESC"
+msgstr "У Вас ужо ёсць акаўнт? Прадстаўцеся."
+
+msgid "BASE_LOGINPOPUP_LOGINBTN"
+msgstr "Увайсці"
+
+msgid "BASE_LOGINPOPUP_LOGINFIELD"
+msgstr "Лагін:"
+
+msgid "BASE_LOGINPOPUP_PASSWORDFIELD"
+msgstr "Пароль:"
+
+msgid "BASE_LOGINPOPUP_TITLE"
+msgstr ""
+"Аўтарызацыя\n"
+"\n"
+""
+
+msgid "BASE_LOGOUTBTN"
+msgstr "выйсці"
+
+msgid "BASE_OPRJ_GAMESBTN"
+msgstr "Гульні"
+
+msgid "BASE_OPRJ_OTHERPROJECTSBTN"
+msgstr "Усе праекты »"
+
+msgid "BASE_OPRJ_TITLE"
+msgstr "іншыя праекты"
+
+msgid "BASE_PRIVACYPOLICYBTN"
+msgstr "Палітыка прыватнасці"
+
+msgid "BASE_REGISTERBTN"
+msgstr "рэгістрацыя"
+
+msgid "BASE_SEARCHBTN"
+msgstr "пошук"
+
+msgid "BASE_SIDEBAR_ACCOUNT_INVITEBTN"
+msgstr "Прыгласіць"
+
+msgid "BASE_SIDEBAR_ACCOUNT_PROFILEBTN"
+msgstr "Мой профіль"
+
+msgid "BASE_SIDEBAR_ACCOUNT_SETTINGSBTN"
+msgstr "Налады"
+
+msgid "BASE_SIDEBAR_ACCOUNT_TITLE"
+msgstr "Акаўнт"
+
+msgid "BASE_SIDEBAR_APP_DEV_SITE"
+msgstr "Сайт распрацоўшчыка"
+
+msgid "BASE_SIDEBAR_APP_EDIT"
+msgstr "Рэдагаваць старонку"
+
+msgid "BASE_SIDEBAR_APP_INSTALL"
+msgstr "Усталяваць"
+
+msgid "BASE_SIDEBAR_APP_REPORT"
+msgstr "Паскардзіцца"
+
+msgid "BASE_SIDEBAR_APP_TITLE"
+msgstr "Прыкладанне"
+
+msgid "BASE_SIDEBAR_CATEGORIES_HOME"
+msgstr "Галоўная старонка"
+
+msgid "BASE_SIDEBAR_CATEGORIES_TITLE"
+msgstr "Катэгорыі"
+
+msgid "CARD_USER_NO_DESC"
+msgstr "Апісанне профіля адсутнічае"
+
+msgid "ERROR_ACCESS_DENIED_PROFILE"
+msgstr "Доступ забаронены. Пачніце з налад профіля."
+
+msgid "ERROR_CDNSECURITY"
+msgstr "Пры спампоўцы файла адбылася памылка бяспекі рухавіка LunaSpire. Калі ласка, звярніцеся з гэтай памылкай да адміністратара сайта, калі вы бачыце гэту памылку не ўпершыню."
+
+msgid "ERROR_CURRENT_PASSWORD_IS_WRONG"
+msgstr "Гэта няправільны пароль"
+
+msgid "ERROR_DIST_SOURCE_REQUIRED"
+msgstr "Трэба пазначыць файл або спасылку для спампоўвання."
+
+msgid "ERROR_EMAIL_ALREADY_EXISTS"
+msgstr "Карыстальнік з такім e-mail ужо існуе."
+
+msgid "ERROR_EMAIL_ALREADY_IN_USE"
+msgstr "Гэты e-mail ужо выкарыстоўваецца."
+
+msgid "ERROR_EMAIL_IS_SAME"
+msgstr "Новы e-mail супадае з бягучым."
+
+msgid "ERROR_INVALID_FILE_FORMAT"
+msgstr "Памылка: Недапушчальны фармат файла!"
+
+msgid "ERROR_INVALID_IMAGE_FILE"
+msgstr "Не ўдалося апрацаваць выяву. Магчыма, файл пашкоджаны."
+
+msgid "ERROR_INVALID_LUNASPIRE_TOKEN"
+msgstr "Пры загрузцы быў атрыманы няправільны тып токена ад рухавіка LunaSpire. Калі ласка, звярніцеся з гэтай памылкай да адміністратара сайта, калі вы бачыце гэту памылку не ўпершыню."
+
+msgid "ERROR_INVALID_SIZE_ICON"
+msgstr "Памылка: Памер файла перавышае 2 Мб!"
+
+msgid "ERROR_MAX_AVATAR_DIMENSIONS"
+msgstr "Максімальны памер выявы — 64x64 пікселяў."
+
+msgid "ERROR_NEW_PASSWORDS_DONT_MATCH"
+msgstr "Новыя паролі не супадаюць"
+
+msgid "ERROR_NEW_PASSWORD_SAME_AS_OLD"
+msgstr "Новы пароль супадае са старым. Калі ласка, увядзіце іншы пароль."
+
+msgid "ERROR_NO_AGREERULES"
+msgstr "Вы павінны згадзіцца з правіламі!"
+
+msgid "ERROR_NO_APPNAME"
+msgstr "Увядзіце назву прыкладання!"
+
+msgid "ERROR_PREVIEWSCRNS_1_BIGSIZE"
+msgstr "Памылка: Файл"
+
+msgid "ERROR_PREVIEWSCRNS_1_COUNT"
+msgstr "Памылка: Выбрана"
+
+msgid "ERROR_PREVIEWSCRNS_1_INVALIDFORMAT"
+msgstr "Памылка: Файл"
+
+msgid "ERROR_PREVIEWSCRNS_2_BIGSIZE"
+msgstr " занадта вялікі (макс. 2 Мб)."
+
+msgid "ERROR_PREVIEWSCRNS_2_COUNT"
+msgstr " файлаў. Максімальная колькасць — 3."
+
+msgid "ERROR_PREVIEWSCRNS_2_INVALIDFORMAT"
+msgstr " мае недапушчальны фармат."
+
+msgid "ERROR_PREVIEWSCRNS_3_COUNT"
+msgstr "Максімум 3 файлы!"
+
+msgid "ERROR_YOURE_NOT_OWNER_OF_APP"
+msgstr "Вы не з'яўляецеся адміністратарам гэтага прыкладання."
+
+msgid "ERROR_YOU_DONT_HAVE_DEVSTATUS"
+msgstr "У вас няма статуса распрацоўшчыка для прагляду гэтай старонкі. Атрымаць его можна ў наладах Вашага профіля."
+
+msgid "FORM_AGREE_POLICY"
+msgstr "Я прымаю умовы прыватнасці"
+
+msgid "FORM_AGREE_RULES"
+msgstr "Я згодны з правіламі сайта і разумею наступствы іх парушэння"
+
+msgid "FORM_APPCREATE_MAXIMUM_SCREENSHOTS"
+msgstr "Максімум 3 скрыншоты."
+
+msgid "FORM_APPCREATE_TITLE_EXAMPLE"
+msgstr "Напрыклад: Total Commander"
+
+msgid "FORM_CAPTCHA"
+msgstr "Увядзіце сімвалы з карцінкі"
+
+msgid "FORM_DEVSTATUS_ABOUT_YOU"
+msgstr "Раскажыце пра сябе (да 1000 сімвалаў)"
+
+msgid "FORM_DEVSTATUS_GITHUB"
+msgstr "Спасылка на ваш GitHub"
+
+msgid "FORM_DEVSTATUS_GITHUB_HELP"
+msgstr "А чаму не? Мы проста хочам паглядзець на вашыя прыгожыя распрацоўкі :3"
+
+msgid "FORM_DEVSTATUS_WE_WILL_CONTACT"
+msgstr "Мы абавязкова звяжамся з Вамі. Па меншай меры паспрабуем."
+
+msgid "FORM_DEVSTATUS_WHY_YOU_CHOOSE"
+msgstr "Чаму Вы рашылі выбраць нас? (да 250 сімвалаў)"
+
+msgid "FORM_DEVSTATUS_YOUR_EMAIL"
+msgstr "Ваш E-mail"
+
+msgid "FORM_DEVSTATUS_YOUR_USERNAME"
+msgstr "Імя карыстальніка"
+
+msgid "FORM_INVITECODE_CODELIMITISNTOK_ERROR"
+msgstr "Ліміт прыглашэнняў па гэтым кодзе вычарпаны. Уладальнік прыгласіў занадта шмат людзей за апошні час."
+
+msgid "FORM_INVITECODE_DOESNOTEXIST_ERROR"
+msgstr "Такі інвайт-код не знойдзены."
+
+msgid "FORM_INVITECODE_ENTER"
+msgstr "Увядзіце код"
+
+msgid "FORM_INVITECODE_EXPIRED_ERROR"
+msgstr "Срок дзеяння кода скончаны (24 гадзіны). Папрасіце новы."
+
+msgid "FORM_INVITECODE_TITLE"
+msgstr "Код"
+
+msgid "FORM_PASSWORDCONFIRM_CONFIRM"
+msgstr "Пацвярдзіце пароль"
+
+msgid "FORM_PASSWORDCONFIRM_ENTER"
+msgstr "Увядзіце бягучы пароль"
+
+msgid "FORM_PASSWORDCONFIRM_WRONGPASS"
+msgstr "Няверны пароль. Калі ласка, паспрабуйце зноў."
+
+msgid "FORM_SCREENSHOTS"
+msgstr "Скрыншоты"
+
+msgid "File extension “%(extension)s” is not allowed. Allowed extensions are: “%(allowed_extensions)s”."
+msgstr "Пашырэнне “%%(extension)s” не дазволена. Дапусцімыя пашырэнні: “%%(allowed_extensions)s”."
+
+msgid "INDEX_CATEGORY_PROMPT"
+msgstr "Або выберыце патрэбную катэгорыю:"
+
+msgid "INDEX_NO_CATEGORIES"
+msgstr "Катэгорыі пакуль не дададзены"
+
+msgid "INDEX_SEARCH_BTN"
+msgstr "Шукаць"
+
+msgid "INDEX_SEARCH_PLACEHOLDER"
+msgstr "Напрыклад: Total Commander"
+
+msgid "INDEX_SEARCH_SECTION_TITLE"
+msgstr "Пошук па каталозе"
+
+msgid "INDEX_WELCOME_TEXT"
+msgstr "Вітаем у LunaStore!<br>Зборнік прыкладанняў і дапаўненняў для камфортнай працы з гэтай АС"
+
+msgid "INDEX_WELCOME_TITLE"
+msgstr "Сардэчна запрашаем"
+
+msgid "INFO_ACCEPTED_AVATAR_FORMATS"
+msgstr "Дапусцімыя фарматы: .JPG, .PNG, .WEBP, .GIF"
+
+msgid "INFO_ACCEPTED_ICON_FORMATS"
+msgstr "Дазволены толькі: .JPG, .JPEG, .PNG"
+
+msgid "INFO_ACCOUNT_WAS_DELETED"
+msgstr "Ваш акаўнт быў паспяхова выдалены. Калі вырашыце вярнуцца — мы заўсёды вас чакаем на нашым сайце!"
+
+msgid "INFO_APP_CREATE_REQUEST_WAS_SENT"
+msgstr "Заяўка адпраўлена на разгляд"
+
+msgid "INFO_APP_DEMO"
+msgstr "Дэма"
+
+msgid "INFO_APP_DEMOWITHPRICE"
+msgstr "Дэма, далее"
+
+msgid "INFO_APP_FREE"
+msgstr "Бясплатна"
+
+msgid "INFO_APP_WITHPRICE"
+msgstr "Платнае:"
+
+msgid "INFO_AVATAR_WAS_CHANGED"
+msgstr "Аватар абноўлены"
+
+msgid "INFO_AVATAR_WAS_UPLOADED"
+msgstr "Аватар паспяхова загружаны!"
+
+msgid "INFO_CATEGORY_LIST_EMPTY"
+msgstr "пустаааа...."
+
+msgid "INFO_EMAIL_WAS_CHANGED"
+msgstr "Ваш E-mail быў паспяхова зменены."
+
+msgid "INFO_MAXIMUM_AVATAR_SIZE"
+msgstr "Максімальны памер файла: 2 Мб."
+
+msgid "INFO_NO_SCREENSHOTS"
+msgstr "Няма скрыншотаў"
+
+msgid "INFO_PASSWORD_WAS_CHANGED"
+msgstr "Пароль паспяхова зменены"
+
+msgid "INFO_PROFILE_IS_UPDATED"
+msgstr "Профіль абноўлены"
+
+msgid "INFO_RECOMENDATIONS_FOR_UPLOAD_AVATAR"
+msgstr "Рэкамендаваны памер: 64x64. Фарматы: .PNG, .JPG. Макс.: 2 Мб."
+
+msgid "INFO_SELECTED_FILES"
+msgstr "Выбрана файлаў:"
+
+msgid "INFO_YOUR_IP_WAS_BANNED"
+msgstr "Ваш IP-адрас заблакіраваны. Калі вы лічыце, што адбылася памылка і вас заблакіравалі 'без прычыны', калі ласка, напішыце нам на электронную пошту: daniel@myslivets.com"
+
+msgid "JS_MARKETPLACE_ERROR"
+msgstr "Памылка LunaSpire:"
+
+msgid "JS_MARKETPLACE_FILE_ERROR"
+msgstr "Памылка пры перадачы файла "
+
+msgid "JS_MARKETPLACE_RETRY"
+msgstr "Паспрабаваць зноў"
+
+msgid "JS_MARKETPLACE_TOKEN_ERROR"
+msgstr "Не ўдалося атрымаць токен __________"
+
+msgid "JS_MARKETPLACE_UPLOADING"
+msgstr "Загрузка..."
+
+msgid "PAGE_ADDAPP_BACKBTN"
+msgstr "Назад"
+
+msgid "PAGE_ADDAPP_CHECKINFO_ACTIONS"
+msgstr "Дзеянні"
+
+msgid "PAGE_ADDAPP_CHECKINFO_AUTHOR_1"
+msgstr "Аўтар:"
+
+msgid "PAGE_ADDAPP_CHECKINFO_AUTHOR_2"
+msgstr "Вы"
+
+msgid "PAGE_ADDAPP_CHECKINFO_GOTODEVSITE"
+msgstr "Перайсці на афіцыйны сайт распрацоўшчыка"
+
+msgid "PAGE_ADDAPP_CHECKINFO_NAME"
+msgstr "Назва"
+
+msgid "PAGE_ADDAPP_CHECKINFO_NOTIFY"
+msgstr "Праверце ўсю інфармацыю перад публікацыяй. Пасля мадэрацыі старонка будзе апублікавана аўтаматычна і вы зможаце загружаць туды новыя файлы."
+
+msgid "PAGE_ADDAPP_CHECKINFO_OTHERINFO"
+msgstr "Дадатковая інфармацыя"
+
+msgid "PAGE_ADDAPP_CHECKINFO_SCREENSHOTS"
+msgstr "Скрыншоты"
+
+msgid "PAGE_ADDAPP_CHECKINFO_SLOGAN"
+msgstr "Слоган..."
+
+msgid "PAGE_ADDAPP_EDITAPPBTN"
+msgstr "Рэдагаваць"
+
+msgid "PAGE_ADDAPP_NEXTBTN"
+msgstr "Далей"
+
+msgid "PAGE_ADDAPP_PAGETITLE"
+msgstr "Дабаўленне прыкладання"
+
+msgid "PAGE_ADDAPP_SENDAPPBTN"
+msgstr "Адправіць на разгляд"
+
+msgid "PAGE_ADDAPP_STEP1"
+msgstr "Этап 1"
+
+msgid "PAGE_ADDAPP_STEP1_AGREE_RULES"
+msgstr "Я згодны з правіламі сайта і разумею наступствы іх парушэння"
+
+msgid "PAGE_ADDAPP_STEP1_DESC"
+msgstr "Пачатак"
+
+msgid "PAGE_ADDAPP_STEP1_ICON"
+msgstr "Пачатак"
+
+msgid "PAGE_ADDAPP_STEP1_ICONDESC_1"
+msgstr "Рэкамендуемы памер аватара: 64x64."
+
+msgid "PAGE_ADDAPP_STEP1_ICONDESC_2"
+msgstr "Дапушчальныя фарматы: .PNG, .JPG"
+
+msgid "PAGE_ADDAPP_STEP1_ICONDESC_3"
+msgstr "Максімальны памер: 2 Мб"
+
+msgid "PAGE_ADDAPP_STEP1_NAME"
+msgstr "Асноўная інфармацыя"
+
+msgid "PAGE_ADDAPP_STEP1_SLOGAN"
+msgstr "Слоган (140 сімвалаў):"
+
+msgid "PAGE_ADDAPP_STEP1_SLOGANDESC_1"
+msgstr "Слоган будзе адлюстроўвацца на самой старонцы прыкладання, на галоўнай і ў пошуку"
+
+msgid "PAGE_ADDAPP_STEP1_SLOGANDESC_2"
+msgstr "Кораткасць — сястра таленту :)"
+
+msgid "PAGE_ADDAPP_STEP1_TITLE"
+msgstr "Назва:"
+
+msgid "PAGE_ADDAPP_STEP1_TITLEDESC"
+msgstr "Адметная і запамінальная назва даст прыкладанню бонус да распазнавальнасці сярод карыстальнікаў"
+
+msgid "PAGE_ADDAPP_STEP2"
+msgstr "Этап 2"
+
+msgid "PAGE_ADDAPP_STEP2_CATEGORY"
+msgstr "Катэгорыя:"
+
+msgid "PAGE_ADDAPP_STEP2_CATEGORYDESC"
+msgstr "Гэта вельмі важна для правільнага пошуку і паказа прыкладання ў адпаведных блоках. Адміністрацыя мае магчымасць змяніць катэгорыю па сваім меркаванні"
+
+msgid "PAGE_ADDAPP_STEP2_DESC"
+msgstr "Апісанне (1400 сімвалаў):"
+
+msgid "PAGE_ADDAPP_STEP2_DESCDESC"
+msgstr "Апісанне будзе паказвацца на старонцы прыкладання ў блоку 'Дадатковая інфармацыя'"
+
+msgid "PAGE_ADDAPP_STEP2_DESC_1"
+msgstr "Дадатковая"
+
+msgid "PAGE_ADDAPP_STEP2_DESC_2"
+msgstr "інфармацыя"
+
+msgid "PAGE_ADDAPP_STEP2_DEVSITE"
+msgstr "Афіцыйны сайт распрацоўшчыка:"
+
+msgid "PAGE_ADDAPP_STEP2_NAME"
+msgstr "Дадатковая інфармацыя"
+
+msgid "PAGE_ADDAPP_STEP2_REQ"
+msgstr "Сістэмныя патрабаванні (1400 сімвалаў):"
+
+msgid "PAGE_ADDAPP_STEP2_REQDESC"
+msgstr "Сістэмныя патрабаванні будуць паказвацца на старонцы прыкладання ў блоку 'Дадатковая інфармацыя'"
+
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTS"
+msgstr "Скрыншоты:"
+
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_1"
+msgstr "Максімальная колькасць скрыншотаў: 3"
+
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_2"
+msgstr "Дапушчальныя фарматы: .PNG, .JPG"
+
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_3"
+msgstr "Максімальны памер: 2 Мб"
+
+msgid "PAGE_ADDAPP_STEP3"
+msgstr "Этап 3"
+
+msgid "PAGE_ADDAPP_STEP3_DESC_1"
+msgstr "Прагляд перад"
+
+msgid "PAGE_ADDAPP_STEP3_DESC_2"
+msgstr "публікацыяй"
+
+msgid "PAGE_ADDAPP_SUCCESS"
+msgstr "Ваша заяўка на дабаўленне прыкладання паспяхова адпраўлена."
+
+msgid "PAGE_ADMIN_APP_CATEGORY"
+msgstr "Катэгорыя:"
+
+msgid "PAGE_ADMIN_APP_CATEGORYDESC"
+msgstr "Гэта вельмі важна для правільнага пошуку..."
+
+msgid "PAGE_ADMIN_APP_CURRENTSCRN"
+msgstr "Бягучыя скрыншоты"
+
+msgid "PAGE_ADMIN_APP_DESC"
+msgstr "Апісанне (1000 сімвалаў):"
+
+msgid "PAGE_ADMIN_APP_DESCDESC"
+msgstr "Апісанне будзе паказвацца на старонцы прыкладання ў блоку 'Дадатковая інфармацыя'"
+
+msgid "PAGE_ADMIN_APP_DEVSITE"
+msgstr "Афіцыйны сайт распрацоўшчыка:"
+
+msgid "PAGE_ADMIN_APP_DIST_ACTIONS"
+msgstr "Дзеянні"
+
+msgid "PAGE_ADMIN_APP_DIST_ACTION_DELETE"
+msgstr "Выдаліць"
+
+msgid "PAGE_ADMIN_APP_DIST_ACTION_EDIT"
+msgstr "Змяніць"
+
+msgid "PAGE_ADMIN_APP_DIST_ADD_NEW"
+msgstr "Дадаць новую версію"
+
+msgid "PAGE_ADMIN_APP_DIST_DATE"
+msgstr "Дата"
+
+msgid "PAGE_ADMIN_APP_DIST_DL_LINK_BLOCK"
+msgstr "Спасылка на старонку спамповак"
+
+msgid "PAGE_ADMIN_APP_DIST_DL_LINK_TEXT"
+msgstr "Адкрыць спіс версій"
+
+msgid "PAGE_ADMIN_APP_DIST_EMPTY"
+msgstr "Пакуль што няма загружаных версій."
+
+msgid "PAGE_ADMIN_APP_DIST_HEADER"
+msgstr "Кіраванне дыстрыбуцыямі —"
+
+msgid "PAGE_ADMIN_APP_DIST_NO_NOTES"
+msgstr "Без заўваг"
+
+msgid "PAGE_ADMIN_APP_DIST_SAVE"
+msgstr "Захаваць"
+
+msgid "PAGE_ADMIN_APP_DIST_VERSION"
+msgstr "Версія"
+
+msgid "PAGE_ADMIN_APP_FIRST_BLOCK"
+msgstr "Інфо"
+
+msgid "PAGE_ADMIN_APP_ICON"
+msgstr "Значок прыкладання"
+
+msgid "PAGE_ADMIN_APP_ICON_REQ1"
+msgstr "Рэкамендаваны памер значка: 64x64."
+
+msgid "PAGE_ADMIN_APP_ICON_REQ2"
+msgstr "Дапушчальныя фарматы: .PNG, .JPG"
+
+msgid "PAGE_ADMIN_APP_ICON_REQ3"
+msgstr "Максімальны памер: 2 Мб"
+
+msgid "PAGE_ADMIN_APP_ID"
+msgstr "ID прыкладання:"
+
+msgid "PAGE_ADMIN_APP_IDDESC"
+msgstr "Гэту інфармацыю змяніць нельга"
+
+msgid "PAGE_ADMIN_APP_LOAD_ICON"
+msgstr "Загрузіць значок"
+
+msgid "PAGE_ADMIN_APP_LOAD_SCRN"
+msgstr "Загрузіць новыя скрыншоты (максімум 3 шт.)"
+
+msgid "PAGE_ADMIN_APP_MSG_SAVE_ERROR"
+msgstr "Адбылася памылка пры захаванні формы. Праверце ўведзеныя даныя."
+
+msgid "PAGE_ADMIN_APP_MSG_SAVE_SUCCESS"
+msgstr "Заяўка на абнаўленне даных паспяхова адпраўлена на мадэрацыю."
+
+msgid "PAGE_ADMIN_APP_NOICON"
+msgstr "Няма іконкі"
+
+msgid "PAGE_ADMIN_APP_PAGETITLE"
+msgstr "Рэдагаванне прыкладання"
+
+msgid "PAGE_ADMIN_APP_PROFILE_BLOCK"
+msgstr "Асноўная інфармацыя"
+
+msgid "PAGE_ADMIN_APP_REQ"
+msgstr "Сістэмныя патрабаванні (1400 сімвалаў):"
+
+msgid "PAGE_ADMIN_APP_REQDESC"
+msgstr "Сістэмныя патрабаванні будуць паказвацца на старонцы прыкладання ў блоку 'Дадатковая інфармацыя'"
+
+msgid "PAGE_ADMIN_APP_SCRNS_TITLE"
+msgstr "Скрыншоты"
+
+msgid "PAGE_ADMIN_APP_SLOGAN"
+msgstr "Слоган (140 сімвалаў):"
+
+msgid "PAGE_ADMIN_APP_SLOGANDESC"
+msgstr "Слоган будзе адлюстроўвацца на самой старонцы прыкладання, на галоўнай і ў пошуку"
+
+msgid "PAGE_ADMIN_APP_SLOGANDESC_2"
+msgstr "Кораткасць — сястра таленту :)"
+
+msgid "PAGE_ADMIN_APP_TAB_DISTRIBUTIONS"
+msgstr "Файлы"
+
+msgid "PAGE_ADMIN_APP_TITLE"
+msgstr "Назва прыкладання:"
+
+msgid "PAGE_ADMIN_APP_TITLEDESC"
+msgstr "Адметная і запамінальная назва даст прыкладанню бонус да распазнавальнасці сярод карыстальнікаў"
+
+msgid "PAGE_ADMIN_APP_WARN_SCRN"
+msgstr "Увага: Загрузка новых файлаў выдаліць усе бягучыя скрыншоты!"
+
+msgid "PAGE_APP_ACTION_MORE_APPS"
+msgstr "Паглядзець іншыя праграмы аўтара"
+
+msgid "PAGE_APP_ACTION_REPORT"
+msgstr "Паскардзіцца на прыкладанне"
+
+msgid "PAGE_APP_ACTION_SITE"
+msgstr "Перайсці на афіцыйны сайт распрацоўшчыка"
+
+msgid "PAGE_APP_BTN_BACK"
+msgstr "Назад"
+
+msgid "PAGE_APP_BTN_BUY"
+msgstr "Купіць"
+
+msgid "PAGE_APP_BTN_INSTALL"
+msgstr "Усталяваць"
+
+msgid "PAGE_APP_IMG_ALT_SCREENSHOT"
+msgstr "Скрыншот"
+
+msgid "PAGE_APP_LABEL_AUTHOR"
+msgstr "Апублікаваў:"
+
+msgid "PAGE_APP_LABEL_DOWNLOADS"
+msgstr "Колькасць спампоўванняў"
+
+msgid "PAGE_APP_LABEL_ORIGINAL_AUTHOR"
+msgstr "Арыгінальны аўтар:"
+
+msgid "PAGE_APP_MSG_DEMO_WARNING"
+msgstr "Праграма распаўсюджваецца ў якасці дэма-версіі, за поўную версію трэба заплаціць яе аўтару. Файл дадзены з афіцыйнага сайта распрацоўшчыка."

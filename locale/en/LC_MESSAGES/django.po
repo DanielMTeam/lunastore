@@ -1,0 +1,68 @@
+msgid ""
+msgstr ""
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"X-Generator: Tolgee\n"
+
+msgid ""
+"\n"
+"                PAGE_SEARCH_BADGE_DEMO_PRICE\n"
+"            "
+msgstr ""
+"\n"
+"No results found for \"%%(q)s\""
+
+msgid "%(counter)s PAGE_PROFILE_STATS_APP"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
+msgstr[0] "%%(counter)s apps,"
+msgstr[1] "%%(counter)s apps,"
+
+msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
+msgstr[0] "%%(counter)s reviews -"
+msgstr[1] "%%(counter)s reviews -"
+
+msgid "404_ELEMENT_NOT_FOUND"
+msgstr "The requested item or link you are trying to visit was not found on our site."
+
+msgid "404_ELEMENT_NOT_FOUND_2"
+msgstr "We tried our best to find it, really."
+
+msgid "404_ELEMENT_NOT_FOUND_3"
+msgstr "If this was previously available, the page has likely been moved or deleted by the author or administration. Please try again later. Thank you for your understanding."
+
+msgid "404_GO_TO_HOME"
+msgstr "Return to home page"
+
+msgid "404_TITLE"
+msgstr "An error occured"
+
+msgid "ACTION_CHOOSE_FILE"
+msgstr "Select file"
+
+msgid "BANNED_IP_BACK_BUTTON"
+msgstr "Go back"
+
+msgid "BANNED_IP_CONTACT_SUPPORT"
+msgstr "Contact technical support:"
+
+msgid "BANNED_IP_H2"
+msgstr "Access denied"
+
+msgid "BANNED_IP_HEADER"
+msgstr "Access denied"
+
+msgid "BANNED_IP_HOME_LINK"
+msgstr "Go home"
+
+msgid "BANNED_IP_INTRO"
+msgstr "Access to the site from your IP address has been suspended."
+
+msgid "BANNED_IP_PAGE_TITLE"
+msgstr "Access denied"
+
+msgid "BANNED_IP_REASON"
+msgstr "This may have occurred due to a violation of site rules, suspicious activity, or a security system trigger. We care about the comfort of all users, so we have been forced to temporarily or permanently restrict your access."

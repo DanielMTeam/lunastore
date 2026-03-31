@@ -26,6 +26,7 @@ class User(AbstractUser, SafeDeleteModel):
     )
     telegram = models.CharField(max_length=45, null=True, blank=True)
     discord = models.CharField(max_length=32, null=True, blank=True)
+    openvk = models.CharField(max_length=45, null=True, blank=True)
     website = models.URLField(max_length=45, null=True, blank=True)
     description = models.CharField(
         max_length=255, default="Пока что, описания тут нету", blank=True
@@ -62,8 +63,12 @@ class UserBan(SafeDeleteModel):
     _safedelete_policy = SOFT_DELETE_CASCADE
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    ip = models.CharField(max_length=256, null=True, blank=True, db_index=True)
-    reason = models.CharField(max_length=255)
+    ip = models.GenericIPAddressField("IP адрес", null=True, blank=True, db_index=True)
+    reason = models.CharField("Причина", max_length=255)
+
+    ban_by_ip = models.BooleanField("Блокировка по IP", default=False)
+    is_permanent = models.BooleanField("Постоянная блокировка", default=False)
+    expires_at = models.DateTimeField("Дата истечения", null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -71,14 +76,15 @@ class UserBan(SafeDeleteModel):
         verbose_name_plural = "Блокировки"
 
     def __str__(self):
-        return f"Ban for {self.user.username} - {self.reason}"
+        status = "Permanent" if self.is_permanent else f"Temp until {self.expires_at}"
+        return f"Ban for {self.user.username} ({status}) - {self.reason}"
 
 
 """
 
 
 this model stores EXCLUSIVELY temporary personal data,
-which after a certain time (based on the RETENTION_ACTIVITY_LOG_DAYS variable), based on the GLDR policy
+which after a certain time (based on the RETENTION_ACTIVITY_LOG_DAYS variable), based on the GDPR policy
 
 
 """
