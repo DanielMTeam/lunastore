@@ -10,8 +10,6 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.utils import timezone, translation
 
-from .models import LegalDocument
-
 
 # Create your views here.
 def debug_info(request):
@@ -96,30 +94,6 @@ def debug_info(request):
             },
         )
     return redirect("home")
-
-
-def help_center(request):
-    current_page = request.GET.get("page", "faq")
-    context = {
-        "current_page": current_page,
-    }
-    if current_page == "privacy":
-        current_lang = translation.get_language()
-        doc = LegalDocument.objects.filter(
-            doc_type="privacy", language=current_lang
-        ).first()
-        if not doc:
-            doc = LegalDocument.objects.filter(
-                doc_type="privacy", language="en"
-            ).first()
-
-        context["privacy_doc"] = doc
-
-    return render(request, "help_center.html", context)
-
-
-def other_projects(request):
-    return render(request, "other_projects.html")
 
 
 def force_language_change(request, lang_code):
