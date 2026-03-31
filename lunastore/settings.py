@@ -85,6 +85,7 @@ INSTALLED_APPS = [
     "apps.marketplace.apps.MarketplaceConfig",
     "apps.user.apps.UserConfig",
     "apps.core.apps.CoreConfig",
+    "apps.terms.apps.TermsConfig",
     "captcha",
     # custom admin panel frontend
     "unfold",
