@@ -11,10 +11,16 @@ msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
 msgstr "Пошук не дав результатів за запитом \"%%(q)s\""
 
 msgid "%(counter)s PAGE_PROFILE_STATS_APP"
-msgstr "%%(counter)s застосунків,"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
+msgstr[0] "%%(counter)s приложений,"
+msgstr[1] "%%(counter)s приложений,"
+msgstr[2] "%%(counter)s приложений,"
 
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
-msgstr "%%(counter)s відгуків -"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
+msgstr[0] "%%(counter)s отзывов -"
+msgstr[1] "%%(counter)s отзывов -"
+msgstr[2] "%%(counter)s отзывов -"
 
 msgid "404_ELEMENT_NOT_FOUND"
 msgstr "Запитуваний елемент або посилання, яку ви хочете відвідати, не знайдені на нашому сайті."
