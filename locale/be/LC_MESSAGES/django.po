@@ -1,20 +1,29 @@
 msgid ""
 msgstr ""
-"Language: be-BY\n"
+"Language: be\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n % 10 == 1 && n % 100 != 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2)\n"
 "X-Generator: Tolgee\n"
 
-msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
+msgid ""
+"\n"
+"                PAGE_SEARCH_BADGE_DEMO_PRICE\n"
+"            "
 msgstr "Пошук па запыце \"%%(q)s\" не даў вынікаў"
 
 msgid "%(counter)s PAGE_PROFILE_STATS_APP"
-msgstr "%%(counter)s прыкладанняў,"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
+msgstr[0] "%%(counter)s прыкладанняў,"
+msgstr[1] "%%(counter)s прыкладанняў,"
+msgstr[2] "%%(counter)s прыкладанняў,"
 
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
-msgstr "%%(counter)s водгукаў —"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
+msgstr[0] "%%(counter)s водгукаў —"
+msgstr[1] "%%(counter)s водгукаў —"
+msgstr[2] "%%(counter)s водгукаў —"
 
 msgid "404_ELEMENT_NOT_FOUND"
 msgstr "Элемент або спасылка, якую вы хочаце наведаць, не знойдзены на нашым сайце."
@@ -74,7 +83,10 @@ msgid "BASE_LOGINPOPUP_PASSWORDFIELD"
 msgstr "Пароль:"
 
 msgid "BASE_LOGINPOPUP_TITLE"
-msgstr "Аўтарызацыя"
+msgstr ""
+"Аўтарызацыя\n"
+"\n"
+""
 
 msgid "BASE_LOGOUTBTN"
 msgstr "выйсці"
@@ -161,7 +173,7 @@ msgid "ERROR_INVALID_IMAGE_FILE"
 msgstr "Не ўдалося апрацаваць выяву. Магчыма, файл пашкоджаны."
 
 msgid "ERROR_INVALID_LUNASPIRE_TOKEN"
-msgstr "Пры _______ быў атрыманы няправільны тып токена ад рухавіка LunaSpire. Калі ласка, звярніцеся з гэтай памылкай да адміністратара сайта, калі вы бачыце гэту памылку не ўпершыню."
+msgstr "Пры загрузцы быў атрыманы няправільны тып токена ад рухавіка LunaSpire. Калі ласка, звярніцеся з гэтай памылкай да адміністратара сайта, калі вы бачыце гэту памылку не ўпершыню."
 
 msgid "ERROR_INVALID_SIZE_ICON"
 msgstr "Памылка: Памер файла перавышае 2 Мб!"
@@ -624,3 +636,42 @@ msgstr "Файлы"
 
 msgid "PAGE_ADMIN_APP_TITLE"
 msgstr "Назва прыкладання:"
+
+msgid "PAGE_ADMIN_APP_TITLEDESC"
+msgstr "Адметная і запамінальная назва даст прыкладанню бонус да распазнавальнасці сярод карыстальнікаў"
+
+msgid "PAGE_ADMIN_APP_WARN_SCRN"
+msgstr "Увага: Загрузка новых файлаў выдаліць усе бягучыя скрыншоты!"
+
+msgid "PAGE_APP_ACTION_MORE_APPS"
+msgstr "Паглядзець іншыя праграмы аўтара"
+
+msgid "PAGE_APP_ACTION_REPORT"
+msgstr "Паскардзіцца на прыкладанне"
+
+msgid "PAGE_APP_ACTION_SITE"
+msgstr "Перайсці на афіцыйны сайт распрацоўшчыка"
+
+msgid "PAGE_APP_BTN_BACK"
+msgstr "Назад"
+
+msgid "PAGE_APP_BTN_BUY"
+msgstr "Купіць"
+
+msgid "PAGE_APP_BTN_INSTALL"
+msgstr "Усталяваць"
+
+msgid "PAGE_APP_IMG_ALT_SCREENSHOT"
+msgstr "Скрыншот"
+
+msgid "PAGE_APP_LABEL_AUTHOR"
+msgstr "Апублікаваў:"
+
+msgid "PAGE_APP_LABEL_DOWNLOADS"
+msgstr "Колькасць спампоўванняў"
+
+msgid "PAGE_APP_LABEL_ORIGINAL_AUTHOR"
+msgstr "Арыгінальны аўтар:"
+
+msgid "PAGE_APP_MSG_DEMO_WARNING"
+msgstr "Праграма распаўсюджваецца ў якасці дэма-версіі, за поўную версію трэба заплаціць яе аўтару. Файл дадзены з афіцыйнага сайта распрацоўшчыка."

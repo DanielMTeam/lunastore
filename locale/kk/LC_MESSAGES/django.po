@@ -11,10 +11,16 @@ msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
 msgstr "\"%%(q)s\" сұранысы бойынша нәтиже табылмады"
 
 msgid "%(counter)s PAGE_PROFILE_STATS_APP"
-msgstr "%%(counter)s қосымша,"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
+msgstr[0] "%%(counter)s приложений,"
+msgstr[1] "%%(counter)s приложений,"
+msgstr[2] "%%(counter)s приложений,"
 
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
-msgstr "%%(counter)s пікір,"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
+msgstr[0] "%%(counter)s отзывов -"
+msgstr[1] "%%(counter)s отзывов -"
+msgstr[2] "%%(counter)s отзывов -"
 
 msgid "404_ELEMENT_NOT_FOUND"
 msgstr "Сұратылған элемент немесе сіз өткіңіз келетін сілтеме біздің сайттан табылмады."
