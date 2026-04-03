@@ -1,0 +1,1608 @@
+msgid ""
+msgstr ""
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"X-Generator: Tolgee\n"
+
+msgid "%(counter)s PAGE_PROFILE_STATS_APP"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
+msgstr[0] "%%(counter)s apps,"
+msgstr[1] "%%(counter)s apps,"
+
+msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
+msgstr[0] "%%(counter)s reviews -"
+msgstr[1] "%%(counter)s reviews -"
+
+msgid "404_ELEMENT_NOT_FOUND"
+msgstr "The requested item or link you are trying to visit was not found on our site."
+
+msgid "404_ELEMENT_NOT_FOUND_2"
+msgstr "We tried our best to find it, really."
+
+msgid "404_ELEMENT_NOT_FOUND_3"
+msgstr "If this was previously available, the page has likely been moved or deleted by the author or administration. Please try again later. Thank you for your understanding."
+
+msgid "404_GO_TO_HOME"
+msgstr "Return to home page"
+
+msgid "404_TITLE"
+msgstr "An error occured"
+
+msgid "ACTION_CHOOSE_FILE"
+msgstr "Select file"
+
+msgid "BANNED_IP_BACK_BUTTON"
+msgstr "Go back"
+
+msgid "BANNED_IP_CONTACT_SUPPORT"
+msgstr "Contact technical support:"
+
+msgid "BANNED_IP_H2"
+msgstr "Access denied"
+
+msgid "BANNED_IP_HEADER"
+msgstr "Access restricted"
+
+msgid "BANNED_IP_HOME_LINK"
+msgstr "To home page"
+
+msgid "BANNED_IP_INTRO"
+msgstr "Access from your IP address has been suspended."
+
+msgid "BANNED_IP_PAGE_TITLE"
+msgstr "Access denied"
+
+msgid "BANNED_IP_REASON"
+msgstr "This may have occurred due to a violation of site rules, suspicious activity, or a security system trigger. We care about the comfort of all users, so we have been forced to temporarily or permanently restrict your access."
+
+msgid "BANNED_IP_RESOLUTION"
+msgstr "If you believe this ban was a mistake, or if you have a dynamic IP address that was previously used by an offender, please contact the administration."
+
+msgid "BANNED_IP_SUBTITLE"
+msgstr "Your IP address is blocked"
+
+msgid "BASE_AUTHLIKE"
+msgstr "You're logged in as "
+
+msgid "BASE_COOKIE_ACCEPT"
+msgstr "Nice, accept"
+
+msgid "BASE_COOKIE_DECLINE"
+msgstr "No, thank you"
+
+msgid "BASE_COOKIE_MESSAGE"
+msgstr "All kids love cookies, and we do too. That's why we use Cookies for better experience. More details about how we use those can be found in our "
+
+msgid "BASE_COOKIE_PRIVACYPOLICY"
+msgstr "Privacy Policy"
+
+msgid "BASE_FOOTER_TELEGRAM"
+msgstr "Our Telegram channel"
+
+msgid "BASE_FOOTER_TEXT_1"
+msgstr "Made by DM team with love,"
+
+msgid "BASE_FOOTER_TEXT_2"
+msgstr "All right reserved to it's original owners"
+
+msgid "BASE_LOGINBTN"
+msgstr "sign in"
+
+msgid "BASE_LOGINPOPUP_DESC"
+msgstr "Already have an account? Sign in."
+
+msgid "BASE_LOGINPOPUP_LOGINBTN"
+msgstr "Sign in"
+
+msgid "BASE_LOGINPOPUP_LOGINFIELD"
+msgstr "Username:"
+
+msgid "BASE_LOGINPOPUP_PASSWORDFIELD"
+msgstr "Password:"
+
+msgid "BASE_LOGINPOPUP_TITLE"
+msgstr "Sign in"
+
+msgid "BASE_LOGOUTBTN"
+msgstr "sign out"
+
+msgid "BASE_OPRJ_GAMESBTN"
+msgstr "Games"
+
+msgid "BASE_OPRJ_OTHERPROJECTSBTN"
+msgstr "All projects »"
+
+msgid "BASE_OPRJ_TITLE"
+msgstr "other projects"
+
+msgid "BASE_PRIVACYPOLICYBTN"
+msgstr "Privacy Policy"
+
+msgid "BASE_REGISTERBTN"
+msgstr "sign up"
+
+msgid "BASE_SEARCHBTN"
+msgstr "search"
+
+msgid "BASE_SIDEBAR_ACCOUNT_INVITEBTN"
+msgstr "Invite"
+
+msgid "BASE_SIDEBAR_ACCOUNT_PROFILEBTN"
+msgstr "My profile"
+
+msgid "BASE_SIDEBAR_ACCOUNT_SETTINGSBTN"
+msgstr "Settings"
+
+msgid "BASE_SIDEBAR_ACCOUNT_TITLE"
+msgstr "Account"
+
+msgid "BASE_SIDEBAR_APP_DEV_SITE"
+msgstr "Developer's website"
+
+msgid "BASE_SIDEBAR_APP_EDIT"
+msgstr "Edit page"
+
+msgid "BASE_SIDEBAR_APP_INSTALL"
+msgstr "Install"
+
+msgid "BASE_SIDEBAR_APP_REPORT"
+msgstr "Report"
+
+msgid "BASE_SIDEBAR_APP_TITLE"
+msgstr "Application"
+
+msgid "BASE_SIDEBAR_CATEGORIES_HOME"
+msgstr "Home page"
+
+msgid "BASE_SIDEBAR_CATEGORIES_TITLE"
+msgstr "Categories"
+
+msgid "CARD_USER_NO_DESC"
+msgstr "Profile bio missing"
+
+msgid "ERROR_ACCESS_DENIED_PROFILE"
+msgstr "Access denied. Start with profile settings."
+
+msgid "ERROR_CDNSECURITY"
+msgstr "A LunaSpire engine security error occurred while uploading the file. Please contact your site administrator if you see this error repeatedly."
+
+msgid "ERROR_CURRENT_PASSWORD_IS_WRONG"
+msgstr "Current password is incorrect"
+
+msgid "ERROR_DIST_SOURCE_REQUIRED"
+msgstr "A file or download link must be provided."
+
+msgid "ERROR_EMAIL_ALREADY_EXISTS"
+msgstr "User with this e-mail address already exists."
+
+msgid "ERROR_EMAIL_ALREADY_IN_USE"
+msgstr "This e-mail address is already in use."
+
+msgid "ERROR_EMAIL_IS_SAME"
+msgstr "The new email is the same as the current one."
+
+msgid "ERROR_INVALID_FILE_FORMAT"
+msgstr "Error: Invalid file format!"
+
+msgid "ERROR_INVALID_IMAGE_FILE"
+msgstr "Failed to process image. The file might be corrupted."
+
+msgid "ERROR_INVALID_LUNASPIRE_TOKEN"
+msgstr "An invalid token type was received from the LunaSpire engine during upload. Please contact your site administrator if you see this error repeatedly."
+
+msgid "ERROR_INVALID_SIZE_ICON"
+msgstr "Error: File size over 2 MB!"
+
+msgid "ERROR_MAX_AVATAR_DIMENSIONS"
+msgstr "Maximum image resolution — 64x64 pixels."
+
+msgid "ERROR_NEW_PASSWORDS_DONT_MATCH"
+msgstr "New passwords do not match"
+
+msgid "ERROR_NEW_PASSWORD_SAME_AS_OLD"
+msgstr "New password is the same as the old one. Please select a different password."
+
+msgid "ERROR_NO_AGREERULES"
+msgstr "You must agree to the rules!"
+
+msgid "ERROR_NO_APPNAME"
+msgstr "Enter application name!"
+
+msgid "ERROR_PREVIEWSCRNS_1_BIGSIZE"
+msgstr "Error: File"
+
+msgid "ERROR_PREVIEWSCRNS_1_COUNT"
+msgstr "Error: "
+
+msgid "ERROR_PREVIEWSCRNS_1_INVALIDFORMAT"
+msgstr "Error: File"
+
+msgid "ERROR_PREVIEWSCRNS_2_BIGSIZE"
+msgstr "is too big (2 MB max)."
+
+msgid "ERROR_PREVIEWSCRNS_2_COUNT"
+msgstr "files selected. Maximum 3."
+
+msgid "ERROR_PREVIEWSCRNS_2_INVALIDFORMAT"
+msgstr "is in invalid format."
+
+msgid "ERROR_PREVIEWSCRNS_3_COUNT"
+msgstr "Maximum 3 files!"
+
+msgid "ERROR_YOURE_NOT_OWNER_OF_APP"
+msgstr "You're not an administrator of this application."
+
+msgid "ERROR_YOU_DONT_HAVE_DEVSTATUS"
+msgstr "You do not have developer status to view this page. You can obtain it in your profile settings."
+
+msgid "FORM_AGREE_POLICY"
+msgstr "I accept the privacy policy"
+
+msgid "FORM_AGREE_RULES"
+msgstr "I agree with the site rules and am aware of the consequences of violating them"
+
+msgid "FORM_APPCREATE_MAXIMUM_SCREENSHOTS"
+msgstr "Maximum 3 screenshots."
+
+msgid "FORM_APPCREATE_TITLE_EXAMPLE"
+msgstr "Example: Total Commander"
+
+msgid "FORM_CAPTCHA"
+msgstr "Enter characters from the image"
+
+msgid "FORM_DEVSTATUS_ABOUT_YOU"
+msgstr "Tell us about yourself (up to 1000 characters)"
+
+msgid "FORM_DEVSTATUS_GITHUB"
+msgstr "Link to your GitHub"
+
+msgid "FORM_DEVSTATUS_GITHUB_HELP"
+msgstr "Why not? We would love to see your cool creations :3"
+
+msgid "FORM_DEVSTATUS_WE_WILL_CONTACT"
+msgstr "We will definitely contact you. Or we hope that we will. "
+
+msgid "FORM_DEVSTATUS_WHY_YOU_CHOOSE"
+msgstr "Why did you choose us? (up to 250 characters)"
+
+msgid "FORM_DEVSTATUS_YOUR_EMAIL"
+msgstr "Your e-mail"
+
+msgid "FORM_DEVSTATUS_YOUR_USERNAME"
+msgstr "Username"
+
+msgid "FORM_INVITECODE_CODELIMITISNTOK_ERROR"
+msgstr "The invitation limit for this code has been reached. The owner has invited too many people recently."
+
+msgid "FORM_INVITECODE_DOESNOTEXIST_ERROR"
+msgstr "This invite code does not exist."
+
+msgid "FORM_INVITECODE_ENTER"
+msgstr "Enter invite code"
+
+msgid "FORM_INVITECODE_EXPIRED_ERROR"
+msgstr "Code expired (24 hours). Please request a new one."
+
+msgid "FORM_INVITECODE_TITLE"
+msgstr "Code"
+
+msgid "FORM_PASSWORDCONFIRM_CONFIRM"
+msgstr "Confirm password"
+
+msgid "FORM_PASSWORDCONFIRM_ENTER"
+msgstr "Enter current password"
+
+msgid "FORM_PASSWORDCONFIRM_WRONGPASS"
+msgstr "Incorrect password. Please try again."
+
+msgid "FORM_SCREENSHOTS"
+msgstr "Screenshots"
+
+msgid "File extension “%(extension)s” is not allowed. Allowed extensions are: “%(allowed_extensions)s”."
+msgstr "Extension “%%(extension)s” is not allowed. Allowed extensions: “%%(allowed_extensions)s”."
+
+msgid "INDEX_CATEGORY_PROMPT"
+msgstr "Or select a category:"
+
+msgid "INDEX_NO_CATEGORIES"
+msgstr "No categories added yet"
+
+msgid "INDEX_SEARCH_BTN"
+msgstr "Search"
+
+msgid "INDEX_SEARCH_PLACEHOLDER"
+msgstr "Example: Total Commander"
+
+msgid "INDEX_SEARCH_SECTION_TITLE"
+msgstr "Search catalog"
+
+msgid "INDEX_WELCOME_TEXT"
+msgstr "Welcome to LunaStore!<br>A collection of apps and extensions for a comfortable experience with this OS"
+
+msgid "INDEX_WELCOME_TITLE"
+msgstr "Welcome"
+
+msgid "INFO_ACCEPTED_AVATAR_FORMATS"
+msgstr "Allowed formats: .JPG, .PNG, .WEBP, .GIF"
+
+msgid "INFO_ACCEPTED_ICON_FORMATS"
+msgstr "Only allowed: .JPG, .JPEG, .PNG"
+
+msgid "INFO_ACCOUNT_WAS_DELETED"
+msgstr "Your account has been successfully deleted. If you want to return — we will be always waiting for you on our website!"
+
+msgid "INFO_APP_CREATE_REQUEST_WAS_SENT"
+msgstr "Application submitted for review"
+
+msgid "INFO_APP_DEMO"
+msgstr "Demo"
+
+msgid "INFO_APP_DEMOWITHPRICE"
+msgstr "Demo, then "
+
+msgid "INFO_APP_FREE"
+msgstr "Free"
+
+msgid "INFO_APP_WITHPRICE"
+msgstr "Paid: "
+
+msgid "INFO_AVATAR_WAS_CHANGED"
+msgstr "Profile picture updated"
+
+msgid "INFO_AVATAR_WAS_UPLOADED"
+msgstr "Profile picture uploaded!"
+
+msgid "INFO_CATEGORY_LIST_EMPTY"
+msgstr "'s all empty..."
+
+msgid "INFO_EMAIL_WAS_CHANGED"
+msgstr "Your email has been successfully changed."
+
+msgid "INFO_MAXIMUM_AVATAR_SIZE"
+msgstr "Maximum file size: 2 MB."
+
+msgid "INFO_NO_SCREENSHOTS"
+msgstr "No screenshots"
+
+msgid "INFO_PASSWORD_WAS_CHANGED"
+msgstr "Password successfully changed"
+
+msgid "INFO_PROFILE_IS_UPDATED"
+msgstr "Profile updated"
+
+msgid "INFO_RECOMENDATIONS_FOR_UPLOAD_AVATAR"
+msgstr "Recommended resolution: 64x64. Formats: .PNG, .JPG. Max.: 2 MB."
+
+msgid "INFO_SELECTED_FILES"
+msgstr "Selected files:"
+
+msgid "INFO_YOUR_IP_WAS_BANNED"
+msgstr "Your IP address has been banned. If you believe this is an error and you were banned 'without reason', please contact us via email: daniel@myslivets.com"
+
+msgid "JS_MARKETPLACE_ERROR"
+msgstr "LunaSpire error:"
+
+msgid "JS_MARKETPLACE_FILE_ERROR"
+msgstr "Error during file transfer"
+
+msgid "JS_MARKETPLACE_RETRY"
+msgstr "Try again"
+
+msgid "JS_MARKETPLACE_TOKEN_ERROR"
+msgstr "Unable to get upload token"
+
+msgid "JS_MARKETPLACE_UPLOADING"
+msgstr "Uploading..."
+
+msgid "PAGE_ADDAPP_BACKBTN"
+msgstr "Back"
+
+msgid "PAGE_ADDAPP_CHECKINFO_ACTIONS"
+msgstr "Actions"
+
+msgid "PAGE_ADDAPP_CHECKINFO_AUTHOR_1"
+msgstr "Author: "
+
+msgid "PAGE_ADDAPP_CHECKINFO_AUTHOR_2"
+msgstr "You"
+
+msgid "PAGE_ADDAPP_CHECKINFO_GOTODEVSITE"
+msgstr "Go to the developer's official website"
+
+msgid "PAGE_ADDAPP_CHECKINFO_NAME"
+msgstr "Name"
+
+msgid "PAGE_ADDAPP_CHECKINFO_NOTIFY"
+msgstr "Check all information before publishing. After moderation, the page will be published automatically and you will be able to upload new files there."
+
+msgid "PAGE_ADDAPP_CHECKINFO_OTHERINFO"
+msgstr "Additional information"
+
+msgid "PAGE_ADDAPP_CHECKINFO_SCREENSHOTS"
+msgstr "Screenshots"
+
+msgid "PAGE_ADDAPP_CHECKINFO_SLOGAN"
+msgstr "Slogan..."
+
+msgid "PAGE_ADDAPP_EDITAPPBTN"
+msgstr "Edit"
+
+msgid "PAGE_ADDAPP_NEXTBTN"
+msgstr "Next"
+
+msgid "PAGE_ADDAPP_PAGETITLE"
+msgstr "Add application"
+
+msgid "PAGE_ADDAPP_SENDAPPBTN"
+msgstr "Send for review"
+
+msgid "PAGE_ADDAPP_STEP1"
+msgstr "Step 1"
+
+msgid "PAGE_ADDAPP_STEP1_AGREE_RULES"
+msgstr "I agree with the site rules and am aware of the consequences of violating them"
+
+msgid "PAGE_ADDAPP_STEP1_DESC"
+msgstr "Start"
+
+msgid "PAGE_ADDAPP_STEP1_ICON"
+msgstr "App icon:"
+
+msgid "PAGE_ADDAPP_STEP1_ICONDESC_1"
+msgstr "Recommended resolution: 64x64."
+
+msgid "PAGE_ADDAPP_STEP1_ICONDESC_2"
+msgstr "Allowed formats: .PNG, .JPG"
+
+msgid "PAGE_ADDAPP_STEP1_ICONDESC_3"
+msgstr "Maximum file size: 2 MB."
+
+msgid "PAGE_ADDAPP_STEP1_NAME"
+msgstr "Basic information"
+
+msgid "PAGE_ADDAPP_STEP1_SLOGAN"
+msgstr "Slogan (140 characters):"
+
+msgid "PAGE_ADDAPP_STEP1_SLOGANDESC_1"
+msgstr "The slogan will be displayed on the app page, on the homepage, and in search"
+
+msgid "PAGE_ADDAPP_STEP1_SLOGANDESC_2"
+msgstr "Brevity is the soul of wit :)"
+
+msgid "PAGE_ADDAPP_STEP1_TITLE"
+msgstr "Name:"
+
+msgid "PAGE_ADDAPP_STEP1_TITLEDESC"
+msgstr "A great and memorable name will give the application a boost in brand awareness among users"
+
+msgid "PAGE_ADDAPP_STEP2"
+msgstr "Step 2"
+
+msgid "PAGE_ADDAPP_STEP2_CATEGORY"
+msgstr "Category:"
+
+msgid "PAGE_ADDAPP_STEP2_CATEGORYDESC"
+msgstr "This is crucial for accurate search and to display your the application in relevant sections. The administration reserves the right to change the category at its discretion."
+
+msgid "PAGE_ADDAPP_STEP2_DESC"
+msgstr "Description (1400 characters):"
+
+msgid "PAGE_ADDAPP_STEP2_DESCDESC"
+msgstr "Description will be shown on the application's page in \"Additional information\" section"
+
+msgid "PAGE_ADDAPP_STEP2_DESC_1"
+msgstr "Additional"
+
+msgid "PAGE_ADDAPP_STEP2_DESC_2"
+msgstr "information"
+
+msgid "PAGE_ADDAPP_STEP2_DEVSITE"
+msgstr "Developer's official website:"
+
+msgid "PAGE_ADDAPP_STEP2_NAME"
+msgstr "Additional information"
+
+msgid "PAGE_ADDAPP_STEP2_REQ"
+msgstr "System requirements (1400 characters):"
+
+msgid "PAGE_ADDAPP_STEP2_REQDESC"
+msgstr "System requirements will be shown on the application's page in \"Additional information\" section"
+
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTS"
+msgstr "Screenshots:"
+
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_1"
+msgstr "Maximum number of screenshots: 3"
+
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_2"
+msgstr "Allowed formats: .PNG, .JPG"
+
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_3"
+msgstr "Maximum file size: 2 MB."
+
+msgid "PAGE_ADDAPP_STEP3"
+msgstr "Step 3"
+
+msgid "PAGE_ADDAPP_STEP3_DESC_1"
+msgstr "Preview befrore"
+
+msgid "PAGE_ADDAPP_STEP3_DESC_2"
+msgstr "publication"
+
+msgid "PAGE_ADDAPP_SUCCESS"
+msgstr "Your application submission has been sent successfully."
+
+msgid "PAGE_ADMIN_APP_CATEGORY"
+msgstr "Category:"
+
+msgid "PAGE_ADMIN_APP_CATEGORYDESC"
+msgstr "This is crucial for proper search..."
+
+msgid "PAGE_ADMIN_APP_CURRENTSCRN"
+msgstr "Current screenshots"
+
+msgid "PAGE_ADMIN_APP_DESC"
+msgstr "Description (1400 characters):"
+
+msgid "PAGE_ADMIN_APP_DESCDESC"
+msgstr "Description will be shown on the application's page in \"Additional information\" section"
+
+msgid "PAGE_ADMIN_APP_DEVSITE"
+msgstr "Developer's official website:"
+
+msgid "PAGE_ADMIN_APP_DIST_ACTIONS"
+msgstr "Actions"
+
+msgid "PAGE_ADMIN_APP_DIST_ACTION_DELETE"
+msgstr "Delete"
+
+msgid "PAGE_ADMIN_APP_DIST_ACTION_EDIT"
+msgstr "Edit"
+
+msgid "PAGE_ADMIN_APP_DIST_ADD_NEW"
+msgstr "Add new version"
+
+msgid "PAGE_ADMIN_APP_DIST_DATE"
+msgstr "Date"
+
+msgid "PAGE_ADMIN_APP_DIST_DL_LINK_BLOCK"
+msgstr "Download link"
+
+msgid "PAGE_ADMIN_APP_DIST_DL_LINK_TEXT"
+msgstr "Open version list"
+
+msgid "PAGE_ADMIN_APP_DIST_EMPTY"
+msgstr "No uploaded versions yet."
+
+msgid "PAGE_ADMIN_APP_DIST_HEADER"
+msgstr "Distribution management — "
+
+msgid "PAGE_ADMIN_APP_DIST_NO_NOTES"
+msgstr "No notes"
+
+msgid "PAGE_ADMIN_APP_DIST_SAVE"
+msgstr "Save"
+
+msgid "PAGE_ADMIN_APP_DIST_VERSION"
+msgstr "Version"
+
+msgid "PAGE_ADMIN_APP_FIRST_BLOCK"
+msgstr "Info"
+
+msgid "PAGE_ADMIN_APP_ICON"
+msgstr "App icon"
+
+msgid "PAGE_ADMIN_APP_ICON_REQ1"
+msgstr "Recommended icon resolution: 64x64."
+
+msgid "PAGE_ADMIN_APP_ICON_REQ2"
+msgstr "Allowed formats: .PNG, .JPG"
+
+msgid "PAGE_ADMIN_APP_ICON_REQ3"
+msgstr "Maximum file size: 2 MB."
+
+msgid "PAGE_ADMIN_APP_ID"
+msgstr "App ID:"
+
+msgid "PAGE_ADMIN_APP_IDDESC"
+msgstr "This cannot be changed"
+
+msgid "PAGE_ADMIN_APP_LOAD_ICON"
+msgstr "Upload icon"
+
+msgid "PAGE_ADMIN_APP_LOAD_SCRN"
+msgstr "Upload new screenshots (maximum 3)"
+
+msgid "PAGE_ADMIN_APP_MSG_SAVE_ERROR"
+msgstr "An error occurred while saving the form. Please check the entered data."
+
+msgid "PAGE_ADMIN_APP_MSG_SAVE_SUCCESS"
+msgstr "Data update request has been successfully submitted for moderation."
+
+msgid "PAGE_ADMIN_APP_NOICON"
+msgstr "No icon"
+
+msgid "PAGE_ADMIN_APP_PAGETITLE"
+msgstr "Edit application"
+
+msgid "PAGE_ADMIN_APP_PROFILE_BLOCK"
+msgstr "Basic information"
+
+msgid "PAGE_ADMIN_APP_REQ"
+msgstr "System requirements (1400 characters):"
+
+msgid "PAGE_ADMIN_APP_REQDESC"
+msgstr "System requirements will be shown on the application's page in \"Additional information\" section"
+
+msgid "PAGE_ADMIN_APP_SCRNS_TITLE"
+msgstr "Screenshots"
+
+msgid "PAGE_ADMIN_APP_SLOGAN"
+msgstr "Slogan (140 characters):"
+
+msgid "PAGE_ADMIN_APP_SLOGANDESC"
+msgstr "The slogan will be displayed on the app page, on the homepage, and in search"
+
+msgid "PAGE_ADMIN_APP_SLOGANDESC_2"
+msgstr "Brevity is the soul of wit :)"
+
+msgid "PAGE_ADMIN_APP_TAB_DISTRIBUTIONS"
+msgstr "Files"
+
+msgid "PAGE_ADMIN_APP_TITLE"
+msgstr "Application name:"
+
+msgid "PAGE_ADMIN_APP_TITLEDESC"
+msgstr "A great and memorable name will give the application a boost in brand awareness among users"
+
+msgid "PAGE_ADMIN_APP_WARN_SCRN"
+msgstr "Warning: Uploading new files will remove current screenshots!"
+
+msgid "PAGE_APP_ACTION_MORE_APPS"
+msgstr "View other apps by this developer"
+
+msgid "PAGE_APP_ACTION_REPORT"
+msgstr "Report application"
+
+msgid "PAGE_APP_ACTION_SITE"
+msgstr "Go to the developer's official website"
+
+msgid "PAGE_APP_BTN_BACK"
+msgstr "Back"
+
+msgid "PAGE_APP_BTN_BUY"
+msgstr "Buy"
+
+msgid "PAGE_APP_BTN_INSTALL"
+msgstr "Install"
+
+msgid "PAGE_APP_IMG_ALT_SCREENSHOT"
+msgstr "Screenshot"
+
+msgid "PAGE_APP_LABEL_AUTHOR"
+msgstr "Published by:"
+
+msgid "PAGE_APP_LABEL_DOWNLOADS"
+msgstr "Number of downloads"
+
+msgid "PAGE_APP_LABEL_ORIGINAL_AUTHOR"
+msgstr "Original author:"
+
+msgid "PAGE_APP_MSG_DEMO_WARNING"
+msgstr "The software is distributed as a demo version; the full version should be purchased from the author. The file is provided from the developer's official website."
+
+msgid "PAGE_APP_MSG_DMCA_ERROR"
+msgstr "Due to a request from the copyright holder, this file cannot be downloaded at this time. We apologize for the inconvenience."
+
+msgid "PAGE_APP_MSG_NO_SCREENSHOTS"
+msgstr "No screenshots"
+
+msgid "PAGE_APP_PRICE_DEMO_FREE"
+msgstr "Demo"
+
+msgid "PAGE_APP_PRICE_DEMO_WITH_COST"
+msgstr "Demo, then "
+
+msgid "PAGE_APP_PRICE_FREE"
+msgstr "Free"
+
+msgid "PAGE_APP_PRICE_PAID"
+msgstr "Paid: "
+
+msgid "PAGE_APP_SECTION_ACTIONS"
+msgstr "Actions"
+
+msgid "PAGE_APP_SECTION_DESC"
+msgstr "Additional information"
+
+msgid "PAGE_APP_SECTION_REQ"
+msgstr "System requirements "
+
+msgid "PAGE_APP_SECTION_SCREENSHOTS"
+msgstr "Screenshots"
+
+msgid "PAGE_BADBROSER_DESC_3"
+msgstr "Thank you for your understanding."
+
+msgid "PAGE_BADBROWSER_DESC_1"
+msgstr "It's recommended to use RetroZilla, Internet Explorer 6 or higher installed for the best experience."
+
+msgid "PAGE_BADBROWSER_DESC_2"
+msgstr "Internet Explorer 6 can be downloaded either directly or via services"
+
+msgid "PAGE_BADBROWSER_TITLE"
+msgstr "Thank you for your interest in the Windows Store!"
+
+msgid "PAGE_CATEGORY_BUYBTN"
+msgstr "Buy"
+
+msgid "PAGE_CATEGORY_COUNTOFRESULTS"
+msgstr "Number of results:"
+
+msgid "PAGE_CATEGORY_DEMOBTN"
+msgstr "Demo"
+
+msgid "PAGE_CATEGORY_INSTALLBTN"
+msgstr "Install"
+
+msgid "PAGE_CATEGORY_SEARCHOFCATEGORY"
+msgstr "Search by category"
+
+msgid "PAGE_CATEGORY_SHOWCONTENTAS"
+msgstr "Show content as..."
+
+msgid "PAGE_CATEGORY_SHOWCONTENTASLIST"
+msgstr "Show content as list"
+
+msgid "PAGE_CATEGORY_SHOWCONTENTASTILES"
+msgstr "Show content as tiles"
+
+msgid "PAGE_DEBUG_DESC"
+msgstr "This page is used EXCLUSIVELY for testing and gathering information for a more accurate bug report. If you see this page, it means that the DEBUG variable in your settings.py is set to True."
+
+msgid "PAGE_DEBUG_MAININFO_TITLE"
+msgstr "Basic information"
+
+msgid "PAGE_DEBUG_TITLE"
+msgstr "Debug information"
+
+msgid "PAGE_DELACC_BLOCK_TITLE"
+msgstr "Settings"
+
+msgid "PAGE_DELACC_LASTPASS_TITLE"
+msgstr "If you have made a firm and clear decision, please enter your password one last time to confirm"
+
+msgid "PAGE_DELACC_TITLE"
+msgstr "Delete account"
+
+msgid "PAGE_DELACC_WARNDESC_1"
+msgstr "You have already clicked the account deletion button in your profile settings, we understand your decision. "
+
+msgid "PAGE_DELACC_WARNDESC_2"
+msgstr "However, we would like to reiterate that this action will result in the deletion of your profile data"
+
+msgid "PAGE_DELACC_WARNDESC_3"
+msgstr "with NO going back"
+
+msgid "PAGE_DELACC_WARNDESC_4"
+msgstr "Access to managed application pages will be lost, and submitted feedback will be anonymized."
+
+msgid "PAGE_DELACC_WARNDESC_5"
+msgstr "It is time to list your profile statistics:"
+
+msgid "PAGE_DELACC_WARNTITLE"
+msgstr "Please pay attention!"
+
+msgid "PAGE_DELACC_YOULEFTHERE_APP_1"
+msgstr "Number of apps you uploaded:"
+
+msgid "PAGE_DELACC_YOULEFTHERE_APP_2"
+msgstr "You will not be able to manage them after deleting your account"
+
+msgid "PAGE_DELACC_YOULEFTHERE_AVATAR_1"
+msgstr "Your beautiful profile picture"
+
+msgid "PAGE_DELACC_YOULEFTHERE_AVATAR_2"
+msgstr "Accept yourself as you are"
+
+msgid "PAGE_DELACC_YOULEFTHERE_HISTORY_1"
+msgstr "History of uploaded applications"
+
+msgid "PAGE_DELACC_YOULEFTHERE_HISTORY_2"
+msgstr "...have you ever even looked there once?"
+
+msgid "PAGE_DELACC_YOULEFTHERE_INVITES_1"
+msgstr "The number of people invited by you:"
+
+msgid "PAGE_DELACC_YOULEFTHERE_INVITES_2"
+msgstr "They will be left without you and will be sad"
+
+msgid "PAGE_DELAPP_DELACCOUNTBTN"
+msgstr "Delete account"
+
+msgid "PAGE_DEVADD_ALREADYDEV_1"
+msgstr "You are already a developer!"
+
+msgid "PAGE_DEVADD_ALREADYDEV_2"
+msgstr "You already have developer status. You now have access to all additional app upload options on LunaStore."
+
+msgid "PAGE_DEVADD_DESC_1"
+msgstr "Are you a representative or a developer of your software?"
+
+msgid "PAGE_DEVADD_DESC_2"
+msgstr "Upgrade your profile to a developer account and publish software officially on LunaStore. Official downloads will be marked with a corresponding badge."
+
+msgid "PAGE_DEVADD_DISABLED_1"
+msgstr "Developer registration is temporarily disabled"
+
+msgid "PAGE_DEVADD_DISABLED_2"
+msgstr "We don't accept new developer status applications at this moment. Please try again later."
+
+msgid "PAGE_DEVADD_ENTERINFO_ABOUTYOU"
+msgstr "Tell us about yourself (up to 1000 characters):"
+
+msgid "PAGE_DEVADD_ENTERINFO_CONFIRM"
+msgstr "Registration confirmation"
+
+msgid "PAGE_DEVADD_ENTERINFO_EMAIL"
+msgstr "Contact e-mail:"
+
+msgid "PAGE_DEVADD_ENTERINFO_EMAILDESC"
+msgstr "We will definitely contact you. Or we hope that we will. "
+
+msgid "PAGE_DEVADD_ENTERINFO_GITHUBDESC"
+msgstr "Why not? We would love to see your cool creations :3"
+
+msgid "PAGE_DEVADD_ENTERINFO_TITLE"
+msgstr "Basic information"
+
+msgid "PAGE_DEVADD_ENTERINFO_USERNAME"
+msgstr "Username:"
+
+msgid "PAGE_DEVADD_ENTERINFO_USERNAMEDESC"
+msgstr "Username cannot be changed. If this is not the correct account, please sign in to the needed one."
+
+msgid "PAGE_DEVADD_ENTERINFO_WHYCHOOSEUS"
+msgstr "Why did you choose us? (250 characters):"
+
+msgid "PAGE_DEVADD_NOWCHECKING_1"
+msgstr "You have already submitted an application. The administrator will review it shortly."
+
+msgid "PAGE_DEVADD_NOWCHECKING_2"
+msgstr "If it is approved, you will receive a notification and your status."
+
+msgid "PAGE_DEVADD_NOWCHECKING_3"
+msgstr "If rejected, you will be able to reapply."
+
+msgid "PAGE_DEVADD_NOWCHECKING_TITLE"
+msgstr "Application currently in review"
+
+msgid "PAGE_DEVADD_SENDALLBTN"
+msgstr "Submit application"
+
+msgid "PAGE_DEVADD_TITLE"
+msgstr "Submit developer status application"
+
+msgid "PAGE_DIST_EDIT_CHANGE_FILE"
+msgstr "Replace file:"
+
+msgid "PAGE_DIST_EDIT_CURRENT_FILE"
+msgstr "Current file:"
+
+msgid "PAGE_DIST_EDIT_HEADER"
+msgstr "Edit distribution"
+
+msgid "PAGE_DIST_FORM_CANCEL"
+msgstr "Cancel"
+
+msgid "PAGE_DIST_FORM_CHANGELOG"
+msgstr "Changelog:"
+
+msgid "PAGE_DIST_FORM_CHANGELOG_DESC"
+msgstr "Describe what's new in this version"
+
+msgid "PAGE_DIST_FORM_ERR_CDN_REJECT"
+msgstr "The LunaSpire engine rejected the file upload. Please contact the administrator regarding this error."
+
+msgid "PAGE_DIST_FORM_ERR_GET_TOKEN"
+msgstr "Error receiving upload token from the LunaSpire engine. Please contact the administrator regarding this error."
+
+msgid "PAGE_DIST_FORM_ERR_NO_CONFIRM"
+msgstr "The LunaSpire engine did not return a confirmation token. Please contact the administrator regarding this error."
+
+msgid "PAGE_DIST_FORM_FILE"
+msgstr "File:"
+
+msgid "PAGE_DIST_FORM_FILE_ALREADY_UPLOADED"
+msgstr "File already uploaded (pending save)"
+
+msgid "PAGE_DIST_FORM_FILE_BUTTON"
+msgstr "Browse..."
+
+msgid "PAGE_DIST_FORM_FILE_DESC"
+msgstr "Supported formats: .exe, .zip, .rar, .7z and other archives."
+
+msgid "PAGE_DIST_FORM_FILE_NO_FILE"
+msgstr "No file selected."
+
+msgid "PAGE_DIST_FORM_FILE_UPLOADING"
+msgstr "Uploading..."
+
+msgid "PAGE_DIST_FORM_SAVE"
+msgstr "Save changes"
+
+msgid "PAGE_DIST_FORM_SAVED"
+msgstr "Distribution changes saved successfully."
+
+msgid "PAGE_DIST_FORM_URL"
+msgstr "External link (URL):"
+
+msgid "PAGE_DIST_FORM_URL_DESC"
+msgstr "Specify if the file is hosted on another resource"
+
+msgid "PAGE_DIST_FORM_VERSION"
+msgstr "Application version:"
+
+msgid "PAGE_DIST_FORM_VERSION_DESC"
+msgstr "Example: 1.0.0 or 2.1.4-beta"
+
+msgid "PAGE_DOWNLOAD_BACK"
+msgstr "Back"
+
+msgid "PAGE_DOWNLOAD_DEMO_WARNING"
+msgstr "The software is distributed as a demo version; the full version should be purchased from the author. The file is provided from the developer's official website."
+
+msgid "PAGE_DOWNLOAD_DL_ACTION"
+msgstr "download"
+
+msgid "PAGE_DOWNLOAD_GO_OFFICIAL"
+msgstr "Go to the official website"
+
+msgid "PAGE_DOWNLOAD_LATEST_VERSION_NOTE"
+msgstr "Latest downloaded version marked in bold"
+
+msgid "PAGE_DOWNLOAD_LOCAL_SOURCE"
+msgstr "Downloading from our website"
+
+msgid "PAGE_DOWNLOAD_MANAGE_DISTS"
+msgstr "Distribution management"
+
+msgid "PAGE_DOWNLOAD_NO_DISTRIBUTIONS"
+msgstr "No distributions added yet."
+
+msgid "PAGE_DOWNLOAD_NO_NOTES"
+msgstr "No notes"
+
+msgid "PAGE_DOWNLOAD_OFFICIAL_SOURCE"
+msgstr "Downloading from official source"
+
+msgid "PAGE_DOWNLOAD_TABLE_ACTION"
+msgstr "Action"
+
+msgid "PAGE_DOWNLOAD_TABLE_DATE"
+msgstr "Publication date"
+
+msgid "PAGE_DOWNLOAD_TABLE_LINK"
+msgstr "Link"
+
+msgid "PAGE_DOWNLOAD_TABLE_UPLOAD_DATE"
+msgstr "Upload date"
+
+msgid "PAGE_DOWNLOAD_TABLE_VERSION"
+msgstr "Version"
+
+msgid "PAGE_DOWNLOAD_TITLE"
+msgstr "Downloading"
+
+msgid "PAGE_DOWNLOAD_UPLOADED_VERSIONS"
+msgstr "Uploaded versions"
+
+msgid "PAGE_DOWNLOAD_VERSION_LIST"
+msgstr "Version list"
+
+msgid "PAGE_FAQ_A_WHY_EXIST_PART1"
+msgstr "Good question. It all began when one of our team members wanted to upload a 3D Windows XP screensaver on a certain old software website that wasn't quite popular and was barely saved on the Internet Archive."
+
+msgid "PAGE_FAQ_A_WHY_EXIST_PART2"
+msgstr "In a few days the screensaver was deleted from the website, stating that \"It's not suitable for the website's topic\". When he questioned \"Why do you have Windows XP disk images on your website then?\", staff members couldn't give a straight answer."
+
+msgid "PAGE_FAQ_A_WHY_EXIST_PART3"
+msgstr "Nothing to worry about, we are not saddened and we won't be competitors to them, we just wanted to create our own little catalog :3"
+
+msgid "PAGE_FAQ_CARD_TEAM"
+msgstr "What do you mean by 'shared hobby'?"
+
+msgid "PAGE_FAQ_CARD_TEAMDESC_2"
+msgstr "It's time to name them:"
+
+msgid "PAGE_FAQ_CARD_TEAM_AUTHOR"
+msgstr "- idea's author, designer,"
+
+msgid "PAGE_FAQ_CARD_TEAM_BACKEND"
+msgstr "- backend development, consulting and inspiration"
+
+msgid "PAGE_FAQ_CARD_TEAM_DEV"
+msgstr "- developer"
+
+msgid "PAGE_FAQ_CARD_TEAM_FRONTEND"
+msgstr "- frontend"
+
+msgid "PAGE_FAQ_CARD_WHATISIT"
+msgstr "Where am I and what is this?"
+
+msgid "PAGE_FAQ_CARD_WHATISITDESC"
+msgstr "is a kind of alternative 'storefront' for games and software. We're currently aiming for the Windows XP era."
+
+msgid "PAGE_FAQ_CARD_WHYWESHOP"
+msgstr "Why's the \"store\" in quotation marks?"
+
+msgid "PAGE_FAQ_CARD_WHYWESHOPDESC"
+msgstr "We're a fan website and we don't think that this project will grow to a full-fledged storefront. But who knows? Although the advertisements in the left menu are not serious, and the entire project is a shared hobby."
+
+msgid "PAGE_FAQ_DESC"
+msgstr "Do you have any questions? This page has all information regarding this LunaStore"
+
+msgid "PAGE_FAQ_DONATETAB"
+msgstr "Donate"
+
+msgid "PAGE_FAQ_DONATE_TITLE"
+msgstr "How to support us?"
+
+msgid "PAGE_FAQ_LAST_UPDATE"
+msgstr "Last update"
+
+msgid "PAGE_FAQ_PRIVACYTAB"
+msgstr "Privacy"
+
+msgid "PAGE_FAQ_PRIVACY_EMPTY"
+msgstr "This document is not yet filled..."
+
+msgid "PAGE_FAQ_PRIVACY_TITLE"
+msgstr "Privacy Policy"
+
+msgid "PAGE_FAQ_Q_ACC_BENEFITS"
+msgstr "What are the benefits of having a LunaStore account?"
+
+msgid "PAGE_FAQ_Q_ADD_APP"
+msgstr "Okay, and how do I add an application here?"
+
+msgid "PAGE_FAQ_Q_CREATE_ACC"
+msgstr "How to create an account?"
+
+msgid "PAGE_FAQ_Q_LEGAL"
+msgstr "\"Hmm, and is this legal?\""
+
+msgid "PAGE_FAQ_Q_WHY_EXIST"
+msgstr "Why does this website exist/"
+
+msgid "PAGE_FAQ_RULESTAB"
+msgstr "Rules"
+
+msgid "PAGE_FAQ_TEAM_HEADER_OTHER"
+msgstr "We're also thankful to other developers:"
+
+msgid "PAGE_FAQ_TEAM_HEADER_TESTERS"
+msgstr "And let's not forget about our testers:"
+
+msgid "PAGE_FAQ_TEAM_ROLE_FAYZETWIN"
+msgstr "main backend developer, API"
+
+msgid "PAGE_FAQ_TEAM_ROLE_MONDY"
+msgstr "logo"
+
+msgid "PAGE_FAQ_TEAM_ROLE_NOCHA3"
+msgstr "native Windows XP client"
+
+msgid "PAGE_FAQ_TEAM_ROLE_ZAZIOS"
+msgstr "backend developer (Go)"
+
+msgid "PAGE_FAQ_TEAM_TESTERS_LIST"
+msgstr "[testers' nicknames are separated with commas]"
+
+msgid "PAGE_FAQ_TITLE"
+msgstr "FAQ"
+
+msgid "PAGE_FAQ_TITLE_2"
+msgstr "Support center"
+
+msgid "PAGE_INVITE_ADMINSTATUS"
+msgstr "Moderator"
+
+msgid "PAGE_INVITE_BROWSER_TITLE"
+msgstr "Invite"
+
+msgid "PAGE_INVITE_CODE_ROTATION_WARN"
+msgstr "<b>Important:</b> invite codes currently change every 24 hours"
+
+msgid "PAGE_INVITE_COPY_CODE"
+msgstr "Copy this code below and send it to the required person"
+
+msgid "PAGE_INVITE_DESCRIPTION"
+msgstr "You can invite your friend or acquaintance with similar interests about retro stuff to LunaStore."
+
+msgid "PAGE_INVITE_HOW_TO_SEND"
+msgstr "Via e-mail, phone, chat, in person - doesn't matter. The invited user must enter the code during registration."
+
+msgid "PAGE_INVITE_INPUT_BTN"
+msgstr "Begin registration"
+
+msgid "PAGE_INVITE_INPUT_DESC_1"
+msgstr "You can enter an invitation code you received from an already <b>registered member</b>"
+
+msgid "PAGE_INVITE_INPUT_DESC_2"
+msgstr "This gives you a unique opportunity to create an account, <b>bypassing the closed public registration</b>"
+
+msgid "PAGE_INVITE_INPUT_HEADER"
+msgstr "Enter invite code"
+
+msgid "PAGE_INVITE_INPUT_LABEL"
+msgstr "Code"
+
+msgid "PAGE_INVITE_INPUT_TITLE"
+msgstr "Enter invite code"
+
+msgid "PAGE_INVITE_LIMIT_INFO"
+msgstr "Currently you can invite <b>1</b> person. After the user accepts your invitation, the next one can be created only in a week"
+
+msgid "PAGE_INVITE_LIST_EMPTY"
+msgstr "You haven't invited anyone yet"
+
+msgid "PAGE_INVITE_LIST_HEADER"
+msgstr "Invited users"
+
+msgid "PAGE_INVITE_MAIN_TITLE"
+msgstr "Invite a person"
+
+msgid "PAGE_INVITE_REGDATE"
+msgstr "Sign up"
+
+msgid "PAGE_INVITE_USERSTATUS"
+msgstr "User"
+
+msgid "PAGE_LOGIN_BROWSER_TITLE"
+msgstr "Sign in"
+
+msgid "PAGE_LOGIN_GREETING"
+msgstr "Introduce yourself..."
+
+msgid "PAGE_LOGIN_INFO_BULLET_1"
+msgstr "Leave app reviews"
+
+msgid "PAGE_LOGIN_INFO_BULLET_2"
+msgstr "Take the community by storm"
+
+msgid "PAGE_LOGIN_INFO_BULLET_3"
+msgstr "Upload software"
+
+msgid "PAGE_LOGIN_INFO_DESC_2"
+msgstr "Create one. It's free of charge."
+
+msgid "PAGE_LOGIN_INFO_TITLE_1"
+msgstr "Why do I need an account?"
+
+msgid "PAGE_LOGIN_INFO_TITLE_2"
+msgstr "You don't have an account?"
+
+msgid "PAGE_LOGIN_MAIN_TITLE"
+msgstr "Sign in"
+
+msgid "PAGE_LOGIN_PASSWORD_LABEL"
+msgstr "Password:"
+
+msgid "PAGE_LOGIN_REGISTER_BTN"
+msgstr "Sign up"
+
+msgid "PAGE_LOGIN_REQUIRED_WARNING"
+msgstr "You need to sign in to continue this action"
+
+msgid "PAGE_LOGIN_SUBMIT_BTN"
+msgstr "Sign in"
+
+msgid "PAGE_LOGIN_USERNAME_LABEL"
+msgstr "Username:"
+
+msgid "PAGE_MANAGEDIST_CREATE_SUCCESS"
+msgstr "New distribution created"
+
+msgid "PAGE_MANAGE_APPS_BTN_EDIT"
+msgstr "edit"
+
+msgid "PAGE_MANAGE_APPS_COUNT"
+msgstr "Managed applications"
+
+msgid "PAGE_MANAGE_APPS_CREATE"
+msgstr "Create an app"
+
+msgid "PAGE_MANAGE_APPS_EMPTY_DESC"
+msgstr "You are not managing any applications yet."
+
+msgid "PAGE_MANAGE_APPS_EMPTY_TITLE"
+msgstr "No applications ＞︿＜"
+
+msgid "PAGE_MANAGE_APPS_HEADER"
+msgstr "Managed application pages"
+
+msgid "PAGE_MANAGE_APPS_MY_APPS"
+msgstr "My applications"
+
+msgid "PAGE_MANAGE_APPS_ROLE_OWNER"
+msgstr "Owner"
+
+msgid "PAGE_MANAGE_APPS_TITLE"
+msgstr "Managed applications"
+
+msgid "PAGE_OTHER_PROJECTS_BROWSER_TITLE"
+msgstr "Other projects"
+
+msgid "PAGE_OTHER_PROJECTS_BTN_GO"
+msgstr "Visit »"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_DM"
+msgstr "Daniel Myslivets official website (version for old computers and browsers)"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_FOXCORP"
+msgstr "Personal website of Milya Fox, a network engineer who helped with the project"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_GAMES"
+msgstr "Revival of Windows XP/7 internet games using a custom third-party server"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_KICQ"
+msgstr "Unofficial project that restores ICQ functionality"
+
+msgid "PAGE_OTHER_PROJECTS_SECTION_FRIENDS"
+msgstr "Partner sites"
+
+msgid "PAGE_OTHER_PROJECTS_SECTION_MAIN"
+msgstr "Main"
+
+msgid "PAGE_OTHER_PROJECTS_SUBTITLE"
+msgstr "Partner sites and our other projects"
+
+msgid "PAGE_OTHER_PROJECTS_TITLE"
+msgstr "Other projects"
+
+msgid "PAGE_PROFILE_APPS_EMPTY_DESC"
+msgstr "User hasn't published any apps yet."
+
+msgid "PAGE_PROFILE_APPS_TITLE"
+msgstr "Published applications"
+
+msgid "PAGE_PROFILE_BANNED_DESC_2"
+msgstr "Since this user is banned, we recommend not to communicate with them, especially if they will ask you for money."
+
+msgid "PAGE_PROFILE_BANNED_INTRO"
+msgstr "This user has been banned."
+
+msgid "PAGE_PROFILE_CONTACT_INFO"
+msgstr "Contact information"
+
+msgid "PAGE_PROFILE_INVITES_EMPTY_DESC"
+msgstr "No one has registered using this user's invitation yet."
+
+msgid "PAGE_PROFILE_INVITES_EMPTY_TITLE"
+msgstr "No invitations ＞︿＜"
+
+msgid "PAGE_PROFILE_INVITES_TEXT"
+msgstr "invited"
+
+msgid "PAGE_PROFILE_LABEL_EMAIL"
+msgstr "E-mail:"
+
+msgid "PAGE_PROFILE_LABEL_TELEGRAM"
+msgstr "Telegram:"
+
+msgid "PAGE_PROFILE_LABEL_WEBSITE"
+msgstr "Website:"
+
+msgid "PAGE_PROFILE_LINK_ADDAPP"
+msgstr "add"
+
+msgid "PAGE_PROFILE_LINK_ALL"
+msgstr "show all"
+
+msgid "PAGE_PROFILE_STAFF_ALT"
+msgstr "LunaStore Team"
+
+msgid "PAGE_PROFILE_STATS_MEMBER_SINCE"
+msgstr "member since"
+
+msgid "PAGE_PROFILE_TAB_APPS"
+msgstr "Apps"
+
+msgid "PAGE_PROFILE_TAB_MAIN"
+msgstr "Main"
+
+msgid "PAGE_PROFILE_TAB_REVIEWS"
+msgstr "Reviews"
+
+msgid "PAGE_PROFILE_TITLE"
+msgstr "User Profile"
+
+msgid "PAGE_REGISTER_BTN_SUBMIT"
+msgstr "Sign up"
+
+msgid "PAGE_REGISTER_CAPTCHA_INSTRUCTION"
+msgstr "Enter characters from the image:"
+
+msgid "PAGE_REGISTER_CLICK_HERE"
+msgstr "here"
+
+msgid "PAGE_REGISTER_CLOSED_MSG"
+msgstr "Public registration is currently closed and is done strictly by invitation from already existing members."
+
+msgid "PAGE_REGISTER_HAVE_INVITE_TEXT"
+msgstr "Have an invite code? Click"
+
+msgid "PAGE_REGISTER_HAVE_INVITE_TITLE"
+msgstr "Do you have an invitation?"
+
+msgid "PAGE_REGISTER_HELP_EMAIL"
+msgstr "Will be used to log in to the account and to recover the password"
+
+msgid "PAGE_REGISTER_HELP_PASS1"
+msgstr "Come up with secure passwords. It's important, damn it!"
+
+msgid "PAGE_REGISTER_HELP_PASS2"
+msgstr "Practice makes perfect :D"
+
+msgid "PAGE_REGISTER_HELP_USERNAME"
+msgstr "Minimum 2 characters. This username will be how others find you. It cannot be changed after registration."
+
+msgid "PAGE_REGISTER_INFO_SPLASH"
+msgstr "By creating an account, you can publish your own apps, leave reviews for existing software, and maintain your personal library of favorites. Registration is open and free."
+
+msgid "PAGE_REGISTER_LABEL_EMAIL"
+msgstr "E-mail:"
+
+msgid "PAGE_REGISTER_LABEL_PASS1"
+msgstr "Password:"
+
+msgid "PAGE_REGISTER_LABEL_PASS2"
+msgstr "Repeat password:"
+
+msgid "PAGE_REGISTER_LABEL_USERNAME"
+msgstr "Username:"
+
+msgid "PAGE_REGISTER_SECTION_CONFIRM"
+msgstr "Registration confirmation"
+
+msgid "PAGE_REGISTER_SECTION_MAIN"
+msgstr "Basic information"
+
+msgid "PAGE_REGISTER_TITLE"
+msgstr "Sign up"
+
+msgid "PAGE_REPORTAPP_EXPLAIN_LABEL"
+msgstr "Additional information (required):"
+
+msgid "PAGE_REPORTAPP_INFO_1"
+msgstr "You are about to report the app"
+
+msgid "PAGE_REPORTAPP_INFO_2"
+msgstr "Please select a reason and describe the issue in more detail:"
+
+msgid "PAGE_REPORTAPP_PAGE_TITLE"
+msgstr "Report an app"
+
+msgid "PAGE_REPORTAPP_REASON_INCORRECT"
+msgstr "Incorrect data or description"
+
+msgid "PAGE_REPORTAPP_REASON_MALWARE"
+msgstr "Aaah, help, there's malware here!"
+
+msgid "PAGE_REPORTAPP_REASON_OTHER"
+msgstr "Other reason"
+
+msgid "PAGE_REPORTAPP_SUBMIT_BTN"
+msgstr "Submit report"
+
+msgid "PAGE_REPORTAPP_SUCCESS_MSG"
+msgstr "Your report has been submitted."
+
+msgid "PAGE_REPORTAPP_TITLE"
+msgstr "Report an app"
+
+msgid "PAGE_REPORTAPP_TITLE_PATH"
+msgstr "App reports"
+
+msgid "PAGE_SEARCH_BADGE_DEMO"
+msgstr "Demo"
+
+msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
+msgstr "Demo, then $%%(price)s"
+
+msgid "PAGE_SEARCH_BADGE_FREE"
+msgstr "Free"
+
+msgid "PAGE_SEARCH_BADGE_NOT_FOUND"
+msgstr "No results found for \"%%(q)s\""
+
+msgid "PAGE_SEARCH_BTN_DETAILS"
+msgstr "Details"
+
+msgid "PAGE_SEARCH_BTN_RESET"
+msgstr "Reset filters"
+
+msgid "PAGE_SEARCH_BTN_SUBMIT"
+msgstr "search"
+
+msgid "PAGE_SEARCH_FILTER_AUTHOR_ID"
+msgstr "Author's ID"
+
+msgid "PAGE_SEARCH_FILTER_CATEGORY"
+msgstr "Category"
+
+msgid "PAGE_SEARCH_FILTER_CATEGORY_ALL"
+msgstr "All categories"
+
+msgid "PAGE_SEARCH_FILTER_FREE"
+msgstr "Only free"
+
+msgid "PAGE_SEARCH_HEADING"
+msgstr "Enter search query"
+
+msgid "PAGE_SEARCH_IMG_ALT_NONE"
+msgstr "No icon"
+
+msgid "PAGE_SEARCH_INPUT_PLACEHOLDER"
+msgstr "Example: Total Commander"
+
+msgid "PAGE_SEARCH_LINK_ADVANCED"
+msgstr "Refine search criteria"
+
+msgid "PAGE_SEARCH_MSG_NO_RESULTS %(q)s"
+msgstr "No results found for \"%%(q)s\""
+
+msgid "PAGE_SEARCH_MSG_NO_RESULTS_EMPTY"
+msgstr "No results found for your search"
+
+msgid "PAGE_SEARCH_SORT_LIST"
+msgstr "Show content as list"
+
+msgid "PAGE_SEARCH_SORT_PLACEHOLDER"
+msgstr "Show content as..."
+
+msgid "PAGE_SEARCH_SORT_TILES"
+msgstr "Show content as tiles"
+
+msgid "PAGE_SEARCH_TITLE"
+msgstr "Search"
+
+msgid "PAGE_SETTINGS_BTN_DELETE"
+msgstr "Delete account"
+
+msgid "PAGE_SETTINGS_BTN_SAVE"
+msgstr "Save"
+
+msgid "PAGE_SETTINGS_BTN_UPLOAD"
+msgstr "Upload"
+
+msgid "PAGE_SETTINGS_DELETE_WARNING"
+msgstr "If you do not wish to use the site, you have the right to delete your account. <br><br>However, please be aware that this action will result in the deletion of your profile data <b>WITHOUT the possibility of recovery</b>. Access to managed app pages will be lost, and sent feedback will be anonymized.<br><br>"
+
+msgid "PAGE_SETTINGS_DEV_STATUS_HAS"
+msgstr "present"
+
+msgid "PAGE_SETTINGS_HTML_TITLE"
+msgstr "Account Settings"
+
+msgid "PAGE_SETTINGS_INFO_AVATAR_RULES"
+msgstr "Recommended avatar size: 64x64.<br>Supported formats: .PNG, .JPG<br>Maximum size: 2 MB"
+
+msgid "PAGE_SETTINGS_INFO_EMAIL_CHANGE"
+msgstr "Changing the e-mail requires password confirmation."
+
+msgid "PAGE_SETTINGS_JS_ERR_CDN"
+msgstr "An error occurred while saving the file to the LunaSpire server. Please contact the site administrator regarding this error."
+
+msgid "PAGE_SETTINGS_JS_ERR_PREFIX"
+msgstr "Error occured:"
+
+msgid "PAGE_SETTINGS_JS_ERR_TOKEN"
+msgstr "Failed to retrieve secure token from LunaSpire for upload. Please contact the site administrator regarding this error."
+
+msgid "PAGE_SETTINGS_JS_SELECT_FILE"
+msgstr "Please select a file to upload!"
+
+msgid "PAGE_SETTINGS_JS_UPLOADING"
+msgstr "Uploading..."
+
+msgid "PAGE_SETTINGS_LABEL_BIO"
+msgstr "Profile bio:"
+
+msgid "PAGE_SETTINGS_LABEL_CHOOSE_FILE"
+msgstr "Select file:"
+
+msgid "PAGE_SETTINGS_LABEL_CONFIRM_PASS"
+msgstr "Repeat password:"
+
+msgid "PAGE_SETTINGS_LABEL_CUR_EMAIL"
+msgstr "Current e-mail:"
+
+msgid "PAGE_SETTINGS_LABEL_CUR_PASS"
+msgstr "Current password:"
+
+msgid "PAGE_SETTINGS_LABEL_DEV_STATUS"
+msgstr "Developer status:"
+
+msgid "PAGE_SETTINGS_LABEL_EMAIL"
+msgstr "Contact e-mail:"
+
+msgid "PAGE_SETTINGS_LABEL_HIDE_REVIEWS"
+msgstr "Restrict access to my reviews for other users"
+
+msgid "PAGE_SETTINGS_LABEL_NEW_EMAIL"
+msgstr "New e-mail:"
+
+msgid "PAGE_SETTINGS_LABEL_NEW_PASS"
+msgstr "New password:"
+
+msgid "PAGE_SETTINGS_LABEL_TELEGRAM"
+msgstr "Telegram:"
+
+msgid "PAGE_SETTINGS_LABEL_USERNAME"
+msgstr "Username:"
+
+msgid "PAGE_SETTINGS_LABEL_WEBSITE"
+msgstr "Website:"
+
+msgid "PAGE_SETTINGS_SECTION_AVATAR"
+msgstr "Edit avatar"
+
+msgid "PAGE_SETTINGS_SECTION_BASIC"
+msgstr "Basic information"
+
+msgid "PAGE_SETTINGS_SECTION_CHANGE_EMAIL"
+msgstr "Change e-mail"
+
+msgid "PAGE_SETTINGS_SECTION_DELETE"
+msgstr "Delete account"
+
+msgid "PAGE_SETTINGS_SECTION_PASSWORD"
+msgstr "Change password"
+
+msgid "PAGE_SETTINGS_SECTION_PRIVACY"
+msgstr "Privacy"
+
+msgid "PAGE_SETTINGS_TAB_ACCOUNT"
+msgstr "Account"
+
+msgid "PAGE_SETTINGS_TAB_APPS"
+msgstr "Apps"
+
+msgid "PAGE_SETTINGS_TITLE"
+msgstr "Settings"
+
+msgid "PAGE_SETTINGS_WARN_USERNAME_FROZEN"
+msgstr "Username cannot be changed after registration"
+
+msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_1"
+msgstr "Files passed validation: "
+
+msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_2"
+msgstr "pcs. Ready for upload."
+
+msgid "SITE_DESCRIPTION"
+msgstr "LunaStore. Apps catalog for your old PC. Download apps, leave reviews and join the community of old PC fans."
+
+msgid "TEXT_APP_NO_DESC"
+msgstr "No description"
+
+msgid "TEXT_APP_NO_NAME"
+msgstr "Untitled"
+
+msgid "TEXT_APP_NO_SLOGAN"
+msgstr "No slogan"
+
+msgid "VIEW_LOGIN_BANNED_REASON"
+msgstr "Your account has been blocked. Reason: %%(reason)s"
+
+msgid "VIEW_LOGIN_INVALID_CREDENTIALS"
+msgstr "Incorrect username or password."
+
+msgid "VIEW_LOGIN_SUCCESS"
+msgstr "Login successful! Welcome, %%(username)s!"
