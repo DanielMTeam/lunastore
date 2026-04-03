@@ -1,0 +1,58 @@
+{% load i18n static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:'ru' }}">
+<head>
+    <meta charset="UTF-8">
+    <title>{% trans "BANNED_IP_PAGE_TITLE" %}</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="header"></div>
+        <div class="headerline"></div>
+
+        <div class="main">
+            <div class="section" style="width: auto; float: none; margin: 10px;">
+                <h2>{% trans "BANNED_IP_H2" %}</h2>
+
+                <div class="error_splash" style="width: auto;">
+                    <div class="error_icon"></div>
+                    <div class="splash_text" style="margin-left: 60px; line-height: 1.4;">
+                        <strong style="font-size: 13px;">{% trans "BANNED_IP_INTRO" %}</strong><br><br>
+                        {% trans "BANNED_IP_REASON" %}<br><br>
+                        {% trans "BANNED_IP_RESOLUTION" %}
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+
+                <div class="info_splash" style="width: auto;">
+                    <div class="info_icon_small"></div>
+                    <div class="splash_text" style="margin-left: 35px; line-height: 1.4; padding-top: 4px;">
+                        {% trans "BANNED_IP_CONTACT_SUPPORT" %} <br>
+                        <strong><a href="mailto:{{ admin_email }}">{{ admin_email }}</a></strong>
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+
+                <div class="backblock">
+                            <ul class="backb" style="margin: 0; padding: 0;">
+                                <li class="back" style="
+                                    padding-left: 28px;
+                                    line-height: 24px;
+                                    background: url('{% static 'img/icons.png' %}') no-repeat 0px -303px;
+                                    min-height: 24px;
+                                    display: block;
+                                ">
+                                    <a href="javascript:history.back()" style="display: block;">{% trans "BANNED_IP_BACK_BUTTON" %}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+    <div class="footer">
+        <a href="/help_center.php">FAQ</a> - <a href="/help_center.php?page=privacy">{% trans "BASE_PRIVACYPOLICYBTN" %}</a> - <a href="/help_center.php?page=donate">{% trans "PAGE_FAQ_DONATETAB" %}</a> - <a href="/help_center.php?page=rules">{% trans "PAGE_FAQ_RULESTAB" %}</a> - <a href="https://t.me/lunastore_official">{% trans "BASE_FOOTER_TELEGRAM" %}</a>
+        <div style="text-align: right; font-size: 11px;">{% trans "BASE_FOOTER_TEXT_1" %} {% now "Y" %}<br>{% trans "BASE_FOOTER_TEXT_2" %}</div>
+    </div>
+</body>
+</html>

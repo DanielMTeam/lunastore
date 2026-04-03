@@ -1,5 +1,4 @@
 import importlib.metadata
-import os
 import platform
 import shutil
 import sys
@@ -7,10 +6,9 @@ import sys
 import django
 from django.conf import settings
 from django.core.cache import cache
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.utils import timezone, translation
-
-from .models import LegalDocument
 
 
 # Create your views here.
@@ -98,25 +96,26 @@ def debug_info(request):
     return redirect("home")
 
 
-def help_center(request):
-    current_page = request.GET.get("page", "faq")
-    context = {
-        "current_page": current_page,
-    }
-    if current_page == "privacy":
-        current_lang = translation.get_language()
-        doc = LegalDocument.objects.filter(
-            doc_type="privacy", language=current_lang
-        ).first()
-        if not doc:
-            doc = LegalDocument.objects.filter(
-                doc_type="privacy", language="en"
-            ).first()
+def force_language_change(request, lang_code):
+    next_url = request.GET.get("next", request.META.get("HTTP_REFERER", "/"))
+    response = HttpResponseRedirect(next_url)
 
-        context["privacy_doc"] = doc
+    lang_code = lang_code.lower()
 
-    return render(request, "help_center.html", context)
+    if lang_code and translation.check_for_language(lang_code):
+        translation.activate(lang_code)
+        is_secure = request.is_secure()
+        samesite = "Lax" if not is_secure else "None"
 
+        response.set_cookie(
+            settings.LANGUAGE_COOKIE_NAME,
+            lang_code,
+            max_age=settings.LANGUAGE_COOKIE_AGE,
+            path=settings.LANGUAGE_COOKIE_PATH,
+            domain=settings.LANGUAGE_COOKIE_DOMAIN,
+            secure=is_secure,
+            httponly=False,
+            samesite=samesite,
+        )
 
-def other_projects(request):
-    return render(request, "other_projects.html")
+    return response

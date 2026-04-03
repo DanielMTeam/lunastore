@@ -31,12 +31,7 @@
             <br>
             <small>
                 <span class="last-visit">
-                    {% blocktranslate trimmed count counter=apps_count|default:0 %}
-                        {{ counter }} PAGE_PROFILE_STATS_APP
-                    {% plural %}
-                        {{ counter }} PAGE_PROFILE_STATS_APPS
-                    {% endblocktranslate %}
-
+                    {% blocktranslate count counter=apps_count|default:0 %}{{ counter }} PAGE_PROFILE_STATS_APP{% plural %}{{ counter }} PAGE_PROFILE_STATS_APPS{% endblocktranslate %}
                     {% trans "PAGE_PROFILE_STATS_MEMBER_SINCE" %} {{ obj.date_joined|date:"d E Y" }}
                 </span>
             </small>
@@ -48,7 +43,17 @@
   <link rel="stylesheet" href="{% static './css/profile.css'%}">
   <link rel="stylesheet" href="{% static './css/tabs.css'%}">
   <link rel="stylesheet" href="{% static './css/reviews.css'%}">
-
+  {% if active_ban %}
+  <div class="error_splash" style="width: auto;">
+      <div class="error_icon"></div>
+      <div class="splash_text" style="margin-left: 60px; line-height: 1.4;">
+          <strong style="font-size: 13px;">{% trans "PAGE_PROFILE_BANNED_INTRO" %}</strong><br><br>
+          {% trans "PAGE_PROFILE_BANNED_DESC" %}<br><br>
+          {% trans "PAGE_PROFILE_BANNED_DESC_2" %}
+      </div>
+      <div style="clear: both;"></div>
+  </div>
+  {% else %}
   <div class="tabs">
       <div class="tab-bar">
         <div class="tab active" href="/help.php">
@@ -83,6 +88,16 @@
 
               <div class="profile_desc_element_head">Discord:
                   <div class="profile_desc_element">{{ obj.discord|default:"-" }}</div>
+              </div>
+
+              <div class="profile_desc_element_head">OpenVK:
+                  <div class="profile_desc_element">
+                      {% if obj.openvk %}
+                          <a href="https://openvk.org/{{ obj.openvk }}" target="_blank" rel="noopener noreferrer">{{ obj.openvk }}</a>
+                      {% else %}
+                          -
+                      {% endif %}
+                  </div>
               </div>
 
           </div>
@@ -150,6 +165,7 @@
 
           </div>
   </div>
+  {% endif %}
 </div>
 </div>
 {% endblock %}

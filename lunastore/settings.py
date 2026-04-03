@@ -18,6 +18,8 @@ LOCALE_PATHS = [
 
 LOGIN_URL = "login.php"
 
+ADMIN_EMAIL = os.getenv("ADMIN_EMAIL", "")
+
 LOGIN_REDIRECT_URL = "/index.php"
 
 LOGOUT_REDIRECT_URL = "/login.php"
@@ -83,6 +85,7 @@ INSTALLED_APPS = [
     "apps.marketplace.apps.MarketplaceConfig",
     "apps.user.apps.UserConfig",
     "apps.core.apps.CoreConfig",
+    "apps.terms.apps.TermsConfig",
     "captcha",
     # custom admin panel frontend
     "unfold",
@@ -255,6 +258,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "django.template.context_processors.media",
                 "apps.core.context_processors.motd_processor",
+                "django.template.context_processors.i18n",
                 "apps.core.context_processors.random_banner",
                 "apps.core.context_processors.drm_settings",
             ],
@@ -374,7 +378,13 @@ LOGGING = {
 
 LANGUAGE_CODE = "ru"
 
-LANGUAGES = [("ru", "Russian")]
+LANGUAGES = [
+    ("ru", "рус"),
+    ("en", "eng"),
+    ("uk", "укр"),
+    ("be", "бел"),
+    ("kk", "қаз"),
+]
 
 TIME_ZONE = "UTC"
 

@@ -23,6 +23,7 @@ urlpatterns = [
     path("", include("apps.marketplace.urls")),
     path("", include("apps.user.urls")),
     path("", include("apps.core.urls")),
+    path("", include("apps.terms.urls")),
     path("captcha/", include("captcha.urls")),
 ]
 
