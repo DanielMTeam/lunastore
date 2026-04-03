@@ -38,19 +38,19 @@ class UserViewSet(viewsets.GenericViewSet):
         "avatar": {
             "mw": 512,
             "mh": 512,
-            "mimes": "image/jpeg,image/png,image/webp",
+            "mimes": "image/jpeg;image/png;image/webp",
             "obj": "avatar",
         },
         "icon": {
             "mw": 512,
             "mh": 512,
-            "mimes": "image/jpeg,image/png,image/webp",
+            "mimes": "image/jpeg;image/png;image/webp",
             "obj": "icon",
         },
         "screenshot": {
             "mw": 1920,
             "mh": 1080,
-            "mimes": "image/jpeg,image/png,image/webp",
+            "mimes": "image/jpeg;image/png;image/webp",
             "obj": "screenshot",
         },
     }
