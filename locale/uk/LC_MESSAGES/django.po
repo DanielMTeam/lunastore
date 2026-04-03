@@ -1,29 +1,26 @@
 msgid ""
 msgstr ""
-"Language: uk-UA\n"
+"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n % 10 == 1 && n % 100 != 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2)\n"
 "X-Generator: Tolgee\n"
 
-msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
-msgstr "Пошук не дав результатів за запитом \"%%(q)s\""
-
 msgid "%(counter)s PAGE_PROFILE_STATS_APP"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
-msgstr[0] "%%(counter)s приложений,"
-msgstr[1] "%%(counter)s приложений,"
-msgstr[2] "%%(counter)s приложений,"
+msgstr[0] "%%(counter)s програм,"
+msgstr[1] "%%(counter)s програм,"
+msgstr[2] "%%(counter)s програм,"
 
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
-msgstr[0] "%%(counter)s отзывов -"
-msgstr[1] "%%(counter)s отзывов -"
-msgstr[2] "%%(counter)s отзывов -"
+msgstr[0] "%%(counter)s відгуків -"
+msgstr[1] "%%(counter)s відгуків -"
+msgstr[2] "%%(counter)s відгуків -"
 
 msgid "404_ELEMENT_NOT_FOUND"
-msgstr "Запитуваний елемент або посилання, яку ви хочете відвідати, не знайдені на нашому сайті."
+msgstr "Запитуваний елемент або посилання, яке ви хочете відвідати, не знайдені на нашому сайті."
 
 msgid "404_ELEMENT_NOT_FOUND_2"
 msgstr "Ми з усіх сил намагалися знайти, правда."
@@ -47,7 +44,7 @@ msgid "BANNED_IP_CONTACT_SUPPORT"
 msgstr "Зв'язатися з технічною підтримкою:"
 
 msgid "BANNED_IP_H2"
-msgstr "Доступ заборонено"
+msgstr "Відмовлено в доступі"
 
 msgid "BANNED_IP_HEADER"
 msgstr "Доступ обмежений"
@@ -62,10 +59,10 @@ msgid "BANNED_IP_PAGE_TITLE"
 msgstr "Доступ заборонено"
 
 msgid "BANNED_IP_REASON"
-msgstr "Це могло статися через порушення правил ресурсу, підозрілої активності або спрацювання системи безпеки. Ми дбаємо про комфорт всіх користувачів, тому повинні тимчасово або назавжди обмежити вам доступ."
+msgstr "Це могло статися через порушення правил ресурсу, підозрілої активності чи спрацювання системи безпеки. Ми дбаємо про комфорт усіх користувачів, тому вимушені тимчасово або назавжди обмежити вам доступ."
 
 msgid "BANNED_IP_RESOLUTION"
-msgstr "Якщо ви вважаєте, що блокування сталося випадково, або у вас динамічна IP-адреса, яка раніше належала порушнику, будь ласка, зв'яжіться із адміністрацією. "
+msgstr "Якщо ви вважаєте, що блокування сталося випадково, або у вас динамічна IP-адреса, яка раніше належала порушнику, будь ласка, зв'яжіться з адміністрацією. "
 
 msgid "BANNED_IP_SUBTITLE"
 msgstr "Ваша IP-адреса заблокована"
@@ -80,7 +77,7 @@ msgid "BASE_COOKIE_DECLINE"
 msgstr "Ні, дякую"
 
 msgid "BASE_COOKIE_MESSAGE"
-msgstr "Усі діти обожнюють печиво, так само як і ми. Саме тому для стабільної роботи сайту ми використовуємо файли Cookie. Докладніше про їх використання написано в нашій"
+msgstr "Усі діти обожнюють печиво, і ми також! Саме тому для стабільної роботи сайту ми використовуємо файли Cookie. Докладніше про їх використання написано в нашій"
 
 msgid "BASE_COOKIE_PRIVACYPOLICY"
 msgstr "Політиці конфіденційності"
@@ -92,13 +89,13 @@ msgid "BASE_FOOTER_TEXT_1"
 msgstr "З душею зроблено командою DM,"
 
 msgid "BASE_FOOTER_TEXT_2"
-msgstr "Усі права належять оригінальним правовласникам"
+msgstr "Усі права належать оригінальним правовласникам"
 
 msgid "BASE_LOGINBTN"
 msgstr "вхід"
 
 msgid "BASE_LOGINPOPUP_DESC"
-msgstr "У вас вже є обліковий запис? Представтеся."
+msgstr "У Вас вже є обліковий запис? Представтесь."
 
 msgid "BASE_LOGINPOPUP_LOGINBTN"
 msgstr "Увійти"
@@ -158,7 +155,7 @@ msgid "BASE_SIDEBAR_APP_REPORT"
 msgstr "Поскаржитися"
 
 msgid "BASE_SIDEBAR_APP_TITLE"
-msgstr "Застосунки"
+msgstr "Програми"
 
 msgid "BASE_SIDEBAR_CATEGORIES_HOME"
 msgstr "Головна сторінка"
@@ -170,10 +167,10 @@ msgid "CARD_USER_NO_DESC"
 msgstr "Опис профілю відсутній"
 
 msgid "ERROR_ACCESS_DENIED_PROFILE"
-msgstr "Доступ заборонено. Почніть з налаштуваннь профілю."
+msgstr "Доступ заборонено. Почніть з налаштувань профілю."
 
 msgid "ERROR_CDNSECURITY"
-msgstr "Під час завантаження файлу сталася помилка безпеки рушія LunaSpire. Будь ласка, зверніться з цією помилкою до адміністратору сайта, якщо ви бачите її не в перший раз."
+msgstr "Під час завантаження файлу сталася помилка безпеки рушія LunaSpire. Будь ласка, зверніться з цією помилкою до адміністратора сайту, якщо ви бачите її не в перший раз."
 
 msgid "ERROR_CURRENT_PASSWORD_IS_WRONG"
 msgstr "Поточний пароль неправильний"
@@ -188,7 +185,7 @@ msgid "ERROR_EMAIL_ALREADY_IN_USE"
 msgstr "Цей e-mail вже використовується."
 
 msgid "ERROR_EMAIL_IS_SAME"
-msgstr "Новий e-mail збігається із поточним."
+msgstr "Новий e-mail збігається з поточним."
 
 msgid "ERROR_INVALID_FILE_FORMAT"
 msgstr "Помилка: Некоректний формат файлу!"
@@ -197,7 +194,7 @@ msgid "ERROR_INVALID_IMAGE_FILE"
 msgstr "Не вдалося обробити зображення. Можливо, файл пошкоджений."
 
 msgid "ERROR_INVALID_LUNASPIRE_TOKEN"
-msgstr "Під час завантаження було отримано некоректний тип токена від рушія LunaSpire. Будь ласка, зверніться з цією помилкою до адміністратору сайта, якщо бачите її не в перший раз."
+msgstr "Під час завантаження було отримано некоректний тип токена від рушія LunaSpire. Будь ласка, зверніться з цією помилкою до адміністратора сайту, якщо бачите її не в перший раз."
 
 msgid "ERROR_INVALID_SIZE_ICON"
 msgstr "Помилка: Розмір файла перевищує 2 Мб!"
@@ -209,13 +206,13 @@ msgid "ERROR_NEW_PASSWORDS_DONT_MATCH"
 msgstr "Нові паролі не збігаються"
 
 msgid "ERROR_NEW_PASSWORD_SAME_AS_OLD"
-msgstr "Новий пароль збігається із старим. Будь ласка, введіть інший пароль."
+msgstr "Новий пароль збігається зі старим. Будь ласка, введіть інший пароль."
 
 msgid "ERROR_NO_AGREERULES"
 msgstr "Ви повинні погодитися з правилами!"
 
 msgid "ERROR_NO_APPNAME"
-msgstr "Введіть назву застосунка!"
+msgstr "Введіть назву програми!"
 
 msgid "ERROR_PREVIEWSCRNS_1_BIGSIZE"
 msgstr "Помилка: Файл"
@@ -230,7 +227,7 @@ msgid "ERROR_PREVIEWSCRNS_2_BIGSIZE"
 msgstr " занадто великий (макс. 2 Мб)."
 
 msgid "ERROR_PREVIEWSCRNS_2_COUNT"
-msgstr " файлов. Максимум 3."
+msgstr " файлів. Максимум 3."
 
 msgid "ERROR_PREVIEWSCRNS_2_INVALIDFORMAT"
 msgstr " має некоректний формат."
@@ -239,16 +236,16 @@ msgid "ERROR_PREVIEWSCRNS_3_COUNT"
 msgstr "Максимум 3 файла!"
 
 msgid "ERROR_YOURE_NOT_OWNER_OF_APP"
-msgstr "Ви не є адміністратором цього застосунку."
+msgstr "Ви не є адміністратором цієї програми."
 
 msgid "ERROR_YOU_DONT_HAVE_DEVSTATUS"
-msgstr "У вас немає статуса розробника для перегляду ціеї сторінки. Отримати його можна в налаштуваннях вашого профілю."
+msgstr "У вас немає статуса розробника для перегляду цієї сторінки. Отримати його можна в налаштуваннях вашого профілю."
 
 msgid "FORM_AGREE_POLICY"
 msgstr "Я приймаю умови конфіденційності"
 
 msgid "FORM_AGREE_RULES"
-msgstr "Я згоден з правилами сайта та освічений про наслідки їх порушення"
+msgstr "Я погоджуюсь із правилами сайту та освічений про наслідки їх порушення"
 
 msgid "FORM_APPCREATE_MAXIMUM_SCREENSHOTS"
 msgstr "Максимум 3 скриншота."
@@ -257,7 +254,7 @@ msgid "FORM_APPCREATE_TITLE_EXAMPLE"
 msgstr "Наприклад: Total Commander"
 
 msgid "FORM_CAPTCHA"
-msgstr "Введіть символи із зображення"
+msgstr "Вкажіть символи на зображенні:"
 
 msgid "FORM_DEVSTATUS_ABOUT_YOU"
 msgstr "Розкажіть про себе (до 1000 символів)"
@@ -272,7 +269,7 @@ msgid "FORM_DEVSTATUS_WE_WILL_CONTACT"
 msgstr "Ми обов'язково зв'яжемося з Вами. Прийнаймі постараємося."
 
 msgid "FORM_DEVSTATUS_WHY_YOU_CHOOSE"
-msgstr "Чому Ви вирішили обрати нас? (до 250 символів)"
+msgstr "Чому Ви вирішили обрати саме нас? (до 250 символів)"
 
 msgid "FORM_DEVSTATUS_YOUR_EMAIL"
 msgstr "Ваш e-mail"
@@ -284,13 +281,13 @@ msgid "FORM_INVITECODE_CODELIMITISNTOK_ERROR"
 msgstr "Ліміт запрошень за цим кодом вичерпано. Власник запросив занадто багато людей останнім часом."
 
 msgid "FORM_INVITECODE_DOESNOTEXIST_ERROR"
-msgstr "Такий інвайт-код не знайдено."
+msgstr "Такого інвайт-коду не знайдено."
 
 msgid "FORM_INVITECODE_ENTER"
-msgstr "Уведіть код"
+msgstr "Введіть код"
 
 msgid "FORM_INVITECODE_EXPIRED_ERROR"
-msgstr "Термін дії коду закінчився (24 часа). Попросіть новий."
+msgstr "Термін дії коду закінчився (24 години). Попросіть новий."
 
 msgid "FORM_INVITECODE_TITLE"
 msgstr "Код"
@@ -323,10 +320,10 @@ msgid "INDEX_SEARCH_PLACEHOLDER"
 msgstr "Наприклад: Total Commander"
 
 msgid "INDEX_SEARCH_SECTION_TITLE"
-msgstr "Пошук у каталозі"
+msgstr "Пошук за каталогом"
 
 msgid "INDEX_WELCOME_TEXT"
-msgstr "Ласкаво просимо до LunaStore!<br>Збірник застосунків та доповнень для комфортної роботи з цією ОС"
+msgstr "Ласкаво просимо до LunaStore!<br>Збірник програм та доповнень для комфортної роботи з цією ОС"
 
 msgid "INDEX_WELCOME_TITLE"
 msgstr "Ласкаво просимо"
@@ -338,10 +335,10 @@ msgid "INFO_ACCEPTED_ICON_FORMATS"
 msgstr "Дозволені тільки: .JPG, .JPEG, .PNG"
 
 msgid "INFO_ACCOUNT_WAS_DELETED"
-msgstr "Ваш обліковий запис був успішно видалено. Якщо надумаєте повернутись - ми завжди вас чекаємо на нашому сайті!"
+msgstr "Ваш обліковий запис було успішно видалено. Якщо надумаєте повернутись - ми завжди вас чекаємо на нашому сайті!"
 
 msgid "INFO_APP_CREATE_REQUEST_WAS_SENT"
-msgstr "Заявка відправлена на розгляд"
+msgstr "Заявку відправлено на розгляд"
 
 msgid "INFO_APP_DEMO"
 msgstr "Демо"
@@ -365,7 +362,7 @@ msgid "INFO_CATEGORY_LIST_EMPTY"
 msgstr "порожньооо..."
 
 msgid "INFO_EMAIL_WAS_CHANGED"
-msgstr "Ваш e-mail був успішно змінено."
+msgstr "Ваш e-mail було успішно змінено."
 
 msgid "INFO_MAXIMUM_AVATAR_SIZE"
 msgstr "Максимальний розмір файла: 2 Мб."
@@ -386,7 +383,7 @@ msgid "INFO_SELECTED_FILES"
 msgstr "Обрано файлів:"
 
 msgid "INFO_YOUR_IP_WAS_BANNED"
-msgstr "Ваша IP-адреса заблокована. Якщо ви вважаєте, що сталася помилка і вас заблокували 'без причини', напишіть нам по електронній пошті: daniel@myslivets.com"
+msgstr "Ваша IP-адреса заблокована. Якщо ви вважаєте, що сталася помилка і вас заблокували 'без причини', будь ласка, напишіть нам на електронну пошту: daniel@myslivets.com"
 
 msgid "JS_MARKETPLACE_ERROR"
 msgstr "Помилка LunaSpire:"
@@ -404,7 +401,7 @@ msgid "JS_MARKETPLACE_UPLOADING"
 msgstr "Завантаження..."
 
 msgid "PAGE_ADDAPP_BACKBTN"
-msgstr "Повернутися"
+msgstr "Назад"
 
 msgid "PAGE_ADDAPP_CHECKINFO_ACTIONS"
 msgstr "Дії"
@@ -440,7 +437,7 @@ msgid "PAGE_ADDAPP_NEXTBTN"
 msgstr "Далі"
 
 msgid "PAGE_ADDAPP_PAGETITLE"
-msgstr "Додати застосунок"
+msgstr "Додати програму"
 
 msgid "PAGE_ADDAPP_SENDAPPBTN"
 msgstr "Відправити на розгляд"
@@ -449,13 +446,13 @@ msgid "PAGE_ADDAPP_STEP1"
 msgstr "Етап 1"
 
 msgid "PAGE_ADDAPP_STEP1_AGREE_RULES"
-msgstr "Я згоден з правилами сайта та освічений про наслідки їх порушення"
+msgstr "Я погоджуюсь із правилами сайту та обізнаний про наслідки їх порушення"
 
 msgid "PAGE_ADDAPP_STEP1_DESC"
 msgstr "Початок"
 
 msgid "PAGE_ADDAPP_STEP1_ICON"
-msgstr "Значок програми"
+msgstr "Значок програми:"
 
 msgid "PAGE_ADDAPP_STEP1_ICONDESC_1"
 msgstr "Рекомендований розмір аватара: 64x64."
@@ -473,16 +470,16 @@ msgid "PAGE_ADDAPP_STEP1_SLOGAN"
 msgstr "Гасло (140 символів):"
 
 msgid "PAGE_ADDAPP_STEP1_SLOGANDESC_1"
-msgstr "Гасло буде відображатись на самій сторінці застосунка, на головній і в пошуку"
+msgstr "Гасло буде відображатись на самій сторінці програми, на головній і в пошуку"
 
 msgid "PAGE_ADDAPP_STEP1_SLOGANDESC_2"
-msgstr "Краще коротко, але влучно"
+msgstr "Краще коротко, але влучно :D"
 
 msgid "PAGE_ADDAPP_STEP1_TITLE"
 msgstr "Назва:"
 
 msgid "PAGE_ADDAPP_STEP1_TITLEDESC"
-msgstr "Чудова та незабутня назва дасть застосунку плюс до впізнаваності серед користувачів"
+msgstr "Чудова та незабутня назва дасть програмі плюс до впізнаваності серед користувачів"
 
 msgid "PAGE_ADDAPP_STEP2"
 msgstr "Етап 2"
@@ -491,13 +488,13 @@ msgid "PAGE_ADDAPP_STEP2_CATEGORY"
 msgstr "Категорія:"
 
 msgid "PAGE_ADDAPP_STEP2_CATEGORYDESC"
-msgstr "Це дуже важливо для правильного пошуку та показа програми у відповідних блоках. Адміністрація має право змінити категорію на власний розсуд"
+msgstr "Це дуже важливо для правильного пошуку та показу програми у відповідних блоках. Адміністрація має право змінити категорію на власний розсуд"
 
 msgid "PAGE_ADDAPP_STEP2_DESC"
 msgstr "Опис (1400 символів):"
 
 msgid "PAGE_ADDAPP_STEP2_DESCDESC"
-msgstr "Опис буде відображатися на сторінці застосунку у блоці \"Додаткова інформація\""
+msgstr "Опис буде відображатися на сторінці програми у блоці \"Додаткова інформація\""
 
 msgid "PAGE_ADDAPP_STEP2_DESC_1"
 msgstr "Додаткова"
@@ -515,7 +512,7 @@ msgid "PAGE_ADDAPP_STEP2_REQ"
 msgstr "Системні вимоги (1400 символів):"
 
 msgid "PAGE_ADDAPP_STEP2_REQDESC"
-msgstr "Системні вимоги будуть відображатися на сторінці застосунку у блоці \"Додаткова інформація\""
+msgstr "Системні вимоги будуть відображатися на сторінці програми у блоці \"Додаткова інформація\""
 
 msgid "PAGE_ADDAPP_STEP2_SCREENSHOTS"
 msgstr "Скриншоти:"
@@ -539,7 +536,7 @@ msgid "PAGE_ADDAPP_STEP3_DESC_2"
 msgstr "публікацією"
 
 msgid "PAGE_ADDAPP_SUCCESS"
-msgstr "Ваша заявка на додавання застосунку успішно відправлена."
+msgstr "Ваша заявка на додавання програми успішно надіслана."
 
 msgid "PAGE_ADMIN_APP_CATEGORY"
 msgstr "Категорія:"
@@ -554,7 +551,7 @@ msgid "PAGE_ADMIN_APP_DESC"
 msgstr "Опис (1000 символів):"
 
 msgid "PAGE_ADMIN_APP_DESCDESC"
-msgstr "Опис буде відображатися на сторінці застосунку у блоці \"Додаткова інформація\""
+msgstr "Опис буде відображатися на сторінці програми у блоці \"Додаткова інформація\""
 
 msgid "PAGE_ADMIN_APP_DEVSITE"
 msgstr "Офіційний сайт розробника:"
@@ -584,7 +581,7 @@ msgid "PAGE_ADMIN_APP_DIST_EMPTY"
 msgstr "Поки що немає завантажених версій."
 
 msgid "PAGE_ADMIN_APP_DIST_HEADER"
-msgstr "Управління дистрибуціями —"
+msgstr "Керування дистрибуціями —"
 
 msgid "PAGE_ADMIN_APP_DIST_NO_NOTES"
 msgstr "Без приміток"
@@ -611,7 +608,7 @@ msgid "PAGE_ADMIN_APP_ICON_REQ3"
 msgstr "Максимальний розмір: 2 Мб"
 
 msgid "PAGE_ADMIN_APP_ID"
-msgstr "ID застосунку:"
+msgstr "ID програми:"
 
 msgid "PAGE_ADMIN_APP_IDDESC"
 msgstr "Цю інформацію змінити не можна"
@@ -632,7 +629,7 @@ msgid "PAGE_ADMIN_APP_NOICON"
 msgstr "Немає іконки"
 
 msgid "PAGE_ADMIN_APP_PAGETITLE"
-msgstr "Редагувати застосунок"
+msgstr "Редагувати програму"
 
 msgid "PAGE_ADMIN_APP_PROFILE_BLOCK"
 msgstr "Основна інформація"
@@ -641,7 +638,7 @@ msgid "PAGE_ADMIN_APP_REQ"
 msgstr "Системні вимоги (1400 символів):"
 
 msgid "PAGE_ADMIN_APP_REQDESC"
-msgstr "Системні вимоги будуть відображатися на сторінці застосунку у блоці \"Додаткова інформація\""
+msgstr "Системні вимоги будуть відображатися на сторінці програми у блоці \"Додаткова інформація\""
 
 msgid "PAGE_ADMIN_APP_SCRNS_TITLE"
 msgstr "Скриншоти"
@@ -650,19 +647,19 @@ msgid "PAGE_ADMIN_APP_SLOGAN"
 msgstr "Гасло (140 символів):"
 
 msgid "PAGE_ADMIN_APP_SLOGANDESC"
-msgstr "Гасло буде відображатись на самій сторінці застосунка, на головній і в пошуку"
+msgstr "Гасло буде відображатись на самій сторінці програми, на головній і в пошуку"
 
 msgid "PAGE_ADMIN_APP_SLOGANDESC_2"
-msgstr "Краще коротко, але влучно"
+msgstr "Краще коротко, але влучно :D"
 
 msgid "PAGE_ADMIN_APP_TAB_DISTRIBUTIONS"
 msgstr "Файли"
 
 msgid "PAGE_ADMIN_APP_TITLE"
-msgstr "Назва застосунку:"
+msgstr "Назва програми:"
 
 msgid "PAGE_ADMIN_APP_TITLEDESC"
-msgstr "Чудова та незабутня назва дасть застосунку плюс до впізнаваності серед користувачів"
+msgstr "Чудова та незабутня назва дасть програмі плюс до впізнаваності серед користувачів"
 
 msgid "PAGE_ADMIN_APP_WARN_SCRN"
 msgstr "Увага: Завантаження нових файлів видалить всі поточні скриншоти!"
@@ -671,16 +668,16 @@ msgid "PAGE_APP_ACTION_MORE_APPS"
 msgstr "Подивитися інші програми автора"
 
 msgid "PAGE_APP_ACTION_REPORT"
-msgstr "Поскаржитися на застосунок"
+msgstr "Поскаржитися на програму"
 
 msgid "PAGE_APP_ACTION_SITE"
 msgstr "Перейти на офіційний сайт розробника"
 
 msgid "PAGE_APP_BTN_BACK"
-msgstr "Повернутися"
+msgstr "Назад"
 
 msgid "PAGE_APP_BTN_BUY"
-msgstr "Купити"
+msgstr "Придбати"
 
 msgid "PAGE_APP_BTN_INSTALL"
 msgstr "Встановити"
@@ -695,7 +692,7 @@ msgid "PAGE_APP_LABEL_DOWNLOADS"
 msgstr "Кількість завантажень"
 
 msgid "PAGE_APP_LABEL_ORIGINAL_AUTHOR"
-msgstr "Оригінальній автор: "
+msgstr "Оригінальний автор: "
 
 msgid "PAGE_APP_MSG_DEMO_WARNING"
 msgstr "Програма розповсюджується у вигляді демо-версії, за повну версію варто заплатити її автору. Файл надано з офіційного сайту розробника."
@@ -740,7 +737,7 @@ msgid "PAGE_BADBROWSER_DESC_2"
 msgstr "Завантажити Internet Explorer 6 можна як напряму, так і за допомогою сервісів"
 
 msgid "PAGE_BADBROWSER_TITLE"
-msgstr "Дякуємо за інтерес до магазину Windows!"
+msgstr "Дякуємо за зацікавленість до магазину Windows!"
 
 msgid "PAGE_CATEGORY_BUYBTN"
 msgstr "Придбати"
@@ -767,7 +764,7 @@ msgid "PAGE_CATEGORY_SHOWCONTENTASTILES"
 msgstr "Відображати вміст плитками"
 
 msgid "PAGE_DEBUG_DESC"
-msgstr "Дана сторінка використовується ВИКЛЮЧНО для тестування, для збору інформації та для більше грамотною подачі bug-report'а. Якщо Ви бачите цю сторінку - у вашому settings.py константа DEBUG = True."
+msgstr "Дана сторінка використовується ВИКЛЮЧНО для тестування та збору інформації для більш грамотної подачі bug-report'а. Якщо Ви бачите цю сторінку - це означає, що у вашому settings.py константа DEBUG = True."
 
 msgid "PAGE_DEBUG_MAININFO_TITLE"
 msgstr "Основна інформація"
@@ -779,13 +776,13 @@ msgid "PAGE_DELACC_BLOCK_TITLE"
 msgstr "Налаштування"
 
 msgid "PAGE_DELACC_LASTPASS_TITLE"
-msgstr "Якщо Ви прийняли прям тверде та чітке рішення, то для остаточного підтвердження уведіть Ваш пароль в останній раз"
+msgstr "Якщо Ви прийняли прям тверде та чітке рішення, то для остаточного підтвердження введіть Ваш пароль в останній раз"
 
 msgid "PAGE_DELACC_TITLE"
 msgstr "Видалення облікового запису"
 
 msgid "PAGE_DELACC_WARNDESC_1"
-msgstr "Ви вже натиснули кнопку видалення облікового запису в налаштуваннях профилю, розуміємо ваше рішення."
+msgstr "Ви вже натиснули кнопку видалення облікового запису в налаштуваннях профілю, розуміємо ваше рішення."
 
 msgid "PAGE_DELACC_WARNDESC_2"
 msgstr "Однак ще раз хочемо сказати, що ця дія спричинить за собою знищення даних профилю"
@@ -794,7 +791,7 @@ msgid "PAGE_DELACC_WARNDESC_3"
 msgstr "БЕЗ можливості відновлення "
 
 msgid "PAGE_DELACC_WARNDESC_4"
-msgstr "Доступ до управління сторінками застосунків будуть втрачені, а відправлені відгуки будуть знеособлені."
+msgstr "Доступ до керованих сторінок програм будуть втрачені, а залишені відгуки будуть знеособлені."
 
 msgid "PAGE_DELACC_WARNDESC_5"
 msgstr "Саме час перелічити статистику вашого профілю:"
@@ -806,10 +803,10 @@ msgid "PAGE_DELACC_YOULEFTHERE_1"
 msgstr "Привід задуматися"
 
 msgid "PAGE_DELACC_YOULEFTHERE_APP_1"
-msgstr "Вот стільки ви завантажили застосунків:"
+msgstr "Ось стільки ви завантажили програм:"
 
 msgid "PAGE_DELACC_YOULEFTHERE_APP_2"
-msgstr "Ви не зможете керувати ними після видалення акаунта"
+msgstr "Ви не зможете керувати ними після видалення облікового запису"
 
 msgid "PAGE_DELACC_YOULEFTHERE_AVATAR_1"
 msgstr "Ваш чудовий аватар"
@@ -818,13 +815,13 @@ msgid "PAGE_DELACC_YOULEFTHERE_AVATAR_2"
 msgstr "Прийми себе таким, яким ти є"
 
 msgid "PAGE_DELACC_YOULEFTHERE_HISTORY_1"
-msgstr "Історія завантажених застосунків"
+msgstr "Історія завантажених програм"
 
 msgid "PAGE_DELACC_YOULEFTHERE_HISTORY_2"
 msgstr "Гаразд, ви хоч раз туди дивились?"
 
 msgid "PAGE_DELACC_YOULEFTHERE_INVITES_1"
-msgstr "Вот стільки людей, запрошених вами:"
+msgstr "Ось стільки людей, запрошених вами:"
 
 msgid "PAGE_DELACC_YOULEFTHERE_INVITES_2"
 msgstr "Вони залишаться без вас і будуть засмучені"
@@ -839,19 +836,19 @@ msgid "PAGE_DEVADD_ALREADYDEV_1"
 msgstr "Ви вже розробник!"
 
 msgid "PAGE_DEVADD_ALREADYDEV_2"
-msgstr "У вас вже є статус розробника. Вам вже доступні всі додаткові варіанти завантаження застосунків на LunaStore."
+msgstr "У вас вже є статус розробника. Вам вже доступні всі додаткові варіанти завантаження програм на LunaStore."
 
 msgid "PAGE_DEVADD_DESC_1"
 msgstr "Ви є представником або розробником свого софта?"
 
 msgid "PAGE_DEVADD_DESC_2"
-msgstr "Покращте свій профіль до акаунта розробника та викладайте ПЗ офіційно на LunaStore. Офіційній завантаження будуть відмічини відповідним знаком."
+msgstr "Покращуйте свій профіль до акаунта розробника та викладайте ПЗ офіційно на LunaStore. Офіційні завантаження будуть відмічені відповідним знаком."
 
 msgid "PAGE_DEVADD_DISABLED_1"
 msgstr "Реєстрація розробників тимчасово вимкнена"
 
 msgid "PAGE_DEVADD_DISABLED_2"
-msgstr "Наразі ми не приймаємо нові заявки на статус розробник. Будь ласка, спробуйте пізніше."
+msgstr "Наразі, ми не приймаємо нові заявки на статус розробника. Будь ласка, спробуйте пізніше."
 
 msgid "PAGE_DEVADD_ENTERINFO_ABOUTYOU"
 msgstr "Розкажіть про себе (1000 символів):"
@@ -860,7 +857,7 @@ msgid "PAGE_DEVADD_ENTERINFO_CONFIRM"
 msgstr "Підтвердження реєстрації "
 
 msgid "PAGE_DEVADD_ENTERINFO_EMAIL"
-msgstr "Контактний Email:"
+msgstr "Контактний e-mail:"
 
 msgid "PAGE_DEVADD_ENTERINFO_EMAILDESC"
 msgstr "Ми обов'язково зв'яжемося з Вами. Прийнаймі постараємося."
@@ -875,7 +872,7 @@ msgid "PAGE_DEVADD_ENTERINFO_USERNAME"
 msgstr "Ім'я користувача"
 
 msgid "PAGE_DEVADD_ENTERINFO_USERNAMEDESC"
-msgstr "Ім'я користувача змінити не можна. Якщо це не той акаунт, пере-зайдіть в необхідний."
+msgstr "Ім'я користувача змінити не можна. Якщо це не той обліковий запис, перезайдіть в необхідний."
 
 msgid "PAGE_DEVADD_ENTERINFO_WHYCHOOSEUS"
 msgstr "Чому Ви вирішили обрати нас? (250 символів):"
@@ -935,7 +932,7 @@ msgid "PAGE_DIST_FORM_FILE_BUTTON"
 msgstr "Огляд..."
 
 msgid "PAGE_DIST_FORM_FILE_DESC"
-msgstr "Допустимі формати: .exe, .zip, .rar, .7z та інші архиві."
+msgstr "Допустимі формати: .exe, .zip, .rar, .7z та інші архіви."
 
 msgid "PAGE_DIST_FORM_FILE_NO_FILE"
 msgstr "Файл не обрано."
@@ -956,7 +953,7 @@ msgid "PAGE_DIST_FORM_URL_DESC"
 msgstr "Вкажіть, якщо файл розміщено на іншому ресурсі "
 
 msgid "PAGE_DIST_FORM_VERSION"
-msgstr "Версія застосунку:"
+msgstr "Версія програми:"
 
 msgid "PAGE_DIST_FORM_VERSION_DESC"
 msgstr "Наприклад: 1.0.0 або 2.1.4-beta"
@@ -1016,19 +1013,19 @@ msgid "PAGE_DOWNLOAD_VERSION_LIST"
 msgstr "Перелік версій"
 
 msgid "PAGE_FAQ_A_ACC_BENEFITS"
-msgstr "За допомогою акаунта Ви зможете залишати свої відгуки, красиво заявити про себе у цій спільноті, що зароджується та завантажувати свої застосунки у загальний каталог після строгої модерації"
+msgstr "За допомогою облікового запису Ви зможете залишати свої відгуки, красиво заявити про себе у цій спільноті, що зароджується та завантажувати свої програми у загальний каталог після суворої модерації"
 
 msgid "PAGE_FAQ_A_ADD_APP"
 msgstr "Поки ніяк. Ми тільки починаємо, тому беремо ПЗ зі своїх списків. Слідкуйте за оновленнями цієї сторінки."
 
 msgid "PAGE_FAQ_A_CREATE_ACC"
-msgstr "У верхній частині сайту натисніть кнопку \"реєсрація\""
+msgstr "У верхній шапці сайту натисніть кнопку \"реєстрація\""
 
 msgid "PAGE_FAQ_A_LEGAL"
-msgstr "Зазвичай таке питання задає розробник ПЗ. Однак, якщо Вас дуже сильно воротить від існування старої версії вашою програми на цьому сайті, то можете зв'язатися з нами через E-mail. Но дуже сподіваємося, що ви увійдете у наше положення та зрозумієте ціль проєкта."
+msgstr "Зазвичай таке питання задає розробник ПЗ. Однак, якщо Вас дуже сильно воротить від існування старої версії вашої програми на цьому сайті, то можете зв'язатися з нами через e-mail. Але дуже сподіваємося, що ви увійдете у наше положення та зрозумієте ціль проєкта."
 
 msgid "PAGE_FAQ_A_WHY_EXIST_PART1"
-msgstr "Чудове питання. Почалось все з того, що у одного із учасників проєкта виникло бажання завантажити на один сайт зі старим ПЗ скринсейвер 3D Windows XP, котрий по факту мало хто бачив і ледве зберігся на веб-архиві."
+msgstr "Чудове питання. Почалось все з того, що у одного із учасників проєкта виникло бажання завантажити на один сайт зі старим ПЗ скринсейвер 3D Windows XP, котрий по факту мало хто бачив і ледве зберігся на веб-архіві."
 
 msgid "PAGE_FAQ_A_WHY_EXIST_PART2"
 msgstr "Через декілька днів після завантаження, скринсейвер було видалено із причиною \"не підходить під тематику сайта\". А на питання \"чому у вас тоді зберігаються образи XP?\" чіткої відповіді із адміністрації ніхто толком не дав."
@@ -1052,10 +1049,10 @@ msgid "PAGE_FAQ_CARD_TEAM_BACKEND"
 msgstr "- backend розробка, консультація та натхнення"
 
 msgid "PAGE_FAQ_CARD_TEAM_CDNANDGIT"
-msgstr "- закадрова робота, CDN, внутріній Git"
+msgstr "- закадрова робота, CDN, внутрішній Git"
 
 msgid "PAGE_FAQ_CARD_TEAM_DEV"
-msgstr "- розробники"
+msgstr "- розробник"
 
 msgid "PAGE_FAQ_CARD_TEAM_FRONTEND"
 msgstr "верстка інтерфейсу (frontend)"
@@ -1064,13 +1061,13 @@ msgid "PAGE_FAQ_CARD_WHATISIT"
 msgstr "Куди я потрапив і що це?"
 
 msgid "PAGE_FAQ_CARD_WHATISITDESC"
-msgstr "свого роду альтернативний 'магазин' застосунків та ігор. Наразі цілимося в епоху Windows XP."
+msgstr "свого роду альтернативний 'магазин' програм та ігор. Наразі цілимося в епоху Windows XP."
 
 msgid "PAGE_FAQ_CARD_WHYWESHOP"
 msgstr "Чому 'магазин' написано в лапках?"
 
 msgid "PAGE_FAQ_CARD_WHYWESHOPDESC"
-msgstr "Ми є фан-сайтом і не думаємо, що таке прям зросте до огромного магазину. Хоча, кто його знає. Однак реклама в лівому меню абсолютно не серйозна, а сам проєкт як спільне хобі."
+msgstr "Ми є фанатським сайтом і не думаємо, що таке прям виросте до великого магазину. Хоча, хто його знає. Але реклама в лівому меню абсолютно не серйозна, а сам проєкт як спільне хобі."
 
 msgid "PAGE_FAQ_DESC"
 msgstr "У вас виникли питання? На цій сторінці зібрана вся інформація, стосовно цього LunaStore"
@@ -1088,16 +1085,16 @@ msgid "PAGE_FAQ_PRIVACYTAB"
 msgstr "Приватність"
 
 msgid "PAGE_FAQ_PRIVACY_EMPTY"
-msgstr "Документі ще не заповнено..."
+msgstr "Документ ще не заповнено..."
 
 msgid "PAGE_FAQ_PRIVACY_TITLE"
 msgstr "Політика конфіденційності"
 
 msgid "PAGE_FAQ_Q_ACC_BENEFITS"
-msgstr "А що взагалі дає наявність акаунта на LunaStore?"
+msgstr "А що взагалі дає наявність облікового запису на LunaStore?"
 
 msgid "PAGE_FAQ_Q_ADD_APP"
-msgstr "Окей, а як сюди додати застосунок?"
+msgstr "Окей, а як сюди додати програму?"
 
 msgid "PAGE_FAQ_Q_CREATE_ACC"
 msgstr "Як тут створити обліковий запис?"
@@ -1115,16 +1112,16 @@ msgid "PAGE_FAQ_TEAM_HEADER_OTHER"
 msgstr "Також подякуємо інших розробників:"
 
 msgid "PAGE_FAQ_TEAM_HEADER_TESTERS"
-msgstr "І о тестувальниках не забуваємо:"
+msgstr "І про тестувальників не забуваємо:"
 
 msgid "PAGE_FAQ_TEAM_ROLE_CHELKA0"
 msgstr "оформлення сайту за кадром"
 
 msgid "PAGE_FAQ_TEAM_ROLE_COOKIE"
-msgstr "Другий backend розробник, голов. розробник пакетного менеджера luna, а також переклад на японський"
+msgstr "Другий backend розробник, головний розробник пакетного менеджера luna, а також перекладу на японський"
 
 msgid "PAGE_FAQ_TEAM_ROLE_FAYZETWIN"
-msgstr "Основний backend розробник, API"
+msgstr "основний backend розробник, API"
 
 msgid "PAGE_FAQ_TEAM_ROLE_MONDY"
 msgstr "логотип"
@@ -1151,7 +1148,7 @@ msgid "PAGE_INVITE_BROWSER_TITLE"
 msgstr "Запросити"
 
 msgid "PAGE_INVITE_CODE_ROTATION_WARN"
-msgstr "<b>Важливо:</b> наразі, запрошувальний код нового учасника змінюється кожні 24 часа"
+msgstr "<b>Важливо:</b> наразі, запрошувальний код нового учасника змінюється кожні 24 години"
 
 msgid "PAGE_INVITE_COPY_CODE"
 msgstr "Скопіюйте цей код нижче та надішліть його потрібній Вам людині"
@@ -1160,7 +1157,7 @@ msgid "PAGE_INVITE_DESCRIPTION"
 msgstr "Ви можете запросити свого друга або знайомого з однаковими інтересами по ретро-тематиці в LunaStore."
 
 msgid "PAGE_INVITE_HOW_TO_SEND"
-msgstr "Через E-mail, по телефону, в чаті, при зустрічі - зовсім не важливо. Код обов'язково потрібно вказати запрошеній особі в процесі реєстрації."
+msgstr "Через e-mail, по телефону, в чаті, при зустрічі - зовсім не важливо. Код обов'язково потрібно вказати запрошеній особі в процесі реєстрації."
 
 msgid "PAGE_INVITE_INPUT_BTN"
 msgstr "Почати реєстрацію"
@@ -1169,7 +1166,7 @@ msgid "PAGE_INVITE_INPUT_DESC_1"
 msgstr "Ви можете вказати код запрошення, який Ви отримали від вже <b>зареєстрованного учасника</b>"
 
 msgid "PAGE_INVITE_INPUT_DESC_2"
-msgstr "Таким чином, Ви отримуєте унікальну можливість створити акаунт <b>в обхід закритої публічної реєстрації</b>"
+msgstr "Таким чином, Ви отримуєте унікальну можливість створити обліковий запис <b>в обхід закритої публічної реєстрації</b>"
 
 msgid "PAGE_INVITE_INPUT_HEADER"
 msgstr "Введення кода запрошення"
@@ -1181,7 +1178,7 @@ msgid "PAGE_INVITE_INPUT_TITLE"
 msgstr "Введення запрошувального коду"
 
 msgid "PAGE_INVITE_LIMIT_INFO"
-msgstr "Наразі Ви можете запросити <b>1</b> людину. Після прийняття користувачем вашого запрошення, наступне можно будет створити тільки через тиждень"
+msgstr "Наразі Ви можете запросити <b>1</b> людину. Після прийняття користувачем вашого запрошення, наступне можна створити тільки через тиждень"
 
 msgid "PAGE_INVITE_LIST_EMPTY"
 msgstr "Ви поки ще нікого не запросили"
@@ -1205,10 +1202,10 @@ msgid "PAGE_LOGIN_GREETING"
 msgstr "Представтеся..."
 
 msgid "PAGE_LOGIN_INFO_BULLET_1"
-msgstr "Залишайте відгуки к ПЗ"
+msgstr "Залишайте відгуки до ПЗ"
 
 msgid "PAGE_LOGIN_INFO_BULLET_2"
-msgstr "Підкорить спільноту"
+msgstr "Підкоріть спільноту"
 
 msgid "PAGE_LOGIN_INFO_BULLET_3"
 msgstr "Завантажуйте ПЗ"
@@ -1232,7 +1229,7 @@ msgid "PAGE_LOGIN_REGISTER_BTN"
 msgstr "Зареєструватися"
 
 msgid "PAGE_LOGIN_REQUIRED_WARNING"
-msgstr "Щоб продовжити дану дію, потрібно увійти на сайті"
+msgstr "Щоб продовжити дану дію, потрібно увійти на сайт"
 
 msgid "PAGE_LOGIN_SUBMIT_BTN"
 msgstr "Увійти"
@@ -1247,28 +1244,28 @@ msgid "PAGE_MANAGE_APPS_BTN_EDIT"
 msgstr "редагувати"
 
 msgid "PAGE_MANAGE_APPS_COUNT"
-msgstr "Адмініструванні застосунки "
+msgstr "Керовані програми"
 
 msgid "PAGE_MANAGE_APPS_CREATE"
-msgstr "Створити застосунок"
+msgstr "Створити програму"
 
 msgid "PAGE_MANAGE_APPS_EMPTY_DESC"
-msgstr "Ви поки ще не керуєте жодним застосунком."
+msgstr "Ви поки ще не керуєте жодної програмою."
 
 msgid "PAGE_MANAGE_APPS_EMPTY_TITLE"
-msgstr "Застосунків немає ＞︿＜"
+msgstr "Програм немає ＞︿＜"
 
 msgid "PAGE_MANAGE_APPS_HEADER"
-msgstr "Адмініструванні сторінки застосунків "
+msgstr "Керовані сторінки програм"
 
 msgid "PAGE_MANAGE_APPS_MY_APPS"
-msgstr "Мої застосунки"
+msgstr "Мої програми"
 
 msgid "PAGE_MANAGE_APPS_ROLE_OWNER"
 msgstr "Власник"
 
 msgid "PAGE_MANAGE_APPS_TITLE"
-msgstr "Адмініструванні застосунки "
+msgstr "Керовані програми"
 
 msgid "PAGE_OTHER_PROJECTS_BROWSER_TITLE"
 msgstr "Інші проєкти"
@@ -1280,7 +1277,7 @@ msgid "PAGE_OTHER_PROJECTS_DESC_DM"
 msgstr "Сайт-візитка Daniel Myslivets (версія для старих комп'ютерів та браузерів)"
 
 msgid "PAGE_OTHER_PROJECTS_DESC_FOXCORP"
-msgstr "Особистий сайт Milya Fox; Мережевий інженер, який допомагав із проєктом "
+msgstr "Особистий сайт Milya Fox; мережевий інженер, який допомагав із проєктом "
 
 msgid "PAGE_OTHER_PROJECTS_DESC_GAMES"
 msgstr "Реінкарнація інтернет-ігор для Windows XP/7 у вигляді стороннього кастомного серверу"
@@ -1304,28 +1301,37 @@ msgid "PAGE_OTHER_PROJECTS_TITLE"
 msgstr "Інші проєкти"
 
 msgid "PAGE_PROFILE_APPS_EMPTY_DESC"
-msgstr "Користувач поки що не опублікував жодного застосунку."
+msgstr "Користувач поки що не опублікував жодної програми."
 
 msgid "PAGE_PROFILE_APPS_TITLE"
-msgstr "Опубліковані застосунки"
+msgstr "Опубліковані програми"
+
+msgid "PAGE_PROFILE_BANNED_DESC"
+msgstr "Це могло статися через порушення правил ресурсу, підозрілої активності або спрацювання системи безпеки. Ми турбуємося про комфорт усіх користувачів, тому повинні тимчасово або назавжди обмежити вам доступ"
+
+msgid "PAGE_PROFILE_BANNED_DESC_2"
+msgstr "Оскільки цей користувач був заблокований, ми не рекомендуємо продовжувати діалоги з ним, особливо якщо у Вас попросять гроші."
+
+msgid "PAGE_PROFILE_BANNED_INTRO"
+msgstr "Цей користувач заблокований."
 
 msgid "PAGE_PROFILE_CONTACT_INFO"
 msgstr "Контактна інформація"
 
 msgid "PAGE_PROFILE_INVITES_EMPTY_DESC"
-msgstr "Поки що, жодна людина не зареєструвалася по запрошенню цього користувача."
+msgstr "Поки що, жодна людина не зареєструвалася за запрошенням цього користувача."
 
 msgid "PAGE_PROFILE_INVITES_EMPTY_TITLE"
 msgstr "Запрошень немає ＞︿＜"
 
 msgid "PAGE_PROFILE_INVITES_PEOPLE"
-msgstr "людин (відображені перші 5)"
+msgstr "людей (показані перші 5)"
 
 msgid "PAGE_PROFILE_INVITES_TEXT"
 msgstr "запросив"
 
 msgid "PAGE_PROFILE_LABEL_EMAIL"
-msgstr "E-mail:"
+msgstr "e-mail:"
 
 msgid "PAGE_PROFILE_LABEL_TELEGRAM"
 msgstr "Telegram:"
@@ -1346,7 +1352,7 @@ msgid "PAGE_PROFILE_STATS_MEMBER_SINCE"
 msgstr "учасник з"
 
 msgid "PAGE_PROFILE_TAB_APPS"
-msgstr "Застосунки"
+msgstr "Програми"
 
 msgid "PAGE_PROFILE_TAB_MAIN"
 msgstr "Основне"
@@ -1361,13 +1367,13 @@ msgid "PAGE_REGISTER_BTN_SUBMIT"
 msgstr "Зареєструватися"
 
 msgid "PAGE_REGISTER_CAPTCHA_INSTRUCTION"
-msgstr "Вкажіть символи зі зображення:"
+msgstr "Вкажіть символи на зображенні:"
 
 msgid "PAGE_REGISTER_CLICK_HERE"
 msgstr "сюди"
 
 msgid "PAGE_REGISTER_CLOSED_MSG"
-msgstr "Вільна реєстрація наразі закрита та здійснюється суворо по запрошенням від вже наявних тут учасників."
+msgstr "Вільна реєстрація наразі закрита та здійснюється суворо за запрошенням від вже попередньо-зареєстрованих користувачів."
 
 msgid "PAGE_REGISTER_HAVE_INVITE_TEXT"
 msgstr "Маєте код запрошення? Натисніть"
@@ -1379,16 +1385,16 @@ msgid "PAGE_REGISTER_HELP_EMAIL"
 msgstr "Буде використовуватись для входу в обліковий запис та відновлення пароля"
 
 msgid "PAGE_REGISTER_HELP_PASS1"
-msgstr "Придумайте надійні паролі. Це важливо, чорт його дери!"
+msgstr "Придумайте надійні паролі. Це важливо, чорт його забирай!"
 
 msgid "PAGE_REGISTER_HELP_PASS2"
 msgstr "Повторення - мати навчання :D"
 
 msgid "PAGE_REGISTER_HELP_USERNAME"
-msgstr "Мінімум 2 символа. По ім'ї користувача вас можно буде знайти. Після реєстрації змінити його не вийде. "
+msgstr "Мінімум 2 символа. За іменем користувача вас можна буде знайти. Після реєстрації змінити його не вийде. "
 
 msgid "PAGE_REGISTER_INFO_SPLASH"
-msgstr "Створивши акаунт, ви зможете викладати свої застосунки, залишати відгуки до вже завантажених програм та вести власну бібліотеку обраних елементів. Реєстрація відкрита та безкоштовна."
+msgstr "Створивши обліковий запис, ви зможете викладати свої застосунки, залишати відгуки до вже завантажених програм та вести власну бібліотеку обраних елементів. Реєстрація відкрита та безкоштовна."
 
 msgid "PAGE_REGISTER_LABEL_EMAIL"
 msgstr "E-mail:"
@@ -1415,13 +1421,13 @@ msgid "PAGE_REPORTAPP_EXPLAIN_LABEL"
 msgstr "Додаткова інформація (обов'язково):"
 
 msgid "PAGE_REPORTAPP_INFO_1"
-msgstr "Ви збираєтесь відправити скаргу на застосунок"
+msgstr "Ви збираєтесь відправити скаргу на програму"
 
 msgid "PAGE_REPORTAPP_INFO_2"
-msgstr "Будь ласка, оберіть причину и опишіть проблему детальніше:"
+msgstr "Будь ласка, оберіть причину та опишіть проблему детальніше:"
 
 msgid "PAGE_REPORTAPP_PAGE_TITLE"
-msgstr "Скарга на застосунок"
+msgstr "Скарга на програму"
 
 msgid "PAGE_REPORTAPP_REASON_INCORRECT"
 msgstr "Некоректні дані або опис"
@@ -1439,16 +1445,22 @@ msgid "PAGE_REPORTAPP_SUCCESS_MSG"
 msgstr "Ваша скарга відправлена."
 
 msgid "PAGE_REPORTAPP_TITLE"
-msgstr "Скарга на застосунок"
+msgstr "Скарга на програму"
 
 msgid "PAGE_REPORTAPP_TITLE_PATH"
-msgstr "Скарги на застосуноки"
+msgstr "Скарги на програми"
 
 msgid "PAGE_SEARCH_BADGE_DEMO"
 msgstr "Демо"
 
+msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
+msgstr "Демо, далі $%%(price)s"
+
 msgid "PAGE_SEARCH_BADGE_FREE"
 msgstr "Безкоштовно"
+
+msgid "PAGE_SEARCH_BADGE_NOT_FOUND"
+msgstr "Пошук не дав результатів за запитом \"%%(q)s\""
 
 msgid "PAGE_SEARCH_BTN_DETAILS"
 msgstr "Докладніше"
@@ -1469,7 +1481,7 @@ msgid "PAGE_SEARCH_FILTER_CATEGORY_ALL"
 msgstr "Усі категорії"
 
 msgid "PAGE_SEARCH_FILTER_FREE"
-msgstr "Тільки безкоштовне"
+msgstr "Тільки безкоштовні"
 
 msgid "PAGE_SEARCH_HEADING"
 msgstr "Введіть запит"
@@ -1511,10 +1523,10 @@ msgid "PAGE_SETTINGS_BTN_UPLOAD"
 msgstr "Завантажити"
 
 msgid "PAGE_SETTINGS_DELETE_WARNING"
-msgstr "Якщо Ви не хочете користуватися сайтом, то маєте повне право видалити свій акаунт. <br><br>Однак варто розуміти, що дана дія призведе до знищення даних профілю <b>БЕЗ можливості відновити</b>. Доступ до керованих застосунків буде втрачений, а залишені відгуки будуть знеособленні.<br><br>"
+msgstr "Якщо Ви не хочете користуватися сайтом, то маєте повне право видалити свій обліковий запис. <br><br>Однак варто розуміти, що дана дія призведе до знищення даних профілю <b>БЕЗ можливості відновлення</b>. Доступ до керованих сторінок програм буде втрачений, а залишені відгуки будуть знеособленні.<br><br>"
 
 msgid "PAGE_SETTINGS_DEV_STATUS_HAS"
-msgstr "мається"
+msgstr "має"
 
 msgid "PAGE_SETTINGS_HTML_TITLE"
 msgstr "Налаштування облікового запису"
@@ -1526,16 +1538,16 @@ msgstr ""
 "Максимальний розмір: 2 Мб."
 
 msgid "PAGE_SETTINGS_INFO_EMAIL_CHANGE"
-msgstr "Зміна E-mail потребує підтвердження паролем."
+msgstr "Зміна e-mail потребує підтвердження паролем."
 
 msgid "PAGE_SETTINGS_JS_ERR_CDN"
-msgstr "Сталася помилка під час збереження файла на сервері LunaSpire. Будь ласка, зверніться з цією помилкою до адміністратору сайта."
+msgstr "Сталася помилка під час збереження файлу на сервері LunaSpire. Будь ласка, зверніться з цією помилкою до адміністратора сайту."
 
 msgid "PAGE_SETTINGS_JS_ERR_PREFIX"
 msgstr "Сталася помилка:"
 
 msgid "PAGE_SETTINGS_JS_ERR_TOKEN"
-msgstr "Не вдалося отримати безпечний токен LunaSpire для завантаження. Будь ласка, зверніться з цією помилкою до адміністратору сайта."
+msgstr "Не вдалося отримати безпечний токен LunaSpire для завантаження. Будь ласка, зверніться з цією помилкою до адміністратора сайту."
 
 msgid "PAGE_SETTINGS_JS_SELECT_FILE"
 msgstr "Будь ласка, оберіть файл для завантаження!"
@@ -1544,7 +1556,7 @@ msgid "PAGE_SETTINGS_JS_UPLOADING"
 msgstr "Завантаження..."
 
 msgid "PAGE_SETTINGS_LABEL_BIO"
-msgstr "Опис профіля:"
+msgstr "Опис профілю:"
 
 msgid "PAGE_SETTINGS_LABEL_CHOOSE_FILE"
 msgstr "Оберіть файл:"
@@ -1553,7 +1565,7 @@ msgid "PAGE_SETTINGS_LABEL_CONFIRM_PASS"
 msgstr "Повторіть пароль:"
 
 msgid "PAGE_SETTINGS_LABEL_CUR_EMAIL"
-msgstr "Поточний E-mail:"
+msgstr "Поточний e-mail:"
 
 msgid "PAGE_SETTINGS_LABEL_CUR_PASS"
 msgstr "Поточний пароль:"
@@ -1562,13 +1574,13 @@ msgid "PAGE_SETTINGS_LABEL_DEV_STATUS"
 msgstr "Статус розробника:"
 
 msgid "PAGE_SETTINGS_LABEL_EMAIL"
-msgstr "Контактний E-mail:"
+msgstr "Контактний e-mail:"
 
 msgid "PAGE_SETTINGS_LABEL_HIDE_REVIEWS"
 msgstr "Обмежити доступ до моїх відгуків для інших користувачів"
 
 msgid "PAGE_SETTINGS_LABEL_NEW_EMAIL"
-msgstr "Новий E-mail:"
+msgstr "Новий e-mail:"
 
 msgid "PAGE_SETTINGS_LABEL_NEW_PASS"
 msgstr "Новий пароль:"
@@ -1589,7 +1601,7 @@ msgid "PAGE_SETTINGS_SECTION_BASIC"
 msgstr "Основна інформація"
 
 msgid "PAGE_SETTINGS_SECTION_CHANGE_EMAIL"
-msgstr "Змінити E-mail"
+msgstr "Змінити e-mail"
 
 msgid "PAGE_SETTINGS_SECTION_DELETE"
 msgstr "Видалення облікового запису"
@@ -1604,7 +1616,7 @@ msgid "PAGE_SETTINGS_TAB_ACCOUNT"
 msgstr "Обліковий запис"
 
 msgid "PAGE_SETTINGS_TAB_APPS"
-msgstr "Застосунки"
+msgstr "Програми"
 
 msgid "PAGE_SETTINGS_TITLE"
 msgstr "Налаштування"
@@ -1613,13 +1625,13 @@ msgid "PAGE_SETTINGS_WARN_USERNAME_FROZEN"
 msgstr "Ім'я користувача після реєстрації змінити не можна"
 
 msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_1"
-msgstr "Файли пройшли провірку:"
+msgstr "Файли пройшли перевірку:"
 
 msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_2"
 msgstr "шт. Готові до завантаження."
 
 msgid "SITE_DESCRIPTION"
-msgstr "LunaStore. Довідник застосунків для твого старого ПК. Завантажуйте застосунки, залишайте відгуки та станьте частиною спільноти шанувальників старих ПК."
+msgstr "LunaStore. Довідник програм для твого старого ПК. Завантажуйте програми, залишайте відгуки та станьте частиною спільноти шанувальників старих ПК."
 
 msgid "TEXT_APP_NO_DESC"
 msgstr "Немає опису"
@@ -1628,10 +1640,10 @@ msgid "TEXT_APP_NO_NAME"
 msgstr "Без назви"
 
 msgid "TEXT_APP_NO_SLOGAN"
-msgstr "Немає гасло"
+msgstr "Немає гасла"
 
 msgid "VIEW_LOGIN_BANNED_REASON"
-msgstr "Ваш акаунт заблоковано. Причина: %%(reason)s"
+msgstr "Ваш обліковий запис заблоковано. Причина: %%(reason)s"
 
 msgid "VIEW_LOGIN_INVALID_CREDENTIALS"
 msgstr "Неправильний логін або пароль."

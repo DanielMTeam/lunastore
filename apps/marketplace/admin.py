@@ -293,6 +293,7 @@ class AppEditRequestsAdmin(SafeDeleteAdmin):
         "status",
         "category",
         "title",
+        "original_author",
         "description",
         "requirements",
         "slogan",
@@ -362,6 +363,7 @@ class AppEditRequestsAdmin(SafeDeleteAdmin):
         app.category = req.category
         app.title = req.title
         app.description = req.description
+        app.original_author = req.original_author
         app.slogan = req.slogan
         app.price = req.price
         app.developer_site = req.developer_site
@@ -406,6 +408,7 @@ class AppEditRequestsAdmin(SafeDeleteAdmin):
                     "user",
                     "category",
                     "title",
+                    "original_author",
                     "slogan",
                     "description",
                     "price",

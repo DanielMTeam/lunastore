@@ -7,29 +7,17 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n % 10 == 1 && n % 100 != 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2)\n"
 "X-Generator: Tolgee\n"
 
-msgid ""
-"\n"
-"                PAGE_SEARCH_BADGE_DEMO_PRICE\n"
-"            "
-msgstr ""
-"\n"
-"Поиск не дал результатов по запросу \"%%(q)s\""
-
-
-#: templates/profile.html:38
 msgid "%(counter)s PAGE_PROFILE_STATS_APP"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
-msgstr[0] "%(counter)s приложение,"
-msgstr[1] "%(counter)s приложения,"
-msgstr[2] "%(counter)s приложений,"
+msgstr[0] "%%(counter)s приложений,"
+msgstr[1] "%%(counter)s приложений,"
+msgstr[2] "%%(counter)s приложений,"
 
-#: templates/profile.html:39
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
-msgstr[0] "%(counter)s отзыв -"
-msgstr[1] "%(counter)s отзыва -"
-msgstr[2] "%(counter)s отзывов -"
-
+msgstr[0] "%%(counter)s отзывов -"
+msgstr[1] "%%(counter)s отзывов -"
+msgstr[2] "%%(counter)s отзывов -"
 
 msgid "404_ELEMENT_NOT_FOUND"
 msgstr "Запрашиваемый элемент или ссылка, которую вы хотите посетить, не найдены на нашем сайте."
@@ -68,7 +56,7 @@ msgid "BANNED_IP_INTRO"
 msgstr "Доступ к сайту с вашего IP-адреса приостановлен."
 
 msgid "BANNED_IP_PAGE_TITLE"
-msgstr "Доступ запрещен"
+msgstr "Доступ запрещён"
 
 msgid "BANNED_IP_REASON"
 msgstr "Это могло произойти из-за нарушения правил ресурса, подозрительной активности или срабатывания системы безопасности. Мы заботимся о комфорте всех пользователей, поэтому вынуждены временно или навсегда ограничить вам доступ."
@@ -281,7 +269,7 @@ msgid "FORM_DEVSTATUS_WE_WILL_CONTACT"
 msgstr "Мы обязательно свяжемся с Вами. По крайней мере постараемся."
 
 msgid "FORM_DEVSTATUS_WHY_YOU_CHOOSE"
-msgstr "Почему Вы решили выбрать нас? (до 250 символов)"
+msgstr "Почему вы решили выбрать именно нас? (до 250 символов)"
 
 msgid "FORM_DEVSTATUS_YOUR_EMAIL"
 msgstr "Ваш e-mail"
@@ -632,7 +620,7 @@ msgid "PAGE_ADMIN_APP_LOAD_SCRN"
 msgstr "Загрузить новые скриншоты (максимум 3 шт.)"
 
 msgid "PAGE_ADMIN_APP_MSG_SAVE_ERROR"
-msgstr "Произошла ошибка при сохранении формы. Проверьте введенные данные."
+msgstr "Произошла ошибка при сохранении формы. Проверьте введённые данные."
 
 msgid "PAGE_ADMIN_APP_MSG_SAVE_SUCCESS"
 msgstr "Заявка на обновление данных успешно отправлена на модерацию."
@@ -776,7 +764,7 @@ msgid "PAGE_CATEGORY_SHOWCONTENTASTILES"
 msgstr "Показывать содержимое плитками"
 
 msgid "PAGE_DEBUG_DESC"
-msgstr "Данная страница используется ИСКЛЮЧИТЕЛЬНО для тестирования и для сбора информации для более граммотной подачи bug-report'а. Если Вы видите эту страницу, это значит что в вашем settings.py константа DEBUG = True."
+msgstr "Данная страница используется ИСКЛЮЧИТЕЛЬНО для тестирования и сбора информации для более грамотной подачи bug report'а. Если Вы видите эту страницу, это значит, что в вашем settings.py константа DEBUG = True."
 
 msgid "PAGE_DEBUG_MAININFO_TITLE"
 msgstr "Основная информация"
@@ -833,7 +821,7 @@ msgid "PAGE_DELACC_YOULEFTHERE_HISTORY_2"
 msgstr "Ладно, вы хоть раз туда заглядывали?"
 
 msgid "PAGE_DELACC_YOULEFTHERE_INVITES_1"
-msgstr "Вот столько людей, приглашенных вами:"
+msgstr "Вот столько людей, приглашённых вами:"
 
 msgid "PAGE_DELACC_YOULEFTHERE_INVITES_2"
 msgstr "Они останутся без вас и будут расстроены"
@@ -869,7 +857,7 @@ msgid "PAGE_DEVADD_ENTERINFO_CONFIRM"
 msgstr "Подтверждение регистрации"
 
 msgid "PAGE_DEVADD_ENTERINFO_EMAIL"
-msgstr "Контактный Email:"
+msgstr "Контактный e-mail:"
 
 msgid "PAGE_DEVADD_ENTERINFO_EMAILDESC"
 msgstr "Мы обязательно свяжемся с Вами. По крайней мере постараемся."
@@ -962,7 +950,7 @@ msgid "PAGE_DIST_FORM_URL"
 msgstr "Внешняя ссылка (URL):"
 
 msgid "PAGE_DIST_FORM_URL_DESC"
-msgstr "Укажите, если файл размещен на другом ресурсе"
+msgstr "Укажите, если файл размещён на другом ресурсе"
 
 msgid "PAGE_DIST_FORM_VERSION"
 msgstr "Версия приложения:"
@@ -1034,7 +1022,7 @@ msgid "PAGE_FAQ_A_CREATE_ACC"
 msgstr "В верхней шапке сайта нажмите кнопку \"регистрация\""
 
 msgid "PAGE_FAQ_A_LEGAL"
-msgstr "Обычно такой вопрос задаёт разработчик ПО. Однако, если Вас очень сильно воротит от существования старой версии вашей программы на данном сайте, то можете связаться с нами по E-mail. Но очень надеемся, что вы войдёте в наше положение и поймёте цель проекта."
+msgstr "Обычно такой вопрос задаёт разработчик ПО. Однако, если Вас очень сильно воротит от существования старой версии вашей программы на данном сайте, то можете связаться с нами по e-mail. Но очень надеемся, что вы войдёте в наше положение и поймёте цель проекта."
 
 msgid "PAGE_FAQ_A_WHY_EXIST_PART1"
 msgstr "Отличный вопрос. Началось всё с того, что у одного из участников проекта появилось желание загрузить на один сайт со старым ПО скринсейвер 3D Windows XP, который по факту мало кто видел и еле сохранился на веб-архиве."
@@ -1079,7 +1067,7 @@ msgid "PAGE_FAQ_CARD_WHYWESHOP"
 msgstr "Почему 'магазин' написано в кавычках?"
 
 msgid "PAGE_FAQ_CARD_WHYWESHOPDESC"
-msgstr "Мы являемся фанатским сайтом и не думаем, что такое прям вырастет до огромного магазина. Хотя кто знает. Однако реклама в левом меню абсолютно несерьёзная, а сам проект как общее хобби."
+msgstr "Мы являемся фанатским сайтом и не думаем, что такое прям вырастет до огромного магазина. Хотя кто знает. Однако реклама в левом меню абсолютно несерьёзная, а сам проект - как общее хобби."
 
 msgid "PAGE_FAQ_DESC"
 msgstr "У Вас появились вопросы? На этой странице собрана вся информация, касаемо данного LunaStore"
@@ -1130,10 +1118,10 @@ msgid "PAGE_FAQ_TEAM_ROLE_CHELKA0"
 msgstr "оформление сайта за кадром"
 
 msgid "PAGE_FAQ_TEAM_ROLE_COOKIE"
-msgstr "Второй backend разработчик, глав. разработчик пакетного менеджера luna, а также перевод на японский"
+msgstr "Второй backend-разработчик, глав. разработчик пакетного менеджера luna, а также перевод на японский"
 
 msgid "PAGE_FAQ_TEAM_ROLE_FAYZETWIN"
-msgstr "основной backend разработчик, API"
+msgstr "основной backend-разработчик, API"
 
 msgid "PAGE_FAQ_TEAM_ROLE_MONDY"
 msgstr "логотип"
@@ -1163,7 +1151,7 @@ msgid "PAGE_INVITE_BROWSER_TITLE"
 msgstr "Пригласить"
 
 msgid "PAGE_INVITE_CODE_ROTATION_WARN"
-msgstr "<b>Важно:</b> на данный момент времени, пригласительный код нового участника меняется каждые 24 часа"
+msgstr "<b>Важно:</b> на данный момент пригласительный код нового участника меняется каждые 24 часа"
 
 msgid "PAGE_INVITE_COPY_CODE"
 msgstr "Скопируйте этот код ниже и отправьте его нужному Вам человеку"
@@ -1172,7 +1160,7 @@ msgid "PAGE_INVITE_DESCRIPTION"
 msgstr "Вы можете пригласить своего друга или знакомого с одинаковыми интересами по ретро-тематике в LunaStore."
 
 msgid "PAGE_INVITE_HOW_TO_SEND"
-msgstr "По E-mail, по телефону, в чате, при встрече - совершенно не важно. Код обязательно нужно ввести приглашаемому пользователю в процессе регистрации."
+msgstr "По e-mail, по телефону, в чате, при встрече - совершенно не важно. Код обязательно нужно ввести приглашаемому пользователю в процессе регистрации."
 
 msgid "PAGE_INVITE_INPUT_BTN"
 msgstr "Начать регистрацию"
@@ -1334,7 +1322,7 @@ msgid "PAGE_PROFILE_CONTACT_INFO"
 msgstr "Контактная информация"
 
 msgid "PAGE_PROFILE_INVITES_EMPTY_DESC"
-msgstr "Пока что, ни один человек не зарегистрировался по приглашению данного пользователя."
+msgstr "Пока что ни один человек не зарегистрировался по приглашению данного пользователя."
 
 msgid "PAGE_PROFILE_INVITES_EMPTY_TITLE"
 msgstr "Приглашений нет ＞︿＜"
@@ -1358,7 +1346,7 @@ msgid "PAGE_PROFILE_LINK_ADDAPP"
 msgstr "добавить"
 
 msgid "PAGE_PROFILE_LINK_ALL"
-msgstr "показать все"
+msgstr "показать всё"
 
 msgid "PAGE_PROFILE_STAFF_ALT"
 msgstr "Команда LunaStore"
@@ -1474,6 +1462,9 @@ msgstr "Демо, далее $%%(price)s"
 msgid "PAGE_SEARCH_BADGE_FREE"
 msgstr "Бесплатно"
 
+msgid "PAGE_SEARCH_BADGE_NOT_FOUND"
+msgstr "Поиск не дал результатов по запросу \"%%(q)s\""
+
 msgid "PAGE_SEARCH_BTN_DETAILS"
 msgstr "Подробнее"
 
@@ -1547,7 +1538,7 @@ msgid "PAGE_SETTINGS_INFO_AVATAR_RULES"
 msgstr "Рекомендуемый размер аватара: 64x64.<br>Допустимые форматы: .PNG, .JPG<br>Максимальный размер: 2 Мб"
 
 msgid "PAGE_SETTINGS_INFO_EMAIL_CHANGE"
-msgstr "Изменение E-mail требует подтверждения паролем."
+msgstr "Изменение e-mail требует подтверждения паролем."
 
 msgid "PAGE_SETTINGS_JS_ERR_CDN"
 msgstr "Произошла ошибка при сохранении файла на сервере LunaSpire. Пожалуйста, обратитесь с данной ошибкой к администратору сайта."
@@ -1574,7 +1565,7 @@ msgid "PAGE_SETTINGS_LABEL_CONFIRM_PASS"
 msgstr "Повторите пароль:"
 
 msgid "PAGE_SETTINGS_LABEL_CUR_EMAIL"
-msgstr "Текущий E-mail:"
+msgstr "Текущий e-mail:"
 
 msgid "PAGE_SETTINGS_LABEL_CUR_PASS"
 msgstr "Текущий пароль:"
@@ -1583,13 +1574,13 @@ msgid "PAGE_SETTINGS_LABEL_DEV_STATUS"
 msgstr "Статус разработчика: "
 
 msgid "PAGE_SETTINGS_LABEL_EMAIL"
-msgstr "Контактный E-mail:"
+msgstr "Контактный e-mail:"
 
 msgid "PAGE_SETTINGS_LABEL_HIDE_REVIEWS"
 msgstr "Ограничить доступ к моим отзывам для других пользователей"
 
 msgid "PAGE_SETTINGS_LABEL_NEW_EMAIL"
-msgstr "Новый E-mail:"
+msgstr "Новый e-mail:"
 
 msgid "PAGE_SETTINGS_LABEL_NEW_PASS"
 msgstr "Новый пароль:"
@@ -1610,7 +1601,7 @@ msgid "PAGE_SETTINGS_SECTION_BASIC"
 msgstr "Основная информация"
 
 msgid "PAGE_SETTINGS_SECTION_CHANGE_EMAIL"
-msgstr "Изменить E-mail"
+msgstr "Изменить e-mail"
 
 msgid "PAGE_SETTINGS_SECTION_DELETE"
 msgstr "Удаление аккаунта"
