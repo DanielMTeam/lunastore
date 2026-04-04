@@ -172,6 +172,8 @@ def download_list(request):
         "developer_id": app_obj.user.id,
         "is_download_page": True,
         "icon_url": app_obj.icon_url,
+        "is_demo": app_obj.is_demo,
+        "is_under_dmca": app_obj.is_under_dmca,
         "slogan": app_obj.slogan,
         "description": app_obj.description,
         "developer_site": app_obj.developer_site,

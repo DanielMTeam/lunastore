@@ -9,15 +9,15 @@ msgstr ""
 
 msgid "%(counter)s PAGE_PROFILE_STATS_APP"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
-msgstr[0] "%%(counter)s приложений,"
-msgstr[1] "%%(counter)s приложений,"
-msgstr[2] "%%(counter)s приложений,"
+msgstr[0] "%(counter)s приложение,"
+msgstr[1] "%(counter)s приложений,"
+msgstr[2] "%(counter)s приложений,"
 
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
-msgstr[0] "%%(counter)s отзывов -"
-msgstr[1] "%%(counter)s отзывов -"
-msgstr[2] "%%(counter)s отзывов -"
+msgstr[0] "%(counter)s отзыв -"
+msgstr[1] "%(counter)s отзывов -"
+msgstr[2] "%(counter)s отзывов -"
 
 msgid "404_ELEMENT_NOT_FOUND"
 msgstr "Запрашиваемый элемент или ссылка, которую вы хотите посетить, не найдены на нашем сайте."
@@ -305,7 +305,7 @@ msgid "FORM_SCREENSHOTS"
 msgstr "Скриншоты"
 
 msgid "File extension “%(extension)s” is not allowed. Allowed extensions are: “%(allowed_extensions)s”."
-msgstr "Расширение “%%(extension)s” не разрешено. Допустимые расширения: “%%(allowed_extensions)s”."
+msgstr "Расширение “%(extension)s” не разрешено. Допустимые расширения: “%(allowed_extensions)s”."
 
 msgid "INDEX_CATEGORY_PROMPT"
 msgstr "Или выберите нужную категорию:"
@@ -964,6 +964,9 @@ msgstr "Назад"
 msgid "PAGE_DOWNLOAD_DEMO_WARNING"
 msgstr "Программа распространяется в виде демо-версии, за полную версию стоит заплатить её автору. Файл предоставлен с официального сайта разработчика."
 
+msgid "PAGE_DOWNLOAD_DMCA_WARNING"
+msgstr "Возможность скачивания программы была закрыта из-за жалобы правообладателя. Спасибо за понимание."
+
 msgid "PAGE_DOWNLOAD_DL_ACTION"
 msgstr "скачать"
 
@@ -1457,13 +1460,13 @@ msgid "PAGE_SEARCH_BADGE_DEMO"
 msgstr "Демо"
 
 msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
-msgstr "Демо, далее $%%(price)s"
+msgstr "Демо, далее $%(price)s"
 
 msgid "PAGE_SEARCH_BADGE_FREE"
 msgstr "Бесплатно"
 
 msgid "PAGE_SEARCH_BADGE_NOT_FOUND"
-msgstr "Поиск не дал результатов по запросу \"%%(q)s\""
+msgstr "Поиск не дал результатов по запросу \"%(q)s\""
 
 msgid "PAGE_SEARCH_BTN_DETAILS"
 msgstr "Подробнее"
@@ -1499,7 +1502,7 @@ msgid "PAGE_SEARCH_LINK_ADVANCED"
 msgstr "Уточнить параметры поиска"
 
 msgid "PAGE_SEARCH_MSG_NO_RESULTS %(q)s"
-msgstr "Поиск не дал результатов по запросу \"%%(q)s\""
+msgstr "Поиск не дал результатов по запросу \"%(q)s\""
 
 msgid "PAGE_SEARCH_MSG_NO_RESULTS_EMPTY"
 msgstr "По вашему запросу ничего не найдено"
@@ -1643,10 +1646,10 @@ msgid "TEXT_APP_NO_SLOGAN"
 msgstr "Нет слогана"
 
 msgid "VIEW_LOGIN_BANNED_REASON"
-msgstr "Ваш аккаунт заблокирован. Причина: %%(reason)s"
+msgstr "Ваш аккаунт заблокирован. Причина: %(reason)s"
 
 msgid "VIEW_LOGIN_INVALID_CREDENTIALS"
 msgstr "Неверный логин или пароль."
 
 msgid "VIEW_LOGIN_SUCCESS"
-msgstr "Вход выполнен успешно! Привет, %%(username)s!"
+msgstr "Вход выполнен успешно! Привет, %(username)s!"

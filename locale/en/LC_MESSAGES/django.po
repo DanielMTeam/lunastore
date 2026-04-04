@@ -9,13 +9,13 @@ msgstr ""
 
 msgid "%(counter)s PAGE_PROFILE_STATS_APP"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
-msgstr[0] "%%(counter)s apps,"
-msgstr[1] "%%(counter)s apps,"
+msgstr[0] "%(counter)s app,"
+msgstr[1] "%(counter)s apps,"
 
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
-msgstr[0] "%%(counter)s reviews -"
-msgstr[1] "%%(counter)s reviews -"
+msgstr[0] "%(counter)s review -"
+msgstr[1] "%(counter)s reviews -"
 
 msgid "404_ELEMENT_NOT_FOUND"
 msgstr "The requested item or link you are trying to visit was not found on our site."
@@ -303,7 +303,7 @@ msgid "FORM_SCREENSHOTS"
 msgstr "Screenshots"
 
 msgid "File extension “%(extension)s” is not allowed. Allowed extensions are: “%(allowed_extensions)s”."
-msgstr "Extension “%%(extension)s” is not allowed. Allowed extensions: “%%(allowed_extensions)s”."
+msgstr "Extension “%(extension)s” is not allowed. Allowed extensions: “%(allowed_extensions)s”."
 
 msgid "INDEX_CATEGORY_PROMPT"
 msgstr "Or select a category:"
@@ -1413,13 +1413,13 @@ msgid "PAGE_SEARCH_BADGE_DEMO"
 msgstr "Demo"
 
 msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
-msgstr "Demo, then $%%(price)s"
+msgstr "Demo, then $%(price)s"
 
 msgid "PAGE_SEARCH_BADGE_FREE"
 msgstr "Free"
 
 msgid "PAGE_SEARCH_BADGE_NOT_FOUND"
-msgstr "No results found for \"%%(q)s\""
+msgstr "No results found for \"%(q)s\""
 
 msgid "PAGE_SEARCH_BTN_DETAILS"
 msgstr "Details"
@@ -1455,7 +1455,7 @@ msgid "PAGE_SEARCH_LINK_ADVANCED"
 msgstr "Refine search criteria"
 
 msgid "PAGE_SEARCH_MSG_NO_RESULTS %(q)s"
-msgstr "No results found for \"%%(q)s\""
+msgstr "No results found for \"%(q)s\""
 
 msgid "PAGE_SEARCH_MSG_NO_RESULTS_EMPTY"
 msgstr "No results found for your search"
@@ -1599,7 +1599,7 @@ msgid "TEXT_APP_NO_SLOGAN"
 msgstr "No slogan"
 
 msgid "VIEW_LOGIN_BANNED_REASON"
-msgstr "Your account has been blocked. Reason: %%(reason)s"
+msgstr "Your account has been blocked. Reason: %(reason)s"
 
 msgid "VIEW_LOGIN_INVALID_CREDENTIALS"
 msgstr "Incorrect username or password."

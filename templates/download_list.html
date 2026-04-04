@@ -29,6 +29,7 @@
             <div class="st_clearb"></div>
         </div>
 
+        {% if not is_under_dmca %}
         <div class="st_other_card">
             <h2>{% trans "PAGE_DOWNLOAD_VERSION_LIST" %}</h2>
             <div class="separator_store"></div>
@@ -116,6 +117,7 @@
                 {% endif %}
             </div>
         </div>
+        {% endif %}
 
         {% if developer_site %}
         <div class="st_other_card">
@@ -132,6 +134,7 @@
         </div>
         {% endif %}
 
+        {% if not is_under_dmca %}
         <div class="st_other_card">
             <div class="splash">
                 <div class="info_splash">
@@ -140,7 +143,19 @@
                 </div>
             </div>
         </div>
+        {% endif %}
 
+        {% if is_under_dmca %}
+        <div class="st_general_card">
+            <div class="splash">
+                <div class="error_splash">
+                    <div class="error_icon_small"></div>
+                    <div class="splash_text">{% trans "PAGE_DOWNLOAD_DMCA_WARNING" %}</div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if is_demo %}
         <div class="st_general_card">
             <div class="splash">
                 <div class="alert_splash">
@@ -149,6 +164,7 @@
                 </div>
             </div>
         </div>
+        {% endif %}
 
         <div class="st_clearb"></div>
     </div>
