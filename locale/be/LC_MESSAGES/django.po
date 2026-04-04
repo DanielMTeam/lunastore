@@ -9,15 +9,15 @@ msgstr ""
 
 msgid "%(counter)s PAGE_PROFILE_STATS_APP"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
-msgstr[0] "%%(counter)s дадаткаў,"
-msgstr[1] "%%(counter)s дадаткаў,"
-msgstr[2] "%%(counter)s дадаткаў,"
+msgstr[0] "%(counter)s дадаткаў,"
+msgstr[1] "%(counter)s дадаткаў,"
+msgstr[2] "%(counter)s дадаткаў,"
 
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
-msgstr[0] "%%(counter)s водгукаў -"
-msgstr[1] "%%(counter)s водгукаў -"
-msgstr[2] "%%(counter)s водгукаў -"
+msgstr[0] "%(counter)s водгукаў -"
+msgstr[1] "%(counter)s водгукаў -"
+msgstr[2] "%(counter)s водгукаў -"
 
 msgid "404_ELEMENT_NOT_FOUND"
 msgstr "Элемент або спасылка, якую вы хочаце наведаць, не знойдзены на нашым сайце."
@@ -305,7 +305,7 @@ msgid "FORM_SCREENSHOTS"
 msgstr "Скрыншоты"
 
 msgid "File extension “%(extension)s” is not allowed. Allowed extensions are: “%(allowed_extensions)s”."
-msgstr "Пашырэнне “%%(extension)s” не дазволена. Дапусцімыя пашырэнні: “%%(allowed_extensions)s”."
+msgstr "Пашырэнне “%(extension)s” не дазволена. Дапусцімыя пашырэнні: “%(allowed_extensions)s”."
 
 msgid "INDEX_CATEGORY_PROMPT"
 msgstr "Або выберыце патрэбную катэгорыю:"
@@ -1457,13 +1457,13 @@ msgid "PAGE_SEARCH_BADGE_DEMO"
 msgstr "Дэма"
 
 msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
-msgstr "Дэма, далей $%%(price)s"
+msgstr "Дэма, далей $%(price)s"
 
 msgid "PAGE_SEARCH_BADGE_FREE"
 msgstr "Бясплатна"
 
 msgid "PAGE_SEARCH_BADGE_NOT_FOUND"
-msgstr "Пошук па запыце \"%%(q)s\" не даў вынікаў"
+msgstr "Пошук па запыце \"%(q)s\" не даў вынікаў"
 
 msgid "PAGE_SEARCH_BTN_DETAILS"
 msgstr "Падрабязней"
@@ -1499,7 +1499,7 @@ msgid "PAGE_SEARCH_LINK_ADVANCED"
 msgstr "Удакладніць параметры пошуку"
 
 msgid "PAGE_SEARCH_MSG_NO_RESULTS %(q)s"
-msgstr "Пошук па запыце \"%%(q)s\" не даў вынікаў"
+msgstr "Пошук па запыце \"%(q)s\" не даў вынікаў"
 
 msgid "PAGE_SEARCH_MSG_NO_RESULTS_EMPTY"
 msgstr "Па вашым запыце нічога не знойдзена"
@@ -1643,10 +1643,10 @@ msgid "TEXT_APP_NO_SLOGAN"
 msgstr "Няма слогана"
 
 msgid "VIEW_LOGIN_BANNED_REASON"
-msgstr "Ваш акаўнт заблакіраваны. Прычына: %%(reason)s"
+msgstr "Ваш акаўнт заблакіраваны. Прычына: %(reason)s"
 
 msgid "VIEW_LOGIN_INVALID_CREDENTIALS"
 msgstr "Няверны лагін або пароль."
 
 msgid "VIEW_LOGIN_SUCCESS"
-msgstr "Уваход паспяховы! Вітаем, %%(username)s!"
+msgstr "Уваход паспяховы! Вітаем, %(username)s!"

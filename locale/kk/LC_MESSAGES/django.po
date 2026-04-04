@@ -9,11 +9,11 @@ msgstr ""
 
 msgid "%(counter)s PAGE_PROFILE_STATS_APP"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
-msgstr[0] "%%(counter)s қосымша,"
+msgstr[0] "%(counter)s қосымша,"
 
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
-msgstr[0] "%%(counter)s пікір,"
+msgstr[0] "%(counter)s пікір,"
 
 msgid "404_ELEMENT_NOT_FOUND"
 msgstr "Сұратылған элемент немесе сіз өткіңіз келетін сілтеме біздің сайттан табылмады."
@@ -271,7 +271,7 @@ msgid "FORM_SCREENSHOTS"
 msgstr "Скриншоттар"
 
 msgid "File extension “%(extension)s” is not allowed. Allowed extensions are: “%(allowed_extensions)s”."
-msgstr "“%%(extension)s” файл кеңейтіліміне рұқсат жоқ. Рұқсат етілген кеңейтілімдер: “%%(allowed_extensions)s”."
+msgstr "“%(extension)s” файл кеңейтіліміне рұқсат жоқ. Рұқсат етілген кеңейтілімдер: “%(allowed_extensions)s”."
 
 msgid "INDEX_CATEGORY_PROMPT"
 msgstr "Немесе қажетті санатты таңдаңыз:"
@@ -541,4 +541,4 @@ msgid "PAGE_ADMIN_APP_DIST_DL_LINK_BLOCK"
 msgstr "Жүктеу бетіне сілтеме"
 
 msgid "PAGE_SEARCH_BADGE_NOT_FOUND"
-msgstr "\"%%(q)s\" сұранысы бойынша нәтиже табылмады"
+msgstr "\"%(q)s\" сұранысы бойынша нәтиже табылмады"
