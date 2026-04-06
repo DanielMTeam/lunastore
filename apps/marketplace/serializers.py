@@ -10,13 +10,15 @@ class ApplicationSerializer(serializers.ModelSerializer):
             "id",
             "title",
             "description",
+            "original_author",
             "slogan",
             "price",
-            "screenshots",
+            "requirements",
+            "screenshot_urls",
             "developer_site",
             "is_demo",
+            "is_under_dmca",
             "icon_url",
-            "screenshot_urls",
         ]
 
 
@@ -33,8 +35,8 @@ class DistributionSerializer(serializers.ModelSerializer):
             "id",
             "app",
             "version",
-            "cdn_file_id",
+            "link",
             "url",
-            "changelog",
+            "has_download",
             "published",
         ]

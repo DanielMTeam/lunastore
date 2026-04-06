@@ -10,7 +10,7 @@ dotenv_path = BASE_DIR / ".env"
 load_dotenv(dotenv_path)
 
 # PLEASE, do not change this, if you don't understand what you do
-VERSION = os.getenv("VERSION", "1.8.0")
+VERSION = os.getenv("VERSION", "1.9.0")
 
 LOCALE_PATHS = [
     BASE_DIR / "locale",
