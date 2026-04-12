@@ -731,13 +731,13 @@ msgid "PAGE_BADBROSER_DESC_3"
 msgstr "Спасибо за понимание."
 
 msgid "PAGE_BADBROWSER_DESC_1"
-msgstr "Для полноценного использования этого веб-сервиса рекомендуется иметь установленный браузер Internet Explorer 6 и выше или RetroZilla."
+msgstr "Для полноценного использования этого веб-сервиса рекомендуется иметь более современный браузер, чем Internet Explorer 6 или RetroZilla."
 
 msgid "PAGE_BADBROWSER_DESC_2"
-msgstr "Скачать Internet Explorer 6 можно как напрямую, так и с помощью сервисов"
+msgstr "Скачать подобные браузеры можно как напрямую (то есть, у нас), так и с помощью сервисов"
 
 msgid "PAGE_BADBROWSER_TITLE"
-msgstr "Спасибо за интерес к магазину Windows!"
+msgstr "Спасибо за интерес к LunaStore!"
 
 msgid "PAGE_CATEGORY_BUYBTN"
 msgstr "Купить"

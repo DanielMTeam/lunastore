@@ -107,6 +107,7 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "corsheaders",
     "django_extensions",
+    'django_user_agents',
 ]
 
 REST_FRAMEWORK = {
@@ -348,6 +349,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'django_user_agents.middleware.UserAgentMiddleware',
 ]
 
 ROOT_URLCONF = os.environ.get("DJANGO_ROOT_URLCONF", "lunastore.urls")
