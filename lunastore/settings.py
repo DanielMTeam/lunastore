@@ -302,6 +302,11 @@ UNFOLD = {
                         "link": reverse_lazy("admin:marketplace_category_changelist"),
                     },
                     {
+                        "title": "Дистрибуции",
+                        "icon": "app_registration",
+                        "link": reverse_lazy("admin:marketplace_distribution_changelist"),
+                    },
+                    {
                         "title": "Жалобы на приложения",
                         "icon": "report",
                         "link": reverse_lazy("admin:marketplace_appreportrequests_changelist"),
