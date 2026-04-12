@@ -30,7 +30,7 @@ class User(AbstractUser, SafeDeleteModel):
     badges = models.CharField(max_length=255, null=True, blank=True)
     website = models.URLField(max_length=45, null=True, blank=True)
     description = models.CharField(
-        max_length=255, default="Пока что, описания тут нету", blank=True
+        max_length=255, default="Пользователь не оставил описание, но надеемся, что он крут", blank=True
     )
     invited_by = models.ForeignKey(
         "self",

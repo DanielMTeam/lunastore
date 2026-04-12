@@ -131,7 +131,14 @@ admin.site.unregister(Group)
 
 class GroupAdmin(unfold_admin.ModelAdmin):
     form = AddToGroupForm
-    filter_horizontal = ["permissions"]
+    filter_horizontal = ["permissions",]
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        if "users" not in self.filter_horizontal:
+            self.filter_horizontal = tuple(self.filter_horizontal) + ("users",)
+
+        return form
 
 
 admin.site.register(Group, GroupAdmin)
