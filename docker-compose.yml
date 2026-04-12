@@ -2,13 +2,11 @@ services:
     redis:
         image: redis:7-alpine
         restart: always
-        command: redis-server --requirepass ${REDIS_PASS:-basic_pass}
-        env_file:
-            - ./lunaspire/.env
+        command: redis-server --appendonly yes
         networks:
             - storenetwork
         healthcheck:
-            test: ["CMD-SHELL", "redis-cli -a \"$REDIS_PASS\" ping | grep -q PONG"]
+            test: ["CMD", "redis-cli", "ping"]
             interval: 10s
             timeout: 5s
             retries: 5
