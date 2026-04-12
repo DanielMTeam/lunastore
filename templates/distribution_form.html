@@ -6,6 +6,38 @@
 <div class="content">
     <link rel="stylesheet" href="{% static 'css/profile.css' %}">
     <link rel="stylesheet" href="{% static 'css/settings.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tabs.css' %}"> <style>
+            .lang-field-wrapper { display: none; }
+            .lang-field-wrapper.active { display: block; }
+
+            .field-tabs {
+                border: 1px solid #9a9a9a !important;
+                margin-top: 5px;
+                background: #fff;
+            }
+
+            .field-tabs .tab-bar {
+                background: #e0e0e0;
+                padding: 2px 2px 0 2px;
+            }
+
+            .field-tabs .tab {
+                padding: 3px 8px 2px 8px;
+                font-size: 11px;
+                height: auto;
+                cursor: pointer;
+            }
+
+            .field-tabs .tab-content {
+                padding: 10px !important;
+                border-top: 1px solid #9a9a9a !important;
+            }
+
+            .field-tabs textarea {
+                width: 100% !important;
+                box-sizing: border-box;
+            }
+        </style>
 
     <div class="section" style="border: none; padding: 0;">
         <div class="profile_block">
@@ -87,11 +119,30 @@
                     <div class="pref_warn_label">{% trans "PAGE_DIST_FORM_URL_DESC" %}</div>
                 </div>
 
-                <div class="pref_pad">
-                    <div class="pref_item_title">{% trans "PAGE_DIST_FORM_CHANGELOG" %}</div>
-                    {{ form.changelog }}
-                    <div class="pref_warn_label">{% trans "PAGE_DIST_FORM_CHANGELOG_DESC" %}</div>
-                </div>
+                {% with trans=form.get_trans_fields %}
+                    {% if trans.changelog %}
+                        <div class="tabs field-tabs">
+                            <div class="tab-bar">
+                                {% for item in trans.changelog %}
+                                    <div class="tab {% if forloop.first %}active{% endif %}"
+                                         data-lang="{{ item.code }}"
+                                         onclick="switchFieldLocale(this, '{{ item.code }}')">
+                                        {{ item.label }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="tab-content">
+                                {% for item in trans.changelog %}
+                                    <div class="lang-field-wrapper lang-{{ item.code }} {% if forloop.first %}active{% endif %}">
+                                        {{ item.input }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% else %}
+                        <div style="color: red;">Ошибка: Поля Changelog не найдены в методе get_trans_fields!</div>
+                    {% endif %}
+                {% endwith %}
 
                 <div class="pref_pad" style="padding-top: 10px; border-top: 1px dashed #cfe1ff;">
                     <input type="submit" class="action_button" value="{% trans 'PAGE_DIST_FORM_SAVE' %}">
@@ -133,6 +184,19 @@
                 displaySpan.style.color = "#000";
             }
         };
+    }
+
+    function switchFieldLocale(tabBtn, langCode) {
+        const container = tabBtn.closest('.field-tabs');
+
+        container.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tabBtn.classList.add('active');
+        container.querySelectorAll('.lang-field-wrapper').forEach(wrapper => {
+            wrapper.classList.remove('active');
+            if (wrapper.classList.contains('lang-' + langCode)) {
+                wrapper.classList.add('active');
+            }
+        });
     }
 </script>
 {% endblock %}

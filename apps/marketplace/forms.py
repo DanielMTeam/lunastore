@@ -21,7 +21,7 @@ from .models import (
     Distribution,
 )
 
-_TRANS_FIELDS = ["title", "slogan", "description", "requirements"]
+_TRANS_FIELDS = ["title", "slogan", "description", "requirements", "changelog"]
 
 def get_translated_fields_list(base_fields):
     expanded = []
@@ -449,20 +449,28 @@ class ApplicationAdminForm(forms.ModelForm):
 ALLOWED_EXTENSIONS = ["exe", "zip", "rar", "7z"]
 
 
-class DistributionForm(TranslationModelForm):
+class DistributionForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            # Это покажет реальный список полей в терминале при загрузке страницы
+            print("--- DEBUG DISTRIBUTION FIELDS ---")
+            print(list(self.fields.keys()))
+            print("---------------------------------")
+
+
     cdn_confirm_token = forms.CharField(widget=forms.HiddenInput(), required=False)
     url = forms.URLField(required=False)
 
     class Meta:
         model = Distribution
-        fields = ["version", "url", "changelog"]
-        widgets = {
+        fields = get_translated_fields_list(["version", "url", "changelog"])
+        widgets = get_translated_widgets_dict({
             "version": forms.TextInput(attrs={"class": "input-text"}),
             "url": forms.URLInput(attrs={"class": "input-text"}),
             "changelog": forms.Textarea(
                 attrs={"class": "brief_intro", "rows": 3, "style": "resize:none;"}
             ),
-        }
+        })
 
     def save(self, commit=True):
         distribution = super().save(commit=False)
@@ -520,3 +528,39 @@ class DistributionForm(TranslationModelForm):
                 )
 
         return file
+
+    def get_trans_fields(self):
+        # Используем те же флаги, что и в основной форме для красоты
+        flags = {'ru': '🇷🇺 RU', 'en': '🇬🇧 EN', 'be': '🇧🇾 BE', 'uk': '🇺🇦 UK'}
+        data = {}
+        fields_to_translate = ["changelog"]
+
+        print(f"--- DEBUG get_trans_fields START ---")
+        for field_name in fields_to_translate:
+            data[field_name] = []
+            for lang_code, _ in settings.LANGUAGES:
+                # Пробуем разные варианты написания кода языка (бывает ru-ru vs ru)
+                short_code = lang_code.split('-')[0].lower()
+
+                # Сначала ищем полный код (changelog_ru-ru), потом короткий (changelog_ru)
+                full_name = f"{field_name}_{lang_code}"
+                alt_name = f"{field_name}_{short_code}"
+
+                target_field = None
+                if full_name in self.fields:
+                    target_field = full_name
+                elif alt_name in self.fields:
+                    target_field = alt_name
+
+                if target_field:
+                    data[field_name].append({
+                        'code': short_code,
+                        'label': flags.get(short_code, short_code.upper()),
+                        'input': self[target_field]
+                    })
+                    print(f"SUCCESS: Found {target_field} for lang {lang_code}")
+                else:
+                    print(f"FAILED: Could not find fields {full_name} or {alt_name}")
+
+        print(f"--- DEBUG get_trans_fields END ---")
+        return data
