@@ -242,8 +242,6 @@ def profile_settings(request):
         "dev_status_enabled": settings.DEVELOPER_REGISTRATION_IS_ENABLED,
     }
     if request.method == "POST":
-        print("--- NEW POST REQUEST ---")
-        print(f"POST DATA: {request.POST}")
         form_type = request.POST.get("form_type")
 
         if form_type == "profile":

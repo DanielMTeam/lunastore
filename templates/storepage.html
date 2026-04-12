@@ -6,10 +6,16 @@
 <div class="content">
     <link rel="stylesheet" href='{% static "./css/stpage.css"%}'>
 
-    <div class="separator_store"></div>
 
+    {% if not is_translated_to_current_lang %}
+    <div class="info_splash">
+        <div class="info_icon_small"></div>
+        <div class="splash_text">{% trans "PAGE_APP_LABEL_NOT_TRANSLATED" %}</div>
+    </div>
+    {% endif %}
+    <div class="separator_store"></div>
     <div class="section">
-    <div class="st_general_card">
+        <div class="st_general_card">
 
         <div class="st_app_icon" style="width: 64px; height: 64px; margin-right: 10px; float: left;">
             {% if icon_path %}
