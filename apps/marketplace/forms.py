@@ -450,14 +450,6 @@ ALLOWED_EXTENSIONS = ["exe", "zip", "rar", "7z"]
 
 
 class DistributionForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-            # Это покажет реальный список полей в терминале при загрузке страницы
-            print("--- DEBUG DISTRIBUTION FIELDS ---")
-            print(list(self.fields.keys()))
-            print("---------------------------------")
-
-
     cdn_confirm_token = forms.CharField(widget=forms.HiddenInput(), required=False)
     url = forms.URLField(required=False)
 
@@ -530,19 +522,15 @@ class DistributionForm(forms.ModelForm):
         return file
 
     def get_trans_fields(self):
-        # Используем те же флаги, что и в основной форме для красоты
         flags = {'ru': '🇷🇺 RU', 'en': '🇬🇧 EN', 'be': '🇧🇾 BE', 'uk': '🇺🇦 UK'}
         data = {}
         fields_to_translate = ["changelog"]
 
-        print(f"--- DEBUG get_trans_fields START ---")
         for field_name in fields_to_translate:
             data[field_name] = []
             for lang_code, _ in settings.LANGUAGES:
-                # Пробуем разные варианты написания кода языка (бывает ru-ru vs ru)
                 short_code = lang_code.split('-')[0].lower()
 
-                # Сначала ищем полный код (changelog_ru-ru), потом короткий (changelog_ru)
                 full_name = f"{field_name}_{lang_code}"
                 alt_name = f"{field_name}_{short_code}"
 
@@ -558,9 +546,4 @@ class DistributionForm(forms.ModelForm):
                         'label': flags.get(short_code, short_code.upper()),
                         'input': self[target_field]
                     })
-                    print(f"SUCCESS: Found {target_field} for lang {lang_code}")
-                else:
-                    print(f"FAILED: Could not find fields {full_name} or {alt_name}")
-
-        print(f"--- DEBUG get_trans_fields END ---")
         return data
