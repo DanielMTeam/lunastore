@@ -27,6 +27,7 @@ class User(AbstractUser, SafeDeleteModel):
     telegram = models.CharField(max_length=45, null=True, blank=True)
     discord = models.CharField(max_length=32, null=True, blank=True)
     openvk = models.CharField(max_length=45, null=True, blank=True)
+    badges = models.CharField(max_length=255, null=True, blank=True)
     website = models.URLField(max_length=45, null=True, blank=True)
     description = models.CharField(
         max_length=255, default="Пока что, описания тут нету", blank=True
@@ -50,6 +51,12 @@ class User(AbstractUser, SafeDeleteModel):
 
             return f"{protocol_relative_url}/{self.avatar_path.lstrip('/')}"
         return "/staticfiles/img/noavatar_64.jpg"
+
+    @property
+    def badge_list(self):
+        if not self.badges:
+            return []
+        return [tag.strip() for tag in self.badges.split(";")]
 
     def save(self, *args, **kwargs):
         if not self.fingerprint:

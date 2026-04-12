@@ -211,6 +211,7 @@ def profile(request):
             )
         obj = get_object_or_404(User, id=request.user.id)
     apps_count = Application.objects.filter(user=obj).count()
+    badges = [tag.strip() for tag in obj.badges.split(";")] if obj.badges else []
     active_ban = None
     ban_record = UserBan.objects.filter(user=obj).first()
     if ban_record:
@@ -225,7 +226,7 @@ def profile(request):
     return render(
         request,
         "profile.html",
-        context={"obj": obj, "apps_count": apps_count, "active_ban": active_ban},
+        context={"obj": obj, "apps_count": apps_count, "active_ban": active_ban, "badges": badges},
     )
 
 
