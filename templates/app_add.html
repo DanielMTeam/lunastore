@@ -6,6 +6,35 @@
 <title>Добавление приложения - LunaStore</title>
 <link rel="stylesheet" href="{% static './css/add_ui.css'%}">
 <link rel="stylesheet" href="{% static './css/stpage.css'%}">
+<link rel="stylesheet" href="{% static './css/tabs.css' %}"> <style>
+.lang-field-wrapper { display: none; }
+    .lang-field-wrapper.active { display: block; }
+
+    .field-tabs {
+        border: 1px solid #9a9a9a !important;
+        margin-top: 5px;
+        background: #fff;
+    }
+    .field-tabs .tab-bar {
+        background: #e0e0e0;
+        padding: 2px 2px 0 2px;
+    }
+    .field-tabs .tab {
+        padding: 3px 8px 2px 8px;
+        font-size: 11px;
+        height: auto;
+    }
+    .field-tabs .tab-content {
+        padding: 8px !important;
+        border-top: 1px solid #9a9a9a !important;
+    }
+    .field-tabs input, .field-tabs textarea {
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+
+    .locale-tabs { margin-bottom: 15px; }
+</style>
 
 <style>
     .add_app_card,
@@ -108,28 +137,59 @@
             </div>
 
             <div class="add_app_card" style="margin-top: 25px;">
-
+                {% with trans=form.get_trans_fields %}
                 <div id="step-content-1" class="step-content active">
                     <h1>{% trans "PAGE_ADDAPP_STEP1_NAME" %}</h1>
                     <div id="form-step-1">
 
-                        <label>
-                            <div class="add_app_pad">
-                                <div class="add_app_title">{% trans "PAGE_ADDAPP_STEP1_TITLE" %}</div>
-                                {{ form.title }}
-                                <div class="add_app_form_label">{% trans "PAGE_ADDAPP_STEP1_TITLEDESC" %}</div>
-                                {{ form.title.errors }}
-                            </div>
-                        </label>
+                        <div class="add_app_pad">
+                            <div class="add_app_title">{% trans "PAGE_ADDAPP_STEP1_TITLE" %}</div>
 
-                        <label>
-                            <div class="add_app_pad">
-                                <div class="add_app_title">{% trans "PAGE_ADDAPP_STEP1_SLOGAN" %}</div>
-                                {{ form.slogan }}
-                                <div class="add_app_form_label">{% trans "PAGE_ADDAPP_STEP1_SLOGANDESC_1" %}<br>{% trans "PAGE_ADDAPP_STEP1_SLOGANDESC_2" %}</div>
-                                {{ form.slogan.errors }}
+                            <div class="tabs field-tabs">
+                                <div class="tab-bar">
+                                    {% for item in trans.title %}
+                                    <div class="tab {% if forloop.first %}active{% endif %}"
+                                         data-lang-target="{{ item.code }}"
+                                         onclick="switchFieldLocale(this, '{{ item.code }}')">
+                                        {{ item.label }}
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="tab-content">
+                                    {% for item in trans.title %}
+                                    <div class="lang-field-wrapper lang-{{ item.code }} {% if forloop.first %}active{% endif %}">
+                                        {{ item.input }}
+                                    </div>
+                                    {% endfor %}
+                                </div>
                             </div>
-                        </label>
+                            <div class="add_app_form_label">{% trans "PAGE_ADDAPP_STEP1_TITLEDESC" %}</div>
+                        </div>
+
+                        <div class="add_app_pad">
+                            <div class="add_app_title">{% trans "PAGE_ADDAPP_STEP1_SLOGAN" %}</div>
+
+                            <div class="tabs field-tabs">
+                                <div class="tab-bar">
+                                    {% for item in trans.slogan %}
+                                    <div class="tab {% if forloop.first %}active{% endif %}"
+                                         data-lang-target="{{ item.code }}"
+                                         onclick="switchFieldLocale(this, '{{ item.code }}')">
+                                        {{ item.label }}
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="tab-content">
+                                    {% for item in trans.slogan %}
+                                    <div class="lang-field-wrapper lang-{{ item.code }} {% if forloop.first %}active{% endif %}">
+                                        {{ item.input }}
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="add_app_form_label">{% trans "PAGE_ADDAPP_STEP1_SLOGANDESC_1" %}</div>
+                            <div class="add_app_form_label">{% trans "PAGE_ADDAPP_STEP1_SLOGANDESC_2" %}</div>
+                        </div>
 
                         <label>
                             <div class="add_app_pad">
@@ -171,23 +231,53 @@
                             </div>
                         </label>
 
-                        <label>
-                            <div class="add_app_pad">
-                                <div class="add_app_title">{% trans "PAGE_ADDAPP_STEP2_DESC" %}</div>
-                                {{ form.description }}
-                                <div class="add_app_form_label">{% trans "PAGE_ADDAPP_STEP2_DESCDESC" %}</div>
-                                {{ form.description.errors }}
-                            </div>
-                        </label>
+                        <div class="add_app_pad">
+                            <div class="add_app_title">{% trans "PAGE_ADDAPP_STEP2_DESC" %}</div>
 
-                        <label>
-                            <div class="add_app_pad">
-                                <div class="add_app_title">{% trans "PAGE_ADDAPP_STEP2_REQ" %}</div>
-                                {{ form.requirements }}
-                                <div class="add_app_form_label">{% trans "PAGE_ADDAPP_STEP2_REQDESC" %}</div>
-                                {{ form.requirements.errors }}
+                            <div class="tabs field-tabs">
+                                <div class="tab-bar">
+                                    {% for item in trans.description %}
+                                    <div class="tab {% if forloop.first %}active{% endif %}"
+                                         data-lang-target="{{ item.code }}"
+                                         onclick="switchFieldLocale(this, '{{ item.code }}')">
+                                        {{ item.label }}
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="tab-content">
+                                    {% for item in trans.description %}
+                                    <div class="lang-field-wrapper lang-{{ item.code }} {% if forloop.first %}active{% endif %}">
+                                        {{ item.input }}
+                                    </div>
+                                    {% endfor %}
+                                </div>
                             </div>
-                        </label>
+                            <div class="add_app_form_label">{% trans "PAGE_ADDAPP_STEP2_DESCDESC" %}</div>
+                        </div>
+
+                        <div class="add_app_pad">
+                            <div class="add_app_title">{% trans "PAGE_ADDAPP_STEP2_REQ" %}</div>
+
+                            <div class="tabs field-tabs">
+                                <div class="tab-bar">
+                                    {% for item in trans.requirements %}
+                                    <div class="tab {% if forloop.first %}active{% endif %}"
+                                         data-lang-target="{{ item.code }}"
+                                         onclick="switchFieldLocale(this, '{{ item.code }}')">
+                                        {{ item.label }}
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="tab-content">
+                                    {% for item in trans.requirements %}
+                                    <div class="lang-field-wrapper lang-{{ item.code }} {% if forloop.first %}active{% endif %}">
+                                        {{ item.input }}
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="add_app_form_label">{% trans "PAGE_ADDAPP_STEP2_REQDESC" %}</div>
+                        </div>
 
                         <label>
                             <div class="add_app_pad">
@@ -227,7 +317,7 @@
                         </div>
                     </div>
                 </div>
-
+                {% endwith %}
                 <div id="step-content-3" class="step-content">
 
                     <div class="info-notification" style="background: #eff7ff; border: 1px solid #a0c2e6; padding: 10px; margin-bottom: 20px; font-size: 12px; color: #333;">
@@ -380,11 +470,17 @@
 
     function goToStep(n) {
         if (n === 2) {
-            let name = document.getElementById('inp_name').value;
-            let agree = document.getElementById('inp_agree').checked;
+            let nameField = document.getElementById('id_title_ru');
+            let agreeField = document.getElementById('inp_agree');
 
-            if (!name.trim()) { alert('{% trans "ERROR_NO_APPNAME" %}'); return; }
-            if (!agree) { alert('{% trans "ERROR_NO_AGREERULES" %}'); return; }
+            if (!nameField || !nameField.value.trim()) {
+                alert('{% trans "ERROR_NO_APPNAME" %}');
+                return;
+            }
+            if (!agreeField || !agreeField.checked) {
+                alert('{% trans "ERROR_NO_AGREERULES" %}');
+                return;
+            }
         }
 
         if (n === 3) renderPreview();
@@ -413,9 +509,9 @@
     }
 
     function renderPreview() {
-        document.getElementById('prev_title').innerText = document.getElementById('inp_name').value || '{% trans "TEXT_APP_NO_NAME" %}';
-        document.getElementById('prev_slogan').innerText = document.getElementById('inp_slogan').value || '{% trans "TEXT_APP_NO_SLOGAN" %}';
-        document.getElementById('prev_desc_block').innerText = document.getElementById('inp_desc').value || '{% trans "TEXT_APP_NO_DESC" %}';
+        document.getElementById('prev_title').innerText = document.getElementById('id_title_ru').value || '{% trans "TEXT_APP_NO_NAME" %}';
+        document.getElementById('prev_slogan').innerText = document.getElementById('id_slogan_ru').value || '{% trans "TEXT_APP_NO_SLOGAN" %}';
+        document.getElementById('prev_desc_block').innerText = document.getElementById('id_description_ru').value || '{% trans "TEXT_APP_NO_DESC" %}';
 
         let site = document.getElementById('inp_site').value;
         let link = document.getElementById('prev_link');
@@ -447,6 +543,27 @@
         } else {
             scrCont.innerHTML = '<span style="color:#999; font-size:11px;">{% trans "INFO_NO_SCREENSHOTS" %}</span>';
         }
+    }
+
+    function switchFieldLocale(tabElement, langCode) {
+        // find the container of this specific field
+        const container = tabElement.closest('.field-tabs');
+
+        // change the active tab only in this block
+        container.querySelectorAll('.tab').forEach(t => {
+            t.classList.remove('active');
+            if (t.getAttribute('data-lang-target') === langCode) {
+                t.classList.add('active');
+            }
+        });
+
+        // change the visibility of the input only in this block
+        container.querySelectorAll('.lang-field-wrapper').forEach(wrapper => {
+            wrapper.classList.remove('active');
+            if (wrapper.classList.contains('lang-' + langCode)) {
+                wrapper.classList.add('active');
+            }
+        });
     }
 </script>
 <script type="text/javascript">

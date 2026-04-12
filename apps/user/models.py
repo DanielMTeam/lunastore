@@ -160,3 +160,7 @@ class InviteToken(models.Model):
             self.created_at = timezone.now()
             self.save()
         return self.code
+
+    class Meta:
+        verbose_name = "Токен приглашения"
+        verbose_name_plural = "Токены приглашения"
