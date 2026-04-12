@@ -14,7 +14,7 @@ from django.core.files.base import ContentFile
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from PIL import Image
-
+from unfold.widgets import UnfoldAdminSelectMultipleWidget, UnfoldAdminCheckboxSelectMultiple, CheckboxSelectMultiple
 from apps.core.utils import force_logout
 
 from .middleware import BlockBannedIP, get_client_ip
@@ -382,8 +382,8 @@ class AddToGroupForm(forms.ModelForm):
     users = forms.ModelMultipleChoiceField(
         queryset=User.objects.all(),
         required=False,
-        # use more normal widget lol
-        widget=FilteredSelectMultiple("users", False),
+        widget=FilteredSelectMultiple("Пользователи", is_stacked=False),
+        label="Пользователи"
     )
 
     def __init__(self, *args, **kwargs):
