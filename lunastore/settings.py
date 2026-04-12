@@ -4,6 +4,7 @@ from pathlib import Path
 
 from django.templatetags.static import static
 from dotenv import load_dotenv
+from django.urls import reverse_lazy
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 dotenv_path = BASE_DIR / ".env"
@@ -76,6 +77,7 @@ ENABLE_DRM = os.getenv("ENABLE_DRM", "False")
 # Application definition
 
 INSTALLED_APPS = [
+    "modeltranslation",
     "django.contrib.auth",
     "mozilla_django_oidc",  # openid
     "django.contrib.contenttypes",
@@ -164,15 +166,8 @@ OIDC_RP_SIGN_ALGO = os.getenv("OIDC_SIGN_ALGO")
 UNFOLD = {
     "SITE_TITLE": "Панель LunaStore",
     "SITE_HEADER": "LunaStore",
-    "SITE_SUBHEADER": "панель для модерации сайта",
-    "SITE_DROPDOWN": [
-        {"icon": "home", "title": "LunaStore", "link": "https://lunastore.app"},
-    ],
+    "SITE_SUBHEADER": "админ-панель",
     "SITE_URL": "/",
-    "SITE_LOGO": {
-        "light": lambda request: static("img/logo.png"),
-        "dark": lambda request: static("img/logo.png"),
-    },
     "SITE_ICON": {
         "light": lambda request: static("img/logo.png"),
         "dark": lambda request: static("img/logo.png"),
@@ -190,6 +185,8 @@ UNFOLD = {
         "image": lambda request: static("img/ap_bg_lunastore.png"),
     },
     "SHOW_HISTORY": True,
+    "BORDER_RADIUS": "8px",
+    "DASHBOARD_CALLBACK": "apps.core.dashboard.callback",
     "SHOW_VIEW_ON_SITE": True,
     "SHOW_BACK_BUTTON": False,
     "COLORS": {
@@ -228,6 +225,116 @@ UNFOLD = {
             "important-dark": "var(--color-base-100)",
         },
     },
+    "EXTENSIONS": {
+        "modeltranslation": {
+            "flags": {
+                "en": " ( 🇺🇸 )",
+                "ru": " ( 🇷🇺 )",
+                "be": " ( 🇧🇾 )",
+                "uk": " ( 🇺🇦 )",
+            },
+        },
+    },
+    "SIDEBAR": {
+        "show_search": False,
+        "show_all_applications": False,
+        "navigation": [
+            {
+                "title": "Внутренняя часть",
+                "separator": False,
+                "items": [
+                    {
+                        "title": "Юридические документы",
+                        "icon": "description",
+                        "link": reverse_lazy("admin:terms_legaldocument_changelist"),
+                    },
+                    {
+                        "title": "Баннера",
+                        "icon": "image",
+                        "link": reverse_lazy("admin:core_banner_changelist"),
+                    }
+                ],
+            },
+            {
+                "title": "Аккаунт",
+                "separator": True,
+                "items": [
+                    {
+                        "title": "Пользователи",
+                        "icon": "group",
+                        "link": reverse_lazy("admin:user_user_changelist"),
+                    },
+                    {
+                        "title": "Блокировки",
+                        "icon": "gavel",
+                        "link": reverse_lazy("admin:user_userban_changelist"),
+                    },
+                    {
+                        "title": "Журналы активности",
+                        "icon": "history",
+                        "link": reverse_lazy("admin:user_useractivitylog_changelist"),
+                    },
+                    {
+                        "title": "Группы",
+                        "icon": "group",
+                        "link": reverse_lazy("admin:auth_group_changelist"),
+                    },
+                    {
+                        "title": "Черный список никнеймов",
+                        "icon": "person_cancel",
+                        "link": reverse_lazy("admin:user_blacklistedusername_changelist"),
+                    },
+                    {
+                        "title": "Инвайт-токены",
+                        "icon": "redeem",
+                        "link": reverse_lazy("admin:user_invitetoken_changelist"),
+                    }
+                ],
+            },
+            {
+                "title": "Приложения",
+                "separator": True,
+                "items": [
+                    {
+                        "title": "Приложения",
+                        "icon": "apps",
+                        "link": reverse_lazy("admin:marketplace_application_changelist"),
+                    },
+                    {
+                        "title": "Категории",
+                        "icon": "category",
+                        "link": reverse_lazy("admin:marketplace_category_changelist"),
+                    },
+                    {
+                        "title": "Жалобы на приложения",
+                        "icon": "report",
+                        "link": reverse_lazy("admin:marketplace_appreportrequests_changelist"),
+                    },
+                ],
+            },
+            {
+                "title": "Заявки",
+                "separator": True,
+                "items": [
+                    {
+                        "title": "Создание приложения",
+                        "icon": "apps",
+                        "link": reverse_lazy("admin:marketplace_appcreaterequests_changelist"),
+                    },
+                    {
+                        "title": "Изменение приложения",
+                        "icon": "edit",
+                        "link": reverse_lazy("admin:marketplace_appeditrequests_changelist"),
+                    },
+                    {
+                        "title": "Статус разработчика",
+                        "icon": "computer",
+                        "link": reverse_lazy("admin:user_devrequestsmodel_changelist"),
+                    }
+                ],
+            }
+        ],
+    },
 }
 
 MIDDLEWARE = [
@@ -244,7 +351,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = os.environ.get("DJANGO_ROOT_URLCONF", "lunastore.urls")
-print(ROOT_URLCONF)
 
 TEMPLATES = [
     {
@@ -383,7 +489,6 @@ LANGUAGES = [
     ("en", "eng"),
     ("uk", "укр"),
     ("be", "бел"),
-    ("kk", "қаз"),
 ]
 
 TIME_ZONE = "UTC"

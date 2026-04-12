@@ -11,7 +11,8 @@ from django.core.exceptions import ValidationError
 from django.forms.models import model_to_dict
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
-
+from modeltranslation.forms import TranslationModelForm
+from . import translation
 from .models import (
     AppCreateRequests,
     AppEditRequests,
@@ -20,6 +21,27 @@ from .models import (
     Distribution,
 )
 
+_TRANS_FIELDS = ["title", "slogan", "description", "requirements"]
+
+def get_translated_fields_list(base_fields):
+    expanded = []
+    for field in base_fields:
+        if field in _TRANS_FIELDS:
+            for lang_code, _ in settings.LANGUAGES:
+                expanded.append(f"{field}_{lang_code}")
+        else:
+            expanded.append(field)
+    return expanded
+
+def get_translated_widgets_dict(base_widgets_configs):
+    widgets = {}
+    for field, widget in base_widgets_configs.items():
+        if field in _TRANS_FIELDS:
+            for lang_code, _ in settings.LANGUAGES:
+                widgets[f"{field}_{lang_code}"] = widget
+        else:
+            widgets[field] = widget
+    return widgets
 
 class MultipleFileInput(forms.ClearableFileInput):
     allow_multiple_selected = True
@@ -35,7 +57,7 @@ class MultipleFileField(forms.FileField):
         return data
 
 
-class AppScreenshotForm(forms.ModelForm):
+class AppScreenshotForm(TranslationModelForm):
     class Meta:
         model = Application
         fields = [
@@ -48,6 +70,23 @@ class AppScreenshotForm(forms.ModelForm):
             "is_under_dmca",
             "price",
         ]
+        widgets = {
+            "title": forms.TextInput(
+                attrs={"class": "input-text", "style": "width: 100%;"}
+            ),
+            "slogan": forms.Textarea(
+                attrs={"class": "brief_intro", "rows": 3, "style": "resize: none;"}
+            ),
+            "description": forms.Textarea(
+                attrs={"class": "brief_intro", "style": "height: 150px;"}
+            ),
+            "requirements": forms.Textarea(
+                attrs={"class": "brief_intro", "style": "height: 150px;"}
+            ),
+            "original_author": forms.TextInput(
+                attrs={"class": "input-text"}
+            ),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -191,58 +230,20 @@ class AppCreateForm(forms.ModelForm):
 
     class Meta:
         model = AppCreateRequests
-        fields = [
-            "category",
-            "title",
-            "slogan",
-            "original_author",
-            "developer_site",
-            "description",
-            "requirements",
+        _base_names = [
+            "category", "title", "slogan", "original_author",
+            "developer_site", "description", "requirements"
         ]
-        widgets = {
-            "category": forms.Select(
-                attrs={
-                    "class": "input-text",
-                    "style": "width: 100%; margin-bottom: 10px;",
-                }
-            ),
-            "title": forms.TextInput(
-                attrs={
-                    "id": "inp_name",
-                    "class": "input-text",
-                    "placeholder": _("FORM_APPCREATE_TITLE_EXAMPLE"),
-                }
-            ),
-            "slogan": forms.Textarea(
-                attrs={
-                    "id": "inp_slogan",
-                    "class": "brief_intro",
-                    "cols": 140,
-                    "rows": 3,
-                    "style": "resize: none;",
-                }
-            ),
-            "developer_site": forms.TextInput(
-                attrs={"id": "inp_site", "class": "input-text"}
-            ),
-            "description": forms.Textarea(
-                attrs={
-                    "id": "inp_desc",
-                    "class": "brief_intro",
-                    "cols": 100,
-                    "style": "height: 150px;",
-                }
-            ),
-            "requirements": forms.Textarea(
-                attrs={
-                    "id": "inp_desc",
-                    "class": "brief_intro",
-                    "cols": 100,
-                    "style": "height: 150px;",
-                }
-            ),
-        }
+        fields = get_translated_fields_list(_base_names)
+        widgets = get_translated_widgets_dict({
+                    "category": forms.Select(attrs={"class": "input-text", "style": "width: 100%;"}),
+                    "title": forms.TextInput(attrs={"class": "input-text"}),
+                    "slogan": forms.Textarea(attrs={"class": "brief_intro", "rows": 3, "style": "resize: none;"}),
+                    "developer_site": forms.TextInput(attrs={"id": "inp_site", "class": "input-text"}),
+                    "description": forms.Textarea(attrs={"class": "brief_intro", "style": "height: 150px; resize: none;"}),
+                    "requirements": forms.Textarea(attrs={"class": "brief_intro", "style": "height: 150px; resize: none;"}),
+                    "original_author": forms.TextInput(attrs={"class": "input-text"}),
+                })
 
     def clean_cdn_screenshots_data(self):
         data = self.cleaned_data.get("cdn_screenshots_data")
@@ -266,13 +267,55 @@ class AppCreateForm(forms.ModelForm):
             app_instance.save()
         return app_instance
 
+    def get_trans_fields(self):
+        flags = {'ru': '🇷🇺 RU', 'en': '🇬🇧 EN', 'be': '🇧🇾 BE', 'uk': '🇺🇦 UK'}
+        data = {}
+        for field_name in _TRANS_FIELDS:
+            data[field_name] = []
+            for lang_code, _ in settings.LANGUAGES:
+                full_name = f"{field_name}_{lang_code}"
+                if full_name in self.fields:
+                    data[field_name].append({
+                        'code': lang_code,
+                        'label': flags.get(lang_code, lang_code.upper()),
+                        'input': self[full_name]
+                    })
+        return data
+
 
 class AppEditForm(AppCreateForm):
+    upload_screenshots = MultipleFileField(
+        widget=MultipleFileInput(
+            attrs={
+                "multiple": True,
+                "id": "inp_scr",
+                "class": "action_button",
+                "accept": "image/png, image/jpeg",
+                "onchange": "previewScreenshots(this)",
+            }
+        ),
+        label=_("FORM_SCREENSHOTS"),
+        required=False,
+    )
+
+    icon_file = forms.ImageField(
+        widget=forms.FileInput(
+            attrs={
+                "id": "inp_icon",
+                "class": "action_button",
+                "accept": "image/png, image/jpeg",
+                "onchange": "previewIcon(this)",
+            }
+        ),
+        required=False,
+    )
     cdn_icon_path = forms.CharField(widget=forms.HiddenInput(), required=False)
     cdn_screenshots_data = forms.CharField(widget=forms.HiddenInput(), required=False)
 
     class Meta(AppCreateForm.Meta):
         model = AppEditRequests
+        fields = AppCreateForm.Meta.fields
+        widgets = AppCreateForm.Meta.widgets
 
     def __init__(self, target_app=None, *args, **kwargs):
         if target_app:
@@ -406,7 +449,7 @@ class ApplicationAdminForm(forms.ModelForm):
 ALLOWED_EXTENSIONS = ["exe", "zip", "rar", "7z"]
 
 
-class DistributionForm(forms.ModelForm):
+class DistributionForm(TranslationModelForm):
     cdn_confirm_token = forms.CharField(widget=forms.HiddenInput(), required=False)
     url = forms.URLField(required=False)
 
@@ -466,8 +509,6 @@ class DistributionForm(forms.ModelForm):
 
         if file:
             ext = os.path.splitext(file.name)[1][1:].lower()
-
-            print(f"DEBUG: Uploaded file extension: {ext}")
 
             if ext not in ALLOWED_EXTENSIONS:
                 allowed_str = ", ".join(ALLOWED_EXTENSIONS)

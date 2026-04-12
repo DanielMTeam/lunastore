@@ -14,7 +14,7 @@ from apps.user.decorators import developer_required
 
 from .decorators import user_is_owner
 from .forms import AppCreateForm, AppEditForm, AppReportForm, DistributionForm
-from .models import AppCreateRequests, Application, Category, Distribution
+from .models import AppCreateRequests, Application, Category, Distribution, AppEditRequests
 
 
 def _format_legacy_date(value):
@@ -80,6 +80,7 @@ def app(request):
         "developer_site": obj.developer_site,
         "developer_id": obj.user.id,
         "download_page_url": download_page_url,
+        "is_translated_to_current_lang": obj.is_translated_to_current_lang,
         "latest_distribution": obj_dist,
         "icon_url": obj.icon_url,
         "title": obj.title,
@@ -474,7 +475,6 @@ def get_file_action(request, dist_pk):
 
         domain = settings.LUNASPIRE_URL_WITHOUT_PROTO
         cdn_url = f"{protocol}://{domain}/cdn/download?token={download_token}"
-        print(cdn_url)
         return redirect(cdn_url)
 
     if dist.url:

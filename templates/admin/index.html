@@ -1,0 +1,99 @@
+{% extends "admin/base_site.html" %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+<style>
+    .luna-card {
+        background-color: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        padding: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    }
+    .luna-title {
+        font-size: 0.875rem;
+        color: #6b7280;
+        font-weight: 500;
+    }
+    .luna-value {
+        margin-top: 0.5rem;
+        font-size: 1.875rem;
+        font-weight: 700;
+        color: #111827;
+    }
+
+    html.dark .luna-card {
+        background-color: var(--color-base-900, #111827);
+        border-color: var(--color-base-800, #374151);
+    }
+    html.dark .luna-title {
+        color: var(--color-base-400, #9ca3af);
+    }
+    html.dark .luna-value {
+        color: var(--color-base-50, #f9fafb);
+    }
+</style>
+
+<div style="display: flex; flex-direction: column; gap: 2rem;">
+
+    <div>
+        <h2 style="margin-bottom: 1rem; font-size: 1.125rem; font-weight: 600; color: inherit;">
+            Добро пожаловать в админ-панель LunaStore!
+        </h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+            <div class="luna-card">
+                <span class="luna-title">Всего приложений</span>
+                <span class="luna-value">{{ total_apps|default:"0" }}</span>
+            </div>
+
+        </div>
+    </div>
+
+    <div>
+        <h2 style="margin-bottom: 1rem; font-size: 1.125rem; font-weight: 600; color: inherit;">
+            Аудитория
+        </h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+
+            <div class="luna-card">
+                <span class="luna-title">Всего пользователей</span>
+                <span class="luna-value">{{ total_users|default:"0" }}</span>
+            </div>
+
+            <div class="luna-card">
+                <span class="luna-title">Новых за сегодня</span>
+                <span class="luna-value" style="color: #22c55e;">+{{ new_users_today|default:"0" }}</span>
+            </div>
+
+        </div>
+    </div>
+
+    <div>
+        <h2 style="margin-bottom: 1rem; font-size: 1.125rem; font-weight: 600; color: inherit;">
+            Заявки
+        </h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+
+            <div class="luna-card">
+                <span class="luna-title">Всего заявок на создание приложений</span>
+                <span class="luna-value">{{ create_apps|default:"0" }}</span>
+            </div>
+
+            <div class="luna-card">
+                <span class="luna-title">Открытые жалобы</span>
+                <span class="luna-value" style="color: #ef4444;">{{ reports|default:"0" }}</span>
+            </div>
+
+            <div class="luna-card">
+                <span class="luna-title">Заявок на редактирование</span>
+                <span class="luna-value">{{ edits_apps|default:"0" }}</span>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}

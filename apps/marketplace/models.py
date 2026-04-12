@@ -8,6 +8,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from safedelete.models import SOFT_DELETE, SOFT_DELETE_CASCADE, SafeDeleteModel
+from django.utils.translation import get_language
 
 
 def get_icon_path(instance, filename):
@@ -20,8 +21,8 @@ def get_icon_path(instance, filename):
 class Category(SafeDeleteModel):
     _safedelete_policy = SOFT_DELETE_CASCADE
 
-    name = models.CharField(max_length=80)
-    description = models.CharField(max_length=140)
+    name = models.CharField(max_length=80, verbose_name="Название")
+    description = models.CharField(max_length=140, verbose_name="Описание")
     icon = models.CharField(
         max_length=140, null=True, blank=True, verbose_name="Иконка"
     )
@@ -108,6 +109,13 @@ class Application(BaseApplicationInfo, SafeDeleteModel):
     is_under_dmca = models.BooleanField(default=False)
     published = models.DateTimeField(auto_now=True)
 
+    @property
+    def is_translated_to_current_lang(self):
+        current_lang = get_language()
+        field_name = f"title_{current_lang}"
+        value = getattr(self, field_name, None)
+        return bool(value)
+
     class Meta:
         ordering = ["title"]
         verbose_name = "Приложение"
@@ -188,6 +196,9 @@ class AppCreateRequests(BaseApplicationInfo, SafeDeleteModel):
         verbose_name = "Заявка на создание"
         verbose_name_plural = "Заявки на создание"
 
+    def __str__(self):
+        return f"Заявка #{self.id} на создание ({self.title})"
+
 
 class AppEditRequests(BaseApplicationInfo, SafeDeleteModel):
     _safedelete_policy = SOFT_DELETE
@@ -218,6 +229,10 @@ class AppEditRequests(BaseApplicationInfo, SafeDeleteModel):
         ordering = ["-created_at"]
         verbose_name = "Заявка на изменение"
         verbose_name_plural = "Заявки на изменения"
+
+    def __str__(self):
+        app_title = self.target_application.title if self.target_application else "Удаленное приложение"
+        return f"Заявка #{self.id} на изменение ({app_title})"
 
 
 class AppReportRequests(SafeDeleteModel):
@@ -256,6 +271,10 @@ class AppReportRequests(SafeDeleteModel):
     class Meta:
         verbose_name = _("PAGE_REPORTAPP_TITLE")
         verbose_name_plural = _("PAGE_REPORTAPP_TITLE_PATH")
+
+    def __str__(self):
+        app_title = self.app.title if self.app else "Неизвестное приложение"
+        return f"Жалоба #{self.id} на {app_title}"
 
 
 # TODO: create the authorization-specific models

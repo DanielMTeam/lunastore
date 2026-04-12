@@ -8,12 +8,13 @@ from unfold import admin as unfold_admin
 from unfold.decorators import action
 
 from lunastore.mixins import SafeDeleteAdmin
-
+from . import translation
 from .forms import ApplicationAdminForm
 from .models import *
+from modeltranslation.admin import TabbedTranslationAdmin, TranslationTabularInline
 
 
-class DistributionInline(admin.TabularInline):
+class DistributionInline(TranslationTabularInline):
     model = Distribution
     fields = ("version", "url", "changelog", "published")
     readonly_fields = ("published",)
@@ -21,7 +22,7 @@ class DistributionInline(admin.TabularInline):
 
 
 @admin.register(Distribution)
-class DistributionAdmin(SafeDeleteAdmin):
+class DistributionAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
     list_display = ("app", "version", "published", "download_preview")
     list_filter = SafeDeleteAdmin.list_filter + ["app"]
     readonly_fields = ("published", "download_preview")
@@ -55,12 +56,12 @@ class DistributionAdmin(SafeDeleteAdmin):
 
 
 @admin.register(Category)
-class CategoryAdmin(SafeDeleteAdmin):
+class CategoryAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
     pass
 
 
 @admin.register(Application)
-class ApplicationAdmin(SafeDeleteAdmin):
+class ApplicationAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
     form = ApplicationAdminForm
     inlines = (DistributionInline,)
     readonly_fields = ("display_screenshots", "user")
@@ -147,7 +148,7 @@ class ApplicationAdmin(SafeDeleteAdmin):
 
 
 @admin.register(AppCreateRequests)
-class AppCreateRequestsAdmin(SafeDeleteAdmin):
+class AppCreateRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
     list_display = ("id", "title", "user", "status")
     search_fields = ["title", "id"]
     list_filter = SafeDeleteAdmin.list_filter + [
@@ -214,12 +215,9 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin):
                 reverse("admin:marketplace_appcreaterequests_change", args=[object_id])
             )
 
-        Application.objects.create(
+        app = Application(
             user=req.user,
             category=req.category,
-            title=req.title,
-            description=req.description,
-            slogan=req.slogan,
             price=req.price,
             icon_id=req.icon_id,
             icon_path=req.icon_path,
@@ -227,6 +225,15 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin):
             developer_site=req.developer_site,
         )
 
+        # copy locale
+        trans_fields = ["title", "description", "requirements", "slogan"]
+        for field in trans_fields:
+            for lang_code, _ in settings.LANGUAGES:
+                lang_field = f"{field}_{lang_code}"
+                val = getattr(req, lang_field, None)
+                setattr(app, lang_field, val)
+
+        app.save()
         req.status = "approved"
         req.save()
         req.delete()
@@ -279,9 +286,13 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin):
 
 
 @admin.register(AppEditRequests)
-class AppEditRequestsAdmin(SafeDeleteAdmin):
+class AppEditRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
     list_display = ("id", "title", "user", "status")
     search_fields = ["title", "id"]
+    tabs = [
+        ("info_tab", "Основная информация"),
+        ("user_tab", "Автор и статус"),
+    ]
     list_filter = SafeDeleteAdmin.list_filter + [
         "id",
         "status",
@@ -301,6 +312,35 @@ class AppEditRequestsAdmin(SafeDeleteAdmin):
         "price",
         "screenshots",
         "developer_site",
+    )
+    fieldsets = (
+        (
+            "info_tab",
+            {
+                "fields": (
+                    "category",
+                    "title",
+                    "slogan",
+                    "description",
+                    "requirements",
+                    "original_author",
+                    "price",
+                    "developer_site",
+                    "icon_preview",
+                    "screenshots",
+                ),
+            },
+        ),
+        (
+            "user_tab",
+            {
+                "fields": (
+                    "status",
+                    "user",
+                    "user_info_link",
+                ),
+            },
+        ),
     )
 
     def user_info_link(self, obj):
@@ -361,19 +401,23 @@ class AppEditRequestsAdmin(SafeDeleteAdmin):
             )
 
         app.category = req.category
-        app.title = req.title
         app.original_author = req.original_author
-        app.description = req.description
-        app.slogan = req.slogan
         app.price = req.price
         app.developer_site = req.developer_site
-        app.requirements = req.requirements
 
         if req.icon_path:
             app.icon_id = req.icon_id
             app.icon_path = req.icon_path
         if req.screenshots:
             app.screenshots = req.screenshots
+
+        trans_fields = ["title", "description", "requirements", "slogan"]
+        for field in trans_fields:
+            for lang_code, _ in settings.LANGUAGES:
+                lang_field = f"{field}_{lang_code}"
+
+                val = getattr(req, lang_field, None)
+                setattr(app, lang_field, val)
 
         app.save()
 
