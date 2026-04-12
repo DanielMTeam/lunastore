@@ -271,11 +271,6 @@ UNFOLD = {
                         "link": reverse_lazy("admin:user_userban_changelist"),
                     },
                     {
-                        "title": "Журналы активности",
-                        "icon": "history",
-                        "link": reverse_lazy("admin:user_useractivitylog_changelist"),
-                    },
-                    {
                         "title": "Группы",
                         "icon": "group",
                         "link": reverse_lazy("admin:auth_group_changelist"),
