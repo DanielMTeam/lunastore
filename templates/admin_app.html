@@ -13,7 +13,41 @@
   </div>
   <link rel="stylesheet" href="{% static './css/settings.css'%}">
   <link rel="stylesheet" href="{% static './css/profile.css'%}">
-  <link rel="stylesheet" href="{% static './css/tabs.css'%}">
+  <link rel="stylesheet" href="{% static './css/tabs.css' %}">
+  <style>
+    .locale-tabs { margin-bottom: 15px; }
+
+    .lang-field-wrapper { display: none; }
+    .lang-field-wrapper.active { display: block; }
+    .field-tabs {
+        border: 1px solid #9a9a9a !important;
+        margin-top: 5px;
+        background: #fff;
+    }
+
+    .field-tabs .tab-bar {
+        background: #e0e0e0;
+        padding: 2px 2px 0 2px;
+    }
+
+    .field-tabs .tab {
+        padding: 3px 8px 2px 8px;
+        font-size: 11px;
+        height: auto;
+    }
+
+    .field-tabs .tab-content {
+        padding: 10px !important;
+        border-top: 1px solid #9a9a9a !important;
+    }
+
+    /* Исправляем ширину инпутов внутри табов */
+    .field-tabs .lang-field-wrapper input,
+    .field-tabs .lang-field-wrapper textarea {
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+  </style>
   <div class="tabs">
       <div class="tab-bar">
         <div class="tab active">
@@ -27,6 +61,10 @@
       </div>
 
       <div class="tab-content" id="tab-view">
+          <div class="info_splash">
+              <div class="info_icon_small"></div>
+              <div class="splash_text">{% trans "PAGE_ADMIN_APP_TRANSLATIONINFO" %}</div>
+          </div>
           <form method="post" enctype="multipart/form-data" id="app-upload-form">
               {% csrf_token %}
               {{ form.cdn_icon_path }}
@@ -38,27 +76,12 @@
               <div class="profile_block_content">
 
                   <div class="pref_pad">
-                      <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_TITLE" %}</div>
-                      {{ form.title }}
-                      {% if form.title.errors %}
-                          <div style="color: red; font-size: 12px;">{{ form.title.errors }}</div>
-                      {% endif %}
-                      <div class="pref_warn_label">{% trans "PAGE_ADMIN_APP_TITLEDESC" %}</div>
-                  </div>
-
-                  <div class="pref_pad">
                       <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_ID" %}</div>
                       <div style="display: flex; align-items: center;">
-                          <span style="margin-right: 5px;">store.myslivets.com/app.php?id=</span>
+                          <span style="margin-right: 5px;">.../app.php?id=</span>
                           <input style="width: 100px" type="text" class="input-text" value="{{ obj.pk }}" disabled>
                       </div>
                       <div class="pref_warn_label">{% trans "PAGE_ADMIN_APP_IDDESC" %}</div>
-                  </div>
-
-                  <div class="pref_pad">
-                      <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_SLOGAN" %}</div>
-                      {{ form.slogan }}
-                      <div class="pref_warn_label">{% trans "PAGE_ADMIN_APP_SLOGANDESC" %}<br>{% trans "PAGE_ADMIN_APP_SLOGANDESC_2" %}</div>
                   </div>
 
                   <div class="pref_pad">
@@ -66,17 +89,106 @@
                       {{ form.original_author }}
                   </div>
 
+
+                  {% with trans=form.get_trans_fields %}
+
+                  <div class="pref_pad">
+                      <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_TITLE" %}</div>
+
+                      <div class="tabs field-tabs">
+                          <div class="tab-bar">
+                              {% for item in trans.title %}
+                                  <div class="tab {% if forloop.first %}active{% endif %}"
+                                       data-lang="{{ item.code }}"
+                                       onclick="switchFieldLocale(this, '{{ item.code }}')">
+                                      {{ item.label }}
+                                  </div>
+                              {% endfor %}
+                          </div>
+                          <div class="tab-content">
+                              {% for item in trans.title %}
+                                  <div class="lang-field-wrapper lang-{{ item.code }} {% if forloop.first %}active{% endif %}">
+                                      {{ item.input }}
+                                  </div>
+                              {% endfor %}
+                          </div>
+                      </div>
+                      <div class="pref_warn_label">{% trans "PAGE_ADMIN_APP_TITLEDESC" %}</div>
+                  </div>
+
+                  <div class="pref_pad">
+                      <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_SLOGAN" %}</div>
+
+                      <div class="tabs field-tabs">
+                          <div class="tab-bar">
+                              {% for item in trans.slogan %}
+                                  <div class="tab {% if forloop.first %}active{% endif %}"
+                                       data-lang="{{ item.code }}"
+                                       onclick="switchFieldLocale(this, '{{ item.code }}')">
+                                      {{ item.label }}
+                                  </div>
+                              {% endfor %}
+                          </div>
+                          <div class="tab-content">
+                              {% for item in trans.slogan %}
+                                  <div class="lang-field-wrapper lang-{{ item.code }} {% if forloop.first %}active{% endif %}">
+                                      {{ item.input }}
+                                  </div>
+                              {% endfor %}
+                          </div>
+                      </div>
+                      <div class="pref_warn_label">{% trans "PAGE_ADMIN_APP_SLOGANDESC" %}</div>
+                  </div>
+
                   <div class="pref_pad">
                       <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_DESC" %}</div>
-                      {{ form.description }}
+
+                      <div class="tabs field-tabs">
+                          <div class="tab-bar">
+                              {% for item in trans.description %}
+                                  <div class="tab {% if forloop.first %}active{% endif %}"
+                                       data-lang="{{ item.code }}"
+                                       onclick="switchFieldLocale(this, '{{ item.code }}')">
+                                      {{ item.label }}
+                                  </div>
+                              {% endfor %}
+                          </div>
+                          <div class="tab-content">
+                              {% for item in trans.description %}
+                                  <div class="lang-field-wrapper lang-{{ item.code }} {% if forloop.first %}active{% endif %}">
+                                      {{ item.input }}
+                                  </div>
+                              {% endfor %}
+                          </div>
+                      </div>
                       <div class="pref_warn_label">{% trans "PAGE_ADMIN_APP_DESCDESC" %}</div>
                   </div>
 
                   <div class="pref_pad">
                       <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_REQ" %}</div>
-                      {{ form.requirements }}
+
+                      <div class="tabs field-tabs">
+                          <div class="tab-bar">
+                              {% for item in trans.requirements %}
+                                  <div class="tab {% if forloop.first %}active{% endif %}"
+                                       data-lang="{{ item.code }}"
+                                       onclick="switchFieldLocale(this, '{{ item.code }}')">
+                                      {{ item.label }}
+                                  </div>
+                              {% endfor %}
+                          </div>
+                          <div class="tab-content">
+                              {% for item in trans.requirements %}
+                                  <div class="lang-field-wrapper lang-{{ item.code }} {% if forloop.first %}active{% endif %}">
+                                      {{ item.input }}
+                                  </div>
+                              {% endfor %}
+                          </div>
+                      </div>
                       <div class="pref_warn_label">{% trans "PAGE_ADMIN_APP_REQDESC" %}</div>
                   </div>
+
+                  {% endwith %}
 
                   <div class="pref_pad appcat">
                       <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_CATEGORY" %}</div>
@@ -238,6 +350,22 @@
 
             if (info) info.innerText = '{% trans "SCRIPT_PREVIEWSCRNS_ARE_COOL_1" %}' + count + '{% trans "SCRIPT_PREVIEWSCRNS_ARE_COOL_2" %}';
         }
+    }
+
+    function switchFieldLocale(tabBtn, langCode) {
+        const container = tabBtn.closest('.field-tabs');
+
+        container.querySelectorAll('.tab').forEach(t => {
+            t.classList.remove('active');
+        });
+        tabBtn.classList.add('active');
+
+        container.querySelectorAll('.lang-field-wrapper').forEach(wrapper => {
+            wrapper.classList.remove('active');
+            if (wrapper.classList.contains('lang-' + langCode)) {
+                wrapper.classList.add('active');
+            }
+        });
     }
 </script>
 <script type="text/javascript">

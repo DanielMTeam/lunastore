@@ -41,8 +41,10 @@ from .models import (
     UserBan,
 )
 from .validators import validate_invite_limit
+from .decorators import require_modern_browser
 
 
+@require_modern_browser
 def login(request):
     ip = get_client_ip(request)
 
@@ -122,7 +124,7 @@ def logout(request):
     dj_logout(request)
     return redirect("/index.php")
 
-
+@require_modern_browser
 def register(request):
     invite_obj = None
 
@@ -242,8 +244,6 @@ def profile_settings(request):
         "dev_status_enabled": settings.DEVELOPER_REGISTRATION_IS_ENABLED,
     }
     if request.method == "POST":
-        print("--- NEW POST REQUEST ---")
-        print(f"POST DATA: {request.POST}")
         form_type = request.POST.get("form_type")
 
         if form_type == "profile":

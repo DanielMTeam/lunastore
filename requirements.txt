@@ -16,3 +16,5 @@ PyJWT
 django-cors-headers
 django-extensions
 whitenoise
+django-modeltranslation
+django-user_agents

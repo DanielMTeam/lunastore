@@ -4,6 +4,8 @@ from django.shortcuts import redirect
 from django.contrib import messages
 from functools import wraps
 from django.utils.translation import gettext_lazy as _
+from django.shortcuts import render
+
 
 # check developer account status
 def developer_required(view_func=None, redirect_url='index'):
@@ -11,17 +13,39 @@ def developer_required(view_func=None, redirect_url='index'):
         @wraps(view_func)
         def wrapped_view(request, *args, **kwargs):
             is_developer = (
-                request.user.is_authenticated and 
+                request.user.is_authenticated and
                 (request.user.groups.filter(name='Разработчики').exists() or request.user.is_superuser)
             )
-            
+
             if not is_developer:
                 messages.error(request, _("ERROR_YOU_DONT_HAVE_DEVSTATUS"))
                 return redirect(redirect_url)
-            
+
             return view_func(request, *args, **kwargs)
-        
+
         return wrapped_view
     if view_func:
         return decorator(view_func)
     return decorator
+
+def require_modern_browser(view_func):
+    @wraps(view_func)
+    def _wrapped_view(request, *args, **kwargs):
+        if hasattr(request, 'user_agent'):
+            browser = request.user_agent.browser
+            family = browser.family
+            version = browser.version[0] if browser.version else 0
+
+            is_outdated = (
+                family == 'IE' or
+                family == 'Opera Mini' or
+                (family == 'Safari' and version < 11) or
+                (family in ['Chrome', 'Firefox'] and version < 60)
+            )
+
+            if is_outdated:
+                return render(request, "badbrowser.html", status=403)
+
+        return view_func(request, *args, **kwargs)
+
+    return _wrapped_view
