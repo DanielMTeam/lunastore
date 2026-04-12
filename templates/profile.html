@@ -17,9 +17,13 @@
 
         <div class="profile_name" style="margin-bottom: 0;">
             {{ obj.username }}
-            {% if obj.is_staff %}
-                <img src="{% static './img/tabs/about.png'%}" alt="{% trans 'PAGE_PROFILE_STAFF_ALT' %}" title="{% trans 'PAGE_PROFILE_STAFF_ALT' %}" style="vertical-align: middle;">
-            {% endif %}
+            {% with user_badges=badges %}
+                {% if user_badges %}
+                    {% for badge in user_badges %}
+                        <img src="{% static './img/badges/' %}{{ badge }}.png" style="vertical-align: middle;">
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
         </div>
 
         <div class="profile_desc">
