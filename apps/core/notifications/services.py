@@ -3,6 +3,16 @@ from django.conf import settings
 
 logger = logging.getLogger("core")
 
+ICON_MAPPING = {
+    'normal': 'system.png',
+    'important': 'upgrade.png',
+    'critical': 'error.png',
+    'info': 'help.png',
+    'success': 'ok.png'
+}
+
+
+
 class NotificationService:
 
     # sign token method
@@ -25,6 +35,12 @@ class NotificationService:
         # generate sendtkn and push to lunaspire
         if meta is None:
             meta = {}
+
+        # type of notification and icon mapping
+        n_type = meta.get('type', 'normal')
+        if 'icon' not in meta:
+            meta['icon'] = ICON_MAPPING.get(n_type, 'system.png')
+
         payload = {
             "type": "notify-send",
             "title": title,
