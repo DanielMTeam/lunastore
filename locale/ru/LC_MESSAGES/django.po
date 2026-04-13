@@ -1659,3 +1659,18 @@ msgstr "К сожалению, страница загруженного при�
 
 msgid "PAGE_ADMIN_APP_TRANSLATIONINFO"
 msgstr "Перевод информации о Вашем приложении может повысить ему узнаваемость для иностранной аудитории, а также улучшить его видимость в поисковых системах. Во всяком случае, мы советуем авторам делать переводы на разные языки."
+
+msgid "PAGE_NOTIFICATIONS_TITLE"
+msgstr "Уведомления"
+
+msgid "PAGE_NOTIFICATIONS_TAB"
+msgstr "Уведомления"
+
+msgid "PAGE_NOTIFICATIONS_EARLY"
+msgstr "Ранние уведомления"
+
+msgid "PAGE_NOTIFICATIONS_COUNT_SINGLE"
+msgid_plural "PAGE_NOTIFICATIONS_COUNT_PLURAL"
+msgstr[0] "У Вас <b>%(counter)s</b> новое уведомление"
+msgstr[1] "У Вас <b>%(counter)s</b> новых уведомления"
+msgstr[2] "У Вас <b>%(counter)s</b> новых уведомлений"

@@ -41,7 +41,6 @@ class User(AbstractUser, SafeDeleteModel):
     )
     avatar_id = models.PositiveIntegerField(null=True, blank=True)
     avatar_path = models.CharField(max_length=255, null=True, blank=True)
-    fingerprint = models.CharField(max_length=14, unique=True, blank=True)  # for drm
 
     @property
     def avatar_url(self):
