@@ -19,6 +19,9 @@ LOCALE_PATHS = [
 
 LOGIN_URL = "login.php"
 
+RATE_LIMIT_WINDOW = int(os.getenv("RATE_LIMIT_WINDOW", "50"))
+RATE_LIMIT = int(os.getenv("RATE_LIMIT", "35"))
+
 ADMIN_EMAIL = os.getenv("ADMIN_EMAIL", "")
 
 LOGIN_REDIRECT_URL = "/index.php"
@@ -135,9 +138,16 @@ SPECTACULAR_SETTINGS = {
 TASKS = {"default": {"BACKEND": "django.tasks.backends.immediate.ImmediateBackend"}}
 
 CACHES = {
-    "default": {
+    "snowflake": {
         "BACKEND": "django.core.cache.backends.db.DatabaseCache",
         "LOCATION": "unique-snowflake",
+    },
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://redis:6379/1", # docker-compose service
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
     }
 }
 
@@ -350,6 +360,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     'django_user_agents.middleware.UserAgentMiddleware',
+    "apps.core.middleware.RateLimitMiddleware",
 ]
 
 ROOT_URLCONF = os.environ.get("DJANGO_ROOT_URLCONF", "lunastore.urls")

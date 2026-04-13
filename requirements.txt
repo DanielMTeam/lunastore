@@ -18,3 +18,4 @@ django-extensions
 whitenoise
 django-modeltranslation
 django-user_agents
+django-redis
