@@ -19,9 +19,6 @@ LOCALE_PATHS = [
 
 LOGIN_URL = "login.php"
 
-RATE_LIMIT_WINDOW = int(os.getenv("RATE_LIMIT_WINDOW", "50"))
-RATE_LIMIT = int(os.getenv("RATE_LIMIT", "35"))
-
 ADMIN_EMAIL = os.getenv("ADMIN_EMAIL", "")
 
 LOGIN_REDIRECT_URL = "/index.php"
@@ -139,8 +136,12 @@ TASKS = {"default": {"BACKEND": "django.tasks.backends.immediate.ImmediateBacken
 
 CACHES = {
     "default": {
+        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+        "LOCATION": "unique-snowflake",
+    },
+    "redis": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://redis:6379/1",
+        "LOCATION": "redis://redis:6379/1", # docker-compose service
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
@@ -349,7 +350,6 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    "apps.core.middleware.RateLimitMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
