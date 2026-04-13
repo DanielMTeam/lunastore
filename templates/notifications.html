@@ -1,0 +1,48 @@
+﻿{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+<title>{% trans "PAGE_NOTIFICATIONS_TITLE" %} - LunaStore</title>
+
+<div class="content">
+    <link rel="stylesheet" href="{% static './css/tabs.css' %}">
+    <link rel="stylesheet" href="{% static './css/notify.css' %}">
+    <link rel="stylesheet" href="{% static './css/ntf.css' %}">
+
+    <div class="tabs">
+        <div class="tab-bar">
+            <a href="{% url 'notifications' %}" style="text-decoration: none; color: inherit;">
+                <div class="tab active">
+                    <img src="{% static './img/tabs/notifyfolder.png' %}" class="tab-icon" alt="">
+                    {% trans "PAGE_NOTIFICATIONS_TAB" %}
+                </div>
+            </a>
+        </div>
+
+        <div class="tab-content" id="tab-view">
+            <div class="notify_brief">
+                <div class="notify_brief_text" id="notify-count-text">
+                    {% trans "NOTIFICATIONS_LOADING" %}
+                </div>
+            </div>
+
+            <br>
+
+            <div id="notifications-list-container">
+                </div>
+
+            <br>
+            <div class="notify_brief_other">
+                <div class="notify_brief_text">{% trans "PAGE_NOTIFICATIONS_EARLY" %}</div>
+            </div>
+            <br>
+        </div>
+    </div>
+</div>
+</div>
+<meta id="notify-token-meta" content="{{ notify_token }}">
+<meta id="notify-api-meta" content="{{ api_url }}">
+
+<script src="{% static './js/notifications.js' %}"></script>
+{% endblock %}
