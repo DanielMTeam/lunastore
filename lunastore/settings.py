@@ -380,6 +380,7 @@ TEMPLATES = [
                 "django.template.context_processors.i18n",
                 "apps.core.context_processors.random_banner",
                 "apps.core.context_processors.drm_settings",
+                "apps.core.context_processors.notification_context",
             ],
         },
     },

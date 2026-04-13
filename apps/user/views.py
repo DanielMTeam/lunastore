@@ -431,7 +431,7 @@ def notifications(request):
         user_id=request.user.id,
         title="тестовый тест",
         content="влад кунякин пробудил шаринган",
-        meta={"icon": "system.png"}
+        meta={"type": "important"}
     )
     # get or create notification token for the user
     context = {

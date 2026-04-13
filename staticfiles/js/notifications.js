@@ -1,25 +1,36 @@
 // appendMode: true - add to end (for history), false - add to beginning (for new)
-function renderNotification(data, appendMode) {
-    var container = document.getElementById("notifications-list-container");
+function renderNotification(data, isHistory) {
+    // check status and choose the container
+    var isNew = data.ViewedAt === null;
+    var meta = data.Meta || {};
+
+    // choose the container based on the status
+    var containerId = isNew ? "list-new" : "list-old";
+    var container = document.getElementById(containerId);
     if (!container) return;
 
-    // check status: if ViewedAt is null, then the notification is new
-    var isNew = data.ViewedAt === null;
-
     var card = document.createElement("div");
-    card.className = isNew ? "notify_card unread" : "notify_card";
+    card.className = "notify_card";
+    card.setAttribute("data-id", data.ID);
 
-    if (data.ID) {
-        card.setAttribute("data-id", data.ID);
+    // set the card ID based on the type and status
+    var type = meta.type || "normal";
+    if (type === "critical" || type === "important") {
+        card.id = "ntf_i";
+    } else if (isNew) {
+        card.id = "ntf_unread";
     }
 
-    // use data.Meta
-    var iconSrc = data.Meta && data.Meta.icon ? data.Meta.icon : "system.png";
+    // format the icon path
+    var iconSrc = meta.icon || "system.png";
+    var iconPath =
+        iconSrc.indexOf("/") !== -1
+            ? iconSrc
+            : "/staticfiles/img/ntficons/" + iconSrc;
 
-    // use data.Title and data.Content
-    card.innerHTML =
-        '<div class="notify_ic"><img src="/static/img/ntficons/' +
-        iconSrc +
+    var inner =
+        '<div class="notify_ic"><img src="' +
+        iconPath +
         '" alt="icon"></div>' +
         '<div class="notify_body">' +
         '<div class="notify_title">' +
@@ -27,14 +38,40 @@ function renderNotification(data, appendMode) {
         "</div>" +
         '<div class="notify_desc">' +
         data.Content +
-        "</div>" +
-        '<div class="notify_time"><small>только что</small></div>' +
         "</div>";
 
-    if (appendMode) {
+    // if there is an action URL, add a link to it
+    if (meta.action_url) {
+        var actionText = meta.action_text || "Перейти »";
+        inner +=
+            '<a href="' +
+            meta.action_url +
+            '" class="notify_action">' +
+            actionText +
+            "</a>";
+    }
+
+    // format the time string
+    var timeStr = "только что";
+    if (!isNew && data.CreatedAt) {
+        var d = new Date(data.CreatedAt * 1000);
+        // format the date and time
+        timeStr =
+            d.toLocaleDateString() +
+            ", " +
+            d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    }
+
+    inner +=
+        '<div class="notify_time"><small>' + timeStr + "</small></div></div>";
+    card.innerHTML = inner;
+
+    if (isHistory) {
+        // add to end
         container.appendChild(card);
         container.appendChild(document.createElement("br"));
     } else {
+        // add to top (new from stream)
         container.insertBefore(
             document.createElement("br"),
             container.firstChild,
@@ -42,9 +79,27 @@ function renderNotification(data, appendMode) {
         container.insertBefore(card, container.firstChild);
     }
 
-    if (isNew && data.ID) {
-        card.onclick = function () {
-            markAsRead(data.ID, card);
+    // make the notification clickable
+    if (isNew) {
+        card.onclick = function (e) {
+            // ignore click if the user clicked on the "Go to" button
+            if (e.target.tagName.toLowerCase() === "a") return;
+
+            // visually mark the notification as read
+            card.id = "";
+
+            // put-request to mark the notification as read
+            if (typeof markAsRead === "function") {
+                markAsRead(data.ID, card);
+            }
+
+            card.onclick = null;
+
+            var oldContainer = document.getElementById("list-old");
+            if (oldContainer) {
+                oldContainer.insertBefore(card, oldContainer.firstChild);
+                oldContainer.insertBefore(br, oldContainer.firstChild);
+            }
         };
     }
 }
@@ -63,29 +118,28 @@ function loadInitialNotifications(token, apiUrl) {
         if (xhr.readyState === 4 && xhr.status === 200) {
             try {
                 var response = JSON.parse(xhr.responseText);
-
-                // read data
                 var notifications = response.data || [];
-                var totalCount = response.total || 0;
+                var unreadTotal = 0;
 
-                // update notification count
-                var countElement = document.getElementById("notify-count-text");
-                if (countElement) {
-                    if (totalCount === 0) {
-                        countElement.innerHTML = "Нет новых уведомлений";
-                    } else {
-                        countElement.innerHTML =
-                            "У вас " + totalCount + " уведомлений";
-                    }
-                }
-
-                // draw historical notifications
                 for (var i = 0; i < notifications.length; i++) {
+                    if (notifications[i].ViewedAt === null) {
+                        unreadTotal++;
+                    }
                     renderNotification(notifications[i], true);
                 }
-            } catch (e) {
-                // :-)
-            }
+
+                var countElement = document.getElementById("notify-count-text");
+                if (countElement) {
+                    if (unreadTotal === 0) {
+                        countElement.innerHTML = "У вас нет новых уведомлений";
+                    } else {
+                        countElement.innerHTML =
+                            "У вас <b>" +
+                            unreadTotal +
+                            "</b> новых уведомлений";
+                    }
+                }
+            } catch (e) {}
         }
     };
     xhr.send();
