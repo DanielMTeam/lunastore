@@ -26,7 +26,7 @@ class NotificationService:
         # generate gettkn for receiving notifications in frontend
         payload = {
             "type": "notify-get",
-            "user": user_id
+            "user_id": user_id
         }
         return cls.generate_token(payload)
 
