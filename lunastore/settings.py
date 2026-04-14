@@ -343,6 +343,17 @@ UNFOLD = {
                         "link": reverse_lazy("admin:user_devrequestsmodel_changelist"),
                     }
                 ],
+            },
+            {
+                "title": "Управление",
+                "separator": True,
+                "items": [
+                    {
+                        "title": "Рассылка уведомлений",
+                        "icon": "breaking_news",
+                        "link": reverse_lazy("broadcast"),
+                    }
+                ],
             }
         ],
     },

@@ -47,7 +47,10 @@ function updateCountText(count) {
 
 // draw notification
 function renderNotification(data, isHistory) {
-    var isNew = data.ViewedAt === null;
+    var isNew =
+        data.ViewedAt === null ||
+        data.ViewedAt === undefined ||
+        data.ViewedAt === 0;
     var meta = data.Meta || {};
 
     var containerId = isNew ? "list-new" : "list-old";
