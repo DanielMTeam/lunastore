@@ -63,3 +63,22 @@ class NotificationService:
         except requests.RequestException as e:
             logger.info(f"Failed to send notification: {e}")
             return False
+
+    @classmethod
+    def get_notifications_meta(cls, user_id: int):
+        token = cls.get_receive_token(user_id)
+        api_url = getattr(settings, 'LUNASPIRE_URL', '127.0.0.1:8080')
+        if not api_url.startswith('http'): api_url = f'http://{api_url}'
+
+        try:
+            # request 1 record to get 'total' field
+            response = requests.get(f"{api_url}/notifications/list", params={"token": token, "limit": 1, "page": 1}, timeout=3)
+            if response.status_code == 200:
+                data = response.json()
+                return {
+                    'total': data.get('total', 0),
+                    'total_unread': data.get('total_unread', 0)
+                }
+        except:
+            pass
+        return {'total': 0, 'total_unread': 0}

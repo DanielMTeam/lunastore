@@ -19,6 +19,7 @@ from django.views.decorators.csrf import csrf_exempt
 from PIL import Image
 from safedelete import HARD_DELETE
 from apps.core.notifications.services import NotificationService
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 from apps.marketplace.models import Application
 
@@ -312,6 +313,12 @@ def profile_settings(request):
                 for field, errors in forms["email_form"].errors.items():
                     for error in errors:
                         messages.error(request, error)
+    success = NotificationService.send_notification(
+        user_id=request.user.id,
+        title="тестовый тест",
+        content="влад кунякин пробудил шаринган тест 2",
+        meta={"type": "warning"}
+    )
     return render(request, "settings.html", forms)
 
 
@@ -426,15 +433,29 @@ def notifications(request):
     if not api_url.startswith('http'):
         api_url = f"http://{api_url}"
 
+    meta = NotificationService.get_notifications_meta(request.user.id)
+    total_items = meta['total']
 
-    success = NotificationService.send_notification(
-        user_id=request.user.id,
-        title="тестовый тест",
-        content="влад кунякин пробудил шаринган",
-        meta={"type": "important"}
+    dummy_list = range(total_items)
+    paginator = Paginator(dummy_list, 10)
+
+    page_number = request.GET.get('page', 1)
+    try:
+        page_obj = paginator.page(page_number)
+    except PageNotAnInteger:
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        page_obj = paginator.page(paginator.num_pages)
+
+    page_range = paginator.get_elided_page_range(
+        page_obj.number, on_each_side=1, on_ends=1
     )
+
     # get or create notification token for the user
     context = {
+        'page_obj': page_obj,
+        'page_range': page_range,
+        'total_unread': meta.get('total_unread', 0),
         'notify_token': NotificationService.get_receive_token(request.user.id),
         'api_url': api_url,
     }
