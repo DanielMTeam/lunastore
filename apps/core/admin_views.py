@@ -48,7 +48,7 @@ def admin_broadcast_notification(request):
                     "type": "notify-send",
                     "title": title,
                     "content": content,
-                    "user": u.id,
+                    "user_id": int(u.id),
                     "meta": meta_data,
                     "exp": int(time.time()) + 600
                 }
@@ -59,10 +59,12 @@ def admin_broadcast_notification(request):
                         f"{api_url}/notifications/send?token={token}",
                         timeout=2
                     )
+                    print(token)
+                    print(resp.text, resp.status_code)
                     if resp.status_code == 200:
                         success_count += 1
                 except Exception as e:
-                    print(f"Ошибка отправки уведомления для ID {u.id}: {e}")
+                    messages.error(request, f"Ошибка отправки уведомления для ID {u.id}: {e}")
 
             if users:
                 if target_user_id:

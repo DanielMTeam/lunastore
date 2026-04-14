@@ -96,7 +96,7 @@ function renderNotification(data, isHistory) {
             "</a>";
     }
 
-    var timeStr = "только что";
+    var timeStr = ngettext("PAGE_NOTIFICATIONS_NOW");
     if (!isNew && data.CreatedAt) {
         var d = new Date(data.CreatedAt * 1000);
         timeStr =
@@ -109,7 +109,6 @@ function renderNotification(data, isHistory) {
         '<div class="notify_time"><small>' + timeStr + "</small></div></div>";
     card.innerHTML = inner;
 
-    // paste card
     if (isHistory) {
         container.appendChild(card);
         container.appendChild(document.createElement("br"));
@@ -120,25 +119,20 @@ function renderNotification(data, isHistory) {
         );
         container.insertBefore(card, container.firstChild);
     }
+}
 
-    if (isNew) {
-        card.onclick = function (e) {
-            if (e.target.tagName.toLowerCase() === "a") return;
+function markAllAsRead(ids, token, apiUrl) {
+    var url =
+        apiUrl.replace(/\/$/, "") +
+        "/notifications/read-mark?token=" +
+        encodeURIComponent(token);
 
-            card.id = "";
-            if (typeof markAsRead === "function") {
-                markAsRead(data.ID, card);
-            }
-            card.onclick = null;
-
-            var oldContainer = document.getElementById("list-old");
-            if (oldContainer) {
-                var newBr = document.createElement("br");
-                oldContainer.insertBefore(card, oldContainer.firstChild);
-                oldContainer.insertBefore(newBr, oldContainer.firstChild);
-            }
-        };
-    }
+    ids.forEach(function (id) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(JSON.stringify({ id: id }));
+    });
 }
 
 // load initial notifications
@@ -159,16 +153,39 @@ function loadInitialNotifications(token, apiUrl) {
             try {
                 var response = JSON.parse(xhr.responseText);
                 var notifications = response.data || [];
-
-                var unreadTotal = response.total_unread || 0;
+                var newIds = [];
 
                 for (var i = 0; i < notifications.length; i++) {
-                    renderNotification(notifications[i], true);
+                    var item = notifications[i];
+                    renderNotification(item, true);
+
+                    // if ViewedAt is null or undefined or 0, mark as new
+                    if (
+                        item.ViewedAt === null ||
+                        item.ViewedAt === undefined ||
+                        item.ViewedAt === 0
+                    ) {
+                        newIds.push(item.ID);
+                    }
                 }
 
-                // update local text
-                updateCountText(unreadTotal);
-            } catch (e) {}
+                // send signal to mark all as read
+                if (newIds.length > 0) {
+                    markAllAsRead(newIds, token, apiUrl);
+
+                    // immediately reset counters, as the list is before the eyes
+                    setTimeout(function () {
+                        updateCountText(0);
+                        if (typeof window.updateGlobalCountUI === "function") {
+                            window.updateGlobalCountUI(0);
+                        }
+                    }, 500);
+                } else {
+                    updateCountText(response.total_unread || 0);
+                }
+            } catch (e) {
+                console.error("Ошибка парсинга:", e);
+            }
         }
     };
     xhr.send();

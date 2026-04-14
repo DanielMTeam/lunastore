@@ -1136,7 +1136,7 @@ msgid "PAGE_FAQ_TEAM_ROLE_ZAZIOS"
 msgstr "backend-разработчик (Go)"
 
 msgid "PAGE_FAQ_TEAM_TESTERS_LIST"
-msgstr "[ники тестировщиков через запятую]"
+msgstr "mryoshi, akaremii26, madebydimas, koke621, Starik1500, LGRN Arts, im_Ry0 (special thanks), pregko, veselcraft, ilarion3310, aliew, dimawhite05, mws, d3nkyu2u, ersn"
 
 msgid "PAGE_FAQ_TITLE"
 msgstr "Справка"
@@ -1680,3 +1680,6 @@ msgstr "У Вас нет новых уведомлений"
 
 msgid "NOTIFICATIONS_LOADING"
 msgstr "Загрузка уведомлений..."
+
+msgid "PAGE_NOTIFICATIONS_NOW"
+msgstr "только что"
