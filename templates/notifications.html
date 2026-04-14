@@ -39,6 +39,28 @@
 
             <div id="list-old"></div>
 
+            {% if page_obj.has_other_pages %}
+            <div class="paginator" style="margin-top: 10px; border-top: 1px solid #cfe1ff; padding-top: 10px;">
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}">«</a>
+                {% endif %}
+
+                {% for p in page_range %}
+                    {% if p == page_obj.number %}
+                        <a class="active">{{ p }}</a>
+                    {% elif p == "…" %}
+                        <span style="padding: 5px; color: #163b6f;">...</span>
+                    {% else %}
+                        <a href="?page={{ p }}">{{ p }}</a>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">»</a>
+                {% endif %}
+            </div>
+            {% endif %}
+
         </div>
     </div>
 </div>
@@ -46,5 +68,10 @@
 <meta id="notify-token-meta" content="{{ notify_token }}">
 <meta id="notify-api-meta" content="{{ api_url }}">
 
+<script>
+    window.PAGE_NOTIFICATIONS_NO_NEW = "{% trans 'PAGE_NOTIFICATIONS_NO_NEW'|escapejs %}";
+    window.PAGE_NOTIFICATIONS_NEW_COUNT = "{% trans 'PAGE_NOTIFICATIONS_NEW_COUNT'|escapejs %}";
+</script>
+<script src="{% url 'javascript-catalog' %}"></script>
 <script src="{% static './js/notifications.js' %}"></script>
 {% endblock %}

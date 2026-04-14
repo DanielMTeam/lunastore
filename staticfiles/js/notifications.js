@@ -1,10 +1,55 @@
-// appendMode: true - add to end (for history), false - add to beginning (for new)
+function getQueryParam(param) {
+    var search = window.location.search.substring(1);
+    var vars = search.split("&");
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split("=");
+        if (decodeURIComponent(pair[0]) === param) {
+            return decodeURIComponent(pair[1]);
+        }
+    }
+    return null;
+}
+
+// set limit and read page from URL
+var LIMIT = 10;
+var currentPage = parseInt(getQueryParam("page")) || 1;
+
+var textNoNew =
+    window.PAGE_NOTIFICATIONS_NO_NEW || "У вас нет новых уведомлений";
+var textNewCount =
+    window.PAGE_NOTIFICATIONS_NEW_COUNT ||
+    "У вас <b>{count}</b> новых уведомлений";
+
+// function for update count text
+function updateCountText(count) {
+    var countElement = document.getElementById("notify-count-text");
+    if (!countElement) return;
+
+    if (count === 0) {
+        // take from window or default
+        countElement.innerHTML =
+            window.PAGE_NOTIFICATIONS_NO_NEW || "У вас нет новых уведомлений";
+    } else {
+        // choose plural form based on count
+        var pluralText = ngettext(
+            "PAGE_NOTIFICATIONS_COUNT_SINGLE",
+            "PAGE_NOTIFICATIONS_COUNT_PLURAL",
+            count,
+        );
+
+        countElement.innerHTML = interpolate(
+            pluralText,
+            { counter: count },
+            true,
+        );
+    }
+}
+
+// draw notification
 function renderNotification(data, isHistory) {
-    // check status and choose the container
     var isNew = data.ViewedAt === null;
     var meta = data.Meta || {};
 
-    // choose the container based on the status
     var containerId = isNew ? "list-new" : "list-old";
     var container = document.getElementById(containerId);
     if (!container) return;
@@ -13,7 +58,6 @@ function renderNotification(data, isHistory) {
     card.className = "notify_card";
     card.setAttribute("data-id", data.ID);
 
-    // set the card ID based on the type and status
     var type = meta.type || "normal";
     if (type === "critical" || type === "important") {
         card.id = "ntf_i";
@@ -21,7 +65,6 @@ function renderNotification(data, isHistory) {
         card.id = "ntf_unread";
     }
 
-    // format the icon path
     var iconSrc = meta.icon || "system.png";
     var iconPath =
         iconSrc.indexOf("/") !== -1
@@ -40,7 +83,6 @@ function renderNotification(data, isHistory) {
         data.Content +
         "</div>";
 
-    // if there is an action URL, add a link to it
     if (meta.action_url) {
         var actionText = meta.action_text || "Перейти »";
         inner +=
@@ -51,11 +93,9 @@ function renderNotification(data, isHistory) {
             "</a>";
     }
 
-    // format the time string
     var timeStr = "только что";
     if (!isNew && data.CreatedAt) {
         var d = new Date(data.CreatedAt * 1000);
-        // format the date and time
         timeStr =
             d.toLocaleDateString() +
             ", " +
@@ -66,12 +106,11 @@ function renderNotification(data, isHistory) {
         '<div class="notify_time"><small>' + timeStr + "</small></div></div>";
     card.innerHTML = inner;
 
+    // paste card
     if (isHistory) {
-        // add to end
         container.appendChild(card);
         container.appendChild(document.createElement("br"));
     } else {
-        // add to top (new from stream)
         container.insertBefore(
             document.createElement("br"),
             container.firstChild,
@@ -79,38 +118,36 @@ function renderNotification(data, isHistory) {
         container.insertBefore(card, container.firstChild);
     }
 
-    // make the notification clickable
     if (isNew) {
         card.onclick = function (e) {
-            // ignore click if the user clicked on the "Go to" button
             if (e.target.tagName.toLowerCase() === "a") return;
 
-            // visually mark the notification as read
             card.id = "";
-
-            // put-request to mark the notification as read
             if (typeof markAsRead === "function") {
                 markAsRead(data.ID, card);
             }
-
             card.onclick = null;
 
             var oldContainer = document.getElementById("list-old");
             if (oldContainer) {
+                var newBr = document.createElement("br");
                 oldContainer.insertBefore(card, oldContainer.firstChild);
-                oldContainer.insertBefore(br, oldContainer.firstChild);
+                oldContainer.insertBefore(newBr, oldContainer.firstChild);
             }
         };
     }
 }
 
-// get initial notifications
+// load initial notifications
 function loadInitialNotifications(token, apiUrl) {
     var url =
         apiUrl +
         "/notifications/list?token=" +
         encodeURIComponent(token) +
-        "&limit=20&page=1";
+        "&limit=" +
+        LIMIT +
+        "&page=" +
+        currentPage;
     var xhr = new XMLHttpRequest();
 
     xhr.open("GET", url, true);
@@ -119,33 +156,22 @@ function loadInitialNotifications(token, apiUrl) {
             try {
                 var response = JSON.parse(xhr.responseText);
                 var notifications = response.data || [];
-                var unreadTotal = 0;
+
+                var unreadTotal = response.total_unread || 0;
 
                 for (var i = 0; i < notifications.length; i++) {
-                    if (notifications[i].ViewedAt === null) {
-                        unreadTotal++;
-                    }
                     renderNotification(notifications[i], true);
                 }
 
-                var countElement = document.getElementById("notify-count-text");
-                if (countElement) {
-                    if (unreadTotal === 0) {
-                        countElement.innerHTML = "У вас нет новых уведомлений";
-                    } else {
-                        countElement.innerHTML =
-                            "У вас <b>" +
-                            unreadTotal +
-                            "</b> новых уведомлений";
-                    }
-                }
+                // update local text
+                updateCountText(unreadTotal);
             } catch (e) {}
         }
     };
     xhr.send();
 }
 
-// long-polling
+// long-polling stream
 function subscribeToNotifications(token, apiUrl) {
     var url =
         apiUrl +
@@ -160,37 +186,59 @@ function subscribeToNotifications(token, apiUrl) {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
                 try {
-                    var data = JSON.parse(xhr.responseText);
+                    var responseData = JSON.parse(xhr.responseText);
 
-                    // show new notification
-                    renderNotification(data, false);
+                    // take notification from payload
+                    var notification = responseData.payload;
 
-                    // update notification count
-                    var countElement =
-                        document.getElementById("notify-count-text");
-                    if (
-                        countElement &&
-                        countElement.innerHTML !== "Загрузка уведомлений..."
-                    ) {
-                        var currentText = countElement.innerHTML;
-                        var currentCount =
-                            parseInt(currentText.replace(/\D/g, "")) || 0;
-                        countElement.innerHTML =
-                            "У вас " + (currentCount + 1) + " уведомлений";
+                    if (notification) {
+                        // draw only if we are on the first page
+                        if (currentPage === 1) {
+                            renderNotification(notification, false);
+                        }
+                        // update text
+                        var countElement =
+                            document.getElementById("notify-count-text");
+                        if (countElement) {
+                            // take current count from text and increment
+                            var currentCount =
+                                parseInt(
+                                    countElement.innerText.replace(/\D/g, ""),
+                                ) || 0;
+                            updateCountText(currentCount + 1);
+                        }
+
+                        // update number
+                        if (typeof window.updateGlobalCountUI === "function") {
+                            var sidebarEl = document.getElementById(
+                                "global-unread-count",
+                            );
+                            var currentSide = sidebarEl
+                                ? parseInt(
+                                      sidebarEl.innerText.replace(/\D/g, ""),
+                                  ) || 0
+                                : 0;
+                            window.updateGlobalCountUI(currentSide + 1);
+                        }
                     }
                 } catch (e) {}
 
                 // reconnect
                 setTimeout(function () {
                     subscribeToNotifications(token, apiUrl);
-                }, 100);
+                }, 2000);
+            } else if (xhr.status === 429) {
+                // protection from server ban (Too Many Requests)
+                setTimeout(function () {
+                    subscribeToNotifications(token, apiUrl);
+                }, 15000);
             } else if (xhr.status === 502 || xhr.status === 504) {
                 // timeout, reconnect
                 setTimeout(function () {
                     subscribeToNotifications(token, apiUrl);
-                }, 100);
+                }, 2000);
             } else {
-                // network or server error, wait before retrying
+                // server error
                 setTimeout(function () {
                     subscribeToNotifications(token, apiUrl);
                 }, 5000);
@@ -201,31 +249,33 @@ function subscribeToNotifications(token, apiUrl) {
     xhr.onerror = function () {
         setTimeout(function () {
             subscribeToNotifications(token, apiUrl);
-        }, 5000);
+        }, 9000);
     };
 
     xhr.send();
 }
 
-// run script
+// run
 (function initNotifications() {
     var tokenMeta = document.getElementById("notify-token-meta");
     var apiMeta = document.getElementById("notify-api-meta");
 
-    // show notifications
     if (tokenMeta && apiMeta) {
         var token = tokenMeta.getAttribute("content");
         var apiUrl = apiMeta.getAttribute("content");
 
-        // read token and apiUrl from Django template
         if (token && apiUrl) {
-            // remove trailing slash from apiUrl for correct concatenation
             if (apiUrl.charAt(apiUrl.length - 1) === "/") {
                 apiUrl = apiUrl.slice(0, -1);
             }
 
+            // load initial notifications
             loadInitialNotifications(token, apiUrl);
-            subscribeToNotifications(token, apiUrl);
+
+            // listen stream only at first page
+            if (currentPage === 1) {
+                subscribeToNotifications(token, apiUrl);
+            }
         }
     }
 })();
