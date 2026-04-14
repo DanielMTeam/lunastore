@@ -191,90 +191,6 @@ function loadInitialNotifications(token, apiUrl) {
     xhr.send();
 }
 
-// long-polling stream
-function subscribeToNotifications(token, apiUrl) {
-    var url =
-        apiUrl +
-        "/notifications/stream?token=" +
-        encodeURIComponent(token) +
-        "&wait=30s";
-    var xhr = new XMLHttpRequest();
-
-    xhr.open("GET", url, true);
-
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-            if (xhr.status === 200) {
-                try {
-                    var responseData = JSON.parse(xhr.responseText);
-
-                    // take notification from payload
-                    var notification = responseData.payload;
-
-                    if (notification) {
-                        // draw only if we are on the first page
-                        if (currentPage === 1) {
-                            renderNotification(notification, false);
-                        }
-                        // update text
-                        var countElement =
-                            document.getElementById("notify-count-text");
-                        if (countElement) {
-                            // take current count from text and increment
-                            var currentCount =
-                                parseInt(
-                                    countElement.innerText.replace(/\D/g, ""),
-                                ) || 0;
-                            updateCountText(currentCount + 1);
-                        }
-
-                        // update number
-                        if (typeof window.updateGlobalCountUI === "function") {
-                            var sidebarEl = document.getElementById(
-                                "global-unread-count",
-                            );
-                            var currentSide = sidebarEl
-                                ? parseInt(
-                                      sidebarEl.innerText.replace(/\D/g, ""),
-                                  ) || 0
-                                : 0;
-                            window.updateGlobalCountUI(currentSide + 1);
-                        }
-                    }
-                } catch (e) {}
-
-                // reconnect
-                setTimeout(function () {
-                    subscribeToNotifications(token, apiUrl);
-                }, 2000);
-            } else if (xhr.status === 429) {
-                // protection from server ban (Too Many Requests)
-                setTimeout(function () {
-                    subscribeToNotifications(token, apiUrl);
-                }, 15000);
-            } else if (xhr.status === 502 || xhr.status === 504) {
-                // timeout, reconnect
-                setTimeout(function () {
-                    subscribeToNotifications(token, apiUrl);
-                }, 2000);
-            } else {
-                // server error
-                setTimeout(function () {
-                    subscribeToNotifications(token, apiUrl);
-                }, 5000);
-            }
-        }
-    };
-
-    xhr.onerror = function () {
-        setTimeout(function () {
-            subscribeToNotifications(token, apiUrl);
-        }, 9000);
-    };
-
-    xhr.send();
-}
-
 // run
 (function initNotifications() {
     var tokenMeta = document.getElementById("notify-token-meta");
@@ -291,11 +207,6 @@ function subscribeToNotifications(token, apiUrl) {
 
             // load initial notifications
             loadInitialNotifications(token, apiUrl);
-
-            // listen stream only at first page
-            if (currentPage === 1) {
-                subscribeToNotifications(token, apiUrl);
-            }
         }
     }
 })();
