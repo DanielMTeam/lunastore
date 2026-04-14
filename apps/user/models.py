@@ -57,13 +57,6 @@ class User(AbstractUser, SafeDeleteModel):
             return []
         return [tag.strip() for tag in self.badges.split(";")]
 
-    def save(self, *args, **kwargs):
-        if not self.fingerprint:
-            raw_data = f"{self.username}-drm-{settings.SECRET_KEY}".encode("utf-8")
-            self.fingerprint = hashlib.sha256(raw_data).hexdigest()[:14]
-
-        super().save(*args, **kwargs)
-
 
 class UserBan(SafeDeleteModel):
     _safedelete_policy = SOFT_DELETE_CASCADE
