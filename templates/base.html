@@ -251,15 +251,19 @@ function doSearch() {
             if (!apiUrl.startsWith('http')) apiUrl = 'http://' + apiUrl;
 
             var xhr = new XMLHttpRequest();
-            xhr.open("GET", apiUrl + "/notifications/stream?token=" + encodeURIComponent(token) + "&wait=30s", true);
+            xhr.open("GET", apiUrl + "/notifications/stream?token=" + encodeURIComponent(token) + "&wait=10s", true);
 
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
+                    console.log(xhr.status, xhr.response);
                     if (xhr.status === 200) {
                         fetchUnreadCount();
-                        setTimeout(subscribeToGlobalStream, 2000);
-                    } else {
-                        setTimeout(subscribeToGlobalStream, 60000);
+                        subscribeToGlobalStream();
+                    } else if (xhr.status === 204 || xhr.status === 429) {
+                        setTimeout(subscribeToGlobalStream, 3000);
+                    }
+                    else {
+                        console.error("Unexpected status:", xhr.status, xhr.responseText);
                     }
                 }
             };
