@@ -1683,3 +1683,36 @@ msgstr "Загрузка уведомлений..."
 
 msgid "PAGE_NOTIFICATIONS_NOW"
 msgstr "только что"
+
+msgid "PAGE_NOTIFY_TOAST_NEW"
+msgstr "Новое уведомление"
+
+msgid "PAGE_NOTIFY_TOAST_CLOSE"
+msgstr "Закрыть"
+
+msgid "PAGE_NOTIFY_TOAST_VIEW"
+msgstr "Посмотреть »"
+
+msgid "NOTIF_WELCOME_TITLE"
+msgstr "Добро пожаловать в LunaStore"
+
+msgid "NOTIF_WELCOME_DESCRIPTION"
+msgstr "Спасибо за регистрацию! Очень приятно, что Вы остались неравнодушны к справочнику приложений. Надеюсь, Вам очень понравится!"
+
+msgid "NOTIF_DEVSTATUS_SEND_TITLE"
+msgstr "Статус разработчика"
+
+msgid "NOTIF_DEVSTATUS_SEND_DESCRIPTION"
+msgstr "Ваша заявка была успешно отправлена. Ответ придёт в разделе «Уведомления». Ничего делать не нужно."
+
+msgid "NOTIF_DEVSTATUS_ACCEPTED_TITLE"
+msgstr "Статус разработчика"
+
+msgid "NOTIF_DEVSTATUS_ACCEPTED_DESCRIPTION"
+msgstr "Поздравляем! Ваша заявка была одобрена и вы получили возможности разработчика/издателя приложений."
+
+msgid "NOTIF_DEVSTATUS_DECLINED_TITLE"
+msgstr "Статус разработчика"
+
+msgid "NOTIF_DEVSTATUS_DECLINED_DESCRIPTION"
+msgstr "Поздравляем! Ваша заявка была отклонена и вы не получили возможности разработчика/издателя приложений."
