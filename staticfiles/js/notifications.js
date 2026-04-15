@@ -74,16 +74,19 @@ function renderNotification(data, isHistory) {
             ? iconSrc
             : "/staticfiles/img/ntficons/" + iconSrc;
 
+    var notif_title = window.notifs[data.Title] || data.Title
+    var notif_content = window.notifs[data.Content] || data.Content
+
     var inner =
         '<div class="notify_ic"><img src="' +
         iconPath +
         '" alt="icon"></div>' +
         '<div class="notify_body">' +
         '<div class="notify_title">' +
-        data.Title +
+        notif_title +
         "</div>" +
         '<div class="notify_desc">' +
-        data.Content +
+        notif_content +
         "</div>";
 
     if (meta.action_url) {
