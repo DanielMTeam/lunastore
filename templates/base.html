@@ -12,6 +12,7 @@
 <meta name="robots" content="noindex,nofollow">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="{% static './css/main.css'%}">
+<link rel="stylesheet" href="{% static './css/notifications.css'%}">
 <link rel="shortcut icon" href="{% static './favicon.ico'%}">
 <script src="{% static './js/cookie.js'%}"></script>
 <script defer src="https://analytics.myslivets.com/script.js" data-website-id="bce1e0a4-fb9e-40e8-85c9-04c8bd3c8940"></script>
@@ -19,6 +20,9 @@
 
 
 <body>
+
+<div class="notifyoverlay" id="notifications"></div>
+
 <div class="announcement" id="cookie-banner" style="display: none;">
     {% trans "BASE_COOKIE_MESSAGE" %}
     <a href="/help_center.php?page=privacy"><i><b>{% trans "BASE_COOKIE_PRIVACYPOLICY" %}</b></i></a>.<br><br>
@@ -191,7 +195,7 @@ function doSearch() {
 
     <script type="text/javascript">
 
-    window.updateGlobalCountUI = function(count) {
+    window.updateCountUI = function(count) {
         var el = document.getElementById("global-unread-count");
         if (el) {
             if (count > 0) {
@@ -203,79 +207,129 @@ function doSearch() {
         }
     };
 
+    function createNotification(title, message) {
+        var container = document.getElementById('notifications');
+        if (!container) return;
+
+        var balloon = document.createElement('div');
+        balloon.className = 'balloon';
+
+        var li = document.createElement('li');
+        li.className = 'balloon_img';
+        balloon.appendChild(li);
+
+        var bTitle = document.createElement('div');
+        bTitle.className = 'balloon_title';
+        bTitle.innerHTML = 'Новое уведомление'; // SHOULD BE CHANGED ACCORDING TO LOCALES!! -- ZAZiOs
+        balloon.appendChild(bTitle);
+
+        var nTitle = document.createElement('div');
+        nTitle.className = 'notify_title';
+        nTitle.innerHTML = title;
+        balloon.appendChild(nTitle);
+
+        var bText = document.createElement('div');
+        bText.className = 'balloon_text';
+        bText.innerHTML = message;
+        balloon.appendChild(bText);
+
+        var closeLink = document.createElement('a');
+        closeLink.href = '#';
+        closeLink.className = 'balloon_link';
+        closeLink.innerHTML = 'Закрыть'; // Add i18n
+
+        closeLink.onclick = function() {
+            container.removeChild(balloon);
+            return false;
+        };
+
+        var viewLink = document.createElement('a');
+        viewLink.href = '/notifications.php';
+        viewLink.className = 'balloon_link';
+        viewLink.innerHTML = 'Посмотреть »'; // Add i18n
+
+        balloon.appendChild(closeLink);
+        balloon.appendChild(document.createTextNode(' | '));
+        balloon.appendChild(viewLink);
+
+        container.appendChild(balloon);
+    }
+
     function fetchUnreadCount() {
-            var tokenEl = document.getElementById("global-notify-token");
-            var apiEl = document.getElementById("global-api-url");
-            if (!tokenEl || !apiEl) return;
+        var tokenEl = document.getElementById("global-notify-token");
+        var apiEl = document.getElementById("global-api-url");
+        if (!tokenEl || !apiEl) return;
 
-            var token = tokenEl.getAttribute("content");
-            var apiUrl = apiEl.getAttribute("content");
-            if (!apiUrl.startsWith('http')) apiUrl = 'http://' + apiUrl;
+        var token = tokenEl.getAttribute("content");
+        var apiUrl = apiEl.getAttribute("content");
+        if (!apiUrl.startsWith('http')) apiUrl = 'http://' + apiUrl;
 
-            var xhr = new XMLHttpRequest();
-            // back limit=1
-            xhr.open("GET", apiUrl + "/notifications/list?token=" + encodeURIComponent(token) + "&limit=1", true);
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    try {
-                        var response = JSON.parse(xhr.responseText);
-                        var unreadCount = response.total_unread || 0;
-                        updateCountUI(unreadCount);
-                    } catch (e) {}
-                }
-            };
-            xhr.send();
-        }
+        var xhr = new XMLHttpRequest();
+        // back limit=1
+        xhr.open("GET", apiUrl + "/notifications/list?token=" + encodeURIComponent(token) + "&limit=1", true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                try {
+                    var response = JSON.parse(xhr.responseText);
+                    var unreadCount = response.total_unread || 0;
+                    window.updateCountUI(unreadCount);
+                } catch (e) {}
+            }
+        };
+        xhr.send();
+    }
 
-        // update ui
-        function updateCountUI(count) {
-            var el = document.getElementById("global-unread-count");
-            if (el) {
-                if (count > 0) {
-                    el.innerHTML = "(" + count + ")";
-                    el.style.display = "inline";
-                } else {
-                    el.style.display = "none";
-                }
+    function incrementUnreadCount () {
+        var el = document.getElementById("global-unread-count");
+        if (el) {
+            var current_count = Number(err.innerHTML.replace("(", "").replace(")", ""))
+            if (current_count > 0) {
+                el.innerHTML = "(" + (current_count + 1) + ")";
+                el.style.display = "inline";
+            } else {
+                el.style.display = "none";
             }
         }
+    }
 
-        // live update via stream (longpull)
-        function subscribeToGlobalStream() {
-            var tokenEl = document.getElementById("global-notify-token");
-            var apiEl = document.getElementById("global-api-url");
-            if (!tokenEl || !apiEl) return;
+    // live update via stream (longpull)
+    function subscribeToGlobalStream() {
+        var tokenEl = document.getElementById("global-notify-token");
+        var apiEl = document.getElementById("global-api-url");
+        if (!tokenEl || !apiEl) return;
 
-            var token = tokenEl.getAttribute("content");
-            var apiUrl = apiEl.getAttribute("content");
-            if (!apiUrl.startsWith('http')) apiUrl = 'http://' + apiUrl;
+        var token = tokenEl.getAttribute("content");
+        var apiUrl = apiEl.getAttribute("content");
+        if (!apiUrl.startsWith('http')) apiUrl = 'http://' + apiUrl;
 
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", apiUrl + "/notifications/stream?token=" + encodeURIComponent(token) + "&wait=10s", true);
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", apiUrl + "/notifications/stream?token=" + encodeURIComponent(token) + "&wait=20s", true);
 
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    console.log(xhr.status, xhr.response);
-                    if (xhr.status === 200) {
-                        fetchUnreadCount();
-                        subscribeToGlobalStream();
-                    } else if (xhr.status === 204 || xhr.status === 429) {
-                        setTimeout(subscribeToGlobalStream, 3000);
-                    }
-                    else {
-                        console.error("Unexpected status:", xhr.status, xhr.responseText);
-                    }
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    var data = eval('(' + xhr.response + ')');
+                    createNotification(data.payload.Title, data.payload.Content)
+                    fetchUnreadCount();
+                    
+                    subscribeToGlobalStream();
+                } else if (xhr.status === 204 || xhr.status === 429 || xhr.status === 0) {
+                    setTimeout(subscribeToGlobalStream, 3000);
                 }
-            };
-            xhr.send();
-        }
-
-        (function() {
-            if (window.location.pathname.indexOf('notifications') === -1) {
-                fetchUnreadCount();
-                subscribeToGlobalStream();
+                else {
+                    console.error("subscribeToGlobalStream | Unexpected status:", xhr.status, xhr.responseText);
+                }
             }
-        })();
+        };
+        xhr.send();
+    }
+
+    (function() {
+        if (window.location.pathname.indexOf('notifications') === -1) {
+            fetchUnreadCount();
+            subscribeToGlobalStream();
+        }
+    })();
     </script>
 {% endif %}
   </div>
