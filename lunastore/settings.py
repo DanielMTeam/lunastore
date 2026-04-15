@@ -17,6 +17,8 @@ LOCALE_PATHS = [
     BASE_DIR / "locale",
 ]
 
+ADMIN_URL = os.getenv("ADMIN_URL", "http://127.0.0.1:8000")
+
 LOGIN_URL = "login.php"
 
 RATE_LIMIT_WINDOW = int(os.getenv("RATE_LIMIT_WINDOW", "50"))
@@ -29,6 +31,11 @@ LOGIN_REDIRECT_URL = "/index.php"
 LOGOUT_REDIRECT_URL = "/login.php"
 
 DEBUG = os.getenv("DEBUG", "False") == "True"
+
+TELEGRAM_LOGGER_ENABLED = os.getenv("TELEGRAM_LOGGER_ENABLED", "False") == "True"
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
+TELEGRAM_LOG_CHAT_ID = os.getenv("TELEGRAM_LOG_CHAT_ID", "")
+TELEGRAM_LOG_TOPIC_ID = os.getenv("TELEGRAM_LOG_TOPIC_ID", "")
 
 LUNASPIRE_SECRET_KEY = os.getenv("LUNASPIRE_SECRET_KEY")
 LUNASPIRE_URL = os.getenv("LUNASPIRE_URL", "spire.lunastore.app")
@@ -352,6 +359,11 @@ UNFOLD = {
                         "title": "Рассылка уведомлений",
                         "icon": "breaking_news",
                         "link": reverse_lazy("broadcast"),
+                    },
+                    {
+                        "title": "Логи",
+                        "icon": "history",
+                        "link": reverse_lazy("admin:admin_logentry_changelist"),
                     }
                 ],
             }
