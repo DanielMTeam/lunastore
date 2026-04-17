@@ -154,7 +154,6 @@ if 'test' in sys.argv:
         }
     }
 else:
-    # Ваши обычные настройки для Redis
     CACHES = {
         "default": {
             "BACKEND": "django_redis.cache.RedisCache",
