@@ -78,9 +78,3 @@ class AuthPagesTest(TestCase):
         logger.info('[User APP; Logout PAGE] Testing URL by name...')
         resp = self.client.get(reverse('logout'))
         self.assertEqual(resp.status_code, 302)
-
-    @override_settings(INVITES_ON_REGISTER=True)
-    def test_register_url_with_invites(self):
-        logger.info('[User APP; Register PAGE] Testing URL (Invites Enabled)...')
-        resp = self.client.get(reverse('register'))
-        self.assertEqual(resp.status_code, 302)

@@ -1136,7 +1136,7 @@ msgid "PAGE_FAQ_TEAM_ROLE_ZAZIOS"
 msgstr "backend-разработчик (Go)"
 
 msgid "PAGE_FAQ_TEAM_TESTERS_LIST"
-msgstr "[ники тестировщиков через запятую]"
+msgstr "mryoshi, akaremii26, madebydimas, koke621, Starik1500, LGRN Arts, im_Ry0 (special thanks), pregko, veselcraft, ilarion3310, aliew, dimawhite05, mws, d3nkyu2u, ersn"
 
 msgid "PAGE_FAQ_TITLE"
 msgstr "Справка"
@@ -1659,3 +1659,90 @@ msgstr "К сожалению, страница загруженного при�
 
 msgid "PAGE_ADMIN_APP_TRANSLATIONINFO"
 msgstr "Перевод информации о Вашем приложении может повысить ему узнаваемость для иностранной аудитории, а также улучшить его видимость в поисковых системах. Во всяком случае, мы советуем авторам делать переводы на разные языки."
+
+msgid "PAGE_NOTIFICATIONS_TITLE"
+msgstr "Уведомления"
+
+msgid "PAGE_NOTIFICATIONS_TAB"
+msgstr "Уведомления"
+
+msgid "PAGE_NOTIFICATIONS_EARLY"
+msgstr "Ранние уведомления"
+
+msgid "PAGE_NOTIFICATIONS_COUNT_SINGLE"
+msgid_plural "PAGE_NOTIFICATIONS_COUNT_PLURAL"
+msgstr[0] "У Вас <b>%(counter)s</b> новое уведомление"
+msgstr[1] "У Вас <b>%(counter)s</b> новых уведомления"
+msgstr[2] "У Вас <b>%(counter)s</b> новых уведомлений"
+
+msgid "PAGE_NOTIFICATIONS_NO_NEW"
+msgstr "У Вас нет новых уведомлений"
+
+msgid "NOTIFICATIONS_LOADING"
+msgstr "Загрузка уведомлений..."
+
+msgid "PAGE_NOTIFICATIONS_NOW"
+msgstr "только что"
+
+msgid "PAGE_NOTIFY_TOAST_NEW"
+msgstr "Новое уведомление"
+
+msgid "PAGE_NOTIFY_TOAST_CLOSE"
+msgstr "Закрыть"
+
+msgid "PAGE_NOTIFY_TOAST_VIEW"
+msgstr "Посмотреть »"
+
+msgid "NOTIF_WELCOME_TITLE"
+msgstr "Добро пожаловать в LunaStore"
+
+msgid "NOTIF_WELCOME_DESCRIPTION"
+msgstr "Спасибо за регистрацию! Очень приятно, что Вы остались неравнодушны к справочнику приложений. Надеюсь, Вам очень понравится!"
+
+msgid "NOTIF_DEVSTATUS_SEND_TITLE"
+msgstr "Статус разработчика"
+
+msgid "NOTIF_DEVSTATUS_SEND_DESCRIPTION"
+msgstr "Ваша заявка была успешно отправлена. Ответ придёт в разделе «Уведомления». Ничего делать не нужно."
+
+msgid "NOTIF_DEVSTATUS_ACCEPTED_TITLE"
+msgstr "Статус разработчика"
+
+msgid "NOTIF_DEVSTATUS_ACCEPTED_DESCRIPTION"
+msgstr "Поздравляем! Ваша заявка была одобрена и вы получили возможности разработчика/издателя приложений."
+
+msgid "NOTIF_DEVSTATUS_DECLINED_TITLE"
+msgstr "Статус разработчика"
+
+msgid "NOTIF_DEVSTATUS_DECLINED_DESCRIPTION"
+msgstr "Ваша заявка была отклонена и вы не получили возможности разработчика/издателя приложений. Причина: %(reason)s"
+
+msgid "NOTIF_LOGIN_TITLE"
+msgstr "Новый вход в аккаунт"
+
+msgid "NOTIF_LOGIN_DESCRIPTION"
+msgstr "В ваш аккаунт был выполнен вход • Устройство: %(browser)s (%(os)s) • IP-адрес: %(ip)s • Местоположение: %(location)s • Если это не вы, срочно смените пароль."
+
+msgid "NOTIF_APPREQ_ACCEPTED_TITLE"
+msgstr "Статус заявки"
+
+msgid "NOTIF_APPREQ_ACCEPTED_DESCRIPTION"
+msgstr "Поздравляем! Ваша заявка на создание приложения %(app_name)s была одобрена и оно было опубликовано в LunaStore."
+
+msgid "NOTIF_APPREQ_DECLINED_TITLE"
+msgstr "Статус заявки"
+
+msgid "NOTIF_APPREQ_DECLINED_DESCRIPTION"
+msgstr "Ваша заявка на создание приложения %(app_name)s была отклонена. Причина: %(reason)s"
+
+msgid "NOTIF_APPEDITREQ_DECLINED_TITLE"
+msgstr "Статус заявки на редактирование приложения"
+
+msgid "NOTIF_APPEDITREQ_DECLINED_DESCRIPTION"
+msgstr "Ваша заявка на редактирование приложения %(app_name)s была отклонена. Причина: %(reason)s"
+
+msgid "NOTIF_APPEDITREQ_ACCEPTED_TITLE"
+msgstr "Статус заявки на редактирование приложения"
+
+msgid "NOTIF_APPEDITREQ_ACCEPTED_DESCRIPTION"
+msgstr "Ваша заявка на редактирование приложения %(app_name)s была одобрена."

@@ -18,6 +18,10 @@ from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
 from PIL import Image
 from safedelete import HARD_DELETE
+from apps.core.notifications.services import NotificationService
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from .tasks import process_login_notification
+from apps.core.tasks import send_notification
 
 from apps.marketplace.models import Application
 
@@ -31,7 +35,8 @@ from .forms import (
     ProfileUpdateForm,
     UserRegistrationForm,
 )
-from .middleware import BlockBannedIP, get_client_ip
+from .middleware import BlockBannedIP
+from apps.core.utils import get_client_ip
 from .models import (
     BlacklistedUsername,
     DevRequestsModel,
@@ -47,6 +52,7 @@ from .decorators import require_modern_browser
 @require_modern_browser
 def login(request):
     ip = get_client_ip(request)
+    user_agent = request.META.get('HTTP_USER_AGENT', '')
 
     if ip in BlockBannedIP.get_banned_set():
         return render(
@@ -102,6 +108,12 @@ def login(request):
             dj_login(request, user)
 
             UserActivityLog.objects.create(user=user, ip=ip, action="login_save_ip")
+
+            process_login_notification.enqueue(
+                user_id=user.id,
+                ip=ip,
+                user_agent=user_agent
+            )
 
             if next_url and url_has_allowed_host_and_scheme(
                 url=next_url,
@@ -190,6 +202,12 @@ def register(request):
             )
             user.backend = "django.contrib.auth.backends.ModelBackend"
             dj_login(request, user)
+            send_notification.enqueue(
+                user_id=user.id,
+                title_key="NOTIF_WELCOME_TITLE",
+                content_key="NOTIF_WELCOME_DESCRIPTION",
+                meta={"icon": "welcome.png"}
+            )
             return redirect("home")
     else:
         if request.user.is_authenticated:
@@ -198,7 +216,6 @@ def register(request):
     return render(request, "register_on.html", {"form": form, "invite_obj": invite_obj})
 
 
-@login_required
 def profile(request):
     id = request.GET.get("id")
 
@@ -396,7 +413,6 @@ def invite_person(request):
     )
 
 
-@login_required
 def invite_code(request):
     if not settings.INVITES_ON_REGISTER:
         return redirect("home")
@@ -419,178 +435,36 @@ def invite_code(request):
     return render(request, "invite_input.html", {"form": form})
 
 
-GRID_TEMPLATE = [
-    "1",
-    "1",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "1",
-    "1",
-    "0",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "0",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "1",
-    "0",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-    "#",
-]
-
-
 @login_required
-def generate_drm_bg(request):
-    if not getattr(settings, "ENABLE_DRM", True):
-        raise Http404("DRM is currently disabled.")
+def notifications(request):
+    api_url = settings.LUNASPIRE_URL
+    if not api_url.startswith('http'):
+        api_url = f"http://{api_url}"
 
-    fingerprint_hex = request.user.fingerprint
-    if not fingerprint_hex:
-        request.user.save()
-        fingerprint_hex = request.user.fingerprint
+    meta = NotificationService.get_notifications_meta(request.user.id)
+    total_items = meta['total']
 
-    bitstring = bin(int(fingerprint_hex, 16))[2:].zfill(56)
+    dummy_list = range(total_items)
+    paginator = Paginator(dummy_list, 10)
 
-    color0 = (0, 0, 0, 2)
-    color1 = (0, 0, 0, 0)
-
-    img = Image.new("RGBA", (8, 8))
-    pixels = img.load()
-
-    bit_index = 0
-    for i, cell in enumerate(GRID_TEMPLATE):
-        x = i % 8
-        y = i // 8
-
-        if cell == "#":
-            bit = bitstring[bit_index]
-            bit_index += 1
-        else:
-            bit = cell
-
-        pixels[x, y] = color1 if bit == "1" else color0
-
+    page_number = request.GET.get('page', 1)
     try:
-        resample_filter = Image.Resampling.NEAREST
-    except AttributeError:
-        resample_filter = Image.NEAREST
+        page_obj = paginator.page(page_number)
+    except PageNotAnInteger:
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        page_obj = paginator.page(paginator.num_pages)
 
-    img = img.resize((16, 16), resample_filter)
-
-    buffer = io.BytesIO()
-    img.save(buffer, format="PNG")
-    buffer.seek(0)
-
-    return FileResponse(buffer, content_type="image/png")
-
-
-@csrf_exempt
-def decode_drm(request):
-    if request.method != "POST":
-        return JsonResponse({"error": "Only POST allowed"}, status=405)
-
-    input_bits = request.body.decode("utf-8").strip()
-    if len(input_bits) != 64:
-        return JsonResponse(
-            {"error": f"Need 64 bits, got {len(input_bits)}"}, status=400
-        )
-
-    extracted_bits_str = "".join(
-        [input_bits[i] for i, cell in enumerate(GRID_TEMPLATE) if cell == "#"]
+    page_range = paginator.get_elided_page_range(
+        page_obj.number, on_each_side=1, on_ends=1
     )
 
-    input_val = int(extracted_bits_str, 2)
-    fingerprint_hex = hex(input_val)[2:].zfill(14)
-    try:
-        profile = User.objects.get(fingerprint=fingerprint_hex)
-        return JsonResponse(
-            {
-                "status": "success",
-                "match": "exact",
-                "user": profile.username,
-                "fingerprint": fingerprint_hex,
-            }
-        )
-    except User.DoesNotExist:
-        pass
-    best_match = None
-    min_distance = 99
-
-    for user in User.objects.exclude(fingerprint__isnull=True):
-        user_val = int(user.fingerprint, 16)
-
-        distance = (input_val ^ user_val).bit_count()
-
-        if distance < min_distance:
-            min_distance = distance
-            best_match = user
-
-    THRESHOLD = 3
-    if best_match and min_distance <= THRESHOLD:
-        return JsonResponse(
-            {
-                "status": "success",
-                "match": "fuzzy",
-                "dist": min_distance,
-                "user": best_match.username,
-                "fingerprint": best_match.fingerprint,
-                "note": f"Восстановлено с погрешностью в {min_distance} бит(а)",
-            }
-        )
-
-    return JsonResponse(
-        {
-            "status": "not_found",
-            "fingerprint": fingerprint_hex,
-            "message": "Пользователь не найден даже с учетом коррекции ошибок",
-        },
-        status=404,
-    )
+    # get or create notification token for the user
+    context = {
+        'page_obj': page_obj,
+        'page_range': page_range,
+        'total_unread': meta.get('total_unread', 0),
+        'notify_token': NotificationService.get_receive_token(request.user.id),
+        'api_url': api_url,
+    }
+    return render(request, "notifications.html", context)

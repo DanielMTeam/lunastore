@@ -1,0 +1,84 @@
+import jwt, time, requests, logging
+from django.conf import settings
+
+logger = logging.getLogger("core")
+
+ICON_MAPPING = {
+    'normal': 'system.png',
+    'important': 'upgrade.png',
+    'critical': 'error.png',
+    'info': 'help.png',
+    'success': 'ok.png'
+}
+
+
+
+class NotificationService:
+
+    # sign token method
+    @staticmethod
+    def generate_token(payload: dict) -> str:
+        payload['exp'] = int(time.time()) + 3600 # 1 hour expiration
+        return jwt.encode(payload, settings.LUNASPIRE_SECRET_KEY, algorithm='HS256')
+
+    @classmethod
+    def get_receive_token(cls, user_id: int) -> str:
+        # generate gettkn for receiving notifications in frontend
+        payload = {
+            "type": "notify-get",
+            "user_id": user_id
+        }
+        return cls.generate_token(payload)
+
+    @classmethod
+    def send_notification(cls, user_id: int, title: str, content: str, meta: dict = None) -> bool:
+        # generate sendtkn and push to lunaspire
+        if meta is None:
+            meta = {}
+
+        # type of notification and icon mapping
+        n_type = meta.get('type', 'normal')
+        if 'icon' not in meta:
+            meta['icon'] = ICON_MAPPING.get(n_type, 'system.png')
+
+        payload = {
+            "type": "notify-send",
+            "title": title,
+            "content": content,
+            "user_id": user_id,
+            "meta": meta
+        }
+
+        token = cls.generate_token(payload)
+
+        try:
+            # send PUT request to lunaspire
+            response = requests.put(
+                f"{settings.LUNASPIRE_URL}/notifications/send",
+                params={"token": token},
+                timeout=5
+            )
+            response.raise_for_status()
+            return True
+        except requests.RequestException as e:
+            logger.info(f"Failed to send notification: {e}")
+            return False
+
+    @classmethod
+    def get_notifications_meta(cls, user_id: int):
+        token = cls.get_receive_token(user_id)
+        api_url = getattr(settings, 'LUNASPIRE_URL', '127.0.0.1:8080')
+        if not api_url.startswith('http'): api_url = f'http://{api_url}'
+
+        try:
+            # request 1 record to get 'total' field
+            response = requests.get(f"{api_url}/notifications/list", params={"token": token, "limit": 1, "page": 1}, timeout=3)
+            if response.status_code == 200:
+                data = response.json()
+                return {
+                    'total': data.get('total', 0),
+                    'total_unread': data.get('total_unread', 0)
+                }
+        except:
+            pass
+        return {'total': 0, 'total_unread': 0}

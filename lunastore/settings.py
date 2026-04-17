@@ -17,6 +17,10 @@ LOCALE_PATHS = [
     BASE_DIR / "locale",
 ]
 
+GEOIP_PATH = BASE_DIR / 'apps' / 'core' / 'geolocation'
+
+ADMIN_URL = os.getenv("ADMIN_URL", "http://127.0.0.1:8000")
+
 LOGIN_URL = "login.php"
 
 RATE_LIMIT_WINDOW = int(os.getenv("RATE_LIMIT_WINDOW", "50"))
@@ -29,6 +33,11 @@ LOGIN_REDIRECT_URL = "/index.php"
 LOGOUT_REDIRECT_URL = "/login.php"
 
 DEBUG = os.getenv("DEBUG", "False") == "True"
+
+TELEGRAM_LOGGER_ENABLED = os.getenv("TELEGRAM_LOGGER_ENABLED", "False") == "True"
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
+TELEGRAM_LOG_CHAT_ID = os.getenv("TELEGRAM_LOG_CHAT_ID", "")
+TELEGRAM_LOG_TOPIC_ID = os.getenv("TELEGRAM_LOG_TOPIC_ID", "")
 
 LUNASPIRE_SECRET_KEY = os.getenv("LUNASPIRE_SECRET_KEY")
 LUNASPIRE_URL = os.getenv("LUNASPIRE_URL", "spire.lunastore.app")
@@ -343,6 +352,22 @@ UNFOLD = {
                         "link": reverse_lazy("admin:user_devrequestsmodel_changelist"),
                     }
                 ],
+            },
+            {
+                "title": "Управление",
+                "separator": True,
+                "items": [
+                    {
+                        "title": "Рассылка уведомлений",
+                        "icon": "breaking_news",
+                        "link": reverse_lazy("broadcast"),
+                    },
+                    {
+                        "title": "Логи",
+                        "icon": "history",
+                        "link": reverse_lazy("admin:admin_logentry_changelist"),
+                    }
+                ],
             }
         ],
     },
@@ -380,6 +405,7 @@ TEMPLATES = [
                 "django.template.context_processors.i18n",
                 "apps.core.context_processors.random_banner",
                 "apps.core.context_processors.drm_settings",
+                "apps.core.context_processors.notification_context",
             ],
         },
     },
@@ -488,6 +514,11 @@ LOGGING = {
             "propagate": False,
         },
         "marketplace": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+            "propagate": False,
+        },
+        "core": {
             "handlers": ["console"],
             "level": "DEBUG",
             "propagate": False,

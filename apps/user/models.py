@@ -41,7 +41,6 @@ class User(AbstractUser, SafeDeleteModel):
     )
     avatar_id = models.PositiveIntegerField(null=True, blank=True)
     avatar_path = models.CharField(max_length=255, null=True, blank=True)
-    fingerprint = models.CharField(max_length=14, unique=True, blank=True)  # for drm
 
     @property
     def avatar_url(self):
@@ -57,13 +56,6 @@ class User(AbstractUser, SafeDeleteModel):
         if not self.badges:
             return []
         return [tag.strip() for tag in self.badges.split(";")]
-
-    def save(self, *args, **kwargs):
-        if not self.fingerprint:
-            raw_data = f"{self.username}-drm-{settings.SECRET_KEY}".encode("utf-8")
-            self.fingerprint = hashlib.sha256(raw_data).hexdigest()[:14]
-
-        super().save(*args, **kwargs)
 
 
 class UserBan(SafeDeleteModel):

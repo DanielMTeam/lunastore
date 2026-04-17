@@ -1101,7 +1101,7 @@ msgid "PAGE_FAQ_TEAM_ROLE_ZAZIOS"
 msgstr "backend developer (Go)"
 
 msgid "PAGE_FAQ_TEAM_TESTERS_LIST"
-msgstr "[testers' nicknames are separated with commas]"
+msgstr "mryoshi, akaremii26, madebydimas, koke621, Starik1500, LGRN Arts, im_Ry0 (special thanks), pregko, veselcraft, ilarion3310, aliew, dimawhite05, mws, d3nkyu2u, ersn"
 
 msgid "PAGE_FAQ_TITLE"
 msgstr "FAQ"

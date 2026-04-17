@@ -11,14 +11,6 @@ from .tasks import CACHE_KEY, refresh_banned_ips_cache
 logger = logging.getLogger("user")
 
 
-def get_client_ip(request):
-    x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(",")[0].strip()
-    else:
-        ip = request.META.get("REMOTE_ADDR")
-    return ip
-
 
 class BlockBannedIP(MiddlewareMixin):
     def process_request(self, request):
