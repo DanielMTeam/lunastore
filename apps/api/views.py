@@ -25,6 +25,7 @@ from apps.marketplace.serializers import (
 )
 from apps.user.models import User
 from apps.user.serializers import UserSerializer
+from apps.core.notifications.services import NotificationService
 
 from .constants import ErrorCodes
 from .exceptions import LunaException
@@ -174,6 +175,10 @@ class UserViewSet(viewsets.GenericViewSet):
         )
         return Response({"upload_token": upload_token, "guard": guard_phrase})
 
+    @action(detail=False, methods=["get"], url_path="getNotificationToken", permission_classes=[IsAuthenticated])
+    def get_notification_token(self, request):
+        token = NotificationService.get_receive_token(request.user.id)
+        return Response({"token": token, "ws_url": settings.LUNASPIRE_URL})
 
 class MarketplaceViewSet(viewsets.GenericViewSet):
     queryset = Application.objects.filter()

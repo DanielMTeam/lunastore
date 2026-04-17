@@ -1,0 +1,78 @@
+﻿{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+<title>{% trans "PAGE_NOTIFICATIONS_TITLE" %} - LunaStore</title>
+
+<div class="content">
+    <link rel="stylesheet" href="{% static './css/tabs.css' %}">
+    <link rel="stylesheet" href="{% static './css/notify.css' %}">
+    <link rel="stylesheet" href="{% static './css/ntf.css' %}">
+
+    <div class="tabs">
+        <div class="tab-bar">
+            <a href="{% url 'notifications' %}" style="text-decoration: none; color: inherit;">
+                <div class="tab active">
+                    <img src="{% static './img/tabs/notifyfolder.png' %}" class="tab-icon" alt="">
+                    {% trans "PAGE_NOTIFICATIONS_TAB" %}
+                </div>
+            </a>
+        </div>
+
+        <div class="tab-content" id="tab-view">
+            <div class="notify_brief">
+                <div class="notify_brief_text" id="notify-count-text">
+                    {% trans "NOTIFICATIONS_LOADING" %}
+                </div>
+            </div>
+
+            <br>
+
+            <div id="list-new"></div>
+
+            <br>
+            <div class="notify_brief_other">
+                <div class="notify_brief_text">{% trans "PAGE_NOTIFICATIONS_EARLY" %}</div>
+            </div>
+            <br>
+
+            <div id="list-old"></div>
+
+            {% if page_obj.has_other_pages %}
+            <div class="paginator" style="margin-top: 10px; border-top: 1px solid #cfe1ff; padding-top: 10px;">
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}">«</a>
+                {% endif %}
+
+                {% for p in page_range %}
+                    {% if p == page_obj.number %}
+                        <a class="active">{{ p }}</a>
+                    {% elif p == "…" %}
+                        <span style="padding: 5px; color: #163b6f;">...</span>
+                    {% else %}
+                        <a href="?page={{ p }}">{{ p }}</a>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">»</a>
+                {% endif %}
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+</div>
+<meta id="notify-token-meta" content="{{ notify_token }}">
+<meta id="notify-api-meta" content="{{ api_url }}">
+
+<script>
+    window.PAGE_NOTIFICATIONS_NO_NEW = "{% trans 'PAGE_NOTIFICATIONS_NO_NEW'|escapejs %}";
+    window.PAGE_NOTIFICATIONS_NEW_COUNT = "{% trans 'PAGE_NOTIFICATIONS_NEW_COUNT'|escapejs %}";
+    window.PAGE_NOTIFICATIONS_NOW = "{% trans 'PAGE_NOTIFICATIONS_NOW'|escapejs %}";
+</script>
+<script src="{% url 'javascript-catalog' %}"></script>
+<script src="{% static './js/notifications.js' %}"></script>
+{% endblock %}

@@ -16,7 +16,5 @@ urlpatterns = [
     path("delete_account.php", views.delete_account, name="delete_account"),
     path("invite.php", views.invite_person, name="invite_person"),
     path("invite_code.php", views.invite_code, name="invite_code"),
-    # drm
-    path("drm/bg.png", views.generate_drm_bg, name="drm_bg"),
-    path("drm/decode/", views.decode_drm, name="drm_decode"),
+    path("notifications.php", views.notifications, name="notifications"),
 ]

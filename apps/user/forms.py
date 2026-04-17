@@ -17,7 +17,8 @@ from PIL import Image
 from unfold.widgets import UnfoldAdminSelectMultipleWidget, UnfoldAdminCheckboxSelectMultiple, CheckboxSelectMultiple
 from apps.core.utils import force_logout
 
-from .middleware import BlockBannedIP, get_client_ip
+from .middleware import BlockBannedIP
+from apps.core.utils import get_client_ip
 from .models import BlacklistedUsername, InviteToken, User, UserActivityLog, UserBan
 from .tasks import CACHE_KEY
 from .validators import validate_invite_limit

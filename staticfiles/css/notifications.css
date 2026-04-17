@@ -1,0 +1,59 @@
+.notifyoverlay{
+    font-family: 'Franklin Gothic Medium', Arial, sans-serif;
+    width: 300px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.balloon{
+    border-radius: 3px;
+    border: 1px solid #000;
+    padding: 10px;
+    background: #ffffe0;
+    margin: 10px;
+}
+.balloon_title{
+    font-weight: bold;
+    font-size: 16px;
+    display: inline-block;
+    line-height: 16px;
+    margin-top: -19px; /* ??! */
+}
+.notify_title{
+    font-weight: bold;
+    font-size: 18px;
+    display: block;
+    font-family: Arial;
+    line-height: 16px;
+}
+.balloon_text{
+    font-size: 14px;
+    overflow: hidden;
+    max-width: 300px;
+    max-height: 100px;
+    word-wrap: break-word;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.balloon_img{
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    background: url("../img/tabs/info.png");
+    background-repeat: no-repeat;
+}
+.balloon_link{
+    font-size: 14px;
+    text-decoration: none;
+    color: #000;
+}
+
+.balloon_link:hover{
+    text-decoration: none;
+    color: #990000;
+}
+
+.balloon_link:active{
+    text-decoration: none;
+    color: #b20000;
+}
