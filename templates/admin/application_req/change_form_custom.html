@@ -1,0 +1,12 @@
+{% extends "admin/change_form.html" %}
+
+{% block content %}
+    {{ block.super }}
+
+    {% include "admin/action_modal.html" with target_action="reject_request" modal_title="Причина отклонения заявки" modal_text="Укажите причину, она будет отправлена пользователю в уведомлении." input_name="reject_reason" confirm_text="Отклонить заявку" confirm_bg="bg-red-600 hover:bg-red-500" %}
+
+    {% comment %}
+    {% include "admin/action_modal.html" with target_action="warn_user" modal_title="Текст предупреждения" modal_text="Опишите нарушение." input_name="warn_text" confirm_text="Отправить варн" confirm_bg="bg-yellow-600 hover:bg-yellow-500" %}
+    {% endcomment %}
+
+{% endblock %}

@@ -173,28 +173,14 @@
   </div>
 
 
-<script type="text/javascript">
-function doSearch() {
-  var q = document.getElementById("q").value.toLowerCase();
-  var cards = document.getElementsByTagName("div");
-  for (var i=0;i<cards.length;i++) {
-    if(cards[i].className=="card") {
-      var text = cards[i].innerText || cards[i].textContent;
-      if(text.toLowerCase().indexOf(q)!=-1) {
-        cards[i].style.display="block";
-      } else {
-        cards[i].style.display="none";
-      }
-    }
-  }
-}
-</script>
 {% if user.is_authenticated %}
     <meta id="global-notify-token" content="{{ notify_token }}">
     <meta id="global-api-url" content="{{ api_url }}">
+    <script src="{% url 'javascript-catalog' %}"></script>
+
+    <div id="audio-placeholder" style="display:none;"></div>
 
     <script type="text/javascript">
-
     window.updateCountUI = function(count) {
         var el = document.getElementById("global-unread-count");
         if (el) {
@@ -206,6 +192,43 @@ function doSearch() {
             }
         }
     };
+
+    function loadNotificationLang() {
+        const allTranslations = django.catalog;
+        const notifications = Object.keys(allTranslations)
+            .filter(key => key.startsWith('NOTIF_'))
+            .reduce((obj, key) => {
+                obj[key] = django.gettext(key);
+                return obj;
+            }, {});
+        window.notifs = notifications
+    }
+
+    function playBalloonSnd() {
+        var soundUrl = "/staticfiles/snd/balloon.mp3";
+
+        if (window.Audio || (typeof Audio !== "undefined")) {
+            try {
+                var modernAudio = new Audio(soundUrl)
+                modernAudio.play();
+            } catch (e) {
+                console.error(e)
+            }
+        } else {
+            var container = document.getElementById('audio-placeholder');
+            if (!container) {
+                container = document.createElement('div');
+                container.id = 'audio-placeholder';
+                container.style.display = 'none';
+                document.body.appendChild(container);
+            }
+            container.innerHTML = '<embed src="' + soundUrl + '" ' +
+                'autostart="true" ' +
+                'hidden="true" ' +
+                'loop="false" ' +
+                'mastersound>';
+        }
+    }
 
     function createNotification(title, message) {
         var container = document.getElementById('notifications');
@@ -220,23 +243,23 @@ function doSearch() {
 
         var bTitle = document.createElement('div');
         bTitle.className = 'balloon_title';
-        bTitle.innerHTML = 'Новое уведомление'; // SHOULD BE CHANGED ACCORDING TO LOCALES!! -- ZAZiOs
+        bTitle.innerHTML = "{% trans 'PAGE_NOTIFY_TOAST_NEW'|escapejs %}"; // 'Новое уведомление'
         balloon.appendChild(bTitle);
 
         var nTitle = document.createElement('div');
         nTitle.className = 'notify_title';
-        nTitle.innerHTML = title;
+        nTitle.innerHTML = window.notifs[title] || title;
         balloon.appendChild(nTitle);
 
         var bText = document.createElement('div');
         bText.className = 'balloon_text';
-        bText.innerHTML = message;
+        bText.innerHTML = window.notifs[message] || message;
         balloon.appendChild(bText);
 
         var closeLink = document.createElement('a');
         closeLink.href = '#';
         closeLink.className = 'balloon_link';
-        closeLink.innerHTML = 'Закрыть'; // Add i18n
+        closeLink.innerHTML = "{% trans 'PAGE_NOTIFY_TOAST_CLOSE'|escapejs %}"; // 'Закрыть'
 
         closeLink.onclick = function() {
             container.removeChild(balloon);
@@ -246,13 +269,14 @@ function doSearch() {
         var viewLink = document.createElement('a');
         viewLink.href = '/notifications.php';
         viewLink.className = 'balloon_link';
-        viewLink.innerHTML = 'Посмотреть »'; // Add i18n
+        viewLink.innerHTML = "{% trans 'PAGE_NOTIFY_TOAST_VIEW'|escapejs %}"; // Посмотреть »
 
         balloon.appendChild(closeLink);
         balloon.appendChild(document.createTextNode(' | '));
         balloon.appendChild(viewLink);
 
         container.appendChild(balloon);
+        playBalloonSnd()
     }
 
     function fetchUnreadCount() {
@@ -279,10 +303,10 @@ function doSearch() {
         xhr.send();
     }
 
-    function incrementUnreadCount () {
+    function incrementUnreadCount() {
         var el = document.getElementById("global-unread-count");
         if (el) {
-            var current_count = Number(err.innerHTML.replace("(", "").replace(")", ""))
+            var current_count = Number(el.innerHTML.replace("(", "").replace(")", ""))
             if (current_count > 0) {
                 el.innerHTML = "(" + (current_count + 1) + ")";
                 el.style.display = "inline";
@@ -310,8 +334,8 @@ function doSearch() {
                 if (xhr.status === 200) {
                     var data = eval('(' + xhr.response + ')');
                     createNotification(data.payload.Title, data.payload.Content)
-                    fetchUnreadCount();
-                    
+                    incrementUnreadCount();
+
                     subscribeToGlobalStream();
                 } else if (xhr.status === 204 || xhr.status === 429 || xhr.status === 0) {
                     setTimeout(subscribeToGlobalStream, 3000);
@@ -325,6 +349,7 @@ function doSearch() {
     }
 
     (function() {
+        loadNotificationLang();
         if (window.location.pathname.indexOf('notifications') === -1) {
             fetchUnreadCount();
             subscribeToGlobalStream();

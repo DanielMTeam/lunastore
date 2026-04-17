@@ -20,6 +20,8 @@ from PIL import Image
 from safedelete import HARD_DELETE
 from apps.core.notifications.services import NotificationService
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from .tasks import process_login_notification
+from apps.core.tasks import send_notification
 
 from apps.marketplace.models import Application
 
@@ -33,7 +35,8 @@ from .forms import (
     ProfileUpdateForm,
     UserRegistrationForm,
 )
-from .middleware import BlockBannedIP, get_client_ip
+from .middleware import BlockBannedIP
+from apps.core.utils import get_client_ip
 from .models import (
     BlacklistedUsername,
     DevRequestsModel,
@@ -49,6 +52,7 @@ from .decorators import require_modern_browser
 @require_modern_browser
 def login(request):
     ip = get_client_ip(request)
+    user_agent = request.META.get('HTTP_USER_AGENT', '')
 
     if ip in BlockBannedIP.get_banned_set():
         return render(
@@ -104,6 +108,12 @@ def login(request):
             dj_login(request, user)
 
             UserActivityLog.objects.create(user=user, ip=ip, action="login_save_ip")
+
+            process_login_notification.enqueue(
+                user_id=user.id,
+                ip=ip,
+                user_agent=user_agent
+            )
 
             if next_url and url_has_allowed_host_and_scheme(
                 url=next_url,
@@ -192,6 +202,12 @@ def register(request):
             )
             user.backend = "django.contrib.auth.backends.ModelBackend"
             dj_login(request, user)
+            send_notification.enqueue(
+                user_id=user.id,
+                title_key="NOTIF_WELCOME_TITLE",
+                content_key="NOTIF_WELCOME_DESCRIPTION",
+                meta={"icon": "welcome.png"}
+            )
             return redirect("home")
     else:
         if request.user.is_authenticated:
@@ -200,7 +216,6 @@ def register(request):
     return render(request, "register_on.html", {"form": form, "invite_obj": invite_obj})
 
 
-@login_required
 def profile(request):
     id = request.GET.get("id")
 
@@ -313,12 +328,6 @@ def profile_settings(request):
                 for field, errors in forms["email_form"].errors.items():
                     for error in errors:
                         messages.error(request, error)
-    success = NotificationService.send_notification(
-        user_id=request.user.id,
-        title="тестовый тест",
-        content="влад кунякин пробудил шаринган тест 2",
-        meta={"type": "warning"}
-    )
     return render(request, "settings.html", forms)
 
 
@@ -404,7 +413,6 @@ def invite_person(request):
     )
 
 
-@login_required
 def invite_code(request):
     if not settings.INVITES_ON_REGISTER:
         return redirect("home")

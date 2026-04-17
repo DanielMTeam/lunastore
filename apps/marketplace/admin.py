@@ -6,6 +6,7 @@ from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from unfold import admin as unfold_admin
 from unfold.decorators import action
+from apps.core.tasks import send_notification
 
 from lunastore.mixins import SafeDeleteAdmin
 from . import translation
@@ -62,6 +63,8 @@ class CategoryAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
 
 @admin.register(Application)
 class ApplicationAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
+
+
     form = ApplicationAdminForm
     inlines = (DistributionInline,)
     readonly_fields = ("display_screenshots", "user")
@@ -149,6 +152,9 @@ class ApplicationAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
 
 @admin.register(AppCreateRequests)
 class AppCreateRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
+    change_list_template = "admin/application_req/change_list_custom.html"
+    change_form_template = "admin/application_req/change_form_custom.html"
+
     list_display = ("id", "title", "user", "status")
     search_fields = ["title", "id"]
     list_filter = SafeDeleteAdmin.list_filter + [
@@ -236,6 +242,13 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
         app.save()
         req.status = "approved"
         req.save()
+        send_notification.enqueue(
+            user_id=req.user.id,
+            title_key="NOTIF_APPREQ_ACCEPTED_TITLE",
+            content_key="NOTIF_APPREQ_ACCEPTED_DESCRIPTION",
+            context={"app_name": app.title},
+            meta={"icon": "help.png"}
+        )
         req.delete()
         self.message_user(request, "Приложение(-ия) успешно создано!", messages.SUCCESS)
         return redirect(
@@ -249,8 +262,16 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
     )
     def reject_request(self, request, object_id):
         req = self.get_object(request, object_id)
+        reason = request.POST.get("reject_reason")
         req.status = "rejected"
         req.save()
+        send_notification.enqueue(
+            user_id=req.user.id,
+            title_key="NOTIF_APPREQ_DECLINED_TITLE",
+            content_key="NOTIF_APPREQ_DECLINED_DESCRIPTION",
+            context={"app_name": req.title, "reason": reason},
+            meta={"icon": "help.png"}
+        )
         req.delete()
         self.message_user(request, "Заявка отклонена", messages.INFO)
         return redirect(
@@ -287,6 +308,9 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
 
 @admin.register(AppEditRequests)
 class AppEditRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
+    change_list_template = "admin/application_edit_req/change_list_custom.html"
+    change_form_template = "admin/application_edit_req/change_form_custom.html"
+
     list_display = ("id", "title", "user", "status")
     search_fields = ["title", "id"]
     tabs = [
@@ -423,6 +447,13 @@ class AppEditRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
 
         req.status = "approved"
         req.save()
+        send_notification.enqueue(
+            user_id=req.user.id,
+            title_key="NOTIF_APPEDITREQ_ACCEPTED_TITLE",
+            content_key="NOTIF_APPEDITREQ_ACCEPTED_DESCRIPTION",
+            context={"app_name": req.title},
+            meta={"icon": "help.png"}
+        )
         req.delete()
         self.message_user(request, "Приложение успешно обновлено!", messages.SUCCESS)
         return redirect(
@@ -437,7 +468,15 @@ class AppEditRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
     def reject_request(self, request, object_id):
         req = self.get_object(request, object_id)
         req.status = "rejected"
+        reason = request.POST.get("reject_reason")
         req.save()
+        send_notification.enqueue(
+            user_id=req.user.id,
+            title_key="NOTIF_APPEDITREQ_DECLINED_TITLE",
+            content_key="NOTIF_APPEDITREQ_DECLINED_DESCRIPTION",
+            context={"app_name": req.title, "reason": reason},
+            meta={"icon": "help.png"}
+        )
         req.delete()
         self.message_user(request, "Заявка отклонена", messages.INFO)
         return redirect(

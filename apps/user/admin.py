@@ -6,6 +6,9 @@ from django.utils.html import format_html
 from unfold import admin as unfold_admin
 from unfold.contrib.forms.widgets import WysiwygWidget
 from unfold.decorators import action
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from apps.core.tasks import send_notification
 
 from lunastore.mixins import SafeDeleteAdmin
 
@@ -147,6 +150,10 @@ admin.site.register(UserActivityLog)
 
 @admin.register(DevRequestsModel)
 class DevRequestsAdmin(SafeDeleteAdmin):
+    change_list_template = "admin/dev_requests/change_list_custom.html"
+    change_form_template = "admin/dev_requests/change_form_custom.html"
+
+
     list_display = ("id", "user", "github", "mail")
     search_fields = ["github", "mail"]
     list_filter = SafeDeleteAdmin.list_filter + [
@@ -203,6 +210,12 @@ class DevRequestsAdmin(SafeDeleteAdmin):
             if user:
                 user.groups.add(group)
                 success_count += 1
+                send_notification.enqueue(
+                    user_id=dev_request.user.id,
+                    title_key="NOTIF_DEVSTATUS_ACCEPTED_TITLE",
+                    content_key="NOTIF_DEVSTATUS_ACCEPTED_DESCRIPTION",
+                    meta={"icon": "help.png"}
+                )
                 dev_request.delete()
         self.message_user(
             request,
@@ -220,7 +233,27 @@ class DevRequestsAdmin(SafeDeleteAdmin):
     def reject_request(self, request, queryset=None, object_id=None, **kwargs):
         if queryset is None:
             queryset = self.get_queryset(request).filter(pk=object_id)
+
+        opts = self.model._meta
+        changelist_url = reverse(f"admin:{opts.app_label}_{opts.model_name}_changelist")
+        reason = request.POST.get("reject_reason")
+
+        if not reason:
+            self.message_user(request, "Ошибка: Причина не была указана.", messages.ERROR)
+            referer = request.META.get("HTTP_REFERER", changelist_url)
+            return HttpResponseRedirect(referer)
+
         count = queryset.count()
+        for dev_request in queryset:
+            if dev_request.user:
+                send_notification.enqueue(
+                    user_id=dev_request.user.id,
+                    title_key="NOTIF_DEVSTATUS_DECLINED_TITLE",
+                    content_key="NOTIF_DEVSTATUS_DECLINED_DESCRIPTION",
+                    context={"reason": reason},
+                    meta={"icon": "help.png"}
+                )
+
         queryset.delete()
         self.message_user(
             request, f"Отклонено и удалено заявок: {count}", messages.SUCCESS
