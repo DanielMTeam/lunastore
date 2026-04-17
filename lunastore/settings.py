@@ -17,6 +17,8 @@ LOCALE_PATHS = [
     BASE_DIR / "locale",
 ]
 
+GEOIP_PATH = BASE_DIR / 'apps' / 'core' / 'geolocation'
+
 ADMIN_URL = os.getenv("ADMIN_URL", "http://127.0.0.1:8000")
 
 LOGIN_URL = "login.php"

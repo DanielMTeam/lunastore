@@ -45,7 +45,7 @@ class NotificationService:
             "type": "notify-send",
             "title": title,
             "content": content,
-            "user": user_id,
+            "user_id": user_id,
             "meta": meta
         }
 

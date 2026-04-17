@@ -1,0 +1,186 @@
+{% comment %}
+    context variables:
+    - target_action: name of the action (e.g., 'reject_request')
+    - modal_title: heading for the modal
+    - modal_text: description/hint for the user
+    - input_name: name of the variable that will be sent in POST (e.g., 'reject_reason')
+    - confirm_text: text on the confirmation button
+    - confirm_bg: tailwind class for the button color (e.g., 'bg-red-600 hover:bg-red-500' or 'bg-primary-600 hover:bg-primary-500')
+{% endcomment %}
+<style>
+    /* white theme */
+    .unfold-modal-panel { background-color: #ffffff !important; border-color: #e5e7eb !important; }
+    .unfold-modal-header { background-color: #ffffff !important; border-color: #e5e7eb !important; }
+    .unfold-modal-footer { background-color: #f9fafb !important; border-color: #e5e7eb !important; }
+    .unfold-modal-input { background-color: #ffffff !important; border-color: #d1d5db !important; color: #111827 !important; }
+    .unfold-modal-input::placeholder { color: #9ca3af !important; }
+    .unfold-modal-title { color: #111827 !important; }
+    .unfold-modal-text { color: #6b7280 !important; }
+    .unfold-modal-cancel { background-color: #ffffff !important; border-color: #d1d5db !important; color: #374151 !important; }
+    .unfold-modal-cancel:hover { background-color: #f3f4f6 !important; }
+
+    /* dark theme */
+    html.dark .unfold-modal-panel { background-color: #1f2937 !important; border-color: #374151 !important; }
+    html.dark .unfold-modal-header { background-color: #1f2937 !important; border-color: #374151 !important; }
+    html.dark .unfold-modal-footer { background-color: #111827 !important; border-color: #374151 !important; }
+    html.dark .unfold-modal-input { background-color: #111827 !important; border-color: #4b5563 !important; color: #f3f4f6 !important; }
+    html.dark .unfold-modal-input::placeholder { color: #6b7280 !important; }
+    html.dark .unfold-modal-title { color: #f9fafb !important; }
+    html.dark .unfold-modal-text { color: #9ca3af !important; }
+    html.dark .unfold-modal-cancel { background-color: #374151 !important; border-color: #4b5563 !important; color: #f3f4f6 !important; }
+    html.dark .unfold-modal-cancel:hover { background-color: #4b5563 !important; }
+
+    .unfold-modal-input:focus { outline: none !important; border-color: #4f46e5 !important; box-shadow: 0 0 0 1px #4f46e5 !important; }
+</style>
+
+<div id="modal-{{ target_action }}" class="fixed inset-0 hidden overflow-y-auto" style="z-index: 99999;" aria-labelledby="modal-title-{{ target_action }}" role="dialog" aria-modal="true">
+
+    <div class="fixed inset-0 bg-gray-900 bg-opacity-60 backdrop-blur-sm transition-opacity"></div>
+
+    <div class="flex min-h-screen items-center justify-center p-4 text-center sm:p-0">
+
+        <div class="relative transform overflow-hidden rounded-xl bg-white unfold-modal-panel text-left shadow-2xl transition-all w-full flex flex-col border border-gray-200" style="max-width: 500px;">
+
+            <div class="px-6 py-4 border-b border-gray-200 unfold-modal-header">
+                <h3 class="text-lg font-semibold text-gray-900 unfold-modal-title" id="modal-title-{{ target_action }}">
+                    {{ modal_title }}
+                </h3>
+            </div>
+
+            <div class="px-6 py-5 bg-white unfold-modal-panel">
+                <p class="text-sm text-gray-500 unfold-modal-text mb-4">
+                    {{ modal_text }}
+                </p>
+                <textarea
+                    id="modal-input-{{ target_action }}"
+                    rows="4"
+                    class="block w-full rounded-md border border-gray-300 unfold-modal-input bg-white px-3 py-2 text-sm text-gray-900 placeholder-gray-400 focus:border-primary-600 focus:ring-primary-600 focus:ring-1 outline-none transition-colors"
+                    placeholder="Например: в OpenVK словили Server Error..."
+                ></textarea>
+                <p id="modal-error-{{ target_action }}" class="text-red-600 text-xs mt-2 hidden">Это поле обязательно для заполнения!</p>
+            </div>
+
+            <div class="px-6 py-4 border-t border-gray-200 bg-gray-50 unfold-modal-footer flex flex-col-reverse sm:flex-row sm:justify-end gap-3">
+                <button type="button" id="cancel-btn-{{ target_action }}" class="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white unfold-modal-cancel px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none transition-colors sm:w-auto">
+                    Отмена
+                </button>
+                <button type="button" id="confirm-btn-{{ target_action }}" class="inline-flex w-full justify-center rounded-md px-4 py-2 text-sm font-medium text-white shadow-sm focus:outline-none transition-colors sm:w-auto {{ confirm_bg|default:'bg-primary-600 hover:bg-primary-700' }}">
+                    {{ confirm_text }}
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('modal-{{ target_action }}');
+
+        document.body.appendChild(modal);
+
+
+        const confirmBtn = document.getElementById('confirm-btn-{{ target_action }}');
+        const cancelBtn = document.getElementById('cancel-btn-{{ target_action }}');
+        const inputField = document.getElementById('modal-input-{{ target_action }}');
+        const errorMsg = document.getElementById('modal-error-{{ target_action }}');
+
+        let activeForm = null;
+        let activeUrl = null;
+
+        function showModal() {
+            modal.classList.remove('hidden');
+            inputField.value = '';
+            errorMsg.classList.add('hidden');
+            setTimeout(() => inputField.focus(), 100);
+        }
+
+        // listen for form submissions
+        document.addEventListener('submit', function(e) {
+            const form = e.target;
+            const actionSelect = form.querySelector('select[name="action"]');
+            const selectedAction = actionSelect ? actionSelect.value : null;
+
+            if (selectedAction === '{{ target_action }}') {
+                const checkBoxesExist = form.querySelector('input[name="_selected_action"]');
+                if (checkBoxesExist && form.querySelectorAll('input[name="_selected_action"]:checked').length === 0) {
+                    return; // if no checkboxes are selected, do nothing
+                }
+                e.preventDefault();
+                activeForm = form;
+                activeUrl = null;
+                showModal();
+            }
+        });
+
+        document.addEventListener('click', function(e) {
+            // find, if clicked on a link leading to our action
+            const link = e.target.closest('a[href*="/{{ target_action }}/"]');
+            if (link) {
+                e.preventDefault();
+                activeUrl = link.href; // remember url
+                activeForm = null;
+                showModal();
+            }
+        });
+
+        cancelBtn.addEventListener('click', () => {
+            modal.classList.add('hidden');
+            activeForm = null;
+            activeUrl = null;
+        });
+
+        confirmBtn.addEventListener('click', () => {
+            const val = inputField.value.trim();
+            if (!val) {
+                errorMsg.classList.remove('hidden');
+                inputField.focus();
+                return;
+            }
+
+            if (activeForm) {
+                // send as a form (from list page)
+                const hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = '{{ input_name }}';
+                hiddenInput.value = val;
+                activeForm.appendChild(hiddenInput);
+
+                const hiddenAction = document.createElement('input');
+                hiddenAction.type = 'hidden';
+                hiddenAction.name = 'action';
+                hiddenAction.value = '{{ target_action }}';
+                activeForm.appendChild(hiddenAction);
+
+                HTMLFormElement.prototype.submit.call(activeForm);
+            }
+            else if (activeUrl) {
+                // send as a link (from detail page)
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = activeUrl;
+
+                // get CSRF token from current page (required for POST in Django)
+                const csrfNode = document.querySelector('[name=csrfmiddlewaretoken]');
+                if (csrfNode) {
+                    const csrfInput = document.createElement('input');
+                    csrfInput.type = 'hidden';
+                    csrfInput.name = 'csrfmiddlewaretoken';
+                    csrfInput.value = csrfNode.value;
+                    form.appendChild(csrfInput);
+                }
+
+                // add reason
+                const reasonInput = document.createElement('input');
+                reasonInput.type = 'hidden';
+                reasonInput.name = '{{ input_name }}';
+                reasonInput.value = val;
+                form.appendChild(reasonInput);
+
+                // add to DOM and submit
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    });
+</script>

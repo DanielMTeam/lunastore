@@ -1715,4 +1715,34 @@ msgid "NOTIF_DEVSTATUS_DECLINED_TITLE"
 msgstr "Статус разработчика"
 
 msgid "NOTIF_DEVSTATUS_DECLINED_DESCRIPTION"
-msgstr "Поздравляем! Ваша заявка была отклонена и вы не получили возможности разработчика/издателя приложений."
+msgstr "Ваша заявка была отклонена и вы не получили возможности разработчика/издателя приложений. Причина: %(reason)s"
+
+msgid "NOTIF_LOGIN_TITLE"
+msgstr "Новый вход в аккаунт"
+
+msgid "NOTIF_LOGIN_DESCRIPTION"
+msgstr "В ваш аккаунт был выполнен вход • Устройство: %(browser)s (%(os)s) • IP-адрес: %(ip)s • Местоположение: %(location)s • Если это не вы, срочно смените пароль."
+
+msgid "NOTIF_APPREQ_ACCEPTED_TITLE"
+msgstr "Статус заявки"
+
+msgid "NOTIF_APPREQ_ACCEPTED_DESCRIPTION"
+msgstr "Поздравляем! Ваша заявка на создание приложения %(app_name)s была одобрена и оно было опубликовано в LunaStore."
+
+msgid "NOTIF_APPREQ_DECLINED_TITLE"
+msgstr "Статус заявки"
+
+msgid "NOTIF_APPREQ_DECLINED_DESCRIPTION"
+msgstr "Ваша заявка на создание приложения %(app_name)s была отклонена. Причина: %(reason)s"
+
+msgid "NOTIF_APPEDITREQ_DECLINED_TITLE"
+msgstr "Статус заявки на редактирование приложения"
+
+msgid "NOTIF_APPEDITREQ_DECLINED_DESCRIPTION"
+msgstr "Ваша заявка на редактирование приложения %(app_name)s была отклонена. Причина: %(reason)s"
+
+msgid "NOTIF_APPEDITREQ_ACCEPTED_TITLE"
+msgstr "Статус заявки на редактирование приложения"
+
+msgid "NOTIF_APPEDITREQ_ACCEPTED_DESCRIPTION"
+msgstr "Ваша заявка на редактирование приложения %(app_name)s была одобрена."

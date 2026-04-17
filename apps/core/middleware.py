@@ -1,6 +1,6 @@
 from django.core.cache import cache
 from django.http import JsonResponse
-from apps.user.middleware import get_client_ip
+from apps.core.utils import get_client_ip
 from django.conf import settings
 
 class RateLimitMiddleware:
