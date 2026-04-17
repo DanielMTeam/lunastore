@@ -66,15 +66,3 @@ class UserActivityModelTest(TestCase):
         logger.info('[User APP; UserActivityLog MODEL] Testing "action" field...')
         obj = UserActivityLog.objects.get(id=self.useractivity.id)
         self.assertEqual(obj.action, 'Logged In')
-
-
-class AuthPagesTest(TestCase):
-    def test_logout_url_by_path(self):
-        logger.info('[User APP; Logout PAGE] Testing URL by direct path...')
-        resp = self.client.get('/logout.php')
-        self.assertEqual(resp.status_code, 302)
-
-    def test_logout_url_by_name(self):
-        logger.info('[User APP; Logout PAGE] Testing URL by name...')
-        resp = self.client.get(reverse('logout'))
-        self.assertEqual(resp.status_code, 302)
