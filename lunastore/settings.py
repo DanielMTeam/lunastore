@@ -11,7 +11,7 @@ dotenv_path = BASE_DIR / ".env"
 load_dotenv(dotenv_path)
 
 # PLEASE, do not change this, if you don't understand what you do
-VERSION = os.getenv("VERSION", "1.9.0")
+VERSION = os.getenv("VERSION", "2.0")
 
 LOCALE_PATHS = [
     BASE_DIR / "locale",
@@ -23,6 +23,7 @@ ADMIN_URL = os.getenv("ADMIN_URL", "http://127.0.0.1:8000")
 
 LOGIN_URL = "login.php"
 
+RATE_LIMIT_ENABLED = os.getenv("RATE_LIMIT_ENABLED", "False") == "True"
 RATE_LIMIT_WINDOW = int(os.getenv("RATE_LIMIT_WINDOW", "50"))
 RATE_LIMIT = int(os.getenv("RATE_LIMIT", "35"))
 
@@ -389,7 +390,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     'django_user_agents.middleware.UserAgentMiddleware',
-    "apps.core.middleware.RateLimitMiddleware",
+    *([] if not RATE_LIMIT_ENABLED else ["apps.core.middleware.RateLimitMiddleware"]),
 ]
 
 ROOT_URLCONF = os.environ.get("DJANGO_ROOT_URLCONF", "lunastore.urls")
