@@ -8,6 +8,6 @@ class LunaException(APIException):
 
     def __init__(self, code: int, message: str, status_code=status.HTTP_400_BAD_REQUEST):
         self.status_code = status_code
-        self.code = code  
-        self.detail = message  
+        self.code = code
+        self.detail = message
         super().__init__(message)

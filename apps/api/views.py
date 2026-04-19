@@ -148,10 +148,11 @@ class UserViewSet(viewsets.GenericViewSet):
         guard_phrase = str(uuid.uuid4().hex)[:8]
         current_time = int(time.time())
 
-        allowed_mimes = ",".join(
+        allowed_mimes = ";".join(
             [
                 "application/octet-stream",
                 "application/zip",
+                "application/x-zip-compressed",
                 "application/x-rar-compressed",
                 "application/vnd.rar",
                 "application/x-msdownload",
@@ -169,6 +170,8 @@ class UserViewSet(viewsets.GenericViewSet):
             "iat": current_time,
             "exp": current_time + 300,
         }
+
+        print(allowed_mimes)
 
         upload_token = jwt.encode(
             payload, settings.LUNASPIRE_SECRET_KEY, algorithm="HS256"
@@ -378,32 +381,37 @@ class DistributionViewSet(viewsets.GenericViewSet):
     )
     @action(detail=False, methods=["get"], url_path="getDistributionsList")
     def get_distributions_list(self, request):
-        id = request.query_params.get("id")
+        app_id = request.query_params.get("id")
 
-        if not id:
+        if not app_id:
             raise LunaException(
                 code=ErrorCodes.VALIDATION_ERROR,
                 message="'ID' field missing",
                 status_code=400,
             )
-        try:
-            distributions = self.get_queryset().filter(app_id=id)
-            if not distributions.exists():
-                raise LunaException(
-                    code=ErrorCodes.APPLICATION_NOT_FOUND,
-                    message=f"No distributions found for app id {id}",
-                    status_code=404,
-                )
-        except Application.DoesNotExist:
+
+        if not Application.objects.filter(id=app_id).exists():
             raise LunaException(
                 code=ErrorCodes.APPLICATION_NOT_FOUND,
-                message=f"Application with id {id} was not found",
+                message=f"Application with id {app_id} was not found",
+                status_code=404,
+            )
+
+        # get distributions
+        distributions = self.get_queryset().filter(app_id=app_id)
+
+        if not distributions.exists():
+            raise LunaException(
+                code=ErrorCodes.APPLICATION_NOT_FOUND,
+                message=f"No distributions found for app id {app_id}",
                 status_code=404,
             )
 
         serializer = DistributionSerializer(distributions, many=True)
+
         enumerated_data = {
-            str(index + 1): distributions
-            for index, distributions in enumerate(serializer.data)
+            str(index + 1): dist_data
+            for index, dist_data in enumerate(serializer.data)
         }
+
         return Response(enumerated_data)
