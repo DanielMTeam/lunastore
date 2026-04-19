@@ -167,7 +167,7 @@ class Distribution(SafeDeleteModel):
     @property
     def link(self):
         if self.cdn_file_id:
-            return reverse("download_action", kwargs={"dist_pk": self.pk})
+            return f"/get_dist_file/{self.pk}/"
         return self.url if self.url else "#"
 
 
