@@ -29,6 +29,7 @@ from apps.core.notifications.services import NotificationService
 
 from .constants import ErrorCodes
 from .exceptions import LunaException
+from django.core.cache import cache
 
 
 class UserViewSet(viewsets.GenericViewSet):
@@ -106,6 +107,10 @@ class UserViewSet(viewsets.GenericViewSet):
 
         policy = self.PUB_UPLOAD_POLICIES[target]
         guard_phrase = str(uuid.uuid4().hex)[:8]
+
+        cache_key = f"cdn_guard_{request.user.id}_{guard_phrase}"
+        cache.set(cache_key, True, timeout=180)
+
         current_time = int(time.time())
 
         payload = {
@@ -116,7 +121,7 @@ class UserViewSet(viewsets.GenericViewSet):
             "mode": "public",
             "accept": policy["mimes"],
             "iat": current_time,
-            "exp": current_time + 300,
+            "exp": current_time + 180,
             "img_opts": {"mw": policy["mw"], "mh": policy["mh"]},
         }
 
@@ -146,6 +151,10 @@ class UserViewSet(viewsets.GenericViewSet):
             return Response({"error": "Not your app"}, status=403)
 
         guard_phrase = str(uuid.uuid4().hex)[:8]
+
+        cache_key = f"cdn_guard_{request.user.id}_{guard_phrase}"
+        cache.set(cache_key, True, timeout=180)
+
         current_time = int(time.time())
 
         allowed_mimes = ";".join(
@@ -168,10 +177,8 @@ class UserViewSet(viewsets.GenericViewSet):
             "mode": "private",  # private only
             "accept": allowed_mimes,
             "iat": current_time,
-            "exp": current_time + 300,
+            "exp": current_time + 180,
         }
-
-        print(allowed_mimes)
 
         upload_token = jwt.encode(
             payload, settings.LUNASPIRE_SECRET_KEY, algorithm="HS256"

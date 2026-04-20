@@ -355,7 +355,17 @@ UNFOLD = {
                         "title": "Статус разработчика",
                         "icon": "computer",
                         "link": reverse_lazy("admin:user_devrequestsmodel_changelist"),
-                    }
+                    },
+                    {
+                        "title": "Создание дистрибуции",
+                        "icon": "publish",
+                        "link": reverse_lazy("admin:marketplace_distributioncreaterequests_changelist"),
+                    },
+                    {
+                        "title": "Редактирование дистрибуции",
+                        "icon": "edit",
+                        "link": reverse_lazy("admin:marketplace_distributioneditrequests_changelist"),
+                    },
                 ],
             },
             {

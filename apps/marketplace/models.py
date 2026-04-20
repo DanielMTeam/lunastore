@@ -136,28 +136,29 @@ class Application(BaseApplicationInfo, SafeDeleteModel):
         return self.title
 
 
-class Distribution(SafeDeleteModel):
+class BaseDistributionInfo(SafeDeleteModel):
     _safedelete_policy = SOFT_DELETE
 
-    app = models.ForeignKey(Application, on_delete=models.PROTECT)
-    version = models.CharField(max_length=20)
-    cdn_file_id = models.PositiveIntegerField(
-        null=True, blank=True, verbose_name="ID файла в CDN"
+    app = models.ForeignKey(
+        'Application',
+        on_delete=models.CASCADE,
+        related_name="%(class)ss", # generate 'distributions' and 'distributionrequests'
+        verbose_name="Приложение"
     )
-    url = models.URLField(max_length=140, null=True)
-    changelog = models.CharField(max_length=210)
-    published = models.DateTimeField(auto_now=True)
+    version = models.CharField(max_length=20, verbose_name="Версия")
+    cdn_file_id = models.PositiveIntegerField(null=True, blank=True, verbose_name="ID файла в CDN")
+    url = models.URLField(max_length=140, null=True, blank=True, verbose_name="Внешняя ссылка (если не CDN)")
+    changelog = models.CharField(max_length=210, verbose_name="Список изменений")
 
     class Meta:
-        ordering = ["app", "published"]
-        verbose_name = "Дистрибуция"
-        verbose_name_plural = "Дистрибуции"
+        abstract = True
 
     def __str__(self):
         return f"{self.app} {self.version}"
 
     def __repr__(self):
-        return f"<Distribution {self.app} {self.version}>"
+        # will be <Distribution AppName v1.0>
+        return f"<{self.__class__.__name__} {self.app} {self.version}>"
 
     @property
     def has_download(self):
@@ -169,6 +170,43 @@ class Distribution(SafeDeleteModel):
         if self.cdn_file_id:
             return f"/get_dist_file/{self.pk}/"
         return self.url if self.url else "#"
+
+
+class Distribution(BaseDistributionInfo):
+    published = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["app", "-published"]
+        verbose_name = "Дистрибуция"
+        verbose_name_plural = "Дистрибуции"
+
+
+class DistributionCreateRequests(BaseDistributionInfo):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="dist_requests",
+        verbose_name="Автор заявки"
+    )
+
+    # only for moderation
+    virustotal_url = models.URLField(max_length=255, verbose_name="Ссылка на VirusTotal")
+    cdn_hash = models.CharField(max_length=128, null=True, blank=True, verbose_name="Хэш от LunaSpire")
+
+    status_choices = (
+        ("pending", "На рассмотрении"),
+        ("approved", "Одобрено"),
+        ("rejected", "Отклонено"),
+    )
+    status = models.CharField(
+        max_length=20, choices=status_choices, default="pending", verbose_name="Статус"
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+        verbose_name = "Заявка на дистрибуцию"
+        verbose_name_plural = "Заявки на дистрибуции"
 
 
 class AppCreateRequests(BaseApplicationInfo, SafeDeleteModel):
@@ -198,6 +236,41 @@ class AppCreateRequests(BaseApplicationInfo, SafeDeleteModel):
 
     def __str__(self):
         return f"Заявка #{self.id} на создание ({self.title})"
+
+
+class DistributionEditRequests(BaseDistributionInfo):
+    target_distribution = models.ForeignKey(
+        'Distribution',
+        on_delete=models.CASCADE,
+        related_name="edit_requests",
+        verbose_name="Редактируемая дистрибуция"
+    )
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="dist_edit_requests",
+        verbose_name="Автор правки"
+    )
+
+    # for moderation
+    virustotal_url = models.URLField(max_length=255, null=True, blank=True, verbose_name="Ссылка на VirusTotal")
+    cdn_hash = models.CharField(max_length=128, null=True, blank=True, verbose_name="Хэш от CDN")
+
+    status_choices = (
+        ("pending", "На рассмотрении"),
+        ("approved", "Одобрено"),
+        ("rejected", "Отклонено"),
+    )
+    status = models.CharField(max_length=20, choices=status_choices, default="pending", verbose_name="Статус")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+        verbose_name = "Заявка на изменение дистрибуции"
+        verbose_name_plural = "Заявки на изменения дистрибуций"
+
+    def __str__(self):
+        return f"Правка #{self.id} для {self.target_distribution.version}"
 
 
 class AppEditRequests(BaseApplicationInfo, SafeDeleteModel):

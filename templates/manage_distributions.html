@@ -63,6 +63,26 @@
             <div class="section" style="border: none; padding: 0;">
                 <div class="profile_block">{% trans "PAGE_ADMIN_APP_DIST_HEADER" %}{{ app.title }}</div>
                 <div class="profile_block_content">
+                    {% if pending_requests or pending_edits %}
+                    <div class="info_splash" style="margin-bottom: 15px;">
+                        <strong style="color: #0b3a72;">{% trans "PAGE_ADMIN_APP_DIST_PENDING_TITLE" %}</strong>
+                        <ul style="margin-top: 5px; margin-bottom: 0; padding-left: 25px; color: #333;">
+                        {% for req in pending_requests %}
+                            <li>
+                                {% trans "PAGE_ADMIN_APP_DIST_VERSION_LABEL" %} <strong>{{ req.version }}</strong>
+                                {% trans "PAGE_ADMIN_APP_DIST_PENDING_CREATE" %}
+                            </li>
+                        {% endfor %}
+                        {% for edit in pending_edits %}
+                            <li>
+                                {% trans "PAGE_ADMIN_APP_DIST_VERSION_LABEL" %} <strong>{{ edit.version }}</strong>
+                                {% trans "PAGE_ADMIN_APP_DIST_PENDING_EDIT" %}
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+
                     {% if distributions %}
                     <table class="app_version_table" cellpadding="0" cellspacing="0">
                         <thead>
@@ -185,6 +205,12 @@
 
                             <div class="st_clearb"></div>
                             <div class="pref_warn_label">{% trans "PAGE_DIST_FORM_FILE_DESC" %}</div>
+                        </div>
+
+                        <div class="pref_pad">
+                            <div class="pref_item_title">{% trans "PAGE_DIST_FORM_VT_TITLE" %}</div>
+                            {{ form.virustotal_url }}
+                            <div class="pref_warn_label">{% trans "PAGE_DIST_FORM_VT_DESC" %}</div>
                         </div>
 
                         <div class="pref_pad">

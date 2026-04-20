@@ -1,5 +1,5 @@
 from modeltranslation.translator import register, TranslationOptions
-from .models import Application, Category, AppCreateRequests, Distribution, AppEditRequests
+from .models import Application, Category, AppCreateRequests, Distribution, AppEditRequests, DistributionEditRequests, DistributionCreateRequests
 
 @register(Category)
 class CategoryTranslationOptions(TranslationOptions):
@@ -20,3 +20,11 @@ class DistributionTranslationOptions(TranslationOptions):
 @register(AppEditRequests)
 class AppEditRequestsTranslationOptions(TranslationOptions):
     fields = ('title', 'description', 'requirements', 'slogan')
+
+@register(DistributionCreateRequests)
+class DistributionRequestTranslationOptions(TranslationOptions):
+    fields = ('changelog',)
+
+@register(DistributionEditRequests)
+class DistributionEditRequestTranslationOptions(TranslationOptions):
+    fields = ('changelog',)
