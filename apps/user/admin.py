@@ -150,8 +150,8 @@ admin.site.register(UserActivityLog)
 
 @admin.register(DevRequestsModel)
 class DevRequestsAdmin(SafeDeleteAdmin):
-    change_list_template = "admin/dev_requests/change_list_custom.html"
-    change_form_template = "admin/dev_requests/change_form_custom.html"
+    change_list_template = "admin/decline_forms/change_list_custom.html"
+    change_form_template = "admin/decline_forms/change_form_custom.html"
 
 
     list_display = ("id", "user", "github", "mail")

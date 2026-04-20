@@ -22,6 +22,7 @@ from apps.core.utils import get_client_ip
 from .models import BlacklistedUsername, InviteToken, User, UserActivityLog, UserBan
 from .tasks import CACHE_KEY
 from .validators import validate_invite_limit
+from apps.core.mixins import CDNTokenValidationMixin
 
 
 class UserBanForm(forms.ModelForm):
@@ -141,14 +142,14 @@ class UserRegistrationForm(UserCreationForm):
 
     username = forms.CharField(max_length=45, min_length=2)
     email = forms.EmailField(max_length=45)
-    captcha = CaptchaField(label="Введите символы с картинки")
+    captcha = CaptchaField(label=_("FORM_CAPTCHA"))
     agree_with_site_rules = forms.BooleanField(
-        label="Я согласен с правилами сайта и осведомлён о последствиях их нарушения",
+        label=_("FORM_AGREE_RULES"),
         widget=forms.CheckboxInput,
         required=True,
     )
     agree_with_privacy_policy = forms.BooleanField(
-        label="Я принимаю условия конфиденциальности",
+        label=_("FORM_AGREE_POLICY"),
         widget=forms.CheckboxInput,
         required=True,
     )
@@ -172,7 +173,7 @@ class ProfileUpdateForm(forms.ModelForm):
         ]
 
     username = forms.CharField(
-        label="Имя пользователя",
+        label=_("FORM_DEVSTATUS_YOUR_USERNAME"),
         disabled=True,
         required=False,
         widget=forms.TextInput(attrs={"class": "input-text", "readonly": "readonly"}),
@@ -183,7 +184,7 @@ class ProfileUpdateForm(forms.ModelForm):
         widget=forms.TextInput(attrs={"class": "input-text"}),
     )
     website = forms.URLField(
-        label="Веб-сайт",
+        label=_("PAGE_SETTINGS_LABEL_WEBSITE"),
         required=False,
         widget=forms.URLInput(attrs={"class": "input-text"}),
     )
@@ -198,7 +199,7 @@ class ProfileUpdateForm(forms.ModelForm):
         widget=forms.TextInput(attrs={"class": "input-text"}),
     )
     description = forms.CharField(
-        label="Описание профиля",
+        label=_("PAGE_PROFILESETTINGS_LABEL_BIO"),
         required=False,
         widget=forms.Textarea(attrs={"class": "brief_intro", "cols": 90}),
     )
@@ -208,6 +209,25 @@ class ProfileUpdateForm(forms.ModelForm):
         required=False,
         widget=forms.EmailInput(attrs={"class": "input-text", "readonly": "readonly"}),
     )
+
+    def clean_telegram(self):
+        data = self.cleaned_data.get('telegram')
+        if data:
+            # check for slash or protocol
+            if "/" in data or "http" in data:
+                raise ValidationError(_("ERROR_PROFILE_TELEGRAM_INVALID"))
+
+            # remove @
+            data = data.lstrip('@')
+        return data
+
+    def clean_openvk(self):
+        data = self.cleaned_data.get('openvk')
+        if data:
+            if "/" in data or "http" in data:
+                raise ValidationError(_("ERROR_PROFILE_OPENVK_INVALID"))
+            data = data.lstrip('@')
+        return data
 
 
 class PasswordChangeForm(forms.Form):
@@ -250,7 +270,7 @@ class PasswordChangeForm(forms.Form):
         return cleaned_data
 
 
-class AvatarUpdateForm(forms.ModelForm):
+class AvatarUpdateForm(forms.ModelForm, CDNTokenValidationMixin):
     class Meta:
         model = User
         fields = []
@@ -262,67 +282,47 @@ class AvatarUpdateForm(forms.ModelForm):
         help_text=_("INFO_RECOMENDATIONS_FOR_UPLOAD_AVATAR"),
     )
 
-    confirm_token = forms.CharField(widget=forms.HiddenInput())
-    filepath = forms.CharField(widget=forms.HiddenInput())
+    confirm_token = forms.CharField(widget=forms.HiddenInput(), required=False)
+    filepath = forms.CharField(widget=forms.HiddenInput(), required=False)
 
-    client_guard = forms.CharField(widget=forms.HiddenInput(), required=False)
 
-    def clean_avatar(self):
-        avatar = self.cleaned_data.get("avatar")
-        if avatar:
-            limit_mb = 2
-            if avatar.size > limit_mb * 1024 * 1024:
-                raise ValidationError(_("INFO_MAXIMUM_AVATAR_SIZE"))
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
 
-            ext = os.path.splitext(avatar.name)[1].lower()
-            valid_extensions = [".jpg", ".jpeg", ".png", ".gif", ".webp", ".jfif"]
-            if ext not in valid_extensions:
-                raise ValidationError(_("INFO_ACCEPTED_AVATAR_FORMATS"))
+    def clean(self):
+        cleaned_data = super().clean()
+        token = cleaned_data.get("confirm_token")
 
-            try:
-                img = Image.open(avatar)
-            except Exception:
-                raise ValidationError(_("ERROR_INVALID_IMAGE_FILE"))
+        if token:
+            # validate token (protect from tampering and reuse)
+            decoded = self.validate_cdn_token(token, expected_type="cdn-confirm")
 
-            if ext == ".gif":
-                return avatar
+            # get file info from CDN
+            file_id = decoded.get("file_id")
+            info = self.get_cdn_file_info(file_id, fields="path")
 
-            target_size = (64, 64)
-            width, height = img.size
+            if not info or not info.get("path"):
+                raise ValidationError(_("ERROR_DIST_FORM_CDN_INFO_FAIL"))
 
-            if width > target_size[0] or height > target_size[1]:
-                img.thumbnail(target_size, Image.Resampling.LANCZOS)
+            # save validated data for save() method
+            cleaned_data["secure_avatar_id"] = file_id
+            cleaned_data["secure_avatar_path"] = info.get("path")
 
-                img_format = "PNG" if ext == ".png" else "JPEG"
-                if ext == ".webp":
-                    img_format = "WEBP"
+        return cleaned_data
 
-                if img_format == "JPEG" and img.mode in ("RGBA", "LA"):
-                    background = Image.new("RGB", img.size, (255, 255, 255))
-                    background.paste(img, mask=img.split()[3])
-                    img = background
+    def save(self, commit=True):
+        instance = super().save(commit=False)
 
-                buffer = BytesIO()
-                img.save(buffer, format=img_format, quality=90)
-                new_avatar_name = f"resized_{avatar.name}"
-                return ContentFile(buffer.getvalue(), name=new_avatar_name)
+        if "secure_avatar_id" in self.cleaned_data:
+            instance.avatar_id = self.cleaned_data["secure_avatar_id"]
 
-        return avatar
+        if "secure_avatar_path" in self.cleaned_data:
+            instance.avatar_path = self.cleaned_data["secure_avatar_path"]
 
-    def clean_filepath(self):
-        filepath = self.cleaned_data.get("filepath", "")
-
-        if filepath:
-            valid_extensions = [".jpg", ".jpeg", ".png", ".gif", ".webp", ".jfif"]
-
-            ext = os.path.splitext(filepath)[1].lower()
-
-            if ext not in valid_extensions:
-                raise ValidationError(
-                    "Недопустимый формат файла на сервере хранения (CDN). Пожалуйста, обратитесь к администратору."
-                )
-
-        return filepath
+        if commit:
+            instance.save()
+        return instance
 
 
 class DevStatusForm(forms.ModelForm):
