@@ -270,6 +270,10 @@ def profile_settings(request):
                 forms["profile_form"].save()
                 messages.success(request, _("INFO_PROFILE_IS_UPDATED"))
                 return redirect("settings")
+            else:
+                for field, errors in forms["profile_form"].errors.items():
+                    for error in errors:
+                        messages.error(request, error)
         elif form_type == "password":
             forms["password_form"] = PasswordChangeForm(request.POST, user=user)
             if forms["password_form"].is_valid():

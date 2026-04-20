@@ -19,7 +19,10 @@ from .models import (
     Application,
     AppReportRequests,
     Distribution,
+    DistributionCreateRequests,
+    DistributionEditRequests,
 )
+from apps.core.mixins import CDNTokenValidationMixin
 
 _TRANS_FIELDS = ["title", "slogan", "description", "requirements", "changelog"]
 
@@ -190,7 +193,7 @@ for i in range(1, settings.SCREENSHOT_COUNT + 1):
     )
 
 
-class AppCreateForm(forms.ModelForm):
+class AppCreateForm(forms.ModelForm, CDNTokenValidationMixin):
     upload_screenshots = MultipleFileField(
         widget=MultipleFileInput(
             attrs={
@@ -216,6 +219,9 @@ class AppCreateForm(forms.ModelForm):
         ),
         required=False,
     )
+
+    cdn_icon_confirm_token = forms.CharField(widget=forms.HiddenInput(), required=False)
+    cdn_screenshots_tokens = forms.CharField(widget=forms.HiddenInput(), required=False)
 
     cdn_icon_path = forms.CharField(widget=forms.HiddenInput(), required=False)
     cdn_screenshots_data = forms.CharField(widget=forms.HiddenInput(), required=False)
@@ -245,22 +251,40 @@ class AppCreateForm(forms.ModelForm):
                     "original_author": forms.TextInput(attrs={"class": "input-text"}),
                 })
 
-    def clean_cdn_screenshots_data(self):
-        data = self.cleaned_data.get("cdn_screenshots_data")
-        if data:
-            try:
-                import json
+    def clean(self):
+        cleaned_data = super().clean()
 
-                return json.loads(data)
-            except json.JSONDecodeError:
-                return []
-        return []
+        # validate icon token
+        icon_token = cleaned_data.get("cdn_icon_confirm_token")
+        if icon_token:
+            decoded = self.validate_cdn_token(icon_token)
+            # request path (path) because it's an image
+            info = self.get_cdn_file_info(decoded.get("file_id"), fields="path")
+            cleaned_data["cdn_icon_path"] = info.get("path") # now path is validated
+
+        # validate screenshots tokens
+        scr_tokens_json = cleaned_data.get("cdn_screenshots_tokens")
+        if scr_tokens_json:
+            try:
+                token_list = json.loads(scr_tokens_json)
+                safe_paths = []
+                for token in token_list:
+                    decoded = self.validate_cdn_token(token)
+                    info = self.get_cdn_file_info(decoded.get("file_id"), fields="path")
+                    if info.get("path"):
+                        safe_paths.append(info.get("path"))
+
+                cleaned_data["cdn_screenshots_data"] = safe_paths
+            except (json.JSONDecodeError, ValidationError):
+                raise ValidationError(_("ERROR_CDN_CHECKSUM_MISMATCH_SCREENSHOTS"))
+
+        return cleaned_data
 
     def save(self, commit=True):
         app_instance = super().save(commit=False)
+        app_instance.user = self.user
 
         app_instance.icon_path = self.cleaned_data.get("cdn_icon_path")
-
         app_instance.screenshots = self.cleaned_data.get("cdn_screenshots_data")
 
         if commit:
@@ -281,6 +305,10 @@ class AppCreateForm(forms.ModelForm):
                         'input': self[full_name]
                     })
         return data
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
 
 
 class AppEditForm(AppCreateForm):
@@ -325,53 +353,6 @@ class AppEditForm(AppCreateForm):
 
         self.fields.pop("captcha", None)
         self.fields.pop("agree_with_site_rules", None)
-
-    def _is_valid_cdn_url(self, url):
-        if not url:
-            return False
-
-        if not url.startswith("http://") and not url.startswith("https://"):
-            if ":" in url:
-                return False
-            return True
-
-        parsed_url = urlparse(url)
-        expected_domain = getattr(settings, "LUNASPIRE_URL_WITHOUT_PROTO", "")
-
-        actual_hostname = parsed_url.hostname or parsed_url.netloc.split(":")[0]
-        expected_hostname = expected_domain.split(":")[0]
-
-        return actual_hostname == expected_hostname
-
-    def clean_cdn_icon_path(self):
-        icon_path = self.cleaned_data.get("cdn_icon_path")
-        if icon_path:
-            if not self._is_valid_cdn_url(icon_path):
-                raise ValidationError(
-                    "URL иконки не совпадает с изначальным доменом LunaSpire. Пожалуйста, обратитесь к администратору."
-                )
-        return icon_path
-
-    def clean_cdn_screenshots_data(self):
-        scr_data = self.cleaned_data.get("cdn_screenshots_data")
-        if scr_data:
-            try:
-                screenshots = json.loads(scr_data)
-                if not isinstance(screenshots, list):
-                    raise ValidationError(
-                        "Неверный формат данных скриншотов. Пожалуйста, проверьте данные."
-                    )
-
-                for scr_url in screenshots:
-                    if not self._is_valid_cdn_url(scr_url):
-                        raise ValidationError(
-                            "Один или несколько URL скриншотов недействительны. Пожалуйста, проверьте данные."
-                        )
-
-                return screenshots
-            except json.JSONDecodeError:
-                raise ValidationError("Ошибка чтения данных скриншотов.")
-        return None
 
     def save(self, commit=True):
         submission = super().save(commit=False)
@@ -449,77 +430,51 @@ class ApplicationAdminForm(forms.ModelForm):
 ALLOWED_EXTENSIONS = ["exe", "zip", "rar", "7z"]
 
 
-class DistributionForm(forms.ModelForm):
+class BaseDistributionForm(forms.ModelForm, CDNTokenValidationMixin):
     cdn_confirm_token = forms.CharField(widget=forms.HiddenInput(), required=False)
-    url = forms.URLField(required=False)
+    url = forms.URLField(required=False, widget=forms.URLInput(attrs={"class": "input-text"}))
 
-    class Meta:
-        model = Distribution
-        fields = get_translated_fields_list(["version", "url", "changelog"])
-        widgets = get_translated_widgets_dict({
-            "version": forms.TextInput(attrs={"class": "input-text"}),
-            "url": forms.URLInput(attrs={"class": "input-text"}),
-            "changelog": forms.Textarea(
-                attrs={"class": "brief_intro", "rows": 3, "style": "resize:none;"}
-            ),
-        })
+    # field for security
+    virustotal_url = forms.URLField(required=False, widget=forms.URLInput(attrs={"class": "input-text"}))
 
-    def save(self, commit=True):
-        distribution = super().save(commit=False)
-
-        new_file_id = self.cleaned_data.get("cdn_file_id")
-        if new_file_id:
-            distribution.cdn_file_id = new_file_id
-
-        if commit:
-            distribution.save()
-        return distribution
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        self.target_dist = kwargs.pop('target_dist', None)  # the target distribution for edit mode
+        super().__init__(*args, **kwargs)
 
     def clean(self):
         cleaned_data = super().clean()
         cdn_token = cleaned_data.get("cdn_confirm_token")
         url = cleaned_data.get("url")
-        has_existing = self.instance and (
-            self.instance.cdn_file_id or self.instance.url
-        )
+
+        # check if there's an existing file (for edit mode)
+        has_existing = self.target_dist and (self.target_dist.cdn_file_id or self.target_dist.url)
 
         if not cdn_token and not url and not has_existing:
-            raise ValidationError(
-                _("Нужно загрузить файл или указать ссылку для скачивания")
-            )
+            raise ValidationError(_("ERROR_DIST_FORM_NO_FILE_OR_URL"))
 
         if cdn_token:
-            try:
-                decoded = jwt.decode(
-                    cdn_token, settings.LUNASPIRE_SECRET_KEY, algorithms=["HS256"]
-                )
-                if decoded.get("type") != "cdn-confirm":
-                    raise ValidationError(_("Неверный тип токена от CDN."))
+            if not cleaned_data.get("virustotal_url"):
+                raise ValidationError(_("ERROR_DIST_FORM_NO_VT_LINK"))
 
-                cleaned_data["cdn_file_id"] = decoded.get("file_id")
-            except jwt.InvalidTokenError:
-                raise ValidationError(
-                    _("Ошибка валидации: недействительный токен CDN.")
-                )
+            decoded = self.validate_cdn_token(cdn_token)
+            file_id = decoded.get("file_id")
+
+            cleaned_data["cdn_file_id"] = file_id
+
+            # go to CDN and get hash
+            info = self.get_cdn_file_info(file_id, fields="hash")
+            extracted_hash = info.get("hash")
+            if not extracted_hash:
+                raise ValidationError(_("ERROR_DIST_FORM_CDN_INTO_FAIL"))
+
+            cleaned_data["cdn_hash_extracted"] = extracted_hash
+        else:
+            if self.target_dist:
+                cleaned_data["cdn_file_id"] = self.target_dist.cdn_file_id
+                cleaned_data["url"] = url or self.target_dist.url
 
         return cleaned_data
-
-    def clean_file(self):
-        file = self.cleaned_data.get("file")
-
-        if file:
-            ext = os.path.splitext(file.name)[1][1:].lower()
-
-            if ext not in ALLOWED_EXTENSIONS:
-                allowed_str = ", ".join(ALLOWED_EXTENSIONS)
-                raise ValidationError(
-                    _(
-                        "Файлы с расширением .%(ext)s не поддерживаются. Разрешены только: %(allowed)s"
-                    )
-                    % {"ext": ext, "allowed": allowed_str}
-                )
-
-        return file
 
     def get_trans_fields(self):
         flags = {'ru': '🇷🇺 RU', 'en': '🇬🇧 EN', 'be': '🇧🇾 BE', 'uk': '🇺🇦 UK'}
@@ -530,7 +485,6 @@ class DistributionForm(forms.ModelForm):
             data[field_name] = []
             for lang_code, _ in settings.LANGUAGES:
                 short_code = lang_code.split('-')[0].lower()
-
                 full_name = f"{field_name}_{lang_code}"
                 alt_name = f"{field_name}_{short_code}"
 
@@ -547,3 +501,50 @@ class DistributionForm(forms.ModelForm):
                         'input': self[target_field]
                     })
         return data
+
+
+class DistributionCreateForm(BaseDistributionForm):
+    class Meta:
+        model = DistributionCreateRequests
+        fields = get_translated_fields_list(["version", "url", "changelog"]) + ["virustotal_url"]
+        widgets = get_translated_widgets_dict({
+            "version": forms.TextInput(attrs={"class": "input-text"}),
+            "changelog": forms.Textarea(attrs={"class": "brief_intro", "rows": 3, "style": "resize:none;"}),
+        })
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        instance.cdn_file_id = self.cleaned_data.get("cdn_file_id")
+
+        if "cdn_hash_extracted" in self.cleaned_data:
+            true_hash = self.cleaned_data["cdn_hash_extracted"]
+            instance.cdn_hash = true_hash
+
+        if commit:
+            instance.save()
+        return instance
+
+
+class DistributionEditForm(BaseDistributionForm):
+    class Meta:
+        model = DistributionEditRequests
+        fields = get_translated_fields_list(["version", "url", "changelog"]) + ["virustotal_url"]
+        widgets = get_translated_widgets_dict({
+            "version": forms.TextInput(attrs={"class": "input-text"}),
+            "changelog": forms.Textarea(attrs={"class": "brief_intro", "rows": 3, "style": "resize:none;"}),
+        })
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        instance.target_distribution = self.target_dist
+        instance.user = self.user
+        instance.cdn_file_id = self.cleaned_data.get("cdn_file_id")
+
+        # write true hash from CDN
+        if "cdn_hash_extracted" in self.cleaned_data:
+            true_hash = self.cleaned_data["cdn_hash_extracted"]
+            instance.cdn_hash = true_hash
+
+        if commit:
+            instance.save()
+        return instance
