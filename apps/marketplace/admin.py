@@ -7,7 +7,7 @@ from django.utils.safestring import mark_safe
 from unfold import admin as unfold_admin
 from unfold.decorators import action
 from apps.core.tasks import send_notification
-
+from safedelete.models import HARD_DELETE
 from lunastore.mixins import SafeDeleteAdmin
 from . import translation
 from .forms import ApplicationAdminForm
@@ -54,6 +54,185 @@ class DistributionAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
         if obj.url:
             return format_html('<a href="{url}" target="_blank">{url}</a>', url=obj.url)
         return "-"
+
+@admin.register(DistributionCreateRequests)
+class DistributionCreateAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
+    change_list_template = "admin/decline_forms/change_list_custom.html"
+    change_form_template = "admin/decline_forms/change_form_custom.html"
+
+    list_display = ("id", "app", "version", "user", "status", "created_at")
+    search_fields = ["app__title", "version", "user__username"]
+    list_filter = SafeDeleteAdmin.list_filter + ["status", "created_at"]
+    actions_detail = ["approve_request", "reject_request"]
+    actions = ["approve_request", "reject_request"]
+
+    readonly_fields = ("app", "user", "status", "version", "cdn_file_id", "url", "changelog", "vt_link", "cdn_hash")
+
+    fieldsets = (
+        ("Информация о дистрибуции", {
+            "fields": ("app", "version", "changelog", "url", "cdn_file_id")
+        }),
+        ("Безопасность", {
+            "fields": ("cdn_hash", "vt_link"),
+            "description": "Сверка хэша от CDN (LunaSpire) с результатами VirusTotal. Если ссылка и хэш не указаны, проверка не выполняется."
+        }),
+        ("Статус и автор", {
+            "fields": ("user", "status")
+        }),
+    )
+
+    @admin.display(description="VirusTotal")
+    def vt_link(self, obj):
+        if not obj.virustotal_url:
+            return mark_safe('<span class="text-gray-500">Ссылка не указана</span>')
+
+        return format_html(
+            '<a href="{}" target="_blank" class="font-semibold text-blue-600 underline">Перейти к проверке</a> ({})',
+            obj.virustotal_url, obj.virustotal_url
+        )
+
+    @action(description="Одобрить заявку", icon="check_circle", attrs={"class": "bg-success-600 text-white"})
+    def approve_request(self, request, object_id):
+        req = self.get_object(request, object_id)
+        if req.status == "approved":
+            self.message_user(request, "Уже одобрено", messages.WARNING)
+            return redirect(reverse("admin:marketplace_distributioncreaterequests_changelist"))
+
+        dist = Distribution(
+            app=req.app,
+            version=req.version,
+            cdn_file_id=req.cdn_file_id,
+            url=req.url,
+        )
+
+        for lang_code, _ in settings.LANGUAGES:
+            lang_field = f"changelog_{lang_code}"
+            val = getattr(req, lang_field, None)
+            setattr(dist, lang_field, val)
+
+        dist.save()
+
+        req.status = "approved"
+        req.save()
+
+        send_notification.enqueue(
+            user_id=req.user.id,
+            title_key="NOTIF_DISTREQ_ACCEPTED_TITLE",
+            content_key="NOTIF_DISTREQ_ACCEPTED_DESCRIPTION",
+            context={"app_name": req.app.title, "version": req.version},
+            meta={"icon": "help.png"}
+        )
+
+        req.delete(force_policy=HARD_DELETE)
+        self.message_user(request, "Дистрибуция успешно создана и опубликована!", messages.SUCCESS)
+        return redirect(reverse("admin:marketplace_distributioncreaterequests_changelist"))
+
+    @action(description="Отклонить заявку", icon="cancel", attrs={"class": "bg-error-600 text-white"})
+    def reject_request(self, request, object_id):
+        req = self.get_object(request, object_id)
+        reason = request.POST.get("reject_reason", "Нарушение правил площадки")
+        req.status = "rejected"
+        req.save()
+
+        send_notification.enqueue(
+            user_id=req.user.id,
+            title_key="NOTIF_DISTREQ_DECLINED_TITLE",
+            content_key="NOTIF_DISTREQ_DECLINED_DESCRIPTION",
+            context={"app_name": req.app.title, "version": req.version, "reason": reason},
+            meta={"icon": "help.png"}
+        )
+        req.delete(force_policy=HARD_DELETE)
+        self.message_user(request, "Заявка на дистрибуцию отклонена", messages.INFO)
+        return redirect(reverse("admin:marketplace_distributioncreaterequests_changelist"))
+
+@admin.register(DistributionEditRequests)
+class DistributionEditRequestAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
+    change_list_template = "admin/decline_forms/change_list_custom.html"
+    change_form_template = "admin/decline_forms/change_form_custom.html"
+
+    list_display = ("id", "target_distribution", "user", "status", "created_at")
+    search_fields = ("target_distribution__app__title", "version", "user__username")
+    list_filter = SafeDeleteAdmin.list_filter + ["status", "created_at"]
+    actions_detail = ["approve_request", "reject_request"]
+    actions = ["approve_request", "reject_request"]
+
+    readonly_fields = ("app", "target_distribution", "user", "status", "version", "cdn_file_id", "url", "changelog", "vt_link", "cdn_hash")
+
+    fieldsets = (
+        ("Информация об изменениях", {
+            "fields": ("target_distribution", "version", "changelog", "url", "cdn_file_id")
+        }),
+        ("Безопасность", {
+            "fields": ("cdn_hash", "vt_link"),
+            "description": "Сверка хэша от CDN (LunaSpire) с результатами VirusTotal. Если ссылка и хэш не указаны, проверка не выполняется."
+        }),
+        ("Статус и автор", {
+            "fields": ("user", "status")
+        }),
+    )
+
+    @admin.display(description="VirusTotal")
+    def vt_link(self, obj):
+        if not obj.virustotal_url:
+            return mark_safe('<span class="text-gray-500">Ссылка не указана</span>')
+
+        return format_html(
+            '<a href="{}" target="_blank" class="font-semibold text-blue-600 underline">Перейти к проверке</a> ({})',
+            obj.virustotal_url, obj.virustotal_url
+        )
+
+    @action(description="Одобрить изменения", icon="check_circle", attrs={"class": "bg-success-600 text-white"})
+    def approve_request(self, request, object_id):
+        req = self.get_object(request, object_id)
+        if req.status == "approved":
+            self.message_user(request, "Уже одобрено", messages.WARNING)
+            return redirect(reverse("admin:marketplace_distributioneditrequests_changelist"))
+
+        dist = req.target_distribution
+        dist.version = req.version
+        dist.url = req.url
+
+        if req.cdn_file_id:
+            dist.cdn_file_id = req.cdn_file_id
+
+        for lang_code, _ in settings.LANGUAGES:
+            lang_field = f"changelog_{lang_code}"
+            if hasattr(req, lang_field):
+                setattr(dist, lang_field, getattr(req, lang_field))
+
+        dist.save()
+
+        req.status = "approved"
+        req.save()
+
+        send_notification.enqueue(
+            user_id=req.user.id,
+            title_key="NOTIF_DISTEDITREQ_ACCEPTED_TITLE",
+            content_key="NOTIF_DISTEDITREQ_ACCEPTED_DESCRIPTION",
+            context={"app_name": req.app.title, "version": req.version},
+            meta={"icon": "help.png"}
+        )
+        req.delete(force_policy=HARD_DELETE)
+        self.message_user(request, "Изменения успешно применены к дистрибуции!", messages.SUCCESS)
+        return redirect(reverse("admin:marketplace_distributioneditrequests_changelist"))
+
+    @action(description="Отклонить изменения", icon="cancel", attrs={"class": "bg-error-600 text-white"})
+    def reject_request(self, request, object_id):
+        req = self.get_object(request, object_id)
+        reason = request.POST.get("reject_reason", "Нарушение правил площадки")
+        req.status = "rejected"
+        req.save()
+
+        send_notification.enqueue(
+            user_id=req.user.id,
+            title_key="NOTIF_DISTEDITREQ_DECLINED_TITLE",
+            content_key="NOTIF_DISTEDITREQ_DECLINED_DESCRIPTION",
+            context={"app_name": req.app.title, "version": req.version, "reason": reason},
+            meta={"icon": "help.png"}
+        )
+        req.delete(force_policy=HARD_DELETE)
+        self.message_user(request, "Правки отклонены", messages.INFO)
+        return redirect(reverse("admin:marketplace_distributioneditrequests_changelist"))
 
 
 @admin.register(Category)
@@ -152,8 +331,8 @@ class ApplicationAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
 
 @admin.register(AppCreateRequests)
 class AppCreateRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
-    change_list_template = "admin/application_req/change_list_custom.html"
-    change_form_template = "admin/application_req/change_form_custom.html"
+    change_list_template = "admin/decline_forms/change_list_custom.html"
+    change_form_template = "admin/decline_forms/change_form_custom.html"
 
     list_display = ("id", "title", "user", "status")
     search_fields = ["title", "id"]
@@ -308,8 +487,8 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
 
 @admin.register(AppEditRequests)
 class AppEditRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
-    change_list_template = "admin/application_edit_req/change_list_custom.html"
-    change_form_template = "admin/application_edit_req/change_form_custom.html"
+    change_list_template = "admin/decline_forms/change_list_custom.html"
+    change_form_template = "admin/decline_forms/change_form_custom.html"
 
     list_display = ("id", "title", "user", "status")
     search_fields = ["title", "id"]
@@ -540,7 +719,7 @@ class AppReportRequestsAdmin(SafeDeleteAdmin):
     def _delete_report(self, request, object_id, message):
         obj = AppReportRequests.objects.filter(id=object_id).first()
         if obj:
-            obj.delete()
+            obj.delete(force_policy=HARD_DELETE)
             self.message_user(request, message, messages.SUCCESS)
 
     def _set_status(self, object_id, status_value):

@@ -114,6 +114,12 @@
                 </div>
 
                 <div class="pref_pad">
+                    <div class="pref_item_title">{% trans "PAGE_DIST_FORM_VT_TITLE" %}</div>
+                    {{ form.virustotal_url }}
+                    <div class="pref_warn_label">{% trans "PAGE_DIST_FORM_VT_DESC" %}</div>
+                </div>
+
+                <div class="pref_pad">
                     <div class="pref_item_title">{% trans "PAGE_DIST_FORM_URL" %}</div>
                     {{ form.url }}
                     <div class="pref_warn_label">{% trans "PAGE_DIST_FORM_URL_DESC" %}</div>

@@ -1244,7 +1244,7 @@ msgid "PAGE_LOGIN_USERNAME_LABEL"
 msgstr "Логин:"
 
 msgid "PAGE_MANAGEDIST_CREATE_SUCCESS"
-msgstr "Новая дистрибуция создана"
+msgstr "Новая дистрибуция отправлена на модерацию. Вы получите уведомление, когда она будет одобрена."
 
 msgid "PAGE_MANAGE_APPS_BTN_EDIT"
 msgstr "редактировать"
@@ -1561,6 +1561,9 @@ msgstr "Загрузка..."
 msgid "PAGE_SETTINGS_LABEL_BIO"
 msgstr "Описание профиля:"
 
+msgid "PAGE_PROFILESETTINGS_LABEL_BIO"
+msgstr "Описание профиля"
+
 msgid "PAGE_SETTINGS_LABEL_CHOOSE_FILE"
 msgstr "Выберите файл:"
 
@@ -1746,3 +1749,81 @@ msgstr "Статус заявки на редактирование прилож
 
 msgid "NOTIF_APPEDITREQ_ACCEPTED_DESCRIPTION"
 msgstr "Ваша заявка на редактирование приложения %(app_name)s была одобрена."
+
+msgid "PAGE_ADMIN_APP_DIST_PENDING_TITLE"
+msgstr "Заявки, ожидающие модерации:"
+
+msgid "PAGE_ADMIN_APP_DIST_VERSION_LABEL"
+msgstr "Версия"
+
+msgid "PAGE_ADMIN_APP_DIST_PENDING_CREATE"
+msgstr "(Создание новой) — На рассмотрении"
+
+msgid "PAGE_ADMIN_APP_DIST_PENDING_EDIT"
+msgstr "(Изменение) — На рассмотрении"
+
+msgid "PAGE_DIST_FORM_VT_TITLE"
+msgstr "Ссылка на VirusTotal (обязательно при загрузке файла):"
+
+msgid "PAGE_DIST_FORM_VT_DESC"
+msgstr "Укажите ссылку на результаты проверки загружаемого файла на сайте virustotal.com"
+
+msgid "NOTIF_DISTREQ_ACCEPTED_TITLE"
+msgstr "Новая версия опубликована!"
+
+msgid "NOTIF_DISTREQ_ACCEPTED_DESCRIPTION"
+msgstr "Ваша заявка на публикацию версии %(version)s для приложения \"%(app_name)s\" была одобрена модератором."
+
+msgid "NOTIF_DISTREQ_DECLINED_TITLE"
+msgstr "Заявка на публикацию отклонена"
+
+msgid "NOTIF_DISTREQ_DECLINED_DESCRIPTION"
+msgstr "К сожалению, ваша заявка на публикацию версии %(version)s для \"%(app_name)s\" была отклонена. Причина: %(reason)s"
+
+msgid "NOTIF_DISTEDITREQ_ACCEPTED_TITLE"
+msgstr "Изменения версии одобрены!"
+
+msgid "NOTIF_DISTEDITREQ_ACCEPTED_DESCRIPTION"
+msgstr "Ваши правки для версии %(version)s приложения \"%(app_name)s\" были успешно проверены и применены."
+
+msgid "NOTIF_DISTEDITREQ_DECLINED_TITLE"
+msgstr "Правки версии отклонены"
+
+msgid "NOTIF_DISTEDITREQ_DECLINED_DESCRIPTION"
+msgstr "Ваши изменения для версии %(version)s приложения \"%(app_name)s\" были отклонены модератором. Причина: %(reason)s"
+
+msgid "ERROR_DIST_FORM_NO_FILE_OR_URL"
+msgstr "Нужно загрузить файл или указать ссылку для скачивания"
+
+msgid "ERROR_DIST_FORM_NO_VT_LINK"
+msgstr "При загрузке файла ссылка на VirusTotal обязательна."
+
+msgid "ERROR_DIST_FORM_CDN_INFO_FAIL"
+msgstr "Не удалось получить информацию о файле от сервера хранения. Попробуйте позже."
+
+msgid "ERROR_CDN_TOKEN_MISSING"
+msgstr "Токен CDN не предоставлен."
+
+msgid "ERROR_CDN_TOKEN_INVALID_TYPE"
+msgstr "Неверный тип токена от CDN."
+
+msgid "ERROR_CDN_TOKEN_EXPIRED_OR_USED"
+msgstr "Токен загрузки устарел или уже был использован."
+
+msgid "ERROR_CDN_SESSION_EXPIRED"
+msgstr "Время сессии загрузки истекло. Попробуйте еще раз."
+
+msgid "ERROR_CDN_TOKEN_INVALID"
+msgstr "Недействительный токен безопасности CDN."
+
+msgid "MSG_DIST_CREATE_REQ_SENT"
+msgstr "Заявка на добавление новой версии отправлена на модерацию."
+
+msgid "MSG_DIST_EDIT_REQ_SENT"
+msgstr "Заявка на изменение версии отправлена на модерацию."
+
+msgid "ERROR_CDN_INVALID_FORMAT"
+msgstr "Недопустимый формат файла на сервере хранения (CDN). Пожалуйста, обратитесь к администратору."
+
+msgid "ERROR_CDN_CHECKSUM_MISMATCH_SCREENSHOTS"
+msgstr "Ошибка при проверке токенов скриншотов."

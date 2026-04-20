@@ -13,8 +13,8 @@ from django.utils.translation import gettext as _
 from apps.user.decorators import developer_required
 
 from .decorators import user_is_owner
-from .forms import AppCreateForm, AppEditForm, AppReportForm, DistributionForm
-from .models import AppCreateRequests, Application, Category, Distribution, AppEditRequests
+from .forms import AppCreateForm, AppEditForm, AppReportForm, DistributionCreateForm, DistributionEditForm
+from .models import AppCreateRequests, Application, Category, Distribution, AppEditRequests, DistributionCreateRequests, DistributionEditRequests
 
 
 def _format_legacy_date(value):
@@ -350,11 +350,16 @@ def manage_distributions(request):
         raise PermissionDenied("ERROR_YOURE_NOT_OWNER_OF_APP")
 
     distributions = Distribution.objects.filter(app=app_obj).order_by("-published")
-    form = DistributionForm(request.POST or None, request.FILES or None)
+
+    pending_requests = DistributionCreateRequests.objects.filter(app=app_obj, status="pending").order_by("-created_at")
+    pending_edits = DistributionEditRequests.objects.filter(target_distribution__app=app_obj, status="pending").order_by("-created_at")
+
+    form = DistributionCreateForm(request.POST or None, request.FILES or None)
 
     if request.method == "POST" and form.is_valid():
         distribution = form.save(commit=False)
         distribution.app = app_obj
+        distribution.user = request.user
         distribution.save()
         messages.success(request, _("PAGE_MANAGEDIST_CREATE_SUCCESS"))
         return redirect(reverse("manage_distributions") + "?id=" + str(app_obj.id))
@@ -396,6 +401,8 @@ def manage_distributions(request):
         "distributions": page_obj,
         "page_obj": page_obj,
         "page_range": page_range,
+        "pending_requests": pending_requests,
+        "pending_edits": pending_edits,
         "get_token_url": f"{settings.API_URL}/method/user/getPrivUploadToken",
         "cdn_upload_url": f"{settings.LUNASPIRE_URL}/cdn/upload",
         "download_list_url": reverse("download") + "?id=" + str(app_obj.id),
@@ -409,15 +416,43 @@ def distribution_edit(request, dist_pk):
     if distribution.app.user != request.user:
         raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
 
-    form = DistributionForm(
-        request.POST or None, request.FILES or None, instance=distribution
+    # collect initial data (including changelog translations)
+    initial_data = {
+        "version": distribution.version,
+        "url": distribution.url,
+    }
+
+    # automatically populate changelog translations
+    for lang_code, lang_name in settings.LANGUAGES:
+        lang_field = f"changelog_{lang_code}"
+        short_lang_field = f"changelog_{lang_code.split('-')[0].lower()}"
+
+        if hasattr(distribution, lang_field):
+            initial_data[lang_field] = getattr(distribution, lang_field)
+        elif hasattr(distribution, short_lang_field):
+            initial_data[short_lang_field] = getattr(distribution, short_lang_field)
+
+    # initialize form with initial data
+    form = DistributionEditForm(
+        request.POST or None,
+        user=request.user,
+        target_dist=distribution,
+        initial=initial_data
     )
+
     if request.method == "POST" and form.is_valid():
-        form.save()
-        messages.success(request, _("PAGE_DIST_FORM_SAVED"))
+        edit_req = form.save(commit=False)
+        edit_req.app = distribution.app
+        edit_req.save()
+
+        messages.success(request, _("MSG_DIST_EDIT_REQ_SENT"))
         return redirect(
             reverse("manage_distributions") + "?id=" + str(distribution.app.id)
         )
+    elif request.method == "POST" and not form.is_valid():
+        for field, errors in form.errors.items():
+            for error in errors:
+                messages.error(request, error)
 
     context = {
         "form": form,
