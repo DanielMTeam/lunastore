@@ -66,14 +66,14 @@ class DistributionCreateAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
     actions_detail = ["approve_request", "reject_request"]
     actions = ["approve_request", "reject_request"]
 
-    readonly_fields = ("app", "user", "status", "version", "cdn_file_id", "url", "changelog", "vt_link", "cdn_hash")
+    readonly_fields = ("app", "user", "status", "version", "cdn_file_id", "url", "changelog", "security_check")
 
     fieldsets = (
         ("Информация о дистрибуции", {
             "fields": ("app", "version", "changelog", "url", "cdn_file_id")
         }),
         ("Безопасность", {
-            "fields": ("cdn_hash", "vt_link"),
+            "fields": ("security_check",),
             "description": "Сверка хэша от CDN (LunaSpire) с результатами VirusTotal. Если ссылка и хэш не указаны, проверка не выполняется."
         }),
         ("Статус и автор", {
@@ -81,15 +81,71 @@ class DistributionCreateAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
         }),
     )
 
-    @admin.display(description="VirusTotal")
-    def vt_link(self, obj):
-        if not obj.virustotal_url:
-            return mark_safe('<span class="text-gray-500">Ссылка не указана</span>')
+    @admin.display(description="Проверка хэша")
+    def security_check(self, obj):
+        if not obj.cdn_hash:
+            return mark_safe('<span class="text-gray-500 font-medium">Файл не загружался (только внешняя ссылка).</span>')
 
-        return format_html(
-            '<a href="{}" target="_blank" class="font-semibold text-blue-600 underline">Перейти к проверке</a> ({})',
+        # form link to VirusTotal report
+        vt_link = format_html(
+            '<a href="{}" target="_blank" class="font-semibold text-blue-600 hover:text-blue-800 underline">Перейти к отчету VirusTotal</a> ({})',
             obj.virustotal_url, obj.virustotal_url
-        )
+        ) if obj.virustotal_url else '<span class="text-red-600 font-bold">Ссылка не указана!</span>'
+
+        # unique IDs for HTML elements (in case there are multiple blocks on the page)
+        input_id = f"vt_input_{obj.id}"
+        result_id = f"vt_result_{obj.id}"
+
+        html = f"""
+        <div class="p-4 bg-gray-50 rounded-md border border-gray-200">
+            <div class="mb-3">
+                <span class="text-gray-600 text-sm">Хэш на CDN (LunaSpire):</span><br>
+                <code class="bg-white px-2 py-1 border border-gray-200 rounded text-sm text-gray-800 mt-1 inline-block">{obj.cdn_hash}</code>
+            </div>
+
+            <div class="mb-4">
+                {vt_link}
+            </div>
+
+            <div class="mt-4 p-4 border border-gray-200 bg-white rounded-md shadow-sm">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Вставьте хэш с VirusTotal для сверки:</label>
+                <div class="flex items-center gap-2">
+                    <input type="text" id="{input_id}"
+                           class="border border-gray-300 rounded px-3 py-2 w-full max-w-lg text-sm focus:ring-primary-600 focus:border-primary-600 outline-none"
+                           placeholder="Вставьте хэш сюда...">
+
+                    <button type="button" onclick="compareHashes_{obj.id}()"
+                            class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded text-sm transition-colors cursor-pointer">
+                        Сверить
+                    </button>
+                </div>
+                <div id="{result_id}" class="mt-3 text-sm h-5"></div>
+            </div>
+
+            <script>
+                function compareHashes_{obj.id}() {{
+                    const cdnHash = "{obj.cdn_hash}".toLowerCase().trim();
+
+                    const inputElem = document.getElementById("{input_id}");
+                    const resultElem = document.getElementById("{result_id}");
+                    const vtHash = inputElem.value.toLowerCase().trim();
+
+                    if (!vtHash) {{
+                        resultElem.innerHTML = "<span class='text-gray-500'>Пожалуйста, вставьте хэш в поле.</span>";
+                        return;
+                    }}
+
+                    if (vtHash === cdnHash) {{
+                        resultElem.innerHTML = "<span class='text-green-600 font-bold'>Хэши совпадают! Файл подлинный.</span>";
+                    }} else {{
+                        resultElem.innerHTML = "<span class='text-red-600 font-bold'>Хэши не совпадают! Это другой файл.</span>";
+                    }}
+                }}
+            </script>
+        </div>
+        """
+
+        return mark_safe(html)
 
     @action(description="Одобрить заявку", icon="check_circle", attrs={"class": "bg-success-600 text-white"})
     def approve_request(self, request, object_id):
@@ -156,14 +212,14 @@ class DistributionEditRequestAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
     actions_detail = ["approve_request", "reject_request"]
     actions = ["approve_request", "reject_request"]
 
-    readonly_fields = ("app", "target_distribution", "user", "status", "version", "cdn_file_id", "url", "changelog", "vt_link", "cdn_hash")
+    readonly_fields = ("app", "target_distribution", "user", "status", "version", "cdn_file_id", "url", "changelog", "security_check")
 
     fieldsets = (
         ("Информация об изменениях", {
             "fields": ("target_distribution", "version", "changelog", "url", "cdn_file_id")
         }),
         ("Безопасность", {
-            "fields": ("cdn_hash", "vt_link"),
+            "fields": ("security_check",),
             "description": "Сверка хэша от CDN (LunaSpire) с результатами VirusTotal. Если ссылка и хэш не указаны, проверка не выполняется."
         }),
         ("Статус и автор", {
@@ -171,15 +227,71 @@ class DistributionEditRequestAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
         }),
     )
 
-    @admin.display(description="VirusTotal")
-    def vt_link(self, obj):
-        if not obj.virustotal_url:
-            return mark_safe('<span class="text-gray-500">Ссылка не указана</span>')
+    @admin.display(description="Проверка хэша")
+    def security_check(self, obj):
+        if not obj.cdn_hash:
+            return mark_safe('<span class="text-gray-500 font-medium">Файл не загружался (только внешняя ссылка).</span>')
 
-        return format_html(
-            '<a href="{}" target="_blank" class="font-semibold text-blue-600 underline">Перейти к проверке</a> ({})',
+        # form link to VirusTotal report
+        vt_link = format_html(
+            '<a href="{}" target="_blank" class="font-semibold text-blue-600 hover:text-blue-800 underline">Перейти к отчету VirusTotal</a> ({})',
             obj.virustotal_url, obj.virustotal_url
-        )
+        ) if obj.virustotal_url else '<span class="text-red-600 font-bold">Ссылка не указана!</span>'
+
+        # unique IDs for HTML elements (in case there are multiple blocks on the page)
+        input_id = f"vt_input_{obj.id}"
+        result_id = f"vt_result_{obj.id}"
+
+        html = f"""
+        <div class="p-4 bg-gray-50 rounded-md border border-gray-200">
+            <div class="mb-3">
+                <span class="text-gray-600 text-sm">Хэш на CDN (LunaSpire):</span><br>
+                <code class="bg-white px-2 py-1 border border-gray-200 rounded text-sm text-gray-800 mt-1 inline-block">{obj.cdn_hash}</code>
+            </div>
+
+            <div class="mb-4">
+                {vt_link}
+            </div>
+
+            <div class="mt-4 p-4 border border-gray-200 bg-white rounded-md shadow-sm">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Вставьте хэш с VirusTotal для сверки:</label>
+                <div class="flex items-center gap-2">
+                    <input type="text" id="{input_id}"
+                           class="border border-gray-300 rounded px-3 py-2 w-full max-w-lg text-sm focus:ring-primary-600 focus:border-primary-600 outline-none"
+                           placeholder="Вставьте хэш сюда...">
+
+                    <button type="button" onclick="compareHashes_{obj.id}()"
+                            class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded text-sm transition-colors cursor-pointer">
+                        Сверить
+                    </button>
+                </div>
+                <div id="{result_id}" class="mt-3 text-sm h-5"></div>
+            </div>
+
+            <script>
+                function compareHashes_{obj.id}() {{
+                    const cdnHash = "{obj.cdn_hash}".toLowerCase().trim();
+
+                    const inputElem = document.getElementById("{input_id}");
+                    const resultElem = document.getElementById("{result_id}");
+                    const vtHash = inputElem.value.toLowerCase().trim();
+
+                    if (!vtHash) {{
+                        resultElem.innerHTML = "<span class='text-gray-500'>Пожалуйста, вставьте хэш в поле.</span>";
+                        return;
+                    }}
+
+                    if (vtHash === cdnHash) {{
+                        resultElem.innerHTML = "<span class='text-green-600 font-bold'>Хэши совпадают! Файл подлинный.</span>";
+                    }} else {{
+                        resultElem.innerHTML = "<span class='text-red-600 font-bold'>Хэши не совпадают! Это другой файл.</span>";
+                    }}
+                }}
+            </script>
+        </div>
+        """
+
+        return mark_safe(html)
 
     @action(description="Одобрить изменения", icon="check_circle", attrs={"class": "bg-success-600 text-white"})
     def approve_request(self, request, object_id):

@@ -463,7 +463,8 @@ class BaseDistributionForm(forms.ModelForm, CDNTokenValidationMixin):
             cleaned_data["cdn_file_id"] = file_id
 
             # go to CDN and get hash
-            extracted_hash = self.get_cdn_file_info(file_id, fields="hash")
+            info = self.get_cdn_file_info(file_id, fields="hash")
+            extracted_hash = info.get("hash")
             if not extracted_hash:
                 raise ValidationError(_("ERROR_DIST_FORM_CDN_INTO_FAIL"))
 

@@ -210,6 +210,25 @@ class ProfileUpdateForm(forms.ModelForm):
         widget=forms.EmailInput(attrs={"class": "input-text", "readonly": "readonly"}),
     )
 
+    def clean_telegram(self):
+        data = self.cleaned_data.get('telegram')
+        if data:
+            # check for slash or protocol
+            if "/" in data or "http" in data:
+                raise ValidationError(_("ERROR_PROFILE_TELEGRAM_INVALID"))
+
+            # remove @
+            data = data.lstrip('@')
+        return data
+
+    def clean_openvk(self):
+        data = self.cleaned_data.get('openvk')
+        if data:
+            if "/" in data or "http" in data:
+                raise ValidationError(_("ERROR_PROFILE_OPENVK_INVALID"))
+            data = data.lstrip('@')
+        return data
+
 
 class PasswordChangeForm(forms.Form):
     current_password = forms.CharField(

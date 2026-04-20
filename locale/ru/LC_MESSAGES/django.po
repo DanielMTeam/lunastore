@@ -1827,3 +1827,9 @@ msgstr "Недопустимый формат файла на сервере х�
 
 msgid "ERROR_CDN_CHECKSUM_MISMATCH_SCREENSHOTS"
 msgstr "Ошибка при проверке токенов скриншотов."
+
+msgid "ERROR_PROFILE_OPENVK_INVALID"
+msgstr "Неверный формат имени пользователя OpenVK. Пожалуйста, укажите правильное имя пользователя."
+
+msgid "ERROR_PROFILE_TELEGRAM_INVALID"
+msgstr "Неверный формат имени пользователя Telegram. Пожалуйста, укажите имя пользователя без ссылок и протоколов."
