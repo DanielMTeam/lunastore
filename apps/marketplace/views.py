@@ -10,8 +10,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext as _
 
-from apps.user.decorators import developer_required
-
+from apps.user.decorators import developer_required, require_modern_browser
 from .decorators import user_is_owner
 from .forms import AppCreateForm, AppEditForm, AppReportForm, DistributionCreateForm, DistributionEditForm
 from .models import AppCreateRequests, Application, Category, Distribution, AppEditRequests, DistributionCreateRequests, DistributionEditRequests
@@ -193,6 +192,7 @@ def download_list(request):
 
 
 @developer_required
+@require_modern_browser
 def app_add(request):
     if request.method == "POST":
         form = AppCreateForm(request.POST, request.FILES)
@@ -227,6 +227,7 @@ def app_add(request):
 
 
 @login_required
+@require_modern_browser
 def settings_apps(request):
     managed_apps = Application.objects.filter(user=request.user)
     app_requests = AppCreateRequests.objects.filter(user=request.user)
@@ -243,6 +244,7 @@ def settings_apps(request):
 
 
 @login_required
+@require_modern_browser
 @user_is_owner(Application)
 def application_edit_info(request, pk):
     obj = get_object_or_404(Application, pk=pk)
@@ -352,6 +354,7 @@ def report_app(request):
 
 
 @login_required
+@require_modern_browser
 def manage_distributions(request):
     app_id = request.GET.get("id")
     app_obj = get_object_or_404(Application, id=app_id)
@@ -421,6 +424,7 @@ def manage_distributions(request):
 
 
 @login_required
+@require_modern_browser
 def distribution_edit(request, dist_pk):
     distribution = get_object_or_404(Distribution, pk=dist_pk)
     if distribution.app.user != request.user:
@@ -476,6 +480,7 @@ def distribution_edit(request, dist_pk):
 
 
 @login_required
+@require_modern_browser
 def distribution_delete(request, dist_pk):
     distribution = get_object_or_404(Distribution, pk=dist_pk)
     if distribution.app.user != request.user:

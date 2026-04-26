@@ -94,6 +94,10 @@ class AppScreenshotForm(TranslationModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+        if 'category' in self.fields:
+            from .models import Category
+            self.fields['category'].queryset = Category.objects.filter(is_admin_only=False)
+
         # check existing screenshots
         if self.instance and self.instance.pk:
             # get screenshots list
@@ -309,6 +313,10 @@ class AppCreateForm(forms.ModelForm, CDNTokenValidationMixin):
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
+
+        if 'category' in self.fields:
+            from .models import Category
+            self.fields['category'].queryset = Category.objects.filter(is_admin_only=False)
 
 
 class AppEditForm(AppCreateForm):
