@@ -26,6 +26,11 @@ class Category(SafeDeleteModel):
     icon = models.CharField(
         max_length=140, null=True, blank=True, verbose_name="Иконка"
     )
+    is_admin_only = models.BooleanField(
+        default=False,
+        verbose_name="Только для админов",
+        help_text="Если включено, обычные пользователи не смогут выбрать эту категорию."
+    )
 
     class Meta:
         ordering = ["name"]

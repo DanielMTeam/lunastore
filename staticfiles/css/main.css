@@ -259,6 +259,12 @@ h4 {
 .sidebar li.web {
     background-position: 0px -412px;
 }
+.sidebar li.mypc {
+    background-position: 0px -478px;
+}
+.sidebar li.paint {
+    background-position: 0px -544px;
+}
 li.web {
     background-position: 0px -412px;
 }
