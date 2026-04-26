@@ -9,13 +9,13 @@ msgstr ""
 
 msgid "%(counter)s PAGE_PROFILE_STATS_APP"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
-msgstr[0] "%(counter)s приложение,"
+msgstr[0] "%(counter)s приложений,"
 msgstr[1] "%(counter)s приложений,"
 msgstr[2] "%(counter)s приложений,"
 
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
-msgstr[0] "%(counter)s отзыв -"
+msgstr[0] "%(counter)s отзывов -"
 msgstr[1] "%(counter)s отзывов -"
 msgstr[2] "%(counter)s отзывов -"
 
@@ -400,6 +400,63 @@ msgstr "Не удалось получить токен загрузки"
 msgid "JS_MARKETPLACE_UPLOADING"
 msgstr "Загрузка..."
 
+msgid "NOTIFICATIONS_LOADING"
+msgstr "Загрузка уведомлений..."
+
+msgid "NOTIF_APPEDITREQ_ACCEPTED_DESCRIPTION"
+msgstr "Ваша заявка на редактирование приложения %(app_name)s была одобрена."
+
+msgid "NOTIF_APPEDITREQ_ACCEPTED_TITLE"
+msgstr "Статус заявки на редактирование приложения"
+
+msgid "NOTIF_APPEDITREQ_DECLINED_DESCRIPTION"
+msgstr "Ваша заявка на редактирование приложения %(app_name)s была отклонена. Причина: %(reason)s"
+
+msgid "NOTIF_APPEDITREQ_DECLINED_TITLE"
+msgstr "Статус заявки на редактирование приложения"
+
+msgid "NOTIF_APPREQ_ACCEPTED_DESCRIPTION"
+msgstr "Поздравляем! Ваша заявка на создание приложения %(app_name)s была одобрена и оно было опубликовано в LunaStore."
+
+msgid "NOTIF_APPREQ_ACCEPTED_TITLE"
+msgstr "Статус заявки"
+
+msgid "NOTIF_APPREQ_DECLINED_DESCRIPTION"
+msgstr "Ваша заявка на создание приложения %(app_name)s была отклонена. Причина: %(reason)s"
+
+msgid "NOTIF_APPREQ_DECLINED_TITLE"
+msgstr "Статус заявки"
+
+msgid "NOTIF_DEVSTATUS_ACCEPTED_DESCRIPTION"
+msgstr "Поздравляем! Ваша заявка была одобрена и вы получили возможности разработчика/издателя приложений."
+
+msgid "NOTIF_DEVSTATUS_ACCEPTED_TITLE"
+msgstr "Статус разработчика"
+
+msgid "NOTIF_DEVSTATUS_DECLINED_DESCRIPTION"
+msgstr "Ваша заявка была отклонена и вы не получили возможности разработчика/издателя приложений. Причина: %(reason)s"
+
+msgid "NOTIF_DEVSTATUS_DECLINED_TITLE"
+msgstr "Статус разработчика"
+
+msgid "NOTIF_DEVSTATUS_SEND_DESCRIPTION"
+msgstr "Ваша заявка была успешно отправлена. Ответ придёт в разделе «Уведомления». Ничего делать не нужно."
+
+msgid "NOTIF_DEVSTATUS_SEND_TITLE"
+msgstr "Статус разработчика"
+
+msgid "NOTIF_LOGIN_DESCRIPTION"
+msgstr "В ваш аккаунт был выполнен вход • Устройство: %(browser)s (%(os)s) • IP-адрес: %(ip)s • Местоположение: %(location)s • Если это не вы, срочно смените пароль."
+
+msgid "NOTIF_LOGIN_TITLE"
+msgstr "Новый вход в аккаунт"
+
+msgid "NOTIF_WELCOME_DESCRIPTION"
+msgstr "Спасибо за регистрацию! Очень приятно, что Вы остались неравнодушны к справочнику приложений. Надеюсь, Вам очень понравится!"
+
+msgid "NOTIF_WELCOME_TITLE"
+msgstr "Добро пожаловать в LunaStore"
+
 msgid "PAGE_ADDAPP_BACKBTN"
 msgstr "Назад"
 
@@ -661,6 +718,9 @@ msgstr "Название приложения:"
 msgid "PAGE_ADMIN_APP_TITLEDESC"
 msgstr "Отличное и запоминающиеся название даст приложению бонус к узнаваемости среди пользователей"
 
+msgid "PAGE_ADMIN_APP_TRANSLATIONINFO"
+msgstr "Перевод информации о Вашем приложении может повысить ему узнаваемость для иностранной аудитории, а также улучшить его видимость в поисковых системах. Во всяком случае, мы советуем авторам делать переводы на разные языки."
+
 msgid "PAGE_ADMIN_APP_WARN_SCRN"
 msgstr "Внимание: Загрузка новых файлов удалит все текущие скриншоты!"
 
@@ -690,6 +750,9 @@ msgstr "Опубликовал:"
 
 msgid "PAGE_APP_LABEL_DOWNLOADS"
 msgstr "Количество скачиваний"
+
+msgid "PAGE_APP_LABEL_NOT_TRANSLATED"
+msgstr "К сожалению, тот, кто загрузил приложение, не сделал перевод под ваш язык. Поэтому, сейчас вы видите оригинал."
 
 msgid "PAGE_APP_LABEL_ORIGINAL_AUTHOR"
 msgstr "Оригинальный автор:"
@@ -731,13 +794,13 @@ msgid "PAGE_BADBROSER_DESC_3"
 msgstr "Спасибо за понимание."
 
 msgid "PAGE_BADBROWSER_DESC_1"
-msgstr "Для полноценного использования этого веб-сервиса рекомендуется иметь более современный браузер, чем Internet Explorer 6 или RetroZilla."
+msgstr "Для полноценного использования этого веб-сервиса рекомендуется иметь установленный браузер Internet Explorer 6 и выше или RetroZilla."
 
 msgid "PAGE_BADBROWSER_DESC_2"
-msgstr "Скачать подобные браузеры можно как напрямую (то есть, у нас), так и с помощью сервисов"
+msgstr "Скачать Internet Explorer 6 можно как напрямую, так и с помощью сервисов"
 
 msgid "PAGE_BADBROWSER_TITLE"
-msgstr "Спасибо за интерес к LunaStore!"
+msgstr "Спасибо за интерес к магазину Windows!"
 
 msgid "PAGE_CATEGORY_BUYBTN"
 msgstr "Купить"
@@ -964,11 +1027,11 @@ msgstr "Назад"
 msgid "PAGE_DOWNLOAD_DEMO_WARNING"
 msgstr "Программа распространяется в виде демо-версии, за полную версию стоит заплатить её автору. Файл предоставлен с официального сайта разработчика."
 
-msgid "PAGE_DOWNLOAD_DMCA_WARNING"
-msgstr "Возможность скачивания программы была закрыта из-за жалобы правообладателя. Спасибо за понимание."
-
 msgid "PAGE_DOWNLOAD_DL_ACTION"
 msgstr "скачать"
+
+msgid "PAGE_DOWNLOAD_DMCA_WARNING"
+msgstr "Возможность скачивания программы была закрыта из-за жалобы правообладателя. Спасибо за понимание."
 
 msgid "PAGE_DOWNLOAD_GO_OFFICIAL"
 msgstr "Перейти на официальный сайт"
@@ -1136,7 +1199,7 @@ msgid "PAGE_FAQ_TEAM_ROLE_ZAZIOS"
 msgstr "backend-разработчик (Go)"
 
 msgid "PAGE_FAQ_TEAM_TESTERS_LIST"
-msgstr "mryoshi, akaremii26, madebydimas, koke621, Starik1500, LGRN Arts, im_Ry0 (special thanks), pregko, veselcraft, ilarion3310, aliew, dimawhite05, mws, d3nkyu2u, ersn"
+msgstr "[ники тестировщиков через запятую]"
 
 msgid "PAGE_FAQ_TITLE"
 msgstr "Справка"
@@ -1244,7 +1307,7 @@ msgid "PAGE_LOGIN_USERNAME_LABEL"
 msgstr "Логин:"
 
 msgid "PAGE_MANAGEDIST_CREATE_SUCCESS"
-msgstr "Новая дистрибуция отправлена на модерацию. Вы получите уведомление, когда она будет одобрена."
+msgstr "Новая дистрибуция создана"
 
 msgid "PAGE_MANAGE_APPS_BTN_EDIT"
 msgstr "редактировать"
@@ -1272,6 +1335,36 @@ msgstr "Владелец"
 
 msgid "PAGE_MANAGE_APPS_TITLE"
 msgstr "Администрируемые приложения"
+
+msgid "PAGE_NOTIFICATIONS_COUNT_SINGLE"
+msgid_plural "PAGE_NOTIFICATIONS_COUNT_PLURAL"
+msgstr[0] "У Вас <b>%(counter)s</b> новое уведомление"
+msgstr[1] "У Вас <b>%(counter)s</b> новых уведомления"
+msgstr[2] "У Вас <b>%(counter)s</b> новых уведомлений"
+
+msgid "PAGE_NOTIFICATIONS_EARLY"
+msgstr "Ранние уведомления"
+
+msgid "PAGE_NOTIFICATIONS_NOW"
+msgstr "только что"
+
+msgid "PAGE_NOTIFICATIONS_NO_NEW"
+msgstr "У Вас нет новых уведомлений"
+
+msgid "PAGE_NOTIFICATIONS_TAB"
+msgstr "Уведомления"
+
+msgid "PAGE_NOTIFICATIONS_TITLE"
+msgstr "Уведомления"
+
+msgid "PAGE_NOTIFY_TOAST_CLOSE"
+msgstr "Закрыть"
+
+msgid "PAGE_NOTIFY_TOAST_NEW"
+msgstr "Новое уведомление"
+
+msgid "PAGE_NOTIFY_TOAST_VIEW"
+msgstr "Посмотреть »"
 
 msgid "PAGE_OTHER_PROJECTS_BROWSER_TITLE"
 msgstr "Прочие проекты"
@@ -1561,9 +1654,6 @@ msgstr "Загрузка..."
 msgid "PAGE_SETTINGS_LABEL_BIO"
 msgstr "Описание профиля:"
 
-msgid "PAGE_PROFILESETTINGS_LABEL_BIO"
-msgstr "Описание профиля"
-
 msgid "PAGE_SETTINGS_LABEL_CHOOSE_FILE"
 msgstr "Выберите файл:"
 
@@ -1657,179 +1747,5 @@ msgstr "Неверный логин или пароль."
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "Вход выполнен успешно! Привет, %(username)s!"
 
-msgid "PAGE_APP_LABEL_NOT_TRANSLATED"
-msgstr "К сожалению, страница загруженного приложения не переведена его автором на Ваш язык. Показывается оригинал."
-
-msgid "PAGE_ADMIN_APP_TRANSLATIONINFO"
-msgstr "Перевод информации о Вашем приложении может повысить ему узнаваемость для иностранной аудитории, а также улучшить его видимость в поисковых системах. Во всяком случае, мы советуем авторам делать переводы на разные языки."
-
-msgid "PAGE_NOTIFICATIONS_TITLE"
-msgstr "Уведомления"
-
-msgid "PAGE_NOTIFICATIONS_TAB"
-msgstr "Уведомления"
-
-msgid "PAGE_NOTIFICATIONS_EARLY"
-msgstr "Ранние уведомления"
-
-msgid "PAGE_NOTIFICATIONS_COUNT_SINGLE"
-msgid_plural "PAGE_NOTIFICATIONS_COUNT_PLURAL"
-msgstr[0] "У Вас <b>%(counter)s</b> новое уведомление"
-msgstr[1] "У Вас <b>%(counter)s</b> новых уведомления"
-msgstr[2] "У Вас <b>%(counter)s</b> новых уведомлений"
-
-msgid "PAGE_NOTIFICATIONS_NO_NEW"
-msgstr "У Вас нет новых уведомлений"
-
-msgid "NOTIFICATIONS_LOADING"
-msgstr "Загрузка уведомлений..."
-
-msgid "PAGE_NOTIFICATIONS_NOW"
-msgstr "только что"
-
-msgid "PAGE_NOTIFY_TOAST_NEW"
-msgstr "Новое уведомление"
-
-msgid "PAGE_NOTIFY_TOAST_CLOSE"
-msgstr "Закрыть"
-
-msgid "PAGE_NOTIFY_TOAST_VIEW"
-msgstr "Посмотреть »"
-
-msgid "NOTIF_WELCOME_TITLE"
-msgstr "Добро пожаловать в LunaStore"
-
-msgid "NOTIF_WELCOME_DESCRIPTION"
-msgstr "Спасибо за регистрацию! Очень приятно, что Вы остались неравнодушны к справочнику приложений. Надеюсь, Вам очень понравится!"
-
-msgid "NOTIF_DEVSTATUS_SEND_TITLE"
-msgstr "Статус разработчика"
-
-msgid "NOTIF_DEVSTATUS_SEND_DESCRIPTION"
-msgstr "Ваша заявка была успешно отправлена. Ответ придёт в разделе «Уведомления». Ничего делать не нужно."
-
-msgid "NOTIF_DEVSTATUS_ACCEPTED_TITLE"
-msgstr "Статус разработчика"
-
-msgid "NOTIF_DEVSTATUS_ACCEPTED_DESCRIPTION"
-msgstr "Поздравляем! Ваша заявка была одобрена и вы получили возможности разработчика/издателя приложений."
-
-msgid "NOTIF_DEVSTATUS_DECLINED_TITLE"
-msgstr "Статус разработчика"
-
-msgid "NOTIF_DEVSTATUS_DECLINED_DESCRIPTION"
-msgstr "Ваша заявка была отклонена и вы не получили возможности разработчика/издателя приложений. Причина: %(reason)s"
-
-msgid "NOTIF_LOGIN_TITLE"
-msgstr "Новый вход в аккаунт"
-
-msgid "NOTIF_LOGIN_DESCRIPTION"
-msgstr "В ваш аккаунт был выполнен вход • Устройство: %(browser)s (%(os)s) • IP-адрес: %(ip)s • Местоположение: %(location)s • Если это не вы, срочно смените пароль."
-
-msgid "NOTIF_APPREQ_ACCEPTED_TITLE"
-msgstr "Статус заявки"
-
-msgid "NOTIF_APPREQ_ACCEPTED_DESCRIPTION"
-msgstr "Поздравляем! Ваша заявка на создание приложения %(app_name)s была одобрена и оно было опубликовано в LunaStore."
-
-msgid "NOTIF_APPREQ_DECLINED_TITLE"
-msgstr "Статус заявки"
-
-msgid "NOTIF_APPREQ_DECLINED_DESCRIPTION"
-msgstr "Ваша заявка на создание приложения %(app_name)s была отклонена. Причина: %(reason)s"
-
-msgid "NOTIF_APPEDITREQ_DECLINED_TITLE"
-msgstr "Статус заявки на редактирование приложения"
-
-msgid "NOTIF_APPEDITREQ_DECLINED_DESCRIPTION"
-msgstr "Ваша заявка на редактирование приложения %(app_name)s была отклонена. Причина: %(reason)s"
-
-msgid "NOTIF_APPEDITREQ_ACCEPTED_TITLE"
-msgstr "Статус заявки на редактирование приложения"
-
-msgid "NOTIF_APPEDITREQ_ACCEPTED_DESCRIPTION"
-msgstr "Ваша заявка на редактирование приложения %(app_name)s была одобрена."
-
-msgid "PAGE_ADMIN_APP_DIST_PENDING_TITLE"
-msgstr "Заявки, ожидающие модерации:"
-
-msgid "PAGE_ADMIN_APP_DIST_VERSION_LABEL"
-msgstr "Версия"
-
-msgid "PAGE_ADMIN_APP_DIST_PENDING_CREATE"
-msgstr "(Создание новой) — На рассмотрении"
-
-msgid "PAGE_ADMIN_APP_DIST_PENDING_EDIT"
-msgstr "(Изменение) — На рассмотрении"
-
-msgid "PAGE_DIST_FORM_VT_TITLE"
-msgstr "Ссылка на VirusTotal (обязательно при загрузке файла):"
-
-msgid "PAGE_DIST_FORM_VT_DESC"
-msgstr "Укажите ссылку на результаты проверки загружаемого файла на сайте virustotal.com"
-
-msgid "NOTIF_DISTREQ_ACCEPTED_TITLE"
-msgstr "Новая версия опубликована!"
-
-msgid "NOTIF_DISTREQ_ACCEPTED_DESCRIPTION"
-msgstr "Ваша заявка на публикацию версии %(version)s для приложения \"%(app_name)s\" была одобрена модератором."
-
-msgid "NOTIF_DISTREQ_DECLINED_TITLE"
-msgstr "Заявка на публикацию отклонена"
-
-msgid "NOTIF_DISTREQ_DECLINED_DESCRIPTION"
-msgstr "К сожалению, ваша заявка на публикацию версии %(version)s для \"%(app_name)s\" была отклонена. Причина: %(reason)s"
-
-msgid "NOTIF_DISTEDITREQ_ACCEPTED_TITLE"
-msgstr "Изменения версии одобрены!"
-
-msgid "NOTIF_DISTEDITREQ_ACCEPTED_DESCRIPTION"
-msgstr "Ваши правки для версии %(version)s приложения \"%(app_name)s\" были успешно проверены и применены."
-
-msgid "NOTIF_DISTEDITREQ_DECLINED_TITLE"
-msgstr "Правки версии отклонены"
-
-msgid "NOTIF_DISTEDITREQ_DECLINED_DESCRIPTION"
-msgstr "Ваши изменения для версии %(version)s приложения \"%(app_name)s\" были отклонены модератором. Причина: %(reason)s"
-
-msgid "ERROR_DIST_FORM_NO_FILE_OR_URL"
-msgstr "Нужно загрузить файл или указать ссылку для скачивания"
-
-msgid "ERROR_DIST_FORM_NO_VT_LINK"
-msgstr "При загрузке файла ссылка на VirusTotal обязательна."
-
-msgid "ERROR_DIST_FORM_CDN_INFO_FAIL"
-msgstr "Не удалось получить информацию о файле от сервера хранения. Попробуйте позже."
-
-msgid "ERROR_CDN_TOKEN_MISSING"
-msgstr "Токен CDN не предоставлен."
-
-msgid "ERROR_CDN_TOKEN_INVALID_TYPE"
-msgstr "Неверный тип токена от CDN."
-
-msgid "ERROR_CDN_TOKEN_EXPIRED_OR_USED"
-msgstr "Токен загрузки устарел или уже был использован."
-
-msgid "ERROR_CDN_SESSION_EXPIRED"
-msgstr "Время сессии загрузки истекло. Попробуйте еще раз."
-
-msgid "ERROR_CDN_TOKEN_INVALID"
-msgstr "Недействительный токен безопасности CDN."
-
-msgid "MSG_DIST_CREATE_REQ_SENT"
-msgstr "Заявка на добавление новой версии отправлена на модерацию."
-
-msgid "MSG_DIST_EDIT_REQ_SENT"
-msgstr "Заявка на изменение версии отправлена на модерацию."
-
-msgid "ERROR_CDN_INVALID_FORMAT"
-msgstr "Недопустимый формат файла на сервере хранения (CDN). Пожалуйста, обратитесь к администратору."
-
-msgid "ERROR_CDN_CHECKSUM_MISMATCH_SCREENSHOTS"
-msgstr "Ошибка при проверке токенов скриншотов."
-
-msgid "ERROR_PROFILE_OPENVK_INVALID"
-msgstr "Неверный формат имени пользователя OpenVK. Пожалуйста, укажите правильное имя пользователя."
-
-msgid "ERROR_PROFILE_TELEGRAM_INVALID"
-msgstr "Неверный формат имени пользователя Telegram. Пожалуйста, укажите имя пользователя без ссылок и протоколов."
+msgid "ERROR_CHECK_FORM"
+msgstr "Пожалуйста, проверьте форму. В некоторых полях допущены ошибки."

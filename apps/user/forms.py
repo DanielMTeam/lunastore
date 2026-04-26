@@ -181,26 +181,31 @@ class ProfileUpdateForm(forms.ModelForm):
     telegram = forms.CharField(
         label="Telegram",
         required=False,
+        max_length=45,
         widget=forms.TextInput(attrs={"class": "input-text"}),
     )
     website = forms.URLField(
         label=_("PAGE_SETTINGS_LABEL_WEBSITE"),
         required=False,
+        max_length=45,
         widget=forms.URLInput(attrs={"class": "input-text"}),
     )
     discord = forms.CharField(
         label="Discord",
         required=False,
+        max_length=32,
         widget=forms.TextInput(attrs={"class": "input-text"}),
     )
     openvk = forms.CharField(
         label="OpenVK",
         required=False,
+        max_length=45,
         widget=forms.TextInput(attrs={"class": "input-text"}),
     )
     description = forms.CharField(
         label=_("PAGE_PROFILESETTINGS_LABEL_BIO"),
         required=False,
+        max_length=255,
         widget=forms.Textarea(attrs={"class": "brief_intro", "cols": 90}),
     )
     email = forms.EmailField(
@@ -423,10 +428,10 @@ class PasswordConfirmationForm(forms.Form):
         super().__init__(*args, **kwargs)
 
     def clean_password(self):
-        current_password = self.cleaned_data.get("current_password")
-        if not self.user.check_password(current_password):
+        password = self.cleaned_data.get("password")
+        if not self.user.check_password(password):
             raise ValidationError(_("ERROR_CURRENT_PASSWORD_IS_WRONG"))
-        return current_password
+        return password
 
 
 class InviteCodeForm(forms.Form):

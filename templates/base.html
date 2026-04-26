@@ -62,7 +62,7 @@
 
     <div class="searchbar" style="margin-top: 13px;">
   <form action="{% url 'search' %}" method="get" style="display: inline;">
-        <input type="text" name="q" id="q" value="{{ request.GET.q|default_if_none:'' }}" placeholder="Например: Total Commander">
+        <input type="text" name="q" id="q" value="{{ request.GET.q|default_if_none:'' }}" placeholder="{% trans "INDEX_SEARCH_PLACEHOLDER" %}">
         <button type="submit">{% trans "BASE_SEARCHBTN" %}</button>
       </form>
     </div>
