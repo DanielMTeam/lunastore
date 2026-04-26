@@ -37,7 +37,7 @@ def require_modern_browser(view_func):
             version = browser.version[0] if browser.version else 0
 
             is_outdated = (
-                family == 'IE' or
+                (family == 'IE' and version in [6, 7]) or  # block only IE 6 and 7 (six seveeeeeeen)
                 family == 'Opera Mini' or
                 (family == 'Safari' and version < 11) or
                 (family in ['Chrome', 'Firefox'] and version < 60)
