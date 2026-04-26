@@ -202,6 +202,15 @@ def app_add(request):
             app_request.save()
             messages.success(request, _("PAGE_ADDAPP_SUCCESS"))
             return redirect("home")
+        else:
+            # print only system/global errors (e.g. if CDN token is invalid)
+            for error in form.non_field_errors():
+                messages.error(request, error)
+
+            other_errors = {k: v for k, v in form.errors.items() if k not in ['__all__', 'captcha']}
+
+            if other_errors:
+                messages.error(request, _("ERROR_CHECK_FORM"))
     else:
         form = AppCreateForm()
 
@@ -210,6 +219,7 @@ def app_add(request):
         "app_add.html",
         {
             "form": form,
+            # this will go to JS for file upload handling (cdn_upload_url & token_upload_url)
             "cdn_upload_url": f"{settings.LUNASPIRE_URL}/cdn/upload",
             "token_upload_url": f"{settings.API_URL}/method/user/getPubUploadToken",
         },
