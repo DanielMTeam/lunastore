@@ -16,6 +16,7 @@
     width: 355px;
     font-weight: bold;
     float: left;
+    word-wrap: break-word;
 }
 .last-visit {
     white-space: normal;
