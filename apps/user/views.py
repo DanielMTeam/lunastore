@@ -287,34 +287,16 @@ def profile_settings(request):
                     for error in errors:
                         messages.error(request, error)
         elif form_type == "avatar":
-            forms["avatar_form"] = AvatarUpdateForm(request.POST, instance=user)
+            # initialize form
+            forms["avatar_form"] = AvatarUpdateForm(request.POST, request.FILES, instance=user)
+
             if forms["avatar_form"].is_valid():
-                confirm_token = forms["avatar_form"].cleaned_data["confirm_token"]
-                filepath = forms["avatar_form"].cleaned_data["filepath"]
-                try:
-                    import jwt
+                forms["avatar_form"].save()
 
-                    decoded = jwt.decode(
-                        confirm_token,
-                        settings.LUNASPIRE_SECRET_KEY,
-                        algorithms=["HS256"],
-                    )
-
-                    if decoded.get("type") == "cdn-confirm":
-                        user.avatar_id = decoded.get("file_id")
-                        user.avatar_path = filepath
-                        user.save()
-                        messages.success(request, _("INFO_AVATAR_WAS_UPLOADED"))
-                        return redirect("settings")
-                    else:
-                        messages.error(
-                            request,
-                            f"Ошибка типа токена: {decoded.get('type')}. Пожалуйста, обратитесь к администратору.",
-                        )
-                except Exception as e:
-                    messages.error(request, _("ERROR_CDNSECURITY"))
+                messages.success(request, _("INFO_AVATAR_WAS_UPLOADED"))
                 return redirect("settings")
             else:
+                # print errors via messages.error form
                 for field, errors in forms["avatar_form"].errors.items():
                     for error in errors:
                         messages.error(request, error)

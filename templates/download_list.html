@@ -31,11 +31,23 @@
 
         {% if not is_under_dmca %}
         <div class="st_other_card">
+            <div class="splash">
+                <div class="info_splash">
+                    <div class="info_icon_small"></div>
+                    <div class="splash_text">{% trans "PAGE_DOWNLOAD_LATEST_VERSION_NOTE" %}</div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if not is_under_dmca %}
+        <div class="st_other_card">
             <h2>{% trans "PAGE_DOWNLOAD_VERSION_LIST" %}</h2>
             <div class="separator_store"></div>
 
             {% if owner_can_manage %}
             <div style="margin-bottom: 15px;">
+                <br>
                 <a href="{{ manage_url }}"><b>[{% trans "PAGE_DOWNLOAD_MANAGE_DISTS" %}]</b></a>
             </div>
             {% endif %}
@@ -131,17 +143,6 @@
                 </a>
             </b>
             <br>
-        </div>
-        {% endif %}
-
-        {% if not is_under_dmca %}
-        <div class="st_other_card">
-            <div class="splash">
-                <div class="info_splash">
-                    <div class="info_icon_small"></div>
-                    <div class="splash_text">{% trans "PAGE_DOWNLOAD_LATEST_VERSION_NOTE" %}</div>
-                </div>
-            </div>
         </div>
         {% endif %}
 

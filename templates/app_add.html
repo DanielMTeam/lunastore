@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block content %}
-<title>Добавление приложения - LunaStore</title>
+<title>{% trans 'PAGE_ADDAPP_PAGETITLE' %} - LunaStore</title>
 <link rel="stylesheet" href="{% static './css/add_ui.css'%}">
 <link rel="stylesheet" href="{% static './css/stpage.css'%}">
 <link rel="stylesheet" href="{% static './css/tabs.css' %}"> <style>
@@ -156,9 +156,15 @@
                                     {% endfor %}
                                 </div>
                                 <div class="tab-content">
-                                    {% for item in trans.title %}
-                                    <div class="lang-field-wrapper lang-{{ item.code }} {% if forloop.first %}active{% endif %}">
+                                    {% for item in trans.title %} <div class="lang-field-wrapper lang-{{ item.code }} {% if forloop.first %}active{% endif %}">
                                         {{ item.input }}
+
+                                        {% if item.input.errors %}
+                                            <div class="errorlist" style="color: #cc0000; font-size: 11px; margin-top: 4px; background: #ffebe8; padding: 3px; border: 1px solid #dd8888;">
+                                                {{ item.input.errors }}
+                                            </div>
+                                        {% endif %}
+
                                     </div>
                                     {% endfor %}
                                 </div>
@@ -180,9 +186,15 @@
                                     {% endfor %}
                                 </div>
                                 <div class="tab-content">
-                                    {% for item in trans.slogan %}
-                                    <div class="lang-field-wrapper lang-{{ item.code }} {% if forloop.first %}active{% endif %}">
+                                    {% for item in trans.slogan %} <div class="lang-field-wrapper lang-{{ item.code }} {% if forloop.first %}active{% endif %}">
                                         {{ item.input }}
+
+                                        {% if item.input.errors %}
+                                            <div class="errorlist" style="color: #cc0000; font-size: 11px; margin-top: 4px; background: #ffebe8; padding: 3px; border: 1px solid #dd8888;">
+                                                {{ item.input.errors }}
+                                            </div>
+                                        {% endif %}
+
                                     </div>
                                     {% endfor %}
                                 </div>
@@ -195,7 +207,11 @@
                             <div class="add_app_pad">
                                 <div class="add_app_title">{% trans "PAGE_APP_LABEL_ORIGINAL_AUTHOR" %}</div>
                                 {{ form.original_author }}
-                                {{ form.original_author.errors }}
+                                {% if form.original_author.errors %}
+                                    <div class="errorlist">
+                                        {{ form.original_author.errors }}
+                                    </div>
+                                {% endif %}
                             </div>
                         </label>
 
@@ -204,14 +220,22 @@
                                 <div class="add_app_title">{% trans "PAGE_ADDAPP_STEP1_ICON" %}</div>
                                 <div class="info_splash">{% trans "PAGE_ADDAPP_STEP1_ICONDESC_1" %}<br>{% trans "PAGE_ADDAPP_STEP1_ICONDESC_2" %}<br>{% trans "PAGE_ADDAPP_STEP1_ICONDESC_3" %}</div>
                                 {{ form.icon_file }}
-                                {{ form.icon_file.errors }}
+                                {% if form.icon_file.errors %}
+                                    <div class="errorlist">
+                                        {{ form.icon_file.errors }}
+                                    </div>
+                                {% endif %}
                             </div>
                         </label>
 
                         <label class="agree">
                             {{ form.agree_with_site_rules }}
                             {% trans "PAGE_ADDAPP_STEP1_AGREE_RULES" %}
-                            {{ form.agree_with_site_rules.errors }}
+                            {% if form.agree_with_site_rules.errors %}
+                                <div class="errorlist">
+                                    {{ form.agree_with_site_rules.errors }}
+                                </div>
+                            {% endif %}
                         </label>
 
                         <br>
@@ -227,7 +251,11 @@
                             <div class="add_app_pad">
                                 <div class="add_app_title">{% trans "PAGE_ADDAPP_STEP2_DEVSITE" %}</div>
                                 {{ form.developer_site }}
-                                {{ form.developer_site.errors }}
+                                {% if form.developer_site.errors %}
+                                    <div class="errorlist">
+                                        {{ form.developer_site.errors }}
+                                    </div>
+                                {% endif %}
                             </div>
                         </label>
 
@@ -245,9 +273,15 @@
                                     {% endfor %}
                                 </div>
                                 <div class="tab-content">
-                                    {% for item in trans.description %}
-                                    <div class="lang-field-wrapper lang-{{ item.code }} {% if forloop.first %}active{% endif %}">
+                                    {% for item in trans.description %} <div class="lang-field-wrapper lang-{{ item.code }} {% if forloop.first %}active{% endif %}">
                                         {{ item.input }}
+
+                                        {% if item.input.errors %}
+                                            <div class="errorlist" style="color: #cc0000; font-size: 11px; margin-top: 4px; background: #ffebe8; padding: 3px; border: 1px solid #dd8888;">
+                                                {{ item.input.errors }}
+                                            </div>
+                                        {% endif %}
+
                                     </div>
                                     {% endfor %}
                                 </div>
@@ -269,9 +303,15 @@
                                     {% endfor %}
                                 </div>
                                 <div class="tab-content">
-                                    {% for item in trans.requirements %}
-                                    <div class="lang-field-wrapper lang-{{ item.code }} {% if forloop.first %}active{% endif %}">
+                                    {% for item in trans.requirements %} <div class="lang-field-wrapper lang-{{ item.code }} {% if forloop.first %}active{% endif %}">
                                         {{ item.input }}
+
+                                        {% if item.input.errors %}
+                                            <div class="errorlist" style="color: #cc0000; font-size: 11px; margin-top: 4px; background: #ffebe8; padding: 3px; border: 1px solid #dd8888;">
+                                                {{ item.input.errors }}
+                                            </div>
+                                        {% endif %}
+
                                     </div>
                                     {% endfor %}
                                 </div>
@@ -284,7 +324,11 @@
                                 <div class="add_app_title">{% trans "PAGE_ADDAPP_STEP2_CATEGORY" %}</div>
                                 {{ form.category }}
                                 <div class="add_app_form_label">{% trans "PAGE_ADDAPP_STEP2_CATEGORYDESC" %}</div>
-                                {{ form.category.errors }}
+                                {% if form.category.errors %}
+                                    <div class="errorlist">
+                                        {{ form.category.errors }}
+                                    </div>
+                                {% endif %}
                             </div>
                         </label>
 
@@ -581,4 +625,20 @@
     };
 </script>
 <script src="{% static 'js/marketplace_cdn.js' %}"></script>
+{% if form.errors %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // if error in captcha field, go to step 3
+        {% if form.captcha.errors %}
+            goToStep(3);
+        // if error in category, developer site, or screenshots fields, go to step 2
+        {% elif form.category.errors or form.developer_site.errors or form.upload_screenshots.errors %}
+            goToStep(2);
+        // otherwise, stay on step 1
+        {% else %}
+            goToStep(1);
+        {% endif %}
+    });
+</script>
+{% endif %}
 {% endblock %}
