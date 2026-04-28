@@ -433,6 +433,34 @@
     let iconDataUrl = null;
     let screenshotsArray = [];
 
+    document.addEventListener("DOMContentLoaded", function() {
+        let cdnIconField = document.querySelector('input[name="cdn_icon_path"]');
+        let cdnScrField = document.querySelector('input[name="cdn_screenshots_data"]');
+
+        // prefix for CDN URLs
+        const cdnPrefix = new URL(window.CDN_CONFIG.uploadUrl).origin + "/";
+
+        // restore icon from CDN URL
+        if (cdnIconField && cdnIconField.value) {
+            let path = cdnIconField.value;
+            iconDataUrl = path.startsWith('http') ? path : cdnPrefix + path;
+        }
+
+        // restore screenshots from CDN URLs
+        if (cdnScrField && cdnScrField.value) {
+            try {
+                let savedScr = JSON.parse(cdnScrField.value);
+                if (Array.isArray(savedScr)) {
+                    screenshotsArray = savedScr.map(path =>
+                        path.startsWith('http') ? path : cdnPrefix + path
+                    );
+                }
+            } catch (e) {
+                console.error("Cannot restore screenshots from CDN URLs (LunaSpire):", e);
+            }
+        }
+    });
+
     const allowedExtensions = ['jpg', 'jpeg', 'png'];
 
     function validateFileExtension(file) {

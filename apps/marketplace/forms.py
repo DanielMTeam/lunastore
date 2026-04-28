@@ -287,9 +287,17 @@ class AppCreateForm(forms.ModelForm, CDNTokenValidationMixin):
     def save(self, commit=True):
         app_instance = super().save(commit=False)
         app_instance.user = self.user
-
         app_instance.icon_path = self.cleaned_data.get("cdn_icon_path")
-        app_instance.screenshots = self.cleaned_data.get("cdn_screenshots_data")
+
+        # take screenshots data and convert it back to a list
+        scr_data = self.cleaned_data.get("cdn_screenshots_data")
+        if scr_data:
+            try:
+                app_instance.screenshots = json.loads(scr_data)
+            except (json.JSONDecodeError, TypeError):
+                app_instance.screenshots = []
+        else:
+            app_instance.screenshots = []
 
         if commit:
             app_instance.save()
@@ -371,8 +379,15 @@ class AppEditForm(AppCreateForm):
             new_icon = self.cleaned_data.get("cdn_icon_path")
             submission.icon_path = new_icon if new_icon else self.target_app.icon_path
 
+            # take screenshots data and convert it back to a list
             new_scr = self.cleaned_data.get("cdn_screenshots_data")
-            submission.screenshots = new_scr if new_scr else self.target_app.screenshots
+            if new_scr:
+                try:
+                    submission.screenshots = json.loads(new_scr)
+                except (json.JSONDecodeError, TypeError):
+                    submission.screenshots = self.target_app.screenshots
+            else:
+                submission.screenshots = self.target_app.screenshots
 
         if commit:
             submission.save()
