@@ -462,6 +462,7 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
         "title",
         "description",
         "slogan",
+        "original_author",
         "icon_preview",
         "price",
         "screenshots",
@@ -520,6 +521,7 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
             icon_path=req.icon_path,
             screenshots=req.screenshots,
             developer_site=req.developer_site,
+            original_author=req.original_author,
         )
 
         # copy locale
