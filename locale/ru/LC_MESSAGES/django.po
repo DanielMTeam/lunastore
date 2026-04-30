@@ -790,17 +790,29 @@ msgstr "Системные требования"
 msgid "PAGE_APP_SECTION_SCREENSHOTS"
 msgstr "Скриншоты"
 
-msgid "PAGE_BADBROSER_DESC_3"
-msgstr "Спасибо за понимание."
+msgid "PAGE_BADBROWSER_WARN_TITLE"
+msgstr "Важное уведомление"
 
-msgid "PAGE_BADBROWSER_DESC_1"
-msgstr "Для полноценного использования этого веб-сервиса рекомендуется иметь установленный браузер Internet Explorer 6 и выше или RetroZilla."
+msgid "PAGE_BADBROWSER_WARN_SUBTITLE"
+msgstr "Мы заметили, что Вы посещаете сайт через о-о-очень старый браузер."
 
-msgid "PAGE_BADBROWSER_DESC_2"
-msgstr "Скачать Internet Explorer 6 можно как напрямую, так и с помощью сервисов"
+msgid "PAGE_BADBROWSER_WARN_DESC_1"
+msgstr "Ничего страшного, это очень круто, тем более весь дизайн сайта адаптирован с минимальным опором именно на этот веб-браузер."
 
-msgid "PAGE_BADBROWSER_TITLE"
-msgstr "Спасибо за интерес к магазину Windows!"
+msgid "PAGE_BADBROWSER_WARN_DESC_2"
+msgstr "Однако, учитывая современные аспекты безопасности сервера и хранящихся данных его пользователей, нам пришлось ввести некоторые корректировки для лиц, посещающих сайт с этого браузера."
+
+msgid "PAGE_BADBROWSER_WARN_RESTRICT_1"
+msgstr "<b>Недоступна</b> система аккаунтов (вход, регистрация)"
+
+msgid "PAGE_BADBROWSER_WARN_RESTRICT_2"
+msgstr "Администрирование страниц приложений <b>ограничено</b>"
+
+msgid "PAGE_BADBROWSER_WARN_DESC_3"
+msgstr "На возможность скачивания, просмотр каталога и его поиск это ограничение не влияет."
+
+msgid "PAGE_BADBROWSER_WARN_FOOTER"
+msgstr "Для более приятного опыта использования, рекомендуем вам браузеры RetroZilla и Supermium"
 
 msgid "PAGE_CATEGORY_BUYBTN"
 msgstr "Купить"

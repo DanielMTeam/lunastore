@@ -6,6 +6,8 @@ class LegalDocument(models.Model):
     LANGUAGE_CHOICES = (
         ("ru", "Русский"),
         ("en", "English"),
+        ("uk", "Українська"),
+        ("be", "Белорусский"),
     )
 
     doc_type = models.CharField(
