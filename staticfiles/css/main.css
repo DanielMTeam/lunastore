@@ -1118,3 +1118,31 @@ input[type="submit"] {
     border: 0;
     display: block;
 }
+
+/* IE mode warning */
+
+.iewarn {
+    background: #fff;
+    padding: 10px;
+    display: inline-block;
+    border: 1px solid #cfe1ff;
+}
+
+.iewarnicon {
+    background: url(../img/iewarn.png);
+    width: 72px;
+    height: 72px;
+    float: left;
+    margin-right: 10px;
+}
+
+.iewarn_descript_box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 320px;
+    float: left;
+}
+
+.iewarn_restrict_list {
+    margin-left: 20px;
+}
