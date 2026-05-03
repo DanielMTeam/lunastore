@@ -31,7 +31,6 @@ def marketplace(request):
     return render(request, "index.html", {"categories": categories})
 
 
-@login_required
 def category(request):
     id = request.GET.get("id")
     page = request.GET.get("page")
@@ -62,7 +61,6 @@ def category(request):
     return render(request, "category.html", context)
 
 
-@login_required
 def app(request):
     id = request.GET.get("id")
     obj = get_object_or_404(Application.objects.select_related("user"), id=id)
@@ -93,7 +91,6 @@ def app(request):
     return render(request, "storepage.html", context)
 
 
-@login_required
 def download_list(request):
     app_id = request.GET.get("id")
     if not app_id:
@@ -277,7 +274,6 @@ def application_edit_info(request, pk):
     )
 
 
-@login_required
 def search(request):
     query = request.GET.get("q")
     view_mode = request.GET.get("view", "tiles")
