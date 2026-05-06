@@ -16,6 +16,19 @@
 <link rel="shortcut icon" href="{% static './favicon.ico'%}">
 <script src="{% static './js/cookie.js'%}"></script>
 <script defer src="https://analytics.myslivets.com/script.js" data-website-id="bce1e0a4-fb9e-40e8-85c9-04c8bd3c8940"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tolgee/web/dist/tolgee-web.production.umd.min.js"></script>
+
+<script>
+    const { Tolgee, DevTools } = window['@tolgee/web'];
+  
+    const tolgee = Tolgee()
+      .use(DevTools())
+      .init({
+        language: "{{ LANGUAGE_CODE }}",
+      });
+  
+    tolgee.run();
+  </script>
 </head>
 
 
