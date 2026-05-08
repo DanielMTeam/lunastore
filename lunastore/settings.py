@@ -23,9 +23,18 @@ ADMIN_URL = os.getenv("ADMIN_URL", "http://127.0.0.1:8000")
 
 LOGIN_URL = "login.php"
 
+# global rate limit settings
 RATE_LIMIT_ENABLED = os.getenv("RATE_LIMIT_ENABLED", "False") == "True"
 RATE_LIMIT_WINDOW = int(os.getenv("RATE_LIMIT_WINDOW", "50"))
 RATE_LIMIT = int(os.getenv("RATE_LIMIT", "35"))
+
+# django-smart-ratelimit (ratelimit for functions)
+RATELIMIT_BACKEND = 'redis'
+RATELIMIT_REDIS = {
+    'host': 'redis',
+    'port': 6379,
+    'db': 1,
+}
 
 ADMIN_EMAIL = os.getenv("ADMIN_EMAIL", "")
 

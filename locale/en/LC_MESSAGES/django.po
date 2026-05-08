@@ -33,7 +33,7 @@ msgid "404_TITLE"
 msgstr "An error occured"
 
 msgid "ACTION_CHOOSE_FILE"
-msgstr "Select file"
+msgstr "Choose file"
 
 msgid "BANNED_IP_BACK_BUTTON"
 msgstr "Go back"
@@ -170,8 +170,41 @@ msgstr "Access denied. Start with profile settings."
 msgid "ERROR_CDNSECURITY"
 msgstr "A LunaSpire engine security error occurred while uploading the file. Please contact your site administrator if you see this error repeatedly."
 
+msgid "ERROR_CDN_CHECKSUM_MISMATCH_SCREENSHOTS"
+msgstr "Error verifying screenshot tokens."
+
+msgid "ERROR_CDN_INVALID_FORMAT"
+msgstr "Invalid file format on the CDN server. Please contact your administrator."
+
+msgid "ERROR_CDN_SESSION_EXPIRED"
+msgstr "The upload session has expired. Please try again."
+
+msgid "ERROR_CDN_TOKEN_EXPIRED_OR_USED"
+msgstr "The download token has expired or has already been used."
+
+msgid "ERROR_CDN_TOKEN_INVALID"
+msgstr "Invalid CDN security token."
+
+msgid "ERROR_CDN_TOKEN_INVALID_TYPE"
+msgstr "Invalid CDN token type."
+
+msgid "ERROR_CDN_TOKEN_MISSING"
+msgstr "CDN token not provided."
+
+msgid "ERROR_CHECK_FORM"
+msgstr "Please check the form. There are errors in some fields."
+
 msgid "ERROR_CURRENT_PASSWORD_IS_WRONG"
 msgstr "Current password is incorrect"
+
+msgid "ERROR_DIST_FORM_CDN_INFO_FAIL"
+msgstr "Failed to retrieve file information from the storage server. Please try again later."
+
+msgid "ERROR_DIST_FORM_NO_FILE_OR_URL"
+msgstr "A file must be uploaded or a download link provided"
+
+msgid "ERROR_DIST_FORM_NO_VT_LINK"
+msgstr "VirusTotal link is mandatory when uploading a file."
 
 msgid "ERROR_DIST_SOURCE_REQUIRED"
 msgstr "A file or download link must be provided."
@@ -232,6 +265,12 @@ msgstr "is in invalid format."
 
 msgid "ERROR_PREVIEWSCRNS_3_COUNT"
 msgstr "Maximum 3 files!"
+
+msgid "ERROR_PROFILE_OPENVK_INVALID"
+msgstr "Invalid OpenVK username format. Please provide a valid username."
+
+msgid "ERROR_PROFILE_TELEGRAM_INVALID"
+msgstr "Invalid Telegram username format. Please provide a username without links or protocols."
 
 msgid "ERROR_YOURE_NOT_OWNER_OF_APP"
 msgstr "You're not an administrator of this application."
@@ -398,8 +437,68 @@ msgstr "Unable to get upload token"
 msgid "JS_MARKETPLACE_UPLOADING"
 msgstr "Uploading..."
 
+msgid "MSG_DIST_CREATE_REQ_SENT"
+msgstr "New version addition request has been submitted for moderation."
+
+msgid "MSG_DIST_EDIT_REQ_SENT"
+msgstr "Version change request has been submitted for moderation."
+
 msgid "NOTIFICATIONS_LOADING"
 msgstr "Loading notifications..."
+
+msgid "NOTIF_APPEDITREQ_ACCEPTED_DESCRIPTION"
+msgstr "Your application edit request for %(app_name)s has been approved."
+
+msgid "NOTIF_APPEDITREQ_ACCEPTED_TITLE"
+msgstr "Application edit request status"
+
+msgid "NOTIF_APPEDITREQ_DECLINED_DESCRIPTION"
+msgstr "Your application edit request for %(app_name)s has been declined. Reason: %(reason)s"
+
+msgid "NOTIF_APPEDITREQ_DECLINED_TITLE"
+msgstr "Application edit request status"
+
+msgid "NOTIF_APPREQ_ACCEPTED_DESCRIPTION"
+msgstr "Congratulations! Your request to create the application %(app_name)s has been approved and it has been published in LunaStore."
+
+msgid "NOTIF_APPREQ_ACCEPTED_TITLE"
+msgstr "Application status"
+
+msgid "NOTIF_APPREQ_DECLINED_DESCRIPTION"
+msgstr "Your application creation request for %(app_name)s has been declined. Reason: %(reason)s"
+
+msgid "NOTIF_APPREQ_DECLINED_TITLE"
+msgstr "Application status"
+
+msgid "NOTIF_DEVSTATUS_ACCEPTED_DESCRIPTION"
+msgstr "Congratulations! Your application has been approved and you have received developer/publisher capabilities."
+
+msgid "NOTIF_DEVSTATUS_ACCEPTED_TITLE"
+msgstr "Developer status"
+
+msgid "NOTIF_DEVSTATUS_DECLINED_DESCRIPTION"
+msgstr "Your application has been declined and you have not received developer/publisher capabilities. Reason: %(reason)s"
+
+msgid "NOTIF_DEVSTATUS_DECLINED_TITLE"
+msgstr "Developer status"
+
+msgid "NOTIF_DEVSTATUS_SEND_DESCRIPTION"
+msgstr "Your request has been successfully submitted. You will receive a response in the 'Notifications' section. No further action is required."
+
+msgid "NOTIF_DEVSTATUS_SEND_TITLE"
+msgstr "Developer status"
+
+msgid "NOTIF_LOGIN_DESCRIPTION"
+msgstr "Your account was logged into • Device: %(browser)s (%(os)s) • IP address: %(ip)s • Location: %(location)s • If this wasn't you, change your password immediately."
+
+msgid "NOTIF_LOGIN_TITLE"
+msgstr "New account login"
+
+msgid "NOTIF_WELCOME_DESCRIPTION"
+msgstr "Thanks for registering! We are very pleased that you care about the app directory. We hope you really enjoy it!"
+
+msgid "NOTIF_WELCOME_TITLE"
+msgstr "Welcome to LunaStore"
 
 msgid "PAGE_ADDAPP_BACKBTN"
 msgstr "Back"
@@ -587,10 +686,22 @@ msgstr "Distribution management — "
 msgid "PAGE_ADMIN_APP_DIST_NO_NOTES"
 msgstr "No notes"
 
+msgid "PAGE_ADMIN_APP_DIST_PENDING_CREATE"
+msgstr "(Create new) — Pending"
+
+msgid "PAGE_ADMIN_APP_DIST_PENDING_EDIT"
+msgstr "(Edit) — Pending"
+
+msgid "PAGE_ADMIN_APP_DIST_PENDING_TITLE"
+msgstr "Requests pending moderation:"
+
 msgid "PAGE_ADMIN_APP_DIST_SAVE"
 msgstr "Save"
 
 msgid "PAGE_ADMIN_APP_DIST_VERSION"
+msgstr "Version"
+
+msgid "PAGE_ADMIN_APP_DIST_VERSION_LABEL"
 msgstr "Version"
 
 msgid "PAGE_ADMIN_APP_FIRST_BLOCK"
@@ -662,6 +773,9 @@ msgstr "Application name:"
 msgid "PAGE_ADMIN_APP_TITLEDESC"
 msgstr "A great and memorable name will give the application a boost in brand awareness among users"
 
+msgid "PAGE_ADMIN_APP_TRANSLATIONINFO"
+msgstr "Translating information about your app can increase its recognition among a foreign audience, as well as improve its visibility in search engines. In any case, we advise authors to create translations into different languages."
+
 msgid "PAGE_ADMIN_APP_WARN_SCRN"
 msgstr "Warning: Uploading new files will remove current screenshots!"
 
@@ -691,6 +805,9 @@ msgstr "Published by:"
 
 msgid "PAGE_APP_LABEL_DOWNLOADS"
 msgstr "Number of downloads"
+
+msgid "PAGE_APP_LABEL_NOT_TRANSLATED"
+msgstr "Unfortunately, the person who uploaded the app did not provide a translation for your language. Therefore, you are seeing the original version now."
 
 msgid "PAGE_APP_LABEL_ORIGINAL_AUTHOR"
 msgstr "Original author:"
@@ -739,6 +856,30 @@ msgstr "Internet Explorer 6 can be downloaded either directly or via services"
 
 msgid "PAGE_BADBROWSER_TITLE"
 msgstr "Thank you for your interest in the Windows Store!"
+
+msgid "PAGE_BADBROWSER_WARN_DESC_1"
+msgstr "No worries, this is actually great, especially since the entire website design is adapted with minimal reliance specifically on this web browser."
+
+msgid "PAGE_BADBROWSER_WARN_DESC_2"
+msgstr "However, given modern server security aspects and the data stored for its users, we had to implement some adjustments for those visiting the site using this browser."
+
+msgid "PAGE_BADBROWSER_WARN_DESC_3"
+msgstr "This restriction does not affect the ability to download, browse the catalog, or perform searches."
+
+msgid "PAGE_BADBROWSER_WARN_FOOTER"
+msgstr "For a better user experience, we recommend using the RetroZilla or Supermium browsers"
+
+msgid "PAGE_BADBROWSER_WARN_RESTRICT_1"
+msgstr "<b>Unavailable</b> account system (login, registration)"
+
+msgid "PAGE_BADBROWSER_WARN_RESTRICT_2"
+msgstr "Application page administration is <b>restricted</b>"
+
+msgid "PAGE_BADBROWSER_WARN_SUBTITLE"
+msgstr "We've noticed that you're visiting the site using a veeery old browser."
+
+msgid "PAGE_BADBROWSER_WARN_TITLE"
+msgstr "Important notice"
 
 msgid "PAGE_CATEGORY_BUYBTN"
 msgstr "Buy"
@@ -800,6 +941,9 @@ msgstr "It is time to list your profile statistics:"
 msgid "PAGE_DELACC_WARNTITLE"
 msgstr "Please pay attention!"
 
+msgid "PAGE_DELACC_YOULEFTHERE_1"
+msgstr "Food for thought"
+
 msgid "PAGE_DELACC_YOULEFTHERE_APP_1"
 msgstr "Number of apps you uploaded:"
 
@@ -823,6 +967,9 @@ msgstr "The number of people invited by you:"
 
 msgid "PAGE_DELACC_YOULEFTHERE_INVITES_2"
 msgstr "They will be left without you and will be sad"
+
+msgid "PAGE_DELACC_YOULEFTHERE_TITLE"
+msgstr "You have left here..."
 
 msgid "PAGE_DELAPP_DELACCOUNTBTN"
 msgstr "Delete account"
@@ -953,6 +1100,12 @@ msgstr "Application version:"
 msgid "PAGE_DIST_FORM_VERSION_DESC"
 msgstr "Example: 1.0.0 or 2.1.4-beta"
 
+msgid "PAGE_DIST_FORM_VT_DESC"
+msgstr "Provide a link to the file scan results on virustotal.com"
+
+msgid "PAGE_DIST_FORM_VT_TITLE"
+msgstr "VirusTotal link (mandatory when uploading a file):"
+
 msgid "PAGE_DOWNLOAD_BACK"
 msgstr "Back"
 
@@ -961,6 +1114,9 @@ msgstr "The software is distributed as a demo version; the full version should b
 
 msgid "PAGE_DOWNLOAD_DL_ACTION"
 msgstr "download"
+
+msgid "PAGE_DOWNLOAD_DMCA_WARNING"
+msgstr "The ability to download the program has been disabled due to a copyright holder's complaint. Thank you for your understanding."
 
 msgid "PAGE_DOWNLOAD_GO_OFFICIAL"
 msgstr "Go to the official website"
@@ -1007,6 +1163,18 @@ msgstr "Uploaded versions"
 msgid "PAGE_DOWNLOAD_VERSION_LIST"
 msgstr "Version list"
 
+msgid "PAGE_FAQ_A_ACC_BENEFITS"
+msgstr "With an account, you will be able to leave reviews for applications, present yourself well in this emerging community, and upload your own applications to the public catalog after strict moderation."
+
+msgid "PAGE_FAQ_A_ADD_APP"
+msgstr "Not yet. We are just getting started, so we are taking software from our own lists. Keep an eye on updates to this page."
+
+msgid "PAGE_FAQ_A_CREATE_ACC"
+msgstr "Click the \"Sign up\" button in the top header of the site"
+
+msgid "PAGE_FAQ_A_LEGAL"
+msgstr "Usually, such a question is asked by a software developer. However, if you are very concerned about the existence of an old version of your program on this site, you can contact us via e-mail. But we really hope that you will understand our situation and the purpose of the project."
+
 msgid "PAGE_FAQ_A_WHY_EXIST_PART1"
 msgstr "Good question. It all began when one of our team members wanted to upload a 3D Windows XP screensaver on a certain old software website that wasn't quite popular and was barely saved on the Internet Archive."
 
@@ -1019,6 +1187,9 @@ msgstr "Nothing to worry about, we are not saddened and we won't be competitors 
 msgid "PAGE_FAQ_CARD_TEAM"
 msgstr "What do you mean by 'shared hobby'?"
 
+msgid "PAGE_FAQ_CARD_TEAMDESC_1"
+msgstr "You wouldn't believe it. Many passionate people with the same vision worked on this project."
+
 msgid "PAGE_FAQ_CARD_TEAMDESC_2"
 msgstr "It's time to name them:"
 
@@ -1027,6 +1198,9 @@ msgstr "- idea's author, designer,"
 
 msgid "PAGE_FAQ_CARD_TEAM_BACKEND"
 msgstr "- backend development, consulting and inspiration"
+
+msgid "PAGE_FAQ_CARD_TEAM_CDNANDGIT"
+msgstr "- back-office work, CDN, internal Git"
 
 msgid "PAGE_FAQ_CARD_TEAM_DEV"
 msgstr "- developer"
@@ -1091,6 +1265,12 @@ msgstr "We're also thankful to other developers:"
 msgid "PAGE_FAQ_TEAM_HEADER_TESTERS"
 msgstr "And let's not forget about our testers:"
 
+msgid "PAGE_FAQ_TEAM_ROLE_CHELKA0"
+msgstr "behind-the-scenes website design"
+
+msgid "PAGE_FAQ_TEAM_ROLE_COOKIE"
+msgstr "Second backend developer, lead developer of the luna package manager, and also Japanese translation"
+
 msgid "PAGE_FAQ_TEAM_ROLE_FAYZETWIN"
 msgstr "main backend developer, API"
 
@@ -1111,6 +1291,9 @@ msgstr "FAQ"
 
 msgid "PAGE_FAQ_TITLE_2"
 msgstr "Support center"
+
+msgid "PAGE_FAQ_TOOLTIP_EASTEREGG"
+msgstr "WORKAROUNDS BICYCLES YOOO"
 
 msgid "PAGE_INVITE_ADMINSTATUS"
 msgstr "Moderator"
@@ -1238,11 +1421,34 @@ msgstr "Owner"
 msgid "PAGE_MANAGE_APPS_TITLE"
 msgstr "Managed applications"
 
+msgid "PAGE_NOTIFICATIONS_COUNT_SINGLE"
+msgid_plural "PAGE_NOTIFICATIONS_COUNT_PLURAL"
+msgstr[0] "You have <b>%(counter)s</b> new notification"
+msgstr[1] "You have <b>%(counter)s</b> new notifications"
+
+msgid "PAGE_NOTIFICATIONS_EARLY"
+msgstr "Early notifications"
+
+msgid "PAGE_NOTIFICATIONS_NOW"
+msgstr "just now"
+
+msgid "PAGE_NOTIFICATIONS_NO_NEW"
+msgstr "You have no new notifications"
+
 msgid "PAGE_NOTIFICATIONS_TAB"
 msgstr "Notifications"
 
 msgid "PAGE_NOTIFICATIONS_TITLE"
 msgstr "Notifications"
+
+msgid "PAGE_NOTIFY_TOAST_CLOSE"
+msgstr "Close"
+
+msgid "PAGE_NOTIFY_TOAST_NEW"
+msgstr "New notification"
+
+msgid "PAGE_NOTIFY_TOAST_VIEW"
+msgstr "View »"
 
 msgid "PAGE_OTHER_PROJECTS_BROWSER_TITLE"
 msgstr "Other projects"
@@ -1262,6 +1468,9 @@ msgstr "Revival of Windows XP/7 internet games using a custom third-party server
 msgid "PAGE_OTHER_PROJECTS_DESC_KICQ"
 msgstr "Unofficial project that restores ICQ functionality"
 
+msgid "PAGE_OTHER_PROJECTS_DESC_RENAISSANCE"
+msgstr "Unofficial project that restores Agent@Mail.ru functionality"
+
 msgid "PAGE_OTHER_PROJECTS_SECTION_FRIENDS"
 msgstr "Partner sites"
 
@@ -1280,6 +1489,9 @@ msgstr "User hasn't published any apps yet."
 msgid "PAGE_PROFILE_APPS_TITLE"
 msgstr "Published applications"
 
+msgid "PAGE_PROFILE_BANNED_DESC"
+msgstr "This may have occurred due to a violation of site rules, suspicious activity, or a security system trigger. We care about the comfort of all users, so we are forced to temporarily or permanently restrict access to the site for such users."
+
 msgid "PAGE_PROFILE_BANNED_DESC_2"
 msgstr "Since this user is banned, we recommend not to communicate with them, especially if they will ask you for money."
 
@@ -1294,6 +1506,9 @@ msgstr "No one has registered using this user's invitation yet."
 
 msgid "PAGE_PROFILE_INVITES_EMPTY_TITLE"
 msgstr "No invitations ＞︿＜"
+
+msgid "PAGE_PROFILE_INVITES_PEOPLE"
+msgstr "people (showing first 5)"
 
 msgid "PAGE_PROFILE_INVITES_TEXT"
 msgstr "invited"

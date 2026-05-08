@@ -22,6 +22,7 @@ from apps.core.notifications.services import NotificationService
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from .tasks import process_login_notification
 from apps.core.tasks import send_notification
+from django_smart_ratelimit import ratelimit
 
 from apps.marketplace.models import Application
 
@@ -135,6 +136,7 @@ def logout(request):
     dj_logout(request)
     return redirect("/index.php")
 
+@ratelimit(key='ip', rate='10/10m', block=True)
 def register(request):
     invite_obj = None
 

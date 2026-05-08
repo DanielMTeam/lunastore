@@ -172,6 +172,9 @@ msgstr "Доступ забаронены. Пачніце з налад проф
 msgid "ERROR_CDNSECURITY"
 msgstr "Пры спампоўцы файла адбылася памылка бяспекі рухавіка LunaSpire. Калі ласка, звярніцеся з гэтай памылкай да адміністратара сайта, калі вы бачыце гэту памылку не ўпершыню."
 
+msgid "ERROR_CHECK_FORM"
+msgstr "Калі ласка, праверце форму. У некаторых палях дапушчаны памылкі."
+
 msgid "ERROR_CURRENT_PASSWORD_IS_WRONG"
 msgstr "Гэта няправільны пароль"
 
@@ -399,6 +402,63 @@ msgstr "Не ўдалося атрымаць токен __________"
 
 msgid "JS_MARKETPLACE_UPLOADING"
 msgstr "Загрузка..."
+
+msgid "NOTIFICATIONS_LOADING"
+msgstr "Загрузка паведамленняў..."
+
+msgid "NOTIF_APPEDITREQ_ACCEPTED_DESCRIPTION"
+msgstr "Ваша заява на рэдагаванне дадатка %(app_name)s была адобрана."
+
+msgid "NOTIF_APPEDITREQ_ACCEPTED_TITLE"
+msgstr "Статус заявы на рэдагаванне дадатка"
+
+msgid "NOTIF_APPEDITREQ_DECLINED_DESCRIPTION"
+msgstr "Ваша заява на рэдагаванне дадатка %(app_name)s была адмоўлена. Прычына: %(reason)s"
+
+msgid "NOTIF_APPEDITREQ_DECLINED_TITLE"
+msgstr "Статус заявы на рэдагаванне дадатка"
+
+msgid "NOTIF_APPREQ_ACCEPTED_DESCRIPTION"
+msgstr "Віншуем! Ваша заява на стварэнне дадатка %(app_name)s была адобрана і ён быў апублікаваны ў LunaStore."
+
+msgid "NOTIF_APPREQ_ACCEPTED_TITLE"
+msgstr "Статус заявы"
+
+msgid "NOTIF_APPREQ_DECLINED_DESCRIPTION"
+msgstr "Ваша заява на стварэнне дадатка %(app_name)s была адмоўлена. Прычына: %(reason)s"
+
+msgid "NOTIF_APPREQ_DECLINED_TITLE"
+msgstr "Статус заявы"
+
+msgid "NOTIF_DEVSTATUS_ACCEPTED_DESCRIPTION"
+msgstr "Віншуем! Ваша заява была адобрана і вы атрымалі магчымасці распрацоўшчыка/выдаўца дадаткаў."
+
+msgid "NOTIF_DEVSTATUS_ACCEPTED_TITLE"
+msgstr "Статус распрацоўшчыка"
+
+msgid "NOTIF_DEVSTATUS_DECLINED_DESCRIPTION"
+msgstr "Ваша заява была адмоўлена і вы не атрымалі магчымасці распрацоўшчыка/выдаўца прыкладанняў. Прычына: %(reason)s"
+
+msgid "NOTIF_DEVSTATUS_DECLINED_TITLE"
+msgstr "Статус распрацоўшчыка"
+
+msgid "NOTIF_DEVSTATUS_SEND_DESCRIPTION"
+msgstr "Ваша заява была паспяхова адпраўлена. Адказ прыйдзе ў раздзеле «Паведамленні». Нічога рабіць не трэба."
+
+msgid "NOTIF_DEVSTATUS_SEND_TITLE"
+msgstr "Статус распрацоўшчыка"
+
+msgid "NOTIF_LOGIN_DESCRIPTION"
+msgstr "У ваш акаўнт быў выкананы ўваход • Прылада: %(browser)s (%(os)s) • IP-адрас: %(ip)s • Месцазнаходжанне: %(location)s • Калі гэта не вы, хутка змяніце пароль."
+
+msgid "NOTIF_LOGIN_TITLE"
+msgstr "Новы ўваход у акаўнт"
+
+msgid "NOTIF_WELCOME_DESCRIPTION"
+msgstr "Дзякуй за рэгістрацыю! Вельмі прыемна, што Вы засталіся неабыякавымі да даведніка дадаткаў. Спадзяюся, Вам вельмі спадабаецца!"
+
+msgid "NOTIF_WELCOME_TITLE"
+msgstr "Сардэчна запрашаем у LunaStore"
 
 msgid "PAGE_ADDAPP_BACKBTN"
 msgstr "Назад"
@@ -661,6 +721,9 @@ msgstr "Назва дадатка:"
 msgid "PAGE_ADMIN_APP_TITLEDESC"
 msgstr "Адметная і запамінальная назва даст дадатку бонус да распазнавальнасці сярод карыстальнікаў"
 
+msgid "PAGE_ADMIN_APP_TRANSLATIONINFO"
+msgstr "Пераклад інфармацыі пра Ваш дадатак можа павысіць яго пазнавальнасць для замежнай аўдыторыі, а таксама палепшыць яго бачнасць у пошукавых сістэмах. Ва ўсялякім выпадку, мы раім аўтарам рабіць пераклады на розныя мовы."
+
 msgid "PAGE_ADMIN_APP_WARN_SCRN"
 msgstr "Увага: Загрузка новых файлаў выдаліць усе бягучыя скрыншоты!"
 
@@ -690,6 +753,9 @@ msgstr "Апублікаваў:"
 
 msgid "PAGE_APP_LABEL_DOWNLOADS"
 msgstr "Колькасць спампоўванняў"
+
+msgid "PAGE_APP_LABEL_NOT_TRANSLATED"
+msgstr "На жаль, той, хто загрузіў дадатак, не зрабіў пераклад на вашу мову. Таму зараз вы бачыце арыгінал."
 
 msgid "PAGE_APP_LABEL_ORIGINAL_AUTHOR"
 msgstr "Арыгінальны аўтар:"
@@ -966,6 +1032,9 @@ msgstr "Праграма распаўсюджваецца ў якасці дэм
 
 msgid "PAGE_DOWNLOAD_DL_ACTION"
 msgstr "спампаваць"
+
+msgid "PAGE_DOWNLOAD_DMCA_WARNING"
+msgstr "Магчымасць спампоўвання праграмы была закрыта з-за скаргі праваўладара. Дзякуй за разуменне."
 
 msgid "PAGE_DOWNLOAD_GO_OFFICIAL"
 msgstr "Перайсці на афіцыйны сайт"
@@ -1269,6 +1338,36 @@ msgstr "Уладальнік"
 
 msgid "PAGE_MANAGE_APPS_TITLE"
 msgstr "Адміністрыруемыя прыкладанні"
+
+msgid "PAGE_NOTIFICATIONS_COUNT_SINGLE"
+msgid_plural "PAGE_NOTIFICATIONS_COUNT_PLURAL"
+msgstr[0] "У Вас <b>%(counter)s</b> новае паведамленне"
+msgstr[1] "У Вас <b>%(counter)s</b> новых паведамлення"
+msgstr[2] "У Вас <b>%(counter)s</b> новых паведамленняў"
+
+msgid "PAGE_NOTIFICATIONS_EARLY"
+msgstr "Ранейшыя паведамленні"
+
+msgid "PAGE_NOTIFICATIONS_NOW"
+msgstr "толькі што"
+
+msgid "PAGE_NOTIFICATIONS_NO_NEW"
+msgstr "У Вас няма новых паведамленняў"
+
+msgid "PAGE_NOTIFICATIONS_TAB"
+msgstr "Паведамленні"
+
+msgid "PAGE_NOTIFICATIONS_TITLE"
+msgstr "Паведамленні"
+
+msgid "PAGE_NOTIFY_TOAST_CLOSE"
+msgstr "Закрыць"
+
+msgid "PAGE_NOTIFY_TOAST_NEW"
+msgstr "Новае паведамленне"
+
+msgid "PAGE_NOTIFY_TOAST_VIEW"
+msgstr "Паглядзець »"
 
 msgid "PAGE_OTHER_PROJECTS_BROWSER_TITLE"
 msgstr "Іншыя праекты"
