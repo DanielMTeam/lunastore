@@ -172,8 +172,41 @@ msgstr "Доступ заборонено. Почніть з налаштува�
 msgid "ERROR_CDNSECURITY"
 msgstr "Під час завантаження файлу сталася помилка безпеки рушія LunaSpire. Будь ласка, зверніться з цією помилкою до адміністратора сайту, якщо ви бачите її не в перший раз."
 
+msgid "ERROR_CDN_CHECKSUM_MISMATCH_SCREENSHOTS"
+msgstr "Помилка при перевірці токенів скриншотів"
+
+msgid "ERROR_CDN_INVALID_FORMAT"
+msgstr "Недопустимий формат файла на сервері зберігання (CDN). Будь ласка, зверніться до адміністрації."
+
+msgid "ERROR_CDN_SESSION_EXPIRED"
+msgstr "Час сесії завантаження вийшло. Спробуйте ще раз."
+
+msgid "ERROR_CDN_TOKEN_EXPIRED_OR_USED"
+msgstr "Токен завантаження застарів або вже використаний."
+
+msgid "ERROR_CDN_TOKEN_INVALID"
+msgstr "Недійсний токен безпеки CDN."
+
+msgid "ERROR_CDN_TOKEN_INVALID_TYPE"
+msgstr "Невірний тип токена від CDN."
+
+msgid "ERROR_CDN_TOKEN_MISSING"
+msgstr "Токен CDN не представлений."
+
+msgid "ERROR_CHECK_FORM"
+msgstr "Будь ласка, перевірте форму. У деяких полях є помилки."
+
 msgid "ERROR_CURRENT_PASSWORD_IS_WRONG"
 msgstr "Поточний пароль неправильний"
+
+msgid "ERROR_DIST_FORM_CDN_INFO_FAIL"
+msgstr "Не вдалося отримати інформацію про файл від сервера зберігання. Спробуйте пізніше."
+
+msgid "ERROR_DIST_FORM_NO_FILE_OR_URL"
+msgstr "Потрібно завантажити файл або вказати посилання для завантаження"
+
+msgid "ERROR_DIST_FORM_NO_VT_LINK"
+msgstr "При завантаженні файла посилання на VirusTotal обов'язкове."
 
 msgid "ERROR_DIST_SOURCE_REQUIRED"
 msgstr "Потрібно вказати файл або посилання для завантаження."
@@ -234,6 +267,12 @@ msgstr " має некоректний формат."
 
 msgid "ERROR_PREVIEWSCRNS_3_COUNT"
 msgstr "Максимум 3 файла!"
+
+msgid "ERROR_PROFILE_OPENVK_INVALID"
+msgstr "Невірний формат імені користувача OpenVK. Будь ласка, вкажіть правильне ім'я користувача."
+
+msgid "ERROR_PROFILE_TELEGRAM_INVALID"
+msgstr "Невірний формат імені користувача Telegram. Будь ласка, вкажіть ім'я користувача без посилань та протоколів."
 
 msgid "ERROR_YOURE_NOT_OWNER_OF_APP"
 msgstr "Ви не є адміністратором цієї програми."
@@ -400,11 +439,17 @@ msgstr "Не вдалось отримати токен завантаження
 msgid "JS_MARKETPLACE_UPLOADING"
 msgstr "Завантаження..."
 
+msgid "MSG_DIST_CREATE_REQ_SENT"
+msgstr "Заявка на додавання нової версії відправлена на модерацію."
+
+msgid "MSG_DIST_EDIT_REQ_SENT"
+msgstr "Заявка на зміну версії відправлена на модерацію."
+
 msgid "NOTIFICATIONS_LOADING"
 msgstr "Завантаження сповіщень..."
 
 msgid "NOTIF_APPEDITREQ_ACCEPTED_DESCRIPTION"
-msgstr "Ваша заява на редагування програм %(app_name)s була прийнята"
+msgstr "Ваша заявка на редагування програми %(app_name)s була схвалена."
 
 msgid "NOTIF_APPEDITREQ_ACCEPTED_TITLE"
 msgstr "Статус заяви на редагування програми"
@@ -428,34 +473,34 @@ msgid "NOTIF_APPREQ_DECLINED_TITLE"
 msgstr "Статус заяви"
 
 msgid "NOTIF_DEVSTATUS_ACCEPTED_DESCRIPTION"
-msgstr "Вітаємо! Ваша заява була прийнята й ви отримали можливости розробника/видавця програм. "
+msgstr "Вітаємо! Ваша заява була схвалена і ви отримали можливості розробника/видавця програм. "
 
 msgid "NOTIF_DEVSTATUS_ACCEPTED_TITLE"
 msgstr "Статус розробника"
 
 msgid "NOTIF_DEVSTATUS_DECLINED_DESCRIPTION"
-msgstr "Ваша заява була відхилена і ви не отримали можливости розробника/видавця програм. Причина: %(reason)s"
+msgstr "Ваша заява була відхилена і ви не отримали можливості розробника/видавця програм. Причина: %(reason)s"
 
 msgid "NOTIF_DEVSTATUS_DECLINED_TITLE"
 msgstr "Статус розробника"
 
 msgid "NOTIF_DEVSTATUS_SEND_DESCRIPTION"
-msgstr "Ваша заява була успішно відправлена. Відповідь прийде у розділ \"Сповіщення\". Нічого робити не потрібно."
+msgstr "Вашу заявку булу успішно надіслано. Відповідь надійде в розділі «Сповіщення». Нічого робити не потрібно."
 
 msgid "NOTIF_DEVSTATUS_SEND_TITLE"
 msgstr "Статус розробника"
 
 msgid "NOTIF_LOGIN_DESCRIPTION"
-msgstr "У ваш обліковий запис був виконаний вхід  • Пристрій: %(browser)s (%(os)s) • IP-адреса: %(ip)s • Місцезнаходження: %(location)s • Якщо це не ви, терміново поміняйте пароль."
+msgstr "У ваш обліковий запис було здійснено вхід  • Пристрій: %(browser)s (%(os)s) • IP-адреса: %(ip)s • Місцезнаходження: %(location)s • Якщо це не ви, терміново змініть пароль."
 
 msgid "NOTIF_LOGIN_TITLE"
 msgstr "Новий вхід в обліковий запис"
 
 msgid "NOTIF_WELCOME_DESCRIPTION"
-msgstr "Дякуємо за реєстрацію! Дуже приємно, що Ви проявили зацікавленість до довіднику програм. Надіємось, Вам дуже сподобається!"
+msgstr "Дякуємо за реєстрацію! Дуже приємно, що Ви залишилися небайдужими до довідника програм. Сподіваємось, Вам дуже сподобається!"
 
 msgid "NOTIF_WELCOME_TITLE"
-msgstr "Ласкаво просимо в LunaStore"
+msgstr "Ласкаво просимо до LunaStore"
 
 msgid "PAGE_ADDAPP_BACKBTN"
 msgstr "Назад"
@@ -643,10 +688,22 @@ msgstr "Керування дистрибуціями —"
 msgid "PAGE_ADMIN_APP_DIST_NO_NOTES"
 msgstr "Без приміток"
 
+msgid "PAGE_ADMIN_APP_DIST_PENDING_CREATE"
+msgstr "(Створення нової) — На розгляді"
+
+msgid "PAGE_ADMIN_APP_DIST_PENDING_EDIT"
+msgstr "(Зміна) — На розгляді"
+
+msgid "PAGE_ADMIN_APP_DIST_PENDING_TITLE"
+msgstr "Заяви, що очікують модерацію:"
+
 msgid "PAGE_ADMIN_APP_DIST_SAVE"
 msgstr "Зберегти"
 
 msgid "PAGE_ADMIN_APP_DIST_VERSION"
+msgstr "Версія"
+
+msgid "PAGE_ADMIN_APP_DIST_VERSION_LABEL"
 msgstr "Версія"
 
 msgid "PAGE_ADMIN_APP_FIRST_BLOCK"
@@ -719,7 +776,7 @@ msgid "PAGE_ADMIN_APP_TITLEDESC"
 msgstr "Чудова та незабутня назва дасть програмі плюс до впізнаваності серед користувачів"
 
 msgid "PAGE_ADMIN_APP_TRANSLATIONINFO"
-msgstr "Переклад інформації про Вашу програму може підвищити йому пізнаваність для іноземної аудиторії, а також покращити його видимість у пошукових системах. Про всяк випадок, ми радимо авторам робити переклади на різні мови. "
+msgstr "Переклад інформації про Вашу програму може підвищити його впізнаваність для іноземної аудиторії, а також покращити його видимість у пошукових системах. Про всяк випадок, ми радимо авторам робити переклади на різні мови. "
 
 msgid "PAGE_ADMIN_APP_WARN_SCRN"
 msgstr "Увага: Завантаження нових файлів видалить всі поточні скриншоти!"
@@ -752,7 +809,7 @@ msgid "PAGE_APP_LABEL_DOWNLOADS"
 msgstr "Кількість завантажень"
 
 msgid "PAGE_APP_LABEL_NOT_TRANSLATED"
-msgstr "Нажаль, той, хто завантажив програму, не зробив переклад на вашу мову. Тому, ви зараз бачите оригінал"
+msgstr "На жаль, той, хто завантажив програму, не зробив переклад на вашу мову. Тому ви зараз бачите оригінал."
 
 msgid "PAGE_APP_LABEL_ORIGINAL_AUTHOR"
 msgstr "Оригінальний автор: "
@@ -801,6 +858,30 @@ msgstr "Завантажити Internet Explorer 6 можна як напрям�
 
 msgid "PAGE_BADBROWSER_TITLE"
 msgstr "Дякуємо за зацікавленість до магазину Windows!"
+
+msgid "PAGE_BADBROWSER_WARN_DESC_1"
+msgstr "Нічого страшного, це дуже круто, тим більше весь дизайн сайта адаптований для мінімального необхідного функціоналу саме на цей браузер."
+
+msgid "PAGE_BADBROWSER_WARN_DESC_2"
+msgstr "Проте, враховуючи сучасні аспекти безпеки сервера і зберігання даних користувачів, нам довелося внести деякі корективи для особ, які відвідують сайт із цього браузера."
+
+msgid "PAGE_BADBROWSER_WARN_DESC_3"
+msgstr "На можливість завантаження, перегляд каталогів і його пошуку це обмеження не впливає."
+
+msgid "PAGE_BADBROWSER_WARN_FOOTER"
+msgstr "Для більш приємного досвіду користування, рекомендуємо вам браузери RetroZilla та Supermium"
+
+msgid "PAGE_BADBROWSER_WARN_RESTRICT_1"
+msgstr "<b>Недоступна</b> система облікових записів (вхід, реєстрація)"
+
+msgid "PAGE_BADBROWSER_WARN_RESTRICT_2"
+msgstr "Адміністрування сторінок програм <b>обмежено</b>"
+
+msgid "PAGE_BADBROWSER_WARN_SUBTITLE"
+msgstr "Ми помітили, що Ви відвідуєте сайт через дууууууже старий браузер. "
+
+msgid "PAGE_BADBROWSER_WARN_TITLE"
+msgstr "Важливе сповіщення"
 
 msgid "PAGE_CATEGORY_BUYBTN"
 msgstr "Придбати"
@@ -1021,6 +1102,12 @@ msgstr "Версія програми:"
 msgid "PAGE_DIST_FORM_VERSION_DESC"
 msgstr "Наприклад: 1.0.0 або 2.1.4-beta"
 
+msgid "PAGE_DIST_FORM_VT_DESC"
+msgstr "Вкажіть посилання на результати перевірки завантаженого файла на сайті virustotal.com"
+
+msgid "PAGE_DIST_FORM_VT_TITLE"
+msgstr "Посилання на VirusTotal (обов'язкове при завантажені файла):"
+
 msgid "PAGE_DOWNLOAD_BACK"
 msgstr "Назад"
 
@@ -1031,7 +1118,7 @@ msgid "PAGE_DOWNLOAD_DL_ACTION"
 msgstr "завантажити"
 
 msgid "PAGE_DOWNLOAD_DMCA_WARNING"
-msgstr "Можливість завантаження програми була закрита, через скарги правовласника. Дякуємо за розуміння."
+msgstr "Можливість завантаження програми була закрита через скаргу правовласника. Дякуємо за розуміння."
 
 msgid "PAGE_DOWNLOAD_GO_OFFICIAL"
 msgstr "Перейти на офіційний сайт"
@@ -1088,7 +1175,7 @@ msgid "PAGE_FAQ_A_CREATE_ACC"
 msgstr "У верхній шапці сайту натисніть кнопку \"реєстрація\""
 
 msgid "PAGE_FAQ_A_LEGAL"
-msgstr "Зазвичай таке питання задає розробник ПЗ. Однак, якщо Вас дуже сильно воротить від існування старої версії вашої програми на цьому сайті, то можете зв'язатися з нами через e-mail. Але дуже сподіваємося, що ви увійдете у наше положення та зрозумієте ціль проєкта."
+msgstr "Зазвичай таке питання задає розробник ПЗ. Однак, якщо Вас дуже сильно воротить від існування старої версії вашої програми на цьому сайті, то можете зв'язатися з нами через e-mail. Але дуже сподіваємося, що ви увійдете у наше становище та зрозумієте мету проєкта."
 
 msgid "PAGE_FAQ_A_WHY_EXIST_PART1"
 msgstr "Чудове питання. Почалось все з того, що у одного із учасників проєкта виникло бажання завантажити на один сайт зі старим ПЗ скринсейвер 3D Windows XP, котрий по факту мало хто бачив і ледве зберігся на веб-архіві."
@@ -1339,14 +1426,14 @@ msgstr "Керовані програми"
 msgid "PAGE_NOTIFICATIONS_COUNT_SINGLE"
 msgid_plural "PAGE_NOTIFICATIONS_COUNT_PLURAL"
 msgstr[0] "У Вас <b>%(counter)s</b> нове сповіщення"
-msgstr[1] ""
+msgstr[1] "У Вас <b>%(counter)s</b> нових сповіщень"
 msgstr[2] "У Вас <b>%(counter)s</b> нових сповіщень"
 
 msgid "PAGE_NOTIFICATIONS_EARLY"
 msgstr "Попередні сповіщення"
 
 msgid "PAGE_NOTIFICATIONS_NOW"
-msgstr "тільки-що"
+msgstr "щойно"
 
 msgid "PAGE_NOTIFICATIONS_NO_NEW"
 msgstr "У Вас немає нових сповіщень"

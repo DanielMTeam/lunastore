@@ -20,3 +20,4 @@ django-modeltranslation
 django-user_agents
 django-redis
 user_agents
+django-smart-ratelimit

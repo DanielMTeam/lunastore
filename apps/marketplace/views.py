@@ -9,7 +9,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext as _
-
+from django_smart_ratelimit import ratelimit
 from apps.user.decorators import developer_required, require_modern_browser
 from .decorators import user_is_owner
 from .forms import AppCreateForm, AppEditForm, AppReportForm, DistributionCreateForm, DistributionEditForm
@@ -190,6 +190,7 @@ def download_list(request):
 
 @developer_required
 @require_modern_browser
+@ratelimit(key='ip', rate='4/10m', block=True)
 def app_add(request):
     if request.method == "POST":
         form = AppCreateForm(request.POST, request.FILES)
@@ -226,6 +227,10 @@ def app_add(request):
 @login_required
 @require_modern_browser
 def settings_apps(request):
+    if getattr(request, 'limited', False):
+        messages.error(request, _("ERROR_RATE_LIMIT_EXCEEDED"))
+        return redirect(request.META.get('HTTP_REFERER', '/'))
+
     managed_apps = Application.objects.filter(user=request.user)
     app_requests = AppCreateRequests.objects.filter(user=request.user)
     total_app_requests = app_requests.count() + managed_apps.count()
@@ -243,7 +248,12 @@ def settings_apps(request):
 @login_required
 @require_modern_browser
 @user_is_owner(Application)
+@ratelimit(key='ip', rate='5/5m', block=True)
 def application_edit_info(request, pk):
+    if getattr(request, 'limited', False):
+        messages.error(request, _("ERROR_RATE_LIMIT_EXCEEDED"))
+        return redirect(request.META.get('HTTP_REFERER', '/'))
+
     obj = get_object_or_404(Application, pk=pk)
 
     if request.method == "POST":
@@ -323,7 +333,7 @@ def search(request):
     }
     return render(request, "search.html", context)
 
-
+@ratelimit(key='ip', rate='5/10m', block=True)
 @login_required
 def report_app(request):
     id = request.GET.get("id")
@@ -351,6 +361,7 @@ def report_app(request):
 
 @login_required
 @require_modern_browser
+@ratelimit(key='ip', rate='5/5m', block=True)
 def manage_distributions(request):
     app_id = request.GET.get("id")
     app_obj = get_object_or_404(Application, id=app_id)
@@ -421,6 +432,7 @@ def manage_distributions(request):
 
 @login_required
 @require_modern_browser
+@ratelimit(key='ip', rate='5/5m', block=True)
 def distribution_edit(request, dist_pk):
     distribution = get_object_or_404(Distribution, pk=dist_pk)
     if distribution.app.user != request.user:

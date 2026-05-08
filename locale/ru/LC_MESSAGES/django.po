@@ -172,8 +172,41 @@ msgstr "Доступ запрещён. Начните с настроек про
 msgid "ERROR_CDNSECURITY"
 msgstr "При загрузке файла произошла ошибка безопасности движка LunaSpire. Пожалуйста, обратитесь с данной ошибкой к администратору сайта, если вы видите эту ошибку не впервые."
 
+msgid "ERROR_CDN_CHECKSUM_MISMATCH_SCREENSHOTS"
+msgstr "Ошибка при проверке токенов скриншотов."
+
+msgid "ERROR_CDN_INVALID_FORMAT"
+msgstr "Недопустимый формат файла на сервере хранения (CDN). Пожалуйста, обратитесь к администратору."
+
+msgid "ERROR_CDN_SESSION_EXPIRED"
+msgstr "Время сессии загрузки истекло. Попробуйте еще раз."
+
+msgid "ERROR_CDN_TOKEN_EXPIRED_OR_USED"
+msgstr "Токен загрузки устарел или уже был использован."
+
+msgid "ERROR_CDN_TOKEN_INVALID"
+msgstr "Недействительный токен безопасности CDN."
+
+msgid "ERROR_CDN_TOKEN_INVALID_TYPE"
+msgstr "Неверный тип токена от CDN."
+
+msgid "ERROR_CDN_TOKEN_MISSING"
+msgstr "Токен CDN не предоставлен."
+
+msgid "ERROR_CHECK_FORM"
+msgstr "Пожалуйста, проверьте форму. В некоторых полях допущены ошибки."
+
 msgid "ERROR_CURRENT_PASSWORD_IS_WRONG"
 msgstr "Текущий пароль неверен"
+
+msgid "ERROR_DIST_FORM_CDN_INFO_FAIL"
+msgstr "Не удалось получить информацию о файле от сервера хранения. Попробуйте позже."
+
+msgid "ERROR_DIST_FORM_NO_FILE_OR_URL"
+msgstr "Нужно загрузить файл или указать ссылку для скачивания"
+
+msgid "ERROR_DIST_FORM_NO_VT_LINK"
+msgstr "При загрузке файла ссылка на VirusTotal обязательна."
 
 msgid "ERROR_DIST_SOURCE_REQUIRED"
 msgstr "Нужно указать файл или ссылку для скачивания."
@@ -234,6 +267,12 @@ msgstr " имеет недопустимый формат."
 
 msgid "ERROR_PREVIEWSCRNS_3_COUNT"
 msgstr "Максимум 3 файла!"
+
+msgid "ERROR_PROFILE_OPENVK_INVALID"
+msgstr "Неверный формат имени пользователя OpenVK. Пожалуйста, укажите правильное имя пользователя."
+
+msgid "ERROR_PROFILE_TELEGRAM_INVALID"
+msgstr "Неверный формат имени пользователя Telegram. Пожалуйста, укажите имя пользователя без ссылок и протоколов."
 
 msgid "ERROR_YOURE_NOT_OWNER_OF_APP"
 msgstr "Вы не являетесь администратором данного приложения."
@@ -399,6 +438,12 @@ msgstr "Не удалось получить токен загрузки"
 
 msgid "JS_MARKETPLACE_UPLOADING"
 msgstr "Загрузка..."
+
+msgid "MSG_DIST_CREATE_REQ_SENT"
+msgstr "Заявка на добавление новой версии отправлена на модерацию."
+
+msgid "MSG_DIST_EDIT_REQ_SENT"
+msgstr "Заявка на изменение версии отправлена на модерацию."
 
 msgid "NOTIFICATIONS_LOADING"
 msgstr "Загрузка уведомлений..."
@@ -643,10 +688,22 @@ msgstr "Управление дистрибуциями — "
 msgid "PAGE_ADMIN_APP_DIST_NO_NOTES"
 msgstr "Без примечаний"
 
+msgid "PAGE_ADMIN_APP_DIST_PENDING_CREATE"
+msgstr "(Создание новой) — На рассмотрении"
+
+msgid "PAGE_ADMIN_APP_DIST_PENDING_EDIT"
+msgstr "(Изменение) — На рассмотрении"
+
+msgid "PAGE_ADMIN_APP_DIST_PENDING_TITLE"
+msgstr "Заявки, ожидающие модерации:"
+
 msgid "PAGE_ADMIN_APP_DIST_SAVE"
 msgstr "Сохранить"
 
 msgid "PAGE_ADMIN_APP_DIST_VERSION"
+msgstr "Версия"
+
+msgid "PAGE_ADMIN_APP_DIST_VERSION_LABEL"
 msgstr "Версия"
 
 msgid "PAGE_ADMIN_APP_FIRST_BLOCK"
@@ -752,7 +809,7 @@ msgid "PAGE_APP_LABEL_DOWNLOADS"
 msgstr "Количество скачиваний"
 
 msgid "PAGE_APP_LABEL_NOT_TRANSLATED"
-msgstr "К сожалению, тот, кто загрузил приложение, не сделал перевод под ваш язык. Поэтому, сейчас вы видите оригинал."
+msgstr "К сожалению, тот, кто загрузил приложение, не сделал перевод под ваш язык. Поэтому сейчас вы видите оригинал."
 
 msgid "PAGE_APP_LABEL_ORIGINAL_AUTHOR"
 msgstr "Оригинальный автор:"
@@ -790,11 +847,17 @@ msgstr "Системные требования"
 msgid "PAGE_APP_SECTION_SCREENSHOTS"
 msgstr "Скриншоты"
 
-msgid "PAGE_BADBROWSER_WARN_TITLE"
-msgstr "Важное уведомление"
+msgid "PAGE_BADBROSER_DESC_3"
+msgstr "Спасибо за понимание."
 
-msgid "PAGE_BADBROWSER_WARN_SUBTITLE"
-msgstr "Мы заметили, что Вы посещаете сайт через о-о-очень старый браузер."
+msgid "PAGE_BADBROWSER_DESC_1"
+msgstr "Для полноценного использования этого веб-сервиса рекомендуется иметь установленный браузер Internet Explorer 6 и выше или RetroZilla."
+
+msgid "PAGE_BADBROWSER_DESC_2"
+msgstr "Скачать Internet Explorer 6 можно как напрямую, так и с помощью сервисов"
+
+msgid "PAGE_BADBROWSER_TITLE"
+msgstr "Спасибо за интерес к магазину Windows!"
 
 msgid "PAGE_BADBROWSER_WARN_DESC_1"
 msgstr "Ничего страшного, это очень круто, тем более весь дизайн сайта адаптирован с минимальным опором именно на этот веб-браузер."
@@ -802,17 +865,23 @@ msgstr "Ничего страшного, это очень круто, тем б
 msgid "PAGE_BADBROWSER_WARN_DESC_2"
 msgstr "Однако, учитывая современные аспекты безопасности сервера и хранящихся данных его пользователей, нам пришлось ввести некоторые корректировки для лиц, посещающих сайт с этого браузера."
 
+msgid "PAGE_BADBROWSER_WARN_DESC_3"
+msgstr "На возможность скачивания, просмотр каталога и его поиск это ограничение не влияет."
+
+msgid "PAGE_BADBROWSER_WARN_FOOTER"
+msgstr "Для более приятного опыта использования, рекомендуем вам браузеры RetroZilla и Supermium"
+
 msgid "PAGE_BADBROWSER_WARN_RESTRICT_1"
 msgstr "<b>Недоступна</b> система аккаунтов (вход, регистрация)"
 
 msgid "PAGE_BADBROWSER_WARN_RESTRICT_2"
 msgstr "Администрирование страниц приложений <b>ограничено</b>"
 
-msgid "PAGE_BADBROWSER_WARN_DESC_3"
-msgstr "На возможность скачивания, просмотр каталога и его поиск это ограничение не влияет."
+msgid "PAGE_BADBROWSER_WARN_SUBTITLE"
+msgstr "Мы заметили, что Вы посещаете сайт через о-о-очень старый браузер."
 
-msgid "PAGE_BADBROWSER_WARN_FOOTER"
-msgstr "Для более приятного опыта использования, рекомендуем вам браузеры RetroZilla и Supermium"
+msgid "PAGE_BADBROWSER_WARN_TITLE"
+msgstr "Важное уведомление"
 
 msgid "PAGE_CATEGORY_BUYBTN"
 msgstr "Купить"
@@ -1033,6 +1102,12 @@ msgstr "Версия приложения:"
 msgid "PAGE_DIST_FORM_VERSION_DESC"
 msgstr "Например: 1.0.0 или 2.1.4-beta"
 
+msgid "PAGE_DIST_FORM_VT_DESC"
+msgstr "Укажите ссылку на результаты проверки загружаемого файла на сайте virustotal.com"
+
+msgid "PAGE_DIST_FORM_VT_TITLE"
+msgstr "Ссылка на VirusTotal (обязательно при загрузке файла):"
+
 msgid "PAGE_DOWNLOAD_BACK"
 msgstr "Назад"
 
@@ -1100,7 +1175,7 @@ msgid "PAGE_FAQ_A_CREATE_ACC"
 msgstr "В верхней шапке сайта нажмите кнопку \"регистрация\""
 
 msgid "PAGE_FAQ_A_LEGAL"
-msgstr "Обычно такой вопрос задаёт разработчик ПО. Однако, если Вас очень сильно воротит от существования старой версии вашей программы на данном сайте, то можете связаться с нами по e-mail. Но очень надеемся, что вы войдёте в наше положение и поймёте цель проекта."
+msgstr "Обычно такой вопрос задаёт разработчик ПО. Однако, если Вас очень сильно беспокоит существование старой версии вашей программы на данном сайте, то можете связаться с нами по e-mail. Но очень надеемся, что вы войдёте в наше положение и поймёте цель проекта."
 
 msgid "PAGE_FAQ_A_WHY_EXIST_PART1"
 msgstr "Отличный вопрос. Началось всё с того, что у одного из участников проекта появилось желание загрузить на один сайт со старым ПО скринсейвер 3D Windows XP, который по факту мало кто видел и еле сохранился на веб-архиве."
@@ -1759,65 +1834,5 @@ msgstr "Неверный логин или пароль."
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "Вход выполнен успешно! Привет, %(username)s!"
 
-msgid "ERROR_CHECK_FORM"
-msgstr "Пожалуйста, проверьте форму. В некоторых полях допущены ошибки."
-
-msgid "ERROR_DIST_FORM_NO_FILE_OR_URL"
-msgstr "Нужно загрузить файл или указать ссылку для скачивания"
-
-msgid "ERROR_DIST_FORM_NO_VT_LINK"
-msgstr "При загрузке файла ссылка на VirusTotal обязательна."
-
-msgid "ERROR_DIST_FORM_CDN_INFO_FAIL"
-msgstr "Не удалось получить информацию о файле от сервера хранения. Попробуйте позже."
-
-msgid "ERROR_CDN_TOKEN_MISSING"
-msgstr "Токен CDN не предоставлен."
-
-msgid "ERROR_CDN_TOKEN_INVALID_TYPE"
-msgstr "Неверный тип токена от CDN."
-
-msgid "ERROR_CDN_TOKEN_EXPIRED_OR_USED"
-msgstr "Токен загрузки устарел или уже был использован."
-
-msgid "ERROR_CDN_SESSION_EXPIRED"
-msgstr "Время сессии загрузки истекло. Попробуйте еще раз."
-
-msgid "ERROR_CDN_TOKEN_INVALID"
-msgstr "Недействительный токен безопасности CDN."
-
-msgid "MSG_DIST_CREATE_REQ_SENT"
-msgstr "Заявка на добавление новой версии отправлена на модерацию."
-
-msgid "MSG_DIST_EDIT_REQ_SENT"
-msgstr "Заявка на изменение версии отправлена на модерацию."
-
-msgid "ERROR_CDN_INVALID_FORMAT"
-msgstr "Недопустимый формат файла на сервере хранения (CDN). Пожалуйста, обратитесь к администратору."
-
-msgid "ERROR_CDN_CHECKSUM_MISMATCH_SCREENSHOTS"
-msgstr "Ошибка при проверке токенов скриншотов."
-
-msgid "ERROR_PROFILE_OPENVK_INVALID"
-msgstr "Неверный формат имени пользователя OpenVK. Пожалуйста, укажите правильное имя пользователя."
-
-msgid "ERROR_PROFILE_TELEGRAM_INVALID"
-msgstr "Неверный формат имени пользователя Telegram. Пожалуйста, укажите имя пользователя без ссылок и протоколов."
-
-msgid "PAGE_DIST_FORM_VT_TITLE"
-msgstr "Ссылка на VirusTotal (обязательно при загрузке файла):"
-
-msgid "PAGE_DIST_FORM_VT_DESC"
-msgstr "Укажите ссылку на результаты проверки загружаемого файла на сайте virustotal.com"
-
-msgid "PAGE_ADMIN_APP_DIST_PENDING_TITLE"
-msgstr "Заявки, ожидающие модерации:"
-
-msgid "PAGE_ADMIN_APP_DIST_VERSION_LABEL"
-msgstr "Версия"
-
-msgid "PAGE_ADMIN_APP_DIST_PENDING_CREATE"
-msgstr "(Создание новой) — На рассмотрении"
-
-msgid "PAGE_ADMIN_APP_DIST_PENDING_EDIT"
-msgstr "(Изменение) — На рассмотрении"
+msgid "ERROR_RATE_LIMIT_EXCEEDED"
+msgstr "Вы отправляете запросы слишком часто. Пожалуйста, подождите некоторое время, чтобы продолжить."
