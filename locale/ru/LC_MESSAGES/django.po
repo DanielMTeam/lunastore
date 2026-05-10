@@ -1836,3 +1836,16 @@ msgstr "Вход выполнен успешно! Привет, %(username)s!"
 
 msgid "ERROR_RATE_LIMIT_EXCEEDED"
 msgstr "Вы отправляете запросы слишком часто. Пожалуйста, подождите некоторое время, чтобы продолжить."
+
+msgid "ERROR_EMAIL_DISPOSABLE_DOMAIN"
+msgstr "Регистрация с использованием сервисов временной почты запрещена."
+
+msgid "ERROR_EMAIL_INVALID_FORMAT"
+msgstr "Введен некорректный email адрес."
+
+msgid "ERROR_EMAIL_NO_ALIASES"
+msgstr "Использование почтовых алиасов со знаком \"+\" запрещено."
+
+#, python-format
+msgid "ERROR_EMAIL_DOMAIN_NO_MX %(domain)s"
+msgstr "Домен %(domain)s не принимает почту. Укажите существующий адрес."

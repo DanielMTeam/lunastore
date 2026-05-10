@@ -21,3 +21,5 @@ django-user_agents
 django-redis
 user_agents
 django-smart-ratelimit
+dnspython
+disposable-email-domains
