@@ -9,7 +9,7 @@ from django.utils import timezone
 from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
 from safedelete.models import SOFT_DELETE_CASCADE, SafeDeleteModel
-
+from .validators import validate_email_mx
 
 class User(AbstractUser, SafeDeleteModel):
     _safedelete_policy = SOFT_DELETE_CASCADE
@@ -23,6 +23,7 @@ class User(AbstractUser, SafeDeleteModel):
         error_messages={
             "unique": _("ERROR_EMAIL_ALREADY_IN_USE"),
         },
+        validators=[validate_email_mx],
     )
     telegram = models.CharField(max_length=45, null=True, blank=True)
     discord = models.CharField(max_length=32, null=True, blank=True)
