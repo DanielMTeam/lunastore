@@ -32,6 +32,11 @@ h4 {
     margin: 5px auto;
 }
 
+a,
+a img {
+    border: none;
+}
+
 .announcement {
     padding: 8px;
     text-align: center;
