@@ -20,13 +20,13 @@
 
 <script>
     const { Tolgee, DevTools } = window['@tolgee/web'];
-  
+
     const tolgee = Tolgee()
       .use(DevTools())
       .init({
         language: "{{ LANGUAGE_CODE }}",
       });
-  
+
     tolgee.run();
   </script>
 </head>
@@ -103,11 +103,9 @@
             <div class="boxhead_primary"><b>{% trans "BASE_SIDEBAR_APP_TITLE" %}</b></div>
             <div class="box">
                 <ul>
-                    {% if not is_download_page %}
                     <a href="/download.php?id={{ app_id }}">
-                        <li class="setup"><b>{% trans "BASE_SIDEBAR_APP_INSTALL" %}</b></li>
+                        <li class="setup" {% if is_download_page %}id="active"{% endif %}><b>{% trans "BASE_SIDEBAR_APP_INSTALL" %}</b></li>
                     </a>
-                    {% endif %}
 
                     {% if developer_site %}
                     <a href="{{ developer_site }}" target="_blank">
@@ -116,12 +114,11 @@
                     {% endif %}
 
                     <a href="/report_app.php?id={{ app_id }}">
-                        <li class="alert">{% trans "BASE_SIDEBAR_APP_REPORT" %}</li>
+                        <li class="alert" {% if is_report_page %}id="active"{% endif %}>{% trans "BASE_SIDEBAR_APP_REPORT" %}</li>
                     </a>
-
                     {% if user.is_authenticated and user.id == developer_id %}
                     <a href="/edit_app_info.php/{{ app_id }}/">
-                        <li class="editapp">{% trans "BASE_SIDEBAR_APP_EDIT" %}</li>
+                        <li class="editapp" {% if is_edit_page %}id="active"{% endif %}>{% trans "BASE_SIDEBAR_APP_EDIT" %}</li>
                     </a>
                     {% endif %}
                 </ul>
