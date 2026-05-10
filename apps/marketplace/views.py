@@ -190,7 +190,7 @@ def download_list(request):
 
 @developer_required
 @require_modern_browser
-@ratelimit(key='ip', rate='4/10m', block=True)
+@ratelimit(key='ip', rate='10/5m', block=True)
 def app_add(request):
     if request.method == "POST":
         form = AppCreateForm(request.POST, request.FILES)
@@ -248,7 +248,7 @@ def settings_apps(request):
 @login_required
 @require_modern_browser
 @user_is_owner(Application)
-@ratelimit(key='ip', rate='5/5m', block=True)
+@ratelimit(key='ip', rate='20/3m', block=True)
 def application_edit_info(request, pk):
     if getattr(request, 'limited', False):
         messages.error(request, _("ERROR_RATE_LIMIT_EXCEEDED"))
@@ -278,6 +278,10 @@ def application_edit_info(request, pk):
         {
             "obj": obj,
             "form": form,
+            "is_edit_page": True,
+            "app_id": obj.pk,
+            "developer_id": obj.user.pk,
+            "developer_site": obj.developer_site,
             "cdn_upload_url": f"{settings.LUNASPIRE_URL}/cdn/upload",
             "cdn_token_url": f"{settings.API_URL}/method/user/getPubUploadToken",
         },
@@ -333,7 +337,7 @@ def search(request):
     }
     return render(request, "search.html", context)
 
-@ratelimit(key='ip', rate='5/10m', block=True)
+@ratelimit(key='ip', rate='20/1m', block=True)
 @login_required
 def report_app(request):
     id = request.GET.get("id")
@@ -352,7 +356,11 @@ def report_app(request):
         form = AppReportForm()
     context = {
         "form": form,
+        "app_id": id,
         "name": obj.title,
+        "developer_site": obj.developer_site,
+        "developer_id": obj.user.id,
+        "is_report_page": True,
         "slogan": obj.slogan,
         "icon": obj.icon_url,
     }
@@ -361,7 +369,7 @@ def report_app(request):
 
 @login_required
 @require_modern_browser
-@ratelimit(key='ip', rate='5/5m', block=True)
+@ratelimit(key='ip', rate='20/1m', block=True)
 def manage_distributions(request):
     app_id = request.GET.get("id")
     app_obj = get_object_or_404(Application, id=app_id)
@@ -419,7 +427,11 @@ def manage_distributions(request):
         "app": app_obj,
         "form": form,
         "distributions": page_obj,
+        "developer_site": app_obj.developer_site,
+        "developer_id": app_obj.user.id,
+        "app_id": app_obj.id,
         "page_obj": page_obj,
+        "is_edit_page": True,
         "page_range": page_range,
         "pending_requests": pending_requests,
         "pending_edits": pending_edits,
@@ -432,7 +444,7 @@ def manage_distributions(request):
 
 @login_required
 @require_modern_browser
-@ratelimit(key='ip', rate='5/5m', block=True)
+@ratelimit(key='ip', rate='20/1m', block=True)
 def distribution_edit(request, dist_pk):
     distribution = get_object_or_404(Distribution, pk=dist_pk)
     if distribution.app.user != request.user:
@@ -480,6 +492,10 @@ def distribution_edit(request, dist_pk):
         "form": form,
         "app": distribution.app,
         "distribution": distribution,
+        "developer_site": distribution.app.developer_site,
+        "developer_id": distribution.app.user.id,
+        "app_id": distribution.app.id,
+        "is_edit_page": True,
         "get_token_url": f"{settings.API_URL}/method/user/getPrivUploadToken",
         "cdn_upload_url": f"{settings.LUNASPIRE_URL}/cdn/upload",
         "download_list_url": reverse("download") + "?id=" + str(distribution.app.id),
