@@ -1205,7 +1205,7 @@ msgid "PAGE_FAQ_CARD_TEAM_CDNANDGIT"
 msgstr "- закадрова робота, CDN, внутрішній Git"
 
 msgid "PAGE_FAQ_CARD_TEAM_DEV"
-msgstr "- розробник"
+msgstr "- frontend-розробник"
 
 msgid "PAGE_FAQ_CARD_TEAM_FRONTEND"
 msgstr "верстка інтерфейсу (frontend)"
@@ -1286,7 +1286,7 @@ msgid "PAGE_FAQ_TEAM_ROLE_ZAZIOS"
 msgstr "backend-розробник (Go)"
 
 msgid "PAGE_FAQ_TEAM_TESTERS_LIST"
-msgstr "[ніки тестувальників через кому]"
+msgstr "mryoshi, akaremii26, madebydimas, koke621, Starik1500, LGRN Arts, im_Ry0 (special thanks), pregko, veselcraft, ilarion3310, aliew, dimawhite05, mws, d3nkyu2u, ersn"
 
 msgid "PAGE_FAQ_TITLE"
 msgstr "Довідка"

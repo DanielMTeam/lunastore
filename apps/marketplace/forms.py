@@ -487,7 +487,9 @@ class BaseDistributionForm(forms.ModelForm, CDNTokenValidationMixin):
 
             # go to CDN and get hash
             info = self.get_cdn_file_info(file_id, fields="hash")
+            print(f"info: {info}")
             extracted_hash = info.get("hash")
+            print(f"extracted_hash: {extracted_hash}")
             if not extracted_hash:
                 raise ValidationError(_("ERROR_DIST_FORM_CDN_INFO_FAIL"))
 
@@ -496,7 +498,7 @@ class BaseDistributionForm(forms.ModelForm, CDNTokenValidationMixin):
             if self.target_dist:
                 cleaned_data["cdn_file_id"] = self.target_dist.cdn_file_id
                 cleaned_data["url"] = url or self.target_dist.url
-
+        print(f"cleaned_data: {cleaned_data}")
         return cleaned_data
 
     def get_trans_fields(self):
