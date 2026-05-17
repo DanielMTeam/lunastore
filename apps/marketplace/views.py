@@ -435,7 +435,7 @@ def manage_distributions(request):
         "page_range": page_range,
         "pending_requests": pending_requests,
         "pending_edits": pending_edits,
-        "get_token_url": f"{settings.API_URL}/method/user/getPrivUploadToken",
+        "get_token_url": f"{settings.API_URL}/method/user/getPrivUploadToken/",
         "cdn_upload_url": f"{settings.LUNASPIRE_URL}/cdn/upload",
         "download_list_url": reverse("download") + "?id=" + str(app_obj.id),
     }
@@ -496,7 +496,7 @@ def distribution_edit(request, dist_pk):
         "developer_id": distribution.app.user.id,
         "app_id": distribution.app.id,
         "is_edit_page": True,
-        "get_token_url": f"{settings.API_URL}/method/user/getPrivUploadToken",
+        "get_token_url": f"{settings.API_URL}/method/user/getPrivUploadToken/",
         "cdn_upload_url": f"{settings.LUNASPIRE_URL}/cdn/upload",
         "download_list_url": reverse("download") + "?id=" + str(distribution.app.id),
     }
