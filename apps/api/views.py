@@ -145,6 +145,9 @@ class UserViewSet(viewsets.GenericViewSet):
         if not app_id:
             return Response({"error": "app_id is required"}, status=400)
 
+        if not app_id.isdigit():
+            return Response({"error": "app_id must be a valid integer"}, status=400)
+
         # check permissions
         app_obj = get_object_or_404(Application, id=app_id)
         if app_obj.user != request.user:
