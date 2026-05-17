@@ -159,13 +159,39 @@ class UserViewSet(viewsets.GenericViewSet):
 
         allowed_mimes = ";".join(
             [
+                # universal binary stream (fallback)
                 "application/octet-stream",
+
+                # .exe (Windows Executables)
+                "application/x-msdownload",
+                "application/exe",
+                "application/x-exe",
+                "application/dos-exe",
+                "application/x-winexe",
+                "application/msdos-windows",
+                "application/x-msdos-program",
+
+                # .msi (Windows Installer)
+                "application/x-msi",
+                "application/x-ms-installer",
+                "application/x-windows-installer",
+                "application/x-ole-storage",
+
+                # .zip (ZIP Archives)
                 "application/zip",
                 "application/x-zip-compressed",
-                "application/x-rar-compressed",
+                "application/x-zip",
+                "multipart/x-zip",
+
+                # .rar (RAR Archives)
                 "application/vnd.rar",
-                "application/x-msdownload",
+                "application/x-rar-compressed",
+                "application/x-rar",
+                "application/rar",
+
+                # .7z (7-Zip Archives)
                 "application/x-7z-compressed",
+                "application/7z",
             ]
         )
 
