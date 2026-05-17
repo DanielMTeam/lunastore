@@ -42,7 +42,7 @@ LOGIN_REDIRECT_URL = "/index.php"
 
 LOGOUT_REDIRECT_URL = "/login.php"
 
-DEBUG = os.getenv("DEBUG", "False") == "False"
+DEBUG = os.getenv("DEBUG", "False") == "True"
 
 TELEGRAM_LOGGER_ENABLED = os.getenv("TELEGRAM_LOGGER_ENABLED", "False") == "True"
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
