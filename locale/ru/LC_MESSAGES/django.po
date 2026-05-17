@@ -490,6 +490,18 @@ msgstr "Ваша заявка была успешно отправлена. От
 msgid "NOTIF_DEVSTATUS_SEND_TITLE"
 msgstr "Статус разработчика"
 
+msgid "NOTIF_DISTREQ_ACCEPTED_TITLE"
+msgstr "Новая версия опубликована!"
+
+msgid "NOTIF_DISTREQ_ACCEPTED_DESCRIPTION"
+msgstr "Ваша заявка на публикацию версии %(version)s для приложения \"%(app_name)s\" была одобрена модератором."
+
+msgid "NOTIF_DISTREQ_DECLINED_TITLE"
+msgstr "Заявка на публикацию отклонена"
+
+msgid "NOTIF_DISTREQ_DECLINED_DESCRIPTION"
+msgstr "К сожалению, ваша заявка на публикацию версии %(version)s для \"%(app_name)s\" была отклонена. Причина: %(reason)s"
+
 msgid "NOTIF_LOGIN_DESCRIPTION"
 msgstr "В ваш аккаунт был выполнен вход • Устройство: %(browser)s (%(os)s) • IP-адрес: %(ip)s • Местоположение: %(location)s • Если это не вы, срочно смените пароль."
 
@@ -1205,7 +1217,7 @@ msgid "PAGE_FAQ_CARD_TEAM_CDNANDGIT"
 msgstr "- закадровая работа, CDN, внутренний Git"
 
 msgid "PAGE_FAQ_CARD_TEAM_DEV"
-msgstr "- разработчик"
+msgstr "- frontend-разработчик"
 
 msgid "PAGE_FAQ_CARD_TEAM_FRONTEND"
 msgstr "вёрстка интерфейса (frontend)"
@@ -1280,13 +1292,13 @@ msgid "PAGE_FAQ_TEAM_ROLE_MONDY"
 msgstr "логотип"
 
 msgid "PAGE_FAQ_TEAM_ROLE_NOCHA3"
-msgstr "нативный клиент для Windows XP"
+msgstr "нативный клиент для Windows XP, а также расширение"
 
 msgid "PAGE_FAQ_TEAM_ROLE_ZAZIOS"
 msgstr "backend-разработчик (Go)"
 
 msgid "PAGE_FAQ_TEAM_TESTERS_LIST"
-msgstr "[ники тестировщиков через запятую]"
+msgstr "mryoshi, akaremii26, madebydimas, koke621, Starik1500, LGRN Arts, im_Ry0 (special thanks), pregko, veselcraft, ilarion3310, aliew, dimawhite05, mws, d3nkyu2u, ersn"
 
 msgid "PAGE_FAQ_TITLE"
 msgstr "Справка"
