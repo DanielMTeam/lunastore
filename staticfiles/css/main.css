@@ -646,6 +646,8 @@ li.web {
     float: left;
     width: 48px;
     height: 48px;
+    margin-right: 15px;
+    margin-bottom: 5px;
 }
 
 .error_icon_small {
