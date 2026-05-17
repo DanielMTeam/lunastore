@@ -16,7 +16,6 @@ admin.site.index_title = "Модерация сайта"
 urlpatterns = [
     path(f"{settings.ADMIN_URL}/broadcast/", admin.site.admin_view(admin_broadcast_notification), name='broadcast'),
     path(f"{settings.ADMIN_URL}/", admin.site.urls, name="admin"),
-    path("oidc/", include("mozilla_django_oidc.urls")),
 ]
 
 if settings.DEBUG:

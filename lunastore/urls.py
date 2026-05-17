@@ -25,6 +25,7 @@ urlpatterns = [
     path("", include("apps.core.urls")),
     path("", include("apps.terms.urls")),
     path("captcha/", include("captcha.urls")),
+    path("oidc/", include("mozilla_django_oidc.urls")),
 ]
 
 if settings.DEBUG:
