@@ -219,7 +219,7 @@ def app_add(request):
             "form": form,
             # this will go to JS for file upload handling (cdn_upload_url & token_upload_url)
             "cdn_upload_url": f"{settings.LUNASPIRE_URL}/cdn/upload",
-            "token_upload_url": f"{settings.API_URL}/method/user/getPubUploadToken",
+            "token_upload_url": f"{settings.API_URL}/method/user/getPubUploadToken/",
         },
     )
 
@@ -283,7 +283,7 @@ def application_edit_info(request, pk):
             "developer_id": obj.user.pk,
             "developer_site": obj.developer_site,
             "cdn_upload_url": f"{settings.LUNASPIRE_URL}/cdn/upload",
-            "cdn_token_url": f"{settings.API_URL}/method/user/getPubUploadToken",
+            "cdn_token_url": f"{settings.API_URL}/method/user/getPubUploadToken/",
         },
     )
 

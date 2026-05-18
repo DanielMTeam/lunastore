@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
         window.CDN_CONFIG || {
             uploadUrl: "https://spire.lunastore.app/cdn/upload",
             tokenBaseUrl:
-                "https://api.lunastore.app/method/user/getPubUploadToken",
+                "https://api.lunastore.app/method/user/getPubUploadToken/",
         };
 
     const i18n = window.luna_i18n ||
