@@ -407,7 +407,7 @@ class ApplicationAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
             {
                 "cdn_config": {
                     "uploadUrl": f"{settings.LUNASPIRE_URL}/cdn/upload",
-                    "tokenUrl": f"{settings.API_URL}/method/user/getPubUploadToken",
+                    "tokenUrl": f"{settings.API_URL}/method/user/getPubUploadToken/",
                 },
                 "luna_i18n": {
                     "uploading": "Загрузка в LunaSpire...",

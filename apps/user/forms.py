@@ -14,7 +14,6 @@ from django.core.files.base import ContentFile
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from PIL import Image
-from unfold.widgets import UnfoldAdminSelectMultipleWidget, UnfoldAdminCheckboxSelectMultiple, CheckboxSelectMultiple
 from apps.core.utils import force_logout
 
 from .middleware import BlockBannedIP
