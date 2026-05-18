@@ -557,6 +557,7 @@ LANGUAGES = [
     ("en", "eng"),
     ("uk", "укр"),
     ("be", "бел"),
+    ("kk", "қаз"),
 ]
 
 TIME_ZONE = "UTC"
