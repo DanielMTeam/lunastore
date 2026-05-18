@@ -217,8 +217,20 @@ msgstr "Пользователь с таким e-mail уже существуе�
 msgid "ERROR_EMAIL_ALREADY_IN_USE"
 msgstr "Этот e-mail уже используется."
 
+msgid "ERROR_EMAIL_DISPOSABLE_DOMAIN"
+msgstr "Регистрация с использованием сервисов временной почты запрещена."
+
+msgid "ERROR_EMAIL_DOMAIN_NO_MX %(domain)s"
+msgstr "Домен %(domain)s не принимает почту. Укажите существующий адрес."
+
+msgid "ERROR_EMAIL_INVALID_FORMAT"
+msgstr "Введен некорректный email адрес."
+
 msgid "ERROR_EMAIL_IS_SAME"
 msgstr "Новый e-mail совпадает с текущим."
+
+msgid "ERROR_EMAIL_NO_ALIASES"
+msgstr "Использование почтовых алиасов со знаком \"+\" запрещено."
 
 msgid "ERROR_INVALID_FILE_FORMAT"
 msgstr "Ошибка: Недопустимый формат файла!"
@@ -273,6 +285,9 @@ msgstr "Неверный формат имени пользователя OpenVK
 
 msgid "ERROR_PROFILE_TELEGRAM_INVALID"
 msgstr "Неверный формат имени пользователя Telegram. Пожалуйста, укажите имя пользователя без ссылок и протоколов."
+
+msgid "ERROR_RATE_LIMIT_EXCEEDED"
+msgstr "Вы отправляете запросы слишком часто. Пожалуйста, подождите некоторое время, чтобы продолжить."
 
 msgid "ERROR_YOURE_NOT_OWNER_OF_APP"
 msgstr "Вы не являетесь администратором данного приложения."
@@ -490,17 +505,17 @@ msgstr "Ваша заявка была успешно отправлена. От
 msgid "NOTIF_DEVSTATUS_SEND_TITLE"
 msgstr "Статус разработчика"
 
-msgid "NOTIF_DISTREQ_ACCEPTED_TITLE"
-msgstr "Новая версия опубликована!"
-
 msgid "NOTIF_DISTREQ_ACCEPTED_DESCRIPTION"
 msgstr "Ваша заявка на публикацию версии %(version)s для приложения \"%(app_name)s\" была одобрена модератором."
 
-msgid "NOTIF_DISTREQ_DECLINED_TITLE"
-msgstr "Заявка на публикацию отклонена"
+msgid "NOTIF_DISTREQ_ACCEPTED_TITLE"
+msgstr "Новая версия опубликована!"
 
 msgid "NOTIF_DISTREQ_DECLINED_DESCRIPTION"
 msgstr "К сожалению, ваша заявка на публикацию версии %(version)s для \"%(app_name)s\" была отклонена. Причина: %(reason)s"
+
+msgid "NOTIF_DISTREQ_DECLINED_TITLE"
+msgstr "Заявка на публикацию отклонена"
 
 msgid "NOTIF_LOGIN_DESCRIPTION"
 msgstr "В ваш аккаунт был выполнен вход • Устройство: %(browser)s (%(os)s) • IP-адрес: %(ip)s • Местоположение: %(location)s • Если это не вы, срочно смените пароль."
@@ -881,7 +896,7 @@ msgid "PAGE_BADBROWSER_WARN_DESC_3"
 msgstr "На возможность скачивания, просмотр каталога и его поиск это ограничение не влияет."
 
 msgid "PAGE_BADBROWSER_WARN_FOOTER"
-msgstr "Для более приятного опыта использования, рекомендуем вам браузеры RetroZilla и Supermium"
+msgstr "Для более приятного опыта использования рекомендуем вам браузеры RetroZilla и Supermium"
 
 msgid "PAGE_BADBROWSER_WARN_RESTRICT_1"
 msgstr "<b>Недоступна</b> система аккаунтов (вход, регистрация)"
@@ -1217,7 +1232,7 @@ msgid "PAGE_FAQ_CARD_TEAM_CDNANDGIT"
 msgstr "- закадровая работа, CDN, внутренний Git"
 
 msgid "PAGE_FAQ_CARD_TEAM_DEV"
-msgstr "- frontend-разработчик"
+msgstr "- разработчик"
 
 msgid "PAGE_FAQ_CARD_TEAM_FRONTEND"
 msgstr "вёрстка интерфейса (frontend)"
@@ -1279,6 +1294,9 @@ msgstr "Также благодарим других разработчиков:
 msgid "PAGE_FAQ_TEAM_HEADER_TESTERS"
 msgstr "И о тестировщиках не забываем:"
 
+msgid "PAGE_FAQ_TEAM_HEADER_TRANSLATORS"
+msgstr "И о переводчиках:"
+
 msgid "PAGE_FAQ_TEAM_ROLE_CHELKA0"
 msgstr "оформление сайта за кадром"
 
@@ -1292,13 +1310,13 @@ msgid "PAGE_FAQ_TEAM_ROLE_MONDY"
 msgstr "логотип"
 
 msgid "PAGE_FAQ_TEAM_ROLE_NOCHA3"
-msgstr "нативный клиент для Windows XP, а также расширение"
+msgstr "нативный клиент для Windows XP"
 
 msgid "PAGE_FAQ_TEAM_ROLE_ZAZIOS"
 msgstr "backend-разработчик (Go)"
 
 msgid "PAGE_FAQ_TEAM_TESTERS_LIST"
-msgstr "mryoshi, akaremii26, madebydimas, koke621, Starik1500, LGRN Arts, im_Ry0 (special thanks), pregko, veselcraft, ilarion3310, aliew, dimawhite05, mws, d3nkyu2u, ersn"
+msgstr "[ники тестировщиков через запятую]"
 
 msgid "PAGE_FAQ_TITLE"
 msgstr "Справка"
@@ -1845,19 +1863,3 @@ msgstr "Неверный логин или пароль."
 
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "Вход выполнен успешно! Привет, %(username)s!"
-
-msgid "ERROR_RATE_LIMIT_EXCEEDED"
-msgstr "Вы отправляете запросы слишком часто. Пожалуйста, подождите некоторое время, чтобы продолжить."
-
-msgid "ERROR_EMAIL_DISPOSABLE_DOMAIN"
-msgstr "Регистрация с использованием сервисов временной почты запрещена."
-
-msgid "ERROR_EMAIL_INVALID_FORMAT"
-msgstr "Введен некорректный email адрес."
-
-msgid "ERROR_EMAIL_NO_ALIASES"
-msgstr "Использование почтовых алиасов со знаком \"+\" запрещено."
-
-#, python-format
-msgid "ERROR_EMAIL_DOMAIN_NO_MX %(domain)s"
-msgstr "Домен %(domain)s не принимает почту. Укажите существующий адрес."

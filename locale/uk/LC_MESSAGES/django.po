@@ -217,8 +217,20 @@ msgstr "Користувач із таким e-mail вже існує."
 msgid "ERROR_EMAIL_ALREADY_IN_USE"
 msgstr "Цей e-mail вже використовується."
 
+msgid "ERROR_EMAIL_DISPOSABLE_DOMAIN"
+msgstr "Реєстрація з використанням сервісів тимчасової пошти заборонена."
+
+msgid "ERROR_EMAIL_DOMAIN_NO_MX %(domain)s"
+msgstr "Домен %(domain)s не приймає пошту. Вкажіть існуючу адресу."
+
+msgid "ERROR_EMAIL_INVALID_FORMAT"
+msgstr "Введено некоректну адресу електронної пошти."
+
 msgid "ERROR_EMAIL_IS_SAME"
 msgstr "Новий e-mail збігається з поточним."
+
+msgid "ERROR_EMAIL_NO_ALIASES"
+msgstr "Використання поштових аліасів зі знаком \"+\" заборонено."
 
 msgid "ERROR_INVALID_FILE_FORMAT"
 msgstr "Помилка: Некоректний формат файлу!"
@@ -273,6 +285,9 @@ msgstr "Невірний формат імені користувача OpenVK. 
 
 msgid "ERROR_PROFILE_TELEGRAM_INVALID"
 msgstr "Невірний формат імені користувача Telegram. Будь ласка, вкажіть ім'я користувача без посилань та протоколів."
+
+msgid "ERROR_RATE_LIMIT_EXCEEDED"
+msgstr "Ви надсилаєте запити занадто часто. Будь ласка, зачекайте деякий час, щоб продовжити."
 
 msgid "ERROR_YOURE_NOT_OWNER_OF_APP"
 msgstr "Ви не є адміністратором цієї програми."
@@ -489,6 +504,18 @@ msgstr "Вашу заявку булу успішно надіслано. Від
 
 msgid "NOTIF_DEVSTATUS_SEND_TITLE"
 msgstr "Статус розробника"
+
+msgid "NOTIF_DISTREQ_ACCEPTED_DESCRIPTION"
+msgstr "Ваша заявка на публікацію версії %(version)s для додатка \"%(app_name)s\" була схвалена модератором."
+
+msgid "NOTIF_DISTREQ_ACCEPTED_TITLE"
+msgstr "Нова версія опублікована!"
+
+msgid "NOTIF_DISTREQ_DECLINED_DESCRIPTION"
+msgstr "На жаль, вашу заявку на публікацію версії %(version)s для \"%(app_name)s\" було відхилено. Причина: %(reason)s"
+
+msgid "NOTIF_DISTREQ_DECLINED_TITLE"
+msgstr "Заявку на публікацію відхилено"
 
 msgid "NOTIF_LOGIN_DESCRIPTION"
 msgstr "У ваш обліковий запис було здійснено вхід  • Пристрій: %(browser)s (%(os)s) • IP-адреса: %(ip)s • Місцезнаходження: %(location)s • Якщо це не ви, терміново змініть пароль."
@@ -1205,7 +1232,7 @@ msgid "PAGE_FAQ_CARD_TEAM_CDNANDGIT"
 msgstr "- закадрова робота, CDN, внутрішній Git"
 
 msgid "PAGE_FAQ_CARD_TEAM_DEV"
-msgstr "- frontend-розробник"
+msgstr "- розробник"
 
 msgid "PAGE_FAQ_CARD_TEAM_FRONTEND"
 msgstr "верстка інтерфейсу (frontend)"
@@ -1267,6 +1294,9 @@ msgstr "Також дякуємо іншим розробникам:"
 msgid "PAGE_FAQ_TEAM_HEADER_TESTERS"
 msgstr "І про тестувальників не забуваємо:"
 
+msgid "PAGE_FAQ_TEAM_HEADER_TRANSLATORS"
+msgstr "І про перекладачів:"
+
 msgid "PAGE_FAQ_TEAM_ROLE_CHELKA0"
 msgstr "оформлення сайту за кадром"
 
@@ -1286,7 +1316,7 @@ msgid "PAGE_FAQ_TEAM_ROLE_ZAZIOS"
 msgstr "backend-розробник (Go)"
 
 msgid "PAGE_FAQ_TEAM_TESTERS_LIST"
-msgstr "mryoshi, akaremii26, madebydimas, koke621, Starik1500, LGRN Arts, im_Ry0 (special thanks), pregko, veselcraft, ilarion3310, aliew, dimawhite05, mws, d3nkyu2u, ersn"
+msgstr "[ніки тестувальників через кому]"
 
 msgid "PAGE_FAQ_TITLE"
 msgstr "Довідка"
