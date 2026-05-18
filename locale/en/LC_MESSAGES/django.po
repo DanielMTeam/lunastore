@@ -215,8 +215,20 @@ msgstr "User with this e-mail address already exists."
 msgid "ERROR_EMAIL_ALREADY_IN_USE"
 msgstr "This e-mail address is already in use."
 
+msgid "ERROR_EMAIL_DISPOSABLE_DOMAIN"
+msgstr "Signing up using temporary email services is not allowed."
+
+msgid "ERROR_EMAIL_DOMAIN_NO_MX %(domain)s"
+msgstr "The domain %(domain)s does not accept mail. Please provide a valid address."
+
+msgid "ERROR_EMAIL_INVALID_FORMAT"
+msgstr "Invalid email address format."
+
 msgid "ERROR_EMAIL_IS_SAME"
 msgstr "The new email is the same as the current one."
+
+msgid "ERROR_EMAIL_NO_ALIASES"
+msgstr "Email aliases with the \"+\" sign are prohibited."
 
 msgid "ERROR_INVALID_FILE_FORMAT"
 msgstr "Error: Invalid file format!"
@@ -271,6 +283,9 @@ msgstr "Invalid OpenVK username format. Please provide a valid username."
 
 msgid "ERROR_PROFILE_TELEGRAM_INVALID"
 msgstr "Invalid Telegram username format. Please provide a username without links or protocols."
+
+msgid "ERROR_RATE_LIMIT_EXCEEDED"
+msgstr "You are sending requests too frequently. Please wait a while before continuing."
 
 msgid "ERROR_YOURE_NOT_OWNER_OF_APP"
 msgstr "You're not an administrator of this application."
@@ -487,6 +502,18 @@ msgstr "Your request has been successfully submitted. You will receive a respons
 
 msgid "NOTIF_DEVSTATUS_SEND_TITLE"
 msgstr "Developer status"
+
+msgid "NOTIF_DISTREQ_ACCEPTED_DESCRIPTION"
+msgstr "Your request to publish version %(version)s for application \"%(app_name)s\" has been approved by a moderator."
+
+msgid "NOTIF_DISTREQ_ACCEPTED_TITLE"
+msgstr "New version published!"
+
+msgid "NOTIF_DISTREQ_DECLINED_DESCRIPTION"
+msgstr "Unfortunately, your request to publish version %(version)s for \"%(app_name)s\" has been declined. Reason: %(reason)s"
+
+msgid "NOTIF_DISTREQ_DECLINED_TITLE"
+msgstr "Publication request declined"
 
 msgid "NOTIF_LOGIN_DESCRIPTION"
 msgstr "Your account was logged into • Device: %(browser)s (%(os)s) • IP address: %(ip)s • Location: %(location)s • If this wasn't you, change your password immediately."
@@ -1203,7 +1230,7 @@ msgid "PAGE_FAQ_CARD_TEAM_CDNANDGIT"
 msgstr "- back-office work, CDN, internal Git"
 
 msgid "PAGE_FAQ_CARD_TEAM_DEV"
-msgstr "- frontend-developer"
+msgstr "- developer"
 
 msgid "PAGE_FAQ_CARD_TEAM_FRONTEND"
 msgstr "- frontend"
@@ -1265,6 +1292,9 @@ msgstr "We're also thankful to other developers:"
 msgid "PAGE_FAQ_TEAM_HEADER_TESTERS"
 msgstr "And let's not forget about our testers:"
 
+msgid "PAGE_FAQ_TEAM_HEADER_TRANSLATORS"
+msgstr "And about translators:"
+
 msgid "PAGE_FAQ_TEAM_ROLE_CHELKA0"
 msgstr "behind-the-scenes website design"
 
@@ -1284,7 +1314,7 @@ msgid "PAGE_FAQ_TEAM_ROLE_ZAZIOS"
 msgstr "backend developer (Go)"
 
 msgid "PAGE_FAQ_TEAM_TESTERS_LIST"
-msgstr "mryoshi, akaremii26, madebydimas, koke621, Starik1500, LGRN Arts, im_Ry0 (special thanks), pregko, veselcraft, ilarion3310, aliew, dimawhite05, mws, d3nkyu2u, ersn"
+msgstr "[testers' nicknames are separated with commas]"
 
 msgid "PAGE_FAQ_TITLE"
 msgstr "FAQ"

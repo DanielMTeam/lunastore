@@ -172,11 +172,41 @@ msgstr "Доступ забаронены. Пачніце з налад проф
 msgid "ERROR_CDNSECURITY"
 msgstr "Пры спампоўцы файла адбылася памылка бяспекі рухавіка LunaSpire. Калі ласка, звярніцеся з гэтай памылкай да адміністратара сайта, калі вы бачыце гэту памылку не ўпершыню."
 
+msgid "ERROR_CDN_CHECKSUM_MISMATCH_SCREENSHOTS"
+msgstr "Памылка пры праверцы токенаў скрыншотаў."
+
+msgid "ERROR_CDN_INVALID_FORMAT"
+msgstr "Недапушчальны фармат файла на серверы захавання (CDN). Калі ласка, звярніцеся да адміністратара."
+
+msgid "ERROR_CDN_SESSION_EXPIRED"
+msgstr "Час сэсіі загрузкі скончыўся. Паспрабуйце яшчэ раз."
+
+msgid "ERROR_CDN_TOKEN_EXPIRED_OR_USED"
+msgstr "Токен загрузкі састарэў або ўжо быў выкарыстаны."
+
+msgid "ERROR_CDN_TOKEN_INVALID"
+msgstr "Несапраўдны токен бяспекі CDN."
+
+msgid "ERROR_CDN_TOKEN_INVALID_TYPE"
+msgstr "Няправільны тып токена ад CDN."
+
+msgid "ERROR_CDN_TOKEN_MISSING"
+msgstr "Токен CDN не дадзены."
+
 msgid "ERROR_CHECK_FORM"
 msgstr "Калі ласка, праверце форму. У некаторых палях дапушчаны памылкі."
 
 msgid "ERROR_CURRENT_PASSWORD_IS_WRONG"
 msgstr "Гэта няправільны пароль"
+
+msgid "ERROR_DIST_FORM_CDN_INFO_FAIL"
+msgstr "Не ўдалося атрымаць інфармацыю пра файл ад сервера захавання. Паспрабуйце пазней."
+
+msgid "ERROR_DIST_FORM_NO_FILE_OR_URL"
+msgstr "Трэба загрузіць файл або ўказаць спасылку для спампоўвання."
+
+msgid "ERROR_DIST_FORM_NO_VT_LINK"
+msgstr "Пры загрузцы файла спасылка на VirusTotal абавязковая."
 
 msgid "ERROR_DIST_SOURCE_REQUIRED"
 msgstr "Трэба пазначыць файл або спасылку для спампоўвання."
@@ -187,8 +217,20 @@ msgstr "Карыстальнік з такім e-mail ужо існуе."
 msgid "ERROR_EMAIL_ALREADY_IN_USE"
 msgstr "Гэты e-mail ужо выкарыстоўваецца."
 
+msgid "ERROR_EMAIL_DISPOSABLE_DOMAIN"
+msgstr "Рэгістрацыя з выкарыстаннем сэрвісаў часовай пошты забароненая."
+
+msgid "ERROR_EMAIL_DOMAIN_NO_MX %(domain)s"
+msgstr "Дамен %(domain)s не прымае пошту. Укажыце існуючы адрас."
+
+msgid "ERROR_EMAIL_INVALID_FORMAT"
+msgstr "Уведзены некарэктны адрас электроннай пошты."
+
 msgid "ERROR_EMAIL_IS_SAME"
 msgstr "Новы e-mail супадае з бягучым."
+
+msgid "ERROR_EMAIL_NO_ALIASES"
+msgstr "Выкарыстанне паштовых аліасаў са знакам \"+\" забаронена."
 
 msgid "ERROR_INVALID_FILE_FORMAT"
 msgstr "Памылка: Недапушчальны фармат файла!"
@@ -237,6 +279,15 @@ msgstr " мае недапушчальны фармат."
 
 msgid "ERROR_PREVIEWSCRNS_3_COUNT"
 msgstr "Максімум 3 файлы!"
+
+msgid "ERROR_PROFILE_OPENVK_INVALID"
+msgstr "Няправільны фармат імя карыстальніка OpenVK. Калі ласка, укажыце правільнае імя карыстальніка."
+
+msgid "ERROR_PROFILE_TELEGRAM_INVALID"
+msgstr "Няправільны фармат імя карыстальніка Telegram. Калі ласка, укажыце імя карыстальніка без спасылак і пратаколаў."
+
+msgid "ERROR_RATE_LIMIT_EXCEEDED"
+msgstr "Вы дасылаеце запыты занадта часта. Калі ласка, пачакайце некаторы час, каб працягнуць."
 
 msgid "ERROR_YOURE_NOT_OWNER_OF_APP"
 msgstr "Вы не з'яўляецеся адміністратарам гэтага дадатка."
@@ -403,6 +454,12 @@ msgstr "Не ўдалося атрымаць токен __________"
 msgid "JS_MARKETPLACE_UPLOADING"
 msgstr "Загрузка..."
 
+msgid "MSG_DIST_CREATE_REQ_SENT"
+msgstr "Заява на дабаўленне новай версіі адпраўлена на мадэрацыю."
+
+msgid "MSG_DIST_EDIT_REQ_SENT"
+msgstr "Заява на змену версіі адпраўлена на мадэрацыю."
+
 msgid "NOTIFICATIONS_LOADING"
 msgstr "Загрузка паведамленняў..."
 
@@ -447,6 +504,18 @@ msgstr "Ваша заява была паспяхова адпраўлена. А
 
 msgid "NOTIF_DEVSTATUS_SEND_TITLE"
 msgstr "Статус распрацоўшчыка"
+
+msgid "NOTIF_DISTREQ_ACCEPTED_DESCRIPTION"
+msgstr "Ваша заяўка на публікацыю версіі %(version)s для праграмы \"%(app_name)s\" была адобрана мадэратарам."
+
+msgid "NOTIF_DISTREQ_ACCEPTED_TITLE"
+msgstr "Апублікавана новая версія!"
+
+msgid "NOTIF_DISTREQ_DECLINED_DESCRIPTION"
+msgstr "На жаль, ваша заяўка на публікацыю версіі %(version)s для \"%(app_name)s\" была адхілена. Прычына: %(reason)s"
+
+msgid "NOTIF_DISTREQ_DECLINED_TITLE"
+msgstr "Заяўка на публікацыю адхілена"
 
 msgid "NOTIF_LOGIN_DESCRIPTION"
 msgstr "У ваш акаўнт быў выкананы ўваход • Прылада: %(browser)s (%(os)s) • IP-адрас: %(ip)s • Месцазнаходжанне: %(location)s • Калі гэта не вы, хутка змяніце пароль."
@@ -646,10 +715,22 @@ msgstr "Кіраванне дыстрыбуцыямі —"
 msgid "PAGE_ADMIN_APP_DIST_NO_NOTES"
 msgstr "Без заўваг"
 
+msgid "PAGE_ADMIN_APP_DIST_PENDING_CREATE"
+msgstr "(Стварэнне новай) — Разглядаецца"
+
+msgid "PAGE_ADMIN_APP_DIST_PENDING_EDIT"
+msgstr "(Змена) — Разглядаецца"
+
+msgid "PAGE_ADMIN_APP_DIST_PENDING_TITLE"
+msgstr "Заявы, якія чакаюць мадэрацыі:"
+
 msgid "PAGE_ADMIN_APP_DIST_SAVE"
 msgstr "Захаваць"
 
 msgid "PAGE_ADMIN_APP_DIST_VERSION"
+msgstr "Версія"
+
+msgid "PAGE_ADMIN_APP_DIST_VERSION_LABEL"
 msgstr "Версія"
 
 msgid "PAGE_ADMIN_APP_FIRST_BLOCK"
@@ -804,6 +885,30 @@ msgstr "Спампаваць Internet Explorer 6 можна як напраму�
 
 msgid "PAGE_BADBROWSER_TITLE"
 msgstr "Дзякуй за інтарэс да крамы Windows!"
+
+msgid "PAGE_BADBROWSER_WARN_DESC_1"
+msgstr "Нічога страшнага, гэта вельмі крута, тым больш што дызайн сайта адаптаваны з мінімальным апорам менавіта на гэты вэб-браўзер."
+
+msgid "PAGE_BADBROWSER_WARN_DESC_2"
+msgstr "Аднак, улічваючы сучасныя аспекты бяспекі сервера і даных карыстальнікаў, якія на ім захаваны, нам прыйшлося ўвесці некаторыя карэктыроўкі для асоб, якія наведваюць сайт з гэтага браўзера."
+
+msgid "PAGE_BADBROWSER_WARN_DESC_3"
+msgstr "На магчымасць спампоўвання, прагляд каталога і яго пошук гэтае абмежаванне не ўплывае."
+
+msgid "PAGE_BADBROWSER_WARN_FOOTER"
+msgstr "Для больш прыемнага досведу карыстання рэкамендуем вам браўзеры RetroZilla і Supermium"
+
+msgid "PAGE_BADBROWSER_WARN_RESTRICT_1"
+msgstr "<b>Недаступна</b> сістэма акаўнтаў (уваход, рэгістрацыя)"
+
+msgid "PAGE_BADBROWSER_WARN_RESTRICT_2"
+msgstr "Адміністраванне старонак дадаткаў <b>абмежавана</b>"
+
+msgid "PAGE_BADBROWSER_WARN_SUBTITLE"
+msgstr "Мы заўважылі, што Вы наведваеце сайт праз ве-е-ельмі стары браўзер."
+
+msgid "PAGE_BADBROWSER_WARN_TITLE"
+msgstr "Важнае паведамленне"
 
 msgid "PAGE_CATEGORY_BUYBTN"
 msgstr "Купіць"
@@ -1024,6 +1129,12 @@ msgstr "Версія дадатка:"
 msgid "PAGE_DIST_FORM_VERSION_DESC"
 msgstr "Напрыклад: 1.0.0 або 2.1.4-beta"
 
+msgid "PAGE_DIST_FORM_VT_DESC"
+msgstr "Укажыце спасылку на рэзультаты праверкі спампоўваемага файла на сайце virustotal.com"
+
+msgid "PAGE_DIST_FORM_VT_TITLE"
+msgstr "Спасылка на VirusTotal (абавязкова пры загрузцы файла):"
+
 msgid "PAGE_DOWNLOAD_BACK"
 msgstr "Назад"
 
@@ -1121,7 +1232,7 @@ msgid "PAGE_FAQ_CARD_TEAM_CDNANDGIT"
 msgstr "- закадравая праца, CDN, унутраны Git"
 
 msgid "PAGE_FAQ_CARD_TEAM_DEV"
-msgstr "- frontend-распрацоўшчык"
+msgstr "- распрацоўшчык"
 
 msgid "PAGE_FAQ_CARD_TEAM_FRONTEND"
 msgstr "вёрстка інтэрфэйса (frontend)"
@@ -1183,6 +1294,9 @@ msgstr "Таксама дзякуем іншых распрацоўшчыкаў:
 msgid "PAGE_FAQ_TEAM_HEADER_TESTERS"
 msgstr "І пра тэстыроўшчыкаў не забываем:"
 
+msgid "PAGE_FAQ_TEAM_HEADER_TRANSLATORS"
+msgstr "І пра перакладчыкаў:"
+
 msgid "PAGE_FAQ_TEAM_ROLE_CHELKA0"
 msgstr "афармленне сайта за кадрам"
 
@@ -1202,7 +1316,7 @@ msgid "PAGE_FAQ_TEAM_ROLE_ZAZIOS"
 msgstr "backend-распрацоўшчык (Go)"
 
 msgid "PAGE_FAQ_TEAM_TESTERS_LIST"
-msgstr "mryoshi, akaremii26, madebydimas, koke621, Starik1500, LGRN Arts, im_Ry0 (special thanks), pregko, veselcraft, ilarion3310, aliew, dimawhite05, mws, d3nkyu2u, ersn"
+msgstr "(нікі тэстыроўшчыкаў праз коску)"
 
 msgid "PAGE_FAQ_TITLE"
 msgstr "Спраўка"
