@@ -195,6 +195,11 @@ a img {
     text-decoration: none;
     color: #215dc6;
 }
+
+.sidebar a:hover {
+    color: crimson;
+}
+
 .sidebar li {
     padding: 4px;
     padding-left: 24px;
