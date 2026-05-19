@@ -11,3 +11,4 @@ reveal.py
 ..env.swp
 .tolgeerc
 .venv
+.gitlab-ci.yml
