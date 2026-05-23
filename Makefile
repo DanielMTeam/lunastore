@@ -76,20 +76,20 @@ shell-api:
 	docker compose -f $(PROD_COMPOSE) exec api bash
 
 build:
-	docker-compose -f $(PROD_COMPOSE) build
+	docker compose -f $(PROD_COMPOSE) build
 
 up:
-	docker-compose -f $(PROD_COMPOSE) up -d --no-deps --force-recreate
+	docker compose -f $(PROD_COMPOSE) up -d --no-deps --force-recreate
 
 down:
 	@echo "Attention: now you will stop your PRODUCTION server"
-	docker-compose -f $(PROD_COMPOSE) down
+	docker compose -f $(PROD_COMPOSE) down
 
 restart:
-	docker-compose -f $(PROD_COMPOSE) restart
+	docker compose -f $(PROD_COMPOSE) restart
 
 logs:
-	docker-compose -f $(PROD_COMPOSE) logs -f
+	docker compose -f $(PROD_COMPOSE) logs -f
 
 PYTHON ?= python
 
