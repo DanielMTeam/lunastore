@@ -346,7 +346,7 @@ UNFOLD = {
                     },
                     {
                         "title": "Жалобы на проблемы",
-                        "icon": "problem_report",
+                        "icon": "flag",
                         "link": reverse_lazy("admin:marketplace_problemreportrequests_changelist"),
                     },
 
