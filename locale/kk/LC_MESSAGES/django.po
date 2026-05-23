@@ -1664,7 +1664,7 @@ msgid "PAGE_SEARCH_BADGE_DEMO"
 msgstr "Демо"
 
 msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
-msgstr "Демо, әрі қарай $%(price)s"
+msgstr "Демо, әрі қарай "
 
 msgid "PAGE_SEARCH_BADGE_FREE"
 msgstr "Тегін"

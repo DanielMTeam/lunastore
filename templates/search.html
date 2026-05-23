@@ -1,4 +1,4 @@
-﻿{% extends 'base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% load i18n %}
 
@@ -103,7 +103,7 @@
             {% if app.is_demo %}
                 {% if app.price > 0 %}
                     <div class="badge demo">
-                        {% blocktrans with price=app.price %}PAGE_SEARCH_BADGE_DEMO_PRICE{% endblocktrans %}
+                        {% trans "PAGE_SEARCH_BADGE_DEMO_PRICE" %} ${{ app.price }}
                     </div>
                 {% else %}
                     <div class="badge demo">{% trans "PAGE_SEARCH_BADGE_DEMO" %}</div>

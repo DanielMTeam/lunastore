@@ -304,7 +304,7 @@ class AppCreateForm(forms.ModelForm, CDNTokenValidationMixin):
         return app_instance
 
     def get_trans_fields(self):
-        flags = {'ru': '🇷🇺 RU', 'en': '🇬🇧 EN', 'be': '🇧🇾 BE', 'uk': '🇺🇦 UK'}
+        flags = {'ru': '🇷🇺 RU', 'en': '🇬🇧 EN', 'be': '🇧🇾 BE', 'uk': '🇺🇦 UK', 'kk': '🇰🇿 KK'}
         data = {}
         for field_name in _TRANS_FIELDS:
             data[field_name] = []
@@ -502,7 +502,7 @@ class BaseDistributionForm(forms.ModelForm, CDNTokenValidationMixin):
         return cleaned_data
 
     def get_trans_fields(self):
-        flags = {'ru': '🇷🇺 RU', 'en': '🇬🇧 EN', 'be': '🇧🇾 BE', 'uk': '🇺🇦 UK'}
+        flags = {'ru': '🇷🇺 RU', 'en': '🇬🇧 EN', 'be': '🇧🇾 BE', 'uk': '🇺🇦 UK', 'kk': '🇰🇿 KK'}
         data = {}
         fields_to_translate = ["changelog"]
 
