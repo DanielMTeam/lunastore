@@ -1670,7 +1670,7 @@ msgid "PAGE_SEARCH_BADGE_DEMO"
 msgstr "Демо"
 
 msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
-msgstr "Демо, далее $%(price)s"
+msgstr "Демо, далее "
 
 msgid "PAGE_SEARCH_BADGE_FREE"
 msgstr "Бесплатно"

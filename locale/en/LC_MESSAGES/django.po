@@ -1667,7 +1667,7 @@ msgid "PAGE_SEARCH_BADGE_DEMO"
 msgstr "Demo"
 
 msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
-msgstr "Demo, then $%(price)s"
+msgstr "Demo, then "
 
 msgid "PAGE_SEARCH_BADGE_FREE"
 msgstr "Free"
