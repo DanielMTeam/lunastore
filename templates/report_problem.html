@@ -1,0 +1,42 @@
+﻿{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+<title>{% trans "PAGE_REPORTAPP_PAGE_TITLE" %} - {{ name }} - LunaStore</title>
+
+<link rel="stylesheet" href="{% static 'css/stpage.css' %}">
+<link rel="stylesheet" href="{% static 'css/reviews.css' %}">
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+
+<div class="content">
+    <div class="separator_store"></div>
+
+    <div class="section">
+        <div class="st_other_card">
+            <div class="profile_block">{% trans "PAGE_REPORTPROBLEM_TITLE" %}</div>
+
+            <div class="profile_block_content">
+                <form method="POST">
+                    {% csrf_token %}
+
+                    {% trans "PAGE_REPORTPROBLEM_INFO_2" %}<br><br>
+
+                    {{ form.description }}
+
+                    {% if form.description.errors %}
+                        <br>
+                        <div class="error_splash">{{ form.description.errors }}</div>
+                    {% endif %}
+
+                    <br><br>
+                    <input type="submit" value="{% trans 'PAGE_REPORTPROBLEM_SUBMIT_BTN' %}" class="action_button">
+                </form>
+            </div>
+        </div>
+
+        <div class="st_clearb"></div>
+    </div>
+</div>
+</div>
+{% endblock %}
