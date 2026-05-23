@@ -27,8 +27,8 @@
 
 ## 📚 Documentation
 
-* 🛠 **[Installation Guide](docs/installation.md)** — detailed deployment instructions
-* ⚙️ **[API Documentation](docs/api-documentation.md)** — description of API methods for developers
+* 🛠 **[Installation Guide](https://docs.lunastore.app/getting-started/installation/)** — detailed deployment instructions
+* ⚙️ **[API Documentation](https://docs.lunastore.app/api/)** — description of API methods for developers
 
 ---
 
