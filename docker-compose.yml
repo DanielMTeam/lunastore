@@ -67,7 +67,6 @@ services:
             start_period: 5s
 
     x-lunastore-template: &lunastore_base
-        build: .
         image: lunastore:local
         env_file:
             - .env
