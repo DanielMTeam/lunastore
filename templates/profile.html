@@ -1,4 +1,4 @@
-﻿{% extends 'base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% load i18n %}
 
@@ -6,170 +6,179 @@
 <title>{% trans "PAGE_PROFILE_TITLE" %} {{ obj.username }} - LunaStore</title>
 
 <div class="content">
-  <div class="profile_card">
-      <div class="profile_avatar" id="{uid}">
-        {% if obj.avatar_url %}
-            <img src="{{ obj.avatar_url }}" alt="{{ obj.username }}" style="height: 64px; width: 64px;">
-        {% endif %}
-      </div>
-
-      <div class="profile_info" id="{uid}">
-
-        <div class="profile_name" style="margin-bottom: 0;">
-            {{ obj.username }}
-            {% with user_badges=badges %}
-                {% if user_badges %}
-                    {% for badge in user_badges %}
-                        <img src="{% static './img/badges/' %}{{ badge }}.png" style="vertical-align: middle;">
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-        </div>
-
-        <div class="profile_desc">
-            {% if obj.description %}
-                {{ obj.description }}
-            {% else %}
-                {% trans "CARD_USER_NO_DESC" %}
-            {% endif %}
-            <br>
-            <small>
-                <span class="last-visit">
-                    {% blocktranslate count counter=apps_count|default:0 %}{{ counter }} PAGE_PROFILE_STATS_APP{% plural %}{{ counter }} PAGE_PROFILE_STATS_APPS{% endblocktranslate %}
-                    {% trans "PAGE_PROFILE_STATS_MEMBER_SINCE" %} {{ obj.date_joined|date:"d E Y" }}
-                </span>
-            </small>
+    {% if obj.profile_splash %}
+    <div class="info_splash_noicon" style="width: auto;">
+        <div class="splash_text" style="margin-left: 0; line-height: 1.4;">
+            {{ obj.profile_splash }}
         </div>
         <div style="clear: both;"></div>
-      </div>
-  </div>
-
-  <link rel="stylesheet" href="{% static './css/profile.css'%}">
-  <link rel="stylesheet" href="{% static './css/tabs.css'%}">
-  <link rel="stylesheet" href="{% static './css/reviews.css'%}">
-  {% if active_ban %}
-  <div class="error_splash" style="width: auto;">
-      <div class="error_icon"></div>
-      <div class="splash_text" style="margin-left: 60px; line-height: 1.4;">
-          <strong style="font-size: 13px;">{% trans "PAGE_PROFILE_BANNED_INTRO" %}</strong><br><br>
-          {% trans "PAGE_PROFILE_BANNED_DESC" %}<br><br>
-          {% trans "PAGE_PROFILE_BANNED_DESC_2" %}
-      </div>
-      <div style="clear: both;"></div>
-  </div>
-  {% else %}
-  <div class="tabs">
-      <div class="tab-bar">
-        <div class="tab active" href="/help.php">
-          <img src="{% static './img/tabs/faq.png'%}" class="tab-icon" alt="">
-          {% trans "PAGE_PROFILE_TAB_MAIN" %}
+    </div>
+    {% endif %}
+    <div class="profile_card">
+        <div class="profile_avatar" id="{uid}">
+            {% if obj.avatar_url %}
+            <img src="{{ obj.avatar_url }}" alt="{{ obj.username }}" style="height: 64px; width: 64px;">
+            {% endif %}
         </div>
-      </div>
 
-      <div class="tab-content" id="tab-view">
-          <div class="profile_block">{% trans "PAGE_PROFILE_CONTACT_INFO" %}</div>
-          <div class="profile_block_content">
+        <div class="profile_info" id="{uid}">
 
-              <div class="profile_desc_element_head">{% trans "PAGE_PROFILE_LABEL_WEBSITE" %}
-                  <div class="profile_desc_element">
-                      {% if obj.website %}
-                          <a href="{{ obj.website }}" target="_blank" rel="noopener noreferrer">{{ obj.website }}</a>
-                      {% else %}
-                          -
-                      {% endif %}
-                  </div>
-              </div>
+            <div class="profile_name" style="margin-bottom: 0;">
+                {{ obj.username }}
+                {% with user_badges=badges %}
+                {% if user_badges %}
+                {% for badge in user_badges %}
+                <img src="{% static './img/badges/' %}{{ badge }}.png" style="vertical-align: middle;">
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+            </div>
 
-              <div class="profile_desc_element_head">{% trans "PAGE_PROFILE_LABEL_TELEGRAM" %}
-                  <div class="profile_desc_element">
-                      {% if obj.telegram %}
-                          <a href="https://t.me/{{ obj.telegram }}" target="_blank" rel="noopener noreferrer">{{ obj.telegram }}</a>
-                      {% else %}
-                          -
-                      {% endif %}
-                  </div>
-              </div>
+            <div class="profile_desc">
+                {% if obj.description %}
+                {{ obj.description }}
+                {% else %}
+                {% trans "CARD_USER_NO_DESC" %}
+                {% endif %}
+                <br>
+                <small>
+                    <span class="last-visit">
+                        {% blocktranslate count counter=apps_count|default:0 %}{{ counter }} PAGE_PROFILE_STATS_APP{% plural %}{{ counter }} PAGE_PROFILE_STATS_APPS{% endblocktranslate %}
+                        {% trans "PAGE_PROFILE_STATS_MEMBER_SINCE" %} {{ obj.date_joined|date:"d E Y" }}
+                    </span>
+                </small>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
 
-              <div class="profile_desc_element_head">Discord:
-                  <div class="profile_desc_element">{{ obj.discord|default:"-" }}</div>
-              </div>
+    <link rel="stylesheet" href="{% static './css/profile.css'%}">
+    <link rel="stylesheet" href="{% static './css/tabs.css'%}">
+    <link rel="stylesheet" href="{% static './css/reviews.css'%}">
 
-              <div class="profile_desc_element_head">OpenVK:
-                  <div class="profile_desc_element">
-                      {% if obj.openvk %}
-                          <a href="https://openvk.org/{{ obj.openvk }}" target="_blank" rel="noopener noreferrer">{{ obj.openvk }}</a>
-                      {% else %}
-                          -
-                      {% endif %}
-                  </div>
-              </div>
+    {% if active_ban %}
+    <div class="error_splash" style="width: auto;">
+        <div class="error_icon"></div>
+        <div class="splash_text" style="margin-left: 60px; line-height: 1.4;">
+            <strong style="font-size: 13px;">{% trans "PAGE_PROFILE_BANNED_INTRO" %}</strong><br><br>
+            {% trans "PAGE_PROFILE_BANNED_DESC" %}<br><br>
+            {% trans "PAGE_PROFILE_BANNED_DESC_2" %}
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    {% else %}
+    <div class="tabs">
+        <div class="tab-bar">
+            <div class="tab active" href="/help.php">
+                <img src="{% static './img/tabs/faq.png'%}" class="tab-icon" alt="">
+                {% trans "PAGE_PROFILE_TAB_MAIN" %}
+            </div>
+        </div>
 
-          </div>
-          <br>
+        <div class="tab-content" id="tab-view">
+            <div class="profile_block">{% trans "PAGE_PROFILE_CONTACT_INFO" %}</div>
+            <div class="profile_block_content">
 
-          <div class="profile_block">
-                  {% trans "PAGE_PROFILE_APPS_TITLE" %} | <span style="font-weight: normal; display: inline-block; text-align: right;">{% if request.user == obj %}<a href="/app_add.php">{% trans "PAGE_PROFILE_LINK_ADDAPP" %}</a> |{% endif %}<a href="/search.php?author={{ obj.id }}"> {% trans "PAGE_PROFILE_LINK_ALL" %}</a></span>
-          </div>
+                <div class="profile_desc_element_head">{% trans "PAGE_PROFILE_LABEL_WEBSITE" %}
+                    <div class="profile_desc_element">
+                        {% if obj.website %}
+                        <a href="{{ obj.website }}" target="_blank" rel="noopener noreferrer">{{ obj.website }}</a>
+                        {% else %}
+                        -
+                        {% endif %}
+                    </div>
+                </div>
 
-              <div class="profile_block_content">
-                  <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="100%" id="AutoNumber1">
-                  <tr>
-                  {% for app in obj.applications.all|slice:":5" %}
-                  <td width="20%">
-                  <div class="icon">
-                          {% if app.icon_path %}
-                              <img src="{{ app.icon_url }}" alt="{{ app.title }}" class="icon-img">
-                          {% else %}
-                              <img src="{% static './img/noavatar_64.jpg' %}" alt="{{ app.title }}" class="icon-img">
-                          {% endif %}
-                          <div class="icon-text"><a href="/app.php?id={{ app.id }}">{{ app.title }}</a></div>
-                      </div>
-                    </td>
-                  {% empty %}
-                      <div style="text-align: center; padding: 50px 20px; color: #555;">
-                          <h3 style="margin-bottom: 10px;">{% trans "PAGE_MANAGE_APPS_EMPTY_TITLE" %}</h3>
-                          <span style="font-size: 12px; color: #888;">{% trans "PAGE_PROFILE_APPS_EMPTY_DESC" %}</span>
-                      </div>
-                  {% endfor %}
-                  </tr>
-                  </table>
-              </div>
-              <br>
+                <div class="profile_desc_element_head">{% trans "PAGE_PROFILE_LABEL_TELEGRAM" %}
+                    <div class="profile_desc_element">
+                        {% if obj.telegram %}
+                        <a href="https://t.me/{{ obj.telegram }}" target="_blank" rel="noopener noreferrer">{{ obj.telegram }}</a>
+                        {% else %}
+                        -
+                        {% endif %}
+                    </div>
+                </div>
 
-              <div class="profile_block">
-                  {{ obj.username }} {% trans "PAGE_PROFILE_INVITES_TEXT" %} {{ obj.invited_users.count }} {% trans "PAGE_PROFILE_INVITES_PEOPLE" %}
-              </div>
+                <div class="profile_desc_element_head">Discord:
+                    <div class="profile_desc_element">{{ obj.discord|default:"-" }}</div>
+                </div>
 
-              <div class="profile_block_content">
-                  <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="100%" id="AutoNumber1">
-                  <tr>
-                  {% for invited in obj.invited_users.all|slice:":5" %}
-                      <td width="20%" style="padding: 5px;">
-                      <div class="user">
-                          <a href="/profile.php?id={{ invited.id }}">
-                              {% if invited.avatar_path %}
-                                  <img src="{{ invited.avatar_url }}" alt="{{ invited.username }}" class="user-img">
-                              {% else %}
-                                  <img src="{% static './img/noavatar_64.jpg' %}" alt="{{ invited.username }}" class="user-img">
-                              {% endif %}
-                          </a>
-                          <div class="user-text"><a href="?id={{ invited.id }}">{{ invited.username }}</a></div>
-                      </div>
-                      </td>
-                  {% empty %}
-                      <div style="text-align: center; padding: 50px 20px; color: #555;">
-                          <h3 style="margin-bottom: 10px;">{% trans "PAGE_PROFILE_INVITES_EMPTY_TITLE" %}</h3>
-                          <span style="font-size: 12px; color: #888;">{% trans "PAGE_PROFILE_INVITES_EMPTY_DESC" %}</span>
-                      </div>
-                  {% endfor %}
-                  </tr>
-                  </table>
-              </div>
-              <br>
+                <div class="profile_desc_element_head">OpenVK:
+                    <div class="profile_desc_element">
+                        {% if obj.openvk %}
+                        <a href="https://openvk.org/{{ obj.openvk }}" target="_blank" rel="noopener noreferrer">{{ obj.openvk }}</a>
+                        {% else %}
+                        -
+                        {% endif %}
+                    </div>
+                </div>
 
-          </div>
-  </div>
-  {% endif %}
+            </div>
+            <br>
+
+            <div class="profile_block">
+                {% trans "PAGE_PROFILE_APPS_TITLE" %} | <span style="font-weight: normal; display: inline-block; text-align: right;">{% if request.user == obj %}<a href="/app_add.php">{% trans "PAGE_PROFILE_LINK_ADDAPP" %}</a> |{% endif %}<a href="/search.php?author={{ obj.id }}"> {% trans "PAGE_PROFILE_LINK_ALL" %}</a></span>
+            </div>
+
+            <div class="profile_block_content">
+                <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="100%" id="AutoNumber1">
+                    <tr>
+                        {% for app in obj.applications.all|slice:":5" %}
+                        <td width="20%">
+                            <div class="icon">
+                                {% if app.icon_path %}
+                                <img src="{{ app.icon_url }}" alt="{{ app.title }}" class="icon-img">
+                                {% else %}
+                                <img src="{% static './img/noavatar_64.jpg' %}" alt="{{ app.title }}" class="icon-img">
+                                {% endif %}
+                                <div class="icon-text"><a href="/app.php?id={{ app.id }}">{{ app.title }}</a></div>
+                            </div>
+                        </td>
+                        {% empty %}
+                        <div style="text-align: center; padding: 50px 20px; color: #555;">
+                            <h3 style="margin-bottom: 10px;">{% trans "PAGE_MANAGE_APPS_EMPTY_TITLE" %}</h3>
+                            <span style="font-size: 12px; color: #888;">{% trans "PAGE_PROFILE_APPS_EMPTY_DESC" %}</span>
+                        </div>
+                        {% endfor %}
+                    </tr>
+                </table>
+            </div>
+            <br>
+
+            <div class="profile_block">
+                {{ obj.username }} {% trans "PAGE_PROFILE_INVITES_TEXT" %} {{ obj.invited_users.count }} {% trans "PAGE_PROFILE_INVITES_PEOPLE" %}
+            </div>
+
+            <div class="profile_block_content">
+                <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="100%" id="AutoNumber1">
+                    <tr>
+                        {% for invited in obj.invited_users.all|slice:":5" %}
+                        <td width="20%" style="padding: 5px;">
+                            <div class="user">
+                                <a href="/profile.php?id={{ invited.id }}">
+                                    {% if invited.avatar_path %}
+                                    <img src="{{ invited.avatar_url }}" alt="{{ invited.username }}" class="user-img">
+                                    {% else %}
+                                    <img src="{% static './img/noavatar_64.jpg' %}" alt="{{ invited.username }}" class="user-img">
+                                    {% endif %}
+                                </a>
+                                <div class="user-text"><a href="?id={{ invited.id }}">{{ invited.username }}</a></div>
+                            </div>
+                        </td>
+                        {% empty %}
+                        <div style="text-align: center; padding: 50px 20px; color: #555;">
+                            <h3 style="margin-bottom: 10px;">{% trans "PAGE_PROFILE_INVITES_EMPTY_TITLE" %}</h3>
+                            <span style="font-size: 12px; color: #888;">{% trans "PAGE_PROFILE_INVITES_EMPTY_DESC" %}</span>
+                        </div>
+                        {% endfor %}
+                    </tr>
+                </table>
+            </div>
+            <br>
+
+        </div>
+    </div>
+    {% endif %}
 </div>
 </div>
 {% endblock %}

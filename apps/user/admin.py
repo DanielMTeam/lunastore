@@ -38,6 +38,7 @@ class UserAdmin(unfold_admin.ModelAdmin):
                     "avatar_path",
                     "avatar_id",
                     "badges",
+                    "profile_splash",
                     "is_staff",
                     "is_superuser",
                     "is_active",
