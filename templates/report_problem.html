@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block content %}
-<title>{% trans "PAGE_REPORTAPP_PAGE_TITLE" %} - {{ name }} - LunaStore</title>
+<title>{% trans "PAGE_REPORTAPP_PAGE_TITLE" %} - LunaStore</title>
 
 <link rel="stylesheet" href="{% static 'css/stpage.css' %}">
 <link rel="stylesheet" href="{% static 'css/reviews.css' %}">
@@ -20,7 +20,7 @@
                 <form method="POST">
                     {% csrf_token %}
 
-                    {% trans "PAGE_REPORTPROBLEM_INFO_2" %}<br><br>
+                    {% trans "PAGE_REPORTPROBLEM_INFO" %}<br><br>
 
                     {{ form.description }}
 

@@ -85,6 +85,9 @@ msgstr "Политике конфиденциальности"
 msgid "BASE_FOOTER_TELEGRAM"
 msgstr "Наш Telegram-канал"
 
+msgid "BASE_FOOTER_REPORT_PROBLEM"
+msgstr "Сообщить о проблеме"
+
 msgid "BASE_FOOTER_TEXT_1"
 msgstr "С душой сделано командой DM,"
 
@@ -840,6 +843,24 @@ msgstr "К сожалению, тот, кто загрузил приложен�
 
 msgid "PAGE_APP_LABEL_ORIGINAL_AUTHOR"
 msgstr "Оригинальный автор:"
+
+msgid "PAGE_REPORTAPP_AUTHOR"
+msgstr "Автор жалобы на приложение:"
+
+msgid "PAGE_REPORTPROBLEM_TITLE"
+msgstr "Сообщить о проблеме"
+
+msgid "PAGE_REPORTPROBLEM_SUCCESS_MSG"
+msgstr "Успешно отправлено!"
+
+msgid "PAGE_REPORTPROBLEM_AUTHOR"
+msgstr "Автор жалобы на проблему"
+
+msgid "PAGE_REPORTPROBLEM_INFO"
+msgstr "Здесь вы можете сообщить о любой проблеме, которую обнаружили на нашем сайте!"
+
+msgid "PAGE_REPORTPROBLEM_SUBMIT_BTN"
+msgstr "Сообщить о проблеме"
 
 msgid "PAGE_APP_MSG_DEMO_WARNING"
 msgstr "Программа распространяется в виде демо-версии, за полную версию стоит заплатить её автору. Файл предоставлен с официального сайта разработчика."
