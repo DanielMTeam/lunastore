@@ -1860,3 +1860,24 @@ msgstr "Incorrect username or password."
 
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "Login successful! Welcome, %(username)s!"
+
+msgid "BASE_FOOTER_REPORT_PROBLEM"
+msgstr "Report a problem"
+
+msgid "PAGE_REPORTAPP_AUTHOR"
+msgstr "App complaint author:"
+
+msgid "PAGE_REPORTPROBLEM_TITLE"
+msgstr "Report a problem"
+
+msgid "PAGE_REPORTPROBLEM_SUCCESS_MSG"
+msgstr "Successfully sent!"
+
+msgid "PAGE_REPORTPROBLEM_AUTHOR"
+msgstr "Problem report author"
+
+msgid "PAGE_REPORTPROBLEM_INFO"
+msgstr "Here you can report any problem you found on our website!"
+
+msgid "PAGE_REPORTPROBLEM_SUBMIT_BTN"
+msgstr "Report a problem"

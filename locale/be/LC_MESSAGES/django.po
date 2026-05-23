@@ -1863,3 +1863,24 @@ msgstr "Няверны лагін або пароль."
 
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "Уваход паспяховы! Вітаем, %(username)s!"
+
+msgid "BASE_FOOTER_REPORT_PROBLEM"
+msgstr "Паведаміць пра праблему"
+
+msgid "PAGE_REPORTAPP_AUTHOR"
+msgstr "Аўтар скаргі на праграму:"
+
+msgid "PAGE_REPORTPROBLEM_TITLE"
+msgstr "Паведаміць пра праблему"
+
+msgid "PAGE_REPORTPROBLEM_SUCCESS_MSG"
+msgstr "Паспяхова адпраўлена!"
+
+msgid "PAGE_REPORTPROBLEM_AUTHOR"
+msgstr "Аўтар скаргі на праблему"
+
+msgid "PAGE_REPORTPROBLEM_INFO"
+msgstr "Тут вы можаце паведаміць пра любую праблему, якую выявілі на нашым сайце!"
+
+msgid "PAGE_REPORTPROBLEM_SUBMIT_BTN"
+msgstr "Паведаміць пра праблему"
