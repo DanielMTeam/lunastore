@@ -5,6 +5,8 @@ PROD_COMPOSE = docker-compose.yml
 # development commands
 #
 
+SHELL := /bin/bash
+
 dev-migrate:
 	@echo "Applying migrations across all services (web, admin, api)..."
 	docker compose -f $(DEV_COMPOSE) exec web python manage.py migrate

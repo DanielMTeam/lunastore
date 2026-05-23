@@ -1857,3 +1857,24 @@ msgstr "Логин немесе құпия сөз дұрыс емес."
 
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "Сіз сәтті кірдіңіз! Сәлем, %(username)s!"
+
+msgid "BASE_FOOTER_REPORT_PROBLEM"
+msgstr "Повідомити про проблему"
+
+msgid "PAGE_REPORTAPP_AUTHOR"
+msgstr "Автор скарги на застосунок:"
+
+msgid "PAGE_REPORTPROBLEM_TITLE"
+msgstr "Повідомити про проблему"
+
+msgid "PAGE_REPORTPROBLEM_SUCCESS_MSG"
+msgstr "Успішно надіслано!"
+
+msgid "PAGE_REPORTPROBLEM_AUTHOR"
+msgstr "Автор скарги на проблему"
+
+msgid "PAGE_REPORTPROBLEM_INFO"
+msgstr "Тут ви можете повідомити про будь-яку проблему, яку виявили на нашому сайті!"
+
+msgid "PAGE_REPORTPROBLEM_SUBMIT_BTN"
+msgstr "Повідомити про проблему"
