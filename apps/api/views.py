@@ -1,6 +1,7 @@
 import time
 import uuid
 from datetime import datetime
+from django.utils import timezone
 
 import jwt
 from django.conf import settings
@@ -368,7 +369,7 @@ class ServiceViewSet(viewsets.GenericViewSet):
     @action(detail=False, methods=["get"], url_path="heartbeat")
     def heartbeat(self, request):
         return Response(
-            {"status": "ok", "timestamp": datetime.now(), "version": settings.VERSION}
+            {"status": "ok", "timestamp": timezone.now(), "version": settings.VERSION}
         )
 
     @extend_schema(

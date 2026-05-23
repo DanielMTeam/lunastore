@@ -12,7 +12,7 @@ services:
             retries: 5
             start_period: 5s
         volumes:
-          - redis_data:/data
+            - redis_data:/data
 
     db:
         image: postgres:18-alpine
@@ -67,6 +67,7 @@ services:
             start_period: 5s
 
     x-lunastore-template: &lunastore_base
+        build: .
         image: lunastore:local
         env_file:
             - .env
