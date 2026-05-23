@@ -945,7 +945,7 @@ class AppReportRequestsAdmin(SafeDeleteAdmin):
 
 @admin.register(ProblemReportRequests)
 class ProblemReportRequestsAdmin(SafeDeleteAdmin):
-    list_display = ("id", "user_link", "created_at")
+    list_display = ("id", "user_link", "created_at", "description")
     list_filter = SafeDeleteAdmin.list_filter + ["id", "created_at"]
     actions_detail = ["resolve_report_detail", "dismiss_report_detail"]
     readonly_fields = (
