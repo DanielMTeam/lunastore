@@ -354,6 +354,36 @@ class AppReportRequests(SafeDeleteModel):
         app_title = self.app.title if self.app else "Неизвестное приложение"
         return f"Жалоба #{self.id} на {app_title}"
 
+class ProblemReportRequests(SafeDeleteModel):
+    _safedelete_policy = SOFT_DELETE
+
+    STATUS_CHOICES = [
+        ("pending", "Новая"),
+        ("resolved", "Рассматривается"),
+        ("dismissed", "Отклонено"),
+    ]
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        verbose_name=_("PAGE_REPORTPROBLEM_AUTHOR"),
+    )
+
+    description = models.TextField(max_length=500)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    status = models.CharField(
+        max_length=20, choices=STATUS_CHOICES, default="pending", verbose_name="Статус"
+    )
+
+    class Meta:
+        verbose_name = _("PAGE_REPORTPROBLEM_TITLE")
+        verbose_name_plural = _("PAGE_REPORTPROBLEM_TITLE_PATH")
+
+    def __str__(self):
+        return f"Жалоба #{self.id} на проблему"
+
+
 
 # TODO: create the authorization-specific models
 # class Review(models.Model):

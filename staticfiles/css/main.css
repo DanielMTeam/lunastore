@@ -1158,3 +1158,8 @@ input[type="submit"] {
 .iewarn_restrict_list {
     margin-left: 20px;
 }
+
+a.report_problem {
+    color: red;
+    float: right;
+}
