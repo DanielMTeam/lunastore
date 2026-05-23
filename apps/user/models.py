@@ -33,6 +33,7 @@ class User(AbstractUser, SafeDeleteModel):
     description = models.CharField(
         max_length=255, default="Пользователь не оставил описание, но надеемся, что он крут", blank=True
     )
+    profile_splash = models.CharField(max_length=255, null=True, blank=True)
     invited_by = models.ForeignKey(
         "self",
         null=True,

@@ -17,12 +17,14 @@ body {
     font-size: 12px;
     background: #2b67b3 url("../img/cover.jpg");
 }
+
 .container {
     width: 700px;
     margin: 10px auto;
     background: #f2f6fc;
     border: 1px solid #7aa0e6;
 }
+
 .rl_l {
     float: right;
 }
@@ -68,6 +70,7 @@ a img {
     padding: 6px 10px;
     height: 50px;
 }
+
 .header h1 {
     margin: 0;
     font-size: 20px;
@@ -80,15 +83,18 @@ a img {
 .header .subtitle {
     font-size: 11px;
 }
+
 .searchbar {
     margin-top: 6px;
     margin-left: 95px;
 }
+
 .searchbar input {
     width: 200px;
     border: 1px solid #7aa0e6;
     padding: 3px;
 }
+
 .searchbar button {
     border: 1px solid #006000;
     background: #5fa359;
@@ -105,7 +111,8 @@ a img {
 
 .search_error {
     border: 1px solid #e6e6e6;
-    padding: 75px; /* we af tehnologi bruhh */
+    padding: 75px;
+    /* we af tehnologi bruhh */
     text-align: center;
     color: #bbb;
     background: #fff;
@@ -116,13 +123,16 @@ a img {
 }
 
 .search_full {
-    text-align: center; /* wtf но оно работает lmao */
+    text-align: center;
+    /* wtf но оно работает lmao */
 }
+
 .search_full input {
     width: 75%;
     border: 1px solid #7aa0e6;
     padding: 3px 3px 3px 25px;
 }
+
 .search_full button {
     border: 1px solid #006000;
     background: #5fa359;
@@ -142,10 +152,12 @@ a img {
     overflow: hidden;
     padding: 10px;
 }
+
 .sidebar {
     float: left;
     width: 200px;
 }
+
 .sidebar .box {
     background: #d6dff7;
     border: 1px solid #fff;
@@ -191,10 +203,12 @@ a img {
     margin: 0;
     padding: 0;
 }
+
 .sidebar a {
     text-decoration: none;
     color: #215dc6;
 }
+
 .sidebar li {
     padding: 4px;
     padding-left: 24px;
@@ -202,6 +216,7 @@ a img {
     background: url(../img/icons.png);
     background-repeat: no-repeat;
 }
+
 .sidebar li.active {
     background: #bfe0ff;
     border: 1px solid #215dc6;
@@ -219,66 +234,87 @@ a img {
 .sidebar li.myhome {
     background-position: 0px -2px;
 }
+
 .sidebar li.top {
     background-position: 0px -25px;
 }
+
 .sidebar li.updates {
     background-position: 0px -47px;
 }
+
 .sidebar li.entertainment {
     background-position: 0px -69px;
 }
+
 .sidebar li.util {
     background-position: 0px -89px;
 }
+
 .sidebar li.media {
     background-position: 0px -111px;
 }
+
 .sidebar li.office {
     background-position: 0px -132px;
 }
+
 .sidebar li.internet {
     background-position: 0px -153px;
 }
+
 .sidebar li.other {
     background-position: 0px -175px;
 }
+
 .sidebar li.themes {
     background-position: 0px -196px;
 }
+
 .sidebar li.newbie {
     background-position: 0px -283px;
 }
+
 .sidebar li.setup {
     background-position: 0px -218px;
 }
+
 .sidebar li.settings {
     background-position: 0px -389px;
 }
+
 .sidebar li.alert {
     background-position: 0px -240px;
 }
+
 .sidebar li.notify {
     background-position: 0px -324px;
 }
+
 .sidebar li.web {
     background-position: 0px -412px;
 }
+
 .sidebar li.mypc {
     background-position: 0px -478px;
 }
+
 .sidebar li.paint {
     background-position: 0px -544px;
 }
+
 li.web {
     background-position: 0px -412px;
 }
+
 .sidebar li.review {
     background-position: 0px -522px;
 }
+
 .sidebar li.editapp {
     background-position: 0px -261px;
 }
+
 .sidebar li.backtoapp {
     background-position: 0px -303px;
 }
@@ -305,24 +341,29 @@ li.web {
     display: inline-block;
     float: right;
 }
+
 .section {
     margin-bottom: 12px;
     border: 1px solid #cfe1ff;
     background: #ffffff;
     padding: 5px;
 }
+
 .section h2 {
     margin: 0 0 6px 0;
     font-size: 14px;
     color: #000;
 }
+
 .separator_store {
     background: url(../img/separatorstore.png);
     height: 1px;
     line-height: 1px;
     font-size: 0;
-    overflow: hidden; /* я манал это под IE верстать */
+    overflow: hidden;
+    /* я манал это под IE верстать */
 }
+
 .card {
     width: 200px;
     border: 1px solid #d2e9ff;
@@ -350,6 +391,7 @@ li.web {
     width: 48px;
     height: 48px;
 }
+
 .card h3 {
     margin: 0;
     font-size: 12px;
@@ -359,6 +401,7 @@ li.web {
     width: 140px;
     white-space: nowrap;
 }
+
 .card p {
     margin: 3px 0;
     font-size: 11px;
@@ -366,12 +409,14 @@ li.web {
     height: 28px;
     overflow: hidden;
 }
+
 .badge {
     float: right;
     font-weight: bold;
     font-size: 11px;
     color: #b20000;
 }
+
 .badge.free {
     color: #5fa359;
 }
@@ -390,6 +435,7 @@ li.web {
 .action {
     clear: both;
 }
+
 .action a {
     border: 1px solid #7aa0e6;
     background: #2f78d6;
@@ -398,6 +444,7 @@ li.web {
     font-size: 12px;
     text-decoration: none;
 }
+
 .footer {
     clear: both;
     padding: 12px;
@@ -405,19 +452,24 @@ li.web {
     font-size: 11px;
     color: #294b76;
 }
+
 .footer a {
     color: #294b76;
 }
+
 .fl {
     float: left;
 }
+
 .fr {
     float: right;
     display: inline;
 }
+
 .txtr {
     text-align: right;
 }
+
 .dm_menu {
     clear: both;
     padding: 8px;
@@ -425,9 +477,11 @@ li.web {
     font-size: 11px;
     color: #fff;
 }
+
 .dm_menu a {
     color: #fff;
 }
+
 .headerline {
     height: 6px;
     background: #294b76 url("../img/headline.png");
@@ -435,6 +489,7 @@ li.web {
     font-size: 0;
     overflow: hidden;
 }
+
 .separator {
     height: 1px;
     background: #e6e6e6;
@@ -494,6 +549,13 @@ li.web {
     min-height: 28px;
 }
 
+.info_splash_noicon {
+    padding: 10px;
+    background: #f4f7fa;
+    border: 1px solid #bfd2e4;
+    margin-bottom: 10px;
+}
+
 .alert_splash {
     border: 1px solid #d4bc4c;
     background-color: #f9f6e7;
@@ -527,14 +589,17 @@ li.web {
     background-position: 0px -175px;
     background-repeat: no-repeat;
 }
+
 .actionsm li.alert {
     background-position: 0px -242px;
     background-repeat: no-repeat;
 }
+
 .actionsm li.otherapps {
     background-position: 0px -285px;
     background-repeat: no-repeat;
 }
+
 .actionsm li.editapp {
     background-position: 0px -263px;
     background-repeat: no-repeat;
@@ -560,6 +625,7 @@ li.web {
     color: #fff;
     margin: auto;
 }
+
 .banner_text_mini {
     font-size: 11px;
     margin-left: 10px;
@@ -792,6 +858,7 @@ li.web {
     padding: 5px 5px 5px 10px;
     border: 1px solid #ddd;
 }
+
 .project_card {
     padding: 5px;
 }
@@ -886,11 +953,13 @@ input[type="submit"] {
     background: #ffffff;
     padding: 1px;
 }
+
 .progress_bar_fill {
     height: 14px;
     background: #44c531;
     border: 1px solid #9deba2;
 }
+
 .progress_bar_gloss {
     height: 6px;
     background: #8de396;
@@ -984,11 +1053,13 @@ input[type="submit"] {
     width: 48px;
     height: 48px;
 }
+
 .brief_admin h3 {
     margin: 0;
     font-size: 13px;
     color: #0b3a72;
 }
+
 .brief_admin p {
     margin: 3px 0;
     font-size: 11px;
@@ -1095,12 +1166,15 @@ input[type="submit"] {
 .info_block li.top {
     background-position: 0px -24px;
 }
+
 .info_block li.uni {
     background-position: 0px -197px;
 }
+
 .info_block li.com {
     background-position: 0px -284px;
 }
+
 .info_block li.nxt {
     background-position: 0px -218px;
 }
