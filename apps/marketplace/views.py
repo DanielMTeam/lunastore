@@ -378,7 +378,7 @@ def report_problem(request):
             messages.success(request, _("PAGE_REPORTPROBLEM_SUCCESS_MSG"))
             return redirect("home")
     else:
-        form = AppReportForm()
+        form = ProblemReportForm()
     context = {
         "form": form,
         "is_report_page": True,
