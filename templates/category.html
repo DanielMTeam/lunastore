@@ -1,4 +1,4 @@
-﻿{% extends 'base.html' %}
+{% extends 'base.html' %}
 {% load i18n %}
 {% load static %}
 {% load category %}
@@ -44,13 +44,6 @@
  </div>
     {% for app in page_obj %}
     <div class="card {% if view_mode == 'list' %}listview{% endif %}">
-        {% if app.icon_path %}
-            <a href="./app.php?id={{ app.id }}"><img src="{{ app.icon_url }}" alt="{{ app.title }}"></a>
-        {% else %}
-            <a href="./app.php?id={{ app.id }}"><img src="{% static './img/noavatar_64.jpg' %}" alt="{{ app.title }}"></a>
-        {% endif %}
-      <a href="./app.php?id={{ app.id }}"><h3>{{ app.title }}</h3></a>
-      <p>{{ app.slogan }}</p>
       {% if app.is_demo %}
         {% if app.price > 0 %}
           <div class="badge demo">{% trans "INFO_APP_DEMOWITHPRICE" %} ${{ app.price }}</div>
@@ -73,6 +66,16 @@
           <div class="action"><a href="./app.php?id={{ app.id }}">{% trans "PAGE_CATEGORY_INSTALLBTN" %}</a></div>
         {% endif %}
       {% endif %}
+
+        {% if app.icon_path %}
+            <a href="./app.php?id={{ app.id }}"><div class="card_icon" style="background-image: url('{{ app.icon_url }}'); _background: none; _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{ app.icon_url }}', sizingMethod='scale');"></div></a>
+        {% else %}
+            <a href="./app.php?id={{ app.id }}"><div class="card_icon" style="background-image: url('{% static './img/noavatar_64.jpg' %}'); _background: none; _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{% static './img/noavatar_64.jpg' %}', sizingMethod='scale');"></div></a>
+        {% endif %}
+      <div class="card_text">
+        <a href="./app.php?id={{ app.id }}"><h3>{{ app.title }}</h3></a>
+        <p>{{ app.slogan }}</p>
+      </div>
     </div>
     {% endfor %}
     <div style="clear:both"></div>

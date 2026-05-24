@@ -1,0 +1,168 @@
+/* Thickbox Windows XP Style */
+
+#TB_overlay {
+	background: #000;
+	opacity: 0.7;
+	filter: alpha(opacity=70);
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 100050;
+}
+
+#TB_window {
+	position: fixed;
+	background: #f2f6fc;
+	z-index: 100050;
+	visibility: hidden;
+	text-align: left;
+	top: 50%;
+	left: 50%;
+	border: 1px solid #00138c;
+	border-top: 25px solid #0054e3;
+	padding-bottom: 10px;
+	/* Windows XP typical window border/shadow */
+	border-radius: 3px 3px 0 0;
+	-webkit-box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+	box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+}
+
+/* Hide the screen reader text like "Close" so they don't appear as links */
+#TB_window .screen-reader-text {
+	display: none !important;
+}
+
+#TB_window img#TB_Image {
+	display: block;
+	margin: 15px auto 5px auto;
+	border: 1px solid #7aa0e6;
+}
+
+/* The caption and image counter at the bottom */
+#TB_caption {
+	text-align: center;
+	color: #000;
+	padding: 5px 15px;
+	font-family: Tahoma, Arial, sans-serif;
+	font-size: 11px;
+}
+
+#TB_secondLine {
+	margin-top: 5px;
+	font-size: 11px;
+	color: #333;
+}
+
+#TB_secondLine a {
+	color: #215dc6;
+	text-decoration: underline;
+	margin: 0 5px;
+}
+
+/* The absolute positioned close button on the top right */
+#TB_closeWindow {
+	position: absolute;
+	top: -23px;
+	right: 3px;
+	height: 21px;
+	width: 21px;
+}
+
+#TB_closeWindowButton {
+	background: url("../img/close_a.png") no-repeat center center;
+	width: 21px;
+	height: 21px;
+	border: none;
+	cursor: pointer;
+	padding: 0;
+	margin: 0;
+	outline: none;
+}
+
+.tb-close-icon {
+	display: none !important;
+}
+
+/* Fallback for AJAX content */
+#TB_ajaxWindowTitle {
+	position: absolute;
+	top: -25px;
+	left: 0;
+	font-weight: bold;
+	line-height: 25px;
+	padding: 0 10px;
+	color: #fff;
+	font-family: Tahoma, Arial, sans-serif;
+	font-size: 12px;
+}
+
+#TB_title {
+	height: 0; /* Title bar is handled by #TB_window background */
+}
+
+#TB_ajaxContent {
+	clear: both;
+	padding: 15px;
+	overflow: auto;
+	text-align: left;
+	line-height: 1.4em;
+	background: #f2f6fc;
+}
+
+#TB_ajaxContent.TB_modal {
+	padding: 15px;
+}
+
+#TB_ajaxContent p {
+	padding: 5px 0px;
+}
+
+#TB_load {
+	position: fixed;
+	display: none;
+	z-index: 100050;
+	top: 50%;
+	left: 50%;
+	background-color: #f2f6fc;
+	border: 1px solid #00138c;
+	margin: -45px 0 0 -125px;
+	padding: 40px 15px 15px;
+}
+
+#TB_HideSelect {
+	z-index: 99;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: #fff;
+	border: none;
+	filter: alpha(opacity=0);
+	opacity: 0;
+	height: 100%;
+	width: 100%;
+}
+
+#TB_iframeContent {
+	clear: both;
+	border: none;
+}
+
+/* IE6 hacks for thickbox */
+* html #TB_overlay {
+     position: absolute;
+     height: expression(document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight : document.body.offsetHeight + 'px');
+}
+* html #TB_window {
+     position: absolute;
+     margin-top: expression(0 - parseInt(this.offsetHeight / 2) + (TBWindowMargin = document.documentElement && document.documentElement.scrollTop || document.body.scrollTop) + 'px');
+}
+* html #TB_load {
+     position: absolute;
+     margin-top: expression(0 - parseInt(this.offsetHeight / 2) + (TBWindowMargin = document.documentElement && document.documentElement.scrollTop || document.body.scrollTop) + 'px');
+}
+* html #TB_HideSelect {
+     position: absolute;
+     height: expression(document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight : document.body.offsetHeight + 'px');
+}

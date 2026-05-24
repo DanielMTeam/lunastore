@@ -1869,3 +1869,22 @@ msgstr "Вхід виконано успішно! Привіт, %(username)s!"
 
 msgid "PAGE_APP_LABEL_PRICE"
 msgstr "Ціна"
+
+msgid "THICKBOX_IMAGE"
+msgstr "Зображення"
+
+msgid "THICKBOX_OF"
+msgstr "з"
+
+msgid "THICKBOX_CLOSE"
+msgstr "Закрити"
+
+msgid "THICKBOX_NEXT"
+msgstr "Далі"
+
+msgid "THICKBOX_PREV"
+msgstr "Назад"
+
+msgid "THICKBOX_NO_IFRAMES"
+msgstr "Без iFrames"
+

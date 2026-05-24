@@ -1,10 +1,23 @@
-﻿{% extends 'base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% load i18n %}
 
 {% block content %}
 <div class="content">
     <link rel="stylesheet" href='{% static "./css/stpage.css"%}'>
+    <link rel="stylesheet" href='{% static "./css/thickbox.css"%}'>
+    <script src="{% static './js/jquery.min.js' %}"></script>
+    <script>
+        window.thickboxL10n = {
+            image: "{% trans 'THICKBOX_IMAGE'|default:'Image' %}",
+            of: "{% trans 'THICKBOX_OF'|default:'of' %}",
+            close: "{% trans 'THICKBOX_CLOSE'|default:'Close' %}",
+            next: "{% trans 'THICKBOX_NEXT'|default:'Next' %}",
+            prev: "{% trans 'THICKBOX_PREV'|default:'Prev' %}",
+            noiframes: "{% trans 'THICKBOX_NO_IFRAMES'|default:'No iFrames' %}"
+        };
+    </script>
+    <script src="{% static './js/thickbox.js' %}"></script>
 
 
     {% if not is_translated_to_current_lang %}
@@ -110,7 +123,7 @@
         <div class="st_screenshots_container">
             {% for screenshot_url in screenshot_urls %}
                 <div class="st_scr">
-                    <a href="{{ screenshot_url }}" target="_blank">
+                    <a href="{{ screenshot_url }}" class="thickbox" rel="gallery-screenshots">
                         <img src="{{ screenshot_url }}" alt="{% trans 'PAGE_APP_IMG_ALT_SCREENSHOT' %}" style="width: 120px; height: 90px; border: 0;">
                     </a>
                 </div>

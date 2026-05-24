@@ -1860,3 +1860,22 @@ msgstr "Сіз сәтті кірдіңіз! Сәлем, %(username)s!"
 
 msgid "PAGE_APP_LABEL_PRICE"
 msgstr "Бағасы"
+
+msgid "THICKBOX_IMAGE"
+msgstr "Сурет"
+
+msgid "THICKBOX_OF"
+msgstr "ішінен"
+
+msgid "THICKBOX_CLOSE"
+msgstr "Жабу"
+
+msgid "THICKBOX_NEXT"
+msgstr "Алға"
+
+msgid "THICKBOX_PREV"
+msgstr "Артқа"
+
+msgid "THICKBOX_NO_IFRAMES"
+msgstr "iFrames жоқ"
+
