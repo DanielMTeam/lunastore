@@ -21,6 +21,7 @@ from .models import (
     Distribution,
     DistributionCreateRequests,
     DistributionEditRequests,
+    ProblemReportRequests,
 )
 from apps.core.mixins import CDNTokenValidationMixin
 
@@ -410,6 +411,17 @@ class AppReportForm(forms.ModelForm):
             "name": "whois",
         }
 
+class ProblemReportForm(forms.ModelForm):
+    class Meta:
+        model = ProblemReportRequests
+        fields = ["description"]
+        widgets = {
+            "description": forms.Textarea(
+                attrs={"class": "brief_intro", "cols": "500", "name": "whois"}
+            ),
+            "cols": "500",
+            "name": "whois",
+        }
 
 class ApplicationAdminForm(forms.ModelForm):
     icon_file = forms.ImageField(

@@ -15,6 +15,7 @@ urlpatterns = [
     ),
     path("search.php", views.search, name="search"),
     path("report_app.php", views.report_app, name="report_app"),
+    path("report_problem.php", views.report_problem, name="report_problem"),
     path("download.php", views.download_list, name="download"),
     path("distributions.php", views.manage_distributions, name="manage_distributions"),
     path(
