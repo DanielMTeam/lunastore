@@ -74,6 +74,7 @@ class BaseApplicationInfo(SafeDeleteModel):
     developer_site = models.URLField(
         max_length=160, null=True, blank=True, verbose_name="Сайт разработчика"
     )
+    is_demo = models.BooleanField(default=False, verbose_name="Демо-версия")
 
     class Meta:
         abstract = True
@@ -110,7 +111,6 @@ class Application(BaseApplicationInfo, SafeDeleteModel):
         verbose_name="Автор",
     )
 
-    is_demo = models.BooleanField(default=False)
     is_under_dmca = models.BooleanField(default=False)
     published = models.DateTimeField(auto_now=True)
 

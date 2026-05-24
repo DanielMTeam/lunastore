@@ -328,11 +328,17 @@ def search(request):
         del query_params["page"]
     url_params = query_params.urlencode()
 
+    query_params_no_view = query_params.copy()
+    if "view" in query_params_no_view:
+        del query_params_no_view["view"]
+    url_params_no_view = query_params_no_view.urlencode()
+
     context = {
         "results": page_obj,
         "query": query,
         "view_mode": view_mode,
         "url_params": url_params,
+        "url_params_no_view": url_params_no_view,
         "categories": categories,
     }
     return render(request, "search.html", context)

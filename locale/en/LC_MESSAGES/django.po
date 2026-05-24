@@ -1860,3 +1860,6 @@ msgstr "Incorrect username or password."
 
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "Login successful! Welcome, %(username)s!"
+
+msgid "PAGE_APP_LABEL_PRICE"
+msgstr "Price"

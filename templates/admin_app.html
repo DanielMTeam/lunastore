@@ -1,4 +1,4 @@
-﻿{% extends 'base.html' %}
+{% extends 'base.html' %}
 {% load i18n %}
 {% load static %}
 
@@ -199,6 +199,18 @@
                   <div class="pref_pad">
                       <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_DEVSITE" %}</div>
                       {{ form.developer_site }}
+                  </div>
+
+                  <div class="pref_pad">
+                      <label style="cursor:pointer; display: block;">
+                          {{ form.is_demo }}
+                          <span style="vertical-align: middle; margin-left: 3px;">{% trans "INFO_APP_DEMO" %}</span>
+                      </label>
+                  </div>
+
+                  <div class="pref_pad">
+                      <div class="pref_item_title">{% trans "PAGE_APP_LABEL_PRICE" %} (USD)</div>
+                      {{ form.price }}
                   </div>
 
               </div> <br>

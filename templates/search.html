@@ -8,7 +8,7 @@
 
 <div class="list_settings">
     <div class="selector">
-        <select onchange="location = '?{{ url_params|safe }}&view=' + this.value;">
+        <select onchange="location = '?{{ url_params_no_view|safe }}{% if url_params_no_view %}&{% endif %}view=' + this.value;">
             <option value="" disabled selected>{% trans "PAGE_SEARCH_SORT_PLACEHOLDER" %}</option>
             <option value="tiles">{% trans "PAGE_SEARCH_SORT_TILES" %}</option>
             <option value="list">{% trans "PAGE_SEARCH_SORT_LIST" %}</option>

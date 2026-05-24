@@ -1,4 +1,4 @@
-﻿{% extends 'base.html' %}
+{% extends 'base.html' %}
 {% load i18n %}
 {% load static %}
 
@@ -23,10 +23,12 @@
             <td style="vertical-align: middle; padding: 0; text-align: left;">
               <div class="sidebar" style="position: relative; width: 280px; height: 26px; margin: 0; padding: 0; border: none; background: none; float: none; display: block; *display: inline; *zoom: 1;">
 
-                <li class="web" style="position: absolute; left: 4px; top: 4px; width: 24px; height: 18px; margin: 0; padding: 0; list-style: none; display: block; border: none; background-color: transparent; z-index: 10;"></li>
-
                 <input type="text" name="q" placeholder="{% trans 'INDEX_SEARCH_PLACEHOLDER' %}"
                        style="width: 243px; border: 1px solid #7aa0e6; padding: 3px 3px 3px 30px; margin: 0; position: absolute; left: 0; top: 0; height: 18px; font-family: Tahoma, Arial, sans-serif;">
+
+                <div style="position: absolute; left: 4px; top: 4px; z-index: 10; width: 24px; height: 18px;">
+                  <li class="web" style="width: 24px; height: 18px; margin: 0; padding: 0; list-style: none; display: block; border: none; background-color: transparent;"></li>
+                </div>
               </div>
             </td>
 
@@ -39,17 +41,17 @@
         </table>
       </form>
 
-      <div style="margin-top: 15px; color: #333; font-size: 11px; text-align: center;">
-        <span style="display: block; margin-bottom: 8px;">{% trans "INDEX_CATEGORY_PROMPT" %}</span>
+      <div class="index_categories">
+        <span class="prompt">{% trans "INDEX_CATEGORY_PROMPT" %}</span>
         {% if categories %}
           {% for category in categories %}
-            <a href="{% url 'category' %}?id={{ category.pk }}" style="color: #215dc6; text-decoration: none; font-weight: bold;">
+            <a href="{% url 'category' %}?id={{ category.pk }}">
               {{ category.name }}
             </a>
-            {% if not forloop.last %}<span style="color: #9db6d8; margin: 0 4px;">|</span>{% endif %}
+            {% if not forloop.last %}<span class="separator">|</span>{% endif %}
           {% endfor %}
         {% else %}
-          <span style="color: #999;">{% trans "INDEX_NO_CATEGORIES" %}</span>
+          <span class="empty">{% trans "INDEX_NO_CATEGORIES" %}</span>
         {% endif %}
       </div>
     </div>

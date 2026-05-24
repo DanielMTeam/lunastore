@@ -1866,3 +1866,6 @@ msgstr "Неправильний логін або пароль."
 
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "Вхід виконано успішно! Привіт, %(username)s!"
+
+msgid "PAGE_APP_LABEL_PRICE"
+msgstr "Ціна"
