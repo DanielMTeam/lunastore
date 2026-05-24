@@ -209,10 +209,6 @@ a img {
     color: #215dc6;
 }
 
-.sidebar a:hover {
-    color: crimson;
-}
-
 .sidebar li {
     padding: 4px;
     padding-left: 24px;
@@ -1349,11 +1345,6 @@ input[type="submit"] {
 
 .iewarn_restrict_list {
     margin-left: 20px;
-}
-
-a.report_problem {
-    color: red;
-    float: right;
 }
 
 .index_categories {

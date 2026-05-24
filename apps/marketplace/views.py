@@ -12,7 +12,7 @@ from django.utils.translation import gettext as _
 from django_smart_ratelimit import ratelimit
 from apps.user.decorators import developer_required, require_modern_browser
 from .decorators import user_is_owner
-from .forms import AppCreateForm, AppEditForm, AppReportForm, DistributionCreateForm, DistributionEditForm, ProblemReportForm
+from .forms import AppCreateForm, AppEditForm, AppReportForm, DistributionCreateForm, DistributionEditForm
 from .models import AppCreateRequests, Application, Category, Distribution, AppEditRequests, DistributionCreateRequests, DistributionEditRequests
 
 
@@ -371,25 +371,6 @@ def report_app(request):
         "icon": obj.icon_url,
     }
     return render(request, "report_app.html", context)
-
-@ratelimit(key='ip', rate='20/1m', block=True)
-@login_required
-def report_problem(request):
-    if request.method == "POST":
-        form = ProblemReportForm(request.POST)
-        if form.is_valid():
-            report = form.save(commit=False)
-            report.user = request.user
-            report.save()
-            messages.success(request, _("PAGE_REPORTPROBLEM_SUCCESS_MSG"))
-            return redirect("home")
-    else:
-        form = ProblemReportForm()
-    context = {
-        "form": form,
-        "is_report_page": True,
-    }
-    return render(request, "report_problem.html", context)
 
 
 @login_required
