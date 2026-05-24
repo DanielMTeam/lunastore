@@ -1435,7 +1435,7 @@ msgid "PAGE_MANAGE_APPS_EMPTY_DESC"
 msgstr "Сіз әзірге бірде-бір қосымшаны басқармайсыз."
 
 msgid "PAGE_MANAGE_APPS_EMPTY_TITLE"
-msgstr "Қосымшалар жоқ ＞︿＜"
+msgstr "Қосымшалар жоқ >.<"
 
 msgid "PAGE_MANAGE_APPS_HEADER"
 msgstr "Басқарылатын қосымша беттері"
@@ -1532,7 +1532,7 @@ msgid "PAGE_PROFILE_INVITES_EMPTY_DESC"
 msgstr "Әзірге бұл пайдаланушының шақыруы бойынша ешкім тіркелмеді."
 
 msgid "PAGE_PROFILE_INVITES_EMPTY_TITLE"
-msgstr "Шақырулар жоқ ＞︿＜"
+msgstr "Шақырулар жоқ ~_~"
 
 msgid "PAGE_PROFILE_INVITES_PEOPLE"
 msgstr "адам (алғашқы 5-уі көрсетілген)"

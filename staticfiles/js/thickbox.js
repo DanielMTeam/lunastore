@@ -150,7 +150,7 @@ function tb_show(caption, url, imageGroup) {//function called when the user clic
 				jQuery("#TB_closeWindowButton").on('click', tb_remove);
 
 				var goPrev = function () {
-					if (jQuery(document).off("click", goPrev)) { jQuery(document).off("click", goPrev); }
+					jQuery(document).off("keydown.thickbox");
 					jQuery("#TB_window").remove();
 					jQuery("body").append("<div id='TB_window'></div>");
 					tb_show(TB_PrevCaption, TB_PrevURL, imageGroup);
@@ -162,6 +162,7 @@ function tb_show(caption, url, imageGroup) {//function called when the user clic
 				}
 
 				var goNext = function () {
+					jQuery(document).off("keydown.thickbox");
 					jQuery("#TB_window").remove();
 					jQuery("body").append("<div id='TB_window'></div>");
 					tb_show(TB_NextCaption, TB_NextURL, imageGroup);
@@ -172,20 +173,20 @@ function tb_show(caption, url, imageGroup) {//function called when the user clic
 					jQuery("#TB_next").on('click', goNext);
 				}
 
-				jQuery(document).on('keydown.thickbox', function (e) {
+				jQuery(document).off('keydown.thickbox').on('keydown.thickbox', function (e) {
 					if (e.which == 27) {
 						// close
 						tb_remove();
 					} else if (e.which == 39) {
 						// display next image
 						if (!(TB_NextHTML == "")) {
-							jQuery(document).off("thickbox");
+							jQuery(document).off("keydown.thickbox");
 							goNext();
 						}
 					} else if (e.which == 37) {
 						// display previous image
 						if (!(TB_PrevHTML == "")) {
-							jQuery(document).off("thickbox");
+							jQuery(document).off("keydown.thickbox");
 							goPrev();
 						}
 					}
