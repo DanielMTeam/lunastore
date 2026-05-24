@@ -343,6 +343,12 @@ UNFOLD = {
                         "icon": "report",
                         "link": reverse_lazy("admin:marketplace_appreportrequests_changelist"),
                     },
+                    {
+                        "title": "Жалобы на проблемы",
+                        "icon": "flag",
+                        "link": reverse_lazy("admin:marketplace_problemreportrequests_changelist"),
+                    },
+
                 ],
             },
             {
