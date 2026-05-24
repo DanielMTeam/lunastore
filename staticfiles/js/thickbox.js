@@ -172,17 +172,19 @@ function tb_show(caption, url, imageGroup) {//function called when the user clic
 			}
 
 			jQuery(document).on('keydown.thickbox', function(e){
-				if ( e.which == 27 ){ // close
+				if (e.which == 27) {
+					// close
 					tb_remove();
-
-				} else if ( e.which == 190 ){ // display previous image
-					if(!(TB_NextHTML == "")){
-						jQuery(document).off('thickbox');
+				} else if (e.which == 39) {
+					// display next image
+					if (!(TB_NextHTML == "")) {
+						jQuery(document).off("thickbox");
 						goNext();
 					}
-				} else if ( e.which == 188 ){ // display next image
-					if(!(TB_PrevHTML == "")){
-						jQuery(document).off('thickbox');
+				} else if (e.which == 37) {
+					// display previous image
+					if (!(TB_PrevHTML == "")) {
+						jQuery(document).off("thickbox");
 						goPrev();
 					}
 				}
