@@ -1321,3 +1321,30 @@ input[type="submit"] {
 .iewarn_restrict_list {
     margin-left: 20px;
 }
+
+.index_categories {
+    margin-top: 15px;
+    color: #333;
+    font-size: 11px;
+    text-align: center;
+}
+
+.index_categories .prompt {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.index_categories a {
+    color: #215dc6;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.index_categories .separator {
+    color: #9db6d8;
+    margin: 0 4px;
+}
+
+.index_categories .empty {
+    color: #999;
+}

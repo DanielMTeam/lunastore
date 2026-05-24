@@ -465,6 +465,7 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
         "original_author",
         "icon_preview",
         "price",
+        "is_demo",
         "screenshots",
         "developer_site",
     )
@@ -522,6 +523,7 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
             screenshots=req.screenshots,
             developer_site=req.developer_site,
             original_author=req.original_author,
+            is_demo=req.is_demo,
         )
 
         # copy locale
@@ -582,6 +584,7 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
                     "slogan",
                     "description",
                     "price",
+                    "is_demo",
                     "icon_path",
                     "screenshots",
                     "developer_site",
@@ -627,6 +630,7 @@ class AppEditRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
         "slogan",
         "icon_preview",
         "price",
+        "is_demo",
         "screenshots",
         "developer_site",
     )
@@ -642,6 +646,7 @@ class AppEditRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
                     "requirements",
                     "original_author",
                     "price",
+                    "is_demo",
                     "developer_site",
                     "icon_preview",
                     "screenshots",
@@ -720,6 +725,7 @@ class AppEditRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
         app.category = req.category
         app.original_author = req.original_author
         app.price = req.price
+        app.is_demo = req.is_demo
         app.developer_site = req.developer_site
 
         if req.icon_path:
@@ -788,6 +794,7 @@ class AppEditRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
                     "description",
                     "original_author",
                     "price",
+                    "is_demo",
                     "icon_path",
                     "screenshots",
                     "developer_site",

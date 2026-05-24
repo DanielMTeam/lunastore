@@ -260,6 +260,25 @@
                         </label>
 
                         <div class="add_app_pad">
+                            <label style="cursor:pointer; display: block;">
+                                {{ form.is_demo }}
+                                <span style="vertical-align: middle; margin-left: 3px;">{% trans "INFO_APP_DEMO" %}</span>
+                            </label>
+                        </div>
+
+                        <label>
+                            <div class="add_app_pad">
+                                <div class="add_app_title">{% trans "PAGE_APP_LABEL_PRICE" %} (USD):</div>
+                                {{ form.price }}
+                                {% if form.price.errors %}
+                                    <div class="errorlist">
+                                        {{ form.price.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </label>
+
+                        <div class="add_app_pad">
                             <div class="add_app_title">{% trans "PAGE_ADDAPP_STEP2_DESC" %}</div>
 
                             <div class="tabs field-tabs">

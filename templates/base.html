@@ -29,6 +29,14 @@
 
     tolgee.run();
   </script>
+
+  <!--[if IE 6]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dd_belatedpng/0.0.8/dd_belatedpng.min.js"></script>
+  <script>
+    // fix png alpha channel for ie6
+    DD_belatedPNG.fix('img, .ls_dm_logo, .error_icon_small, .good_icon_small, .info_icon_small, .sidebar li, .category_icon, .balloon_img, .dm_menu');
+  </script>
+  <![endif]-->
 </head>
 
 
@@ -163,7 +171,7 @@
       <div class="sidebar_additional_data">
           {% if sidebar_banner %}
             <a href="{{ sidebar_banner.url|default:'#' }}" {% if sidebar_banner.url %}target="_blank" rel="noopener noreferrer"{% endif %}>
-              <img src="{{ sidebar_banner.image.url }}" alt="{{ sidebar_banner.title }}" style="max-width: 100%; height: auto; display: block;">
+              <img src="{{ sidebar_banner.image_url }}" alt="{{ sidebar_banner.title }}" style="max-width: 100%; height: auto; display: block;">
             </a>
           {% else %}
               <a href="#">

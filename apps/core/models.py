@@ -19,5 +19,17 @@ class Banner(models.Model):
         verbose_name = "Баннер"
         verbose_name_plural = "Баннеры"
 
-    def __str__(self):
-        return self.title
+    def __str__(self) -> str:
+        return str(self.title)
+
+    @property
+    def image_url(self) -> str:
+        # returns protocol-relative image url for ie6 compatibility
+        if self.image and hasattr(self.image, 'url'):
+            url = str(self.image.url)
+            if url.startswith('http://'):
+                return url.replace('http://', '//', 1)
+            elif url.startswith('https://'):
+                return url.replace('https://', '//', 1)
+            return url
+        return ''
