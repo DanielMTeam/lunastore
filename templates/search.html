@@ -34,26 +34,26 @@
             <button type="submit">{% trans "PAGE_SEARCH_BTN_SUBMIT" %}</button>
         </div>
 
-        <div class="info_splash" style="margin-bottom: 0; padding: 8px;">
+        <div class="info_splash info_splash_filters">
 
-            <div style="color: #215dc6; font-weight: bold; margin-bottom: 6px; border-bottom: 1px solid #bfd2e4; padding-bottom: 3px;">
+            <div class="search_filter_title">
                 {% trans "PAGE_SEARCH_LINK_ADVANCED" %}
             </div>
 
-            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="font-size: 11px; table-layout: fixed;">
+            <table cellpadding="0" cellspacing="0" border="0" class="search_filter_table">
                 <tr>
-                    <td colspan="2" style="padding-bottom: 10px; white-space: nowrap;">
+                    <td colspan="2" class="search_filter_td_top">
 
-                        <span style="margin-right: 20px; vertical-align: middle;">
+                        <span class="search_filter_item">
                             {% trans "PAGE_SEARCH_FILTER_AUTHOR_ID" %}:
                             <input type="text" name="author" value="{{ f_author|default:'' }}"
                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');"
-                                   style="width: 140px; padding: 1px; margin-left: 5px; border: 1px solid #7aa0e6; font-size: 11px; vertical-align: middle;">
+                                   class="search_filter_input">
                         </span>
 
-                        <span style="vertical-align: middle;">
+                        <span class="search_filter_item_last">
                             {% trans "PAGE_SEARCH_FILTER_CATEGORY" %}:
-                            <select name="category" style="width: 144px; border: 1px solid #7aa0e6; font-size: 11px; vertical-align: middle;">
+                            <select name="category" class="search_filter_select">
                                 <option value="">{% trans "PAGE_SEARCH_FILTER_CATEGORY_ALL" %}</option>
                                 {% for cat in categories %}
                                     <option value="{{ cat.id }}" {% if request.GET.category == cat.id|stringformat:"s" %}selected{% endif %}>
@@ -67,16 +67,16 @@
                 </tr>
 
                 <tr>
-                    <td valign="middle" style="white-space: nowrap;">
-                        <label style="cursor: pointer; margin: 0;">
-                            <input type="checkbox" name="is_free" style="margin: 0 4px 0 0; border: none; vertical-align: middle;" {% if request.GET.is_free == 'on' %}checked{% endif %}>
-                            <span style="vertical-align: middle;">{% trans "PAGE_SEARCH_FILTER_FREE" %}</span>
+                    <td valign="middle" class="search_filter_td_bottom">
+                        <label class="search_filter_label">
+                            <input type="checkbox" name="is_free" class="search_filter_checkbox" {% if request.GET.is_free == 'on' %}checked{% endif %}>
+                            <span class="search_filter_checkbox_text">{% trans "PAGE_SEARCH_FILTER_FREE" %}</span>
                         </label>
                     </td>
 
                     <td align="right" valign="middle">
                         <a href="{% url 'search' %}?view={{ view_mode }}"
-                           style="border: 1px solid #7aa0e6; background: #eaf1fb; color: #000; padding: 2px 8px; text-decoration: none; font-size: 11px; display: block; width: 100px; text-align: center; float: right;">
+                           class="search_filter_reset_btn">
                             {% trans "PAGE_SEARCH_BTN_RESET" %}
                         </a>
                     </td>
