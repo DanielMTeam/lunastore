@@ -124,8 +124,8 @@ function tb_show(caption, url, imageGroup) {//function called when the user clic
 			var pagesize = tb_getPageSize();
 			var x = pagesize[0] - 150;
 			var y = pagesize[1] - 150;
-			var imageWidth = imgPreloader.width;
-			var imageHeight = imgPreloader.height;
+			var imageWidth = imgPreloader.width / 2;
+			var imageHeight = imgPreloader.height / 2;
 			if (imageWidth > x) {
 				imageHeight = imageHeight * (x / imageWidth);
 				imageWidth = x;
