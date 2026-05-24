@@ -4,6 +4,7 @@
     border-right: 1px solid #9a9a9a;
     border-left: 1px solid #9a9a9a;
     min-height: 64px;
+    width: 438px;
 }
 .profile_avatar {
     width: 64px;
@@ -43,6 +44,7 @@
     color: #fff;
     font-weight: bold;
     font-size: 12px;
+    width: 428px;
 }
 .profile_subblock {
     padding: 5px;
@@ -51,12 +53,14 @@
     border-left: 1px solid #2b67b3;
     border-right: 1px solid #2b67b3;
     font-size: 10px;
+    width: 426px;
 }
 .profile_block_content {
     padding: 10px;
     background: #ffffff;
     border: 1px solid #2b67b3;
     position: relative;
+    width: 416px;
 }
 .profile_block a {
     color: #fff;

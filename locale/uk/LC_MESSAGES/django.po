@@ -1439,7 +1439,7 @@ msgid "PAGE_MANAGE_APPS_EMPTY_DESC"
 msgstr "Ви поки ще не керуєте жодної програмою."
 
 msgid "PAGE_MANAGE_APPS_EMPTY_TITLE"
-msgstr "Програм немає ＞︿＜"
+msgstr "Програм немає >.<"
 
 msgid "PAGE_MANAGE_APPS_HEADER"
 msgstr "Керовані сторінки програм"
@@ -1538,7 +1538,7 @@ msgid "PAGE_PROFILE_INVITES_EMPTY_DESC"
 msgstr "Поки що жодна людина не зареєструвалася за запрошенням цього користувача."
 
 msgid "PAGE_PROFILE_INVITES_EMPTY_TITLE"
-msgstr "Запрошень немає ＞︿＜"
+msgstr "Запрошень немає ~_~"
 
 msgid "PAGE_PROFILE_INVITES_PEOPLE"
 msgstr "людей (показані перші 5)"
