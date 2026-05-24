@@ -1,4 +1,4 @@
-﻿{% extends 'base.html' %}
+{% extends 'base.html' %}
 {% load i18n %}
 {% load static %}
 
@@ -48,21 +48,22 @@
         {% if invited_users %}
             <div style="overflow: hidden;"> {% for user in invited_users %}
                 <div class="card listview">
-                    <img src="{% static 'img/logo.png' %}" alt="Avatar">
-                    
                     {% if user.is_staff %}
                         <div class="badge demo">{% trans "PAGE_INVITE_ADMINSTATUS" %}</div>
                     {% else %}
                         <div class="badge free">{% trans "PAGE_INVITE_USERSTATUS" %}</div>
                     {% endif %}
 
-                    <h3>
-                        <a href="/profile.php?id={{ user.id }}" style="text-decoration: none; color: inherit;">
-                            {{ user.username }}
-                        </a>
-                    </h3>
+                    <div class="card_icon" style="background-image: url('{% static 'img/logo.png' %}'); _background: none; _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{% static 'img/logo.png' %}', sizingMethod='scale');"></div>
 
-                    <p>{% trans "PAGE_INVITE_REGDATE" %}: {{ user.date_joined|date:"d.m.Y H:i" }}</p>
+                    <div class="card_text">
+                        <h3>
+                            <a href="/profile.php?id={{ user.id }}" style="text-decoration: none; color: inherit;">
+                                {{ user.username }}
+                            </a>
+                        </h3>
+                        <p>{% trans "PAGE_INVITE_REGDATE" %}: {{ user.date_joined|date:"d.m.Y H:i" }}</p>
+                    </div>
 
                 </div>
                 {% endfor %}

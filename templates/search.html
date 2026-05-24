@@ -91,15 +91,6 @@
     {% for app in results %}
         <div class="card {% if view_mode == 'list' %}listview{% endif %}">
 
-            {% if app.icon_path %}
-                <img src="{{ app.icon_url }}" alt="{{ app.title }}">
-            {% else %}
-                <img src="{% static './img/noavatar_64.jpg' %}" alt="{% trans 'PAGE_SEARCH_IMG_ALT_NONE' %}">
-            {% endif %}
-
-            <a href="/app.php?id={{ app.pk }}"><h3>{{ app.title }}</h3></a>
-            <p>{{ app.slogan }}</p>
-
             {% if app.is_demo %}
                 {% if app.price > 0 %}
                     <div class="badge demo">
@@ -121,6 +112,17 @@
                 <a href="./app.php?id={{ app.id }}">{% trans "PAGE_SEARCH_BTN_DETAILS" %}</a>
             </div>
             {% endif %}
+
+            {% if app.icon_path %}
+                <div class="card_icon" style="background-image: url('{{ app.icon_url }}'); _background: none; _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{ app.icon_url }}', sizingMethod='scale');"></div>
+            {% else %}
+                <div class="card_icon" style="background-image: url('{% static './img/noavatar_64.jpg' %}'); _background: none; _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{% static './img/noavatar_64.jpg' %}', sizingMethod='scale');"></div>
+            {% endif %}
+
+            <div class="card_text">
+                <a href="/app.php?id={{ app.pk }}"><h3>{{ app.title }}</h3></a>
+                <p>{{ app.slogan }}</p>
+            </div>
         </div>
 
     {% empty %}

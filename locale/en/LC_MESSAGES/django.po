@@ -1863,3 +1863,22 @@ msgstr "Login successful! Welcome, %(username)s!"
 
 msgid "PAGE_APP_LABEL_PRICE"
 msgstr "Price"
+
+msgid "THICKBOX_IMAGE"
+msgstr "Image"
+
+msgid "THICKBOX_OF"
+msgstr "of"
+
+msgid "THICKBOX_CLOSE"
+msgstr "Close"
+
+msgid "THICKBOX_NEXT"
+msgstr "Next"
+
+msgid "THICKBOX_PREV"
+msgstr "Prev"
+
+msgid "THICKBOX_NO_IFRAMES"
+msgstr "No iFrames"
+

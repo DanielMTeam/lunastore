@@ -372,10 +372,15 @@ li.web {
     margin: 5px;
     padding: 5px;
     height: 75px;
+    position: relative;
 }
 
 .listview {
     width: 425px;
+}
+
+.listview .card_text {
+    width: 370px;
 }
 
 .listview h3 {
@@ -385,11 +390,21 @@ li.web {
     white-space: nowrap;
 }
 
-.card img {
+.card img, .card_icon {
     float: left;
     margin-right: 6px;
     width: 48px;
     height: 48px;
+}
+
+.card_icon {
+    background-size: cover;
+    background-position: center;
+}
+
+.card_text {
+    float: left;
+    width: 140px;
 }
 
 .card h3 {
@@ -411,7 +426,9 @@ li.web {
 }
 
 .badge {
-    float: right;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
     font-weight: bold;
     font-size: 11px;
     color: #b20000;
@@ -434,6 +451,14 @@ li.web {
 
 .action {
     clear: both;
+}
+
+.card .action {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    clear: none;
+    margin: 0;
 }
 
 .action a {

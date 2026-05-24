@@ -1866,3 +1866,22 @@ msgstr "Уваход паспяховы! Вітаем, %(username)s!"
 
 msgid "PAGE_APP_LABEL_PRICE"
 msgstr "Цана"
+
+msgid "THICKBOX_IMAGE"
+msgstr "Малюнак"
+
+msgid "THICKBOX_OF"
+msgstr "з"
+
+msgid "THICKBOX_CLOSE"
+msgstr "Закрыць"
+
+msgid "THICKBOX_NEXT"
+msgstr "Наперад"
+
+msgid "THICKBOX_PREV"
+msgstr "Назад"
+
+msgid "THICKBOX_NO_IFRAMES"
+msgstr "Без iFrames"
+
