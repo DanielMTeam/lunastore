@@ -1,4 +1,4 @@
-from apps.marketplace.models import AppCreateRequests, Application, AppEditRequests, AppReportRequests, ProblemReportRequests
+from apps.marketplace.models import AppCreateRequests, Application, AppEditRequests, AppReportRequests
 from apps.user.models import User
 from django.utils import timezone
 
@@ -15,7 +15,6 @@ def callback(request, context):
 
         # requests
         "reports": AppReportRequests.objects.filter(status="pending").count(),
-        "problem_reports": ProblemReportRequests.objects.filter(status="pending").count(),
         "edits_apps": AppEditRequests.objects.filter(status="pending").count(),
         "create_apps": AppCreateRequests.objects.filter(status="pending").count(),
     })
