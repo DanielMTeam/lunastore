@@ -9,15 +9,15 @@ msgstr ""
 
 msgid "%(counter)s PAGE_PROFILE_STATS_APP"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
-msgstr[0] "%%(counter)s програм,"
-msgstr[1] "%%(counter)s програм,"
-msgstr[2] "%%(counter)s програм,"
+msgstr[0] "%(counter)s програм,"
+msgstr[1] "%(counter)s програм,"
+msgstr[2] "%(counter)s програм,"
 
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
-msgstr[0] "%%(counter)s відгуків -"
-msgstr[1] "%%(counter)s відгуків -"
-msgstr[2] "%%(counter)s відгуків -"
+msgstr[0] "%(counter)s відгуків -"
+msgstr[1] "%(counter)s відгуків -"
+msgstr[2] "%(counter)s відгуків -"
 
 msgid "404_ELEMENT_NOT_FOUND"
 msgstr "Запитуваний елемент або посилання, яке ви хочете відвідати, не знайдені на нашому сайті."
@@ -224,7 +224,7 @@ msgid "ERROR_EMAIL_DISPOSABLE_DOMAIN"
 msgstr "Реєстрація з використанням сервісів тимчасової пошти заборонена."
 
 msgid "ERROR_EMAIL_DOMAIN_NO_MX %(domain)s"
-msgstr "Домен %%(domain)s не приймає пошту. Вкажіть наявну адресу."
+msgstr "Домен %(domain)s не приймає пошту. Вкажіть наявну адресу."
 
 msgid "ERROR_EMAIL_INVALID_FORMAT"
 msgstr "Введено некоректну адресу електронної пошти."
@@ -362,7 +362,7 @@ msgid "FORM_SCREENSHOTS"
 msgstr "Скриншоти"
 
 msgid "File extension “%(extension)s” is not allowed. Allowed extensions are: “%(allowed_extensions)s”."
-msgstr "Розширення \"%%(extension)s\" не дозволено. Допустимі розширення: \"%%(allowed_extension)s\"."
+msgstr "Розширення \"%(extension)s\" не дозволено. Допустимі розширення: \"%(allowed_extension)s\"."
 
 msgid "INDEX_CATEGORY_PROMPT"
 msgstr "Або виберіть потрібну категорію: "
@@ -467,25 +467,25 @@ msgid "NOTIFICATIONS_LOADING"
 msgstr "Завантаження сповіщень..."
 
 msgid "NOTIF_APPEDITREQ_ACCEPTED_DESCRIPTION"
-msgstr "Ваша заявка на редагування програми %%(app_name)s була схвалена."
+msgstr "Ваша заявка на редагування програми %(app_name)s була схвалена."
 
 msgid "NOTIF_APPEDITREQ_ACCEPTED_TITLE"
 msgstr "Статус заяви на редагування програми"
 
 msgid "NOTIF_APPEDITREQ_DECLINED_DESCRIPTION"
-msgstr "Ваша заява на редагування програми %%(app_name)s була відхилена. Причина: %%(reason)s"
+msgstr "Ваша заява на редагування програми %(app_name)s була відхилена. Причина: %(reason)s"
 
 msgid "NOTIF_APPEDITREQ_DECLINED_TITLE"
 msgstr "Статус заяви на редагування програми"
 
 msgid "NOTIF_APPREQ_ACCEPTED_DESCRIPTION"
-msgstr "Вітаємо! Ваша заява на створення програми %%(app_name)s була прийнята і воно було опубліковано в LunaStore."
+msgstr "Вітаємо! Ваша заява на створення програми %(app_name)s була прийнята і воно було опубліковано в LunaStore."
 
 msgid "NOTIF_APPREQ_ACCEPTED_TITLE"
 msgstr "Статус заяви"
 
 msgid "NOTIF_APPREQ_DECLINED_DESCRIPTION"
-msgstr "Ваша заява на створення програми %%(app_name)s була відхилена. Причина: %%(reason)s"
+msgstr "Ваша заява на створення програми %(app_name)s була відхилена. Причина: %(reason)s"
 
 msgid "NOTIF_APPREQ_DECLINED_TITLE"
 msgstr "Статус заяви"
@@ -497,7 +497,7 @@ msgid "NOTIF_DEVSTATUS_ACCEPTED_TITLE"
 msgstr "Статус розробника"
 
 msgid "NOTIF_DEVSTATUS_DECLINED_DESCRIPTION"
-msgstr "Ваша заява була відхилена і ви не отримали можливості розробника/видавця програм. Причина: %%(reason)s"
+msgstr "Ваша заява була відхилена і ви не отримали можливості розробника/видавця програм. Причина: %(reason)s"
 
 msgid "NOTIF_DEVSTATUS_DECLINED_TITLE"
 msgstr "Статус розробника"
@@ -509,19 +509,19 @@ msgid "NOTIF_DEVSTATUS_SEND_TITLE"
 msgstr "Статус розробника"
 
 msgid "NOTIF_DISTREQ_ACCEPTED_DESCRIPTION"
-msgstr "Ваша заявка на публікацію версії %%(version)s для програми \"%%(app_name)s\" була схвалена модератором."
+msgstr "Ваша заявка на публікацію версії %(version)s для програми \"%(app_name)s\" була схвалена модератором."
 
 msgid "NOTIF_DISTREQ_ACCEPTED_TITLE"
 msgstr "Нова версія опублікована!"
 
 msgid "NOTIF_DISTREQ_DECLINED_DESCRIPTION"
-msgstr "На жаль, вашу заявку на публікацію версії %%(version)s для \"%%(app_name)s\" було відхилено. Причина: %%(reason)s"
+msgstr "На жаль, вашу заявку на публікацію версії %(version)s для \"%(app_name)s\" було відхилено. Причина: %(reason)s"
 
 msgid "NOTIF_DISTREQ_DECLINED_TITLE"
 msgstr "Заявку на публікацію відхилено"
 
 msgid "NOTIF_LOGIN_DESCRIPTION"
-msgstr "У ваш обліковий запис було здійснено вхід  • Пристрій: %%(browser)s (%%(os)s) • IP-адреса: %%(ip)s • Місцезнаходження: %%(location)s • Якщо це не ви, терміново змініть пароль."
+msgstr "У ваш обліковий запис було здійснено вхід  • Пристрій: %(browser)s (%(os)s) • IP-адреса: %(ip)s • Місцезнаходження: %(location)s • Якщо це не ви, терміново змініть пароль."
 
 msgid "NOTIF_LOGIN_TITLE"
 msgstr "Новий вхід в обліковий запис"
@@ -1461,9 +1461,9 @@ msgstr "Керовані програми"
 
 msgid "PAGE_NOTIFICATIONS_COUNT_SINGLE"
 msgid_plural "PAGE_NOTIFICATIONS_COUNT_PLURAL"
-msgstr[0] "У Вас <b>%%(counter)s</b> нове сповіщення"
-msgstr[1] "У Вас <b>%%(counter)s</b> нових сповіщень"
-msgstr[2] "У Вас <b>%%(counter)s</b> нових сповіщень"
+msgstr[0] "У Вас <b>%(counter)s</b> нове сповіщення"
+msgstr[1] "У Вас <b>%(counter)s</b> нових сповіщень"
+msgstr[2] "У Вас <b>%(counter)s</b> нових сповіщень"
 
 msgid "PAGE_NOTIFICATIONS_EARLY"
 msgstr "Попередні сповіщення"
@@ -1694,13 +1694,13 @@ msgid "PAGE_SEARCH_BADGE_DEMO"
 msgstr "Демо"
 
 msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
-msgstr "Демо, далі $%%(price)s"
+msgstr "Демо, далі $%(price)s"
 
 msgid "PAGE_SEARCH_BADGE_FREE"
 msgstr "Безкоштовно"
 
 msgid "PAGE_SEARCH_BADGE_NOT_FOUND"
-msgstr "Пошук не дав результатів за запитом \"%%(q)s\""
+msgstr "Пошук не дав результатів за запитом \"%(q)s\""
 
 msgid "PAGE_SEARCH_BTN_DETAILS"
 msgstr "Докладніше"
@@ -1736,7 +1736,7 @@ msgid "PAGE_SEARCH_LINK_ADVANCED"
 msgstr "Уточнити параметри пошуку"
 
 msgid "PAGE_SEARCH_MSG_NO_RESULTS %(q)s"
-msgstr "Пошук не дав результатів за запитом \"%%(q)s\""
+msgstr "Пошук не дав результатів за запитом \"%(q)s\""
 
 msgid "PAGE_SEARCH_MSG_NO_RESULTS_EMPTY"
 msgstr "За вашим запитом нічого не знайдено"
@@ -1901,10 +1901,10 @@ msgid "THICKBOX_PREV"
 msgstr "Назад"
 
 msgid "VIEW_LOGIN_BANNED_REASON"
-msgstr "Ваш обліковий запис заблоковано. Причина: %%(reason)s"
+msgstr "Ваш обліковий запис заблоковано. Причина: %(reason)s"
 
 msgid "VIEW_LOGIN_INVALID_CREDENTIALS"
 msgstr "Неправильний логін або пароль."
 
 msgid "VIEW_LOGIN_SUCCESS"
-msgstr "Вхід виконано успішно! Привіт, %%(username)s!"
+msgstr "Вхід виконано успішно! Привіт, %(username)s!"
