@@ -9,15 +9,15 @@ msgstr ""
 
 msgid "%(counter)s PAGE_PROFILE_STATS_APP"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
-msgstr[0] "%(counter)s приложений,"
-msgstr[1] "%(counter)s приложений,"
-msgstr[2] "%(counter)s приложений,"
+msgstr[0] "%%(counter)s приложений,"
+msgstr[1] "%%(counter)s приложений,"
+msgstr[2] "%%(counter)s приложений,"
 
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
-msgstr[0] "%(counter)s отзывов -"
-msgstr[1] "%(counter)s отзывов -"
-msgstr[2] "%(counter)s отзывов -"
+msgstr[0] "%%(counter)s отзывов -"
+msgstr[1] "%%(counter)s отзывов -"
+msgstr[2] "%%(counter)s отзывов -"
 
 msgid "404_ELEMENT_NOT_FOUND"
 msgstr "Запрашиваемый элемент или ссылка, которую вы хотите посетить, не найдены на нашем сайте."
@@ -81,6 +81,9 @@ msgstr "Все дети любят печенье, так же как и мы. �
 
 msgid "BASE_COOKIE_PRIVACYPOLICY"
 msgstr "Политике конфиденциальности"
+
+msgid "BASE_FOOTER_REPORT_PROBLEM"
+msgstr "Сообщить о проблеме"
 
 msgid "BASE_FOOTER_TELEGRAM"
 msgstr "Наш Telegram-канал"
@@ -221,7 +224,7 @@ msgid "ERROR_EMAIL_DISPOSABLE_DOMAIN"
 msgstr "Регистрация с использованием сервисов временной почты запрещена."
 
 msgid "ERROR_EMAIL_DOMAIN_NO_MX %(domain)s"
-msgstr "Домен %(domain)s не принимает почту. Укажите существующий адрес."
+msgstr "Домен %%(domain)s не принимает почту. Укажите существующий адрес."
 
 msgid "ERROR_EMAIL_INVALID_FORMAT"
 msgstr "Введен некорректный email адрес."
@@ -359,7 +362,7 @@ msgid "FORM_SCREENSHOTS"
 msgstr "Скриншоты"
 
 msgid "File extension “%(extension)s” is not allowed. Allowed extensions are: “%(allowed_extensions)s”."
-msgstr "Расширение “%(extension)s” не разрешено. Допустимые расширения: “%(allowed_extensions)s”."
+msgstr "Расширение “%%(extension)s” не разрешено. Допустимые расширения: “%%(allowed_extensions)s”."
 
 msgid "INDEX_CATEGORY_PROMPT"
 msgstr "Или выберите нужную категорию:"
@@ -464,25 +467,25 @@ msgid "NOTIFICATIONS_LOADING"
 msgstr "Загрузка уведомлений..."
 
 msgid "NOTIF_APPEDITREQ_ACCEPTED_DESCRIPTION"
-msgstr "Ваша заявка на редактирование приложения %(app_name)s была одобрена."
+msgstr "Ваша заявка на редактирование приложения %%(app_name)s была одобрена."
 
 msgid "NOTIF_APPEDITREQ_ACCEPTED_TITLE"
 msgstr "Статус заявки на редактирование приложения"
 
 msgid "NOTIF_APPEDITREQ_DECLINED_DESCRIPTION"
-msgstr "Ваша заявка на редактирование приложения %(app_name)s была отклонена. Причина: %(reason)s"
+msgstr "Ваша заявка на редактирование приложения %%(app_name)s была отклонена. Причина: %%(reason)s"
 
 msgid "NOTIF_APPEDITREQ_DECLINED_TITLE"
 msgstr "Статус заявки на редактирование приложения"
 
 msgid "NOTIF_APPREQ_ACCEPTED_DESCRIPTION"
-msgstr "Поздравляем! Ваша заявка на создание приложения %(app_name)s была одобрена и оно было опубликовано в LunaStore."
+msgstr "Поздравляем! Ваша заявка на создание приложения %%(app_name)s была одобрена и оно было опубликовано в LunaStore."
 
 msgid "NOTIF_APPREQ_ACCEPTED_TITLE"
 msgstr "Статус заявки"
 
 msgid "NOTIF_APPREQ_DECLINED_DESCRIPTION"
-msgstr "Ваша заявка на создание приложения %(app_name)s была отклонена. Причина: %(reason)s"
+msgstr "Ваша заявка на создание приложения %%(app_name)s была отклонена. Причина: %%(reason)s"
 
 msgid "NOTIF_APPREQ_DECLINED_TITLE"
 msgstr "Статус заявки"
@@ -494,7 +497,7 @@ msgid "NOTIF_DEVSTATUS_ACCEPTED_TITLE"
 msgstr "Статус разработчика"
 
 msgid "NOTIF_DEVSTATUS_DECLINED_DESCRIPTION"
-msgstr "Ваша заявка была отклонена и вы не получили возможности разработчика/издателя приложений. Причина: %(reason)s"
+msgstr "Ваша заявка была отклонена и вы не получили возможности разработчика/издателя приложений. Причина: %%(reason)s"
 
 msgid "NOTIF_DEVSTATUS_DECLINED_TITLE"
 msgstr "Статус разработчика"
@@ -506,19 +509,19 @@ msgid "NOTIF_DEVSTATUS_SEND_TITLE"
 msgstr "Статус разработчика"
 
 msgid "NOTIF_DISTREQ_ACCEPTED_DESCRIPTION"
-msgstr "Ваша заявка на публикацию версии %(version)s для приложения \"%(app_name)s\" была одобрена модератором."
+msgstr "Ваша заявка на публикацию версии %%(version)s для приложения \"%%(app_name)s\" была одобрена модератором."
 
 msgid "NOTIF_DISTREQ_ACCEPTED_TITLE"
 msgstr "Новая версия опубликована!"
 
 msgid "NOTIF_DISTREQ_DECLINED_DESCRIPTION"
-msgstr "К сожалению, ваша заявка на публикацию версии %(version)s для \"%(app_name)s\" была отклонена. Причина: %(reason)s"
+msgstr "К сожалению, ваша заявка на публикацию версии %%(version)s для \"%%(app_name)s\" была отклонена. Причина: %%(reason)s"
 
 msgid "NOTIF_DISTREQ_DECLINED_TITLE"
 msgstr "Заявка на публикацию отклонена"
 
 msgid "NOTIF_LOGIN_DESCRIPTION"
-msgstr "В ваш аккаунт был выполнен вход • Устройство: %(browser)s (%(os)s) • IP-адрес: %(ip)s • Местоположение: %(location)s • Если это не вы, срочно смените пароль."
+msgstr "В ваш аккаунт был выполнен вход • Устройство: %%(browser)s (%%(os)s) • IP-адрес: %%(ip)s • Местоположение: %%(location)s • Если это не вы, срочно смените пароль."
 
 msgid "NOTIF_LOGIN_TITLE"
 msgstr "Новый вход в аккаунт"
@@ -840,6 +843,9 @@ msgstr "К сожалению, тот, кто загрузил приложен�
 
 msgid "PAGE_APP_LABEL_ORIGINAL_AUTHOR"
 msgstr "Оригинальный автор:"
+
+msgid "PAGE_APP_LABEL_PRICE"
+msgstr "Цена"
 
 msgid "PAGE_APP_MSG_DEMO_WARNING"
 msgstr "Программа распространяется в виде демо-версии, за полную версию стоит заплатить её автору. Файл предоставлен с официального сайта разработчика."
@@ -1439,7 +1445,7 @@ msgid "PAGE_MANAGE_APPS_EMPTY_DESC"
 msgstr "Вы пока что не управляете ни одним приложением."
 
 msgid "PAGE_MANAGE_APPS_EMPTY_TITLE"
-msgstr "Приложений нет >.<"
+msgstr "Приложений нет ＞︿＜"
 
 msgid "PAGE_MANAGE_APPS_HEADER"
 msgstr "Администрируемые страницы приложений"
@@ -1455,9 +1461,9 @@ msgstr "Администрируемые приложения"
 
 msgid "PAGE_NOTIFICATIONS_COUNT_SINGLE"
 msgid_plural "PAGE_NOTIFICATIONS_COUNT_PLURAL"
-msgstr[0] "У Вас <b>%(counter)s</b> новое уведомление"
-msgstr[1] "У Вас <b>%(counter)s</b> новых уведомления"
-msgstr[2] "У Вас <b>%(counter)s</b> новых уведомлений"
+msgstr[0] "У Вас <b>%%(counter)s</b> новое уведомление"
+msgstr[1] "У Вас <b>%%(counter)s</b> новых уведомления"
+msgstr[2] "У Вас <b>%%(counter)s</b> новых уведомлений"
 
 msgid "PAGE_NOTIFICATIONS_EARLY"
 msgstr "Ранние уведомления"
@@ -1538,7 +1544,7 @@ msgid "PAGE_PROFILE_INVITES_EMPTY_DESC"
 msgstr "Пока что ни один человек не зарегистрировался по приглашению данного пользователя."
 
 msgid "PAGE_PROFILE_INVITES_EMPTY_TITLE"
-msgstr "Приглашений нет  ~_~"
+msgstr "Приглашений нет ＞︿＜"
 
 msgid "PAGE_PROFILE_INVITES_PEOPLE"
 msgstr "человек (показаны первые 5)"
@@ -1633,6 +1639,9 @@ msgstr "Основная информация"
 msgid "PAGE_REGISTER_TITLE"
 msgstr "Регистрация"
 
+msgid "PAGE_REPORTAPP_AUTHOR"
+msgstr "Автор жалобы на приложение:"
+
 msgid "PAGE_REPORTAPP_EXPLAIN_LABEL"
 msgstr "Дополнительная информация (обязательно):"
 
@@ -1666,17 +1675,32 @@ msgstr "Жалоба на приложение"
 msgid "PAGE_REPORTAPP_TITLE_PATH"
 msgstr "Жалобы на приложения"
 
+msgid "PAGE_REPORTPROBLEM_AUTHOR"
+msgstr "Автор жалобы на проблему"
+
+msgid "PAGE_REPORTPROBLEM_INFO"
+msgstr "Здесь вы можете сообщить о любой проблеме, которую обнаружили на нашем сайте!"
+
+msgid "PAGE_REPORTPROBLEM_SUBMIT_BTN"
+msgstr "Сообщить о проблеме"
+
+msgid "PAGE_REPORTPROBLEM_SUCCESS_MSG"
+msgstr "Успешно отправлено!"
+
+msgid "PAGE_REPORTPROBLEM_TITLE"
+msgstr "Сообщить о проблеме"
+
 msgid "PAGE_SEARCH_BADGE_DEMO"
 msgstr "Демо"
 
 msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
-msgstr "Демо, далее "
+msgstr "Демо, далее $%%(price)s"
 
 msgid "PAGE_SEARCH_BADGE_FREE"
 msgstr "Бесплатно"
 
 msgid "PAGE_SEARCH_BADGE_NOT_FOUND"
-msgstr "Поиск не дал результатов по запросу \"%(q)s\""
+msgstr "Поиск не дал результатов по запросу \"%%(q)s\""
 
 msgid "PAGE_SEARCH_BTN_DETAILS"
 msgstr "Подробнее"
@@ -1712,7 +1736,7 @@ msgid "PAGE_SEARCH_LINK_ADVANCED"
 msgstr "Уточнить параметры поиска"
 
 msgid "PAGE_SEARCH_MSG_NO_RESULTS %(q)s"
-msgstr "Поиск не дал результатов по запросу \"%(q)s\""
+msgstr "Поиск не дал результатов по запросу \"%%(q)s\""
 
 msgid "PAGE_SEARCH_MSG_NO_RESULTS_EMPTY"
 msgstr "По вашему запросу ничего не найдено"
@@ -1855,33 +1879,29 @@ msgstr "Без названия"
 msgid "TEXT_APP_NO_SLOGAN"
 msgstr "Нет слогана"
 
+msgid "THICKBOX_CLOSE"
+msgstr "Закрыть"
+
+msgid "THICKBOX_IMAGE"
+msgstr "Картинка"
+
+msgid "THICKBOX_NEXT"
+msgstr "Вперед"
+
+msgid "THICKBOX_NO_IFRAMES"
+msgstr "Без iFrames"
+
+msgid "THICKBOX_OF"
+msgstr "из"
+
+msgid "THICKBOX_PREV"
+msgstr "Назад"
+
 msgid "VIEW_LOGIN_BANNED_REASON"
-msgstr "Ваш аккаунт заблокирован. Причина: %(reason)s"
+msgstr "Ваш аккаунт заблокирован. Причина: %%(reason)s"
 
 msgid "VIEW_LOGIN_INVALID_CREDENTIALS"
 msgstr "Неверный логин или пароль."
 
 msgid "VIEW_LOGIN_SUCCESS"
-msgstr "Вход выполнен успешно! Привет, %(username)s!"
-
-msgid "PAGE_APP_LABEL_PRICE"
-msgstr "Цена"
-
-msgid "THICKBOX_IMAGE"
-msgstr "Картинка"
-
-msgid "THICKBOX_OF"
-msgstr "из"
-
-msgid "THICKBOX_CLOSE"
-msgstr "Закрыть"
-
-msgid "THICKBOX_NEXT"
-msgstr "Вперед"
-
-msgid "THICKBOX_PREV"
-msgstr "Назад"
-
-msgid "THICKBOX_NO_IFRAMES"
-msgstr "Без iFrames"
-
+msgstr "Вход выполнен успешно! Привет, %%(username)s!"
