@@ -9,15 +9,15 @@ msgstr ""
 
 msgid "%(counter)s PAGE_PROFILE_STATS_APP"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
-msgstr[0] "%(counter)s дадаткаў,"
-msgstr[1] "%(counter)s дадаткаў,"
-msgstr[2] "%(counter)s дадаткаў,"
+msgstr[0] "%%(counter)s дадаткаў,"
+msgstr[1] "%%(counter)s дадаткаў,"
+msgstr[2] "%%(counter)s дадаткаў,"
 
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
-msgstr[0] "%(counter)s водгукаў -"
-msgstr[1] "%(counter)s водгукаў -"
-msgstr[2] "%(counter)s водгукаў -"
+msgstr[0] "%%(counter)s водгукаў -"
+msgstr[1] "%%(counter)s водгукаў -"
+msgstr[2] "%%(counter)s водгукаў -"
 
 msgid "404_ELEMENT_NOT_FOUND"
 msgstr "Элемент або спасылка, якую вы хочаце наведаць, не знойдзены на нашым сайце."
@@ -81,6 +81,9 @@ msgstr "Усе дзеці любяць печыва, і мы таксама! М�
 
 msgid "BASE_COOKIE_PRIVACYPOLICY"
 msgstr "Палітыцы прыватнасці"
+
+msgid "BASE_FOOTER_REPORT_PROBLEM"
+msgstr "Паведаміць пра праблему"
 
 msgid "BASE_FOOTER_TELEGRAM"
 msgstr "Наш Telegram-канал"
@@ -221,7 +224,7 @@ msgid "ERROR_EMAIL_DISPOSABLE_DOMAIN"
 msgstr "Рэгістрацыя з выкарыстаннем сэрвісаў часовай пошты забароненая."
 
 msgid "ERROR_EMAIL_DOMAIN_NO_MX %(domain)s"
-msgstr "Дамен %(domain)s не прымае пошту. Укажыце існуючы адрас."
+msgstr "Дамен %%(domain)s не прымае пошту. Укажыце існуючы адрас."
 
 msgid "ERROR_EMAIL_INVALID_FORMAT"
 msgstr "Уведзены некарэктны адрас электроннай пошты."
@@ -359,7 +362,7 @@ msgid "FORM_SCREENSHOTS"
 msgstr "Скрыншоты"
 
 msgid "File extension “%(extension)s” is not allowed. Allowed extensions are: “%(allowed_extensions)s”."
-msgstr "Пашырэнне “%(extension)s” не дазволена. Дапусцімыя пашырэнні: “%(allowed_extensions)s”."
+msgstr "Пашырэнне “%%(extension)s” не дазволена. Дапусцімыя пашырэнні: “%%(allowed_extensions)s”."
 
 msgid "INDEX_CATEGORY_PROMPT"
 msgstr "Або выберыце патрэбную катэгорыю:"
@@ -464,25 +467,25 @@ msgid "NOTIFICATIONS_LOADING"
 msgstr "Загрузка паведамленняў..."
 
 msgid "NOTIF_APPEDITREQ_ACCEPTED_DESCRIPTION"
-msgstr "Ваша заява на рэдагаванне дадатка %(app_name)s была адобрана."
+msgstr "Ваша заява на рэдагаванне дадатка %%(app_name)s была адобрана."
 
 msgid "NOTIF_APPEDITREQ_ACCEPTED_TITLE"
 msgstr "Статус заявы на рэдагаванне дадатка"
 
 msgid "NOTIF_APPEDITREQ_DECLINED_DESCRIPTION"
-msgstr "Ваша заява на рэдагаванне дадатка %(app_name)s была адмоўлена. Прычына: %(reason)s"
+msgstr "Ваша заява на рэдагаванне дадатка %%(app_name)s была адмоўлена. Прычына: %%(reason)s"
 
 msgid "NOTIF_APPEDITREQ_DECLINED_TITLE"
 msgstr "Статус заявы на рэдагаванне дадатка"
 
 msgid "NOTIF_APPREQ_ACCEPTED_DESCRIPTION"
-msgstr "Віншуем! Ваша заява на стварэнне дадатка %(app_name)s была адобрана і ён быў апублікаваны ў LunaStore."
+msgstr "Віншуем! Ваша заява на стварэнне дадатка %%(app_name)s была адобрана і ён быў апублікаваны ў LunaStore."
 
 msgid "NOTIF_APPREQ_ACCEPTED_TITLE"
 msgstr "Статус заявы"
 
 msgid "NOTIF_APPREQ_DECLINED_DESCRIPTION"
-msgstr "Ваша заява на стварэнне дадатка %(app_name)s была адмоўлена. Прычына: %(reason)s"
+msgstr "Ваша заява на стварэнне дадатка %%(app_name)s была адмоўлена. Прычына: %%(reason)s"
 
 msgid "NOTIF_APPREQ_DECLINED_TITLE"
 msgstr "Статус заявы"
@@ -494,7 +497,7 @@ msgid "NOTIF_DEVSTATUS_ACCEPTED_TITLE"
 msgstr "Статус распрацоўшчыка"
 
 msgid "NOTIF_DEVSTATUS_DECLINED_DESCRIPTION"
-msgstr "Ваша заява была адмоўлена і вы не атрымалі магчымасці распрацоўшчыка/выдаўца прыкладанняў. Прычына: %(reason)s"
+msgstr "Ваша заява была адмоўлена і вы не атрымалі магчымасці распрацоўшчыка/выдаўца прыкладанняў. Прычына: %%(reason)s"
 
 msgid "NOTIF_DEVSTATUS_DECLINED_TITLE"
 msgstr "Статус распрацоўшчыка"
@@ -506,19 +509,19 @@ msgid "NOTIF_DEVSTATUS_SEND_TITLE"
 msgstr "Статус распрацоўшчыка"
 
 msgid "NOTIF_DISTREQ_ACCEPTED_DESCRIPTION"
-msgstr "Ваша заяўка на публікацыю версіі %(version)s для праграмы \"%(app_name)s\" была адобрана мадэратарам."
+msgstr "Ваша заяўка на публікацыю версіі %%(version)s для праграмы \"%%(app_name)s\" была адобрана мадэратарам."
 
 msgid "NOTIF_DISTREQ_ACCEPTED_TITLE"
 msgstr "Апублікавана новая версія!"
 
 msgid "NOTIF_DISTREQ_DECLINED_DESCRIPTION"
-msgstr "На жаль, ваша заяўка на публікацыю версіі %(version)s для \"%(app_name)s\" была адхілена. Прычына: %(reason)s"
+msgstr "На жаль, ваша заяўка на публікацыю версіі %%(version)s для \"%%(app_name)s\" была адхілена. Прычына: %%(reason)s"
 
 msgid "NOTIF_DISTREQ_DECLINED_TITLE"
 msgstr "Заяўка на публікацыю адхілена"
 
 msgid "NOTIF_LOGIN_DESCRIPTION"
-msgstr "У ваш акаўнт быў выкананы ўваход • Прылада: %(browser)s (%(os)s) • IP-адрас: %(ip)s • Месцазнаходжанне: %(location)s • Калі гэта не вы, хутка змяніце пароль."
+msgstr "У ваш акаўнт быў выкананы ўваход • Прылада: %%(browser)s (%%(os)s) • IP-адрас: %%(ip)s • Месцазнаходжанне: %%(location)s • Калі гэта не вы, хутка змяніце пароль."
 
 msgid "NOTIF_LOGIN_TITLE"
 msgstr "Новы ўваход у акаўнт"
@@ -1439,7 +1442,7 @@ msgid "PAGE_MANAGE_APPS_EMPTY_DESC"
 msgstr "Вы пакуль што не кіруеце ніводным дадаткам."
 
 msgid "PAGE_MANAGE_APPS_EMPTY_TITLE"
-msgstr "Дадаткаў няма >.<"
+msgstr "Дадаткаў няма ＞︿＜"
 
 msgid "PAGE_MANAGE_APPS_HEADER"
 msgstr "Адміністрыруемыя старонкі дадаткаў"
@@ -1455,9 +1458,9 @@ msgstr "Адміністрыруемыя прыкладанні"
 
 msgid "PAGE_NOTIFICATIONS_COUNT_SINGLE"
 msgid_plural "PAGE_NOTIFICATIONS_COUNT_PLURAL"
-msgstr[0] "У Вас <b>%(counter)s</b> новае паведамленне"
-msgstr[1] "У Вас <b>%(counter)s</b> новых паведамлення"
-msgstr[2] "У Вас <b>%(counter)s</b> новых паведамленняў"
+msgstr[0] "У Вас <b>%%(counter)s</b> новае паведамленне"
+msgstr[1] "У Вас <b>%%(counter)s</b> новых паведамлення"
+msgstr[2] "У Вас <b>%%(counter)s</b> новых паведамленняў"
 
 msgid "PAGE_NOTIFICATIONS_EARLY"
 msgstr "Ранейшыя паведамленні"
@@ -1538,7 +1541,7 @@ msgid "PAGE_PROFILE_INVITES_EMPTY_DESC"
 msgstr "Пакуль што ніводны чалавек не зарэгістраваўся па запрашэнні гэтага карыстальніка."
 
 msgid "PAGE_PROFILE_INVITES_EMPTY_TITLE"
-msgstr "Прыглашэнняў няма ~_~"
+msgstr "Прыглашэнняў няма ＞︿＜"
 
 msgid "PAGE_PROFILE_INVITES_PEOPLE"
 msgstr "чалавек (паказаны першыя 5)"
@@ -1633,6 +1636,9 @@ msgstr "Асноўная інфармацыя"
 msgid "PAGE_REGISTER_TITLE"
 msgstr "Рэгістрацыя"
 
+msgid "PAGE_REPORTAPP_AUTHOR"
+msgstr "Аўтар скаргі на праграму:"
+
 msgid "PAGE_REPORTAPP_EXPLAIN_LABEL"
 msgstr "Дадатковая інфармацыя (абавязкова):"
 
@@ -1666,17 +1672,32 @@ msgstr "Скарга на дадатак"
 msgid "PAGE_REPORTAPP_TITLE_PATH"
 msgstr "Скаргі на дадаткі"
 
+msgid "PAGE_REPORTPROBLEM_AUTHOR"
+msgstr "Аўтар скаргі на праблему"
+
+msgid "PAGE_REPORTPROBLEM_INFO"
+msgstr "Тут вы можаце паведаміць пра любую праблему, якую выявілі на нашым сайце!"
+
+msgid "PAGE_REPORTPROBLEM_SUBMIT_BTN"
+msgstr "Паведаміць пра праблему"
+
+msgid "PAGE_REPORTPROBLEM_SUCCESS_MSG"
+msgstr "Паспяхова адпраўлена!"
+
+msgid "PAGE_REPORTPROBLEM_TITLE"
+msgstr "Паведаміць пра праблему"
+
 msgid "PAGE_SEARCH_BADGE_DEMO"
 msgstr "Дэма"
 
 msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
-msgstr "Дэма, далей $%(price)s"
+msgstr "Дэма, далей $%%(price)s"
 
 msgid "PAGE_SEARCH_BADGE_FREE"
 msgstr "Бясплатна"
 
 msgid "PAGE_SEARCH_BADGE_NOT_FOUND"
-msgstr "Пошук па запыце \"%(q)s\" не даў вынікаў"
+msgstr "Пошук па запыце \"%%(q)s\" не даў вынікаў"
 
 msgid "PAGE_SEARCH_BTN_DETAILS"
 msgstr "Падрабязней"
@@ -1712,7 +1733,7 @@ msgid "PAGE_SEARCH_LINK_ADVANCED"
 msgstr "Удакладніць параметры пошуку"
 
 msgid "PAGE_SEARCH_MSG_NO_RESULTS %(q)s"
-msgstr "Пошук па запыце \"%(q)s\" не даў вынікаў"
+msgstr "Пошук па запыце \"%%(q)s\" не даў вынікаў"
 
 msgid "PAGE_SEARCH_MSG_NO_RESULTS_EMPTY"
 msgstr "Па вашым запыце нічога не знойдзена"
@@ -1856,32 +1877,10 @@ msgid "TEXT_APP_NO_SLOGAN"
 msgstr "Няма слогана"
 
 msgid "VIEW_LOGIN_BANNED_REASON"
-msgstr "Ваш акаўнт заблакіраваны. Прычына: %(reason)s"
+msgstr "Ваш акаўнт заблакіраваны. Прычына: %%(reason)s"
 
 msgid "VIEW_LOGIN_INVALID_CREDENTIALS"
 msgstr "Няверны лагін або пароль."
 
 msgid "VIEW_LOGIN_SUCCESS"
-msgstr "Уваход паспяховы! Вітаем, %(username)s!"
-
-msgid "PAGE_APP_LABEL_PRICE"
-msgstr "Цана"
-
-msgid "THICKBOX_IMAGE"
-msgstr "Малюнак"
-
-msgid "THICKBOX_OF"
-msgstr "з"
-
-msgid "THICKBOX_CLOSE"
-msgstr "Закрыць"
-
-msgid "THICKBOX_NEXT"
-msgstr "Наперад"
-
-msgid "THICKBOX_PREV"
-msgstr "Назад"
-
-msgid "THICKBOX_NO_IFRAMES"
-msgstr "Без iFrames"
-
+msgstr "Уваход паспяховы! Вітаем, %%(username)s!"
