@@ -11,6 +11,5 @@ reveal.py
 ..env.swp
 .tolgeerc
 .venv
-.gitlab-ci.yml
 AGENTS.md
 .pyc
