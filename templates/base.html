@@ -7,30 +7,30 @@
 <html>
 
 <head>
-<title>LunaStore</title>
-<meta name="description" content="{% trans "SITE_DESCRIPTION" %}">
-<meta name="robots" content="noindex,nofollow">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" href="{% static './css/main.css'%}">
-<link rel="stylesheet" href="{% static './css/notifications.css'%}">
-<link rel="shortcut icon" href="{% static './favicon.ico'%}">
-<script src="{% static './js/cookie.js'%}"></script>
-<script defer src="https://analytics.myslivets.com/script.js" data-website-id="bce1e0a4-fb9e-40e8-85c9-04c8bd3c8940"></script>
-<script src="https://cdn.jsdelivr.net/npm/@tolgee/web/dist/tolgee-web.production.umd.min.js"></script>
+    <title>LunaStore</title>
+    <meta name="description" content="{% trans " SITE_DESCRIPTION" %}">
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="{% static './css/main.css'%}">
+    <link rel="stylesheet" href="{% static './css/notifications.css'%}">
+    <link rel="shortcut icon" href="{% static './favicon.ico'%}">
+    <script src="{% static './js/cookie.js'%}"></script>
+    <script defer src="https://analytics.myslivets.com/script.js" data-website-id="bce1e0a4-fb9e-40e8-85c9-04c8bd3c8940"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tolgee/web/dist/tolgee-web.production.umd.min.js"></script>
 
-<script>
-    const { Tolgee, DevTools } = window['@tolgee/web'];
+    <script>
+        const { Tolgee, DevTools } = window['@tolgee/web'];
 
-    const tolgee = Tolgee()
-      .use(DevTools())
-      .init({
-        language: "{{ LANGUAGE_CODE }}",
-      });
+        const tolgee = Tolgee()
+            .use(DevTools())
+            .init({
+                language: "{{ LANGUAGE_CODE }}",
+            });
 
-    tolgee.run();
-  </script>
+        tolgee.run();
+    </script>
 
-  <!--[if IE 6]>
+    <!--[if IE 6]>
   <script src="{% static './js/dd_belatedpng.min.js' %}"></script>
   <script>
     // fix png alpha channel for ie6
@@ -42,352 +42,358 @@
 
 <body>
 
-<div class="notifyoverlay" id="notifications"></div>
+    <div class="notifyoverlay" id="notifications"></div>
 
-<div class="announcement" id="cookie-banner" style="display: none;">
-    {% trans "BASE_COOKIE_MESSAGE" %}
-    <a href="/help_center.php?page=privacy"><i><b>{% trans "BASE_COOKIE_PRIVACYPOLICY" %}</b></i></a>.<br><br>
-    <a href="#" id="primary" onclick="acceptCookies(event)"><b>{% trans "BASE_COOKIE_ACCEPT" %}</b></a> -
-    <a href="#" onclick="closeCookieBanner(event)">{% trans "BASE_COOKIE_DECLINE" %}</a>
-</div>
-<div class="container">
+    <div class="announcement" id="cookie-banner" style="display: none;">
+        {% trans "BASE_COOKIE_MESSAGE" %}
+        <a href="/help_center.php?page=privacy"><i><b>{% trans "BASE_COOKIE_PRIVACYPOLICY" %}</b></i></a>.<br><br>
+        <a href="#" id="primary" onclick="acceptCookies(event)"><b>{% trans "BASE_COOKIE_ACCEPT" %}</b></a> -
+        <a href="#" onclick="closeCookieBanner(event)">{% trans "BASE_COOKIE_DECLINE" %}</a>
+    </div>
+    <div class="container">
 
-    <div class="dm_menu">
-        {% if user.is_authenticated %}
+        <div class="dm_menu">
+            {% if user.is_authenticated %}
             {% trans "BASE_AUTHLIKE" %} <a href="/profile.php"><b>{{ user.username }}</b></a> - <a href="/logout.php">{% trans "BASE_LOGOUTBTN" %}</a>
-        {% else %}
-            <a href="{% url 'login' %}" id="login-link">{% trans "BASE_LOGINBTN" %}</a> - <a href="/register.php">{% trans "BASE_REGISTERBTN" %}</a>
-        {% endif %}
-
-        | <a href="http://old.myslivets.com">myslivets.com</a> |
-
-        {% for lang_code, lang_name in AVAILABLE_LANGUAGES %}
-            {% if lang_code == LANGUAGE_CODE %}
-                <b>{{ lang_name }}</b>
             {% else %}
-                <a href="{% url 'force_language_change' lang_code %}?next={{ request.get_full_path|urlencode }}">{{ lang_name }}</a>
+            <a href="{% url 'login' %}" id="login-link">{% trans "BASE_LOGINBTN" %}</a> - <a href="/register.php">{% trans "BASE_REGISTERBTN" %}</a>
+            {% endif %}
+
+            | <a href="http://old.myslivets.com">myslivets.com</a> |
+
+            {% for lang_code, lang_name in AVAILABLE_LANGUAGES %}
+            {% if lang_code == LANGUAGE_CODE %}
+            <b>{{ lang_name }}</b>
+            {% else %}
+            <a href="{% url 'force_language_change' lang_code %}?next={{ request.get_full_path|urlencode }}">{{ lang_name }}</a>
             {% endif %}
 
             {% if not forloop.last %} - {% endif %}
-        {% endfor %}
+            {% endfor %}
 
-        | <a href="/other_projects.php">{% trans "BASE_OPRJ_TITLE" %}</a>
-    </div>
-
-
-  <div class="header">
-    <a href="/"><div class="ls_dm_logo"></div></a>
-    <div class="rl_l"><h1 class="txtr">LunaStore</h1>
-    <div class="subtitle txtr">{{ motds|random }}</div>
-    </div>
-
-    <div class="searchbar" style="margin-top: 13px;">
-  <form action="{% url 'search' %}" method="get" style="display: inline;">
-        <input type="text" name="q" id="q" value="{{ request.GET.q|default_if_none:'' }}" placeholder="{% trans "INDEX_SEARCH_PLACEHOLDER" %}">
-        <button type="submit">{% trans "BASE_SEARCHBTN" %}</button>
-      </form>
-    </div>
-  </div>
+            | <a href="/other_projects.php">{% trans "BASE_OPRJ_TITLE" %}</a>
+        </div>
 
 
-  <div class="headerline"></div>
+        <div class="header">
+            <a href="/">
+                <div class="ls_dm_logo"></div>
+            </a>
+            <div class="rl_l">
+                <h1 class="txtr">LunaStore</h1>
+                <div class="subtitle txtr">{{ motds|random }}</div>
+            </div>
 
-  <div class="main">
-    {% if messages %}
-        <div class="splash" style="width: auto; margin-bottom: 10px;">
-            {% for message in messages %}
+            <div class="searchbar" style="margin-top: 13px;">
+                <form action="{% url 'search' %}" method="get" style="display: inline;">
+                    <input type="text" name="q" id="q" value="{{ request.GET.q|default_if_none:'' }}" placeholder="{% trans " INDEX_SEARCH_PLACEHOLDER" %}">
+                    <button type="submit">{% trans "BASE_SEARCHBTN" %}</button>
+                </form>
+            </div>
+        </div>
+
+
+        <div class="headerline"></div>
+
+        <div class="main">
+            {% if messages %}
+            <div class="splash" style="width: auto; margin-bottom: 10px;">
+                {% for message in messages %}
                 <div class="{% if message.tags == 'error' %}error_splash{% elif message.tags == 'success' %}good_splash{% else %}info_splash{% endif %}">
                     <div class="{% if message.tags == 'error' %}error_icon_small{% elif message.tags == 'success' %}good_icon_small{% else %}info_icon_small{% endif %}"></div>
                     <div class="splash_text">{{ message }}</div>
                 </div>
-            {% endfor %}
-        </div>
-    {% endif %}
-
-    <div class="sidebar">
-
-
-        {% if app_id %}
-            <div class="boxhead_primary"><b>{% trans "BASE_SIDEBAR_APP_TITLE" %}</b></div>
-            <div class="box">
-                <ul>
-                    <a href="/download.php?id={{ app_id }}">
-                        <li class="setup" {% if is_download_page %}id="active"{% endif %}><b>{% trans "BASE_SIDEBAR_APP_INSTALL" %}</b></li>
-                    </a>
-
-                    {% if developer_site %}
-                    <a href="{{ developer_site }}" target="_blank">
-                        <li class="web">{% trans "BASE_SIDEBAR_APP_DEV_SITE" %}</li>
-                    </a>
-                    {% endif %}
-
-                    <a href="/report_app.php?id={{ app_id }}">
-                        <li class="alert" {% if is_report_page %}id="active"{% endif %}>{% trans "BASE_SIDEBAR_APP_REPORT" %}</li>
-                    </a>
-                    {% if user.is_authenticated and user.id == developer_id %}
-                    <a href="/edit_app_info.php/{{ app_id }}/">
-                        <li class="editapp" {% if is_edit_page %}id="active"{% endif %}>{% trans "BASE_SIDEBAR_APP_EDIT" %}</li>
-                    </a>
-                    {% endif %}
-                </ul>
+                {% endfor %}
             </div>
-        {% endif %}
-        {% if user.is_authenticated %}
-        <div class="boxhead_primary"><b>{% trans "BASE_SIDEBAR_ACCOUNT_TITLE" %}</b></div>
-        <div class="box">
-          {% with route=request.resolver_match.url_name %}
-          <ul>
-            <a href="/profile.php?id={{ request.user.id }}">
-              <li class="myhome"
-              {% if route == 'profile' and request.GET.id == request.user.id|stringformat:"s" %}
-              id="active"{% endif %}>{% trans "BASE_SIDEBAR_ACCOUNT_PROFILEBTN" %}</li>
-            </a>
-            <a href="{% url 'settings' %}"><li class="settings"
-              {% if route == 'settings' %}
-              id="active"{% endif %}>{% trans "BASE_SIDEBAR_ACCOUNT_SETTINGSBTN" %}</li></a></li>
-            <a href="{% url 'invite_person' %}">
-                <li class="newbie" {% if route == 'invite_person' %}id="active"{% endif %}>
-                    {% trans "BASE_SIDEBAR_ACCOUNT_INVITEBTN" %}
-                </li>
-            </a>
-            <a href="{% url 'notifications' %}"><li class="notify" {% if route == 'notifications' %}id="active"{% endif %}>
-                {% trans "PAGE_NOTIFICATIONS_TAB" %}
-                <span id="global-unread-count" style="display:none; color: red; font-weight: bold;"></span>
-            </li></a>
-          </ul>
-          {% endwith %}
+            {% endif %}
+
+            <div class="sidebar">
+
+
+                {% if app_id %}
+                <div class="boxhead_primary"><b>{% trans "BASE_SIDEBAR_APP_TITLE" %}</b></div>
+                <div class="box">
+                    <ul>
+                        <a href="/download.php?id={{ app_id }}">
+                            <li class="setup" {% if is_download_page %}id="active" {% endif %}><b>{% trans "BASE_SIDEBAR_APP_INSTALL" %}</b></li>
+                        </a>
+
+                        {% if developer_site %}
+                        <a href="{{ developer_site }}" target="_blank">
+                            <li class="web">{% trans "BASE_SIDEBAR_APP_DEV_SITE" %}</li>
+                        </a>
+                        {% endif %}
+
+                        <a href="/report_app.php?id={{ app_id }}">
+                            <li class="alert" {% if is_report_page %}id="active" {% endif %}>{% trans "BASE_SIDEBAR_APP_REPORT" %}</li>
+                        </a>
+                        {% if user.is_authenticated and user.id == developer_id %}
+                        <a href="/edit_app_info.php/{{ app_id }}/">
+                            <li class="editapp" {% if is_edit_page %}id="active" {% endif %}>{% trans "BASE_SIDEBAR_APP_EDIT" %}</li>
+                        </a>
+                        {% endif %}
+                    </ul>
+                </div>
+                {% endif %}
+                {% if user.is_authenticated %}
+                <div class="boxhead_primary"><b>{% trans "BASE_SIDEBAR_ACCOUNT_TITLE" %}</b></div>
+                <div class="box">
+                    {% with route=request.resolver_match.url_name %}
+                    <ul>
+                        <a href="/profile.php?id={{ request.user.id }}">
+                            <li class="myhome" {% if route=='profile' and request.GET.id==request.user.id|stringformat:"s" %} id="active" {% endif %}>{% trans "BASE_SIDEBAR_ACCOUNT_PROFILEBTN" %}</li>
+                        </a>
+                        <a href="{% url 'settings' %}">
+                            <li class="settings" {% if route=='settings' %} id="active" {% endif %}>{% trans "BASE_SIDEBAR_ACCOUNT_SETTINGSBTN" %}</li>
+                        </a></li>
+                        <a href="{% url 'invite_person' %}">
+                            <li class="newbie" {% if route=='invite_person' %}id="active" {% endif %}>
+                                {% trans "BASE_SIDEBAR_ACCOUNT_INVITEBTN" %}
+                            </li>
+                        </a>
+                        <a href="{% url 'notifications' %}">
+                            <li class="notify" {% if route=='notifications' %}id="active" {% endif %}>
+                                {% trans "PAGE_NOTIFICATIONS_TAB" %}
+                                <span id="global-unread-count" style="display:none; color: red; font-weight: bold;"></span>
+                            </li>
+                        </a>
+                    </ul>
+                    {% endwith %}
+                </div>
+                {% endif %}
+
+                <div class="boxhead"><b>{% trans "BASE_SIDEBAR_CATEGORIES_TITLE" %}</b></div>
+                <div class="box">
+
+                    <ul>
+                        <a href="/index.php">
+                            <li class="myhome" {% if request.resolver_match.url_name=='index' %}id="active" {% endif %}>{% trans "BASE_SIDEBAR_CATEGORIES_HOME" %}</li>
+                        </a>
+                        <aside>{% show_categories active_category=active_category %}</aside>
+                    </ul>
+                </div>
+
+                <div class="sidebar_additional_data">
+                    {% if sidebar_banner %}
+                    <a href="{{ sidebar_banner.url|default:'#' }}" {% if sidebar_banner.url %}target="_blank" rel="noopener noreferrer" {% endif %}>
+                        <img src="{{ sidebar_banner.image_url }}" alt="{{ sidebar_banner.title }}" style="max-width: 100%; height: auto; display: block;">
+                    </a>
+                    {% else %}
+                    <a href="#">
+                        <img src="{% static 'banner/banner.png' %}" alt="Info">
+                    </a>
+                    {% endif %}
+                </div>
+
+                <div class="sidebar_additional_data">
+                    <a href="https://senko.digital/?utm_source=website&utm_medium=banner&utm_campaign=lunastore_banner">
+                        <img src="{% static 'banner/senko_ad.png' %}" alt="Info">
+                    </a>
+                </div>
+
+
+            </div>
+
+            {% block content %}
+            {% endblock %}
+
+            <div class="footer">
+                <a href="/help_center.php">FAQ</a> -
+                <a href="/help_center.php?page=privacy">{% trans "BASE_PRIVACYPOLICYBTN" %}</a> -
+                <a href="/help_center.php?page=donate">{% trans "PAGE_FAQ_DONATETAB" %}</a> -
+                <a href="/help_center.php?page=rules">{% trans "PAGE_FAQ_RULESTAB" %}</a> -
+                <a href="https://t.me/lunastore_official">{% trans "BASE_FOOTER_TELEGRAM" %}</a> -
+                <a href="/report_problem.php" class="report_problem">{% trans "BASE_FOOTER_REPORT_PROBLEM" %}</a>
+                <div style="text-align: right; font-size: 11px;">{% trans "BASE_FOOTER_TEXT_1" %} {% now "Y" %}<br>{% trans "BASE_FOOTER_TEXT_2" %}</div>
+            </div>
+
+
+            {% if user.is_authenticated %}
+            <meta id="global-notify-token" content="{{ notify_token }}">
+            <meta id="global-api-url" content="{{ api_url }}">
+            <script src="{% url 'javascript-catalog' %}"></script>
+
+            <div id="audio-placeholder" style="display:none;"></div>
+
+            <script type="text/javascript">
+                window.updateCountUI = function (count) {
+                    var el = document.getElementById("global-unread-count");
+                    if (el) {
+                        if (count > 0) {
+                            el.innerHTML = "(" + count + ")";
+                            el.style.display = "inline";
+                        } else {
+                            el.style.display = "none";
+                        }
+                    }
+                };
+
+                function loadNotificationLang() {
+                    const allTranslations = django.catalog;
+                    const notifications = Object.keys(allTranslations)
+                        .filter(key => key.startsWith('NOTIF_'))
+                        .reduce((obj, key) => {
+                            obj[key] = django.gettext(key);
+                            return obj;
+                        }, {});
+                    window.notifs = notifications
+                }
+
+                function playBalloonSnd() {
+                    var soundUrl = "/staticfiles/snd/balloon.mp3";
+
+                    if (window.Audio || (typeof Audio !== "undefined")) {
+                        try {
+                            var modernAudio = new Audio(soundUrl)
+                            modernAudio.play();
+                        } catch (e) {
+                            console.error(e)
+                        }
+                    } else {
+                        var container = document.getElementById('audio-placeholder');
+                        if (!container) {
+                            container = document.createElement('div');
+                            container.id = 'audio-placeholder';
+                            container.style.display = 'none';
+                            document.body.appendChild(container);
+                        }
+                        container.innerHTML = '<embed src="' + soundUrl + '" ' +
+                            'autostart="true" ' +
+                            'hidden="true" ' +
+                            'loop="false" ' +
+                            'mastersound>';
+                    }
+                }
+
+                function createNotification(title, message) {
+                    var container = document.getElementById('notifications');
+                    if (!container) return;
+
+                    var balloon = document.createElement('div');
+                    balloon.className = 'balloon';
+
+                    var li = document.createElement('li');
+                    li.className = 'balloon_img';
+                    balloon.appendChild(li);
+
+                    var bTitle = document.createElement('div');
+                    bTitle.className = 'balloon_title';
+                    bTitle.innerHTML = "{% trans 'PAGE_NOTIFY_TOAST_NEW'|escapejs %}"; // 'Новое уведомление'
+                    balloon.appendChild(bTitle);
+
+                    var nTitle = document.createElement('div');
+                    nTitle.className = 'notify_title';
+                    nTitle.innerHTML = window.notifs[title] || title;
+                    balloon.appendChild(nTitle);
+
+                    var bText = document.createElement('div');
+                    bText.className = 'balloon_text';
+                    bText.innerHTML = window.notifs[message] || message;
+                    balloon.appendChild(bText);
+
+                    var closeLink = document.createElement('a');
+                    closeLink.href = '#';
+                    closeLink.className = 'balloon_link';
+                    closeLink.innerHTML = "{% trans 'PAGE_NOTIFY_TOAST_CLOSE'|escapejs %}"; // 'Закрыть'
+
+                    closeLink.onclick = function () {
+                        container.removeChild(balloon);
+                        return false;
+                    };
+
+                    var viewLink = document.createElement('a');
+                    viewLink.href = '/notifications.php';
+                    viewLink.className = 'balloon_link';
+                    viewLink.innerHTML = "{% trans 'PAGE_NOTIFY_TOAST_VIEW'|escapejs %}"; // Посмотреть »
+
+                    balloon.appendChild(closeLink);
+                    balloon.appendChild(document.createTextNode(' | '));
+                    balloon.appendChild(viewLink);
+
+                    container.appendChild(balloon);
+                    playBalloonSnd()
+                }
+
+                function fetchUnreadCount() {
+                    var tokenEl = document.getElementById("global-notify-token");
+                    var apiEl = document.getElementById("global-api-url");
+                    if (!tokenEl || !apiEl) return;
+
+                    var token = tokenEl.getAttribute("content");
+                    var apiUrl = apiEl.getAttribute("content");
+                    if (!apiUrl.startsWith('http')) apiUrl = 'http://' + apiUrl;
+
+                    var xhr = new XMLHttpRequest();
+                    // back limit=1
+                    xhr.open("GET", apiUrl + "/notifications/list?token=" + encodeURIComponent(token) + "&limit=1", true);
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            try {
+                                var response = JSON.parse(xhr.responseText);
+                                var unreadCount = response.total_unread || 0;
+                                window.updateCountUI(unreadCount);
+                            } catch (e) { }
+                        }
+                    };
+                    xhr.send();
+                }
+
+                function incrementUnreadCount() {
+                    var el = document.getElementById("global-unread-count");
+                    if (el) {
+                        var current_count = Number(el.innerHTML.replace("(", "").replace(")", ""))
+                        if (current_count > 0) {
+                            el.innerHTML = "(" + (current_count + 1) + ")";
+                            el.style.display = "inline";
+                        } else {
+                            el.style.display = "none";
+                        }
+                    }
+                }
+
+                // live update via stream (longpull)
+                function subscribeToGlobalStream() {
+                    var tokenEl = document.getElementById("global-notify-token");
+                    var apiEl = document.getElementById("global-api-url");
+                    if (!tokenEl || !apiEl) return;
+
+                    var token = tokenEl.getAttribute("content");
+                    var apiUrl = apiEl.getAttribute("content");
+                    if (!apiUrl.startsWith('http')) apiUrl = 'http://' + apiUrl;
+
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("GET", apiUrl + "/notifications/stream?token=" + encodeURIComponent(token) + "&wait=20s", true);
+
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4) {
+                            if (xhr.status === 200) {
+                                var data = eval('(' + xhr.response + ')');
+                                createNotification(data.payload.Title, data.payload.Content)
+                                incrementUnreadCount();
+
+                                subscribeToGlobalStream();
+                            } else if (xhr.status === 204 || xhr.status === 429 || xhr.status === 0) {
+                                setTimeout(subscribeToGlobalStream, 3000);
+                            }
+                            else {
+                                console.error("subscribeToGlobalStream | Unexpected status:", xhr.status, xhr.responseText);
+                            }
+                        }
+                    };
+                    xhr.send();
+                }
+
+                (function () {
+                    loadNotificationLang();
+                    if (window.location.pathname.indexOf('notifications') === -1) {
+                        fetchUnreadCount();
+                        subscribeToGlobalStream();
+                    }
+                })();
+            </script>
+            {% endif %}
         </div>
-        {% endif %}
-
-        <div class="boxhead"><b>{% trans "BASE_SIDEBAR_CATEGORIES_TITLE" %}</b></div>
-      <div class="box">
-
-        <ul>
-          <a href="/index.php"><li class="myhome" {% if request.resolver_match.url_name == 'index' %}id="active"{% endif %}>{% trans "BASE_SIDEBAR_CATEGORIES_HOME" %}</li></a>
-          <aside>{% show_categories active_category=active_category %}</aside>
-        </ul>
-      </div>
-
-      <div class="sidebar_additional_data">
-          {% if sidebar_banner %}
-            <a href="{{ sidebar_banner.url|default:'#' }}" {% if sidebar_banner.url %}target="_blank" rel="noopener noreferrer"{% endif %}>
-              <img src="{{ sidebar_banner.image_url }}" alt="{{ sidebar_banner.title }}" style="max-width: 100%; height: auto; display: block;">
-            </a>
-          {% else %}
-              <a href="#">
-                  <img src="{% static 'banner/banner.png' %}" alt="Info">
-              </a>
-          {% endif %}
-      </div>
-
-      <div class="sidebar_additional_data">
-          <a href="https://senko.digital/?utm_source=website&utm_medium=banner&utm_campaign=lunastore_banner">
-              <img src="{% static 'banner/senko_ad.png' %}" alt="Info">
-          </a>
-      </div>
-
-
-    </div>
-
-    {% block content %}
-    {% endblock %}
-
-    <div class="footer">
-    <a href="/help_center.php">FAQ</a> -
-    <a href="/help_center.php?page=privacy">{% trans "BASE_PRIVACYPOLICYBTN" %}</a> -
-    <a href="/help_center.php?page=donate">{% trans "PAGE_FAQ_DONATETAB" %}</a> -
-    <a href="/help_center.php?page=rules">{% trans "PAGE_FAQ_RULESTAB" %}</a> -
-    <a href="https://t.me/lunastore_official">{% trans "BASE_FOOTER_TELEGRAM" %}</a>
-    <a href="/report_problem.php" class="report_problem">{% trans "BASE_FOOTER_REPORT_PROBLEM" %}</a>
-    <div style="text-align: right; font-size: 11px;">{% trans "BASE_FOOTER_TEXT_1" %} {% now "Y" %}<br>{% trans "BASE_FOOTER_TEXT_2" %}</div>
-  </div>
-
-
-{% if user.is_authenticated %}
-    <meta id="global-notify-token" content="{{ notify_token }}">
-    <meta id="global-api-url" content="{{ api_url }}">
-    <script src="{% url 'javascript-catalog' %}"></script>
-
-    <div id="audio-placeholder" style="display:none;"></div>
-
-    <script type="text/javascript">
-    window.updateCountUI = function(count) {
-        var el = document.getElementById("global-unread-count");
-        if (el) {
-            if (count > 0) {
-                el.innerHTML = "(" + count + ")";
-                el.style.display = "inline";
-            } else {
-                el.style.display = "none";
-            }
-        }
-    };
-
-    function loadNotificationLang() {
-        const allTranslations = django.catalog;
-        const notifications = Object.keys(allTranslations)
-            .filter(key => key.startsWith('NOTIF_'))
-            .reduce((obj, key) => {
-                obj[key] = django.gettext(key);
-                return obj;
-            }, {});
-        window.notifs = notifications
-    }
-
-    function playBalloonSnd() {
-        var soundUrl = "/staticfiles/snd/balloon.mp3";
-
-        if (window.Audio || (typeof Audio !== "undefined")) {
-            try {
-                var modernAudio = new Audio(soundUrl)
-                modernAudio.play();
-            } catch (e) {
-                console.error(e)
-            }
-        } else {
-            var container = document.getElementById('audio-placeholder');
-            if (!container) {
-                container = document.createElement('div');
-                container.id = 'audio-placeholder';
-                container.style.display = 'none';
-                document.body.appendChild(container);
-            }
-            container.innerHTML = '<embed src="' + soundUrl + '" ' +
-                'autostart="true" ' +
-                'hidden="true" ' +
-                'loop="false" ' +
-                'mastersound>';
-        }
-    }
-
-    function createNotification(title, message) {
-        var container = document.getElementById('notifications');
-        if (!container) return;
-
-        var balloon = document.createElement('div');
-        balloon.className = 'balloon';
-
-        var li = document.createElement('li');
-        li.className = 'balloon_img';
-        balloon.appendChild(li);
-
-        var bTitle = document.createElement('div');
-        bTitle.className = 'balloon_title';
-        bTitle.innerHTML = "{% trans 'PAGE_NOTIFY_TOAST_NEW'|escapejs %}"; // 'Новое уведомление'
-        balloon.appendChild(bTitle);
-
-        var nTitle = document.createElement('div');
-        nTitle.className = 'notify_title';
-        nTitle.innerHTML = window.notifs[title] || title;
-        balloon.appendChild(nTitle);
-
-        var bText = document.createElement('div');
-        bText.className = 'balloon_text';
-        bText.innerHTML = window.notifs[message] || message;
-        balloon.appendChild(bText);
-
-        var closeLink = document.createElement('a');
-        closeLink.href = '#';
-        closeLink.className = 'balloon_link';
-        closeLink.innerHTML = "{% trans 'PAGE_NOTIFY_TOAST_CLOSE'|escapejs %}"; // 'Закрыть'
-
-        closeLink.onclick = function() {
-            container.removeChild(balloon);
-            return false;
-        };
-
-        var viewLink = document.createElement('a');
-        viewLink.href = '/notifications.php';
-        viewLink.className = 'balloon_link';
-        viewLink.innerHTML = "{% trans 'PAGE_NOTIFY_TOAST_VIEW'|escapejs %}"; // Посмотреть »
-
-        balloon.appendChild(closeLink);
-        balloon.appendChild(document.createTextNode(' | '));
-        balloon.appendChild(viewLink);
-
-        container.appendChild(balloon);
-        playBalloonSnd()
-    }
-
-    function fetchUnreadCount() {
-        var tokenEl = document.getElementById("global-notify-token");
-        var apiEl = document.getElementById("global-api-url");
-        if (!tokenEl || !apiEl) return;
-
-        var token = tokenEl.getAttribute("content");
-        var apiUrl = apiEl.getAttribute("content");
-        if (!apiUrl.startsWith('http')) apiUrl = 'http://' + apiUrl;
-
-        var xhr = new XMLHttpRequest();
-        // back limit=1
-        xhr.open("GET", apiUrl + "/notifications/list?token=" + encodeURIComponent(token) + "&limit=1", true);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                try {
-                    var response = JSON.parse(xhr.responseText);
-                    var unreadCount = response.total_unread || 0;
-                    window.updateCountUI(unreadCount);
-                } catch (e) {}
-            }
-        };
-        xhr.send();
-    }
-
-    function incrementUnreadCount() {
-        var el = document.getElementById("global-unread-count");
-        if (el) {
-            var current_count = Number(el.innerHTML.replace("(", "").replace(")", ""))
-            if (current_count > 0) {
-                el.innerHTML = "(" + (current_count + 1) + ")";
-                el.style.display = "inline";
-            } else {
-                el.style.display = "none";
-            }
-        }
-    }
-
-    // live update via stream (longpull)
-    function subscribeToGlobalStream() {
-        var tokenEl = document.getElementById("global-notify-token");
-        var apiEl = document.getElementById("global-api-url");
-        if (!tokenEl || !apiEl) return;
-
-        var token = tokenEl.getAttribute("content");
-        var apiUrl = apiEl.getAttribute("content");
-        if (!apiUrl.startsWith('http')) apiUrl = 'http://' + apiUrl;
-
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", apiUrl + "/notifications/stream?token=" + encodeURIComponent(token) + "&wait=20s", true);
-
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    var data = eval('(' + xhr.response + ')');
-                    createNotification(data.payload.Title, data.payload.Content)
-                    incrementUnreadCount();
-
-                    subscribeToGlobalStream();
-                } else if (xhr.status === 204 || xhr.status === 429 || xhr.status === 0) {
-                    setTimeout(subscribeToGlobalStream, 3000);
-                }
-                else {
-                    console.error("subscribeToGlobalStream | Unexpected status:", xhr.status, xhr.responseText);
-                }
-            }
-        };
-        xhr.send();
-    }
-
-    (function() {
-        loadNotificationLang();
-        if (window.location.pathname.indexOf('notifications') === -1) {
-            fetchUnreadCount();
-            subscribeToGlobalStream();
-        }
-    })();
-    </script>
-{% endif %}
-  </div>
 
 </body>
+
 </html>
