@@ -14,7 +14,7 @@ def notify_about_user_problem_report_in_tg(sender, instance, created, **kwargs):
 
         warning_message = (
             f"⚠️ <b>Юзер прислал проблему:</b>\n\n"
-            f"👤 <b>Юзер:</b> {instance.user.id}\n",
+            f"👤 <b>Юзер:</b> {instance.user.id}\n"
             f"🚩 <b>Проблема:</b> {instance.description}"
         )
 
