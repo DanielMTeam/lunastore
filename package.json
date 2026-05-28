@@ -1,0 +1,18 @@
+{
+  "name": "lunastore-js",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "babel:build": "babel staticfiles/js/ --out-dir static/js/ --extensions .js",
+    "babel:watch": "babel staticfiles/js/ --out-dir static/js/ --extensions .js --watch"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7",
+    "@babel/core": "^7",
+    "@babel/preset-env": "^7",
+    "@babel/plugin-transform-runtime": "^7"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7"
+  }
+}
