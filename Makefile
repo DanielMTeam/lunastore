@@ -106,3 +106,16 @@ tolgee-pull:
 	tolgee pull
 
 i18n-sync: i18n-make tolgee-push tolgee-pull i18n-compile
+
+#
+# javascript (babel) commands
+#
+
+js-install:
+	npm install
+
+js-build:
+	npm run babel:build
+
+js-watch:
+	npm run babel:watch

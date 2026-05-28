@@ -13,3 +13,5 @@ reveal.py
 .venv
 AGENTS.md
 .pyc
+node_modules/
+package-lock.json
