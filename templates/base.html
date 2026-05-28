@@ -13,7 +13,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="{% static './css/main.css'%}">
     <link rel="stylesheet" href="{% static './css/notifications.css'%}">
+    {% if request.COOKIES.dark_theme == 'on' %}
+    <link rel="stylesheet" id="darkthm-css" href="{% static 'css/darkthm.css'%}?v=1">
+    {% endif %}
     <link rel="shortcut icon" href="{% static './favicon.ico'%}">
+    <script>window.DARK_THEME_CSS_URL = "{% static 'css/darkthm.css' %}?v=1";</script>
     <script src="{% static './js/cookie.js'%}"></script>
     <script defer src="https://analytics.myslivets.com/script.js" data-website-id="bce1e0a4-fb9e-40e8-85c9-04c8bd3c8940"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tolgee/web/dist/tolgee-web.production.umd.min.js"></script>
@@ -197,14 +201,28 @@
             {% block content %}
             {% endblock %}
 
-            <div class="footer">
+            <div class="footer" style="position: relative; overflow: hidden; zoom: 1;">
+                <a href="/report_problem.php" class="report_problem">{% trans "BASE_FOOTER_REPORT_PROBLEM" %}</a>
+
                 <a href="/help_center.php">FAQ</a> -
                 <a href="/help_center.php?page=privacy">{% trans "BASE_PRIVACYPOLICYBTN" %}</a> -
                 <a href="/help_center.php?page=donate">{% trans "PAGE_FAQ_DONATETAB" %}</a> -
                 <a href="/help_center.php?page=rules">{% trans "PAGE_FAQ_RULESTAB" %}</a> -
                 <a href="https://t.me/lunastore_official">{% trans "BASE_FOOTER_TELEGRAM" %}</a>
-                <a href="/report_problem.php" class="report_problem">{% trans "BASE_FOOTER_REPORT_PROBLEM" %}</a>
-                <div style="text-align: right; font-size: 11px; margin-top: 4px;">{% trans "BASE_FOOTER_TEXT_1" %} {% now "Y" %}<br>{% trans "BASE_FOOTER_TEXT_2" %}</div>
+                
+                <div style="clear: both;"></div>
+                <div style="margin-top: 4px; overflow: hidden; zoom: 1;">
+                    <div style="float: left;">
+                        {% if request.COOKIES.dark_theme == 'on' %}
+                        <a href="/theme_switch.php?payload=off" alt="Выключить тёмную тему"><div class="thmsw" id="dark" style="float: none;"></div></a>
+                        {% else %}
+                        <a href="/theme_switch.php?payload=on" alt="Включить тёмную тему"><div class="thmsw" id="light" style="float: none;"></div></a>
+                        {% endif %}
+                    </div>
+                    <div style="text-align: right; font-size: 11px;">
+                        {% trans "BASE_FOOTER_TEXT_1" %} {% now "Y" %}<br>{% trans "BASE_FOOTER_TEXT_2" %}
+                    </div>
+                </div>
             </div>
 
 

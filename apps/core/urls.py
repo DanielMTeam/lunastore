@@ -5,6 +5,7 @@ from django.views.i18n import JavaScriptCatalog
 from . import views
 
 urlpatterns = [
+    path("theme_switch.php", views.theme_switch, name="theme_switch"),
     path("debug_info.php", views.debug_info, name="debug_info"),
     path(
         "set-lang/<str:lang_code>/",
