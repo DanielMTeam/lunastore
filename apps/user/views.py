@@ -389,12 +389,40 @@ def delete_account(request):
 def invite_person(request):
     invite, created = InviteToken.objects.get_or_create(owner=request.user)
     invited_users_list = request.user.invited_users.all().order_by("-date_joined")
+    
+    from datetime import timedelta
+    from django.utils import timezone
+    
+    time_threshold = timezone.now() - timedelta(days=int(settings.MAX_INVITE_DAYS_LIMIT))
+    recent_invites = request.user.invited_users.filter(
+        date_joined__gte=time_threshold
+    ).order_by("date_joined")
+    
+    recent_count = recent_invites.count()
+    max_limit = int(settings.MAX_INVITE_USES_COUNT)
+    remaining_invites = max(0, max_limit - recent_count)
+    
+    can_invite = remaining_invites > 0
+    next_invite_date = None
+    
+    if not can_invite and recent_invites.exists():
+        oldest_recent = recent_invites.first()
+        next_invite_date = oldest_recent.date_joined + timedelta(days=int(settings.MAX_INVITE_DAYS_LIMIT))
+    
+    limit_info_text = _("PAGE_INVITE_LIMIT_INFO") % {
+        "limit": remaining_invites,
+        "days": settings.MAX_INVITE_DAYS_LIMIT
+    }
+    
     return render(
         request,
         "invite.html",
         {
             "invite_code": invite.refresh_code_if_expired(),
             "invited_users": invited_users_list,
+            "limit_info_text": limit_info_text,
+            "can_invite": can_invite,
+            "next_invite_date": next_invite_date,
         },
     )
 

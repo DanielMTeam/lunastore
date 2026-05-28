@@ -1370,7 +1370,7 @@ msgid "PAGE_INVITE_INPUT_TITLE"
 msgstr "Введення запрошувального коду"
 
 msgid "PAGE_INVITE_LIMIT_INFO"
-msgstr "Наразі Ви можете запросити <b>1</b> людину. Після прийняття користувачем вашого запрошення, наступне можна створити тільки через тиждень"
+msgstr "На даний момент ви можете запросити <b>%(limit)s</b> людин(и). Після того як користувач прийме ваше запрошення, наступне можна буде зробити тільки через %(days)s днів."
 
 msgid "PAGE_INVITE_LIST_EMPTY"
 msgstr "Ви поки ще нікого не запросили"
@@ -1908,3 +1908,9 @@ msgstr "Неправильний логін або пароль."
 
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "Вхід виконано успішно! Привіт, %(username)s!"
+
+msgid "PAGE_INVITE_LIMIT_EXHAUSTED"
+msgstr "Ваш ліміт запрошень вичерпано"
+
+msgid "PAGE_INVITE_NEXT_AVAILABLE"
+msgstr "Наступне запрошення буде доступне:"
