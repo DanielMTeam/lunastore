@@ -394,7 +394,8 @@ li.web {
     white-space: nowrap;
 }
 
-.card img, .card_icon {
+.card img,
+.card_icon {
     float: left;
     margin-right: 6px;
     width: 48px;
@@ -1381,4 +1382,21 @@ a.report_problem {
 
 .index_categories .empty {
     color: #999;
+}
+
+
+/* Я давно это мечтал сделать: переключение темы сайта. УРАаа*/
+.thmsw {
+    width: 48px;
+    height: 24px;
+    background: url(../img/thmswitch.jpg);
+    float: right;
+}
+
+.thmsw#light {
+    background-position: 0px 0px;
+}
+
+.thmsw#dark {
+    background-position: 0px 24px;
 }

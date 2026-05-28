@@ -12,6 +12,16 @@ from django.utils import timezone, translation
 
 
 # Create your views here.
+def theme_switch(request):
+    payload = request.GET.get('payload')
+    next_url = request.META.get('HTTP_REFERER', '/')
+    response = redirect(next_url)
+    if payload == 'on':
+        response.set_cookie('dark_theme', 'on', max_age=31536000)
+    else:
+        response.delete_cookie('dark_theme')
+    return response
+
 def debug_info(request):
     if settings.DEBUG:
         method = request.method
