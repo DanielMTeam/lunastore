@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "babel:build": "babel staticfiles/js/ --out-dir static/js/ --extensions .js",
-    "babel:watch": "babel staticfiles/js/ --out-dir static/js/ --extensions .js --watch"
+    "babel:build": "babel staticfiles/js/ --out-dir static/js/ --extensions .js --copy-files",
+    "babel:watch": "babel staticfiles/js/ --out-dir static/js/ --extensions .js --copy-files --watch"
   },
   "devDependencies": {
     "@babel/cli": "^7",
