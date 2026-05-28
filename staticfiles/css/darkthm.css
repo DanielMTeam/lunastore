@@ -75,7 +75,7 @@ body {
 .sidebar .boxhead {
     background: #3a3a3a !important;
     border: 1px solid #3a3a3a !important;
-    padding: 5px !important;
+    padding: 4px !important;
     color: #fff !important;
 }
 
@@ -83,7 +83,7 @@ body {
     background: #222 !important;
     border: 1px solid #3a3a3a !important;
     color: #fff !important;
-    padding: 5px !important;
+    padding: 4px !important;
 }
 
 .preferences {
@@ -146,6 +146,7 @@ body {
 .info_splash {
     background: #296ba8 !important;
     border: 1px solid #13314d !important;
+    color: #fff !important;
 }
 
 .info_splash_noicon {
@@ -408,11 +409,13 @@ input[type="submit"] {
 .error_splash {
     background: #ad3131 !important;
     border: 1px solid #d68383 !important;
+    color: #fff !important;
 }
 
 .good_splash {
     border: 1px solid #77d44c !important;
     background-color: #186014 !important;
+    color: #fff !important;
 }
 
 #global-unread-count {
@@ -470,7 +473,8 @@ input[type="submit"] {
     background: none !important;
 }
 
-.index_categories, .index_categories .prompt {
+.index_categories,
+.index_categories .prompt {
     color: #fff !important;
 }
 
@@ -495,4 +499,42 @@ input[type="submit"] {
 .captcha_block {
     background: #5a5a5a !important;
     border: 1px solid #000 !important;
+}
+
+.regform {
+    background: #323232 !important;
+    border-top: 1px solid #7d7d7d !important;
+}
+
+.input-text,
+textarea {
+    background: #5a5a5a !important;
+    border: 1px solid #000 !important;
+    color: #fff !important;
+    max-width: 95% !important;
+}
+
+textarea {
+    width: 95% !important;
+}
+
+.input-text:focus,
+textarea:focus {
+    border-color: #ffa84c !important;
+    background-color: #454545 !important;
+}
+
+.regform select {
+    background: #5a5a5a !important;
+    border: 1px solid #000 !important;
+    color: #fff !important;
+}
+
+.register_card {
+    border: 1px solid #000 !important;
+    background: #3a3a3a !important;
+}
+
+.regform_label {
+    color: #bebdbd !important;
 }
