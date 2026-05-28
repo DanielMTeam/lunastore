@@ -1365,7 +1365,7 @@ msgid "PAGE_INVITE_INPUT_TITLE"
 msgstr "Enter invite code"
 
 msgid "PAGE_INVITE_LIMIT_INFO"
-msgstr "Currently you can invite <b>1</b> person. After the user accepts your invitation, the next one can be created only in a week"
+msgstr "Currently you can invite <b>%(limit)s</b> person(s). After the user accepts your invite, the next one can be created only after %(days)s day(s)."
 
 msgid "PAGE_INVITE_LIST_EMPTY"
 msgstr "You haven't invited anyone yet"
@@ -1881,3 +1881,9 @@ msgstr "Incorrect username or password."
 
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "Login successful! Welcome, %(username)s!"
+
+msgid "PAGE_INVITE_LIMIT_EXHAUSTED"
+msgstr "Your invite limit is exhausted"
+
+msgid "PAGE_INVITE_NEXT_AVAILABLE"
+msgstr "Next invite will be available on:"

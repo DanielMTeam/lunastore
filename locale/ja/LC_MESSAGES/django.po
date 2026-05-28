@@ -28,3 +28,9 @@ msgstr ""
 
 msgid "BASE_COOKIE_PRIVACYPOLICY"
 msgstr "プライバシーポリシー"
+
+msgid "PAGE_INVITE_LIMIT_EXHAUSTED"
+msgstr "招待の制限に達しました。"
+
+msgid "PAGE_INVITE_NEXT_AVAILABLE"
+msgstr "次の招待は以下から利用可能になります："

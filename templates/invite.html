@@ -17,10 +17,11 @@
 
     <div class="section">
         <div class="invite_block">{% trans "PAGE_INVITE_DESCRIPTION" %}</div>
+        {% if can_invite %}
         <div class="splash">
             <div class="info_splash">
                 <div class="info_icon_small"></div>
-                <div class="splash_text">{% trans "PAGE_INVITE_LIMIT_INFO" %}</div>
+                <div class="splash_text">{{ limit_info_text|safe }}</div>
             </div>
         </div>
 
@@ -40,6 +41,17 @@
                 <div class="splash_text">{% trans "PAGE_INVITE_CODE_ROTATION_WARN" %}</div>
             </div>
         </div>
+        {% else %}
+        <div class="splash">
+            <div class="error_splash">
+                <div class="error_icon_small"></div>
+                <div class="splash_text">
+                    <b>{% trans "PAGE_INVITE_LIMIT_EXHAUSTED" %}</b><br>
+                    {% trans "PAGE_INVITE_NEXT_AVAILABLE" %} {{ next_invite_date|date:"d.m.Y H:i" }}
+                </div>
+            </div>
+        </div>
+        {% endif %}
         <br>
 
         <h2>{% trans "PAGE_INVITE_LIST_HEADER" %}</h2>

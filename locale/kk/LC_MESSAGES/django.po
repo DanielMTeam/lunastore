@@ -1363,7 +1363,7 @@ msgid "PAGE_INVITE_INPUT_TITLE"
 msgstr "Шақыру кодын енгізу"
 
 msgid "PAGE_INVITE_LIMIT_INFO"
-msgstr "Қазіргі уақытта сіз <b>1</b> адамды шақыра аласыз. Пайдаланушы сіздің шақыруыңызды қабылдағаннан кейін, келесі шақыруды тек бір аптадан кейін жасауға болады"
+msgstr "Қазіргі уақытта сіз <b>%(limit)s</b> адамды шақыра аласыз. Пайдаланушы сіздің шақыруыңызды қабылдағаннан кейін, келесі шақыруды тек %(days)s күннен кейін жасауға болады."
 
 msgid "PAGE_INVITE_LIST_EMPTY"
 msgstr "Сіз әлі ешкімді шақырған жоқсыз"
@@ -1879,3 +1879,9 @@ msgstr "Логин немесе құпия сөз дұрыс емес."
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "Сіз сәтті кірдіңіз! Сәлем, %(username)s!"
 
+
+msgid "PAGE_INVITE_LIMIT_EXHAUSTED"
+msgstr "Сіздің шақыру лимитіңіз таусылды"
+
+msgid "PAGE_INVITE_NEXT_AVAILABLE"
+msgstr "Келесі шақыру қолжетімді болады:"
