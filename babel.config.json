@@ -10,5 +10,9 @@
         "useBuiltIns": false
       }
     ]
+  ],
+  "ignore": [
+    "**/*.min.js",
+    "**/thickbox.js"
   ]
 }
