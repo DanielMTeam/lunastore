@@ -1,6 +1,8 @@
 (function () {
   function selectTab(tabName) {
-    var tabs = document.getElementsByClassName ? document.getElementsByClassName("tab") : document.getElementsByTagName("div"); // IE6 fallback
+    var tabs = document.getElementsByClassName ? 
+      document.getElementsByClassName("tab") : 
+      document.getElementsByTagName("div"); // IE6 fallback
 
     for (var i = 0; i < tabs.length; i++) {
       if (tabs[i].className && tabs[i].className.indexOf("tab") !== -1) {
@@ -11,14 +13,16 @@
         }
       }
     }
+
     var contents = document.getElementsByTagName("div");
     for (var j = 0; j < contents.length; j++) {
       var id = contents[j].id || "";
       if (id.indexOf("tab-") === 0) {
-        contents[j].style.display = id === "tab-" + tabName ? "block" : "none";
+        contents[j].style.display = (id === "tab-" + tabName) ? "block" : "none";
       }
     }
   }
+
   function init() {
     var tabs = document.getElementsByTagName("div");
     for (var i = 0; i < tabs.length; i++) {
@@ -35,6 +39,7 @@
       }
     }
   }
+
   if (window.attachEvent) {
     window.attachEvent('onload', init);
   } else {
