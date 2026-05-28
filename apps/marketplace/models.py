@@ -377,8 +377,8 @@ class ProblemReportRequests(SafeDeleteModel):
     )
 
     class Meta:
-        verbose_name = _("PAGE_REPORTPROBLEM_TITLE")
-        verbose_name_plural = _("PAGE_REPORTPROBLEM_TITLE_PATH")
+        verbose_name = "сообщение о проблеме"
+        verbose_name_plural = "сообщений о проблеме"
 
     def __str__(self):
         return f"Жалоба #{self.id} на проблему"

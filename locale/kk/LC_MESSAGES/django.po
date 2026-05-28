@@ -1878,3 +1878,4 @@ msgstr "Логин немесе құпия сөз дұрыс емес."
 
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "Сіз сәтті кірдіңіз! Сәлем, %(username)s!"
+
