@@ -10,14 +10,5 @@
         "useBuiltIns": false
       }
     ]
-  ],
-  "plugins": [
-    [
-      "@babel/plugin-transform-runtime",
-      {
-        "regenerator": true,
-        "corejs": false
-      }
-    ]
   ]
 }
