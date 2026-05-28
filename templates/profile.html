@@ -125,14 +125,16 @@
                     <tr>
                         {% for app in obj.applications.all|slice:":5" %}
                         <td width="92" valign="top">
-                            <div class="icon"><a href="/app.php?id={{ app.id }}">
-                                {% if app.icon_path %}
-                                <img src="{{ app.icon_url }}" alt="{{ app.title }}" class="icon-img">
-                                {% else %}
-                                <img src="{% static './img/noavatar_64.jpg' %}" alt="{{ app.title }}" class="icon-img">
-                                {% endif %}
+                            <div class="icon">
+                                <a href="/app.php?id={{ app.id }}">
+                                    {% if app.icon_path %}
+                                    <img src="{{ app.icon_url }}" alt="{{ app.title }}" class="icon-img">
+                                    {% else %}
+                                    <img src="{% static './img/noavatar_64.jpg' %}" alt="{{ app.title }}" class="icon-img">
+                                    {% endif %}
+                                </a>
                                 <div class="icon-text"><a href="/app.php?id={{ app.id }}">{{ app.title }}</a></div>
-                            </div></a>
+                            </div>
                         </td>
                         {% empty %}
                         <td>
@@ -156,14 +158,16 @@
                     <tr>
                         {% for invited in obj.invited_users.all|slice:":5" %}
                         <td width="92" valign="top">
-                            <div class="user"><a href="/profile.php?id={{ invited.id }}"
-                                {% if invited.avatar_path %}
-                                <img src="{{ invited.avatar_url }}" alt="{{ invited.username }}" class="user-img">
-                                {% else %}
-                                <img src="{% static './img/noavatar_64.jpg' %}" alt="{{ invited.username }}" class="user-img">
-                                {% endif %}
+                            <div class="user">
+                                <a href="/profile.php?id={{ invited.id }}">
+                                    {% if invited.avatar_path %}
+                                    <img src="{{ invited.avatar_url }}" alt="{{ invited.username }}" class="user-img">
+                                    {% else %}
+                                    <img src="{% static './img/noavatar_64.jpg' %}" alt="{{ invited.username }}" class="user-img">
+                                    {% endif %}
+                                </a>
                                 <div class="user-text"><a href="?id={{ invited.id }}">{{ invited.username }}</a></div>
-                            </div></a>
+                            </div>
                         </td>
                         {% empty %}
                         <td>
