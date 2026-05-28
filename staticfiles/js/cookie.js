@@ -21,11 +21,16 @@ function getCookie(name) {
 }
 
 // there is cookie?
-document.addEventListener("DOMContentLoaded", function () {
-  if (!getCookie("cookie_consent_accepted")) {
-    document.getElementById("cookie-banner").style.display = "block";
+if (navigator.userAgent.indexOf("MSIE ") === -1) {
+  if (document.addEventListener) {
+    document.addEventListener("DOMContentLoaded", function () {
+      if (!getCookie("cookie_consent_accepted")) {
+        var banner = document.getElementById("cookie-banner");
+        if (banner) banner.style.display = "block";
+      }
+    });
   }
-});
+}
 function acceptCookies(e) {
   e.preventDefault();
   setCookie("cookie_consent_accepted", "true", 365);
