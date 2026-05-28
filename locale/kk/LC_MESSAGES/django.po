@@ -1252,7 +1252,7 @@ msgid "PAGE_FAQ_DESC"
 msgstr "Сұрақтарыңыз бар ма? Бұл бетте LunaStore туралы барлық ақпарат жинақталған"
 
 msgid "PAGE_FAQ_DONATETAB"
-msgstr "Қайырымдылық жасау"
+msgstr "Қайырымдылық"
 
 msgid "PAGE_FAQ_DONATE_TITLE"
 msgstr "Бізге қалай қолдау көрсетуге болады?"
