@@ -1384,7 +1384,6 @@ a.report_problem {
     color: #999;
 }
 
-
 /* Я давно это мечтал сделать: переключение темы сайта. УРАаа*/
 .thmsw {
     width: 48px;
@@ -1399,4 +1398,14 @@ a.report_problem {
 
 .thmsw#dark {
     background-position: 0px 24px;
+}
+
+.checkbox-element {
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+}
+
+.checkbox-element__label {
+    margin-left: 3px;
 }
