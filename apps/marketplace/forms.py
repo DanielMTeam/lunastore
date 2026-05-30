@@ -243,7 +243,7 @@ class AppCreateForm(forms.ModelForm, CDNTokenValidationMixin):
         model = AppCreateRequests
         _base_names = [
             "category", "title", "slogan", "original_author",
-            "developer_site", "description", "requirements", "is_demo", "price"
+            "developer_site", "description", "requirements", "is_demo", "price", "is_private"
         ]
         fields = get_translated_fields_list(_base_names)
         widgets = get_translated_widgets_dict({
@@ -256,6 +256,7 @@ class AppCreateForm(forms.ModelForm, CDNTokenValidationMixin):
                     "original_author": forms.TextInput(attrs={"class": "input-text"}),
                     "is_demo": forms.CheckboxInput(attrs={"class": "checkbox_item", "style": "margin: 0; padding: 0; vertical-align: middle;"}),
                     "price": forms.NumberInput(attrs={"class": "input-text", "step": "0.01", "min": "0"}),
+                    "is_private": forms.CheckboxInput(attrs={"class": "checkbox-element"})
                 })
 
     def clean(self):
