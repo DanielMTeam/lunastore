@@ -375,7 +375,13 @@
 
                         <label>
                             {{ form.is_private }}
-                            <span class="checkbox-element__label">{% trans "SET_APP_IS_PRIVATE" %}</span>
+                            <span class="checkbox-element__label">
+                                <span>{% trans "SET_APP_IS_PRIVATE" %}</span>
+                                {% trans "SET_APP_IS_PRIVATE_TOOLTIP" as tooltip %}
+                                <img src="{% static './img/info_micro.png' %}"
+                                     class="checkbox-element__info-icon"
+                                     title="{{ tooltip }}" />
+                            </span>
                         </label>
 
 
