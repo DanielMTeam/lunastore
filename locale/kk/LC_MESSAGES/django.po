@@ -9,11 +9,11 @@ msgstr ""
 
 msgid "%(counter)s PAGE_PROFILE_STATS_APP"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
-msgstr[0] "%(counter)s қосымша,"
+msgstr[0] "%%(counter)s қосымша,"
 
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
-msgstr[0] "%(counter)s пікір,"
+msgstr[0] "%%(counter)s пікір,"
 
 msgid "404_ELEMENT_NOT_FOUND"
 msgstr "Сұратылған элемент немесе сіз өткіңіз келетін сілтеме біздің сайттан табылмады."
@@ -220,7 +220,7 @@ msgid "ERROR_EMAIL_DISPOSABLE_DOMAIN"
 msgstr "Уақытша электрондық пошта қызметтерін пайдаланып тіркелуге тыйым салынған."
 
 msgid "ERROR_EMAIL_DOMAIN_NO_MX %(domain)s"
-msgstr "%(domain)s домені электрондық поштаны қабылдамайды. Қолданыстағы мекенжайды көрсетіңіз."
+msgstr "%%(domain)s домені электрондық поштаны қабылдамайды. Қолданыстағы мекенжайды көрсетіңіз."
 
 msgid "ERROR_EMAIL_INVALID_FORMAT"
 msgstr "Электрондық пошта мекенжайы қате енгізілді."
@@ -358,7 +358,7 @@ msgid "FORM_SCREENSHOTS"
 msgstr "Скриншоттар"
 
 msgid "File extension “%(extension)s” is not allowed. Allowed extensions are: “%(allowed_extensions)s”."
-msgstr "“%(extension)s” файл кеңейтіліміне рұқсат жоқ. Рұқсат етілген кеңейтілімдер: “%(allowed_extensions)s”."
+msgstr "“%%(extension)s” файл кеңейтіліміне рұқсат жоқ. Рұқсат етілген кеңейтілімдер: “%%(allowed_extensions)s”."
 
 msgid "INDEX_CATEGORY_PROMPT"
 msgstr "Немесе қажетті санатты таңдаңыз:"
@@ -463,25 +463,25 @@ msgid "NOTIFICATIONS_LOADING"
 msgstr "Хабарламалар жүктелуде..."
 
 msgid "NOTIF_APPEDITREQ_ACCEPTED_DESCRIPTION"
-msgstr "%(app_name)s қосымшасын өңдеуге сұранысыңыз мақұлданды."
+msgstr "%%(app_name)s қосымшасын өңдеуге сұранысыңыз мақұлданды."
 
 msgid "NOTIF_APPEDITREQ_ACCEPTED_TITLE"
 msgstr "Қосымшаны өңдеуге арналған өтінімнің мәртебесі"
 
 msgid "NOTIF_APPEDITREQ_DECLINED_DESCRIPTION"
-msgstr "%(app_name)s қосымшасын өңдеуге сұранысыңыз қабылданбады. Себебі: %(reason)s"
+msgstr "%%(app_name)s қосымшасын өңдеуге сұранысыңыз қабылданбады. Себебі: %%(reason)s"
 
 msgid "NOTIF_APPEDITREQ_DECLINED_TITLE"
 msgstr "Қосымшаны өңдеуге арналған өтінімнің мәртебесі"
 
 msgid "NOTIF_APPREQ_ACCEPTED_DESCRIPTION"
-msgstr "Құттықтаймыз! %(app_name)s қосымшасын жасауға сұранысыңыз мақұлданып, ол LunaStore дүкенінде жарияланды."
+msgstr "Құттықтаймыз! %%(app_name)s қосымшасын жасауға сұранысыңыз мақұлданып, ол LunaStore дүкенінде жарияланды."
 
 msgid "NOTIF_APPREQ_ACCEPTED_TITLE"
 msgstr "Өтінім мәртебесі"
 
 msgid "NOTIF_APPREQ_DECLINED_DESCRIPTION"
-msgstr "%(app_name)s қосымшасын құруға сұранысыңыз қабылданбады. Себебі: %(reason)s"
+msgstr "%%(app_name)s қосымшасын құруға сұранысыңыз қабылданбады. Себебі: %%(reason)s"
 
 msgid "NOTIF_APPREQ_DECLINED_TITLE"
 msgstr "Өтінім мәртебесі"
@@ -493,7 +493,7 @@ msgid "NOTIF_DEVSTATUS_ACCEPTED_TITLE"
 msgstr "Әзірлеуші мәртебесі"
 
 msgid "NOTIF_DEVSTATUS_DECLINED_DESCRIPTION"
-msgstr "Өтінішіңіз қабылданбады және сіз әзірлеуші/бағдарлама шығарушы мүмкіндіктерін алмадыңыз. Себебі: %(reason)s"
+msgstr "Өтінішіңіз қабылданбады және сіз әзірлеуші/бағдарлама шығарушы мүмкіндіктерін алмадыңыз. Себебі: %%(reason)s"
 
 msgid "NOTIF_DEVSTATUS_DECLINED_TITLE"
 msgstr "Әзірлеуші мәртебесі"
@@ -505,19 +505,19 @@ msgid "NOTIF_DEVSTATUS_SEND_TITLE"
 msgstr "Әзірлеуші мәртебесі"
 
 msgid "NOTIF_DISTREQ_ACCEPTED_DESCRIPTION"
-msgstr "%(app_name)s қолданбасының %(version)s нұсқасын жариялауға берген өтінішіңіз модератормен мақұлданды."
+msgstr "%%(app_name)s қолданбасының %%(version)s нұсқасын жариялауға берген өтінішіңіз модератормен мақұлданды."
 
 msgid "NOTIF_DISTREQ_ACCEPTED_TITLE"
 msgstr "Жаңа нұсқа жарияланды!"
 
 msgid "NOTIF_DISTREQ_DECLINED_DESCRIPTION"
-msgstr "Өкінішке орай, %(app_name)s қосымшасының %(version)s нұсқасын жариялауға берген өтінішіңіз қабылданбады. Себебі: %(reason)s"
+msgstr "Өкінішке орай, %%(app_name)s қосымшасының %%(version)s нұсқасын жариялауға берген өтінішіңіз қабылданбады. Себебі: %%(reason)s"
 
 msgid "NOTIF_DISTREQ_DECLINED_TITLE"
 msgstr "Жариялауға өтінім қабылданбады"
 
 msgid "NOTIF_LOGIN_DESCRIPTION"
-msgstr "Тіркелгіңізге кіру орындалды • Құрылғы: %(browser)s (%(os)s) • IP-мекенжайы: %(ip)s • Орналасқан жері: %(location)s • Егер бұл сіз болмасаңыз, құпия сөзді дереу өзгертіңіз."
+msgstr "Тіркелгіңізге кіру орындалды • Құрылғы: %%(browser)s (%%(os)s) • IP-мекенжайы: %%(ip)s • Орналасқан жері: %%(location)s • Егер бұл сіз болмасаңыз, құпия сөзді дереу өзгертіңіз."
 
 msgid "NOTIF_LOGIN_TITLE"
 msgstr "Жаңа тіркелгіге кіру"
@@ -1252,7 +1252,7 @@ msgid "PAGE_FAQ_DESC"
 msgstr "Сұрақтарыңыз бар ма? Бұл бетте LunaStore туралы барлық ақпарат жинақталған"
 
 msgid "PAGE_FAQ_DONATETAB"
-msgstr "Қайырымдылық"
+msgstr "Қайырымдылық жасау"
 
 msgid "PAGE_FAQ_DONATE_TITLE"
 msgstr "Бізге қалай қолдау көрсетуге болады?"
@@ -1363,7 +1363,7 @@ msgid "PAGE_INVITE_INPUT_TITLE"
 msgstr "Шақыру кодын енгізу"
 
 msgid "PAGE_INVITE_LIMIT_INFO"
-msgstr "Қазіргі уақытта сіз <b>%(limit)s</b> адамды шақыра аласыз. Пайдаланушы сіздің шақыруыңызды қабылдағаннан кейін, келесі шақыруды тек %(days)s күннен кейін жасауға болады."
+msgstr "Қазіргі уақытта сіз <b>1</b> адамды шақыра аласыз. Пайдаланушы сіздің шақыруыңызды қабылдағаннан кейін, келесі шақыруды тек бір аптадан кейін жасауға болады"
 
 msgid "PAGE_INVITE_LIST_EMPTY"
 msgstr "Сіз әлі ешкімді шақырған жоқсыз"
@@ -1454,7 +1454,7 @@ msgstr "Басқарылатын қосымшалар"
 
 msgid "PAGE_NOTIFICATIONS_COUNT_SINGLE"
 msgid_plural "PAGE_NOTIFICATIONS_COUNT_PLURAL"
-msgstr[0] "Сізде <b>%(counter)s</b> жаңа хабарлама бар"
+msgstr[0] "Сізде <b>%%(counter)s</b> жаңа хабарлама бар"
 
 msgid "PAGE_NOTIFICATIONS_EARLY"
 msgstr "Ерте хабарламалар"
@@ -1685,13 +1685,13 @@ msgid "PAGE_SEARCH_BADGE_DEMO"
 msgstr "Демо"
 
 msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
-msgstr "Демо, әрі қарай $%(price)s"
+msgstr "Демо, әрі қарай $%%(price)s"
 
 msgid "PAGE_SEARCH_BADGE_FREE"
 msgstr "Тегін"
 
 msgid "PAGE_SEARCH_BADGE_NOT_FOUND"
-msgstr "\"%(q)s\" сұранысы бойынша нәтиже табылмады"
+msgstr "\"%%(q)s\" сұранысы бойынша нәтиже табылмады"
 
 msgid "PAGE_SEARCH_BTN_DETAILS"
 msgstr "Толығырақ"
@@ -1727,7 +1727,7 @@ msgid "PAGE_SEARCH_LINK_ADVANCED"
 msgstr "Іздеу параметрлерін нақтылау"
 
 msgid "PAGE_SEARCH_MSG_NO_RESULTS %(q)s"
-msgstr "\"%(q)s\" сұранысы бойынша нәтиже табылмады"
+msgstr "\"%%(q)s\" сұранысы бойынша нәтиже табылмады"
 
 msgid "PAGE_SEARCH_MSG_NO_RESULTS_EMPTY"
 msgstr "Сұрауыңыз бойынша ештеңе табылмады"
@@ -1858,6 +1858,12 @@ msgstr "Файлдар тексеруден өтті: "
 msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_2"
 msgstr "дана. Жүктеуге дайын."
 
+msgid "SET_APP_IS_PRIVATE"
+msgstr "Қосымшаны жеке ету керек пе?"
+
+msgid "SET_APP_IS_PRIVATE_TOOLTIP"
+msgstr "Жеке қолданба басқа пайдаланушыларға көрсетілмейді. Бұл параметрді қолданба жарияланғаннан кейін өзгертуге болады."
+
 msgid "SITE_DESCRIPTION"
 msgstr "LunaStore. Ескі ПК-ге арналған қосымшалар анықтамалығы. Қосымшаларды жүктеп алыңыз, пікір қалдырыңыз және ескі ДК әуесқойлары қауымдастығының бір бөлігі болыңыз."
 
@@ -1871,17 +1877,10 @@ msgid "TEXT_APP_NO_SLOGAN"
 msgstr "Ұран жоқ"
 
 msgid "VIEW_LOGIN_BANNED_REASON"
-msgstr "Сіздің аккаунты бұғатталды. Себебі: %(reason)s"
+msgstr "Сіздің аккаунты бұғатталды. Себебі: %%(reason)s"
 
 msgid "VIEW_LOGIN_INVALID_CREDENTIALS"
 msgstr "Логин немесе құпия сөз дұрыс емес."
 
 msgid "VIEW_LOGIN_SUCCESS"
-msgstr "Сіз сәтті кірдіңіз! Сәлем, %(username)s!"
-
-
-msgid "PAGE_INVITE_LIMIT_EXHAUSTED"
-msgstr "Сіздің шақыру лимитіңіз таусылды"
-
-msgid "PAGE_INVITE_NEXT_AVAILABLE"
-msgstr "Келесі шақыру қолжетімді болады:"
+msgstr "Сіз сәтті кірдіңіз! Сәлем, %%(username)s!"
