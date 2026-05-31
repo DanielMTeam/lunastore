@@ -59,11 +59,33 @@ class UserAdmin(unfold_admin.ModelAdmin):
     list_display = ["pk", "username", "email", "invited_by"]
     search_fields = ["username", "email", "pk"]
     actions = ["disable_2fa"]
+    actions_detail = ["login_as_user"]
 
     @action(description="Принудительно отключить 2FA", icon="lock_open", attrs={"class": "bg-warning-600 text-white"})
     def disable_2fa(self, request, queryset):
         count = queryset.update(totp_enabled=False, totp_secret=None)
         self.message_user(request, f"2FA успешно отключен для {count} пользователей.")
+
+    @action(description="Войти от имени пользователя", icon="login", attrs={"class": "bg-primary-600 text-white"})
+    def login_as_user(self, request, object_id):
+        if not request.user.is_superuser:
+            self.message_user(request, "Только суперпользователи могут входить от чужого имени.", messages.ERROR)
+            return redirect(reverse("admin:user_user_change", args=[object_id]))
+
+        user_to_impersonate = self.get_object(request, object_id)
+        original_admin_id = request.user.id
+        
+        from django.contrib.auth import login
+        login(request, user_to_impersonate, backend="django.contrib.auth.backends.ModelBackend")
+        
+        request.session["impersonated_by"] = original_admin_id
+        
+        host = request.get_host()
+        if ":8088" in host:
+            host = host.replace(":8088", ":9088")
+        frontend_url = f"{request.scheme}://{host}/index.php"
+        
+        return redirect(frontend_url)
 
     def save_model(self, request, obj, form, change):
         if obj.password:

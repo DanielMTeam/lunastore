@@ -618,6 +618,32 @@ def settings_2fa_set(request):
     return render(request, "2fa_set.html", context)
 
 
+def revert_impersonation(request):
+    admin_id = request.session.get("impersonated_by")
+    if admin_id:
+        admin_user = get_object_or_404(User, id=admin_id)
+        if admin_user.is_staff:
+            dj_login(request, admin_user, backend="django.contrib.auth.backends.ModelBackend")
+            if "impersonated_by" in request.session:
+                del request.session["impersonated_by"]
+                
+            host = request.get_host()
+            if ":9088" in host:
+                host = host.replace(":9088", ":8088")
+            
+            admin_path = getattr(settings, "ADMIN_URL", "admin")
+            # If ADMIN_URL has HTTP:// inside it, it's a full URL.
+            # In settings: ADMIN_URL = "lunas-office" or full URL.
+            # wait, in settings.py: ADMIN_URL = os.getenv("ADMIN_URL", "admin")
+            if admin_path.startswith("http"):
+                admin_url = f"{admin_path}/user/user/"
+            else:
+                admin_url = f"{request.scheme}://{host}/{admin_path}/user/user/"
+                
+            return redirect(admin_url)
+    return redirect("home")
+
+
 def _get_2fa_setup_context(request):
     user = request.user
     if user.totp_enabled:
