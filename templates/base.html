@@ -148,7 +148,7 @@
                             <li class="myhome" {% if route == 'profile' and request.GET.id == request.user.id|stringformat:"s" %} id="active" {% endif %}>{% trans "BASE_SIDEBAR_ACCOUNT_PROFILEBTN" %}</li>
                         </a>
                         <a href="{% url 'settings' %}">
-                            <li class="settings" {% if route == 'settings' %} id="active" {% endif %}>{% trans "BASE_SIDEBAR_ACCOUNT_SETTINGSBTN" %}</li>
+                            <li class="settings" {% if route == 'settings' or route == 'settings_security' or route == 'settings_apps' or route == "settings_2fa_set" %} id="active" {% endif %}>{% trans "BASE_SIDEBAR_ACCOUNT_SETTINGSBTN" %}</li>
                         </a></li>
                         <a href="{% url 'invite_person' %}">
                             <li class="newbie" {% if route == 'invite_person' %}id="active" {% endif %}>

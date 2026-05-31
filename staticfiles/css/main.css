@@ -1415,3 +1415,31 @@ a.report_problem {
     margin-left: 2px;
     margin-bottom: -2px;
 }
+
+
+/* двухфакторка */
+.twofa {
+    border: 0px;
+    margin-bottom: 16px;
+
+}
+
+.twofa_text_one {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.twofa_text_two {
+    font-size: 16px;
+}
+
+.twofa_icon {
+    width: 64px;
+    height: 64px;
+    background: url(../img/2fa_ic.png);
+}
+
+.code_type {
+    text-align: center;
+    font-weight: bold;
+}

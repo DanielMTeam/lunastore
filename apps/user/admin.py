@@ -51,9 +51,19 @@ class UserAdmin(unfold_admin.ModelAdmin):
             "Дополнительная информация",
             {"fields": ("telegram", "discord", "openvk", "website")},
         ),
+        (
+            "Безопасность (2FA)",
+            {"fields": ("totp_enabled", "totp_secret")},
+        ),
     )
     list_display = ["pk", "username", "email", "invited_by"]
     search_fields = ["username", "email", "pk"]
+    actions = ["disable_2fa"]
+
+    @action(description="Принудительно отключить 2FA", icon="lock_open", attrs={"class": "bg-warning-600 text-white"})
+    def disable_2fa(self, request, queryset):
+        count = queryset.update(totp_enabled=False, totp_secret=None)
+        self.message_user(request, f"2FA успешно отключен для {count} пользователей.")
 
     def save_model(self, request, obj, form, change):
         if obj.password:

@@ -23,3 +23,5 @@ user_agents
 django-smart-ratelimit
 dnspython
 disposable-email-domains
+pyotp
+qrcode

@@ -43,6 +43,8 @@ class User(AbstractUser, SafeDeleteModel):
     )
     avatar_id = models.PositiveIntegerField(null=True, blank=True)
     avatar_path = models.CharField(max_length=255, null=True, blank=True)
+    totp_secret = models.CharField(max_length=32, null=True, blank=True)
+    totp_enabled = models.BooleanField(default=False)
 
     @property
     def avatar_url(self):
