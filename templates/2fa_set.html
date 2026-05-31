@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<title>{% trans "PAGE_2FA_TITLE" %} - LunaStore</title>
+<link rel="stylesheet" href="{% static './css/settings.css'%}">
+<link rel="stylesheet" href="{% static './css/profile.css'%}">
+
+<div class="content">
+    <div class="preferences">
+        <div class="preferences_info">
+            <div class="preferences_title">{% trans "PAGE_SETTINGS_TITLE" %}</div>
+            <div style="clear: both"></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <table class="twofa" width="100%">
+            <tr>
+                <td>
+                    <div class="twofa_text_one">{% trans "PAGE_2FA_TITLE" %}</div>
+                    <div class="twofa_text_two">{% trans "PAGE_2FA_SUBTITLE_MANAGE" %}</div>
+                </td>
+                <td>
+                    <div class="twofa_icon"></div>
+                </td>
+            </tr>
+        </table>
+
+        <div class="profile_block">{% if not is_enabled %}{% trans "PAGE_2FA_INITIAL_SETUP" %}{% else %}{% trans "PAGE_2FA_MANAGE" %}{% endif %}</div>
+        <div class="profile_block_content">
+            {% if not is_enabled %}
+            {% trans "PAGE_2FA_INFO_1" %}
+            <br><br>
+            {% trans "PAGE_2FA_INFO_2" %}
+            <br><br>
+            {% trans "PAGE_2FA_INFO_3" %}
+            <br><br>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="code_type">
+                    <img src="data:image/png;base64,{{ qr_code_base64 }}" width="200" height="200" alt="QR Code">
+                    <br>
+                    <br>
+                    <strong>{% trans "PAGE_2FA_SECRET_KEY" %}:</strong> {{ secret_key }}
+                    <br><br>
+                    {% trans "PAGE_2FA_ENTER_CODE" %}
+                    <br><br>
+                    <input id="2fa-code" name="2fa-code" type="text" class="input-text" style="width: 150px; text-align: center; font-size: 16px;" inputmode="numeric" pattern="[0-9]*" maxlength="6" required>
+                    <br><br>
+                    <input type="submit" class="action_button" value="{% trans 'PAGE_2FA_CONNECT_BTN' %}">
+                </div>
+            </form>
+            {% else %}
+            {% trans "PAGE_2FA_ENABLED_INFO" %}
+            <br><br>
+            {% trans "PAGE_2FA_DISABLE_INFO" %}
+            <form method="POST" onsubmit="return confirm('{% trans 'PAGE_2FA_DISABLE_CONFIRM' %}');">
+                {% csrf_token %}
+                <input type="hidden" name="disable" value="1">
+                <br>
+                <input type="submit" class="action_button" style="background: #a00; color: white; border-color: #700;" value="{% trans 'PAGE_2FA_DISABLE_BTN' %}">
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

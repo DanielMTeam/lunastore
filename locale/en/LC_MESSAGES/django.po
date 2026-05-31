@@ -9,13 +9,13 @@ msgstr ""
 
 msgid "%(counter)s PAGE_PROFILE_STATS_APP"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
-msgstr[0] "%%(counter)s apps,"
-msgstr[1] "%%(counter)s apps,"
+msgstr[0] "%(counter)s apps,"
+msgstr[1] "%(counter)s apps,"
 
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
-msgstr[0] "%%(counter)s reviews -"
-msgstr[1] "%%(counter)s reviews -"
+msgstr[0] "%(counter)s reviews -"
+msgstr[1] "%(counter)s reviews -"
 
 msgid "404_ELEMENT_NOT_FOUND"
 msgstr "The requested item or link you are trying to visit was not found on our site."
@@ -222,7 +222,7 @@ msgid "ERROR_EMAIL_DISPOSABLE_DOMAIN"
 msgstr "Signing up using temporary email services is not allowed."
 
 msgid "ERROR_EMAIL_DOMAIN_NO_MX %(domain)s"
-msgstr "The domain %%(domain)s does not accept mail. Please provide a valid address."
+msgstr "The domain %(domain)s does not accept mail. Please provide a valid address."
 
 msgid "ERROR_EMAIL_INVALID_FORMAT"
 msgstr "Invalid email address format."
@@ -360,7 +360,7 @@ msgid "FORM_SCREENSHOTS"
 msgstr "Screenshots"
 
 msgid "File extension “%(extension)s” is not allowed. Allowed extensions are: “%(allowed_extensions)s”."
-msgstr "Extension “%%(extension)s” is not allowed. Allowed extensions: “%%(allowed_extensions)s”."
+msgstr "Extension “%(extension)s” is not allowed. Allowed extensions: “%(allowed_extensions)s”."
 
 msgid "INDEX_CATEGORY_PROMPT"
 msgstr "Or select a category:"
@@ -465,25 +465,25 @@ msgid "NOTIFICATIONS_LOADING"
 msgstr "Loading notifications..."
 
 msgid "NOTIF_APPEDITREQ_ACCEPTED_DESCRIPTION"
-msgstr "Your application edit request for %%(app_name)s has been approved."
+msgstr "Your application edit request for %(app_name)s has been approved."
 
 msgid "NOTIF_APPEDITREQ_ACCEPTED_TITLE"
 msgstr "Application edit request status"
 
 msgid "NOTIF_APPEDITREQ_DECLINED_DESCRIPTION"
-msgstr "Your application edit request for %%(app_name)s has been declined. Reason: %%(reason)s"
+msgstr "Your application edit request for %(app_name)s has been declined. Reason: %(reason)s"
 
 msgid "NOTIF_APPEDITREQ_DECLINED_TITLE"
 msgstr "Application edit request status"
 
 msgid "NOTIF_APPREQ_ACCEPTED_DESCRIPTION"
-msgstr "Congratulations! Your request to create the application %%(app_name)s has been approved and it has been published in LunaStore."
+msgstr "Congratulations! Your request to create the application %(app_name)s has been approved and it has been published in LunaStore."
 
 msgid "NOTIF_APPREQ_ACCEPTED_TITLE"
 msgstr "Application status"
 
 msgid "NOTIF_APPREQ_DECLINED_DESCRIPTION"
-msgstr "Your application creation request for %%(app_name)s has been declined. Reason: %%(reason)s"
+msgstr "Your application creation request for %(app_name)s has been declined. Reason: %(reason)s"
 
 msgid "NOTIF_APPREQ_DECLINED_TITLE"
 msgstr "Application status"
@@ -495,7 +495,7 @@ msgid "NOTIF_DEVSTATUS_ACCEPTED_TITLE"
 msgstr "Developer status"
 
 msgid "NOTIF_DEVSTATUS_DECLINED_DESCRIPTION"
-msgstr "Your application has been declined and you have not received developer/publisher capabilities. Reason: %%(reason)s"
+msgstr "Your application has been declined and you have not received developer/publisher capabilities. Reason: %(reason)s"
 
 msgid "NOTIF_DEVSTATUS_DECLINED_TITLE"
 msgstr "Developer status"
@@ -507,19 +507,19 @@ msgid "NOTIF_DEVSTATUS_SEND_TITLE"
 msgstr "Developer status"
 
 msgid "NOTIF_DISTREQ_ACCEPTED_DESCRIPTION"
-msgstr "Your request to publish version %%(version)s for application \"%%(app_name)s\" has been approved by a moderator."
+msgstr "Your request to publish version %(version)s for application \"%(app_name)s\" has been approved by a moderator."
 
 msgid "NOTIF_DISTREQ_ACCEPTED_TITLE"
 msgstr "New version published!"
 
 msgid "NOTIF_DISTREQ_DECLINED_DESCRIPTION"
-msgstr "Unfortunately, your request to publish version %%(version)s for \"%%(app_name)s\" has been declined. Reason: %%(reason)s"
+msgstr "Unfortunately, your request to publish version %(version)s for \"%(app_name)s\" has been declined. Reason: %(reason)s"
 
 msgid "NOTIF_DISTREQ_DECLINED_TITLE"
 msgstr "Publication request declined"
 
 msgid "NOTIF_LOGIN_DESCRIPTION"
-msgstr "Your account was logged into • Device: %%(browser)s (%%(os)s) • IP address: %%(ip)s • Location: %%(location)s • If this wasn't you, change your password immediately."
+msgstr "Your account was logged into • Device: %(browser)s (%(os)s) • IP address: %(ip)s • Location: %(location)s • If this wasn't you, change your password immediately."
 
 msgid "NOTIF_LOGIN_TITLE"
 msgstr "New account login"
@@ -1456,8 +1456,8 @@ msgstr "Managed applications"
 
 msgid "PAGE_NOTIFICATIONS_COUNT_SINGLE"
 msgid_plural "PAGE_NOTIFICATIONS_COUNT_PLURAL"
-msgstr[0] "You have <b>%%(counter)s</b> new notification"
-msgstr[1] "You have <b>%%(counter)s</b> new notifications"
+msgstr[0] "You have <b>%(counter)s</b> new notification"
+msgstr[1] "You have <b>%(counter)s</b> new notifications"
 
 msgid "PAGE_NOTIFICATIONS_EARLY"
 msgstr "Early notifications"
@@ -1688,13 +1688,13 @@ msgid "PAGE_SEARCH_BADGE_DEMO"
 msgstr "Demo"
 
 msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
-msgstr "Demo, then $%%(price)s"
+msgstr "Demo, then $%(price)s"
 
 msgid "PAGE_SEARCH_BADGE_FREE"
 msgstr "Free"
 
 msgid "PAGE_SEARCH_BADGE_NOT_FOUND"
-msgstr "No results found for \"%%(q)s\""
+msgstr "No results found for \"%(q)s\""
 
 msgid "PAGE_SEARCH_BTN_DETAILS"
 msgstr "Details"
@@ -1730,7 +1730,7 @@ msgid "PAGE_SEARCH_LINK_ADVANCED"
 msgstr "Refine search criteria"
 
 msgid "PAGE_SEARCH_MSG_NO_RESULTS %(q)s"
-msgstr "No results found for \"%%(q)s\""
+msgstr "No results found for \"%(q)s\""
 
 msgid "PAGE_SEARCH_MSG_NO_RESULTS_EMPTY"
 msgstr "No results found for your search"
@@ -1880,10 +1880,10 @@ msgid "TEXT_APP_NO_SLOGAN"
 msgstr "No slogan"
 
 msgid "VIEW_LOGIN_BANNED_REASON"
-msgstr "Your account has been blocked. Reason: %%(reason)s"
+msgstr "Your account has been blocked. Reason: %(reason)s"
 
 msgid "VIEW_LOGIN_INVALID_CREDENTIALS"
 msgstr "Incorrect username or password."
 
 msgid "VIEW_LOGIN_SUCCESS"
-msgstr "Login successful! Welcome, %%(username)s!"
+msgstr "Login successful! Welcome, %(username)s!"

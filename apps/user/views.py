@@ -23,6 +23,9 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from .tasks import process_login_notification
 from apps.core.tasks import send_notification
 from django_smart_ratelimit import ratelimit
+import pyotp
+import qrcode
+import base64
 
 from apps.marketplace.models import Application
 
@@ -104,6 +107,11 @@ def login(request):
                     error_msg = _("VIEW_LOGIN_BANNED_REASON") % {"reason": reason}
                     messages.error(request, error_msg)
                     return render(request, "login_splash.html", {"next": next_url})
+
+            if user.totp_enabled:
+                request.session["2fa_user_id"] = user.id
+                request.session["2fa_next_url"] = next_url
+                return redirect("two_factor_attempt")
 
             dj_login(request, user)
 
@@ -483,3 +491,155 @@ def notifications(request):
         'api_url': api_url,
     }
     return render(request, "notifications.html", context)
+
+
+def two_factor_attempt(request):
+    user_id = request.session.get("2fa_user_id")
+    next_url = request.session.get("2fa_next_url")
+
+    if not user_id:
+        return redirect("login")
+
+    user = get_object_or_404(User, id=user_id)
+
+    if request.method == "POST":
+        code = request.POST.get("2fa-code")
+        if code and user.totp_secret:
+            totp = pyotp.TOTP(user.totp_secret)
+            if totp.verify(code):
+                dj_login(request, user, backend="django.contrib.auth.backends.ModelBackend")
+                ip = get_client_ip(request)
+                user_agent = request.META.get('HTTP_USER_AGENT', '')
+                UserActivityLog.objects.create(user=user, ip=ip, action="login_save_ip")
+                process_login_notification.enqueue(
+                    user_id=user.id,
+                    ip=ip,
+                    user_agent=user_agent
+                )
+                del request.session["2fa_user_id"]
+                if "2fa_next_url" in request.session:
+                    del request.session["2fa_next_url"]
+
+                if next_url and url_has_allowed_host_and_scheme(
+                    url=next_url,
+                    allowed_hosts={request.get_host()},
+                    require_https=request.is_secure(),
+                ):
+                    return redirect(next_url)
+
+                messages.success(request, _("VIEW_LOGIN_SUCCESS") % {"username": user.username})
+                return redirect("home")
+            else:
+                messages.error(request, _("ERROR_2FA_INVALID_CODE"))
+                return redirect("two_factor_attempt")
+    
+    return render(request, "2fa_attempt.html")
+
+
+@login_required
+def settings_security(request):
+    user = request.user
+    forms = {
+        "password_form": PasswordChangeForm(user=user),
+        "email_form": EmailChangeForm(user=user),
+        "user": user,
+    }
+    if request.method == "POST":
+        form_type = request.POST.get("form_type")
+        if form_type == "password":
+            forms["password_form"] = PasswordChangeForm(request.POST, user=user)
+            if forms["password_form"].is_valid():
+                user.set_password(forms["password_form"].cleaned_data["new_password"])
+                user.save()
+                update_session_auth_hash(request, user)
+                messages.success(request, _("INFO_PASSWORD_WAS_CHANGED"))
+                return redirect("settings_security")
+            else:
+                for field, errors in forms["password_form"].errors.items():
+                    for error in errors:
+                        messages.error(request, error)
+        elif form_type == "email":
+            forms["email_form"] = EmailChangeForm(request.POST, user=user)
+            if forms["email_form"].is_valid():
+                user.email = forms["email_form"].cleaned_data["new_email"]
+                user.save()
+                messages.success(request, _("INFO_EMAIL_WAS_CHANGED"))
+                return redirect("settings_security")
+            else:
+                for field, errors in forms["email_form"].errors.items():
+                    for error in errors:
+                        messages.error(request, error)
+
+    return render(request, "settings_security.html", forms)
+
+
+@login_required
+def settings_2fa_set(request):
+    user = request.user
+
+    if not request.session.get("2fa_sudo_mode"):
+        if request.method == "POST":
+            password = request.POST.get("password")
+            if user.check_password(password):
+                request.session["2fa_sudo_mode"] = True
+                return redirect("settings_2fa_set")
+            else:
+                messages.error(request, _("ERROR_2FA_INVALID_PASSWORD"))
+                return redirect("settings_2fa_set")
+        return render(request, "2fa_password_confirm.html")
+
+    if request.method == "POST":
+        if request.POST.get("disable") == "1" and user.totp_enabled:
+            user.totp_enabled = False
+            user.totp_secret = None
+            user.save()
+            messages.success(request, _("INFO_2FA_DISABLED"))
+            del request.session["2fa_sudo_mode"]
+            return redirect("settings_security")
+
+        code = request.POST.get("2fa-code")
+        secret_key = request.session.get("2fa_pending_secret")
+        if code and secret_key:
+            totp = pyotp.TOTP(secret_key)
+            if totp.verify(code):
+                user.totp_secret = secret_key
+                user.totp_enabled = True
+                user.save()
+                messages.success(request, _("INFO_2FA_ENABLED"))
+                del request.session["2fa_sudo_mode"]
+                if "2fa_pending_secret" in request.session:
+                    del request.session["2fa_pending_secret"]
+                return redirect("settings_security")
+            else:
+                messages.error(request, _("ERROR_2FA_INVALID_CODE"))
+                return redirect("settings_2fa_set")
+
+    context = _get_2fa_setup_context(request)
+    return render(request, "2fa_set.html", context)
+
+
+def _get_2fa_setup_context(request):
+    user = request.user
+    if user.totp_enabled:
+        return {"is_enabled": True}
+    
+    secret = request.session.get("2fa_pending_secret")
+    if not secret:
+        secret = pyotp.random_base32()
+        request.session["2fa_pending_secret"] = secret
+        
+    totp_auth_url = pyotp.totp.TOTP(secret).provisioning_uri(
+        name=user.email,
+        issuer_name="LunaStore"
+    )
+    
+    qr = qrcode.make(totp_auth_url)
+    buffered = io.BytesIO()
+    qr.save(buffered, format="PNG")
+    qr_code_base64 = base64.b64encode(buffered.getvalue()).decode()
+    
+    return {
+        "is_enabled": False,
+        "secret_key": secret,
+        "qr_code_base64": qr_code_base64
+    }
