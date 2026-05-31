@@ -383,6 +383,7 @@ class ApplicationAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
                     "price",
                     "is_demo",
                     "is_under_dmca",
+                    "is_private"
                 )
             },
         ),
@@ -466,6 +467,7 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
         "icon_preview",
         "price",
         "is_demo",
+        "is_private",
         "screenshots",
         "developer_site",
     )
@@ -524,6 +526,7 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
             developer_site=req.developer_site,
             original_author=req.original_author,
             is_demo=req.is_demo,
+            is_private=req.is_private
         )
 
         # copy locale
@@ -585,6 +588,7 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
                     "description",
                     "price",
                     "is_demo",
+                    "is_private",
                     "icon_path",
                     "screenshots",
                     "developer_site",
@@ -631,38 +635,9 @@ class AppEditRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
         "icon_preview",
         "price",
         "is_demo",
+        "is_private",
         "screenshots",
         "developer_site",
-    )
-    fieldsets = (
-        (
-            "info_tab",
-            {
-                "fields": (
-                    "category",
-                    "title",
-                    "slogan",
-                    "description",
-                    "requirements",
-                    "original_author",
-                    "price",
-                    "is_demo",
-                    "developer_site",
-                    "icon_preview",
-                    "screenshots",
-                ),
-            },
-        ),
-        (
-            "user_tab",
-            {
-                "fields": (
-                    "status",
-                    "user",
-                    "user_info_link",
-                ),
-            },
-        ),
     )
 
     def user_info_link(self, obj):
@@ -727,6 +702,7 @@ class AppEditRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
         app.price = req.price
         app.is_demo = req.is_demo
         app.developer_site = req.developer_site
+        app.is_private = req.is_private
 
         if req.icon_path:
             app.icon_id = req.icon_id
@@ -795,6 +771,7 @@ class AppEditRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
                     "original_author",
                     "price",
                     "is_demo",
+                    "is_private",
                     "icon_path",
                     "screenshots",
                     "developer_site",
