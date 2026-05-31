@@ -373,6 +373,18 @@
                             </div>
                         </label>
 
+                        <label>
+                            {{ form.is_private }}
+                            <span class="checkbox-element__label">
+                                <span>{% trans "SET_APP_IS_PRIVATE" %}</span>
+                                {% trans "SET_APP_IS_PRIVATE_TOOLTIP" as tooltip %}
+                                <img src="{% static './img/info_micro.png' %}"
+                                     class="checkbox-element__info-icon"
+                                     title="{{ tooltip }}" />
+                            </span>
+                        </label>
+
+
                         <br><br>
                         <div style="display: flex; gap: 10px;">
                             <button type="button" class="action_button action_button_secondary" onclick="goToStep(1)">&larr; {% trans "PAGE_ADDAPP_BACKBTN" %}</button>
