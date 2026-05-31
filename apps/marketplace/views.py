@@ -297,7 +297,7 @@ def search(request):
     is_free = request.GET.get("is_free")
     f_category = request.GET.get("category", "")
 
-    results = Application.objects.all()
+    results = Application.objects.all().filter(is_private=False)
     categories = Category.objects.all()
 
     if f_category:
