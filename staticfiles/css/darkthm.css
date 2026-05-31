@@ -538,3 +538,15 @@ textarea:focus {
 .regform_label {
     color: #bebdbd !important;
 }
+
+.info_block {
+    background:  #323232  !important;
+}
+
+.login_block {
+    background: #111827 !important;
+}
+
+.login_header {
+    background:    #000 !important;
+}
