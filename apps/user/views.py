@@ -536,6 +536,10 @@ def two_factor_attempt(request):
     return render(request, "2fa_attempt.html")
 
 
+from .models import UserSession
+from django.utils import timezone
+from datetime import timedelta
+
 @login_required
 def settings_security(request):
     user = request.user
@@ -543,8 +547,20 @@ def settings_security(request):
         "password_form": PasswordChangeForm(user=user),
         "email_form": EmailChangeForm(user=user),
         "user": user,
+        "active_sessions": UserSession.objects.filter(user=user),
+        "current_session_key": request.session.session_key,
+        "is_new_session": False,
     }
+    
+    current_session = UserSession.objects.filter(session_key=request.session.session_key).first()
+    if current_session and (timezone.now() - current_session.created_at).total_seconds() < 86400:
+        forms["is_new_session"] = True
+
     if request.method == "POST":
+        if forms["is_new_session"]:
+            messages.error(request, "Ваше устройство (сессия) новое. В целях безопасности смена почты и пароля недоступны первые 24 часа.")
+            return redirect("settings_security")
+            
         form_type = request.POST.get("form_type")
         if form_type == "password":
             forms["password_form"] = PasswordChangeForm(request.POST, user=user)
@@ -576,6 +592,11 @@ def settings_security(request):
 @login_required
 def settings_2fa_set(request):
     user = request.user
+    
+    current_session = UserSession.objects.filter(session_key=request.session.session_key).first()
+    if current_session and (timezone.now() - current_session.created_at).total_seconds() < 86400:
+        messages.error(request, "Ваше устройство (сессия) новое. Управление 2FA недоступно первые 24 часа.")
+        return redirect("settings_security")
 
     if not request.session.get("2fa_sudo_mode"):
         if request.method == "POST":
@@ -669,3 +690,29 @@ def _get_2fa_setup_context(request):
         "secret_key": secret,
         "qr_code_base64": qr_code_base64
     }
+
+from django.contrib.sessions.models import Session
+
+@login_required
+def terminate_session(request, session_pk):
+    current_session = UserSession.objects.filter(session_key=request.session.session_key).first()
+    if current_session and (timezone.now() - current_session.created_at).total_seconds() < 86400:
+        messages.error(request, "Ваше устройство (сессия) новое. Управление сеансами недоступно первые 24 часа.")
+        return redirect("settings_security")
+
+    user_session = get_object_or_404(UserSession, pk=session_pk, user=request.user)
+    
+    # Do not allow terminating the current session this way
+    if user_session.session_key == request.session.session_key:
+        messages.error(request, "Нельзя завершить текущую сессию отсюда. Воспользуйтесь выходом.")
+        return redirect("settings_security")
+        
+    try:
+        # Delete from Django session store
+        Session.objects.filter(session_key=user_session.session_key).delete()
+    except Exception:
+        pass
+        
+    user_session.delete()
+    messages.success(request, "Сеанс успешно завершен.")
+    return redirect("settings_security")

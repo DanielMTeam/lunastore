@@ -1880,7 +1880,7 @@ msgid "PAGE_SETTINGS_TITLE"
 msgstr "Настройки"
 
 msgid "PAGE_SETTINGS_WARN_USERNAME_FROZEN"
-msgstr "Имя пользователя после регистрации изменить нельзя"
+msgstr "Имя пользователя после регистрации изменить можно раз в 1 год"
 
 msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_1"
 msgstr "Файлы прошли проверку: "
@@ -2019,3 +2019,12 @@ msgstr "Неверный пароль"
 
 msgid "ERROR_2FA_INVALID_CODE"
 msgstr "Неверный код"
+
+msgid "BASE_IMPERSONATE_ATTENTION"
+msgstr "Внимание!"
+
+msgid "BASE_IMPERSONATE_WARNING"
+msgstr "Вы временно вошли в чужой аккаунт. Пожалуйста, не злоупотребляйте этим функционалом!"
+
+msgid "BASE_IMPERSONATE_RETURN"
+msgstr "Вернуться в свой аккаунт"

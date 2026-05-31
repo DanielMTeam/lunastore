@@ -49,3 +49,40 @@ class BlockBannedIP(MiddlewareMixin):
                 logging.error(f"Task enqueue failed: {e}")
 
         return banned_ips
+
+class UserSessionMiddleware:
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        if request.user.is_authenticated and request.session.session_key:
+            session_key = request.session.session_key
+            
+            from .models import UserSession
+            user_session, created = UserSession.objects.get_or_create(
+                session_key=session_key,
+                defaults={
+                    "user": request.user,
+                    "ip": self.get_client_ip(request),
+                    "user_agent": request.META.get("HTTP_USER_AGENT", "")[:255]
+                }
+            )
+            
+            if not created:
+                # Update last_activity if more than 5 minutes have passed
+                if (timezone.now() - user_session.last_activity).total_seconds() > 300:
+                    user_session.last_activity = timezone.now()
+                    user_session.ip = self.get_client_ip(request)
+                    user_session.user_agent = request.META.get("HTTP_USER_AGENT", "")[:255]
+                    user_session.save(update_fields=['last_activity', 'ip', 'user_agent'])
+                    
+        response = self.get_response(request)
+        return response
+
+    def get_client_ip(self, request):
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+        return ip

@@ -173,10 +173,64 @@ class ProfileUpdateForm(forms.ModelForm):
 
     username = forms.CharField(
         label=_("FORM_DEVSTATUS_YOUR_USERNAME"),
-        disabled=True,
-        required=False,
-        widget=forms.TextInput(attrs={"class": "input-text", "readonly": "readonly"}),
+        required=True,
+        widget=forms.TextInput(attrs={"class": "input-text"}),
     )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        user = self.instance
+        if user and user.pk:
+            can_change = True
+            if user.last_username_change:
+                import datetime
+                if (timezone.now() - user.last_username_change).days < 365:
+                    can_change = False
+            
+            if not can_change:
+                self.fields["username"].disabled = True
+                self.fields["username"].widget.attrs["readonly"] = "readonly"
+                import datetime
+                next_date = user.last_username_change + datetime.timedelta(days=365)
+                self.fields["username"].help_text = f"Смена юзернейма будет доступна {next_date.strftime('%d.%m.%Y')}."
+            else:
+                self.fields["username"].help_text = "Внимание: Юзернейм можно менять только 1 раз в год."
+
+    def clean_username(self):
+        username = self.cleaned_data.get("username")
+        user = self.instance
+        if username and user.username != username:
+            if user.last_username_change:
+                import datetime
+                if (timezone.now() - user.last_username_change).days < 365:
+                    raise ValidationError("Юзернейм можно менять только 1 раз в год.")
+            
+            if User.objects.filter(username__iexact=username).exclude(pk=user.pk).exists():
+                raise ValidationError("Этот юзернейм уже занят.")
+                
+            is_blacklisted = False
+            for ban in BlacklistedUsername.objects.all():
+                if ban.is_regex:
+                    import re
+                    if re.search(ban.word, username, re.IGNORECASE):
+                        is_blacklisted = True
+                        break
+                else:
+                    if ban.word.lower() == username.lower():
+                        is_blacklisted = True
+                        break
+            if is_blacklisted:
+                raise ValidationError("Этот юзернейм запрещен.")
+                
+        return username
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        if "username" in self.changed_data:
+            user.last_username_change = timezone.now()
+        if commit:
+            user.save()
+        return user
     telegram = forms.CharField(
         label="Telegram",
         required=False,
