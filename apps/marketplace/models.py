@@ -75,6 +75,9 @@ class BaseApplicationInfo(SafeDeleteModel):
         max_length=160, null=True, blank=True, verbose_name="Сайт разработчика"
     )
     is_demo = models.BooleanField(default=False, verbose_name="Демо-версия")
+    is_private = models.BooleanField(
+        default=False, verbose_name="Приложение приватное?")
+
 
     class Meta:
         abstract = True

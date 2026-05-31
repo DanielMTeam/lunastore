@@ -7,17 +7,20 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n % 10 == 1 && n % 100 != 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2)\n"
 "X-Generator: Tolgee\n"
 
+msgid " SITE_DESCRIPTION"
+msgstr "LunaStore. Справочник приложений для твоего старого ПК. Скачивайте приложения, оставляйте отзывы и станьте частью сообщества любителей старых ПК."
+
 msgid "%(counter)s PAGE_PROFILE_STATS_APP"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
-msgstr[0] "%(counter)s приложений,"
-msgstr[1] "%(counter)s приложений,"
-msgstr[2] "%(counter)s приложений,"
+msgstr[0] "%%(counter)s приложений,"
+msgstr[1] "%%(counter)s приложений,"
+msgstr[2] "%%(counter)s приложений,"
 
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
-msgstr[0] "%(counter)s отзывов -"
-msgstr[1] "%(counter)s отзывов -"
-msgstr[2] "%(counter)s отзывов -"
+msgstr[0] "%%(counter)s отзывов -"
+msgstr[1] "%%(counter)s отзывов -"
+msgstr[2] "%%(counter)s отзывов -"
 
 msgid "404_ELEMENT_NOT_FOUND"
 msgstr "Запрашиваемый элемент или ссылка, которую вы хотите посетить, не найдены на нашем сайте."
@@ -35,6 +38,9 @@ msgid "404_TITLE"
 msgstr "Произошла ошибка"
 
 msgid "ACTION_CHOOSE_FILE"
+msgstr "Выберите файл"
+
+msgid "ACTION_CHOOSE_ICON"
 msgstr "Выберите файл"
 
 msgid "BANNED_IP_BACK_BUTTON"
@@ -184,6 +190,9 @@ msgstr "Недопустимый формат файла на сервере х�
 msgid "ERROR_CDN_SESSION_EXPIRED"
 msgstr "Время сессии загрузки истекло. Попробуйте еще раз."
 
+msgid "ERROR_CDN_TOKEN_EXPIRED"
+msgstr "Токен загрузки устарел или уже был использован."
+
 msgid "ERROR_CDN_TOKEN_EXPIRED_OR_USED"
 msgstr "Токен загрузки устарел или уже был использован."
 
@@ -224,7 +233,7 @@ msgid "ERROR_EMAIL_DISPOSABLE_DOMAIN"
 msgstr "Регистрация с использованием сервисов временной почты запрещена."
 
 msgid "ERROR_EMAIL_DOMAIN_NO_MX %(domain)s"
-msgstr "Домен %(domain)s не принимает почту. Укажите существующий адрес."
+msgstr "Домен %%(domain)s не принимает почту. Укажите существующий адрес."
 
 msgid "ERROR_EMAIL_INVALID_FORMAT"
 msgstr "Введен некорректный email адрес."
@@ -362,7 +371,7 @@ msgid "FORM_SCREENSHOTS"
 msgstr "Скриншоты"
 
 msgid "File extension “%(extension)s” is not allowed. Allowed extensions are: “%(allowed_extensions)s”."
-msgstr "Расширение “%(extension)s” не разрешено. Допустимые расширения: “%(allowed_extensions)s”."
+msgstr "Расширение “%%(extension)s” не разрешено. Допустимые расширения: “%%(allowed_extensions)s”."
 
 msgid "INDEX_CATEGORY_PROMPT"
 msgstr "Или выберите нужную категорию:"
@@ -467,25 +476,25 @@ msgid "NOTIFICATIONS_LOADING"
 msgstr "Загрузка уведомлений..."
 
 msgid "NOTIF_APPEDITREQ_ACCEPTED_DESCRIPTION"
-msgstr "Ваша заявка на редактирование приложения %(app_name)s была одобрена."
+msgstr "Ваша заявка на редактирование приложения %%(app_name)s была одобрена."
 
 msgid "NOTIF_APPEDITREQ_ACCEPTED_TITLE"
 msgstr "Статус заявки на редактирование приложения"
 
 msgid "NOTIF_APPEDITREQ_DECLINED_DESCRIPTION"
-msgstr "Ваша заявка на редактирование приложения %(app_name)s была отклонена. Причина: %(reason)s"
+msgstr "Ваша заявка на редактирование приложения %%(app_name)s была отклонена. Причина: %%(reason)s"
 
 msgid "NOTIF_APPEDITREQ_DECLINED_TITLE"
 msgstr "Статус заявки на редактирование приложения"
 
 msgid "NOTIF_APPREQ_ACCEPTED_DESCRIPTION"
-msgstr "Поздравляем! Ваша заявка на создание приложения %(app_name)s была одобрена и оно было опубликовано в LunaStore."
+msgstr "Поздравляем! Ваша заявка на создание приложения %%(app_name)s была одобрена и оно было опубликовано в LunaStore."
 
 msgid "NOTIF_APPREQ_ACCEPTED_TITLE"
 msgstr "Статус заявки"
 
 msgid "NOTIF_APPREQ_DECLINED_DESCRIPTION"
-msgstr "Ваша заявка на создание приложения %(app_name)s была отклонена. Причина: %(reason)s"
+msgstr "Ваша заявка на создание приложения %%(app_name)s была отклонена. Причина: %%(reason)s"
 
 msgid "NOTIF_APPREQ_DECLINED_TITLE"
 msgstr "Статус заявки"
@@ -497,7 +506,7 @@ msgid "NOTIF_DEVSTATUS_ACCEPTED_TITLE"
 msgstr "Статус разработчика"
 
 msgid "NOTIF_DEVSTATUS_DECLINED_DESCRIPTION"
-msgstr "Ваша заявка была отклонена и вы не получили возможности разработчика/издателя приложений. Причина: %(reason)s"
+msgstr "Ваша заявка была отклонена и вы не получили возможности разработчика/издателя приложений. Причина: %%(reason)s"
 
 msgid "NOTIF_DEVSTATUS_DECLINED_TITLE"
 msgstr "Статус разработчика"
@@ -509,19 +518,19 @@ msgid "NOTIF_DEVSTATUS_SEND_TITLE"
 msgstr "Статус разработчика"
 
 msgid "NOTIF_DISTREQ_ACCEPTED_DESCRIPTION"
-msgstr "Ваша заявка на публикацию версии %(version)s для приложения \"%(app_name)s\" была одобрена модератором."
+msgstr "Ваша заявка на публикацию версии %%(version)s для приложения \"%%(app_name)s\" была одобрена модератором."
 
 msgid "NOTIF_DISTREQ_ACCEPTED_TITLE"
 msgstr "Новая версия опубликована!"
 
 msgid "NOTIF_DISTREQ_DECLINED_DESCRIPTION"
-msgstr "К сожалению, ваша заявка на публикацию версии %(version)s для \"%(app_name)s\" была отклонена. Причина: %(reason)s"
+msgstr "К сожалению, ваша заявка на публикацию версии %%(version)s для \"%%(app_name)s\" была отклонена. Причина: %%(reason)s"
 
 msgid "NOTIF_DISTREQ_DECLINED_TITLE"
 msgstr "Заявка на публикацию отклонена"
 
 msgid "NOTIF_LOGIN_DESCRIPTION"
-msgstr "В ваш аккаунт был выполнен вход • Устройство: %(browser)s (%(os)s) • IP-адрес: %(ip)s • Местоположение: %(location)s • Если это не вы, срочно смените пароль."
+msgstr "В ваш аккаунт был выполнен вход • Устройство: %%(browser)s (%%(os)s) • IP-адрес: %%(ip)s • Местоположение: %%(location)s • Если это не вы, срочно смените пароль."
 
 msgid "NOTIF_LOGIN_TITLE"
 msgstr "Новый вход в аккаунт"
@@ -1369,8 +1378,11 @@ msgstr "Код"
 msgid "PAGE_INVITE_INPUT_TITLE"
 msgstr "Ввод пригласительного кода"
 
+msgid "PAGE_INVITE_LIMIT_EXHAUSTED"
+msgstr "Приглашённые пользователи"
+
 msgid "PAGE_INVITE_LIMIT_INFO"
-msgstr "На данный момент вы можете пригласить <b>%(limit)s</b> человек(а). После того как пользователь примет ваше приглашение, следующее можно будет сделать только через %(days)s дней."
+msgstr "На данный момент Вы можете пригласить <b>1</b> человека. После принятия пользователем вашего приглашения, следующее можно будет создать только через неделю"
 
 msgid "PAGE_INVITE_LIST_EMPTY"
 msgstr "Вы пока ещё никого не приглашали"
@@ -1380,6 +1392,9 @@ msgstr "Приглашённые пользователи"
 
 msgid "PAGE_INVITE_MAIN_TITLE"
 msgstr "Пригласить человека"
+
+msgid "PAGE_INVITE_NEXT_AVAILABLE"
+msgstr "Код"
 
 msgid "PAGE_INVITE_REGDATE"
 msgstr "Регистрация"
@@ -1461,12 +1476,15 @@ msgstr "Администрируемые приложения"
 
 msgid "PAGE_NOTIFICATIONS_COUNT_SINGLE"
 msgid_plural "PAGE_NOTIFICATIONS_COUNT_PLURAL"
-msgstr[0] "У Вас <b>%(counter)s</b> новое уведомление"
-msgstr[1] "У Вас <b>%(counter)s</b> новых уведомления"
-msgstr[2] "У Вас <b>%(counter)s</b> новых уведомлений"
+msgstr[0] "У Вас <b>%%(counter)s</b> новое уведомление"
+msgstr[1] "У Вас <b>%%(counter)s</b> новых уведомления"
+msgstr[2] "У Вас <b>%%(counter)s</b> новых уведомлений"
 
 msgid "PAGE_NOTIFICATIONS_EARLY"
 msgstr "Ранние уведомления"
+
+msgid "PAGE_NOTIFICATIONS_NEW_COUNT"
+msgstr "только что"
 
 msgid "PAGE_NOTIFICATIONS_NOW"
 msgstr "только что"
@@ -1521,6 +1539,9 @@ msgstr "Сайты-друзья и прочие наши проекты"
 
 msgid "PAGE_OTHER_PROJECTS_TITLE"
 msgstr "Прочие проекты"
+
+msgid "PAGE_PROFILESETTINGS_LABEL_BIO"
+msgstr "Описание профиля:"
 
 msgid "PAGE_PROFILE_APPS_EMPTY_DESC"
 msgstr "Пользователь пока что не опубликовал ни одного приложения."
@@ -1694,13 +1715,13 @@ msgid "PAGE_SEARCH_BADGE_DEMO"
 msgstr "Демо"
 
 msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
-msgstr "Демо, далее $%(price)s"
+msgstr "Демо, далее $%%(price)s"
 
 msgid "PAGE_SEARCH_BADGE_FREE"
 msgstr "Бесплатно"
 
 msgid "PAGE_SEARCH_BADGE_NOT_FOUND"
-msgstr "Поиск не дал результатов по запросу \"%(q)s\""
+msgstr "Поиск не дал результатов по запросу \"%%(q)s\""
 
 msgid "PAGE_SEARCH_BTN_DETAILS"
 msgstr "Подробнее"
@@ -1736,7 +1757,7 @@ msgid "PAGE_SEARCH_LINK_ADVANCED"
 msgstr "Уточнить параметры поиска"
 
 msgid "PAGE_SEARCH_MSG_NO_RESULTS %(q)s"
-msgstr "Поиск не дал результатов по запросу \"%(q)s\""
+msgstr "Поиск не дал результатов по запросу \"%%(q)s\""
 
 msgid "PAGE_SEARCH_MSG_NO_RESULTS_EMPTY"
 msgstr "По вашему запросу ничего не найдено"
@@ -1867,6 +1888,12 @@ msgstr "Файлы прошли проверку: "
 msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_2"
 msgstr "шт. Готовы к загрузке."
 
+msgid "SET_APP_IS_PRIVATE"
+msgstr "Сделать приложение приватным?"
+
+msgid "SET_APP_IS_PRIVATE_TOOLTIP"
+msgstr "Приватное приложение не отображается другим пользователям. Эту настройку можно поменять после публикации приложения."
+
 msgid "SITE_DESCRIPTION"
 msgstr "LunaStore. Справочник приложений для твоего старого ПК. Скачивайте приложения, оставляйте отзывы и станьте частью сообщества любителей старых ПК."
 
@@ -1898,16 +1925,10 @@ msgid "THICKBOX_PREV"
 msgstr "Назад"
 
 msgid "VIEW_LOGIN_BANNED_REASON"
-msgstr "Ваш аккаунт заблокирован. Причина: %(reason)s"
+msgstr "Ваш аккаунт заблокирован. Причина: %%(reason)s"
 
 msgid "VIEW_LOGIN_INVALID_CREDENTIALS"
 msgstr "Неверный логин или пароль."
 
 msgid "VIEW_LOGIN_SUCCESS"
-msgstr "Вход выполнен успешно! Привет, %(username)s!"
-
-msgid "PAGE_INVITE_LIMIT_EXHAUSTED"
-msgstr "Ваш лимит приглашений исчерпан"
-
-msgid "PAGE_INVITE_NEXT_AVAILABLE"
-msgstr "Следующее приглашение будет доступно:"
+msgstr "Вход выполнен успешно! Привет, %%(username)s!"
