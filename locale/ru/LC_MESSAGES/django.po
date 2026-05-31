@@ -1880,7 +1880,7 @@ msgid "PAGE_SETTINGS_TITLE"
 msgstr "Настройки"
 
 msgid "PAGE_SETTINGS_WARN_USERNAME_FROZEN"
-msgstr "Имя пользователя после регистрации изменить можно раз в 1 год"
+msgstr "Имя пользователя после регистрации изменить можно 1 раз в год"
 
 msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_1"
 msgstr "Файлы прошли проверку: "
