@@ -31,6 +31,13 @@ class Category(SafeDeleteModel):
         verbose_name="Только для админов",
         help_text="Если включено, обычные пользователи не смогут выбрать эту категорию."
     )
+    banner_filename = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+        verbose_name="Файл баннера",
+        help_text="Название файла из папки staticfiles/img/categorybanner (например, 'custom.png')"
+    )
 
     class Meta:
         ordering = ["name"]
