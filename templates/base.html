@@ -50,8 +50,8 @@
 
     {% if request.session.impersonated_by %}
     <div class="announcement" style="background-color: #ffcc00; color: #000; text-align: center; border-bottom: 1px solid #ccaa00; padding: 10px;">
-        <b>Внимание!</b> Вы временно вошли в чужой аккаунт. Пожалуйста, не злоупотребляйте этим функционалом! 
-        <a href="{% url 'revert_impersonation' %}" style="margin-left: 10px; font-weight: bold; text-decoration: underline; color: #000;">Вернуться в свой аккаунт</a>
+        <b>{% trans "BASE_IMPERSONATE_ATTENTION" %}</b> {% trans "BASE_IMPERSONATE_WARNING" %}
+        <a href="{% url 'revert_impersonation' %}" style="margin-left: 10px; font-weight: bold; text-decoration: underline; color: #000;">{% trans "BASE_IMPERSONATE_RETURN" %}</a>
     </div>
     {% endif %}
 

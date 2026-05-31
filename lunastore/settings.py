@@ -414,6 +414,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     'django_user_agents.middleware.UserAgentMiddleware',
+    "apps.user.middleware.UserSessionMiddleware",
     *([] if not RATE_LIMIT_ENABLED else ["apps.core.middleware.RateLimitMiddleware"]),
 ]
 

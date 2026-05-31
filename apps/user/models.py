@@ -45,6 +45,7 @@ class User(AbstractUser, SafeDeleteModel):
     avatar_path = models.CharField(max_length=255, null=True, blank=True)
     totp_secret = models.CharField(max_length=32, null=True, blank=True)
     totp_enabled = models.BooleanField(default=False)
+    last_username_change = models.DateTimeField(null=True, blank=True)
 
     @property
     def avatar_url(self):
@@ -167,3 +168,21 @@ class InviteToken(models.Model):
     class Meta:
         verbose_name = "Токен приглашения"
         verbose_name_plural = "Токены приглашения"
+
+class UserSession(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="active_sessions"
+    )
+    session_key = models.CharField(max_length=40, unique=True)
+    ip = models.GenericIPAddressField("IP адрес", null=True, blank=True)
+    user_agent = models.CharField("Браузер", max_length=255, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    last_activity = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-last_activity"]
+        verbose_name = "Активная сессия"
+        verbose_name_plural = "Активные сессии"
+
+    def __str__(self):
+        return f"Сессия {self.user.username} ({self.ip})"

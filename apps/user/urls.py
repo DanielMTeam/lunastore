@@ -21,4 +21,5 @@ urlpatterns = [
     path("invite_code.php", views.invite_code, name="invite_code"),
     path("notifications.php", views.notifications, name="notifications"),
     path("revert_impersonation.php", views.revert_impersonation, name="revert_impersonation"),
+    path("terminate_session.php/<int:session_pk>/", views.terminate_session, name="terminate_session"),
 ]
