@@ -1409,3 +1409,9 @@ a.report_problem {
 .checkbox-element__label {
     margin-left: 3px;
 }
+
+.checkbox-element__info-icon {
+    width: 12px;
+    margin-left: 2px;
+    margin-bottom: -2px;
+}
