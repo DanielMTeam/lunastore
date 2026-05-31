@@ -11,7 +11,7 @@ from django.urls import reverse
 from django.utils.translation import gettext as _
 from django_smart_ratelimit import ratelimit
 from apps.user.decorators import developer_required, require_modern_browser
-from .decorators import user_is_owner
+from .decorators import guard_private_app, user_is_owner
 from .forms import AppCreateForm, AppEditForm, AppReportForm, DistributionCreateForm, DistributionEditForm, ProblemReportForm
 from .models import AppCreateRequests, Application, Category, Distribution, AppEditRequests, DistributionCreateRequests, DistributionEditRequests
 
@@ -38,7 +38,7 @@ def category(request):
 
     # get model objects
     obj_category = get_object_or_404(Category, id=id)
-    obj_apps = Application.objects.filter(category__name=obj_category.name).order_by(
+    obj_apps = Application.objects.filter(category__name=obj_category.name, is_private=False).order_by(
         "-published"
     )
 
@@ -61,6 +61,7 @@ def category(request):
     return render(request, "category.html", context)
 
 
+@guard_private_app
 def app(request):
     id = request.GET.get("id")
     obj = get_object_or_404(Application.objects.select_related("user"), id=id)
