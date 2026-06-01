@@ -1159,6 +1159,9 @@ msgstr "Программа распространяется в виде демо
 msgid "PAGE_DOWNLOAD_DL_ACTION"
 msgstr "скачать"
 
+msgid "PAGE_DOWNLOAD_INSTALL_ACTION"
+msgstr "установить"
+
 msgid "PAGE_DOWNLOAD_DMCA_WARNING"
 msgstr "Возможность скачивания программы была закрыта из-за жалобы правообладателя. Спасибо за понимание."
 
@@ -1191,6 +1194,9 @@ msgstr "Дата публикации"
 
 msgid "PAGE_DOWNLOAD_TABLE_LINK"
 msgstr "Ссылка"
+
+msgid "PAGE_DOWNLOAD_TABLE_INSTALL"
+msgstr "Установить"
 
 msgid "PAGE_DOWNLOAD_TABLE_UPLOAD_DATE"
 msgstr "Дата загрузки"

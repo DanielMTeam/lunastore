@@ -73,6 +73,9 @@
                                 </a>
                             </th>
                             <th>{% trans "PAGE_DOWNLOAD_TABLE_LINK" %}</th>
+                            {% if is_companion_installed %}
+                            <th>{% trans "PAGE_DOWNLOAD_TABLE_INSTALL" %}</th>
+                            {% endif %}
                         </tr>
                     </thead>
                     <tbody>
@@ -87,9 +90,18 @@
                                     —
                                 {% endif %}
                             </td>
+                            {% if is_companion_installed %}
+                            <td>
+                                {% if dist.has_download %}
+                                    <a href="{{ dist.companion_link }}">{% trans "PAGE_DOWNLOAD_INSTALL_ACTION" %}</a>
+                                {% else %}
+                                    —
+                                {% endif %}
+                            </td>
+                            {% endif %}
                         </tr>
                         <tr class="changelog-row">
-                            <td colspan="3">
+                            <td colspan={% if is_companion_installed %}"4"{% else %}"3"{% endif %}>
                                 <small>
                                     {% if dist.changelog %}
                                         {{ dist.changelog }}
@@ -101,7 +113,7 @@
                         </tr>
                         {% empty %}
                         <tr>
-                            <td colspan="3">{% trans "PAGE_DOWNLOAD_NO_DISTRIBUTIONS" %}</td>
+                            <td colspan={% if is_companion_installed %}"4"{% else %}"3"{% endif %}>{% trans "PAGE_DOWNLOAD_NO_DISTRIBUTIONS" %}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

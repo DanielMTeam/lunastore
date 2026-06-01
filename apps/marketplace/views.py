@@ -30,6 +30,26 @@ def marketplace(request):
     categories = Category.objects.all()
     return render(request, "index.html", {"categories": categories})
 
+def welcome(request):
+    response = marketplace(request)
+    
+    # 0 - installed, 1 - error, 2 - uninstalled
+
+    if request.GET.get('installed', '').strip() == "0":
+        response.set_cookie(
+            'companion', 
+            "true",
+            max_age=157680000
+        )
+    elif request.GET.get('installed', '').strip() in ["1","2"]:
+        response.set_cookie(
+            'companion', 
+            "false",
+            max_age=157680000
+        )
+    
+    return response
+
 
 def category(request):
     id = request.GET.get("id")
@@ -126,6 +146,7 @@ def download_list(request):
                 "is_latest": dist.id == latest_id,
                 "link": dist.link,
                 "has_download": dist.has_download,
+                "companion_link": "lunastore://install/dist_file/" + str(dist.id)
             }
         )
 
@@ -150,19 +171,6 @@ def download_list(request):
             f"{reverse('download')}?id={app_obj.id}&sort={field}&order={next_order}"
         )
 
-    dist_rows = []
-    for dist in distributions:
-        dist_rows.append(
-            {
-                "id": dist.id,
-                "version": dist.version,
-                "changelog": dist.changelog,
-                "published": _format_legacy_date(dist.published),
-                "is_latest": dist.id == latest_id,
-                "link": dist.link,
-                "has_download": dist.has_download,
-            }
-        )
 
     context = {
         "app": app_obj,
@@ -185,6 +193,7 @@ def download_list(request):
         "owner_can_manage": request.user.is_authenticated
         and request.user == app_obj.user,
         "app_link": f"/app.php?id={app_obj.id}",
+        "is_companion_installed": request.COOKIES.get('companion') == "true",
     }
     return render(request, "download_list.html", context)
 

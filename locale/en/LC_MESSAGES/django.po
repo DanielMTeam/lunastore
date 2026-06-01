@@ -1145,6 +1145,9 @@ msgstr "The software is distributed as a demo version; the full version should b
 msgid "PAGE_DOWNLOAD_DL_ACTION"
 msgstr "download"
 
+msgid "PAGE_DOWNLOAD_INSTALL_ACTION"
+msgstr "install"
+
 msgid "PAGE_DOWNLOAD_DMCA_WARNING"
 msgstr "The ability to download the program has been disabled due to a copyright holder's complaint. Thank you for your understanding."
 
@@ -1177,6 +1180,9 @@ msgstr "Publication date"
 
 msgid "PAGE_DOWNLOAD_TABLE_LINK"
 msgstr "Link"
+
+msgid "PAGE_DOWNLOAD_TABLE_INSTALL"
+msgstr "Install"
 
 msgid "PAGE_DOWNLOAD_TABLE_UPLOAD_DATE"
 msgstr "Upload date"
