@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<title>{% trans "PAGE_SETTINGS_TITLE" %} - LunaStore</title>
+<link rel="stylesheet" href="{% static './css/settings.css'%}">
+<link rel="stylesheet" href="{% static './css/profile.css'%}">
+<link rel="stylesheet" href="{% static './css/tabs.css'%}">
+
+<div class="content">
+    <div class="preferences">
+        <div class="preferences_info">
+            <div class="preferences_title">{% trans "PAGE_SETTINGS_TITLE" %}</div>
+            <div style="clear: both"></div>
+        </div>
+    </div>
+
+    <div class="tabs">
+        <div class="tab-bar">
+            <a href="{% url 'settings' %}" class="tab" style="display: block; text-decoration: none; color: inherit;">
+                <img src="{% static './img/tabs/account.png' %}" class="tab-icon" alt=""> {% trans "PAGE_SETTINGS_TAB_ACCOUNT" %}
+            </a>
+
+            <a href="{% url 'settings_apps' %}" class="tab" style="display: block; text-decoration: none; color: inherit;">
+                <img src="{% static './img/tabs/programs.png' %}" class="tab-icon" alt=""> {% trans "PAGE_SETTINGS_TAB_APPS" %}
+            </a>
+
+            <div class="tab active">
+                <img src="{% static './img/tabs/privacy.png' %}" class="tab-icon" alt=""> {% trans "PAGE_SETTINGS_TAB_SECURITY" %}
+            </div>
+        </div>
+
+        <div class="tab-content" id="tab-view">
+            <div class="profile_block">{% trans "PAGE_2FA_TITLE" %}</div>
+            <div class="profile_block_content">
+                <div class="pref_pad">
+                    {% trans "PAGE_2FA_MANAGE_INFO" %}
+                </div>
+                <a href="{% url 'settings_2fa_set' %}" class="action_button" style="display: inline-block; text-decoration: none; text-align: center; margin-top: 10px;">
+                    {% trans "PAGE_2FA_MANAGE" %}
+                </a>
+            </div>
+            <br>
+            
+            <div class="profile_block">Активные сеансы</div>
+            <div class="profile_block_content">
+                <div class="pref_pad">Устройства, с которых выполнен вход в ваш аккаунт.</div>
+                {% for session in active_sessions %}
+                <div class="pref_pad" style="border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 10px;">
+                    <div style="float: left;">
+                        <strong>{{ session.user_agent|default:"Неизвестное устройство" }}</strong><br>
+                        <span style="color: #aaa; font-size: 0.9em;">
+                            IP: {{ session.ip }} &middot; Активность: {{ session.last_activity|date:"d M Y H:i" }}
+                            {% if session.session_key == current_session_key %}(Текущий сеанс){% endif %}
+                        </span>
+                    </div>
+                    {% if session.session_key != current_session_key %}
+                    <div style="float: right; margin-top: 5px;">
+                        {% if not is_new_session %}
+                        <a href="{% url 'terminate_session' session.pk %}" class="action_button" style="background-color: #8B0000; text-decoration: none; display: inline-block; padding: 5px 10px; font-size: 0.9em;">Завершить сеанс</a>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    <div style="clear: both;"></div>
+                </div>
+                {% endfor %}
+            </div>
+            <br>
+
+            {% if is_new_session %}
+            <div class="announcement" style="background-color: #8B0000; color: white; text-align: center; padding: 10px; margin-bottom: 20px;">
+                <b>В целях безопасности:</b> смена пароля и привязанной почты недоступна для новых устройств (менее 24 часов).
+            </div>
+            {% else %}
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="form_type" value="password">
+                <div class="profile_block">{% trans "PAGE_SETTINGS_SECTION_PASSWORD" %}</div>
+                <div class="profile_block_content">
+                    <div class="pref_pad">
+                        <div class="pref_item_title">{% trans "PAGE_SETTINGS_LABEL_CUR_PASS" %}</div>
+                        {{ password_form.current_password }}
+                    </div>
+                    <div class="pref_pad">
+                        <div class="pref_item_title">{% trans "PAGE_SETTINGS_LABEL_NEW_PASS" %}</div>
+                        {{ password_form.new_password }}
+                    </div>
+                    <div class="pref_pad">
+                        <div class="pref_item_title">{% trans "PAGE_SETTINGS_LABEL_CONFIRM_PASS" %}</div>
+                        {{ password_form.confirm_password }}
+                    </div>
+                    <input type="submit" class="action_button" value="{% trans 'PAGE_SETTINGS_BTN_SAVE' %}">
+                </div>
+            </form>
+            <br>
+
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="form_type" value="email">
+                <div class="profile_block">{% trans "PAGE_SETTINGS_SECTION_CHANGE_EMAIL" %}</div>
+                <div class="profile_block_content">
+                    <div class="info_splash">{% trans "PAGE_SETTINGS_INFO_EMAIL_CHANGE" %}</div>
+                    <div class="pref_pad">
+                        <div class="pref_item_title">{% trans "PAGE_SETTINGS_LABEL_CUR_EMAIL" %}</div>
+                        {{ email_form.current_email_display }}
+                    </div>
+                    <div class="pref_pad">
+                        <div class="pref_item_title">{% trans "PAGE_SETTINGS_LABEL_NEW_EMAIL" %}</div>
+                        {{ email_form.new_email }}
+                    </div>
+                    <hr>
+                    <div class="pref_pad">
+                        <div class="pref_item_title">{% trans "PAGE_SETTINGS_LABEL_CUR_PASS" %}</div>
+                        {{ email_form.password_check }}
+                    </div>
+                    <input type="submit" class="action_button" value="{% trans 'PAGE_SETTINGS_BTN_SAVE' %}">
+                </div>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

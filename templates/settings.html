@@ -1,4 +1,4 @@
-﻿{% extends "base.html" %}
+{% extends "base.html" %}
 {% load static %}
 {% load i18n %}
 
@@ -27,6 +27,10 @@
 
             <a href="{% url 'settings_apps' %}" class="tab" style="display: block; text-decoration: none; color: inherit;">
                 <img src="{% static './img/tabs/programs.png' %}" class="tab-icon" alt=""> {% trans "PAGE_SETTINGS_TAB_APPS" %}
+            </a>
+
+            <a href="{% url 'settings_security' %}" class="tab" style="display: block; text-decoration: none; color: inherit;">
+                <img src="{% static './img/tabs/privacy.png' %}" class="tab-icon" alt=""> Безопасность
             </a>
         </div>
 
@@ -82,51 +86,7 @@
             </form>
             <br>
 
-            <form method="POST">
-                {% csrf_token %}
-                <input type="hidden" name="form_type" value="password">
-                <div class="profile_block">{% trans "PAGE_SETTINGS_SECTION_PASSWORD" %}</div>
-                <div class="profile_block_content">
-                    <div class="pref_pad">
-                        <div class="pref_item_title">{% trans "PAGE_SETTINGS_LABEL_CUR_PASS" %}</div>
-                        {{ password_form.current_password }}
-                    </div>
-                    <div class="pref_pad">
-                        <div class="pref_item_title">{% trans "PAGE_SETTINGS_LABEL_NEW_PASS" %}</div>
-                        {{ password_form.new_password }}
-                    </div>
-                    <div class="pref_pad">
-                        <div class="pref_item_title">{% trans "PAGE_SETTINGS_LABEL_CONFIRM_PASS" %}</div>
-                        {{ password_form.confirm_password }}
-                    </div>
-                    <input type="submit" class="action_button" value="{% trans 'PAGE_SETTINGS_BTN_SAVE' %}">
-                </div>
-            </form>
-            <br>
 
-            <form method="POST">
-                {% csrf_token %}
-                <input type="hidden" name="form_type" value="email">
-                <div class="profile_block">{% trans "PAGE_SETTINGS_SECTION_CHANGE_EMAIL" %}</div>
-                <div class="profile_block_content">
-                    <div class="info_splash">{% trans "PAGE_SETTINGS_INFO_EMAIL_CHANGE" %}</div>
-                    <div class="pref_pad">
-                        <div class="pref_item_title">{% trans "PAGE_SETTINGS_LABEL_CUR_EMAIL" %}</div>
-                        {{ email_form.current_email_display }}
-                    </div>
-                    <div class="pref_pad">
-                        <div class="pref_item_title">{% trans "PAGE_SETTINGS_LABEL_NEW_EMAIL" %}</div>
-                        {{ email_form.new_email }}
-                    </div>
-                    <hr>
-                    <div class="pref_pad">
-                        <div class="pref_item_title">{% trans "PAGE_SETTINGS_LABEL_CUR_PASS" %}</div>
-                        {{ email_form.password_check }}
-                    </div>
-                    <input type="submit" class="action_button" value="{% trans 'PAGE_SETTINGS_BTN_SAVE' %}">
-                </div>
-            </form>
-            <br>
 
             <form method="POST" id="avatar-form">
                 {% csrf_token %}

@@ -436,10 +436,10 @@ class ApplicationAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
 
     display_screenshots.short_description = "Предпросмотр"
 
-    list_display = ["title", "category", "is_demo", "is_under_dmca", "price"]
+    list_display = ["title", "user", "category", "is_demo", "is_under_dmca", "price"]
     list_editable = ["is_demo", "is_under_dmca"]
     list_filter = SafeDeleteAdmin.list_filter + ["is_demo", "is_under_dmca"]
-    search_fields = ["title"]
+    search_fields = ["title", "user__username"]
 
 
 @admin.register(AppCreateRequests)
