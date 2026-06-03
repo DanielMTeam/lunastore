@@ -7,6 +7,9 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n % 10 == 1 && n % 100 != 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2)\n"
 "X-Generator: Tolgee\n"
 
+msgid " SITE_DESCRIPTION"
+msgstr "LunaStore. Довідник програм для твого старого ПК. Завантажуйте програми, залишайте відгуки і станьте частиною спільноти любителів старих ПК."
+
 msgid "%(counter)s PAGE_PROFILE_STATS_APP"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
 msgstr[0] "\"%(counter)s програм,\""
@@ -36,6 +39,9 @@ msgstr "Сталася помилка"
 
 msgid "ACTION_CHOOSE_FILE"
 msgstr "Оберіть файл"
+
+msgid "ACTION_CHOOSE_ICON"
+msgstr "Виберіть файл"
 
 msgid "BANNED_IP_BACK_BUTTON"
 msgstr "Повернутися назад"
@@ -93,6 +99,15 @@ msgstr "З душею зроблено командою DM,"
 
 msgid "BASE_FOOTER_TEXT_2"
 msgstr "Усі права належать оригінальним правовласникам"
+
+msgid "BASE_IMPERSONATE_ATTENTION"
+msgstr "Увага!"
+
+msgid "BASE_IMPERSONATE_RETURN"
+msgstr "Повернутися у свій обліковий запис"
+
+msgid "BASE_IMPERSONATE_WARNING"
+msgstr "Ви тимчасово увійшли в чужий обліковий запис. Будь ласка, не зловживайте цим функціоналом!"
 
 msgid "BASE_LOGINBTN"
 msgstr "вхід"
@@ -169,6 +184,12 @@ msgstr "Категорії"
 msgid "CARD_USER_NO_DESC"
 msgstr "Опис профілю відсутній"
 
+msgid "ERROR_2FA_INVALID_CODE"
+msgstr "Невірний код"
+
+msgid "ERROR_2FA_INVALID_PASSWORD"
+msgstr "Невірний пароль"
+
 msgid "ERROR_ACCESS_DENIED_PROFILE"
 msgstr "Доступ заборонено. Почніть з налаштувань профілю."
 
@@ -183,6 +204,9 @@ msgstr "Недопустимий формат файла на сервері з�
 
 msgid "ERROR_CDN_SESSION_EXPIRED"
 msgstr "Час сесії завантаження вийшло. Спробуйте ще раз."
+
+msgid "ERROR_CDN_TOKEN_EXPIRED"
+msgstr "Токен завантаження застарів або вже використаний."
 
 msgid "ERROR_CDN_TOKEN_EXPIRED_OR_USED"
 msgstr "Токен завантаження застарів або вже використаний."
@@ -385,6 +409,12 @@ msgstr "Ласкаво просимо до LunaStore!<br>Збірник прог
 msgid "INDEX_WELCOME_TITLE"
 msgstr "Ласкаво просимо"
 
+msgid "INFO_2FA_DISABLED"
+msgstr "Двофакторна автентифікація успішно відключена."
+
+msgid "INFO_2FA_ENABLED"
+msgstr "Двофакторна автентифікація успішно включена."
+
 msgid "INFO_ACCEPTED_AVATAR_FORMATS"
 msgstr "Допустимі формати: .JPG, .PNG, .WEBP, .GIF"
 
@@ -531,6 +561,78 @@ msgstr "Дякуємо за реєстрацію! Дуже приємно, що 
 
 msgid "NOTIF_WELCOME_TITLE"
 msgstr "Ласкаво просимо до LunaStore"
+
+msgid "PAGE_2FA_ATTEMPT_HEADER"
+msgstr "Двофакторна перевірка"
+
+msgid "PAGE_2FA_ATTEMPT_SUBTITLE"
+msgstr "Введіть код для завершення входу"
+
+msgid "PAGE_2FA_ATTEMPT_TITLE"
+msgstr "Ввід коду 2FA"
+
+msgid "PAGE_2FA_CONNECT_BTN"
+msgstr "Підключити"
+
+msgid "PAGE_2FA_CONTINUE_BTN"
+msgstr "Продовжити"
+
+msgid "PAGE_2FA_DISABLE_BTN"
+msgstr "Відключити 2FA"
+
+msgid "PAGE_2FA_DISABLE_CONFIRM"
+msgstr "Ви впевнені, що хочете відключити 2FA? Це знизить рівень безпеки вашого облікового запису."
+
+msgid "PAGE_2FA_DISABLE_INFO"
+msgstr "Якщо ви хочете відключити цей метод входу, натисніть на кнопку нижче."
+
+msgid "PAGE_2FA_ENABLED_INFO"
+msgstr "На даному обліковому записі включений додатковий метод входу через ввід тимчасового коду доступу поверх стандартного логіна та пароля"
+
+msgid "PAGE_2FA_ENTER_CODE"
+msgstr "введіть отриманий код"
+
+msgid "PAGE_2FA_ENTER_CODE_HEADER"
+msgstr "Ввід коду"
+
+msgid "PAGE_2FA_INFO_1"
+msgstr "Забезпечте захист вашого облікового запису додатковим методом входу через ввід тимчасового коду доступу поверх стандартного логіна та пароля"
+
+msgid "PAGE_2FA_INFO_2"
+msgstr "Для початку налаштування вам знадобиться генератор кодів (наприклад: <b>Google Authenticator</b> або <b>Aegis</b>)"
+
+msgid "PAGE_2FA_INFO_3"
+msgstr "Генерація кодів працює без стільникового зв'язку чи якого-небуть підключення до мережі. Відскануйте додатком даний QR-код на екрані, введіть отримані 6 цифр та натисніть \"Підключити\""
+
+msgid "PAGE_2FA_INITIAL_SETUP"
+msgstr "Початкові налаштування"
+
+msgid "PAGE_2FA_MANAGE"
+msgstr "Керування"
+
+msgid "PAGE_2FA_MANAGE_INFO"
+msgstr "Керування додатковими методами входу за одноразовим кодом"
+
+msgid "PAGE_2FA_OPEN_GENERATOR"
+msgstr "Відкрийте генератор кодів та введіть отриманий код"
+
+msgid "PAGE_2FA_PASSWORD_CONFIRM"
+msgstr "Підтвердження доступу"
+
+msgid "PAGE_2FA_PASSWORD_CONFIRM_TITLE"
+msgstr "Підтвердження пароля"
+
+msgid "PAGE_2FA_PASSWORD_PROMPT"
+msgstr "Для доступу до керування 2FA, будь ласка введіть пароль від вашого облікового запису."
+
+msgid "PAGE_2FA_SECRET_KEY"
+msgstr "Ваш секретний ключ"
+
+msgid "PAGE_2FA_SUBTITLE_MANAGE"
+msgstr "Керування входом за одноразовим кодом"
+
+msgid "PAGE_2FA_TITLE"
+msgstr "Двофакторна автентифікація"
 
 msgid "PAGE_ADDAPP_BACKBTN"
 msgstr "Назад"
@@ -1369,6 +1471,9 @@ msgstr "Код"
 msgid "PAGE_INVITE_INPUT_TITLE"
 msgstr "Введення запрошувального коду"
 
+msgid "PAGE_INVITE_LIMIT_EXHAUSTED"
+msgstr "Запрошені користувачі"
+
 msgid "PAGE_INVITE_LIMIT_INFO"
 msgstr "Наразі Ви можете запросити <b>1</b> людину. Після прийняття користувачем вашого запрошення, наступне можна створити тільки через тиждень"
 
@@ -1380,6 +1485,9 @@ msgstr "Запрошені користувачі"
 
 msgid "PAGE_INVITE_MAIN_TITLE"
 msgstr "Запросити людину"
+
+msgid "PAGE_INVITE_NEXT_AVAILABLE"
+msgstr "Код"
 
 msgid "PAGE_INVITE_REGDATE"
 msgstr "Реєстрація"
@@ -1468,6 +1576,9 @@ msgstr[2] "У Вас <b>%(counter)s</b> нових сповіщень"
 msgid "PAGE_NOTIFICATIONS_EARLY"
 msgstr "Попередні сповіщення"
 
+msgid "PAGE_NOTIFICATIONS_NEW_COUNT"
+msgstr "тільки-що"
+
 msgid "PAGE_NOTIFICATIONS_NOW"
 msgstr "щойно"
 
@@ -1521,6 +1632,9 @@ msgstr "Сайти-друзі та інші наші проєкти"
 
 msgid "PAGE_OTHER_PROJECTS_TITLE"
 msgstr "Інші проєкти"
+
+msgid "PAGE_PROFILESETTINGS_LABEL_BIO"
+msgstr "Опис профілю:"
 
 msgid "PAGE_PROFILE_APPS_EMPTY_DESC"
 msgstr "Користувач поки що не опублікував жодної програми."
@@ -1857,6 +1971,9 @@ msgstr "Обліковий запис"
 
 msgid "PAGE_SETTINGS_TAB_APPS"
 msgstr "Програми"
+
+msgid "PAGE_SETTINGS_TAB_SECURITY"
+msgstr "Безпека"
 
 msgid "PAGE_SETTINGS_TITLE"
 msgstr "Налаштування"

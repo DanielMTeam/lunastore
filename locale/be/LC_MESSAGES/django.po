@@ -7,6 +7,9 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n % 10 == 1 && n % 100 != 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2)\n"
 "X-Generator: Tolgee\n"
 
+msgid " SITE_DESCRIPTION"
+msgstr "LunaStore. Даведнік дадаткаў для твайго старога ПК. Спампоўвайце дадаткі, пакідайце водгукі і станьце часткай суполкі аматараў старых ПК."
+
 msgid "%(counter)s PAGE_PROFILE_STATS_APP"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
 msgstr[0] "%(counter)s дадаткаў,"
@@ -35,6 +38,9 @@ msgid "404_TITLE"
 msgstr "Адбылася памылка"
 
 msgid "ACTION_CHOOSE_FILE"
+msgstr "Выберыце файл"
+
+msgid "ACTION_CHOOSE_ICON"
 msgstr "Выберыце файл"
 
 msgid "BANNED_IP_BACK_BUTTON"
@@ -93,6 +99,15 @@ msgstr "З душою зроблена камандай DM,"
 
 msgid "BASE_FOOTER_TEXT_2"
 msgstr "Усе правы належаць зыходным праваўладальнікам"
+
+msgid "BASE_IMPERSONATE_ATTENTION"
+msgstr "Увага!"
+
+msgid "BASE_IMPERSONATE_RETURN"
+msgstr "Вярнуцца ў свой уліковы запіс"
+
+msgid "BASE_IMPERSONATE_WARNING"
+msgstr "Вы часова ўвайшлі ў чужы акаўнт. Калі ласка, не злоўжывайце гэтым функцыяналам!"
 
 msgid "BASE_LOGINBTN"
 msgstr "уваход"
@@ -169,6 +184,12 @@ msgstr "Катэгорыі"
 msgid "CARD_USER_NO_DESC"
 msgstr "Апісанне профіля адсутнічае"
 
+msgid "ERROR_2FA_INVALID_CODE"
+msgstr "Няправільны код"
+
+msgid "ERROR_2FA_INVALID_PASSWORD"
+msgstr "Няверны пароль"
+
 msgid "ERROR_ACCESS_DENIED_PROFILE"
 msgstr "Доступ забаронены. Пачніце з налад профіля."
 
@@ -183,6 +204,9 @@ msgstr "Недапушчальны фармат файла на серверы �
 
 msgid "ERROR_CDN_SESSION_EXPIRED"
 msgstr "Час сэсіі загрузкі скончыўся. Паспрабуйце яшчэ раз."
+
+msgid "ERROR_CDN_TOKEN_EXPIRED"
+msgstr "Токен загрузкі састарэў або ўжо быў выкарыстаны."
 
 msgid "ERROR_CDN_TOKEN_EXPIRED_OR_USED"
 msgstr "Токен загрузкі састарэў або ўжо быў выкарыстаны."
@@ -385,6 +409,12 @@ msgstr "Вітаем у LunaStore!<br>Зборнік дадаткаў і дап�
 msgid "INDEX_WELCOME_TITLE"
 msgstr "Сардэчна запрашаем"
 
+msgid "INFO_2FA_DISABLED"
+msgstr "Двухфакторная аўтэнтыфікацыя паспяхова адключана."
+
+msgid "INFO_2FA_ENABLED"
+msgstr "Двухфакторная аўтэнтыфікацыя паспяхова ўключана."
+
 msgid "INFO_ACCEPTED_AVATAR_FORMATS"
 msgstr "Дапусцімыя фарматы: .JPG, .PNG, .WEBP, .GIF"
 
@@ -531,6 +561,78 @@ msgstr "Дзякуй за рэгістрацыю! Вельмі прыемна, �
 
 msgid "NOTIF_WELCOME_TITLE"
 msgstr "Сардэчна запрашаем у LunaStore"
+
+msgid "PAGE_2FA_ATTEMPT_HEADER"
+msgstr "Двухфакторная праверка"
+
+msgid "PAGE_2FA_ATTEMPT_SUBTITLE"
+msgstr "Увядзіце код для завяршэння ўваходу"
+
+msgid "PAGE_2FA_ATTEMPT_TITLE"
+msgstr "Увод кода 2FA"
+
+msgid "PAGE_2FA_CONNECT_BTN"
+msgstr "Падключыць"
+
+msgid "PAGE_2FA_CONTINUE_BTN"
+msgstr "Працягнуць"
+
+msgid "PAGE_2FA_DISABLE_BTN"
+msgstr "Адключыць 2FA"
+
+msgid "PAGE_2FA_DISABLE_CONFIRM"
+msgstr "Вы ўпэўненыя, што хочаце адключыць 2FA? Гэта знізіць узровень бяспекі вашага акаўнта."
+
+msgid "PAGE_2FA_DISABLE_INFO"
+msgstr "Калі вы хочаце адключыць гэты метад уваходу, націсніце на кнопку ніжэй."
+
+msgid "PAGE_2FA_ENABLED_INFO"
+msgstr "На гэтым акаўнце ўключаны дадатковы метад уваходу праз увод часовага кода доступу паверх стандартнага лагіна і пароля"
+
+msgid "PAGE_2FA_ENTER_CODE"
+msgstr "увядзіце атрыманы код"
+
+msgid "PAGE_2FA_ENTER_CODE_HEADER"
+msgstr "Увод кода"
+
+msgid "PAGE_2FA_INFO_1"
+msgstr "Забяспечце абарону свайго акаўнта дадатковым метадам уваходу праз увод часовага кода доступу паверх стандартнага лагіна і пароля"
+
+msgid "PAGE_2FA_INFO_2"
+msgstr "Для пачатку налады вам спатрэбіцца генератар кодаў (напрыклад: <b>Google Authenticator</b> або <b>Aegis</b>)"
+
+msgid "PAGE_2FA_INFO_3"
+msgstr "Генерацыя кодаў працуе без сотавай сувязі і якога-небудзь падключэння да сеткі. Адсканіруйце дадаткам гэты QR-код на экране, увядзіце атрыманыя 6 лічбаў і націсніце \"Падключыць\""
+
+msgid "PAGE_2FA_INITIAL_SETUP"
+msgstr "Першапачатковая налада"
+
+msgid "PAGE_2FA_MANAGE"
+msgstr "Кіраванне"
+
+msgid "PAGE_2FA_MANAGE_INFO"
+msgstr "Кіраванне дадатковым метадам уваходу па аднаразовым кодзе"
+
+msgid "PAGE_2FA_OPEN_GENERATOR"
+msgstr "Адкрыйце генератар кодаў і ўвядзіце атрыманы код"
+
+msgid "PAGE_2FA_PASSWORD_CONFIRM"
+msgstr "Пацвярджэнне доступу"
+
+msgid "PAGE_2FA_PASSWORD_CONFIRM_TITLE"
+msgstr "Пацвярджэнне пароля"
+
+msgid "PAGE_2FA_PASSWORD_PROMPT"
+msgstr "Для доступу да кіравання 2FA, калі ласка, увядзіце пароль ад вашага акаўнта."
+
+msgid "PAGE_2FA_SECRET_KEY"
+msgstr "Ваш сакрэтны ключ"
+
+msgid "PAGE_2FA_SUBTITLE_MANAGE"
+msgstr "Кіраванне ўваходам па аднаразовым кодзе"
+
+msgid "PAGE_2FA_TITLE"
+msgstr "Двухфакторная аўтэнтыфікацыя"
 
 msgid "PAGE_ADDAPP_BACKBTN"
 msgstr "Назад"
@@ -843,6 +945,9 @@ msgstr "На жаль, той, хто загрузіў дадатак, не зр
 
 msgid "PAGE_APP_LABEL_ORIGINAL_AUTHOR"
 msgstr "Арыгінальны аўтар:"
+
+msgid "PAGE_APP_LABEL_PRICE"
+msgstr "Цана"
 
 msgid "PAGE_APP_MSG_DEMO_WARNING"
 msgstr "Праграма распаўсюджваецца ў якасці дэма-версіі, за поўную версію трэба заплаціць яе аўтару. Файл дадзены з афіцыйнага сайта распрацоўшчыка."
@@ -1366,6 +1471,9 @@ msgstr "Код"
 msgid "PAGE_INVITE_INPUT_TITLE"
 msgstr "Увод запрашальнага кода"
 
+msgid "PAGE_INVITE_LIMIT_EXHAUSTED"
+msgstr "Запрошаныя карыстальнікі"
+
 msgid "PAGE_INVITE_LIMIT_INFO"
 msgstr "На дадзены момант Вы можаце прыгласіць <b>1</b> чалавека. Пасля прыняцця карыстальнікам вашага прыглашэння, наступнае можна будзе стварыць толькі праз тыдзень"
 
@@ -1377,6 +1485,9 @@ msgstr "Запрошаныя карыстальнікі"
 
 msgid "PAGE_INVITE_MAIN_TITLE"
 msgstr "Прыгласіць чалавека"
+
+msgid "PAGE_INVITE_NEXT_AVAILABLE"
+msgstr "Код"
 
 msgid "PAGE_INVITE_REGDATE"
 msgstr "Рэгістрацыя"
@@ -1465,6 +1576,9 @@ msgstr[2] "У Вас <b>%(counter)s</b> новых паведамленняў"
 msgid "PAGE_NOTIFICATIONS_EARLY"
 msgstr "Ранейшыя паведамленні"
 
+msgid "PAGE_NOTIFICATIONS_NEW_COUNT"
+msgstr "толькі што"
+
 msgid "PAGE_NOTIFICATIONS_NOW"
 msgstr "толькі што"
 
@@ -1518,6 +1632,9 @@ msgstr "Сайты-сябры і іншыя нашы праекты"
 
 msgid "PAGE_OTHER_PROJECTS_TITLE"
 msgstr "Іншыя праекты"
+
+msgid "PAGE_PROFILESETTINGS_LABEL_BIO"
+msgstr "Апісанне профіля:"
 
 msgid "PAGE_PROFILE_APPS_EMPTY_DESC"
 msgstr "Карыстальнік пакуль што не апублікаваў ніводнага дадатка."
@@ -1852,6 +1969,9 @@ msgstr "Акаўнт"
 msgid "PAGE_SETTINGS_TAB_APPS"
 msgstr "Дадаткі"
 
+msgid "PAGE_SETTINGS_TAB_SECURITY"
+msgstr "Бяспека"
+
 msgid "PAGE_SETTINGS_TITLE"
 msgstr "Налады"
 
@@ -1881,6 +2001,24 @@ msgstr "Без назвы"
 
 msgid "TEXT_APP_NO_SLOGAN"
 msgstr "Няма слогана"
+
+msgid "THICKBOX_CLOSE"
+msgstr "Закрыць"
+
+msgid "THICKBOX_IMAGE"
+msgstr "Малюнак"
+
+msgid "THICKBOX_NEXT"
+msgstr "Наперад"
+
+msgid "THICKBOX_NO_IFRAMES"
+msgstr "Без iFrames"
+
+msgid "THICKBOX_OF"
+msgstr "з"
+
+msgid "THICKBOX_PREV"
+msgstr "Назад"
 
 msgid "VIEW_LOGIN_BANNED_REASON"
 msgstr "Ваш акаўнт заблакіраваны. Прычына: %(reason)s"
