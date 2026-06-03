@@ -7,15 +7,18 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Generator: Tolgee\n"
 
+msgid " SITE_DESCRIPTION"
+msgstr "LunaStore. Apps catalog for your old PC. Download apps, leave reviews and join the community of old PC fans."
+
 msgid "%(counter)s PAGE_PROFILE_STATS_APP"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
-msgstr[0] "%%(counter)s apps,"
-msgstr[1] "%%(counter)s apps,"
+msgstr[0] "%(counter)s apps,"
+msgstr[1] "%(counter)s apps,"
 
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
-msgstr[0] "%%(counter)s reviews -"
-msgstr[1] "%%(counter)s reviews -"
+msgstr[0] "%(counter)s reviews -"
+msgstr[1] "%(counter)s reviews -"
 
 msgid "404_ELEMENT_NOT_FOUND"
 msgstr "The requested item or link you are trying to visit was not found on our site."
@@ -34,6 +37,9 @@ msgstr "An error occured"
 
 msgid "ACTION_CHOOSE_FILE"
 msgstr "Choose file"
+
+msgid "ACTION_CHOOSE_ICON"
+msgstr "Choose icon"
 
 msgid "BANNED_IP_BACK_BUTTON"
 msgstr "Go back"
@@ -91,6 +97,15 @@ msgstr "Made by DM team with love,"
 
 msgid "BASE_FOOTER_TEXT_2"
 msgstr "All right reserved to it's original owners"
+
+msgid "BASE_IMPERSONATE_ATTENTION"
+msgstr "Warning!"
+
+msgid "BASE_IMPERSONATE_RETURN"
+msgstr "Return to your account"
+
+msgid "BASE_IMPERSONATE_WARNING"
+msgstr "You are temporarily logged into another account. Please do not abuse this functionality!"
 
 msgid "BASE_LOGINBTN"
 msgstr "sign in"
@@ -167,6 +182,12 @@ msgstr "Categories"
 msgid "CARD_USER_NO_DESC"
 msgstr "Profile bio missing"
 
+msgid "ERROR_2FA_INVALID_CODE"
+msgstr "Invalid code"
+
+msgid "ERROR_2FA_INVALID_PASSWORD"
+msgstr "Incorrect password"
+
 msgid "ERROR_ACCESS_DENIED_PROFILE"
 msgstr "Access denied. Start with profile settings."
 
@@ -181,6 +202,9 @@ msgstr "Invalid file format on the CDN server. Please contact your administrator
 
 msgid "ERROR_CDN_SESSION_EXPIRED"
 msgstr "The upload session has expired. Please try again."
+
+msgid "ERROR_CDN_TOKEN_EXPIRED"
+msgstr "The download token has expired or has already been used."
 
 msgid "ERROR_CDN_TOKEN_EXPIRED_OR_USED"
 msgstr "The download token has expired or has already been used."
@@ -222,7 +246,7 @@ msgid "ERROR_EMAIL_DISPOSABLE_DOMAIN"
 msgstr "Signing up using temporary email services is not allowed."
 
 msgid "ERROR_EMAIL_DOMAIN_NO_MX %(domain)s"
-msgstr "The domain %%(domain)s does not accept mail. Please provide a valid address."
+msgstr "The domain %(domain)s does not accept mail. Please provide a valid address."
 
 msgid "ERROR_EMAIL_INVALID_FORMAT"
 msgstr "Invalid email address format."
@@ -360,7 +384,7 @@ msgid "FORM_SCREENSHOTS"
 msgstr "Screenshots"
 
 msgid "File extension “%(extension)s” is not allowed. Allowed extensions are: “%(allowed_extensions)s”."
-msgstr "Extension “%%(extension)s” is not allowed. Allowed extensions: “%%(allowed_extensions)s”."
+msgstr "Extension “%(extension)s” is not allowed. Allowed extensions: “%(allowed_extensions)s”."
 
 msgid "INDEX_CATEGORY_PROMPT"
 msgstr "Or select a category:"
@@ -382,6 +406,12 @@ msgstr "Welcome to LunaStore!<br>A collection of apps and extensions for a comfo
 
 msgid "INDEX_WELCOME_TITLE"
 msgstr "Welcome"
+
+msgid "INFO_2FA_DISABLED"
+msgstr "Two-factor authentication has been successfully disabled."
+
+msgid "INFO_2FA_ENABLED"
+msgstr "Two-factor authentication has been successfully enabled."
 
 msgid "INFO_ACCEPTED_AVATAR_FORMATS"
 msgstr "Allowed formats: .JPG, .PNG, .WEBP, .GIF"
@@ -465,25 +495,25 @@ msgid "NOTIFICATIONS_LOADING"
 msgstr "Loading notifications..."
 
 msgid "NOTIF_APPEDITREQ_ACCEPTED_DESCRIPTION"
-msgstr "Your application edit request for %%(app_name)s has been approved."
+msgstr "Your application edit request for %(app_name)s has been approved."
 
 msgid "NOTIF_APPEDITREQ_ACCEPTED_TITLE"
 msgstr "Application edit request status"
 
 msgid "NOTIF_APPEDITREQ_DECLINED_DESCRIPTION"
-msgstr "Your application edit request for %%(app_name)s has been declined. Reason: %%(reason)s"
+msgstr "Your application edit request for %(app_name)s has been declined. Reason: %(reason)s"
 
 msgid "NOTIF_APPEDITREQ_DECLINED_TITLE"
 msgstr "Application edit request status"
 
 msgid "NOTIF_APPREQ_ACCEPTED_DESCRIPTION"
-msgstr "Congratulations! Your request to create the application %%(app_name)s has been approved and it has been published in LunaStore."
+msgstr "Congratulations! Your request to create the application %(app_name)s has been approved and it has been published in LunaStore."
 
 msgid "NOTIF_APPREQ_ACCEPTED_TITLE"
 msgstr "Application status"
 
 msgid "NOTIF_APPREQ_DECLINED_DESCRIPTION"
-msgstr "Your application creation request for %%(app_name)s has been declined. Reason: %%(reason)s"
+msgstr "Your application creation request for %(app_name)s has been declined. Reason: %(reason)s"
 
 msgid "NOTIF_APPREQ_DECLINED_TITLE"
 msgstr "Application status"
@@ -495,7 +525,7 @@ msgid "NOTIF_DEVSTATUS_ACCEPTED_TITLE"
 msgstr "Developer status"
 
 msgid "NOTIF_DEVSTATUS_DECLINED_DESCRIPTION"
-msgstr "Your application has been declined and you have not received developer/publisher capabilities. Reason: %%(reason)s"
+msgstr "Your application has been declined and you have not received developer/publisher capabilities. Reason: %(reason)s"
 
 msgid "NOTIF_DEVSTATUS_DECLINED_TITLE"
 msgstr "Developer status"
@@ -507,19 +537,19 @@ msgid "NOTIF_DEVSTATUS_SEND_TITLE"
 msgstr "Developer status"
 
 msgid "NOTIF_DISTREQ_ACCEPTED_DESCRIPTION"
-msgstr "Your request to publish version %%(version)s for application \"%%(app_name)s\" has been approved by a moderator."
+msgstr "Your request to publish version %(version)s for application \"%(app_name)s\" has been approved by a moderator."
 
 msgid "NOTIF_DISTREQ_ACCEPTED_TITLE"
 msgstr "New version published!"
 
 msgid "NOTIF_DISTREQ_DECLINED_DESCRIPTION"
-msgstr "Unfortunately, your request to publish version %%(version)s for \"%%(app_name)s\" has been declined. Reason: %%(reason)s"
+msgstr "Unfortunately, your request to publish version %(version)s for \"%(app_name)s\" has been declined. Reason: %(reason)s"
 
 msgid "NOTIF_DISTREQ_DECLINED_TITLE"
 msgstr "Publication request declined"
 
 msgid "NOTIF_LOGIN_DESCRIPTION"
-msgstr "Your account was logged into • Device: %%(browser)s (%%(os)s) • IP address: %%(ip)s • Location: %%(location)s • If this wasn't you, change your password immediately."
+msgstr "Your account was logged into • Device: %(browser)s (%(os)s) • IP address: %(ip)s • Location: %(location)s • If this wasn't you, change your password immediately."
 
 msgid "NOTIF_LOGIN_TITLE"
 msgstr "New account login"
@@ -529,6 +559,78 @@ msgstr "Thanks for registering! We are very pleased that you care about the app 
 
 msgid "NOTIF_WELCOME_TITLE"
 msgstr "Welcome to LunaStore"
+
+msgid "PAGE_2FA_ATTEMPT_HEADER"
+msgstr "Two-factor verification"
+
+msgid "PAGE_2FA_ATTEMPT_SUBTITLE"
+msgstr "Enter the code to complete sign in"
+
+msgid "PAGE_2FA_ATTEMPT_TITLE"
+msgstr "2FA code entry"
+
+msgid "PAGE_2FA_CONNECT_BTN"
+msgstr "Connect"
+
+msgid "PAGE_2FA_CONTINUE_BTN"
+msgstr "Continue"
+
+msgid "PAGE_2FA_DISABLE_BTN"
+msgstr "Disable 2FA"
+
+msgid "PAGE_2FA_DISABLE_CONFIRM"
+msgstr "You really want to disable 2FA? This will lower the security level of your account."
+
+msgid "PAGE_2FA_DISABLE_INFO"
+msgstr "If you want to disable this login method, click the button below."
+
+msgid "PAGE_2FA_ENABLED_INFO"
+msgstr "An additional login method using a 2FA code on top of the standard username and password is enabled for this account"
+
+msgid "PAGE_2FA_ENTER_CODE"
+msgstr "enter the received code"
+
+msgid "PAGE_2FA_ENTER_CODE_HEADER"
+msgstr "Enter code"
+
+msgid "PAGE_2FA_INFO_1"
+msgstr "Secure your account with an additional login method using a 2FA code on top of the standard username and password"
+
+msgid "PAGE_2FA_INFO_2"
+msgstr "To start the setup, you will need a code generator (e.g., <b>Bitwarden</b>, <b>KeePassXC</b> or <b>Aegis</b>)"
+
+msgid "PAGE_2FA_INFO_3"
+msgstr "Code generation works without cellular service or any network connection. Scan this QR code on the screen with your app, enter the 6 digits received, and click \"Connect\""
+
+msgid "PAGE_2FA_INITIAL_SETUP"
+msgstr "Initial setup"
+
+msgid "PAGE_2FA_MANAGE"
+msgstr "Manage"
+
+msgid "PAGE_2FA_MANAGE_INFO"
+msgstr "Manage secondary 2FA code login method"
+
+msgid "PAGE_2FA_OPEN_GENERATOR"
+msgstr "Open your 2FA app and enter the received code"
+
+msgid "PAGE_2FA_PASSWORD_CONFIRM"
+msgstr "Confirm access"
+
+msgid "PAGE_2FA_PASSWORD_CONFIRM_TITLE"
+msgstr "Confirm password"
+
+msgid "PAGE_2FA_PASSWORD_PROMPT"
+msgstr "To access 2FA management, please enter your account password."
+
+msgid "PAGE_2FA_SECRET_KEY"
+msgstr "Your secret key"
+
+msgid "PAGE_2FA_SUBTITLE_MANAGE"
+msgstr "Manage 2FA code login"
+
+msgid "PAGE_2FA_TITLE"
+msgstr "Two-factor authentication"
 
 msgid "PAGE_ADDAPP_BACKBTN"
 msgstr "Back"
@@ -841,6 +943,9 @@ msgstr "Unfortunately, the person who uploaded the app did not provide a transla
 
 msgid "PAGE_APP_LABEL_ORIGINAL_AUTHOR"
 msgstr "Original author:"
+
+msgid "PAGE_APP_LABEL_PRICE"
+msgstr "Price"
 
 msgid "PAGE_APP_MSG_DEMO_WARNING"
 msgstr "The software is distributed as a demo version; the full version should be purchased from the author. The file is provided from the developer's official website."
@@ -1364,6 +1469,9 @@ msgstr "Code"
 msgid "PAGE_INVITE_INPUT_TITLE"
 msgstr "Enter invite code"
 
+msgid "PAGE_INVITE_LIMIT_EXHAUSTED"
+msgstr "Invited users"
+
 msgid "PAGE_INVITE_LIMIT_INFO"
 msgstr "Currently you can invite <b>1</b> person. After the user accepts your invitation, the next one can be created only in a week"
 
@@ -1375,6 +1483,9 @@ msgstr "Invited users"
 
 msgid "PAGE_INVITE_MAIN_TITLE"
 msgstr "Invite a person"
+
+msgid "PAGE_INVITE_NEXT_AVAILABLE"
+msgstr "Code"
 
 msgid "PAGE_INVITE_REGDATE"
 msgstr "Sign up"
@@ -1456,11 +1567,14 @@ msgstr "Managed applications"
 
 msgid "PAGE_NOTIFICATIONS_COUNT_SINGLE"
 msgid_plural "PAGE_NOTIFICATIONS_COUNT_PLURAL"
-msgstr[0] "You have <b>%%(counter)s</b> new notification"
-msgstr[1] "You have <b>%%(counter)s</b> new notifications"
+msgstr[0] "You have <b>%(counter)s</b> new notification"
+msgstr[1] "You have <b>%(counter)s</b> new notifications"
 
 msgid "PAGE_NOTIFICATIONS_EARLY"
 msgstr "Early notifications"
+
+msgid "PAGE_NOTIFICATIONS_NEW_COUNT"
+msgstr "just now"
 
 msgid "PAGE_NOTIFICATIONS_NOW"
 msgstr "just now"
@@ -1515,6 +1629,9 @@ msgstr "Partner sites and our other projects"
 
 msgid "PAGE_OTHER_PROJECTS_TITLE"
 msgstr "Other projects"
+
+msgid "PAGE_PROFILESETTINGS_LABEL_BIO"
+msgstr "Profile bio:"
 
 msgid "PAGE_PROFILE_APPS_EMPTY_DESC"
 msgstr "User hasn't published any apps yet."
@@ -1688,13 +1805,13 @@ msgid "PAGE_SEARCH_BADGE_DEMO"
 msgstr "Demo"
 
 msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
-msgstr "Demo, then $%%(price)s"
+msgstr "Demo, then $%(price)s"
 
 msgid "PAGE_SEARCH_BADGE_FREE"
 msgstr "Free"
 
 msgid "PAGE_SEARCH_BADGE_NOT_FOUND"
-msgstr "No results found for \"%%(q)s\""
+msgstr "No results found for \"%(q)s\""
 
 msgid "PAGE_SEARCH_BTN_DETAILS"
 msgstr "Details"
@@ -1730,7 +1847,7 @@ msgid "PAGE_SEARCH_LINK_ADVANCED"
 msgstr "Refine search criteria"
 
 msgid "PAGE_SEARCH_MSG_NO_RESULTS %(q)s"
-msgstr "No results found for \"%%(q)s\""
+msgstr "No results found for \"%(q)s\""
 
 msgid "PAGE_SEARCH_MSG_NO_RESULTS_EMPTY"
 msgstr "No results found for your search"
@@ -1849,6 +1966,9 @@ msgstr "Account"
 msgid "PAGE_SETTINGS_TAB_APPS"
 msgstr "Apps"
 
+msgid "PAGE_SETTINGS_TAB_SECURITY"
+msgstr "Security"
+
 msgid "PAGE_SETTINGS_TITLE"
 msgstr "Settings"
 
@@ -1879,11 +1999,29 @@ msgstr "Untitled"
 msgid "TEXT_APP_NO_SLOGAN"
 msgstr "No slogan"
 
+msgid "THICKBOX_CLOSE"
+msgstr "Close"
+
+msgid "THICKBOX_IMAGE"
+msgstr "Image"
+
+msgid "THICKBOX_NEXT"
+msgstr "Next"
+
+msgid "THICKBOX_NO_IFRAMES"
+msgstr "No iFrames"
+
+msgid "THICKBOX_OF"
+msgstr "of"
+
+msgid "THICKBOX_PREV"
+msgstr "Back"
+
 msgid "VIEW_LOGIN_BANNED_REASON"
-msgstr "Your account has been blocked. Reason: %%(reason)s"
+msgstr "Your account has been blocked. Reason: %(reason)s"
 
 msgid "VIEW_LOGIN_INVALID_CREDENTIALS"
 msgstr "Incorrect username or password."
 
 msgid "VIEW_LOGIN_SUCCESS"
-msgstr "Login successful! Welcome, %%(username)s!"
+msgstr "Login successful! Welcome, %(username)s!"

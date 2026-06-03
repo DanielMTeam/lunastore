@@ -35,6 +35,13 @@ def kick_from_session_on_ban(sender: type, instance: Any, created: bool, **kwarg
                 session.delete()
                 deleted_sessions += 1
 
+from django.contrib.auth.signals import user_logged_out
+
+@receiver(user_logged_out)
+def remove_user_session(sender, request, user, **kwargs):
+    if request and request.session.session_key:
+        from .models import UserSession
+        UserSession.objects.filter(session_key=request.session.session_key).delete()
 
 def create_groups(sender: AppConfig, **kwargs: Any) -> None:
     # moderator group

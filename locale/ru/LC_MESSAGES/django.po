@@ -12,15 +12,15 @@ msgstr "LunaStore. Справочник приложений для твоего
 
 msgid "%(counter)s PAGE_PROFILE_STATS_APP"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
-msgstr[0] "%%(counter)s приложений,"
-msgstr[1] "%%(counter)s приложений,"
-msgstr[2] "%%(counter)s приложений,"
+msgstr[0] "%(counter)s приложений,"
+msgstr[1] "%(counter)s приложений,"
+msgstr[2] "%(counter)s приложений,"
 
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
-msgstr[0] "%%(counter)s отзывов -"
-msgstr[1] "%%(counter)s отзывов -"
-msgstr[2] "%%(counter)s отзывов -"
+msgstr[0] "%(counter)s отзывов -"
+msgstr[1] "%(counter)s отзывов -"
+msgstr[2] "%(counter)s отзывов -"
 
 msgid "404_ELEMENT_NOT_FOUND"
 msgstr "Запрашиваемый элемент или ссылка, которую вы хотите посетить, не найдены на нашем сайте."
@@ -100,6 +100,15 @@ msgstr "С душой сделано командой DM,"
 msgid "BASE_FOOTER_TEXT_2"
 msgstr "Все права принадлежат исходным правообладателям"
 
+msgid "BASE_IMPERSONATE_ATTENTION"
+msgstr "Внимание!"
+
+msgid "BASE_IMPERSONATE_RETURN"
+msgstr "Вернуться в свой аккаунт"
+
+msgid "BASE_IMPERSONATE_WARNING"
+msgstr "Вы временно вошли в чужой аккаунт. Пожалуйста, не злоупотребляйте этим функционалом!"
+
 msgid "BASE_LOGINBTN"
 msgstr "вход"
 
@@ -175,6 +184,12 @@ msgstr "Категории"
 msgid "CARD_USER_NO_DESC"
 msgstr "Описание профиля отсутствует"
 
+msgid "ERROR_2FA_INVALID_CODE"
+msgstr "Неверный код"
+
+msgid "ERROR_2FA_INVALID_PASSWORD"
+msgstr "Неверный пароль"
+
 msgid "ERROR_ACCESS_DENIED_PROFILE"
 msgstr "Доступ запрещён. Начните с настроек профиля."
 
@@ -233,7 +248,7 @@ msgid "ERROR_EMAIL_DISPOSABLE_DOMAIN"
 msgstr "Регистрация с использованием сервисов временной почты запрещена."
 
 msgid "ERROR_EMAIL_DOMAIN_NO_MX %(domain)s"
-msgstr "Домен %%(domain)s не принимает почту. Укажите существующий адрес."
+msgstr "Домен %(domain)s не принимает почту. Укажите существующий адрес."
 
 msgid "ERROR_EMAIL_INVALID_FORMAT"
 msgstr "Введен некорректный email адрес."
@@ -371,7 +386,7 @@ msgid "FORM_SCREENSHOTS"
 msgstr "Скриншоты"
 
 msgid "File extension “%(extension)s” is not allowed. Allowed extensions are: “%(allowed_extensions)s”."
-msgstr "Расширение “%%(extension)s” не разрешено. Допустимые расширения: “%%(allowed_extensions)s”."
+msgstr "Расширение “%(extension)s” не разрешено. Допустимые расширения: “%(allowed_extensions)s”."
 
 msgid "INDEX_CATEGORY_PROMPT"
 msgstr "Или выберите нужную категорию:"
@@ -393,6 +408,12 @@ msgstr "Приветствуем в LunaStore!<br>Сборник приложе�
 
 msgid "INDEX_WELCOME_TITLE"
 msgstr "Добро пожаловать"
+
+msgid "INFO_2FA_DISABLED"
+msgstr "Двухфакторная аутентификация успешно отключена."
+
+msgid "INFO_2FA_ENABLED"
+msgstr "Двухфакторная аутентификация успешно включена."
 
 msgid "INFO_ACCEPTED_AVATAR_FORMATS"
 msgstr "Допустимые форматы: .JPG, .PNG, .WEBP, .GIF"
@@ -466,6 +487,9 @@ msgstr "Не удалось получить токен загрузки"
 msgid "JS_MARKETPLACE_UPLOADING"
 msgstr "Загрузка..."
 
+msgid "LunaStore Admin"
+msgstr "сука кто опять криво переводы вставил"
+
 msgid "MSG_DIST_CREATE_REQ_SENT"
 msgstr "Заявка на добавление новой версии отправлена на модерацию."
 
@@ -476,25 +500,25 @@ msgid "NOTIFICATIONS_LOADING"
 msgstr "Загрузка уведомлений..."
 
 msgid "NOTIF_APPEDITREQ_ACCEPTED_DESCRIPTION"
-msgstr "Ваша заявка на редактирование приложения %%(app_name)s была одобрена."
+msgstr "Ваша заявка на редактирование приложения %(app_name)s была одобрена."
 
 msgid "NOTIF_APPEDITREQ_ACCEPTED_TITLE"
 msgstr "Статус заявки на редактирование приложения"
 
 msgid "NOTIF_APPEDITREQ_DECLINED_DESCRIPTION"
-msgstr "Ваша заявка на редактирование приложения %%(app_name)s была отклонена. Причина: %%(reason)s"
+msgstr "Ваша заявка на редактирование приложения %(app_name)s была отклонена. Причина: %(reason)s"
 
 msgid "NOTIF_APPEDITREQ_DECLINED_TITLE"
 msgstr "Статус заявки на редактирование приложения"
 
 msgid "NOTIF_APPREQ_ACCEPTED_DESCRIPTION"
-msgstr "Поздравляем! Ваша заявка на создание приложения %%(app_name)s была одобрена и оно было опубликовано в LunaStore."
+msgstr "Поздравляем! Ваша заявка на создание приложения %(app_name)s была одобрена и оно было опубликовано в LunaStore."
 
 msgid "NOTIF_APPREQ_ACCEPTED_TITLE"
 msgstr "Статус заявки"
 
 msgid "NOTIF_APPREQ_DECLINED_DESCRIPTION"
-msgstr "Ваша заявка на создание приложения %%(app_name)s была отклонена. Причина: %%(reason)s"
+msgstr "Ваша заявка на создание приложения %(app_name)s была отклонена. Причина: %(reason)s"
 
 msgid "NOTIF_APPREQ_DECLINED_TITLE"
 msgstr "Статус заявки"
@@ -506,7 +530,7 @@ msgid "NOTIF_DEVSTATUS_ACCEPTED_TITLE"
 msgstr "Статус разработчика"
 
 msgid "NOTIF_DEVSTATUS_DECLINED_DESCRIPTION"
-msgstr "Ваша заявка была отклонена и вы не получили возможности разработчика/издателя приложений. Причина: %%(reason)s"
+msgstr "Ваша заявка была отклонена и вы не получили возможности разработчика/издателя приложений. Причина: %(reason)s"
 
 msgid "NOTIF_DEVSTATUS_DECLINED_TITLE"
 msgstr "Статус разработчика"
@@ -518,19 +542,19 @@ msgid "NOTIF_DEVSTATUS_SEND_TITLE"
 msgstr "Статус разработчика"
 
 msgid "NOTIF_DISTREQ_ACCEPTED_DESCRIPTION"
-msgstr "Ваша заявка на публикацию версии %%(version)s для приложения \"%%(app_name)s\" была одобрена модератором."
+msgstr "Ваша заявка на публикацию версии %(version)s для приложения \"%(app_name)s\" была одобрена модератором."
 
 msgid "NOTIF_DISTREQ_ACCEPTED_TITLE"
 msgstr "Новая версия опубликована!"
 
 msgid "NOTIF_DISTREQ_DECLINED_DESCRIPTION"
-msgstr "К сожалению, ваша заявка на публикацию версии %%(version)s для \"%%(app_name)s\" была отклонена. Причина: %%(reason)s"
+msgstr "К сожалению, ваша заявка на публикацию версии %(version)s для \"%(app_name)s\" была отклонена. Причина: %(reason)s"
 
 msgid "NOTIF_DISTREQ_DECLINED_TITLE"
 msgstr "Заявка на публикацию отклонена"
 
 msgid "NOTIF_LOGIN_DESCRIPTION"
-msgstr "В ваш аккаунт был выполнен вход • Устройство: %%(browser)s (%%(os)s) • IP-адрес: %%(ip)s • Местоположение: %%(location)s • Если это не вы, срочно смените пароль."
+msgstr "В ваш аккаунт был выполнен вход • Устройство: %(browser)s (%(os)s) • IP-адрес: %(ip)s • Местоположение: %(location)s • Если это не вы, срочно смените пароль."
 
 msgid "NOTIF_LOGIN_TITLE"
 msgstr "Новый вход в аккаунт"
@@ -540,6 +564,78 @@ msgstr "Спасибо за регистрацию! Очень приятно, �
 
 msgid "NOTIF_WELCOME_TITLE"
 msgstr "Добро пожаловать в LunaStore"
+
+msgid "PAGE_2FA_ATTEMPT_HEADER"
+msgstr "Двухфакторная проверка"
+
+msgid "PAGE_2FA_ATTEMPT_SUBTITLE"
+msgstr "Введите код для завершения входа"
+
+msgid "PAGE_2FA_ATTEMPT_TITLE"
+msgstr "Ввод кода 2FA"
+
+msgid "PAGE_2FA_CONNECT_BTN"
+msgstr "Подключить"
+
+msgid "PAGE_2FA_CONTINUE_BTN"
+msgstr "Продолжить"
+
+msgid "PAGE_2FA_DISABLE_BTN"
+msgstr "Отключить 2FA"
+
+msgid "PAGE_2FA_DISABLE_CONFIRM"
+msgstr "Вы уверены, что хотите отключить 2FA? Это снизит уровень безопасности вашего аккаунта."
+
+msgid "PAGE_2FA_DISABLE_INFO"
+msgstr "Если вы хотите отключить этот метод входа, нажмите на кнопку ниже."
+
+msgid "PAGE_2FA_ENABLED_INFO"
+msgstr "На данном аккаунте включен дополнительный метод входа через ввод временного кода доступа поверх стандартного логина и пароля"
+
+msgid "PAGE_2FA_ENTER_CODE"
+msgstr "введите полученный код"
+
+msgid "PAGE_2FA_ENTER_CODE_HEADER"
+msgstr "Ввод кода"
+
+msgid "PAGE_2FA_INFO_1"
+msgstr "Обеспечьте защиту своего аккаунта дополнительным методом входа через ввод временного кода доступа поверх стандартного логина и пароля"
+
+msgid "PAGE_2FA_INFO_2"
+msgstr "Для начала настройки вам понадобится генератор кодов (например: <b>Bitwarden</b>, <b>KeePassXC</b> или <b>Aegis</b>)"
+
+msgid "PAGE_2FA_INFO_3"
+msgstr "Генерация кодов работает без сотовой связи и какого-либо подключения к сети. Отсканируйте приложением данный QR-код на экране, введите полученные 6 цифр и нажмите \"Подключить\""
+
+msgid "PAGE_2FA_INITIAL_SETUP"
+msgstr "Первоначальная настройка"
+
+msgid "PAGE_2FA_MANAGE"
+msgstr "Управление"
+
+msgid "PAGE_2FA_MANAGE_INFO"
+msgstr "Управление дополнительным методом входа по одноразовому коду"
+
+msgid "PAGE_2FA_OPEN_GENERATOR"
+msgstr "Откройте генератор кодов и введите полученный код"
+
+msgid "PAGE_2FA_PASSWORD_CONFIRM"
+msgstr "Подтверждение доступа"
+
+msgid "PAGE_2FA_PASSWORD_CONFIRM_TITLE"
+msgstr "Подтверждение пароля"
+
+msgid "PAGE_2FA_PASSWORD_PROMPT"
+msgstr "Для доступа к управлению 2FA, пожалуйста, введите пароль от вашего аккаунта."
+
+msgid "PAGE_2FA_SECRET_KEY"
+msgstr "Ваш секретный ключ"
+
+msgid "PAGE_2FA_SUBTITLE_MANAGE"
+msgstr "Управление входом по одноразовому коду"
+
+msgid "PAGE_2FA_TITLE"
+msgstr "Двухфакторная аутентификация"
 
 msgid "PAGE_ADDAPP_BACKBTN"
 msgstr "Назад"
@@ -1476,9 +1572,9 @@ msgstr "Администрируемые приложения"
 
 msgid "PAGE_NOTIFICATIONS_COUNT_SINGLE"
 msgid_plural "PAGE_NOTIFICATIONS_COUNT_PLURAL"
-msgstr[0] "У Вас <b>%%(counter)s</b> новое уведомление"
-msgstr[1] "У Вас <b>%%(counter)s</b> новых уведомления"
-msgstr[2] "У Вас <b>%%(counter)s</b> новых уведомлений"
+msgstr[0] "У Вас <b>%(counter)s</b> новое уведомление"
+msgstr[1] "У Вас <b>%(counter)s</b> новых уведомления"
+msgstr[2] "У Вас <b>%(counter)s</b> новых уведомлений"
 
 msgid "PAGE_NOTIFICATIONS_EARLY"
 msgstr "Ранние уведомления"
@@ -1715,13 +1811,13 @@ msgid "PAGE_SEARCH_BADGE_DEMO"
 msgstr "Демо"
 
 msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
-msgstr "Демо, далее $%%(price)s"
+msgstr "Демо, далее $%(price)s"
 
 msgid "PAGE_SEARCH_BADGE_FREE"
 msgstr "Бесплатно"
 
 msgid "PAGE_SEARCH_BADGE_NOT_FOUND"
-msgstr "Поиск не дал результатов по запросу \"%%(q)s\""
+msgstr "Поиск не дал результатов по запросу \"%(q)s\""
 
 msgid "PAGE_SEARCH_BTN_DETAILS"
 msgstr "Подробнее"
@@ -1757,7 +1853,7 @@ msgid "PAGE_SEARCH_LINK_ADVANCED"
 msgstr "Уточнить параметры поиска"
 
 msgid "PAGE_SEARCH_MSG_NO_RESULTS %(q)s"
-msgstr "Поиск не дал результатов по запросу \"%%(q)s\""
+msgstr "Поиск не дал результатов по запросу \"%(q)s\""
 
 msgid "PAGE_SEARCH_MSG_NO_RESULTS_EMPTY"
 msgstr "По вашему запросу ничего не найдено"
@@ -1876,6 +1972,9 @@ msgstr "Аккаунт"
 msgid "PAGE_SETTINGS_TAB_APPS"
 msgstr "Приложения"
 
+msgid "PAGE_SETTINGS_TAB_SECURITY"
+msgstr "Безопасность"
+
 msgid "PAGE_SETTINGS_TITLE"
 msgstr "Настройки"
 
@@ -1925,10 +2024,10 @@ msgid "THICKBOX_PREV"
 msgstr "Назад"
 
 msgid "VIEW_LOGIN_BANNED_REASON"
-msgstr "Ваш аккаунт заблокирован. Причина: %%(reason)s"
+msgstr "Ваш аккаунт заблокирован. Причина: %(reason)s"
 
 msgid "VIEW_LOGIN_INVALID_CREDENTIALS"
 msgstr "Неверный логин или пароль."
 
 msgid "VIEW_LOGIN_SUCCESS"
-msgstr "Вход выполнен успешно! Привет, %%(username)s!"
+msgstr "Вход выполнен успешно! Привет, %(username)s!"
