@@ -7,6 +7,9 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 "X-Generator: Tolgee\n"
 
+msgid " SITE_DESCRIPTION"
+msgstr "LunaStore. Ескі компьютерлерге арналған қосымшалар анықтамасы. Қосымшаларды жүктеп алыңыз, пікір қалдырыңыз және ескі компьютерлер әуесқойлары қауымдастығының бір бөлігі болыңыз."
+
 msgid "%(counter)s PAGE_PROFILE_STATS_APP"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
 msgstr[0] "%(counter)s қосымша,"
@@ -31,6 +34,9 @@ msgid "404_TITLE"
 msgstr "Қате орын алды"
 
 msgid "ACTION_CHOOSE_FILE"
+msgstr "Файлды таңдау"
+
+msgid "ACTION_CHOOSE_ICON"
 msgstr "Файлды таңдау"
 
 msgid "BANNED_IP_BACK_BUTTON"
@@ -89,6 +95,15 @@ msgstr "DM командасы жанымен жасаған,"
 
 msgid "BASE_FOOTER_TEXT_2"
 msgstr "Барлық құқықтар тиісті авторлық құқық иелеріне тиесілі"
+
+msgid "BASE_IMPERSONATE_ATTENTION"
+msgstr "Назар аударыңыз!"
+
+msgid "BASE_IMPERSONATE_RETURN"
+msgstr "Өз аккаунтыңызға оралу"
+
+msgid "BASE_IMPERSONATE_WARNING"
+msgstr "Сіз уақытша басқа біреудің аккаунтына кірдіңіз. Өтінеміз, бұл функционалды асыра қолданбаңыз!"
 
 msgid "BASE_LOGINBTN"
 msgstr "кіру"
@@ -165,6 +180,12 @@ msgstr "Санаттар"
 msgid "CARD_USER_NO_DESC"
 msgstr "Профиль сипаттамасы жоқ"
 
+msgid "ERROR_2FA_INVALID_CODE"
+msgstr "Жарамсыз код"
+
+msgid "ERROR_2FA_INVALID_PASSWORD"
+msgstr "Пароль дұрыс емес"
+
 msgid "ERROR_ACCESS_DENIED_PROFILE"
 msgstr "Қатынас шектелген. Профиль баптауларынан бастаңыз."
 
@@ -179,6 +200,9 @@ msgstr "Сақтау серверіндегі (CDN) файл пішімі жар
 
 msgid "ERROR_CDN_SESSION_EXPIRED"
 msgstr "Жүктеу сессиясының уақыты аяқталды. Қайталап көріңіз."
+
+msgid "ERROR_CDN_TOKEN_EXPIRED"
+msgstr "Жүктеу токенінің мерзімі өтті немесе ол бұрыннан пайдаланылды."
 
 msgid "ERROR_CDN_TOKEN_EXPIRED_OR_USED"
 msgstr "Жүктеу токенінің мерзімі өтті немесе ол бұрыннан пайдаланылды."
@@ -381,6 +405,12 @@ msgstr "LunaStore-ға қош келдіңіз!<br>Осы операциялық
 msgid "INDEX_WELCOME_TITLE"
 msgstr "Қош келдіңіз"
 
+msgid "INFO_2FA_DISABLED"
+msgstr "Екі факторлық аутентификация сәтті өшірілді."
+
+msgid "INFO_2FA_ENABLED"
+msgstr "Екі факторлық аутентификация сәтті қосылды."
+
 msgid "INFO_ACCEPTED_AVATAR_FORMATS"
 msgstr "Рұқсат етілген пішімдер: .JPG, .PNG, .WEBP, .GIF"
 
@@ -527,6 +557,78 @@ msgstr "Тіркелгеніңізге рақмет! Қолданбалар ан
 
 msgid "NOTIF_WELCOME_TITLE"
 msgstr "LunaStore-қа қош келдіңіз"
+
+msgid "PAGE_2FA_ATTEMPT_HEADER"
+msgstr "Екі факторлы тексеру"
+
+msgid "PAGE_2FA_ATTEMPT_SUBTITLE"
+msgstr "Кіруді аяқтау үшін кодты енгізіңіз"
+
+msgid "PAGE_2FA_ATTEMPT_TITLE"
+msgstr "2FA кодын енгізу"
+
+msgid "PAGE_2FA_CONNECT_BTN"
+msgstr "Қосу"
+
+msgid "PAGE_2FA_CONTINUE_BTN"
+msgstr "Жалғастыру"
+
+msgid "PAGE_2FA_DISABLE_BTN"
+msgstr "2FA-ны өшіру"
+
+msgid "PAGE_2FA_DISABLE_CONFIRM"
+msgstr "2FA-ны өшіргіңіз келетініне сенімдісіз бе? Бұл аккаунтыныздың қауіпсіздік деңгейін төмендетеді."
+
+msgid "PAGE_2FA_DISABLE_INFO"
+msgstr "Егер сіз бұл кіру әдісін өшіргіңіз келсе, төмендегі түймені басыңыз."
+
+msgid "PAGE_2FA_ENABLED_INFO"
+msgstr "Бұл аккаунтта стандартты логин мен парольден бөлек, уақытша кіру кодын енгізу арқылы қосымша кіру әдісі қосылған"
+
+msgid "PAGE_2FA_ENTER_CODE"
+msgstr "алынған кодты енгізіңіз"
+
+msgid "PAGE_2FA_ENTER_CODE_HEADER"
+msgstr "Кодты енгізу"
+
+msgid "PAGE_2FA_INFO_1"
+msgstr "Стандартты логин мен парольден бөлек, уақытша кіру кодын енгізу арқылы аккаунтыңызды қосымша қорғау әдісімен қамтамасыз етіңіз"
+
+msgid "PAGE_2FA_INFO_2"
+msgstr "Баптауды бастау үшін сізге код генераторы қажет болады (мысалы: <b>Google Authenticator</b> немесе <b>Aegis</b>)"
+
+msgid "PAGE_2FA_INFO_3"
+msgstr "Кодтарды генерациялау ұялы байланыссыз және желіге қосылусыз жұмыс істейді. Экрандағы осы QR-кодты қолданба арқылы сканерлеңіз, алынған 6 цифрды енгізіңіз және \"Қосу\" батырмасын басыңыз"
+
+msgid "PAGE_2FA_INITIAL_SETUP"
+msgstr "Бастапқы баптау"
+
+msgid "PAGE_2FA_MANAGE"
+msgstr "Басқару"
+
+msgid "PAGE_2FA_MANAGE_INFO"
+msgstr "Бір реттік код арқылы кірудің қосымша әдісін басқару"
+
+msgid "PAGE_2FA_OPEN_GENERATOR"
+msgstr "Код генераторын ашып, алынған кодты енгізіңіз"
+
+msgid "PAGE_2FA_PASSWORD_CONFIRM"
+msgstr "Кіруді растау"
+
+msgid "PAGE_2FA_PASSWORD_CONFIRM_TITLE"
+msgstr "Құпия сөзді растау"
+
+msgid "PAGE_2FA_PASSWORD_PROMPT"
+msgstr "2FA басқаруына кіру үшін тіркелгіңіздің құпия сөзін енгізіңіз."
+
+msgid "PAGE_2FA_SECRET_KEY"
+msgstr "Сіздің құпия кілтіңіз"
+
+msgid "PAGE_2FA_SUBTITLE_MANAGE"
+msgstr "Бір реттік код арқылы кіруді басқару"
+
+msgid "PAGE_2FA_TITLE"
+msgstr "Екі факторлық аутентификация"
 
 msgid "PAGE_ADDAPP_BACKBTN"
 msgstr "Артқа"
@@ -839,6 +941,9 @@ msgstr "Өкінішке орай, қолданбаны жүктеген ада�
 
 msgid "PAGE_APP_LABEL_ORIGINAL_AUTHOR"
 msgstr "Түпнұсқа автор:"
+
+msgid "PAGE_APP_LABEL_PRICE"
+msgstr "Бағасы"
 
 msgid "PAGE_APP_MSG_DEMO_WARNING"
 msgstr "Бағдарлама демо-нұсқа ретінде таратылады, толық нұсқасы үшін оның авторына төлеу қажет. Файл әзірлеушінің ресми сайтынан алынған."
@@ -1362,6 +1467,9 @@ msgstr "Код"
 msgid "PAGE_INVITE_INPUT_TITLE"
 msgstr "Шақыру кодын енгізу"
 
+msgid "PAGE_INVITE_LIMIT_EXHAUSTED"
+msgstr "Шақырылған пайдаланушылар"
+
 msgid "PAGE_INVITE_LIMIT_INFO"
 msgstr "Қазіргі уақытта сіз <b>1</b> адамды шақыра аласыз. Пайдаланушы сіздің шақыруыңызды қабылдағаннан кейін, келесі шақыруды тек бір аптадан кейін жасауға болады"
 
@@ -1373,6 +1481,9 @@ msgstr "Шақырылған пайдаланушылар"
 
 msgid "PAGE_INVITE_MAIN_TITLE"
 msgstr "Адамды шақыру"
+
+msgid "PAGE_INVITE_NEXT_AVAILABLE"
+msgstr "Код"
 
 msgid "PAGE_INVITE_REGDATE"
 msgstr "Тіркелу"
@@ -1459,6 +1570,9 @@ msgstr[0] "Сізде <b>%(counter)s</b> жаңа хабарлама бар"
 msgid "PAGE_NOTIFICATIONS_EARLY"
 msgstr "Ерте хабарламалар"
 
+msgid "PAGE_NOTIFICATIONS_NEW_COUNT"
+msgstr "жаңа ғана"
+
 msgid "PAGE_NOTIFICATIONS_NOW"
 msgstr "жаңа ғана"
 
@@ -1512,6 +1626,9 @@ msgstr "Серіктес сайттар және басқа да жобалар�
 
 msgid "PAGE_OTHER_PROJECTS_TITLE"
 msgstr "Басқа жобалар"
+
+msgid "PAGE_PROFILESETTINGS_LABEL_BIO"
+msgstr "Профиль сипаттамасы:"
 
 msgid "PAGE_PROFILE_APPS_EMPTY_DESC"
 msgstr "Пайдаланушы әзірге ешқандай қосымша жариялаған жоқ."
@@ -1846,6 +1963,9 @@ msgstr "Аккаунт"
 msgid "PAGE_SETTINGS_TAB_APPS"
 msgstr "Қосымшалар"
 
+msgid "PAGE_SETTINGS_TAB_SECURITY"
+msgstr "Қауіпсіздік"
+
 msgid "PAGE_SETTINGS_TITLE"
 msgstr "Баптаулар"
 
@@ -1875,6 +1995,24 @@ msgstr "Атауы жоқ"
 
 msgid "TEXT_APP_NO_SLOGAN"
 msgstr "Ұран жоқ"
+
+msgid "THICKBOX_CLOSE"
+msgstr "Жабу"
+
+msgid "THICKBOX_IMAGE"
+msgstr "Сурет"
+
+msgid "THICKBOX_NEXT"
+msgstr "Келесі"
+
+msgid "THICKBOX_NO_IFRAMES"
+msgstr "iFrame-сіз"
+
+msgid "THICKBOX_OF"
+msgstr "ішінен"
+
+msgid "THICKBOX_PREV"
+msgstr "Артқа"
 
 msgid "VIEW_LOGIN_BANNED_REASON"
 msgstr "Сіздің аккаунты бұғатталды. Себебі: %(reason)s"

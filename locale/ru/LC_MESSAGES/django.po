@@ -100,6 +100,15 @@ msgstr "С душой сделано командой DM,"
 msgid "BASE_FOOTER_TEXT_2"
 msgstr "Все права принадлежат исходным правообладателям"
 
+msgid "BASE_IMPERSONATE_ATTENTION"
+msgstr "Внимание!"
+
+msgid "BASE_IMPERSONATE_RETURN"
+msgstr "Вернуться в свой аккаунт"
+
+msgid "BASE_IMPERSONATE_WARNING"
+msgstr "Вы временно вошли в чужой аккаунт. Пожалуйста, не злоупотребляйте этим функционалом!"
+
 msgid "BASE_LOGINBTN"
 msgstr "вход"
 
@@ -174,6 +183,12 @@ msgstr "Категории"
 
 msgid "CARD_USER_NO_DESC"
 msgstr "Описание профиля отсутствует"
+
+msgid "ERROR_2FA_INVALID_CODE"
+msgstr "Неверный код"
+
+msgid "ERROR_2FA_INVALID_PASSWORD"
+msgstr "Неверный пароль"
 
 msgid "ERROR_ACCESS_DENIED_PROFILE"
 msgstr "Доступ запрещён. Начните с настроек профиля."
@@ -394,6 +409,12 @@ msgstr "Приветствуем в LunaStore!<br>Сборник приложе�
 msgid "INDEX_WELCOME_TITLE"
 msgstr "Добро пожаловать"
 
+msgid "INFO_2FA_DISABLED"
+msgstr "Двухфакторная аутентификация успешно отключена."
+
+msgid "INFO_2FA_ENABLED"
+msgstr "Двухфакторная аутентификация успешно включена."
+
 msgid "INFO_ACCEPTED_AVATAR_FORMATS"
 msgstr "Допустимые форматы: .JPG, .PNG, .WEBP, .GIF"
 
@@ -465,6 +486,9 @@ msgstr "Не удалось получить токен загрузки"
 
 msgid "JS_MARKETPLACE_UPLOADING"
 msgstr "Загрузка..."
+
+msgid "LunaStore Admin"
+msgstr "сука кто опять криво переводы вставил"
 
 msgid "MSG_DIST_CREATE_REQ_SENT"
 msgstr "Заявка на добавление новой версии отправлена на модерацию."
@@ -540,6 +564,78 @@ msgstr "Спасибо за регистрацию! Очень приятно, �
 
 msgid "NOTIF_WELCOME_TITLE"
 msgstr "Добро пожаловать в LunaStore"
+
+msgid "PAGE_2FA_ATTEMPT_HEADER"
+msgstr "Двухфакторная проверка"
+
+msgid "PAGE_2FA_ATTEMPT_SUBTITLE"
+msgstr "Введите код для завершения входа"
+
+msgid "PAGE_2FA_ATTEMPT_TITLE"
+msgstr "Ввод кода 2FA"
+
+msgid "PAGE_2FA_CONNECT_BTN"
+msgstr "Подключить"
+
+msgid "PAGE_2FA_CONTINUE_BTN"
+msgstr "Продолжить"
+
+msgid "PAGE_2FA_DISABLE_BTN"
+msgstr "Отключить 2FA"
+
+msgid "PAGE_2FA_DISABLE_CONFIRM"
+msgstr "Вы уверены, что хотите отключить 2FA? Это снизит уровень безопасности вашего аккаунта."
+
+msgid "PAGE_2FA_DISABLE_INFO"
+msgstr "Если вы хотите отключить этот метод входа, нажмите на кнопку ниже."
+
+msgid "PAGE_2FA_ENABLED_INFO"
+msgstr "На данном аккаунте включен дополнительный метод входа через ввод временного кода доступа поверх стандартного логина и пароля"
+
+msgid "PAGE_2FA_ENTER_CODE"
+msgstr "введите полученный код"
+
+msgid "PAGE_2FA_ENTER_CODE_HEADER"
+msgstr "Ввод кода"
+
+msgid "PAGE_2FA_INFO_1"
+msgstr "Обеспечьте защиту своего аккаунта дополнительным методом входа через ввод временного кода доступа поверх стандартного логина и пароля"
+
+msgid "PAGE_2FA_INFO_2"
+msgstr "Для начала настройки вам понадобится генератор кодов (например: <b>Bitwarden</b>, <b>KeePassXC</b> или <b>Aegis</b>)"
+
+msgid "PAGE_2FA_INFO_3"
+msgstr "Генерация кодов работает без сотовой связи и какого-либо подключения к сети. Отсканируйте приложением данный QR-код на экране, введите полученные 6 цифр и нажмите \"Подключить\""
+
+msgid "PAGE_2FA_INITIAL_SETUP"
+msgstr "Первоначальная настройка"
+
+msgid "PAGE_2FA_MANAGE"
+msgstr "Управление"
+
+msgid "PAGE_2FA_MANAGE_INFO"
+msgstr "Управление дополнительным методом входа по одноразовому коду"
+
+msgid "PAGE_2FA_OPEN_GENERATOR"
+msgstr "Откройте генератор кодов и введите полученный код"
+
+msgid "PAGE_2FA_PASSWORD_CONFIRM"
+msgstr "Подтверждение доступа"
+
+msgid "PAGE_2FA_PASSWORD_CONFIRM_TITLE"
+msgstr "Подтверждение пароля"
+
+msgid "PAGE_2FA_PASSWORD_PROMPT"
+msgstr "Для доступа к управлению 2FA, пожалуйста, введите пароль от вашего аккаунта."
+
+msgid "PAGE_2FA_SECRET_KEY"
+msgstr "Ваш секретный ключ"
+
+msgid "PAGE_2FA_SUBTITLE_MANAGE"
+msgstr "Управление входом по одноразовому коду"
+
+msgid "PAGE_2FA_TITLE"
+msgstr "Двухфакторная аутентификация"
 
 msgid "PAGE_ADDAPP_BACKBTN"
 msgstr "Назад"
@@ -1876,11 +1972,14 @@ msgstr "Аккаунт"
 msgid "PAGE_SETTINGS_TAB_APPS"
 msgstr "Приложения"
 
+msgid "PAGE_SETTINGS_TAB_SECURITY"
+msgstr "Безопасность"
+
 msgid "PAGE_SETTINGS_TITLE"
 msgstr "Настройки"
 
 msgid "PAGE_SETTINGS_WARN_USERNAME_FROZEN"
-msgstr "Имя пользователя после регистрации изменить можно 1 раз в год"
+msgstr "Имя пользователя после регистрации изменить нельзя"
 
 msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_1"
 msgstr "Файлы прошли проверку: "
@@ -1932,99 +2031,3 @@ msgstr "Неверный логин или пароль."
 
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "Вход выполнен успешно! Привет, %(username)s!"
-
-msgid "PAGE_2FA_TITLE"
-msgstr "Двухфакторная аутентификация"
-
-msgid "PAGE_SETTINGS_TAB_SECURITY"
-msgstr "Безопасность"
-
-msgid "PAGE_2FA_MANAGE_INFO"
-msgstr "Управление дополнительным методом входа по одноразовому коду"
-
-msgid "PAGE_2FA_MANAGE"
-msgstr "Управление"
-
-msgid "PAGE_2FA_PASSWORD_CONFIRM_TITLE"
-msgstr "Подтверждение пароля"
-
-msgid "PAGE_2FA_PASSWORD_CONFIRM"
-msgstr "Подтверждение доступа"
-
-msgid "PAGE_2FA_PASSWORD_PROMPT"
-msgstr "Для доступа к управлению 2FA, пожалуйста, введите пароль от вашего аккаунта."
-
-msgid "PAGE_2FA_CONTINUE_BTN"
-msgstr "Продолжить"
-
-msgid "PAGE_2FA_ATTEMPT_TITLE"
-msgstr "Ввод кода 2FA"
-
-msgid "PAGE_2FA_ATTEMPT_HEADER"
-msgstr "Двухфакторная проверка"
-
-msgid "PAGE_2FA_ATTEMPT_SUBTITLE"
-msgstr "Введите код для завершения входа"
-
-msgid "PAGE_2FA_ENTER_CODE_HEADER"
-msgstr "Ввод кода"
-
-msgid "PAGE_2FA_ENABLED_INFO"
-msgstr "На данном аккаунте включен дополнительный метод входа через ввод временного кода доступа поверх стандартного логина и пароля"
-
-msgid "PAGE_2FA_OPEN_GENERATOR"
-msgstr "Откройте генератор кодов и введите полученный код"
-
-msgid "PAGE_2FA_SUBTITLE_MANAGE"
-msgstr "Управление входом по одноразовому коду"
-
-msgid "PAGE_2FA_INITIAL_SETUP"
-msgstr "Первоначальная настройка"
-
-msgid "PAGE_2FA_INFO_1"
-msgstr "Обеспечьте защиту своего аккаунта дополнительным методом входа через ввод временного кода доступа поверх стандартного логина и пароля"
-
-msgid "PAGE_2FA_INFO_2"
-msgstr "Для начала настройки вам понадобится генератор кодов (например: <b>Google Authenticator</b> или <b>Aegis</b>)"
-
-msgid "PAGE_2FA_INFO_3"
-msgstr "Генерация кодов работает без сотовой связи и какого-либо подключения к сети. Отсканируйте приложением данный QR-код на экране, введите полученные 6 цифр и нажмите \"Подключить\""
-
-msgid "PAGE_2FA_SECRET_KEY"
-msgstr "Ваш секретный ключ"
-
-msgid "PAGE_2FA_ENTER_CODE"
-msgstr "введите полученный код"
-
-msgid "PAGE_2FA_CONNECT_BTN"
-msgstr "Подключить"
-
-msgid "PAGE_2FA_DISABLE_INFO"
-msgstr "Если вы хотите отключить этот метод входа, нажмите на кнопку ниже."
-
-msgid "PAGE_2FA_DISABLE_CONFIRM"
-msgstr "Вы уверены, что хотите отключить 2FA? Это снизит уровень безопасности вашего аккаунта."
-
-msgid "PAGE_2FA_DISABLE_BTN"
-msgstr "Отключить 2FA"
-
-msgid "INFO_2FA_DISABLED"
-msgstr "Двухфакторная аутентификация успешно отключена."
-
-msgid "INFO_2FA_ENABLED"
-msgstr "Двухфакторная аутентификация успешно включена."
-
-msgid "ERROR_2FA_INVALID_PASSWORD"
-msgstr "Неверный пароль"
-
-msgid "ERROR_2FA_INVALID_CODE"
-msgstr "Неверный код"
-
-msgid "BASE_IMPERSONATE_ATTENTION"
-msgstr "Внимание!"
-
-msgid "BASE_IMPERSONATE_WARNING"
-msgstr "Вы временно вошли в чужой аккаунт. Пожалуйста, не злоупотребляйте этим функционалом!"
-
-msgid "BASE_IMPERSONATE_RETURN"
-msgstr "Вернуться в свой аккаунт"
