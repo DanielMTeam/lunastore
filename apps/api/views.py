@@ -261,7 +261,12 @@ class MarketplaceViewSet(viewsets.GenericViewSet):
                 message=f"Application (id: {id}) unavailable because his creators/uploaders received a DMCA strike",
                 status_code=403,
             )
-
+        if app.is_private:
+            raise LunaException(
+                code=ErrorCodes.APPLICATION_PRIVATE,
+                message=f"Application (id: {id}) unavailable because it is private",
+                status_code=403,
+            )
         serializer = self.get_serializer(app)
         return Response(serializer.data)
 
