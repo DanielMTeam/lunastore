@@ -94,7 +94,7 @@
             {% if app.is_demo %}
                 {% if app.price > 0 %}
                     <div class="badge demo">
-                        {% blocktranslate with price=app.price %}PAGE_SEARCH_BADGE_DEMO_PRICE{% endblocktranslate %}
+                        {% blocktranslate with price=app.price %}PAGE_SEARCH_BADGE_DEMO_PRICE {{ price }}{% endblocktranslate %}
                     </div>
                 {% else %}
                     <div class="badge demo">{% trans "PAGE_SEARCH_BADGE_DEMO" %}</div>

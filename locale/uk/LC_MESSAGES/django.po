@@ -1807,7 +1807,7 @@ msgstr "Повідомити про проблему"
 msgid "PAGE_SEARCH_BADGE_DEMO"
 msgstr "Демо"
 
-msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
+msgid "PAGE_SEARCH_BADGE_DEMO_PRICE %(price)s"
 msgstr "Демо, далі $%(price)s"
 
 msgid "PAGE_SEARCH_BADGE_FREE"

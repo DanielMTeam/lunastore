@@ -1804,7 +1804,7 @@ msgstr "Report a problem"
 msgid "PAGE_SEARCH_BADGE_DEMO"
 msgstr "Demo"
 
-msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
+msgid "PAGE_SEARCH_BADGE_DEMO_PRICE %(price)s"
 msgstr "Demo, then $%(price)s"
 
 msgid "PAGE_SEARCH_BADGE_FREE"

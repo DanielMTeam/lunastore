@@ -1357,7 +1357,7 @@ msgid "PAGE_FAQ_DESC"
 msgstr "Сұрақтарыңыз бар ма? Бұл бетте LunaStore туралы барлық ақпарат жинақталған"
 
 msgid "PAGE_FAQ_DONATETAB"
-msgstr "Қайырымдылық жасау"
+msgstr "Қолдау"
 
 msgid "PAGE_FAQ_DONATE_TITLE"
 msgstr "Бізге қалай қолдау көрсетуге болады?"
@@ -1801,7 +1801,7 @@ msgstr "Мәселе туралы хабарлау"
 msgid "PAGE_SEARCH_BADGE_DEMO"
 msgstr "Демо"
 
-msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
+msgid "PAGE_SEARCH_BADGE_DEMO_PRICE %(price)s"
 msgstr "Демо, әрі қарай $%(price)s"
 
 msgid "PAGE_SEARCH_BADGE_FREE"

@@ -1807,7 +1807,7 @@ msgstr "Паведаміць пра праблему"
 msgid "PAGE_SEARCH_BADGE_DEMO"
 msgstr "Дэма"
 
-msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
+msgid "PAGE_SEARCH_BADGE_DEMO_PRICE %(price)s"
 msgstr "Дэма, далей $%(price)s"
 
 msgid "PAGE_SEARCH_BADGE_FREE"
