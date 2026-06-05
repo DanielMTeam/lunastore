@@ -261,7 +261,12 @@ class MarketplaceViewSet(viewsets.GenericViewSet):
                 message=f"Application (id: {id}) unavailable because his creators/uploaders received a DMCA strike",
                 status_code=403,
             )
-
+        if app.is_private:
+            raise LunaException(
+                code=ErrorCodes.APPLICATION_PRIVATE,
+                message=f"Application (id: {id}) unavailable because it is private",
+                status_code=403,
+            )
         serializer = self.get_serializer(app)
         return Response(serializer.data)
 
@@ -296,6 +301,7 @@ class MarketplaceViewSet(viewsets.GenericViewSet):
                 + TrigramSimilarity("slogan", query),
             )
             .filter(similarity__gt=0.1)
+            .exclude(is_private=True)
             .order_by("-similarity")
         )
 
@@ -336,7 +342,7 @@ class CategoryViewSet(viewsets.GenericViewSet):
             )
         try:
             category = self.get_queryset().get(pk=id)
-            apps = Application.objects.filter(category=category).order_by("-published")
+            apps = Application.objects.filter(category=category).exclude(is_private=True).order_by("-published")
         except Category.DoesNotExist:
             raise LunaException(
                 code=ErrorCodes.CATEGORY_NOT_FOUND,
@@ -427,7 +433,7 @@ class DistributionViewSet(viewsets.GenericViewSet):
                 status_code=400,
             )
 
-        if not Application.objects.filter(id=app_id).exists():
+        if not Application.objects.filter(id=app_id).exclude(is_private=True).exists():
             raise LunaException(
                 code=ErrorCodes.APPLICATION_NOT_FOUND,
                 message=f"Application with id {app_id} was not found",
