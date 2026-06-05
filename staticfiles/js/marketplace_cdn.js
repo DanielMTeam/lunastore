@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
     const form =
         document.getElementById("app-upload-form") ||
-        document.getElementById("application_form");
+        document.getElementById("application_form") ||
+        document.getElementById("distribution_form");
     if (!form) return;
 
     const config = window.cdn_config ||
@@ -24,16 +25,20 @@ document.addEventListener("DOMContentLoaded", function () {
         form.querySelector('[type="submit"]');
 
     form.addEventListener("submit", async function (e) {
-        const iconInput = document.getElementById("inp_icon");
-        const screenshotsInput = document.getElementById("inp_scr");
+        const iconInput = document.querySelector('input[type="file"][name="icon_file"]');
+        const screenshotsInput = document.querySelector('input[type="file"][name="screenshots_files"]');
+        const distInput = document.querySelector('input[type="file"][name="dist_file"]');
+        const inlineDistInputs = Array.from(document.querySelectorAll('input[type="file"][name$="-dist_file"]'));
 
         const hasIcon = iconInput && iconInput.files && iconInput.files[0];
         const hasScreenshots =
             screenshotsInput &&
             screenshotsInput.files &&
             screenshotsInput.files.length > 0;
+        const hasDist = distInput && distInput.files && distInput.files[0];
+        const hasInlineDist = inlineDistInputs.some(inp => inp.files && inp.files.length > 0);
 
-        if (!hasIcon && !hasScreenshots) return;
+        if (!hasIcon && !hasScreenshots && !hasDist && !hasInlineDist) return;
 
         e.preventDefault();
         if (submitBtn) submitBtn.disabled = true;
@@ -41,8 +46,24 @@ document.addEventListener("DOMContentLoaded", function () {
         try {
             const uploadFile = async (file, targetContext) => {
                 // get personal token for file
-                const baseUrl = config.tokenBaseUrl || config.tokenUrl;
-                const tokenUrl = `${baseUrl}?target=${targetContext}`;
+                let tokenUrl;
+                if (targetContext === "distribution") {
+                    let currentAppId = config.appId;
+                    if (!currentAppId) {
+                        const appSelect = document.querySelector('select[name="app"]');
+                        if (appSelect) {
+                            currentAppId = appSelect.value;
+                        }
+                    }
+                    if (!currentAppId) {
+                        throw new Error("Невозможно загрузить дистрибуцию: не выбрано или не сохранено приложение. Выберите приложение в списке.");
+                    }
+                    tokenUrl = `${config.privTokenUrl}?target=${targetContext}&app_id=${currentAppId}`;
+                } else {
+                    const baseUrl = config.tokenBaseUrl || config.tokenUrl;
+                    tokenUrl = `${baseUrl}?target=${targetContext}`;
+                }
+
                 const tokenRes = await fetch(tokenUrl, {
                     credentials: "include",
                 });
@@ -72,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     throw new Error(errMsg);
                 }
                 const data = await res.json();
-                return data.filepath || "";
+                return data;
             };
 
             const tasks = [];
@@ -93,6 +114,25 @@ document.addEventListener("DOMContentLoaded", function () {
                 );
             }
 
+            // send dist
+            let distIdx = -1;
+            if (hasDist) {
+                distIdx = tasks.length;
+                tasks.push(uploadFile(distInput.files[0], "distribution"));
+            }
+
+            // send inline dists
+            const inlineDistTasks = [];
+            inlineDistInputs.forEach(input => {
+                if (input.files && input.files[0]) {
+                    inlineDistTasks.push({
+                        input: input,
+                        taskIdx: tasks.length
+                    });
+                    tasks.push(uploadFile(input.files[0], "distribution"));
+                }
+            });
+
             // waiting for result
             const results = await Promise.all(tasks);
 
@@ -102,14 +142,29 @@ document.addEventListener("DOMContentLoaded", function () {
             const cdnScreenshotsField = form.querySelector(
                 'input[name="cdn_screenshots_data"]',
             );
+            const cdnConfirmTokenField = form.querySelector(
+                'input[name="cdn_confirm_token"]',
+            );
 
             if (iconIdx !== -1 && cdnIconField)
-                cdnIconField.value = results[iconIdx];
+                cdnIconField.value = results[iconIdx].filepath || "";
             if (hasScreenshots && cdnScreenshotsField) {
-                cdnScreenshotsField.value = JSON.stringify(
-                    results.slice(scrStartIdx),
-                );
+                const paths = results.slice(scrStartIdx, scrStartIdx + screenshotsInput.files.length).map(d => d.filepath || "");
+                cdnScreenshotsField.value = JSON.stringify(paths);
             }
+            if (distIdx !== -1 && cdnConfirmTokenField) {
+                cdnConfirmTokenField.value = results[distIdx].confirm_token || "";
+            }
+
+            inlineDistTasks.forEach(item => {
+                const prefix = item.input.name.replace('-dist_file', '');
+                const inlineTokenField = form.querySelector(`input[name="${prefix}-cdn_confirm_token"]`);
+                if (inlineTokenField) {
+                    inlineTokenField.value = results[item.taskIdx].confirm_token || "";
+                } else {
+                    alert("WARNING: cdn_confirm_token field not found for " + prefix);
+                }
+            });
 
             HTMLFormElement.prototype.submit.call(form);
         } catch (err) {

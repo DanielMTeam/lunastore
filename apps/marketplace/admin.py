@@ -1,3 +1,4 @@
+from django import forms
 from django.conf import settings
 from django.contrib import admin, messages
 from django.shortcuts import redirect
@@ -10,20 +11,59 @@ from apps.core.tasks import send_notification
 from safedelete.models import HARD_DELETE
 from lunastore.mixins import SafeDeleteAdmin
 from . import translation
-from .forms import ApplicationAdminForm
+from .forms import ApplicationAdminForm, DistributionAdminForm, get_translated_widgets_dict
 from .models import *
-from modeltranslation.admin import TabbedTranslationAdmin, TranslationTabularInline
+from modeltranslation.admin import TabbedTranslationAdmin, TranslationTabularInline, TranslationStackedInline
 
 
-class DistributionInline(TranslationTabularInline):
+class DistributionInlineForm(forms.ModelForm):
+    dist_file = forms.FileField(
+        label="Файл дистрибуции (CDN)",
+        required=False,
+    )
+    cdn_confirm_token = forms.CharField(widget=forms.HiddenInput(), required=False)
+
+    class Meta:
+        model = Distribution
+        fields = "__all__"
+        widgets = get_translated_widgets_dict({
+            'changelog': forms.Textarea(attrs={'rows': 3}),
+        })
+        widgets['cdn_file_id'] = forms.HiddenInput()
+
+    def clean(self):
+        from apps.core.mixins import CDNTokenValidationMixin
+        mixin = CDNTokenValidationMixin()
+        cleaned_data = super().clean()
+        cdn_token = cleaned_data.get("cdn_confirm_token")
+        if cdn_token:
+            decoded = mixin.validate_cdn_token(cdn_token)
+            cleaned_data["cdn_file_id"] = decoded.get("file_id")
+            self.instance.cdn_file_id = decoded.get("file_id")
+        return cleaned_data
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        if "cdn_file_id" in self.cleaned_data and self.cleaned_data["cdn_file_id"]:
+            instance.cdn_file_id = self.cleaned_data["cdn_file_id"]
+        if commit:
+            instance.save()
+        return instance
+
+class DistributionInline(TranslationStackedInline):
     model = Distribution
-    fields = ("version", "url", "changelog", "published")
+    form = DistributionInlineForm
+    fields = ("version", "dist_file", "cdn_confirm_token", "cdn_file_id", "url", "changelog", "published")
     readonly_fields = ("published",)
     extra = 0
+
+    class Media:
+        js = ("js/admin_inline_tabs.js",)
 
 
 @admin.register(Distribution)
 class DistributionAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
+    form = DistributionAdminForm
     list_display = ("app", "version", "published", "download_preview")
     list_filter = SafeDeleteAdmin.list_filter + ["app"]
     readonly_fields = ("published", "download_preview")
@@ -36,6 +76,8 @@ class DistributionAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
                 "fields": (
                     "app",
                     "version",
+                    "dist_file",
+                    "cdn_confirm_token",
                     "cdn_file_id",
                     "url",
                     "changelog",
@@ -44,6 +86,35 @@ class DistributionAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
             },
         ),
     )
+
+    class Media:
+        js = ("js/marketplace_cdn.js", "js/admin_inline_tabs.js")
+
+    def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
+        import json
+        context.update(
+            {
+                "cdn_config": json.dumps({
+                    "uploadUrl": f"{settings.LUNASPIRE_URL}/cdn/upload",
+                    "tokenUrl": "/method/user/getPubUploadToken/",
+                    "privTokenUrl": "/method/user/getPrivUploadToken/",
+                    "appId": obj.app_id if obj else None,
+                }),
+                "luna_i18n": json.dumps({
+                    "uploading": "Загрузка в LunaSpire...",
+                    "error": "Ошибка: ",
+                    "retry": "Повторить",
+                    "tokenError": "Ошибка токена",
+                    "fileError": "Ошибка файла: ",
+                }),
+            }
+        )
+        return super().render_change_form(request, context, add=add, change=change, form_url=form_url, obj=obj)
+    def save_model(self, request, obj, form, change):
+        file_id = form.cleaned_data.get("cdn_file_id")
+        if file_id:
+            obj.cdn_file_id = file_id
+        super().save_model(request, obj, form, change)
 
     @admin.display(description="Ссылка")
     def download_preview(self, obj):
@@ -358,7 +429,7 @@ class ApplicationAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
 
     form = ApplicationAdminForm
     inlines = (DistributionInline,)
-    readonly_fields = ("display_screenshots", "user")
+    readonly_fields = ("display_screenshots",)
 
     class Meta:
         model = Application
@@ -371,6 +442,7 @@ class ApplicationAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
             {
                 "fields": (
                     "title",
+                    "user",
                     "category",
                     "description",
                     "original_author",
@@ -403,24 +475,26 @@ class ApplicationAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
     class Media:
         js = ("js/marketplace_cdn.js",)
 
-    def render_change_form(self, request, context, *args, **kwargs):
+    def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
+        import json
         context.update(
             {
-                "cdn_config": {
+                "cdn_config": json.dumps({
                     "uploadUrl": f"{settings.LUNASPIRE_URL}/cdn/upload",
-                    "tokenUrl": f"{settings.API_URL}/method/user/getPubUploadToken/",
-                },
-                "luna_i18n": {
+                    "tokenUrl": "/method/user/getPubUploadToken/",
+                    "privTokenUrl": "/method/user/getPrivUploadToken/",
+                    "appId": obj.id if obj else None,
+                }),
+                "luna_i18n": json.dumps({
                     "uploading": "Загрузка в LunaSpire...",
                     "error": "Ошибка: ",
                     "retry": "Повторить",
                     "tokenError": "Ошибка токена",
                     "fileError": "Ошибка файла: ",
-                },
+                }),
             }
         )
-        return super().render_change_form(request, context, *args, **kwargs)
-
+        return super().render_change_form(request, context, add=add, change=change, form_url=form_url, obj=obj)
     def save_model(self, request, obj, form, change):
         if not obj.user_id:
             obj.user = request.user

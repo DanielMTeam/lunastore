@@ -25,6 +25,7 @@ urlpatterns = [
     path("", include("apps.core.urls")),
     path("", include("apps.terms.urls")),
     path("captcha/", include("captcha.urls")),
+    path("method/", include("apps.api.urls")),
 ]
 
 if settings.DEBUG:

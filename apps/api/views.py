@@ -151,7 +151,7 @@ class UserViewSet(viewsets.GenericViewSet):
 
         # check permissions
         app_obj = get_object_or_404(Application, id=app_id)
-        if app_obj.user != request.user:
+        if app_obj.user != request.user and not request.user.is_staff:
             return Response({"error": "Not your app"}, status=403)
 
         guard_phrase = str(uuid.uuid4().hex)[:8]

@@ -41,7 +41,8 @@ class CDNTokenValidationMixin:
         """
         payload = {
             "type": "cdn-info",
-            "file_ids": [int(file_id)],
+            "search_field": "id",
+            "search_values": [str(file_id)],
             "send": fields  # <-- dynamic parameter
         }
         token = jwt.encode(payload, settings.LUNASPIRE_SECRET_KEY, algorithm="HS256")
