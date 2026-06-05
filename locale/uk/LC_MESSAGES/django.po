@@ -12,9 +12,9 @@ msgstr "LunaStore. Довідник програм для твого старо�
 
 msgid "%(counter)s PAGE_PROFILE_STATS_APP"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
-msgstr[0] "\"%(counter)s програм,\""
-msgstr[1] "\"%(counter)s програм,\""
-msgstr[2] "\"%(counter)s програм,\""
+msgstr[0] "%(counter)s програм,"
+msgstr[1] "%(counter)s програм,"
+msgstr[2] "%(counter)s програм,"
 
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
@@ -1553,7 +1553,7 @@ msgid "PAGE_MANAGE_APPS_EMPTY_DESC"
 msgstr "Ви поки ще не керуєте жодної програмою."
 
 msgid "PAGE_MANAGE_APPS_EMPTY_TITLE"
-msgstr "Програм немає ＞︿＜"
+msgstr "Програм немає :("
 
 msgid "PAGE_MANAGE_APPS_HEADER"
 msgstr "Керовані сторінки програм"
@@ -1658,7 +1658,7 @@ msgid "PAGE_PROFILE_INVITES_EMPTY_DESC"
 msgstr "Поки що жодна людина не зареєструвалася за запрошенням цього користувача."
 
 msgid "PAGE_PROFILE_INVITES_EMPTY_TITLE"
-msgstr "Запрошень немає ＞︿＜"
+msgstr "Запрошень немає :("
 
 msgid "PAGE_PROFILE_INVITES_PEOPLE"
 msgstr "людей (показані перші 5)"

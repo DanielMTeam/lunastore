@@ -17,7 +17,7 @@
     <div class="profile_card">
         <div class="profile_avatar" id="{uid}">
             {% if obj.avatar_url %}
-            <img src="{{ obj.avatar_url }}" alt="{{ obj.username }}" style="height: 64px; width: 64px;">
+            <div style="height: 64px; width: 64px; background-image: url('{{ obj.avatar_url }}'); background-size: 100% 100%; _background: none; _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{ obj.avatar_url }}', sizingMethod='scale');" title="{{ obj.username }}"></div>
             {% endif %}
         </div>
 
@@ -121,16 +121,16 @@
             </div>
 
             <div class="profile_block_content">
-                <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" id="AutoNumber1">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse" id="AutoNumber1">
                     <tr>
                         {% for app in obj.applications.all|slice:":5" %}
                         <td width="92" valign="top">
                             <div class="icon">
                                 <a href="/app.php?id={{ app.id }}">
                                     {% if app.icon_path %}
-                                    <img src="{{ app.icon_url }}" alt="{{ app.title }}" class="icon-img">
+                                    <div class="icon-img" style="background-image: url('{{ app.icon_url }}'); background-size: 100% 100%; _background: none; _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{ app.icon_url }}', sizingMethod='scale');" title="{{ app.title }}"></div>
                                     {% else %}
-                                    <img src="{% static './img/noavatar_64.jpg' %}" alt="{{ app.title }}" class="icon-img">
+                                    <div class="icon-img" style="background-image: url('{% static './img/noavatar_64.jpg' %}'); background-size: 100% 100%; _background: none; _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{% static './img/noavatar_64.jpg' %}', sizingMethod='scale');" title="{{ app.title }}"></div>
                                     {% endif %}
                                 </a>
                                 <div class="icon-text"><a href="/app.php?id={{ app.id }}">{{ app.title }}</a></div>
@@ -138,7 +138,7 @@
                         </td>
                         {% empty %}
                         <td>
-                            <div style="text-align: center; padding: 50px 20px; color: #555;">
+                            <div class="empty-state" style="text-align: center; padding: 50px 20px; color: #555;">
                                 <h3 style="margin-bottom: 10px;">{% trans "PAGE_MANAGE_APPS_EMPTY_TITLE" %}</h3>
                                 <span style="font-size: 12px; color: #888;">{% trans "PAGE_PROFILE_APPS_EMPTY_DESC" %}</span>
                             </div>
@@ -154,16 +154,16 @@
             </div>
 
             <div class="profile_block_content">
-                <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" id="AutoNumber1">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse" id="AutoNumber1">
                     <tr>
                         {% for invited in obj.invited_users.all|slice:":5" %}
                         <td width="92" valign="top">
                             <div class="user">
                                 <a href="/profile.php?id={{ invited.id }}">
                                     {% if invited.avatar_path %}
-                                    <img src="{{ invited.avatar_url }}" alt="{{ invited.username }}" class="user-img">
+                                    <div class="user-img" style="background-image: url('{{ invited.avatar_url }}'); background-size: 100% 100%; _background: none; _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{ invited.avatar_url }}', sizingMethod='scale');" title="{{ invited.username }}"></div>
                                     {% else %}
-                                    <img src="{% static './img/noavatar_64.jpg' %}" alt="{{ invited.username }}" class="user-img">
+                                    <div class="user-img" style="background-image: url('{% static './img/noavatar_64.jpg' %}'); background-size: 100% 100%; _background: none; _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{% static './img/noavatar_64.jpg' %}', sizingMethod='scale');" title="{{ invited.username }}"></div>
                                     {% endif %}
                                 </a>
                                 <div class="user-text"><a href="?id={{ invited.id }}">{{ invited.username }}</a></div>
@@ -171,7 +171,7 @@
                         </td>
                         {% empty %}
                         <td>
-                            <div style="text-align: center; padding: 50px 20px; color: #555;">
+                            <div class="empty-state" style="text-align: center; padding: 50px 20px; color: #555;">
                                 <h3 style="margin-bottom: 10px;">{% trans "PAGE_PROFILE_INVITES_EMPTY_TITLE" %}</h3>
                                 <span style="font-size: 12px; color: #888;">{% trans "PAGE_PROFILE_INVITES_EMPTY_DESC" %}</span>
                             </div>

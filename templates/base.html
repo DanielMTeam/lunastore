@@ -38,7 +38,7 @@
   <script src="{% static './js/dd_belatedpng.min.js' %}"></script>
   <script>
     // fix png alpha channel for ie6
-    DD_belatedPNG.fix('img, .ls_dm_logo, .error_icon_small, .good_icon_small, .info_icon_small, .sidebar li, .category_icon, .balloon_img, .dm_menu');
+    DD_belatedPNG.fix('img, .ls_dm_logo, .error_icon_small, .good_icon_small, .info_icon_small, .sidebar li, .category_icon, .balloon_img, .dm_menu, .actionsm li');
   </script>
   <![endif]-->
 </head>
@@ -209,7 +209,9 @@
             {% endblock %}
 
             <div class="footer" style="position: relative; overflow: hidden; zoom: 1;">
-                <a href="/report_problem.php" class="report_problem">{% trans "BASE_FOOTER_REPORT_PROBLEM" %}</a>
+                <div style="float: right;">
+                    <a href="/report_problem.php" class="report_problem" style="float: none;">{% trans "BASE_FOOTER_REPORT_PROBLEM" %}</a>
+                </div>
 
                 <a href="/help_center.php">FAQ</a> -
                 <a href="/help_center.php?page=privacy">{% trans "BASE_PRIVACYPOLICYBTN" %}</a> -

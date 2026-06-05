@@ -1551,7 +1551,7 @@ msgid "PAGE_MANAGE_APPS_EMPTY_DESC"
 msgstr "You are not managing any applications yet."
 
 msgid "PAGE_MANAGE_APPS_EMPTY_TITLE"
-msgstr "No applications ＞︿＜"
+msgstr "No applications :("
 
 msgid "PAGE_MANAGE_APPS_HEADER"
 msgstr "Managed application pages"
@@ -1655,7 +1655,7 @@ msgid "PAGE_PROFILE_INVITES_EMPTY_DESC"
 msgstr "No one has registered using this user's invitation yet."
 
 msgid "PAGE_PROFILE_INVITES_EMPTY_TITLE"
-msgstr "No invitations ＞︿＜"
+msgstr "No invitations :("
 
 msgid "PAGE_PROFILE_INVITES_PEOPLE"
 msgstr "people (showing first 5)"
