@@ -91,7 +91,7 @@ def app(request):
     }
     return render(request, "storepage.html", context)
 
-
+@guard_private_app
 def download_list(request):
     app_id = request.GET.get("id")
     if not app_id:

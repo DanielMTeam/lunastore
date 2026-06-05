@@ -433,7 +433,7 @@ class DistributionViewSet(viewsets.GenericViewSet):
                 status_code=400,
             )
 
-        if not Application.objects.filter(id=app_id).exists():
+        if not Application.objects.filter(id=app_id).exclude(is_private=True).exists():
             raise LunaException(
                 code=ErrorCodes.APPLICATION_NOT_FOUND,
                 message=f"Application with id {app_id} was not found",
