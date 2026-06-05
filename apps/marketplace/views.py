@@ -38,7 +38,7 @@ def category(request):
 
     # get model objects
     obj_category = get_object_or_404(Category, id=id)
-    obj_apps = Application.objects.filter(category__name=obj_category.name, is_private=False).order_by(
+    obj_apps = Application.objects.filter(category=obj_category, is_private=False).order_by(
         "-published"
     )
 

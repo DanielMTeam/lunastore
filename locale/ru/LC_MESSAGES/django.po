@@ -1556,7 +1556,7 @@ msgid "PAGE_MANAGE_APPS_EMPTY_DESC"
 msgstr "Вы пока что не управляете ни одним приложением."
 
 msgid "PAGE_MANAGE_APPS_EMPTY_TITLE"
-msgstr "Приложений нет ＞︿＜"
+msgstr "Приложений нет :("
 
 msgid "PAGE_MANAGE_APPS_HEADER"
 msgstr "Администрируемые страницы приложений"
@@ -1661,7 +1661,7 @@ msgid "PAGE_PROFILE_INVITES_EMPTY_DESC"
 msgstr "Пока что ни один человек не зарегистрировался по приглашению данного пользователя."
 
 msgid "PAGE_PROFILE_INVITES_EMPTY_TITLE"
-msgstr "Приглашений нет ＞︿＜"
+msgstr "Приглашений нет :("
 
 msgid "PAGE_PROFILE_INVITES_PEOPLE"
 msgstr "человек (показаны первые 5)"

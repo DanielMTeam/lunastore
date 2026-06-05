@@ -1553,7 +1553,7 @@ msgid "PAGE_MANAGE_APPS_EMPTY_DESC"
 msgstr "Вы пакуль што не кіруеце ніводным дадаткам."
 
 msgid "PAGE_MANAGE_APPS_EMPTY_TITLE"
-msgstr "Дадаткаў няма ＞︿＜"
+msgstr "Дадаткаў няма :("
 
 msgid "PAGE_MANAGE_APPS_HEADER"
 msgstr "Адміністрыруемыя старонкі дадаткаў"
@@ -1658,7 +1658,7 @@ msgid "PAGE_PROFILE_INVITES_EMPTY_DESC"
 msgstr "Пакуль што ніводны чалавек не зарэгістраваўся па запрашэнні гэтага карыстальніка."
 
 msgid "PAGE_PROFILE_INVITES_EMPTY_TITLE"
-msgstr "Прыглашэнняў няма ＞︿＜"
+msgstr "Прыглашэнняў няма :("
 
 msgid "PAGE_PROFILE_INVITES_PEOPLE"
 msgstr "чалавек (паказаны першыя 5)"

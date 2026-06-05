@@ -550,3 +550,11 @@ textarea:focus {
 .login_header {
     background:    #000 !important;
 }
+
+.empty-state {
+    color: #bbb !important;
+}
+
+.empty-state span {
+    color: #999 !important;
+}
