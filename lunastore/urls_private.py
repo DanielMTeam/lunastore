@@ -17,6 +17,7 @@ urlpatterns = [
     path(f"{settings.ADMIN_URL}/broadcast/", admin.site.admin_view(admin_broadcast_notification), name='broadcast'),
     path(f"{settings.ADMIN_URL}/", admin.site.urls, name="admin"),
     path(f"oidc/", include("mozilla_django_oidc.urls")),
+    path("method/", include("apps.api.urls")),
 ]
 
 if settings.DEBUG:

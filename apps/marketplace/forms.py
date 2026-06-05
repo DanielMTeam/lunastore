@@ -428,12 +428,10 @@ class ApplicationAdminForm(forms.ModelForm):
     icon_file = forms.ImageField(
         label=_("ACTION_CHOOSE_ICON"),
         required=False,
-        widget=forms.FileInput(attrs={"id": "inp_icon"}),
     )
     screenshots_files = MultipleFileField(
         label=_("FORM_SCREENSHOTS"),
         required=False,
-        widget=MultipleFileInput(attrs={"id": "inp_scr", "multiple": True}),
     )
 
     cdn_icon_path = forms.CharField(widget=forms.HiddenInput(), required=False)
@@ -462,6 +460,32 @@ class ApplicationAdminForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
+        return cleaned_data
+
+
+class DistributionAdminForm(forms.ModelForm):
+    dist_file = forms.FileField(
+        label="Файл дистрибуции (CDN)",
+        required=False,
+    )
+    cdn_confirm_token = forms.CharField(widget=forms.HiddenInput(), required=False)
+
+    class Meta:
+        model = Distribution
+        fields = "__all__"
+        widgets = get_translated_widgets_dict({
+            'changelog': forms.Textarea(attrs={'rows': 3}),
+        })
+
+    def clean(self):
+        from apps.core.mixins import CDNTokenValidationMixin
+        mixin = CDNTokenValidationMixin()
+        cleaned_data = super().clean()
+        cdn_token = cleaned_data.get("cdn_confirm_token")
+        if cdn_token:
+            decoded = mixin.validate_cdn_token(cdn_token)
+            cleaned_data["cdn_file_id"] = decoded.get("file_id")
+            self.instance.cdn_file_id = decoded.get("file_id")
         return cleaned_data
 
 
