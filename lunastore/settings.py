@@ -1,3 +1,4 @@
+import logging
 import os
 import sys
 from pathlib import Path
@@ -9,6 +10,31 @@ from django.urls import reverse_lazy
 BASE_DIR = Path(__file__).resolve().parent.parent
 dotenv_path = BASE_DIR / ".env"
 load_dotenv(dotenv_path)
+
+# sentry/glitchtip error tracking
+import sentry_sdk
+from sentry_sdk.integrations.logging import LoggingIntegration
+
+SENTRY_ENABLED = os.getenv("SENTRY_ENABLED", "False") == "True"
+SENTRY_DSN = os.getenv("SENTRY_DSN", "")
+SENTRY_TRACES_SAMPLE_RATE = float(os.getenv("SENTRY_TRACES_SAMPLE_RATE", "0.2"))
+SENTRY_PROFILES_SAMPLE_RATE = float(os.getenv("SENTRY_PROFILES_SAMPLE_RATE", "0.1"))
+SENTRY_ENVIRONMENT = os.getenv("SENTRY_ENVIRONMENT", "production")
+
+if SENTRY_ENABLED and SENTRY_DSN:
+    _sentry_logging = LoggingIntegration(
+        level=logging.INFO,
+        event_level=logging.ERROR,
+    )
+    sentry_sdk.init(
+        dsn=SENTRY_DSN,
+        traces_sample_rate=SENTRY_TRACES_SAMPLE_RATE,
+        profiles_sample_rate=SENTRY_PROFILES_SAMPLE_RATE,
+        send_default_pii=True,
+        environment=SENTRY_ENVIRONMENT,
+        release=os.getenv("VERSION", "2.1"),
+        integrations=[_sentry_logging],
+    )
 
 # PLEASE, do not change this, if you don't understand what you do
 VERSION = os.getenv("VERSION", "2.1")
@@ -120,6 +146,7 @@ INSTALLED_APPS = [
     "unfold.contrib.simple_history",
     "unfold.contrib.location_field",
     "unfold.contrib.constance",
+    "constance",
     "django.contrib.admin",
     "django_cleanup.apps.CleanupConfig",
     "django.contrib.postgres",
@@ -173,6 +200,401 @@ else:
         }
     }
 
+from unfold.contrib.constance.settings import UNFOLD_CONSTANCE_ADDITIONAL_FIELDS
+
+# django-constance configuration
+# backend: Redis (same instance as cache)
+CONSTANCE_BACKEND = "constance.backends.redisd.RedisBackend"
+CONSTANCE_REDIS_CONNECTION = "redis://redis:6379/1"
+
+CONSTANCE_ADDITIONAL_FIELDS = {
+    **UNFOLD_CONSTANCE_ADDITIONAL_FIELDS,
+    "textarea": [
+        "django.forms.CharField",
+        {
+            "widget": "unfold.widgets.UnfoldAdminTextareaWidget",
+            "required": False,
+        },
+    ],
+}
+
+# all values from .env with os.getenv() defaults
+CONSTANCE_CONFIG = {
+    # -- django core --
+    "VERSION": (
+        os.getenv("VERSION", "2.1"),
+        "Версия приложения",
+        str,
+    ),
+    "DEBUG": (
+        os.getenv("DEBUG", "False") == "True",
+        "Режим отладки (требует перезагрузки)",
+        bool,
+    ),
+    "SECRET_KEY": (
+        os.getenv("SECRET_KEY", ""),
+        "Django SECRET_KEY (требует перезагрузки)",
+        str,
+    ),
+    "ADMIN_URL": (
+        os.getenv("ADMIN_URL", "admin"),
+        "URL-префикс админ-панели (требует перезагрузки)",
+        str,
+    ),
+    "ADMIN_EMAIL": (
+        os.getenv("ADMIN_EMAIL", ""),
+        "Email администратора",
+        str,
+    ),
+    # -- hosts and origins (require restart) --
+    "ALLOWED_HOSTS": (
+        os.getenv("ALLOWED_HOSTS", ""),
+        "Разрешённые хосты через ; (требует перезагрузки)",
+        "textarea",
+    ),
+    "CORS_ALLOWED_ORIGINS": (
+        os.getenv("CORS_ALLOWED_ORIGINS", ""),
+        "CORS-источники через ; (требует перезагрузки)",
+        "textarea",
+    ),
+    "CSRF_TRUSTED_ORIGINS": (
+        os.getenv("CSRF_TRUSTED_ORIGINS", ""),
+        "CSRF trusted origins через ; (требует перезагрузки)",
+        "textarea",
+    ),
+    "SESSION_COOKIE_DOMAIN": (
+        os.getenv("SESSION_COOKIE_DOMAIN", ".lunastore.app"),
+        "Домен session cookie (требует перезагрузки)",
+        str,
+    ),
+    "CSRF_COOKIE_DOMAIN": (
+        os.getenv("CSRF_COOKIE_DOMAIN", ".lunastore.app"),
+        "Домен CSRF cookie (требует перезагрузки)",
+        str,
+    ),
+    # -- database (require restart) --
+    "DB_NAME": (
+        os.getenv("DB_NAME", ""),
+        "Имя базы данных (требует перезагрузки)",
+        str,
+    ),
+    "DB_USER": (
+        os.getenv("DB_USER", "postgres"),
+        "Пользователь БД (требует перезагрузки)",
+        str,
+    ),
+    "DB_PASSWORD": (
+        os.getenv("DB_PASSWORD", ""),
+        "Пароль БД (требует перезагрузки)",
+        str,
+    ),
+    "DB_HOST": (
+        os.getenv("DB_HOST", "db"),
+        "Хост БД (требует перезагрузки)",
+        str,
+    ),
+    "DB_PORT": (
+        os.getenv("DB_PORT", "5432"),
+        "Порт БД (требует перезагрузки)",
+        str,
+    ),
+    # -- openid (require restart) --
+    "OIDC_CLIENT_ID": (
+        os.getenv("OIDC_CLIENT_ID", ""),
+        "OpenID Client ID (требует перезагрузки)",
+        str,
+    ),
+    "OIDC_CLIENT_SECRET": (
+        os.getenv("OIDC_CLIENT_SECRET", ""),
+        "OpenID Client Secret (требует перезагрузки)",
+        str,
+    ),
+    "OIDC_ENDPOINT": (
+        os.getenv("OIDC_ENDPOINT", ""),
+        "OpenID Authorization Endpoint (требует перезагрузки)",
+        str,
+    ),
+    "OIDC_TOKEN_ENDPOINT": (
+        os.getenv("OIDC_TOKEN_ENDPOINT", ""),
+        "OpenID Token Endpoint (требует перезагрузки)",
+        str,
+    ),
+    "OIDC_USER_ENDPOINT": (
+        os.getenv("OIDC_USER_ENDPOINT", ""),
+        "OpenID User Endpoint (требует перезагрузки)",
+        str,
+    ),
+    "LOGIN_REDIRECT_URL": (
+        os.getenv("LOGIN_REDIRECT_URL", "/index.php"),
+        "URL редиректа после логина (требует перезагрузки)",
+        str,
+    ),
+    "LOGOUT_REDIRECT_URL": (
+        os.getenv("LOGOUT_REDIRECT_URL", "/login.php"),
+        "URL редиректа после выхода (требует перезагрузки)",
+        str,
+    ),
+    "OIDC_SIGN_ALGO": (
+        os.getenv("OIDC_SIGN_ALGO", "RS256"),
+        "OpenID алгоритм подписи (требует перезагрузки)",
+        str,
+    ),
+    "OIDC_JWKS_ENDPOINT": (
+        os.getenv("OIDC_JWKS_ENDPOINT", ""),
+        "OpenID JWKS Endpoint (требует перезагрузки)",
+        str,
+    ),
+    # -- media --
+    "EXTERNAL_MEDIA_URL": (
+        os.getenv("EXTERNAL_MEDIA_URL", "/media/"),
+        "Внешний URL для медиа (требует перезагрузки)",
+        str,
+    ),
+    # -- lunaspire --
+    "LUNASPIRE_SECRET_KEY": (
+        os.getenv("LUNASPIRE_SECRET_KEY", ""),
+        "Секретный ключ LunaSpire (требует перезагрузки)",
+        str,
+    ),
+    "LUNASPIRE_URL": (
+        os.getenv("LUNASPIRE_URL", "spire.lunastore.app"),
+        "URL LunaSpire (требует перезагрузки)",
+        str,
+    ),
+    "LUNASPIRE_URL_WITHOUT_PROTO": (
+        os.getenv("LUNASPIRE_URL_WITHOUT_PROTO", "spire.lunastore.app"),
+        "URL LunaSpire без протокола (требует перезагрузки)",
+        str,
+    ),
+    "API_URL": (
+        os.getenv("API_URL", "api.lunastore.app"),
+        "URL API (требует перезагрузки)",
+        str,
+    ),
+    # -- bcrypt --
+    "BCRYPT_ROUNDS": (
+        int(os.getenv("BCRYPT_ROUNDS", "12")),
+        "Кол-во раундов bcrypt",
+        int,
+    ),
+    # -- registration --
+    "REGISTRATION_IS_ENABLED": (
+        os.getenv("REGISTRATION_IS_ENABLED", "True") == "True",
+        "Включить/выключить регистрацию пользователей",
+        bool,
+    ),
+    "DEVELOPER_REGISTRATION_IS_ENABLED": (
+        os.getenv("DEVELOPER_REGISTRATION_IS_ENABLED", "True") == "True",
+        "Включить/выключить заявки на статус разработчика",
+        bool,
+    ),
+    # -- invites --
+    "INVITES_ON_REGISTER": (
+        os.getenv("INVITES_ON_REGISTER", "False") == "True",
+        "Регистрация только по инвайтам",
+        bool,
+    ),
+    "MAX_INVITE_USES_COUNT": (
+        int(os.getenv("MAX_INVITE_USES_COUNT", "3")),
+        "Макс. кол-во использований инвайта за период",
+        int,
+    ),
+    "MAX_INVITE_DAYS_LIMIT": (
+        int(os.getenv("MAX_INVITE_DAYS_LIMIT", "7")),
+        "Период ограничения инвайтов (дней)",
+        int,
+    ),
+    # -- content --
+    "ENABLE_DRM": (
+        os.getenv("ENABLE_DRM", "False") == "True",
+        "Включить DRM-защиту",
+        bool,
+    ),
+    "MOTD_LIST": (
+        os.getenv("MOTD_LIST", "Windows XP Professional"),
+        "Список MOTD для шапки сайта (через ;)",
+        "textarea",
+    ),
+    "SCREENSHOT_COUNT": (
+        int(os.getenv("SCREENSHOT_COUNT", "3")),
+        "Кол-во скриншотов на приложение",
+        int,
+    ),
+    # -- rate limiting --
+    "RATE_LIMIT_ENABLED": (
+        os.getenv("RATE_LIMIT_ENABLED", "False") == "True",
+        "Включить глобальный rate-limit",
+        bool,
+    ),
+    "RATE_LIMIT_WINDOW": (
+        int(os.getenv("RATE_LIMIT_WINDOW", "50")),
+        "Кол-во запросов в окне rate-limit",
+        int,
+    ),
+    "RATE_LIMIT": (
+        int(os.getenv("RATE_LIMIT", "35")),
+        "Время окна rate-limit (секунды)",
+        int,
+    ),
+    # -- gdpr --
+    "RETENTION_ACTIVITY_LOG_DAYS": (
+        int(os.getenv("RETENTION_ACTIVITY_LOG_DAYS", "0")),
+        "Хранение лога активности (дней, 0 = бессрочно)",
+        int,
+    ),
+    # -- telegram logger --
+    "TELEGRAM_LOGGER_ENABLED": (
+        os.getenv("TELEGRAM_LOGGER_ENABLED", "False") == "True",
+        "Включить Telegram-логгер (требует перезагрузки)",
+        bool,
+    ),
+    "TELEGRAM_BOT_TOKEN": (
+        os.getenv("TELEGRAM_BOT_TOKEN", ""),
+        "Токен Telegram-бота (требует перезагрузки)",
+        str,
+    ),
+    "TELEGRAM_LOG_CHAT_ID": (
+        os.getenv("TELEGRAM_LOG_CHAT_ID", ""),
+        "Chat ID для логов (требует перезагрузки)",
+        str,
+    ),
+    "TELEGRAM_LOG_TOPIC_ID": (
+        os.getenv("TELEGRAM_LOG_TOPIC_ID", ""),
+        "Topic ID для логов (требует перезагрузки)",
+        str,
+    ),
+    # -- sentry/glitchtip --
+    "SENTRY_ENABLED": (
+        os.getenv("SENTRY_ENABLED", "False") == "True",
+        "Включить Sentry/GlitchTip (требует перезагрузки)",
+        bool,
+    ),
+    "SENTRY_DSN": (
+        os.getenv("SENTRY_DSN", ""),
+        "Sentry DSN (требует перезагрузки)",
+        str,
+    ),
+    "SENTRY_TRACES_SAMPLE_RATE": (
+        float(os.getenv("SENTRY_TRACES_SAMPLE_RATE", "0.2")),
+        "Sentry traces sample rate (требует перезагрузки)",
+        float,
+    ),
+    "SENTRY_PROFILES_SAMPLE_RATE": (
+        float(os.getenv("SENTRY_PROFILES_SAMPLE_RATE", "0.1")),
+        "Sentry profiles sample rate (требует перезагрузки)",
+        float,
+    ),
+    "SENTRY_ENVIRONMENT": (
+        os.getenv("SENTRY_ENVIRONMENT", "production"),
+        "Sentry environment tag (требует перезагрузки)",
+        str,
+    ),
+}
+
+CONSTANCE_CONFIG_FIELDSETS = {
+    "Регистрация": {
+        "fields": [
+            "REGISTRATION_IS_ENABLED",
+            "DEVELOPER_REGISTRATION_IS_ENABLED",
+        ],
+        "collapse": True,
+    },
+    "Инвайты": {
+        "fields": [
+            "INVITES_ON_REGISTER",
+            "MAX_INVITE_USES_COUNT",
+            "MAX_INVITE_DAYS_LIMIT",
+        ],
+        "collapse": True,
+    },
+    "Контент и внешний вид": {
+        "fields": ["MOTD_LIST", "SCREENSHOT_COUNT", "ENABLE_DRM"],
+        "collapse": True,
+    },
+    "Rate Limiting": {
+        "fields": [
+            "RATE_LIMIT_ENABLED",
+            "RATE_LIMIT_WINDOW",
+            "RATE_LIMIT",
+        ],
+        "collapse": True,
+    },
+    "GDPR и безопасность": {
+        "fields": ["RETENTION_ACTIVITY_LOG_DAYS", "BCRYPT_ROUNDS"],
+        "collapse": True,
+    },
+    "LunaStore Core (требует перезагрузки)": {
+        "fields": [
+            "VERSION",
+            "DEBUG",
+            "SECRET_KEY",
+            "ADMIN_URL",
+            "ADMIN_EMAIL",
+        ],
+        "collapse": True,
+    },
+    "Хосты и домены (требует перезагрузки)": {
+        "fields": [
+            "ALLOWED_HOSTS",
+            "CORS_ALLOWED_ORIGINS",
+            "CSRF_TRUSTED_ORIGINS",
+            "SESSION_COOKIE_DOMAIN",
+            "CSRF_COOKIE_DOMAIN",
+        ],
+        "collapse": True,
+    },
+    "База данных (требует перезагрузки)": {
+        "fields": ["DB_NAME", "DB_USER", "DB_PASSWORD", "DB_HOST", "DB_PORT"],
+        "collapse": True,
+    },
+    "OpenID (требует перезагрузки)": {
+        "fields": [
+            "OIDC_CLIENT_ID",
+            "OIDC_CLIENT_SECRET",
+            "OIDC_ENDPOINT",
+            "OIDC_TOKEN_ENDPOINT",
+            "OIDC_USER_ENDPOINT",
+            "LOGIN_REDIRECT_URL",
+            "LOGOUT_REDIRECT_URL",
+            "OIDC_SIGN_ALGO",
+            "OIDC_JWKS_ENDPOINT",
+        ],
+        "collapse": True,
+    },
+    "Медиа (требует перезагрузки)": {
+        "fields": ["EXTERNAL_MEDIA_URL"],
+        "collapse": True,
+    },
+    "LunaSpire (требует перезагрузки)": {
+        "fields": [
+            "LUNASPIRE_SECRET_KEY",
+            "LUNASPIRE_URL",
+            "LUNASPIRE_URL_WITHOUT_PROTO",
+            "API_URL",
+        ],
+        "collapse": True,
+    },
+    "Telegram-логгер (требует перезагрузки)": {
+        "fields": [
+            "TELEGRAM_LOGGER_ENABLED",
+            "TELEGRAM_BOT_TOKEN",
+            "TELEGRAM_LOG_CHAT_ID",
+            "TELEGRAM_LOG_TOPIC_ID",
+        ],
+        "collapse": True,
+    },
+    "Sentry / GlitchTip (требует перезагрузки)": {
+        "fields": [
+            "SENTRY_ENABLED",
+            "SENTRY_DSN",
+            "SENTRY_TRACES_SAMPLE_RATE",
+            "SENTRY_PROFILES_SAMPLE_RATE",
+            "SENTRY_ENVIRONMENT",
+        ],
+        "collapse": True,
+    },
+}
+
 # media path
 
 MEDIA_URL = os.getenv("EXTERNAL_MEDIA_URL", "http://192.168.1.10:9088/media/")
@@ -194,6 +616,9 @@ LOGIN_REDIRECT_URL = os.getenv("LOGIN_REDIRECT_URL")
 LOGOUT_REDIRECT_URL = os.getenv("LOGOUT_REDIRECT_URL")
 OIDC_OP_JWKS_ENDPOINT = os.getenv("OIDC_JWKS_ENDPOINT")
 OIDC_RP_SIGN_ALGO = os.getenv("OIDC_SIGN_ALGO")
+
+def custom_environment_callback(request):
+    return ["Production", "info"] if not DEBUG else ["Development", "success"]
 
 # customize unfold theme
 UNFOLD = {
@@ -224,30 +649,30 @@ UNFOLD = {
     "SHOW_BACK_BUTTON": False,
     "COLORS": {
         "base": {
-            "50": "oklch(98.5% .002 252.0)",
-            "100": "oklch(96.7% .003 252.0)",
-            "200": "oklch(92.8% .006 252.0)",
-            "300": "oklch(87.2% .01 252.0)",
-            "400": "oklch(70.7% .022 252.0)",
-            "500": "oklch(55.1% .027 252.0)",
-            "600": "oklch(44.6% .03 252.0)",
-            "700": "oklch(37.3% .034 252.0)",
-            "800": "oklch(27.8% .033 252.0)",
-            "900": "oklch(21% .034 252.0)",
-            "950": "oklch(13% .028 252.0)",
+            "50": "#f8fafc",
+            "100": "#f1f5f9",
+            "200": "#e2e8f0",
+            "300": "#cbd5e1",
+            "400": "#94a3b8",
+            "500": "#64748b",
+            "600": "#475569",
+            "700": "#334155",
+            "800": "#1e293b",
+            "900": "#0f172a",
+            "950": "#020617",
         },
         "primary": {
-            "50": "oklch(97.1% .014 252.0)",
-            "100": "oklch(94.2% .033 252.0)",
-            "200": "oklch(89.5% .063 252.0)",
-            "300": "oklch(81.8% .119 252.0)",
-            "400": "oklch(70.1% .165 252.0)",
-            "500": "oklch(61.2% .195 252.0)",
-            "600": "oklch(53.5% .205 252.0)",
-            "700": "oklch(46.8% .190 252.0)",
-            "800": "oklch(40.2% .160 252.0)",
-            "900": "oklch(34.5% .130 252.0)",
-            "950": "oklch(26.0% .110 252.0)",
+            "50": "#eef2ff",
+            "100": "#e0e7ff",
+            "200": "#c7d2fe",
+            "300": "#a5b4fc",
+            "400": "#818cf8",
+            "500": "#6366f1",
+            "600": "#4f46e5",
+            "700": "#4338ca",
+            "800": "#3730a3",
+            "900": "#312e81",
+            "950": "#1e1b4b",
         },
         "font": {
             "subtle-light": "var(--color-base-500)",
@@ -258,6 +683,10 @@ UNFOLD = {
             "important-dark": "var(--color-base-100)",
         },
     },
+    "STYLES": [
+        lambda request: static("css/admin_custom.css"),
+    ],
+    "ENVIRONMENT": "lunastore.settings.custom_environment_callback",
     "EXTENSIONS": {
         "modeltranslation": {
             "flags": {
@@ -268,6 +697,54 @@ UNFOLD = {
             },
         },
     },
+    "TABS": [
+        {
+            "models": [
+                "terms.legaldocument",
+                "core.banner",
+                "user.user",
+                "user.userban",
+                "auth.group",
+                "user.blacklistedusername",
+                "user.invitetoken",
+            ],
+            "items": [
+                {
+                    "title": "Документы и Баннеры",
+                    "link": reverse_lazy("admin:terms_legaldocument_changelist"),
+                    "icon": "description",
+                },
+                {
+                    "title": "Аккаунты",
+                    "link": reverse_lazy("admin:user_user_changelist"),
+                    "icon": "people",
+                },
+            ],
+        },
+        {
+            "models": [
+                "marketplace.application",
+                "marketplace.category",
+                "marketplace.distribution",
+                "marketplace.appreportrequests",
+                "marketplace.problemreportrequests",
+                "marketplace.appeditrequests",
+                "user.devrequestsmodel",
+            ],
+            "items": [
+                {
+                    "title": "Приложения",
+                    "link": reverse_lazy("admin:marketplace_application_changelist"),
+                    "icon": "apps",
+                },
+                {
+                    "title": "Заявки",
+                    "link": reverse_lazy("admin:marketplace_appeditrequests_changelist"),
+                    "icon": "assignment",
+                },
+            ],
+        },
+    ],
     "SIDEBAR": {
         "show_search": False,
         "show_all_applications": False,
@@ -387,6 +864,11 @@ UNFOLD = {
                 "separator": True,
                 "items": [
                     {
+                        "title": "Настройки сайта",
+                        "icon": "settings",
+                        "link": reverse_lazy("admin:constance_config_changelist"),
+                    },
+                    {
                         "title": "Рассылка уведомлений",
                         "icon": "breaking_news",
                         "link": reverse_lazy("broadcast"),
@@ -488,21 +970,8 @@ BCRYPT_ROUNDS = os.getenv(
 # name of custom user model; please do not change this unless you know what you are doing
 AUTH_USER_MODEL = "user.User"
 
-# if REGISTRATION_IS_ENABLED = True, we will render register.html on '/register.php' path; if False, we will render register_on.html
-REGISTRATION_IS_ENABLED = os.getenv("REGISTRATION_IS_ENABLED", True)
-
-# if DEVELOPER_REGISTRATION_IS_ENABLED = True, we will allow users to send dev status requests
-DEVELOPER_REGISTRATION_IS_ENABLED = os.getenv("DEVELOPER_REGISTRATION_IS_ENABLED", True)
-
-# User Activity Log (include IPs) retention period in days (because storage limitation gdpr; we must store data for the shortest time possible)
-RETENTION_ACTIVITY_LOG_DAYS = os.getenv("RETENTION_ACTIVITY_LOG_DAYS", 0)
-
-# number of screenshots allowed per application
-SCREENSHOT_COUNT = 3
-
-INVITES_ON_REGISTER = os.getenv("INVITES_ON_REGISTER", False)
-MAX_INVITE_USES_COUNT = os.getenv("MAX_INVITE_USES_COUNT", 3)
-MAX_INVITE_DAYS_LIMIT = os.getenv("MAX_INVITE_DAYS_LIMIT", 7)
+# business settings moved to django-constance (CONSTANCE_CONFIG)
+# access them at runtime via: from constance import config; config.SETTING_NAME
 
 WHITENOISE_MANIFEST_STRICT = False
 

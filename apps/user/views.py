@@ -2,6 +2,7 @@ import io
 import re
 from multiprocessing.process import active_children
 
+from constance import config
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login as dj_login
@@ -148,7 +149,12 @@ def logout(request):
 def register(request):
     invite_obj = None
 
-    if settings.INVITES_ON_REGISTER:
+    if not config.REGISTRATION_IS_ENABLED:
+        if request.user.is_authenticated:
+            return redirect("home")
+        return render(request, "register.html")
+
+    if config.INVITES_ON_REGISTER:
         invite_code = request.session.get("allowed_invite_code")
 
         if not invite_code:
@@ -159,11 +165,6 @@ def register(request):
         except InviteToken.DoesNotExist:
             del request.session["allowed_invite_code"]
             return redirect("invite_code")
-
-    if not settings.REGISTRATION_IS_ENABLED:
-        if request.user.is_authenticated:
-            return redirect("home")
-        return render(request, "register.html")
 
     if request.method == "POST":
         if request.user.is_authenticated:
@@ -194,14 +195,14 @@ def register(request):
             return redirect("502_error")
         form = UserRegistrationForm(request.POST, request=request)
         if form.is_valid():
-            if settings.INVITES_ON_REGISTER and invite_obj:
+            if config.INVITES_ON_REGISTER and invite_obj:
                 if not validate_invite_limit(invite_obj.owner):
                     return redirect("invite_code")
             user = form.save(commit=False)
             if invite_obj:
                 user.invited_by = invite_obj.owner
             user.save()
-            if settings.INVITES_ON_REGISTER:
+            if config.INVITES_ON_REGISTER:
                 request.session.pop("allowed_invite_code", None)
             user_group = Group.objects.get(name="Пользователи")
             user.groups.add(user_group)
@@ -267,7 +268,7 @@ def profile_settings(request):
         "cdn_base_url": settings.LUNASPIRE_URL,
         "api_base_url": settings.API_URL,
         "is_developer": request.user.groups.filter(name="Разработчики").exists(),
-        "dev_status_enabled": settings.DEVELOPER_REGISTRATION_IS_ENABLED,
+        "dev_status_enabled": config.DEVELOPER_REGISTRATION_IS_ENABLED,
     }
     if request.method == "POST":
         form_type = request.POST.get("form_type")
@@ -361,7 +362,7 @@ def dev_status(request):
             "dev_request_form": form,
             "is_developer": is_developer,
             "has_pending_request": has_pending_request,
-            "registration_enabled_status": settings.DEVELOPER_REGISTRATION_IS_ENABLED,
+            "registration_enabled_status": config.DEVELOPER_REGISTRATION_IS_ENABLED,
         },
     )
 
@@ -401,13 +402,13 @@ def invite_person(request):
     from datetime import timedelta
     from django.utils import timezone
     
-    time_threshold = timezone.now() - timedelta(days=int(settings.MAX_INVITE_DAYS_LIMIT))
+    time_threshold = timezone.now() - timedelta(days=int(config.MAX_INVITE_DAYS_LIMIT))
     recent_invites = request.user.invited_users.filter(
         date_joined__gte=time_threshold
     ).order_by("date_joined")
     
     recent_count = recent_invites.count()
-    max_limit = int(settings.MAX_INVITE_USES_COUNT)
+    max_limit = int(config.MAX_INVITE_USES_COUNT)
     remaining_invites = max(0, max_limit - recent_count)
     
     can_invite = remaining_invites > 0
@@ -415,11 +416,11 @@ def invite_person(request):
     
     if not can_invite and recent_invites.exists():
         oldest_recent = recent_invites.first()
-        next_invite_date = oldest_recent.date_joined + timedelta(days=int(settings.MAX_INVITE_DAYS_LIMIT))
+        next_invite_date = oldest_recent.date_joined + timedelta(days=int(config.MAX_INVITE_DAYS_LIMIT))
     
     limit_info_text = _("PAGE_INVITE_LIMIT_INFO") % {
         "limit": remaining_invites,
-        "days": settings.MAX_INVITE_DAYS_LIMIT
+        "days": config.MAX_INVITE_DAYS_LIMIT
     }
     
     return render(
@@ -436,7 +437,9 @@ def invite_person(request):
 
 
 def invite_code(request):
-    if not settings.INVITES_ON_REGISTER:
+    if not config.REGISTRATION_IS_ENABLED:
+        return render(request, "register.html")
+    if not config.INVITES_ON_REGISTER:
         return redirect("home")
     if request.user.is_authenticated:
         return redirect("home")

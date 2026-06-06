@@ -1,18 +1,126 @@
-{% extends "admin/login.html" %}
-{% load i18n %}
+{% extends 'unfold/layouts/unauthenticated.html' %}
+{% load i18n static unfold %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    {{ form.media }}
+{% endblock %}
+
+{% block title %}
+    Вход | LunaStore
+{% endblock %}
 
 {% block content %}
-    {{ block.super }}
-
-    <div class="mt-4">
-        <a href="{% url 'oidc_authentication_init' %}" 
-           class="group flex w-full items-center justify-center rounded-md border border-transparent bg-gray-700 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2">
-            
-            <svg class="mr-2 h-5 w-5 text-gray-300" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-            </svg>
-            
-            Войти через SSO (OpenID)
-        </a>
+    <!-- Custom Logo and Title -->
+    <style>
+        .glowing-logo-login {
+            animation: glow-only 4s ease-in-out infinite;
+            will-change: filter;
+        }
+        @keyframes glow-only {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.3)); }
+            50% { filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.7)); }
+        }
+        .fade-entrance {
+            opacity: 0;
+            animation: fade-in-up 0.8s ease-out forwards;
+        }
+        @keyframes fade-in-up {
+            0% { opacity: 0; transform: translateY(15px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Ambient Background strictly behind the login form */
+        .ambient-bg-login {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0; /* Keep above body background, but below the right-side image */
+        }
+        .ambient-blob {
+            position: absolute;
+            will-change: transform;
+        }
+        .blob-1 {
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(closest-side, rgba(99, 102, 241, 0.15) 0%, transparent 100%);
+            bottom: -400px;
+            left: -200px;
+            animation: drift-1 20s infinite alternate ease-in-out;
+        }
+        .blob-2 {
+            width: 900px;
+            height: 900px;
+            background: radial-gradient(closest-side, rgba(79, 70, 229, 0.15) 0%, transparent 100%);
+            bottom: -400px;
+            left: 20vw; /* Positioned in the middle of the left column */
+            animation: drift-2 25s infinite alternate ease-in-out;
+            animation-delay: -5s;
+        }
+        html.dark .ambient-blob { opacity: 1; }
+        @keyframes drift-1 {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, -50px) scale(1.1); }
+        }
+        @keyframes drift-2 {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(-50px, -80px) scale(1.05); }
+        }
+    </style>
+    
+    <div class="ambient-bg-login">
+        <div class="ambient-blob blob-1"></div>
+        <div class="ambient-blob blob-2"></div>
     </div>
+
+    <!-- Ensure form content stays above the ambient background -->
+    <div class="relative z-10 w-full">
+        <div class="mb-8 flex flex-col items-center justify-center text-center fade-entrance relative z-10">
+            <img src="{% static 'img/logo.png' %}" alt="LunaStore Logo" class="mb-4 h-12 w-12 glowing-logo-login">
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white" style="font-family: var(--font-sans);">Добро пожаловать</h1>
+            <p class="mt-2 text-sm text-gray-500 dark:text-gray-400" style="font-family: var(--font-sans);">...в панель LunaStore</p>
+        </div>
+
+    {% include "unfold/helpers/messages.html" %}
+
+    {% if form.errors or form.non_field_errors %}
+        <div class="flex flex-col gap-4 mb-8 *:mb-0">
+            {% include "unfold/helpers/messages/errornote.html" with errors=form.errors %}
+            {% include "unfold/helpers/messages/error.html" with errors=form.non_field_errors %}
+
+            {% if user.is_authenticated %}
+                {% blocktranslate trimmed asvar message %}
+                    You are authenticated as {{ username }}, but are not authorized to
+                    access this page. Would you like to login to a different account?
+                {% endblocktranslate %}
+                {% include "unfold/helpers/messages/error.html" with error=message %}
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <form action="{{ app_path }}" method="post" id="login-form">
+        {% csrf_token %}
+
+        {% include "unfold/helpers/field.html" with field=form.username %}
+        {% include "unfold/helpers/field.html" with field=form.password %}
+
+        <div class="flex flex-col gap-3 mt-6">
+            {% component "unfold/components/button.html" with submit=1 variant="primary" class="submit-row w-full" %}
+                {% translate 'Log in' %} <span class="material-symbols-outlined relative right-0 transition-all group-hover:-right-1 text-sm">arrow_forward</span>
+            {% endcomponent %}
+
+            {% url 'oidc_authentication_init' as sso_url %}
+            {% component "unfold/components/button.html" with href=sso_url variant="secondary" class="w-full flex items-center justify-center" %}
+                <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                </svg>
+                Войти через SSO (OpenID)
+            {% endcomponent %}
+        </div>
+    </form>
+    </div> <!-- Ensure closing of relative z-10 w-full container -->
 {% endblock %}

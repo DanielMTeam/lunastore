@@ -19,9 +19,11 @@ whitenoise
 django-modeltranslation
 django-user_agents
 django-redis
+django-constance[redis]
 user_agents
 django-smart-ratelimit
 dnspython
 disposable-email-domains
 pyotp
 qrcode
+sentry-sdk[django]
