@@ -1,6 +1,8 @@
+from constance import config
 from django.conf import settings
 
 from .models import Banner
+from apps.core.dynamic_settings import get_motd_list
 from apps.core.notifications.services import NotificationService
 
 def random_banner(request):
@@ -9,11 +11,11 @@ def random_banner(request):
 
 
 def motd_processor(request):
-    return {"motds": getattr(settings, "MOTD_LIST", ["Windows XP Professional"])}
+    return {"motds": get_motd_list()}
 
 
 def drm_settings(request):
-    return {"ENABLE_DRM": getattr(settings, "ENABLE_DRM", False)}
+    return {"ENABLE_DRM": config.ENABLE_DRM}
 
 def notification_context(request):
     if request.user.is_authenticated:
@@ -22,3 +24,4 @@ def notification_context(request):
             'api_url': settings.LUNASPIRE_URL
         }
     return {}
+

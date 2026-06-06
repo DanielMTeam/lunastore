@@ -1,6 +1,7 @@
 import re
 from datetime import timedelta
 
+from constance import config
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.utils import timezone
@@ -29,7 +30,7 @@ def validate_invite_limit(owner):
     from .models import User
 
     time_threshold = timezone.now() - timedelta(
-        days=int(settings.MAX_INVITE_DAYS_LIMIT)
+        days=int(config.MAX_INVITE_DAYS_LIMIT)
     )
 
     recent_invites_count = User.objects.filter(
@@ -37,7 +38,7 @@ def validate_invite_limit(owner):
         date_joined__gte=time_threshold,
     ).count()
 
-    if recent_invites_count >= int(settings.MAX_INVITE_USES_COUNT):
+    if recent_invites_count >= int(config.MAX_INVITE_USES_COUNT):
         return False
     return True
 

@@ -5,6 +5,7 @@ from urllib.parse import urlparse
 
 import jwt
 from captcha.fields import CaptchaField
+from constance import config
 from django import forms
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -104,7 +105,7 @@ class AppScreenshotForm(TranslationModelForm):
             # get screenshots list
             screenshots = self.instance.screenshots or []
 
-            for i in range(1, settings.SCREENSHOT_COUNT + 1):
+            for i in range(1, config.SCREENSHOT_COUNT + 1):
                 field_name = f"screenshot_{i}"
                 clear_field_name = f"clear_screenshot_{i}"
                 list_index = i - 1
@@ -135,11 +136,11 @@ class AppScreenshotForm(TranslationModelForm):
             else []
         )
         # we will build the final paths list here
-        final_paths = (current_paths + [None] * settings.SCREENSHOT_COUNT)[
-            : settings.SCREENSHOT_COUNT
+        final_paths = (current_paths + [None] * config.SCREENSHOT_COUNT)[
+            : config.SCREENSHOT_COUNT
         ]
 
-        for i in range(1, settings.SCREENSHOT_COUNT + 1):
+        for i in range(1, config.SCREENSHOT_COUNT + 1):
             clear_field_name = f"clear_screenshot_{i}"
             upload_field_name = f"screenshot_{i}"
             path_index = i - 1
@@ -188,8 +189,10 @@ class AppScreenshotForm(TranslationModelForm):
 
         return app_instance
 
-
-for i in range(1, settings.SCREENSHOT_COUNT + 1):
+# module-level field registration: use os.getenv() because constance
+# backend may not be available yet during import
+_SCREENSHOT_COUNT_DEFAULT = int(os.getenv("SCREENSHOT_COUNT", "3"))
+for i in range(1, _SCREENSHOT_COUNT_DEFAULT + 1):
     AppScreenshotForm.declared_fields[f"screenshot_{i}"] = forms.ImageField(
         required=False, label=f"Скриншот {i}"
     )
