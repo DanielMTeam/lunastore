@@ -63,7 +63,6 @@ class GeoDomainMiddleware:
 
         # Default domains
         geo_domains = {
-            "BASE_URL": settings.LUNASPIRE_URL_WITHOUT_PROTO,
             "API_URL": settings.API_URL,
             "SPIRE_URL": settings.LUNASPIRE_URL,
         }
