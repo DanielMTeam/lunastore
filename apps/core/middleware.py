@@ -75,6 +75,15 @@ class GeoDomainMiddleware:
             raw_overrides = getattr(config, 'GEO_DOMAIN_OVERRIDES', '{}')
             try:
                 overrides = json.loads(raw_overrides)
+                current_host = request.get_host().split(':')[0]
+                
+                # If IP-based country code is not in overrides, check if we're currently on a regional domain
+                if country_code not in overrides:
+                    for code, override_data in overrides.items():
+                        if isinstance(override_data, dict) and override_data.get('BASE_URL') == current_host:
+                            country_code = code
+                            break
+
                 if country_code in overrides:
                     country_overrides = overrides[country_code]
                     if isinstance(country_overrides, dict):
