@@ -95,7 +95,7 @@ class DistributionAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
         context.update(
             {
                 "cdn_config": json.dumps({
-                    "uploadUrl": f"{settings.LUNASPIRE_URL}/cdn/upload",
+                    "uploadUrl": f"{getattr(request, 'geo_domains', {}).get('SPIRE_URL', settings.LUNASPIRE_URL)}/cdn/upload",
                     "tokenUrl": "/method/user/getPubUploadToken/",
                     "privTokenUrl": "/method/user/getPrivUploadToken/",
                     "appId": obj.app_id if obj else None,
@@ -480,7 +480,7 @@ class ApplicationAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
         context.update(
             {
                 "cdn_config": json.dumps({
-                    "uploadUrl": f"{settings.LUNASPIRE_URL}/cdn/upload",
+                    "uploadUrl": f"{getattr(request, 'geo_domains', {}).get('SPIRE_URL', settings.LUNASPIRE_URL)}/cdn/upload",
                     "tokenUrl": "/method/user/getPubUploadToken/",
                     "privTokenUrl": "/method/user/getPrivUploadToken/",
                     "appId": obj.id if obj else None,

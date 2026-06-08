@@ -219,7 +219,7 @@ def app_add(request):
         {
             "form": form,
             # this will go to JS for file upload handling (cdn_upload_url & token_upload_url)
-            "cdn_upload_url": f"{settings.LUNASPIRE_URL}/cdn/upload",
+            "cdn_upload_url": f"{getattr(request, 'geo_domains', {}).get('SPIRE_URL', settings.LUNASPIRE_URL)}/cdn/upload",
             "token_upload_url": "/method/user/getPubUploadToken/",
         },
     )
@@ -283,7 +283,7 @@ def application_edit_info(request, pk):
             "app_id": obj.pk,
             "developer_id": obj.user.pk,
             "developer_site": obj.developer_site,
-            "cdn_upload_url": f"{settings.LUNASPIRE_URL}/cdn/upload",
+            "cdn_upload_url": f"{getattr(request, 'geo_domains', {}).get('SPIRE_URL', settings.LUNASPIRE_URL)}/cdn/upload",
             "cdn_token_url": "/method/user/getPubUploadToken/",
         },
     )
@@ -462,7 +462,7 @@ def manage_distributions(request):
         "pending_requests": pending_requests,
         "pending_edits": pending_edits,
         "get_token_url": "/method/user/getPrivUploadToken/",
-        "cdn_upload_url": f"{settings.LUNASPIRE_URL}/cdn/upload",
+        "cdn_upload_url": f"{getattr(request, 'geo_domains', {}).get('SPIRE_URL', settings.LUNASPIRE_URL)}/cdn/upload",
         "download_list_url": reverse("download") + "?id=" + str(app_obj.id),
     }
     return render(request, "manage_distributions.html", context)
@@ -523,7 +523,7 @@ def distribution_edit(request, dist_pk):
         "app_id": distribution.app.id,
         "is_edit_page": True,
         "get_token_url": "/method/user/getPrivUploadToken/",
-        "cdn_upload_url": f"{settings.LUNASPIRE_URL}/cdn/upload",
+        "cdn_upload_url": f"{getattr(request, 'geo_domains', {}).get('SPIRE_URL', settings.LUNASPIRE_URL)}/cdn/upload",
         "download_list_url": reverse("download") + "?id=" + str(distribution.app.id),
     }
     return render(request, "distribution_form.html", context)
@@ -573,7 +573,8 @@ def get_file_action(request, dist_pk):
 
         protocol = "http" if is_retro else "https"
 
-        domain = settings.LUNASPIRE_URL_WITHOUT_PROTO
+        spire_url = getattr(request, 'geo_domains', {}).get('SPIRE_URL', settings.LUNASPIRE_URL)
+        domain = spire_url.replace('https://', '').replace('http://', '')
         cdn_url = f"{protocol}://{domain}/cdn/download?token={download_token}"
         return redirect(cdn_url)
 

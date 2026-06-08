@@ -265,8 +265,8 @@ def profile_settings(request):
         "avatar_form": AvatarUpdateForm(instance=user),
         "del_acc_form": PasswordConfirmationForm(user=user),
         "email_form": EmailChangeForm(user=user),
-        "cdn_base_url": settings.LUNASPIRE_URL,
-        "api_base_url": settings.API_URL,
+        "cdn_base_url": getattr(request, 'geo_domains', {}).get('SPIRE_URL', settings.LUNASPIRE_URL),
+        "api_base_url": getattr(request, 'geo_domains', {}).get('API_URL', settings.API_URL),
         "is_developer": request.user.groups.filter(name="Разработчики").exists(),
         "dev_status_enabled": config.DEVELOPER_REGISTRATION_IS_ENABLED,
     }
@@ -463,7 +463,7 @@ def invite_code(request):
 @login_required
 @require_modern_browser
 def notifications(request):
-    api_url = settings.LUNASPIRE_URL
+    api_url = getattr(request, 'geo_domains', {}).get('SPIRE_URL', settings.LUNASPIRE_URL)
     if not api_url.startswith('http'):
         api_url = f"http://{api_url}"
 
