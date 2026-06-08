@@ -46,7 +46,7 @@ class CDNTokenValidationMixin:
             "send": fields  # <-- dynamic parameter
         }
         token = jwt.encode(payload, settings.LUNASPIRE_SECRET_KEY, algorithm="HS256")
-        url = f"{settings.LUNASPIRE_URL.rstrip('/')}/cdn/info"
+        url = f"{getattr(self.request, 'geo_domains', {}).get('SPIRE_URL', settings.LUNASPIRE_URL).rstrip('/')}/cdn/info"
 
         try:
             response = requests.get(url, params={"token": token}, timeout=5)

@@ -218,7 +218,7 @@ class UserViewSet(viewsets.GenericViewSet):
     @action(detail=False, methods=["get"], url_path="getNotificationToken", permission_classes=[IsAuthenticated])
     def get_notification_token(self, request):
         token = NotificationService.get_receive_token(request.user.id)
-        return Response({"token": token, "ws_url": settings.LUNASPIRE_URL})
+        return Response({"token": token, "ws_url": getattr(request, 'geo_domains', {}).get('SPIRE_URL', settings.LUNASPIRE_URL)})
 
 class MarketplaceViewSet(viewsets.GenericViewSet):
     queryset = Application.objects.filter()
