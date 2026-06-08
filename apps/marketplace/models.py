@@ -92,7 +92,8 @@ class BaseApplicationInfo(SafeDeleteModel):
     @property
     def icon_url(self):
         if self.icon_path:
-            base_url = getattr(settings, "LUNASPIRE_URL", "").rstrip("/")
+            from apps.core.local import get_geo_spire_url
+            base_url = get_geo_spire_url(getattr(settings, "LUNASPIRE_URL", "")).rstrip("/")
             protocol_relative_url = base_url.replace("https:", "").replace("http:", "")
 
             path = self.icon_path.lstrip("/")
@@ -101,7 +102,8 @@ class BaseApplicationInfo(SafeDeleteModel):
 
     @property
     def screenshot_urls(self):
-        base_url = getattr(settings, "LUNASPIRE_URL", "").rstrip("/")
+        from apps.core.local import get_geo_spire_url
+        base_url = get_geo_spire_url(getattr(settings, "LUNASPIRE_URL", "")).rstrip("/")
         protocol_relative_url = base_url.replace("https:", "").replace("http:", "")
 
         urls = []
