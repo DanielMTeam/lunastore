@@ -10,16 +10,54 @@ body {
 
 
 /* Sidebar logo smooth glow animation */
-aside img[src*="logo"], 
+aside img[src*="logo"],
 #nav-sidebar img,
 header img[src*="logo"] {
     animation: glowing-logo 4s ease-in-out infinite;
     filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.3));
-    will-change: filter; /* optimized for performance */
+    will-change: filter;
+    /* optimized for performance */
 }
 
 @keyframes glowing-logo {
-    0% { filter: drop-shadow(0 0 6px rgba(99, 102, 241, 0.2)); }
-    50% { filter: drop-shadow(0 0 14px rgba(99, 102, 241, 0.7)); }
-    100% { filter: drop-shadow(0 0 6px rgba(99, 102, 241, 0.2)); }
+    0% {
+        filter: drop-shadow(0 0 6px rgba(99, 102, 241, 0.2));
+    }
+
+    50% {
+        filter: drop-shadow(0 0 14px rgba(99, 102, 241, 0.7));
+    }
+
+    100% {
+        filter: drop-shadow(0 0 6px rgba(99, 102, 241, 0.2));
+    }
+}
+
+/* Fix Constance page layout for inputs and textareas */
+form table td textarea {
+    width: 100% !important;
+    min-width: 450px !important;
+    min-height: 160px !important;
+    font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace !important;
+    white-space: pre-wrap !important;
+    word-break: break-all !important;
+    resize: vertical !important;
+    padding: 12px !important;
+    border-radius: 6px !important;
+}
+
+form table td input[type="text"],
+form table td input[type="number"],
+form table td input[type="password"] {
+    width: 100% !important;
+    min-width: 350px !important;
+    max-width: 600px !important;
+    padding: 10px !important;
+    border-radius: 6px !important;
+}
+
+
+#changelist-form table th:nth-child(3),
+#changelist-form table td:nth-child(3) {
+    display: none !important;
 }

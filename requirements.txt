@@ -27,3 +27,4 @@ disposable-email-domains==0.0.197
 pyotp==2.9.0
 qrcode==8.2
 sentry-sdk[django]==2.61.1
+geoip2==4.8.0
