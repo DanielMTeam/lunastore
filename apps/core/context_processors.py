@@ -23,7 +23,7 @@ def geo_domains_processor(request):
 def notification_context(request):
     if request.user.is_authenticated:
         geo_domains = getattr(request, 'geo_domains', {})
-        api_url = geo_domains.get('API_URL', settings.LUNASPIRE_URL)
+        api_url = geo_domains.get('SPIRE_URL', settings.LUNASPIRE_URL)
         return {
             'notify_token': NotificationService.get_receive_token(request.user.id),
             'api_url': api_url
