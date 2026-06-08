@@ -50,10 +50,12 @@ class User(AbstractUser, SafeDeleteModel):
     @property
     def avatar_url(self):
         if self.avatar_path:
-            base_url = getattr(settings, "LUNASPIRE_URL", "").rstrip("/")
+            from apps.core.local import get_geo_spire_url
+            base_url = get_geo_spire_url(getattr(settings, "LUNASPIRE_URL", "")).rstrip("/")
             protocol_relative_url = base_url.replace("https:", "").replace("http:", "")
 
-            return f"{protocol_relative_url}/{self.avatar_path.lstrip('/')}"
+            path = self.avatar_path.lstrip("/")
+            return f"{protocol_relative_url}/{path}"
         return "/staticfiles/img/noavatar_64.jpg"
 
     @property

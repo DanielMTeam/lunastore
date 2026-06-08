@@ -58,6 +58,9 @@ class GeoDomainMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
+        from .local import set_current_request
+        set_current_request(request)
+        
         ip = get_client_ip(request)
         country_code = get_country_code(ip)
 
