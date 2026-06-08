@@ -80,13 +80,34 @@ class GeoDomainMiddleware:
                         if 'BASE_URL' in country_overrides:
                             geo_domains['BASE_URL'] = country_overrides['BASE_URL']
                         if 'API_URL' in country_overrides:
-                            geo_domains['API_URL'] = country_overrides['API_URL']
+                            api_val = country_overrides['API_URL']
+                            if not api_val.startswith('http'):
+                                api_val = 'https://' + api_val
+                            geo_domains['API_URL'] = api_val
                         if 'SPIRE_URL' in country_overrides:
-                            geo_domains['SPIRE_URL'] = country_overrides['SPIRE_URL']
+                            spire_val = country_overrides['SPIRE_URL']
+                            if not spire_val.startswith('http'):
+                                spire_val = 'https://' + spire_val
+                            geo_domains['SPIRE_URL'] = spire_val
             except json.JSONDecodeError:
                 logger.error("Failed to parse GEO_DOMAIN_OVERRIDES json in Constance config.")
             except Exception as e:
                 logger.error(f"Error processing geo domains: {e}")
 
         request.geo_domains = geo_domains
+
+        # Redirect if current host doesn't match geo BASE_URL
+        base_url = geo_domains.get('BASE_URL')
+        if base_url:
+            current_host = request.get_host().split(':')[0]
+            base_url_domain = base_url.split(':')[0]
+            
+            # We only redirect if it's explicitly enabled and the domain differs
+            if getattr(config, 'GEO_DOMAIN_PROXY_ENABLED', True) and current_host != base_url_domain:
+                # Do not redirect for static/media files to prevent loops if they share domain
+                if not request.path.startswith(('/media/', '/staticfiles/')):
+                    from django.shortcuts import redirect
+                    new_url = f"{request.scheme}://{base_url}{request.get_full_path()}"
+                    return redirect(new_url)
+
         return self.get_response(request)
