@@ -44,6 +44,8 @@ LOCALE_PATHS = [
 ]
 
 GEOIP_PATH = BASE_DIR / 'apps' / 'core' / 'geolocation'
+GEOIP_CITY = 'geo.mmdb'
+GEOIP_COUNTRY = 'geo.mmdb'
 
 ADMIN_URL = os.getenv("ADMIN_URL", "http://127.0.0.1:8000")
 
@@ -489,6 +491,16 @@ CONSTANCE_CONFIG = {
         "Sentry environment tag (требует перезагрузки)",
         str,
     ),
+    "GEO_DOMAIN_PROXY_ENABLED": (
+        os.getenv("GEO_DOMAIN_PROXY_ENABLED", "True") == "True",
+        "Включить переопределения доменов (Geo Proxy)",
+        bool,
+    ),
+    "GEO_DOMAIN_OVERRIDES": (
+        '{\n  "RU": {\n    "BASE_URL": "ru.lunastore.app",\n    "API_URL": "api.ru.lunastore.app",\n    "SPIRE_URL": "spire.ru.lunastore.app"\n  }\n}',
+        "Переопределения доменов по странам (JSON)",
+        "textarea",
+    ),
 }
 
 CONSTANCE_CONFIG_FIELDSETS = {
@@ -591,6 +603,10 @@ CONSTANCE_CONFIG_FIELDSETS = {
             "SENTRY_PROFILES_SAMPLE_RATE",
             "SENTRY_ENVIRONMENT",
         ],
+        "collapse": True,
+    },
+    "Geo Реверс-прокси": {
+        "fields": ["GEO_DOMAIN_PROXY_ENABLED", "GEO_DOMAIN_OVERRIDES"],
         "collapse": True,
     },
 }
@@ -897,6 +913,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     'django_user_agents.middleware.UserAgentMiddleware',
     "apps.user.middleware.UserSessionMiddleware",
+    "apps.core.middleware.GeoDomainMiddleware",
     *([] if not RATE_LIMIT_ENABLED else ["apps.core.middleware.RateLimitMiddleware"]),
 ]
 
@@ -917,6 +934,7 @@ TEMPLATES = [
                 "django.template.context_processors.i18n",
                 "apps.core.context_processors.random_banner",
                 "apps.core.context_processors.drm_settings",
+                "apps.core.context_processors.geo_domains_processor",
                 "apps.core.context_processors.notification_context",
             ],
         },

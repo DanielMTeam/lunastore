@@ -24,3 +24,11 @@ def get_location_geoip(ip):
         return f"{city_data['city']}, {city_data['country_name']}"
     except Exception:
         return "Unknown"
+
+def get_country_code(ip):
+    g = GeoIP2()
+    try:
+        city_data = g.city(ip)
+        return city_data.get('country_code', 'Unknown')
+    except Exception:
+        return "Unknown"
