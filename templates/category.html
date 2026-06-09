@@ -79,7 +79,15 @@
         {% endif %}
       <div class="card_text">
         <a href="./app.php?id={{ app.id }}"><h3>{{ app.title }}</h3></a>
-        <p>{{ app.slogan }}</p>
+        {% if app.slogan|length >= 45 %}
+        <p title="{{ app.slogan }}">
+          {{ app.slogan|truncatechars:45 }}
+        </p>
+        {% else %}
+        <p>
+          {{ app.slogan }}
+        </p>
+        {% endif %}
       </div>
     </div>
     {% endfor %}
