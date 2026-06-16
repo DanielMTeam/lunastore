@@ -120,6 +120,7 @@
     margin: 0 auto;
     width: 48px;
     height: 48px;
+    border: 0;
 }
 
 .icon-text {
@@ -152,6 +153,7 @@
     margin: 0 auto;
     width: 48px;
     height: 48px;
+    border: 0;
 }
 
 .user-text {

@@ -1,11 +1,11 @@
 {% load i18n %}
 {% load static %}
-<link rel="stylesheet" href='{% static "./css/main.css"%}'>
+
 {% for category in categories %}
 {% if active_category and category.id == active_category.id %}
-<a href="/category.php?id={{ category.id }}"><li class="{{ category.icon }}" id="active">{{ category.name }}</li></a>
+<li class="{{ category.icon|default:'top' }}" id="active" onclick="location.href='/category.php?id={{ category.id }}'"><a href="/category.php?id={{ category.id }}">{{ category.name }}</a></li>
 {% else %}
-<a href="/category.php?id={{ category.id }}"><li class="{{ category.icon }}">{{ category.name }}</li></a>
+<li class="{{ category.icon|default:'top' }}" onclick="location.href='/category.php?id={{ category.id }}'"><a href="/category.php?id={{ category.id }}">{{ category.name }}</a></li>
 {% endif %}
 {% empty %}
     <li>{% trans "INFO_CATEGORY_LIST_EMPTY" %}</li>

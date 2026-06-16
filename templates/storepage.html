@@ -32,9 +32,9 @@
 
         <div class="st_app_icon" style="width: 64px; height: 64px; margin-right: 10px; float: left;">
             {% if icon_path %}
-                <div style="width: 64px; height: 64px; background-image: url('{{ icon_url }}'); background-size: 100% 100%; _background: none; _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{ icon_url }}', sizingMethod='scale');"></div>
+                <img src="{{ icon_url }}" alt="{{ title }}" width="64" height="64" style="display: block; border: 0;">
             {% else %}
-                <div style="width: 64px; height: 64px; background-image: url('{% static "img/noavatar_64.jpg" %}'); background-size: 100% 100%; _background: none; _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{% static "img/noavatar_64.jpg" %}', sizingMethod='scale');"></div>
+                <img src="{% static 'img/noavatar_64.jpg' %}" alt="{{ title }}" width="64" height="64" style="display: block; border: 0;">
             {% endif %}
         </div>
 
