@@ -403,8 +403,15 @@ li.web {
 }
 
 .card_icon {
-    background-size: cover;
-    background-position: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.card_icon img {
+    width: 48px;
+    height: 48px;
+    display: block;
+    border: 0;
 }
 
 .card_text {

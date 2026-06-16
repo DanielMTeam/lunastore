@@ -16,9 +16,9 @@
         <div class="st_general_card">
             <div class="st_app_icon" style="width: 48px; height: 48px;">
                 {% if icon_url %}
-                    <div style="width: 48px; height: 48px; background-image: url('{{ icon_url }}'); background-size: 100% 100%; _background: none; _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{ icon_url }}', sizingMethod='scale');"></div>
+                    <img src="{{ icon_url }}" alt="{{ app.title }}" width="48" height="48" style="display: block; border: 0;">
                 {% else %}
-                    <div style="width: 48px; height: 48px; background-image: url('{% static "../img/noavatar_64.jpg" %}'); background-size: 100% 100%; _background: none; _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{% static "../img/noavatar_64.jpg" %}', sizingMethod='scale');"></div>
+                    <img src="{% static 'img/noavatar_64.jpg' %}" alt="{{ app.title }}" width="48" height="48" style="display: block; border: 0;">
                 {% endif %}
             </div>
 

@@ -114,9 +114,9 @@
             {% endif %}
 
             {% if app.icon_path %}
-                <div class="card_icon" style="background-image: url('{{ app.icon_url }}'); _background: none; _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{ app.icon_url }}', sizingMethod='scale');"></div>
+                <div class="card_icon"><img src="{{ app.icon_url }}" alt="{{ app.title }}" width="48" height="48"></div>
             {% else %}
-                <div class="card_icon" style="background-image: url('{% static './img/noavatar_64.jpg' %}'); _background: none; _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{% static './img/noavatar_64.jpg' %}', sizingMethod='scale');"></div>
+                <div class="card_icon"><img src="{% static './img/noavatar_64.jpg' %}" alt="{{ app.title }}" width="48" height="48"></div>
             {% endif %}
 
             <div class="card_text">

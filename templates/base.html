@@ -23,15 +23,20 @@
     <script src="https://cdn.jsdelivr.net/npm/@tolgee/web/dist/tolgee-web.production.umd.min.js"></script>
 
     <script>
-        const { Tolgee, DevTools } = window['@tolgee/web'];
+        try {
+            var web = window['@tolgee/web'];
+            var Tolgee = web.Tolgee;
+            var DevTools = web.DevTools;
+            var tolgee = Tolgee()
+                .use(DevTools())
+                .init({
+                    language: "{{ LANGUAGE_CODE }}"
+                });
 
-        const tolgee = Tolgee()
-            .use(DevTools())
-            .init({
-                language: "{{ LANGUAGE_CODE }}",
-            });
-
-        tolgee.run();
+            tolgee.run();
+        } catch (e) {
+            // Tolgee is not supported in old IE, gracefully fail
+        }
     </script>
 
     <!--[if IE 6]>
@@ -125,23 +130,19 @@
                 <div class="boxhead_primary"><b>{% trans "BASE_SIDEBAR_APP_TITLE" %}</b></div>
                 <div class="box">
                     <ul>
-                        <a href="/download.php?id={{ app_id }}">
-                            <li class="setup" {% if is_download_page %}id="active" {% endif %}><b>{% trans "BASE_SIDEBAR_APP_INSTALL" %}</b></li>
-                        </a>
+                        <li class="setup" {% if is_download_page %}id="active" {% endif %} onclick="location.href='/download.php?id={{ app_id }}'">
+                            <a href="/download.php?id={{ app_id }}"><b>{% trans "BASE_SIDEBAR_APP_INSTALL" %}</b></a>
+                        </li>
 
                         {% if developer_site %}
-                        <a href="{{ developer_site }}" target="_blank">
-                            <li class="web">{% trans "BASE_SIDEBAR_APP_DEV_SITE" %}</li>
-                        </a>
+                        <li class="web" onclick="window.open('{{ developer_site }}', '_blank')">
+                            <a href="{{ developer_site }}" target="_blank">{% trans "BASE_SIDEBAR_APP_DEV_SITE" %}</a>
+                        </li>
                         {% endif %}
 
-                        <a href="/report_app.php?id={{ app_id }}">
-                            <li class="alert" {% if is_report_page %}id="active" {% endif %}>{% trans "BASE_SIDEBAR_APP_REPORT" %}</li>
-                        </a>
+                        <li class="alert" {% if is_report_page %}id="active" {% endif %} onclick="location.href='/report_app.php?id={{ app_id }}'"><a href="/report_app.php?id={{ app_id }}">{% trans "BASE_SIDEBAR_APP_REPORT" %}</a></li>
                         {% if user.is_authenticated and user.id == developer_id %}
-                        <a href="/edit_app_info.php/{{ app_id }}/">
-                            <li class="editapp" {% if is_edit_page %}id="active" {% endif %}>{% trans "BASE_SIDEBAR_APP_EDIT" %}</li>
-                        </a>
+                        <li class="editapp" {% if is_edit_page %}id="active" {% endif %} onclick="location.href='/edit_app_info.php/{{ app_id }}/'"><a href="/edit_app_info.php/{{ app_id }}/">{% trans "BASE_SIDEBAR_APP_EDIT" %}</a></li>
                         {% endif %}
                     </ul>
                 </div>
@@ -151,23 +152,15 @@
                 <div class="box">
                     {% with route=request.resolver_match.url_name %}
                     <ul>
-                        <a href="/profile.php?id={{ request.user.id }}">
-                            <li class="myhome" {% if route == 'profile' and request.GET.id == request.user.id|stringformat:"s" %} id="active" {% endif %}>{% trans "BASE_SIDEBAR_ACCOUNT_PROFILEBTN" %}</li>
-                        </a>
-                        <a href="{% url 'settings' %}">
-                            <li class="settings" {% if route == 'settings' or route == 'settings_security' or route == 'settings_apps' or route == "settings_2fa_set" %} id="active" {% endif %}>{% trans "BASE_SIDEBAR_ACCOUNT_SETTINGSBTN" %}</li>
-                        </a></li>
-                        <a href="{% url 'invite_person' %}">
-                            <li class="newbie" {% if route == 'invite_person' %}id="active" {% endif %}>
+                        <li class="myhome" {% if route == 'profile' and request.GET.id == request.user.id|stringformat:"s" %} id="active" {% endif %} onclick="location.href='/profile.php?id={{ request.user.id }}'"><a href="/profile.php?id={{ request.user.id }}">{% trans "BASE_SIDEBAR_ACCOUNT_PROFILEBTN" %}</a></li>
+                        <li class="settings" {% if route == 'settings' or route == 'settings_security' or route == 'settings_apps' or route == "settings_2fa_set" %} id="active" {% endif %} onclick="location.href='{% url 'settings' %}'"><a href="{% url 'settings' %}">{% trans "BASE_SIDEBAR_ACCOUNT_SETTINGSBTN" %}</a></li>
+                        <li class="newbie" {% if route == 'invite_person' %}id="active" {% endif %} onclick="location.href='{% url 'invite_person' %}'"><a href="{% url 'invite_person' %}">
                                 {% trans "BASE_SIDEBAR_ACCOUNT_INVITEBTN" %}
-                            </li>
-                        </a>
-                        <a href="{% url 'notifications' %}">
-                            <li class="notify" {% if route == 'notifications' %}id="active" {% endif %}>
+                            </a></li>
+                        <li class="notify" {% if route == 'notifications' %}id="active" {% endif %} onclick="location.href='{% url 'notifications' %}'"><a href="{% url 'notifications' %}">
                                 {% trans "PAGE_NOTIFICATIONS_TAB" %}
                                 <span id="global-unread-count" style="display:none; color: red; font-weight: bold;"></span>
-                            </li>
-                        </a>
+                            </a></li>
                     </ul>
                     {% endwith %}
                 </div>
@@ -175,12 +168,11 @@
 
                 <div class="boxhead"><b>{% trans "BASE_SIDEBAR_CATEGORIES_TITLE" %}</b></div>
                 <div class="box">
-
                     <ul>
-                        <a href="/index.php">
-                            <li class="myhome" {% if request.resolver_match.url_name == 'index' %}id="active" {% endif %}>{% trans "BASE_SIDEBAR_CATEGORIES_HOME" %}</li>
-                        </a>
-                        <aside>{% show_categories active_category=active_category %}</aside>
+                        <li class="myhome" {% if request.resolver_match.url_name == 'index' %}id="active" {% endif %} onclick="location.href='/index.php'">
+                            <a href="/index.php">{% trans "BASE_SIDEBAR_CATEGORIES_HOME" %}</a>
+                        </li>
+                        {% show_categories active_category=active_category %}
                     </ul>
                 </div>
 

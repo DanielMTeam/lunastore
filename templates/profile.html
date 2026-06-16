@@ -17,7 +17,7 @@
     <div class="profile_card">
         <div class="profile_avatar" id="{uid}">
             {% if obj.avatar_url %}
-            <div style="height: 64px; width: 64px; background-image: url('{{ obj.avatar_url }}'); background-size: 100% 100%; _background: none; _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{ obj.avatar_url }}', sizingMethod='scale');" title="{{ obj.username }}"></div>
+            <img src="{{ obj.avatar_url }}" alt="{{ obj.username }}" title="{{ obj.username }}" width="64" height="64" style="display: block; border: 0;">
             {% endif %}
         </div>
 
@@ -128,9 +128,9 @@
                             <div class="icon">
                                 <a href="/app.php?id={{ app.id }}">
                                     {% if app.icon_path %}
-                                    <div class="icon-img" style="background-image: url('{{ app.icon_url }}'); background-size: 100% 100%; _background: none; _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{ app.icon_url }}', sizingMethod='scale');" title="{{ app.title }}"></div>
+                                    <img class="icon-img" src="{{ app.icon_url }}" alt="{{ app.title }}" title="{{ app.title }}" style="border: 0;">
                                     {% else %}
-                                    <div class="icon-img" style="background-image: url('{% static './img/noavatar_64.jpg' %}'); background-size: 100% 100%; _background: none; _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{% static './img/noavatar_64.jpg' %}', sizingMethod='scale');" title="{{ app.title }}"></div>
+                                    <img class="icon-img" src="{% static './img/noavatar_64.jpg' %}" alt="{{ app.title }}" title="{{ app.title }}" style="border: 0;">
                                     {% endif %}
                                 </a>
                                 <div class="icon-text"><a href="/app.php?id={{ app.id }}">{{ app.title }}</a></div>
@@ -161,9 +161,9 @@
                             <div class="user">
                                 <a href="/profile.php?id={{ invited.id }}">
                                     {% if invited.avatar_path %}
-                                    <div class="user-img" style="background-image: url('{{ invited.avatar_url }}'); background-size: 100% 100%; _background: none; _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{ invited.avatar_url }}', sizingMethod='scale');" title="{{ invited.username }}"></div>
+                                    <img class="user-img" src="{{ invited.avatar_url }}" alt="{{ invited.username }}" title="{{ invited.username }}" style="border: 0;">
                                     {% else %}
-                                    <div class="user-img" style="background-image: url('{% static './img/noavatar_64.jpg' %}'); background-size: 100% 100%; _background: none; _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{% static './img/noavatar_64.jpg' %}', sizingMethod='scale');" title="{{ invited.username }}"></div>
+                                    <img class="user-img" src="{% static './img/noavatar_64.jpg' %}" alt="{{ invited.username }}" title="{{ invited.username }}" style="border: 0;">
                                     {% endif %}
                                 </a>
                                 <div class="user-text"><a href="?id={{ invited.id }}">{{ invited.username }}</a></div>
