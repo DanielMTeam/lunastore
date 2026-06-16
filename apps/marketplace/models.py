@@ -54,8 +54,9 @@ class Category(SafeDeleteModel):
 class BaseApplicationInfo(SafeDeleteModel):
     _safedelete_policy = SOFT_DELETE_CASCADE
 
-    category = models.ForeignKey(
-        "Category", null=True, on_delete=models.SET_NULL, verbose_name="Категория"
+
+    categories = models.ManyToManyField(
+        "Category", verbose_name="Категории", blank=True, related_name="%(class)s_categories"
     )
     title = models.CharField(max_length=80, verbose_name="Название")
     original_author = models.CharField(
