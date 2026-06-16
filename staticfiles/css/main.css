@@ -404,6 +404,7 @@ li.web {
 
 .card_icon {
     overflow: hidden;
+    _overflow: visible;
     position: relative;
 }
 
@@ -412,11 +413,13 @@ li.web {
     height: 48px;
     display: block;
     border: 0;
+    float: none;
+    margin: 0;
 }
 
 .card_text {
     float: left;
-    width: 140px;
+    width: 130px;
 }
 
 .card h3 {
@@ -1449,4 +1452,26 @@ a.report_problem {
 .code_type {
     text-align: center;
     font-weight: bold;
+}
+/* Fix for profile.html icons */
+.icon-img, .user-img {
+    width: 64px;
+    height: 64px;
+}
+
+.card_icon a {
+    display: block;
+    width: 48px;
+    height: 48px;
+}
+
+/* IE6 ONLY transparent PNG fix for img tags */
+* html img {
+    behavior: expression(
+        this.runtimeStyle.behavior = "none",
+        (this.src.toLowerCase().indexOf('.png') !== -1 && this.className !== 'ls_dm_logo') ? (
+            this.runtimeStyle.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" + this.src + "', sizingMethod='scale')",
+            this.src = "/staticfiles/img/blank.gif"
+        ) : ""
+    );
 }

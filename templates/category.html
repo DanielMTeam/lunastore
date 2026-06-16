@@ -73,9 +73,9 @@
       {% endif %}
 
         {% if app.icon_path %}
-            <a href="./app.php?id={{ app.id }}"><div class="card_icon"><img src="{{ app.icon_url }}" alt="{{ app.title }}" width="48" height="48"></div></a>
+            <div class="card_icon"><img src="{{ app.icon_url }}" alt="{{ app.title }}" width="48" height="48"></div>
         {% else %}
-            <a href="./app.php?id={{ app.id }}"><div class="card_icon"><img src="{% static './img/noavatar_64.jpg' %}" alt="{{ app.title }}" width="48" height="48"></div></a>
+            <div class="card_icon"><img src="{% static './img/noavatar_64.jpg' %}" alt="{{ app.title }}" width="48" height="48"></div>
         {% endif %}
       <div class="card_text">
         <a href="./app.php?id={{ app.id }}"><h3>{{ app.title }}</h3></a>
