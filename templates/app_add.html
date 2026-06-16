@@ -341,11 +341,11 @@
                         <label>
                             <div class="add_app_pad">
                                 <div class="add_app_title">{% trans "PAGE_ADDAPP_STEP2_CATEGORY" %}</div>
-                                {{ form.category }}
+                                {{ form.categories }}
                                 <div class="add_app_form_label">{% trans "PAGE_ADDAPP_STEP2_CATEGORYDESC" %}</div>
-                                {% if form.category.errors %}
-                                    <div class="errorlist">
-                                        {{ form.category.errors }}
+                                {% if form.categories.errors %}
+                                    <div class="field-error">
+                                        {{ form.categories.errors }}
                                     </div>
                                 {% endif %}
                             </div>
@@ -691,7 +691,7 @@
         {% if form.captcha.errors %}
             goToStep(3);
         // if error in category, developer site, or screenshots fields, go to step 2
-        {% elif form.category.errors or form.developer_site.errors or form.upload_screenshots.errors %}
+        {% elif form.categories.errors or form.developer_site.errors or form.upload_screenshots.errors %}
             goToStep(2);
         // otherwise, stay on step 1
         {% else %}

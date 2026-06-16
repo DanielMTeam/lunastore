@@ -342,7 +342,7 @@ class CategoryViewSet(viewsets.GenericViewSet):
             )
         try:
             category = self.get_queryset().get(pk=id)
-            apps = Application.objects.filter(category=category).exclude(is_private=True).order_by("-published")
+            apps = Application.objects.filter(categories=category).exclude(is_private=True).order_by("-published")
         except Category.DoesNotExist:
             raise LunaException(
                 code=ErrorCodes.CATEGORY_NOT_FOUND,

@@ -25,21 +25,21 @@ class APIViewsTest(APITestCase):
         
         cls.app = Application.objects.create(
             user=cls.user,
-            category=cls.category,
             title='SuperCleaner',
             description='Cleans your system beautifully.',
             slogan='Clean fast',
             price=0,
             is_under_dmca=False
         )
+        cls.app.categories.add(cls.category)
         
         cls.dmca_app = Application.objects.create(
             user=cls.user,
-            category=cls.category,
             title='PirateApp',
             description='This app is under DMCA',
             is_under_dmca=True
         )
+        cls.dmca_app.categories.add(cls.category)
 
     def test_get_profile_info_success(self):
         url = '/method/user/getProfileInfo/'

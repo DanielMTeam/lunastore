@@ -443,7 +443,7 @@ class ApplicationAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
                 "fields": (
                     "title",
                     "user",
-                    "category",
+                    "categories",
                     "description",
                     "original_author",
                     "slogan",
@@ -510,7 +510,11 @@ class ApplicationAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
 
     display_screenshots.short_description = "Предпросмотр"
 
-    list_display = ["title", "user", "category", "is_demo", "is_under_dmca", "price"]
+    @admin.display(description="Категории")
+    def display_categories(self, obj):
+        return ", ".join([c.name for c in obj.categories.all()])
+
+    list_display = ["title", "user", "display_categories", "is_demo", "is_under_dmca", "price"]
     list_editable = ["is_demo", "is_under_dmca"]
     list_filter = SafeDeleteAdmin.list_filter + ["is_demo", "is_under_dmca"]
     search_fields = ["title", "user__username"]
@@ -533,7 +537,7 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
         "user_info_link",
         "user",
         "status",
-        "category",
+        "categories",
         "title",
         "description",
         "slogan",
@@ -592,7 +596,6 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
 
         app = Application(
             user=req.user,
-            category=req.category,
             price=req.price,
             icon_id=req.icon_id,
             icon_path=req.icon_path,
@@ -612,6 +615,7 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
                 setattr(app, lang_field, val)
 
         app.save()
+        app.categories.set(req.categories.all())
         req.status = "approved"
         req.save()
         send_notification.enqueue(
@@ -656,7 +660,7 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
             {
                 "fields": (
                     "user",
-                    "category",
+                    "categories",
                     "title",
                     "slogan",
                     "description",
@@ -700,7 +704,7 @@ class AppEditRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
         "user_info_link",
         "user",
         "status",
-        "category",
+        "categories",
         "title",
         "original_author",
         "description",
@@ -771,7 +775,7 @@ class AppEditRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
                 reverse("admin:marketplace_appeditrequests_change", args=[object_id])
             )
 
-        app.category = req.category
+        app.categories.set(req.categories.all())
         app.original_author = req.original_author
         app.price = req.price
         app.is_demo = req.is_demo
@@ -838,7 +842,7 @@ class AppEditRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
             {
                 "fields": (
                     "user",
-                    "category",
+                    "categories",
                     "title",
                     "slogan",
                     "description",

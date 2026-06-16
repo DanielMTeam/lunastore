@@ -67,7 +67,7 @@ class AppScreenshotForm(TranslationModelForm):
         model = Application
         fields = [
             "title",
-            "category",
+            "categories",
             "description",
             "slogan",
             "developer_site",
@@ -96,9 +96,9 @@ class AppScreenshotForm(TranslationModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        if 'category' in self.fields:
+        if 'categories' in self.fields:
             from .models import Category
-            self.fields['category'].queryset = Category.objects.filter(is_admin_only=False)
+            self.fields['categories'].queryset = Category.objects.filter(is_admin_only=False)
 
         # check existing screenshots
         if self.instance and self.instance.pk:
@@ -245,12 +245,12 @@ class AppCreateForm(forms.ModelForm, CDNTokenValidationMixin):
     class Meta:
         model = AppCreateRequests
         _base_names = [
-            "category", "title", "slogan", "original_author",
+            "categories", "title", "slogan", "original_author",
             "developer_site", "description", "requirements", "is_demo", "price", "is_private"
         ]
         fields = get_translated_fields_list(_base_names)
         widgets = get_translated_widgets_dict({
-                    "category": forms.Select(attrs={"class": "input-text", "style": "width: 100%;"}),
+                    "categories": forms.SelectMultiple(attrs={"class": "input-text", "style": "width: 100%;"}),
                     "title": forms.TextInput(attrs={"class": "input-text"}),
                     "slogan": forms.Textarea(attrs={"class": "brief_intro", "rows": 3, "style": "resize: none;"}),
                     "developer_site": forms.TextInput(attrs={"id": "inp_site", "class": "input-text"}),
@@ -329,9 +329,9 @@ class AppCreateForm(forms.ModelForm, CDNTokenValidationMixin):
         self.user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
 
-        if 'category' in self.fields:
+        if 'categories' in self.fields:
             from .models import Category
-            self.fields['category'].queryset = Category.objects.filter(is_admin_only=False)
+            self.fields['categories'].queryset = Category.objects.filter(is_admin_only=False)
 
 
 class AppEditForm(AppCreateForm):
