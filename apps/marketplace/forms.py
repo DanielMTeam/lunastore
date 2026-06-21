@@ -299,10 +299,13 @@ class AppCreateForm(forms.ModelForm, CDNTokenValidationMixin):
         # take screenshots data and convert it back to a list
         scr_data = self.cleaned_data.get("cdn_screenshots_data")
         if scr_data:
-            try:
-                app_instance.screenshots = json.loads(scr_data)
-            except (json.JSONDecodeError, TypeError):
-                app_instance.screenshots = []
+            if isinstance(scr_data, list):
+                app_instance.screenshots = scr_data
+            else:
+                try:
+                    app_instance.screenshots = json.loads(scr_data)
+                except (json.JSONDecodeError, TypeError):
+                    app_instance.screenshots = []
         else:
             app_instance.screenshots = []
 
@@ -389,10 +392,13 @@ class AppEditForm(AppCreateForm):
             # take screenshots data and convert it back to a list
             new_scr = self.cleaned_data.get("cdn_screenshots_data")
             if new_scr:
-                try:
-                    submission.screenshots = json.loads(new_scr)
-                except (json.JSONDecodeError, TypeError):
-                    submission.screenshots = self.target_app.screenshots
+                if isinstance(new_scr, list):
+                    submission.screenshots = new_scr
+                else:
+                    try:
+                        submission.screenshots = json.loads(new_scr)
+                    except (json.JSONDecodeError, TypeError):
+                        submission.screenshots = self.target_app.screenshots
             else:
                 submission.screenshots = self.target_app.screenshots
 
@@ -427,7 +433,7 @@ class ProblemReportForm(forms.ModelForm):
             "name": "whois",
         }
 
-class ApplicationAdminForm(forms.ModelForm):
+class ApplicationAdminForm(forms.ModelForm, CDNTokenValidationMixin):
     icon_file = forms.ImageField(
         label=_("ACTION_CHOOSE_ICON"),
         required=False,
@@ -439,6 +445,8 @@ class ApplicationAdminForm(forms.ModelForm):
 
     cdn_icon_path = forms.CharField(widget=forms.HiddenInput(), required=False)
     cdn_screenshots_data = forms.CharField(widget=forms.HiddenInput(), required=False)
+    cdn_icon_confirm_token = forms.CharField(widget=forms.HiddenInput(), required=False)
+    cdn_screenshots_tokens = forms.CharField(widget=forms.HiddenInput(), required=False)
 
     class Meta:
         model = Application
@@ -452,10 +460,21 @@ class ApplicationAdminForm(forms.ModelForm):
 
         scr_data = self.cleaned_data.get("cdn_screenshots_data")
         if scr_data:
-            try:
-                app_instance.screenshots = json.loads(scr_data)
-            except (json.JSONDecodeError, TypeError):
-                pass
+            if isinstance(scr_data, list):
+                new_scr = scr_data
+            else:
+                try:
+                    new_scr = json.loads(scr_data)
+                except (json.JSONDecodeError, TypeError):
+                    new_scr = []
+                    
+            new_scr = [p for p in new_scr if p]
+            
+            if new_scr:
+                if isinstance(app_instance.screenshots, list):
+                    app_instance.screenshots.extend(new_scr)
+                else:
+                    app_instance.screenshots = new_scr
 
         if commit:
             app_instance.save()
@@ -463,6 +482,30 @@ class ApplicationAdminForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
+
+        # validate icon token
+        icon_token = cleaned_data.get("cdn_icon_confirm_token")
+        if icon_token:
+            decoded = self.validate_cdn_token(icon_token)
+            info = self.get_cdn_file_info(decoded.get("file_id"), fields="path")
+            cleaned_data["cdn_icon_path"] = info.get("path")
+
+        # validate screenshots tokens
+        scr_tokens_json = cleaned_data.get("cdn_screenshots_tokens")
+        if scr_tokens_json:
+            try:
+                token_list = json.loads(scr_tokens_json)
+                safe_paths = []
+                for token in token_list:
+                    decoded = self.validate_cdn_token(token)
+                    info = self.get_cdn_file_info(decoded.get("file_id"), fields="path")
+                    if info.get("path"):
+                        safe_paths.append(info.get("path"))
+
+                cleaned_data["cdn_screenshots_data"] = safe_paths
+            except (json.JSONDecodeError, ValidationError):
+                pass
+
         return cleaned_data
 
 
