@@ -38,9 +38,7 @@ def category(request):
 
     # get model objects
     obj_category = get_object_or_404(Category, id=id)
-    obj_apps = Application.objects.filter(category=obj_category, is_private=False).order_by(
-        "-published"
-    )
+    obj_apps = Application.objects.filter(categories=obj_category, is_private=False).order_by("-published")
 
     # paginator logic
     paginator = Paginator(obj_apps, 10)
@@ -301,7 +299,7 @@ def search(request):
     categories = Category.objects.all()
 
     if f_category:
-        results = results.filter(category_id=f_category)
+        results = results.filter(categories__id=f_category)
 
     if query:
         results = results.annotate(
