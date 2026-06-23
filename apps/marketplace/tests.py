@@ -36,13 +36,13 @@ class ApplicationModelTest(TestCase):
 
         cls.application = Application.objects.create(
             user=cls.user,
-            category=cls.category,
             title="TestApplication",
             description="TestDescription",
             slogan="TestSlogan",
             price=0,
             developer_site="https://fayzetw.in",
         )
+        cls.application.categories.add(cls.category)
 
     def test_application_name_content(self):
         logger.info('[Marketplace APP; Application MODEL] Testing "title" field...')
