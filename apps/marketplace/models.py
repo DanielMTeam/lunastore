@@ -185,9 +185,15 @@ class BaseDistributionInfo(SafeDeleteModel):
 
     @property
     def link(self):
-        if self.cdn_file_id:
+        # route all downloads via internal view
+        if self.has_download:
             return f"/get_dist_file/{self.pk}/"
-        return self.url if self.url else "#"
+        return "#"
+
+    @property
+    def is_external(self):
+        # check if file is hosted externally
+        return not bool(self.cdn_file_id) and bool(self.url)
 
 
 class Distribution(BaseDistributionInfo):

@@ -47,6 +47,9 @@ dev-restart:
 dev-logs:
 	docker compose -f $(DEV_COMPOSE) logs -f
 
+dev-test:
+	docker compose -f $(DEV_COMPOSE) exec web python manage.py test
+
 #
 # production commands
 #
@@ -98,6 +101,9 @@ i18n-make:
 
 i18n-compile:
 	$(PYTHON) manage.py compilemessages
+
+test:
+	docker compose -f $(PROD_COMPOSE) exec web python manage.py test
 
 tolgee-push:
 	tolgee push

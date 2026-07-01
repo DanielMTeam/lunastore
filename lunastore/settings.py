@@ -501,6 +501,11 @@ CONSTANCE_CONFIG = {
         "Переопределения доменов по странам (JSON)",
         "textarea",
     ),
+    "ENABLE_DISTRIBUTION_PROXY": (
+        os.getenv("ENABLE_DISTRIBUTION_PROXY", "True") == "True",
+        "Проксировать внешние ссылки скачивания (дистрибуции) через Nginx (X-Accel-Redirect)",
+        bool,
+    ),
 }
 
 CONSTANCE_CONFIG_FIELDSETS = {
@@ -520,7 +525,7 @@ CONSTANCE_CONFIG_FIELDSETS = {
         "collapse": True,
     },
     "Контент и внешний вид": {
-        "fields": ["MOTD_LIST", "SCREENSHOT_COUNT", "ENABLE_DRM"],
+        "fields": ["MOTD_LIST", "SCREENSHOT_COUNT", "ENABLE_DRM", "ENABLE_DISTRIBUTION_PROXY"],
         "collapse": True,
     },
     "Rate Limiting": {
@@ -1077,3 +1082,4 @@ if "test" in sys.argv:
     STORAGES["staticfiles"] = {
         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     }
+    CONSTANCE_BACKEND = "constance.backends.memory.MemoryBackend"
