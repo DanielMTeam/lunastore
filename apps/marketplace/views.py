@@ -609,8 +609,7 @@ def get_file_action(request, dist_pk):
 
             # set proxy headers
             response = HttpResponse()
-            response['X-Accel-Redirect'] = '/_px/'
-            response['X-Target-Url'] = dist.url
+            response['X-Accel-Redirect'] = f'/_px/{dist.url}'
             response['Content-Disposition'] = f'attachment; filename="{filename}"'
             return response
 
