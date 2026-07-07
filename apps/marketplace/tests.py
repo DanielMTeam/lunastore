@@ -30,7 +30,7 @@ class ApplicationModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         logger.info("[Marketplace APP; Application MODEL] Creating test data in DB...")
-        # Создаем юзера, так как он обязателен для Application
+        # create user, because that's important for 'Application' object
         cls.user = User.objects.create(username="DevUser", password="password123")
         cls.category = Category.objects.create(name="Apps", description="Desc")
 
@@ -63,3 +63,33 @@ class HomePageTest(TestCase):
         logger.info("[Marketplace APP; Home PAGE] Testing URL by name...")
         resp = self.client.get(reverse("index"))
         self.assertEqual(resp.status_code, 200)
+
+from constance.test import override_config
+from apps.marketplace.models import Distribution
+
+class ProxyDownloadTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = User.objects.create(username="TestProxyUser", password="password123")
+        cls.application = Application.objects.create(
+            user=cls.user,
+            title="Test App Name",
+            description="Proxy testing",
+        )
+        cls.distribution = Distribution.objects.create(
+            app=cls.application,
+            version="1.0.4",
+            url="https://cloud.example.com/v1/files/download?id=123&token=abc#file.zip",
+            changelog="Test proxy"
+        )
+
+    @override_config(ENABLE_DISTRIBUTION_PROXY=True)
+    def test_proxy_headers(self):
+        # check proxy headers and filename logic
+        url = reverse("download_action", kwargs={"dist_pk": self.distribution.pk})
+        resp = self.client.get(f"{url}?proxy=1")
+        
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp["X-Accel-Redirect"], "/proxy_external_url/")
+        self.assertEqual(resp["X-Target-Url"], self.distribution.url)
+        self.assertIn('filename="Test_App_Name_1.0.4.zip"', resp["Content-Disposition"])

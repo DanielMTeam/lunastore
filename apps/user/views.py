@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.contrib.auth import login as dj_login
 from django.contrib.auth import logout as dj_logout
 from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import Group
@@ -39,7 +40,19 @@ from .forms import (
     PasswordConfirmationForm,
     ProfileUpdateForm,
     UserRegistrationForm,
+    CustomPasswordResetForm,
 )
+from django.utils.decorators import method_decorator
+
+@method_decorator(ratelimit(key='ip', rate='5/h', block=True), name='dispatch')
+@method_decorator(ratelimit(key='post:email', rate='3/h', block=True), name='dispatch')
+class RateLimitedPasswordResetView(auth_views.PasswordResetView):
+    form_class = CustomPasswordResetForm
+    template_name = "user/password_reset_form.html"
+    email_template_name = "user/password_reset_email.html"
+    html_email_template_name = "user/password_reset_email_html.html"
+    subject_template_name = "user/password_reset_subject.txt"
+
 from .middleware import BlockBannedIP
 from apps.core.utils import get_client_ip
 from .models import (

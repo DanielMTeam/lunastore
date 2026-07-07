@@ -1,11 +1,14 @@
 import jwt
+import os
+import urllib.parse
+from constance import config
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.postgres.search import TrigramSimilarity
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext as _
@@ -124,6 +127,7 @@ def download_list(request):
                 "is_latest": dist.id == latest_id,
                 "link": dist.link,
                 "has_download": dist.has_download,
+                "is_external": dist.is_external,
             }
         )
 
@@ -167,6 +171,8 @@ def download_list(request):
         "app_id": app_obj.id,
         "developer_id": app_obj.user.id,
         "is_download_page": True,
+        # pass proxy flag to template
+        "is_proxy_enabled": getattr(config, 'ENABLE_DISTRIBUTION_PROXY', False),
         "icon_url": app_obj.icon_url,
         "is_demo": app_obj.is_demo,
         "is_under_dmca": app_obj.is_under_dmca,
@@ -577,6 +583,37 @@ def get_file_action(request, dist_pk):
         return redirect(cdn_url)
 
     if dist.url:
+        is_proxy_requested = request.GET.get('proxy') == '1'
+        # proxy through nginx if enabled
+        if is_proxy_requested and getattr(config, 'ENABLE_DISTRIBUTION_PROXY', False):
+            parsed_url = urllib.parse.urlparse(dist.url)
+            path = parsed_url.path
+            _, ext = os.path.splitext(path)
+            if not ext and parsed_url.fragment:
+                _, ext = os.path.splitext(parsed_url.fragment)
+
+            # sanitize names
+            app_name = "".join([c for c in dist.app.title if c.isalnum() or c in (" ", "-", "_")]).strip().replace(" ", "_")
+            version = "".join([c for c in dist.version if c.isalnum() or c in (" ", "-", ".", "_")]).strip().replace(" ", "_")
+
+            # build filename
+            if ext:
+                if version:
+                    filename = f"{app_name}_{version}{ext}"
+                else:
+                    filename = f"{app_name}{ext}"
+            else:
+                # fallback to basename
+                basename = os.path.basename(path)
+                filename = basename if basename else f"{app_name}.download"
+
+            # set proxy headers
+            response = HttpResponse()
+            response['X-Accel-Redirect'] = f'/_px/{dist.url}'
+            response['Content-Disposition'] = f'attachment; filename="{filename}"'
+            return response
+
+        # fallback to direct download
         return redirect(dist.url)
 
     raise Http404("File not found")

@@ -2022,3 +2022,111 @@ msgstr "Логин немесе құпия сөз дұрыс емес."
 
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "Сіз сәтті кірдіңіз! Сәлем, %(username)s!"
+
+msgid "ERROR_PASSWORD_RESET_EMAIL_NOT_FOUND"
+msgstr "Мұндай электрондық пошта мекенжайы бар пайдаланушы табылмады"
+
+msgid "PAGE_LOGIN_FORGOT_PASSWORD"
+msgstr "Құпия сөзді ұмыттыңыз ба?"
+
+msgid "PAGE_PASSWORD_RESET_TITLE"
+msgstr "Құпия сөзді қалпына келтіру"
+
+msgid "PAGE_PASSWORD_RESET_HEADER"
+msgstr "Құпия сөзді қалпына келтіру"
+
+msgid "PAGE_PASSWORD_RESET_FORM_HEADER"
+msgstr "Құпия сөзді қалпына келтіру"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_LABEL"
+msgstr "Электрондық пошта мекенжайы"
+
+msgid "PAGE_PASSWORD_RESET_SUBMIT_BTN"
+msgstr "Хат жіберу"
+
+msgid "PAGE_PASSWORD_RESET_INFO_TITLE"
+msgstr "Құпия сөзді ұмыттыңыз ба?"
+
+msgid "PAGE_PASSWORD_RESET_INFO_TEXT"
+msgstr "LunaStore тіркелгіңізге байланысты электрондық пошта мекенжайыңызды енгізіңіз. Біз сізге құпия сөзді қалпына келтіру бойынша нұсқауларды жібереміз."
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_TITLE"
+msgstr "Құпия сөз өзгертілді"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_LOGIN_BTN"
+msgstr "Тіркелгіге кіру"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_HEADER"
+msgstr "Сәтті!"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TITLE"
+msgstr "Бәрі дайын"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_TEXT_1"
+msgstr "Құпия сөзіңіз сәтті өзгертілді. Енді жаңа құпия сөзді пайдаланып тіркелгіңізге кіре аласыз."
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TEXT"
+msgstr "Тіркелгіңіз қауіпсіз. LunaStore-ға қайта қош келдіңіз!"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_TITLE"
+msgstr "Жаңа құпия сөз"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_HEADER"
+msgstr "Жаңа құпия сөз"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_SUBMIT_BTN"
+msgstr "Құпия сөзді орнату"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INVALID_LINK"
+msgstr "Құпия сөзді қалпына келтіру сілтемесі жарамсыз. Ол бұрын қолданылған немесе мерзімі біткен болуы мүмкін. Құпия сөзді қалпына келтіруді қайта сұраңыз."
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TITLE"
+msgstr "Күшті құпия сөз"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TEXT"
+msgstr "Жаңа құпия сөзіңіздің бірегей екеніне және бас және кіші әріптердің, сондай-ақ сандардың немесе арнайы таңбалардың комбинациясы бар екеніне көз жеткізіңіз."
+
+msgid "PAGE_PASSWORD_RESET_DONE_HEADER"
+msgstr "Хат жіберілді"
+
+msgid "PAGE_PASSWORD_RESET_DONE_TEXT_1"
+msgstr "Біз сіз көрсеткен электрондық пошта мекенжайына (егер ол біздің жүйеде болса) құпия сөзді қалпына келтіру бойынша нұсқауларды жібердік."
+
+msgid "PAGE_PASSWORD_RESET_DONE_TEXT_2"
+msgstr "Поштаңызды тексеріп, процедураны аяқтау үшін сілтеме бойынша өтіңіз. Егер хат келмесе, «Спам» қалтасын тексеріңіз."
+
+msgid "PAGE_PASSWORD_RESET_DONE_INFO_TITLE"
+msgstr "Келесі не?"
+
+msgid "PAGE_PASSWORD_RESET_DONE_INFO_TEXT"
+msgstr "Әдетте хат бірнеше минут ішінде жеткізіледі. Қандай да бір қиындықтар туындаса, қолдау қызметіне хабарласуға болады."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_GREETING"
+msgstr "Сәлеметсіз бе"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_1"
+msgstr "Сіз LunaStore тіркелгісінің құпия сөзін қалпына келтіруді сұрадыңыз. Жаңа құпия сөзді орнату үшін төмендегі сілтеме бойынша өтіңіз:"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_2"
+msgstr "Егер сіз құпия сөзді қалпына келтіруді сұрамасаңыз, бұл хатты елемеңіз. Құпия сөзіңіз қауіпсіз болып қалады."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_FOOTER"
+msgstr "Бұл хат автоматты түрде жіберілді. Оған жауап бермеңіз."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_REGARDS"
+msgstr "Құрметпен, LunaStore командасы"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_1"
+msgstr "Сіз бұл хатты алдыңыз, өйткені LunaStore сайтындағы тіркелгіңіз үшін құпия сөзді қалпына келтіру сұралды."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_2"
+msgstr "Жаңа құпия сөзді орнату үшін келесі сілтеме бойынша өтіңіз:"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_3"
+msgstr "Егер сіз құпия сөзді қалпына келтіруді сұрамасаңыз, бұл хатты елемеңіз."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_4"
+msgstr "Құрметпен, \nLunaStore командасы"
+
+msgid "PAGE_PASSWORD_RESET_SUBJECT"
+msgstr "LunaStore сайтында құпия сөзді қалпына келтіру"

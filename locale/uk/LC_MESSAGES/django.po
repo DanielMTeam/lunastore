@@ -2031,3 +2031,111 @@ msgstr "Неправильний логін або пароль."
 
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "Вхід виконано успішно! Привіт, %(username)s!"
+
+msgid "ERROR_PASSWORD_RESET_EMAIL_NOT_FOUND"
+msgstr "Користувача з такою електронною адресою не знайдено"
+
+msgid "PAGE_LOGIN_FORGOT_PASSWORD"
+msgstr "Забули пароль?"
+
+msgid "PAGE_PASSWORD_RESET_TITLE"
+msgstr "Скидання пароля"
+
+msgid "PAGE_PASSWORD_RESET_HEADER"
+msgstr "Скидання пароля"
+
+msgid "PAGE_PASSWORD_RESET_FORM_HEADER"
+msgstr "Скидання пароля"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_LABEL"
+msgstr "Адреса електронної пошти"
+
+msgid "PAGE_PASSWORD_RESET_SUBMIT_BTN"
+msgstr "Відправити лист"
+
+msgid "PAGE_PASSWORD_RESET_INFO_TITLE"
+msgstr "Забули пароль?"
+
+msgid "PAGE_PASSWORD_RESET_INFO_TEXT"
+msgstr "Введіть свою адресу електронної пошти, прив'язану до вашого акаунту LunaStore. Ми надішлемо вам інструкції щодо скидання пароля."
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_TITLE"
+msgstr "Пароль змінено"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_LOGIN_BTN"
+msgstr "Увійти в акаунт"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_HEADER"
+msgstr "Успішно!"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TITLE"
+msgstr "Все готово"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_TEXT_1"
+msgstr "Ваш пароль успішно змінено. Тепер ви можете увійти до свого акаунту, використовуючи новий пароль."
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TEXT"
+msgstr "Ваш обліковий запис у безпеці. Ласкаво просимо назад до LunaStore!"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_TITLE"
+msgstr "Новий пароль"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_HEADER"
+msgstr "Новий пароль"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_SUBMIT_BTN"
+msgstr "Встановити пароль"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INVALID_LINK"
+msgstr "Посилання для скидання пароля недійсне. Можливо, воно вже було використане, або термін його дії минув. Будь ласка, зробіть запит на скидання пароля знову."
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TITLE"
+msgstr "Надійний пароль"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TEXT"
+msgstr "Переконайтеся, що ваш новий пароль унікальний і містить комбінацію великих та малих літер, а також цифри або спеціальні символи."
+
+msgid "PAGE_PASSWORD_RESET_DONE_HEADER"
+msgstr "Лист відправлено"
+
+msgid "PAGE_PASSWORD_RESET_DONE_TEXT_1"
+msgstr "Ми надіслали інструкції щодо скидання пароля на вказану вами адресу електронної пошти (якщо вона існує в нашій системі)."
+
+msgid "PAGE_PASSWORD_RESET_DONE_TEXT_2"
+msgstr "Будь ласка, перевірте пошту та перейдіть за посиланням для завершення процедури. Якщо лист не прийшов, перевірте папку \"Спам\"."
+
+msgid "PAGE_PASSWORD_RESET_DONE_INFO_TITLE"
+msgstr "Що далі?"
+
+msgid "PAGE_PASSWORD_RESET_DONE_INFO_TEXT"
+msgstr "Зазвичай лист доставляється протягом кількох хвилин. Якщо у вас виникли труднощі, ви можете звернутися до служби підтримки."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_GREETING"
+msgstr "Вітаємо"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_1"
+msgstr "Ви зробили запит на скидання пароля для акаунту LunaStore. Будь ласка, перейдіть за посиланням нижче, щоб встановити новий пароль:"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_2"
+msgstr "Якщо ви не робили запит на скидання пароля, просто зігноруйте цей лист. Ваш пароль залишиться в безпеці."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_FOOTER"
+msgstr "Цей лист було відправлено автоматично. Будь ласка, не відповідайте на нього."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_REGARDS"
+msgstr "З повагою, Команда LunaStore"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_1"
+msgstr "Ви отримали цей лист, оскільки було зроблено запит на скидання пароля для вашого облікового запису на сайті LunaStore."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_2"
+msgstr "Будь ласка, перейдіть за наступним посиланням, щоб задати новий пароль:"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_3"
+msgstr "Якщо ви не робили запит на скидання пароля, просто зігноруйте цей лист."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_4"
+msgstr "З повагою, \nКоманда LunaStore"
+
+msgid "PAGE_PASSWORD_RESET_SUBJECT"
+msgstr "Скидання пароля на сайті LunaStore"
