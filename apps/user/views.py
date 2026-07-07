@@ -44,8 +44,8 @@ from .forms import (
 )
 from django.utils.decorators import method_decorator
 
-@method_decorator(ratelimit(key='ip', rate='5/h', block=True), name='dispatch')
-@method_decorator(ratelimit(key='post:email', rate='3/h', block=True), name='dispatch')
+@method_decorator(ratelimit(key='ip', rate='5/h', block=True), name='post')
+@method_decorator(ratelimit(key='post:email', rate='3/h', block=True), name='post')
 class RateLimitedPasswordResetView(auth_views.PasswordResetView):
     form_class = CustomPasswordResetForm
     template_name = "user/password_reset_form.html"
