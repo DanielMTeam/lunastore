@@ -1,7 +1,9 @@
 # url configuration for auth app
 from django.urls import path
+from django.contrib.auth import views as auth_views
 
 from . import views
+from .forms import CustomPasswordResetForm
 
 urlpatterns = [
     # authorization
@@ -22,4 +24,32 @@ urlpatterns = [
     path("notifications.php", views.notifications, name="notifications"),
     path("revert_impersonation.php", views.revert_impersonation, name="revert_impersonation"),
     path("terminate_session.php/<int:session_pk>/", views.terminate_session, name="terminate_session"),
+
+    # password reset
+    path(
+        "password_reset.php",
+        views.RateLimitedPasswordResetView.as_view(),
+        name="password_reset",
+    ),
+    path(
+        "password_reset_done.php",
+        auth_views.PasswordResetDoneView.as_view(
+            template_name="user/password_reset_done.html",
+        ),
+        name="password_reset_done",
+    ),
+    path(
+        "reset.php/<uidb64>/<token>/",
+        auth_views.PasswordResetConfirmView.as_view(
+            template_name="user/password_reset_confirm.html",
+        ),
+        name="password_reset_confirm",
+    ),
+    path(
+        "password_reset_complete.php",
+        auth_views.PasswordResetCompleteView.as_view(
+            template_name="user/password_reset_complete.html",
+        ),
+        name="password_reset_complete",
+    ),
 ]
