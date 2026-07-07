@@ -2025,3 +2025,111 @@ msgstr "Incorrect username or password."
 
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "Login successful! Welcome, %(username)s!"
+
+msgid "ERROR_PASSWORD_RESET_EMAIL_NOT_FOUND"
+msgstr "User with this email address was not found"
+
+msgid "PAGE_LOGIN_FORGOT_PASSWORD"
+msgstr "Forgot password?"
+
+msgid "PAGE_PASSWORD_RESET_TITLE"
+msgstr "Password Reset"
+
+msgid "PAGE_PASSWORD_RESET_HEADER"
+msgstr "Password Reset"
+
+msgid "PAGE_PASSWORD_RESET_FORM_HEADER"
+msgstr "Password Reset"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_LABEL"
+msgstr "Email Address"
+
+msgid "PAGE_PASSWORD_RESET_SUBMIT_BTN"
+msgstr "Send Email"
+
+msgid "PAGE_PASSWORD_RESET_INFO_TITLE"
+msgstr "Forgot password?"
+
+msgid "PAGE_PASSWORD_RESET_INFO_TEXT"
+msgstr "Enter your email address associated with your LunaStore account. We will send you instructions on how to reset your password."
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_TITLE"
+msgstr "Password Changed"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_LOGIN_BTN"
+msgstr "Log In"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_HEADER"
+msgstr "Success!"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TITLE"
+msgstr "All Set"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_TEXT_1"
+msgstr "Your password has been successfully changed. You can now log into your account using the new password."
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TEXT"
+msgstr "Your account is secure. Welcome back to LunaStore!"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_TITLE"
+msgstr "New Password"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_HEADER"
+msgstr "New Password"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_SUBMIT_BTN"
+msgstr "Set Password"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INVALID_LINK"
+msgstr "The password reset link is invalid. It may have already been used or has expired. Please request a new password reset."
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TITLE"
+msgstr "Strong Password"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TEXT"
+msgstr "Ensure your new password is unique and contains a combination of uppercase and lowercase letters, numbers, or special characters."
+
+msgid "PAGE_PASSWORD_RESET_DONE_HEADER"
+msgstr "Email Sent"
+
+msgid "PAGE_PASSWORD_RESET_DONE_TEXT_1"
+msgstr "We have sent password reset instructions to the email address you provided (if it exists in our system)."
+
+msgid "PAGE_PASSWORD_RESET_DONE_TEXT_2"
+msgstr "Please check your email and follow the link to complete the procedure. If you haven't received the email, check your Spam folder."
+
+msgid "PAGE_PASSWORD_RESET_DONE_INFO_TITLE"
+msgstr "What's Next?"
+
+msgid "PAGE_PASSWORD_RESET_DONE_INFO_TEXT"
+msgstr "Typically, the email is delivered within a few minutes. If you experience any difficulties, you can contact support."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_GREETING"
+msgstr "Hello"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_1"
+msgstr "You have requested a password reset for your LunaStore account. Please follow the link below to set a new password:"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_2"
+msgstr "If you didn't request a password reset, simply ignore this email. Your password will remain secure."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_FOOTER"
+msgstr "This email was sent automatically. Please do not reply."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_REGARDS"
+msgstr "Best regards, The LunaStore Team"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_1"
+msgstr "You received this email because a password reset was requested for your account on LunaStore."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_2"
+msgstr "Please go to the following link to set a new password:"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_3"
+msgstr "If you didn't request a password reset, simply ignore this email."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_4"
+msgstr "Best regards, \nThe LunaStore Team"
+
+msgid "PAGE_PASSWORD_RESET_SUBJECT"
+msgstr "Password Reset on LunaStore"

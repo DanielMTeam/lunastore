@@ -11,6 +11,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 dotenv_path = BASE_DIR / ".env"
 load_dotenv(dotenv_path)
 
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = os.getenv("EMAIL_HOST", "")
+EMAIL_PORT = int(os.getenv("EMAIL_PORT", "587"))
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "True") == "True"
+EMAIL_USE_SSL = os.getenv("EMAIL_USE_SSL", "False") == "True"
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", EMAIL_HOST_USER)
+
 # sentry/glitchtip error tracking
 import sentry_sdk
 from sentry_sdk.integrations.logging import LoggingIntegration
@@ -491,6 +500,42 @@ CONSTANCE_CONFIG = {
         "Sentry environment tag (требует перезагрузки)",
         str,
     ),
+    # -- email (require restart) --
+    "EMAIL_HOST": (
+        os.getenv("EMAIL_HOST", ""),
+        "SMTP хост (требует перезагрузки)",
+        str,
+    ),
+    "EMAIL_PORT": (
+        int(os.getenv("EMAIL_PORT", "587")),
+        "SMTP порт (требует перезагрузки)",
+        int,
+    ),
+    "EMAIL_USE_TLS": (
+        os.getenv("EMAIL_USE_TLS", "True") == "True",
+        "Использовать TLS для SMTP (требует перезагрузки)",
+        bool,
+    ),
+    "EMAIL_USE_SSL": (
+        os.getenv("EMAIL_USE_SSL", "False") == "True",
+        "Использовать SSL для SMTP (требует перезагрузки)",
+        bool,
+    ),
+    "EMAIL_HOST_USER": (
+        os.getenv("EMAIL_HOST_USER", ""),
+        "SMTP пользователь (требует перезагрузки)",
+        str,
+    ),
+    "EMAIL_HOST_PASSWORD": (
+        os.getenv("EMAIL_HOST_PASSWORD", ""),
+        "SMTP пароль (требует перезагрузки)",
+        str,
+    ),
+    "DEFAULT_FROM_EMAIL": (
+        os.getenv("DEFAULT_FROM_EMAIL", ""),
+        "Email отправителя по умолчанию (требует перезагрузки)",
+        str,
+    ),
     "GEO_DOMAIN_PROXY_ENABLED": (
         os.getenv("GEO_DOMAIN_PROXY_ENABLED", "True") == "True",
         "Включить переопределения доменов (Geo Proxy)",
@@ -500,6 +545,11 @@ CONSTANCE_CONFIG = {
         '{\n  "RU": {\n    "BASE_URL": "ru.lunastore.app",\n    "API_URL": "api.ru.lunastore.app",\n    "SPIRE_URL": "spire.ru.lunastore.app"\n  }\n}',
         "Переопределения доменов по странам (JSON)",
         "textarea",
+    ),
+    "ENABLE_DISTRIBUTION_PROXY": (
+        os.getenv("ENABLE_DISTRIBUTION_PROXY", "True") == "True",
+        "Проксировать внешние ссылки скачивания (дистрибуции) через Nginx (X-Accel-Redirect)",
+        bool,
     ),
 }
 
@@ -520,7 +570,7 @@ CONSTANCE_CONFIG_FIELDSETS = {
         "collapse": True,
     },
     "Контент и внешний вид": {
-        "fields": ["MOTD_LIST", "SCREENSHOT_COUNT", "ENABLE_DRM"],
+        "fields": ["MOTD_LIST", "SCREENSHOT_COUNT", "ENABLE_DRM", "ENABLE_DISTRIBUTION_PROXY"],
         "collapse": True,
     },
     "Rate Limiting": {
@@ -602,6 +652,18 @@ CONSTANCE_CONFIG_FIELDSETS = {
             "SENTRY_TRACES_SAMPLE_RATE",
             "SENTRY_PROFILES_SAMPLE_RATE",
             "SENTRY_ENVIRONMENT",
+        ],
+        "collapse": True,
+    },
+    "Email и SMTP (требует перезагрузки)": {
+        "fields": [
+            "EMAIL_HOST",
+            "EMAIL_PORT",
+            "EMAIL_USE_TLS",
+            "EMAIL_USE_SSL",
+            "EMAIL_HOST_USER",
+            "EMAIL_HOST_PASSWORD",
+            "DEFAULT_FROM_EMAIL",
         ],
         "collapse": True,
     },
@@ -1077,3 +1139,7 @@ if "test" in sys.argv:
     STORAGES["staticfiles"] = {
         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     }
+    CONSTANCE_BACKEND = "constance.backends.memory.MemoryBackend"
+
+PASSWORD_RESET_TIMEOUT = 3600
+

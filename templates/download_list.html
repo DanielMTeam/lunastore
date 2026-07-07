@@ -82,7 +82,12 @@
                             <td>{{ dist.published }}</td>
                             <td>
                                 {% if dist.has_download %}
-                                    <a href="{{ dist.link }}">{% trans "PAGE_DOWNLOAD_DL_ACTION" %}</a>
+                                    {% if is_proxy_enabled and dist.is_external %}
+                                        <a href="{{ dist.link }}?proxy=1">{% trans "PAGE_DOWNLOAD_DL_ACTION" %} (proxy)</a><br>
+                                        <a href="{{ dist.link }}" style="font-size: 0.9em; color: #666;">{% trans "PAGE_DOWNLOAD_DL_ACTION" %}</a>
+                                    {% else %}
+                                        <a href="{{ dist.link }}">{% trans "PAGE_DOWNLOAD_DL_ACTION" %}</a>
+                                    {% endif %}
                                 {% else %}
                                     —
                                 {% endif %}
