@@ -1,4 +1,4 @@
-﻿{% extends 'base.html' %}
+{% extends 'base.html' %}
 {% load i18n %}
 {% load static %}
 
@@ -47,7 +47,9 @@
                     </div>
 
                     <div class="actions">
-                        <input type="submit" value="{% trans 'PAGE_LOGIN_SUBMIT_BTN' %}">
+                        <a href="{% url 'password_reset' %}" class="fr"><input type="button" class="action_button" value="{% trans 'PAGE_LOGIN_FORGOT_PASSWORD' %}"></a>
+                        <input type="submit" value="{% trans 'PAGE_LOGIN_SUBMIT_BTN' %}" class="fl">
+                        <div style="clear:both"></div>
                     </div>
                 </form>
                 <div style="clear:both"></div>

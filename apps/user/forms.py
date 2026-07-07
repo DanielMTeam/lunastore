@@ -1,6 +1,10 @@
 import os
 import re
 from io import BytesIO
+import shutil
+from email.mime.image import MIMEImage
+from django.conf import settings
+
 
 from captcha.fields import CaptchaField
 from django import forms
@@ -22,6 +26,13 @@ from .models import BlacklistedUsername, InviteToken, User, UserActivityLog, Use
 from .tasks import CACHE_KEY
 from .validators import validate_invite_limit
 from apps.core.mixins import CDNTokenValidationMixin
+
+import threading
+from django.contrib.auth.forms import PasswordResetForm
+from django.core.mail import EmailMultiAlternatives
+from django.core.mail.backends.smtp import EmailBackend
+from constance import config
+from django.template import loader
 
 
 class UserBanForm(forms.ModelForm):
@@ -560,3 +571,78 @@ class EmailChangeForm(forms.Form):
             raise ValidationError(_("ERROR_EMAIL_ALREADY_EXISTS"))
 
         return new_email
+
+def send_mail_in_background(subject, body, from_email, to_email, html_email):
+    def str_to_bool(val):
+        if isinstance(val, bool): return val
+        return str(val).lower() in ("true", "1", "yes", "t", "y")
+        
+    use_tls = str_to_bool(config.EMAIL_USE_TLS)
+    use_ssl = str_to_bool(config.EMAIL_USE_SSL)
+    
+    port = str(config.EMAIL_PORT)
+    if port == '587':
+        use_tls = True
+        use_ssl = False
+    elif port == '465':
+        use_ssl = True
+        use_tls = False
+    elif use_ssl and use_tls:
+        use_ssl = False # Fallback to prevent mutual exclusivity error
+
+    backend = EmailBackend(
+        host=config.EMAIL_HOST,
+        port=config.EMAIL_PORT,
+        username=config.EMAIL_HOST_USER,
+        password=config.EMAIL_HOST_PASSWORD,
+        use_tls=use_tls,
+        use_ssl=use_ssl,
+        fail_silently=False,
+    )
+    email_message = EmailMultiAlternatives(subject, body, from_email, [to_email], connection=backend)
+    if html_email is not None:
+        email_message.attach_alternative(html_email, "text/html")
+        
+        logo_path = os.path.join(settings.BASE_DIR, 'static', 'img', 'logo_small.png')
+        if os.path.exists(logo_path):
+            with open(logo_path, 'rb') as f:
+                logo_img = MIMEImage(f.read())
+                logo_img.add_header('Content-ID', '<logo_small.png>')
+                logo_img.add_header('Content-Disposition', 'inline')
+                email_message.attach(logo_img)
+                
+    email_message.send()
+
+class CustomPasswordResetForm(PasswordResetForm):
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if not get_user_model().objects.filter(email__iexact=email).exists():
+            raise ValidationError(_("ERROR_PASSWORD_RESET_EMAIL_NOT_FOUND"))
+        return email
+
+    def send_mail(
+        self,
+        subject_template_name,
+        email_template_name,
+        context,
+        from_email,
+        to_email,
+        html_email_template_name=None,
+    ):
+        subject = loader.render_to_string(subject_template_name, context)
+        subject = "".join(subject.splitlines())
+        body = loader.render_to_string(email_template_name, context)
+
+        if html_email_template_name is not None:
+            html_email = loader.render_to_string(html_email_template_name, context)
+        else:
+            html_email = None
+
+        if not from_email:
+            from_email = config.DEFAULT_FROM_EMAIL
+
+        # Send asynchronously using threading
+        threading.Thread(
+            target=send_mail_in_background,
+            args=(subject, body, from_email, to_email, html_email)
+        ).start()

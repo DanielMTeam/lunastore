@@ -2031,3 +2031,112 @@ msgstr "Неверный логин или пароль."
 
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "Вход выполнен успешно! Привет, %(username)s!"
+
+msgid "PAGE_LOGIN_FORGOT_PASSWORD"
+msgstr "Забыли пароль?"
+
+
+msgid "PAGE_PASSWORD_RESET_TITLE"
+msgstr "Сброс пароля"
+
+msgid "PAGE_PASSWORD_RESET_HEADER"
+msgstr "Сброс пароля"
+
+msgid "PAGE_PASSWORD_RESET_FORM_HEADER"
+msgstr "Сброс пароля"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_LABEL"
+msgstr "Адрес электронной почты"
+
+msgid "PAGE_PASSWORD_RESET_SUBMIT_BTN"
+msgstr "Отправить письмо"
+
+msgid "PAGE_PASSWORD_RESET_INFO_TITLE"
+msgstr "Забыли пароль?"
+
+msgid "PAGE_PASSWORD_RESET_INFO_TEXT"
+msgstr "Введите свой адрес электронной почты, привязанный к вашему аккаунту LunaStore. Мы отправим вам инструкции по сбросу пароля."
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_TITLE"
+msgstr "Пароль изменён"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_LOGIN_BTN"
+msgstr "Войти в аккаунт"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_HEADER"
+msgstr "Успешно!"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TITLE"
+msgstr "Всё готово"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_TEXT_1"
+msgstr "Ваш пароль был успешно изменён. Теперь вы можете войти в свой аккаунт, используя новый пароль."
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TEXT"
+msgstr "Ваша учётная запись в безопасности. Добро пожаловать обратно в LunaStore!"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_TITLE"
+msgstr "Новый пароль"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_HEADER"
+msgstr "Новый пароль"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_SUBMIT_BTN"
+msgstr "Установить пароль"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INVALID_LINK"
+msgstr "Ссылка для сброса пароля недействительна. Возможно, она уже была использована, или срок её действия истёк. Пожалуйста, запросите сброс пароля снова."
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TITLE"
+msgstr "Надёжный пароль"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TEXT"
+msgstr "Убедитесь, что ваш новый пароль уникален и содержит комбинацию заглавных и строчных букв, а также цифры или специальные символы."
+
+msgid "PAGE_PASSWORD_RESET_DONE_HEADER"
+msgstr "Письмо отправлено"
+
+msgid "PAGE_PASSWORD_RESET_DONE_TEXT_1"
+msgstr "Мы отправили инструкции по сбросу пароля на указанный вами адрес электронной почты (если он существует в нашей системе)"
+
+msgid "PAGE_PASSWORD_RESET_DONE_TEXT_2"
+msgstr "Пожалуйста, проверьте почту и перейдите по ссылке для завершения процедуры. Если письмо не пришло, проверьте папку \"Спам\"."
+
+msgid "PAGE_PASSWORD_RESET_DONE_INFO_TITLE"
+msgstr "Что дальше?"
+
+msgid "PAGE_PASSWORD_RESET_DONE_INFO_TEXT"
+msgstr "Обычно письмо доставляется в течение нескольких минут. Если у вас возникли трудности, вы можете обратиться в службу поддержки."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_GREETING"
+msgstr "Здравствуйте"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_1"
+msgstr "Вы запросили сброс пароля для аккаунта LunaStore. Пожалуйста, перейдите по ссылке ниже, чтобы установить новый пароль:"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_2"
+msgstr "Если вы не запрашивали сброс пароля, просто проигнорируйте это письмо. Ваш пароль останется в безопасности."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_FOOTER"
+msgstr "Это письмо было отправлено автоматически. Пожалуйста, не отвечайте на него."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_REGARDS"
+msgstr "С уважением, Команда LunaStore"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_1"
+msgstr "Вы получили это письмо, потому что был запрошен сброс пароля для вашей учетной записи на сайте LunaStore."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_2"
+msgstr "Пожалуйста, перейдите по следующей ссылке, чтобы задать новый пароль:"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_3"
+msgstr "Если вы не запрашивали сброс пароля, просто проигнорируйте это письмо."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_4"
+msgstr "С уважением, \nКоманда LunaStore"
+
+msgid "PAGE_PASSWORD_RESET_SUBJECT"
+msgstr "Сброс пароля на сайте LunaStore"
+
+msgid "ERROR_PASSWORD_RESET_EMAIL_NOT_FOUND"
+msgstr "Аккаунт с таким адресом электронной почты не найден."
