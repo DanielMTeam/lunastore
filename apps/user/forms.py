@@ -28,11 +28,14 @@ from .validators import validate_invite_limit
 from apps.core.mixins import CDNTokenValidationMixin
 
 import threading
+import logging
 from django.contrib.auth.forms import PasswordResetForm
 from django.core.mail import EmailMultiAlternatives
 from django.core.mail.backends.smtp import EmailBackend
 from constance import config
 from django.template import loader
+
+logger = logging.getLogger(__name__)
 
 
 class UserBanForm(forms.ModelForm):
@@ -573,6 +576,10 @@ class EmailChangeForm(forms.Form):
         return new_email
 
 def send_mail_in_background(subject, body, from_email, to_email, html_email):
+    if not config.EMAIL_HOST:
+        logger.warning("email host is not configured, skipping email send")
+        return
+
     def str_to_bool(val):
         if isinstance(val, bool): return val
         return str(val).lower() in ("true", "1", "yes", "t", "y")
@@ -590,28 +597,31 @@ def send_mail_in_background(subject, body, from_email, to_email, html_email):
     elif use_ssl and use_tls:
         use_ssl = False # Fallback to prevent mutual exclusivity error
 
-    backend = EmailBackend(
-        host=config.EMAIL_HOST,
-        port=config.EMAIL_PORT,
-        username=config.EMAIL_HOST_USER,
-        password=config.EMAIL_HOST_PASSWORD,
-        use_tls=use_tls,
-        use_ssl=use_ssl,
-        fail_silently=False,
-    )
-    email_message = EmailMultiAlternatives(subject, body, from_email, [to_email], connection=backend)
-    if html_email is not None:
-        email_message.attach_alternative(html_email, "text/html")
-        
-        logo_path = os.path.join(settings.BASE_DIR, 'static', 'img', 'logo_small.png')
-        if os.path.exists(logo_path):
-            with open(logo_path, 'rb') as f:
-                logo_img = MIMEImage(f.read())
-                logo_img.add_header('Content-ID', '<logo_small.png>')
-                logo_img.add_header('Content-Disposition', 'inline')
-                email_message.attach(logo_img)
-                
-    email_message.send()
+    try:
+        backend = EmailBackend(
+            host=config.EMAIL_HOST,
+            port=config.EMAIL_PORT,
+            username=config.EMAIL_HOST_USER,
+            password=config.EMAIL_HOST_PASSWORD,
+            use_tls=use_tls,
+            use_ssl=use_ssl,
+            fail_silently=False,
+        )
+        email_message = EmailMultiAlternatives(subject, body, from_email, [to_email], connection=backend)
+        if html_email is not None:
+            email_message.attach_alternative(html_email, "text/html")
+            
+            logo_path = os.path.join(settings.BASE_DIR, 'static', 'img', 'logo_small.png')
+            if os.path.exists(logo_path):
+                with open(logo_path, 'rb') as f:
+                    logo_img = MIMEImage(f.read())
+                    logo_img.add_header('Content-ID', '<logo_small.png>')
+                    logo_img.add_header('Content-Disposition', 'inline')
+                    email_message.attach(logo_img)
+                    
+        email_message.send()
+    except Exception as e:
+        logger.error(f"failed to send email: {e}")
 
 class CustomPasswordResetForm(PasswordResetForm):
     def clean_email(self):
