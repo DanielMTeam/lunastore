@@ -5,6 +5,7 @@
 {% block content %}
 <div class="content">
     <link rel="stylesheet" href='{% static "./css/stpage.css"%}'>
+    <link rel="stylesheet" href='{% static "./css/reviews.css"%}'>
     <link rel="stylesheet" href='{% static "./css/thickbox.css"%}'>
     <script src="{% static './js/jquery.min.js' %}"></script>
     <script>
@@ -144,6 +145,105 @@
         <h2>{% trans "PAGE_APP_SECTION_REQ" %}</h2>
         <div class="separator_store"></div>
         <div class="st_desc">{{ requirements|linebreaksbr }}</div>
+    </div>
+
+    <div class="st_other_card">
+        <h2>{% trans "PAGE_APP_SECTION_RATING" %}</h2>
+        <div class="separator_store"></div>
+
+        <div class="st_rate_block">
+          <div class="st_rate_block_left">
+            <div class="st_rate_summary">{{ avg_rating_display }}</div>
+            <div class="rating {{ star_class }}"></div>
+          </div>
+
+          <div class="st_rate_block_right">
+            <span class="st_rate_info">
+              {% trans "PAGE_APP_RATING_BASED_ON" %} <b>{{ review_count }} {% trans "PAGE_APP_RATING_PEOPLE" %}</b>
+              <br>
+              {% if user.is_authenticated %}
+                <form id="rating-form" method="POST" action="{% url 'rate_app' %}?id={{ app_id }}" style="display:none;">
+                    {% csrf_token %}
+                    <input type="hidden" name="rating" id="rating-input" value="{% if user_review %}{{ user_review.rating }}{% endif %}">
+                </form>
+                {% trans "PAGE_APP_RATING_YOUR" %} 
+                <div id="interactive-rating" class="rating {% if user_review %}r{{ user_review.rating }}{% endif %}" style="cursor: pointer; display: inline-block; vertical-align: middle; margin-left: 5px;">
+                    <a href="#" class="rate-star" data-rating="1" style="display:block; float:left; width:16px; height:16px; text-decoration:none;"></a>
+                    <a href="#" class="rate-star" data-rating="2" style="display:block; float:left; width:16px; height:16px; text-decoration:none;"></a>
+                    <a href="#" class="rate-star" data-rating="3" style="display:block; float:left; width:16px; height:16px; text-decoration:none;"></a>
+                    <a href="#" class="rate-star" data-rating="4" style="display:block; float:left; width:16px; height:16px; text-decoration:none;"></a>
+                    <a href="#" class="rate-star" data-rating="5" style="display:block; float:left; width:16px; height:16px; text-decoration:none;"></a>
+                </div>
+                <script>
+                  $(document).ready(function() {
+                      var currentRating = "{% if user_review %}r{{ user_review.rating }}{% else %}{% endif %}";
+                      
+                      $(".rate-star").hover(
+                          function() {
+                              var r = $(this).data("rating");
+                              $("#interactive-rating").removeClass().addClass("rating r" + r).css("cursor", "pointer"); 
+                          },
+                          function() {
+                              $("#interactive-rating").removeClass().addClass("rating " + currentRating).css("cursor", "pointer");
+                          }
+                      );
+                      
+                      $(".rate-star").click(function(e) {
+                          e.preventDefault();
+                          var r = $(this).data("rating");
+                          $("#rating-input").val(r);
+                          $("#rating-form").submit();
+                      });
+                  });
+                </script>
+              {% else %}
+                <a href="/login.php">{% trans "PAGE_APP_RATING_LOGIN_PROMPT" %}</a>
+              {% endif %}
+            </span>
+          </div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+
+    <div class="st_other_card">
+        <h2>{% trans "PAGE_APP_RATING_USERS" %}</h2>
+        <div class="separator_store"></div>
+          <br>
+        {% for review in page_obj %}
+        <div class="review_body" id="rev{{ review.id }}">
+            <div class="review_author">
+                <a href="/profile.php?id={{ review.user.id }}">{{ review.user.username }}</a> 
+                {% if review.user == request.user %}<b>{% trans "PAGE_APP_RATING_YOUR_REVIEW" %}</b>{% endif %}
+            </div>
+            <div class="review_date">{{ review.created_at|date:"d E Y в H:i" }}</div>
+            <hr>
+            <div class="rating r{{ review.rating }}"></div>
+        </div>
+        {% empty %}
+            <div>{% trans "PAGE_APP_RATING_NO_REVIEWS" %}</div>
+        {% endfor %}
+
+        {% if page_obj.has_other_pages %}
+            <div style="padding: 10px; font-size: 14px;">
+                {% if page_obj.has_previous %}
+                    <a href="?id={{ app_id }}&page={{ page_obj.previous_page_number }}">«</a>
+                {% endif %}
+                
+                {% for p in page_range %}
+                    {% if p == page_obj.paginator.ELLIPSIS %}
+                        ...
+                    {% elif p == page_obj.number %}
+                        <b>{{ p }}</b>
+                    {% else %}
+                        <a href="?id={{ app_id }}&page={{ p }}">{{ p }}</a>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if page_obj.has_next %}
+                    <a href="?id={{ app_id }}&page={{ page_obj.next_page_number }}">»</a>
+                {% endif %}
+            </div>
+        {% endif %}
     </div>
 
     <div class="st_other_card">
