@@ -1553,7 +1553,7 @@ msgid "PAGE_MANAGE_APPS_EMPTY_DESC"
 msgstr "Вы пакуль што не кіруеце ніводным дадаткам."
 
 msgid "PAGE_MANAGE_APPS_EMPTY_TITLE"
-msgstr "Дадаткаў няма :("
+msgstr "Дадаткаў няма ＞︿＜"
 
 msgid "PAGE_MANAGE_APPS_HEADER"
 msgstr "Адміністрыруемыя старонкі дадаткаў"
@@ -1658,7 +1658,7 @@ msgid "PAGE_PROFILE_INVITES_EMPTY_DESC"
 msgstr "Пакуль што ніводны чалавек не зарэгістраваўся па запрашэнні гэтага карыстальніка."
 
 msgid "PAGE_PROFILE_INVITES_EMPTY_TITLE"
-msgstr "Прыглашэнняў няма :("
+msgstr "Прыглашэнняў няма ＞︿＜"
 
 msgid "PAGE_PROFILE_INVITES_PEOPLE"
 msgstr "чалавек (паказаны першыя 5)"
@@ -1807,7 +1807,7 @@ msgstr "Паведаміць пра праблему"
 msgid "PAGE_SEARCH_BADGE_DEMO"
 msgstr "Дэма"
 
-msgid "PAGE_SEARCH_BADGE_DEMO_PRICE %(price)s"
+msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
 msgstr "Дэма, далей $%(price)s"
 
 msgid "PAGE_SEARCH_BADGE_FREE"
@@ -2028,111 +2028,3 @@ msgstr "Няверны лагін або пароль."
 
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "Уваход паспяховы! Вітаем, %(username)s!"
-
-msgid "ERROR_PASSWORD_RESET_EMAIL_NOT_FOUND"
-msgstr "Карыстальнік з такім адрасам электроннай пошты не знойдзены"
-
-msgid "PAGE_LOGIN_FORGOT_PASSWORD"
-msgstr "Забыліся пароль?"
-
-msgid "PAGE_PASSWORD_RESET_TITLE"
-msgstr "Скід пароля"
-
-msgid "PAGE_PASSWORD_RESET_HEADER"
-msgstr "Скід пароля"
-
-msgid "PAGE_PASSWORD_RESET_FORM_HEADER"
-msgstr "Скід пароля"
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_LABEL"
-msgstr "Адрас электроннай пошты"
-
-msgid "PAGE_PASSWORD_RESET_SUBMIT_BTN"
-msgstr "Адправіць ліст"
-
-msgid "PAGE_PASSWORD_RESET_INFO_TITLE"
-msgstr "Забыліся пароль?"
-
-msgid "PAGE_PASSWORD_RESET_INFO_TEXT"
-msgstr "Увядзіце свой адрас электроннай пошты, прывязаны да вашага акаўнта LunaStore. Мы адправім вам інструкцыі па скідзе пароля."
-
-msgid "PAGE_PASSWORD_RESET_COMPLETE_TITLE"
-msgstr "Пароль зменены"
-
-msgid "PAGE_PASSWORD_RESET_COMPLETE_LOGIN_BTN"
-msgstr "Увайсці ў акаўнт"
-
-msgid "PAGE_PASSWORD_RESET_COMPLETE_HEADER"
-msgstr "Паспяхова!"
-
-msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TITLE"
-msgstr "Усё гатова"
-
-msgid "PAGE_PASSWORD_RESET_COMPLETE_TEXT_1"
-msgstr "Ваш пароль быў паспяхова зменены. Цяпер вы можаце ўвайсці ў свой акаўнт, выкарыстоўваючы новы пароль."
-
-msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TEXT"
-msgstr "Ваш уліковы запіс у бяспецы. Сардэчна запрашаем назад у LunaStore!"
-
-msgid "PAGE_PASSWORD_RESET_CONFIRM_TITLE"
-msgstr "Новы пароль"
-
-msgid "PAGE_PASSWORD_RESET_CONFIRM_HEADER"
-msgstr "Новы пароль"
-
-msgid "PAGE_PASSWORD_RESET_CONFIRM_SUBMIT_BTN"
-msgstr "Усталяваць пароль"
-
-msgid "PAGE_PASSWORD_RESET_CONFIRM_INVALID_LINK"
-msgstr "Спасылка для скіду пароля несапраўдная. Магчыма, яна ўжо была выкарыстана, або тэрмін яе дзеяння скончыўся. Калі ласка, запытайце скід пароля зноў."
-
-msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TITLE"
-msgstr "Надзейны пароль"
-
-msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TEXT"
-msgstr "Пераканайцеся, што ваш новы пароль унікальны і ўтрымлівае камбінацыю вялікіх і малых літар, а таксама лічбы або спецыяльныя сімвалы."
-
-msgid "PAGE_PASSWORD_RESET_DONE_HEADER"
-msgstr "Ліст адпраўлены"
-
-msgid "PAGE_PASSWORD_RESET_DONE_TEXT_1"
-msgstr "Мы адправілі інструкцыі па скідзе пароля на ўказаны вамі адрас электроннай пошты (калі ён існуе ў нашай сістэме)."
-
-msgid "PAGE_PASSWORD_RESET_DONE_TEXT_2"
-msgstr "Калі ласка, праверце пошту і перайдзіце па спасылцы для завяршэння працэдуры. Калі ліст не прыйшоў, праверце тэчку \"Спам\"."
-
-msgid "PAGE_PASSWORD_RESET_DONE_INFO_TITLE"
-msgstr "Што далей?"
-
-msgid "PAGE_PASSWORD_RESET_DONE_INFO_TEXT"
-msgstr "Звычайна ліст дастаўляецца на працягу некалькіх хвілін. Калі ў вас узніклі цяжкасці, вы можаце звярнуцца ў службу падтрымкі."
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_GREETING"
-msgstr "Вітаем"
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_1"
-msgstr "Вы запыталі скід пароля для акаўнта LunaStore. Калі ласка, перайдзіце па спасылцы ніжэй, каб усталяваць новы пароль:"
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_2"
-msgstr "Калі вы не запытвалі скід пароля, проста праігнаруйце гэты ліст. Ваш пароль застанецца ў бяспецы."
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_FOOTER"
-msgstr "Гэты ліст быў адпраўлены аўтаматычна. Калі ласка, не адказвайце на яго."
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_REGARDS"
-msgstr "З павагай, Каманда LunaStore"
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_1"
-msgstr "Вы атрымалі гэты ліст, таму што быў запытаны скід пароля для вашага ўліковага запісу на сайце LunaStore."
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_2"
-msgstr "Калі ласка, перайдзіце па наступнай спасылцы, каб задаць новы пароль:"
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_3"
-msgstr "Калі вы не запытвалі скід пароля, проста праігнаруйце гэты ліст."
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_4"
-msgstr "З павагай, \nКаманда LunaStore"
-
-msgid "PAGE_PASSWORD_RESET_SUBJECT"
-msgstr "Скід пароля на сайце LunaStore"

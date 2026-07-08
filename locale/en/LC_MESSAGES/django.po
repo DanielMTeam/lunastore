@@ -20,6 +20,16 @@ msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
 msgstr[0] "%(counter)s reviews -"
 msgstr[1] "%(counter)s reviews -"
 
+msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_ALL"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_ALL"
+msgstr[0] "%d review (shown on this page)"
+msgstr[1] "%d reviews (shown on this page)"
+
+msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_RECENT"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_RECENT"
+msgstr[0] "%d review (last 5 shown)"
+msgstr[1] "%d reviews (last 5 shown)"
+
 msgid "404_ELEMENT_NOT_FOUND"
 msgstr "The requested item or link you are trying to visit was not found on our site."
 
@@ -283,6 +293,9 @@ msgstr "You must agree to the rules!"
 
 msgid "ERROR_NO_APPNAME"
 msgstr "Enter application name!"
+
+msgid "ERROR_PASSWORD_RESET_EMAIL_NOT_FOUND"
+msgstr "An account with this email address was not found."
 
 msgid "ERROR_PREVIEWSCRNS_1_BIGSIZE"
 msgstr "Error: File"
@@ -968,11 +981,40 @@ msgstr "Free"
 msgid "PAGE_APP_PRICE_PAID"
 msgstr "Paid: "
 
+msgid "PAGE_APP_RATING_BASED_ON_COUNT %(counter)s"
+msgid_plural "PAGE_APP_RATING_BASED_ON_COUNT_PLURAL %(counter)s"
+msgstr[0] "Overall rating based on <b>%(counter)s review</b>"
+msgstr[1] "Overall rating based on <b>%(counter)s reviews</b>"
+
+msgid "PAGE_APP_RATING_DISABLED"
+msgstr "Reviews for this app have been disabled by the author"
+
+msgid "PAGE_APP_RATING_EVALUATE"
+msgstr "Rate..."
+
+msgid "PAGE_APP_RATING_LOGIN_PROMPT"
+msgstr "Sign in to leave a rating..."
+
+msgid "PAGE_APP_RATING_NO_REVIEWS"
+msgstr "No ratings"
+
+msgid "PAGE_APP_RATING_USERS"
+msgstr "User ratings"
+
+msgid "PAGE_APP_RATING_YOUR"
+msgstr "Your rating:"
+
+msgid "PAGE_APP_RATING_YOUR_REVIEW"
+msgstr "(your rating)"
+
 msgid "PAGE_APP_SECTION_ACTIONS"
 msgstr "Actions"
 
 msgid "PAGE_APP_SECTION_DESC"
 msgstr "Additional information"
+
+msgid "PAGE_APP_SECTION_RATING"
+msgstr "Rating"
 
 msgid "PAGE_APP_SECTION_REQ"
 msgstr "System requirements "
@@ -1496,6 +1538,9 @@ msgstr "User"
 msgid "PAGE_LOGIN_BROWSER_TITLE"
 msgstr "Sign in"
 
+msgid "PAGE_LOGIN_FORGOT_PASSWORD"
+msgstr "Forgot password?"
+
 msgid "PAGE_LOGIN_GREETING"
 msgstr "Introduce yourself..."
 
@@ -1551,7 +1596,7 @@ msgid "PAGE_MANAGE_APPS_EMPTY_DESC"
 msgstr "You are not managing any applications yet."
 
 msgid "PAGE_MANAGE_APPS_EMPTY_TITLE"
-msgstr "No applications :("
+msgstr "No applications ＞︿＜"
 
 msgid "PAGE_MANAGE_APPS_HEADER"
 msgstr "Managed application pages"
@@ -1630,6 +1675,112 @@ msgstr "Partner sites and our other projects"
 msgid "PAGE_OTHER_PROJECTS_TITLE"
 msgstr "Other projects"
 
+msgid "PAGE_PASSWORD_RESET_COMPLETE_HEADER"
+msgstr "Success!"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TEXT"
+msgstr "Your account is secure. Welcome back to LunaStore!"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TITLE"
+msgstr "All set"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_LOGIN_BTN"
+msgstr "Log in to account"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_TEXT_1"
+msgstr "Your password has been successfully changed. You can now log in to your account using your new password."
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_TITLE"
+msgstr "Password changed"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_HEADER"
+msgstr "New password"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TEXT"
+msgstr "Ensure your new password is unique and contains a combination of uppercase and lowercase letters, as well as numbers or special characters."
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TITLE"
+msgstr "Strong password"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INVALID_LINK"
+msgstr "The password reset link is invalid. It may have already been used, or it has expired. Please request a password reset again."
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_SUBMIT_BTN"
+msgstr "Set password"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_TITLE"
+msgstr "New password"
+
+msgid "PAGE_PASSWORD_RESET_DONE_HEADER"
+msgstr "Email sent"
+
+msgid "PAGE_PASSWORD_RESET_DONE_INFO_TEXT"
+msgstr "Usually the email arrives within a few minutes. If you have any difficulties, you can contact support."
+
+msgid "PAGE_PASSWORD_RESET_DONE_INFO_TITLE"
+msgstr "What's next?"
+
+msgid "PAGE_PASSWORD_RESET_DONE_TEXT_1"
+msgstr "We have sent password reset instructions to your email address (if it exists in our system)"
+
+msgid "PAGE_PASSWORD_RESET_DONE_TEXT_2"
+msgstr "Please check your email and click the link to complete the process. If you did not receive the email, please check your \"Spam\" folder."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_FOOTER"
+msgstr "This email was sent automatically. Please do not reply to it."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_GREETING"
+msgstr "Hello"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_LABEL"
+msgstr "Email address"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_1"
+msgstr "You received this email because a password reset was requested for your account on LunaStore."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_2"
+msgstr "Please follow the link below to set a new password:"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_3"
+msgstr "If you did not request a password reset, simply ignore this email."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_4"
+msgstr ""
+"Best regards, \n"
+"LunaStore Team"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_REGARDS"
+msgstr ""
+"Best regards, \n"
+"LunaStore Team"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_1"
+msgstr "You have requested a password reset for your LunaStore account. Please click the link below to set a new password:"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_2"
+msgstr "If you did not request a password reset, simply ignore this email. Your password will remain safe."
+
+msgid "PAGE_PASSWORD_RESET_FORM_HEADER"
+msgstr "Reset password"
+
+msgid "PAGE_PASSWORD_RESET_HEADER"
+msgstr "Reset password"
+
+msgid "PAGE_PASSWORD_RESET_INFO_TEXT"
+msgstr "Enter the email address associated with your LunaStore account. We will send you instructions on how to reset your password."
+
+msgid "PAGE_PASSWORD_RESET_INFO_TITLE"
+msgstr "Forgot password?"
+
+msgid "PAGE_PASSWORD_RESET_SUBJECT"
+msgstr "Password reset for LunaStore"
+
+msgid "PAGE_PASSWORD_RESET_SUBMIT_BTN"
+msgstr "Send email"
+
+msgid "PAGE_PASSWORD_RESET_TITLE"
+msgstr "Reset password"
+
 msgid "PAGE_PROFILESETTINGS_LABEL_BIO"
 msgstr "Profile bio:"
 
@@ -1655,7 +1806,7 @@ msgid "PAGE_PROFILE_INVITES_EMPTY_DESC"
 msgstr "No one has registered using this user's invitation yet."
 
 msgid "PAGE_PROFILE_INVITES_EMPTY_TITLE"
-msgstr "No invitations :("
+msgstr "No invitations ＞︿＜"
 
 msgid "PAGE_PROFILE_INVITES_PEOPLE"
 msgstr "people (showing first 5)"
@@ -1677,6 +1828,12 @@ msgstr "add"
 
 msgid "PAGE_PROFILE_LINK_ALL"
 msgstr "show all"
+
+msgid "PAGE_PROFILE_NO_REVIEWS"
+msgstr "No reviews"
+
+msgid "PAGE_PROFILE_REVIEW_TO_APP"
+msgstr "to the app"
 
 msgid "PAGE_PROFILE_STAFF_ALT"
 msgstr "LunaStore Team"
@@ -1803,6 +1960,9 @@ msgstr "Report a problem"
 
 msgid "PAGE_SEARCH_BADGE_DEMO"
 msgstr "Demo"
+
+msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
+msgstr "Demo, then $%(price)s"
 
 msgid "PAGE_SEARCH_BADGE_DEMO_PRICE %(price)s"
 msgstr "Demo, then $%(price)s"
@@ -1981,14 +2141,14 @@ msgstr "Files passed validation: "
 msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_2"
 msgstr "pcs. Ready for upload."
 
+msgid "SET_APP_ALLOW_REVIEWS"
+msgstr "Allow reviews"
+
 msgid "SET_APP_IS_PRIVATE"
 msgstr "Make the app private?"
 
 msgid "SET_APP_IS_PRIVATE_TOOLTIP"
 msgstr "A private app is not visible to other users. This setting can be changed after the app is published."
-
-msgid "SET_APP_ALLOW_REVIEWS"
-msgstr "Allow reviews"
 
 msgid "SITE_DESCRIPTION"
 msgstr "LunaStore. Apps catalog for your old PC. Download apps, leave reviews and join the community of old PC fans."
@@ -2028,156 +2188,3 @@ msgstr "Incorrect username or password."
 
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "Login successful! Welcome, %(username)s!"
-
-msgid "ERROR_PASSWORD_RESET_EMAIL_NOT_FOUND"
-msgstr "User with this email address was not found"
-
-msgid "PAGE_LOGIN_FORGOT_PASSWORD"
-msgstr "Forgot password?"
-
-msgid "PAGE_PASSWORD_RESET_TITLE"
-msgstr "Password Reset"
-
-msgid "PAGE_PASSWORD_RESET_HEADER"
-msgstr "Password Reset"
-
-msgid "PAGE_PASSWORD_RESET_FORM_HEADER"
-msgstr "Password Reset"
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_LABEL"
-msgstr "Email Address"
-
-msgid "PAGE_PASSWORD_RESET_SUBMIT_BTN"
-msgstr "Send Email"
-
-msgid "PAGE_PASSWORD_RESET_INFO_TITLE"
-msgstr "Forgot password?"
-
-msgid "PAGE_PASSWORD_RESET_INFO_TEXT"
-msgstr "Enter your email address associated with your LunaStore account. We will send you instructions on how to reset your password."
-
-msgid "PAGE_PASSWORD_RESET_COMPLETE_TITLE"
-msgstr "Password Changed"
-
-msgid "PAGE_PASSWORD_RESET_COMPLETE_LOGIN_BTN"
-msgstr "Log In"
-
-msgid "PAGE_PASSWORD_RESET_COMPLETE_HEADER"
-msgstr "Success!"
-
-msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TITLE"
-msgstr "All Set"
-
-msgid "PAGE_PASSWORD_RESET_COMPLETE_TEXT_1"
-msgstr "Your password has been successfully changed. You can now log into your account using the new password."
-
-msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TEXT"
-msgstr "Your account is secure. Welcome back to LunaStore!"
-
-msgid "PAGE_PASSWORD_RESET_CONFIRM_TITLE"
-msgstr "New Password"
-
-msgid "PAGE_PASSWORD_RESET_CONFIRM_HEADER"
-msgstr "New Password"
-
-msgid "PAGE_PASSWORD_RESET_CONFIRM_SUBMIT_BTN"
-msgstr "Set Password"
-
-msgid "PAGE_PASSWORD_RESET_CONFIRM_INVALID_LINK"
-msgstr "The password reset link is invalid. It may have already been used or has expired. Please request a new password reset."
-
-msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TITLE"
-msgstr "Strong Password"
-
-msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TEXT"
-msgstr "Ensure your new password is unique and contains a combination of uppercase and lowercase letters, numbers, or special characters."
-
-msgid "PAGE_PASSWORD_RESET_DONE_HEADER"
-msgstr "Email Sent"
-
-msgid "PAGE_PASSWORD_RESET_DONE_TEXT_1"
-msgstr "We have sent password reset instructions to the email address you provided (if it exists in our system)."
-
-msgid "PAGE_PASSWORD_RESET_DONE_TEXT_2"
-msgstr "Please check your email and follow the link to complete the procedure. If you haven't received the email, check your Spam folder."
-
-msgid "PAGE_PASSWORD_RESET_DONE_INFO_TITLE"
-msgstr "What's Next?"
-
-msgid "PAGE_PASSWORD_RESET_DONE_INFO_TEXT"
-msgstr "Typically, the email is delivered within a few minutes. If you experience any difficulties, you can contact support."
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_GREETING"
-msgstr "Hello"
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_1"
-msgstr "You have requested a password reset for your LunaStore account. Please follow the link below to set a new password:"
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_2"
-msgstr "If you didn't request a password reset, simply ignore this email. Your password will remain secure."
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_FOOTER"
-msgstr "This email was sent automatically. Please do not reply."
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_REGARDS"
-msgstr "Best regards, The LunaStore Team"
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_1"
-msgstr "You received this email because a password reset was requested for your account on LunaStore."
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_2"
-msgstr "Please go to the following link to set a new password:"
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_3"
-msgstr "If you didn't request a password reset, simply ignore this email."
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_4"
-msgstr "Best regards, \nThe LunaStore Team"
-
-msgid "PAGE_PASSWORD_RESET_SUBJECT"
-msgstr "Password Reset on LunaStore"
-
-msgid "PAGE_APP_SECTION_RATING"
-msgstr "Rating"
-
-msgid "PAGE_APP_RATING_BASED_ON_COUNT %(counter)s"
-msgid_plural "PAGE_APP_RATING_BASED_ON_COUNT_PLURAL %(counter)s"
-msgstr[0] "Overall rating based on reviews from <b>%(counter)s person</b>"
-msgstr[1] "Overall rating based on reviews from <b>%(counter)s people</b>"
-
-msgid "PAGE_APP_RATING_YOUR"
-msgstr "Your rating:"
-
-msgid "PAGE_APP_RATING_EVALUATE"
-msgstr "Rate..."
-
-msgid "PAGE_APP_RATING_LOGIN_PROMPT"
-msgstr "Log in to leave a rating..."
-
-msgid "PAGE_APP_RATING_USERS"
-msgstr "User Ratings"
-
-msgid "PAGE_APP_RATING_YOUR_REVIEW"
-msgstr "(your rating)"
-
-msgid "PAGE_APP_RATING_NO_REVIEWS"
-msgstr "No ratings yet"
-
-msgid "PAGE_APP_RATING_DISABLED"
-msgstr "Reviews for this application are disabled by the author"
-
-msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_RECENT"
-msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_RECENT"
-msgstr[0] "%(counter)s review (showing last 5)"
-msgstr[1] "%(counter)s reviews (showing last 5)"
-
-msgid "PAGE_PROFILE_REVIEW_TO_APP"
-msgstr "to application"
-
-msgid "PAGE_PROFILE_NO_REVIEWS"
-msgstr "No reviews"
-
-msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_ALL"
-msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_ALL"
-msgstr[0] "%(counter)s review (shown on this page)"
-msgstr[1] "%(counter)s reviews (shown on this page)"
