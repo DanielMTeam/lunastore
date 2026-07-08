@@ -280,6 +280,17 @@
                         </span>
                     </label>
                 </div>
+                <div style="margin-bottom: 8px;max-width: fit-content;">
+                    <label>
+                        {{ form.allow_reviews }}
+                        <span class="checkbox-element__label">
+                            <span>{% trans "SET_APP_ALLOW_REVIEWS" %}</span>
+                            <img src="{% static './img/info_micro.png' %}"
+                                 class="checkbox-element__info-icon"
+                                 title="{% trans 'SET_APP_ALLOW_REVIEWS_TOOLTIP' %}" />
+                        </span>
+                    </label>
+                </div>
               <input type="submit" class="action_button" value="{% trans 'PAGE_ADMIN_APP_DIST_SAVE' %}">
           </form>
       </div>
