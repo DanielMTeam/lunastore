@@ -13,6 +13,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="{% static './css/main.css'%}">
     <link rel="stylesheet" href="{% static './css/notifications.css'%}">
+    <link rel="stylesheet" href="{% static './css/reviews.css'%}">
     {% if request.COOKIES.dark_theme == 'on' %}
     <link rel="stylesheet" id="darkthm-css" href="{% static 'css/darkthm.css'%}?v=1">
     {% endif %}
@@ -40,10 +41,10 @@
     </script>
 
     <!--[if IE 6]>
-  <script src="{% static './js/dd_belatedpng.min.js' %}"></script>
-  <script>
-    // fix png alpha channel for ie6
-    DD_belatedPNG.fix('.ls_dm_logo, .error_icon_small, .good_icon_small, .info_icon_small, .sidebar li, .category_icon, .balloon_img, .dm_menu, .actionsm li');
+    <script src="{% static './js/dd_belatedpng.min.js' %}"></script>
+    <script>
+    /* EXAMPLE */
+    DD_belatedPNG.fix('.ls_dm_logo, .error_icon_small, .good_icon_small, .info_icon_small, .sidebar li, .category_icon, .balloon_img, .dm_menu, .actionsm li, .rating, .r5, .r4_5, .r4, .r3_5, .r3, .r2_5, .r2, .r1_5, .r1, .r0_5');
   </script>
   <![endif]-->
 </head>

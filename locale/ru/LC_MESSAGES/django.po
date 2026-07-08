@@ -22,6 +22,18 @@ msgstr[0] "%(counter)s отзывов -"
 msgstr[1] "%(counter)s отзывов -"
 msgstr[2] "%(counter)s отзывов -"
 
+msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_ALL"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_ALL"
+msgstr[0] "%(counter)s отзыв (показаны на этой странице)"
+msgstr[1] "%(counter)s отзыва (показаны на этой странице)"
+msgstr[2] "%(counter)s отзывов (показаны на этой странице)"
+
+msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_RECENT"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_RECENT"
+msgstr[0] "%(counter)s отзыв (показаны последние 5)"
+msgstr[1] "%(counter)s отзыва (показаны последние 5)"
+msgstr[2] "%(counter)s отзывов (показаны последние 5)"
+
 msgid "404_ELEMENT_NOT_FOUND"
 msgstr "Запрашиваемый элемент или ссылка, которую вы хотите посетить, не найдены на нашем сайте."
 
@@ -285,6 +297,9 @@ msgstr "Вы должны согласиться с правилами!"
 
 msgid "ERROR_NO_APPNAME"
 msgstr "Введите название приложения!"
+
+msgid "ERROR_PASSWORD_RESET_EMAIL_NOT_FOUND"
+msgstr "Аккаунт с таким адресом электронной почты не найден."
 
 msgid "ERROR_PREVIEWSCRNS_1_BIGSIZE"
 msgstr "Ошибка: Файл "
@@ -973,11 +988,41 @@ msgstr "Бесплатно"
 msgid "PAGE_APP_PRICE_PAID"
 msgstr "Платное:"
 
+msgid "PAGE_APP_RATING_BASED_ON_COUNT %(counter)s"
+msgid_plural "PAGE_APP_RATING_BASED_ON_COUNT_PLURAL %(counter)s"
+msgstr[0] "Общий рейтинг составлен на основе отзывов от <b>%(counter)s человека</b>"
+msgstr[1] "Общий рейтинг составлен на основе отзывов от <b>%(counter)s человек</b>"
+msgstr[2] "Общий рейтинг составлен на основе отзывов от <b>%(counter)s человек</b>"
+
+msgid "PAGE_APP_RATING_DISABLED"
+msgstr "Отзывы для этого приложения отключены автором"
+
+msgid "PAGE_APP_RATING_EVALUATE"
+msgstr "Оценить..."
+
+msgid "PAGE_APP_RATING_LOGIN_PROMPT"
+msgstr "Войдите, чтобы оставить оценку..."
+
+msgid "PAGE_APP_RATING_NO_REVIEWS"
+msgstr "Нет оценок"
+
+msgid "PAGE_APP_RATING_USERS"
+msgstr "Оценки пользователей"
+
+msgid "PAGE_APP_RATING_YOUR"
+msgstr "Ваша оценка:"
+
+msgid "PAGE_APP_RATING_YOUR_REVIEW"
+msgstr "(ваша оценка)"
+
 msgid "PAGE_APP_SECTION_ACTIONS"
 msgstr "Действия"
 
 msgid "PAGE_APP_SECTION_DESC"
 msgstr "Дополнительная информация"
+
+msgid "PAGE_APP_SECTION_RATING"
+msgstr "Рейтинг"
 
 msgid "PAGE_APP_SECTION_REQ"
 msgstr "Системные требования"
@@ -1501,6 +1546,9 @@ msgstr "Пользователь"
 msgid "PAGE_LOGIN_BROWSER_TITLE"
 msgstr "Вход"
 
+msgid "PAGE_LOGIN_FORGOT_PASSWORD"
+msgstr "Забыли пароль?"
+
 msgid "PAGE_LOGIN_GREETING"
 msgstr "Представьтесь..."
 
@@ -1556,7 +1604,7 @@ msgid "PAGE_MANAGE_APPS_EMPTY_DESC"
 msgstr "Вы пока что не управляете ни одним приложением."
 
 msgid "PAGE_MANAGE_APPS_EMPTY_TITLE"
-msgstr "Приложений нет :("
+msgstr "Приложений нет ＞︿＜"
 
 msgid "PAGE_MANAGE_APPS_HEADER"
 msgstr "Администрируемые страницы приложений"
@@ -1636,6 +1684,110 @@ msgstr "Сайты-друзья и прочие наши проекты"
 msgid "PAGE_OTHER_PROJECTS_TITLE"
 msgstr "Прочие проекты"
 
+msgid "PAGE_PASSWORD_RESET_COMPLETE_HEADER"
+msgstr "Успешно!"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TEXT"
+msgstr "Ваша учётная запись в безопасности. Добро пожаловать обратно в LunaStore!"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TITLE"
+msgstr "Всё готово"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_LOGIN_BTN"
+msgstr "Войти в аккаунт"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_TEXT_1"
+msgstr "Ваш пароль был успешно изменён. Теперь вы можете войти в свой аккаунт, используя новый пароль."
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_TITLE"
+msgstr "Пароль изменён"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_HEADER"
+msgstr "Новый пароль"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TEXT"
+msgstr "Убедитесь, что ваш новый пароль уникален и содержит комбинацию заглавных и строчных букв, а также цифры или специальные символы."
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TITLE"
+msgstr "Надёжный пароль"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INVALID_LINK"
+msgstr "Ссылка для сброса пароля недействительна. Возможно, она уже была использована, или срок её действия истёк. Пожалуйста, запросите сброс пароля снова."
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_SUBMIT_BTN"
+msgstr "Установить пароль"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_TITLE"
+msgstr "Новый пароль"
+
+msgid "PAGE_PASSWORD_RESET_DONE_HEADER"
+msgstr "Письмо отправлено"
+
+msgid "PAGE_PASSWORD_RESET_DONE_INFO_TEXT"
+msgstr "Обычно письмо доставляется в течение нескольких минут. Если у вас возникли трудности, вы можете обратиться в службу поддержки."
+
+msgid "PAGE_PASSWORD_RESET_DONE_INFO_TITLE"
+msgstr "Что дальше?"
+
+msgid "PAGE_PASSWORD_RESET_DONE_TEXT_1"
+msgstr "Мы отправили инструкции по сбросу пароля на указанный вами адрес электронной почты (если он существует в нашей системе)"
+
+msgid "PAGE_PASSWORD_RESET_DONE_TEXT_2"
+msgstr "Пожалуйста, проверьте почту и перейдите по ссылке для завершения процедуры. Если письмо не пришло, проверьте папку \"Спам\"."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_FOOTER"
+msgstr "Это письмо было отправлено автоматически. Пожалуйста, не отвечайте на него."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_GREETING"
+msgstr "Здравствуйте"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_LABEL"
+msgstr "Адрес электронной почты"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_1"
+msgstr "Вы получили это письмо, потому что был запрошен сброс пароля для вашей учетной записи на сайте LunaStore."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_2"
+msgstr "Пожалуйста, перейдите по следующей ссылке, чтобы задать новый пароль:"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_3"
+msgstr "Если вы не запрашивали сброс пароля, просто проигнорируйте это письмо."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_4"
+msgstr ""
+"С уважением, \n"
+"Команда LunaStore"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_REGARDS"
+msgstr "С уважением, Команда LunaStore"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_1"
+msgstr "Вы запросили сброс пароля для аккаунта LunaStore. Пожалуйста, перейдите по ссылке ниже, чтобы установить новый пароль:"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_2"
+msgstr "Если вы не запрашивали сброс пароля, просто проигнорируйте это письмо. Ваш пароль останется в безопасности."
+
+msgid "PAGE_PASSWORD_RESET_FORM_HEADER"
+msgstr "Сброс пароля"
+
+msgid "PAGE_PASSWORD_RESET_HEADER"
+msgstr "Сброс пароля"
+
+msgid "PAGE_PASSWORD_RESET_INFO_TEXT"
+msgstr "Введите свой адрес электронной почты, привязанный к вашему аккаунту LunaStore. Мы отправим вам инструкции по сбросу пароля."
+
+msgid "PAGE_PASSWORD_RESET_INFO_TITLE"
+msgstr "Забыли пароль?"
+
+msgid "PAGE_PASSWORD_RESET_SUBJECT"
+msgstr "Сброс пароля на сайте LunaStore"
+
+msgid "PAGE_PASSWORD_RESET_SUBMIT_BTN"
+msgstr "Отправить письмо"
+
+msgid "PAGE_PASSWORD_RESET_TITLE"
+msgstr "Сброс пароля"
+
 msgid "PAGE_PROFILESETTINGS_LABEL_BIO"
 msgstr "Описание профиля:"
 
@@ -1661,7 +1813,7 @@ msgid "PAGE_PROFILE_INVITES_EMPTY_DESC"
 msgstr "Пока что ни один человек не зарегистрировался по приглашению данного пользователя."
 
 msgid "PAGE_PROFILE_INVITES_EMPTY_TITLE"
-msgstr "Приглашений нет :("
+msgstr "Приглашений нет ＞︿＜"
 
 msgid "PAGE_PROFILE_INVITES_PEOPLE"
 msgstr "человек (показаны первые 5)"
@@ -1683,6 +1835,12 @@ msgstr "добавить"
 
 msgid "PAGE_PROFILE_LINK_ALL"
 msgstr "показать всё"
+
+msgid "PAGE_PROFILE_NO_REVIEWS"
+msgstr "Нет отзывов"
+
+msgid "PAGE_PROFILE_REVIEW_TO_APP"
+msgstr "к приложению"
 
 msgid "PAGE_PROFILE_STAFF_ALT"
 msgstr "Команда LunaStore"
@@ -1809,6 +1967,9 @@ msgstr "Сообщить о проблеме"
 
 msgid "PAGE_SEARCH_BADGE_DEMO"
 msgstr "Демо"
+
+msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
+msgstr "Демо, далее $%(price)s"
 
 msgid "PAGE_SEARCH_BADGE_DEMO_PRICE %(price)s"
 msgstr "Демо, далее $%(price)s"
@@ -1987,6 +2148,9 @@ msgstr "Файлы прошли проверку: "
 msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_2"
 msgstr "шт. Готовы к загрузке."
 
+msgid "SET_APP_ALLOW_REVIEWS"
+msgstr "Разрешить отзывы"
+
 msgid "SET_APP_IS_PRIVATE"
 msgstr "Сделать приложение приватным?"
 
@@ -2031,112 +2195,3 @@ msgstr "Неверный логин или пароль."
 
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "Вход выполнен успешно! Привет, %(username)s!"
-
-msgid "PAGE_LOGIN_FORGOT_PASSWORD"
-msgstr "Забыли пароль?"
-
-
-msgid "PAGE_PASSWORD_RESET_TITLE"
-msgstr "Сброс пароля"
-
-msgid "PAGE_PASSWORD_RESET_HEADER"
-msgstr "Сброс пароля"
-
-msgid "PAGE_PASSWORD_RESET_FORM_HEADER"
-msgstr "Сброс пароля"
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_LABEL"
-msgstr "Адрес электронной почты"
-
-msgid "PAGE_PASSWORD_RESET_SUBMIT_BTN"
-msgstr "Отправить письмо"
-
-msgid "PAGE_PASSWORD_RESET_INFO_TITLE"
-msgstr "Забыли пароль?"
-
-msgid "PAGE_PASSWORD_RESET_INFO_TEXT"
-msgstr "Введите свой адрес электронной почты, привязанный к вашему аккаунту LunaStore. Мы отправим вам инструкции по сбросу пароля."
-
-msgid "PAGE_PASSWORD_RESET_COMPLETE_TITLE"
-msgstr "Пароль изменён"
-
-msgid "PAGE_PASSWORD_RESET_COMPLETE_LOGIN_BTN"
-msgstr "Войти в аккаунт"
-
-msgid "PAGE_PASSWORD_RESET_COMPLETE_HEADER"
-msgstr "Успешно!"
-
-msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TITLE"
-msgstr "Всё готово"
-
-msgid "PAGE_PASSWORD_RESET_COMPLETE_TEXT_1"
-msgstr "Ваш пароль был успешно изменён. Теперь вы можете войти в свой аккаунт, используя новый пароль."
-
-msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TEXT"
-msgstr "Ваша учётная запись в безопасности. Добро пожаловать обратно в LunaStore!"
-
-msgid "PAGE_PASSWORD_RESET_CONFIRM_TITLE"
-msgstr "Новый пароль"
-
-msgid "PAGE_PASSWORD_RESET_CONFIRM_HEADER"
-msgstr "Новый пароль"
-
-msgid "PAGE_PASSWORD_RESET_CONFIRM_SUBMIT_BTN"
-msgstr "Установить пароль"
-
-msgid "PAGE_PASSWORD_RESET_CONFIRM_INVALID_LINK"
-msgstr "Ссылка для сброса пароля недействительна. Возможно, она уже была использована, или срок её действия истёк. Пожалуйста, запросите сброс пароля снова."
-
-msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TITLE"
-msgstr "Надёжный пароль"
-
-msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TEXT"
-msgstr "Убедитесь, что ваш новый пароль уникален и содержит комбинацию заглавных и строчных букв, а также цифры или специальные символы."
-
-msgid "PAGE_PASSWORD_RESET_DONE_HEADER"
-msgstr "Письмо отправлено"
-
-msgid "PAGE_PASSWORD_RESET_DONE_TEXT_1"
-msgstr "Мы отправили инструкции по сбросу пароля на указанный вами адрес электронной почты (если он существует в нашей системе)"
-
-msgid "PAGE_PASSWORD_RESET_DONE_TEXT_2"
-msgstr "Пожалуйста, проверьте почту и перейдите по ссылке для завершения процедуры. Если письмо не пришло, проверьте папку \"Спам\"."
-
-msgid "PAGE_PASSWORD_RESET_DONE_INFO_TITLE"
-msgstr "Что дальше?"
-
-msgid "PAGE_PASSWORD_RESET_DONE_INFO_TEXT"
-msgstr "Обычно письмо доставляется в течение нескольких минут. Если у вас возникли трудности, вы можете обратиться в службу поддержки."
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_GREETING"
-msgstr "Здравствуйте"
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_1"
-msgstr "Вы запросили сброс пароля для аккаунта LunaStore. Пожалуйста, перейдите по ссылке ниже, чтобы установить новый пароль:"
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_2"
-msgstr "Если вы не запрашивали сброс пароля, просто проигнорируйте это письмо. Ваш пароль останется в безопасности."
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_FOOTER"
-msgstr "Это письмо было отправлено автоматически. Пожалуйста, не отвечайте на него."
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_REGARDS"
-msgstr "С уважением, Команда LunaStore"
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_1"
-msgstr "Вы получили это письмо, потому что был запрошен сброс пароля для вашей учетной записи на сайте LunaStore."
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_2"
-msgstr "Пожалуйста, перейдите по следующей ссылке, чтобы задать новый пароль:"
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_3"
-msgstr "Если вы не запрашивали сброс пароля, просто проигнорируйте это письмо."
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_4"
-msgstr "С уважением, \nКоманда LunaStore"
-
-msgid "PAGE_PASSWORD_RESET_SUBJECT"
-msgstr "Сброс пароля на сайте LunaStore"
-
-msgid "ERROR_PASSWORD_RESET_EMAIL_NOT_FOUND"
-msgstr "Аккаунт с таким адресом электронной почты не найден."

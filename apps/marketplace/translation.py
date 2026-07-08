@@ -1,9 +1,13 @@
 from modeltranslation.translator import register, TranslationOptions
-from .models import Application, Category, AppCreateRequests, Distribution, AppEditRequests, DistributionEditRequests, DistributionCreateRequests
+from .models import Application, Category, AppCreateRequests, Distribution, AppEditRequests, DistributionEditRequests, DistributionCreateRequests, Badge
 
 @register(Category)
 class CategoryTranslationOptions(TranslationOptions):
     fields = ('name', 'description')
+
+@register(Badge)
+class BadgeTranslationOptions(TranslationOptions):
+    fields = ('name',)
 
 @register(Application)
 class ApplicationTranslationOptions(TranslationOptions):

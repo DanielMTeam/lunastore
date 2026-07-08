@@ -12,15 +12,27 @@ msgstr "LunaStore. Довідник програм для твого старо�
 
 msgid "%(counter)s PAGE_PROFILE_STATS_APP"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
-msgstr[0] "%(counter)s програм,"
-msgstr[1] "%(counter)s програм,"
-msgstr[2] "%(counter)s програм,"
+msgstr[0] "\"%(counter)s програм,\""
+msgstr[1] "\"%(counter)s програм,\""
+msgstr[2] "\"%(counter)s програм,\""
 
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
 msgstr[0] "%(counter)s відгуків -"
 msgstr[1] "%(counter)s відгуків -"
 msgstr[2] "%(counter)s відгуків -"
+
+msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_ALL"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_ALL"
+msgstr[0] "%(counter)s відгук (показані на цій сторінці)"
+msgstr[1] "%(counter)s відгука (показані на цій сторінці)"
+msgstr[2] "%(counter)s відгуків (показані на цій сторінці)"
+
+msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_RECENT"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_RECENT"
+msgstr[0] "%(counter)s відгук (показані останні 5)"
+msgstr[1] "%(counter)s відгука (показані останні 5)"
+msgstr[2] "%(counter)s відгуків (показані останні 5)"
 
 msgid "404_ELEMENT_NOT_FOUND"
 msgstr "Запитуваний елемент або посилання, яке ви хочете відвідати, не знайдені на нашому сайті."
@@ -285,6 +297,9 @@ msgstr "Ви повинні погодитися з правилами!"
 
 msgid "ERROR_NO_APPNAME"
 msgstr "Введіть назву програми!"
+
+msgid "ERROR_PASSWORD_RESET_EMAIL_NOT_FOUND"
+msgstr "Обліковий запис з такою адресою електронної пошти не знайдено."
 
 msgid "ERROR_PREVIEWSCRNS_1_BIGSIZE"
 msgstr "Помилка: Файл"
@@ -970,11 +985,41 @@ msgstr "Безкоштовно"
 msgid "PAGE_APP_PRICE_PAID"
 msgstr "Платне:"
 
+msgid "PAGE_APP_RATING_BASED_ON_COUNT %(counter)s"
+msgid_plural "PAGE_APP_RATING_BASED_ON_COUNT_PLURAL %(counter)s"
+msgstr[0] "Загальний рейтинг складений на основі відгуків від <b>%(counter)s людини</b>"
+msgstr[1] "Загальний рейтинг складений на основі відгуків від <b>%(counter)s людей</b>"
+msgstr[2] "Загальний рейтинг складений на основі відгуків від <b>%(counter)s людей</b>"
+
+msgid "PAGE_APP_RATING_DISABLED"
+msgstr "Відгуки для цього додатка вимкнені автором"
+
+msgid "PAGE_APP_RATING_EVALUATE"
+msgstr "Оцінити..."
+
+msgid "PAGE_APP_RATING_LOGIN_PROMPT"
+msgstr "Увійдіть, щоби залишити оцінку..."
+
+msgid "PAGE_APP_RATING_NO_REVIEWS"
+msgstr "Немає оцінок"
+
+msgid "PAGE_APP_RATING_USERS"
+msgstr "Оцінки користувачів"
+
+msgid "PAGE_APP_RATING_YOUR"
+msgstr "Ваша оцінка:"
+
+msgid "PAGE_APP_RATING_YOUR_REVIEW"
+msgstr "(ваша оцінка)"
+
 msgid "PAGE_APP_SECTION_ACTIONS"
 msgstr "Дії"
 
 msgid "PAGE_APP_SECTION_DESC"
 msgstr "Додаткова інформація"
+
+msgid "PAGE_APP_SECTION_RATING"
+msgstr "Рейтинг"
 
 msgid "PAGE_APP_SECTION_REQ"
 msgstr "Системні вимоги"
@@ -1498,6 +1543,9 @@ msgstr "Користувач"
 msgid "PAGE_LOGIN_BROWSER_TITLE"
 msgstr "Вхід"
 
+msgid "PAGE_LOGIN_FORGOT_PASSWORD"
+msgstr "Забули пароль?"
+
 msgid "PAGE_LOGIN_GREETING"
 msgstr "Представтеся..."
 
@@ -1553,7 +1601,7 @@ msgid "PAGE_MANAGE_APPS_EMPTY_DESC"
 msgstr "Ви поки ще не керуєте жодної програмою."
 
 msgid "PAGE_MANAGE_APPS_EMPTY_TITLE"
-msgstr "Програм немає :("
+msgstr "Програм немає ＞︿＜"
 
 msgid "PAGE_MANAGE_APPS_HEADER"
 msgstr "Керовані сторінки програм"
@@ -1633,6 +1681,110 @@ msgstr "Сайти-друзі та інші наші проєкти"
 msgid "PAGE_OTHER_PROJECTS_TITLE"
 msgstr "Інші проєкти"
 
+msgid "PAGE_PASSWORD_RESET_COMPLETE_HEADER"
+msgstr "Успішно!"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TEXT"
+msgstr "Ваш обліковий запис у безпеці. Ласкаво просимо назад у LunaStore!"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TITLE"
+msgstr "Усе готово"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_LOGIN_BTN"
+msgstr "Увійти в обліковий запис"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_TEXT_1"
+msgstr "Ваш пароль був успішно змінений. Тепер ви можете увійти в свій обліковий запис, з використанням нового пароля."
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_TITLE"
+msgstr "Пароль змінено"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_HEADER"
+msgstr "Новий пароль"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TEXT"
+msgstr "Переконайтеся, що ваш новий пароль унікальний і має комбінацію великих та малих букв, а також цифри або спеціальні символи."
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TITLE"
+msgstr "Надійний пароль"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INVALID_LINK"
+msgstr "Посилання для скидання пароля недійсне. Можливо, вона вже була використана, або її термін дії закінчився. Будь ласка, надішліть запит на скидання пароля ще раз."
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_SUBMIT_BTN"
+msgstr "Встановити пароль"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_TITLE"
+msgstr "Новий пароль"
+
+msgid "PAGE_PASSWORD_RESET_DONE_HEADER"
+msgstr "Лист надіслано"
+
+msgid "PAGE_PASSWORD_RESET_DONE_INFO_TEXT"
+msgstr "Звичайний лист доставляється у межах декількох хвилин. Якщо у вас проблеми, ви можете звернутися у службу підтримки. "
+
+msgid "PAGE_PASSWORD_RESET_DONE_INFO_TITLE"
+msgstr "Що далі?"
+
+msgid "PAGE_PASSWORD_RESET_DONE_TEXT_1"
+msgstr "Ми відправили інструкцію щодо скидання пароля на вказану вами адресу електронної пошти (якщо він існує у нашій системі)"
+
+msgid "PAGE_PASSWORD_RESET_DONE_TEXT_2"
+msgstr "Будь ласка, перевірте пошту та перейдіть за посиланням для завершення процедури. Якщо лист не прийшов, перевірте папку \"Спам\"."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_FOOTER"
+msgstr "Цей лист було відправлено автоматично. Будь ласка, не відповідайте на нього."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_GREETING"
+msgstr "Вітаємо!"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_LABEL"
+msgstr "Адреса електронної пошти"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_1"
+msgstr "Ви отримали цей лист, оскільки був отриманий запит на скидання пароля для вашого облікового запису на сайті LunaStore."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_2"
+msgstr "Будь ласка, перейдіть за наступним посиланням, щоби задати новий пароль:"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_3"
+msgstr "Якщо ви не надсилали запит на скидання пароля, просто проігноруйте цей лист."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_4"
+msgstr ""
+"З повагою,\n"
+"Команда LunaStore"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_REGARDS"
+msgstr "З повагою, Команда LunaStore"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_1"
+msgstr "Ви надіслали запит на скидання пароля для облікового запису LunaStore. Будь ласка, перейдіть за посиланням нижче, щоби встановити новий пароль:"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_2"
+msgstr "Якщо ви не надсилали запит на скидання пароля, просто проігноруйте цей лист. Ваш пароль залишиться у безпеці."
+
+msgid "PAGE_PASSWORD_RESET_FORM_HEADER"
+msgstr "Скидання пароля"
+
+msgid "PAGE_PASSWORD_RESET_HEADER"
+msgstr "Скидання пароля"
+
+msgid "PAGE_PASSWORD_RESET_INFO_TEXT"
+msgstr "Введіть свою адресу електронної пошти, прив'язаний до вашого облікового запису LunaStore. Ми відправимо вам інструкцію для скидання пароля."
+
+msgid "PAGE_PASSWORD_RESET_INFO_TITLE"
+msgstr "Забули пароль?"
+
+msgid "PAGE_PASSWORD_RESET_SUBJECT"
+msgstr "Скинути пароль на сайті LunaStore"
+
+msgid "PAGE_PASSWORD_RESET_SUBMIT_BTN"
+msgstr "Відправити лист"
+
+msgid "PAGE_PASSWORD_RESET_TITLE"
+msgstr "Скидання пароля"
+
 msgid "PAGE_PROFILESETTINGS_LABEL_BIO"
 msgstr "Опис профілю:"
 
@@ -1658,7 +1810,7 @@ msgid "PAGE_PROFILE_INVITES_EMPTY_DESC"
 msgstr "Поки що жодна людина не зареєструвалася за запрошенням цього користувача."
 
 msgid "PAGE_PROFILE_INVITES_EMPTY_TITLE"
-msgstr "Запрошень немає :("
+msgstr "Запрошень немає ＞︿＜"
 
 msgid "PAGE_PROFILE_INVITES_PEOPLE"
 msgstr "людей (показані перші 5)"
@@ -1680,6 +1832,12 @@ msgstr "додати"
 
 msgid "PAGE_PROFILE_LINK_ALL"
 msgstr "відобразити все"
+
+msgid "PAGE_PROFILE_NO_REVIEWS"
+msgstr "Немає відгуків"
+
+msgid "PAGE_PROFILE_REVIEW_TO_APP"
+msgstr "до програми"
 
 msgid "PAGE_PROFILE_STAFF_ALT"
 msgstr "Команда LunaStore"
@@ -1806,6 +1964,9 @@ msgstr "Повідомити про проблему"
 
 msgid "PAGE_SEARCH_BADGE_DEMO"
 msgstr "Демо"
+
+msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
+msgstr "Демо, далі $%(price)s"
 
 msgid "PAGE_SEARCH_BADGE_DEMO_PRICE %(price)s"
 msgstr "Демо, далі $%(price)s"
@@ -1987,6 +2148,9 @@ msgstr "Файли пройшли перевірку:"
 msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_2"
 msgstr "шт. Готові до завантаження."
 
+msgid "SET_APP_ALLOW_REVIEWS"
+msgstr "Дозволити відгуки"
+
 msgid "SET_APP_IS_PRIVATE"
 msgstr "Зробити застосунок приватним?"
 
@@ -2031,111 +2195,3 @@ msgstr "Неправильний логін або пароль."
 
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "Вхід виконано успішно! Привіт, %(username)s!"
-
-msgid "ERROR_PASSWORD_RESET_EMAIL_NOT_FOUND"
-msgstr "Користувача з такою електронною адресою не знайдено"
-
-msgid "PAGE_LOGIN_FORGOT_PASSWORD"
-msgstr "Забули пароль?"
-
-msgid "PAGE_PASSWORD_RESET_TITLE"
-msgstr "Скидання пароля"
-
-msgid "PAGE_PASSWORD_RESET_HEADER"
-msgstr "Скидання пароля"
-
-msgid "PAGE_PASSWORD_RESET_FORM_HEADER"
-msgstr "Скидання пароля"
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_LABEL"
-msgstr "Адреса електронної пошти"
-
-msgid "PAGE_PASSWORD_RESET_SUBMIT_BTN"
-msgstr "Відправити лист"
-
-msgid "PAGE_PASSWORD_RESET_INFO_TITLE"
-msgstr "Забули пароль?"
-
-msgid "PAGE_PASSWORD_RESET_INFO_TEXT"
-msgstr "Введіть свою адресу електронної пошти, прив'язану до вашого акаунту LunaStore. Ми надішлемо вам інструкції щодо скидання пароля."
-
-msgid "PAGE_PASSWORD_RESET_COMPLETE_TITLE"
-msgstr "Пароль змінено"
-
-msgid "PAGE_PASSWORD_RESET_COMPLETE_LOGIN_BTN"
-msgstr "Увійти в акаунт"
-
-msgid "PAGE_PASSWORD_RESET_COMPLETE_HEADER"
-msgstr "Успішно!"
-
-msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TITLE"
-msgstr "Все готово"
-
-msgid "PAGE_PASSWORD_RESET_COMPLETE_TEXT_1"
-msgstr "Ваш пароль успішно змінено. Тепер ви можете увійти до свого акаунту, використовуючи новий пароль."
-
-msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TEXT"
-msgstr "Ваш обліковий запис у безпеці. Ласкаво просимо назад до LunaStore!"
-
-msgid "PAGE_PASSWORD_RESET_CONFIRM_TITLE"
-msgstr "Новий пароль"
-
-msgid "PAGE_PASSWORD_RESET_CONFIRM_HEADER"
-msgstr "Новий пароль"
-
-msgid "PAGE_PASSWORD_RESET_CONFIRM_SUBMIT_BTN"
-msgstr "Встановити пароль"
-
-msgid "PAGE_PASSWORD_RESET_CONFIRM_INVALID_LINK"
-msgstr "Посилання для скидання пароля недійсне. Можливо, воно вже було використане, або термін його дії минув. Будь ласка, зробіть запит на скидання пароля знову."
-
-msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TITLE"
-msgstr "Надійний пароль"
-
-msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TEXT"
-msgstr "Переконайтеся, що ваш новий пароль унікальний і містить комбінацію великих та малих літер, а також цифри або спеціальні символи."
-
-msgid "PAGE_PASSWORD_RESET_DONE_HEADER"
-msgstr "Лист відправлено"
-
-msgid "PAGE_PASSWORD_RESET_DONE_TEXT_1"
-msgstr "Ми надіслали інструкції щодо скидання пароля на вказану вами адресу електронної пошти (якщо вона існує в нашій системі)."
-
-msgid "PAGE_PASSWORD_RESET_DONE_TEXT_2"
-msgstr "Будь ласка, перевірте пошту та перейдіть за посиланням для завершення процедури. Якщо лист не прийшов, перевірте папку \"Спам\"."
-
-msgid "PAGE_PASSWORD_RESET_DONE_INFO_TITLE"
-msgstr "Що далі?"
-
-msgid "PAGE_PASSWORD_RESET_DONE_INFO_TEXT"
-msgstr "Зазвичай лист доставляється протягом кількох хвилин. Якщо у вас виникли труднощі, ви можете звернутися до служби підтримки."
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_GREETING"
-msgstr "Вітаємо"
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_1"
-msgstr "Ви зробили запит на скидання пароля для акаунту LunaStore. Будь ласка, перейдіть за посиланням нижче, щоб встановити новий пароль:"
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_2"
-msgstr "Якщо ви не робили запит на скидання пароля, просто зігноруйте цей лист. Ваш пароль залишиться в безпеці."
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_FOOTER"
-msgstr "Цей лист було відправлено автоматично. Будь ласка, не відповідайте на нього."
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_REGARDS"
-msgstr "З повагою, Команда LunaStore"
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_1"
-msgstr "Ви отримали цей лист, оскільки було зроблено запит на скидання пароля для вашого облікового запису на сайті LunaStore."
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_2"
-msgstr "Будь ласка, перейдіть за наступним посиланням, щоб задати новий пароль:"
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_3"
-msgstr "Якщо ви не робили запит на скидання пароля, просто зігноруйте цей лист."
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_4"
-msgstr "З повагою, \nКоманда LunaStore"
-
-msgid "PAGE_PASSWORD_RESET_SUBJECT"
-msgstr "Скидання пароля на сайті LunaStore"

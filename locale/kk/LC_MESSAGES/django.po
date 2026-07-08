@@ -18,6 +18,14 @@ msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
 msgstr[0] "%(counter)s пікір,"
 
+msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_ALL"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_ALL"
+msgstr[0] "%d пікір (осы бетте көрсетілген)"
+
+msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_RECENT"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_RECENT"
+msgstr[0] "%d пікір (соңғы 5-і көрсетілген)"
+
 msgid "404_ELEMENT_NOT_FOUND"
 msgstr "Сұратылған элемент немесе сіз өткіңіз келетін сілтеме біздің сайттан табылмады."
 
@@ -282,6 +290,9 @@ msgstr "Ережелермен келісуіңіз керек!"
 msgid "ERROR_NO_APPNAME"
 msgstr "Қосымшаның атын енгізіңіз!"
 
+msgid "ERROR_PASSWORD_RESET_EMAIL_NOT_FOUND"
+msgstr "Бұл электрондық пошта мекенжайы бар тіркелгі табылмады."
+
 msgid "ERROR_PREVIEWSCRNS_1_BIGSIZE"
 msgstr "Қате: Файл "
 
@@ -482,6 +493,9 @@ msgstr "Жүктеу токенін алу мүмкін болмады"
 
 msgid "JS_MARKETPLACE_UPLOADING"
 msgstr "Жүктелуде..."
+
+msgid "LunaStore Admin"
+msgstr "кім аударманы тағы қисық қойып шықты"
 
 msgid "MSG_DIST_CREATE_REQ_SENT"
 msgstr "Жаңа нұсқаны қосу туралы өтінім модерацияға жіберілді."
@@ -966,11 +980,39 @@ msgstr "Тегін"
 msgid "PAGE_APP_PRICE_PAID"
 msgstr "Ақылы:"
 
+msgid "PAGE_APP_RATING_BASED_ON_COUNT %(counter)s"
+msgid_plural "PAGE_APP_RATING_BASED_ON_COUNT_PLURAL %(counter)s"
+msgstr[0] "Жалпы рейтинг <b>%(counter)s адамның</b> пікірі негізінде жасалған"
+
+msgid "PAGE_APP_RATING_DISABLED"
+msgstr "Бұл қолданбаға арналған пікірлер автор тарапынан өшірілген"
+
+msgid "PAGE_APP_RATING_EVALUATE"
+msgstr "Бағалау..."
+
+msgid "PAGE_APP_RATING_LOGIN_PROMPT"
+msgstr "Бағалау үшін кіріңіз..."
+
+msgid "PAGE_APP_RATING_NO_REVIEWS"
+msgstr "Пікірлер жоқ"
+
+msgid "PAGE_APP_RATING_USERS"
+msgstr "Пайдаланушылар бағалауы"
+
+msgid "PAGE_APP_RATING_YOUR"
+msgstr "Сіздің бағаңыз:"
+
+msgid "PAGE_APP_RATING_YOUR_REVIEW"
+msgstr "(сіздің бағаңыз)"
+
 msgid "PAGE_APP_SECTION_ACTIONS"
 msgstr "Әрекеттер"
 
 msgid "PAGE_APP_SECTION_DESC"
 msgstr "Қосымша ақпарат"
+
+msgid "PAGE_APP_SECTION_RATING"
+msgstr "Рейтинг"
 
 msgid "PAGE_APP_SECTION_REQ"
 msgstr "Жүйелік талаптар"
@@ -1357,7 +1399,7 @@ msgid "PAGE_FAQ_DESC"
 msgstr "Сұрақтарыңыз бар ма? Бұл бетте LunaStore туралы барлық ақпарат жинақталған"
 
 msgid "PAGE_FAQ_DONATETAB"
-msgstr "Қолдау"
+msgstr "Қайырымдылық жасау"
 
 msgid "PAGE_FAQ_DONATE_TITLE"
 msgstr "Бізге қалай қолдау көрсетуге болады?"
@@ -1494,6 +1536,9 @@ msgstr "Пайдаланушы"
 msgid "PAGE_LOGIN_BROWSER_TITLE"
 msgstr "Кіру"
 
+msgid "PAGE_LOGIN_FORGOT_PASSWORD"
+msgstr "Құпия сөзді ұмыттыңыз ба?"
+
 msgid "PAGE_LOGIN_GREETING"
 msgstr "Өзіңізді таныстырыңыз..."
 
@@ -1549,7 +1594,7 @@ msgid "PAGE_MANAGE_APPS_EMPTY_DESC"
 msgstr "Сіз әзірге бірде-бір қосымшаны басқармайсыз."
 
 msgid "PAGE_MANAGE_APPS_EMPTY_TITLE"
-msgstr "Қосымшалар жоқ :("
+msgstr "Қосымшалар жоқ ＞︿＜"
 
 msgid "PAGE_MANAGE_APPS_HEADER"
 msgstr "Басқарылатын қосымша беттері"
@@ -1627,6 +1672,110 @@ msgstr "Серіктес сайттар және басқа да жобалар�
 msgid "PAGE_OTHER_PROJECTS_TITLE"
 msgstr "Басқа жобалар"
 
+msgid "PAGE_PASSWORD_RESET_COMPLETE_HEADER"
+msgstr "Сәтті!"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TEXT"
+msgstr "Тіркелгіңіз қауіпсіз. LunaStore-қа қайта қош келдіңіз!"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TITLE"
+msgstr "Дайын"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_LOGIN_BTN"
+msgstr "Аккаунтқа кіру"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_TEXT_1"
+msgstr "Құпия сөзіңіз сәтті өзгертілді. Енді жаңа құпия сөзді пайдаланып, тіркелгіңізге кіре аласыз."
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_TITLE"
+msgstr "Құпиясөз өзгертілді"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_HEADER"
+msgstr "Жаңа құпия сөз"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TEXT"
+msgstr "Жаңа құпия сөзіңіз бірегей екеніне және оның құрамында бас әріптер мен кіші әріптердің, сондай-ақ цифрлардың немесе арнайы таңбалардың тіркесі бар екеніне көз жеткізіңіз."
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TITLE"
+msgstr "Сенімді құпия сөз"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INVALID_LINK"
+msgstr "Құпия сөзді қалпына келтіру сілтемесі жарамсыз. Ол бұрын пайдаланылған болуы немесе оның қолданылу мерзімі өтіп кеткен болуы мүмкін. Құпия сөзді қалпына келтіруді қайтадан сұрауыңызды өтінеміз."
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_SUBMIT_BTN"
+msgstr "Құпия сөзді орнату"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_TITLE"
+msgstr "Жаңа құпия сөз"
+
+msgid "PAGE_PASSWORD_RESET_DONE_HEADER"
+msgstr "Хат жіберілді"
+
+msgid "PAGE_PASSWORD_RESET_DONE_INFO_TEXT"
+msgstr "Хат әдетте бірнеше минут ішінде жеткізіледі. Егер қиындықтар туындаса, қолдау қызметіне хабарласа аласыз."
+
+msgid "PAGE_PASSWORD_RESET_DONE_INFO_TITLE"
+msgstr "Әрі қарай не болады?"
+
+msgid "PAGE_PASSWORD_RESET_DONE_TEXT_1"
+msgstr "Біз құпия сөзді қалпына келтіру туралы нұсқауларды сіз көрсеткен электрондық пошта мекенжайына жібердік (егер ол біздің жүйеде болса)"
+
+msgid "PAGE_PASSWORD_RESET_DONE_TEXT_2"
+msgstr "Өтінеміз, поштаңызды тексеріп, процедураны аяқтау үшін сілтемеге өтіңіз. Егер хат келмесе, \"Спам\" қалтасын тексеріңіз."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_FOOTER"
+msgstr "Бұл хат автоматты түрде жіберілді. Оған жауап бермеуіңізді сұраймыз."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_GREETING"
+msgstr "Сәлеметсіз бе"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_LABEL"
+msgstr "Электрондық пошта мекенжайы"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_1"
+msgstr "LunaStore сайтындағы тіркелгіңіздің құпия сөзін қалпына келтіру сұратылғандықтан, сізге осы хат жолданып отыр."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_2"
+msgstr "Жаңа құпия сөзді орнату үшін келесі сілтемеге өтіңіз:"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_3"
+msgstr "Егер сіз құпия сөзді қалпына келтіруді сұрамасаңыз, бұл хатты елемеңіз."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_4"
+msgstr ""
+"Ізгі ниетпен, \n"
+"LunaStore командасы"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_REGARDS"
+msgstr "Ізгі ниетпен, LunaStore командасы"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_1"
+msgstr "LunaStore аккаунтының паролін қалпына келтіруді сұрадыңыз. Жаңа пароль орнату үшін төмендегі сілтемеге өтіңіз:"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_2"
+msgstr "Егер сіз құпия сөзді қалпына келтіруді сұрамасаңыз, бұл хатты елемеңіз. Құпия сөзіңіз қауіпсіз күйде қалады."
+
+msgid "PAGE_PASSWORD_RESET_FORM_HEADER"
+msgstr "Құпия сөзді қалпына келтіру"
+
+msgid "PAGE_PASSWORD_RESET_HEADER"
+msgstr "Құпия сөзді қалпына келтіру"
+
+msgid "PAGE_PASSWORD_RESET_INFO_TEXT"
+msgstr "LunaStore аккаунтыңызға тіркелген электрондық пошта мекенжайыңызды енгізіңіз. Біз сізге құпия сөзді қалпына келтіру туралы нұсқаулық жібереміз."
+
+msgid "PAGE_PASSWORD_RESET_INFO_TITLE"
+msgstr "Құпия сөзді ұмыттыңыз ба?"
+
+msgid "PAGE_PASSWORD_RESET_SUBJECT"
+msgstr "LunaStore сайтындағы құпия сөзді қалпына келтіру"
+
+msgid "PAGE_PASSWORD_RESET_SUBMIT_BTN"
+msgstr "Хатты жіберу"
+
+msgid "PAGE_PASSWORD_RESET_TITLE"
+msgstr "Құпия сөзді қалпына келтіру"
+
 msgid "PAGE_PROFILESETTINGS_LABEL_BIO"
 msgstr "Профиль сипаттамасы:"
 
@@ -1652,7 +1801,7 @@ msgid "PAGE_PROFILE_INVITES_EMPTY_DESC"
 msgstr "Әзірге бұл пайдаланушының шақыруы бойынша ешкім тіркелмеді."
 
 msgid "PAGE_PROFILE_INVITES_EMPTY_TITLE"
-msgstr "Шақырулар жоқ :("
+msgstr "Шақырулар жоқ ＞︿＜"
 
 msgid "PAGE_PROFILE_INVITES_PEOPLE"
 msgstr "адам (алғашқы 5-уі көрсетілген)"
@@ -1674,6 +1823,12 @@ msgstr "қосу"
 
 msgid "PAGE_PROFILE_LINK_ALL"
 msgstr "барлығын көрсету"
+
+msgid "PAGE_PROFILE_NO_REVIEWS"
+msgstr "Пікірлер жоқ"
+
+msgid "PAGE_PROFILE_REVIEW_TO_APP"
+msgstr "қосымшаға"
 
 msgid "PAGE_PROFILE_STAFF_ALT"
 msgstr "LunaStore командасы"
@@ -1800,6 +1955,9 @@ msgstr "Мәселе туралы хабарлау"
 
 msgid "PAGE_SEARCH_BADGE_DEMO"
 msgstr "Демо"
+
+msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
+msgstr "Демо, әрі қарай $%(price)s"
 
 msgid "PAGE_SEARCH_BADGE_DEMO_PRICE %(price)s"
 msgstr "Демо, әрі қарай $%(price)s"
@@ -1978,6 +2136,9 @@ msgstr "Файлдар тексеруден өтті: "
 msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_2"
 msgstr "дана. Жүктеуге дайын."
 
+msgid "SET_APP_ALLOW_REVIEWS"
+msgstr "Пікірлерге рұқсат беру"
+
 msgid "SET_APP_IS_PRIVATE"
 msgstr "Қосымшаны жеке ету керек пе?"
 
@@ -2022,111 +2183,3 @@ msgstr "Логин немесе құпия сөз дұрыс емес."
 
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "Сіз сәтті кірдіңіз! Сәлем, %(username)s!"
-
-msgid "ERROR_PASSWORD_RESET_EMAIL_NOT_FOUND"
-msgstr "Мұндай электрондық пошта мекенжайы бар пайдаланушы табылмады"
-
-msgid "PAGE_LOGIN_FORGOT_PASSWORD"
-msgstr "Құпия сөзді ұмыттыңыз ба?"
-
-msgid "PAGE_PASSWORD_RESET_TITLE"
-msgstr "Құпия сөзді қалпына келтіру"
-
-msgid "PAGE_PASSWORD_RESET_HEADER"
-msgstr "Құпия сөзді қалпына келтіру"
-
-msgid "PAGE_PASSWORD_RESET_FORM_HEADER"
-msgstr "Құпия сөзді қалпына келтіру"
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_LABEL"
-msgstr "Электрондық пошта мекенжайы"
-
-msgid "PAGE_PASSWORD_RESET_SUBMIT_BTN"
-msgstr "Хат жіберу"
-
-msgid "PAGE_PASSWORD_RESET_INFO_TITLE"
-msgstr "Құпия сөзді ұмыттыңыз ба?"
-
-msgid "PAGE_PASSWORD_RESET_INFO_TEXT"
-msgstr "LunaStore тіркелгіңізге байланысты электрондық пошта мекенжайыңызды енгізіңіз. Біз сізге құпия сөзді қалпына келтіру бойынша нұсқауларды жібереміз."
-
-msgid "PAGE_PASSWORD_RESET_COMPLETE_TITLE"
-msgstr "Құпия сөз өзгертілді"
-
-msgid "PAGE_PASSWORD_RESET_COMPLETE_LOGIN_BTN"
-msgstr "Тіркелгіге кіру"
-
-msgid "PAGE_PASSWORD_RESET_COMPLETE_HEADER"
-msgstr "Сәтті!"
-
-msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TITLE"
-msgstr "Бәрі дайын"
-
-msgid "PAGE_PASSWORD_RESET_COMPLETE_TEXT_1"
-msgstr "Құпия сөзіңіз сәтті өзгертілді. Енді жаңа құпия сөзді пайдаланып тіркелгіңізге кіре аласыз."
-
-msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TEXT"
-msgstr "Тіркелгіңіз қауіпсіз. LunaStore-ға қайта қош келдіңіз!"
-
-msgid "PAGE_PASSWORD_RESET_CONFIRM_TITLE"
-msgstr "Жаңа құпия сөз"
-
-msgid "PAGE_PASSWORD_RESET_CONFIRM_HEADER"
-msgstr "Жаңа құпия сөз"
-
-msgid "PAGE_PASSWORD_RESET_CONFIRM_SUBMIT_BTN"
-msgstr "Құпия сөзді орнату"
-
-msgid "PAGE_PASSWORD_RESET_CONFIRM_INVALID_LINK"
-msgstr "Құпия сөзді қалпына келтіру сілтемесі жарамсыз. Ол бұрын қолданылған немесе мерзімі біткен болуы мүмкін. Құпия сөзді қалпына келтіруді қайта сұраңыз."
-
-msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TITLE"
-msgstr "Күшті құпия сөз"
-
-msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TEXT"
-msgstr "Жаңа құпия сөзіңіздің бірегей екеніне және бас және кіші әріптердің, сондай-ақ сандардың немесе арнайы таңбалардың комбинациясы бар екеніне көз жеткізіңіз."
-
-msgid "PAGE_PASSWORD_RESET_DONE_HEADER"
-msgstr "Хат жіберілді"
-
-msgid "PAGE_PASSWORD_RESET_DONE_TEXT_1"
-msgstr "Біз сіз көрсеткен электрондық пошта мекенжайына (егер ол біздің жүйеде болса) құпия сөзді қалпына келтіру бойынша нұсқауларды жібердік."
-
-msgid "PAGE_PASSWORD_RESET_DONE_TEXT_2"
-msgstr "Поштаңызды тексеріп, процедураны аяқтау үшін сілтеме бойынша өтіңіз. Егер хат келмесе, «Спам» қалтасын тексеріңіз."
-
-msgid "PAGE_PASSWORD_RESET_DONE_INFO_TITLE"
-msgstr "Келесі не?"
-
-msgid "PAGE_PASSWORD_RESET_DONE_INFO_TEXT"
-msgstr "Әдетте хат бірнеше минут ішінде жеткізіледі. Қандай да бір қиындықтар туындаса, қолдау қызметіне хабарласуға болады."
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_GREETING"
-msgstr "Сәлеметсіз бе"
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_1"
-msgstr "Сіз LunaStore тіркелгісінің құпия сөзін қалпына келтіруді сұрадыңыз. Жаңа құпия сөзді орнату үшін төмендегі сілтеме бойынша өтіңіз:"
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_2"
-msgstr "Егер сіз құпия сөзді қалпына келтіруді сұрамасаңыз, бұл хатты елемеңіз. Құпия сөзіңіз қауіпсіз болып қалады."
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_FOOTER"
-msgstr "Бұл хат автоматты түрде жіберілді. Оған жауап бермеңіз."
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_REGARDS"
-msgstr "Құрметпен, LunaStore командасы"
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_1"
-msgstr "Сіз бұл хатты алдыңыз, өйткені LunaStore сайтындағы тіркелгіңіз үшін құпия сөзді қалпына келтіру сұралды."
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_2"
-msgstr "Жаңа құпия сөзді орнату үшін келесі сілтеме бойынша өтіңіз:"
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_3"
-msgstr "Егер сіз құпия сөзді қалпына келтіруді сұрамасаңыз, бұл хатты елемеңіз."
-
-msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_4"
-msgstr "Құрметпен, \nLunaStore командасы"
-
-msgid "PAGE_PASSWORD_RESET_SUBJECT"
-msgstr "LunaStore сайтында құпия сөзді қалпына келтіру"
