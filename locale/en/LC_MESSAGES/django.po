@@ -2163,6 +2163,9 @@ msgstr "(your rating)"
 msgid "PAGE_APP_RATING_NO_REVIEWS"
 msgstr "No ratings yet"
 
+msgid "PAGE_APP_RATING_DISABLED"
+msgstr "Reviews for this application are disabled by the author"
+
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_RECENT"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_RECENT"
 msgstr[0] "%(counter)s review (showing last 5)"

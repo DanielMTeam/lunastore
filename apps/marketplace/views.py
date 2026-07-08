@@ -107,6 +107,7 @@ def app(request):
         "price": obj.price,
         "original_author": obj.original_author,
         "developer_site": obj.developer_site,
+        "allow_reviews": obj.allow_reviews,
         "developer_id": obj.user.id,
         "download_page_url": download_page_url,
         "is_translated_to_current_lang": obj.is_translated_to_current_lang,
