@@ -20,11 +20,11 @@ msgstr[0] "%(counter)s пікір,"
 
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_ALL"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_ALL"
-msgstr[0] "%d пікір (осы бетте көрсетілген)"
+msgstr[0] "%(counter)s пікір (осы бетте көрсетілген)"
 
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_RECENT"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_RECENT"
-msgstr[0] "%d пікір (соңғы 5-і көрсетілген)"
+msgstr[0] "%(counter)s пікір (соңғы 5-і көрсетілген)"
 
 msgid "404_ELEMENT_NOT_FOUND"
 msgstr "Сұратылған элемент немесе сіз өткіңіз келетін сілтеме біздің сайттан табылмады."

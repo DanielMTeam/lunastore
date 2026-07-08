@@ -22,13 +22,13 @@ msgstr[1] "%(counter)s reviews -"
 
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_ALL"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_ALL"
-msgstr[0] "%d review (shown on this page)"
-msgstr[1] "%d reviews (shown on this page)"
+msgstr[0] "%(counter)s review (shown on this page)"
+msgstr[1] "%(counter)s reviews (shown on this page)"
 
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_RECENT"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_RECENT"
-msgstr[0] "%d review (last 5 shown)"
-msgstr[1] "%d reviews (last 5 shown)"
+msgstr[0] "%(counter)s review (last 5 shown)"
+msgstr[1] "%(counter)s reviews (last 5 shown)"
 
 msgid "404_ELEMENT_NOT_FOUND"
 msgstr "The requested item or link you are trying to visit was not found on our site."

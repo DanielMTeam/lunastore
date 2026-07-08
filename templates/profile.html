@@ -69,12 +69,12 @@
     <div class="tabs">
         <div class="tab-bar">
             <a href="/profile.php?id={{ obj.id }}" class="tab {% if not act %}active{% endif %}" style="text-decoration:none; color:black; display: inline-block;">
-                <img src="{% static './img/tabs/faq.png'%}" class="tab-icon" alt="">
+                <img src="{% static './img/tabs/account.png'%}" class="tab-icon" alt="">
                 {% trans "PAGE_PROFILE_TAB_MAIN" %}
             </a>
             <a href="/profile.php?id={{ obj.id }}&act=show_reviews" class="tab {% if act == 'show_reviews' %}active{% endif %}" style="text-decoration:none; color:black; display: inline-block;">
-                <img src="{% static './img/tabs/faq.png'%}" class="tab-icon" alt="">
-                Отзывы
+                <img src="{% static './img/tabs/main.png'%}" class="tab-icon" alt="">
+                {% trans "PAGE_PROFILE_TAB_REVIEWS" %}
             </a>
         </div>
 
