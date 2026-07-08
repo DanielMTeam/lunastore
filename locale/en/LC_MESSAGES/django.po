@@ -2137,11 +2137,10 @@ msgstr "Password Reset on LunaStore"
 msgid "PAGE_APP_SECTION_RATING"
 msgstr "Rating"
 
-msgid "PAGE_APP_RATING_BASED_ON"
-msgstr "Overall rating based on reviews from"
-
-msgid "PAGE_APP_RATING_PEOPLE"
-msgstr "people"
+msgid "PAGE_APP_RATING_BASED_ON_COUNT %(counter)s"
+msgid_plural "PAGE_APP_RATING_BASED_ON_COUNT_PLURAL %(counter)s"
+msgstr[0] "Overall rating based on reviews from <b>%(counter)s person</b>"
+msgstr[1] "Overall rating based on reviews from <b>%(counter)s people</b>"
 
 msgid "PAGE_APP_RATING_YOUR"
 msgstr "Your rating:"

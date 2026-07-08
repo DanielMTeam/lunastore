@@ -2144,11 +2144,11 @@ msgstr "Аккаунт с таким адресом электронной по�
 msgid "PAGE_APP_SECTION_RATING"
 msgstr "Рейтинг"
 
-msgid "PAGE_APP_RATING_BASED_ON"
-msgstr "Общий рейтинг составлен на основе отзывов от"
-
-msgid "PAGE_APP_RATING_PEOPLE"
-msgstr "человек"
+msgid "PAGE_APP_RATING_BASED_ON_COUNT %(counter)s"
+msgid_plural "PAGE_APP_RATING_BASED_ON_COUNT_PLURAL %(counter)s"
+msgstr[0] "Общий рейтинг составлен на основе отзывов от <b>%(counter)s человека</b>"
+msgstr[1] "Общий рейтинг составлен на основе отзывов от <b>%(counter)s человек</b>"
+msgstr[2] "Общий рейтинг составлен на основе отзывов от <b>%(counter)s человек</b>"
 
 msgid "PAGE_APP_RATING_YOUR"
 msgstr "Ваша оценка:"
