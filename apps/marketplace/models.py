@@ -52,12 +52,64 @@ class Category(SafeDeleteModel):
         return f"<Category {self.name}>"
 
 
+class Badge(models.Model):
+    PREDEFINED_STYLES = (
+        ("custom", "Кастомный (цвета ниже)"),
+        ("editor_choice", "Выбор редакции (синий фон, иконка звезды)"),
+        ("verified", "Официальный издатель (зеленый фон, иконка глобуса)"),
+        ("exclusive", "Эксклюзив (красный фон, !! вместо иконки)"),
+    )
+
+    name = models.CharField(max_length=80, verbose_name="Название")
+    predefined_style = models.CharField(
+        max_length=20, choices=PREDEFINED_STYLES, default="custom", verbose_name="Готовый стиль"
+    )
+
+    # Поля для кастомного стиля
+    icon_class = models.CharField(
+        max_length=50, blank=True, null=True, 
+        verbose_name="CSS класс иконки", 
+        help_text="Например: award, official. Применимо только для кастомного стиля."
+    )
+    icon_text = models.CharField(
+        max_length=10, blank=True, null=True, 
+        verbose_name="Текст вместо иконки", 
+        help_text="Например: !!. Применимо только для кастомного стиля."
+    )
+    bg_color = models.CharField(
+        max_length=7, default="#5fa359", verbose_name="Цвет фона", 
+        help_text="Только для кастомного стиля (в HEX)"
+    )
+    text_color = models.CharField(
+        max_length=7, default="#ffffff", verbose_name="Цвет текста", 
+        help_text="Только для кастомного стиля (в HEX)"
+    )
+    border_color = models.CharField(
+        max_length=7, default="#006000", verbose_name="Цвет границы", 
+        help_text="Только для кастомного стиля (в HEX)"
+    )
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name = "Бейджик"
+        verbose_name_plural = "Бейджики"
+
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return f"<Badge {self.name}>"
+
+
 class BaseApplicationInfo(SafeDeleteModel):
     _safedelete_policy = SOFT_DELETE_CASCADE
 
 
     categories = models.ManyToManyField(
         "Category", verbose_name="Категории", blank=True, related_name="%(class)s_categories"
+    )
+    badges = models.ManyToManyField(
+        "Badge", verbose_name="Бейджики", blank=True, related_name="%(class)s_badges"
     )
     title = models.CharField(max_length=80, verbose_name="Название")
     original_author = models.CharField(

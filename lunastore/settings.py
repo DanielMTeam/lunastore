@@ -804,6 +804,7 @@ UNFOLD = {
                 "marketplace.application",
                 "marketplace.category",
                 "marketplace.distribution",
+                "marketplace.badge",
                 "marketplace.appreportrequests",
                 "marketplace.problemreportrequests",
                 "marketplace.appeditrequests",
@@ -887,6 +888,11 @@ UNFOLD = {
                         "title": "Категории",
                         "icon": "category",
                         "link": reverse_lazy("admin:marketplace_category_changelist"),
+                    },
+                    {
+                        "title": "Бейджики",
+                        "icon": "local_police",
+                        "link": reverse_lazy("admin:marketplace_badge_changelist"),
                     },
                     {
                         "title": "Дистрибуции",

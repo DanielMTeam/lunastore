@@ -112,6 +112,7 @@ def app(request):
         "download_page_url": download_page_url,
         "is_translated_to_current_lang": obj.is_translated_to_current_lang,
         "latest_distribution": obj_dist,
+        "badges": obj.badges.all(),
         "icon_url": obj.icon_url,
         "title": obj.title,
         "slogan": obj.slogan,

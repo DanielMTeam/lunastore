@@ -117,6 +117,26 @@
         {% endif %}
     </div>
 
+        {% for badge in badges %}
+            {% if badge.predefined_style == 'editor_choice' %}
+                <div class="app_badge" id="editor_choice"><li id="award">{{ badge.name }}</li></div>
+            {% elif badge.predefined_style == 'verified' %}
+                <div class="app_badge" id="verified"><li id="official">{{ badge.name }}</li></div>
+            {% elif badge.predefined_style == 'exclusive' %}
+                <div class="app_badge" id="exclusive"><li id="exclusive">{{ badge.name }}</li></div>
+            {% else %}
+                <div class="app_badge" style="{% if badge.icon_class %}padding: 1px 5px;{% endif %} background-color: {{ badge.bg_color }}; color: {{ badge.text_color }}; border-top: 1px solid {{ badge.border_color }}; border-bottom: 1px solid {{ badge.border_color }};">
+                    {% if badge.icon_class %}
+                        <div class="sidebar" style="float: none; width: auto;"><li class="{{ badge.icon_class }} custom_icon" style="color: {{ badge.text_color }}"><span style="position: relative; top: -2px;">{{ badge.name }}</span></li></div>
+                    {% elif badge.icon_text %}
+                        {{ badge.icon_text }} {{ badge.name }}
+                    {% else %}
+                        {{ badge.name }}
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
     <div class="st_other_card">
         <h2>{% trans "PAGE_APP_SECTION_SCREENSHOTS" %}</h2>
         <div class="separator_store"></div>
@@ -212,7 +232,7 @@
             {% if review.user == request.user or perms.marketplace.delete_review %}
             <div style="margin-top: 5px; font-size: 11px;">
                 {% trans "ARE_YOU_SURE" as are_you_sure %}
-                <a href="{% url 'delete_review' %}?id={{ review.id }}" onclick="return confirm('{{ are_you_sure|escapejs }}');" style="text-decoration: none; color: #215dc6;">{% trans "DELETE" %}</a>
+                <a href="{% url 'delete_review' %}?id={{ review.id }}" onclick="return confirm('{{ are_you_sure|escapejs }}');" style="text-decoration: none; color: #215dc6;">{% trans "PAGE_ADMIN_APP_DIST_ACTION_DELETE" %}</a>
             </div>
             {% endif %}
         </div>
