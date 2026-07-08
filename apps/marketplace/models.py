@@ -86,6 +86,8 @@ class BaseApplicationInfo(SafeDeleteModel):
     is_demo = models.BooleanField(default=False, verbose_name="Демо-версия")
     is_private = models.BooleanField(
         default=False, verbose_name="Приложение приватное?")
+    allow_reviews = models.BooleanField(
+        default=True, verbose_name="Разрешить отзывы")
 
 
     class Meta:
@@ -134,6 +136,24 @@ class Application(BaseApplicationInfo, SafeDeleteModel):
         field_name = f"title_{current_lang}"
         value = getattr(self, field_name, None)
         return bool(value)
+
+    @property
+    def avg_rating(self):
+        from django.db.models import Avg
+        from .models import Review
+        avg = self.reviews.aggregate(Avg('rating'))['rating__avg']
+        if avg:
+            return round(avg, 1)
+        return 0
+
+    @property
+    def star_class(self):
+        avg = self.avg_rating
+        if not avg:
+            return ""
+        
+        rounded_val = round(avg * 2) / 2
+        return "r" + str(rounded_val).replace(".5", "_5").replace(".0", "")
 
     class Meta:
         ordering = ["title"]

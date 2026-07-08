@@ -301,6 +301,11 @@ def application_edit_info(request, pk):
         form = AppEditForm(target_app=obj, data=request.POST, files=request.FILES)
 
         if form.is_valid():
+            # Apply allow_reviews immediately
+            if 'allow_reviews' in form.cleaned_data:
+                obj.allow_reviews = form.cleaned_data['allow_reviews']
+                obj.save(update_fields=['allow_reviews'])
+            
             edit_request = form.save(commit=False)
             edit_request.user = request.user
             edit_request.save()
@@ -592,8 +597,12 @@ def rate_app(request):
         # get the app object
         obj = get_object_or_404(Application, id=app_id)
         
+        if not obj.allow_reviews:
+            messages.error(request, _("PAGE_APP_RATING_DISABLED"))
+            return redirect(f"{reverse('app')}?id={app_id}")
+        
         # create or update the rating
-        review, created = Review.objects.get_or_create(
+        review, created = Review.objects.update_or_create(
             application=obj, 
             user=request.user,
             defaults={'rating': rating}
@@ -606,6 +615,27 @@ def rate_app(request):
         # go back to app page
         return redirect(f"{reverse('app')}?id={app_id}")
     return redirect("home")
+
+@login_required
+@ratelimit(key='user', rate='5/1h', block=True)
+def delete_review(request):
+    review_id = request.GET.get("id") or request.POST.get("id")
+    if not review_id:
+        return redirect("home")
+    
+    review = get_object_or_404(Review, id=review_id)
+    if review.user != request.user and not request.user.has_perm("marketplace.delete_review"):
+        messages.error(request, _("PAGE_APP_RATING_DELETE_DENIED"))
+        return redirect(f"{reverse('app')}?id={review.application.id}")
+        
+    app_id = review.application.id
+    review.delete()
+    messages.success(request, _("PAGE_APP_RATING_DELETE_SUCCESS"))
+    
+    next_url = request.GET.get("next")
+    if next_url:
+        return redirect(next_url)
+    return redirect(f"{reverse('app')}?id={app_id}")
 
 
 @login_required

@@ -123,6 +123,7 @@
                 <a href="/app.php?id={{ app.pk }}"><h3>{{ app.title }}</h3></a>
                 <p>{{ app.slogan }}</p>
             </div>
+            <div class="rating {{ app.star_class }}" style="position: absolute; right: 5px; bottom: 20px;"></div>
         </div>
 
     {% empty %}

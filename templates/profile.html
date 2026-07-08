@@ -54,7 +54,6 @@
 
     <link rel="stylesheet" href="{% static './css/profile.css'%}">
     <link rel="stylesheet" href="{% static './css/tabs.css'%}">
-    <link rel="stylesheet" href="{% static './css/reviews.css'%}">
 
     {% if active_ban %}
     <div class="error_splash" style="width: auto;">
@@ -69,13 +68,18 @@
     {% else %}
     <div class="tabs">
         <div class="tab-bar">
-            <div class="tab active" href="/help.php">
+            <a href="/profile.php?id={{ obj.id }}" class="tab {% if not act %}active{% endif %}" style="text-decoration:none; color:black; display: inline-block;">
                 <img src="{% static './img/tabs/faq.png'%}" class="tab-icon" alt="">
                 {% trans "PAGE_PROFILE_TAB_MAIN" %}
-            </div>
+            </a>
+            <a href="/profile.php?id={{ obj.id }}&act=show_reviews" class="tab {% if act == 'show_reviews' %}active{% endif %}" style="text-decoration:none; color:black; display: inline-block;">
+                <img src="{% static './img/tabs/faq.png'%}" class="tab-icon" alt="">
+                Отзывы
+            </a>
         </div>
 
         <div class="tab-content" id="tab-view">
+            {% if not act %}
             <div class="profile_block">{% trans "PAGE_PROFILE_CONTACT_INFO" %}</div>
             <div class="profile_block_content">
 
@@ -181,7 +185,84 @@
                 </table>
             </div>
             <br>
+            
+            <div class="profile_block">
+                <span style="font-weight: bold; float: right;"><a href="/profile.php?id={{ obj.id }}&act=show_reviews">{% trans "PAGE_PROFILE_LINK_ALL" %}</a></span>{% trans "PAGE_PROFILE_TAB_REVIEWS" %}
+            </div>
+            <div class="profile_subblock">{% blocktranslate count counter=obj.reviews.count %}{{ counter }} PAGE_PROFILE_STATS_REVIEW_RECENT{% plural %}{{ counter }} PAGE_PROFILE_STATS_REVIEWS_RECENT{% endblocktranslate %}</div>
+            <div class="profile_block_content">
+                {% for review in recent_reviews %}
+                <div class="review_body" style="margin-bottom: 10px;">
+                    <div class="review_author">
+                        <a href="/profile.php?id={{ review.user.id }}">{{ review.user.username }}</a> {% trans "PAGE_PROFILE_REVIEW_TO_APP" %} <a href="/app.php?id={{ review.application.id }}">{{ review.application.title }}</a>
+                    </div>
+                    <div class="review_date">{{ review.created_at|date:"d E Y в H:i" }}</div>
+                    <hr>
+                    <!-- show stars for this review -->
+                    <div class="rating r{{ review.rating }}"></div>
+                    {% if review.user == request.user or perms.marketplace.delete_review %}
+                    <div style="margin-top: 5px; font-size: 11px;">
+                        {% trans "ARE_YOU_SURE" as are_you_sure %}
+                        <a href="{% url 'delete_review' %}?id={{ review.id }}&next=/profile.php?id={{ obj.id }}" onclick="return confirm('{{ are_you_sure|escapejs }}');" style="text-decoration: none; color: #215dc6;">{% trans "DELETE" %}</a>
+                    </div>
+                    {% endif %}
+                </div>
+                {% empty %}
+                <div class="empty-state" style="text-align: center; padding: 20px; color: #555;">{% trans "PAGE_PROFILE_NO_REVIEWS" %}</div>
+                {% endfor %}
+            </div>
+            <br>
 
+            {% elif act == 'show_reviews' %}
+            <div class="profile_block">
+                {% trans "PAGE_PROFILE_TAB_REVIEWS" %}
+            </div>
+            <div class="profile_subblock">{% blocktranslate count counter=reviews_page.paginator.count %}{{ counter }} PAGE_PROFILE_STATS_REVIEW_ALL{% plural %}{{ counter }} PAGE_PROFILE_STATS_REVIEWS_ALL{% endblocktranslate %}</div>
+            <div class="profile_block_content">
+                {% for review in reviews_page %}
+                <div class="review_body" style="margin-bottom: 10px;">
+                    <div class="review_author">
+                        <a href="/profile.php?id={{ review.user.id }}">{{ review.user.username }}</a> {% trans "PAGE_PROFILE_REVIEW_TO_APP" %} <a href="/app.php?id={{ review.application.id }}">{{ review.application.title }}</a>
+                    </div>
+                    <div class="review_date">{{ review.created_at|date:"d E Y в H:i" }}</div>
+                    <hr>
+                    <!-- show stars for this review -->
+                    <div class="rating r{{ review.rating }}"></div>
+                    {% if review.user == request.user or perms.marketplace.delete_review %}
+                    <div style="margin-top: 5px; font-size: 11px;">
+                        {% trans "ARE_YOU_SURE" as are_you_sure %}
+                        <a href="{% url 'delete_review' %}?id={{ review.id }}&next=/profile.php?id={{ obj.id }}%26act=show_reviews" onclick="return confirm('{{ are_you_sure|escapejs }}');" style="text-decoration: none; color: #215dc6;">{% trans "DELETE" %}</a>
+                    </div>
+                    {% endif %}
+                </div>
+                {% empty %}
+                <div class="empty-state" style="text-align: center; padding: 20px; color: #555;">{% trans "PAGE_PROFILE_NO_REVIEWS" %}</div>
+                {% endfor %}
+            </div>
+            <br>
+            
+            {% if reviews_page.has_other_pages %}
+            <div class="paginator" style="text-align: center; margin-top: 10px;">
+                {% if reviews_page.has_previous %}
+                    <a href="?id={{ obj.id }}&act=show_reviews&page={{ reviews_page.previous_page_number }}">&laquo;</a>
+                {% endif %}
+
+                {% for num in reviews_page.paginator.page_range %}
+                    {% if reviews_page.number == num %}
+                        <a class="active" href="#">{{ num }}</a>
+                    {% elif num > reviews_page.number|add:'-3' and num < reviews_page.number|add:'3' %}
+                        <a href="?id={{ obj.id }}&act=show_reviews&page={{ num }}">{{ num }}</a>
+                    {% endif %}
+                {% endfor %}
+
+                {% if reviews_page.has_next %}
+                    <a href="?id={{ obj.id }}&act=show_reviews&page={{ reviews_page.next_page_number }}">&raquo;</a>
+                {% endif %}
+            </div>
+            <br>
+            {% endif %}
+
+            {% endif %}
         </div>
     </div>
     {% endif %}

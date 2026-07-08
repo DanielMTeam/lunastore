@@ -1993,6 +1993,9 @@ msgstr "Сделать приложение приватным?"
 msgid "SET_APP_IS_PRIVATE_TOOLTIP"
 msgstr "Приватное приложение не отображается другим пользователям. Эту настройку можно поменять после публикации приложения."
 
+msgid "SET_APP_ALLOW_REVIEWS"
+msgstr "Разрешить отзывы"
+
 msgid "SITE_DESCRIPTION"
 msgstr "LunaStore. Справочник приложений для твоего старого ПК. Скачивайте приложения, оставляйте отзывы и станьте частью сообщества любителей старых ПК."
 
@@ -2168,3 +2171,21 @@ msgstr "(ваша оценка)"
 msgid "PAGE_APP_RATING_NO_REVIEWS"
 msgstr "Нет оценок"
 
+
+msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_RECENT"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_RECENT"
+msgstr[0] "%(counter)s отзыв (показаны последние 5)"
+msgstr[1] "%(counter)s отзыва (показаны последние 5)"
+msgstr[2] "%(counter)s отзывов (показаны последние 5)"
+
+msgid "PAGE_PROFILE_REVIEW_TO_APP"
+msgstr "к приложению"
+
+msgid "PAGE_PROFILE_NO_REVIEWS"
+msgstr "Нет отзывов"
+
+msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_ALL"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_ALL"
+msgstr[0] "%(counter)s отзыв (показаны на этой странице)"
+msgstr[1] "%(counter)s отзыва (показаны на этой странице)"
+msgstr[2] "%(counter)s отзывов (показаны на этой странице)"
