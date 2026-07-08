@@ -2171,6 +2171,9 @@ msgstr "(ваша оценка)"
 msgid "PAGE_APP_RATING_NO_REVIEWS"
 msgstr "Нет оценок"
 
+msgid "PAGE_APP_RATING_DISABLED"
+msgstr "Отзывы для этого приложения отключены автором"
+
 
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_RECENT"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_RECENT"

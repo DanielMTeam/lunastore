@@ -164,7 +164,7 @@
               {% blocktrans count counter=review_count %}PAGE_APP_RATING_BASED_ON_COUNT {{ counter }}{% plural %}PAGE_APP_RATING_BASED_ON_COUNT_PLURAL {{ counter }}{% endblocktrans %}
               <br>
               <!-- form to send your rating -->
-              {% if app.allow_reviews %}
+              {% if allow_reviews %}
                 {% if user.is_authenticated %}
                   <form id="rating-form" method="POST" action="{% url 'rate_app' %}?id={{ app_id }}" style="display:none;">
                       {% csrf_token %}

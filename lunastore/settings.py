@@ -94,8 +94,8 @@ ADMIN_URL = os.getenv("ADMIN_URL", "admin")
 
 CORS_ALLOW_CREDENTIALS = True
 
-SESSION_COOKIE_DOMAIN = os.getenv("SESSION_COOKIE_DOMAIN", ".lunastore.app")
-CSRF_COOKIE_DOMAIN = os.getenv("CSRF_COOKIE_DOMAIN", ".lunastore.app")
+SESSION_COOKIE_DOMAIN = os.getenv("SESSION_COOKIE_DOMAIN", ".lunastore.app") or None
+CSRF_COOKIE_DOMAIN = os.getenv("CSRF_COOKIE_DOMAIN", ".lunastore.app") or None
 
 LUNASPIRE_URL_WITHOUT_PROTO = os.getenv(
     "LUNASPIRE_URL_WITHOUT_PROTO", "spire.lunastore.app"
