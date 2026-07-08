@@ -16,7 +16,8 @@ from django_smart_ratelimit import ratelimit
 from apps.user.decorators import developer_required, require_modern_browser
 from .decorators import guard_private_app, user_is_owner
 from .forms import AppCreateForm, AppEditForm, AppReportForm, DistributionCreateForm, DistributionEditForm, ProblemReportForm
-from .models import AppCreateRequests, Application, Category, Distribution, AppEditRequests, DistributionCreateRequests, DistributionEditRequests
+from django.db.models import Avg
+from .models import AppCreateRequests, Application, Category, Distribution, AppEditRequests, DistributionCreateRequests, DistributionEditRequests, Review
 
 
 def _format_legacy_date(value):
@@ -69,6 +70,35 @@ def app(request):
     obj_dist = Distribution.objects.filter(app__id=id).order_by("-published").first()
     download_page_url = f"{reverse('download')}?id={obj.id}"
 
+    # get all reviews for this app
+    reviews = Review.objects.filter(application=obj).select_related("user").order_by('-created_at')
+    review_count = reviews.count()
+    
+    # calculate average rating
+    avg_rating = reviews.aggregate(Avg('rating'))['rating__avg']
+    avg_rating_display = round(avg_rating, 1) if avg_rating else "0,0"
+    if avg_rating:
+        avg_rating_display = str(avg_rating_display).replace(".", ",")
+        
+    # calculate css class for stars
+    star_class = ""
+    if avg_rating:
+        rounded_val = round(avg_rating * 2) / 2
+        star_class = "r" + str(rounded_val).replace(".5", "_5").replace(".0", "")
+
+    # get current user rating if logged in
+    user_review = None
+    if request.user.is_authenticated:
+        user_review = Review.objects.filter(application=obj, user=request.user).first()
+
+    # set up paginator for reviews list
+    page = request.GET.get("page", 1)
+    paginator = Paginator(reviews, 10)
+    page_obj = paginator.get_page(page)
+    page_range = paginator.get_elided_page_range(
+        number=page_obj.number, on_each_side=2, on_ends=1
+    )
+
     context = {
         "app_id": obj.id,
         "is_demo": obj.is_demo,
@@ -89,6 +119,12 @@ def app(request):
         "developer_name": obj.user.username,
         "icon_path": obj.icon_path,
         "requirements": obj.requirements,
+        "review_count": review_count,
+        "avg_rating_display": avg_rating_display,
+        "star_class": star_class,
+        "user_review": user_review,
+        "page_obj": page_obj,
+        "page_range": page_range,
     }
     return render(request, "storepage.html", context)
 
@@ -531,6 +567,45 @@ def distribution_edit(request, dist_pk):
         "download_list_url": reverse("download") + "?id=" + str(distribution.app.id),
     }
     return render(request, "distribution_form.html", context)
+
+
+@login_required
+@ratelimit(key='user', rate='5/1h', block=True)
+@ratelimit(key='ip', rate='10/1h', block=True)
+def rate_app(request):
+    # save user rating here
+    if request.method == "POST":
+        app_id = request.GET.get("id") or request.POST.get("id")
+        rating = request.POST.get("rating")
+        
+        # redirect if missing data
+        if not app_id or not rating:
+            return redirect("home")
+            
+        try:
+            rating = int(rating)
+            if rating < 1 or rating > 5:
+                raise ValueError
+        except ValueError:
+            return redirect(f"{reverse('app')}?id={app_id}")
+            
+        # get the app object
+        obj = get_object_or_404(Application, id=app_id)
+        
+        # create or update the rating
+        review, created = Review.objects.get_or_create(
+            application=obj, 
+            user=request.user,
+            defaults={'rating': rating}
+        )
+        if not created:
+            # update existing rating
+            review.rating = rating
+            review.save()
+            
+        # go back to app page
+        return redirect(f"{reverse('app')}?id={app_id}")
+    return redirect("home")
 
 
 @login_required

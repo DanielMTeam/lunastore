@@ -29,4 +29,5 @@ urlpatterns = [
         name="distribution_delete",
     ),
     path("get_dist_file/<int:dist_pk>/", views.get_file_action, name="download_action"),
+    path("rate_app.php", views.rate_app, name="rate_app"),
 ]

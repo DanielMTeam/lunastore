@@ -2140,3 +2140,31 @@ msgstr "Сброс пароля на сайте LunaStore"
 
 msgid "ERROR_PASSWORD_RESET_EMAIL_NOT_FOUND"
 msgstr "Аккаунт с таким адресом электронной почты не найден."
+
+msgid "PAGE_APP_SECTION_RATING"
+msgstr "Рейтинг"
+
+msgid "PAGE_APP_RATING_BASED_ON"
+msgstr "Общий рейтинг составлен на основе отзывов от"
+
+msgid "PAGE_APP_RATING_PEOPLE"
+msgstr "человек"
+
+msgid "PAGE_APP_RATING_YOUR"
+msgstr "Ваша оценка:"
+
+msgid "PAGE_APP_RATING_EVALUATE"
+msgstr "Оценить..."
+
+msgid "PAGE_APP_RATING_LOGIN_PROMPT"
+msgstr "Войдите, чтобы оставить оценку..."
+
+msgid "PAGE_APP_RATING_USERS"
+msgstr "Оценки пользователей"
+
+msgid "PAGE_APP_RATING_YOUR_REVIEW"
+msgstr "(ваша оценка)"
+
+msgid "PAGE_APP_RATING_NO_REVIEWS"
+msgstr "Нет оценок"
+

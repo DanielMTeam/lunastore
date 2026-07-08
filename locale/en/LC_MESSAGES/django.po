@@ -2133,3 +2133,30 @@ msgstr "Best regards, \nThe LunaStore Team"
 
 msgid "PAGE_PASSWORD_RESET_SUBJECT"
 msgstr "Password Reset on LunaStore"
+
+msgid "PAGE_APP_SECTION_RATING"
+msgstr "Rating"
+
+msgid "PAGE_APP_RATING_BASED_ON"
+msgstr "Overall rating based on reviews from"
+
+msgid "PAGE_APP_RATING_PEOPLE"
+msgstr "people"
+
+msgid "PAGE_APP_RATING_YOUR"
+msgstr "Your rating:"
+
+msgid "PAGE_APP_RATING_EVALUATE"
+msgstr "Rate..."
+
+msgid "PAGE_APP_RATING_LOGIN_PROMPT"
+msgstr "Log in to leave a rating..."
+
+msgid "PAGE_APP_RATING_USERS"
+msgstr "User Ratings"
+
+msgid "PAGE_APP_RATING_YOUR_REVIEW"
+msgstr "(your rating)"
+
+msgid "PAGE_APP_RATING_NO_REVIEWS"
+msgstr "No ratings yet"
