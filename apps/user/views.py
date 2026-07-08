@@ -44,8 +44,8 @@ from .forms import (
 )
 from django.utils.decorators import method_decorator
 
-@method_decorator(ratelimit(key='ip', rate='5/h', block=True), name='dispatch')
-@method_decorator(ratelimit(key='post:email', rate='3/h', block=True), name='dispatch')
+@method_decorator(ratelimit(key='ip', rate='5/h', block=True), name='post')
+@method_decorator(ratelimit(key='post:email', rate='3/h', block=True), name='post')
 class RateLimitedPasswordResetView(auth_views.PasswordResetView):
     form_class = CustomPasswordResetForm
     template_name = "user/password_reset_form.html"
@@ -262,10 +262,33 @@ def profile(request):
             ban_record.delete()
             obj.is_active = True
             obj.save(update_fields=["is_active"])
+    from apps.marketplace.models import Review
+    from django.core.paginator import Paginator
+    
+    act = request.GET.get("act")
+    reviews_page = None
+    recent_reviews = None
+    
+    if act == "show_reviews":
+        reviews_list = Review.objects.filter(user=obj).order_by('-created_at')
+        paginator = Paginator(reviews_list, 5)
+        page_number = request.GET.get("page")
+        reviews_page = paginator.get_page(page_number)
+    else:
+        recent_reviews = Review.objects.filter(user=obj).order_by('-created_at')[:5]
+        
     return render(
         request,
         "profile.html",
-        context={"obj": obj, "apps_count": apps_count, "active_ban": active_ban, "badges": badges},
+        context={
+            "obj": obj, 
+            "apps_count": apps_count, 
+            "active_ban": active_ban, 
+            "badges": badges,
+            "act": act,
+            "reviews_page": reviews_page,
+            "recent_reviews": recent_reviews
+        },
     )
 
 

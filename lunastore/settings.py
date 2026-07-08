@@ -94,8 +94,8 @@ ADMIN_URL = os.getenv("ADMIN_URL", "admin")
 
 CORS_ALLOW_CREDENTIALS = True
 
-SESSION_COOKIE_DOMAIN = os.getenv("SESSION_COOKIE_DOMAIN", ".lunastore.app")
-CSRF_COOKIE_DOMAIN = os.getenv("CSRF_COOKIE_DOMAIN", ".lunastore.app")
+SESSION_COOKIE_DOMAIN = os.getenv("SESSION_COOKIE_DOMAIN", ".lunastore.app") or None
+CSRF_COOKIE_DOMAIN = os.getenv("CSRF_COOKIE_DOMAIN", ".lunastore.app") or None
 
 LUNASPIRE_URL_WITHOUT_PROTO = os.getenv(
     "LUNASPIRE_URL_WITHOUT_PROTO", "spire.lunastore.app"
@@ -804,6 +804,7 @@ UNFOLD = {
                 "marketplace.application",
                 "marketplace.category",
                 "marketplace.distribution",
+                "marketplace.badge",
                 "marketplace.appreportrequests",
                 "marketplace.problemreportrequests",
                 "marketplace.appeditrequests",
@@ -887,6 +888,11 @@ UNFOLD = {
                         "title": "Категории",
                         "icon": "category",
                         "link": reverse_lazy("admin:marketplace_category_changelist"),
+                    },
+                    {
+                        "title": "Бейджики",
+                        "icon": "local_police",
+                        "link": reverse_lazy("admin:marketplace_badge_changelist"),
                     },
                     {
                         "title": "Дистрибуции",

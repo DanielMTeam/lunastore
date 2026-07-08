@@ -423,6 +423,38 @@ class CategoryAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
     pass
 
 
+from unfold.widgets import UnfoldAdminColorInputWidget
+from unfold.contrib.forms.widgets import UnfoldAdminTextInputWidget
+
+class BadgeAdminForm(forms.ModelForm):
+    class Meta:
+        model = Badge
+        fields = "__all__"
+        widgets = get_translated_widgets_dict({
+            'bg_color': UnfoldAdminColorInputWidget(),
+            'text_color': UnfoldAdminColorInputWidget(),
+            'border_color': UnfoldAdminColorInputWidget(),
+            'icon_class': UnfoldAdminTextInputWidget(),
+            'icon_text': UnfoldAdminTextInputWidget(),
+        })
+
+@admin.register(Badge)
+class BadgeAdmin(unfold_admin.ModelAdmin, TabbedTranslationAdmin):
+    form = BadgeAdminForm
+    list_display = ("name", "predefined_style", "bg_color", "text_color", "border_color")
+    list_filter = ("predefined_style",)
+    search_fields = ("name",)
+    fieldsets = (
+        (None, {
+            "fields": ("name", "predefined_style")
+        }),
+        ("Кастомный стиль (если выбран Выше)", {
+            "fields": ("icon_class", "icon_text", "bg_color", "text_color", "border_color"),
+            "description": "Эти поля будут учитываться только если Готовый стиль установлен в 'Кастомный'."
+        }),
+    )
+
+
 @admin.register(Application)
 class ApplicationAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
 
@@ -444,6 +476,7 @@ class ApplicationAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
                     "title",
                     "user",
                     "categories",
+                    "badges",
                     "description",
                     "original_author",
                     "slogan",
@@ -514,7 +547,11 @@ class ApplicationAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
     def display_categories(self, obj):
         return ", ".join([c.name for c in obj.categories.all()])
 
-    list_display = ["title", "user", "display_categories", "is_demo", "is_under_dmca", "price"]
+    @admin.display(description="Бейджи")
+    def display_badges(self, obj):
+        return ", ".join([b.name for b in obj.badges.all()])
+
+    list_display = ["title", "user", "display_categories", "display_badges", "is_demo", "is_under_dmca", "price"]
     list_editable = ["is_demo", "is_under_dmca"]
     list_filter = SafeDeleteAdmin.list_filter + ["is_demo", "is_under_dmca"]
     search_fields = ["title", "user__username"]
@@ -538,6 +575,7 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
         "user",
         "status",
         "categories",
+        "badges",
         "title",
         "description",
         "slogan",
@@ -616,6 +654,7 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
 
         app.save()
         app.categories.set(req.categories.all())
+        app.badges.set(req.badges.all())
         req.status = "approved"
         req.save()
         send_notification.enqueue(
@@ -661,6 +700,7 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
                 "fields": (
                     "user",
                     "categories",
+                    "badges",
                     "title",
                     "slogan",
                     "description",
@@ -705,6 +745,7 @@ class AppEditRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
         "user",
         "status",
         "categories",
+        "badges",
         "title",
         "original_author",
         "description",
@@ -776,6 +817,7 @@ class AppEditRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
             )
 
         app.categories.set(req.categories.all())
+        app.badges.set(req.badges.all())
         app.original_author = req.original_author
         app.price = req.price
         app.is_demo = req.is_demo
