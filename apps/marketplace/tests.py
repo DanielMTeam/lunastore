@@ -90,6 +90,5 @@ class ProxyDownloadTest(TestCase):
         resp = self.client.get(f"{url}?proxy=1")
         
         self.assertEqual(resp.status_code, 200)
-        self.assertEqual(resp["X-Accel-Redirect"], "/proxy_external_url/")
-        self.assertEqual(resp["X-Target-Url"], self.distribution.url)
+        self.assertEqual(resp["X-Accel-Redirect"], f"/_px/{self.distribution.url}")
         self.assertIn('filename="Test_App_Name_1.0.4.zip"', resp["Content-Disposition"])
