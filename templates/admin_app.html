@@ -14,6 +14,19 @@
   <link rel="stylesheet" href="{% static './css/settings.css'%}">
   <link rel="stylesheet" href="{% static './css/profile.css'%}">
   <link rel="stylesheet" href="{% static './css/tabs.css' %}">
+  <link rel="stylesheet" href="{% static './css/thickbox.css'%}">
+  <script src="{% static './js/jquery.min.js' %}"></script>
+  <script>
+      window.thickboxL10n = {
+          image: "{% trans 'THICKBOX_IMAGE'|default:'Image' %}",
+          of: "{% trans 'THICKBOX_OF'|default:'of' %}",
+          close: "{% trans 'THICKBOX_CLOSE'|default:'Close' %}",
+          next: "{% trans 'THICKBOX_NEXT'|default:'Next' %}",
+          prev: "{% trans 'THICKBOX_PREV'|default:'Prev' %}",
+          noiframes: "{% trans 'THICKBOX_NO_IFRAMES'|default:'No iFrames' %}"
+      };
+  </script>
+  <script src="{% static './js/thickbox.js' %}"></script>
   <style>
     .locale-tabs { margin-bottom: 15px; }
 
@@ -68,7 +81,9 @@
           <form method="post" enctype="multipart/form-data" id="app-upload-form">
               {% csrf_token %}
               {{ form.cdn_icon_path }}
+              {{ form.cdn_icon_confirm_token }}
               {{ form.cdn_screenshots_data }}
+              {{ form.cdn_screenshots_tokens }}
               {{ form.icon_path }}
               {{ form.screenshots_data }}
 
@@ -239,33 +254,15 @@
               <div class="profile_block">{% trans "PAGE_ADMIN_APP_SCRNS_TITLE" %}</div>
               <div class="profile_block_content">
 
-                  {% if obj.screenshot_urls %}
-                  <div class="pref_pad" style="padding-bottom: 0;">
-                      <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_CURRENTSCRN" %}:</div>
-                      <div class="st_screenshots_container" style="zoom: 1; overflow: hidden; margin-top: 5px;">
-                          {% for screen_url in obj.screenshot_urls %}
-                              <div class="st_scr">
-                                  <a href="{{ screen_url }}" target="_blank">
-                                      <img src="{{ screen_url }}" alt="{% trans 'PAGE_APP_IMG_ALT_SCREENSHOT' %}" style="width: 120px; height: 90px; border: 0;">
-                                  </a>
-                              </div>
-                          {% endfor %}
-                          <div class="st_clearb"></div>
-                      </div>
-                      <div class="pref_warn_label" style="color: #b20000; margin-top: 5px;">
-                          {% trans "PAGE_ADMIN_APP_WARN_SCRN" %}
-                      </div>
-                  </div>
-                  <div style="border-top: 1px dashed #cfe1ff; height: 1px; margin: 10px 0; font-size: 0;"></div>
-                  {% endif %}
-
                   <div class="pref_pad">
                       <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_LOAD_SCRN" %}:</div>
+                      <div class="info_splash">{% trans "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_1" %}</div>
                       <div style="margin: 5px 0;">
                           {{ form.upload_screenshots }}
                       </div>
-                      <div id="error-scr-box" class="error-box" style="color: #e74c3c; font-size: 11px; margin-top: 5px; display: none;"></div>
-                      <div id="info-scr" style="font-size: 11px; color: #5fa359; font-weight: bold; margin-top: 5px;"></div>
+                      <div id="screenshots-interactive-container" style="margin-top: 10px;"></div>
+                      <div id="error-scr-box" class="error-box" style="display: none;"></div>
+                      <div id="info-scr" style="display: none;"></div>
                   </div>
               </div> <br>
                 <div style="margin-bottom: 8px;max-width: fit-content;">
@@ -324,7 +321,7 @@
             return;
         }
 
-        let reader = new FileReader();
+        var reader = new FileReader();
         reader.onload = function(e) {
             if (imgPreview) {
                 imgPreview.src = e.target.result;
@@ -334,71 +331,46 @@
     }
 
     function previewScreenshots(input) {
-        let info = document.getElementById('info-scr');
-        let errorBox = document.getElementById('error-scr-box');
-        if (info) info.innerText = "";
-        if (errorBox) {
-            errorBox.style.display = 'none';
-            errorBox.innerText = "";
-        }
-
-        if (input.files && input.files.length > 0) {
-            if (input.files.length > 3) {
-                if (errorBox) {
-                    errorBox.innerText = '{% trans "ERROR_PREVIEWSCRNS_1_COUNT" %}' + input.files.length + '{% trans "ERROR_PREVIEWSCRNS_2_COUNT" %}';
-                    errorBox.style.display = 'block';
-                } else {
-                    alert('{% trans "ERROR_PREVIEWSCRNS_3_COUNT" %}');
-                }
-                input.value = "";
-                return;
-            }
-
-            let count = input.files.length;
-
-            for (let i = 0; i < count; i++) {
-                const file = input.files[i];
-                if (!validateFileExtension(file)) {
-                    let msg = '{% trans "ERROR_PREVIEWSCRNS_1_INVALIDFORMAT" %} ' + file.name + '{% trans "ERROR_PREVIEWSCRNS_2_INVALIDFORMAT" %}';
-                    if (errorBox) {
-                        errorBox.innerText = msg;
-                        errorBox.style.display = 'block';
-                    } else {
-                        alert(msg);
-                    }
-                    input.value = "";
-                    return;
-                }
-
-                if (file.size > 2 * 1024 * 1024) {
-                    let msg = '{% trans "ERROR_PREVIEWSCRNS_1_BIGSIZE" %}' + file.name + '{% trans "ERROR_PREVIEWSCRNS_2_BIGSIZE" %}';
-                    if (errorBox) {
-                        errorBox.innerText = msg;
-                        errorBox.style.display = 'block';
-                    } else {
-                        alert(msg);
-                    }
-                    input.value = "";
-                    return;
-                }
-            }
-
-            if (info) info.innerText = '{% trans "SCRIPT_PREVIEWSCRNS_ARE_COOL_1" %}' + count + '{% trans "SCRIPT_PREVIEWSCRNS_ARE_COOL_2" %}';
-        }
+        // Disabled, using ScreenshotManager instead
     }
+    
+    $(document).ready(function() {
+        var screenshotsArray = [];
+        {% if obj.screenshots %}
+            var savedScr = {{ obj.screenshots|safe }};
+            if (savedScr && savedScr.length) {
+                screenshotsArray = savedScr;
+            }
+        {% endif %}
+        
+        var fileInputId = 'id_upload_screenshots'; // default django form id
+        var fileInput = document.getElementsByName('upload_screenshots')[0];
+        if (fileInput) {
+            fileInputId = fileInput.id;
+        }
+
+        var cdnPrefix = "";
+        if (window.CDN_CONFIG && window.CDN_CONFIG.uploadUrl) {
+            var parts = window.CDN_CONFIG.uploadUrl.split('/');
+            if (parts.length >= 3) {
+                cdnPrefix = parts[0] + "//" + parts[2] + "/";
+            }
+        }
+        new ScreenshotManager('screenshots-interactive-container', fileInputId, 3, screenshotsArray, cdnPrefix);
+    });
 
     function switchFieldLocale(tabBtn, langCode) {
-        const container = tabBtn.closest('.field-tabs');
+        var $container = $(tabBtn).closest('.field-tabs');
 
-        container.querySelectorAll('.tab').forEach(t => {
-            t.classList.remove('active');
+        $container.find('.tab').each(function() {
+            $(this).removeClass('active');
         });
-        tabBtn.classList.add('active');
+        $(tabBtn).addClass('active');
 
-        container.querySelectorAll('.lang-field-wrapper').forEach(wrapper => {
-            wrapper.classList.remove('active');
-            if (wrapper.classList.contains('lang-' + langCode)) {
-                wrapper.classList.add('active');
+        $container.find('.lang-field-wrapper').each(function() {
+            $(this).removeClass('active');
+            if ($(this).hasClass('lang-' + langCode)) {
+                $(this).addClass('active');
             }
         });
     }
@@ -417,5 +389,6 @@
         fileError: "{% trans 'JS_MARKETPLACE_FILE_ERROR' %}"
     };
 </script>
+<script src="{% static 'js/screenshots_manager.js' %}"></script>
 <script src="{% static 'js/marketplace_cdn.js' %}"></script>
 {% endblock %}

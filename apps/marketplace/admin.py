@@ -755,9 +755,18 @@ class AppEditRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
         "price",
         "is_demo",
         "is_private",
-        "screenshots",
+        "display_screenshots",
         "developer_site",
     )
+
+    def display_screenshots(self, obj):
+        html = ""
+        if obj.screenshots:
+            for url in obj.screenshot_urls:
+                html += f'<a href="{url}" target="_blank"><img src="{url}" height="90" style="margin-right: 10px; border-radius: 4px; border: 1px solid #ccc; object-fit: cover;" /></a>'
+        return mark_safe(html or "Нет скриншотов")
+
+    display_screenshots.short_description = "Скриншоты"
 
     def user_info_link(self, obj):
         if not obj.user:
@@ -827,7 +836,7 @@ class AppEditRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
         if req.icon_path:
             app.icon_id = req.icon_id
             app.icon_path = req.icon_path
-        if req.screenshots:
+        if req.screenshots is not None:
             app.screenshots = req.screenshots
 
         trans_fields = ["title", "description", "requirements", "slogan"]

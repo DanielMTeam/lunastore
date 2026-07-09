@@ -38,6 +38,9 @@
 	display: block;
 	margin: 15px auto 5px auto;
 	border: 1px solid #7aa0e6;
+	max-width: 100% !important;
+	max-height: calc(100vh - 100px) !important;
+	object-fit: contain;
 }
 
 /* The caption and image counter at the bottom */
@@ -165,4 +168,8 @@
 * html #TB_HideSelect {
      position: absolute;
      height: expression(document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight : document.body.offsetHeight + 'px');
+}
+
+body.modal-open {
+    overflow: hidden !important;
 }

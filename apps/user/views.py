@@ -43,9 +43,13 @@ from .forms import (
     CustomPasswordResetForm,
 )
 from django.utils.decorators import method_decorator
+from apps.core.utils import get_client_ip
 
-@method_decorator(ratelimit(key='ip', rate='5/h', block=True), name='post')
-@method_decorator(ratelimit(key='post:email', rate='3/h', block=True), name='post')
+def get_real_ip(group, request):
+    return get_client_ip(request)
+
+@method_decorator(ratelimit(key=get_real_ip, rate='15/h', block=True), name='post')
+@method_decorator(ratelimit(key='post:email', rate='10/h', block=True), name='post')
 class RateLimitedPasswordResetView(auth_views.PasswordResetView):
     form_class = CustomPasswordResetForm
     template_name = "user/password_reset_form.html"
@@ -158,7 +162,7 @@ def logout(request):
     dj_logout(request)
     return redirect("/index.php")
 
-@ratelimit(key='ip', rate='10/10m', block=True)
+@ratelimit(key=get_real_ip, rate='20/10m', block=True)
 def register(request):
     invite_obj = None
 
