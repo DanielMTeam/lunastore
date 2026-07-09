@@ -1,4 +1,5 @@
 from django.contrib import admin, messages
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
 from django.db import models
 from django.shortcuts import redirect
@@ -25,7 +26,7 @@ from .tasks import CACHE_KEY
 
 
 @admin.register(User)
-class UserAdmin(unfold_admin.ModelAdmin):
+class UserAdmin(BaseUserAdmin, unfold_admin.ModelAdmin):
     fieldsets = (
         (
             "Основная информация",

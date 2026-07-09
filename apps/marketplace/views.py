@@ -241,6 +241,7 @@ def app_add(request):
             app_request = form.save(commit=False)
             app_request.user = request.user
             app_request.save()
+            form.save_m2m()
             messages.success(request, _("PAGE_ADDAPP_SUCCESS"))
             return redirect("home")
         else:
@@ -311,6 +312,7 @@ def application_edit_info(request, pk):
             edit_request = form.save(commit=False)
             edit_request.user = request.user
             edit_request.save()
+            form.save_m2m()
             messages.success(request, _("PAGE_ADMIN_APP_MSG_SAVE_SUCCESS"))
             request.session.save()
             return redirect("edit_app_info", pk=obj.pk)

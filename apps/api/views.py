@@ -110,7 +110,7 @@ class UserViewSet(viewsets.GenericViewSet):
         guard_phrase = str(uuid.uuid4().hex)[:8]
 
         cache_key = f"cdn_guard_{request.user.id}_{guard_phrase}"
-        cache.set(cache_key, True, timeout=180)
+        cache.set(cache_key, True, timeout=3600)
 
         current_time = int(time.time())
 
@@ -122,7 +122,7 @@ class UserViewSet(viewsets.GenericViewSet):
             "mode": "public",
             "accept": policy["mimes"],
             "iat": current_time,
-            "exp": current_time + 180,
+            "exp": current_time + 3600,
             "img_opts": {"mw": policy["mw"], "mh": policy["mh"]},
         }
 
@@ -157,7 +157,7 @@ class UserViewSet(viewsets.GenericViewSet):
         guard_phrase = str(uuid.uuid4().hex)[:8]
 
         cache_key = f"cdn_guard_{request.user.id}_{guard_phrase}"
-        cache.set(cache_key, True, timeout=180)
+        cache.set(cache_key, True, timeout=3600)
 
         current_time = int(time.time())
 
@@ -207,7 +207,7 @@ class UserViewSet(viewsets.GenericViewSet):
             "mode": "private",  # private only
             "accept": allowed_mimes,
             "iat": current_time,
-            "exp": current_time + 180,
+            "exp": current_time + 3600,
         }
 
         upload_token = jwt.encode(

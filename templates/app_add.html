@@ -6,7 +6,21 @@
 <title>{% trans 'PAGE_ADDAPP_PAGETITLE' %} - LunaStore</title>
 <link rel="stylesheet" href="{% static './css/add_ui.css'%}">
 <link rel="stylesheet" href="{% static './css/stpage.css'%}">
-<link rel="stylesheet" href="{% static './css/tabs.css' %}"> <style>
+<link rel="stylesheet" href="{% static './css/tabs.css' %}">
+<link rel="stylesheet" href="{% static './css/thickbox.css'%}">
+<script src="{% static './js/jquery.min.js' %}"></script>
+<script>
+    window.thickboxL10n = {
+        image: "{% trans 'THICKBOX_IMAGE'|default:'Image' %}",
+        of: "{% trans 'THICKBOX_OF'|default:'of' %}",
+        close: "{% trans 'THICKBOX_CLOSE'|default:'Close' %}",
+        next: "{% trans 'THICKBOX_NEXT'|default:'Next' %}",
+        prev: "{% trans 'THICKBOX_PREV'|default:'Prev' %}",
+        noiframes: "{% trans 'THICKBOX_NO_IFRAMES'|default:'No iFrames' %}"
+    };
+</script>
+<script src="{% static './js/thickbox.js' %}"></script>
+<style>
 .lang-field-wrapper { display: none; }
     .lang-field-wrapper.active { display: block; }
 
@@ -361,13 +375,13 @@
                                     id="inp_scr"
                                     class="action_button"
                                     multiple
-                                    accept="image/*"
-                                    onchange="previewScreenshots(this)">
+                                    accept="image/*">
 
                                 <div style="color: red; font-size: 11px;">
                                     {{ form.upload_screenshots.errors }}
                                 </div>
 
+                                <div id="screenshots-interactive-container" style="margin-top: 10px;"></div>
                                 <div id="error-scr-box" class="error-msg-box"></div>
                                 <div id="info-scr" style="font-size: 11px; margin-top: 5px; color: green;"></div>
                             </div>
@@ -489,14 +503,15 @@
             try {
                 let savedScr = JSON.parse(cdnScrField.value);
                 if (Array.isArray(savedScr)) {
-                    screenshotsArray = savedScr.map(path =>
-                        path.startsWith('http') ? path : cdnPrefix + path
-                    );
+                    screenshotsArray = savedScr;
                 }
             } catch (e) {
                 console.error("Cannot restore screenshots from CDN URLs (LunaSpire):", e);
             }
         }
+        
+        // Initialize ScreenshotManager
+        new ScreenshotManager('screenshots-interactive-container', 'inp_scr', 3, screenshotsArray, cdnPrefix);
     });
 
     const allowedExtensions = ['jpg', 'jpeg', 'png'];
@@ -532,50 +547,7 @@
     }
 
     function previewScreenshots(input) {
-        screenshotsArray = [];
-        let info = document.getElementById('info-scr');
-        let errorBox = document.getElementById('error-scr-box');
-
-        info.innerText = "";
-        errorBox.style.display = 'none';
-        errorBox.innerText = "";
-
-        if (input.files && input.files.length > 0) {
-            if (input.files.length > 3) {
-                errorBox.innerText = '{% trans "ERROR_PREVIEWSCRNS_1_COUNT" %}' + input.files.length + '{% trans "ERROR_PREVIEWSCRNS_2_COUNT" %}';
-                errorBox.style.display = 'block';
-                input.value = "";
-                return;
-            }
-
-            let count = input.files.length;
-
-            for (let i = 0; i < count; i++) {
-                const file = input.files[i];
-
-                if (!validateFileExtension(file)) {
-                    errorBox.innerText = '{% trans "ERROR_PREVIEWSCRNS_1_INVALIDFORMAT" %}' + file.name + '{% trans "ERROR_PREVIEWSCRNS_2_INVALIDFORMAT" %}';
-                    errorBox.style.display = 'block';
-                    input.value = "";
-                    screenshotsArray = [];
-                    return;
-                }
-
-                if (file.size > 2 * 1024 * 1024) {
-                    errorBox.innerText = '{% trans "ERROR_PREVIEWSCRNS_1_BIGSIZE" %}' + file.name + '{% trans "ERROR_PREVIEWSCRNS_1_BIGSIZE" %}';
-                    errorBox.style.display = 'block';
-                    input.value = "";
-                    screenshotsArray = [];
-                    return;
-                }
-
-                let reader = new FileReader();
-                reader.onload = function(e) { screenshotsArray.push(e.target.result); };
-                reader.readAsDataURL(file);
-            }
-
-            info.innerText = '{% trans "INFO_SELECTED_FILES" %}' + count;
-        }
+        // Disabled, using ScreenshotManager instead
     }
 
     function goToStep(n) {
@@ -639,6 +611,10 @@
         let scrCont = document.getElementById('js_screenshots_placeholder');
         scrCont.innerHTML = "";
 
+        if (window.activeScreenshotManager) {
+            screenshotsArray = window.activeScreenshotManager.items.map(item => item.type === 'existing' ? item.url : item.dataUrl);
+        }
+
         if (screenshotsArray.length > 0) {
             screenshotsArray.forEach(src => {
                 let img = document.createElement('img');
@@ -690,6 +666,7 @@
         fileError: "{% trans 'JS_MARKETPLACE_FILE_ERROR' %}"
     };
 </script>
+<script src="{% static 'js/screenshots_manager.js' %}"></script>
 <script src="{% static 'js/marketplace_cdn.js' %}"></script>
 {% if form.errors %}
 <script>

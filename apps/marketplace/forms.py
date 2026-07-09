@@ -381,6 +381,35 @@ class AppEditForm(AppCreateForm):
         self.fields.pop("captcha", None)
         self.fields.pop("agree_with_site_rules", None)
 
+    def clean(self):
+        # read the raw submitted value before the parent overwrites it
+        original_json = self.data.get("cdn_screenshots_data")
+        print("DEBUG: cdn_screenshots_data is:", repr(original_json), "all data:", self.data.keys())
+
+        
+        cleaned_data = super().clean()
+        
+        if original_json and hasattr(self, "target_app"):
+            try:
+                original_paths = json.loads(original_json)
+                
+                safe_new_paths = cleaned_data.get("cdn_screenshots_data", [])
+                if not isinstance(safe_new_paths, list):
+                    safe_new_paths = []
+                
+                final_paths = []
+                for p in original_paths:
+                    if self.target_app.screenshots and p in self.target_app.screenshots:
+                        final_paths.append(p)
+                    elif p in safe_new_paths:
+                        final_paths.append(p)
+                
+                cleaned_data["cdn_screenshots_data"] = final_paths
+            except (json.JSONDecodeError, TypeError):
+                pass
+                
+        return cleaned_data
+
     def save(self, commit=True):
         submission = super().save(commit=False)
 
@@ -392,7 +421,7 @@ class AppEditForm(AppCreateForm):
 
             # take screenshots data and convert it back to a list
             new_scr = self.cleaned_data.get("cdn_screenshots_data")
-            if new_scr:
+            if new_scr is not None:
                 if isinstance(new_scr, list):
                     submission.screenshots = new_scr
                 else:

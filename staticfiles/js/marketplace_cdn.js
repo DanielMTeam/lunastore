@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var submitBtn = form.querySelector('[name="_save"]') || form.querySelector('[type="submit"]');
   form.addEventListener("submit", /*#__PURE__*/function () {
     var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(e) {
-      var iconInput, screenshotsInput, distInput, inlineDistInputs, hasIcon, hasScreenshots, hasDist, hasInlineDist, uploadFile, tasks, iconIdx, scrStartIdx, distIdx, inlineDistTasks, results, cdnIconField, cdnIconTokenField, cdnScreenshotsField, cdnScreenshotsTokenField, cdnConfirmTokenField, resultsSlice, tokens, paths, _t;
+      var iconInput, screenshotsInput, distInput, inlineDistInputs, hasIcon, hasScreenshots, hasDist, hasInlineDist, uploadFile, tasks, iconIdx, scrStartIdx, distIdx, inlineDistTasks, results, cdnIconField, cdnIconTokenField, cdnScreenshotsField, cdnScreenshotsTokenField, cdnConfirmTokenField, resultsSlice, tokens, paths, _t, mgr, newFiles;
       return _regenerator().w(function (_context2) {
         while (1) switch (_context2.p = _context2.n) {
           case 0:
@@ -155,7 +155,9 @@ document.addEventListener("DOMContentLoaded", function () {
             distInput = document.querySelector('input[type="file"][name="dist_file"]');
             inlineDistInputs = Array.from(document.querySelectorAll('input[type="file"][name$="-dist_file"]'));
             hasIcon = iconInput && iconInput.files && iconInput.files[0];
-            hasScreenshots = screenshotsInput && screenshotsInput.files && screenshotsInput.files.length > 0;
+            mgr = window.activeScreenshotManager;
+            newFiles = mgr ? mgr.getNewFiles() : screenshotsInput && screenshotsInput.files ? Array.from(screenshotsInput.files) : [];
+            hasScreenshots = mgr ? true : newFiles.length > 0;
             hasDist = distInput && distInput.files && distInput.files[0];
             hasInlineDist = inlineDistInputs.some(function (inp) {
               return inp.files && inp.files.length > 0;
@@ -190,7 +192,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         _context.n = 1;
                         break;
                       }
-                      throw new Error("Невозможно загрузить дистрибуцию: не выбрано или не сохранено приложение. Выберите приложение в списке.");
+                      throw new Error("Can't upload distribution: app not selected or not saved. Please select an app in the list.");
                     case 1:
                       tokenUrl = "".concat(config.privTokenUrl, "?target=").concat(targetContext, "&app_id=").concat(currentAppId);
                       _context.n = 3;
@@ -234,8 +236,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         break;
                       }
                       errMsg = i18n.fileError;
-                      if (res.status === 415) errMsg = "Недопустимый формат файла (415).";
-                      if (res.status === 409) errMsg = "Токен уже использован (409).";
+                      if (res.status === 415) errMsg = "Invalid file format (415).";
+                      if (res.status === 409) errMsg = "Token already used (409).";
                       throw new Error(errMsg);
                     case 8:
                       _context.n = 9;
@@ -257,11 +259,9 @@ document.addEventListener("DOMContentLoaded", function () {
               tasks.push(uploadFile(iconInput.files[0], "icon"));
             }
             scrStartIdx = tasks.length; // send screenshots
-            if (hasScreenshots) {
-              Array.from(screenshotsInput.files).forEach(function (f) {
-                return tasks.push(uploadFile(f, "screenshot"));
-              });
-            }
+            newFiles.forEach(function (f) {
+              return tasks.push(uploadFile(f, "screenshot"));
+            });
 
             // send dist
             distIdx = -1;
@@ -296,8 +296,8 @@ document.addEventListener("DOMContentLoaded", function () {
               if (cdnIconTokenField) cdnIconTokenField.value = results[iconIdx].confirm_token || "";
               if (cdnIconField) cdnIconField.value = results[iconIdx].filepath || results[iconIdx].path || "";
             }
-            if (hasScreenshots) {
-              resultsSlice = results.slice(scrStartIdx, scrStartIdx + screenshotsInput.files.length);
+            if (hasScreenshots || mgr) {
+              resultsSlice = results.slice(scrStartIdx, scrStartIdx + newFiles.length);
               if (cdnScreenshotsTokenField) {
                 tokens = resultsSlice.map(function (d) {
                   return d.confirm_token;
@@ -307,12 +307,31 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (tokens.length > 0) cdnScreenshotsTokenField.value = JSON.stringify(tokens);
               }
               if (cdnScreenshotsField) {
-                paths = resultsSlice.map(function (d) {
-                  return d.filepath || d.path || "";
-                }).filter(function (p) {
-                  return p;
-                });
-                if (paths.length > 0) cdnScreenshotsField.value = JSON.stringify(paths);
+                if (mgr) {
+                  var orderTemplate = mgr.getOrderTemplate();
+                  var newPathsIndex = 0;
+                  paths = orderTemplate.map(function (item) {
+                    if (item !== null) return item;
+                    var res = resultsSlice[newPathsIndex++];
+                    return res ? res.filepath || res.path || "" : "";
+                  }).filter(function (p) {
+                    return p;
+                  });
+                } else {
+                  paths = [];
+                  resultsSlice.forEach(function (res) {
+                    if (res && (res.filepath || res.path)) paths.push(res.filepath || res.path);
+                  });
+                }
+                if (!paths || paths.length === 0) {
+                  cdnScreenshotsField.value = "[]";
+                } else {
+                  cdnScreenshotsField.value = JSON.stringify(paths);
+                }
+              }
+            } else {
+              if (cdnScreenshotsField && cdnScreenshotsField.value === "") {
+                cdnScreenshotsField.value = "[]";
               }
             }
             if (distIdx !== -1 && cdnConfirmTokenField) {
