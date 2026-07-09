@@ -167,7 +167,6 @@
         <div class="st_desc">{{ requirements|linebreaksbr }}</div>
     </div>
 
-    <!-- rating block -->
     <div class="st_other_card">
         <h2>{% trans "PAGE_APP_SECTION_RATING" %}</h2>
         <div class="separator_store"></div>
@@ -180,10 +179,8 @@
 
           <div class="st_rate_block_right">
             <span class="st_rate_info">
-              <!-- text about how many people rated -->
               {% blocktrans count counter=review_count %}PAGE_APP_RATING_BASED_ON_COUNT {{ counter }}{% plural %}PAGE_APP_RATING_BASED_ON_COUNT_PLURAL {{ counter }}{% endblocktrans %}
               <br>
-              <!-- form to send your rating -->
               {% if allow_reviews %}
                 {% if user.is_authenticated %}
                   <form id="rating-form" method="POST" action="{% url 'rate_app' %}?id={{ app_id }}" style="display:none;">
@@ -198,11 +195,9 @@
                       <a href="#" class="rate-star" data-rating="4" style="display:block; float:left; width:16px; height:16px; text-decoration:none;"></a>
                       <a href="#" class="rate-star" data-rating="5" style="display:block; float:left; width:16px; height:16px; text-decoration:none;"></a>
                   </div>
-                  <!-- javascript for interactive stars -->
                   <script src="{% static './js/rating.js' %}"></script>
                 {% else %}
-                  <!-- show login link if user is not logged in -->
-                  <a href="/login.php">{% trans "PAGE_APP_RATING_LOGIN_PROMPT" %}</a>
+                  <a href="/login.php" class="rating_login_btn">{% trans "PAGE_APP_RATING_LOGIN_PROMPT" %}</a>
                 {% endif %}
               {% else %}
                 {% trans "PAGE_APP_RATING_DISABLED" %}
@@ -213,12 +208,10 @@
         <div style="clear: both;"></div>
     </div>
 
-    <!-- users reviews block -->
     <div class="st_other_card">
         <h2>{% trans "PAGE_APP_RATING_USERS" %}</h2>
         <div class="separator_store"></div>
           <br>
-        <!-- show each review -->
         {% for review in page_obj %}
         <div class="review_body" id="rev{{ review.id }}">
             <div class="review_author">
@@ -227,7 +220,6 @@
             </div>
             <div class="review_date">{{ review.created_at|date:"d E Y в H:i" }}</div>
             <hr>
-            <!-- show stars for this review -->
             <div class="rating r{{ review.rating }}"></div>
             {% if review.user == request.user or perms.marketplace.delete_review %}
             <div style="margin-top: 5px; font-size: 11px;">
@@ -237,11 +229,9 @@
             {% endif %}
         </div>
         {% empty %}
-            <!-- show this if nobody left a review -->
             <div>{% trans "PAGE_APP_RATING_NO_REVIEWS" %}</div>
         {% endfor %}
 
-        <!-- show page numbers if we have many pages -->
         {% if page_obj.has_other_pages %}
             <div class="section">
                 <div class="paginator">

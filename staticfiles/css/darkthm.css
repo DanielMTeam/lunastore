@@ -540,7 +540,7 @@ textarea:focus {
 }
 
 .info_block {
-    background:  #323232  !important;
+    background: #323232 !important;
 }
 
 .login_block {
@@ -548,7 +548,7 @@ textarea:focus {
 }
 
 .login_header {
-    background:    #000 !important;
+    background: #000 !important;
 }
 
 .empty-state {
@@ -559,9 +559,28 @@ textarea:focus {
     color: #999 !important;
 }
 
+.rating_login_btn {
+    color: #fff !important;
+}
+
 /* Screenshot Manager Dark Theme Overrides */
-.scr_mgr_item { border-color: #555 !important; background: #2b2b2b !important; }
-.scr_mgr_item img { border-color: #444 !important; }
-.scr_mgr_controls a { color: #7fa5d1 !important; }
-.scr_mgr_controls a.scr_mgr_del { color: #ff6b6b !important; }
-.scr_mgr_controls span.disabled { color: #666 !important; }
+.scr_mgr_item {
+    border-color: #555 !important;
+    background: #2b2b2b !important;
+}
+
+.scr_mgr_item img {
+    border-color: #444 !important;
+}
+
+.scr_mgr_controls a {
+    color: #7fa5d1 !important;
+}
+
+.scr_mgr_controls a.scr_mgr_del {
+    color: #ff6b6b !important;
+}
+
+.scr_mgr_controls span.disabled {
+    color: #666 !important;
+}
