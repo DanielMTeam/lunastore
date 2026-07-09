@@ -584,3 +584,9 @@ textarea:focus {
 .scr_mgr_controls span.disabled {
     color: #666 !important;
 }
+
+.search_error {
+    border: 1px solid #3d3d3d !important;
+    color: #bbb !important;
+    background: #4e4e4e !important;
+}

@@ -1224,6 +1224,12 @@ input[type="submit"] {
     min-height: 100%;
 }
 
+.login_block,
+.info_block {
+    padding-bottom: 10000px;
+    margin-bottom: -9970px;
+}
+
 .login_header {
     background: #3a6ea5;
     color: #ffffff;
@@ -1295,6 +1301,8 @@ input[type="submit"] {
 
 .login_wrap {
     border: 1px solid #9db6d8;
+    overflow: hidden;
+    zoom: 1;
 }
 
 .info_block li.top {
@@ -1453,8 +1461,10 @@ a.report_problem {
     text-align: center;
     font-weight: bold;
 }
+
 /* Fix for profile.html icons */
-.icon-img, .user-img {
+.icon-img,
+.user-img {
     width: 64px;
     height: 64px;
 }
@@ -1467,11 +1477,9 @@ a.report_problem {
 
 /* IE6 ONLY transparent PNG fix for img tags */
 * html img {
-    behavior: expression(
-        this.runtimeStyle.behavior = "none",
-        (this.src.toLowerCase().indexOf('.png') !== -1 && this.className !== 'ls_dm_logo') ? (
-            this.runtimeStyle.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" + this.src + "', sizingMethod='scale')",
-            this.src = "/staticfiles/img/blank.gif"
-        ) : ""
-    );
+    behavior: expression(this.runtimeStyle.behavior="none",
+            (this.src.toLowerCase().indexOf('.png') !==-1 && this.className !=='ls_dm_logo') ? (this.runtimeStyle.filter="progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" + this.src + "', sizingMethod='scale')",
+                this.src="/staticfiles/img/blank.gif"
+            ) : ""
+        );
 }
