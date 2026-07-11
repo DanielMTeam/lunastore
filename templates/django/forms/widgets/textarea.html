@@ -1,0 +1,17 @@
+{% if 'no-md' not in widget.attrs.class %}
+<div class="md-editor-container">
+    <div class="md-toolbar">
+        <button type="button" class="md-btn" onclick="insertTag(this, '**', '**')"><b>B</b></button>
+        <button type="button" class="md-btn" onclick="insertTag(this, '*', '*')"><i>I</i></button>
+        <span class="md-btn-sep">|</span>
+        <button type="button" class="md-btn md-btn-note" onclick="insertTag(this, '> [!NOTE]\n> ', '\n')">Note</button>
+        <button type="button" class="md-btn md-btn-tip" onclick="insertTag(this, '> [!TIP]\n> ', '\n')">Tip</button>
+        <button type="button" class="md-btn md-btn-important" onclick="insertTag(this, '> [!IMPORTANT]\n> ', '\n')">Important</button>
+        <button type="button" class="md-btn md-btn-warning" onclick="insertTag(this, '> [!WARNING]\n> ', '\n')">Warning</button>
+        <button type="button" class="md-btn md-btn-caution" onclick="insertTag(this, '> [!CAUTION]\n> ', '\n')">Caution</button>
+    </div>
+{% endif %}
+    <textarea name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %} {% if 'no-md' not in widget.attrs.class %}class="md-textarea"{% endif %}>{% if widget.value != None %}{{ widget.value|stringformat:'s' }}{% endif %}</textarea>
+{% if 'no-md' not in widget.attrs.class %}
+</div>
+{% endif %}

@@ -273,7 +273,7 @@ class ProfileUpdateForm(forms.ModelForm):
         label=_("PAGE_PROFILESETTINGS_LABEL_BIO"),
         required=False,
         max_length=255,
-        widget=forms.Textarea(attrs={"class": "brief_intro", "cols": 90}),
+        widget=forms.Textarea(attrs={"class": "brief_intro no-md", "cols": 90}),
     )
     email = forms.EmailField(
         label="E-mail",

@@ -1,5 +1,7 @@
 msgid ""
 msgstr ""
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-11 17:23+0000\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -7,24 +9,2723 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 "X-Generator: Tolgee\n"
 
+#: apps/core/mixins.py:11
+msgid "ERROR_CDN_TOKEN_MISSING"
+msgstr ""
+
+#: apps/core/mixins.py:18
+msgid "ERROR_CDN_TOKEN_INVALID_TYPE"
+msgstr ""
+
+#: apps/core/mixins.py:25
+msgid "ERROR_CDN_TOKEN_EXPIRED_OR_USED"
+msgstr ""
+
+#: apps/core/mixins.py:33
+msgid "ERROR_CDN_TOKEN_EXPIRED"
+msgstr ""
+
+#: apps/core/mixins.py:35
+msgid "ERROR_CDN_TOKEN_INVALID"
+msgstr ""
+
+#: apps/core/templatetags/markdown_tags.py:28
+msgid "MD_ALERT_NOTE"
+msgstr "ノート"
+
+#: apps/core/templatetags/markdown_tags.py:30
+msgid "MD_ALERT_TIP"
+msgstr "ヒント"
+
+#: apps/core/templatetags/markdown_tags.py:32
+msgid "MD_ALERT_IMPORTANT"
+msgstr "重要"
+
+#: apps/core/templatetags/markdown_tags.py:34
+msgid "MD_ALERT_WARNING"
+msgstr "警告"
+
+#: apps/core/templatetags/markdown_tags.py:36
+msgid "MD_ALERT_CAUTION"
+msgstr "注意"
+
+#: apps/marketplace/decorators.py:22 apps/marketplace/decorators.py:39
+#: apps/marketplace/views.py:526 apps/marketplace/views.py:650
+msgid "ERROR_YOURE_NOT_OWNER_OF_APP"
+msgstr ""
+
+#: apps/marketplace/forms.py:215 apps/marketplace/forms.py:352
+#: apps/marketplace/forms.py:472
+msgid "FORM_SCREENSHOTS"
+msgstr ""
+
+#: apps/marketplace/forms.py:240 apps/user/forms.py:160 apps/user/forms.py:439
+msgid "FORM_AGREE_RULES"
+msgstr ""
+
+#: apps/marketplace/forms.py:243 apps/user/forms.py:158 apps/user/forms.py:445
+#: templates/app_add.html:456 templates/dev_add.html:114
+msgid "FORM_CAPTCHA"
+msgstr ""
+
+#: apps/marketplace/forms.py:291
+msgid "ERROR_CDN_CHECKSUM_MISMATCH_SCREENSHOTS"
+msgstr ""
+
+#: apps/marketplace/forms.py:468
+msgid "ACTION_CHOOSE_ICON"
+msgstr ""
+
+#: apps/marketplace/forms.py:592
+msgid "ERROR_DIST_FORM_NO_FILE_OR_URL"
+msgstr ""
+
+#: apps/marketplace/forms.py:596
+msgid "ERROR_DIST_FORM_NO_VT_LINK"
+msgstr ""
+
+#: apps/marketplace/forms.py:609 apps/user/forms.py:378
+msgid "ERROR_DIST_FORM_CDN_INFO_FAIL"
+msgstr ""
+
+#: apps/marketplace/models.py:412
+msgid "PAGE_REPORTAPP_REASON_MALWARE"
+msgstr ""
+
+#: apps/marketplace/models.py:413
+msgid "PAGE_REPORTAPP_REASON_INCORRECT"
+msgstr ""
+
+#: apps/marketplace/models.py:414
+msgid "PAGE_REPORTAPP_REASON_OTHER"
+msgstr ""
+
+#: apps/marketplace/models.py:430
+msgid "PAGE_REPORTAPP_AUTHOR"
+msgstr ""
+
+#: apps/marketplace/models.py:442 templates/report_app.html:32
+msgid "PAGE_REPORTAPP_TITLE"
+msgstr ""
+
+#: apps/marketplace/models.py:443
+msgid "PAGE_REPORTAPP_TITLE_PATH"
+msgstr ""
+
+#: apps/marketplace/models.py:461
+msgid "PAGE_REPORTPROBLEM_AUTHOR"
+msgstr ""
+
+#: apps/marketplace/views.py:245
+msgid "PAGE_ADDAPP_SUCCESS"
+msgstr ""
+
+#: apps/marketplace/views.py:255
+msgid "ERROR_CHECK_FORM"
+msgstr ""
+
+#: apps/marketplace/views.py:275 apps/marketplace/views.py:298
+msgid "ERROR_RATE_LIMIT_EXCEEDED"
+msgstr ""
+
+#: apps/marketplace/views.py:316
+msgid "PAGE_ADMIN_APP_MSG_SAVE_SUCCESS"
+msgstr ""
+
+#: apps/marketplace/views.py:320 apps/user/forms.py:147 apps/user/forms.py:152
+msgid "PAGE_ADMIN_APP_MSG_SAVE_ERROR"
+msgstr ""
+
+#: apps/marketplace/views.py:409
+msgid "PAGE_REPORTAPP_SUCCESS_MSG"
+msgstr ""
+
+#: apps/marketplace/views.py:434
+msgid "PAGE_REPORTPROBLEM_SUCCESS_MSG"
+msgstr ""
+
+#: apps/marketplace/views.py:467
+msgid "PAGE_MANAGEDIST_CREATE_SUCCESS"
+msgstr ""
+
+#: apps/marketplace/views.py:557
+msgid "MSG_DIST_EDIT_REQ_SENT"
+msgstr ""
+
+#: apps/marketplace/views.py:605 templates/storepage.html:204
+msgid "PAGE_APP_RATING_DISABLED"
+msgstr ""
+
+#: apps/marketplace/views.py:632
+msgid "PAGE_APP_RATING_DELETE_DENIED"
+msgstr ""
+
+#: apps/marketplace/views.py:637
+msgid "PAGE_APP_RATING_DELETE_SUCCESS"
+msgstr ""
+
+#: apps/marketplace/views.py:654
+msgid "Дистрибуция удалена"
+msgstr ""
+
+#: apps/marketplace/views.py:656
+msgid "Нужно подтвердить удаление через POST"
+msgstr ""
+
+#: apps/user/decorators.py:21
+msgid "ERROR_YOU_DONT_HAVE_DEVSTATUS"
+msgstr ""
+
+#: apps/user/forms.py:134
+msgid "INFO_YOUR_IP_WAS_BANNED"
+msgstr ""
+
+#: apps/user/forms.py:165 apps/user/forms.py:442
+msgid "FORM_AGREE_POLICY"
+msgstr ""
+
+#: apps/user/forms.py:189 apps/user/forms.py:406
+msgid "FORM_DEVSTATUS_YOUR_USERNAME"
+msgstr ""
+
+#: apps/user/forms.py:255 templates/settings.html:58
+msgid "PAGE_SETTINGS_LABEL_WEBSITE"
+msgstr ""
+
+#: apps/user/forms.py:273
+msgid "PAGE_PROFILESETTINGS_LABEL_BIO"
+msgstr ""
+
+#: apps/user/forms.py:290
+msgid "ERROR_PROFILE_TELEGRAM_INVALID"
+msgstr ""
+
+#: apps/user/forms.py:300
+msgid "ERROR_PROFILE_OPENVK_INVALID"
+msgstr ""
+
+#: apps/user/forms.py:324 apps/user/forms.py:500 apps/user/forms.py:562
+msgid "ERROR_CURRENT_PASSWORD_IS_WRONG"
+msgstr ""
+
+#: apps/user/forms.py:335
+msgid "ERROR_NEW_PASSWORDS_DONT_MATCH"
+msgstr ""
+
+#: apps/user/forms.py:338
+msgid "ERROR_NEW_PASSWORD_SAME_AS_OLD"
+msgstr ""
+
+#: apps/user/forms.py:352
+msgid "ACTION_CHOOSE_FILE"
+msgstr ""
+
+#: apps/user/forms.py:354
+msgid "INFO_RECOMENDATIONS_FOR_UPLOAD_AVATAR"
+msgstr ""
+
+#: apps/user/forms.py:413
+msgid "FORM_DEVSTATUS_YOUR_EMAIL"
+msgstr ""
+
+#: apps/user/forms.py:416
+msgid "FORM_DEVSTATUS_WE_WILL_CONTACT"
+msgstr ""
+
+#: apps/user/forms.py:420
+msgid "FORM_DEVSTATUS_GITHUB"
+msgstr ""
+
+#: apps/user/forms.py:423
+msgid "FORM_DEVSTATUS_GITHUB_HELP"
+msgstr ""
+
+#: apps/user/forms.py:427
+msgid "FORM_DEVSTATUS_ABOUT_YOU"
+msgstr ""
+
+#: apps/user/forms.py:433
+msgid "FORM_DEVSTATUS_WHY_YOU_CHOOSE"
+msgstr ""
+
+#: apps/user/forms.py:486
+msgid "FORM_PASSWORDCONFIRM_ENTER"
+msgstr ""
+
+#: apps/user/forms.py:489
+msgid "FORM_PASSWORDCONFIRM_CONFIRM"
+msgstr ""
+
+#: apps/user/forms.py:506
+msgid "FORM_INVITECODE_TITLE"
+msgstr ""
+
+#: apps/user/forms.py:511
+msgid "FORM_INVITECODE_ENTER"
+msgstr ""
+
+#: apps/user/forms.py:522
+msgid "FORM_INVITECODE_DOESNOTEXIST_ERROR"
+msgstr ""
+
+#: apps/user/forms.py:525
+msgid "FORM_INVITECODE_EXPIRED_ERROR"
+msgstr ""
+
+#: apps/user/forms.py:530
+msgid "FORM_INVITECODE_CODELIMITISNTOK_ERROR"
+msgstr ""
+
+#: apps/user/forms.py:543 templates/settings_security.html:105
+msgid "PAGE_SETTINGS_LABEL_CUR_EMAIL"
+msgstr ""
+
+#: apps/user/forms.py:550 templates/settings_security.html:109
+msgid "PAGE_SETTINGS_LABEL_NEW_EMAIL"
+msgstr ""
+
+#: apps/user/forms.py:555 templates/2fa_password_confirm.html:23
+#: templates/settings_security.html:82 templates/settings_security.html:114
+msgid "PAGE_SETTINGS_LABEL_CUR_PASS"
+msgstr ""
+
+#: apps/user/forms.py:570
+msgid "ERROR_EMAIL_IS_SAME"
+msgstr ""
+
+#: apps/user/forms.py:574
+msgid "ERROR_EMAIL_ALREADY_EXISTS"
+msgstr ""
+
+#: apps/user/forms.py:630
+msgid "ERROR_PASSWORD_RESET_EMAIL_NOT_FOUND"
+msgstr ""
+
+#: apps/user/models.py:24
+msgid "ERROR_EMAIL_ALREADY_IN_USE"
+msgstr ""
+
+#: apps/user/tasks.py:55
+msgid "NOTIF_LOGIN_TITLE"
+msgstr ""
+
+#: apps/user/tasks.py:56
+msgid "NOTIF_LOGIN_DESCRIPTION"
+msgstr ""
+
+#: apps/user/validators.py:51 apps/user/validators.py:57
+msgid "ERROR_EMAIL_INVALID_FORMAT"
+msgstr ""
+
+#: apps/user/validators.py:61
+msgid "ERROR_EMAIL_NO_ALIASES"
+msgstr ""
+
+#: apps/user/validators.py:66
+msgid "ERROR_EMAIL_DISPOSABLE_DOMAIN"
+msgstr ""
+
+#: apps/user/validators.py:91
+#, python-format
+msgid "ERROR_EMAIL_DOMAIN_NO_MX %(domain)s"
+msgstr ""
+
+#: apps/user/views.py:125
+#, fuzzy
+#| msgid "BANNED_IP_REASON"
+msgid "VIEW_LOGIN_BANNED_REASON"
+msgstr ""
+"利用規約違反、不審な活動、またはセキュリティシステムの検知により、アクセスが"
+"制限されています。\n"
+"すべてのユーザーの安全確保のため、一時的または恒久的にサービスのご利用を制限"
+"させていただいております。"
+
+#: apps/user/views.py:152 apps/user/views.py:573
+msgid "VIEW_LOGIN_SUCCESS"
+msgstr ""
+
+#: apps/user/views.py:156
+msgid "VIEW_LOGIN_INVALID_CREDENTIALS"
+msgstr ""
+
+#: apps/user/views.py:320
+msgid "INFO_PROFILE_IS_UPDATED"
+msgstr ""
+
+#: apps/user/views.py:332 apps/user/views.py:614
+msgid "INFO_PASSWORD_WAS_CHANGED"
+msgstr ""
+
+#: apps/user/views.py:345
+msgid "INFO_AVATAR_WAS_UPLOADED"
+msgstr ""
+
+#: apps/user/views.py:360 apps/user/views.py:625
+msgid "INFO_EMAIL_WAS_CHANGED"
+msgstr ""
+
+#: apps/user/views.py:392
+msgid "INFO_APP_CREATE_REQUEST_WAS_SENT"
+msgstr ""
+
+#: apps/user/views.py:417
+msgid "ERROR_ACCESS_DENIED_PROFILE"
+msgstr ""
+
+#: apps/user/views.py:424
+msgid "INFO_ACCOUNT_WAS_DELETED"
+msgstr ""
+
+#: apps/user/views.py:461
+msgid "PAGE_INVITE_LIMIT_INFO"
+msgstr ""
+
+#: apps/user/views.py:576 apps/user/views.py:678
+msgid "ERROR_2FA_INVALID_CODE"
+msgstr ""
+
+#: apps/user/views.py:651
+msgid "ERROR_2FA_INVALID_PASSWORD"
+msgstr ""
+
+#: apps/user/views.py:660
+msgid "INFO_2FA_DISABLED"
+msgstr ""
+
+#: apps/user/views.py:672
+msgid "INFO_2FA_ENABLED"
+msgstr ""
+
+#: templates/2fa_attempt.html:6
+msgid "PAGE_2FA_ATTEMPT_TITLE"
+msgstr ""
+
+#: templates/2fa_attempt.html:12
+msgid "PAGE_2FA_ATTEMPT_HEADER"
+msgstr ""
+
+#: templates/2fa_attempt.html:18 templates/2fa_set.html:6
+#: templates/2fa_set.html:22 templates/settings_security.html:35
+msgid "PAGE_2FA_TITLE"
+msgstr ""
+
+#: templates/2fa_attempt.html:19
+msgid "PAGE_2FA_ATTEMPT_SUBTITLE"
+msgstr ""
+
+#: templates/2fa_attempt.html:27
+msgid "PAGE_2FA_ENTER_CODE_HEADER"
+msgstr ""
+
+#: templates/2fa_attempt.html:29 templates/2fa_set.html:56
+msgid "PAGE_2FA_ENABLED_INFO"
+msgstr ""
+
+#: templates/2fa_attempt.html:34
+msgid "PAGE_2FA_OPEN_GENERATOR"
+msgstr ""
+
+#: templates/2fa_attempt.html:38 templates/2fa_password_confirm.html:27
+msgid "PAGE_2FA_CONTINUE_BTN"
+msgstr ""
+
+#: templates/2fa_password_confirm.html:6
+msgid "PAGE_2FA_PASSWORD_CONFIRM_TITLE"
+msgstr ""
+
+#: templates/2fa_password_confirm.html:12 templates/2fa_set.html:13
+#: templates/settings.html:17 templates/settings_apps.html:15
+#: templates/settings_security.html:6 templates/settings_security.html:14
+msgid "PAGE_SETTINGS_TITLE"
+msgstr ""
+
+#: templates/2fa_password_confirm.html:17
+msgid "PAGE_2FA_PASSWORD_CONFIRM"
+msgstr ""
+
+#: templates/2fa_password_confirm.html:19
+msgid "PAGE_2FA_PASSWORD_PROMPT"
+msgstr ""
+
+#: templates/2fa_set.html:23
+msgid "PAGE_2FA_SUBTITLE_MANAGE"
+msgstr ""
+
+#: templates/2fa_set.html:31
+msgid "PAGE_2FA_INITIAL_SETUP"
+msgstr ""
+
+#: templates/2fa_set.html:31 templates/settings_security.html:41
+msgid "PAGE_2FA_MANAGE"
+msgstr ""
+
+#: templates/2fa_set.html:34
+msgid "PAGE_2FA_INFO_1"
+msgstr ""
+
+#: templates/2fa_set.html:36
+msgid "PAGE_2FA_INFO_2"
+msgstr ""
+
+#: templates/2fa_set.html:38
+msgid "PAGE_2FA_INFO_3"
+msgstr ""
+
+#: templates/2fa_set.html:46
+msgid "PAGE_2FA_SECRET_KEY"
+msgstr ""
+
+#: templates/2fa_set.html:48
+msgid "PAGE_2FA_ENTER_CODE"
+msgstr ""
+
+#: templates/2fa_set.html:52
+msgid "PAGE_2FA_CONNECT_BTN"
+msgstr ""
+
+#: templates/2fa_set.html:58
+msgid "PAGE_2FA_DISABLE_INFO"
+msgstr ""
+
+#: templates/2fa_set.html:59
+msgid "PAGE_2FA_DISABLE_CONFIRM"
+msgstr ""
+
+#: templates/2fa_set.html:63
+msgid "PAGE_2FA_DISABLE_BTN"
+msgstr ""
+
+#: templates/404.html:8
+msgid "404_TITLE"
+msgstr ""
+
+#: templates/404.html:9
+#, fuzzy
+#| msgid "404_ELEMENT_NOT_FOUND_3"
+msgid "404_ELEMENT_NOT_FOUND"
+msgstr ""
+"ページは管理者によって移動または削除された可能性があります。\n"
+"しばらくしてから再度お試しください。"
+
+#: templates/404.html:10
+#, fuzzy
+#| msgid "404_ELEMENT_NOT_FOUND_3"
+msgid "404_ELEMENT_NOT_FOUND_2"
+msgstr ""
+"ページは管理者によって移動または削除された可能性があります。\n"
+"しばらくしてから再度お試しください。"
+
+#: templates/404.html:11
 msgid "404_ELEMENT_NOT_FOUND_3"
 msgstr ""
 "ページは管理者によって移動または削除された可能性があります。\n"
 "しばらくしてから再度お試しください。"
 
+#: templates/404.html:12
+msgid "404_GO_TO_HOME"
+msgstr ""
+
+#: templates/admin/broadcast_notify.html:23
+msgid "LunaStore Admin"
+msgstr ""
+
+#: templates/admin/constance/change_list.html:63
+msgid "Save"
+msgstr ""
+
+#: templates/admin/constance/includes/results_list.html:10
+msgid "Collapse"
+msgstr ""
+
+#: templates/admin/constance/includes/results_list.html:56
+msgid "Reset to default"
+msgstr ""
+
+#: templates/admin/login.html:96
+#, python-format
+msgid ""
+"You are authenticated as %(username)s, but are not authorized to access this "
+"page. Would you like to login to a different account?"
+msgstr ""
+
+#: templates/admin/login.html:113
+msgid "Log in"
+msgstr ""
+
+#: templates/admin_app.html:6 templates/admin_app.html:10
+#: templates/manage_distributions.html:10
+msgid "PAGE_ADMIN_APP_PAGETITLE"
+msgstr ""
+
+#: templates/admin_app.html:21 templates/app_add.html:14
+#: templates/storepage.html:14
+msgid "THICKBOX_IMAGE"
+msgstr ""
+
+#: templates/admin_app.html:22 templates/app_add.html:15
+#: templates/storepage.html:15
+msgid "THICKBOX_OF"
+msgstr ""
+
+#: templates/admin_app.html:23 templates/app_add.html:16
+#: templates/storepage.html:16
+msgid "THICKBOX_CLOSE"
+msgstr ""
+
+#: templates/admin_app.html:24 templates/app_add.html:17
+#: templates/storepage.html:17
+msgid "THICKBOX_NEXT"
+msgstr ""
+
+#: templates/admin_app.html:25 templates/app_add.html:18
+#: templates/storepage.html:18
+msgid "THICKBOX_PREV"
+msgstr ""
+
+#: templates/admin_app.html:26 templates/app_add.html:19
+#: templates/storepage.html:19
+msgid "THICKBOX_NO_IFRAMES"
+msgstr ""
+
+#: templates/admin_app.html:68 templates/manage_distributions.html:54
+msgid "PAGE_ADMIN_APP_FIRST_BLOCK"
+msgstr ""
+
+#: templates/admin_app.html:72 templates/manage_distributions.html:6
+#: templates/manage_distributions.html:58
+msgid "PAGE_ADMIN_APP_TAB_DISTRIBUTIONS"
+msgstr ""
+
+#: templates/admin_app.html:79
+msgid "PAGE_ADMIN_APP_TRANSLATIONINFO"
+msgstr ""
+
+#: templates/admin_app.html:90
+msgid "PAGE_ADMIN_APP_PROFILE_BLOCK"
+msgstr ""
+
+#: templates/admin_app.html:94
+msgid "PAGE_ADMIN_APP_ID"
+msgstr ""
+
+#: templates/admin_app.html:99
+msgid "PAGE_ADMIN_APP_IDDESC"
+msgstr ""
+
+#: templates/admin_app.html:103 templates/app_add.html:222
+#: templates/storepage.html:52
+msgid "PAGE_APP_LABEL_ORIGINAL_AUTHOR"
+msgstr ""
+
+#: templates/admin_app.html:111
+msgid "PAGE_ADMIN_APP_TITLE"
+msgstr ""
+
+#: templates/admin_app.html:131
+msgid "PAGE_ADMIN_APP_TITLEDESC"
+msgstr ""
+
+#: templates/admin_app.html:135
+msgid "PAGE_ADMIN_APP_SLOGAN"
+msgstr ""
+
+#: templates/admin_app.html:155
+msgid "PAGE_ADMIN_APP_SLOGANDESC"
+msgstr ""
+
+#: templates/admin_app.html:159
+msgid "PAGE_ADMIN_APP_DESC"
+msgstr ""
+
+#: templates/admin_app.html:179
+msgid "PAGE_ADMIN_APP_DESCDESC"
+msgstr ""
+
+#: templates/admin_app.html:183
+msgid "PAGE_ADMIN_APP_REQ"
+msgstr ""
+
+#: templates/admin_app.html:203
+msgid "PAGE_ADMIN_APP_REQDESC"
+msgstr ""
+
+#: templates/admin_app.html:209
+msgid "PAGE_ADMIN_APP_CATEGORY"
+msgstr ""
+
+#: templates/admin_app.html:211
+msgid "PAGE_ADMIN_APP_CATEGORYDESC"
+msgstr ""
+
+#: templates/admin_app.html:215
+msgid "PAGE_ADMIN_APP_DEVSITE"
+msgstr ""
+
+#: templates/admin_app.html:222 templates/app_add.html:279
+#: templates/category.html:57
+msgid "INFO_APP_DEMO"
+msgstr ""
+
+#: templates/admin_app.html:227 templates/app_add.html:285
+msgid "PAGE_APP_LABEL_PRICE"
+msgstr ""
+
+#: templates/admin_app.html:233
+msgid "PAGE_ADMIN_APP_ICON"
+msgstr ""
+
+#: templates/admin_app.html:239
+msgid "PAGE_ADMIN_APP_LOAD_ICON"
+msgstr ""
+
+#: templates/admin_app.html:244
+msgid "PAGE_ADMIN_APP_ICON_REQ1"
+msgstr ""
+
+#: templates/admin_app.html:245
+msgid "PAGE_ADMIN_APP_ICON_REQ2"
+msgstr ""
+
+#: templates/admin_app.html:246
+msgid "PAGE_ADMIN_APP_ICON_REQ3"
+msgstr ""
+
+#: templates/admin_app.html:254
+msgid "PAGE_ADMIN_APP_SCRNS_TITLE"
+msgstr ""
+
+#: templates/admin_app.html:258
+msgid "PAGE_ADMIN_APP_LOAD_SCRN"
+msgstr ""
+
+#: templates/admin_app.html:259 templates/app_add.html:371
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_1"
+msgstr ""
+
+#: templates/admin_app.html:272 templates/app_add.html:393
+msgid "SET_APP_IS_PRIVATE"
+msgstr ""
+
+#: templates/admin_app.html:273 templates/app_add.html:394
+msgid "SET_APP_IS_PRIVATE_TOOLTIP"
+msgstr ""
+
+#: templates/admin_app.html:284 templates/app_add.html:404
+msgid "SET_APP_ALLOW_REVIEWS"
+msgstr ""
+
+#: templates/admin_app.html:287
+msgid "SET_APP_ALLOW_REVIEWS_TOOLTIP"
+msgstr ""
+
+#: templates/admin_app.html:291 templates/distribution_form.html:174
+#: templates/manage_distributions.html:249
+#: templates/manage_distributions.html:275
+msgid "PAGE_ADMIN_APP_DIST_SAVE"
+msgstr ""
+
+#: templates/admin_app.html:313 templates/app_add.html:531
+msgid "ERROR_INVALID_FILE_FORMAT"
+msgstr ""
+
+#: templates/admin_app.html:313 templates/app_add.html:531
+msgid "INFO_ACCEPTED_ICON_FORMATS"
+msgstr ""
+
+#: templates/admin_app.html:319 templates/app_add.html:539
+msgid "ERROR_INVALID_SIZE_ICON"
+msgstr ""
+
+#: templates/admin_app.html:385 templates/app_add.html:662
+msgid "JS_MARKETPLACE_UPLOADING"
+msgstr ""
+
+#: templates/admin_app.html:386 templates/app_add.html:663
+msgid "JS_MARKETPLACE_ERROR"
+msgstr ""
+
+#: templates/admin_app.html:387 templates/app_add.html:664
+msgid "JS_MARKETPLACE_RETRY"
+msgstr ""
+
+#: templates/admin_app.html:388 templates/app_add.html:665
+msgid "JS_MARKETPLACE_TOKEN_ERROR"
+msgstr ""
+
+#: templates/admin_app.html:389 templates/app_add.html:666
+msgid "JS_MARKETPLACE_FILE_ERROR"
+msgstr ""
+
+#: templates/app_add.html:6 templates/app_add.html:122
+msgid "PAGE_ADDAPP_PAGETITLE"
+msgstr ""
+
+#: templates/app_add.html:136
+msgid "PAGE_ADDAPP_STEP1"
+msgstr ""
+
+#: templates/app_add.html:137
+msgid "PAGE_ADDAPP_STEP1_DESC"
+msgstr ""
+
+#: templates/app_add.html:141
+msgid "PAGE_ADDAPP_STEP2"
+msgstr ""
+
+#: templates/app_add.html:142
+msgid "PAGE_ADDAPP_STEP2_DESC_1"
+msgstr ""
+
+#: templates/app_add.html:142
+msgid "PAGE_ADDAPP_STEP2_DESC_2"
+msgstr ""
+
+#: templates/app_add.html:146
+msgid "PAGE_ADDAPP_STEP3"
+msgstr ""
+
+#: templates/app_add.html:147
+msgid "PAGE_ADDAPP_STEP3_DESC_1"
+msgstr ""
+
+#: templates/app_add.html:147
+msgid "PAGE_ADDAPP_STEP3_DESC_2"
+msgstr ""
+
+#: templates/app_add.html:156
+msgid "PAGE_ADDAPP_STEP1_NAME"
+msgstr ""
+
+#: templates/app_add.html:160
+msgid "PAGE_ADDAPP_STEP1_TITLE"
+msgstr ""
+
+#: templates/app_add.html:186
+msgid "PAGE_ADDAPP_STEP1_TITLEDESC"
+msgstr ""
+
+#: templates/app_add.html:190
+msgid "PAGE_ADDAPP_STEP1_SLOGAN"
+msgstr ""
+
+#: templates/app_add.html:216
+msgid "PAGE_ADDAPP_STEP1_SLOGANDESC_1"
+msgstr ""
+
+#: templates/app_add.html:217
+msgid "PAGE_ADDAPP_STEP1_SLOGANDESC_2"
+msgstr ""
+
+#: templates/app_add.html:234
+msgid "PAGE_ADDAPP_STEP1_ICON"
+msgstr ""
+
+#: templates/app_add.html:235
+msgid "PAGE_ADDAPP_STEP1_ICONDESC_1"
+msgstr ""
+
+#: templates/app_add.html:235
+msgid "PAGE_ADDAPP_STEP1_ICONDESC_2"
+msgstr ""
+
+#: templates/app_add.html:235
+msgid "PAGE_ADDAPP_STEP1_ICONDESC_3"
+msgstr ""
+
+#: templates/app_add.html:247
+msgid "PAGE_ADDAPP_STEP1_AGREE_RULES"
+msgstr ""
+
+#: templates/app_add.html:261
+msgid "PAGE_ADDAPP_STEP2_NAME"
+msgstr ""
+
+#: templates/app_add.html:266
+msgid "PAGE_ADDAPP_STEP2_DEVSITE"
+msgstr ""
+
+#: templates/app_add.html:296
+msgid "PAGE_ADDAPP_STEP2_DESC"
+msgstr ""
+
+#: templates/app_add.html:322
+msgid "PAGE_ADDAPP_STEP2_DESCDESC"
+msgstr ""
+
+#: templates/app_add.html:326
+msgid "PAGE_ADDAPP_STEP2_REQ"
+msgstr ""
+
+#: templates/app_add.html:352
+msgid "PAGE_ADDAPP_STEP2_REQDESC"
+msgstr ""
+
+#: templates/app_add.html:357
+msgid "PAGE_ADDAPP_STEP2_CATEGORY"
+msgstr ""
+
+#: templates/app_add.html:359
+msgid "PAGE_ADDAPP_STEP2_CATEGORYDESC"
+msgstr ""
+
+#: templates/app_add.html:370
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTS"
+msgstr ""
+
+#: templates/app_add.html:371
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_2"
+msgstr ""
+
+#: templates/app_add.html:371
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_3"
+msgstr ""
+
+#: templates/app_add.html:411
+msgid "PAGE_ADDAPP_BACKBTN"
+msgstr ""
+
+#: templates/app_add.html:412
+msgid "PAGE_ADDAPP_NEXTBTN"
+msgstr ""
+
+#: templates/app_add.html:420
+msgid "PAGE_ADDAPP_CHECKINFO_NOTIFY"
+msgstr ""
+
+#: templates/app_add.html:429
+msgid "PAGE_ADDAPP_CHECKINFO_NAME"
+msgstr ""
+
+#: templates/app_add.html:430
+msgid "PAGE_ADDAPP_CHECKINFO_SLOGAN"
+msgstr ""
+
+#: templates/app_add.html:431
+msgid "PAGE_ADDAPP_CHECKINFO_AUTHOR_1"
+msgstr ""
+
+#: templates/app_add.html:431
+msgid "PAGE_ADDAPP_CHECKINFO_AUTHOR_2"
+msgstr ""
+
+#: templates/app_add.html:435
+msgid "PAGE_ADDAPP_CHECKINFO_SCREENSHOTS"
+msgstr ""
+
+#: templates/app_add.html:438 templates/app_add.html:630
+msgid "INFO_NO_SCREENSHOTS"
+msgstr ""
+
+#: templates/app_add.html:442
+msgid "PAGE_ADDAPP_CHECKINFO_OTHERINFO"
+msgstr ""
+
+#: templates/app_add.html:446
+msgid "PAGE_ADDAPP_CHECKINFO_ACTIONS"
+msgstr ""
+
+#: templates/app_add.html:449
+msgid "PAGE_ADDAPP_CHECKINFO_GOTODEVSITE"
+msgstr ""
+
+#: templates/app_add.html:471
+msgid "PAGE_ADDAPP_EDITAPPBTN"
+msgstr ""
+
+#: templates/app_add.html:473
+msgid "PAGE_ADDAPP_SENDAPPBTN"
+msgstr ""
+
+#: templates/app_add.html:559
+msgid "ERROR_NO_APPNAME"
+msgstr ""
+
+#: templates/app_add.html:563
+msgid "ERROR_NO_AGREERULES"
+msgstr ""
+
+#: templates/app_add.html:594
+msgid "TEXT_APP_NO_NAME"
+msgstr ""
+
+#: templates/app_add.html:595
+msgid "TEXT_APP_NO_SLOGAN"
+msgstr ""
+
+#: templates/app_add.html:596
+msgid "TEXT_APP_NO_DESC"
+msgstr ""
+
+#: templates/badbrowser.html:7
+msgid "PAGE_BADBROWSER_WARN_TITLE"
+msgstr ""
+
+#: templates/badbrowser.html:12
+msgid "PAGE_BADBROWSER_WARN_SUBTITLE"
+msgstr ""
+
+#: templates/badbrowser.html:13
+msgid "PAGE_BADBROWSER_WARN_DESC_1"
+msgstr ""
+
+#: templates/badbrowser.html:14
+msgid "PAGE_BADBROWSER_WARN_DESC_2"
+msgstr ""
+
+#: templates/badbrowser.html:17
+msgid "PAGE_BADBROWSER_WARN_RESTRICT_1"
+msgstr ""
+
+#: templates/badbrowser.html:18
+msgid "PAGE_BADBROWSER_WARN_RESTRICT_2"
+msgstr ""
+
+#: templates/badbrowser.html:20
+msgid "PAGE_BADBROWSER_WARN_DESC_3"
+msgstr ""
+
+#: templates/badbrowser.html:21
+msgid "PAGE_BADBROWSER_WARN_FOOTER"
+msgstr ""
+
+#: templates/banned_ip.html:6
+#, fuzzy
+#| msgid "BANNED_IP_RESOLUTION"
+msgid "BANNED_IP_PAGE_TITLE"
+msgstr ""
+"もし制限が誤って適用されたと思われる場合、または過去に違反行為を行ったユー"
+"ザーに割り当てられていた動的IPアドレスをご利用の場合は、管理者までお問い合わ"
+"せください。"
+
+#: templates/banned_ip.html:16
+#, fuzzy
+#| msgid "BANNED_IP_REASON"
+msgid "BANNED_IP_H2"
+msgstr ""
+"利用規約違反、不審な活動、またはセキュリティシステムの検知により、アクセスが"
+"制限されています。\n"
+"すべてのユーザーの安全確保のため、一時的または恒久的にサービスのご利用を制限"
+"させていただいております。"
+
+#: templates/banned_ip.html:21
+#, fuzzy
+#| msgid "BANNED_IP_REASON"
+msgid "BANNED_IP_INTRO"
+msgstr ""
+"利用規約違反、不審な活動、またはセキュリティシステムの検知により、アクセスが"
+"制限されています。\n"
+"すべてのユーザーの安全確保のため、一時的または恒久的にサービスのご利用を制限"
+"させていただいております。"
+
+#: templates/banned_ip.html:22
 msgid "BANNED_IP_REASON"
 msgstr ""
-"利用規約違反、不審な活動、またはセキュリティシステムの検知により、アクセスが制限されています。\n"
-"すべてのユーザーの安全確保のため、一時的または恒久的にサービスのご利用を制限させていただいております。"
+"利用規約違反、不審な活動、またはセキュリティシステムの検知により、アクセスが"
+"制限されています。\n"
+"すべてのユーザーの安全確保のため、一時的または恒久的にサービスのご利用を制限"
+"させていただいております。"
 
+#: templates/banned_ip.html:23
 msgid "BANNED_IP_RESOLUTION"
-msgstr "もし制限が誤って適用されたと思われる場合、または過去に違反行為を行ったユーザーに割り当てられていた動的IPアドレスをご利用の場合は、管理者までお問い合わせください。"
+msgstr ""
+"もし制限が誤って適用されたと思われる場合、または過去に違反行為を行ったユー"
+"ザーに割り当てられていた動的IPアドレスをご利用の場合は、管理者までお問い合わ"
+"せください。"
 
+#: templates/banned_ip.html:31
+#, fuzzy
+#| msgid "BANNED_IP_REASON"
+msgid "BANNED_IP_CONTACT_SUPPORT"
+msgstr ""
+"利用規約違反、不審な活動、またはセキュリティシステムの検知により、アクセスが"
+"制限されています。\n"
+"すべてのユーザーの安全確保のため、一時的または恒久的にサービスのご利用を制限"
+"させていただいております。"
+
+#: templates/banned_ip.html:46
+#, fuzzy
+#| msgid "BANNED_IP_REASON"
+msgid "BANNED_IP_BACK_BUTTON"
+msgstr ""
+"利用規約違反、不審な活動、またはセキュリティシステムの検知により、アクセスが"
+"制限されています。\n"
+"すべてのユーザーの安全確保のため、一時的または恒久的にサービスのご利用を制限"
+"させていただいております。"
+
+#: templates/banned_ip.html:54 templates/base.html:216
+#, fuzzy
+#| msgid "BASE_COOKIE_PRIVACYPOLICY"
+msgid "BASE_PRIVACYPOLICYBTN"
+msgstr "プライバシーポリシー"
+
+#: templates/banned_ip.html:54 templates/base.html:217
+#: templates/help_center.html:34
+msgid "PAGE_FAQ_DONATETAB"
+msgstr ""
+
+#: templates/banned_ip.html:54 templates/base.html:218
+#: templates/help_center.html:40 templates/help_center.html:150
+msgid "PAGE_FAQ_RULESTAB"
+msgstr ""
+
+#: templates/banned_ip.html:54 templates/base.html:219
+msgid "BASE_FOOTER_TELEGRAM"
+msgstr ""
+
+#: templates/banned_ip.html:55 templates/base.html:231
+msgid "BASE_FOOTER_TEXT_1"
+msgstr ""
+
+#: templates/banned_ip.html:55 templates/base.html:231
+msgid "BASE_FOOTER_TEXT_2"
+msgstr ""
+
+#: templates/base.html:11
+msgid " SITE_DESCRIPTION"
+msgstr ""
+
+#: templates/base.html:59
+msgid "BASE_IMPERSONATE_ATTENTION"
+msgstr ""
+
+#: templates/base.html:59
+msgid "BASE_IMPERSONATE_WARNING"
+msgstr ""
+
+#: templates/base.html:60
+msgid "BASE_IMPERSONATE_RETURN"
+msgstr ""
+
+#: templates/base.html:65
 msgid "BASE_COOKIE_MESSAGE"
 msgstr ""
 "当サイトの開発者の一人は「クッキーの王」と呼ばれています。\n"
-"彼はクッキーを皆に広めることに情熱を持っており、その影響を受けて私たちもCookieを使用しています。\n"
+"彼はクッキーを皆に広めることに情熱を持っており、その影響を受けて私たちも"
+"Cookieを使用しています。\n"
 "詳しくは以下をご確認ください。"
 
+#: templates/base.html:66
 msgid "BASE_COOKIE_PRIVACYPOLICY"
 msgstr "プライバシーポリシー"
+
+#: templates/base.html:67
+#, fuzzy
+#| msgid "BASE_COOKIE_MESSAGE"
+msgid "BASE_COOKIE_ACCEPT"
+msgstr ""
+"当サイトの開発者の一人は「クッキーの王」と呼ばれています。\n"
+"彼はクッキーを皆に広めることに情熱を持っており、その影響を受けて私たちも"
+"Cookieを使用しています。\n"
+"詳しくは以下をご確認ください。"
+
+#: templates/base.html:68
+#, fuzzy
+#| msgid "BASE_COOKIE_MESSAGE"
+msgid "BASE_COOKIE_DECLINE"
+msgstr ""
+"当サイトの開発者の一人は「クッキーの王」と呼ばれています。\n"
+"彼はクッキーを皆に広めることに情熱を持っており、その影響を受けて私たちも"
+"Cookieを使用しています。\n"
+"詳しくは以下をご確認ください。"
+
+#: templates/base.html:74
+msgid "BASE_AUTHLIKE"
+msgstr ""
+
+#: templates/base.html:74
+msgid "BASE_LOGOUTBTN"
+msgstr ""
+
+#: templates/base.html:76
+msgid "BASE_LOGINBTN"
+msgstr ""
+
+#: templates/base.html:76
+msgid "BASE_REGISTERBTN"
+msgstr ""
+
+#: templates/base.html:91
+msgid "BASE_OPRJ_TITLE"
+msgstr ""
+
+#: templates/base.html:106 templates/index.html:26
+msgid "INDEX_SEARCH_PLACEHOLDER"
+msgstr ""
+
+#: templates/base.html:107 templates/category.html:46
+msgid "BASE_SEARCHBTN"
+msgstr ""
+
+#: templates/base.html:131
+msgid "BASE_SIDEBAR_APP_TITLE"
+msgstr ""
+
+#: templates/base.html:135
+msgid "BASE_SIDEBAR_APP_INSTALL"
+msgstr ""
+
+#: templates/base.html:140
+msgid "BASE_SIDEBAR_APP_DEV_SITE"
+msgstr ""
+
+#: templates/base.html:144
+msgid "BASE_SIDEBAR_APP_REPORT"
+msgstr ""
+
+#: templates/base.html:146
+msgid "BASE_SIDEBAR_APP_EDIT"
+msgstr ""
+
+#: templates/base.html:152
+msgid "BASE_SIDEBAR_ACCOUNT_TITLE"
+msgstr ""
+
+#: templates/base.html:156
+msgid "BASE_SIDEBAR_ACCOUNT_PROFILEBTN"
+msgstr ""
+
+#: templates/base.html:157
+msgid "BASE_SIDEBAR_ACCOUNT_SETTINGSBTN"
+msgstr ""
+
+#: templates/base.html:159
+msgid "BASE_SIDEBAR_ACCOUNT_INVITEBTN"
+msgstr ""
+
+#: templates/base.html:162 templates/notifications.html:18
+msgid "PAGE_NOTIFICATIONS_TAB"
+msgstr ""
+
+#: templates/base.html:170
+msgid "BASE_SIDEBAR_CATEGORIES_TITLE"
+msgstr ""
+
+#: templates/base.html:174
+msgid "BASE_SIDEBAR_CATEGORIES_HOME"
+msgstr ""
+
+#: templates/base.html:212
+msgid "BASE_FOOTER_REPORT_PROBLEM"
+msgstr ""
+
+#: templates/base.html:246
+msgid "PAGE_NOTIFY_TOAST_NEW"
+msgstr ""
+
+#: templates/base.html:247
+msgid "PAGE_NOTIFY_TOAST_CLOSE"
+msgstr ""
+
+#: templates/base.html:248
+msgid "PAGE_NOTIFY_TOAST_VIEW"
+msgstr ""
+
+#: templates/category.html:18 templates/search.html:13
+msgid "PAGE_SEARCH_SORT_PLACEHOLDER"
+msgstr ""
+
+#: templates/category.html:19 templates/search.html:14
+msgid "PAGE_SEARCH_SORT_TILES"
+msgstr ""
+
+#: templates/category.html:20 templates/search.html:15
+msgid "PAGE_SEARCH_SORT_LIST"
+msgstr ""
+
+#: templates/category.html:25
+msgid "PAGE_CATEGORY_COUNTOFRESULTS"
+msgstr ""
+
+#: templates/category.html:40
+msgid "PAGE_CATEGORY_SEARCHOFCATEGORY"
+msgstr ""
+
+#: templates/category.html:55
+msgid "INFO_APP_DEMOWITHPRICE"
+msgstr ""
+
+#: templates/category.html:63
+msgid "INFO_APP_FREE"
+msgstr ""
+
+#: templates/category.html:68
+msgid "PAGE_CATEGORY_DEMOBTN"
+msgstr ""
+
+#: templates/category.html:70
+msgid "PAGE_CATEGORY_BUYBTN"
+msgstr ""
+
+#: templates/category.html:72
+msgid "PAGE_CATEGORY_INSTALLBTN"
+msgstr ""
+
+#: templates/debug_info.html:8
+msgid "PAGE_DEBUG_TITLE"
+msgstr ""
+
+#: templates/debug_info.html:9
+msgid "PAGE_DEBUG_DESC"
+msgstr ""
+
+#: templates/debug_info.html:10
+msgid "PAGE_DEBUG_MAININFO_TITLE"
+msgstr ""
+
+#: templates/del_acc.html:10
+msgid "PAGE_DELACC_BLOCK_TITLE"
+msgstr ""
+
+#: templates/del_acc.html:22
+msgid "PAGE_DELACC_TITLE"
+msgstr ""
+
+#: templates/del_acc.html:27
+msgid "PAGE_DELACC_WARNTITLE"
+msgstr ""
+
+#: templates/del_acc.html:29
+msgid "PAGE_DELACC_WARNDESC_1"
+msgstr ""
+
+#: templates/del_acc.html:29
+msgid "PAGE_DELACC_WARNDESC_2"
+msgstr ""
+
+#: templates/del_acc.html:29
+msgid "PAGE_DELACC_WARNDESC_3"
+msgstr ""
+
+#: templates/del_acc.html:29
+msgid "PAGE_DELACC_WARNDESC_4"
+msgstr ""
+
+#: templates/del_acc.html:29
+msgid "PAGE_DELACC_WARNDESC_5"
+msgstr ""
+
+#: templates/del_acc.html:33
+msgid "PAGE_DELACC_YOULEFTHERE_TITLE"
+msgstr ""
+
+#: templates/del_acc.html:34
+msgid "PAGE_DELACC_YOULEFTHERE_1"
+msgstr ""
+
+#: templates/del_acc.html:38
+msgid "PAGE_DELACC_YOULEFTHERE_APP_1"
+msgstr ""
+
+#: templates/del_acc.html:39
+msgid "PAGE_DELACC_YOULEFTHERE_APP_2"
+msgstr ""
+
+#: templates/del_acc.html:43
+msgid "PAGE_DELACC_YOULEFTHERE_AVATAR_1"
+msgstr ""
+
+#: templates/del_acc.html:44
+msgid "PAGE_DELACC_YOULEFTHERE_AVATAR_2"
+msgstr ""
+
+#: templates/del_acc.html:48
+msgid "PAGE_DELACC_YOULEFTHERE_HISTORY_1"
+msgstr ""
+
+#: templates/del_acc.html:49
+msgid "PAGE_DELACC_YOULEFTHERE_HISTORY_2"
+msgstr ""
+
+#: templates/del_acc.html:53
+msgid "PAGE_DELACC_YOULEFTHERE_INVITES_1"
+msgstr ""
+
+#: templates/del_acc.html:54
+msgid "PAGE_DELACC_YOULEFTHERE_INVITES_2"
+msgstr ""
+
+#: templates/del_acc.html:59
+msgid "PAGE_DELACC_LASTPASS_TITLE"
+msgstr ""
+
+#: templates/del_acc.html:78
+msgid "PAGE_DELAPP_DELACCOUNTBTN"
+msgstr ""
+
+#: templates/dev_add.html:5 templates/dev_add.html:10
+msgid "PAGE_DEVADD_TITLE"
+msgstr ""
+
+#: templates/dev_add.html:15
+msgid "PAGE_DEVADD_DESC_1"
+msgstr ""
+
+#: templates/dev_add.html:15
+msgid "PAGE_DEVADD_DESC_2"
+msgstr ""
+
+#: templates/dev_add.html:19
+msgid "PAGE_DEVADD_DISABLED_1"
+msgstr ""
+
+#: templates/dev_add.html:20
+msgid "PAGE_DEVADD_DISABLED_2"
+msgstr ""
+
+#: templates/dev_add.html:25
+msgid "PAGE_DEVADD_ALREADYDEV_1"
+msgstr ""
+
+#: templates/dev_add.html:26
+msgid "PAGE_DEVADD_ALREADYDEV_2"
+msgstr ""
+
+#: templates/dev_add.html:30
+msgid "PAGE_DEVADD_NOWCHECKING_TITLE"
+msgstr ""
+
+#: templates/dev_add.html:31
+msgid "PAGE_DEVADD_NOWCHECKING_1"
+msgstr ""
+
+#: templates/dev_add.html:32
+msgid "PAGE_DEVADD_NOWCHECKING_2"
+msgstr ""
+
+#: templates/dev_add.html:33
+msgid "PAGE_DEVADD_NOWCHECKING_3"
+msgstr ""
+
+#: templates/dev_add.html:37
+msgid "PAGE_DEVADD_ENTERINFO_TITLE"
+msgstr ""
+
+#: templates/dev_add.html:45
+msgid "PAGE_DEVADD_ENTERINFO_USERNAME"
+msgstr ""
+
+#: templates/dev_add.html:54
+msgid "PAGE_DEVADD_ENTERINFO_USERNAMEDESC"
+msgstr ""
+
+#: templates/dev_add.html:59
+msgid "PAGE_DEVADD_ENTERINFO_EMAIL"
+msgstr ""
+
+#: templates/dev_add.html:68
+msgid "PAGE_DEVADD_ENTERINFO_EMAILDESC"
+msgstr ""
+
+#: templates/dev_add.html:82
+msgid "PAGE_DEVADD_ENTERINFO_GITHUBDESC"
+msgstr ""
+
+#: templates/dev_add.html:87
+msgid "PAGE_DEVADD_ENTERINFO_ABOUTYOU"
+msgstr ""
+
+#: templates/dev_add.html:100
+msgid "PAGE_DEVADD_ENTERINFO_WHYCHOOSEUS"
+msgstr ""
+
+#: templates/dev_add.html:112
+msgid "PAGE_DEVADD_ENTERINFO_CONFIRM"
+msgstr ""
+
+#: templates/dev_add.html:138
+msgid "PAGE_DEVADD_SENDALLBTN"
+msgstr ""
+
+#: templates/distribution_form.html:44
+msgid "PAGE_DIST_EDIT_HEADER"
+msgstr ""
+
+#: templates/distribution_form.html:52 templates/manage_distributions.html:159
+msgid "PAGE_DIST_FORM_VERSION"
+msgstr ""
+
+#: templates/distribution_form.html:54 templates/manage_distributions.html:161
+msgid "PAGE_DIST_FORM_VERSION_DESC"
+msgstr ""
+
+#: templates/distribution_form.html:59
+msgid "PAGE_DIST_EDIT_CURRENT_FILE"
+msgstr ""
+
+#: templates/distribution_form.html:71
+msgid "PAGE_DIST_EDIT_CHANGE_FILE"
+msgstr ""
+
+#: templates/distribution_form.html:71 templates/manage_distributions.html:165
+msgid "PAGE_DIST_FORM_FILE"
+msgstr ""
+
+#: templates/distribution_form.html:78 templates/manage_distributions.html:171
+msgid "PAGE_DIST_FORM_FILE_BUTTON"
+msgstr ""
+
+#: templates/distribution_form.html:88 templates/distribution_form.html:172
+#: templates/distribution_form.html:189 templates/manage_distributions.html:181
+#: templates/manage_distributions.html:273
+#: templates/manage_distributions.html:290
+msgid "PAGE_DIST_FORM_FILE_NO_FILE"
+msgstr ""
+
+#: templates/distribution_form.html:113 templates/manage_distributions.html:207
+msgid "PAGE_DIST_FORM_FILE_DESC"
+msgstr ""
+
+#: templates/distribution_form.html:117 templates/manage_distributions.html:211
+msgid "PAGE_DIST_FORM_VT_TITLE"
+msgstr ""
+
+#: templates/distribution_form.html:119 templates/manage_distributions.html:213
+msgid "PAGE_DIST_FORM_VT_DESC"
+msgstr ""
+
+#: templates/distribution_form.html:123 templates/manage_distributions.html:217
+msgid "PAGE_DIST_FORM_URL"
+msgstr ""
+
+#: templates/distribution_form.html:125 templates/manage_distributions.html:219
+msgid "PAGE_DIST_FORM_URL_DESC"
+msgstr ""
+
+#: templates/distribution_form.html:154
+msgid "PAGE_DIST_FORM_SAVE"
+msgstr ""
+
+#: templates/distribution_form.html:156
+msgid "PAGE_DIST_FORM_CANCEL"
+msgstr ""
+
+#: templates/distribution_form.html:173 templates/manage_distributions.html:274
+msgid "PAGE_DIST_FORM_FILE_UPLOADING"
+msgstr ""
+
+#: templates/distribution_form.html:175 templates/manage_distributions.html:276
+msgid "PAGE_DIST_FORM_FILE_ALREADY_UPLOADED"
+msgstr ""
+
+#: templates/distribution_form.html:176 templates/manage_distributions.html:277
+msgid "PAGE_DIST_FORM_ERR_GET_TOKEN"
+msgstr ""
+
+#: templates/distribution_form.html:177 templates/manage_distributions.html:278
+msgid "PAGE_DIST_FORM_ERR_CDN_REJECT"
+msgstr ""
+
+#: templates/distribution_form.html:178 templates/manage_distributions.html:279
+msgid "PAGE_DIST_FORM_ERR_NO_CONFIRM"
+msgstr ""
+
+#: templates/download_list.html:7
+msgid "PAGE_DOWNLOAD_TITLE"
+msgstr ""
+
+#: templates/download_list.html:38
+msgid "PAGE_DOWNLOAD_LATEST_VERSION_NOTE"
+msgstr ""
+
+#: templates/download_list.html:46
+msgid "PAGE_DOWNLOAD_VERSION_LIST"
+msgstr ""
+
+#: templates/download_list.html:52
+msgid "PAGE_DOWNLOAD_MANAGE_DISTS"
+msgstr ""
+
+#: templates/download_list.html:62
+msgid "PAGE_DOWNLOAD_TABLE_VERSION"
+msgstr ""
+
+#: templates/download_list.html:70
+msgid "PAGE_DOWNLOAD_TABLE_DATE"
+msgstr ""
+
+#: templates/download_list.html:76
+msgid "PAGE_DOWNLOAD_TABLE_LINK"
+msgstr ""
+
+#: templates/download_list.html:87 templates/download_list.html:88
+#: templates/download_list.html:90
+msgid "PAGE_DOWNLOAD_DL_ACTION"
+msgstr ""
+
+#: templates/download_list.html:103
+msgid "PAGE_DOWNLOAD_NO_NOTES"
+msgstr ""
+
+#: templates/download_list.html:110
+msgid "PAGE_DOWNLOAD_NO_DISTRIBUTIONS"
+msgstr ""
+
+#: templates/download_list.html:142
+msgid "PAGE_DOWNLOAD_OFFICIAL_SOURCE"
+msgstr ""
+
+#: templates/download_list.html:148
+msgid "PAGE_DOWNLOAD_GO_OFFICIAL"
+msgstr ""
+
+#: templates/download_list.html:160
+msgid "PAGE_DOWNLOAD_DMCA_WARNING"
+msgstr ""
+
+#: templates/download_list.html:170
+msgid "PAGE_DOWNLOAD_DEMO_WARNING"
+msgstr ""
+
+#: templates/help_center.html:6
+msgid "PAGE_FAQ_TITLE"
+msgstr ""
+
+#: templates/help_center.html:10
+msgid "PAGE_FAQ_TITLE_2"
+msgstr ""
+
+#: templates/help_center.html:11
+msgid "PAGE_FAQ_DESC"
+msgstr ""
+
+#: templates/help_center.html:28
+msgid "PAGE_FAQ_PRIVACYTAB"
+msgstr ""
+
+#: templates/help_center.html:52
+msgid "PAGE_FAQ_CARD_WHATISIT"
+msgstr ""
+
+#: templates/help_center.html:53
+msgid "PAGE_FAQ_CARD_WHATISITDESC"
+msgstr ""
+
+#: templates/help_center.html:57
+msgid "PAGE_FAQ_CARD_WHYWESHOP"
+msgstr ""
+
+#: templates/help_center.html:58
+msgid "PAGE_FAQ_CARD_WHYWESHOPDESC"
+msgstr ""
+
+#: templates/help_center.html:62
+msgid "PAGE_FAQ_CARD_TEAM"
+msgstr ""
+
+#: templates/help_center.html:65
+msgid "PAGE_FAQ_CARD_TEAMDESC_1"
+msgstr ""
+
+#: templates/help_center.html:66
+msgid "PAGE_FAQ_CARD_TEAMDESC_2"
+msgstr ""
+
+#: templates/help_center.html:68
+msgid "PAGE_FAQ_CARD_TEAM_AUTHOR"
+msgstr ""
+
+#: templates/help_center.html:69
+msgid "PAGE_FAQ_TOOLTIP_EASTEREGG"
+msgstr ""
+
+#: templates/help_center.html:69
+msgid "PAGE_FAQ_CARD_TEAM_FRONTEND"
+msgstr ""
+
+#: templates/help_center.html:71
+msgid "PAGE_FAQ_CARD_TEAM_CDNANDGIT"
+msgstr ""
+
+#: templates/help_center.html:73
+msgid "PAGE_FAQ_TEAM_ROLE_FAYZETWIN"
+msgstr ""
+
+#: templates/help_center.html:74
+msgid "PAGE_FAQ_TEAM_ROLE_ZAZIOS"
+msgstr ""
+
+#: templates/help_center.html:75
+msgid "PAGE_FAQ_CARD_TEAM_BACKEND"
+msgstr ""
+
+#: templates/help_center.html:76
+msgid "PAGE_FAQ_CARD_TEAM_DEV"
+msgstr ""
+
+#: templates/help_center.html:77
+msgid "PAGE_FAQ_TEAM_ROLE_MONDY"
+msgstr ""
+
+#: templates/help_center.html:79
+msgid "PAGE_FAQ_TEAM_HEADER_OTHER"
+msgstr ""
+
+#: templates/help_center.html:80
+msgid "PAGE_FAQ_TEAM_ROLE_NOCHA3"
+msgstr ""
+
+#: templates/help_center.html:81
+msgid "PAGE_FAQ_TEAM_ROLE_CHELKA0"
+msgstr ""
+
+#: templates/help_center.html:83
+msgid "PAGE_FAQ_TEAM_HEADER_TESTERS"
+msgstr ""
+
+#: templates/help_center.html:86
+msgid "PAGE_FAQ_TEAM_HEADER_TRANSLATORS"
+msgstr ""
+
+#: templates/help_center.html:97
+msgid "PAGE_FAQ_Q_CREATE_ACC"
+msgstr ""
+
+#: templates/help_center.html:98
+msgid "PAGE_FAQ_A_CREATE_ACC"
+msgstr ""
+
+#: templates/help_center.html:102
+msgid "PAGE_FAQ_Q_ACC_BENEFITS"
+msgstr ""
+
+#: templates/help_center.html:103
+msgid "PAGE_FAQ_A_ACC_BENEFITS"
+msgstr ""
+
+#: templates/help_center.html:107
+msgid "PAGE_FAQ_Q_ADD_APP"
+msgstr ""
+
+#: templates/help_center.html:108
+msgid "PAGE_FAQ_A_ADD_APP"
+msgstr ""
+
+#: templates/help_center.html:112
+msgid "PAGE_FAQ_Q_LEGAL"
+msgstr ""
+
+#: templates/help_center.html:113
+msgid "PAGE_FAQ_A_LEGAL"
+msgstr ""
+
+#: templates/help_center.html:117
+msgid "PAGE_FAQ_Q_WHY_EXIST"
+msgstr ""
+
+#: templates/help_center.html:120
+msgid "PAGE_FAQ_A_WHY_EXIST_PART1"
+msgstr ""
+
+#: templates/help_center.html:121
+msgid "PAGE_FAQ_A_WHY_EXIST_PART2"
+msgstr ""
+
+#: templates/help_center.html:122
+msgid "PAGE_FAQ_A_WHY_EXIST_PART3"
+msgstr ""
+
+#: templates/help_center.html:127 templates/help_center.html:136
+msgid "PAGE_FAQ_LAST_UPDATE"
+msgstr ""
+
+#: templates/help_center.html:131
+msgid "PAGE_FAQ_PRIVACY_TITLE"
+msgstr ""
+
+#: templates/help_center.html:138 templates/help_center.html:146
+#: templates/help_center.html:154
+msgid "PAGE_FAQ_PRIVACY_EMPTY"
+msgstr ""
+
+#: templates/help_center.html:142
+msgid "PAGE_FAQ_DONATE_TITLE"
+msgstr ""
+
+#: templates/includes/categories.html:11
+msgid "INFO_CATEGORY_LIST_EMPTY"
+msgstr ""
+
+#: templates/index.html:10
+msgid "INDEX_WELCOME_TITLE"
+msgstr ""
+
+#: templates/index.html:11
+msgid "INDEX_WELCOME_TEXT"
+msgstr ""
+
+#: templates/index.html:16
+msgid "INDEX_SEARCH_SECTION_TITLE"
+msgstr ""
+
+#: templates/index.html:37
+msgid "INDEX_SEARCH_BTN"
+msgstr ""
+
+#: templates/index.html:45
+msgid "INDEX_CATEGORY_PROMPT"
+msgstr ""
+
+#: templates/index.html:54
+msgid "INDEX_NO_CATEGORIES"
+msgstr ""
+
+#: templates/invite.html:6
+msgid "PAGE_INVITE_BROWSER_TITLE"
+msgstr ""
+
+#: templates/invite.html:13
+msgid "PAGE_INVITE_MAIN_TITLE"
+msgstr ""
+
+#: templates/invite.html:19
+msgid "PAGE_INVITE_DESCRIPTION"
+msgstr ""
+
+#: templates/invite.html:29
+msgid "PAGE_INVITE_COPY_CODE"
+msgstr ""
+
+#: templates/invite.html:34
+msgid "PAGE_INVITE_HOW_TO_SEND"
+msgstr ""
+
+#: templates/invite.html:41
+msgid "PAGE_INVITE_CODE_ROTATION_WARN"
+msgstr ""
+
+#: templates/invite.html:49
+msgid "PAGE_INVITE_LIMIT_EXHAUSTED"
+msgstr ""
+
+#: templates/invite.html:50
+msgid "PAGE_INVITE_NEXT_AVAILABLE"
+msgstr ""
+
+#: templates/invite.html:57
+msgid "PAGE_INVITE_LIST_HEADER"
+msgstr ""
+
+#: templates/invite.html:64
+msgid "PAGE_INVITE_ADMINSTATUS"
+msgstr ""
+
+#: templates/invite.html:66
+msgid "PAGE_INVITE_USERSTATUS"
+msgstr ""
+
+#: templates/invite.html:77
+msgid "PAGE_INVITE_REGDATE"
+msgstr ""
+
+#: templates/invite.html:89
+msgid "PAGE_INVITE_LIST_EMPTY"
+msgstr ""
+
+#: templates/invite_input.html:3
+msgid "PAGE_INVITE_INPUT_TITLE"
+msgstr ""
+
+#: templates/invite_input.html:8
+msgid "PAGE_INVITE_INPUT_HEADER"
+msgstr ""
+
+#: templates/invite_input.html:12
+msgid "PAGE_INVITE_INPUT_DESC_1"
+msgstr ""
+
+#: templates/invite_input.html:14
+msgid "PAGE_INVITE_INPUT_DESC_2"
+msgstr ""
+
+#: templates/invite_input.html:27
+msgid "PAGE_INVITE_INPUT_LABEL"
+msgstr ""
+
+#: templates/invite_input.html:31
+msgid "PAGE_INVITE_INPUT_BTN"
+msgstr ""
+
+#: templates/login_splash.html:6
+msgid "PAGE_LOGIN_BROWSER_TITLE"
+msgstr ""
+
+#: templates/login_splash.html:14
+msgid "PAGE_LOGIN_REQUIRED_WARNING"
+msgstr ""
+
+#: templates/login_splash.html:20
+msgid "PAGE_LOGIN_MAIN_TITLE"
+msgstr ""
+
+#: templates/login_splash.html:28
+msgid "PAGE_LOGIN_GREETING"
+msgstr ""
+
+#: templates/login_splash.html:40
+msgid "PAGE_LOGIN_USERNAME_LABEL"
+msgstr ""
+
+#: templates/login_splash.html:45
+msgid "PAGE_LOGIN_PASSWORD_LABEL"
+msgstr ""
+
+#: templates/login_splash.html:50
+msgid "PAGE_LOGIN_FORGOT_PASSWORD"
+msgstr ""
+
+#: templates/login_splash.html:51
+msgid "PAGE_LOGIN_SUBMIT_BTN"
+msgstr ""
+
+#: templates/login_splash.html:59
+msgid "PAGE_LOGIN_INFO_TITLE_1"
+msgstr ""
+
+#: templates/login_splash.html:61
+msgid "PAGE_LOGIN_INFO_BULLET_1"
+msgstr ""
+
+#: templates/login_splash.html:62
+msgid "PAGE_LOGIN_INFO_BULLET_2"
+msgstr ""
+
+#: templates/login_splash.html:63
+msgid "PAGE_LOGIN_INFO_BULLET_3"
+msgstr ""
+
+#: templates/login_splash.html:66
+msgid "PAGE_LOGIN_INFO_TITLE_2"
+msgstr ""
+
+#: templates/login_splash.html:67
+msgid "PAGE_LOGIN_INFO_DESC_2"
+msgstr ""
+
+#: templates/login_splash.html:68
+msgid "PAGE_LOGIN_REGISTER_BTN"
+msgstr ""
+
+#: templates/manage_distributions.html:64
+msgid "PAGE_ADMIN_APP_DIST_HEADER"
+msgstr ""
+
+#: templates/manage_distributions.html:68
+msgid "PAGE_ADMIN_APP_DIST_PENDING_TITLE"
+msgstr ""
+
+#: templates/manage_distributions.html:72
+#: templates/manage_distributions.html:78
+msgid "PAGE_ADMIN_APP_DIST_VERSION_LABEL"
+msgstr ""
+
+#: templates/manage_distributions.html:73
+msgid "PAGE_ADMIN_APP_DIST_PENDING_CREATE"
+msgstr ""
+
+#: templates/manage_distributions.html:79
+msgid "PAGE_ADMIN_APP_DIST_PENDING_EDIT"
+msgstr ""
+
+#: templates/manage_distributions.html:90
+msgid "PAGE_ADMIN_APP_DIST_VERSION"
+msgstr ""
+
+#: templates/manage_distributions.html:91
+msgid "PAGE_ADMIN_APP_DIST_DATE"
+msgstr ""
+
+#: templates/manage_distributions.html:92
+msgid "PAGE_ADMIN_APP_DIST_ACTIONS"
+msgstr ""
+
+#: templates/manage_distributions.html:101
+msgid "PAGE_ADMIN_APP_DIST_ACTION_EDIT"
+msgstr ""
+
+#: templates/manage_distributions.html:104 templates/profile.html:206
+#: templates/profile.html:234 templates/storepage.html:228
+msgid "PAGE_ADMIN_APP_DIST_ACTION_DELETE"
+msgstr ""
+
+#: templates/manage_distributions.html:114
+msgid "PAGE_ADMIN_APP_DIST_NO_NOTES"
+msgstr ""
+
+#: templates/manage_distributions.html:146
+msgid "PAGE_ADMIN_APP_DIST_EMPTY"
+msgstr ""
+
+#: templates/manage_distributions.html:152
+msgid "PAGE_ADMIN_APP_DIST_ADD_NEW"
+msgstr ""
+
+#: templates/manage_distributions.html:224
+msgid "PAGE_DIST_FORM_CHANGELOG"
+msgstr ""
+
+#: templates/manage_distributions.html:244
+msgid "PAGE_DIST_FORM_CHANGELOG_DESC"
+msgstr ""
+
+#: templates/manage_distributions.html:256
+msgid "PAGE_ADMIN_APP_DIST_DL_LINK_BLOCK"
+msgstr ""
+
+#: templates/manage_distributions.html:258
+msgid "PAGE_ADMIN_APP_DIST_DL_LINK_TEXT"
+msgstr ""
+
+#: templates/notifications.html:6
+msgid "PAGE_NOTIFICATIONS_TITLE"
+msgstr ""
+
+#: templates/notifications.html:26
+msgid "NOTIFICATIONS_LOADING"
+msgstr ""
+
+#: templates/notifications.html:36
+msgid "PAGE_NOTIFICATIONS_EARLY"
+msgstr ""
+
+#: templates/notifications.html:72
+msgid "PAGE_NOTIFICATIONS_NO_NEW"
+msgstr ""
+
+#: templates/notifications.html:73
+msgid "PAGE_NOTIFICATIONS_NEW_COUNT"
+msgstr ""
+
+#: templates/notifications.html:74
+msgid "PAGE_NOTIFICATIONS_NOW"
+msgstr ""
+
+#: templates/other_projects.html:6
+msgid "PAGE_OTHER_PROJECTS_BROWSER_TITLE"
+msgstr ""
+
+#: templates/other_projects.html:11
+msgid "PAGE_OTHER_PROJECTS_TITLE"
+msgstr ""
+
+#: templates/other_projects.html:12
+msgid "PAGE_OTHER_PROJECTS_SUBTITLE"
+msgstr ""
+
+#: templates/other_projects.html:17
+msgid "PAGE_OTHER_PROJECTS_SECTION_MAIN"
+msgstr ""
+
+#: templates/other_projects.html:23
+msgid "PAGE_OTHER_PROJECTS_DESC_DM"
+msgstr ""
+
+#: templates/other_projects.html:24 templates/other_projects.html:33
+#: templates/other_projects.html:46 templates/other_projects.html:55
+msgid "PAGE_OTHER_PROJECTS_BTN_GO"
+msgstr ""
+
+#: templates/other_projects.html:32
+msgid "PAGE_OTHER_PROJECTS_DESC_RENAISSANCE"
+msgstr ""
+
+#: templates/other_projects.html:39
+msgid "PAGE_OTHER_PROJECTS_SECTION_FRIENDS"
+msgstr ""
+
+#: templates/other_projects.html:45
+msgid "PAGE_OTHER_PROJECTS_DESC_KICQ"
+msgstr ""
+
+#: templates/other_projects.html:54
+msgid "PAGE_OTHER_PROJECTS_DESC_FOXCORP"
+msgstr ""
+
+#: templates/profile.html:6
+msgid "PAGE_PROFILE_TITLE"
+msgstr ""
+
+#: templates/profile.html:41
+msgid "CARD_USER_NO_DESC"
+msgstr ""
+
+#: templates/profile.html:46
+#, python-format
+msgid "%(counter)s PAGE_PROFILE_STATS_APP"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
+msgstr[0] ""
+
+#: templates/profile.html:47
+msgid "PAGE_PROFILE_STATS_MEMBER_SINCE"
+msgstr ""
+
+#: templates/profile.html:62
+msgid "PAGE_PROFILE_BANNED_INTRO"
+msgstr ""
+
+#: templates/profile.html:63
+msgid "PAGE_PROFILE_BANNED_DESC"
+msgstr ""
+
+#: templates/profile.html:64
+msgid "PAGE_PROFILE_BANNED_DESC_2"
+msgstr ""
+
+#: templates/profile.html:73
+msgid "PAGE_PROFILE_TAB_MAIN"
+msgstr ""
+
+#: templates/profile.html:77 templates/profile.html:190
+#: templates/profile.html:218
+msgid "PAGE_PROFILE_TAB_REVIEWS"
+msgstr ""
+
+#: templates/profile.html:83
+msgid "PAGE_PROFILE_CONTACT_INFO"
+msgstr ""
+
+#: templates/profile.html:86
+msgid "PAGE_PROFILE_LABEL_WEBSITE"
+msgstr ""
+
+#: templates/profile.html:96
+msgid "PAGE_PROFILE_LABEL_TELEGRAM"
+msgstr ""
+
+#: templates/profile.html:124
+msgid "PAGE_PROFILE_APPS_TITLE"
+msgstr ""
+
+#: templates/profile.html:124
+msgid "PAGE_PROFILE_LINK_ADDAPP"
+msgstr ""
+
+#: templates/profile.html:124 templates/profile.html:190
+msgid "PAGE_PROFILE_LINK_ALL"
+msgstr ""
+
+#: templates/profile.html:146 templates/settings_apps.html:88
+msgid "PAGE_MANAGE_APPS_EMPTY_TITLE"
+msgstr ""
+
+#: templates/profile.html:147
+msgid "PAGE_PROFILE_APPS_EMPTY_DESC"
+msgstr ""
+
+#: templates/profile.html:157
+msgid "PAGE_PROFILE_INVITES_TEXT"
+msgstr ""
+
+#: templates/profile.html:157
+msgid "PAGE_PROFILE_INVITES_PEOPLE"
+msgstr ""
+
+#: templates/profile.html:179
+msgid "PAGE_PROFILE_INVITES_EMPTY_TITLE"
+msgstr ""
+
+#: templates/profile.html:180
+msgid "PAGE_PROFILE_INVITES_EMPTY_DESC"
+msgstr ""
+
+#: templates/profile.html:192
+#, python-format
+msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_RECENT"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_RECENT"
+msgstr[0] ""
+
+#: templates/profile.html:197 templates/profile.html:225
+msgid "PAGE_PROFILE_REVIEW_TO_APP"
+msgstr ""
+
+#: templates/profile.html:205 templates/profile.html:233
+#: templates/storepage.html:227
+msgid "ARE_YOU_SURE"
+msgstr ""
+
+#: templates/profile.html:211 templates/profile.html:239
+msgid "PAGE_PROFILE_NO_REVIEWS"
+msgstr ""
+
+#: templates/profile.html:220
+#, python-format
+msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_ALL"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_ALL"
+msgstr[0] ""
+
+#: templates/register.html:8 templates/register.html:18
+#: templates/register_on.html:8
+msgid "PAGE_REGISTER_TITLE"
+msgstr ""
+
+#: templates/register.html:11 templates/register.html:21
+msgid "PAGE_REGISTER_CLOSED_MSG"
+msgstr ""
+
+#: templates/register.html:23
+msgid "PAGE_REGISTER_HAVE_INVITE_TITLE"
+msgstr ""
+
+#: templates/register.html:26
+msgid "PAGE_REGISTER_HAVE_INVITE_TEXT"
+msgstr ""
+
+#: templates/register.html:27
+msgid "PAGE_REGISTER_CLICK_HERE"
+msgstr ""
+
+#: templates/register_on.html:12
+msgid "PAGE_REGISTER_INFO_SPLASH"
+msgstr ""
+
+#: templates/register_on.html:14
+msgid "PAGE_REGISTER_SECTION_MAIN"
+msgstr ""
+
+#: templates/register_on.html:20
+msgid "PAGE_REGISTER_LABEL_USERNAME"
+msgstr ""
+
+#: templates/register_on.html:28
+msgid "PAGE_REGISTER_HELP_USERNAME"
+msgstr ""
+
+#: templates/register_on.html:33
+msgid "PAGE_REGISTER_LABEL_EMAIL"
+msgstr ""
+
+#: templates/register_on.html:41
+msgid "PAGE_REGISTER_HELP_EMAIL"
+msgstr ""
+
+#: templates/register_on.html:46
+msgid "PAGE_REGISTER_LABEL_PASS1"
+msgstr ""
+
+#: templates/register_on.html:48
+msgid "PAGE_REGISTER_HELP_PASS1"
+msgstr ""
+
+#: templates/register_on.html:53
+msgid "PAGE_REGISTER_LABEL_PASS2"
+msgstr ""
+
+#: templates/register_on.html:61
+msgid "PAGE_REGISTER_HELP_PASS2"
+msgstr ""
+
+#: templates/register_on.html:67
+msgid "PAGE_REGISTER_SECTION_CONFIRM"
+msgstr ""
+
+#: templates/register_on.html:71
+msgid "PAGE_REGISTER_CAPTCHA_INSTRUCTION"
+msgstr ""
+
+#: templates/register_on.html:104
+msgid "PAGE_REGISTER_BTN_SUBMIT"
+msgstr ""
+
+#: templates/report_app.html:7 templates/report_problem.html:6
+msgid "PAGE_REPORTAPP_PAGE_TITLE"
+msgstr ""
+
+#: templates/report_app.html:38
+msgid "PAGE_REPORTAPP_INFO_1"
+msgstr ""
+
+#: templates/report_app.html:39
+msgid "PAGE_REPORTAPP_INFO_2"
+msgstr ""
+
+#: templates/report_app.html:50
+msgid "PAGE_REPORTAPP_EXPLAIN_LABEL"
+msgstr ""
+
+#: templates/report_app.html:59
+msgid "PAGE_REPORTAPP_SUBMIT_BTN"
+msgstr ""
+
+#: templates/report_problem.html:17
+msgid "PAGE_REPORTPROBLEM_TITLE"
+msgstr ""
+
+#: templates/report_problem.html:23
+msgid "PAGE_REPORTPROBLEM_INFO"
+msgstr ""
+
+#: templates/report_problem.html:33
+msgid "PAGE_REPORTPROBLEM_SUBMIT_BTN"
+msgstr ""
+
+#: templates/search.html:7
+msgid "PAGE_SEARCH_TITLE"
+msgstr ""
+
+#: templates/search.html:21
+msgid "PAGE_SEARCH_HEADING"
+msgstr ""
+
+#: templates/search.html:33
+msgid "PAGE_SEARCH_INPUT_PLACEHOLDER"
+msgstr ""
+
+#: templates/search.html:35
+msgid "PAGE_SEARCH_BTN_SUBMIT"
+msgstr ""
+
+#: templates/search.html:41
+msgid "PAGE_SEARCH_LINK_ADVANCED"
+msgstr ""
+
+#: templates/search.html:49
+msgid "PAGE_SEARCH_FILTER_AUTHOR_ID"
+msgstr ""
+
+#: templates/search.html:56
+msgid "PAGE_SEARCH_FILTER_CATEGORY"
+msgstr ""
+
+#: templates/search.html:58
+msgid "PAGE_SEARCH_FILTER_CATEGORY_ALL"
+msgstr ""
+
+#: templates/search.html:74
+msgid "PAGE_SEARCH_FILTER_FREE"
+msgstr ""
+
+#: templates/search.html:81
+msgid "PAGE_SEARCH_BTN_RESET"
+msgstr ""
+
+#: templates/search.html:98
+#, python-format
+msgid "PAGE_SEARCH_BADGE_DEMO_PRICE %(price)s"
+msgstr ""
+
+#: templates/search.html:101
+msgid "PAGE_SEARCH_BADGE_DEMO"
+msgstr ""
+
+#: templates/search.html:107
+msgid "PAGE_SEARCH_BADGE_FREE"
+msgstr ""
+
+#: templates/search.html:113
+msgid "PAGE_SEARCH_BTN_DETAILS"
+msgstr ""
+
+#: templates/search.html:135
+#, python-format
+msgid "PAGE_SEARCH_MSG_NO_RESULTS %(q)s"
+msgstr ""
+
+#: templates/search.html:137
+msgid "PAGE_SEARCH_MSG_NO_RESULTS_EMPTY"
+msgstr ""
+
+#: templates/settings.html:6
+msgid "PAGE_SETTINGS_HTML_TITLE"
+msgstr ""
+
+#: templates/settings.html:25 templates/settings_apps.html:23
+#: templates/settings_security.html:22
+msgid "PAGE_SETTINGS_TAB_ACCOUNT"
+msgstr ""
+
+#: templates/settings.html:29 templates/settings_apps.html:27
+#: templates/settings_security.html:26
+msgid "PAGE_SETTINGS_TAB_APPS"
+msgstr ""
+
+#: templates/settings.html:33 templates/settings_apps.html:31
+#: templates/settings_security.html:30
+msgid "PAGE_SETTINGS_TAB_SECURITY"
+msgstr ""
+
+#: templates/settings.html:42
+msgid "PAGE_SETTINGS_SECTION_BASIC"
+msgstr ""
+
+#: templates/settings.html:45
+msgid "PAGE_SETTINGS_LABEL_USERNAME"
+msgstr ""
+
+#: templates/settings.html:47
+msgid "PAGE_SETTINGS_WARN_USERNAME_FROZEN"
+msgstr ""
+
+#: templates/settings.html:50
+msgid "PAGE_SETTINGS_LABEL_EMAIL"
+msgstr ""
+
+#: templates/settings.html:54
+msgid "PAGE_SETTINGS_LABEL_TELEGRAM"
+msgstr ""
+
+#: templates/settings.html:70
+msgid "PAGE_SETTINGS_LABEL_BIO"
+msgstr ""
+
+#: templates/settings.html:75
+msgid "PAGE_SETTINGS_LABEL_DEV_STATUS"
+msgstr ""
+
+#: templates/settings.html:77
+msgid "PAGE_SETTINGS_DEV_STATUS_HAS"
+msgstr ""
+
+#: templates/settings.html:84 templates/settings_security.html:93
+#: templates/settings_security.html:117
+msgid "PAGE_SETTINGS_BTN_SAVE"
+msgstr ""
+
+#: templates/settings.html:98
+msgid "PAGE_SETTINGS_SECTION_AVATAR"
+msgstr ""
+
+#: templates/settings.html:100
+msgid "PAGE_SETTINGS_INFO_AVATAR_RULES"
+msgstr ""
+
+#: templates/settings.html:102
+msgid "PAGE_SETTINGS_LABEL_CHOOSE_FILE"
+msgstr ""
+
+#: templates/settings.html:106
+msgid "PAGE_SETTINGS_BTN_UPLOAD"
+msgstr ""
+
+#: templates/settings.html:112
+msgid "PAGE_SETTINGS_SECTION_DELETE"
+msgstr ""
+
+#: templates/settings.html:114
+msgid "PAGE_SETTINGS_DELETE_WARNING"
+msgstr ""
+
+#: templates/settings.html:122
+msgid "PAGE_SETTINGS_BTN_DELETE"
+msgstr ""
+
+#: templates/settings.html:133
+msgid "PAGE_SETTINGS_JS_SELECT_FILE"
+msgstr ""
+
+#: templates/settings.html:134
+msgid "PAGE_SETTINGS_JS_UPLOADING"
+msgstr ""
+
+#: templates/settings.html:135
+msgid "PAGE_SETTINGS_JS_ERR_TOKEN"
+msgstr ""
+
+#: templates/settings.html:136
+msgid "PAGE_SETTINGS_JS_ERR_CDN"
+msgstr ""
+
+#: templates/settings.html:137
+msgid "PAGE_SETTINGS_JS_ERR_PREFIX"
+msgstr ""
+
+#: templates/settings_apps.html:6
+msgid "PAGE_MANAGE_APPS_TITLE"
+msgstr ""
+
+#: templates/settings_apps.html:38
+msgid "PAGE_MANAGE_APPS_CREATE"
+msgstr ""
+
+#: templates/settings_apps.html:41
+msgid "PAGE_MANAGE_APPS_HEADER"
+msgstr ""
+
+#: templates/settings_apps.html:45
+msgid "PAGE_MANAGE_APPS_COUNT"
+msgstr ""
+
+#: templates/settings_apps.html:47
+msgid "PAGE_MANAGE_APPS_MY_APPS"
+msgstr ""
+
+#: templates/settings_apps.html:62 templates/settings_apps.html:78
+msgid "PAGE_MANAGE_APPS_ROLE_OWNER"
+msgstr ""
+
+#: templates/settings_apps.html:63
+msgid "PAGE_MANAGE_APPS_BTN_EDIT"
+msgstr ""
+
+#: templates/settings_apps.html:89
+msgid "PAGE_MANAGE_APPS_EMPTY_DESC"
+msgstr ""
+
+#: templates/settings_security.html:38
+msgid "PAGE_2FA_MANAGE_INFO"
+msgstr ""
+
+#: templates/settings_security.html:79
+msgid "PAGE_SETTINGS_SECTION_PASSWORD"
+msgstr ""
+
+#: templates/settings_security.html:86
+msgid "PAGE_SETTINGS_LABEL_NEW_PASS"
+msgstr ""
+
+#: templates/settings_security.html:90
+msgid "PAGE_SETTINGS_LABEL_CONFIRM_PASS"
+msgstr ""
+
+#: templates/settings_security.html:101
+msgid "PAGE_SETTINGS_SECTION_CHANGE_EMAIL"
+msgstr ""
+
+#: templates/settings_security.html:103
+msgid "PAGE_SETTINGS_INFO_EMAIL_CHANGE"
+msgstr ""
+
+#: templates/storepage.html:28
+msgid "PAGE_APP_LABEL_NOT_TRANSLATED"
+msgstr ""
+
+#: templates/storepage.html:51
+msgid "PAGE_APP_LABEL_AUTHOR"
+msgstr ""
+
+#: templates/storepage.html:64
+msgid "PAGE_APP_PRICE_DEMO_WITH_COST"
+msgstr ""
+
+#: templates/storepage.html:68
+msgid "PAGE_APP_PRICE_DEMO_FREE"
+msgstr ""
+
+#: templates/storepage.html:74
+msgid "PAGE_APP_PRICE_PAID"
+msgstr ""
+
+#: templates/storepage.html:76
+msgid "PAGE_APP_PRICE_FREE"
+msgstr ""
+
+#: templates/storepage.html:86
+msgid "PAGE_APP_BTN_BUY"
+msgstr ""
+
+#: templates/storepage.html:88
+msgid "PAGE_APP_BTN_INSTALL"
+msgstr ""
+
+#: templates/storepage.html:106
+msgid "PAGE_APP_MSG_DEMO_WARNING"
+msgstr ""
+
+#: templates/storepage.html:115
+msgid "PAGE_APP_MSG_DMCA_ERROR"
+msgstr ""
+
+#: templates/storepage.html:142
+msgid "PAGE_APP_SECTION_SCREENSHOTS"
+msgstr ""
+
+#: templates/storepage.html:149
+msgid "PAGE_APP_IMG_ALT_SCREENSHOT"
+msgstr ""
+
+#: templates/storepage.html:153
+msgid "PAGE_APP_MSG_NO_SCREENSHOTS"
+msgstr ""
+
+#: templates/storepage.html:160
+msgid "PAGE_APP_SECTION_DESC"
+msgstr ""
+
+#: templates/storepage.html:166
+msgid "PAGE_APP_SECTION_REQ"
+msgstr ""
+
+#: templates/storepage.html:172
+msgid "PAGE_APP_SECTION_RATING"
+msgstr ""
+
+#: templates/storepage.html:183
+#, python-format
+msgid "PAGE_APP_RATING_BASED_ON_COUNT %(counter)s"
+msgid_plural "PAGE_APP_RATING_BASED_ON_COUNT_PLURAL %(counter)s"
+msgstr[0] ""
+
+#: templates/storepage.html:191
+msgid "PAGE_APP_RATING_YOUR"
+msgstr ""
+
+#: templates/storepage.html:201
+msgid "PAGE_APP_RATING_LOGIN_PROMPT"
+msgstr ""
+
+#: templates/storepage.html:213
+msgid "PAGE_APP_RATING_USERS"
+msgstr ""
+
+#: templates/storepage.html:220
+msgid "PAGE_APP_RATING_YOUR_REVIEW"
+msgstr ""
+
+#: templates/storepage.html:233
+msgid "PAGE_APP_RATING_NO_REVIEWS"
+msgstr ""
+
+#: templates/storepage.html:262
+msgid "PAGE_APP_SECTION_ACTIONS"
+msgstr ""
+
+#: templates/storepage.html:266
+msgid "PAGE_APP_ACTION_SITE"
+msgstr ""
+
+#: templates/storepage.html:268
+msgid "PAGE_APP_ACTION_REPORT"
+msgstr ""
+
+#: templates/storepage.html:269
+msgid "PAGE_APP_ACTION_MORE_APPS"
+msgstr ""
+
+#: templates/user/password_reset_complete.html:5
+msgid "PAGE_PASSWORD_RESET_COMPLETE_TITLE"
+msgstr ""
+
+#: templates/user/password_reset_complete.html:9
+#: templates/user/password_reset_confirm.html:9
+#: templates/user/password_reset_done.html:9
+#: templates/user/password_reset_form.html:9
+msgid "PAGE_PASSWORD_RESET_HEADER"
+msgstr ""
+
+#: templates/user/password_reset_complete.html:16
+msgid "PAGE_PASSWORD_RESET_COMPLETE_HEADER"
+msgstr ""
+
+#: templates/user/password_reset_complete.html:20
+msgid "PAGE_PASSWORD_RESET_COMPLETE_TEXT_1"
+msgstr ""
+
+#: templates/user/password_reset_complete.html:21
+msgid "PAGE_PASSWORD_RESET_COMPLETE_LOGIN_BTN"
+msgstr ""
+
+#: templates/user/password_reset_complete.html:27
+msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TITLE"
+msgstr ""
+
+#: templates/user/password_reset_complete.html:28
+msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TEXT"
+msgstr ""
+
+#: templates/user/password_reset_confirm.html:5
+msgid "PAGE_PASSWORD_RESET_CONFIRM_TITLE"
+msgstr ""
+
+#: templates/user/password_reset_confirm.html:16
+msgid "PAGE_PASSWORD_RESET_CONFIRM_HEADER"
+msgstr ""
+
+#: templates/user/password_reset_confirm.html:44
+msgid "PAGE_PASSWORD_RESET_CONFIRM_SUBMIT_BTN"
+msgstr ""
+
+#: templates/user/password_reset_confirm.html:49
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INVALID_LINK"
+msgstr ""
+
+#: templates/user/password_reset_confirm.html:56
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TITLE"
+msgstr ""
+
+#: templates/user/password_reset_confirm.html:57
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TEXT"
+msgstr ""
+
+#: templates/user/password_reset_done.html:5
+#: templates/user/password_reset_email_html.html:38
+#: templates/user/password_reset_form.html:5
+msgid "PAGE_PASSWORD_RESET_TITLE"
+msgstr ""
+
+#: templates/user/password_reset_done.html:16
+msgid "PAGE_PASSWORD_RESET_DONE_HEADER"
+msgstr ""
+
+#: templates/user/password_reset_done.html:20
+msgid "PAGE_PASSWORD_RESET_DONE_TEXT_1"
+msgstr ""
+
+#: templates/user/password_reset_done.html:21
+msgid "PAGE_PASSWORD_RESET_DONE_TEXT_2"
+msgstr ""
+
+#: templates/user/password_reset_done.html:27
+msgid "PAGE_PASSWORD_RESET_DONE_INFO_TITLE"
+msgstr ""
+
+#: templates/user/password_reset_done.html:28
+msgid "PAGE_PASSWORD_RESET_DONE_INFO_TEXT"
+msgstr ""
+
+#: templates/user/password_reset_email.html:2
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_1"
+msgstr ""
+
+#: templates/user/password_reset_email.html:4
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_2"
+msgstr ""
+
+#: templates/user/password_reset_email.html:7
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_3"
+msgstr ""
+
+#: templates/user/password_reset_email.html:9
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_4"
+msgstr ""
+
+#: templates/user/password_reset_email_html.html:44
+msgid "PAGE_PASSWORD_RESET_EMAIL_GREETING"
+msgstr ""
+
+#: templates/user/password_reset_email_html.html:46
+msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_1"
+msgstr ""
+
+#: templates/user/password_reset_email_html.html:46
+msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_2"
+msgstr ""
+
+#: templates/user/password_reset_email_html.html:48
+msgid "PAGE_PASSWORD_RESET_EMAIL_REGARDS"
+msgstr ""
+
+#: templates/user/password_reset_email_html.html:57
+msgid "PAGE_PASSWORD_RESET_EMAIL_FOOTER"
+msgstr ""
+
+#: templates/user/password_reset_form.html:16
+msgid "PAGE_PASSWORD_RESET_FORM_HEADER"
+msgstr ""
+
+#: templates/user/password_reset_form.html:22
+msgid "PAGE_PASSWORD_RESET_EMAIL_LABEL"
+msgstr ""
+
+#: templates/user/password_reset_form.html:38
+msgid "PAGE_PASSWORD_RESET_SUBMIT_BTN"
+msgstr ""
+
+#: templates/user/password_reset_form.html:45
+msgid "PAGE_PASSWORD_RESET_INFO_TITLE"
+msgstr ""
+
+#: templates/user/password_reset_form.html:46
+msgid "PAGE_PASSWORD_RESET_INFO_TEXT"
+msgstr ""
+
+#: templates/user/password_reset_subject.txt:1
+msgid "PAGE_PASSWORD_RESET_SUBJECT"
+msgstr ""

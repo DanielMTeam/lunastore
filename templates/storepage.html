@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load i18n %}
+{% load markdown_tags %}
 
 {% block content %}
 <div class="content">
@@ -43,7 +44,7 @@
             <div class="st_card_title" style="font-size: 18px; margin-bottom: 2px;">{{ title }}</div>
             <div class="st_clearb"></div>
 
-            <div class="st_card_desc" style="font-size: 13px; margin-bottom: 2px;">{{ slogan }}</div>
+            <div class="st_card_desc" style="font-size: 13px; margin-bottom: 2px;">{{ slogan|render_markdown }}</div>
             <div class="st_clearb"></div>
 
             <div class="st_card_author" style="font-size: 11px;">
@@ -158,13 +159,13 @@
     <div class="st_other_card">
         <h2>{% trans "PAGE_APP_SECTION_DESC" %}</h2>
         <div class="separator_store"></div>
-        <div class="st_desc">{{ description|linebreaksbr }}</div>
+        <div class="st_desc">{{ description|render_markdown }}</div>
     </div>
 
     <div class="st_other_card">
         <h2>{% trans "PAGE_APP_SECTION_REQ" %}</h2>
         <div class="separator_store"></div>
-        <div class="st_desc">{{ requirements|linebreaksbr }}</div>
+        <div class="st_desc">{{ requirements|render_markdown }}</div>
     </div>
 
     <div class="st_other_card">

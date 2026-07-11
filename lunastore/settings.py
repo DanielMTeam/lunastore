@@ -134,7 +134,10 @@ ENABLE_DRM = os.getenv("ENABLE_DRM", "False")
 
 # Application definition
 
+FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
+
 INSTALLED_APPS = [
+    "django.forms",
     "modeltranslation",
     "django.contrib.auth",
     "mozilla_django_oidc",  # openid
