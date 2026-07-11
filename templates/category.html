@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load static %}
 {% load category %}
+{% load markdown_tags %}
 {% block content %}
 <title>LunaStore</title>
 <div class="content">
@@ -81,12 +82,12 @@
         <a href="./app.php?id={{ app.id }}"><h3>{{ app.title }}</h3></a>
         {% if app.slogan|length >= 45 %}
         <p title="{{ app.slogan }}">
-          {{ app.slogan|truncatechars:45 }}
+          {{ app.slogan|truncatechars:45|render_markdown }}
         </p>
         <div class="rating {{ app.star_class }}" style="position: absolute; right: 5px; bottom: 20px;"></div>
         {% else %}
         <p>
-          {{ app.slogan }}
+          {{ app.slogan|render_markdown }}
         </p>
         <div class="rating {{ app.star_class }}" style="position: absolute; right: 5px; bottom: 20px;"></div>
         {% endif %}

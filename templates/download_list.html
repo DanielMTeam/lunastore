@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load static %}
+{% load markdown_tags %}
 
 {% block content %}
 <title>{% trans "PAGE_DOWNLOAD_TITLE" %} - {{ app.name|default:"App" }} - LunaStore</title>
@@ -24,7 +25,7 @@
 
             <div class="st_precard">
                 <div class="st_card_title">{{ app.title }}</div>
-                <div class="st_card_desc">{{ slogan|default:description|truncatechars:100 }}</div>
+                <div class="st_card_desc">{{ slogan|default:description|truncatechars:100|render_markdown }}</div>
             </div>
             <div class="st_clearb"></div>
         </div>
@@ -97,7 +98,7 @@
                             <td colspan="3">
                                 <small>
                                     {% if dist.changelog %}
-                                        {{ dist.changelog }}
+                                        {{ dist.changelog|render_markdown }}
                                     {% else %}
                                         {% trans "PAGE_DOWNLOAD_NO_NOTES" %}
                                     {% endif %}

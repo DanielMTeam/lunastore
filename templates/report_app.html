@@ -1,6 +1,7 @@
-﻿{% extends 'base.html' %}
+{% extends 'base.html' %}
 {% load i18n %}
 {% load static %}
+{% load markdown_tags %}
 
 {% block content %}
 <title>{% trans "PAGE_REPORTAPP_PAGE_TITLE" %} - {{ name }} - LunaStore</title>
@@ -20,7 +21,7 @@
 
             <div class="st_precard">
                 <div class="st_card_title">{{ name }}</div>
-                <div class="st_card_desc">{{ slogan }}</div>
+                <div class="st_card_desc">{{ slogan|render_markdown }}</div>
                 </div>
             <div class="st_clearb"></div>
         </div>

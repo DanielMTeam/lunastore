@@ -590,3 +590,26 @@ textarea:focus {
     color: #bbb !important;
     background: #4e4e4e !important;
 }
+/* Markdown Editor & Alerts */
+.md-editor-container { background: #323232 !important; border-color: #555 !important; }
+.md-toolbar { background: #444 !important; border-bottom-color: #666 !important; }
+.md-btn { background: #555 !important; border-color: #666 !important; color: #eee !important; }
+.md-btn:hover { background: #666 !important; }
+.md-btn-sep { border-left-color: #777 !important; }
+
+/* Markdown Alerts */
+.md-alert { background: #323232 !important; color: #eee !important; border-color: #555 !important; }
+.md-alert-note { background: #2c4262 !important; border-color: #4a7ab5 !important; }
+.md-btn-note { color: #8cb4f5 !important; }
+
+.md-alert-tip { background: #234f2d !important; border-color: #438f53 !important; }
+.md-btn-tip { color: #6ece81 !important; }
+
+.md-alert-important { background: #4b3664 !important; border-color: #8c64bc !important; }
+.md-btn-important { color: #bca0e3 !important; }
+
+.md-alert-warning { background: #6b4d1b !important; border-color: #bd862d !important; }
+.md-btn-warning { color: #f2ba5c !important; }
+
+.md-alert-caution { background: #662020 !important; border-color: #b33939 !important; }
+.md-btn-caution { color: #e67373 !important; }
