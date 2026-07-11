@@ -17,6 +17,9 @@ class RateLimitMiddleware:
         if request.path.startswith(('/staticfiles/', '/media/')):
             return self.get_response(request)
 
+        if request.path.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.css', '.js', '.woff', '.woff2', '.ico', '.svg', '.map', '.ttf', '.eot')):
+            return self.get_response(request)
+
         # read rate limit values from constance at request time (live updates)
         rate_limit = int(config.RATE_LIMIT)
         time_window = int(config.RATE_LIMIT_WINDOW)
@@ -39,7 +42,9 @@ class RateLimitMiddleware:
         else:
             # increment the request count atomically
             try:
-                cache.incr(cache_key)
+                new_requests = cache.incr(cache_key)
+                if new_requests == 1:
+                    cache.touch(cache_key, time_window)
             except ValueError:
                 # On cache miss (key expired between get and incr), reset to 1
                 cache.set(cache_key, 1, time_window)
