@@ -1,11 +1,10 @@
-# THIS DOCKER-COMPOSE.YML ONLY FOR DEVELOPMENT
-# DO NOT USE IT IN PROD, PLEASE ~_~
-
 services:
     redis:
         image: redis:7-alpine
         restart: always
         command: redis-server --appendonly yes
+        networks:
+            - storenetwork
         healthcheck:
             test: ["CMD", "redis-cli", "ping"]
             interval: 10s
@@ -18,13 +17,16 @@ services:
     db:
         image: postgres:18-alpine
         container_name: lunastore_db
+        restart: unless-stopped
+        env_file:
+            - .env
         environment:
-            POSTGRES_DB: ${DB_NAME:-lunastore_dev}
+            POSTGRES_DB: ${DB_NAME:-lunastore}
             POSTGRES_USER: ${DB_USER:-postgres}
-            POSTGRES_PASSWORD: ${DB_PASSWORD:-password}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
             PGDATA: /var/lib/postgresql/data/pgdata
-        ports:
-            - "5432:5432"
+        networks:
+            - storenetwork
         volumes:
             - pg_data:/var/lib/postgresql/data
         healthcheck:
@@ -39,10 +41,12 @@ services:
 
     lunaspire:
         build: ./lunaspire/
-        image: lunaspire:local
+        image: lunaspire:selfhost
         env_file:
             - ./lunaspire/.env
         restart: unless-stopped
+        networks:
+            - storenetwork
         depends_on:
             db:
                 condition: service_healthy
@@ -62,60 +66,53 @@ services:
             retries: 3
             start_period: 5s
 
-    admin:
+    lunastore:
         build: .
-        container_name: lunastore_admin
-        command: python manage.py runserver 0.0.0.0:8088
-        environment:
-            DJANGO_ROOT_URLCONF: lunastore.urls_private
-        ports:
-            - "8088:8088"
+        image: lunastore:selfhost
+        container_name: lunastore_app
+        env_file:
+            - .env
+        restart: unless-stopped
+        networks:
+            - storenetwork
         depends_on:
             db:
                 condition: service_healthy
-        env_file:
-            - .env
+            redis:
+                condition: service_healthy
+            lunaspire:
+                condition: service_healthy
         volumes:
-            - .:/app
             - static_volume:/app/staticfiles_build
-            - ./media:/root/lunastore/media
+            - ./media:/app/media
+        ports:
+            - "7088:7088" # API
+            - "8088:8088" # Admin
+            - "9088:9088" # Web
+        command: >
+            sh -c "python manage.py collectstatic --noinput &&
+                   python manage.py migrate --noinput &&
+                   python manage.py createcachetable &&
+                   DJANGO_ROOT_URLCONF=lunastore.urls_api      gunicorn lunastore.wsgi:application --bind 0.0.0.0:7088 --workers 3 &
+                   DJANGO_ROOT_URLCONF=lunastore.urls_private  gunicorn lunastore.wsgi:application --bind 0.0.0.0:8088 --workers 2 &
+                   DJANGO_ROOT_URLCONF=lunastore.urls          gunicorn lunastore.wsgi:application --bind 0.0.0.0:9088 --workers 3 &
+                   wait"
+        healthcheck:
+            test:
+                [
+                    "CMD-SHELL",
+                    "curl -fs http://localhost:7088/method/service/heartbeat/ && curl -fs http://localhost:8088/${ADMIN_URL:-admin}/login/ && curl -fs http://localhost:9088/ || exit 1",
+                ]
+            interval: 10s
+            retries: 3
+            start_period: 60s
 
-    web:
-        build: .
-        container_name: lunastore_web
-        command: python manage.py runserver 0.0.0.0:9088
-        env_file:
-            - .env
-        ports:
-            - "9088:9088"
-        depends_on:
-            db:
-                condition: service_healthy
-        volumes:
-            - .:/app
-            - static_volume:/app/staticfiles_build
-            - ./media:/root/lunastore/media
-
-    api:
-        build: .
-        container_name: lunastore_api
-        command: python manage.py runserver 0.0.0.0:7088
-        environment:
-            DJANGO_ROOT_URLCONF: lunastore.urls_api
-        env_file:
-            - .env
-        ports:
-            - "7088:7088"
-        depends_on:
-            db:
-                condition: service_healthy
-        volumes:
-            - .:/app
-            - static_volume:/app/staticfiles_build
-            - ./media:/root/lunastore/media
+networks:
+    storenetwork:
+        name: lunastore_network
+        driver: bridge
 
 volumes:
     static_volume:
-    media_volume:
     pg_data:
     redis_data:

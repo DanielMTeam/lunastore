@@ -21,8 +21,8 @@ class RateLimitMiddleware:
             return self.get_response(request)
 
         # read rate limit values from constance at request time (live updates)
-        rate_limit = int(config.RATE_LIMIT)
-        time_window = int(config.RATE_LIMIT_WINDOW)
+        rate_limit = int(config.RATE_LIMIT_WINDOW)
+        time_window = int(config.RATE_LIMIT)
 
         ip = get_client_ip(request)
         cache_key = f'ratelimit_{ip}'
@@ -43,6 +43,7 @@ class RateLimitMiddleware:
             # increment the request count atomically
             try:
                 new_requests = cache.incr(cache_key)
+                
                 if new_requests == 1:
                     cache.touch(cache_key, time_window)
             except ValueError:

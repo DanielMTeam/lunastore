@@ -1,5 +1,5 @@
 DEV_COMPOSE = docker-compose.dev.yml
-PROD_COMPOSE = docker-compose.yml
+PROD_COMPOSE = docker-compose.selfhost.yml
 
 #
 # development commands
@@ -56,27 +56,21 @@ dev-test:
 
 migrate:
 	@echo "Attention: Migrate will be on PRODUCTION database"
-	docker compose -f $(PROD_COMPOSE) exec web python manage.py migrate
-	docker compose -f $(PROD_COMPOSE) exec admin python manage.py migrate
-	docker compose -f $(PROD_COMPOSE) exec api python manage.py migrate
+	docker compose -f $(PROD_COMPOSE) exec lunastore python manage.py migrate
 
 superuser:
 	@echo "Creating superuser on production server..."
-	docker compose -f $(PROD_COMPOSE) exec web python manage.py createsuperuser
+	docker compose -f $(PROD_COMPOSE) exec lunastore python manage.py createsuperuser
 
 cachetable:
-	docker compose -f $(PROD_COMPOSE) exec web python manage.py createcachetable
+	docker compose -f $(PROD_COMPOSE) exec lunastore python manage.py createcachetable
 
 collectstatic:
-	docker compose -f $(PROD_COMPOSE) exec web python manage.py collectstatic --noinput
+	docker compose -f $(PROD_COMPOSE) exec lunastore python manage.py collectstatic --noinput
 
-shell-web:
-	@echo "Entering into web-shell on production server..."
-	docker compose -f $(PROD_COMPOSE) exec web bash
-
-shell-api:
-	@echo "Entering into api-shell on production server..."
-	docker compose -f $(PROD_COMPOSE) exec api bash
+shell:
+	@echo "Entering into shell on production server..."
+	docker compose -f $(PROD_COMPOSE) exec lunastore bash
 
 build:
 	docker compose -f $(PROD_COMPOSE) build
@@ -103,7 +97,7 @@ i18n-compile:
 	$(PYTHON) manage.py compilemessages
 
 test:
-	docker compose -f $(PROD_COMPOSE) exec web python manage.py test
+	docker compose -f $(PROD_COMPOSE) exec lunastore python manage.py test
 
 tolgee-push:
 	tolgee push
