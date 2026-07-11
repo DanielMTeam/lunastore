@@ -27,7 +27,7 @@
 
 ## 📚 Documentation
 
-* 🛠 **[Installation Guide](https://docs.lunastore.app/getting-started/installation/)** — detailed deployment instructions
+* 🛠 **[Installation Guide](https://docs.lunastore.app/getting-started/installation/)** — detailed deployment instructions. You can quickly deploy your own instance by running `./setup.sh` and following the interactive wizard.
 * ⚙️ **[API Documentation](https://docs.lunastore.app/api/)** — description of API methods for developers
 
 ---

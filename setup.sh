@@ -21,12 +21,11 @@ run_cmd() {
     fi
 }
 
-# header
 show_header() {
     echo -e "${CYAN}"
     echo "==================================================="
-    echo "LunaStore Installer"
-    echo "Made with love by DM Team (fayzetwin & others...)"
+    echo "LunaStore Interactive Installer (Self-Hosting)"
+    echo "Made with love by DM Team"
     echo "=================================================="
     echo -e "${NC}"
 }
@@ -49,15 +48,24 @@ check_dependencies() {
     success "docker dependencies verified"
 }
 
-setup_env() {
+generate_password() {
+    # Generate a random 32-character password
+    cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1
+}
+
+setup_env_dev() {
     if [ ! -f .env ]; then
         warn ".env file not found."
         if [ -f .env.example ]; then
-            info "creating .env file based on .env.example..."
+            info "creating .env file based on .env.example for DEVELOPMENT..."
             cp .env.example .env
-            success ".env file successfully created"
-            warn "please check and edit .env if necessary before continuing"
-            read -p "press enter to continue..."
+            
+            # Set default debug values for dev
+            sed -i 's/DB_PASSWORD = "..."/DB_PASSWORD = "password"/' .env
+            sed -i "s/SECRET_KEY='...'/SECRET_KEY='dev-secret-key-do-not-use-in-prod'/" .env
+            sed -i 's/LUNASPIRE_SECRET_KEY = "supersecretkey"/LUNASPIRE_SECRET_KEY = "dev-spire-secret"/' .env
+            
+            success "Development .env file successfully created"
         else
             error ".env.example file not found. please create .env manually"
             exit 1
@@ -67,110 +75,132 @@ setup_env() {
     fi
 }
 
-install_local_requirements() {
-    if [ -f "requirements.txt" ]; then
-        read -p "do you want to install python dependencies locally? [y/N]: " install_deps
-        if [[ "$install_deps" =~ ^[Yy]$ ]]; then
-            if command -v python3 &> /dev/null; then
-                info "creating virtual environment..."
-                python3 -m venv .venv
-                source .venv/bin/activate
-                run_cmd pip install --upgrade pip
-                run_cmd pip install -r requirements.txt
-                success "local dependencies installed"
-                deactivate
-            else
-                warn "python3 not found. skipping"
-            fi
+setup_env_prod() {
+    info "Setting up PRODUCTION (Self-Hosting) environment..."
+    
+    if [ -f .env ]; then
+        warn ".env already exists."
+        read -p "Do you want to overwrite it with new secure credentials? [y/N]: " overwrite_env
+        if [[ ! "$overwrite_env" =~ ^[Yy]$ ]]; then
+            info "Keeping existing .env file."
+            return
         fi
     fi
+
+    if [ ! -f .env.example ]; then
+        error ".env.example file not found!"
+        exit 1
+    fi
+
+    read -p "Enter your base domain or IP address (e.g. lunastore.app or 192.168.1.10): " DOMAIN
+
+    info "Generating secure passwords..."
+    DB_PASS=$(generate_password)
+    SECRET=$(generate_password)
+    SPIRE_SECRET=$(generate_password)
+
+    cp .env.example .env
+
+    # Apply Production settings
+    sed -i 's/DEBUG = "True"/DEBUG = "False"/' .env
+    sed -i "s/DB_PASSWORD = \"...\"/DB_PASSWORD = \"$DB_PASS\"/" .env
+    sed -i "s/SECRET_KEY='...'/SECRET_KEY='$SECRET'/" .env
+    sed -i "s/LUNASPIRE_SECRET_KEY = \"supersecretkey\"/LUNASPIRE_SECRET_KEY = \"$SPIRE_SECRET\"/" .env
+    
+    sed -i "s/ALLOWED_HOSTS = \"192.168.1.10;192.168.1.1\"/ALLOWED_HOSTS = \"$DOMAIN;127.0.0.1;localhost\"/" .env
+    sed -i "s/CORS_ALLOWED_ORIGINS = \"http:\/\/192.168.1.10;http:\/\/192.168.1.1\"/CORS_ALLOWED_ORIGINS = \"https:\/\/$DOMAIN;http:\/\/$DOMAIN\"/" .env
+    sed -i "s/CSRF_TRUSTED_ORIGINS = \"https:\/\/lunastore.app\"/CSRF_TRUSTED_ORIGINS = \"https:\/\/$DOMAIN;http:\/\/$DOMAIN\"/" .env
+    sed -i "s/SESSION_COOKIE_DOMAIN = \".lunastore.app\"/SESSION_COOKIE_DOMAIN = \"$DOMAIN\"/" .env
+    sed -i "s/CSRF_COOKIE_DOMAIN = \".lunastore.app\"/CSRF_COOKIE_DOMAIN = \"$DOMAIN\"/" .env
+
+    success "Production .env file generated successfully!"
+    info "Please remember to set up a reverse proxy (e.g., Caddy or Nginx) to route your domain traffic to ports 9088 (web), 8088 (admin), 7088 (api), 6080 (lunaspire)."
 }
 
 setup_dev() {
     info "starting development environment setup..."
-    setup_env
-    install_local_requirements
+    setup_env_dev
 
-    info "building images..."
-    run_cmd make dev-build
-
-    info "starting containers..."
-    run_cmd make dev-up
+    info "building and starting development containers..."
+    run_cmd $DOCKER_COMPOSE_CMD -f docker-compose.dev.yml up -d --build --remove-orphans
 
     info "waiting for database initialization (10 seconds)..."
     sleep 10
 
     info "applying migrations..."
-    run_cmd make dev-migrate
+    run_cmd $DOCKER_COMPOSE_CMD -f docker-compose.dev.yml exec -T web python manage.py migrate
 
     info "collecting static files..."
-    run_cmd make dev-collectstatic
+    run_cmd $DOCKER_COMPOSE_CMD -f docker-compose.dev.yml exec -T web python manage.py collectstatic --noinput
 
     info "creating cache table..."
-    run_cmd make dev-cachetable
+    run_cmd $DOCKER_COMPOSE_CMD -f docker-compose.dev.yml exec -T web python manage.py createcachetable
 
     read -p "do you want to create a superuser? [y/N]: " create_su
     if [[ "$create_su" =~ ^[Yy]$ ]]; then
-        run_cmd make dev-superuser
+        run_cmd $DOCKER_COMPOSE_CMD -f docker-compose.dev.yml exec web python manage.py createsuperuser
     fi
 
     success "development environment successfully started!"
-    info "web: http://localhost:9088 | admin: http://localhost:8088 | api: http://localhost:7088"
+    info "web: http://localhost:9088 | admin: http://localhost:8088 | api: http://localhost:7088 | lunaspire: http://localhost:6080"
 }
 
-deploy_prod() {
-    info "starting production deployment..."
-    setup_env
+setup_selfhost_prod() {
+    info "starting production self-hosting deployment..."
+    setup_env_prod
 
-    info "pulling latest images..."
-    run_cmd $DOCKER_COMPOSE_CMD -f docker-compose.yml pull
+    info "building and starting production containers..."
+    run_cmd $DOCKER_COMPOSE_CMD -f docker-compose.selfhost.yml up -d --build --remove-orphans
 
-    info "restarting containers..."
-    run_cmd $DOCKER_COMPOSE_CMD -f docker-compose.yml up -d --remove-orphans
+    info "waiting for database and application startup (15 seconds)..."
+    sleep 15
 
-    info "waiting for database (5 seconds)..."
-    sleep 5
+    read -p "do you want to create an admin superuser? [y/N]: " create_su
+    if [[ "$create_su" =~ ^[Yy]$ ]]; then
+        run_cmd $DOCKER_COMPOSE_CMD -f docker-compose.selfhost.yml exec -it lunastore python manage.py createsuperuser
+    fi
 
-    info "applying database migrations..."
-    run_cmd $DOCKER_COMPOSE_CMD -f docker-compose.yml exec -T web python manage.py migrate
-
-    info "collecting static files..."
-    run_cmd $DOCKER_COMPOSE_CMD -f docker-compose.yml exec -T web python manage.py collectstatic --noinput
-
-    info "creating cache table..."
-    run_cmd $DOCKER_COMPOSE_CMD -f docker-compose.yml exec -T web python manage.py createcachetable
-
-    info "restarting nginx..."
-    run_cmd $DOCKER_COMPOSE_CMD -f docker-compose.yml restart nginx
-
-    success "project successfully deployed to production!"
+    success "project successfully deployed for self-hosting!"
+    info "Services are now running on ports:"
+    info "  - Web: 9088"
+    info "  - Admin: 8088"
+    info "  - API: 7088"
+    info "  - LunaSpire: 6080"
+    info "You should now configure your reverse proxy (Nginx, Caddy, Apache) to point your domain to these ports."
 }
 
 show_help() {
     echo -e "usage: $0 [command]"
     echo ""
     echo "commands:"
-    echo -e "  ${GREEN}dev${NC}    - build and run development"
-    echo -e "  ${RED}prod${NC}   - deploy to production"
+    echo -e "  ${GREEN}dev${NC}       - setup for local development (debug enabled)"
+    echo -e "  ${RED}prod${NC}      - setup for production self-hosting (generates secure passwords)"
+    echo -e "  ${BLUE}wizard${NC}    - interactive mode (default if no command provided)"
+}
+
+wizard() {
+    echo ""
+    echo "Please select the installation mode:"
+    echo "1) Development (Local, Debug=True, No secure passwords)"
+    echo "2) Production Self-Hosting (Server, Debug=False, Secure passwords generated)"
+    echo "3) Exit"
+    read -p "Enter choice [1-3]: " choice
+
+    case $choice in
+        1) setup_dev ;;
+        2) setup_selfhost_prod ;;
+        3) exit 0 ;;
+        *) error "Invalid choice"; exit 1 ;;
+    esac
 }
 
 show_header
+check_dependencies
 
 case "$1" in
-    dev)
-        check_dependencies
-        setup_dev
-        ;;
-    prod)
-        check_dependencies
-        deploy_prod
-        ;;
-    help|--help|-h)
-        show_help
-        ;;
-    *)
-        error "unknown command."
-        show_help
-        exit 1
-        ;;
+    dev) setup_dev ;;
+    prod) setup_selfhost_prod ;;
+    help|--help|-h) show_help ;;
+    "") wizard ;;
+    *) error "unknown command."; show_help; exit 1 ;;
 esac
