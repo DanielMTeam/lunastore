@@ -57,10 +57,14 @@ class UserAdmin(BaseUserAdmin, unfold_admin.ModelAdmin):
             {"fields": ("totp_enabled", "totp_secret")},
         ),
     )
-    list_display = ["pk", "username", "email", "invited_by"]
+    list_display = ["pk", "display_username", "email", "invited_by"]
     search_fields = ["username", "email", "pk"]
     actions = ["disable_2fa"]
     actions_detail = ["login_as_user"]
+
+    @admin.display(description="Юзернейм", ordering="username")
+    def display_username(self, obj):
+        return obj.username
 
     @action(description="Принудительно отключить 2FA", icon="lock_open", attrs={"class": "bg-warning-600 text-white"})
     def disable_2fa(self, request, queryset):
@@ -69,9 +73,13 @@ class UserAdmin(BaseUserAdmin, unfold_admin.ModelAdmin):
 
     @action(description="Войти от имени пользователя", icon="login", attrs={"class": "bg-primary-600 text-white"})
     def login_as_user(self, request, object_id):
+        from constance import config
+        is_moderator = request.user.groups.filter(name='Модераторы').exists()
+        
         if not request.user.is_superuser:
-            self.message_user(request, "Только суперпользователи могут входить от чужого имени.", messages.ERROR)
-            return redirect(reverse("admin:user_user_change", args=[object_id]))
+            if not (is_moderator and config.ALLOW_MODERATOR_LOGIN_AS_USER):
+                self.message_user(request, "Только суперпользователи (или модераторы, если разрешено) могут входить от чужого имени.", messages.ERROR)
+                return redirect(reverse("admin:user_user_change", args=[object_id]))
 
         user_to_impersonate = self.get_object(request, object_id)
         original_admin_id = request.user.id

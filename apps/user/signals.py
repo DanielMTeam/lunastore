@@ -9,8 +9,13 @@ from django.contrib.sessions.models import Session
 from django.db.models.signals import post_delete, post_save
 from django.dispatch import receiver
 
-from apps.marketplace.models import Application, Category, Distribution
-from .models import UserBan, BlacklistedUsername
+from apps.marketplace.models import (
+    Application, Category, Distribution,
+    AppCreateRequests, AppEditRequests,
+    DistributionCreateRequests, DistributionEditRequests,
+    AppReportRequests, ProblemReportRequests
+)
+from .models import UserBan, BlacklistedUsername, DevRequestsModel
 from .tasks import refresh_banned_ips_cache
 
 User = settings.AUTH_USER_MODEL
@@ -57,7 +62,16 @@ def create_groups(sender: AppConfig, **kwargs: Any) -> None:
         category_ct = ContentType.objects.get_for_model(Category)
         app_ct = ContentType.objects.get_for_model(Application)
         distribution_ct = ContentType.objects.get_for_model(Distribution)
+        from django.contrib.auth import get_user_model
+        user_ct = ContentType.objects.get_for_model(get_user_model())
         ban_ct = ContentType.objects.get_for_model(UserBan)
+        app_create_req_ct = ContentType.objects.get_for_model(AppCreateRequests)
+        app_edit_req_ct = ContentType.objects.get_for_model(AppEditRequests)
+        dist_create_req_ct = ContentType.objects.get_for_model(DistributionCreateRequests)
+        dist_edit_req_ct = ContentType.objects.get_for_model(DistributionEditRequests)
+        app_report_ct = ContentType.objects.get_for_model(AppReportRequests)
+        problem_report_ct = ContentType.objects.get_for_model(ProblemReportRequests)
+        dev_req_ct = ContentType.objects.get_for_model(DevRequestsModel)
         permissions = [
             # category model permissions
             Permission.objects.get(codename='view_category', content_type=category_ct),
@@ -78,6 +92,39 @@ def create_groups(sender: AppConfig, **kwargs: Any) -> None:
             Permission.objects.get(codename='change_userban', content_type=ban_ct),
             Permission.objects.get(codename='delete_userban', content_type=ban_ct),
             Permission.objects.get(codename='add_userban', content_type=ban_ct),
+            
+            # requests permissions
+            Permission.objects.get(codename='view_appcreaterequests', content_type=app_create_req_ct),
+            Permission.objects.get(codename='change_appcreaterequests', content_type=app_create_req_ct),
+            Permission.objects.get(codename='delete_appcreaterequests', content_type=app_create_req_ct),
+            
+            Permission.objects.get(codename='view_appeditrequests', content_type=app_edit_req_ct),
+            Permission.objects.get(codename='change_appeditrequests', content_type=app_edit_req_ct),
+            Permission.objects.get(codename='delete_appeditrequests', content_type=app_edit_req_ct),
+            
+            Permission.objects.get(codename='view_distributioncreaterequests', content_type=dist_create_req_ct),
+            Permission.objects.get(codename='change_distributioncreaterequests', content_type=dist_create_req_ct),
+            Permission.objects.get(codename='delete_distributioncreaterequests', content_type=dist_create_req_ct),
+            
+            Permission.objects.get(codename='view_distributioneditrequests', content_type=dist_edit_req_ct),
+            Permission.objects.get(codename='change_distributioneditrequests', content_type=dist_edit_req_ct),
+            Permission.objects.get(codename='delete_distributioneditrequests', content_type=dist_edit_req_ct),
+            
+            Permission.objects.get(codename='view_devrequestsmodel', content_type=dev_req_ct),
+            Permission.objects.get(codename='change_devrequestsmodel', content_type=dev_req_ct),
+            Permission.objects.get(codename='delete_devrequestsmodel', content_type=dev_req_ct),
+            
+            # reports permissions
+            Permission.objects.get(codename='view_appreportrequests', content_type=app_report_ct),
+            Permission.objects.get(codename='change_appreportrequests', content_type=app_report_ct),
+            Permission.objects.get(codename='delete_appreportrequests', content_type=app_report_ct),
+            
+            Permission.objects.get(codename='view_problemreportrequests', content_type=problem_report_ct),
+            Permission.objects.get(codename='change_problemreportrequests', content_type=problem_report_ct),
+            Permission.objects.get(codename='delete_problemreportrequests', content_type=problem_report_ct),
+            
+            # user permissions (read-only)
+            Permission.objects.get(codename='view_user', content_type=user_ct),
         ]
         moderator_group.permissions.set(permissions)
         log.info("permissions assigned to 'Moderators' group")
