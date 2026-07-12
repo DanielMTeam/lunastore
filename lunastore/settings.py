@@ -472,6 +472,11 @@ CONSTANCE_CONFIG = {
         "Chat ID для логов (требует перезагрузки)",
         str,
     ),
+    "LOG_MODERATOR_LOGINS": (
+        os.getenv("LOG_MODERATOR_LOGINS", "True") == "True",
+        "Логировать вход модераторов/админов",
+        bool,
+    ),
     "TELEGRAM_LOG_TOPIC_ID": (
         os.getenv("TELEGRAM_LOG_TOPIC_ID", ""),
         "Topic ID для логов (требует перезагрузки)",
@@ -645,6 +650,7 @@ CONSTANCE_CONFIG_FIELDSETS = {
             "TELEGRAM_BOT_TOKEN",
             "TELEGRAM_LOG_CHAT_ID",
             "TELEGRAM_LOG_TOPIC_ID",
+            "LOG_MODERATOR_LOGINS",
         ],
         "collapse": True,
     },
@@ -1085,8 +1091,10 @@ LOGGING = {
         },
         "file": {
             "level": "DEBUG",
-            "class": "logging.FileHandler",
+            "class": "logging.handlers.RotatingFileHandler",
             "filename": "debug.log",
+            "maxBytes": 15 * 1024 * 1024, # 15 MB
+            "backupCount": 5,
             "formatter": "verbose",
         },
     },

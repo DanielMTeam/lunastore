@@ -111,3 +111,56 @@ def create_groups(sender: AppConfig, **kwargs: Any) -> None:
     if created:
         # there is no permissions for users group yet ¯\_(ツ)_/¯
         log.info("users group created")
+
+from django.contrib.auth.signals import user_logged_in, user_login_failed
+from django.contrib.admin.models import LogEntry, CHANGE
+
+@receiver(user_logged_in)
+def log_moderator_login(sender, request, user, **kwargs):
+    try:
+        from constance import config
+        if not getattr(config, 'LOG_MODERATOR_LOGINS', False):
+            return
+            
+        if user.is_superuser or user.is_staff or user.groups.filter(name='Модераторы').exists():
+            ip_address = request.META.get('REMOTE_ADDR') if request else 'Unknown IP'
+            
+            LogEntry.objects.create(
+                user_id=user.id,
+                content_type_id=ContentType.objects.get_for_model(user).pk,
+                object_id=str(user.id),
+                object_repr=str(user),
+                action_flag=CHANGE,
+                change_message=f"Вход в систему (IP: {ip_address})"
+            )
+    except Exception as e:
+        log.error(f"Failed to log moderator login: {e}")
+
+@receiver(user_login_failed)
+def log_failed_login(sender, credentials, request, **kwargs):
+    try:
+        from constance import config
+        if not getattr(config, 'LOG_MODERATOR_LOGINS', False):
+            return
+            
+        username = credentials.get('username')
+        if not username:
+            return
+            
+        from django.contrib.auth import get_user_model
+        UserModel = get_user_model()
+        
+        user = UserModel.objects.filter(username=username).first()
+        if user and (user.is_superuser or user.is_staff or user.groups.filter(name='Модераторы').exists()):
+            ip_address = request.META.get('REMOTE_ADDR') if request else 'Unknown IP'
+            
+            LogEntry.objects.create(
+                user_id=user.id,
+                content_type_id=ContentType.objects.get_for_model(user).pk,
+                object_id=str(user.id),
+                object_repr=str(user),
+                action_flag=CHANGE,
+                change_message=f"Неудачная попытка входа (IP: {ip_address})"
+            )
+    except Exception as e:
+        log.error(f"Failed to log failed login: {e}")
