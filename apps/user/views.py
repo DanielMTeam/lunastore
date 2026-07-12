@@ -199,7 +199,8 @@ def register(request):
                     status=403,
                 )
         raw_username = request.POST.get("username", "").lower().strip()
-        blacklist = BlacklistedUsername.objects.all()
+        from .utils import get_cached_blacklist
+        blacklist = get_cached_blacklist()
         is_blocked = False
 
         is_blocked = any(
@@ -274,12 +275,12 @@ def profile(request):
     recent_reviews = None
     
     if act == "show_reviews":
-        reviews_list = Review.objects.filter(user=obj).order_by('-created_at')
+        reviews_list = Review.objects.filter(user=obj).select_related('application', 'user').order_by('-created_at')
         paginator = Paginator(reviews_list, 5)
         page_number = request.GET.get("page")
         reviews_page = paginator.get_page(page_number)
     else:
-        recent_reviews = Review.objects.filter(user=obj).order_by('-created_at')[:5]
+        recent_reviews = Review.objects.filter(user=obj).select_related('application', 'user').order_by('-created_at')[:5]
         
     return render(
         request,

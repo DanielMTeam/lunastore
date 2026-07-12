@@ -23,6 +23,7 @@ from apps.core.utils import force_logout
 from .middleware import BlockBannedIP
 from apps.core.utils import get_client_ip
 from .models import BlacklistedUsername, InviteToken, User, UserActivityLog, UserBan
+from .utils import get_cached_blacklist
 from .tasks import CACHE_KEY
 from .validators import validate_invite_limit
 from apps.core.mixins import CDNTokenValidationMixin
@@ -138,7 +139,7 @@ class UserRegistrationForm(UserCreationForm):
         if not username:
             return username
 
-        banned_records = BlacklistedUsername.objects.all()
+        banned_records = get_cached_blacklist()
 
         for record in banned_records:
             if record.is_regex:
@@ -223,7 +224,7 @@ class ProfileUpdateForm(forms.ModelForm):
                 raise ValidationError("Этот юзернейм уже занят.")
                 
             is_blacklisted = False
-            for ban in BlacklistedUsername.objects.all():
+            for ban in get_cached_blacklist():
                 if ban.is_regex:
                     import re
                     if re.search(ban.word, username, re.IGNORECASE):
