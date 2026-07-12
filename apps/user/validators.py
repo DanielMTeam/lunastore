@@ -14,9 +14,9 @@ from django.utils.translation import gettext_lazy as _
 
 
 def validate_username_blacklist(value):
-    from .models import BlacklistedUsername
+    from .utils import get_cached_blacklist
     low_value = value.lower()
-    blacklist = BlacklistedUsername.objects.all()
+    blacklist = get_cached_blacklist()
 
     for item in blacklist:
         if item.is_regex:

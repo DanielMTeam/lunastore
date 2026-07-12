@@ -28,8 +28,9 @@ class LoggerAdmin(ModelAdmin):
         "action_time",
         "user",
         "content_type",
-        "action_flag",
-        "object_repr"
+        "get_action_flag",
+        "object_repr",
+        "get_change_message"
     )
 
     list_filter = (
@@ -39,8 +40,23 @@ class LoggerAdmin(ModelAdmin):
         "action_flag"
     )
 
-    search_fields = ("object_repr", "change_message")
+    search_fields = ("object_repr", "change_message", "user__username")
     date_hierarchy = "action_time"
+
+    @admin.display(description="Действие")
+    def get_action_flag(self, obj):
+        from django.utils.safestring import mark_safe
+        if obj.action_flag == 1:
+            return mark_safe('<span style="color: green;">Добавление</span>')
+        elif obj.action_flag == 2:
+            return mark_safe('<span style="color: orange;">Изменение</span>')
+        elif obj.action_flag == 3:
+            return mark_safe('<span style="color: red;">Удаление</span>')
+        return "Неизвестно"
+
+    @admin.display(description="Детали")
+    def get_change_message(self, obj):
+        return obj.get_change_message()
 
     # protect from edit
     def has_add_permission(self, request):

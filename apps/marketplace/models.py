@@ -191,9 +191,12 @@ class Application(BaseApplicationInfo, SafeDeleteModel):
 
     @property
     def avg_rating(self):
-        from django.db.models import Avg
-        from .models import Review
-        avg = self.reviews.aggregate(Avg('rating'))['rating__avg']
+        if hasattr(self, 'cached_avg_rating'):
+            avg = self.cached_avg_rating
+        else:
+            from django.db.models import Avg
+            from .models import Review
+            avg = self.reviews.aggregate(Avg('rating'))['rating__avg']
         if avg:
             return round(avg, 1)
         return 0

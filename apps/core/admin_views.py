@@ -5,6 +5,7 @@ from django.conf import settings
 from django.shortcuts import render
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import user_passes_test
 from .forms import BroadcastNotificationForm
 from django.contrib.auth import get_user_model
 from django.contrib import admin
@@ -12,7 +13,7 @@ from django.contrib import admin
 User = get_user_model()
 
 
-@staff_member_required
+@user_passes_test(lambda u: u.is_active and u.is_superuser)
 def admin_broadcast_notification(request):
     if request.method == 'POST':
         form = BroadcastNotificationForm(request.POST)
