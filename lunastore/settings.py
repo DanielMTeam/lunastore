@@ -472,6 +472,11 @@ CONSTANCE_CONFIG = {
         "Chat ID для логов (требует перезагрузки)",
         str,
     ),
+    "LOG_MODERATOR_LOGINS": (
+        os.getenv("LOG_MODERATOR_LOGINS", "True") == "True",
+        "Логировать вход модераторов/админов",
+        bool,
+    ),
     "TELEGRAM_LOG_TOPIC_ID": (
         os.getenv("TELEGRAM_LOG_TOPIC_ID", ""),
         "Topic ID для логов (требует перезагрузки)",
@@ -554,6 +559,11 @@ CONSTANCE_CONFIG = {
         "Проксировать внешние ссылки скачивания (дистрибуции) через Nginx (X-Accel-Redirect)",
         bool,
     ),
+    "ALLOW_MODERATOR_LOGIN_AS_USER": (
+        os.getenv("ALLOW_MODERATOR_LOGIN_AS_USER", "False") == "True",
+        "Разрешить модераторам входить от имени других пользователей",
+        bool,
+    ),
 }
 
 CONSTANCE_CONFIG_FIELDSETS = {
@@ -585,7 +595,7 @@ CONSTANCE_CONFIG_FIELDSETS = {
         "collapse": True,
     },
     "GDPR и безопасность": {
-        "fields": ["RETENTION_ACTIVITY_LOG_DAYS", "BCRYPT_ROUNDS"],
+        "fields": ["RETENTION_ACTIVITY_LOG_DAYS", "BCRYPT_ROUNDS", "ALLOW_MODERATOR_LOGIN_AS_USER"],
         "collapse": True,
     },
     "LunaStore Core (требует перезагрузки)": {
@@ -645,6 +655,7 @@ CONSTANCE_CONFIG_FIELDSETS = {
             "TELEGRAM_BOT_TOKEN",
             "TELEGRAM_LOG_CHAT_ID",
             "TELEGRAM_LOG_TOPIC_ID",
+            "LOG_MODERATOR_LOGINS",
         ],
         "collapse": True,
     },
@@ -839,11 +850,13 @@ UNFOLD = {
                         "title": "Юридические документы",
                         "icon": "description",
                         "link": reverse_lazy("admin:terms_legaldocument_changelist"),
+                        "permission": lambda request: request.user.has_perm("terms.view_legaldocument"),
                     },
                     {
                         "title": "Баннера",
                         "icon": "image",
                         "link": reverse_lazy("admin:core_banner_changelist"),
+                        "permission": lambda request: request.user.has_perm("core.view_banner"),
                     }
                 ],
             },
@@ -855,26 +868,31 @@ UNFOLD = {
                         "title": "Пользователи",
                         "icon": "group",
                         "link": reverse_lazy("admin:user_user_changelist"),
+                        "permission": lambda request: request.user.has_perm("user.view_user"),
                     },
                     {
                         "title": "Блокировки",
                         "icon": "gavel",
                         "link": reverse_lazy("admin:user_userban_changelist"),
+                        "permission": lambda request: request.user.has_perm("user.view_userban"),
                     },
                     {
                         "title": "Группы",
                         "icon": "group",
                         "link": reverse_lazy("admin:auth_group_changelist"),
+                        "permission": lambda request: request.user.has_perm("auth.view_group"),
                     },
                     {
                         "title": "Черный список никнеймов",
                         "icon": "person_cancel",
                         "link": reverse_lazy("admin:user_blacklistedusername_changelist"),
+                        "permission": lambda request: request.user.has_perm("user.view_blacklistedusername"),
                     },
                     {
                         "title": "Инвайт-токены",
                         "icon": "redeem",
                         "link": reverse_lazy("admin:user_invitetoken_changelist"),
+                        "permission": lambda request: request.user.has_perm("user.view_invitetoken"),
                     }
                 ],
             },
@@ -886,31 +904,37 @@ UNFOLD = {
                         "title": "Приложения",
                         "icon": "apps",
                         "link": reverse_lazy("admin:marketplace_application_changelist"),
+                        "permission": lambda request: request.user.has_perm("marketplace.view_application"),
                     },
                     {
                         "title": "Категории",
                         "icon": "category",
                         "link": reverse_lazy("admin:marketplace_category_changelist"),
+                        "permission": lambda request: request.user.has_perm("marketplace.view_category"),
                     },
                     {
                         "title": "Бейджики",
                         "icon": "local_police",
                         "link": reverse_lazy("admin:marketplace_badge_changelist"),
+                        "permission": lambda request: request.user.has_perm("marketplace.view_badge"),
                     },
                     {
                         "title": "Дистрибуции",
                         "icon": "app_registration",
                         "link": reverse_lazy("admin:marketplace_distribution_changelist"),
+                        "permission": lambda request: request.user.has_perm("marketplace.view_distribution"),
                     },
                     {
                         "title": "Жалобы на приложения",
                         "icon": "report",
                         "link": reverse_lazy("admin:marketplace_appreportrequests_changelist"),
+                        "permission": lambda request: request.user.has_perm("marketplace.view_appreportrequests"),
                     },
                     {
                         "title": "Жалобы на проблемы",
                         "icon": "flag",
                         "link": reverse_lazy("admin:marketplace_problemreportrequests_changelist"),
+                        "permission": lambda request: request.user.has_perm("marketplace.view_problemreportrequests"),
                     },
 
                 ],
@@ -923,26 +947,31 @@ UNFOLD = {
                         "title": "Создание приложения",
                         "icon": "apps",
                         "link": reverse_lazy("admin:marketplace_appcreaterequests_changelist"),
+                        "permission": lambda request: request.user.has_perm("marketplace.view_appcreaterequests"),
                     },
                     {
                         "title": "Изменение приложения",
                         "icon": "edit",
                         "link": reverse_lazy("admin:marketplace_appeditrequests_changelist"),
+                        "permission": lambda request: request.user.has_perm("marketplace.view_appeditrequests"),
                     },
                     {
                         "title": "Статус разработчика",
                         "icon": "computer",
                         "link": reverse_lazy("admin:user_devrequestsmodel_changelist"),
+                        "permission": lambda request: request.user.has_perm("user.view_devrequestsmodel"),
                     },
                     {
                         "title": "Создание дистрибуции",
                         "icon": "publish",
                         "link": reverse_lazy("admin:marketplace_distributioncreaterequests_changelist"),
+                        "permission": lambda request: request.user.has_perm("marketplace.view_distributioncreaterequests"),
                     },
                     {
                         "title": "Редактирование дистрибуции",
                         "icon": "edit",
                         "link": reverse_lazy("admin:marketplace_distributioneditrequests_changelist"),
+                        "permission": lambda request: request.user.has_perm("marketplace.view_distributioneditrequests"),
                     },
                 ],
             },
@@ -954,16 +983,19 @@ UNFOLD = {
                         "title": "Настройки сайта",
                         "icon": "settings",
                         "link": reverse_lazy("admin:constance_config_changelist"),
+                        "permission": lambda request: request.user.has_perm("constance.change_config"),
                     },
                     {
                         "title": "Рассылка уведомлений",
                         "icon": "breaking_news",
                         "link": reverse_lazy("broadcast"),
+                        "permission": lambda request: request.user.is_superuser,
                     },
                     {
                         "title": "Логи",
                         "icon": "history",
                         "link": reverse_lazy("admin:admin_logentry_changelist"),
+                        "permission": lambda request: request.user.has_perm("admin.view_logentry"),
                     }
                 ],
             }
@@ -1085,8 +1117,10 @@ LOGGING = {
         },
         "file": {
             "level": "DEBUG",
-            "class": "logging.FileHandler",
+            "class": "logging.handlers.RotatingFileHandler",
             "filename": "debug.log",
+            "maxBytes": 15 * 1024 * 1024, # 15 MB
+            "backupCount": 5,
             "formatter": "verbose",
         },
     },

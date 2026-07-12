@@ -42,7 +42,7 @@ def category(request):
 
     # get model objects
     obj_category = get_object_or_404(Category, id=id)
-    obj_apps = Application.objects.filter(categories=obj_category, is_private=False).order_by("-published")
+    obj_apps = Application.objects.select_related("user").prefetch_related("categories", "badges").annotate(cached_avg_rating=Avg('reviews__rating')).filter(categories=obj_category, is_private=False).order_by("-published")
 
     # paginator logic
     paginator = Paginator(obj_apps, 10)
@@ -346,7 +346,7 @@ def search(request):
     is_free = request.GET.get("is_free")
     f_category = request.GET.get("category", "")
 
-    results = Application.objects.all().filter(is_private=False)
+    results = Application.objects.select_related("user").prefetch_related("categories", "badges").annotate(cached_avg_rating=Avg('reviews__rating')).filter(is_private=False)
     categories = Category.objects.all()
 
     if f_category:
