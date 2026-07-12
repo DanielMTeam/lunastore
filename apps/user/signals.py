@@ -10,7 +10,7 @@ from django.db.models.signals import post_delete, post_save
 from django.dispatch import receiver
 
 from apps.marketplace.models import Application, Category, Distribution
-from .models import UserBan
+from .models import UserBan, BlacklistedUsername
 from .tasks import refresh_banned_ips_cache
 
 User = settings.AUTH_USER_MODEL
@@ -23,17 +23,21 @@ def update_ipban_cache(sender: type, **kwargs: Any) -> None:
     log.info("[signal apps.user] 'UserBanForm' model changed, refreshing banned IPs cache...")
     refresh_banned_ips_cache.enqueue()
 
+from django.core.cache import cache
+from .utils import CACHE_KEY_BLACKLIST
+
+@receiver([post_save, post_delete], sender=BlacklistedUsername)
+def update_blacklist_cache(sender: type, **kwargs: Any) -> None:
+    log.info("[signal apps.user] 'BlacklistedUsername' model changed, clearing cache...")
+    cache.delete(CACHE_KEY_BLACKLIST)
+
 
 @receiver(post_save, sender=User)
 def kick_from_session_on_ban(sender: type, instance: Any, created: bool, **kwargs: Any) -> None:
     # kick user from active sessions if they are banned
     if not created and not instance.is_active:
-        deleted_sessions = 0
-        for session in Session.objects.all():
-            session_data = session.get_decoded()
-            if session_data.get('_auth_user_id') == str(instance.id):
-                session.delete()
-                deleted_sessions += 1
+        from apps.core.utils import force_logout
+        force_logout(instance)
 
 from django.contrib.auth.signals import user_logged_out
 

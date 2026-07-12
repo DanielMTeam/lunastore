@@ -11,11 +11,12 @@ def get_client_ip(request):
     return ip
 
 def force_logout(user):
-    active_sessions = Session.objects.filter(expire_date__gt=timezone.now())
-    for session in active_sessions:
-        data = session.get_decoded()
-        if str(user.pk) == data.get("_auth_user_id"):
-            session.delete()
+    from apps.user.models import UserSession
+    user_sessions = UserSession.objects.filter(user=user)
+    session_keys = [us.session_key for us in user_sessions]
+    if session_keys:
+        Session.objects.filter(session_key__in=session_keys).delete()
+        user_sessions.delete()
 
 def get_location_geoip(ip):
     g = GeoIP2()
