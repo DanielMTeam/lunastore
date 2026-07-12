@@ -250,6 +250,17 @@ class DistributionCreateAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
             meta={"icon": "help.png"}
         )
 
+        from django.contrib.admin.models import LogEntry, CHANGE
+        from django.contrib.contenttypes.models import ContentType
+        LogEntry.objects.create(
+            user_id=request.user.id,
+            content_type_id=ContentType.objects.get_for_model(req).pk,
+            object_id=str(req.id),
+            object_repr=str(req),
+            action_flag=CHANGE,
+            change_message="status approved: Одобрена заявка на дистрибуцию"
+        )
+
         req.delete(force_policy=HARD_DELETE)
         self.message_user(request, "Дистрибуция успешно создана и опубликована!", messages.SUCCESS)
         return redirect(reverse("admin:marketplace_distributioncreaterequests_changelist"))
@@ -395,6 +406,18 @@ class DistributionEditRequestAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
             context={"app_name": req.app.title, "version": req.version},
             meta={"icon": "help.png"}
         )
+
+        from django.contrib.admin.models import LogEntry, CHANGE
+        from django.contrib.contenttypes.models import ContentType
+        LogEntry.objects.create(
+            user_id=request.user.id,
+            content_type_id=ContentType.objects.get_for_model(req).pk,
+            object_id=str(req.id),
+            object_repr=str(req),
+            action_flag=CHANGE,
+            change_message="status approved: Одобрена заявка на изменение дистрибуции"
+        )
+
         req.delete(force_policy=HARD_DELETE)
         self.message_user(request, "Изменения успешно применены к дистрибуции!", messages.SUCCESS)
         return redirect(reverse("admin:marketplace_distributioneditrequests_changelist"))
@@ -664,6 +687,18 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
             context={"app_name": app.title},
             meta={"icon": "help.png"}
         )
+
+        from django.contrib.admin.models import LogEntry, CHANGE
+        from django.contrib.contenttypes.models import ContentType
+        LogEntry.objects.create(
+            user_id=request.user.id,
+            content_type_id=ContentType.objects.get_for_model(req).pk,
+            object_id=str(req.id),
+            object_repr=str(req),
+            action_flag=CHANGE,
+            change_message="status approved: Одобрена заявка на приложение"
+        )
+
         req.delete()
         self.message_user(request, "Приложение(-ия) успешно создано!", messages.SUCCESS)
         return redirect(
@@ -858,6 +893,18 @@ class AppEditRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
             context={"app_name": req.title},
             meta={"icon": "help.png"}
         )
+
+        from django.contrib.admin.models import LogEntry, CHANGE
+        from django.contrib.contenttypes.models import ContentType
+        LogEntry.objects.create(
+            user_id=request.user.id,
+            content_type_id=ContentType.objects.get_for_model(req).pk,
+            object_id=str(req.id),
+            object_repr=str(req),
+            action_flag=CHANGE,
+            change_message="status approved: Одобрена заявка на изменение приложения"
+        )
+
         req.delete()
         self.message_user(request, "Приложение успешно обновлено!", messages.SUCCESS)
         return redirect(
