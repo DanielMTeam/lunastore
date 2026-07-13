@@ -7,7 +7,7 @@
   **An app store for old operating systems (Windows XP and others)**
 
   [![Website](https://img.shields.io/website?url=https%3A%2F%2Flunastore.app&up_message=online&up_color=blue&style=flat-square&label=Website)](https://lunastore.app)
-  [![Telegram](https://img.shields.io/badge/Our_channel-Telegram-blue?style=flat-square&logo=telegram)](https://t.me/lunastore_official)
+  [![Telegram](https://img.shields.io/badge/Our_channel-Telegram-blue?style=flat-square&logo=telegram)](https://telegram.me/lunastore_official)
 
   <br>
 
