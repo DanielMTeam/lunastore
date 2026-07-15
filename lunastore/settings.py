@@ -177,6 +177,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "django_extensions",
     'django_user_agents',
+    'rest_framework_simplejwt',
 ]
 
 REST_FRAMEWORK = {
@@ -187,8 +188,18 @@ REST_FRAMEWORK = {
         # 'rest_framework.renderers.BrowsableAPIRenderer',
     ),
     "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
         "rest_framework.authentication.SessionAuthentication",
     ],
+}
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': True,
+    'AUTH_HEADER_TYPES': ('Bearer', 'Token'),
 }
 
 SPECTACULAR_SETTINGS = {
