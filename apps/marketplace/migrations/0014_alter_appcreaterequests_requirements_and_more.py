@@ -13,16 +13,25 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='appcreaterequests',
             name='requirements',
-            field=models.CharField(max_length=1400, null=True, verbose_name='Системные требования'),
+            field=models.CharField(
+                max_length=1400,
+                null=True,
+                verbose_name='Системные требования'),
         ),
         migrations.AlterField(
             model_name='appeditrequests',
             name='requirements',
-            field=models.CharField(max_length=1400, null=True, verbose_name='Системные требования'),
+            field=models.CharField(
+                max_length=1400,
+                null=True,
+                verbose_name='Системные требования'),
         ),
         migrations.AlterField(
             model_name='application',
             name='requirements',
-            field=models.CharField(max_length=1400, null=True, verbose_name='Системные требования'),
+            field=models.CharField(
+                max_length=1400,
+                null=True,
+                verbose_name='Системные требования'),
         ),
     ]

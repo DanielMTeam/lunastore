@@ -2,6 +2,7 @@ from django.contrib.admin.models import LogEntry, ADDITION, CHANGE, DELETION
 from django.urls import reverse
 from django.conf import settings
 
+
 class LoggerService:
     @staticmethod
     def format_log_message(log_entry: LogEntry) -> str:
@@ -10,7 +11,9 @@ class LoggerService:
             CHANGE: "🟡 <b>Изменил(а)</b>",
             DELETION: "🔴 <b>Удалил(а)</b>"
         }
-        action_text = action_map.get(log_entry.action_flag, "совершил(а) действие над")
+        action_text = action_map.get(
+            log_entry.action_flag,
+            "совершил(а) действие над")
 
         # check metadata
         content_type = log_entry.content_type
@@ -31,27 +34,35 @@ class LoggerService:
         admin_url = ""
         if content_type and object_id and log_entry.action_flag != DELETION:
             try:
-                url_path = reverse(f"admin:{app_label}_{model_str}_change", args=[object_id])
+                url_path = reverse(
+                    f"admin:{app_label}_{model_str}_change",
+                    args=[object_id])
                 # try to build a full URL if we can
-                base_domain = getattr(settings, 'LUNASPIRE_URL_WITHOUT_PROTO', 'lunastore.app')
+                base_domain = getattr(
+                    settings,
+                    'LUNASPIRE_URL_WITHOUT_PROTO',
+                    'lunastore.app')
                 admin_url = f"\n🔗 <b>Ссылка:</b> <a href='https://{base_domain}{url_path}'>Перейти в админку</a>"
             except Exception:
                 pass
 
         # check for approvals (status changed to approved)
-        if log_entry.action_flag == CHANGE and 'status' in change_message.lower() and 'approved' in change_message.lower():
+        if log_entry.action_flag == CHANGE and 'status' in change_message.lower(
+        ) and 'approved' in change_message.lower():
             action_text = "✅ <b>Одобрил(а) заявку:</b>"
 
         if change_message.startswith("Вход в систему"):
-            ip = change_message.split("IP: ")[1].strip(")") if "IP: " in change_message else "Неизвестен"
+            ip = change_message.split("IP: ")[1].strip(
+                ")") if "IP: " in change_message else "Неизвестен"
             return (
                 f"🔓 <b>Успешный вход в LunaStore:</b>\n\n"
                 f"👤 <b>Пользователь:</b> {log_entry.user}\n"
                 f"🌐 <b>IP-адрес:</b> {ip}"
             )
-            
+
         if change_message.startswith("Неудачная попытка входа"):
-            ip = change_message.split("IP: ")[1].strip(")") if "IP: " in change_message else "Неизвестен"
+            ip = change_message.split("IP: ")[1].strip(
+                ")") if "IP: " in change_message else "Неизвестен"
             return (
                 f"🚨 <b>Неудачная попытка входа:</b>\n\n"
                 f"👤 <b>Пользователь:</b> {log_entry.user}\n"

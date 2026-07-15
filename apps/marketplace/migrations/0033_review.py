@@ -17,16 +17,42 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Review',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('rating', models.IntegerField(validators=[django.core.validators.MinValueValidator(1), django.core.validators.MaxValueValidator(5)], verbose_name='Оценка')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')),
-                ('application', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='reviews', to='marketplace.application', verbose_name='Приложение')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='reviews', to=settings.AUTH_USER_MODEL, verbose_name='Пользователь')),
+                ('id',
+                 models.BigAutoField(
+                     auto_created=True,
+                     primary_key=True,
+                     serialize=False,
+                     verbose_name='ID')),
+                ('rating',
+                 models.IntegerField(
+                     validators=[
+                         django.core.validators.MinValueValidator(1),
+                         django.core.validators.MaxValueValidator(5)],
+                     verbose_name='Оценка')),
+                ('created_at',
+                 models.DateTimeField(
+                     auto_now_add=True,
+                     verbose_name='Дата создания')),
+                ('application',
+                 models.ForeignKey(
+                     on_delete=django.db.models.deletion.CASCADE,
+                     related_name='reviews',
+                     to='marketplace.application',
+                     verbose_name='Приложение')),
+                ('user',
+                 models.ForeignKey(
+                     on_delete=django.db.models.deletion.CASCADE,
+                     related_name='reviews',
+                     to=settings.AUTH_USER_MODEL,
+                     verbose_name='Пользователь')),
             ],
             options={
                 'verbose_name': 'Оценка',
                 'verbose_name_plural': 'Оценки',
-                'unique_together': {('application', 'user')},
+                'unique_together': {
+                    (
+                        'application',
+                        'user')},
             },
         ),
     ]

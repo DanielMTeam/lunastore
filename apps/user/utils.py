@@ -3,6 +3,7 @@ from .models import BlacklistedUsername
 
 CACHE_KEY_BLACKLIST = "blacklisted_usernames"
 
+
 def get_cached_blacklist():
     """
     returns the cached list of BlacklistedUsername objects

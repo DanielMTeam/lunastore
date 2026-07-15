@@ -12,6 +12,8 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='problemreportrequests',
-            options={'verbose_name': 'сообщение о проблеме', 'verbose_name_plural': 'сообщений о проблеме'},
+            options={
+                'verbose_name': 'сообщение о проблеме',
+                'verbose_name_plural': 'сообщений о проблеме'},
         ),
     ]

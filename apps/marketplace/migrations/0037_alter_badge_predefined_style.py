@@ -6,13 +6,24 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('marketplace', '0036_badge_name_be_badge_name_en_badge_name_kk_and_more'),
-    ]
+        ('marketplace', '0036_badge_name_be_badge_name_en_badge_name_kk_and_more'), ]
 
     operations = [
         migrations.AlterField(
             model_name='badge',
             name='predefined_style',
-            field=models.CharField(choices=[('custom', 'Кастомный (цвета ниже)'), ('editor_choice', 'Выбор редакции (синий фон, иконка звезды)'), ('verified', 'Официальный издатель (зеленый фон, иконка глобуса)'), ('exclusive', 'Эксклюзив (красный фон, !! вместо иконки)')], default='custom', max_length=20, verbose_name='Готовый стиль'),
+            field=models.CharField(
+                choices=[
+                    ('custom',
+                     'Кастомный (цвета ниже)'),
+                    ('editor_choice',
+                     'Выбор редакции (синий фон, иконка звезды)'),
+                    ('verified',
+                     'Официальный издатель (зеленый фон, иконка глобуса)'),
+                    ('exclusive',
+                     'Эксклюзив (красный фон, !! вместо иконки)')],
+                default='custom',
+                max_length=20,
+                verbose_name='Готовый стиль'),
         ),
     ]

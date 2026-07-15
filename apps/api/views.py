@@ -147,7 +147,8 @@ class UserViewSet(viewsets.GenericViewSet):
             return Response({"error": "app_id is required"}, status=400)
 
         if not app_id.isdigit():
-            return Response({"error": "app_id must be a valid integer"}, status=400)
+            return Response(
+                {"error": "app_id must be a valid integer"}, status=400)
 
         # check permissions
         app_obj = get_object_or_404(Application, id=app_id)
@@ -215,10 +216,15 @@ class UserViewSet(viewsets.GenericViewSet):
         )
         return Response({"upload_token": upload_token, "guard": guard_phrase})
 
-    @action(detail=False, methods=["get"], url_path="getNotificationToken", permission_classes=[IsAuthenticated])
+    @action(detail=False,
+            methods=["get"],
+            url_path="getNotificationToken",
+            permission_classes=[IsAuthenticated])
     def get_notification_token(self, request):
         token = NotificationService.get_receive_token(request.user.id)
-        return Response({"token": token, "ws_url": getattr(request, 'geo_domains', {}).get('SPIRE_URL', settings.LUNASPIRE_URL)})
+        return Response({"token": token, "ws_url": getattr(
+            request, 'geo_domains', {}).get('SPIRE_URL', settings.LUNASPIRE_URL)})
+
 
 class MarketplaceViewSet(viewsets.GenericViewSet):
     queryset = Application.objects.filter()
@@ -306,9 +312,8 @@ class MarketplaceViewSet(viewsets.GenericViewSet):
         )
 
         serializer = ApplicationSerializer(results, many=True)
-        enumerated_data = {
-            str(index + 1): results for index, results in enumerate(serializer.data)
-        }
+        enumerated_data = {str(index + 1): results for index,
+                           results in enumerate(serializer.data)}
         return Response(enumerated_data)
 
 
@@ -342,7 +347,9 @@ class CategoryViewSet(viewsets.GenericViewSet):
             )
         try:
             category = self.get_queryset().get(pk=id)
-            apps = Application.objects.filter(categories=category).exclude(is_private=True).order_by("-published")
+            apps = Application.objects.filter(
+                categories=category).exclude(
+                is_private=True).order_by("-published")
         except Category.DoesNotExist:
             raise LunaException(
                 code=ErrorCodes.CATEGORY_NOT_FOUND,
@@ -369,14 +376,13 @@ class ServiceViewSet(viewsets.GenericViewSet):
                     "timestamp": serializers.DateTimeField(),
                     "version": serializers.CharField(),
                 },
-            )
-        },
+            )},
     )
     @action(detail=False, methods=["get"], url_path="heartbeat")
     def heartbeat(self, request):
-        return Response(
-            {"status": "ok", "timestamp": timezone.now(), "version": settings.VERSION}
-        )
+        return Response({"status": "ok",
+                         "timestamp": timezone.now(),
+                         "version": settings.VERSION})
 
     @extend_schema(
         summary="returns list of LunaStore developers",
@@ -392,8 +398,7 @@ class ServiceViewSet(viewsets.GenericViewSet):
                 "system-administration": "eversiege, thefoxmilya, rotama",
                 "design": "chelka0",
                 "special_thanks": "MondySpartan (logo), nocha3 (native client of LunaStore for Windows XP)",
-            }
-        )
+            })
 
     @extend_schema(
         summary="returns one cool thing",
@@ -433,7 +438,9 @@ class DistributionViewSet(viewsets.GenericViewSet):
                 status_code=400,
             )
 
-        if not Application.objects.filter(id=app_id).exclude(is_private=True).exists():
+        if not Application.objects.filter(
+                id=app_id).exclude(
+                is_private=True).exists():
             raise LunaException(
                 code=ErrorCodes.APPLICATION_NOT_FOUND,
                 message=f"Application with id {app_id} was not found",

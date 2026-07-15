@@ -27,36 +27,34 @@ from .tasks import CACHE_KEY
 
 @admin.register(User)
 class UserAdmin(BaseUserAdmin, unfold_admin.ModelAdmin):
-    fieldsets = (
-        (
-            "Основная информация",
-            {
-                "fields": (
-                    "username",
-                    "email",
-                    "description",
-                    "password",
-                    "avatar_path",
-                    "avatar_id",
-                    "badges",
-                    "profile_splash",
-                    "is_staff",
-                    "is_superuser",
-                    "is_active",
-                    "invited_by",
-                ),
-                "description": 'флаг is_staff является так называемым "пропуском" в админ-панель Django. флаг is_superuser дает все права без исключения. подумай дважды, прежде чем ставить эти флаги! (да блять, я серьезно)',
-            },
-        ),
-        (
-            "Дополнительная информация",
-            {"fields": ("telegram", "discord", "openvk", "website")},
-        ),
-        (
-            "Безопасность (2FA)",
-            {"fields": ("totp_enabled", "totp_secret")},
-        ),
-    )
+    fieldsets = (("Основная информация",
+                  {"fields": ("username",
+                              "email",
+                              "description",
+                              "password",
+                              "avatar_path",
+                              "avatar_id",
+                              "badges",
+                              "profile_splash",
+                              "is_staff",
+                              "is_superuser",
+                              "is_active",
+                              "invited_by",
+                              ),
+                   "description": 'флаг is_staff является так называемым "пропуском" в админ-панель Django. флаг is_superuser дает все права без исключения. подумай дважды, прежде чем ставить эти флаги! (да блять, я серьезно)',
+                   },
+                  ),
+                 ("Дополнительная информация",
+                  {"fields": ("telegram",
+                              "discord",
+                              "openvk",
+                              "website")},
+                  ),
+                 ("Безопасность (2FA)",
+                  {"fields": ("totp_enabled",
+                              "totp_secret")},
+                  ),
+                 )
     list_display = ["pk", "display_username", "email", "invited_by"]
     search_fields = ["username", "email", "pk"]
     actions = ["disable_2fa"]
@@ -66,34 +64,47 @@ class UserAdmin(BaseUserAdmin, unfold_admin.ModelAdmin):
     def display_username(self, obj):
         return obj.username
 
-    @action(description="Принудительно отключить 2FA", icon="lock_open", attrs={"class": "bg-warning-600 text-white"})
+    @action(description="Принудительно отключить 2FA", icon="lock_open",
+            attrs={"class": "bg-warning-600 text-white"})
     def disable_2fa(self, request, queryset):
         count = queryset.update(totp_enabled=False, totp_secret=None)
-        self.message_user(request, f"2FA успешно отключен для {count} пользователей.")
+        self.message_user(
+            request,
+            f"2FA успешно отключен для {count} пользователей.")
 
-    @action(description="Войти от имени пользователя", icon="login", attrs={"class": "bg-primary-600 text-white"})
+    @action(description="Войти от имени пользователя", icon="login",
+            attrs={"class": "bg-primary-600 text-white"})
     def login_as_user(self, request, object_id):
         from constance import config
         is_moderator = request.user.groups.filter(name='Модераторы').exists()
-        
+
         if not request.user.is_superuser:
             if not (is_moderator and config.ALLOW_MODERATOR_LOGIN_AS_USER):
-                self.message_user(request, "Только суперпользователи (или модераторы, если разрешено) могут входить от чужого имени.", messages.ERROR)
-                return redirect(reverse("admin:user_user_change", args=[object_id]))
+                self.message_user(
+                    request,
+                    "Только суперпользователи (или модераторы, если разрешено) могут входить от чужого имени.",
+                    messages.ERROR)
+                return redirect(
+                    reverse(
+                        "admin:user_user_change",
+                        args=[object_id]))
 
         user_to_impersonate = self.get_object(request, object_id)
         original_admin_id = request.user.id
-        
+
         from django.contrib.auth import login
-        login(request, user_to_impersonate, backend="django.contrib.auth.backends.ModelBackend")
-        
+        login(
+            request,
+            user_to_impersonate,
+            backend="django.contrib.auth.backends.ModelBackend")
+
         request.session["impersonated_by"] = original_admin_id
-        
+
         host = request.get_host()
         if ":8088" in host:
             host = host.replace(":8088", ":9088")
         frontend_url = f"{request.scheme}://{host}/index.php"
-        
+
         return redirect(frontend_url)
 
     def save_model(self, request, obj, form, change):
@@ -149,20 +160,20 @@ class UserBanAdmin(SafeDeleteAdmin):
             users_unbanned_count += 1
         if users_unbanned_count > 0:
             self.message_user(
-                request, f"Успешно разблокировано {users_unbanned_count} пользователей."
-            )
+                request, f"Успешно разблокировано {users_unbanned_count} пользователей.")
 
     @admin.action(description="Снять блокировку по IP (но, оставить бан аккаунта)")
     def remove_ip_ban_only(self, request, queryset):
-        updated_count = queryset.filter(ban_by_ip=True).update(ban_by_ip=False, ip=None)
+        updated_count = queryset.filter(
+            ban_by_ip=True).update(
+            ban_by_ip=False, ip=None)
 
         if updated_count > 0:
             from django.core.cache import cache
 
             cache.delete(CACHE_KEY)
             self.message_user(
-                request, f"Успешно снята блокировка по IP для {updated_count} записей"
-            )
+                request, f"Успешно снята блокировка по IP для {updated_count} записей")
         else:
             self.message_user(
                 request,
@@ -194,7 +205,6 @@ admin.site.register(UserActivityLog)
 class DevRequestsAdmin(SafeDeleteAdmin):
     change_list_template = "admin/decline_forms/change_list_custom.html"
     change_form_template = "admin/decline_forms/change_form_custom.html"
-
 
     list_display = ("id", "user", "github", "mail")
     search_fields = ["github", "mail"]
@@ -241,7 +251,12 @@ class DevRequestsAdmin(SafeDeleteAdmin):
         icon="check_circle",
         attrs={"class": "bg-success-600 text-white"},
     )
-    def approve_request(self, request, queryset=None, object_id=None, **kwargs):
+    def approve_request(
+            self,
+            request,
+            queryset=None,
+            object_id=None,
+            **kwargs):
         if queryset is None:
             queryset = self.get_queryset(request).filter(pk=object_id)
         group, created = Group.objects.get_or_create(name="Разработчики")
@@ -277,11 +292,17 @@ class DevRequestsAdmin(SafeDeleteAdmin):
             queryset = self.get_queryset(request).filter(pk=object_id)
 
         opts = self.model._meta
-        changelist_url = reverse(f"admin:{opts.app_label}_{opts.model_name}_changelist")
+        changelist_url = reverse(
+            f"admin:{
+                opts.app_label}_{
+                opts.model_name}_changelist")
         reason = request.POST.get("reject_reason")
 
         if not reason:
-            self.message_user(request, "Ошибка: Причина не была указана.", messages.ERROR)
+            self.message_user(
+                request,
+                "Ошибка: Причина не была указана.",
+                messages.ERROR)
             referer = request.META.get("HTTP_REFERER", changelist_url)
             return HttpResponseRedirect(referer)
 
@@ -303,22 +324,22 @@ class DevRequestsAdmin(SafeDeleteAdmin):
         opts = self.model._meta
         return redirect(f"admin:{opts.app_label}_{opts.model_name}_changelist")
 
-    fieldsets = (
-        (
-            "Основная информация по заявке",
-            {
-                "fields": ("user", "mail", "github", "about_you", "why_you_choose_us"),
-                "description": "Информация, предоставленная пользователем в заявке на статус разработчика",
-            },
-        ),
-        (
-            "Информация по объекту User (пользователю)",
-            {
-                "fields": ("user_info_link",),
-                "description": "Информация о пользователе, подавшем заявку",
-            },
-        ),
-    )
+    fieldsets = (("Основная информация по заявке",
+                  {"fields": ("user",
+                              "mail",
+                              "github",
+                              "about_you",
+                              "why_you_choose_us"),
+                   "description": "Информация, предоставленная пользователем в заявке на статус разработчика",
+                   },
+                  ),
+                 ("Информация по объекту User (пользователю)",
+                  {"fields": ("user_info_link",
+                              ),
+                   "description": "Информация о пользователе, подавшем заявку",
+                   },
+                  ),
+                 )
 
 
 @admin.register(BlacklistedUsername)

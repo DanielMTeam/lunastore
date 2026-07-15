@@ -6,23 +6,34 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('marketplace', '0012_remove_distribution_file_distribution_cdn_file_id'),
-    ]
+        ('marketplace', '0012_remove_distribution_file_distribution_cdn_file_id'), ]
 
     operations = [
         migrations.AddField(
             model_name='appcreaterequests',
             name='requirements',
-            field=models.CharField(blank=True, max_length=1400, null=True, verbose_name='Системные требования'),
+            field=models.CharField(
+                blank=True,
+                max_length=1400,
+                null=True,
+                verbose_name='Системные требования'),
         ),
         migrations.AddField(
             model_name='appeditrequests',
             name='requirements',
-            field=models.CharField(blank=True, max_length=1400, null=True, verbose_name='Системные требования'),
+            field=models.CharField(
+                blank=True,
+                max_length=1400,
+                null=True,
+                verbose_name='Системные требования'),
         ),
         migrations.AddField(
             model_name='application',
             name='requirements',
-            field=models.CharField(blank=True, max_length=1400, null=True, verbose_name='Системные требования'),
+            field=models.CharField(
+                blank=True,
+                max_length=1400,
+                null=True,
+                verbose_name='Системные требования'),
         ),
     ]

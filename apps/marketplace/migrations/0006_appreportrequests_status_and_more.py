@@ -13,11 +13,30 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='appreportrequests',
             name='status',
-            field=models.CharField(choices=[('pending', 'Новая'), ('resolved', 'Решено'), ('dismissed', 'Отклонено')], default='pending', max_length=20, verbose_name='Статус'),
+            field=models.CharField(
+                choices=[
+                    ('pending',
+                     'Новая'),
+                    ('resolved',
+                     'Решено'),
+                    ('dismissed',
+                     'Отклонено')],
+                default='pending',
+                max_length=20,
+                verbose_name='Статус'),
         ),
         migrations.AlterField(
             model_name='appreportrequests',
             name='reason',
-            field=models.CharField(choices=[('1', 'PAGE_REPORTAPP_REASON_MALWARE'), ('2', 'PAGE_REPORTAPP_REASON_INCORRECT'), ('3', 'PAGE_REPORTAPP_REASON_OTHER')], default='1', max_length=1),
+            field=models.CharField(
+                choices=[
+                    ('1',
+                     'PAGE_REPORTAPP_REASON_MALWARE'),
+                    ('2',
+                     'PAGE_REPORTAPP_REASON_INCORRECT'),
+                    ('3',
+                     'PAGE_REPORTAPP_REASON_OTHER')],
+                default='1',
+                max_length=1),
         ),
     ]

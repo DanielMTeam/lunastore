@@ -62,30 +62,33 @@ class Badge(models.Model):
 
     name = models.CharField(max_length=80, verbose_name="Название")
     predefined_style = models.CharField(
-        max_length=20, choices=PREDEFINED_STYLES, default="custom", verbose_name="Готовый стиль"
-    )
+        max_length=20,
+        choices=PREDEFINED_STYLES,
+        default="custom",
+        verbose_name="Готовый стиль")
 
     # Поля для кастомного стиля
     icon_class = models.CharField(
-        max_length=50, blank=True, null=True, 
-        verbose_name="CSS класс иконки", 
-        help_text="Например: award, official. Применимо только для кастомного стиля."
-    )
+        max_length=50,
+        blank=True,
+        null=True,
+        verbose_name="CSS класс иконки",
+        help_text="Например: award, official. Применимо только для кастомного стиля.")
     icon_text = models.CharField(
-        max_length=10, blank=True, null=True, 
-        verbose_name="Текст вместо иконки", 
+        max_length=10, blank=True, null=True,
+        verbose_name="Текст вместо иконки",
         help_text="Например: !!. Применимо только для кастомного стиля."
     )
     bg_color = models.CharField(
-        max_length=7, default="#5fa359", verbose_name="Цвет фона", 
+        max_length=7, default="#5fa359", verbose_name="Цвет фона",
         help_text="Только для кастомного стиля (в HEX)"
     )
     text_color = models.CharField(
-        max_length=7, default="#ffffff", verbose_name="Цвет текста", 
+        max_length=7, default="#ffffff", verbose_name="Цвет текста",
         help_text="Только для кастомного стиля (в HEX)"
     )
     border_color = models.CharField(
-        max_length=7, default="#006000", verbose_name="Цвет границы", 
+        max_length=7, default="#006000", verbose_name="Цвет границы",
         help_text="Только для кастомного стиля (в HEX)"
     )
 
@@ -104,13 +107,16 @@ class Badge(models.Model):
 class BaseApplicationInfo(SafeDeleteModel):
     _safedelete_policy = SOFT_DELETE_CASCADE
 
-
     categories = models.ManyToManyField(
-        "Category", verbose_name="Категории", blank=True, related_name="%(class)s_categories"
-    )
+        "Category",
+        verbose_name="Категории",
+        blank=True,
+        related_name="%(class)s_categories")
     badges = models.ManyToManyField(
-        "Badge", verbose_name="Бейджики", blank=True, related_name="%(class)s_badges"
-    )
+        "Badge",
+        verbose_name="Бейджики",
+        blank=True,
+        related_name="%(class)s_badges")
     title = models.CharField(max_length=80, verbose_name="Название")
     original_author = models.CharField(
         max_length=80,
@@ -141,7 +147,6 @@ class BaseApplicationInfo(SafeDeleteModel):
     allow_reviews = models.BooleanField(
         default=True, verbose_name="Разрешить отзывы")
 
-
     class Meta:
         abstract = True
 
@@ -149,8 +154,13 @@ class BaseApplicationInfo(SafeDeleteModel):
     def icon_url(self):
         if self.icon_path:
             from apps.core.local import get_geo_spire_url
-            base_url = get_geo_spire_url(getattr(settings, "LUNASPIRE_URL", "")).rstrip("/")
-            protocol_relative_url = base_url.replace("https:", "").replace("http:", "")
+            base_url = get_geo_spire_url(
+                getattr(
+                    settings,
+                    "LUNASPIRE_URL",
+                    "")).rstrip("/")
+            protocol_relative_url = base_url.replace(
+                "https:", "").replace("http:", "")
 
             path = self.icon_path.lstrip("/")
             return f"{protocol_relative_url}/{path}"
@@ -159,8 +169,13 @@ class BaseApplicationInfo(SafeDeleteModel):
     @property
     def screenshot_urls(self):
         from apps.core.local import get_geo_spire_url
-        base_url = get_geo_spire_url(getattr(settings, "LUNASPIRE_URL", "")).rstrip("/")
-        protocol_relative_url = base_url.replace("https:", "").replace("http:", "")
+        base_url = get_geo_spire_url(
+            getattr(
+                settings,
+                "LUNASPIRE_URL",
+                "")).rstrip("/")
+        protocol_relative_url = base_url.replace(
+            "https:", "").replace("http:", "")
 
         urls = []
         for path in self.screenshots or []:
@@ -206,7 +221,7 @@ class Application(BaseApplicationInfo, SafeDeleteModel):
         avg = self.avg_rating
         if not avg:
             return ""
-        
+
         rounded_val = round(avg * 2) / 2
         return "r" + str(rounded_val).replace(".5", "_5").replace(".0", "")
 
@@ -236,13 +251,21 @@ class BaseDistributionInfo(SafeDeleteModel):
     app = models.ForeignKey(
         'Application',
         on_delete=models.CASCADE,
-        related_name="%(class)ss", # generate 'distributions' and 'distributionrequests'
+        related_name="%(class)ss",
+        # generate 'distributions' and 'distributionrequests'
         verbose_name="Приложение"
     )
     version = models.CharField(max_length=20, verbose_name="Версия")
-    cdn_file_id = models.PositiveIntegerField(null=True, blank=True, verbose_name="ID файла в CDN")
-    url = models.URLField(max_length=140, null=True, blank=True, verbose_name="Внешняя ссылка (если не CDN)")
-    changelog = models.CharField(max_length=210, verbose_name="Список изменений")
+    cdn_file_id = models.PositiveIntegerField(
+        null=True, blank=True, verbose_name="ID файла в CDN")
+    url = models.URLField(
+        max_length=140,
+        null=True,
+        blank=True,
+        verbose_name="Внешняя ссылка (если не CDN)")
+    changelog = models.CharField(
+        max_length=210,
+        verbose_name="Список изменений")
 
     class Meta:
         abstract = True
@@ -290,8 +313,13 @@ class DistributionCreateRequests(BaseDistributionInfo):
     )
 
     # only for moderation
-    virustotal_url = models.URLField(max_length=255, verbose_name="Ссылка на VirusTotal")
-    cdn_hash = models.CharField(max_length=128, null=True, blank=True, verbose_name="Хэш от LunaSpire")
+    virustotal_url = models.URLField(
+        max_length=255, verbose_name="Ссылка на VirusTotal")
+    cdn_hash = models.CharField(
+        max_length=128,
+        null=True,
+        blank=True,
+        verbose_name="Хэш от LunaSpire")
 
     status_choices = (
         ("pending", "На рассмотрении"),
@@ -299,8 +327,10 @@ class DistributionCreateRequests(BaseDistributionInfo):
         ("rejected", "Отклонено"),
     )
     status = models.CharField(
-        max_length=20, choices=status_choices, default="pending", verbose_name="Статус"
-    )
+        max_length=20,
+        choices=status_choices,
+        default="pending",
+        verbose_name="Статус")
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -325,8 +355,10 @@ class AppCreateRequests(BaseApplicationInfo, SafeDeleteModel):
         ("rejected", "Отклонено"),
     )
     status = models.CharField(
-        max_length=20, choices=status_choices, default="pending", verbose_name="Статус"
-    )
+        max_length=20,
+        choices=status_choices,
+        default="pending",
+        verbose_name="Статус")
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -353,15 +385,27 @@ class DistributionEditRequests(BaseDistributionInfo):
     )
 
     # for moderation
-    virustotal_url = models.URLField(max_length=255, null=True, blank=True, verbose_name="Ссылка на VirusTotal")
-    cdn_hash = models.CharField(max_length=128, null=True, blank=True, verbose_name="Хэш от CDN")
+    virustotal_url = models.URLField(
+        max_length=255,
+        null=True,
+        blank=True,
+        verbose_name="Ссылка на VirusTotal")
+    cdn_hash = models.CharField(
+        max_length=128,
+        null=True,
+        blank=True,
+        verbose_name="Хэш от CDN")
 
     status_choices = (
         ("pending", "На рассмотрении"),
         ("approved", "Одобрено"),
         ("rejected", "Отклонено"),
     )
-    status = models.CharField(max_length=20, choices=status_choices, default="pending", verbose_name="Статус")
+    status = models.CharField(
+        max_length=20,
+        choices=status_choices,
+        default="pending",
+        verbose_name="Статус")
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -394,8 +438,10 @@ class AppEditRequests(BaseApplicationInfo, SafeDeleteModel):
         ("rejected", "Отклонено"),
     )
     status = models.CharField(
-        max_length=20, choices=status_choices, default="pending", verbose_name="Статус"
-    )
+        max_length=20,
+        choices=status_choices,
+        default="pending",
+        verbose_name="Статус")
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -433,13 +479,18 @@ class AppReportRequests(SafeDeleteModel):
         verbose_name=_("PAGE_REPORTAPP_AUTHOR"),
     )
 
-    reason = models.CharField(max_length=1, choices=REPORT_REASONS, default="1")
+    reason = models.CharField(
+        max_length=1,
+        choices=REPORT_REASONS,
+        default="1")
     description = models.TextField(max_length=500)
     created_at = models.DateTimeField(auto_now_add=True)
 
     status = models.CharField(
-        max_length=20, choices=STATUS_CHOICES, default="pending", verbose_name="Статус"
-    )
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default="pending",
+        verbose_name="Статус")
 
     class Meta:
         verbose_name = _("PAGE_REPORTAPP_TITLE")
@@ -448,6 +499,7 @@ class AppReportRequests(SafeDeleteModel):
     def __str__(self):
         app_title = self.app.title if self.app else "Неизвестное приложение"
         return f"Жалоба #{self.id} на {app_title}"
+
 
 class ProblemReportRequests(SafeDeleteModel):
     _safedelete_policy = SOFT_DELETE
@@ -468,8 +520,10 @@ class ProblemReportRequests(SafeDeleteModel):
     created_at = models.DateTimeField(auto_now_add=True)
 
     status = models.CharField(
-        max_length=20, choices=STATUS_CHOICES, default="pending", verbose_name="Статус"
-    )
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default="pending",
+        verbose_name="Статус")
 
     class Meta:
         verbose_name = "сообщение о проблеме"
@@ -477,7 +531,6 @@ class ProblemReportRequests(SafeDeleteModel):
 
     def __str__(self):
         return f"Жалоба #{self.id} на проблему"
-
 
 
 # TODO: create the authorization-specific models
@@ -509,4 +562,7 @@ class Review(models.Model):
         verbose_name_plural = "Оценки"
 
     def __str__(self):
-        return f"Оценка {self.rating} от {self.user} для {self.application.title}"
+        return f"Оценка {
+            self.rating} от {
+            self.user} для {
+            self.application.title}"

@@ -22,6 +22,7 @@ def theme_switch(request):
         response.delete_cookie('dark_theme')
     return response
 
+
 def debug_info(request):
     if settings.DEBUG:
         method = request.method

@@ -15,12 +15,29 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='DevRequestsModel',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('github', models.URLField(max_length=128)),
-                ('mail', models.EmailField(max_length=128)),
-                ('about_you', models.CharField(max_length=1000)),
-                ('why_you_choose_us', models.CharField(max_length=250)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='developer_status_requests', to=settings.AUTH_USER_MODEL)),
+                ('id',
+                 models.BigAutoField(
+                     auto_created=True,
+                     primary_key=True,
+                     serialize=False,
+                     verbose_name='ID')),
+                ('github',
+                 models.URLField(
+                     max_length=128)),
+                ('mail',
+                 models.EmailField(
+                     max_length=128)),
+                ('about_you',
+                 models.CharField(
+                     max_length=1000)),
+                ('why_you_choose_us',
+                 models.CharField(
+                     max_length=250)),
+                ('user',
+                 models.ForeignKey(
+                     on_delete=django.db.models.deletion.CASCADE,
+                     related_name='developer_status_requests',
+                     to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]

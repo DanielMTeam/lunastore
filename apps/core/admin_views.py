@@ -34,14 +34,18 @@ def admin_broadcast_notification(request):
                     target_user = User.objects.get(id=target_user_id)
                     users = [target_user]
                 except User.DoesNotExist:
-                    messages.error(request, f"Пользователь с ID {target_user_id} не найден.")
+                    messages.error(
+                        request, f"Пользователь с ID {target_user_id} не найден.")
                     users = []
             else:
                 # send to all active users
                 users = User.objects.filter(is_active=True)
 
             success_count = 0
-            api_url = getattr(settings, 'LUNASPIRE_URL', 'http://192.168.48.128:8080')
+            api_url = getattr(
+                settings,
+                'LUNASPIRE_URL',
+                'http://192.168.48.128:8080')
 
             # send notifications
             for u in users:
@@ -53,7 +57,10 @@ def admin_broadcast_notification(request):
                     "meta": meta_data,
                     "exp": int(time.time()) + 600
                 }
-                token = jwt.encode(payload, settings.LUNASPIRE_SECRET_KEY, algorithm="HS256")
+                token = jwt.encode(
+                    payload,
+                    settings.LUNASPIRE_SECRET_KEY,
+                    algorithm="HS256")
 
                 try:
                     resp = requests.put(
@@ -65,13 +72,18 @@ def admin_broadcast_notification(request):
                     if resp.status_code == 200:
                         success_count += 1
                 except Exception as e:
-                    messages.error(request, f"Ошибка отправки уведомления для ID {u.id}: {e}")
+                    messages.error(
+                        request,
+                        f"Ошибка отправки уведомления для ID {
+                            u.id}: {e}")
 
             if users:
                 if target_user_id:
-                    messages.success(request, f"Уведомление успешно отправлено пользователю ID {target_user_id}.")
+                    messages.success(
+                        request, f"Уведомление успешно отправлено пользователю ID {target_user_id}.")
                 else:
-                    messages.success(request, f"Массовая рассылка завершена. Доставлено: {success_count} шт.")
+                    messages.success(
+                        request, f"Массовая рассылка завершена. Доставлено: {success_count} шт.")
     else:
         form = BroadcastNotificationForm()
 

@@ -6,8 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('marketplace', '0021_alter_distributioncreaterequests_cdn_hash_and_more'),
-    ]
+        ('marketplace', '0021_alter_distributioncreaterequests_cdn_hash_and_more'), ]
 
     operations = [
         migrations.RemoveField(

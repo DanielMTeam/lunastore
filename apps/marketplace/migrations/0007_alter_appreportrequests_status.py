@@ -13,6 +13,16 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='appreportrequests',
             name='status',
-            field=models.CharField(choices=[('pending', 'Новая'), ('resolved', 'Рассматривается'), ('dismissed', 'Отклонено')], default='pending', max_length=20, verbose_name='Статус'),
+            field=models.CharField(
+                choices=[
+                    ('pending',
+                     'Новая'),
+                    ('resolved',
+                     'Рассматривается'),
+                    ('dismissed',
+                     'Отклонено')],
+                default='pending',
+                max_length=20,
+                verbose_name='Статус'),
         ),
     ]

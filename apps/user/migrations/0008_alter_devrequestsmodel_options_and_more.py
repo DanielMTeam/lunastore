@@ -12,16 +12,21 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='devrequestsmodel',
-            options={'ordering': ['-id'], 'verbose_name': 'Заявка на статус разработчика', 'verbose_name_plural': 'Заявки на статус разработчика'},
+            options={
+                'ordering': ['-id'],
+                'verbose_name': 'Заявка на статус разработчика',
+                'verbose_name_plural': 'Заявки на статус разработчика'},
         ),
         migrations.AlterField(
             model_name='devrequestsmodel',
             name='about_you',
-            field=models.TextField(max_length=1000),
+            field=models.TextField(
+                max_length=1000),
         ),
         migrations.AlterField(
             model_name='devrequestsmodel',
             name='why_you_choose_us',
-            field=models.TextField(max_length=250),
+            field=models.TextField(
+                max_length=250),
         ),
     ]

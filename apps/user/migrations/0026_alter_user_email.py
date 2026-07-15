@@ -14,6 +14,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='user',
             name='email',
-            field=models.EmailField(error_messages={'unique': 'ERROR_EMAIL_ALREADY_IN_USE'}, max_length=254, unique=True, validators=[apps.user.validators.validate_email_mx]),
+            field=models.EmailField(
+                error_messages={
+                    'unique': 'ERROR_EMAIL_ALREADY_IN_USE'},
+                max_length=254,
+                unique=True,
+                validators=[
+                    apps.user.validators.validate_email_mx]),
         ),
     ]

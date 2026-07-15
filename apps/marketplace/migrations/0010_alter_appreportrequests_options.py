@@ -12,6 +12,8 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='appreportrequests',
-            options={'verbose_name': 'PAGE_REPORTAPP_TITLE', 'verbose_name_plural': 'PAGE_REPORTAPP_TITLE_PATH'},
+            options={
+                'verbose_name': 'PAGE_REPORTAPP_TITLE',
+                'verbose_name_plural': 'PAGE_REPORTAPP_TITLE_PATH'},
         ),
     ]

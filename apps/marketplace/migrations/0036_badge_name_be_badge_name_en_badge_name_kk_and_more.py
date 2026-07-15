@@ -13,31 +13,58 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='badge',
             name='name_be',
-            field=models.CharField(max_length=80, null=True, verbose_name='Название'),
+            field=models.CharField(
+                max_length=80,
+                null=True,
+                verbose_name='Название'),
         ),
         migrations.AddField(
             model_name='badge',
             name='name_en',
-            field=models.CharField(max_length=80, null=True, verbose_name='Название'),
+            field=models.CharField(
+                max_length=80,
+                null=True,
+                verbose_name='Название'),
         ),
         migrations.AddField(
             model_name='badge',
             name='name_kk',
-            field=models.CharField(max_length=80, null=True, verbose_name='Название'),
+            field=models.CharField(
+                max_length=80,
+                null=True,
+                verbose_name='Название'),
         ),
         migrations.AddField(
             model_name='badge',
             name='name_ru',
-            field=models.CharField(max_length=80, null=True, verbose_name='Название'),
+            field=models.CharField(
+                max_length=80,
+                null=True,
+                verbose_name='Название'),
         ),
         migrations.AddField(
             model_name='badge',
             name='name_uk',
-            field=models.CharField(max_length=80, null=True, verbose_name='Название'),
+            field=models.CharField(
+                max_length=80,
+                null=True,
+                verbose_name='Название'),
         ),
         migrations.AlterField(
             model_name='badge',
             name='predefined_style',
-            field=models.CharField(choices=[('custom', 'Кастомный (настроить цвета и иконку)'), ('editor_choice', 'Выбор редакции (синий фон)'), ('verified', 'Официальный издатель (зеленый фон)'), ('exclusive', 'Эксклюзив (красный фон)')], default='custom', max_length=20, verbose_name='Готовый стиль'),
+            field=models.CharField(
+                choices=[
+                    ('custom',
+                     'Кастомный (настроить цвета и иконку)'),
+                    ('editor_choice',
+                     'Выбор редакции (синий фон)'),
+                    ('verified',
+                     'Официальный издатель (зеленый фон)'),
+                    ('exclusive',
+                     'Эксклюзив (красный фон)')],
+                default='custom',
+                max_length=20,
+                verbose_name='Готовый стиль'),
         ),
     ]

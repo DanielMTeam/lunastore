@@ -6,18 +6,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('marketplace', '0020_distributioncreaterequests_changelog_be_and_more'),
-    ]
+        ('marketplace', '0020_distributioncreaterequests_changelog_be_and_more'), ]
 
     operations = [
         migrations.AlterField(
             model_name='distributioncreaterequests',
             name='cdn_hash',
-            field=models.CharField(blank=True, max_length=128, null=True, verbose_name='Хэш от LunaSpire'),
+            field=models.CharField(
+                blank=True,
+                max_length=128,
+                null=True,
+                verbose_name='Хэш от LunaSpire'),
         ),
         migrations.AlterField(
             model_name='distributioncreaterequests',
             name='user_hash',
-            field=models.CharField(max_length=128, verbose_name='Хэш от пользователя'),
+            field=models.CharField(
+                max_length=128,
+                verbose_name='Хэш от пользователя'),
         ),
     ]

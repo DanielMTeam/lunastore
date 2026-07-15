@@ -51,7 +51,8 @@ class UserBanModelTest(TestCase):
 class UserActivityModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
-        logger.info('[User APP; UserActivityLog MODEL] Creating test data in DB...')
+        logger.info(
+            '[User APP; UserActivityLog MODEL] Creating test data in DB...')
         cls.user = User.objects.create(
             username='ActiveUser',
             password='ActivePassword'
@@ -63,7 +64,8 @@ class UserActivityModelTest(TestCase):
         )
 
     def test_activity_action_content(self):
-        logger.info('[User APP; UserActivityLog MODEL] Testing "action" field...')
+        logger.info(
+            '[User APP; UserActivityLog MODEL] Testing "action" field...')
         obj = UserActivityLog.objects.get(id=self.useractivity.id)
         self.assertEqual(obj.action, 'Logged In')
 

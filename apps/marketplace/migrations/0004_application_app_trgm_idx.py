@@ -15,6 +15,15 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddIndex(
             model_name='application',
-            index=django.contrib.postgres.indexes.GinIndex(fields=['title', 'description', 'slogan'], name='app_trgm_idx', opclasses=['gin_trgm_ops', 'gin_trgm_ops', 'gin_trgm_ops']),
+            index=django.contrib.postgres.indexes.GinIndex(
+                fields=[
+                    'title',
+                    'description',
+                    'slogan'],
+                name='app_trgm_idx',
+                opclasses=[
+                    'gin_trgm_ops',
+                    'gin_trgm_ops',
+                    'gin_trgm_ops']),
         ),
     ]

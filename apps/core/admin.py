@@ -22,6 +22,7 @@ class BannerAdmin(SafeDeleteAdmin):
 
     display_image.short_description = "Превью"
 
+
 @admin.register(LogEntry)
 class LoggerAdmin(ModelAdmin):
     list_display = (

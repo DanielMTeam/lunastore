@@ -13,6 +13,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='user',
             name='avatar',
-            field=models.ImageField(max_length=80, null=True, upload_to='staticfiles/ugc/user_avatars'),
+            field=models.ImageField(
+                max_length=80,
+                null=True,
+                upload_to='staticfiles/ugc/user_avatars'),
         ),
     ]

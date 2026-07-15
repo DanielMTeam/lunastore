@@ -12,11 +12,16 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='invitetoken',
-            options={'verbose_name': 'Токен приглашения', 'verbose_name_plural': 'Токены приглашения'},
+            options={
+                'verbose_name': 'Токен приглашения',
+                'verbose_name_plural': 'Токены приглашения'},
         ),
         migrations.AddField(
             model_name='user',
             name='badges',
-            field=models.CharField(blank=True, max_length=255, null=True),
+            field=models.CharField(
+                blank=True,
+                max_length=255,
+                null=True),
         ),
     ]

@@ -13,6 +13,17 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='legaldocument',
             name='language',
-            field=models.CharField(choices=[('ru', 'Русский'), ('en', 'English'), ('uk', 'Українська'), ('be', 'Белорусский')], max_length=2, verbose_name='Язык'),
+            field=models.CharField(
+                choices=[
+                    ('ru',
+                     'Русский'),
+                    ('en',
+                     'English'),
+                    ('uk',
+                     'Українська'),
+                    ('be',
+                     'Белорусский')],
+                max_length=2,
+                verbose_name='Язык'),
         ),
     ]

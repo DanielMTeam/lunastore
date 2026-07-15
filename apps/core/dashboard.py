@@ -11,6 +11,7 @@ from django.utils import timezone
 #
 # tr/st, shoom
 
+
 def callback(request, context):
     context.update({
         # marketplace statistics

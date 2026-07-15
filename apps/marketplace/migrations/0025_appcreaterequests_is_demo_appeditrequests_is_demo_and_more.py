@@ -13,16 +13,22 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='appcreaterequests',
             name='is_demo',
-            field=models.BooleanField(default=False, verbose_name='Демо-версия'),
+            field=models.BooleanField(
+                default=False,
+                verbose_name='Демо-версия'),
         ),
         migrations.AddField(
             model_name='appeditrequests',
             name='is_demo',
-            field=models.BooleanField(default=False, verbose_name='Демо-версия'),
+            field=models.BooleanField(
+                default=False,
+                verbose_name='Демо-версия'),
         ),
         migrations.AlterField(
             model_name='application',
             name='is_demo',
-            field=models.BooleanField(default=False, verbose_name='Демо-версия'),
+            field=models.BooleanField(
+                default=False,
+                verbose_name='Демо-версия'),
         ),
     ]

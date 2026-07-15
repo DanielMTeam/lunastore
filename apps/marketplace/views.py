@@ -42,7 +42,10 @@ def category(request):
 
     # get model objects
     obj_category = get_object_or_404(Category, id=id)
-    obj_apps = Application.objects.select_related("user").prefetch_related("categories", "badges").annotate(cached_avg_rating=Avg('reviews__rating')).filter(categories=obj_category, is_private=False).order_by("-published")
+    obj_apps = Application.objects.select_related("user").prefetch_related(
+        "categories", "badges").annotate(
+        cached_avg_rating=Avg('reviews__rating')).filter(
+            categories=obj_category, is_private=False).order_by("-published")
 
     # paginator logic
     paginator = Paginator(obj_apps, 10)
@@ -67,29 +70,33 @@ def category(request):
 def app(request):
     id = request.GET.get("id")
     obj = get_object_or_404(Application.objects.select_related("user"), id=id)
-    obj_dist = Distribution.objects.filter(app__id=id).order_by("-published").first()
+    obj_dist = Distribution.objects.filter(
+        app__id=id).order_by("-published").first()
     download_page_url = f"{reverse('download')}?id={obj.id}"
 
     # get all reviews for this app
-    reviews = Review.objects.filter(application=obj).select_related("user").order_by('-created_at')
+    reviews = Review.objects.filter(application=obj).select_related(
+        "user").order_by('-created_at')
     review_count = reviews.count()
-    
+
     # calculate average rating
     avg_rating = reviews.aggregate(Avg('rating'))['rating__avg']
     avg_rating_display = round(avg_rating, 1) if avg_rating else "0,0"
     if avg_rating:
         avg_rating_display = str(avg_rating_display).replace(".", ",")
-        
+
     # calculate css class for stars
     star_class = ""
     if avg_rating:
         rounded_val = round(avg_rating * 2) / 2
-        star_class = "r" + str(rounded_val).replace(".5", "_5").replace(".0", "")
+        star_class = "r" + str(rounded_val).replace(".5",
+                                                    "_5").replace(".0", "")
 
     # get current user rating if logged in
     user_review = None
     if request.user.is_authenticated:
-        user_review = Review.objects.filter(application=obj, user=request.user).first()
+        user_review = Review.objects.filter(
+            application=obj, user=request.user).first()
 
     # set up paginator for reviews list
     page = request.GET.get("page", 1)
@@ -130,6 +137,7 @@ def app(request):
     }
     return render(request, "storepage.html", context)
 
+
 @guard_private_app
 def download_list(request):
     app_id = request.GET.get("id")
@@ -150,8 +158,10 @@ def download_list(request):
     )
 
     latest_dist = (
-        Distribution.objects.filter(app=app_obj).order_by("-published", "-id").first()
-    )
+        Distribution.objects.filter(
+            app=app_obj).order_by(
+            "-published",
+            "-id").first())
     latest_id = latest_dist.id if latest_dist else None
 
     dist_rows = []
@@ -249,7 +259,11 @@ def app_add(request):
             for error in form.non_field_errors():
                 messages.error(request, error)
 
-            other_errors = {k: v for k, v in form.errors.items() if k not in ['__all__', 'captcha']}
+            other_errors = {
+                k: v for k,
+                v in form.errors.items() if k not in [
+                    '__all__',
+                    'captcha']}
 
             if other_errors:
                 messages.error(request, _("ERROR_CHECK_FORM"))
@@ -261,7 +275,8 @@ def app_add(request):
         "app_add.html",
         {
             "form": form,
-            # this will go to JS for file upload handling (cdn_upload_url & token_upload_url)
+            # this will go to JS for file upload handling (cdn_upload_url &
+            # token_upload_url)
             "cdn_upload_url": f"{getattr(request, 'geo_domains', {}).get('SPIRE_URL', settings.LUNASPIRE_URL)}/cdn/upload",
             "token_upload_url": "/method/user/getPubUploadToken/",
         },
@@ -301,14 +316,17 @@ def application_edit_info(request, pk):
     obj = get_object_or_404(Application, pk=pk)
 
     if request.method == "POST":
-        form = AppEditForm(target_app=obj, data=request.POST, files=request.FILES)
+        form = AppEditForm(
+            target_app=obj,
+            data=request.POST,
+            files=request.FILES)
 
         if form.is_valid():
             # Apply allow_reviews immediately
             if 'allow_reviews' in form.cleaned_data:
                 obj.allow_reviews = form.cleaned_data['allow_reviews']
                 obj.save(update_fields=['allow_reviews'])
-            
+
             edit_request = form.save(commit=False)
             edit_request.user = request.user
             edit_request.save()
@@ -322,20 +340,21 @@ def application_edit_info(request, pk):
     else:
         form = AppEditForm(target_app=obj)
 
-    return render(
-        request,
-        "admin_app.html",
-        {
-            "obj": obj,
-            "form": form,
-            "is_edit_page": True,
-            "app_id": obj.pk,
-            "developer_id": obj.user.pk,
-            "developer_site": obj.developer_site,
-            "cdn_upload_url": f"{getattr(request, 'geo_domains', {}).get('SPIRE_URL', settings.LUNASPIRE_URL)}/cdn/upload",
-            "cdn_token_url": "/method/user/getPubUploadToken/",
-        },
-    )
+    return render(request,
+                  "admin_app.html",
+                  {"obj": obj,
+                   "form": form,
+                   "is_edit_page": True,
+                   "app_id": obj.pk,
+                   "developer_id": obj.user.pk,
+                   "developer_site": obj.developer_site,
+                   "cdn_upload_url": f"{getattr(request,
+                                                'geo_domains',
+                                                {}).get('SPIRE_URL',
+                                                        settings.LUNASPIRE_URL)}/cdn/upload",
+                   "cdn_token_url": "/method/user/getPubUploadToken/",
+                   },
+                  )
 
 
 def search(request):
@@ -346,7 +365,10 @@ def search(request):
     is_free = request.GET.get("is_free")
     f_category = request.GET.get("category", "")
 
-    results = Application.objects.select_related("user").prefetch_related("categories", "badges").annotate(cached_avg_rating=Avg('reviews__rating')).filter(is_private=False)
+    results = Application.objects.select_related("user").prefetch_related(
+        "categories", "badges").annotate(
+        cached_avg_rating=Avg('reviews__rating')).filter(
+            is_private=False)
     categories = Category.objects.all()
 
     if f_category:
@@ -393,6 +415,7 @@ def search(request):
     }
     return render(request, "search.html", context)
 
+
 @ratelimit(key='ip', rate='20/1m', block=True)
 @login_required
 def report_app(request):
@@ -421,6 +444,7 @@ def report_app(request):
         "icon": obj.icon_url,
     }
     return render(request, "report_app.html", context)
+
 
 @ratelimit(key='ip', rate='20/1m', block=True)
 @login_required
@@ -452,10 +476,14 @@ def manage_distributions(request):
     if app_obj.user != request.user:
         raise PermissionDenied("ERROR_YOURE_NOT_OWNER_OF_APP")
 
-    distributions = Distribution.objects.filter(app=app_obj).order_by("-published")
+    distributions = Distribution.objects.filter(
+        app=app_obj).order_by("-published")
 
-    pending_requests = DistributionCreateRequests.objects.filter(app=app_obj, status="pending").order_by("-created_at")
-    pending_edits = DistributionEditRequests.objects.filter(target_distribution__app=app_obj, status="pending").order_by("-created_at")
+    pending_requests = DistributionCreateRequests.objects.filter(
+        app=app_obj, status="pending").order_by("-created_at")
+    pending_edits = DistributionEditRequests.objects.filter(
+        target_distribution__app=app_obj,
+        status="pending").order_by("-created_at")
 
     form = DistributionCreateForm(request.POST or None, request.FILES or None)
 
@@ -465,7 +493,8 @@ def manage_distributions(request):
         distribution.user = request.user
         distribution.save()
         messages.success(request, _("PAGE_MANAGEDIST_CREATE_SUCCESS"))
-        return redirect(reverse("manage_distributions") + "?id=" + str(app_obj.id))
+        return redirect(reverse("manage_distributions") +
+                        "?id=" + str(app_obj.id))
     elif request.method == "POST" and not form.is_valid():
         for field, errors in form.errors.items():
             for error in errors:
@@ -473,18 +502,15 @@ def manage_distributions(request):
 
     dist_rows = []
     for dist in distributions:
-        dist_rows.append(
-            {
-                "id": dist.id,
-                "version": dist.version,
-                "published": _format_legacy_date(dist.published),
-                "changelog": dist.changelog,
-                "edit_url": reverse("distribution_edit", kwargs={"dist_pk": dist.pk}),
-                "delete_url": reverse(
-                    "distribution_delete", kwargs={"dist_pk": dist.pk}
-                ),
-            }
-        )
+        dist_rows.append({"id": dist.id,
+                          "version": dist.version,
+                          "published": _format_legacy_date(dist.published),
+                          "changelog": dist.changelog,
+                          "edit_url": reverse("distribution_edit",
+                                              kwargs={"dist_pk": dist.pk}),
+                          "delete_url": reverse("distribution_delete",
+                                                kwargs={"dist_pk": dist.pk}),
+                          })
 
     page_num = request.GET.get("page", 1)
     paginator = Paginator(dist_rows, 10)
@@ -498,22 +524,24 @@ def manage_distributions(request):
         page_obj.number, on_each_side=1, on_ends=1
     )
 
-    context = {
-        "app": app_obj,
-        "form": form,
-        "distributions": page_obj,
-        "developer_site": app_obj.developer_site,
-        "developer_id": app_obj.user.id,
-        "app_id": app_obj.id,
-        "page_obj": page_obj,
-        "is_edit_page": True,
-        "page_range": page_range,
-        "pending_requests": pending_requests,
-        "pending_edits": pending_edits,
-        "get_token_url": "/method/user/getPrivUploadToken/",
-        "cdn_upload_url": f"{getattr(request, 'geo_domains', {}).get('SPIRE_URL', settings.LUNASPIRE_URL)}/cdn/upload",
-        "download_list_url": reverse("download") + "?id=" + str(app_obj.id),
-    }
+    context = {"app": app_obj,
+               "form": form,
+               "distributions": page_obj,
+               "developer_site": app_obj.developer_site,
+               "developer_id": app_obj.user.id,
+               "app_id": app_obj.id,
+               "page_obj": page_obj,
+               "is_edit_page": True,
+               "page_range": page_range,
+               "pending_requests": pending_requests,
+               "pending_edits": pending_edits,
+               "get_token_url": "/method/user/getPrivUploadToken/",
+               "cdn_upload_url": f"{getattr(request,
+                                            'geo_domains',
+                                            {}).get('SPIRE_URL',
+                                                    settings.LUNASPIRE_URL)}/cdn/upload",
+               "download_list_url": reverse("download") + "?id=" + str(app_obj.id),
+               }
     return render(request, "manage_distributions.html", context)
 
 
@@ -539,7 +567,8 @@ def distribution_edit(request, dist_pk):
         if hasattr(distribution, lang_field):
             initial_data[lang_field] = getattr(distribution, lang_field)
         elif hasattr(distribution, short_lang_field):
-            initial_data[short_lang_field] = getattr(distribution, short_lang_field)
+            initial_data[short_lang_field] = getattr(
+                distribution, short_lang_field)
 
     # initialize form with initial data
     form = DistributionEditForm(
@@ -572,8 +601,17 @@ def distribution_edit(request, dist_pk):
         "app_id": distribution.app.id,
         "is_edit_page": True,
         "get_token_url": "/method/user/getPrivUploadToken/",
-        "cdn_upload_url": f"{getattr(request, 'geo_domains', {}).get('SPIRE_URL', settings.LUNASPIRE_URL)}/cdn/upload",
-        "download_list_url": reverse("download") + "?id=" + str(distribution.app.id),
+        "cdn_upload_url": f"{
+            getattr(
+                request,
+                'geo_domains',
+                {}).get(
+                'SPIRE_URL',
+                settings.LUNASPIRE_URL)}/cdn/upload",
+        "download_list_url": reverse("download") +
+        "?id=" +
+        str(
+            distribution.app.id),
     }
     return render(request, "distribution_form.html", context)
 
@@ -586,28 +624,28 @@ def rate_app(request):
     if request.method == "POST":
         app_id = request.GET.get("id") or request.POST.get("id")
         rating = request.POST.get("rating")
-        
+
         # redirect if missing data
         if not app_id or not rating:
             return redirect("home")
-            
+
         try:
             rating = int(rating)
             if rating < 1 or rating > 5:
                 raise ValueError
         except ValueError:
             return redirect(f"{reverse('app')}?id={app_id}")
-            
+
         # get the app object
         obj = get_object_or_404(Application, id=app_id)
-        
+
         if not obj.allow_reviews:
             messages.error(request, _("PAGE_APP_RATING_DISABLED"))
             return redirect(f"{reverse('app')}?id={app_id}")
-        
+
         # create or update the rating
         review, created = Review.objects.update_or_create(
-            application=obj, 
+            application=obj,
             user=request.user,
             defaults={'rating': rating}
         )
@@ -615,10 +653,11 @@ def rate_app(request):
             # update existing rating
             review.rating = rating
             review.save()
-            
+
         # go back to app page
         return redirect(f"{reverse('app')}?id={app_id}")
     return redirect("home")
+
 
 @login_required
 @ratelimit(key='user', rate='5/1h', block=True)
@@ -626,16 +665,17 @@ def delete_review(request):
     review_id = request.GET.get("id") or request.POST.get("id")
     if not review_id:
         return redirect("home")
-    
+
     review = get_object_or_404(Review, id=review_id)
-    if review.user != request.user and not request.user.has_perm("marketplace.delete_review"):
+    if review.user != request.user and not request.user.has_perm(
+            "marketplace.delete_review"):
         messages.error(request, _("PAGE_APP_RATING_DELETE_DENIED"))
         return redirect(f"{reverse('app')}?id={review.application.id}")
-        
+
     app_id = review.application.id
     review.delete()
     messages.success(request, _("PAGE_APP_RATING_DELETE_SUCCESS"))
-    
+
     next_url = request.GET.get("next")
     if next_url:
         return redirect(next_url)
@@ -655,14 +695,14 @@ def distribution_delete(request, dist_pk):
     else:
         messages.warning(request, _("Нужно подтвердить удаление через POST"))
 
-    return redirect(reverse("manage_distributions") + "?id=" + str(distribution.app.id))
+    return redirect(reverse("manage_distributions") +
+                    "?id=" + str(distribution.app.id))
 
 
 def distribution_list_page(request, app_id):
     app_obj = get_object_or_404(Application, id=app_id)
-    distributions = app_obj.distributions.filter(deleted__isnull=True).order_by(
-        "-published"
-    )
+    distributions = app_obj.distributions.filter(
+        deleted__isnull=True).order_by("-published")
     return render(
         request,
         "marketplace/download_list.html",
@@ -681,12 +721,17 @@ def get_file_action(request, dist_pk):
 
         user_agent = request.META.get("HTTP_USER_AGENT", "")
         is_retro = any(
-            sig in user_agent for sig in ["MSIE 5", "MSIE 6", "MSIE 7", "MSIE 8"]
-        )
+            sig in user_agent for sig in [
+                "MSIE 5",
+                "MSIE 6",
+                "MSIE 7",
+                "MSIE 8"])
 
         protocol = "http" if is_retro else "https"
 
-        spire_url = getattr(request, 'geo_domains', {}).get('SPIRE_URL', settings.LUNASPIRE_URL)
+        spire_url = getattr(
+            request, 'geo_domains', {}).get(
+            'SPIRE_URL', settings.LUNASPIRE_URL)
         domain = spire_url.replace('https://', '').replace('http://', '')
         cdn_url = f"{protocol}://{domain}/cdn/download?token={download_token}"
         return redirect(cdn_url)
@@ -694,7 +739,8 @@ def get_file_action(request, dist_pk):
     if dist.url:
         is_proxy_requested = request.GET.get('proxy') == '1'
         # proxy through nginx if enabled
-        if is_proxy_requested and getattr(config, 'ENABLE_DISTRIBUTION_PROXY', False):
+        if is_proxy_requested and getattr(
+                config, 'ENABLE_DISTRIBUTION_PROXY', False):
             parsed_url = urllib.parse.urlparse(dist.url)
             path = parsed_url.path
             _, ext = os.path.splitext(path)
@@ -702,8 +748,10 @@ def get_file_action(request, dist_pk):
                 _, ext = os.path.splitext(parsed_url.fragment)
 
             # sanitize names
-            app_name = "".join([c for c in dist.app.title if c.isalnum() or c in (" ", "-", "_")]).strip().replace(" ", "_")
-            version = "".join([c for c in dist.version if c.isalnum() or c in (" ", "-", ".", "_")]).strip().replace(" ", "_")
+            app_name = "".join([c for c in dist.app.title if c.isalnum() or c in (
+                " ", "-", "_")]).strip().replace(" ", "_")
+            version = "".join([c for c in dist.version if c.isalnum() or c in (
+                " ", "-", ".", "_")]).strip().replace(" ", "_")
 
             # build filename
             if ext:

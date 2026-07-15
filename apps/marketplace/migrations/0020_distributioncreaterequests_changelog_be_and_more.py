@@ -6,7 +6,8 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('marketplace', '0019_alter_distribution_options_alter_distribution_app_and_more'),
+        ('marketplace',
+         '0019_alter_distribution_options_alter_distribution_app_and_more'),
     ]
 
     operations = [

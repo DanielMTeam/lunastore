@@ -13,6 +13,7 @@ def migrate_category_to_categories(apps, schema_editor):
             if instance.category_id:
                 instance.categories.add(instance.category_id)
 
+
 def reverse_migrate_category_to_categories(apps, schema_editor):
     Application = apps.get_model('marketplace', 'Application')
     AppCreateRequests = apps.get_model('marketplace', 'AppCreateRequests')
@@ -25,6 +26,7 @@ def reverse_migrate_category_to_categories(apps, schema_editor):
                 instance.category = first_category
                 instance.save(update_fields=['category'])
 
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -32,5 +34,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(migrate_category_to_categories, reverse_migrate_category_to_categories),
+        migrations.RunPython(
+            migrate_category_to_categories,
+            reverse_migrate_category_to_categories),
     ]
