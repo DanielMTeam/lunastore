@@ -19,7 +19,9 @@ CACHE_TIMEOUT = 60 * 1  # 5 minutes
 def refresh_banned_ips_cache():
     banned_ips = set(UserBan.objects.values_list('ip', flat=True))
     cache.set(CACHE_KEY, banned_ips, timeout=CACHE_TIMEOUT)
-    logging.info(f"[User APP; Tasks] Refreshed banned IPs cache with {len(banned_ips)} entries.")
+    logging.info(
+        f"[User APP; Tasks] Refreshed banned IPs cache with {
+            len(banned_ips)} entries.")
 
 
 @task()

@@ -13,13 +13,20 @@ admin.site.site_header = "Панель LunaStore"
 admin.site.site_title = "LunaStore Admin"
 admin.site.index_title = "Модерация сайта"
 
-urlpatterns = [
-    path(f"{settings.ADMIN_URL}/broadcast/", admin.site.admin_view(admin_broadcast_notification), name='broadcast'),
-    path(f"{settings.ADMIN_URL}/", admin.site.urls, name="admin"),
-    path(f"oidc/", include("mozilla_django_oidc.urls")),
-    path("method/", include("apps.api.urls")),
-]
+urlpatterns = [path(f"{settings.ADMIN_URL}/broadcast/",
+                    admin.site.admin_view(admin_broadcast_notification),
+                    name='broadcast'),
+               path(f"{settings.ADMIN_URL}/",
+                    admin.site.urls,
+                    name="admin"),
+               path(f"oidc/",
+                    include("mozilla_django_oidc.urls")),
+               path("method/",
+                    include("apps.api.urls")),
+               ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL,
+                          document_root=settings.STATIC_ROOT)

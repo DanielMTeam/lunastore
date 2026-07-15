@@ -1,3 +1,17 @@
+from django.contrib.sessions.models import Session
+from .middleware import BlockBannedIP
+from datetime import timedelta
+from .models import UserSession
+from .decorators import require_modern_browser
+from .validators import validate_invite_limit
+from .models import (
+    BlacklistedUsername,
+    DevRequestsModel,
+    InviteToken,
+    User,
+    UserActivityLog,
+    UserBan,
+)
 import io
 import re
 from multiprocessing.process import active_children
@@ -45,30 +59,21 @@ from .forms import (
 from django.utils.decorators import method_decorator
 from apps.core.utils import get_client_ip
 
+
 def get_real_ip(group, request):
     return get_client_ip(request)
 
-@method_decorator(ratelimit(key=get_real_ip, rate='15/h', block=True), name='post')
-@method_decorator(ratelimit(key='post:email', rate='10/h', block=True), name='post')
+
+@method_decorator(ratelimit(key=get_real_ip,
+                  rate='15/h', block=True), name='post')
+@method_decorator(ratelimit(key='post:email',
+                  rate='10/h', block=True), name='post')
 class RateLimitedPasswordResetView(auth_views.PasswordResetView):
     form_class = CustomPasswordResetForm
     template_name = "user/password_reset_form.html"
     email_template_name = "user/password_reset_email.html"
     html_email_template_name = "user/password_reset_email_html.html"
     subject_template_name = "user/password_reset_subject.txt"
-
-from .middleware import BlockBannedIP
-from apps.core.utils import get_client_ip
-from .models import (
-    BlacklistedUsername,
-    DevRequestsModel,
-    InviteToken,
-    User,
-    UserActivityLog,
-    UserBan,
-)
-from .validators import validate_invite_limit
-from .decorators import require_modern_browser
 
 
 def login(request):
@@ -77,8 +82,8 @@ def login(request):
 
     if ip in BlockBannedIP.get_banned_set():
         return render(
-            request, "banned_ip.html", {"admin_email": settings.ADMIN_EMAIL}, status=403
-        )
+            request, "banned_ip.html", {
+                "admin_email": settings.ADMIN_EMAIL}, status=403)
 
     active_ip_bans = UserBan.objects.filter(ip=ip, ban_by_ip=True)
     for ip_ban in active_ip_bans:
@@ -98,7 +103,8 @@ def login(request):
     next_url = request.GET.get("next") or request.POST.get("next")
 
     if request.method == "POST":
-        username_val = request.POST.get("login") or request.POST.get("username")
+        username_val = request.POST.get(
+            "login") or request.POST.get("username")
         password_val = request.POST.get("password")
 
         form_data = {"username": username_val, "password": password_val}
@@ -122,9 +128,12 @@ def login(request):
                         exp_str = ban.expires_at.strftime("%d.%m.%Y %H:%M")
                         reason += f" (до {exp_str})"
 
-                    error_msg = _("VIEW_LOGIN_BANNED_REASON") % {"reason": reason}
+                    error_msg = _("VIEW_LOGIN_BANNED_REASON") % {
+                        "reason": reason}
                     messages.error(request, error_msg)
-                    return render(request, "login_splash.html", {"next": next_url})
+                    return render(
+                        request, "login_splash.html", {
+                            "next": next_url})
 
             if user.totp_enabled:
                 request.session["2fa_user_id"] = user.id
@@ -133,7 +142,8 @@ def login(request):
 
             dj_login(request, user)
 
-            UserActivityLog.objects.create(user=user, ip=ip, action="login_save_ip")
+            UserActivityLog.objects.create(
+                user=user, ip=ip, action="login_save_ip")
 
             process_login_notification.enqueue(
                 user_id=user.id,
@@ -161,6 +171,7 @@ def login(request):
 def logout(request):
     dj_logout(request)
     return redirect("/index.php")
+
 
 @ratelimit(key=get_real_ip, rate='20/10m', block=True)
 def register(request):
@@ -240,7 +251,9 @@ def register(request):
         if request.user.is_authenticated:
             return redirect("home")
         form = UserRegistrationForm(request=request)
-    return render(request, "register_on.html", {"form": form, "invite_obj": invite_obj})
+    return render(
+        request, "register_on.html", {
+            "form": form, "invite_obj": invite_obj})
 
 
 def profile(request):
@@ -255,7 +268,8 @@ def profile(request):
             )
         obj = get_object_or_404(User, id=request.user.id)
     apps_count = Application.objects.filter(user=obj).count()
-    badges = [tag.strip() for tag in obj.badges.split(";")] if obj.badges else []
+    badges = [tag.strip()
+              for tag in obj.badges.split(";")] if obj.badges else []
     active_ban = None
     ban_record = UserBan.objects.filter(user=obj).first()
     if ban_record:
@@ -269,26 +283,30 @@ def profile(request):
             obj.save(update_fields=["is_active"])
     from apps.marketplace.models import Review
     from django.core.paginator import Paginator
-    
+
     act = request.GET.get("act")
     reviews_page = None
     recent_reviews = None
-    
+
     if act == "show_reviews":
-        reviews_list = Review.objects.filter(user=obj).select_related('application', 'user').order_by('-created_at')
+        reviews_list = Review.objects.filter(
+            user=obj).select_related(
+            'application',
+            'user').order_by('-created_at')
         paginator = Paginator(reviews_list, 5)
         page_number = request.GET.get("page")
         reviews_page = paginator.get_page(page_number)
     else:
-        recent_reviews = Review.objects.filter(user=obj).select_related('application', 'user').order_by('-created_at')[:5]
-        
+        recent_reviews = Review.objects.filter(user=obj).select_related(
+            'application', 'user').order_by('-created_at')[:5]
+
     return render(
         request,
         "profile.html",
         context={
-            "obj": obj, 
-            "apps_count": apps_count, 
-            "active_ban": active_ban, 
+            "obj": obj,
+            "apps_count": apps_count,
+            "active_ban": active_ban,
             "badges": badges,
             "act": act,
             "reviews_page": reviews_page,
@@ -315,7 +333,8 @@ def profile_settings(request):
         form_type = request.POST.get("form_type")
 
         if form_type == "profile":
-            forms["profile_form"] = ProfileUpdateForm(request.POST, instance=user)
+            forms["profile_form"] = ProfileUpdateForm(
+                request.POST, instance=user)
             if forms["profile_form"].is_valid():
                 forms["profile_form"].save()
                 messages.success(request, _("INFO_PROFILE_IS_UPDATED"))
@@ -325,9 +344,11 @@ def profile_settings(request):
                     for error in errors:
                         messages.error(request, error)
         elif form_type == "password":
-            forms["password_form"] = PasswordChangeForm(request.POST, user=user)
+            forms["password_form"] = PasswordChangeForm(
+                request.POST, user=user)
             if forms["password_form"].is_valid():
-                user.set_password(forms["password_form"].cleaned_data["new_password"])
+                user.set_password(
+                    forms["password_form"].cleaned_data["new_password"])
                 user.save()
                 update_session_auth_hash(request, user)
                 messages.success(request, _("INFO_PASSWORD_WAS_CHANGED"))
@@ -338,7 +359,8 @@ def profile_settings(request):
                         messages.error(request, error)
         elif form_type == "avatar":
             # initialize form
-            forms["avatar_form"] = AvatarUpdateForm(request.POST, request.FILES, instance=user)
+            forms["avatar_form"] = AvatarUpdateForm(
+                request.POST, request.FILES, instance=user)
 
             if forms["avatar_form"].is_valid():
                 forms["avatar_form"].save()
@@ -371,7 +393,8 @@ def profile_settings(request):
 def dev_status(request):
     user = request.user
     is_developer = request.user.groups.filter(name="Разработчики").exists()
-    has_pending_request = DevRequestsModel.objects.filter(user=request.user).exists()
+    has_pending_request = DevRequestsModel.objects.filter(
+        user=request.user).exists()
     # initialize the form
     if request.method == "POST":
         form = DevStatusForm(request.POST, instance=user)
@@ -396,16 +419,14 @@ def dev_status(request):
         form = DevStatusForm(instance=user)
 
     # render the template with the form
-    return render(
-        request,
-        "dev_add.html",
-        {
-            "dev_request_form": form,
-            "is_developer": is_developer,
-            "has_pending_request": has_pending_request,
-            "registration_enabled_status": config.DEVELOPER_REGISTRATION_IS_ENABLED,
-        },
-    )
+    return render(request,
+                  "dev_add.html",
+                  {"dev_request_form": form,
+                   "is_developer": is_developer,
+                   "has_pending_request": has_pending_request,
+                   "registration_enabled_status": config.DEVELOPER_REGISTRATION_IS_ENABLED,
+                   },
+                  )
 
 
 def critical_error(request):
@@ -439,31 +460,32 @@ def delete_account(request):
 def invite_person(request):
     invite, created = InviteToken.objects.get_or_create(owner=request.user)
     invited_users_list = request.user.invited_users.all().order_by("-date_joined")
-    
+
     from datetime import timedelta
     from django.utils import timezone
-    
+
     time_threshold = timezone.now() - timedelta(days=int(config.MAX_INVITE_DAYS_LIMIT))
     recent_invites = request.user.invited_users.filter(
         date_joined__gte=time_threshold
     ).order_by("date_joined")
-    
+
     recent_count = recent_invites.count()
     max_limit = int(config.MAX_INVITE_USES_COUNT)
     remaining_invites = max(0, max_limit - recent_count)
-    
+
     can_invite = remaining_invites > 0
     next_invite_date = None
-    
+
     if not can_invite and recent_invites.exists():
         oldest_recent = recent_invites.first()
-        next_invite_date = oldest_recent.date_joined + timedelta(days=int(config.MAX_INVITE_DAYS_LIMIT))
-    
+        next_invite_date = oldest_recent.date_joined + \
+            timedelta(days=int(config.MAX_INVITE_DAYS_LIMIT))
+
     limit_info_text = _("PAGE_INVITE_LIMIT_INFO") % {
         "limit": remaining_invites,
         "days": config.MAX_INVITE_DAYS_LIMIT
     }
-    
+
     return render(
         request,
         "invite.html",
@@ -504,7 +526,12 @@ def invite_code(request):
 @login_required
 @require_modern_browser
 def notifications(request):
-    api_url = getattr(request, 'geo_domains', {}).get('SPIRE_URL', settings.LUNASPIRE_URL)
+    api_url = getattr(
+        request,
+        'geo_domains',
+        {}).get(
+        'SPIRE_URL',
+        settings.LUNASPIRE_URL)
     if not api_url.startswith('http'):
         api_url = f"http://{api_url}"
 
@@ -551,10 +578,14 @@ def two_factor_attempt(request):
         if code and user.totp_secret:
             totp = pyotp.TOTP(user.totp_secret)
             if totp.verify(code):
-                dj_login(request, user, backend="django.contrib.auth.backends.ModelBackend")
+                dj_login(
+                    request,
+                    user,
+                    backend="django.contrib.auth.backends.ModelBackend")
                 ip = get_client_ip(request)
                 user_agent = request.META.get('HTTP_USER_AGENT', '')
-                UserActivityLog.objects.create(user=user, ip=ip, action="login_save_ip")
+                UserActivityLog.objects.create(
+                    user=user, ip=ip, action="login_save_ip")
                 process_login_notification.enqueue(
                     user_id=user.id,
                     ip=ip,
@@ -571,18 +602,17 @@ def two_factor_attempt(request):
                 ):
                     return redirect(next_url)
 
-                messages.success(request, _("VIEW_LOGIN_SUCCESS") % {"username": user.username})
+                messages.success(
+                    request,
+                    _("VIEW_LOGIN_SUCCESS") % {
+                        "username": user.username})
                 return redirect("home")
             else:
                 messages.error(request, _("ERROR_2FA_INVALID_CODE"))
                 return redirect("two_factor_attempt")
-    
+
     return render(request, "2fa_attempt.html")
 
-
-from .models import UserSession
-from django.utils import timezone
-from datetime import timedelta
 
 @login_required
 def settings_security(request):
@@ -595,21 +625,28 @@ def settings_security(request):
         "current_session_key": request.session.session_key,
         "is_new_session": False,
     }
-    
-    current_session = UserSession.objects.filter(session_key=request.session.session_key).first()
-    if current_session and (timezone.now() - current_session.created_at).total_seconds() < 86400:
+
+    current_session = UserSession.objects.filter(
+        session_key=request.session.session_key).first()
+    if current_session and (
+            timezone.now() -
+            current_session.created_at).total_seconds() < 86400:
         forms["is_new_session"] = True
 
     if request.method == "POST":
         if forms["is_new_session"]:
-            messages.error(request, "Ваше устройство (сессия) новое. В целях безопасности смена почты и пароля недоступны первые 24 часа.")
+            messages.error(
+                request,
+                "Ваше устройство (сессия) новое. В целях безопасности смена почты и пароля недоступны первые 24 часа.")
             return redirect("settings_security")
-            
+
         form_type = request.POST.get("form_type")
         if form_type == "password":
-            forms["password_form"] = PasswordChangeForm(request.POST, user=user)
+            forms["password_form"] = PasswordChangeForm(
+                request.POST, user=user)
             if forms["password_form"].is_valid():
-                user.set_password(forms["password_form"].cleaned_data["new_password"])
+                user.set_password(
+                    forms["password_form"].cleaned_data["new_password"])
                 user.save()
                 update_session_auth_hash(request, user)
                 messages.success(request, _("INFO_PASSWORD_WAS_CHANGED"))
@@ -636,10 +673,15 @@ def settings_security(request):
 @login_required
 def settings_2fa_set(request):
     user = request.user
-    
-    current_session = UserSession.objects.filter(session_key=request.session.session_key).first()
-    if current_session and (timezone.now() - current_session.created_at).total_seconds() < 86400:
-        messages.error(request, "Ваше устройство (сессия) новое. Управление 2FA недоступно первые 24 часа.")
+
+    current_session = UserSession.objects.filter(
+        session_key=request.session.session_key).first()
+    if current_session and (
+            timezone.now() -
+            current_session.created_at).total_seconds() < 86400:
+        messages.error(
+            request,
+            "Ваше устройство (сессия) новое. Управление 2FA недоступно первые 24 часа.")
         return redirect("settings_security")
 
     if not request.session.get("2fa_sudo_mode"):
@@ -688,14 +730,17 @@ def revert_impersonation(request):
     if admin_id:
         admin_user = get_object_or_404(User, id=admin_id)
         if admin_user.is_staff:
-            dj_login(request, admin_user, backend="django.contrib.auth.backends.ModelBackend")
+            dj_login(
+                request,
+                admin_user,
+                backend="django.contrib.auth.backends.ModelBackend")
             if "impersonated_by" in request.session:
                 del request.session["impersonated_by"]
-                
+
             host = request.get_host()
             if ":9088" in host:
                 host = host.replace(":9088", ":8088")
-            
+
             admin_path = getattr(settings, "ADMIN_URL", "admin")
             # If ADMIN_URL has HTTP:// inside it, it's a full URL.
             # In settings: ADMIN_URL = "lunas-office" or full URL.
@@ -703,8 +748,9 @@ def revert_impersonation(request):
             if admin_path.startswith("http"):
                 admin_url = f"{admin_path}/user/user/"
             else:
-                admin_url = f"{request.scheme}://{host}/{admin_path}/user/user/"
-                
+                admin_url = f"{
+                    request.scheme}://{host}/{admin_path}/user/user/"
+
             return redirect(admin_url)
     return redirect("home")
 
@@ -713,50 +759,57 @@ def _get_2fa_setup_context(request):
     user = request.user
     if user.totp_enabled:
         return {"is_enabled": True}
-    
+
     secret = request.session.get("2fa_pending_secret")
     if not secret:
         secret = pyotp.random_base32()
         request.session["2fa_pending_secret"] = secret
-        
+
     totp_auth_url = pyotp.totp.TOTP(secret).provisioning_uri(
         name=user.email,
         issuer_name="LunaStore"
     )
-    
+
     qr = qrcode.make(totp_auth_url)
     buffered = io.BytesIO()
     qr.save(buffered, format="PNG")
     qr_code_base64 = base64.b64encode(buffered.getvalue()).decode()
-    
+
     return {
         "is_enabled": False,
         "secret_key": secret,
         "qr_code_base64": qr_code_base64
     }
 
-from django.contrib.sessions.models import Session
 
 @login_required
 def terminate_session(request, session_pk):
-    current_session = UserSession.objects.filter(session_key=request.session.session_key).first()
-    if current_session and (timezone.now() - current_session.created_at).total_seconds() < 86400:
-        messages.error(request, "Ваше устройство (сессия) новое. Управление сеансами недоступно первые 24 часа.")
+    current_session = UserSession.objects.filter(
+        session_key=request.session.session_key).first()
+    if current_session and (
+            timezone.now() -
+            current_session.created_at).total_seconds() < 86400:
+        messages.error(
+            request,
+            "Ваше устройство (сессия) новое. Управление сеансами недоступно первые 24 часа.")
         return redirect("settings_security")
 
-    user_session = get_object_or_404(UserSession, pk=session_pk, user=request.user)
-    
+    user_session = get_object_or_404(
+        UserSession, pk=session_pk, user=request.user)
+
     # Do not allow terminating the current session this way
     if user_session.session_key == request.session.session_key:
-        messages.error(request, "Нельзя завершить текущую сессию отсюда. Воспользуйтесь выходом.")
+        messages.error(
+            request,
+            "Нельзя завершить текущую сессию отсюда. Воспользуйтесь выходом.")
         return redirect("settings_security")
-        
+
     try:
         # Delete from Django session store
         Session.objects.filter(session_key=user_session.session_key).delete()
     except Exception:
         pass
-        
+
     user_session.delete()
     messages.success(request, "Сеанс успешно завершен.")
     return redirect("settings_security")

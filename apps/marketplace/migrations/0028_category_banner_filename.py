@@ -13,6 +13,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='category',
             name='banner_filename',
-            field=models.CharField(blank=True, help_text="Название файла из папки staticfiles/img/categorybanner (например, 'custom.png')", max_length=255, null=True, verbose_name='Файл баннера'),
+            field=models.CharField(
+                blank=True,
+                help_text="Название файла из папки staticfiles/img/categorybanner (например, 'custom.png')",
+                max_length=255,
+                null=True,
+                verbose_name='Файл баннера'),
         ),
     ]

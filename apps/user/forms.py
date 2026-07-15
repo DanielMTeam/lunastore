@@ -76,14 +76,15 @@ class UserBanForm(forms.ModelForm):
                 )
             elif expires_at < timezone.now():
                 self.add_error(
-                    "expires_at", "Дата окончания блокировки не может быть в прошлом"
-                )
+                    "expires_at",
+                    "Дата окончания блокировки не может быть в прошлом")
 
         if username:
             try:
                 user = get_user_model().objects.get(username=username)
             except get_user_model().DoesNotExist:
-                self.add_error("username", "Пользователь с таким юзернеймом не найден")
+                self.add_error("username",
+                               "Пользователь с таким юзернеймом не найден")
                 return cleaned_data
 
             if UserBan.objects.filter(user=user).exists():
@@ -145,12 +146,14 @@ class UserRegistrationForm(UserCreationForm):
             if record.is_regex:
                 try:
                     if re.search(record.word, username, re.IGNORECASE):
-                        raise forms.ValidationError(_("PAGE_ADMIN_APP_MSG_SAVE_ERROR"))
+                        raise forms.ValidationError(
+                            _("PAGE_ADMIN_APP_MSG_SAVE_ERROR"))
                 except re.error:
                     continue
             else:
                 if record.word.lower() == username.lower():
-                    raise forms.ValidationError(_("PAGE_ADMIN_APP_MSG_SAVE_ERROR"))
+                    raise forms.ValidationError(
+                        _("PAGE_ADMIN_APP_MSG_SAVE_ERROR"))
 
         return username
 
@@ -201,13 +204,15 @@ class ProfileUpdateForm(forms.ModelForm):
                 import datetime
                 if (timezone.now() - user.last_username_change).days < 365:
                     can_change = False
-            
+
             if not can_change:
                 self.fields["username"].disabled = True
                 self.fields["username"].widget.attrs["readonly"] = "readonly"
                 import datetime
-                next_date = user.last_username_change + datetime.timedelta(days=365)
-                self.fields["username"].help_text = f"Смена юзернейма будет доступна {next_date.strftime('%d.%m.%Y')}."
+                next_date = user.last_username_change + \
+                    datetime.timedelta(days=365)
+                self.fields["username"].help_text = f"Смена юзернейма будет доступна {
+                    next_date.strftime('%d.%m.%Y')}."
             else:
                 self.fields["username"].help_text = "Внимание: Юзернейм можно менять только 1 раз в год."
 
@@ -218,11 +223,14 @@ class ProfileUpdateForm(forms.ModelForm):
             if user.last_username_change:
                 import datetime
                 if (timezone.now() - user.last_username_change).days < 365:
-                    raise ValidationError("Юзернейм можно менять только 1 раз в год.")
-            
-            if User.objects.filter(username__iexact=username).exclude(pk=user.pk).exists():
+                    raise ValidationError(
+                        "Юзернейм можно менять только 1 раз в год.")
+
+            if User.objects.filter(
+                    username__iexact=username).exclude(
+                    pk=user.pk).exists():
                 raise ValidationError("Этот юзернейм уже занят.")
-                
+
             is_blacklisted = False
             for ban in get_cached_blacklist():
                 if ban.is_regex:
@@ -236,7 +244,7 @@ class ProfileUpdateForm(forms.ModelForm):
                         break
             if is_blacklisted:
                 raise ValidationError("Этот юзернейм запрещен.")
-                
+
         return username
 
     def save(self, commit=True):
@@ -274,13 +282,19 @@ class ProfileUpdateForm(forms.ModelForm):
         label=_("PAGE_PROFILESETTINGS_LABEL_BIO"),
         required=False,
         max_length=255,
-        widget=forms.Textarea(attrs={"class": "brief_intro no-md", "cols": 90}),
+        widget=forms.Textarea(
+            attrs={
+                "class": "brief_intro no-md",
+                "cols": 90}),
     )
     email = forms.EmailField(
         label="E-mail",
         disabled=True,
         required=False,
-        widget=forms.EmailInput(attrs={"class": "input-text", "readonly": "readonly"}),
+        widget=forms.EmailInput(
+            attrs={
+                "class": "input-text",
+                "readonly": "readonly"}),
     )
 
     def clean_telegram(self):
@@ -351,13 +365,15 @@ class AvatarUpdateForm(forms.ModelForm, CDNTokenValidationMixin):
     avatar = forms.ImageField(
         required=False,
         label=_("ACTION_CHOOSE_FILE"),
-        widget=forms.FileInput(attrs={"class": "action_button", "id": "file-upload"}),
+        widget=forms.FileInput(
+            attrs={
+                "class": "action_button",
+                "id": "file-upload"}),
         help_text=_("INFO_RECOMENDATIONS_FOR_UPLOAD_AVATAR"),
     )
 
     confirm_token = forms.CharField(widget=forms.HiddenInput(), required=False)
     filepath = forms.CharField(widget=forms.HiddenInput(), required=False)
-
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
@@ -369,7 +385,8 @@ class AvatarUpdateForm(forms.ModelForm, CDNTokenValidationMixin):
 
         if token:
             # validate token (protect from tampering and reuse)
-            decoded = self.validate_cdn_token(token, expected_type="cdn-confirm")
+            decoded = self.validate_cdn_token(
+                token, expected_type="cdn-confirm")
 
             # get file info from CDN
             file_id = decoded.get("file_id")
@@ -401,13 +418,21 @@ class AvatarUpdateForm(forms.ModelForm, CDNTokenValidationMixin):
 class DevStatusForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ["mail", "github", "about_you", "why_you_choose_us", "username"]
+        fields = [
+            "mail",
+            "github",
+            "about_you",
+            "why_you_choose_us",
+            "username"]
 
     username = forms.CharField(
         label=_("FORM_DEVSTATUS_YOUR_USERNAME"),
         disabled=True,
         required=False,
-        widget=forms.TextInput(attrs={"class": "input-text", "readonly": "readonly"}),
+        widget=forms.TextInput(
+            attrs={
+                "class": "input-text",
+                "readonly": "readonly"}),
     )
 
     mail = forms.EmailField(
@@ -446,7 +471,8 @@ class DevStatusForm(forms.ModelForm):
     captcha = CaptchaField(label=_("FORM_CAPTCHA"))
 
 
-# поскольку у django нет стандартного метода добавления пользователя в группу, я это сделал сам лмао (●'◡'●)
+# поскольку у django нет стандартного метода добавления пользователя в
+# группу, я это сделал сам лмао (●'◡'●)
 class AddToGroupForm(forms.ModelForm):
     class Meta:
         model = Group
@@ -544,7 +570,10 @@ class EmailChangeForm(forms.Form):
         label=_("PAGE_SETTINGS_LABEL_CUR_EMAIL"),
         disabled=True,
         required=False,
-        widget=forms.EmailInput(attrs={"class": "input-text", "readonly": "readonly"}),
+        widget=forms.EmailInput(
+            attrs={
+                "class": "input-text",
+                "readonly": "readonly"}),
     )
 
     new_email = forms.EmailField(
@@ -576,18 +605,20 @@ class EmailChangeForm(forms.Form):
 
         return new_email
 
+
 def send_mail_in_background(subject, body, from_email, to_email, html_email):
     if not config.EMAIL_HOST:
         logger.warning("email host is not configured, skipping email send")
         return
 
     def str_to_bool(val):
-        if isinstance(val, bool): return val
+        if isinstance(val, bool):
+            return val
         return str(val).lower() in ("true", "1", "yes", "t", "y")
-        
+
     use_tls = str_to_bool(config.EMAIL_USE_TLS)
     use_ssl = str_to_bool(config.EMAIL_USE_SSL)
-    
+
     port = str(config.EMAIL_PORT)
     if port == '587':
         use_tls = True
@@ -596,7 +627,7 @@ def send_mail_in_background(subject, body, from_email, to_email, html_email):
         use_ssl = True
         use_tls = False
     elif use_ssl and use_tls:
-        use_ssl = False # Fallback to prevent mutual exclusivity error
+        use_ssl = False  # Fallback to prevent mutual exclusivity error
 
     try:
         backend = EmailBackend(
@@ -608,21 +639,24 @@ def send_mail_in_background(subject, body, from_email, to_email, html_email):
             use_ssl=use_ssl,
             fail_silently=False,
         )
-        email_message = EmailMultiAlternatives(subject, body, from_email, [to_email], connection=backend)
+        email_message = EmailMultiAlternatives(
+            subject, body, from_email, [to_email], connection=backend)
         if html_email is not None:
             email_message.attach_alternative(html_email, "text/html")
-            
-            logo_path = os.path.join(settings.BASE_DIR, 'static', 'img', 'logo_small.png')
+
+            logo_path = os.path.join(
+                settings.BASE_DIR, 'static', 'img', 'logo_small.png')
             if os.path.exists(logo_path):
                 with open(logo_path, 'rb') as f:
                     logo_img = MIMEImage(f.read())
                     logo_img.add_header('Content-ID', '<logo_small.png>')
                     logo_img.add_header('Content-Disposition', 'inline')
                     email_message.attach(logo_img)
-                    
+
         email_message.send()
     except Exception as e:
         logger.error(f"failed to send email: {e}")
+
 
 class CustomPasswordResetForm(PasswordResetForm):
     def clean_email(self):
@@ -645,7 +679,8 @@ class CustomPasswordResetForm(PasswordResetForm):
         body = loader.render_to_string(email_template_name, context)
 
         if html_email_template_name is not None:
-            html_email = loader.render_to_string(html_email_template_name, context)
+            html_email = loader.render_to_string(
+                html_email_template_name, context)
         else:
             html_email = None
 

@@ -13,14 +13,62 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Badge',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=80, verbose_name='Название')),
-                ('predefined_style', models.CharField(choices=[('custom', 'Кастомный (цвета ниже)'), ('editor_choice', 'Выбор редакции (синий фон, иконка звезды)'), ('verified', 'Официальный издатель (зеленый фон, иконка окна)'), ('exclusive', 'Эксклюзив (красный фон, !! вместо иконки)')], default='custom', max_length=20, verbose_name='Готовый стиль')),
-                ('icon_class', models.CharField(blank=True, help_text='Например: award, official. Применимо только для кастомного стиля.', max_length=50, null=True, verbose_name='CSS класс иконки')),
-                ('icon_text', models.CharField(blank=True, help_text='Например: !!. Применимо только для кастомного стиля.', max_length=10, null=True, verbose_name='Текст вместо иконки')),
-                ('bg_color', models.CharField(default='#5fa359', help_text='Только для кастомного стиля (в HEX)', max_length=7, verbose_name='Цвет фона')),
-                ('text_color', models.CharField(default='#ffffff', help_text='Только для кастомного стиля (в HEX)', max_length=7, verbose_name='Цвет текста')),
-                ('border_color', models.CharField(default='#006000', help_text='Только для кастомного стиля (в HEX)', max_length=7, verbose_name='Цвет границы')),
+                ('id',
+                 models.BigAutoField(
+                     auto_created=True,
+                     primary_key=True,
+                     serialize=False,
+                     verbose_name='ID')),
+                ('name',
+                 models.CharField(
+                     max_length=80,
+                     verbose_name='Название')),
+                ('predefined_style',
+                 models.CharField(
+                     choices=[
+                         ('custom',
+                          'Кастомный (цвета ниже)'),
+                         ('editor_choice',
+                          'Выбор редакции (синий фон, иконка звезды)'),
+                         ('verified',
+                          'Официальный издатель (зеленый фон, иконка окна)'),
+                         ('exclusive',
+                          'Эксклюзив (красный фон, !! вместо иконки)')],
+                     default='custom',
+                     max_length=20,
+                     verbose_name='Готовый стиль')),
+                ('icon_class',
+                 models.CharField(
+                     blank=True,
+                     help_text='Например: award, official. Применимо только для кастомного стиля.',
+                     max_length=50,
+                     null=True,
+                     verbose_name='CSS класс иконки')),
+                ('icon_text',
+                 models.CharField(
+                     blank=True,
+                     help_text='Например: !!. Применимо только для кастомного стиля.',
+                     max_length=10,
+                     null=True,
+                     verbose_name='Текст вместо иконки')),
+                ('bg_color',
+                 models.CharField(
+                     default='#5fa359',
+                     help_text='Только для кастомного стиля (в HEX)',
+                     max_length=7,
+                     verbose_name='Цвет фона')),
+                ('text_color',
+                 models.CharField(
+                     default='#ffffff',
+                     help_text='Только для кастомного стиля (в HEX)',
+                     max_length=7,
+                     verbose_name='Цвет текста')),
+                ('border_color',
+                 models.CharField(
+                     default='#006000',
+                     help_text='Только для кастомного стиля (в HEX)',
+                     max_length=7,
+                     verbose_name='Цвет границы')),
             ],
             options={
                 'verbose_name': 'Бейджик',
@@ -31,16 +79,28 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='appcreaterequests',
             name='badges',
-            field=models.ManyToManyField(blank=True, related_name='%(class)s_badges', to='marketplace.badge', verbose_name='Бейджики'),
+            field=models.ManyToManyField(
+                blank=True,
+                related_name='%(class)s_badges',
+                to='marketplace.badge',
+                verbose_name='Бейджики'),
         ),
         migrations.AddField(
             model_name='appeditrequests',
             name='badges',
-            field=models.ManyToManyField(blank=True, related_name='%(class)s_badges', to='marketplace.badge', verbose_name='Бейджики'),
+            field=models.ManyToManyField(
+                blank=True,
+                related_name='%(class)s_badges',
+                to='marketplace.badge',
+                verbose_name='Бейджики'),
         ),
         migrations.AddField(
             model_name='application',
             name='badges',
-            field=models.ManyToManyField(blank=True, related_name='%(class)s_badges', to='marketplace.badge', verbose_name='Бейджики'),
+            field=models.ManyToManyField(
+                blank=True,
+                related_name='%(class)s_badges',
+                to='marketplace.badge',
+                verbose_name='Бейджики'),
         ),
     ]

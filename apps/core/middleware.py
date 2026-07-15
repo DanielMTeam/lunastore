@@ -17,7 +17,20 @@ class RateLimitMiddleware:
         if request.path.startswith(('/staticfiles/', '/media/')):
             return self.get_response(request)
 
-        if request.path.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.css', '.js', '.woff', '.woff2', '.ico', '.svg', '.map', '.ttf', '.eot')):
+        if request.path.lower().endswith(
+            ('.png',
+             '.jpg',
+             '.jpeg',
+             '.gif',
+             '.css',
+             '.js',
+             '.woff',
+             '.woff2',
+             '.ico',
+             '.svg',
+             '.map',
+             '.ttf',
+             '.eot')):
             return self.get_response(request)
 
         # read rate limit values from constance at request time (live updates)
@@ -43,7 +56,7 @@ class RateLimitMiddleware:
             # increment the request count atomically
             try:
                 new_requests = cache.incr(cache_key)
-                
+
                 if new_requests == 1:
                     cache.touch(cache_key, time_window)
             except ValueError:
@@ -66,7 +79,7 @@ class GeoDomainMiddleware:
     def __call__(self, request):
         from .local import set_current_request
         set_current_request(request)
-        
+
         ip = get_client_ip(request)
         country_code = get_country_code(ip)
 
@@ -82,11 +95,13 @@ class GeoDomainMiddleware:
             try:
                 overrides = json.loads(raw_overrides)
                 current_host = request.get_host().split(':')[0]
-                
-                # If IP-based country code is not in overrides, check if we're currently on a regional domain
+
+                # If IP-based country code is not in overrides, check if we're
+                # currently on a regional domain
                 if country_code not in overrides:
                     for code, override_data in overrides.items():
-                        if isinstance(override_data, dict) and override_data.get('BASE_URL') == current_host:
+                        if isinstance(override_data, dict) and override_data.get(
+                                'BASE_URL') == current_host:
                             country_code = code
                             break
 
@@ -107,7 +122,8 @@ class GeoDomainMiddleware:
                                 spire_val = 'https://' + spire_val
                             geo_domains['SPIRE_URL'] = spire_val
             except json.JSONDecodeError:
-                logger.error("Failed to parse GEO_DOMAIN_OVERRIDES json in Constance config.")
+                logger.error(
+                    "Failed to parse GEO_DOMAIN_OVERRIDES json in Constance config.")
             except Exception as e:
                 logger.error(f"Error processing geo domains: {e}")
 
@@ -118,13 +134,18 @@ class GeoDomainMiddleware:
         if base_url:
             current_host = request.get_host().split(':')[0]
             base_url_domain = base_url.split(':')[0]
-            
-            # We only redirect if it's explicitly enabled and the domain differs
-            if getattr(config, 'GEO_DOMAIN_PROXY_ENABLED', True) and current_host != base_url_domain:
-                # Do not redirect for static/media files to prevent loops if they share domain
+
+            # We only redirect if it's explicitly enabled and the domain
+            # differs
+            if getattr(config, 'GEO_DOMAIN_PROXY_ENABLED',
+                       True) and current_host != base_url_domain:
+                # Do not redirect for static/media files to prevent loops if
+                # they share domain
                 if not request.path.startswith(('/media/', '/staticfiles/')):
                     from django.shortcuts import redirect
-                    new_url = f"{request.scheme}://{base_url}{request.get_full_path()}"
+                    new_url = f"{
+                        request.scheme}://{base_url}{
+                        request.get_full_path()}"
                     return redirect(new_url)
 
         return self.get_response(request)

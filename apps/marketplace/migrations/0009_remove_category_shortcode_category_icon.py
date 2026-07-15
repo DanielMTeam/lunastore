@@ -17,6 +17,10 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='category',
             name='icon',
-            field=models.CharField(blank=True, max_length=140, null=True, verbose_name='Иконка'),
+            field=models.CharField(
+                blank=True,
+                max_length=140,
+                null=True,
+                verbose_name='Иконка'),
         ),
     ]

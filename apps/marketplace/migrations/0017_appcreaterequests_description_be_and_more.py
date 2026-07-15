@@ -8,8 +8,10 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('marketplace', '0016_alter_appcreaterequests_original_author_and_more'),
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('marketplace',
+         '0016_alter_appcreaterequests_original_author_and_more'),
+        migrations.swappable_dependency(
+            settings.AUTH_USER_MODEL),
     ]
 
     operations = [

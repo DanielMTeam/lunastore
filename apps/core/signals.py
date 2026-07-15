@@ -5,6 +5,7 @@ from django.contrib.admin.models import LogEntry
 from apps.core.logger.services import LoggerService
 from .tasks import send_telegram_notification
 
+
 @receiver(post_save, sender=LogEntry)
 def notify_on_admin_action(sender, instance, created, **kwargs):
     if created:

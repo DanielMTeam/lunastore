@@ -1,5 +1,6 @@
 from django import forms
 
+
 class BroadcastNotificationForm(forms.Form):
     title = forms.CharField(
         label="Заголовок",
@@ -23,5 +24,6 @@ class BroadcastNotificationForm(forms.Form):
         label="ID пользователя (Опционально)",
         required=False,
         help_text="Оставь пустым для рассылки ВСЕМ пользователям, или напиши ID для отправки конкретному человеку.",
-        widget=forms.NumberInput(attrs={'class': 'custom-input'})
-    )
+        widget=forms.NumberInput(
+            attrs={
+                'class': 'custom-input'}))

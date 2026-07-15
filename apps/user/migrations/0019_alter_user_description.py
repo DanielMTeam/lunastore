@@ -13,6 +13,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='user',
             name='description',
-            field=models.CharField(blank=True, default='Пока что, описания тут нету', max_length=255),
+            field=models.CharField(
+                blank=True,
+                default='Пока что, описания тут нету',
+                max_length=255),
         ),
     ]

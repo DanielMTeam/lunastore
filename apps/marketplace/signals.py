@@ -12,7 +12,8 @@ from apps.marketplace.models import (
 
 
 @receiver(post_save, sender=ProblemReportRequests)
-def notify_about_user_problem_report_in_tg(sender, instance, created, **kwargs):
+def notify_about_user_problem_report_in_tg(
+        sender, instance, created, **kwargs):
     if created:
         # check flag
         if not settings.TELEGRAM_LOGGER_ENABLED:
@@ -37,6 +38,7 @@ def notify_app_create_request(sender, instance, created, **kwargs):
         )
         send_telegram_notification(message)
 
+
 @receiver(post_save, sender=AppEditRequests)
 def notify_app_edit_request(sender, instance, created, **kwargs):
     if created and getattr(settings, 'TELEGRAM_LOGGER_ENABLED', False):
@@ -48,6 +50,7 @@ def notify_app_edit_request(sender, instance, created, **kwargs):
         )
         send_telegram_notification(message)
 
+
 @receiver(post_save, sender=DistributionCreateRequests)
 def notify_dist_create_request(sender, instance, created, **kwargs):
     if created and getattr(settings, 'TELEGRAM_LOGGER_ENABLED', False):
@@ -58,6 +61,7 @@ def notify_dist_create_request(sender, instance, created, **kwargs):
             f"📱 <b>Приложение:</b> {app_title} (v{instance.version})\n"
         )
         send_telegram_notification(message)
+
 
 @receiver(post_save, sender=DistributionEditRequests)
 def notify_dist_edit_request(sender, instance, created, **kwargs):

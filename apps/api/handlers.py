@@ -5,11 +5,13 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 def luna_exception_handler(exc, context):
     # get default response from DRF
     response = exception_handler(exc, context)
 
-    # if DRF returned None, it means it's an unhandled exception (ValueError, KeyError, database errors, etc.)
+    # if DRF returned None, it means it's an unhandled exception (ValueError,
+    # KeyError, database errors, etc.)
     if response is None:
         # log the error so it doesn't get lost in production
         logger.error(f"Unhandled API Exception: {exc}", exc_info=True)

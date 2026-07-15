@@ -15,15 +15,34 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='user',
             name='invited_by',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='invited_users', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name='invited_users',
+                to=settings.AUTH_USER_MODEL),
         ),
         migrations.CreateModel(
             name='InviteToken',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('code', models.CharField(max_length=12, unique=True)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('owner', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='invite_token', to=settings.AUTH_USER_MODEL)),
+                ('id',
+                 models.BigAutoField(
+                     auto_created=True,
+                     primary_key=True,
+                     serialize=False,
+                     verbose_name='ID')),
+                ('code',
+                 models.CharField(
+                     max_length=12,
+                     unique=True)),
+                ('created_at',
+                 models.DateTimeField(
+                     auto_now_add=True)),
+                ('owner',
+                 models.OneToOneField(
+                     on_delete=django.db.models.deletion.CASCADE,
+                     related_name='invite_token',
+                     to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]

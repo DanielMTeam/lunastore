@@ -13,16 +13,31 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='appcreaterequests',
             name='original_author',
-            field=models.CharField(blank=True, default='неизвестен', max_length=80, null=True, verbose_name='Автор'),
+            field=models.CharField(
+                blank=True,
+                default='неизвестен',
+                max_length=80,
+                null=True,
+                verbose_name='Автор'),
         ),
         migrations.AddField(
             model_name='appeditrequests',
             name='original_author',
-            field=models.CharField(blank=True, default='неизвестен', max_length=80, null=True, verbose_name='Автор'),
+            field=models.CharField(
+                blank=True,
+                default='неизвестен',
+                max_length=80,
+                null=True,
+                verbose_name='Автор'),
         ),
         migrations.AddField(
             model_name='application',
             name='original_author',
-            field=models.CharField(blank=True, default='неизвестен', max_length=80, null=True, verbose_name='Автор'),
+            field=models.CharField(
+                blank=True,
+                default='неизвестен',
+                max_length=80,
+                null=True,
+                verbose_name='Автор'),
         ),
     ]

@@ -2,6 +2,7 @@ from django.contrib.sessions.models import Session
 from django.utils import timezone
 from django.contrib.gis.geoip2 import GeoIP2
 
+
 def get_client_ip(request):
     x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
     if x_forwarded_for:
@@ -9,6 +10,7 @@ def get_client_ip(request):
     else:
         ip = request.META.get("REMOTE_ADDR")
     return ip
+
 
 def force_logout(user):
     from apps.user.models import UserSession
@@ -18,6 +20,7 @@ def force_logout(user):
         Session.objects.filter(session_key__in=session_keys).delete()
         user_sessions.delete()
 
+
 def get_location_geoip(ip):
     g = GeoIP2()
     try:
@@ -25,6 +28,7 @@ def get_location_geoip(ip):
         return f"{city_data['city']}, {city_data['country_name']}"
     except Exception:
         return "Unknown"
+
 
 def get_country_code(ip):
     g = GeoIP2()

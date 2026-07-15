@@ -12,6 +12,9 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='appeditrequests',
-            options={'ordering': ['-created_at'], 'verbose_name': 'Заявка на изменение', 'verbose_name_plural': 'Заявки на изменения'},
+            options={
+                'ordering': ['-created_at'],
+                'verbose_name': 'Заявка на изменение',
+                'verbose_name_plural': 'Заявки на изменения'},
         ),
     ]

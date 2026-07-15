@@ -11,7 +11,6 @@ from .tasks import CACHE_KEY, refresh_banned_ips_cache
 logger = logging.getLogger("user")
 
 
-
 class BlockBannedIP(MiddlewareMixin):
     def process_request(self, request):
         ip = get_client_ip(request)
@@ -19,8 +18,10 @@ class BlockBannedIP(MiddlewareMixin):
 
         if ip in banned_ips:
             context = {
-                "admin_email": getattr(settings, "ADMIN_EMAIL", "support@example.com")
-            }
+                "admin_email": getattr(
+                    settings,
+                    "ADMIN_EMAIL",
+                    "support@example.com")}
             return render(request, "banned_ip.html", context, status=403)
 
     @classmethod
@@ -28,7 +29,8 @@ class BlockBannedIP(MiddlewareMixin):
         banned_ips = cache.get(CACHE_KEY)
 
         if banned_ips is None:
-            logging.info("[BlockBannedIP] Cache miss. Fetching from DB directly...")
+            logging.info(
+                "[BlockBannedIP] Cache miss. Fetching from DB directly...")
             from .models import UserBan
 
             now = timezone.now()
@@ -50,6 +52,7 @@ class BlockBannedIP(MiddlewareMixin):
 
         return banned_ips
 
+
 class UserSessionMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
@@ -57,7 +60,7 @@ class UserSessionMiddleware:
     def __call__(self, request):
         if request.user.is_authenticated and request.session.session_key:
             session_key = request.session.session_key
-            
+
             from .models import UserSession
             user_session, created = UserSession.objects.get_or_create(
                 session_key=session_key,
@@ -67,15 +70,21 @@ class UserSessionMiddleware:
                     "user_agent": request.META.get("HTTP_USER_AGENT", "")[:255]
                 }
             )
-            
+
             if not created:
                 # Update last_activity if more than 5 minutes have passed
-                if (timezone.now() - user_session.last_activity).total_seconds() > 300:
+                if (timezone.now() -
+                        user_session.last_activity).total_seconds() > 300:
                     user_session.last_activity = timezone.now()
                     user_session.ip = self.get_client_ip(request)
-                    user_session.user_agent = request.META.get("HTTP_USER_AGENT", "")[:255]
-                    user_session.save(update_fields=['last_activity', 'ip', 'user_agent'])
-                    
+                    user_session.user_agent = request.META.get(
+                        "HTTP_USER_AGENT", "")[:255]
+                    user_session.save(
+                        update_fields=[
+                            'last_activity',
+                            'ip',
+                            'user_agent'])
+
         response = self.get_response(request)
         return response
 

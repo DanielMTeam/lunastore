@@ -13,16 +13,28 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='appcreaterequests',
             name='categories',
-            field=models.ManyToManyField(blank=True, related_name='%(class)s_categories', to='marketplace.category', verbose_name='Категории'),
+            field=models.ManyToManyField(
+                blank=True,
+                related_name='%(class)s_categories',
+                to='marketplace.category',
+                verbose_name='Категории'),
         ),
         migrations.AddField(
             model_name='appeditrequests',
             name='categories',
-            field=models.ManyToManyField(blank=True, related_name='%(class)s_categories', to='marketplace.category', verbose_name='Категории'),
+            field=models.ManyToManyField(
+                blank=True,
+                related_name='%(class)s_categories',
+                to='marketplace.category',
+                verbose_name='Категории'),
         ),
         migrations.AddField(
             model_name='application',
             name='categories',
-            field=models.ManyToManyField(blank=True, related_name='%(class)s_categories', to='marketplace.category', verbose_name='Категории'),
+            field=models.ManyToManyField(
+                blank=True,
+                related_name='%(class)s_categories',
+                to='marketplace.category',
+                verbose_name='Категории'),
         ),
     ]

@@ -2,7 +2,7 @@
 
 THUMBNAIL_SIZETABLE = {
     "xl": {"width": 1000, "height": 0},      # 1000 x auto
-    "xl_s": {"width": 1000, "height": 1000}, # 1000 x 1000 (square)
+    "xl_s": {"width": 1000, "height": 1000},  # 1000 x 1000 (square)
     "l": {"width": 800, "height": 0},        # 800 x auto
     "l_s": {"width": 800, "height": 800},    # 800 x 800
     "m": {"width": 500, "height": 0},        # 500 x auto

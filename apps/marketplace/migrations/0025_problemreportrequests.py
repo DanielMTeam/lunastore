@@ -16,13 +16,44 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ProblemReportRequests',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('deleted', models.DateTimeField(db_index=True, editable=False, null=True)),
-                ('deleted_by_cascade', models.BooleanField(default=False, editable=False)),
-                ('description', models.TextField(max_length=500)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('status', models.CharField(choices=[('pending', 'Новая'), ('resolved', 'Рассматривается'), ('dismissed', 'Отклонено')], default='pending', max_length=20, verbose_name='Статус')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='PAGE_REPORTPROBLEM_AUTHOR')),
+                ('id',
+                 models.BigAutoField(
+                     auto_created=True,
+                     primary_key=True,
+                     serialize=False,
+                     verbose_name='ID')),
+                ('deleted',
+                 models.DateTimeField(
+                     db_index=True,
+                     editable=False,
+                     null=True)),
+                ('deleted_by_cascade',
+                 models.BooleanField(
+                     default=False,
+                     editable=False)),
+                ('description',
+                 models.TextField(
+                     max_length=500)),
+                ('created_at',
+                 models.DateTimeField(
+                     auto_now_add=True)),
+                ('status',
+                 models.CharField(
+                     choices=[
+                         ('pending',
+                          'Новая'),
+                         ('resolved',
+                          'Рассматривается'),
+                         ('dismissed',
+                          'Отклонено')],
+                     default='pending',
+                     max_length=20,
+                     verbose_name='Статус')),
+                ('user',
+                 models.ForeignKey(
+                     on_delete=django.db.models.deletion.CASCADE,
+                     to=settings.AUTH_USER_MODEL,
+                     verbose_name='PAGE_REPORTPROBLEM_AUTHOR')),
             ],
             options={
                 'verbose_name': 'PAGE_REPORTPROBLEM_TITLE',

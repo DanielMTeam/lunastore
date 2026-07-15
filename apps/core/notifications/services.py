@@ -1,4 +1,7 @@
-import jwt, time, requests, logging
+import jwt
+import time
+import requests
+import logging
 from django.conf import settings
 
 logger = logging.getLogger("core")
@@ -12,14 +15,16 @@ ICON_MAPPING = {
 }
 
 
-
 class NotificationService:
 
     # sign token method
     @staticmethod
     def generate_token(payload: dict) -> str:
-        payload['exp'] = int(time.time()) + 3600 # 1 hour expiration
-        return jwt.encode(payload, settings.LUNASPIRE_SECRET_KEY, algorithm='HS256')
+        payload['exp'] = int(time.time()) + 3600  # 1 hour expiration
+        return jwt.encode(
+            payload,
+            settings.LUNASPIRE_SECRET_KEY,
+            algorithm='HS256')
 
     @classmethod
     def get_receive_token(cls, user_id: int) -> str:
@@ -31,7 +36,12 @@ class NotificationService:
         return cls.generate_token(payload)
 
     @classmethod
-    def send_notification(cls, user_id: int, title: str, content: str, meta: dict = None) -> bool:
+    def send_notification(
+            cls,
+            user_id: int,
+            title: str,
+            content: str,
+            meta: dict = None) -> bool:
         # generate sendtkn and push to lunaspire
         if meta is None:
             meta = {}
@@ -68,17 +78,24 @@ class NotificationService:
     def get_notifications_meta(cls, user_id: int):
         token = cls.get_receive_token(user_id)
         api_url = getattr(settings, 'LUNASPIRE_URL', '127.0.0.1:8080')
-        if not api_url.startswith('http'): api_url = f'http://{api_url}'
+        if not api_url.startswith('http'):
+            api_url = f'http://{api_url}'
 
         try:
             # request 1 record to get 'total' field
-            response = requests.get(f"{api_url}/notifications/list", params={"token": token, "limit": 1, "page": 1}, timeout=3)
+            response = requests.get(
+                f"{api_url}/notifications/list",
+                params={
+                    "token": token,
+                    "limit": 1,
+                    "page": 1},
+                timeout=3)
             if response.status_code == 200:
                 data = response.json()
                 return {
                     'total': data.get('total', 0),
                     'total_unread': data.get('total_unread', 0)
                 }
-        except:
+        except BaseException:
             pass
         return {'total': 0, 'total_unread': 0}

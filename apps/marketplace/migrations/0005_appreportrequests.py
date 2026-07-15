@@ -16,12 +16,38 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='AppReportRequests',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('reason', models.CharField(choices=[('1', 'PAGE_REPORTAPP_REASON_MALWARE'), ('2', 'PAGE_REPORTAPP_REASON_INCORRECT'), ('3', 'PAGE_REPORTAPP_REASON_OTHER')], max_length=1)),
-                ('description', models.TextField(max_length=500)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('app', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='reports', to='marketplace.application')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='PAGE_REPORTAPP_AUTHOR')),
+                ('id',
+                 models.BigAutoField(
+                     auto_created=True,
+                     primary_key=True,
+                     serialize=False,
+                     verbose_name='ID')),
+                ('reason',
+                 models.CharField(
+                     choices=[
+                         ('1',
+                          'PAGE_REPORTAPP_REASON_MALWARE'),
+                         ('2',
+                          'PAGE_REPORTAPP_REASON_INCORRECT'),
+                         ('3',
+                          'PAGE_REPORTAPP_REASON_OTHER')],
+                     max_length=1)),
+                ('description',
+                 models.TextField(
+                     max_length=500)),
+                ('created_at',
+                 models.DateTimeField(
+                     auto_now_add=True)),
+                ('app',
+                 models.ForeignKey(
+                     on_delete=django.db.models.deletion.CASCADE,
+                     related_name='reports',
+                     to='marketplace.application')),
+                ('user',
+                 models.ForeignKey(
+                     on_delete=django.db.models.deletion.CASCADE,
+                     to=settings.AUTH_USER_MODEL,
+                     verbose_name='PAGE_REPORTAPP_AUTHOR')),
             ],
             options={
                 'verbose_name': 'PAGE_REPORTAPP_TITLE',

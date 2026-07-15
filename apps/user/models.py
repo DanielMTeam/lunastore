@@ -11,6 +11,7 @@ from django.utils.translation import gettext_lazy as _
 from safedelete.models import SOFT_DELETE_CASCADE, SafeDeleteModel
 from .validators import validate_email_mx
 
+
 class User(AbstractUser, SafeDeleteModel):
     _safedelete_policy = SOFT_DELETE_CASCADE
 
@@ -31,8 +32,9 @@ class User(AbstractUser, SafeDeleteModel):
     badges = models.CharField(max_length=255, null=True, blank=True)
     website = models.URLField(max_length=45, null=True, blank=True)
     description = models.CharField(
-        max_length=255, default="Пользователь не оставил описание, но надеемся, что он крут", blank=True
-    )
+        max_length=255,
+        default="Пользователь не оставил описание, но надеемся, что он крут",
+        blank=True)
     profile_splash = models.CharField(max_length=255, null=True, blank=True)
     invited_by = models.ForeignKey(
         "self",
@@ -51,8 +53,13 @@ class User(AbstractUser, SafeDeleteModel):
     def avatar_url(self):
         if self.avatar_path:
             from apps.core.local import get_geo_spire_url
-            base_url = get_geo_spire_url(getattr(settings, "LUNASPIRE_URL", "")).rstrip("/")
-            protocol_relative_url = base_url.replace("https:", "").replace("http:", "")
+            base_url = get_geo_spire_url(
+                getattr(
+                    settings,
+                    "LUNASPIRE_URL",
+                    "")).rstrip("/")
+            protocol_relative_url = base_url.replace(
+                "https:", "").replace("http:", "")
 
             path = self.avatar_path.lstrip("/")
             return f"{protocol_relative_url}/{path}"
@@ -69,7 +76,8 @@ class UserBan(SafeDeleteModel):
     _safedelete_policy = SOFT_DELETE_CASCADE
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    ip = models.GenericIPAddressField("IP адрес", null=True, blank=True, db_index=True)
+    ip = models.GenericIPAddressField(
+        "IP адрес", null=True, blank=True, db_index=True)
     reason = models.CharField("Причина", max_length=255)
 
     ban_by_ip = models.BooleanField("Блокировка по IP", default=False)
@@ -82,7 +90,8 @@ class UserBan(SafeDeleteModel):
         verbose_name_plural = "Блокировки"
 
     def __str__(self):
-        status = "Permanent" if self.is_permanent else f"Temp until {self.expires_at}"
+        status = "Permanent" if self.is_permanent else f"Temp until {
+            self.expires_at}"
         return f"Ban for {self.user.username} ({status}) - {self.reason}"
 
 
@@ -98,8 +107,9 @@ which after a certain time (based on the RETENTION_ACTIVITY_LOG_DAYS variable), 
 
 class UserActivityLog(models.Model):
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="activity_logs"
-    )
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="activity_logs")
     ip = models.GenericIPAddressField()
     action = models.CharField(max_length=100)
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -149,8 +159,9 @@ class BlacklistedUsername(SafeDeleteModel):
 
 class InviteToken(models.Model):
     owner = models.OneToOneField(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="invite_token"
-    )
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="invite_token")
     code = models.CharField(max_length=12, unique=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -159,9 +170,8 @@ class InviteToken(models.Model):
         return timezone.now() > self.created_at + datetime.timedelta(hours=24)
 
     def refresh_code_if_expired(self):
-        if not self.code or timezone.now() > self.created_at + datetime.timedelta(
-            hours=24
-        ):
+        if not self.code or timezone.now() > self.created_at + \
+                datetime.timedelta(hours=24):
             self.code = get_random_string(8)
             self.created_at = timezone.now()
             self.save()
@@ -171,13 +181,19 @@ class InviteToken(models.Model):
         verbose_name = "Токен приглашения"
         verbose_name_plural = "Токены приглашения"
 
+
 class UserSession(models.Model):
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="active_sessions"
-    )
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="active_sessions")
     session_key = models.CharField(max_length=40, unique=True)
     ip = models.GenericIPAddressField("IP адрес", null=True, blank=True)
-    user_agent = models.CharField("Браузер", max_length=255, null=True, blank=True)
+    user_agent = models.CharField(
+        "Браузер",
+        max_length=255,
+        null=True,
+        blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     last_activity = models.DateTimeField(auto_now=True)
 

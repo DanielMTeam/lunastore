@@ -13,9 +13,21 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='BlacklistedUsername',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('word', models.CharField(max_length=50, unique=True, verbose_name='Запрещённый юзернейм')),
-                ('is_regex', models.BooleanField(default=False, verbose_name='Это регулярное выражение? (regex type)')),
+                ('id',
+                 models.BigAutoField(
+                     auto_created=True,
+                     primary_key=True,
+                     serialize=False,
+                     verbose_name='ID')),
+                ('word',
+                 models.CharField(
+                     max_length=50,
+                     unique=True,
+                     verbose_name='Запрещённый юзернейм')),
+                ('is_regex',
+                 models.BooleanField(
+                     default=False,
+                     verbose_name='Это регулярное выражение? (regex type)')),
             ],
             options={
                 'verbose_name': 'Бан-ворд (юзернейм)',

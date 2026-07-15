@@ -1,3 +1,6 @@
+from unfold.contrib.constance.settings import UNFOLD_CONSTANCE_ADDITIONAL_FIELDS
+from sentry_sdk.integrations.logging import LoggingIntegration
+import sentry_sdk
 import logging
 import os
 import sys
@@ -21,13 +24,13 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", EMAIL_HOST_USER)
 
 # sentry/glitchtip error tracking
-import sentry_sdk
-from sentry_sdk.integrations.logging import LoggingIntegration
 
 SENTRY_ENABLED = os.getenv("SENTRY_ENABLED", "False") == "True"
 SENTRY_DSN = os.getenv("SENTRY_DSN", "")
-SENTRY_TRACES_SAMPLE_RATE = float(os.getenv("SENTRY_TRACES_SAMPLE_RATE", "0.2"))
-SENTRY_PROFILES_SAMPLE_RATE = float(os.getenv("SENTRY_PROFILES_SAMPLE_RATE", "0.1"))
+SENTRY_TRACES_SAMPLE_RATE = float(
+    os.getenv("SENTRY_TRACES_SAMPLE_RATE", "0.2"))
+SENTRY_PROFILES_SAMPLE_RATE = float(
+    os.getenv("SENTRY_PROFILES_SAMPLE_RATE", "0.1"))
 SENTRY_ENVIRONMENT = os.getenv("SENTRY_ENVIRONMENT", "production")
 
 if SENTRY_ENABLED and SENTRY_DSN:
@@ -81,7 +84,9 @@ LOGOUT_REDIRECT_URL = "/login.php"
 
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
-TELEGRAM_LOGGER_ENABLED = os.getenv("TELEGRAM_LOGGER_ENABLED", "False") == "True"
+TELEGRAM_LOGGER_ENABLED = os.getenv(
+    "TELEGRAM_LOGGER_ENABLED",
+    "False") == "True"
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_LOG_CHAT_ID = os.getenv("TELEGRAM_LOG_CHAT_ID", "")
 TELEGRAM_LOG_TOPIC_ID = os.getenv("TELEGRAM_LOG_TOPIC_ID", "")
@@ -94,7 +99,9 @@ ADMIN_URL = os.getenv("ADMIN_URL", "admin")
 
 CORS_ALLOW_CREDENTIALS = True
 
-SESSION_COOKIE_DOMAIN = os.getenv("SESSION_COOKIE_DOMAIN", ".lunastore.app") or None
+SESSION_COOKIE_DOMAIN = os.getenv(
+    "SESSION_COOKIE_DOMAIN",
+    ".lunastore.app") or None
 CSRF_COOKIE_DOMAIN = os.getenv("CSRF_COOKIE_DOMAIN", ".lunastore.app") or None
 
 LUNASPIRE_URL_WITHOUT_PROTO = os.getenv(
@@ -115,13 +122,13 @@ else:
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-ALLOWED_HOSTS = [
-    host.strip() for host in os.getenv("ALLOWED_HOSTS", "").split(";") if host.strip()
-]
+ALLOWED_HOSTS = [host.strip() for host in os.getenv(
+    "ALLOWED_HOSTS", "").split(";") if host.strip()]
 
 CSRF_TRUSTED_ORIGINS = [
-    c.strip() for c in os.getenv("CSRF_TRUSTED_ORIGINS", "").split(";") if c.strip()
-]
+    c.strip() for c in os.getenv(
+        "CSRF_TRUSTED_ORIGINS",
+        "").split(";") if c.strip()]
 
 # MOTD List of site (you can see that in the header)
 MOTD_LIST = [
@@ -214,7 +221,6 @@ else:
         }
     }
 
-from unfold.contrib.constance.settings import UNFOLD_CONSTANCE_ADDITIONAL_FIELDS
 
 # django-constance configuration
 # backend: Redis (same instance as cache)
@@ -709,299 +715,239 @@ LOGOUT_REDIRECT_URL = os.getenv("LOGOUT_REDIRECT_URL")
 OIDC_OP_JWKS_ENDPOINT = os.getenv("OIDC_JWKS_ENDPOINT")
 OIDC_RP_SIGN_ALGO = os.getenv("OIDC_SIGN_ALGO")
 
+
 def custom_environment_callback(request):
     return ["Production", "info"] if not DEBUG else ["Development", "success"]
 
-# customize unfold theme
-UNFOLD = {
-    "SITE_TITLE": "Панель LunaStore",
-    "SITE_HEADER": "LunaStore",
-    "SITE_SUBHEADER": "админ-панель",
-    "SITE_URL": "/",
-    "SITE_ICON": {
-        "light": lambda request: static("img/logo.png"),
-        "dark": lambda request: static("img/logo.png"),
-    },
-    "SITE_SYMBOL": "speed",
-    "SITE_FAVICONS": [
-        {
-            "rel": "icon",
-            "sizes": "32x32",
-            "type": "image/svg+xml",
-            "href": lambda request: static("favicon.ico"),
-        },
-    ],
-    "LOGIN": {
-        "image": lambda request: static("img/ap_bg_lunastore.png"),
-    },
-    "SHOW_HISTORY": True,
-    "BORDER_RADIUS": "8px",
-    "DASHBOARD_CALLBACK": "apps.core.dashboard.callback",
-    "SHOW_VIEW_ON_SITE": True,
-    "SHOW_BACK_BUTTON": False,
-    "COLORS": {
-        "base": {
-            "50": "#f8fafc",
-            "100": "#f1f5f9",
-            "200": "#e2e8f0",
-            "300": "#cbd5e1",
-            "400": "#94a3b8",
-            "500": "#64748b",
-            "600": "#475569",
-            "700": "#334155",
-            "800": "#1e293b",
-            "900": "#0f172a",
-            "950": "#020617",
-        },
-        "primary": {
-            "50": "#eef2ff",
-            "100": "#e0e7ff",
-            "200": "#c7d2fe",
-            "300": "#a5b4fc",
-            "400": "#818cf8",
-            "500": "#6366f1",
-            "600": "#4f46e5",
-            "700": "#4338ca",
-            "800": "#3730a3",
-            "900": "#312e81",
-            "950": "#1e1b4b",
-        },
-        "font": {
-            "subtle-light": "var(--color-base-500)",
-            "subtle-dark": "var(--color-base-400)",
-            "default-light": "var(--color-base-600)",
-            "default-dark": "var(--color-base-300)",
-            "important-light": "var(--color-base-900)",
-            "important-dark": "var(--color-base-100)",
-        },
-    },
-    "STYLES": [
-        lambda request: static("css/admin_custom.css"),
-    ],
-    "ENVIRONMENT": "lunastore.settings.custom_environment_callback",
-    "EXTENSIONS": {
-        "modeltranslation": {
-            "flags": {
-                "en": " ( 🇺🇸 )",
-                "ru": " ( 🇷🇺 )",
-                "be": " ( 🇧🇾 )",
-                "uk": " ( 🇺🇦 )",
-            },
-        },
-    },
-    "TABS": [
-        {
-            "models": [
-                "terms.legaldocument",
-                "core.banner",
-                "user.user",
-                "user.userban",
-                "auth.group",
-                "user.blacklistedusername",
-                "user.invitetoken",
-            ],
-            "items": [
-                {
-                    "title": "Документы и Баннеры",
-                    "link": reverse_lazy("admin:terms_legaldocument_changelist"),
-                    "icon": "description",
-                },
-                {
-                    "title": "Аккаунты",
-                    "link": reverse_lazy("admin:user_user_changelist"),
-                    "icon": "people",
-                },
-            ],
-        },
-        {
-            "models": [
-                "marketplace.application",
-                "marketplace.category",
-                "marketplace.distribution",
-                "marketplace.badge",
-                "marketplace.appreportrequests",
-                "marketplace.problemreportrequests",
-                "marketplace.appeditrequests",
-                "user.devrequestsmodel",
-            ],
-            "items": [
-                {
-                    "title": "Приложения",
-                    "link": reverse_lazy("admin:marketplace_application_changelist"),
-                    "icon": "apps",
-                },
-                {
-                    "title": "Заявки",
-                    "link": reverse_lazy("admin:marketplace_appeditrequests_changelist"),
-                    "icon": "assignment",
-                },
-            ],
-        },
-    ],
-    "SIDEBAR": {
-        "show_search": False,
-        "show_all_applications": False,
-        "navigation": [
-            {
-                "title": "Внутренняя часть",
-                "separator": False,
-                "items": [
-                    {
-                        "title": "Юридические документы",
-                        "icon": "description",
-                        "link": reverse_lazy("admin:terms_legaldocument_changelist"),
-                        "permission": lambda request: request.user.has_perm("terms.view_legaldocument"),
-                    },
-                    {
-                        "title": "Баннера",
-                        "icon": "image",
-                        "link": reverse_lazy("admin:core_banner_changelist"),
-                        "permission": lambda request: request.user.has_perm("core.view_banner"),
-                    }
-                ],
-            },
-            {
-                "title": "Аккаунт",
-                "separator": True,
-                "items": [
-                    {
-                        "title": "Пользователи",
-                        "icon": "group",
-                        "link": reverse_lazy("admin:user_user_changelist"),
-                        "permission": lambda request: request.user.has_perm("user.view_user"),
-                    },
-                    {
-                        "title": "Блокировки",
-                        "icon": "gavel",
-                        "link": reverse_lazy("admin:user_userban_changelist"),
-                        "permission": lambda request: request.user.has_perm("user.view_userban"),
-                    },
-                    {
-                        "title": "Группы",
-                        "icon": "group",
-                        "link": reverse_lazy("admin:auth_group_changelist"),
-                        "permission": lambda request: request.user.has_perm("auth.view_group"),
-                    },
-                    {
-                        "title": "Черный список никнеймов",
-                        "icon": "person_cancel",
-                        "link": reverse_lazy("admin:user_blacklistedusername_changelist"),
-                        "permission": lambda request: request.user.has_perm("user.view_blacklistedusername"),
-                    },
-                    {
-                        "title": "Инвайт-токены",
-                        "icon": "redeem",
-                        "link": reverse_lazy("admin:user_invitetoken_changelist"),
-                        "permission": lambda request: request.user.has_perm("user.view_invitetoken"),
-                    }
-                ],
-            },
-            {
-                "title": "Приложения",
-                "separator": True,
-                "items": [
-                    {
-                        "title": "Приложения",
-                        "icon": "apps",
-                        "link": reverse_lazy("admin:marketplace_application_changelist"),
-                        "permission": lambda request: request.user.has_perm("marketplace.view_application"),
-                    },
-                    {
-                        "title": "Категории",
-                        "icon": "category",
-                        "link": reverse_lazy("admin:marketplace_category_changelist"),
-                        "permission": lambda request: request.user.has_perm("marketplace.view_category"),
-                    },
-                    {
-                        "title": "Бейджики",
-                        "icon": "local_police",
-                        "link": reverse_lazy("admin:marketplace_badge_changelist"),
-                        "permission": lambda request: request.user.has_perm("marketplace.view_badge"),
-                    },
-                    {
-                        "title": "Дистрибуции",
-                        "icon": "app_registration",
-                        "link": reverse_lazy("admin:marketplace_distribution_changelist"),
-                        "permission": lambda request: request.user.has_perm("marketplace.view_distribution"),
-                    },
-                    {
-                        "title": "Жалобы на приложения",
-                        "icon": "report",
-                        "link": reverse_lazy("admin:marketplace_appreportrequests_changelist"),
-                        "permission": lambda request: request.user.has_perm("marketplace.view_appreportrequests"),
-                    },
-                    {
-                        "title": "Жалобы на проблемы",
-                        "icon": "flag",
-                        "link": reverse_lazy("admin:marketplace_problemreportrequests_changelist"),
-                        "permission": lambda request: request.user.has_perm("marketplace.view_problemreportrequests"),
-                    },
 
-                ],
-            },
-            {
-                "title": "Заявки",
-                "separator": True,
-                "items": [
-                    {
-                        "title": "Создание приложения",
-                        "icon": "apps",
-                        "link": reverse_lazy("admin:marketplace_appcreaterequests_changelist"),
-                        "permission": lambda request: request.user.has_perm("marketplace.view_appcreaterequests"),
+# customize unfold theme
+UNFOLD = {"SITE_TITLE": "Панель LunaStore",
+          "SITE_HEADER": "LunaStore",
+          "SITE_SUBHEADER": "админ-панель",
+          "SITE_URL": "/",
+          "SITE_ICON": {"light": lambda request: static("img/logo.png"),
+                        "dark": lambda request: static("img/logo.png"),
+                        },
+          "SITE_SYMBOL": "speed",
+          "SITE_FAVICONS": [{"rel": "icon",
+                             "sizes": "32x32",
+                             "type": "image/svg+xml",
+                             "href": lambda request: static("favicon.ico"),
+                             },
+                            ],
+          "LOGIN": {"image": lambda request: static("img/ap_bg_lunastore.png"),
                     },
-                    {
-                        "title": "Изменение приложения",
-                        "icon": "edit",
-                        "link": reverse_lazy("admin:marketplace_appeditrequests_changelist"),
-                        "permission": lambda request: request.user.has_perm("marketplace.view_appeditrequests"),
+          "SHOW_HISTORY": True,
+          "BORDER_RADIUS": "8px",
+          "DASHBOARD_CALLBACK": "apps.core.dashboard.callback",
+          "SHOW_VIEW_ON_SITE": True,
+          "SHOW_BACK_BUTTON": False,
+          "COLORS": {"base": {"50": "#f8fafc",
+                              "100": "#f1f5f9",
+                              "200": "#e2e8f0",
+                              "300": "#cbd5e1",
+                              "400": "#94a3b8",
+                              "500": "#64748b",
+                              "600": "#475569",
+                              "700": "#334155",
+                              "800": "#1e293b",
+                              "900": "#0f172a",
+                              "950": "#020617",
+                              },
+                     "primary": {"50": "#eef2ff",
+                                 "100": "#e0e7ff",
+                                 "200": "#c7d2fe",
+                                 "300": "#a5b4fc",
+                                 "400": "#818cf8",
+                                 "500": "#6366f1",
+                                 "600": "#4f46e5",
+                                 "700": "#4338ca",
+                                 "800": "#3730a3",
+                                 "900": "#312e81",
+                                 "950": "#1e1b4b",
+                                 },
+                     "font": {"subtle-light": "var(--color-base-500)",
+                              "subtle-dark": "var(--color-base-400)",
+                              "default-light": "var(--color-base-600)",
+                              "default-dark": "var(--color-base-300)",
+                              "important-light": "var(--color-base-900)",
+                              "important-dark": "var(--color-base-100)",
+                              },
+                     },
+          "STYLES": [lambda request: static("css/admin_custom.css"),
+                     ],
+          "ENVIRONMENT": "lunastore.settings.custom_environment_callback",
+          "EXTENSIONS": {"modeltranslation": {"flags": {"en": " ( 🇺🇸 )",
+                                                        "ru": " ( 🇷🇺 )",
+                                                        "be": " ( 🇧🇾 )",
+                                                        "uk": " ( 🇺🇦 )",
+                                                        },
+                                              },
+                         },
+          "TABS": [{"models": ["terms.legaldocument",
+                               "core.banner",
+                               "user.user",
+                               "user.userban",
+                               "auth.group",
+                               "user.blacklistedusername",
+                               "user.invitetoken",
+                               ],
+                    "items": [{"title": "Документы и Баннеры",
+                               "link": reverse_lazy("admin:terms_legaldocument_changelist"),
+                               "icon": "description",
+                               },
+                              {"title": "Аккаунты",
+                               "link": reverse_lazy("admin:user_user_changelist"),
+                               "icon": "people",
+                               },
+                              ],
                     },
-                    {
-                        "title": "Статус разработчика",
-                        "icon": "computer",
-                        "link": reverse_lazy("admin:user_devrequestsmodel_changelist"),
-                        "permission": lambda request: request.user.has_perm("user.view_devrequestsmodel"),
+                   {"models": ["marketplace.application",
+                               "marketplace.category",
+                               "marketplace.distribution",
+                               "marketplace.badge",
+                               "marketplace.appreportrequests",
+                               "marketplace.problemreportrequests",
+                               "marketplace.appeditrequests",
+                               "user.devrequestsmodel",
+                               ],
+                    "items": [{"title": "Приложения",
+                               "link": reverse_lazy("admin:marketplace_application_changelist"),
+                               "icon": "apps",
+                               },
+                              {"title": "Заявки",
+                               "link": reverse_lazy("admin:marketplace_appeditrequests_changelist"),
+                               "icon": "assignment",
+                               },
+                              ],
                     },
-                    {
-                        "title": "Создание дистрибуции",
-                        "icon": "publish",
-                        "link": reverse_lazy("admin:marketplace_distributioncreaterequests_changelist"),
-                        "permission": lambda request: request.user.has_perm("marketplace.view_distributioncreaterequests"),
-                    },
-                    {
-                        "title": "Редактирование дистрибуции",
-                        "icon": "edit",
-                        "link": reverse_lazy("admin:marketplace_distributioneditrequests_changelist"),
-                        "permission": lambda request: request.user.has_perm("marketplace.view_distributioneditrequests"),
-                    },
-                ],
-            },
-            {
-                "title": "Управление",
-                "separator": True,
-                "items": [
-                    {
-                        "title": "Настройки сайта",
-                        "icon": "settings",
-                        "link": reverse_lazy("admin:constance_config_changelist"),
-                        "permission": lambda request: request.user.has_perm("constance.change_config"),
-                    },
-                    {
-                        "title": "Рассылка уведомлений",
-                        "icon": "breaking_news",
-                        "link": reverse_lazy("broadcast"),
-                        "permission": lambda request: request.user.is_superuser,
-                    },
-                    {
-                        "title": "Логи",
-                        "icon": "history",
-                        "link": reverse_lazy("admin:admin_logentry_changelist"),
-                        "permission": lambda request: request.user.has_perm("admin.view_logentry"),
-                    }
-                ],
-            }
-        ],
-    },
-}
+                   ],
+          "SIDEBAR": {"show_search": False,
+                      "show_all_applications": False,
+                      "navigation": [{"title": "Внутренняя часть",
+                                      "separator": False,
+                                      "items": [{"title": "Юридические документы",
+                                                 "icon": "description",
+                                                 "link": reverse_lazy("admin:terms_legaldocument_changelist"),
+                                                 "permission": lambda request: request.user.has_perm("terms.view_legaldocument"),
+                                                 },
+                                                {"title": "Баннера",
+                                                 "icon": "image",
+                                                 "link": reverse_lazy("admin:core_banner_changelist"),
+                                                 "permission": lambda request: request.user.has_perm("core.view_banner"),
+                                                 }],
+                                      },
+                                     {"title": "Аккаунт",
+                                      "separator": True,
+                                      "items": [{"title": "Пользователи",
+                                                 "icon": "group",
+                                                 "link": reverse_lazy("admin:user_user_changelist"),
+                                                 "permission": lambda request: request.user.has_perm("user.view_user"),
+                                                 },
+                                                {"title": "Блокировки",
+                                                 "icon": "gavel",
+                                                 "link": reverse_lazy("admin:user_userban_changelist"),
+                                                 "permission": lambda request: request.user.has_perm("user.view_userban"),
+                                                 },
+                                                {"title": "Группы",
+                                                 "icon": "group",
+                                                 "link": reverse_lazy("admin:auth_group_changelist"),
+                                                 "permission": lambda request: request.user.has_perm("auth.view_group"),
+                                                 },
+                                                {"title": "Черный список никнеймов",
+                                                 "icon": "person_cancel",
+                                                 "link": reverse_lazy("admin:user_blacklistedusername_changelist"),
+                                                 "permission": lambda request: request.user.has_perm("user.view_blacklistedusername"),
+                                                 },
+                                                {"title": "Инвайт-токены",
+                                                 "icon": "redeem",
+                                                 "link": reverse_lazy("admin:user_invitetoken_changelist"),
+                                                 "permission": lambda request: request.user.has_perm("user.view_invitetoken"),
+                                                 }],
+                                      },
+                                     {"title": "Приложения",
+                                      "separator": True,
+                                      "items": [{"title": "Приложения",
+                                                 "icon": "apps",
+                                                 "link": reverse_lazy("admin:marketplace_application_changelist"),
+                                                 "permission": lambda request: request.user.has_perm("marketplace.view_application"),
+                                                 },
+                                                {"title": "Категории",
+                                                 "icon": "category",
+                                                 "link": reverse_lazy("admin:marketplace_category_changelist"),
+                                                 "permission": lambda request: request.user.has_perm("marketplace.view_category"),
+                                                 },
+                                                {"title": "Бейджики",
+                                                 "icon": "local_police",
+                                                 "link": reverse_lazy("admin:marketplace_badge_changelist"),
+                                                 "permission": lambda request: request.user.has_perm("marketplace.view_badge"),
+                                                 },
+                                                {"title": "Дистрибуции",
+                                                 "icon": "app_registration",
+                                                 "link": reverse_lazy("admin:marketplace_distribution_changelist"),
+                                                 "permission": lambda request: request.user.has_perm("marketplace.view_distribution"),
+                                                 },
+                                                {"title": "Жалобы на приложения",
+                                                 "icon": "report",
+                                                 "link": reverse_lazy("admin:marketplace_appreportrequests_changelist"),
+                                                 "permission": lambda request: request.user.has_perm("marketplace.view_appreportrequests"),
+                                                 },
+                                                {"title": "Жалобы на проблемы",
+                                                 "icon": "flag",
+                                                 "link": reverse_lazy("admin:marketplace_problemreportrequests_changelist"),
+                                                 "permission": lambda request: request.user.has_perm("marketplace.view_problemreportrequests"),
+                                                 },
+                                                ],
+                                      },
+                                     {"title": "Заявки",
+                                      "separator": True,
+                                      "items": [{"title": "Создание приложения",
+                                                 "icon": "apps",
+                                                 "link": reverse_lazy("admin:marketplace_appcreaterequests_changelist"),
+                                                 "permission": lambda request: request.user.has_perm("marketplace.view_appcreaterequests"),
+                                                 },
+                                                {"title": "Изменение приложения",
+                                                 "icon": "edit",
+                                                 "link": reverse_lazy("admin:marketplace_appeditrequests_changelist"),
+                                                 "permission": lambda request: request.user.has_perm("marketplace.view_appeditrequests"),
+                                                 },
+                                                {"title": "Статус разработчика",
+                                                 "icon": "computer",
+                                                 "link": reverse_lazy("admin:user_devrequestsmodel_changelist"),
+                                                 "permission": lambda request: request.user.has_perm("user.view_devrequestsmodel"),
+                                                 },
+                                                {"title": "Создание дистрибуции",
+                                                 "icon": "publish",
+                                                 "link": reverse_lazy("admin:marketplace_distributioncreaterequests_changelist"),
+                                                 "permission": lambda request: request.user.has_perm("marketplace.view_distributioncreaterequests"),
+                                                 },
+                                                {"title": "Редактирование дистрибуции",
+                                                 "icon": "edit",
+                                                 "link": reverse_lazy("admin:marketplace_distributioneditrequests_changelist"),
+                                                 "permission": lambda request: request.user.has_perm("marketplace.view_distributioneditrequests"),
+                                                 },
+                                                ],
+                                      },
+                                     {"title": "Управление",
+                                      "separator": True,
+                                      "items": [{"title": "Настройки сайта",
+                                                 "icon": "settings",
+                                                 "link": reverse_lazy("admin:constance_config_changelist"),
+                                                 "permission": lambda request: request.user.has_perm("constance.change_config"),
+                                                 },
+                                                {"title": "Рассылка уведомлений",
+                                                 "icon": "breaking_news",
+                                                 "link": reverse_lazy("broadcast"),
+                                                 "permission": lambda request: request.user.is_superuser,
+                                                 },
+                                                {"title": "Логи",
+                                                 "icon": "history",
+                                                 "link": reverse_lazy("admin:admin_logentry_changelist"),
+                                                 "permission": lambda request: request.user.has_perm("admin.view_logentry"),
+                                                 }],
+                                      }],
+                      },
+          }
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
@@ -1084,11 +1030,12 @@ PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.ScryptPasswordHasher",
 ]
 
-BCRYPT_ROUNDS = os.getenv(
-    "BCRYPT_ROUNDS", 12
-)  # default number of rounds in bcrypt ¯\_(ツ)_/¯; if you want, you can change this number
+# default number of rounds in bcrypt ¯\_(ツ)_/¯; if you want, you can
+# change this number
+BCRYPT_ROUNDS = os.getenv("BCRYPT_ROUNDS", 12)
 
-# name of custom user model; please do not change this unless you know what you are doing
+# name of custom user model; please do not change this unless you know
+# what you are doing
 AUTH_USER_MODEL = "user.User"
 
 # business settings moved to django-constance (CONSTANCE_CONFIG)
@@ -1119,7 +1066,7 @@ LOGGING = {
             "level": "DEBUG",
             "class": "logging.handlers.RotatingFileHandler",
             "filename": "debug.log",
-            "maxBytes": 15 * 1024 * 1024, # 15 MB
+            "maxBytes": 15 * 1024 * 1024,  # 15 MB
             "backupCount": 5,
             "formatter": "verbose",
         },
@@ -1185,4 +1132,3 @@ if "test" in sys.argv:
     CONSTANCE_BACKEND = "constance.backends.memory.MemoryBackend"
 
 PASSWORD_RESET_TIMEOUT = 3600
-

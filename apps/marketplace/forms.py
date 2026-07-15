@@ -28,6 +28,7 @@ from apps.core.mixins import CDNTokenValidationMixin
 
 _TRANS_FIELDS = ["title", "slogan", "description", "requirements", "changelog"]
 
+
 def get_translated_fields_list(base_fields):
     expanded = []
     for field in base_fields:
@@ -38,6 +39,7 @@ def get_translated_fields_list(base_fields):
             expanded.append(field)
     return expanded
 
+
 def get_translated_widgets_dict(base_widgets_configs):
     widgets = {}
     for field, widget in base_widgets_configs.items():
@@ -47,6 +49,7 @@ def get_translated_widgets_dict(base_widgets_configs):
         else:
             widgets[field] = widget
     return widgets
+
 
 class MultipleFileInput(forms.ClearableFileInput):
     allow_multiple_selected = True
@@ -77,20 +80,25 @@ class AppScreenshotForm(TranslationModelForm):
         ]
         widgets = {
             "title": forms.TextInput(
-                attrs={"class": "input-text", "style": "width: 100%;"}
-            ),
+                attrs={
+                    "class": "input-text",
+                    "style": "width: 100%;"}),
             "slogan": forms.Textarea(
-                attrs={"class": "brief_intro", "rows": 3, "style": "resize: none;"}
-            ),
+                attrs={
+                    "class": "brief_intro",
+                    "rows": 3,
+                    "style": "resize: none;"}),
             "description": forms.Textarea(
-                attrs={"class": "brief_intro", "style": "height: 150px;"}
-            ),
+                attrs={
+                    "class": "brief_intro",
+                    "style": "height: 150px;"}),
             "requirements": forms.Textarea(
-                attrs={"class": "brief_intro", "style": "height: 150px;"}
-            ),
+                attrs={
+                    "class": "brief_intro",
+                    "style": "height: 150px;"}),
             "original_author": forms.TextInput(
-                attrs={"class": "input-text"}
-            ),
+                attrs={
+                    "class": "input-text"}),
         }
 
     def __init__(self, *args, **kwargs):
@@ -98,7 +106,8 @@ class AppScreenshotForm(TranslationModelForm):
 
         if 'categories' in self.fields:
             from .models import Category
-            self.fields['categories'].queryset = Category.objects.filter(is_admin_only=False)
+            self.fields['categories'].queryset = Category.objects.filter(
+                is_admin_only=False)
 
         # check existing screenshots
         if self.instance and self.instance.pk:
@@ -126,7 +135,8 @@ class AppScreenshotForm(TranslationModelForm):
 
     def save(self, commit=True):
         app_instance = super().save(commit=False)
-        destination_dir = os.path.join(settings.MEDIA_ROOT, "ugc", "screenshots")
+        destination_dir = os.path.join(
+            settings.MEDIA_ROOT, "ugc", "screenshots")
         os.makedirs(destination_dir, exist_ok=True)
 
         # put current screenshots in a list
@@ -151,7 +161,8 @@ class AppScreenshotForm(TranslationModelForm):
             # if user wants to clear the screenshot
             if self.cleaned_data.get(clear_field_name):
                 if path_to_delete := final_paths[path_index]:
-                    full_path = os.path.join(settings.MEDIA_ROOT, path_to_delete)
+                    full_path = os.path.join(
+                        settings.MEDIA_ROOT, path_to_delete)
                     if os.path.exists(full_path):
                         os.remove(full_path)
                 final_paths[path_index] = None  # <-- change to None
@@ -189,6 +200,7 @@ class AppScreenshotForm(TranslationModelForm):
 
         return app_instance
 
+
 # module-level field registration: use os.getenv() because constance
 # backend may not be available yet during import
 _SCREENSHOT_COUNT_DEFAULT = int(os.getenv("SCREENSHOT_COUNT", "3"))
@@ -197,8 +209,7 @@ for i in range(1, _SCREENSHOT_COUNT_DEFAULT + 1):
         required=False, label=f"Скриншот {i}"
     )
     AppScreenshotForm.declared_fields[f"clear_screenshot_{i}"] = forms.BooleanField(
-        required=False, label="Удалить"
-    )
+        required=False, label="Удалить")
 
 
 class AppCreateForm(forms.ModelForm, CDNTokenValidationMixin):
@@ -228,11 +239,14 @@ class AppCreateForm(forms.ModelForm, CDNTokenValidationMixin):
         required=False,
     )
 
-    cdn_icon_confirm_token = forms.CharField(widget=forms.HiddenInput(), required=False)
-    cdn_screenshots_tokens = forms.CharField(widget=forms.HiddenInput(), required=False)
+    cdn_icon_confirm_token = forms.CharField(
+        widget=forms.HiddenInput(), required=False)
+    cdn_screenshots_tokens = forms.CharField(
+        widget=forms.HiddenInput(), required=False)
 
     cdn_icon_path = forms.CharField(widget=forms.HiddenInput(), required=False)
-    cdn_screenshots_data = forms.CharField(widget=forms.HiddenInput(), required=False)
+    cdn_screenshots_data = forms.CharField(
+        widget=forms.HiddenInput(), required=False)
 
     agree_with_site_rules = forms.BooleanField(
         required=True,
@@ -245,23 +259,62 @@ class AppCreateForm(forms.ModelForm, CDNTokenValidationMixin):
     class Meta:
         model = AppCreateRequests
         _base_names = [
-            "categories", "title", "slogan", "original_author",
-            "developer_site", "description", "requirements", "is_demo", "price", "is_private", "allow_reviews"
-        ]
+            "categories",
+            "title",
+            "slogan",
+            "original_author",
+            "developer_site",
+            "description",
+            "requirements",
+            "is_demo",
+            "price",
+            "is_private",
+            "allow_reviews"]
         fields = get_translated_fields_list(_base_names)
-        widgets = get_translated_widgets_dict({
-                    "categories": forms.SelectMultiple(attrs={"class": "input-text", "style": "width: 100%;"}),
-                    "title": forms.TextInput(attrs={"class": "input-text"}),
-                    "slogan": forms.Textarea(attrs={"class": "brief_intro", "rows": 3, "style": "resize: none;"}),
-                    "developer_site": forms.TextInput(attrs={"id": "inp_site", "class": "input-text"}),
-                    "description": forms.Textarea(attrs={"class": "brief_intro", "style": "height: 150px; resize: none;"}),
-                    "requirements": forms.Textarea(attrs={"class": "brief_intro", "style": "height: 150px; resize: none;"}),
-                    "original_author": forms.TextInput(attrs={"class": "input-text"}),
-                    "is_demo": forms.CheckboxInput(attrs={"class": "checkbox_item", "style": "margin: 0; padding: 0; vertical-align: middle;"}),
-                    "price": forms.NumberInput(attrs={"class": "input-text", "step": "0.01", "min": "0"}),
-                    "is_private": forms.CheckboxInput(attrs={"class": "checkbox-element"}),
-                    "allow_reviews": forms.CheckboxInput(attrs={"class": "checkbox-element"})
-                })
+        widgets = get_translated_widgets_dict(
+            {
+                "categories": forms.SelectMultiple(
+                    attrs={
+                        "class": "input-text",
+                        "style": "width: 100%;"}),
+                "title": forms.TextInput(
+                    attrs={
+                        "class": "input-text"}),
+                "slogan": forms.Textarea(
+                    attrs={
+                        "class": "brief_intro",
+                        "rows": 3,
+                        "style": "resize: none;"}),
+                "developer_site": forms.TextInput(
+                    attrs={
+                        "id": "inp_site",
+                        "class": "input-text"}),
+                "description": forms.Textarea(
+                    attrs={
+                        "class": "brief_intro",
+                        "style": "height: 150px; resize: none;"}),
+                "requirements": forms.Textarea(
+                    attrs={
+                        "class": "brief_intro",
+                        "style": "height: 150px; resize: none;"}),
+                "original_author": forms.TextInput(
+                    attrs={
+                        "class": "input-text"}),
+                "is_demo": forms.CheckboxInput(
+                    attrs={
+                        "class": "checkbox_item",
+                        "style": "margin: 0; padding: 0; vertical-align: middle;"}),
+                "price": forms.NumberInput(
+                    attrs={
+                        "class": "input-text",
+                        "step": "0.01",
+                        "min": "0"}),
+                "is_private": forms.CheckboxInput(
+                    attrs={
+                        "class": "checkbox-element"}),
+                "allow_reviews": forms.CheckboxInput(
+                    attrs={
+                        "class": "checkbox-element"})})
 
     def clean(self):
         cleaned_data = super().clean()
@@ -271,8 +324,10 @@ class AppCreateForm(forms.ModelForm, CDNTokenValidationMixin):
         if icon_token:
             decoded = self.validate_cdn_token(icon_token)
             # request path (path) because it's an image
-            info = self.get_cdn_file_info(decoded.get("file_id"), fields="path")
-            cleaned_data["cdn_icon_path"] = info.get("path") # now path is validated
+            info = self.get_cdn_file_info(
+                decoded.get("file_id"), fields="path")
+            cleaned_data["cdn_icon_path"] = info.get(
+                "path")  # now path is validated
 
         # validate screenshots tokens
         scr_tokens_json = cleaned_data.get("cdn_screenshots_tokens")
@@ -282,13 +337,15 @@ class AppCreateForm(forms.ModelForm, CDNTokenValidationMixin):
                 safe_paths = []
                 for token in token_list:
                     decoded = self.validate_cdn_token(token)
-                    info = self.get_cdn_file_info(decoded.get("file_id"), fields="path")
+                    info = self.get_cdn_file_info(
+                        decoded.get("file_id"), fields="path")
                     if info.get("path"):
                         safe_paths.append(info.get("path"))
 
                 cleaned_data["cdn_screenshots_data"] = safe_paths
             except (json.JSONDecodeError, ValidationError):
-                raise ValidationError(_("ERROR_CDN_CHECKSUM_MISMATCH_SCREENSHOTS"))
+                raise ValidationError(
+                    _("ERROR_CDN_CHECKSUM_MISMATCH_SCREENSHOTS"))
 
         return cleaned_data
 
@@ -315,7 +372,12 @@ class AppCreateForm(forms.ModelForm, CDNTokenValidationMixin):
         return app_instance
 
     def get_trans_fields(self):
-        flags = {'ru': '🇷🇺 RU', 'en': '🇬🇧 EN', 'be': '🇧🇾 BE', 'uk': '🇺🇦 UK', 'kk': '🇰🇿 KK'}
+        flags = {
+            'ru': '🇷🇺 RU',
+            'en': '🇬🇧 EN',
+            'be': '🇧🇾 BE',
+            'uk': '🇺🇦 UK',
+            'kk': '🇰🇿 KK'}
         data = {}
         for field_name in _TRANS_FIELDS:
             data[field_name] = []
@@ -335,7 +397,8 @@ class AppCreateForm(forms.ModelForm, CDNTokenValidationMixin):
 
         if 'categories' in self.fields:
             from .models import Category
-            self.fields['categories'].queryset = Category.objects.filter(is_admin_only=False)
+            self.fields['categories'].queryset = Category.objects.filter(
+                is_admin_only=False)
 
 
 class AppEditForm(AppCreateForm):
@@ -365,7 +428,8 @@ class AppEditForm(AppCreateForm):
         required=False,
     )
     cdn_icon_path = forms.CharField(widget=forms.HiddenInput(), required=False)
-    cdn_screenshots_data = forms.CharField(widget=forms.HiddenInput(), required=False)
+    cdn_screenshots_data = forms.CharField(
+        widget=forms.HiddenInput(), required=False)
 
     class Meta(AppCreateForm.Meta):
         model = AppEditRequests
@@ -384,30 +448,33 @@ class AppEditForm(AppCreateForm):
     def clean(self):
         # read the raw submitted value before the parent overwrites it
         original_json = self.data.get("cdn_screenshots_data")
-        print("DEBUG: cdn_screenshots_data is:", repr(original_json), "all data:", self.data.keys())
+        print(
+            "DEBUG: cdn_screenshots_data is:",
+            repr(original_json),
+            "all data:",
+            self.data.keys())
 
-        
         cleaned_data = super().clean()
-        
+
         if original_json and hasattr(self, "target_app"):
             try:
                 original_paths = json.loads(original_json)
-                
+
                 safe_new_paths = cleaned_data.get("cdn_screenshots_data", [])
                 if not isinstance(safe_new_paths, list):
                     safe_new_paths = []
-                
+
                 final_paths = []
                 for p in original_paths:
                     if self.target_app.screenshots and p in self.target_app.screenshots:
                         final_paths.append(p)
                     elif p in safe_new_paths:
                         final_paths.append(p)
-                
+
                 cleaned_data["cdn_screenshots_data"] = final_paths
             except (json.JSONDecodeError, TypeError):
                 pass
-                
+
         return cleaned_data
 
     def save(self, commit=True):
@@ -451,6 +518,7 @@ class AppReportForm(forms.ModelForm):
             "name": "whois",
         }
 
+
 class ProblemReportForm(forms.ModelForm):
     class Meta:
         model = ProblemReportRequests
@@ -463,6 +531,7 @@ class ProblemReportForm(forms.ModelForm):
             "name": "whois",
         }
 
+
 class ApplicationAdminForm(forms.ModelForm, CDNTokenValidationMixin):
     icon_file = forms.ImageField(
         label=_("ACTION_CHOOSE_ICON"),
@@ -474,9 +543,12 @@ class ApplicationAdminForm(forms.ModelForm, CDNTokenValidationMixin):
     )
 
     cdn_icon_path = forms.CharField(widget=forms.HiddenInput(), required=False)
-    cdn_screenshots_data = forms.CharField(widget=forms.HiddenInput(), required=False)
-    cdn_icon_confirm_token = forms.CharField(widget=forms.HiddenInput(), required=False)
-    cdn_screenshots_tokens = forms.CharField(widget=forms.HiddenInput(), required=False)
+    cdn_screenshots_data = forms.CharField(
+        widget=forms.HiddenInput(), required=False)
+    cdn_icon_confirm_token = forms.CharField(
+        widget=forms.HiddenInput(), required=False)
+    cdn_screenshots_tokens = forms.CharField(
+        widget=forms.HiddenInput(), required=False)
 
     class Meta:
         model = Application
@@ -497,9 +569,9 @@ class ApplicationAdminForm(forms.ModelForm, CDNTokenValidationMixin):
                     new_scr = json.loads(scr_data)
                 except (json.JSONDecodeError, TypeError):
                     new_scr = []
-                    
+
             new_scr = [p for p in new_scr if p]
-            
+
             if new_scr:
                 if isinstance(app_instance.screenshots, list):
                     app_instance.screenshots.extend(new_scr)
@@ -517,7 +589,8 @@ class ApplicationAdminForm(forms.ModelForm, CDNTokenValidationMixin):
         icon_token = cleaned_data.get("cdn_icon_confirm_token")
         if icon_token:
             decoded = self.validate_cdn_token(icon_token)
-            info = self.get_cdn_file_info(decoded.get("file_id"), fields="path")
+            info = self.get_cdn_file_info(
+                decoded.get("file_id"), fields="path")
             cleaned_data["cdn_icon_path"] = info.get("path")
 
         # validate screenshots tokens
@@ -528,7 +601,8 @@ class ApplicationAdminForm(forms.ModelForm, CDNTokenValidationMixin):
                 safe_paths = []
                 for token in token_list:
                     decoded = self.validate_cdn_token(token)
-                    info = self.get_cdn_file_info(decoded.get("file_id"), fields="path")
+                    info = self.get_cdn_file_info(
+                        decoded.get("file_id"), fields="path")
                     if info.get("path"):
                         safe_paths.append(info.get("path"))
 
@@ -544,7 +618,8 @@ class DistributionAdminForm(forms.ModelForm):
         label="Файл дистрибуции (CDN)",
         required=False,
     )
-    cdn_confirm_token = forms.CharField(widget=forms.HiddenInput(), required=False)
+    cdn_confirm_token = forms.CharField(
+        widget=forms.HiddenInput(), required=False)
 
     class Meta:
         model = Distribution
@@ -569,15 +644,25 @@ ALLOWED_EXTENSIONS = ["exe", "zip", "rar", "7z"]
 
 
 class BaseDistributionForm(forms.ModelForm, CDNTokenValidationMixin):
-    cdn_confirm_token = forms.CharField(widget=forms.HiddenInput(), required=False)
-    url = forms.URLField(required=False, widget=forms.URLInput(attrs={"class": "input-text"}))
+    cdn_confirm_token = forms.CharField(
+        widget=forms.HiddenInput(), required=False)
+    url = forms.URLField(
+        required=False,
+        widget=forms.URLInput(
+            attrs={
+                "class": "input-text"}))
 
     # field for security
-    virustotal_url = forms.URLField(required=False, widget=forms.URLInput(attrs={"class": "input-text"}))
+    virustotal_url = forms.URLField(
+        required=False,
+        widget=forms.URLInput(
+            attrs={
+                "class": "input-text"}))
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
-        self.target_dist = kwargs.pop('target_dist', None)  # the target distribution for edit mode
+        # the target distribution for edit mode
+        self.target_dist = kwargs.pop('target_dist', None)
         super().__init__(*args, **kwargs)
 
     def clean(self):
@@ -586,7 +671,8 @@ class BaseDistributionForm(forms.ModelForm, CDNTokenValidationMixin):
         url = cleaned_data.get("url")
 
         # check if there's an existing file (for edit mode)
-        has_existing = self.target_dist and (self.target_dist.cdn_file_id or self.target_dist.url)
+        has_existing = self.target_dist and (
+            self.target_dist.cdn_file_id or self.target_dist.url)
 
         if not cdn_token and not url and not has_existing:
             raise ValidationError(_("ERROR_DIST_FORM_NO_FILE_OR_URL"))
@@ -617,7 +703,12 @@ class BaseDistributionForm(forms.ModelForm, CDNTokenValidationMixin):
         return cleaned_data
 
     def get_trans_fields(self):
-        flags = {'ru': '🇷🇺 RU', 'en': '🇬🇧 EN', 'be': '🇧🇾 BE', 'uk': '🇺🇦 UK', 'kk': '🇰🇿 KK'}
+        flags = {
+            'ru': '🇷🇺 RU',
+            'en': '🇬🇧 EN',
+            'be': '🇧🇾 BE',
+            'uk': '🇺🇦 UK',
+            'kk': '🇰🇿 KK'}
         data = {}
         fields_to_translate = ["changelog"]
 
@@ -646,11 +737,19 @@ class BaseDistributionForm(forms.ModelForm, CDNTokenValidationMixin):
 class DistributionCreateForm(BaseDistributionForm):
     class Meta:
         model = DistributionCreateRequests
-        fields = get_translated_fields_list(["version", "url", "changelog"]) + ["virustotal_url"]
-        widgets = get_translated_widgets_dict({
-            "version": forms.TextInput(attrs={"class": "input-text"}),
-            "changelog": forms.Textarea(attrs={"class": "brief_intro", "rows": 3, "style": "resize:none;"}),
-        })
+        fields = get_translated_fields_list(
+            ["version", "url", "changelog"]) + ["virustotal_url"]
+        widgets = get_translated_widgets_dict(
+            {
+                "version": forms.TextInput(
+                    attrs={
+                        "class": "input-text"}),
+                "changelog": forms.Textarea(
+                    attrs={
+                        "class": "brief_intro",
+                        "rows": 3,
+                        "style": "resize:none;"}),
+            })
 
     def save(self, commit=True):
         instance = super().save(commit=False)
@@ -668,11 +767,19 @@ class DistributionCreateForm(BaseDistributionForm):
 class DistributionEditForm(BaseDistributionForm):
     class Meta:
         model = DistributionEditRequests
-        fields = get_translated_fields_list(["version", "url", "changelog"]) + ["virustotal_url"]
-        widgets = get_translated_widgets_dict({
-            "version": forms.TextInput(attrs={"class": "input-text"}),
-            "changelog": forms.Textarea(attrs={"class": "brief_intro", "rows": 3, "style": "resize:none;"}),
-        })
+        fields = get_translated_fields_list(
+            ["version", "url", "changelog"]) + ["virustotal_url"]
+        widgets = get_translated_widgets_dict(
+            {
+                "version": forms.TextInput(
+                    attrs={
+                        "class": "input-text"}),
+                "changelog": forms.Textarea(
+                    attrs={
+                        "class": "brief_intro",
+                        "rows": 3,
+                        "style": "resize:none;"}),
+            })
 
     def save(self, commit=True):
         instance = super().save(commit=False)

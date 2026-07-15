@@ -39,9 +39,11 @@ class Command(BaseCommand):
         )
         self.stdout.write(
             self.style.WARNING(
-                f"Environment: {getattr(settings, 'SENTRY_ENVIRONMENT', 'unknown')}"
-            )
-        )
+                f"Environment: {
+                    getattr(
+                        settings,
+                        'SENTRY_ENVIRONMENT',
+                        'unknown')}"))
 
         # step 2: check if sentry sdk client is active
         client = sentry_sdk.get_client()

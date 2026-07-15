@@ -17,6 +17,9 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='distribution',
             name='cdn_file_id',
-            field=models.PositiveIntegerField(blank=True, null=True, verbose_name='ID файла в CDN'),
+            field=models.PositiveIntegerField(
+                blank=True,
+                null=True,
+                verbose_name='ID файла в CDN'),
         ),
     ]

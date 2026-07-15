@@ -21,7 +21,8 @@ def validate_username_blacklist(value):
     for item in blacklist:
         if item.is_regex:
             if re.search(item.word, low_value):
-                raise ValidationError(f"Nickname containce ban-pattern: {item.word}")
+                raise ValidationError(
+                    f"Nickname containce ban-pattern: {item.word}")
         elif item.word.lower() in low_value:
             raise ValidationError("Nickname containcs ban-word(-s)")
 

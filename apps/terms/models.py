@@ -1,7 +1,6 @@
 from django.db import models
 
 
-
 class LegalDocument(models.Model):
     LANGUAGE_CHOICES = (
         ("ru", "Русский"),

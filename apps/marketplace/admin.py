@@ -1,3 +1,5 @@
+from unfold.contrib.forms.widgets import UnfoldAdminTextInputWidget
+from unfold.widgets import UnfoldAdminColorInputWidget
 from django import forms
 from django.conf import settings
 from django.contrib import admin, messages
@@ -21,7 +23,8 @@ class DistributionInlineForm(forms.ModelForm):
         label="Файл дистрибуции (CDN)",
         required=False,
     )
-    cdn_confirm_token = forms.CharField(widget=forms.HiddenInput(), required=False)
+    cdn_confirm_token = forms.CharField(
+        widget=forms.HiddenInput(), required=False)
 
     class Meta:
         model = Distribution
@@ -50,10 +53,18 @@ class DistributionInlineForm(forms.ModelForm):
             instance.save()
         return instance
 
+
 class DistributionInline(TranslationStackedInline):
     model = Distribution
     form = DistributionInlineForm
-    fields = ("version", "dist_file", "cdn_confirm_token", "cdn_file_id", "url", "changelog", "published")
+    fields = (
+        "version",
+        "dist_file",
+        "cdn_confirm_token",
+        "cdn_file_id",
+        "url",
+        "changelog",
+        "published")
     readonly_fields = ("published",)
     extra = 0
 
@@ -90,26 +101,33 @@ class DistributionAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
     class Media:
         js = ("js/marketplace_cdn.js", "js/admin_inline_tabs.js")
 
-    def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
+    def render_change_form(
+            self,
+            request,
+            context,
+            add=False,
+            change=False,
+            form_url='',
+            obj=None):
         import json
-        context.update(
-            {
-                "cdn_config": json.dumps({
-                    "uploadUrl": f"{getattr(request, 'geo_domains', {}).get('SPIRE_URL', settings.LUNASPIRE_URL)}/cdn/upload",
-                    "tokenUrl": "/method/user/getPubUploadToken/",
-                    "privTokenUrl": "/method/user/getPrivUploadToken/",
-                    "appId": obj.app_id if obj else None,
-                }),
-                "luna_i18n": json.dumps({
-                    "uploading": "Загрузка в LunaSpire...",
-                    "error": "Ошибка: ",
-                    "retry": "Повторить",
-                    "tokenError": "Ошибка токена",
-                    "fileError": "Ошибка файла: ",
-                }),
-            }
-        )
-        return super().render_change_form(request, context, add=add, change=change, form_url=form_url, obj=obj)
+        context.update({"cdn_config": json.dumps({"uploadUrl": f"{getattr(request,
+                                                                          'geo_domains',
+                                                                          {}).get('SPIRE_URL',
+                                                                                  settings.LUNASPIRE_URL)}/cdn/upload",
+                                                  "tokenUrl": "/method/user/getPubUploadToken/",
+                                                  "privTokenUrl": "/method/user/getPrivUploadToken/",
+                                                  "appId": obj.app_id if obj else None,
+                                                  }),
+                        "luna_i18n": json.dumps({"uploading": "Загрузка в LunaSpire...",
+                                                 "error": "Ошибка: ",
+                                                 "retry": "Повторить",
+                                                 "tokenError": "Ошибка токена",
+                                                 "fileError": "Ошибка файла: ",
+                                                 }),
+                        })
+        return super().render_change_form(request, context, add=add,
+                                          change=change, form_url=form_url, obj=obj)
+
     def save_model(self, request, obj, form, change):
         file_id = form.cleaned_data.get("cdn_file_id")
         if file_id:
@@ -120,11 +138,14 @@ class DistributionAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
     def download_preview(self, obj):
         if obj.cdn_file_id:
             return format_html(
-                '<a href="/get_dist_file/{}" target="_blank">файл</a>', obj.cdn_file_id
-            )
+                '<a href="/get_dist_file/{}" target="_blank">файл</a>',
+                obj.cdn_file_id)
         if obj.url:
-            return format_html('<a href="{url}" target="_blank">{url}</a>', url=obj.url)
+            return format_html(
+                '<a href="{url}" target="_blank">{url}</a>',
+                url=obj.url)
         return "-"
+
 
 @admin.register(DistributionCreateRequests)
 class DistributionCreateAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
@@ -137,7 +158,15 @@ class DistributionCreateAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
     actions_detail = ["approve_request", "reject_request"]
     actions = ["approve_request", "reject_request"]
 
-    readonly_fields = ("app", "user", "status", "version", "cdn_file_id", "url", "changelog", "security_check")
+    readonly_fields = (
+        "app",
+        "user",
+        "status",
+        "version",
+        "cdn_file_id",
+        "url",
+        "changelog",
+        "security_check")
 
     fieldsets = (
         ("Информация о дистрибуции", {
@@ -155,7 +184,8 @@ class DistributionCreateAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
     @admin.display(description="Проверка хэша")
     def security_check(self, obj):
         if not obj.cdn_hash:
-            return mark_safe('<span class="text-gray-500 font-medium">Файл не загружался (только внешняя ссылка).</span>')
+            return mark_safe(
+                '<span class="text-gray-500 font-medium">Файл не загружался (только внешняя ссылка).</span>')
 
         # form link to VirusTotal report
         vt_link = format_html(
@@ -163,7 +193,8 @@ class DistributionCreateAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
             obj.virustotal_url, obj.virustotal_url
         ) if obj.virustotal_url else '<span class="text-red-600 font-bold">Ссылка не указана!</span>'
 
-        # unique IDs for HTML elements (in case there are multiple blocks on the page)
+        # unique IDs for HTML elements (in case there are multiple blocks on
+        # the page)
         input_id = f"vt_input_{obj.id}"
         result_id = f"vt_result_{obj.id}"
 
@@ -218,12 +249,14 @@ class DistributionCreateAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
 
         return mark_safe(html)
 
-    @action(description="Одобрить заявку", icon="check_circle", attrs={"class": "bg-success-600 text-white"})
+    @action(description="Одобрить заявку", icon="check_circle",
+            attrs={"class": "bg-success-600 text-white"})
     def approve_request(self, request, object_id):
         req = self.get_object(request, object_id)
         if req.status == "approved":
             self.message_user(request, "Уже одобрено", messages.WARNING)
-            return redirect(reverse("admin:marketplace_distributioncreaterequests_changelist"))
+            return redirect(
+                reverse("admin:marketplace_distributioncreaterequests_changelist"))
 
         dist = Distribution(
             app=req.app,
@@ -262,10 +295,15 @@ class DistributionCreateAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
         )
 
         req.delete(force_policy=HARD_DELETE)
-        self.message_user(request, "Дистрибуция успешно создана и опубликована!", messages.SUCCESS)
-        return redirect(reverse("admin:marketplace_distributioncreaterequests_changelist"))
+        self.message_user(
+            request,
+            "Дистрибуция успешно создана и опубликована!",
+            messages.SUCCESS)
+        return redirect(
+            reverse("admin:marketplace_distributioncreaterequests_changelist"))
 
-    @action(description="Отклонить заявку", icon="cancel", attrs={"class": "bg-error-600 text-white"})
+    @action(description="Отклонить заявку", icon="cancel",
+            attrs={"class": "bg-error-600 text-white"})
     def reject_request(self, request, object_id):
         req = self.get_object(request, object_id)
         reason = request.POST.get("reject_reason", "Нарушение правил площадки")
@@ -276,25 +314,50 @@ class DistributionCreateAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
             user_id=req.user.id,
             title_key="NOTIF_DISTREQ_DECLINED_TITLE",
             content_key="NOTIF_DISTREQ_DECLINED_DESCRIPTION",
-            context={"app_name": req.app.title, "version": req.version, "reason": reason},
-            meta={"icon": "help.png"}
-        )
+            context={
+                "app_name": req.app.title,
+                "version": req.version,
+                "reason": reason},
+            meta={
+                "icon": "help.png"})
         req.delete(force_policy=HARD_DELETE)
-        self.message_user(request, "Заявка на дистрибуцию отклонена", messages.INFO)
-        return redirect(reverse("admin:marketplace_distributioncreaterequests_changelist"))
+        self.message_user(
+            request,
+            "Заявка на дистрибуцию отклонена",
+            messages.INFO)
+        return redirect(
+            reverse("admin:marketplace_distributioncreaterequests_changelist"))
+
 
 @admin.register(DistributionEditRequests)
 class DistributionEditRequestAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
     change_list_template = "admin/decline_forms/change_list_custom.html"
     change_form_template = "admin/decline_forms/change_form_custom.html"
 
-    list_display = ("id", "target_distribution", "user", "status", "created_at")
-    search_fields = ("target_distribution__app__title", "version", "user__username")
+    list_display = (
+        "id",
+        "target_distribution",
+        "user",
+        "status",
+        "created_at")
+    search_fields = (
+        "target_distribution__app__title",
+        "version",
+        "user__username")
     list_filter = SafeDeleteAdmin.list_filter + ["status", "created_at"]
     actions_detail = ["approve_request", "reject_request"]
     actions = ["approve_request", "reject_request"]
 
-    readonly_fields = ("app", "target_distribution", "user", "status", "version", "cdn_file_id", "url", "changelog", "security_check")
+    readonly_fields = (
+        "app",
+        "target_distribution",
+        "user",
+        "status",
+        "version",
+        "cdn_file_id",
+        "url",
+        "changelog",
+        "security_check")
 
     fieldsets = (
         ("Информация об изменениях", {
@@ -312,7 +375,8 @@ class DistributionEditRequestAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
     @admin.display(description="Проверка хэша")
     def security_check(self, obj):
         if not obj.cdn_hash:
-            return mark_safe('<span class="text-gray-500 font-medium">Файл не загружался (только внешняя ссылка).</span>')
+            return mark_safe(
+                '<span class="text-gray-500 font-medium">Файл не загружался (только внешняя ссылка).</span>')
 
         # form link to VirusTotal report
         vt_link = format_html(
@@ -320,7 +384,8 @@ class DistributionEditRequestAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
             obj.virustotal_url, obj.virustotal_url
         ) if obj.virustotal_url else '<span class="text-red-600 font-bold">Ссылка не указана!</span>'
 
-        # unique IDs for HTML elements (in case there are multiple blocks on the page)
+        # unique IDs for HTML elements (in case there are multiple blocks on
+        # the page)
         input_id = f"vt_input_{obj.id}"
         result_id = f"vt_result_{obj.id}"
 
@@ -375,12 +440,14 @@ class DistributionEditRequestAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
 
         return mark_safe(html)
 
-    @action(description="Одобрить изменения", icon="check_circle", attrs={"class": "bg-success-600 text-white"})
+    @action(description="Одобрить изменения", icon="check_circle",
+            attrs={"class": "bg-success-600 text-white"})
     def approve_request(self, request, object_id):
         req = self.get_object(request, object_id)
         if req.status == "approved":
             self.message_user(request, "Уже одобрено", messages.WARNING)
-            return redirect(reverse("admin:marketplace_distributioneditrequests_changelist"))
+            return redirect(
+                reverse("admin:marketplace_distributioneditrequests_changelist"))
 
         dist = req.target_distribution
         dist.version = req.version
@@ -412,17 +479,22 @@ class DistributionEditRequestAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
         LogEntry.objects.create(
             user_id=request.user.id,
             content_type_id=ContentType.objects.get_for_model(req).pk,
-            object_id=str(req.id),
+            object_id=str(
+                req.id),
             object_repr=str(req),
             action_flag=CHANGE,
-            change_message="status approved: Одобрена заявка на изменение дистрибуции"
-        )
+            change_message="status approved: Одобрена заявка на изменение дистрибуции")
 
         req.delete(force_policy=HARD_DELETE)
-        self.message_user(request, "Изменения успешно применены к дистрибуции!", messages.SUCCESS)
-        return redirect(reverse("admin:marketplace_distributioneditrequests_changelist"))
+        self.message_user(
+            request,
+            "Изменения успешно применены к дистрибуции!",
+            messages.SUCCESS)
+        return redirect(
+            reverse("admin:marketplace_distributioneditrequests_changelist"))
 
-    @action(description="Отклонить изменения", icon="cancel", attrs={"class": "bg-error-600 text-white"})
+    @action(description="Отклонить изменения", icon="cancel",
+            attrs={"class": "bg-error-600 text-white"})
     def reject_request(self, request, object_id):
         req = self.get_object(request, object_id)
         reason = request.POST.get("reject_reason", "Нарушение правил площадки")
@@ -433,21 +505,22 @@ class DistributionEditRequestAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
             user_id=req.user.id,
             title_key="NOTIF_DISTEDITREQ_DECLINED_TITLE",
             content_key="NOTIF_DISTEDITREQ_DECLINED_DESCRIPTION",
-            context={"app_name": req.app.title, "version": req.version, "reason": reason},
-            meta={"icon": "help.png"}
-        )
+            context={
+                "app_name": req.app.title,
+                "version": req.version,
+                "reason": reason},
+            meta={
+                "icon": "help.png"})
         req.delete(force_policy=HARD_DELETE)
         self.message_user(request, "Правки отклонены", messages.INFO)
-        return redirect(reverse("admin:marketplace_distributioneditrequests_changelist"))
+        return redirect(
+            reverse("admin:marketplace_distributioneditrequests_changelist"))
 
 
 @admin.register(Category)
 class CategoryAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
     pass
 
-
-from unfold.widgets import UnfoldAdminColorInputWidget
-from unfold.contrib.forms.widgets import UnfoldAdminTextInputWidget
 
 class BadgeAdminForm(forms.ModelForm):
     class Meta:
@@ -461,10 +534,16 @@ class BadgeAdminForm(forms.ModelForm):
             'icon_text': UnfoldAdminTextInputWidget(),
         })
 
+
 @admin.register(Badge)
 class BadgeAdmin(unfold_admin.ModelAdmin, TabbedTranslationAdmin):
     form = BadgeAdminForm
-    list_display = ("name", "predefined_style", "bg_color", "text_color", "border_color")
+    list_display = (
+        "name",
+        "predefined_style",
+        "bg_color",
+        "text_color",
+        "border_color")
     list_filter = ("predefined_style",)
     search_fields = ("name",)
     fieldsets = (
@@ -480,7 +559,6 @@ class BadgeAdmin(unfold_admin.ModelAdmin, TabbedTranslationAdmin):
 
 @admin.register(Application)
 class ApplicationAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
-
 
     form = ApplicationAdminForm
     inlines = (DistributionInline,)
@@ -531,26 +609,33 @@ class ApplicationAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
     class Media:
         js = ("js/marketplace_cdn.js",)
 
-    def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
+    def render_change_form(
+            self,
+            request,
+            context,
+            add=False,
+            change=False,
+            form_url='',
+            obj=None):
         import json
-        context.update(
-            {
-                "cdn_config": json.dumps({
-                    "uploadUrl": f"{getattr(request, 'geo_domains', {}).get('SPIRE_URL', settings.LUNASPIRE_URL)}/cdn/upload",
-                    "tokenUrl": "/method/user/getPubUploadToken/",
-                    "privTokenUrl": "/method/user/getPrivUploadToken/",
-                    "appId": obj.id if obj else None,
-                }),
-                "luna_i18n": json.dumps({
-                    "uploading": "Загрузка в LunaSpire...",
-                    "error": "Ошибка: ",
-                    "retry": "Повторить",
-                    "tokenError": "Ошибка токена",
-                    "fileError": "Ошибка файла: ",
-                }),
-            }
-        )
-        return super().render_change_form(request, context, add=add, change=change, form_url=form_url, obj=obj)
+        context.update({"cdn_config": json.dumps({"uploadUrl": f"{getattr(request,
+                                                                          'geo_domains',
+                                                                          {}).get('SPIRE_URL',
+                                                                                  settings.LUNASPIRE_URL)}/cdn/upload",
+                                                  "tokenUrl": "/method/user/getPubUploadToken/",
+                                                  "privTokenUrl": "/method/user/getPrivUploadToken/",
+                                                  "appId": obj.id if obj else None,
+                                                  }),
+                        "luna_i18n": json.dumps({"uploading": "Загрузка в LunaSpire...",
+                                                 "error": "Ошибка: ",
+                                                 "retry": "Повторить",
+                                                 "tokenError": "Ошибка токена",
+                                                 "fileError": "Ошибка файла: ",
+                                                 }),
+                        })
+        return super().render_change_form(request, context, add=add,
+                                          change=change, form_url=form_url, obj=obj)
+
     def save_model(self, request, obj, form, change):
         if not obj.user_id:
             obj.user = request.user
@@ -574,7 +659,14 @@ class ApplicationAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
     def display_badges(self, obj):
         return ", ".join([b.name for b in obj.badges.all()])
 
-    list_display = ["title", "user", "display_categories", "display_badges", "is_demo", "is_under_dmca", "price"]
+    list_display = [
+        "title",
+        "user",
+        "display_categories",
+        "display_badges",
+        "is_demo",
+        "is_under_dmca",
+        "price"]
     list_editable = ["is_demo", "is_under_dmca"]
     list_filter = SafeDeleteAdmin.list_filter + ["is_demo", "is_under_dmca"]
     search_fields = ["title", "user__username"]
@@ -643,17 +735,21 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
 
     user_info_link.short_description = ""
 
-    @action(
-        description="Одобрить заявку", icon="check_circle", url_path="approve-request"
-    )
+    @action(description="Одобрить заявку",
+            icon="check_circle",
+            url_path="approve-request")
     def approve_request(self, request, object_id):
         req = self.get_object(request, object_id)
 
         if req.status == "approved":
-            self.message_user(request, "Эта заявка уже одобрена", messages.WARNING)
+            self.message_user(
+                request,
+                "Эта заявка уже одобрена",
+                messages.WARNING)
             return redirect(
-                reverse("admin:marketplace_appcreaterequests_change", args=[object_id])
-            )
+                reverse(
+                    "admin:marketplace_appcreaterequests_change",
+                    args=[object_id]))
 
         app = Application(
             user=req.user,
@@ -700,10 +796,14 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
         )
 
         req.delete()
-        self.message_user(request, "Приложение(-ия) успешно создано!", messages.SUCCESS)
+        self.message_user(
+            request,
+            "Приложение(-ия) успешно создано!",
+            messages.SUCCESS)
         return redirect(
-            reverse("admin:marketplace_appcreaterequests_change", args=[object_id])
-        )
+            reverse(
+                "admin:marketplace_appcreaterequests_change",
+                args=[object_id]))
 
     @action(
         description="Отклонить заявку",
@@ -725,38 +825,34 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
         req.delete()
         self.message_user(request, "Заявка отклонена", messages.INFO)
         return redirect(
-            reverse("admin:marketplace_appcreaterequests_change", args=[object_id])
-        )
+            reverse(
+                "admin:marketplace_appcreaterequests_change",
+                args=[object_id]))
 
-    fieldsets = (
-        (
-            "Основная информация по заявке",
-            {
-                "fields": (
-                    "user",
-                    "categories",
-                    "badges",
-                    "title",
-                    "slogan",
-                    "description",
-                    "price",
-                    "is_demo",
-                    "is_private",
-                    "icon_path",
-                    "screenshots",
-                    "developer_site",
-                ),
-                "description": "Информация, предоставленная пользователем в заявке на создание приложения",
-            },
-        ),
-        (
-            "Информация по объекту User (пользователю)",
-            {
-                "fields": ("user_info_link",),
-                "description": "Информация о пользователе, подавшем заявку",
-            },
-        ),
-    )
+    fieldsets = (("Основная информация по заявке",
+                  {"fields": ("user",
+                              "categories",
+                              "badges",
+                              "title",
+                              "slogan",
+                              "description",
+                              "price",
+                              "is_demo",
+                              "is_private",
+                              "icon_path",
+                              "screenshots",
+                              "developer_site",
+                              ),
+                   "description": "Информация, предоставленная пользователем в заявке на создание приложения",
+                   },
+                  ),
+                 ("Информация по объекту User (пользователю)",
+                  {"fields": ("user_info_link",
+                              ),
+                   "description": "Информация о пользователе, подавшем заявку",
+                   },
+                  ),
+                 )
 
 
 @admin.register(AppEditRequests)
@@ -844,10 +940,14 @@ class AppEditRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
         req = self.get_object(request, object_id)
 
         if req.status == "approved":
-            self.message_user(request, "Заявка уже была одобрена", messages.WARNING)
+            self.message_user(
+                request,
+                "Заявка уже была одобрена",
+                messages.WARNING)
             return redirect(
-                reverse("admin:marketplace_appeditrequests_change", args=[object_id])
-            )
+                reverse(
+                    "admin:marketplace_appeditrequests_change",
+                    args=[object_id]))
 
         app = req.target_application
         if not app:
@@ -857,8 +957,9 @@ class AppEditRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
                 messages.ERROR,
             )
             return redirect(
-                reverse("admin:marketplace_appeditrequests_change", args=[object_id])
-            )
+                reverse(
+                    "admin:marketplace_appeditrequests_change",
+                    args=[object_id]))
 
         app.categories.set(req.categories.all())
         app.badges.set(req.badges.all())
@@ -899,17 +1000,21 @@ class AppEditRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
         LogEntry.objects.create(
             user_id=request.user.id,
             content_type_id=ContentType.objects.get_for_model(req).pk,
-            object_id=str(req.id),
+            object_id=str(
+                req.id),
             object_repr=str(req),
             action_flag=CHANGE,
-            change_message="status approved: Одобрена заявка на изменение приложения"
-        )
+            change_message="status approved: Одобрена заявка на изменение приложения")
 
         req.delete()
-        self.message_user(request, "Приложение успешно обновлено!", messages.SUCCESS)
+        self.message_user(
+            request,
+            "Приложение успешно обновлено!",
+            messages.SUCCESS)
         return redirect(
-            reverse("admin:marketplace_appeditrequests_change", args=[object_id])
-        )
+            reverse(
+                "admin:marketplace_appeditrequests_change",
+                args=[object_id]))
 
     @action(
         description="Отклонить заявку",
@@ -931,43 +1036,44 @@ class AppEditRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
         req.delete()
         self.message_user(request, "Заявка отклонена", messages.INFO)
         return redirect(
-            reverse("admin:marketplace_appeditrequests_change", args=[object_id])
-        )
+            reverse(
+                "admin:marketplace_appeditrequests_change",
+                args=[object_id]))
 
-    fieldsets = (
-        (
-            "Основная информация по заявке",
-            {
-                "fields": (
-                    "user",
-                    "categories",
-                    "title",
-                    "slogan",
-                    "description",
-                    "original_author",
-                    "price",
-                    "is_demo",
-                    "is_private",
-                    "icon_path",
-                    "screenshots",
-                    "developer_site",
-                ),
-                "description": "Информация, предоставленная пользователем в заявке на изменение информации в приложении",
-            },
-        ),
-        (
-            "Информация по объекту User (пользователю)",
-            {
-                "fields": ("user_info_link",),
-                "description": "Информация о пользователе, подавшем заявку",
-            },
-        ),
-    )
+    fieldsets = (("Основная информация по заявке",
+                  {"fields": ("user",
+                              "categories",
+                              "title",
+                              "slogan",
+                              "description",
+                              "original_author",
+                              "price",
+                              "is_demo",
+                              "is_private",
+                              "icon_path",
+                              "screenshots",
+                              "developer_site",
+                              ),
+                   "description": "Информация, предоставленная пользователем в заявке на изменение информации в приложении",
+                   },
+                  ),
+                 ("Информация по объекту User (пользователю)",
+                  {"fields": ("user_info_link",
+                              ),
+                   "description": "Информация о пользователе, подавшем заявку",
+                   },
+                  ),
+                 )
 
 
 @admin.register(AppReportRequests)
 class AppReportRequestsAdmin(SafeDeleteAdmin):
-    list_display = ("id", "app_link", "user_link", "get_reason_display", "created_at")
+    list_display = (
+        "id",
+        "app_link",
+        "user_link",
+        "get_reason_display",
+        "created_at")
     list_filter = SafeDeleteAdmin.list_filter + ["id", "created_at", "reason"]
     actions_detail = ["resolve_report_detail", "dismiss_report_detail"]
     readonly_fields = (
@@ -983,12 +1089,14 @@ class AppReportRequestsAdmin(SafeDeleteAdmin):
     @action(description="Пометить как решенное и удалить", icon="done_all")
     def resolve_report_detail(self, request, object_id):
         self._delete_report(request, object_id, "Жалоба обработана и удалена")
-        return redirect(reverse("admin:marketplace_appreportrequests_changelist"))
+        return redirect(
+            reverse("admin:marketplace_appreportrequests_changelist"))
 
     @action(description="Ложная жалоба (удалить)", icon="close")
     def dismiss_report_detail(self, request, object_id):
         self._delete_report(request, object_id, "Запись удалена")
-        return redirect(reverse("admin:marketplace_appreportrequests_changelist"))
+        return redirect(
+            reverse("admin:marketplace_appreportrequests_changelist"))
 
     def _delete_report(self, request, object_id, message):
         obj = AppReportRequests.objects.filter(id=object_id).first()
@@ -997,12 +1105,17 @@ class AppReportRequestsAdmin(SafeDeleteAdmin):
             self.message_user(request, message, messages.SUCCESS)
 
     def _set_status(self, object_id, status_value):
-        AppReportRequests.objects.filter(id=object_id).update(status=status_value)
+        AppReportRequests.objects.filter(
+            id=object_id).update(
+            status=status_value)
 
     def app_link(self, obj):
         if not obj.app:
             return "---"
-        url = reverse("admin:marketplace_application_change", args=[obj.app.id])
+        url = reverse(
+            "admin:marketplace_application_change",
+            args=[
+                obj.app.id])
         return format_html(
             '<a href="{}" style="font-weight:bold; color: #3b82f6;">{}</a>',
             url,
@@ -1045,7 +1158,10 @@ class AppReportRequestsAdmin(SafeDeleteAdmin):
         if not obj.app:
             return "Приложение не найдено"
         icon_url = obj.app.icon_url
-        admin_url = reverse("admin:marketplace_application_change", args=[obj.app.id])
+        admin_url = reverse(
+            "admin:marketplace_application_change",
+            args=[
+                obj.app.id])
 
         return format_html(
             """
@@ -1072,36 +1188,33 @@ class AppReportRequestsAdmin(SafeDeleteAdmin):
 
     app_details_link.short_description = ""
 
-    fieldsets = (
-        (
-            "Статус и вердикт",
-            {
-                "fields": ("status",),
-                "description": "Текущее состояние обработки жалобы модератором.",
-            },
-        ),
-        (
-            "Суть жалобы",
-            {
-                "fields": ("reason", "description", "created_at"),
-                "description": "Информация, предоставленная пользователем при подаче репорта.",
-            },
-        ),
-        (
-            "Объект жалобы (Приложение)",
-            {
-                "fields": ("app_details_link",),
-                "description": "Сведения о приложении, на которое поступила жалоба.",
-            },
-        ),
-        (
-            "Информация об авторе жалобы",
-            {
-                "fields": ("user_info_link",),
-                "description": "Данные пользователя, отправившего этот репорт.",
-            },
-        ),
-    )
+    fieldsets = (("Статус и вердикт",
+                  {"fields": ("status",
+                              ),
+                   "description": "Текущее состояние обработки жалобы модератором.",
+                   },
+                  ),
+                 ("Суть жалобы",
+                  {"fields": ("reason",
+                              "description",
+                              "created_at"),
+                   "description": "Информация, предоставленная пользователем при подаче репорта.",
+                   },
+                  ),
+                 ("Объект жалобы (Приложение)",
+                  {"fields": ("app_details_link",
+                              ),
+                   "description": "Сведения о приложении, на которое поступила жалоба.",
+                   },
+                  ),
+                 ("Информация об авторе жалобы",
+                  {"fields": ("user_info_link",
+                              ),
+                   "description": "Данные пользователя, отправившего этот репорт.",
+                   },
+                  ),
+                 )
+
 
 @admin.register(ProblemReportRequests)
 class ProblemReportRequestsAdmin(SafeDeleteAdmin):
@@ -1118,12 +1231,14 @@ class ProblemReportRequestsAdmin(SafeDeleteAdmin):
     @action(description="Пометить как решенное и удалить", icon="done_all")
     def resolve_report_detail(self, request, object_id):
         self._delete_report(request, object_id, "Жалоба обработана и удалена")
-        return redirect(reverse("admin:marketplace_problemreportrequests_changelist"))
+        return redirect(
+            reverse("admin:marketplace_problemreportrequests_changelist"))
 
     @action(description="Ложная жалоба (удалить)", icon="close")
     def dismiss_report_detail(self, request, object_id):
         self._delete_report(request, object_id, "Запись удалена")
-        return redirect(reverse("admin:marketplace_problemreportrequests_changelist"))
+        return redirect(
+            reverse("admin:marketplace_problemreportrequests_changelist"))
 
     def _delete_report(self, request, object_id, message):
         obj = ProblemReportRequests.objects.filter(id=object_id).first()
@@ -1132,7 +1247,9 @@ class ProblemReportRequestsAdmin(SafeDeleteAdmin):
             self.message_user(request, message, messages.SUCCESS)
 
     def _set_status(self, object_id, status_value):
-        ProblemReportRequests.objects.filter(id=object_id).update(status=status_value)
+        ProblemReportRequests.objects.filter(
+            id=object_id).update(
+            status=status_value)
 
     def user_link(self, obj):
         if not obj.user:
@@ -1164,26 +1281,22 @@ class ProblemReportRequestsAdmin(SafeDeleteAdmin):
 
     user_info_link.short_description = ""
 
-    fieldsets = (
-        (
-            "Статус и вердикт",
-            {
-                "fields": ("status",),
-                "description": "Текущее состояние обработки жалобы модератором.",
-            },
-        ),
-        (
-            "Суть жалобы",
-            {
-                "fields": ("description", "created_at"),
-                "description": "Информация, предоставленная пользователем при подаче репорта.",
-            },
-        ),
-        (
-            "Информация об авторе жалобы",
-            {
-                "fields": ("user_info_link",),
-                "description": "Данные пользователя, отправившего этот репорт.",
-            },
-        ),
-    )
+    fieldsets = (("Статус и вердикт",
+                  {"fields": ("status",
+                              ),
+                   "description": "Текущее состояние обработки жалобы модератором.",
+                   },
+                  ),
+                 ("Суть жалобы",
+                  {"fields": ("description",
+                              "created_at"),
+                   "description": "Информация, предоставленная пользователем при подаче репорта.",
+                   },
+                  ),
+                 ("Информация об авторе жалобы",
+                  {"fields": ("user_info_link",
+                              ),
+                   "description": "Данные пользователя, отправившего этот репорт.",
+                   },
+                  ),
+                 )

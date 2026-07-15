@@ -13,9 +13,9 @@ def developer_required(view_func=None, redirect_url='index'):
         @wraps(view_func)
         def wrapped_view(request, *args, **kwargs):
             is_developer = (
-                request.user.is_authenticated and
-                (request.user.groups.filter(name='Разработчики').exists() or request.user.is_superuser)
-            )
+                request.user.is_authenticated and (
+                    request.user.groups.filter(
+                        name='Разработчики').exists() or request.user.is_superuser))
 
             if not is_developer:
                 messages.error(request, _("ERROR_YOU_DONT_HAVE_DEVSTATUS"))
@@ -28,6 +28,7 @@ def developer_required(view_func=None, redirect_url='index'):
         return decorator(view_func)
     return decorator
 
+
 def require_modern_browser(view_func):
     @wraps(view_func)
     def _wrapped_view(request, *args, **kwargs):
@@ -37,7 +38,8 @@ def require_modern_browser(view_func):
             version = browser.version[0] if browser.version else 0
 
             is_outdated = (
-                (family == 'IE' and version in [6, 7]) or  # block only IE 6 and 7 (six seveeeeeeen)
+                # block only IE 6 and 7 (six seveeeeeeen)
+                (family == 'IE' and version in [6, 7]) or
                 family == 'Opera Mini' or
                 (family == 'Safari' and version < 11) or
                 (family in ['Chrome', 'Firefox'] and version < 60)

@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('marketplace', '0022_remove_distributioncreaterequests_user_hash_and_more'),
-    ]
+        ('marketplace', '0022_remove_distributioncreaterequests_user_hash_and_more'), ]
 
     operations = [
         migrations.AddField(
             model_name='category',
             name='is_admin_only',
-            field=models.BooleanField(default=False, help_text='Если включено, обычные пользователи не смогут выбрать эту категорию.', verbose_name='Только для админов'),
+            field=models.BooleanField(
+                default=False,
+                help_text='Если включено, обычные пользователи не смогут выбрать эту категорию.',
+                verbose_name='Только для админов'),
         ),
     ]

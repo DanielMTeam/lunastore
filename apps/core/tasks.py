@@ -10,6 +10,7 @@ from apps.core.notifications.services import NotificationService
 logger = logging.getLogger('core')
 User = get_user_model()
 
+
 def send_telegram_notification(message: str):
     bot_token = settings.TELEGRAM_BOT_TOKEN
     chat_id = settings.TELEGRAM_LOG_CHAT_ID
@@ -32,8 +33,14 @@ def send_telegram_notification(message: str):
     except requests.RequestException as e:
         logger.error(f"Error sending log to Telegram: {e}")
 
+
 @task()
-def send_notification(user_id, title_key, content_key, context=None, meta=None):
+def send_notification(
+        user_id,
+        title_key,
+        content_key,
+        context=None,
+        meta=None):
     """
     :param user_id: id of user
     :param title_key: key from locale
@@ -56,7 +63,8 @@ def send_notification(user_id, title_key, content_key, context=None, meta=None):
             try:
                 content = content % context
             except KeyError as e:
-                logging.error(f"Notification formatting error: i can't find key :P; so, you can see log there: {e}")
+                logging.error(
+                    f"Notification formatting error: i can't find key :P; so, you can see log there: {e}")
 
     # send notification
     NotificationService.send_notification(
