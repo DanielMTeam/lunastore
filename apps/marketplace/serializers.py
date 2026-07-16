@@ -1,9 +1,12 @@
 from rest_framework import serializers
 
 from .models import Application, Category, Distribution
+from apps.user.serializers import UserSerializer
 
 
 class ApplicationSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+
     class Meta:
         model = Application
         fields = [
@@ -19,6 +22,7 @@ class ApplicationSerializer(serializers.ModelSerializer):
             "is_demo",
             "is_under_dmca",
             "icon_url",
+            "user",
         ]
 
 
@@ -39,4 +43,5 @@ class DistributionSerializer(serializers.ModelSerializer):
             "url",
             "has_download",
             "published",
+            "release_description",
         ]

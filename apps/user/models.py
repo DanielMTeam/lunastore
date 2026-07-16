@@ -50,7 +50,7 @@ class User(AbstractUser, SafeDeleteModel):
     last_username_change = models.DateTimeField(null=True, blank=True)
 
     @property
-    def avatar_url(self):
+    def avatar_url(self) -> str:
         if self.avatar_path:
             from apps.core.local import get_geo_spire_url
             base_url = get_geo_spire_url(
