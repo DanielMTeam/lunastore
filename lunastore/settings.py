@@ -491,7 +491,12 @@ CONSTANCE_CONFIG = {
     ),
     "LOG_MODERATOR_LOGINS": (
         os.getenv("LOG_MODERATOR_LOGINS", "True") == "True",
-        "Логировать вход модераторов/админов",
+        "Логировать вход модераторов/админов в систему",
+        bool,
+    ),
+    "TELEGRAM_NOTIFY_MODERATOR_LOGINS": (
+        os.getenv("TELEGRAM_NOTIFY_MODERATOR_LOGINS", "False") == "True",
+        "Отправлять уведомления о входах в Telegram",
         bool,
     ),
     "TELEGRAM_LOG_TOPIC_ID": (
@@ -673,6 +678,7 @@ CONSTANCE_CONFIG_FIELDSETS = {
             "TELEGRAM_LOG_CHAT_ID",
             "TELEGRAM_LOG_TOPIC_ID",
             "LOG_MODERATOR_LOGINS",
+            "TELEGRAM_NOTIFY_MODERATOR_LOGINS",
         ],
         "collapse": True,
     },
