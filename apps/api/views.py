@@ -76,10 +76,10 @@ class UserViewSet(viewsets.GenericViewSet):
     @action(
         detail=False,
         methods=["get"],
-        url_path="getPubUploadToken",
+        url_path="getPublicUploadToken",
         permission_classes=[IsAuthenticated],
     )
-    def get_pub_upload_token(self, request):
+    def get_public_upload_token(self, request):
         target = request.query_params.get("target")
 
         if not target or target not in PUB_UPLOAD_POLICIES:
@@ -113,10 +113,10 @@ class UserViewSet(viewsets.GenericViewSet):
     @action(
         detail=False,
         methods=["get"],
-        url_path="getPrivUploadToken",
+        url_path="getPrivateUploadToken",
         permission_classes=[IsAuthenticated],
     )
-    def get_priv_upload_token(self, request):
+    def get_private_upload_token(self, request):
         target = request.query_params.get(
             "target", "distribution"
         )  # for future updates
