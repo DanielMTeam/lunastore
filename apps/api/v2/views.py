@@ -57,14 +57,14 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = UserSerializer
 
     @extend_schema(
-        summary="get pub upload token",
+        summary="get public upload token",
         description="Returns public upload token",
         parameters=[
             OpenApiParameter(name="target", description="Target object (avatar, icon, screenshot)", required=True, type=str, location=OpenApiParameter.QUERY)
         ],
     )
-    @action(detail=False, methods=["get"], url_path="getPubUploadToken", permission_classes=[IsAuthenticated])
-    def get_pub_upload_token(self, request):
+    @action(detail=False, methods=["get"], url_path="getPublicUploadToken", permission_classes=[IsAuthenticated])
+    def get_public_upload_token(self, request):
         target = request.query_params.get("target")
 
         if not target or target not in PUB_UPLOAD_POLICIES:
@@ -94,15 +94,15 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
         return Response({"upload_token": upload_token, "guard": guard_phrase})
 
     @extend_schema(
-        summary="get priv upload token",
+        summary="get private upload token",
         description="Returns private upload token",
         parameters=[
             OpenApiParameter(name="target", description="Target", required=False, type=str, location=OpenApiParameter.QUERY),
             OpenApiParameter(name="app_id", description="Application ID", required=True, type=int, location=OpenApiParameter.QUERY)
         ],
     )
-    @action(detail=False, methods=["get"], url_path="getPrivUploadToken", permission_classes=[IsAuthenticated])
-    def get_priv_upload_token(self, request):
+    @action(detail=False, methods=["get"], url_path="getPrivateUploadToken", permission_classes=[IsAuthenticated])
+    def get_private_upload_token(self, request):
         target = request.query_params.get("target", "distribution")
         app_id = request.query_params.get("app_id")
 

@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (!form) return;
   var config = window.cdn_config || window.CDN_CONFIG || {
     uploadUrl: "https://spire.lunastore.app/cdn/upload",
-    tokenBaseUrl: "https://api.lunastore.app/method/user/getPubUploadToken/"
+    tokenBaseUrl: "https://api.lunastore.app/method/user/getPublicUploadToken/"
   };
   var i18n = window.luna_i18n || window.LUNA_I18N || {
     uploading: "Загрузка...",
