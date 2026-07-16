@@ -13,5 +13,11 @@ def notify_on_admin_action(sender, instance, created, **kwargs):
         if not settings.TELEGRAM_LOGGER_ENABLED:
             return
 
+        # check if it is a moderator login log entry
+        if "Вход в систему (IP:" in instance.change_message or "Неудачная попытка входа (IP:" in instance.change_message:
+            from constance import config
+            if not getattr(config, 'TELEGRAM_NOTIFY_MODERATOR_LOGINS', False):
+                return
+
         message = LoggerService.format_log_message(instance)
         send_telegram_notification(message)

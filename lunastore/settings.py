@@ -49,7 +49,7 @@ if SENTRY_ENABLED and SENTRY_DSN:
     )
 
 # PLEASE, do not change this, if you don't understand what you do
-VERSION = os.getenv("VERSION", "2.1")
+VERSION = os.getenv("VERSION", "2.7")
 
 LOCALE_PATHS = [
     BASE_DIR / "locale",
@@ -177,6 +177,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "django_extensions",
     'django_user_agents',
+    'rest_framework_simplejwt',
 ]
 
 REST_FRAMEWORK = {
@@ -187,8 +188,18 @@ REST_FRAMEWORK = {
         # 'rest_framework.renderers.BrowsableAPIRenderer',
     ),
     "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
         "rest_framework.authentication.SessionAuthentication",
     ],
+}
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': True,
+    'AUTH_HEADER_TYPES': ('Bearer', 'Token'),
 }
 
 SPECTACULAR_SETTINGS = {
@@ -480,7 +491,12 @@ CONSTANCE_CONFIG = {
     ),
     "LOG_MODERATOR_LOGINS": (
         os.getenv("LOG_MODERATOR_LOGINS", "True") == "True",
-        "Логировать вход модераторов/админов",
+        "Логировать вход модераторов/админов в систему",
+        bool,
+    ),
+    "TELEGRAM_NOTIFY_MODERATOR_LOGINS": (
+        os.getenv("TELEGRAM_NOTIFY_MODERATOR_LOGINS", "False") == "True",
+        "Отправлять уведомления о входах в Telegram",
         bool,
     ),
     "TELEGRAM_LOG_TOPIC_ID": (
@@ -662,6 +678,7 @@ CONSTANCE_CONFIG_FIELDSETS = {
             "TELEGRAM_LOG_CHAT_ID",
             "TELEGRAM_LOG_TOPIC_ID",
             "LOG_MODERATOR_LOGINS",
+            "TELEGRAM_NOTIFY_MODERATOR_LOGINS",
         ],
         "collapse": True,
     },

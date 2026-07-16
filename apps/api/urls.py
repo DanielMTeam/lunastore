@@ -10,5 +10,6 @@ router.register(r'service', ServiceViewSet, basename='service')
 router.register(r'distribution', DistributionViewSet, basename='distribution')
 
 urlpatterns = [
+    path('v2/', include('apps.api.v2.urls')),
     path('', include(router.urls)),
 ]

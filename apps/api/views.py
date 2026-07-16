@@ -28,7 +28,7 @@ from apps.user.models import User
 from apps.user.serializers import UserSerializer
 from apps.core.notifications.services import NotificationService
 
-from .constants import ErrorCodes
+from .constants import ErrorCodes, PUB_UPLOAD_POLICIES, ALLOWED_MIMES
 from .exceptions import LunaException
 from django.core.cache import cache
 
@@ -36,27 +36,6 @@ from django.core.cache import cache
 class UserViewSet(viewsets.GenericViewSet):
     queryset = User.objects.filter(is_active=True)
     serializer_class = UserSerializer
-
-    PUB_UPLOAD_POLICIES = {
-        "avatar": {
-            "mw": 512,
-            "mh": 512,
-            "mimes": "image/jpeg;image/png;image/webp",
-            "obj": "avatar",
-        },
-        "icon": {
-            "mw": 512,
-            "mh": 512,
-            "mimes": "image/jpeg;image/png;image/webp",
-            "obj": "icon",
-        },
-        "screenshot": {
-            "mw": 1920,
-            "mh": 1080,
-            "mimes": "image/jpeg;image/png;image/webp",
-            "obj": "screenshot",
-        },
-    }
 
     @extend_schema(
         summary="get user profile info",
@@ -97,16 +76,16 @@ class UserViewSet(viewsets.GenericViewSet):
     @action(
         detail=False,
         methods=["get"],
-        url_path="getPubUploadToken",
+        url_path="getPublicUploadToken",
         permission_classes=[IsAuthenticated],
     )
-    def get_pub_upload_token(self, request):
+    def get_public_upload_token(self, request):
         target = request.query_params.get("target")
 
-        if not target or target not in self.PUB_UPLOAD_POLICIES:
+        if not target or target not in PUB_UPLOAD_POLICIES:
             return Response({"error": "Invalid target"}, status=400)
 
-        policy = self.PUB_UPLOAD_POLICIES[target]
+        policy = PUB_UPLOAD_POLICIES[target]
         guard_phrase = str(uuid.uuid4().hex)[:8]
 
         cache_key = f"cdn_guard_{request.user.id}_{guard_phrase}"
@@ -134,10 +113,10 @@ class UserViewSet(viewsets.GenericViewSet):
     @action(
         detail=False,
         methods=["get"],
-        url_path="getPrivUploadToken",
+        url_path="getPrivateUploadToken",
         permission_classes=[IsAuthenticated],
     )
-    def get_priv_upload_token(self, request):
+    def get_private_upload_token(self, request):
         target = request.query_params.get(
             "target", "distribution"
         )  # for future updates
@@ -162,51 +141,13 @@ class UserViewSet(viewsets.GenericViewSet):
 
         current_time = int(time.time())
 
-        allowed_mimes = ";".join(
-            [
-                # universal binary stream (fallback)
-                "application/octet-stream",
-
-                # .exe (Windows Executables)
-                "application/x-msdownload",
-                "application/exe",
-                "application/x-exe",
-                "application/dos-exe",
-                "application/x-winexe",
-                "application/msdos-windows",
-                "application/x-msdos-program",
-
-                # .msi (Windows Installer)
-                "application/x-msi",
-                "application/x-ms-installer",
-                "application/x-windows-installer",
-                "application/x-ole-storage",
-
-                # .zip (ZIP Archives)
-                "application/zip",
-                "application/x-zip-compressed",
-                "application/x-zip",
-                "multipart/x-zip",
-
-                # .rar (RAR Archives)
-                "application/vnd.rar",
-                "application/x-rar-compressed",
-                "application/x-rar",
-                "application/rar",
-
-                # .7z (7-Zip Archives)
-                "application/x-7z-compressed",
-                "application/7z",
-            ]
-        )
-
         payload = {
             "type": "cdn-upload",
             "object": str(app_obj.id),  # object this is a id of the app
             "user": str(request.user.id),
             "guard": guard_phrase,
             "mode": "private",  # private only
-            "accept": allowed_mimes,
+            "accept": ALLOWED_MIMES,
             "iat": current_time,
             "exp": current_time + 3600,
         }

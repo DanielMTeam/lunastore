@@ -269,8 +269,8 @@ def log_moderator_login(sender, request, user, **kwargs):
 
         if user.is_superuser or user.is_staff or user.groups.filter(
                 name='Модераторы').exists():
-            ip_address = request.META.get(
-                'REMOTE_ADDR') if request else 'Unknown IP'
+            from apps.core.utils import get_client_ip
+            ip_address = get_client_ip(request) if request else 'Unknown IP'
 
             LogEntry.objects.create(
                 user_id=user.id,
@@ -302,8 +302,8 @@ def log_failed_login(sender, credentials, request, **kwargs):
         if user and (
             user.is_superuser or user.is_staff or user.groups.filter(
                 name='Модераторы').exists()):
-            ip_address = request.META.get(
-                'REMOTE_ADDR') if request else 'Unknown IP'
+            from apps.core.utils import get_client_ip
+            ip_address = get_client_ip(request) if request else 'Unknown IP'
 
             LogEntry.objects.create(
                 user_id=user.id,

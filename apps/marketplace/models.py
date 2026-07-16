@@ -151,7 +151,7 @@ class BaseApplicationInfo(SafeDeleteModel):
         abstract = True
 
     @property
-    def icon_url(self):
+    def icon_url(self) -> str:
         if self.icon_path:
             from apps.core.local import get_geo_spire_url
             base_url = get_geo_spire_url(
@@ -167,7 +167,7 @@ class BaseApplicationInfo(SafeDeleteModel):
         return "/staticfiles/img/noavatar_64.jpg"
 
     @property
-    def screenshot_urls(self):
+    def screenshot_urls(self) -> list[str]:
         from apps.core.local import get_geo_spire_url
         base_url = get_geo_spire_url(
             getattr(
@@ -266,6 +266,12 @@ class BaseDistributionInfo(SafeDeleteModel):
     changelog = models.CharField(
         max_length=210,
         verbose_name="Список изменений")
+    release_description = models.TextField(
+        max_length=1500,
+        blank=True,
+        null=True,
+        verbose_name="Описание релиза"
+    )
 
     class Meta:
         abstract = True
@@ -278,19 +284,19 @@ class BaseDistributionInfo(SafeDeleteModel):
         return f"<{self.__class__.__name__} {self.app} {self.version}>"
 
     @property
-    def has_download(self):
+    def has_download(self) -> bool:
         # check, can be downloaded file now
         return bool(self.cdn_file_id or self.url)
 
     @property
-    def link(self):
+    def link(self) -> str:
         # route all downloads via internal view
         if self.has_download:
             return f"/get_dist_file/{self.pk}/"
         return "#"
 
     @property
-    def is_external(self):
+    def is_external(self) -> bool:
         # check if file is hosted externally
         return not bool(self.cdn_file_id) and bool(self.url)
 
