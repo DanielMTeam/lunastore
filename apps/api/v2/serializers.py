@@ -4,10 +4,13 @@ from apps.api.constants import ErrorCodes
 from apps.api.exceptions import LunaException
 
 
+from rest_framework import serializers
+
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    totp_code = serializers.CharField(required=False, allow_blank=True, write_only=True)
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['totp_code'] = self.fields.get('totp_code', None)
 
     def validate(self, attrs):
         # We need to extract totp_code manually as it's not a standard field
@@ -33,34 +36,12 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
                     status_code=401
                 )
 
-        # Custom lifetimes if provided
-        from datetime import timedelta
-
-        refresh_lifetime_days = self.initial_data.get('refresh_lifetime_days')
-        access_lifetime_minutes = self.initial_data.get('access_lifetime_minutes')
-
-        if refresh_lifetime_days is not None or access_lifetime_minutes is not None:
-            # Generate new tokens to apply custom lifetimes
-            refresh = self.get_token(self.user)
-
-            if refresh_lifetime_days is not None:
-                try:
-                    days = int(refresh_lifetime_days)
-                    if 1 <= days <= 365:
-                        refresh.set_exp(lifetime=timedelta(days=days))
-                except ValueError:
-                    pass
-
-            access = refresh.access_token
-            if access_lifetime_minutes is not None:
-                try:
-                    minutes = int(access_lifetime_minutes)
-                    if 1 <= minutes <= 1440:  # max 24 hours for access token
-                        access.set_exp(lifetime=timedelta(minutes=minutes))
-                except ValueError:
-                    pass
-
-            data['refresh'] = str(refresh)
-            data['access'] = str(access)
+        # Manually generate tokens to inject refresh_jti into access token
+        refresh = self.get_token(self.user)
+        access = refresh.access_token
+        access['refresh_jti'] = refresh['jti']
+        
+        data['refresh'] = str(refresh)
+        data['access'] = str(access)
 
         return data

@@ -148,7 +148,8 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     retrieve=extend_schema(summary="get detailed application info"),
 )
 class MarketplaceViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Application.objects.filter()
+    def get_queryset(self):
+        return Application.objects.exclude(is_private=True)
     serializer_class = ApplicationSerializer
     pagination_class = V2Pagination
 
@@ -318,6 +319,9 @@ class ExecuteView(APIView):
         if not isinstance(code, list):
             return Response({"error": "Invalid format, 'code' must be a list of calls"}, status=400)
 
+        if len(code) > 25:
+            return Response({"error": "Batch size limit exceeded. Maximum 25 calls per request."}, status=400)
+
         from django.urls import resolve
         from rest_framework.request import Request
         import copy
@@ -386,6 +390,8 @@ class ExecuteView(APIView):
                 response.render()
                 responses.append(json.loads(response.content.decode('utf-8')))
             except Exception as e:
+                import logging
+                logging.error(f"Error in execute method {method_name}: {str(e)}", exc_info=True)
                 from apps.api.handlers import luna_exception_handler
                 err_response = luna_exception_handler(e, None)
                 if err_response is not None:
@@ -394,7 +400,7 @@ class ExecuteView(APIView):
                 else:
                     responses.append({
                         "status": "error",
-                        "message": str(e),
+                        "message": "Internal server error",
                         "error_code": ErrorCodes.UNKNOWN_ERROR
                     })
 
