@@ -173,14 +173,6 @@ msgstr "Відгуки для цього додатка вимкнені авт�
 msgid "PAGE_APP_RATING_DELETE_SUCCESS"
 msgstr "Оцінки користувачів"
 
-#: apps/marketplace/views.py:654
-msgid "Дистрибуция удалена"
-msgstr ""
-
-#: apps/marketplace/views.py:656
-msgid "Нужно подтвердить удаление через POST"
-msgstr ""
-
 #: apps/user/decorators.py:21
 msgid "ERROR_YOU_DONT_HAVE_DEVSTATUS"
 msgstr ""
@@ -553,33 +545,6 @@ msgstr ""
 #: templates/404.html:12
 msgid "404_GO_TO_HOME"
 msgstr "Повернутися на головну"
-
-#: templates/admin/broadcast_notify.html:23
-msgid "LunaStore Admin"
-msgstr ""
-
-#: templates/admin/constance/change_list.html:63
-msgid "Save"
-msgstr ""
-
-#: templates/admin/constance/includes/results_list.html:10
-msgid "Collapse"
-msgstr ""
-
-#: templates/admin/constance/includes/results_list.html:56
-msgid "Reset to default"
-msgstr ""
-
-#: templates/admin/login.html:96
-#, python-format
-msgid ""
-"You are authenticated as %(username)s, but are not authorized to access this "
-"page. Would you like to login to a different account?"
-msgstr ""
-
-#: templates/admin/login.html:113
-msgid "Log in"
-msgstr ""
 
 #: templates/admin_app.html:6 templates/admin_app.html:10
 #: templates/manage_distributions.html:10
@@ -2240,11 +2205,6 @@ msgstr[2] "%(counter)s відгуків (показані останні 5)"
 #: templates/profile.html:197 templates/profile.html:225
 msgid "PAGE_PROFILE_REVIEW_TO_APP"
 msgstr "до програми"
-
-#: templates/profile.html:205 templates/profile.html:233
-#: templates/storepage.html:227
-msgid "ARE_YOU_SURE"
-msgstr ""
 
 #: templates/profile.html:211 templates/profile.html:239
 msgid "PAGE_PROFILE_NO_REVIEWS"

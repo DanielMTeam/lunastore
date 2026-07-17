@@ -172,14 +172,6 @@ msgstr "Отзывы для этого приложения отключены �
 msgid "PAGE_APP_RATING_DELETE_SUCCESS"
 msgstr "Оценки пользователей"
 
-#: apps/marketplace/views.py:654
-msgid "Дистрибуция удалена"
-msgstr ""
-
-#: apps/marketplace/views.py:656
-msgid "Нужно подтвердить удаление через POST"
-msgstr ""
-
 #: apps/user/decorators.py:21
 msgid "ERROR_YOU_DONT_HAVE_DEVSTATUS"
 msgstr ""
@@ -555,30 +547,7 @@ msgstr "Вернуться на главную"
 
 #: templates/admin/broadcast_notify.html:23
 msgid "LunaStore Admin"
-msgstr "сука кто опять криво переводы вставил"
-
-#: templates/admin/constance/change_list.html:63
-msgid "Save"
-msgstr ""
-
-#: templates/admin/constance/includes/results_list.html:10
-msgid "Collapse"
-msgstr ""
-
-#: templates/admin/constance/includes/results_list.html:56
-msgid "Reset to default"
-msgstr ""
-
-#: templates/admin/login.html:96
-#, python-format
-msgid ""
-"You are authenticated as %(username)s, but are not authorized to access this "
-"page. Would you like to login to a different account?"
-msgstr ""
-
-#: templates/admin/login.html:113
-msgid "Log in"
-msgstr ""
+msgstr "LunaStore Админ"
 
 #: templates/admin_app.html:6 templates/admin_app.html:10
 #: templates/manage_distributions.html:10
@@ -2242,11 +2211,6 @@ msgstr[2] "%(counter)s отзывов (показаны последние 5)"
 msgid "PAGE_PROFILE_REVIEW_TO_APP"
 msgstr "к приложению"
 
-#: templates/profile.html:205 templates/profile.html:233
-#: templates/storepage.html:227
-msgid "ARE_YOU_SURE"
-msgstr ""
-
 #: templates/profile.html:211 templates/profile.html:239
 msgid "PAGE_PROFILE_NO_REVIEWS"
 msgstr "Нет отзывов"
@@ -2892,6 +2856,30 @@ msgstr ""
 msgid "PAGE_PASSWORD_RESET_SUBJECT"
 msgstr "Сброс пароля на сайте LunaStore"
 
+msgid "PAGE_API_SESSIONS_TITLE"
+msgstr "Ключи доступа к API"
+
+msgid "PAGE_API_SESSIONS_DESC"
+msgstr "Устройства и клиенты, использующие API-доступ к вашему аккаунту."
+
+msgid "PAGE_API_TOKEN"
+msgstr "API Токен"
+
+msgid "PAGE_API_ISSUED"
+msgstr "Выдан:"
+
+msgid "PAGE_API_EXPIRES"
+msgstr "Истекает:"
+
+msgid "PAGE_API_REVOKE"
+msgstr "Отозвать"
+
+msgid "PAGE_API_NO_SESSIONS"
+msgstr "У вас нет активных ключей доступа к API."
+
+msgid "INFO_API_SESSION_REVOKED"
+msgstr "Ключ доступа к API успешно отозван."
+
 #~ msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
 #~ msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
 #~ msgstr[0] "%(counter)s отзывов -"
@@ -3210,26 +3198,3 @@ msgstr "Сброс пароля на сайте LunaStore"
 #~ "старых ПК."
 
 
-msgid "PAGE_API_SESSIONS_TITLE"
-msgstr "Ключи доступа к API"
-
-msgid "PAGE_API_SESSIONS_DESC"
-msgstr "Устройства и клиенты, использующие API-доступ к вашему аккаунту."
-
-msgid "PAGE_API_TOKEN"
-msgstr "API Токен"
-
-msgid "PAGE_API_ISSUED"
-msgstr "Выдан:"
-
-msgid "PAGE_API_EXPIRES"
-msgstr "Истекает:"
-
-msgid "PAGE_API_REVOKE"
-msgstr "Отозвать"
-
-msgid "PAGE_API_NO_SESSIONS"
-msgstr "У вас нет активных ключей доступа к API."
-
-msgid "INFO_API_SESSION_REVOKED"
-msgstr "Ключ доступа к API успешно отозван."
