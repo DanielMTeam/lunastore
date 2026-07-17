@@ -3208,3 +3208,28 @@ msgstr "Сброс пароля на сайте LunaStore"
 #~ "LunaStore. Справочник приложений для твоего старого ПК. Скачивайте "
 #~ "приложения, оставляйте отзывы и станьте частью сообщества любителей "
 #~ "старых ПК."
+
+
+msgid "PAGE_API_SESSIONS_TITLE"
+msgstr "API-сессии (Access-токены)"
+
+msgid "PAGE_API_SESSIONS_DESC"
+msgstr "Устройства и клиенты, использующие API-доступ к вашему аккаунту."
+
+msgid "PAGE_API_TOKEN"
+msgstr "API Токен"
+
+msgid "PAGE_API_ISSUED"
+msgstr "Выдан:"
+
+msgid "PAGE_API_EXPIRES"
+msgstr "Истекает:"
+
+msgid "PAGE_API_REVOKE"
+msgstr "Отозвать"
+
+msgid "PAGE_API_NO_SESSIONS"
+msgstr "У вас нет активных API-сессий."
+
+msgid "INFO_API_SESSION_REVOKED"
+msgstr "API-токен (сессия) успешно отозван."

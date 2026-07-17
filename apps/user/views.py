@@ -683,7 +683,7 @@ def settings_security(request):
                 from django.core.cache import cache
                 cache_key = f"token_blacklist_{token.jti}"
                 cache.set(cache_key, True, timeout=86400) # cache for 24h
-                messages.success(request, "API-токен (сессия) успешно отозван.")
+                messages.success(request, _("INFO_API_SESSION_REVOKED"))
             return redirect("settings_security")
 
     return render(request, "settings_security.html", forms)
