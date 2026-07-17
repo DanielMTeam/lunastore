@@ -67,6 +67,35 @@
                 {% endfor %}
             </div>
             <br>
+            
+            <div class="profile_block">API-сессии (Access-токены)</div>
+            <div class="profile_block_content">
+                <div class="pref_pad">Устройства и клиенты, использующие API-доступ к вашему аккаунту.</div>
+                {% for token in api_sessions %}
+                <div class="pref_pad" style="border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 10px;">
+                    <div style="float: left;">
+                        <strong>API Токен</strong><br>
+                        <span style="color: #aaa; font-size: 0.9em;">
+                            Выдан: {{ token.created_at|date:"d M Y H:i" }} &middot; Истекает: {{ token.expires_at|date:"d M Y H:i" }}
+                        </span>
+                    </div>
+                    <div style="float: right; margin-top: 5px;">
+                        {% if not is_new_session %}
+                        <form method="POST" style="display:inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="form_type" value="revoke_api_token">
+                            <input type="hidden" name="token_id" value="{{ token.id }}">
+                            <button type="submit" class="action_button" style="background-color: #8B0000; border: none; cursor: pointer; padding: 5px 10px; font-size: 0.9em; color: white; font-family: inherit;">Отозвать</button>
+                        </form>
+                        {% endif %}
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+                {% empty %}
+                <div class="pref_pad" style="color: #aaa;">У вас нет активных API-сессий.</div>
+                {% endfor %}
+            </div>
+            <br>
 
             {% if is_new_session %}
             <div class="announcement" style="background-color: #8B0000; color: white; text-align: center; padding: 10px; margin-bottom: 20px;">

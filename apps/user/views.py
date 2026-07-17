@@ -1,3 +1,4 @@
+from rest_framework_simplejwt.token_blacklist.models import OutstandingToken
 from django.contrib.sessions.models import Session
 from .middleware import BlockBannedIP
 from datetime import timedelta
@@ -622,6 +623,12 @@ def settings_security(request):
         "email_form": EmailChangeForm(user=user),
         "user": user,
         "active_sessions": UserSession.objects.filter(user=user),
+        "api_sessions": OutstandingToken.objects.filter(
+            user=user, 
+            expires_at__gt=timezone.now()
+        ).exclude(
+            blacklistedtoken__isnull=False
+        ).order_by('-created_at'),
         "current_session_key": request.session.session_key,
         "is_new_session": False,
     }
@@ -666,6 +673,18 @@ def settings_security(request):
                 for field, errors in forms["email_form"].errors.items():
                     for error in errors:
                         messages.error(request, error)
+        elif form_type == "revoke_api_token":
+            token_id = request.POST.get("token_id")
+            token = OutstandingToken.objects.filter(id=token_id, user=user).first()
+            if token:
+                from rest_framework_simplejwt.token_blacklist.models import BlacklistedToken
+                BlacklistedToken.objects.get_or_create(token=token)
+                # Add to cache to invalidate access token instantly
+                from django.core.cache import cache
+                cache_key = f"token_blacklist_{token.jti}"
+                cache.set(cache_key, True, timeout=86400) # cache for 24h
+                messages.success(request, "API-токен (сессия) успешно отозван.")
+            return redirect("settings_security")
 
     return render(request, "settings_security.html", forms)
 

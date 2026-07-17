@@ -8,6 +8,9 @@ urlpatterns = [
         "method/",
         include("apps.api.urls")),
     path(
+        "v2/",
+        include("apps.api.v2.urls")),
+    path(
         "schema/",
         SpectacularAPIView.as_view(),
         name="schema"),
