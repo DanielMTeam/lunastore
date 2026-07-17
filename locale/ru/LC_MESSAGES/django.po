@@ -3211,7 +3211,7 @@ msgstr "Сброс пароля на сайте LunaStore"
 
 
 msgid "PAGE_API_SESSIONS_TITLE"
-msgstr "API-сессии (Access-токены)"
+msgstr "Ключи доступа к API"
 
 msgid "PAGE_API_SESSIONS_DESC"
 msgstr "Устройства и клиенты, использующие API-доступ к вашему аккаунту."
@@ -3229,7 +3229,7 @@ msgid "PAGE_API_REVOKE"
 msgstr "Отозвать"
 
 msgid "PAGE_API_NO_SESSIONS"
-msgstr "У вас нет активных API-сессий."
+msgstr "У вас нет активных ключей доступа к API."
 
 msgid "INFO_API_SESSION_REVOKED"
-msgstr "API-токен (сессия) успешно отозван."
+msgstr "Ключ доступа к API успешно отозван."

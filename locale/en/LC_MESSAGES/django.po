@@ -3196,13 +3196,13 @@ msgstr "Password reset for LunaStore"
 
 
 msgid "PAGE_API_SESSIONS_TITLE"
-msgstr "API Sessions (Access tokens)"
+msgstr "API Access Keys"
 
 msgid "PAGE_API_SESSIONS_DESC"
 msgstr "Devices and clients using API access to your account."
 
 msgid "PAGE_API_TOKEN"
-msgstr "API Token"
+msgstr "API Access Key"
 
 msgid "PAGE_API_ISSUED"
 msgstr "Issued:"
@@ -3214,7 +3214,7 @@ msgid "PAGE_API_REVOKE"
 msgstr "Revoke"
 
 msgid "PAGE_API_NO_SESSIONS"
-msgstr "You have no active API sessions."
+msgstr "You have no active API access keys."
 
 msgid "INFO_API_SESSION_REVOKED"
-msgstr "API token (session) successfully revoked."
+msgstr "API access key successfully revoked."
