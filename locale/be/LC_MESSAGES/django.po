@@ -180,14 +180,6 @@ msgstr ""
 msgid "PAGE_APP_RATING_DELETE_SUCCESS"
 msgstr "Новая дыстрыбуцыя створана"
 
-#: apps/marketplace/views.py:654
-msgid "Дистрибуция удалена"
-msgstr ""
-
-#: apps/marketplace/views.py:656
-msgid "Нужно подтвердить удаление через POST"
-msgstr ""
-
 #: apps/user/decorators.py:21
 msgid "ERROR_YOU_DONT_HAVE_DEVSTATUS"
 msgstr ""
@@ -562,33 +554,6 @@ msgstr ""
 #: templates/404.html:12
 msgid "404_GO_TO_HOME"
 msgstr "Вярнуцца на галоўную"
-
-#: templates/admin/broadcast_notify.html:23
-msgid "LunaStore Admin"
-msgstr ""
-
-#: templates/admin/constance/change_list.html:63
-msgid "Save"
-msgstr ""
-
-#: templates/admin/constance/includes/results_list.html:10
-msgid "Collapse"
-msgstr ""
-
-#: templates/admin/constance/includes/results_list.html:56
-msgid "Reset to default"
-msgstr ""
-
-#: templates/admin/login.html:96
-#, python-format
-msgid ""
-"You are authenticated as %(username)s, but are not authorized to access this "
-"page. Would you like to login to a different account?"
-msgstr ""
-
-#: templates/admin/login.html:113
-msgid "Log in"
-msgstr ""
 
 #: templates/admin_app.html:6 templates/admin_app.html:10
 #: templates/manage_distributions.html:10
@@ -2261,11 +2226,6 @@ msgstr[2] "%(counter)s водгукаў -"
 msgid "PAGE_PROFILE_REVIEW_TO_APP"
 msgstr "Дадаткі"
 
-#: templates/profile.html:205 templates/profile.html:233
-#: templates/storepage.html:227
-msgid "ARE_YOU_SURE"
-msgstr ""
-
 #: templates/profile.html:211 templates/profile.html:239
 #, fuzzy
 #| msgid "PAGE_PROFILE_TAB_REVIEWS"
@@ -2705,14 +2665,6 @@ msgstr "Сістэмныя патрабаванні"
 msgid "PAGE_APP_SECTION_RATING"
 msgstr "Дзеянні"
 
-#: templates/storepage.html:183
-#, python-format
-msgid "PAGE_APP_RATING_BASED_ON_COUNT %(counter)s"
-msgid_plural "PAGE_APP_RATING_BASED_ON_COUNT_PLURAL %(counter)s"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
 #: templates/storepage.html:191
 #, fuzzy
 #| msgid "PAGE_APP_ACTION_REPORT"
@@ -2883,22 +2835,6 @@ msgstr "Пацвярджэнне пароля"
 msgid "PAGE_PASSWORD_RESET_DONE_INFO_TEXT"
 msgstr "Пацвярджэнне пароля"
 
-#: templates/user/password_reset_email.html:2
-msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_1"
-msgstr ""
-
-#: templates/user/password_reset_email.html:4
-msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_2"
-msgstr ""
-
-#: templates/user/password_reset_email.html:7
-msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_3"
-msgstr ""
-
-#: templates/user/password_reset_email.html:9
-msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_4"
-msgstr ""
-
 #: templates/user/password_reset_email_html.html:44
 #, fuzzy
 #| msgid "PAGE_LOGIN_GREETING"
@@ -2918,10 +2854,6 @@ msgstr ""
 msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_2"
 msgstr ""
 "Для доступу да кіравання 2FA, калі ласка, увядзіце пароль ад вашага акаўнта."
-
-#: templates/user/password_reset_email_html.html:48
-msgid "PAGE_PASSWORD_RESET_EMAIL_REGARDS"
-msgstr ""
 
 #: templates/user/password_reset_email_html.html:57
 #, fuzzy
