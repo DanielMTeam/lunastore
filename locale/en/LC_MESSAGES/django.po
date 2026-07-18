@@ -1,7 +1,5 @@
 msgid ""
 msgstr ""
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-11 17:23+0000\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -9,3173 +7,2238 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Generator: Tolgee\n"
 
-#: apps/core/mixins.py:11
-msgid "ERROR_CDN_TOKEN_MISSING"
-msgstr "CDN token not provided."
-
-#: apps/core/mixins.py:18
-msgid "ERROR_CDN_TOKEN_INVALID_TYPE"
-msgstr "Invalid CDN token type."
-
-#: apps/core/mixins.py:25
-msgid "ERROR_CDN_TOKEN_EXPIRED_OR_USED"
-msgstr "The download token has expired or has already been used."
-
-#: apps/core/mixins.py:33
-msgid "ERROR_CDN_TOKEN_EXPIRED"
-msgstr "The download token has expired or has already been used."
-
-#: apps/core/mixins.py:35
-msgid "ERROR_CDN_TOKEN_INVALID"
-msgstr "Invalid CDN security token."
-
-#: apps/core/templatetags/markdown_tags.py:28
-msgid "MD_ALERT_NOTE"
-msgstr "Note"
-
-#: apps/core/templatetags/markdown_tags.py:30
-msgid "MD_ALERT_TIP"
-msgstr "Tip"
-
-#: apps/core/templatetags/markdown_tags.py:32
-msgid "MD_ALERT_IMPORTANT"
-msgstr "Important"
-
-#: apps/core/templatetags/markdown_tags.py:34
-msgid "MD_ALERT_WARNING"
-msgstr "Warning"
-
-#: apps/core/templatetags/markdown_tags.py:36
-msgid "MD_ALERT_CAUTION"
-msgstr "Caution"
-
-#: apps/marketplace/decorators.py:22 apps/marketplace/decorators.py:39
-#: apps/marketplace/views.py:526 apps/marketplace/views.py:650
-msgid "ERROR_YOURE_NOT_OWNER_OF_APP"
-msgstr "You're not an administrator of this application."
-
-#: apps/marketplace/forms.py:215 apps/marketplace/forms.py:352
-#: apps/marketplace/forms.py:472
-msgid "FORM_SCREENSHOTS"
-msgstr "Screenshots"
-
-#: apps/marketplace/forms.py:240 apps/user/forms.py:160 apps/user/forms.py:439
-msgid "FORM_AGREE_RULES"
-msgstr ""
-"I agree with the site rules and am aware of the consequences of violating "
-"them"
-
-#: apps/marketplace/forms.py:243 apps/user/forms.py:158 apps/user/forms.py:445
-#: templates/app_add.html:456 templates/dev_add.html:114
-msgid "FORM_CAPTCHA"
-msgstr "Enter characters from the image"
-
-#: apps/marketplace/forms.py:291
-msgid "ERROR_CDN_CHECKSUM_MISMATCH_SCREENSHOTS"
-msgstr "Error verifying screenshot tokens."
-
-#: apps/marketplace/forms.py:468
-msgid "ACTION_CHOOSE_ICON"
-msgstr "Choose icon"
-
-#: apps/marketplace/forms.py:592
-msgid "ERROR_DIST_FORM_NO_FILE_OR_URL"
-msgstr "A file must be uploaded or a download link provided"
-
-#: apps/marketplace/forms.py:596
-msgid "ERROR_DIST_FORM_NO_VT_LINK"
-msgstr "VirusTotal link is mandatory when uploading a file."
-
-#: apps/marketplace/forms.py:609 apps/user/forms.py:378
-msgid "ERROR_DIST_FORM_CDN_INFO_FAIL"
-msgstr ""
-"Failed to retrieve file information from the storage server. Please try "
-"again later."
-
-#: apps/marketplace/models.py:412
-msgid "PAGE_REPORTAPP_REASON_MALWARE"
-msgstr "Aaah, help, there's malware here!"
-
-#: apps/marketplace/models.py:413
-msgid "PAGE_REPORTAPP_REASON_INCORRECT"
-msgstr "Incorrect data or description"
-
-#: apps/marketplace/models.py:414
-msgid "PAGE_REPORTAPP_REASON_OTHER"
-msgstr "Other reason"
-
-#: apps/marketplace/models.py:430
-msgid "PAGE_REPORTAPP_AUTHOR"
-msgstr "App complaint author:"
-
-#: apps/marketplace/models.py:442 templates/report_app.html:32
-msgid "PAGE_REPORTAPP_TITLE"
-msgstr "Report an app"
-
-#: apps/marketplace/models.py:443
-msgid "PAGE_REPORTAPP_TITLE_PATH"
-msgstr "App reports"
-
-#: apps/marketplace/models.py:461
-msgid "PAGE_REPORTPROBLEM_AUTHOR"
-msgstr "Problem report author"
-
-#: apps/marketplace/views.py:245
-msgid "PAGE_ADDAPP_SUCCESS"
-msgstr "Your application submission has been sent successfully."
-
-#: apps/marketplace/views.py:255
-msgid "ERROR_CHECK_FORM"
-msgstr "Please check the form. There are errors in some fields."
-
-#: apps/marketplace/views.py:275 apps/marketplace/views.py:298
-msgid "ERROR_RATE_LIMIT_EXCEEDED"
-msgstr ""
-"You are sending requests too frequently. Please wait a while before "
-"continuing."
-
-#: apps/marketplace/views.py:316
-msgid "PAGE_ADMIN_APP_MSG_SAVE_SUCCESS"
-msgstr "Data update request has been successfully submitted for moderation."
-
-#: apps/marketplace/views.py:320 apps/user/forms.py:147 apps/user/forms.py:152
-msgid "PAGE_ADMIN_APP_MSG_SAVE_ERROR"
-msgstr ""
-"An error occurred while saving the form. Please check the entered data."
-
-#: apps/marketplace/views.py:409
-msgid "PAGE_REPORTAPP_SUCCESS_MSG"
-msgstr "Your report has been submitted."
-
-#: apps/marketplace/views.py:434
-msgid "PAGE_REPORTPROBLEM_SUCCESS_MSG"
-msgstr "Successfully sent!"
-
-#: apps/marketplace/views.py:467
-msgid "PAGE_MANAGEDIST_CREATE_SUCCESS"
-msgstr "New distribution created"
-
-#: apps/marketplace/views.py:557
-msgid "MSG_DIST_EDIT_REQ_SENT"
-msgstr "Version change request has been submitted for moderation."
-
-#: apps/marketplace/views.py:605 templates/storepage.html:204
-msgid "PAGE_APP_RATING_DISABLED"
-msgstr "Reviews for this app have been disabled by the author"
-
-#: apps/marketplace/views.py:632
-#, fuzzy
-#| msgid "PAGE_APP_RATING_DISABLED"
-msgid "PAGE_APP_RATING_DELETE_DENIED"
-msgstr "Reviews for this app have been disabled by the author"
-
-#: apps/marketplace/views.py:637
-#, fuzzy
-#| msgid "PAGE_APP_RATING_USERS"
-msgid "PAGE_APP_RATING_DELETE_SUCCESS"
-msgstr "User ratings"
-
-#: apps/user/decorators.py:21
-msgid "ERROR_YOU_DONT_HAVE_DEVSTATUS"
-msgstr ""
-"You do not have developer status to view this page. You can obtain it in "
-"your profile settings."
-
-#: apps/user/forms.py:134
-msgid "INFO_YOUR_IP_WAS_BANNED"
-msgstr ""
-"Your IP address has been banned. If you believe this is an error and you "
-"were banned 'without reason', please contact us via email: "
-"daniel@myslivets.com"
-
-#: apps/user/forms.py:165 apps/user/forms.py:442
-msgid "FORM_AGREE_POLICY"
-msgstr "I accept the privacy policy"
-
-#: apps/user/forms.py:189 apps/user/forms.py:406
-msgid "FORM_DEVSTATUS_YOUR_USERNAME"
-msgstr "Username"
-
-#: apps/user/forms.py:255 templates/settings.html:58
-msgid "PAGE_SETTINGS_LABEL_WEBSITE"
-msgstr "Website:"
-
-#: apps/user/forms.py:273
-msgid "PAGE_PROFILESETTINGS_LABEL_BIO"
-msgstr "Profile bio:"
-
-#: apps/user/forms.py:290
-msgid "ERROR_PROFILE_TELEGRAM_INVALID"
-msgstr ""
-"Invalid Telegram username format. Please provide a username without links or "
-"protocols."
-
-#: apps/user/forms.py:300
-msgid "ERROR_PROFILE_OPENVK_INVALID"
-msgstr "Invalid OpenVK username format. Please provide a valid username."
-
-#: apps/user/forms.py:324 apps/user/forms.py:500 apps/user/forms.py:562
-msgid "ERROR_CURRENT_PASSWORD_IS_WRONG"
-msgstr "Current password is incorrect"
-
-#: apps/user/forms.py:335
-msgid "ERROR_NEW_PASSWORDS_DONT_MATCH"
-msgstr "New passwords do not match"
-
-#: apps/user/forms.py:338
-msgid "ERROR_NEW_PASSWORD_SAME_AS_OLD"
-msgstr ""
-"New password is the same as the old one. Please select a different password."
-
-#: apps/user/forms.py:352
-msgid "ACTION_CHOOSE_FILE"
-msgstr "Choose file"
-
-#: apps/user/forms.py:354
-msgid "INFO_RECOMENDATIONS_FOR_UPLOAD_AVATAR"
-msgstr "Recommended resolution: 64x64. Formats: .PNG, .JPG. Max.: 2 MB."
-
-#: apps/user/forms.py:413
-msgid "FORM_DEVSTATUS_YOUR_EMAIL"
-msgstr "Your e-mail"
-
-#: apps/user/forms.py:416
-msgid "FORM_DEVSTATUS_WE_WILL_CONTACT"
-msgstr "We will definitely contact you. Or we hope that we will. "
-
-#: apps/user/forms.py:420
-msgid "FORM_DEVSTATUS_GITHUB"
-msgstr "Link to your GitHub"
-
-#: apps/user/forms.py:423
-msgid "FORM_DEVSTATUS_GITHUB_HELP"
-msgstr "Why not? We would love to see your cool creations :3"
-
-#: apps/user/forms.py:427
-msgid "FORM_DEVSTATUS_ABOUT_YOU"
-msgstr "Tell us about yourself (up to 1000 characters)"
-
-#: apps/user/forms.py:433
-msgid "FORM_DEVSTATUS_WHY_YOU_CHOOSE"
-msgstr "Why did you choose us? (up to 250 characters)"
-
-#: apps/user/forms.py:486
-msgid "FORM_PASSWORDCONFIRM_ENTER"
-msgstr "Enter current password"
-
-#: apps/user/forms.py:489
-msgid "FORM_PASSWORDCONFIRM_CONFIRM"
-msgstr "Confirm password"
-
-#: apps/user/forms.py:506
-msgid "FORM_INVITECODE_TITLE"
-msgstr "Code"
-
-#: apps/user/forms.py:511
-msgid "FORM_INVITECODE_ENTER"
-msgstr "Enter invite code"
-
-#: apps/user/forms.py:522
-msgid "FORM_INVITECODE_DOESNOTEXIST_ERROR"
-msgstr "This invite code does not exist."
-
-#: apps/user/forms.py:525
-msgid "FORM_INVITECODE_EXPIRED_ERROR"
-msgstr "Code expired (24 hours). Please request a new one."
-
-#: apps/user/forms.py:530
-msgid "FORM_INVITECODE_CODELIMITISNTOK_ERROR"
-msgstr ""
-"The invitation limit for this code has been reached. The owner has invited "
-"too many people recently."
-
-#: apps/user/forms.py:543 templates/settings_security.html:105
-msgid "PAGE_SETTINGS_LABEL_CUR_EMAIL"
-msgstr "Current e-mail:"
-
-#: apps/user/forms.py:550 templates/settings_security.html:109
-msgid "PAGE_SETTINGS_LABEL_NEW_EMAIL"
-msgstr "New e-mail:"
-
-#: apps/user/forms.py:555 templates/2fa_password_confirm.html:23
-#: templates/settings_security.html:82 templates/settings_security.html:114
-msgid "PAGE_SETTINGS_LABEL_CUR_PASS"
-msgstr "Current password:"
-
-#: apps/user/forms.py:570
-msgid "ERROR_EMAIL_IS_SAME"
-msgstr "The new email is the same as the current one."
-
-#: apps/user/forms.py:574
-msgid "ERROR_EMAIL_ALREADY_EXISTS"
-msgstr "User with this e-mail address already exists."
-
-#: apps/user/forms.py:630
-msgid "ERROR_PASSWORD_RESET_EMAIL_NOT_FOUND"
-msgstr "An account with this email address was not found."
-
-#: apps/user/models.py:24
-msgid "ERROR_EMAIL_ALREADY_IN_USE"
-msgstr "This e-mail address is already in use."
-
-#: apps/user/tasks.py:55
-msgid "NOTIF_LOGIN_TITLE"
-msgstr "New account login"
-
-#: apps/user/tasks.py:56
-msgid "NOTIF_LOGIN_DESCRIPTION"
-msgstr ""
-"Your account was logged into • Device: %(browser)s (%(os)s) • IP address: %"
-"(ip)s • Location: %(location)s • If this wasn't you, change your password "
-"immediately."
-
-#: apps/user/validators.py:51 apps/user/validators.py:57
-msgid "ERROR_EMAIL_INVALID_FORMAT"
-msgstr "Invalid email address format."
-
-#: apps/user/validators.py:61
-msgid "ERROR_EMAIL_NO_ALIASES"
-msgstr "Email aliases with the \"+\" sign are prohibited."
-
-#: apps/user/validators.py:66
-msgid "ERROR_EMAIL_DISPOSABLE_DOMAIN"
-msgstr "Signing up using temporary email services is not allowed."
-
-#: apps/user/validators.py:91
-#, python-format
-msgid "ERROR_EMAIL_DOMAIN_NO_MX %(domain)s"
-msgstr ""
-"The domain %(domain)s does not accept mail. Please provide a valid address."
-
-#: apps/user/views.py:125
-msgid "VIEW_LOGIN_BANNED_REASON"
-msgstr "Your account has been blocked. Reason: %(reason)s"
-
-#: apps/user/views.py:152 apps/user/views.py:573
-msgid "VIEW_LOGIN_SUCCESS"
-msgstr "Login successful! Welcome, %(username)s!"
-
-#: apps/user/views.py:156
-msgid "VIEW_LOGIN_INVALID_CREDENTIALS"
-msgstr "Incorrect username or password."
-
-#: apps/user/views.py:320
-msgid "INFO_PROFILE_IS_UPDATED"
-msgstr "Profile updated"
-
-#: apps/user/views.py:332 apps/user/views.py:614
-msgid "INFO_PASSWORD_WAS_CHANGED"
-msgstr "Password successfully changed"
-
-#: apps/user/views.py:345
-msgid "INFO_AVATAR_WAS_UPLOADED"
-msgstr "Profile picture uploaded!"
-
-#: apps/user/views.py:360 apps/user/views.py:625
-msgid "INFO_EMAIL_WAS_CHANGED"
-msgstr "Your email has been successfully changed."
-
-#: apps/user/views.py:392
-msgid "INFO_APP_CREATE_REQUEST_WAS_SENT"
-msgstr "Application submitted for review"
-
-#: apps/user/views.py:417
-msgid "ERROR_ACCESS_DENIED_PROFILE"
-msgstr "Access denied. Start with profile settings."
-
-#: apps/user/views.py:424
-msgid "INFO_ACCOUNT_WAS_DELETED"
-msgstr ""
-"Your account has been successfully deleted. If you want to return — we will "
-"be always waiting for you on our website!"
-
-#: apps/user/views.py:461
-msgid "PAGE_INVITE_LIMIT_INFO"
-msgstr ""
-"Currently you can invite <b>1</b> person. After the user accepts your "
-"invitation, the next one can be created only in a week"
-
-#: apps/user/views.py:576 apps/user/views.py:678
-msgid "ERROR_2FA_INVALID_CODE"
-msgstr "Invalid code"
-
-#: apps/user/views.py:651
-msgid "ERROR_2FA_INVALID_PASSWORD"
-msgstr "Incorrect password"
-
-#: apps/user/views.py:660
-msgid "INFO_2FA_DISABLED"
-msgstr "Two-factor authentication has been successfully disabled."
-
-#: apps/user/views.py:672
-msgid "INFO_2FA_ENABLED"
-msgstr "Two-factor authentication has been successfully enabled."
-
-#: templates/2fa_attempt.html:6
-msgid "PAGE_2FA_ATTEMPT_TITLE"
-msgstr "2FA code entry"
-
-#: templates/2fa_attempt.html:12
-msgid "PAGE_2FA_ATTEMPT_HEADER"
-msgstr "Two-factor verification"
-
-#: templates/2fa_attempt.html:18 templates/2fa_set.html:6
-#: templates/2fa_set.html:22 templates/settings_security.html:35
-msgid "PAGE_2FA_TITLE"
-msgstr "Two-factor authentication"
-
-#: templates/2fa_attempt.html:19
-msgid "PAGE_2FA_ATTEMPT_SUBTITLE"
-msgstr "Enter the code to complete sign in"
-
-#: templates/2fa_attempt.html:27
-msgid "PAGE_2FA_ENTER_CODE_HEADER"
-msgstr "Enter code"
-
-#: templates/2fa_attempt.html:29 templates/2fa_set.html:56
-msgid "PAGE_2FA_ENABLED_INFO"
-msgstr ""
-"An additional login method using a 2FA code on top of the standard username "
-"and password is enabled for this account"
-
-#: templates/2fa_attempt.html:34
-msgid "PAGE_2FA_OPEN_GENERATOR"
-msgstr "Open your 2FA app and enter the received code"
-
-#: templates/2fa_attempt.html:38 templates/2fa_password_confirm.html:27
-msgid "PAGE_2FA_CONTINUE_BTN"
-msgstr "Continue"
-
-#: templates/2fa_password_confirm.html:6
-msgid "PAGE_2FA_PASSWORD_CONFIRM_TITLE"
-msgstr "Confirm password"
-
-#: templates/2fa_password_confirm.html:12 templates/2fa_set.html:13
-#: templates/settings.html:17 templates/settings_apps.html:15
-#: templates/settings_security.html:6 templates/settings_security.html:14
-msgid "PAGE_SETTINGS_TITLE"
-msgstr "Settings"
-
-#: templates/2fa_password_confirm.html:17
-msgid "PAGE_2FA_PASSWORD_CONFIRM"
-msgstr "Confirm access"
-
-#: templates/2fa_password_confirm.html:19
-msgid "PAGE_2FA_PASSWORD_PROMPT"
-msgstr "To access 2FA management, please enter your account password."
-
-#: templates/2fa_set.html:23
-msgid "PAGE_2FA_SUBTITLE_MANAGE"
-msgstr "Manage 2FA code login"
-
-#: templates/2fa_set.html:31
-msgid "PAGE_2FA_INITIAL_SETUP"
-msgstr "Initial setup"
-
-#: templates/2fa_set.html:31 templates/settings_security.html:41
-msgid "PAGE_2FA_MANAGE"
-msgstr "Manage"
-
-#: templates/2fa_set.html:34
-msgid "PAGE_2FA_INFO_1"
-msgstr ""
-"Secure your account with an additional login method using a 2FA code on top "
-"of the standard username and password"
-
-#: templates/2fa_set.html:36
-msgid "PAGE_2FA_INFO_2"
-msgstr ""
-"To start the setup, you will need a code generator (e.g., <b>Bitwarden</b>, "
-"<b>KeePassXC</b> or <b>Aegis</b>)"
-
-#: templates/2fa_set.html:38
-msgid "PAGE_2FA_INFO_3"
-msgstr ""
-"Code generation works without cellular service or any network connection. "
-"Scan this QR code on the screen with your app, enter the 6 digits received, "
-"and click \"Connect\""
-
-#: templates/2fa_set.html:46
-msgid "PAGE_2FA_SECRET_KEY"
-msgstr "Your secret key"
-
-#: templates/2fa_set.html:48
-msgid "PAGE_2FA_ENTER_CODE"
-msgstr "enter the received code"
-
-#: templates/2fa_set.html:52
-msgid "PAGE_2FA_CONNECT_BTN"
-msgstr "Connect"
-
-#: templates/2fa_set.html:58
-msgid "PAGE_2FA_DISABLE_INFO"
-msgstr "If you want to disable this login method, click the button below."
-
-#: templates/2fa_set.html:59
-msgid "PAGE_2FA_DISABLE_CONFIRM"
-msgstr ""
-"You really want to disable 2FA? This will lower the security level of your "
-"account."
-
-#: templates/2fa_set.html:63
-msgid "PAGE_2FA_DISABLE_BTN"
-msgstr "Disable 2FA"
-
-#: templates/404.html:8
-msgid "404_TITLE"
-msgstr "An error occured"
-
-#: templates/404.html:9
-msgid "404_ELEMENT_NOT_FOUND"
-msgstr ""
-"The requested item or link you are trying to visit was not found on our site."
-
-#: templates/404.html:10
-msgid "404_ELEMENT_NOT_FOUND_2"
-msgstr "We tried our best to find it, really."
-
-#: templates/404.html:11
-msgid "404_ELEMENT_NOT_FOUND_3"
-msgstr ""
-"If this was previously available, the page has likely been moved or deleted "
-"by the author or administration. Please try again later. Thank you for your "
-"understanding."
-
-#: templates/404.html:12
-msgid "404_GO_TO_HOME"
-msgstr "Return to home page"
-
-#: templates/admin_app.html:6 templates/admin_app.html:10
-#: templates/manage_distributions.html:10
-msgid "PAGE_ADMIN_APP_PAGETITLE"
-msgstr "Edit application"
-
-#: templates/admin_app.html:21 templates/app_add.html:14
-#: templates/storepage.html:14
-msgid "THICKBOX_IMAGE"
-msgstr "Image"
-
-#: templates/admin_app.html:22 templates/app_add.html:15
-#: templates/storepage.html:15
-msgid "THICKBOX_OF"
-msgstr "of"
-
-#: templates/admin_app.html:23 templates/app_add.html:16
-#: templates/storepage.html:16
-msgid "THICKBOX_CLOSE"
-msgstr "Close"
-
-#: templates/admin_app.html:24 templates/app_add.html:17
-#: templates/storepage.html:17
-msgid "THICKBOX_NEXT"
-msgstr "Next"
-
-#: templates/admin_app.html:25 templates/app_add.html:18
-#: templates/storepage.html:18
-msgid "THICKBOX_PREV"
-msgstr "Back"
-
-#: templates/admin_app.html:26 templates/app_add.html:19
-#: templates/storepage.html:19
-msgid "THICKBOX_NO_IFRAMES"
-msgstr "No iFrames"
-
-#: templates/admin_app.html:68 templates/manage_distributions.html:54
-msgid "PAGE_ADMIN_APP_FIRST_BLOCK"
-msgstr "Info"
-
-#: templates/admin_app.html:72 templates/manage_distributions.html:6
-#: templates/manage_distributions.html:58
-msgid "PAGE_ADMIN_APP_TAB_DISTRIBUTIONS"
-msgstr "Files"
-
-#: templates/admin_app.html:79
-msgid "PAGE_ADMIN_APP_TRANSLATIONINFO"
-msgstr ""
-"Translating information about your app can increase its recognition among a "
-"foreign audience, as well as improve its visibility in search engines. In "
-"any case, we advise authors to create translations into different languages."
-
-#: templates/admin_app.html:90
-msgid "PAGE_ADMIN_APP_PROFILE_BLOCK"
-msgstr "Basic information"
-
-#: templates/admin_app.html:94
-msgid "PAGE_ADMIN_APP_ID"
-msgstr "App ID:"
-
-#: templates/admin_app.html:99
-msgid "PAGE_ADMIN_APP_IDDESC"
-msgstr "This cannot be changed"
-
-#: templates/admin_app.html:103 templates/app_add.html:222
-#: templates/storepage.html:52
-msgid "PAGE_APP_LABEL_ORIGINAL_AUTHOR"
-msgstr "Original author:"
-
-#: templates/admin_app.html:111
-msgid "PAGE_ADMIN_APP_TITLE"
-msgstr "Application name:"
-
-#: templates/admin_app.html:131
-msgid "PAGE_ADMIN_APP_TITLEDESC"
-msgstr ""
-"A great and memorable name will give the application a boost in brand "
-"awareness among users"
-
-#: templates/admin_app.html:135
-msgid "PAGE_ADMIN_APP_SLOGAN"
-msgstr "Slogan (140 characters):"
-
-#: templates/admin_app.html:155
-msgid "PAGE_ADMIN_APP_SLOGANDESC"
-msgstr ""
-"The slogan will be displayed on the app page, on the homepage, and in search"
-
-#: templates/admin_app.html:159
-msgid "PAGE_ADMIN_APP_DESC"
-msgstr "Description (1400 characters):"
-
-#: templates/admin_app.html:179
-msgid "PAGE_ADMIN_APP_DESCDESC"
-msgstr ""
-"Description will be shown on the application's page in \"Additional "
-"information\" section"
-
-#: templates/admin_app.html:183
-msgid "PAGE_ADMIN_APP_REQ"
-msgstr "System requirements (1400 characters):"
-
-#: templates/admin_app.html:203
-msgid "PAGE_ADMIN_APP_REQDESC"
-msgstr ""
-"System requirements will be shown on the application's page in \"Additional "
-"information\" section"
-
-#: templates/admin_app.html:209
-msgid "PAGE_ADMIN_APP_CATEGORY"
-msgstr "Category:"
-
-#: templates/admin_app.html:211
-msgid "PAGE_ADMIN_APP_CATEGORYDESC"
-msgstr "This is crucial for proper search..."
-
-#: templates/admin_app.html:215
-msgid "PAGE_ADMIN_APP_DEVSITE"
-msgstr "Developer's official website:"
-
-#: templates/admin_app.html:222 templates/app_add.html:279
-#: templates/category.html:57
-msgid "INFO_APP_DEMO"
-msgstr "Demo"
-
-#: templates/admin_app.html:227 templates/app_add.html:285
-msgid "PAGE_APP_LABEL_PRICE"
-msgstr "Price"
-
-#: templates/admin_app.html:233
-msgid "PAGE_ADMIN_APP_ICON"
-msgstr "App icon"
-
-#: templates/admin_app.html:239
-msgid "PAGE_ADMIN_APP_LOAD_ICON"
-msgstr "Upload icon"
-
-#: templates/admin_app.html:244
-msgid "PAGE_ADMIN_APP_ICON_REQ1"
-msgstr "Recommended icon resolution: 64x64."
-
-#: templates/admin_app.html:245
-msgid "PAGE_ADMIN_APP_ICON_REQ2"
-msgstr "Allowed formats: .PNG, .JPG"
-
-#: templates/admin_app.html:246
-msgid "PAGE_ADMIN_APP_ICON_REQ3"
-msgstr "Maximum file size: 2 MB."
-
-#: templates/admin_app.html:254
-msgid "PAGE_ADMIN_APP_SCRNS_TITLE"
-msgstr "Screenshots"
-
-#: templates/admin_app.html:258
-msgid "PAGE_ADMIN_APP_LOAD_SCRN"
-msgstr "Upload new screenshots (maximum 3)"
-
-#: templates/admin_app.html:259 templates/app_add.html:371
-msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_1"
-msgstr "Maximum number of screenshots: 3"
-
-#: templates/admin_app.html:272 templates/app_add.html:393
-msgid "SET_APP_IS_PRIVATE"
-msgstr "Make the app private?"
-
-#: templates/admin_app.html:273 templates/app_add.html:394
-msgid "SET_APP_IS_PRIVATE_TOOLTIP"
-msgstr ""
-"A private app is not visible to other users. This setting can be changed "
-"after the app is published."
-
-#: templates/admin_app.html:284 templates/app_add.html:404
-msgid "SET_APP_ALLOW_REVIEWS"
-msgstr "Allow reviews"
-
-#: templates/admin_app.html:287
-#, fuzzy
-#| msgid "SET_APP_ALLOW_REVIEWS"
-msgid "SET_APP_ALLOW_REVIEWS_TOOLTIP"
-msgstr "Allow reviews"
-
-#: templates/admin_app.html:291 templates/distribution_form.html:174
-#: templates/manage_distributions.html:249
-#: templates/manage_distributions.html:275
-msgid "PAGE_ADMIN_APP_DIST_SAVE"
-msgstr "Save"
-
-#: templates/admin_app.html:313 templates/app_add.html:531
-msgid "ERROR_INVALID_FILE_FORMAT"
-msgstr "Error: Invalid file format!"
-
-#: templates/admin_app.html:313 templates/app_add.html:531
-msgid "INFO_ACCEPTED_ICON_FORMATS"
-msgstr "Only allowed: .JPG, .JPEG, .PNG"
-
-#: templates/admin_app.html:319 templates/app_add.html:539
-msgid "ERROR_INVALID_SIZE_ICON"
-msgstr "Error: File size over 2 MB!"
-
-#: templates/admin_app.html:385 templates/app_add.html:662
-msgid "JS_MARKETPLACE_UPLOADING"
-msgstr "Uploading..."
-
-#: templates/admin_app.html:386 templates/app_add.html:663
-msgid "JS_MARKETPLACE_ERROR"
-msgstr "LunaSpire error:"
-
-#: templates/admin_app.html:387 templates/app_add.html:664
-msgid "JS_MARKETPLACE_RETRY"
-msgstr "Try again"
-
-#: templates/admin_app.html:388 templates/app_add.html:665
-msgid "JS_MARKETPLACE_TOKEN_ERROR"
-msgstr "Unable to get upload token"
-
-#: templates/admin_app.html:389 templates/app_add.html:666
-msgid "JS_MARKETPLACE_FILE_ERROR"
-msgstr "Error during file transfer"
-
-#: templates/app_add.html:6 templates/app_add.html:122
-msgid "PAGE_ADDAPP_PAGETITLE"
-msgstr "Add application"
-
-#: templates/app_add.html:136
-msgid "PAGE_ADDAPP_STEP1"
-msgstr "Step 1"
-
-#: templates/app_add.html:137
-msgid "PAGE_ADDAPP_STEP1_DESC"
-msgstr "Start"
-
-#: templates/app_add.html:141
-msgid "PAGE_ADDAPP_STEP2"
-msgstr "Step 2"
-
-#: templates/app_add.html:142
-msgid "PAGE_ADDAPP_STEP2_DESC_1"
-msgstr "Additional"
-
-#: templates/app_add.html:142
-msgid "PAGE_ADDAPP_STEP2_DESC_2"
-msgstr "information"
-
-#: templates/app_add.html:146
-msgid "PAGE_ADDAPP_STEP3"
-msgstr "Step 3"
-
-#: templates/app_add.html:147
-msgid "PAGE_ADDAPP_STEP3_DESC_1"
-msgstr "Preview befrore"
-
-#: templates/app_add.html:147
-msgid "PAGE_ADDAPP_STEP3_DESC_2"
-msgstr "publication"
-
-#: templates/app_add.html:156
-msgid "PAGE_ADDAPP_STEP1_NAME"
-msgstr "Basic information"
-
-#: templates/app_add.html:160
-msgid "PAGE_ADDAPP_STEP1_TITLE"
-msgstr "Name:"
-
-#: templates/app_add.html:186
-msgid "PAGE_ADDAPP_STEP1_TITLEDESC"
-msgstr ""
-"A great and memorable name will give the application a boost in brand "
-"awareness among users"
-
-#: templates/app_add.html:190
-msgid "PAGE_ADDAPP_STEP1_SLOGAN"
-msgstr "Slogan (140 characters):"
-
-#: templates/app_add.html:216
-msgid "PAGE_ADDAPP_STEP1_SLOGANDESC_1"
-msgstr ""
-"The slogan will be displayed on the app page, on the homepage, and in search"
-
-#: templates/app_add.html:217
-msgid "PAGE_ADDAPP_STEP1_SLOGANDESC_2"
-msgstr "Brevity is the soul of wit :)"
-
-#: templates/app_add.html:234
-msgid "PAGE_ADDAPP_STEP1_ICON"
-msgstr "App icon:"
-
-#: templates/app_add.html:235
-msgid "PAGE_ADDAPP_STEP1_ICONDESC_1"
-msgstr "Recommended resolution: 64x64."
-
-#: templates/app_add.html:235
-msgid "PAGE_ADDAPP_STEP1_ICONDESC_2"
-msgstr "Allowed formats: .PNG, .JPG"
-
-#: templates/app_add.html:235
-msgid "PAGE_ADDAPP_STEP1_ICONDESC_3"
-msgstr "Maximum file size: 2 MB."
-
-#: templates/app_add.html:247
-msgid "PAGE_ADDAPP_STEP1_AGREE_RULES"
-msgstr ""
-"I agree with the site rules and am aware of the consequences of violating "
-"them"
-
-#: templates/app_add.html:261
-msgid "PAGE_ADDAPP_STEP2_NAME"
-msgstr "Additional information"
-
-#: templates/app_add.html:266
-msgid "PAGE_ADDAPP_STEP2_DEVSITE"
-msgstr "Developer's official website:"
-
-#: templates/app_add.html:296
-msgid "PAGE_ADDAPP_STEP2_DESC"
-msgstr "Description (1400 characters):"
-
-#: templates/app_add.html:322
-msgid "PAGE_ADDAPP_STEP2_DESCDESC"
-msgstr ""
-"Description will be shown on the application's page in \"Additional "
-"information\" section"
-
-#: templates/app_add.html:326
-msgid "PAGE_ADDAPP_STEP2_REQ"
-msgstr "System requirements (1400 characters):"
-
-#: templates/app_add.html:352
-msgid "PAGE_ADDAPP_STEP2_REQDESC"
-msgstr ""
-"System requirements will be shown on the application's page in \"Additional "
-"information\" section"
-
-#: templates/app_add.html:357
-msgid "PAGE_ADDAPP_STEP2_CATEGORY"
-msgstr "Category:"
-
-#: templates/app_add.html:359
-msgid "PAGE_ADDAPP_STEP2_CATEGORYDESC"
-msgstr ""
-"This is crucial for accurate search and to display your the application in "
-"relevant sections. The administration reserves the right to change the "
-"category at its discretion."
-
-#: templates/app_add.html:370
-msgid "PAGE_ADDAPP_STEP2_SCREENSHOTS"
-msgstr "Screenshots:"
-
-#: templates/app_add.html:371
-msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_2"
-msgstr "Allowed formats: .PNG, .JPG"
-
-#: templates/app_add.html:371
-msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_3"
-msgstr "Maximum file size: 2 MB."
-
-#: templates/app_add.html:411
-msgid "PAGE_ADDAPP_BACKBTN"
-msgstr "Back"
-
-#: templates/app_add.html:412
-msgid "PAGE_ADDAPP_NEXTBTN"
-msgstr "Next"
-
-#: templates/app_add.html:420
-msgid "PAGE_ADDAPP_CHECKINFO_NOTIFY"
-msgstr ""
-"Check all information before publishing. After moderation, the page will be "
-"published automatically and you will be able to upload new files there."
-
-#: templates/app_add.html:429
-msgid "PAGE_ADDAPP_CHECKINFO_NAME"
-msgstr "Name"
-
-#: templates/app_add.html:430
-msgid "PAGE_ADDAPP_CHECKINFO_SLOGAN"
-msgstr "Slogan..."
-
-#: templates/app_add.html:431
-msgid "PAGE_ADDAPP_CHECKINFO_AUTHOR_1"
-msgstr "Author: "
-
-#: templates/app_add.html:431
-msgid "PAGE_ADDAPP_CHECKINFO_AUTHOR_2"
-msgstr "You"
-
-#: templates/app_add.html:435
-msgid "PAGE_ADDAPP_CHECKINFO_SCREENSHOTS"
-msgstr "Screenshots"
-
-#: templates/app_add.html:438 templates/app_add.html:630
-msgid "INFO_NO_SCREENSHOTS"
-msgstr "No screenshots"
-
-#: templates/app_add.html:442
-msgid "PAGE_ADDAPP_CHECKINFO_OTHERINFO"
-msgstr "Additional information"
-
-#: templates/app_add.html:446
-msgid "PAGE_ADDAPP_CHECKINFO_ACTIONS"
-msgstr "Actions"
-
-#: templates/app_add.html:449
-msgid "PAGE_ADDAPP_CHECKINFO_GOTODEVSITE"
-msgstr "Go to the developer's official website"
-
-#: templates/app_add.html:471
-msgid "PAGE_ADDAPP_EDITAPPBTN"
-msgstr "Edit"
-
-#: templates/app_add.html:473
-msgid "PAGE_ADDAPP_SENDAPPBTN"
-msgstr "Send for review"
-
-#: templates/app_add.html:559
-msgid "ERROR_NO_APPNAME"
-msgstr "Enter application name!"
-
-#: templates/app_add.html:563
-msgid "ERROR_NO_AGREERULES"
-msgstr "You must agree to the rules!"
-
-#: templates/app_add.html:594
-msgid "TEXT_APP_NO_NAME"
-msgstr "Untitled"
-
-#: templates/app_add.html:595
-msgid "TEXT_APP_NO_SLOGAN"
-msgstr "No slogan"
-
-#: templates/app_add.html:596
-msgid "TEXT_APP_NO_DESC"
-msgstr "No description"
-
-#: templates/badbrowser.html:7
-msgid "PAGE_BADBROWSER_WARN_TITLE"
-msgstr "Important notice"
-
-#: templates/badbrowser.html:12
-msgid "PAGE_BADBROWSER_WARN_SUBTITLE"
-msgstr ""
-"We've noticed that you're visiting the site using a veeery old browser."
-
-#: templates/badbrowser.html:13
-msgid "PAGE_BADBROWSER_WARN_DESC_1"
-msgstr ""
-"No worries, this is actually great, especially since the entire website "
-"design is adapted with minimal reliance specifically on this web browser."
-
-#: templates/badbrowser.html:14
-msgid "PAGE_BADBROWSER_WARN_DESC_2"
-msgstr ""
-"However, given modern server security aspects and the data stored for its "
-"users, we had to implement some adjustments for those visiting the site "
-"using this browser."
-
-#: templates/badbrowser.html:17
-msgid "PAGE_BADBROWSER_WARN_RESTRICT_1"
-msgstr "<b>Unavailable</b> account system (login, registration)"
-
-#: templates/badbrowser.html:18
-msgid "PAGE_BADBROWSER_WARN_RESTRICT_2"
-msgstr "Application page administration is <b>restricted</b>"
-
-#: templates/badbrowser.html:20
-msgid "PAGE_BADBROWSER_WARN_DESC_3"
-msgstr ""
-"This restriction does not affect the ability to download, browse the "
-"catalog, or perform searches."
-
-#: templates/badbrowser.html:21
-msgid "PAGE_BADBROWSER_WARN_FOOTER"
-msgstr ""
-"For a better user experience, we recommend using the RetroZilla or Supermium "
-"browsers"
-
-#: templates/banned_ip.html:6
-msgid "BANNED_IP_PAGE_TITLE"
-msgstr "Access denied"
-
-#: templates/banned_ip.html:16
-msgid "BANNED_IP_H2"
-msgstr "Access denied"
-
-#: templates/banned_ip.html:21
-msgid "BANNED_IP_INTRO"
-msgstr "Access from your IP address has been suspended."
-
-#: templates/banned_ip.html:22
-msgid "BANNED_IP_REASON"
-msgstr ""
-"This may have occurred due to a violation of site rules, suspicious "
-"activity, or a security system trigger. We care about the comfort of all "
-"users, so we have been forced to temporarily or permanently restrict your "
-"access."
-
-#: templates/banned_ip.html:23
-msgid "BANNED_IP_RESOLUTION"
-msgstr ""
-"If you believe this ban was a mistake, or if you have a dynamic IP address "
-"that was previously used by an offender, please contact the administration."
-
-#: templates/banned_ip.html:31
-msgid "BANNED_IP_CONTACT_SUPPORT"
-msgstr "Contact technical support:"
-
-#: templates/banned_ip.html:46
-msgid "BANNED_IP_BACK_BUTTON"
-msgstr "Go back"
-
-#: templates/banned_ip.html:54 templates/base.html:216
-msgid "BASE_PRIVACYPOLICYBTN"
-msgstr "Privacy Policy"
-
-#: templates/banned_ip.html:54 templates/base.html:217
-#: templates/help_center.html:34
-msgid "PAGE_FAQ_DONATETAB"
-msgstr "Donate"
-
-#: templates/banned_ip.html:54 templates/base.html:218
-#: templates/help_center.html:40 templates/help_center.html:150
-msgid "PAGE_FAQ_RULESTAB"
-msgstr "Rules"
-
-#: templates/banned_ip.html:54 templates/base.html:219
-msgid "BASE_FOOTER_TELEGRAM"
-msgstr "Our Telegram channel"
-
-#: templates/banned_ip.html:55 templates/base.html:231
-msgid "BASE_FOOTER_TEXT_1"
-msgstr "Made by DM team with love,"
-
-#: templates/banned_ip.html:55 templates/base.html:231
-msgid "BASE_FOOTER_TEXT_2"
-msgstr "All right reserved to it's original owners"
-
-#: templates/base.html:11
 msgid " SITE_DESCRIPTION"
-msgstr ""
-"LunaStore. Apps catalog for your old PC. Download apps, leave reviews and "
-"join the community of old PC fans."
+msgstr "LunaStore. Apps catalog for your old PC. Download apps, leave reviews and join the community of old PC fans."
 
-#: templates/base.html:59
-msgid "BASE_IMPERSONATE_ATTENTION"
-msgstr "Warning!"
-
-#: templates/base.html:59
-msgid "BASE_IMPERSONATE_WARNING"
-msgstr ""
-"You are temporarily logged into another account. Please do not abuse this "
-"functionality!"
-
-#: templates/base.html:60
-msgid "BASE_IMPERSONATE_RETURN"
-msgstr "Return to your account"
-
-#: templates/base.html:65
-msgid "BASE_COOKIE_MESSAGE"
-msgstr ""
-"All kids love cookies, and we do too. That's why we use Cookies for better "
-"experience. More details about how we use those can be found in our "
-
-#: templates/base.html:66
-msgid "BASE_COOKIE_PRIVACYPOLICY"
-msgstr "Privacy Policy"
-
-#: templates/base.html:67
-msgid "BASE_COOKIE_ACCEPT"
-msgstr "Nice, accept"
-
-#: templates/base.html:68
-msgid "BASE_COOKIE_DECLINE"
-msgstr "No, thank you"
-
-#: templates/base.html:74
-msgid "BASE_AUTHLIKE"
-msgstr "You're logged in as "
-
-#: templates/base.html:74
-msgid "BASE_LOGOUTBTN"
-msgstr "sign out"
-
-#: templates/base.html:76
-msgid "BASE_LOGINBTN"
-msgstr "sign in"
-
-#: templates/base.html:76
-msgid "BASE_REGISTERBTN"
-msgstr "sign up"
-
-#: templates/base.html:91
-msgid "BASE_OPRJ_TITLE"
-msgstr "other projects"
-
-#: templates/base.html:106 templates/index.html:26
-msgid "INDEX_SEARCH_PLACEHOLDER"
-msgstr "Example: Total Commander"
-
-#: templates/base.html:107 templates/category.html:46
-msgid "BASE_SEARCHBTN"
-msgstr "search"
-
-#: templates/base.html:131
-msgid "BASE_SIDEBAR_APP_TITLE"
-msgstr "Application"
-
-#: templates/base.html:135
-msgid "BASE_SIDEBAR_APP_INSTALL"
-msgstr "Install"
-
-#: templates/base.html:140
-msgid "BASE_SIDEBAR_APP_DEV_SITE"
-msgstr "Developer's website"
-
-#: templates/base.html:144
-msgid "BASE_SIDEBAR_APP_REPORT"
-msgstr "Report"
-
-#: templates/base.html:146
-msgid "BASE_SIDEBAR_APP_EDIT"
-msgstr "Edit page"
-
-#: templates/base.html:152
-msgid "BASE_SIDEBAR_ACCOUNT_TITLE"
-msgstr "Account"
-
-#: templates/base.html:156
-msgid "BASE_SIDEBAR_ACCOUNT_PROFILEBTN"
-msgstr "My profile"
-
-#: templates/base.html:157
-msgid "BASE_SIDEBAR_ACCOUNT_SETTINGSBTN"
-msgstr "Settings"
-
-#: templates/base.html:159
-msgid "BASE_SIDEBAR_ACCOUNT_INVITEBTN"
-msgstr "Invite"
-
-#: templates/base.html:162 templates/notifications.html:18
-msgid "PAGE_NOTIFICATIONS_TAB"
-msgstr "Notifications"
-
-#: templates/base.html:170
-msgid "BASE_SIDEBAR_CATEGORIES_TITLE"
-msgstr "Categories"
-
-#: templates/base.html:174
-msgid "BASE_SIDEBAR_CATEGORIES_HOME"
-msgstr "Home page"
-
-#: templates/base.html:212
-msgid "BASE_FOOTER_REPORT_PROBLEM"
-msgstr "Report a problem"
-
-#: templates/base.html:246
-msgid "PAGE_NOTIFY_TOAST_NEW"
-msgstr "New notification"
-
-#: templates/base.html:247
-msgid "PAGE_NOTIFY_TOAST_CLOSE"
-msgstr "Close"
-
-#: templates/base.html:248
-msgid "PAGE_NOTIFY_TOAST_VIEW"
-msgstr "View »"
-
-#: templates/category.html:18 templates/search.html:13
-msgid "PAGE_SEARCH_SORT_PLACEHOLDER"
-msgstr "Show content as..."
-
-#: templates/category.html:19 templates/search.html:14
-msgid "PAGE_SEARCH_SORT_TILES"
-msgstr "Show content as tiles"
-
-#: templates/category.html:20 templates/search.html:15
-msgid "PAGE_SEARCH_SORT_LIST"
-msgstr "Show content as list"
-
-#: templates/category.html:25
-msgid "PAGE_CATEGORY_COUNTOFRESULTS"
-msgstr "Number of results:"
-
-#: templates/category.html:40
-msgid "PAGE_CATEGORY_SEARCHOFCATEGORY"
-msgstr "Search by category"
-
-#: templates/category.html:55
-msgid "INFO_APP_DEMOWITHPRICE"
-msgstr "Demo, then "
-
-#: templates/category.html:63
-msgid "INFO_APP_FREE"
-msgstr "Free"
-
-#: templates/category.html:68
-msgid "PAGE_CATEGORY_DEMOBTN"
-msgstr "Demo"
-
-#: templates/category.html:70
-msgid "PAGE_CATEGORY_BUYBTN"
-msgstr "Buy"
-
-#: templates/category.html:72
-msgid "PAGE_CATEGORY_INSTALLBTN"
-msgstr "Install"
-
-#: templates/debug_info.html:8
-msgid "PAGE_DEBUG_TITLE"
-msgstr "Debug information"
-
-#: templates/debug_info.html:9
-msgid "PAGE_DEBUG_DESC"
-msgstr ""
-"This page is used EXCLUSIVELY for testing and gathering information for a "
-"more accurate bug report. If you see this page, it means that the DEBUG "
-"variable in your settings.py is set to True."
-
-#: templates/debug_info.html:10
-msgid "PAGE_DEBUG_MAININFO_TITLE"
-msgstr "Basic information"
-
-#: templates/del_acc.html:10
-msgid "PAGE_DELACC_BLOCK_TITLE"
-msgstr "Settings"
-
-#: templates/del_acc.html:22
-msgid "PAGE_DELACC_TITLE"
-msgstr "Delete account"
-
-#: templates/del_acc.html:27
-msgid "PAGE_DELACC_WARNTITLE"
-msgstr "Please pay attention!"
-
-#: templates/del_acc.html:29
-msgid "PAGE_DELACC_WARNDESC_1"
-msgstr ""
-"You have already clicked the account deletion button in your profile "
-"settings, we understand your decision. "
-
-#: templates/del_acc.html:29
-msgid "PAGE_DELACC_WARNDESC_2"
-msgstr ""
-"However, we would like to reiterate that this action will result in the "
-"deletion of your profile data"
-
-#: templates/del_acc.html:29
-msgid "PAGE_DELACC_WARNDESC_3"
-msgstr "with NO going back"
-
-#: templates/del_acc.html:29
-msgid "PAGE_DELACC_WARNDESC_4"
-msgstr ""
-"Access to managed application pages will be lost, and submitted feedback "
-"will be anonymized."
-
-#: templates/del_acc.html:29
-msgid "PAGE_DELACC_WARNDESC_5"
-msgstr "It is time to list your profile statistics:"
-
-#: templates/del_acc.html:33
-msgid "PAGE_DELACC_YOULEFTHERE_TITLE"
-msgstr "You have left here..."
-
-#: templates/del_acc.html:34
-msgid "PAGE_DELACC_YOULEFTHERE_1"
-msgstr "Food for thought"
-
-#: templates/del_acc.html:38
-msgid "PAGE_DELACC_YOULEFTHERE_APP_1"
-msgstr "Number of apps you uploaded:"
-
-#: templates/del_acc.html:39
-msgid "PAGE_DELACC_YOULEFTHERE_APP_2"
-msgstr "You will not be able to manage them after deleting your account"
-
-#: templates/del_acc.html:43
-msgid "PAGE_DELACC_YOULEFTHERE_AVATAR_1"
-msgstr "Your beautiful profile picture"
-
-#: templates/del_acc.html:44
-msgid "PAGE_DELACC_YOULEFTHERE_AVATAR_2"
-msgstr "Accept yourself as you are"
-
-#: templates/del_acc.html:48
-msgid "PAGE_DELACC_YOULEFTHERE_HISTORY_1"
-msgstr "History of uploaded applications"
-
-#: templates/del_acc.html:49
-msgid "PAGE_DELACC_YOULEFTHERE_HISTORY_2"
-msgstr "...have you ever even looked there once?"
-
-#: templates/del_acc.html:53
-msgid "PAGE_DELACC_YOULEFTHERE_INVITES_1"
-msgstr "The number of people invited by you:"
-
-#: templates/del_acc.html:54
-msgid "PAGE_DELACC_YOULEFTHERE_INVITES_2"
-msgstr "They will be left without you and will be sad"
-
-#: templates/del_acc.html:59
-msgid "PAGE_DELACC_LASTPASS_TITLE"
-msgstr ""
-"If you have made a firm and clear decision, please enter your password one "
-"last time to confirm"
-
-#: templates/del_acc.html:78
-msgid "PAGE_DELAPP_DELACCOUNTBTN"
-msgstr "Delete account"
-
-#: templates/dev_add.html:5 templates/dev_add.html:10
-msgid "PAGE_DEVADD_TITLE"
-msgstr "Submit developer status application"
-
-#: templates/dev_add.html:15
-msgid "PAGE_DEVADD_DESC_1"
-msgstr "Are you a representative or a developer of your software?"
-
-#: templates/dev_add.html:15
-msgid "PAGE_DEVADD_DESC_2"
-msgstr ""
-"Upgrade your profile to a developer account and publish software officially "
-"on LunaStore. Official downloads will be marked with a corresponding badge."
-
-#: templates/dev_add.html:19
-msgid "PAGE_DEVADD_DISABLED_1"
-msgstr "Developer registration is temporarily disabled"
-
-#: templates/dev_add.html:20
-msgid "PAGE_DEVADD_DISABLED_2"
-msgstr ""
-"We don't accept new developer status applications at this moment. Please try "
-"again later."
-
-#: templates/dev_add.html:25
-msgid "PAGE_DEVADD_ALREADYDEV_1"
-msgstr "You are already a developer!"
-
-#: templates/dev_add.html:26
-msgid "PAGE_DEVADD_ALREADYDEV_2"
-msgstr ""
-"You already have developer status. You now have access to all additional app "
-"upload options on LunaStore."
-
-#: templates/dev_add.html:30
-msgid "PAGE_DEVADD_NOWCHECKING_TITLE"
-msgstr "Application currently in review"
-
-#: templates/dev_add.html:31
-msgid "PAGE_DEVADD_NOWCHECKING_1"
-msgstr ""
-"You have already submitted an application. The administrator will review it "
-"shortly."
-
-#: templates/dev_add.html:32
-msgid "PAGE_DEVADD_NOWCHECKING_2"
-msgstr "If it is approved, you will receive a notification and your status."
-
-#: templates/dev_add.html:33
-msgid "PAGE_DEVADD_NOWCHECKING_3"
-msgstr "If rejected, you will be able to reapply."
-
-#: templates/dev_add.html:37
-msgid "PAGE_DEVADD_ENTERINFO_TITLE"
-msgstr "Basic information"
-
-#: templates/dev_add.html:45
-msgid "PAGE_DEVADD_ENTERINFO_USERNAME"
-msgstr "Username:"
-
-#: templates/dev_add.html:54
-msgid "PAGE_DEVADD_ENTERINFO_USERNAMEDESC"
-msgstr ""
-"Username cannot be changed. If this is not the correct account, please sign "
-"in to the needed one."
-
-#: templates/dev_add.html:59
-msgid "PAGE_DEVADD_ENTERINFO_EMAIL"
-msgstr "Contact e-mail:"
-
-#: templates/dev_add.html:68
-msgid "PAGE_DEVADD_ENTERINFO_EMAILDESC"
-msgstr "We will definitely contact you. Or we hope that we will. "
-
-#: templates/dev_add.html:82
-msgid "PAGE_DEVADD_ENTERINFO_GITHUBDESC"
-msgstr "Why not? We would love to see your cool creations :3"
-
-#: templates/dev_add.html:87
-msgid "PAGE_DEVADD_ENTERINFO_ABOUTYOU"
-msgstr "Tell us about yourself (up to 1000 characters):"
-
-#: templates/dev_add.html:100
-msgid "PAGE_DEVADD_ENTERINFO_WHYCHOOSEUS"
-msgstr "Why did you choose us? (250 characters):"
-
-#: templates/dev_add.html:112
-msgid "PAGE_DEVADD_ENTERINFO_CONFIRM"
-msgstr "Registration confirmation"
-
-#: templates/dev_add.html:138
-msgid "PAGE_DEVADD_SENDALLBTN"
-msgstr "Submit application"
-
-#: templates/distribution_form.html:44
-msgid "PAGE_DIST_EDIT_HEADER"
-msgstr "Edit distribution"
-
-#: templates/distribution_form.html:52 templates/manage_distributions.html:159
-msgid "PAGE_DIST_FORM_VERSION"
-msgstr "Application version:"
-
-#: templates/distribution_form.html:54 templates/manage_distributions.html:161
-msgid "PAGE_DIST_FORM_VERSION_DESC"
-msgstr "Example: 1.0.0 or 2.1.4-beta"
-
-#: templates/distribution_form.html:59
-msgid "PAGE_DIST_EDIT_CURRENT_FILE"
-msgstr "Current file:"
-
-#: templates/distribution_form.html:71
-msgid "PAGE_DIST_EDIT_CHANGE_FILE"
-msgstr "Replace file:"
-
-#: templates/distribution_form.html:71 templates/manage_distributions.html:165
-msgid "PAGE_DIST_FORM_FILE"
-msgstr "File:"
-
-#: templates/distribution_form.html:78 templates/manage_distributions.html:171
-msgid "PAGE_DIST_FORM_FILE_BUTTON"
-msgstr "Browse..."
-
-#: templates/distribution_form.html:88 templates/distribution_form.html:172
-#: templates/distribution_form.html:189 templates/manage_distributions.html:181
-#: templates/manage_distributions.html:273
-#: templates/manage_distributions.html:290
-msgid "PAGE_DIST_FORM_FILE_NO_FILE"
-msgstr "No file selected."
-
-#: templates/distribution_form.html:113 templates/manage_distributions.html:207
-msgid "PAGE_DIST_FORM_FILE_DESC"
-msgstr "Supported formats: .exe, .zip, .rar, .7z and other archives."
-
-#: templates/distribution_form.html:117 templates/manage_distributions.html:211
-msgid "PAGE_DIST_FORM_VT_TITLE"
-msgstr "VirusTotal link (mandatory when uploading a file):"
-
-#: templates/distribution_form.html:119 templates/manage_distributions.html:213
-msgid "PAGE_DIST_FORM_VT_DESC"
-msgstr "Provide a link to the file scan results on virustotal.com"
-
-#: templates/distribution_form.html:123 templates/manage_distributions.html:217
-msgid "PAGE_DIST_FORM_URL"
-msgstr "External link (URL):"
-
-#: templates/distribution_form.html:125 templates/manage_distributions.html:219
-msgid "PAGE_DIST_FORM_URL_DESC"
-msgstr "Specify if the file is hosted on another resource"
-
-#: templates/distribution_form.html:154
-msgid "PAGE_DIST_FORM_SAVE"
-msgstr "Save changes"
-
-#: templates/distribution_form.html:156
-msgid "PAGE_DIST_FORM_CANCEL"
-msgstr "Cancel"
-
-#: templates/distribution_form.html:173 templates/manage_distributions.html:274
-msgid "PAGE_DIST_FORM_FILE_UPLOADING"
-msgstr "Uploading..."
-
-#: templates/distribution_form.html:175 templates/manage_distributions.html:276
-msgid "PAGE_DIST_FORM_FILE_ALREADY_UPLOADED"
-msgstr "File already uploaded (pending save)"
-
-#: templates/distribution_form.html:176 templates/manage_distributions.html:277
-msgid "PAGE_DIST_FORM_ERR_GET_TOKEN"
-msgstr ""
-"Error receiving upload token from the LunaSpire engine. Please contact the "
-"administrator regarding this error."
-
-#: templates/distribution_form.html:177 templates/manage_distributions.html:278
-msgid "PAGE_DIST_FORM_ERR_CDN_REJECT"
-msgstr ""
-"The LunaSpire engine rejected the file upload. Please contact the "
-"administrator regarding this error."
-
-#: templates/distribution_form.html:178 templates/manage_distributions.html:279
-msgid "PAGE_DIST_FORM_ERR_NO_CONFIRM"
-msgstr ""
-"The LunaSpire engine did not return a confirmation token. Please contact the "
-"administrator regarding this error."
-
-#: templates/download_list.html:7
-msgid "PAGE_DOWNLOAD_TITLE"
-msgstr "Downloading"
-
-#: templates/download_list.html:38
-msgid "PAGE_DOWNLOAD_LATEST_VERSION_NOTE"
-msgstr "Latest downloaded version marked in bold"
-
-#: templates/download_list.html:46
-msgid "PAGE_DOWNLOAD_VERSION_LIST"
-msgstr "Version list"
-
-#: templates/download_list.html:52
-msgid "PAGE_DOWNLOAD_MANAGE_DISTS"
-msgstr "Distribution management"
-
-#: templates/download_list.html:62
-msgid "PAGE_DOWNLOAD_TABLE_VERSION"
-msgstr "Version"
-
-#: templates/download_list.html:70
-msgid "PAGE_DOWNLOAD_TABLE_DATE"
-msgstr "Publication date"
-
-#: templates/download_list.html:76
-msgid "PAGE_DOWNLOAD_TABLE_LINK"
-msgstr "Link"
-
-#: templates/download_list.html:87 templates/download_list.html:88
-#: templates/download_list.html:90
-msgid "PAGE_DOWNLOAD_DL_ACTION"
-msgstr "download"
-
-#: templates/download_list.html:103
-msgid "PAGE_DOWNLOAD_NO_NOTES"
-msgstr "No notes"
-
-#: templates/download_list.html:110
-msgid "PAGE_DOWNLOAD_NO_DISTRIBUTIONS"
-msgstr "No distributions added yet."
-
-#: templates/download_list.html:142
-msgid "PAGE_DOWNLOAD_OFFICIAL_SOURCE"
-msgstr "Downloading from official source"
-
-#: templates/download_list.html:148
-msgid "PAGE_DOWNLOAD_GO_OFFICIAL"
-msgstr "Go to the official website"
-
-#: templates/download_list.html:160
-msgid "PAGE_DOWNLOAD_DMCA_WARNING"
-msgstr ""
-"The ability to download the program has been disabled due to a copyright "
-"holder's complaint. Thank you for your understanding."
-
-#: templates/download_list.html:170
-msgid "PAGE_DOWNLOAD_DEMO_WARNING"
-msgstr ""
-"The software is distributed as a demo version; the full version should be "
-"purchased from the author. The file is provided from the developer's "
-"official website."
-
-#: templates/help_center.html:6
-msgid "PAGE_FAQ_TITLE"
-msgstr "FAQ"
-
-#: templates/help_center.html:10
-msgid "PAGE_FAQ_TITLE_2"
-msgstr "Support center"
-
-#: templates/help_center.html:11
-msgid "PAGE_FAQ_DESC"
-msgstr ""
-"Do you have any questions? This page has all information regarding this "
-"LunaStore"
-
-#: templates/help_center.html:28
-msgid "PAGE_FAQ_PRIVACYTAB"
-msgstr "Privacy"
-
-#: templates/help_center.html:52
-msgid "PAGE_FAQ_CARD_WHATISIT"
-msgstr "Where am I and what is this?"
-
-#: templates/help_center.html:53
-msgid "PAGE_FAQ_CARD_WHATISITDESC"
-msgstr ""
-"is a kind of alternative 'storefront' for games and software. We're "
-"currently aiming for the Windows XP era."
-
-#: templates/help_center.html:57
-msgid "PAGE_FAQ_CARD_WHYWESHOP"
-msgstr "Why's the \"store\" in quotation marks?"
-
-#: templates/help_center.html:58
-msgid "PAGE_FAQ_CARD_WHYWESHOPDESC"
-msgstr ""
-"We're a fan website and we don't think that this project will grow to a full-"
-"fledged storefront. But who knows? Although the advertisements in the left "
-"menu are not serious, and the entire project is a shared hobby."
-
-#: templates/help_center.html:62
-msgid "PAGE_FAQ_CARD_TEAM"
-msgstr "What do you mean by 'shared hobby'?"
-
-#: templates/help_center.html:65
-msgid "PAGE_FAQ_CARD_TEAMDESC_1"
-msgstr ""
-"You wouldn't believe it. Many passionate people with the same vision worked "
-"on this project."
-
-#: templates/help_center.html:66
-msgid "PAGE_FAQ_CARD_TEAMDESC_2"
-msgstr "It's time to name them:"
-
-#: templates/help_center.html:68
-msgid "PAGE_FAQ_CARD_TEAM_AUTHOR"
-msgstr "- idea's author, designer,"
-
-#: templates/help_center.html:69
-msgid "PAGE_FAQ_TOOLTIP_EASTEREGG"
-msgstr "WORKAROUNDS BICYCLES YOOO"
-
-#: templates/help_center.html:69
-msgid "PAGE_FAQ_CARD_TEAM_FRONTEND"
-msgstr "- frontend"
-
-#: templates/help_center.html:71
-msgid "PAGE_FAQ_CARD_TEAM_CDNANDGIT"
-msgstr "- back-office work, CDN, internal Git"
-
-#: templates/help_center.html:73
-msgid "PAGE_FAQ_TEAM_ROLE_FAYZETWIN"
-msgstr "main backend developer, API"
-
-#: templates/help_center.html:74
-msgid "PAGE_FAQ_TEAM_ROLE_ZAZIOS"
-msgstr "backend developer (Go)"
-
-#: templates/help_center.html:75
-msgid "PAGE_FAQ_CARD_TEAM_BACKEND"
-msgstr "- backend development, consulting and inspiration"
-
-#: templates/help_center.html:76
-msgid "PAGE_FAQ_CARD_TEAM_DEV"
-msgstr "- developer"
-
-#: templates/help_center.html:77
-msgid "PAGE_FAQ_TEAM_ROLE_MONDY"
-msgstr "logo"
-
-#: templates/help_center.html:79
-msgid "PAGE_FAQ_TEAM_HEADER_OTHER"
-msgstr "We're also thankful to other developers:"
-
-#: templates/help_center.html:80
-msgid "PAGE_FAQ_TEAM_ROLE_NOCHA3"
-msgstr "native Windows XP client"
-
-#: templates/help_center.html:81
-msgid "PAGE_FAQ_TEAM_ROLE_CHELKA0"
-msgstr "behind-the-scenes website design"
-
-#: templates/help_center.html:83
-msgid "PAGE_FAQ_TEAM_HEADER_TESTERS"
-msgstr "And let's not forget about our testers:"
-
-#: templates/help_center.html:86
-msgid "PAGE_FAQ_TEAM_HEADER_TRANSLATORS"
-msgstr "And about translators:"
-
-#: templates/help_center.html:97
-msgid "PAGE_FAQ_Q_CREATE_ACC"
-msgstr "How to create an account?"
-
-#: templates/help_center.html:98
-msgid "PAGE_FAQ_A_CREATE_ACC"
-msgstr "Click the \"Sign up\" button in the top header of the site"
-
-#: templates/help_center.html:102
-msgid "PAGE_FAQ_Q_ACC_BENEFITS"
-msgstr "What are the benefits of having a LunaStore account?"
-
-#: templates/help_center.html:103
-msgid "PAGE_FAQ_A_ACC_BENEFITS"
-msgstr ""
-"With an account, you will be able to leave reviews for applications, present "
-"yourself well in this emerging community, and upload your own applications "
-"to the public catalog after strict moderation."
-
-#: templates/help_center.html:107
-msgid "PAGE_FAQ_Q_ADD_APP"
-msgstr "Okay, and how do I add an application here?"
-
-#: templates/help_center.html:108
-msgid "PAGE_FAQ_A_ADD_APP"
-msgstr ""
-"Not yet. We are just getting started, so we are taking software from our own "
-"lists. Keep an eye on updates to this page."
-
-#: templates/help_center.html:112
-msgid "PAGE_FAQ_Q_LEGAL"
-msgstr "\"Hmm, and is this legal?\""
-
-#: templates/help_center.html:113
-msgid "PAGE_FAQ_A_LEGAL"
-msgstr ""
-"Usually, such a question is asked by a software developer. However, if you "
-"are very concerned about the existence of an old version of your program on "
-"this site, you can contact us via e-mail. But we really hope that you will "
-"understand our situation and the purpose of the project."
-
-#: templates/help_center.html:117
-msgid "PAGE_FAQ_Q_WHY_EXIST"
-msgstr "Why does this website exist/"
-
-#: templates/help_center.html:120
-msgid "PAGE_FAQ_A_WHY_EXIST_PART1"
-msgstr ""
-"Good question. It all began when one of our team members wanted to upload a "
-"3D Windows XP screensaver on a certain old software website that wasn't "
-"quite popular and was barely saved on the Internet Archive."
-
-#: templates/help_center.html:121
-msgid "PAGE_FAQ_A_WHY_EXIST_PART2"
-msgstr ""
-"In a few days the screensaver was deleted from the website, stating that "
-"\"It's not suitable for the website's topic\". When he questioned \"Why do "
-"you have Windows XP disk images on your website then?\", staff members "
-"couldn't give a straight answer."
-
-#: templates/help_center.html:122
-msgid "PAGE_FAQ_A_WHY_EXIST_PART3"
-msgstr ""
-"Nothing to worry about, we are not saddened and we won't be competitors to "
-"them, we just wanted to create our own little catalog :3"
-
-#: templates/help_center.html:127 templates/help_center.html:136
-msgid "PAGE_FAQ_LAST_UPDATE"
-msgstr "Last update"
-
-#: templates/help_center.html:131
-msgid "PAGE_FAQ_PRIVACY_TITLE"
-msgstr "Privacy Policy"
-
-#: templates/help_center.html:138 templates/help_center.html:146
-#: templates/help_center.html:154
-msgid "PAGE_FAQ_PRIVACY_EMPTY"
-msgstr "This document is not yet filled..."
-
-#: templates/help_center.html:142
-msgid "PAGE_FAQ_DONATE_TITLE"
-msgstr "How to support us?"
-
-#: templates/includes/categories.html:11
-msgid "INFO_CATEGORY_LIST_EMPTY"
-msgstr "'s all empty..."
-
-#: templates/index.html:10
-msgid "INDEX_WELCOME_TITLE"
-msgstr "Welcome"
-
-#: templates/index.html:11
-msgid "INDEX_WELCOME_TEXT"
-msgstr ""
-"Welcome to LunaStore!<br>A collection of apps and extensions for a "
-"comfortable experience with this OS"
-
-#: templates/index.html:16
-msgid "INDEX_SEARCH_SECTION_TITLE"
-msgstr "Search catalog"
-
-#: templates/index.html:37
-msgid "INDEX_SEARCH_BTN"
-msgstr "Search"
-
-#: templates/index.html:45
-msgid "INDEX_CATEGORY_PROMPT"
-msgstr "Or select a category:"
-
-#: templates/index.html:54
-msgid "INDEX_NO_CATEGORIES"
-msgstr "No categories added yet"
-
-#: templates/invite.html:6
-msgid "PAGE_INVITE_BROWSER_TITLE"
-msgstr "Invite"
-
-#: templates/invite.html:13
-msgid "PAGE_INVITE_MAIN_TITLE"
-msgstr "Invite a person"
-
-#: templates/invite.html:19
-msgid "PAGE_INVITE_DESCRIPTION"
-msgstr ""
-"You can invite your friend or acquaintance with similar interests about "
-"retro stuff to LunaStore."
-
-#: templates/invite.html:29
-msgid "PAGE_INVITE_COPY_CODE"
-msgstr "Copy this code below and send it to the required person"
-
-#: templates/invite.html:34
-msgid "PAGE_INVITE_HOW_TO_SEND"
-msgstr ""
-"Via e-mail, phone, chat, in person - doesn't matter. The invited user must "
-"enter the code during registration."
-
-#: templates/invite.html:41
-msgid "PAGE_INVITE_CODE_ROTATION_WARN"
-msgstr "<b>Important:</b> invite codes currently change every 24 hours"
-
-#: templates/invite.html:49
-msgid "PAGE_INVITE_LIMIT_EXHAUSTED"
-msgstr "Invited users"
-
-#: templates/invite.html:50
-msgid "PAGE_INVITE_NEXT_AVAILABLE"
-msgstr "Code"
-
-#: templates/invite.html:57
-msgid "PAGE_INVITE_LIST_HEADER"
-msgstr "Invited users"
-
-#: templates/invite.html:64
-msgid "PAGE_INVITE_ADMINSTATUS"
-msgstr "Moderator"
-
-#: templates/invite.html:66
-msgid "PAGE_INVITE_USERSTATUS"
-msgstr "User"
-
-#: templates/invite.html:77
-msgid "PAGE_INVITE_REGDATE"
-msgstr "Sign up"
-
-#: templates/invite.html:89
-msgid "PAGE_INVITE_LIST_EMPTY"
-msgstr "You haven't invited anyone yet"
-
-#: templates/invite_input.html:3
-msgid "PAGE_INVITE_INPUT_TITLE"
-msgstr "Enter invite code"
-
-#: templates/invite_input.html:8
-msgid "PAGE_INVITE_INPUT_HEADER"
-msgstr "Enter invite code"
-
-#: templates/invite_input.html:12
-msgid "PAGE_INVITE_INPUT_DESC_1"
-msgstr ""
-"You can enter an invitation code you received from an already <b>registered "
-"member</b>"
-
-#: templates/invite_input.html:14
-msgid "PAGE_INVITE_INPUT_DESC_2"
-msgstr ""
-"This gives you a unique opportunity to create an account, <b>bypassing the "
-"closed public registration</b>"
-
-#: templates/invite_input.html:27
-msgid "PAGE_INVITE_INPUT_LABEL"
-msgstr "Code"
-
-#: templates/invite_input.html:31
-msgid "PAGE_INVITE_INPUT_BTN"
-msgstr "Begin registration"
-
-#: templates/login_splash.html:6
-msgid "PAGE_LOGIN_BROWSER_TITLE"
-msgstr "Sign in"
-
-#: templates/login_splash.html:14
-msgid "PAGE_LOGIN_REQUIRED_WARNING"
-msgstr "You need to sign in to continue this action"
-
-#: templates/login_splash.html:20
-msgid "PAGE_LOGIN_MAIN_TITLE"
-msgstr "Sign in"
-
-#: templates/login_splash.html:28
-msgid "PAGE_LOGIN_GREETING"
-msgstr "Introduce yourself..."
-
-#: templates/login_splash.html:40
-msgid "PAGE_LOGIN_USERNAME_LABEL"
-msgstr "Username:"
-
-#: templates/login_splash.html:45
-msgid "PAGE_LOGIN_PASSWORD_LABEL"
-msgstr "Password:"
-
-#: templates/login_splash.html:50
-msgid "PAGE_LOGIN_FORGOT_PASSWORD"
-msgstr "Forgot password?"
-
-#: templates/login_splash.html:51
-msgid "PAGE_LOGIN_SUBMIT_BTN"
-msgstr "Sign in"
-
-#: templates/login_splash.html:59
-msgid "PAGE_LOGIN_INFO_TITLE_1"
-msgstr "Why do I need an account?"
-
-#: templates/login_splash.html:61
-msgid "PAGE_LOGIN_INFO_BULLET_1"
-msgstr "Leave app reviews"
-
-#: templates/login_splash.html:62
-msgid "PAGE_LOGIN_INFO_BULLET_2"
-msgstr "Take the community by storm"
-
-#: templates/login_splash.html:63
-msgid "PAGE_LOGIN_INFO_BULLET_3"
-msgstr "Upload software"
-
-#: templates/login_splash.html:66
-msgid "PAGE_LOGIN_INFO_TITLE_2"
-msgstr "You don't have an account?"
-
-#: templates/login_splash.html:67
-msgid "PAGE_LOGIN_INFO_DESC_2"
-msgstr "Create one. It's free of charge."
-
-#: templates/login_splash.html:68
-msgid "PAGE_LOGIN_REGISTER_BTN"
-msgstr "Sign up"
-
-#: templates/manage_distributions.html:64
-msgid "PAGE_ADMIN_APP_DIST_HEADER"
-msgstr "Distribution management — "
-
-#: templates/manage_distributions.html:68
-msgid "PAGE_ADMIN_APP_DIST_PENDING_TITLE"
-msgstr "Requests pending moderation:"
-
-#: templates/manage_distributions.html:72
-#: templates/manage_distributions.html:78
-msgid "PAGE_ADMIN_APP_DIST_VERSION_LABEL"
-msgstr "Version"
-
-#: templates/manage_distributions.html:73
-msgid "PAGE_ADMIN_APP_DIST_PENDING_CREATE"
-msgstr "(Create new) — Pending"
-
-#: templates/manage_distributions.html:79
-msgid "PAGE_ADMIN_APP_DIST_PENDING_EDIT"
-msgstr "(Edit) — Pending"
-
-#: templates/manage_distributions.html:90
-msgid "PAGE_ADMIN_APP_DIST_VERSION"
-msgstr "Version"
-
-#: templates/manage_distributions.html:91
-msgid "PAGE_ADMIN_APP_DIST_DATE"
-msgstr "Date"
-
-#: templates/manage_distributions.html:92
-msgid "PAGE_ADMIN_APP_DIST_ACTIONS"
-msgstr "Actions"
-
-#: templates/manage_distributions.html:101
-msgid "PAGE_ADMIN_APP_DIST_ACTION_EDIT"
-msgstr "Edit"
-
-#: templates/manage_distributions.html:104 templates/profile.html:206
-#: templates/profile.html:234 templates/storepage.html:228
-msgid "PAGE_ADMIN_APP_DIST_ACTION_DELETE"
-msgstr "Delete"
-
-#: templates/manage_distributions.html:114
-msgid "PAGE_ADMIN_APP_DIST_NO_NOTES"
-msgstr "No notes"
-
-#: templates/manage_distributions.html:146
-msgid "PAGE_ADMIN_APP_DIST_EMPTY"
-msgstr "No uploaded versions yet."
-
-#: templates/manage_distributions.html:152
-msgid "PAGE_ADMIN_APP_DIST_ADD_NEW"
-msgstr "Add new version"
-
-#: templates/manage_distributions.html:224
-msgid "PAGE_DIST_FORM_CHANGELOG"
-msgstr "Changelog:"
-
-#: templates/manage_distributions.html:244
-msgid "PAGE_DIST_FORM_CHANGELOG_DESC"
-msgstr "Describe what's new in this version"
-
-#: templates/manage_distributions.html:256
-msgid "PAGE_ADMIN_APP_DIST_DL_LINK_BLOCK"
-msgstr "Download link"
-
-#: templates/manage_distributions.html:258
-msgid "PAGE_ADMIN_APP_DIST_DL_LINK_TEXT"
-msgstr "Open version list"
-
-#: templates/notifications.html:6
-msgid "PAGE_NOTIFICATIONS_TITLE"
-msgstr "Notifications"
-
-#: templates/notifications.html:26
-msgid "NOTIFICATIONS_LOADING"
-msgstr "Loading notifications..."
-
-#: templates/notifications.html:36
-msgid "PAGE_NOTIFICATIONS_EARLY"
-msgstr "Early notifications"
-
-#: templates/notifications.html:72
-msgid "PAGE_NOTIFICATIONS_NO_NEW"
-msgstr "You have no new notifications"
-
-#: templates/notifications.html:73
-msgid "PAGE_NOTIFICATIONS_NEW_COUNT"
-msgstr "just now"
-
-#: templates/notifications.html:74
-msgid "PAGE_NOTIFICATIONS_NOW"
-msgstr "just now"
-
-#: templates/other_projects.html:6
-msgid "PAGE_OTHER_PROJECTS_BROWSER_TITLE"
-msgstr "Other projects"
-
-#: templates/other_projects.html:11
-msgid "PAGE_OTHER_PROJECTS_TITLE"
-msgstr "Other projects"
-
-#: templates/other_projects.html:12
-msgid "PAGE_OTHER_PROJECTS_SUBTITLE"
-msgstr "Partner sites and our other projects"
-
-#: templates/other_projects.html:17
-msgid "PAGE_OTHER_PROJECTS_SECTION_MAIN"
-msgstr "Main"
-
-#: templates/other_projects.html:23
-msgid "PAGE_OTHER_PROJECTS_DESC_DM"
-msgstr ""
-"Daniel Myslivets official website (version for old computers and browsers)"
-
-#: templates/other_projects.html:24 templates/other_projects.html:33
-#: templates/other_projects.html:46 templates/other_projects.html:55
-msgid "PAGE_OTHER_PROJECTS_BTN_GO"
-msgstr "Visit »"
-
-#: templates/other_projects.html:32
-msgid "PAGE_OTHER_PROJECTS_DESC_RENAISSANCE"
-msgstr "Unofficial project that restores Agent@Mail.ru functionality"
-
-#: templates/other_projects.html:39
-msgid "PAGE_OTHER_PROJECTS_SECTION_FRIENDS"
-msgstr "Partner sites"
-
-#: templates/other_projects.html:45
-msgid "PAGE_OTHER_PROJECTS_DESC_KICQ"
-msgstr "Unofficial project that restores ICQ functionality"
-
-#: templates/other_projects.html:54
-msgid "PAGE_OTHER_PROJECTS_DESC_FOXCORP"
-msgstr ""
-"Personal website of Milya Fox, a network engineer who helped with the project"
-
-#: templates/profile.html:6
-msgid "PAGE_PROFILE_TITLE"
-msgstr "User Profile"
-
-#: templates/profile.html:41
-msgid "CARD_USER_NO_DESC"
-msgstr "Profile bio missing"
-
-#: templates/profile.html:46
-#, python-format
 msgid "%(counter)s PAGE_PROFILE_STATS_APP"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
 msgstr[0] "%(counter)s apps,"
 msgstr[1] "%(counter)s apps,"
 
-#: templates/profile.html:47
-msgid "PAGE_PROFILE_STATS_MEMBER_SINCE"
-msgstr "member since"
+msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
+msgstr[0] "%(counter)s reviews -"
+msgstr[1] "%(counter)s reviews -"
 
-#: templates/profile.html:62
-msgid "PAGE_PROFILE_BANNED_INTRO"
-msgstr "This user has been banned."
-
-#: templates/profile.html:63
-msgid "PAGE_PROFILE_BANNED_DESC"
-msgstr ""
-"This may have occurred due to a violation of site rules, suspicious "
-"activity, or a security system trigger. We care about the comfort of all "
-"users, so we are forced to temporarily or permanently restrict access to the "
-"site for such users."
-
-#: templates/profile.html:64
-msgid "PAGE_PROFILE_BANNED_DESC_2"
-msgstr ""
-"Since this user is banned, we recommend not to communicate with them, "
-"especially if they will ask you for money."
-
-#: templates/profile.html:73
-msgid "PAGE_PROFILE_TAB_MAIN"
-msgstr "Main"
-
-#: templates/profile.html:77 templates/profile.html:190
-#: templates/profile.html:218
-msgid "PAGE_PROFILE_TAB_REVIEWS"
-msgstr "Reviews"
-
-#: templates/profile.html:83
-msgid "PAGE_PROFILE_CONTACT_INFO"
-msgstr "Contact information"
-
-#: templates/profile.html:86
-msgid "PAGE_PROFILE_LABEL_WEBSITE"
-msgstr "Website:"
-
-#: templates/profile.html:96
-msgid "PAGE_PROFILE_LABEL_TELEGRAM"
-msgstr "Telegram:"
-
-#: templates/profile.html:124
-msgid "PAGE_PROFILE_APPS_TITLE"
-msgstr "Published applications"
-
-#: templates/profile.html:124
-msgid "PAGE_PROFILE_LINK_ADDAPP"
-msgstr "add"
-
-#: templates/profile.html:124 templates/profile.html:190
-msgid "PAGE_PROFILE_LINK_ALL"
-msgstr "show all"
-
-#: templates/profile.html:146 templates/settings_apps.html:88
-msgid "PAGE_MANAGE_APPS_EMPTY_TITLE"
-msgstr "No applications ＞︿＜"
-
-#: templates/profile.html:147
-msgid "PAGE_PROFILE_APPS_EMPTY_DESC"
-msgstr "User hasn't published any apps yet."
-
-#: templates/profile.html:157
-msgid "PAGE_PROFILE_INVITES_TEXT"
-msgstr "invited"
-
-#: templates/profile.html:157
-msgid "PAGE_PROFILE_INVITES_PEOPLE"
-msgstr "people (showing first 5)"
-
-#: templates/profile.html:179
-msgid "PAGE_PROFILE_INVITES_EMPTY_TITLE"
-msgstr "No invitations ＞︿＜"
-
-#: templates/profile.html:180
-msgid "PAGE_PROFILE_INVITES_EMPTY_DESC"
-msgstr "No one has registered using this user's invitation yet."
-
-#: templates/profile.html:192
-#, python-format
-msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_RECENT"
-msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_RECENT"
-msgstr[0] "%(counter)s review (last 5 shown)"
-msgstr[1] "%(counter)s reviews (last 5 shown)"
-
-#: templates/profile.html:197 templates/profile.html:225
-msgid "PAGE_PROFILE_REVIEW_TO_APP"
-msgstr "to the app"
-
-#: templates/profile.html:211 templates/profile.html:239
-msgid "PAGE_PROFILE_NO_REVIEWS"
-msgstr "No reviews"
-
-#: templates/profile.html:220
-#, python-format
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_ALL"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_ALL"
-msgstr[0] "%(counter)s review (shown on this page)"
-msgstr[1] "%(counter)s reviews (shown on this page)"
+msgstr[0] "%d review (shown on this page)"
+msgstr[1] "%d reviews (shown on this page)"
 
-#: templates/register.html:8 templates/register.html:18
-#: templates/register_on.html:8
-msgid "PAGE_REGISTER_TITLE"
-msgstr "Sign up"
+msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_RECENT"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_RECENT"
+msgstr[0] "%d review (last 5 shown)"
+msgstr[1] "%d reviews (last 5 shown)"
 
-#: templates/register.html:11 templates/register.html:21
-msgid "PAGE_REGISTER_CLOSED_MSG"
-msgstr ""
-"Public registration is currently closed and is done strictly by invitation "
-"from already existing members."
+msgid "404_ELEMENT_NOT_FOUND"
+msgstr "The requested item or link you are trying to visit was not found on our site."
 
-#: templates/register.html:23
-msgid "PAGE_REGISTER_HAVE_INVITE_TITLE"
-msgstr "Do you have an invitation?"
+msgid "404_ELEMENT_NOT_FOUND_2"
+msgstr "We tried our best to find it, really."
 
-#: templates/register.html:26
-msgid "PAGE_REGISTER_HAVE_INVITE_TEXT"
-msgstr "Have an invite code? Click"
+msgid "404_ELEMENT_NOT_FOUND_3"
+msgstr "If this was previously available, the page has likely been moved or deleted by the author or administration. Please try again later. Thank you for your understanding."
 
-#: templates/register.html:27
-msgid "PAGE_REGISTER_CLICK_HERE"
-msgstr "here"
+msgid "404_GO_TO_HOME"
+msgstr "Return to home page"
 
-#: templates/register_on.html:12
-msgid "PAGE_REGISTER_INFO_SPLASH"
-msgstr ""
-"By creating an account, you can publish your own apps, leave reviews for "
-"existing software, and maintain your personal library of favorites. "
-"Registration is open and free."
+msgid "404_TITLE"
+msgstr "An error occured"
 
-#: templates/register_on.html:14
-msgid "PAGE_REGISTER_SECTION_MAIN"
-msgstr "Basic information"
+msgid "ACTION_CHOOSE_FILE"
+msgstr "Choose file"
 
-#: templates/register_on.html:20
-msgid "PAGE_REGISTER_LABEL_USERNAME"
+msgid "ACTION_CHOOSE_ICON"
+msgstr "Choose icon"
+
+msgid "ARE_YOU_SURE"
+msgstr "Are you sure?"
+
+msgid "BANNED_IP_BACK_BUTTON"
+msgstr "Go back"
+
+msgid "BANNED_IP_CONTACT_SUPPORT"
+msgstr "Contact technical support:"
+
+msgid "BANNED_IP_H2"
+msgstr "Access denied"
+
+msgid "BANNED_IP_HEADER"
+msgstr "Access restricted"
+
+msgid "BANNED_IP_HOME_LINK"
+msgstr "To home page"
+
+msgid "BANNED_IP_INTRO"
+msgstr "Access from your IP address has been suspended."
+
+msgid "BANNED_IP_PAGE_TITLE"
+msgstr "Access denied"
+
+msgid "BANNED_IP_REASON"
+msgstr "This may have occurred due to a violation of site rules, suspicious activity, or a security system trigger. We care about the comfort of all users, so we have been forced to temporarily or permanently restrict your access."
+
+msgid "BANNED_IP_RESOLUTION"
+msgstr "If you believe this ban was a mistake, or if you have a dynamic IP address that was previously used by an offender, please contact the administration."
+
+msgid "BANNED_IP_SUBTITLE"
+msgstr "Your IP address is blocked"
+
+msgid "BASE_AUTHLIKE"
+msgstr "You're logged in as "
+
+msgid "BASE_COOKIE_ACCEPT"
+msgstr "Nice, accept"
+
+msgid "BASE_COOKIE_DECLINE"
+msgstr "No, thank you"
+
+msgid "BASE_COOKIE_MESSAGE"
+msgstr "All kids love cookies, and we do too. That's why we use Cookies for better experience. More details about how we use those can be found in our "
+
+msgid "BASE_COOKIE_PRIVACYPOLICY"
+msgstr "Privacy Policy"
+
+msgid "BASE_FOOTER_REPORT_PROBLEM"
+msgstr "Report a problem"
+
+msgid "BASE_FOOTER_TELEGRAM"
+msgstr "Our Telegram channel"
+
+msgid "BASE_FOOTER_TEXT_1"
+msgstr "Made by DM team with love,"
+
+msgid "BASE_FOOTER_TEXT_2"
+msgstr "All right reserved to it's original owners"
+
+msgid "BASE_IMPERSONATE_ATTENTION"
+msgstr "Warning!"
+
+msgid "BASE_IMPERSONATE_RETURN"
+msgstr "Return to your account"
+
+msgid "BASE_IMPERSONATE_WARNING"
+msgstr "You are temporarily logged into another account. Please do not abuse this functionality!"
+
+msgid "BASE_LOGINBTN"
+msgstr "sign in"
+
+msgid "BASE_LOGINPOPUP_DESC"
+msgstr "Already have an account? Sign in."
+
+msgid "BASE_LOGINPOPUP_LOGINBTN"
+msgstr "Sign in"
+
+msgid "BASE_LOGINPOPUP_LOGINFIELD"
 msgstr "Username:"
 
-#: templates/register_on.html:28
-msgid "PAGE_REGISTER_HELP_USERNAME"
-msgstr ""
-"Minimum 2 characters. This username will be how others find you. It cannot "
-"be changed after registration."
-
-#: templates/register_on.html:33
-msgid "PAGE_REGISTER_LABEL_EMAIL"
-msgstr "E-mail:"
-
-#: templates/register_on.html:41
-msgid "PAGE_REGISTER_HELP_EMAIL"
-msgstr "Will be used to log in to the account and to recover the password"
-
-#: templates/register_on.html:46
-msgid "PAGE_REGISTER_LABEL_PASS1"
+msgid "BASE_LOGINPOPUP_PASSWORDFIELD"
 msgstr "Password:"
 
-#: templates/register_on.html:48
-msgid "PAGE_REGISTER_HELP_PASS1"
-msgstr "Come up with secure passwords. It's important, damn it!"
+msgid "BASE_LOGINPOPUP_TITLE"
+msgstr "Sign in"
 
-#: templates/register_on.html:53
-msgid "PAGE_REGISTER_LABEL_PASS2"
-msgstr "Repeat password:"
+msgid "BASE_LOGOUTBTN"
+msgstr "sign out"
 
-#: templates/register_on.html:61
-msgid "PAGE_REGISTER_HELP_PASS2"
-msgstr "Practice makes perfect :D"
+msgid "BASE_OPRJ_GAMESBTN"
+msgstr "Games"
 
-#: templates/register_on.html:67
-msgid "PAGE_REGISTER_SECTION_CONFIRM"
-msgstr "Registration confirmation"
+msgid "BASE_OPRJ_OTHERPROJECTSBTN"
+msgstr "All projects »"
 
-#: templates/register_on.html:71
-msgid "PAGE_REGISTER_CAPTCHA_INSTRUCTION"
-msgstr "Enter characters from the image:"
+msgid "BASE_OPRJ_TITLE"
+msgstr "other projects"
 
-#: templates/register_on.html:104
-msgid "PAGE_REGISTER_BTN_SUBMIT"
-msgstr "Sign up"
+msgid "BASE_PRIVACYPOLICYBTN"
+msgstr "Privacy Policy"
 
-#: templates/report_app.html:7 templates/report_problem.html:6
-msgid "PAGE_REPORTAPP_PAGE_TITLE"
-msgstr "Report an app"
+msgid "BASE_REGISTERBTN"
+msgstr "sign up"
 
-#: templates/report_app.html:38
-msgid "PAGE_REPORTAPP_INFO_1"
-msgstr "You are about to report the app"
-
-#: templates/report_app.html:39
-msgid "PAGE_REPORTAPP_INFO_2"
-msgstr "Please select a reason and describe the issue in more detail:"
-
-#: templates/report_app.html:50
-msgid "PAGE_REPORTAPP_EXPLAIN_LABEL"
-msgstr "Additional information (required):"
-
-#: templates/report_app.html:59
-msgid "PAGE_REPORTAPP_SUBMIT_BTN"
-msgstr "Submit report"
-
-#: templates/report_problem.html:17
-msgid "PAGE_REPORTPROBLEM_TITLE"
-msgstr "Report a problem"
-
-#: templates/report_problem.html:23
-msgid "PAGE_REPORTPROBLEM_INFO"
-msgstr "Here you can report any problem you found on our website!"
-
-#: templates/report_problem.html:33
-msgid "PAGE_REPORTPROBLEM_SUBMIT_BTN"
-msgstr "Report a problem"
-
-#: templates/search.html:7
-msgid "PAGE_SEARCH_TITLE"
-msgstr "Search"
-
-#: templates/search.html:21
-msgid "PAGE_SEARCH_HEADING"
-msgstr "Enter search query"
-
-#: templates/search.html:33
-msgid "PAGE_SEARCH_INPUT_PLACEHOLDER"
-msgstr "Example: Total Commander"
-
-#: templates/search.html:35
-msgid "PAGE_SEARCH_BTN_SUBMIT"
+msgid "BASE_SEARCHBTN"
 msgstr "search"
 
-#: templates/search.html:41
-msgid "PAGE_SEARCH_LINK_ADVANCED"
-msgstr "Refine search criteria"
+msgid "BASE_SIDEBAR_ACCOUNT_INVITEBTN"
+msgstr "Invite"
 
-#: templates/search.html:49
-msgid "PAGE_SEARCH_FILTER_AUTHOR_ID"
-msgstr "Author's ID"
+msgid "BASE_SIDEBAR_ACCOUNT_PROFILEBTN"
+msgstr "My profile"
 
-#: templates/search.html:56
-msgid "PAGE_SEARCH_FILTER_CATEGORY"
-msgstr "Category"
+msgid "BASE_SIDEBAR_ACCOUNT_SETTINGSBTN"
+msgstr "Settings"
 
-#: templates/search.html:58
-msgid "PAGE_SEARCH_FILTER_CATEGORY_ALL"
-msgstr "All categories"
-
-#: templates/search.html:74
-msgid "PAGE_SEARCH_FILTER_FREE"
-msgstr "Only free"
-
-#: templates/search.html:81
-msgid "PAGE_SEARCH_BTN_RESET"
-msgstr "Reset filters"
-
-#: templates/search.html:98
-#, python-format
-msgid "PAGE_SEARCH_BADGE_DEMO_PRICE %(price)s"
-msgstr "Demo, then $%(price)s"
-
-#: templates/search.html:101
-msgid "PAGE_SEARCH_BADGE_DEMO"
-msgstr "Demo"
-
-#: templates/search.html:107
-msgid "PAGE_SEARCH_BADGE_FREE"
-msgstr "Free"
-
-#: templates/search.html:113
-msgid "PAGE_SEARCH_BTN_DETAILS"
-msgstr "Details"
-
-#: templates/search.html:135
-#, python-format
-msgid "PAGE_SEARCH_MSG_NO_RESULTS %(q)s"
-msgstr "No results found for \"%(q)s\""
-
-#: templates/search.html:137
-msgid "PAGE_SEARCH_MSG_NO_RESULTS_EMPTY"
-msgstr "No results found for your search"
-
-#: templates/settings.html:6
-msgid "PAGE_SETTINGS_HTML_TITLE"
-msgstr "Account Settings"
-
-#: templates/settings.html:25 templates/settings_apps.html:23
-#: templates/settings_security.html:22
-msgid "PAGE_SETTINGS_TAB_ACCOUNT"
+msgid "BASE_SIDEBAR_ACCOUNT_TITLE"
 msgstr "Account"
 
-#: templates/settings.html:29 templates/settings_apps.html:27
-#: templates/settings_security.html:26
-msgid "PAGE_SETTINGS_TAB_APPS"
-msgstr "Apps"
+msgid "BASE_SIDEBAR_APP_DEV_SITE"
+msgstr "Developer's website"
 
-#: templates/settings.html:33 templates/settings_apps.html:31
-#: templates/settings_security.html:30
-msgid "PAGE_SETTINGS_TAB_SECURITY"
-msgstr "Security"
+msgid "BASE_SIDEBAR_APP_EDIT"
+msgstr "Edit page"
 
-#: templates/settings.html:42
-msgid "PAGE_SETTINGS_SECTION_BASIC"
-msgstr "Basic information"
+msgid "BASE_SIDEBAR_APP_INSTALL"
+msgstr "Install"
 
-#: templates/settings.html:45
-msgid "PAGE_SETTINGS_LABEL_USERNAME"
-msgstr "Username:"
+msgid "BASE_SIDEBAR_APP_REPORT"
+msgstr "Report"
 
-#: templates/settings.html:47
-msgid "PAGE_SETTINGS_WARN_USERNAME_FROZEN"
-msgstr "Username cannot be changed after registration"
+msgid "BASE_SIDEBAR_APP_TITLE"
+msgstr "Application"
 
-#: templates/settings.html:50
-msgid "PAGE_SETTINGS_LABEL_EMAIL"
-msgstr "Contact e-mail:"
+msgid "BASE_SIDEBAR_CATEGORIES_HOME"
+msgstr "Home page"
 
-#: templates/settings.html:54
-msgid "PAGE_SETTINGS_LABEL_TELEGRAM"
-msgstr "Telegram:"
+msgid "BASE_SIDEBAR_CATEGORIES_TITLE"
+msgstr "Categories"
 
-#: templates/settings.html:70
-msgid "PAGE_SETTINGS_LABEL_BIO"
-msgstr "Profile bio:"
+msgid "CARD_USER_NO_DESC"
+msgstr "Profile bio missing"
 
-#: templates/settings.html:75
-msgid "PAGE_SETTINGS_LABEL_DEV_STATUS"
-msgstr "Developer status:"
+msgid "ERROR_2FA_INVALID_CODE"
+msgstr "Invalid code"
 
-#: templates/settings.html:77
-msgid "PAGE_SETTINGS_DEV_STATUS_HAS"
-msgstr "present"
+msgid "ERROR_2FA_INVALID_PASSWORD"
+msgstr "Incorrect password"
 
-#: templates/settings.html:84 templates/settings_security.html:93
-#: templates/settings_security.html:117
-msgid "PAGE_SETTINGS_BTN_SAVE"
-msgstr "Save"
+msgid "ERROR_ACCESS_DENIED_PROFILE"
+msgstr "Access denied. Start with profile settings."
 
-#: templates/settings.html:98
-msgid "PAGE_SETTINGS_SECTION_AVATAR"
-msgstr "Edit avatar"
+msgid "ERROR_CDNSECURITY"
+msgstr "A LunaSpire engine security error occurred while uploading the file. Please contact your site administrator if you see this error repeatedly."
 
-#: templates/settings.html:100
-msgid "PAGE_SETTINGS_INFO_AVATAR_RULES"
-msgstr ""
-"Recommended avatar size: 64x64.<br>Supported formats: .PNG, .JPG<br>Maximum "
-"size: 2 MB"
+msgid "ERROR_CDN_CHECKSUM_MISMATCH_SCREENSHOTS"
+msgstr "Error verifying screenshot tokens."
 
-#: templates/settings.html:102
-msgid "PAGE_SETTINGS_LABEL_CHOOSE_FILE"
-msgstr "Select file:"
+msgid "ERROR_CDN_INVALID_FORMAT"
+msgstr "Invalid file format on the CDN server. Please contact your administrator."
 
-#: templates/settings.html:106
-msgid "PAGE_SETTINGS_BTN_UPLOAD"
-msgstr "Upload"
+msgid "ERROR_CDN_SESSION_EXPIRED"
+msgstr "The upload session has expired. Please try again."
 
-#: templates/settings.html:112
-msgid "PAGE_SETTINGS_SECTION_DELETE"
-msgstr "Delete account"
+msgid "ERROR_CDN_TOKEN_EXPIRED"
+msgstr "The download token has expired or has already been used."
 
-#: templates/settings.html:114
-msgid "PAGE_SETTINGS_DELETE_WARNING"
-msgstr ""
-"If you do not wish to use the site, you have the right to delete your "
-"account. <br><br>However, please be aware that this action will result in "
-"the deletion of your profile data <b>WITHOUT the possibility of recovery</"
-"b>. Access to managed app pages will be lost, and sent feedback will be "
-"anonymized.<br><br>"
+msgid "ERROR_CDN_TOKEN_EXPIRED_OR_USED"
+msgstr "The download token has expired or has already been used."
 
-#: templates/settings.html:122
-msgid "PAGE_SETTINGS_BTN_DELETE"
-msgstr "Delete account"
+msgid "ERROR_CDN_TOKEN_INVALID"
+msgstr "Invalid CDN security token."
 
-#: templates/settings.html:133
-msgid "PAGE_SETTINGS_JS_SELECT_FILE"
-msgstr "Please select a file to upload!"
+msgid "ERROR_CDN_TOKEN_INVALID_TYPE"
+msgstr "Invalid CDN token type."
 
-#: templates/settings.html:134
-msgid "PAGE_SETTINGS_JS_UPLOADING"
+msgid "ERROR_CDN_TOKEN_MISSING"
+msgstr "CDN token not provided."
+
+msgid "ERROR_CHECK_FORM"
+msgstr "Please check the form. There are errors in some fields."
+
+msgid "ERROR_CURRENT_PASSWORD_IS_WRONG"
+msgstr "Current password is incorrect"
+
+msgid "ERROR_DIST_FORM_CDN_INFO_FAIL"
+msgstr "Failed to retrieve file information from the storage server. Please try again later."
+
+msgid "ERROR_DIST_FORM_NO_FILE_OR_URL"
+msgstr "A file must be uploaded or a download link provided"
+
+msgid "ERROR_DIST_FORM_NO_VT_LINK"
+msgstr "VirusTotal link is mandatory when uploading a file."
+
+msgid "ERROR_DIST_SOURCE_REQUIRED"
+msgstr "A file or download link must be provided."
+
+msgid "ERROR_EMAIL_ALREADY_EXISTS"
+msgstr "User with this e-mail address already exists."
+
+msgid "ERROR_EMAIL_ALREADY_IN_USE"
+msgstr "This e-mail address is already in use."
+
+msgid "ERROR_EMAIL_DISPOSABLE_DOMAIN"
+msgstr "Signing up using temporary email services is not allowed."
+
+msgid "ERROR_EMAIL_DOMAIN_NO_MX %(domain)s"
+msgstr "The domain %(domain)s does not accept mail. Please provide a valid address."
+
+msgid "ERROR_EMAIL_INVALID_FORMAT"
+msgstr "Invalid email address format."
+
+msgid "ERROR_EMAIL_IS_SAME"
+msgstr "The new email is the same as the current one."
+
+msgid "ERROR_EMAIL_NO_ALIASES"
+msgstr "Email aliases with the \"+\" sign are prohibited."
+
+msgid "ERROR_INVALID_FILE_FORMAT"
+msgstr "Error: Invalid file format!"
+
+msgid "ERROR_INVALID_IMAGE_FILE"
+msgstr "Failed to process image. The file might be corrupted."
+
+msgid "ERROR_INVALID_LUNASPIRE_TOKEN"
+msgstr "An invalid token type was received from the LunaSpire engine during upload. Please contact your site administrator if you see this error repeatedly."
+
+msgid "ERROR_INVALID_SIZE_ICON"
+msgstr "Error: File size over 2 MB!"
+
+msgid "ERROR_MAX_AVATAR_DIMENSIONS"
+msgstr "Maximum image resolution — 64x64 pixels."
+
+msgid "ERROR_NEW_PASSWORDS_DONT_MATCH"
+msgstr "New passwords do not match"
+
+msgid "ERROR_NEW_PASSWORD_SAME_AS_OLD"
+msgstr "New password is the same as the old one. Please select a different password."
+
+msgid "ERROR_NO_AGREERULES"
+msgstr "You must agree to the rules!"
+
+msgid "ERROR_NO_APPNAME"
+msgstr "Enter application name!"
+
+msgid "ERROR_PASSWORD_RESET_EMAIL_NOT_FOUND"
+msgstr "An account with this email address was not found."
+
+msgid "ERROR_PREVIEWSCRNS_1_BIGSIZE"
+msgstr "Error: File"
+
+msgid "ERROR_PREVIEWSCRNS_1_COUNT"
+msgstr "Error: "
+
+msgid "ERROR_PREVIEWSCRNS_1_INVALIDFORMAT"
+msgstr "Error: File"
+
+msgid "ERROR_PREVIEWSCRNS_2_BIGSIZE"
+msgstr "is too big (2 MB max)."
+
+msgid "ERROR_PREVIEWSCRNS_2_COUNT"
+msgstr "files selected. Maximum 3."
+
+msgid "ERROR_PREVIEWSCRNS_2_INVALIDFORMAT"
+msgstr "is in invalid format."
+
+msgid "ERROR_PREVIEWSCRNS_3_COUNT"
+msgstr "Maximum 3 files!"
+
+msgid "ERROR_PROFILE_OPENVK_INVALID"
+msgstr "Invalid OpenVK username format. Please provide a valid username."
+
+msgid "ERROR_PROFILE_TELEGRAM_INVALID"
+msgstr "Invalid Telegram username format. Please provide a username without links or protocols."
+
+msgid "ERROR_RATE_LIMIT_EXCEEDED"
+msgstr "You are sending requests too frequently. Please wait a while before continuing."
+
+msgid "ERROR_YOURE_NOT_OWNER_OF_APP"
+msgstr "You're not an administrator of this application."
+
+msgid "ERROR_YOU_DONT_HAVE_DEVSTATUS"
+msgstr "You do not have developer status to view this page. You can obtain it in your profile settings."
+
+msgid "FORM_AGREE_POLICY"
+msgstr "I accept the privacy policy"
+
+msgid "FORM_AGREE_RULES"
+msgstr "I agree with the site rules and am aware of the consequences of violating them"
+
+msgid "FORM_APPCREATE_MAXIMUM_SCREENSHOTS"
+msgstr "Maximum 3 screenshots."
+
+msgid "FORM_APPCREATE_TITLE_EXAMPLE"
+msgstr "Example: Total Commander"
+
+msgid "FORM_CAPTCHA"
+msgstr "Enter characters from the image"
+
+msgid "FORM_DEVSTATUS_ABOUT_YOU"
+msgstr "Tell us about yourself (up to 1000 characters)"
+
+msgid "FORM_DEVSTATUS_GITHUB"
+msgstr "Link to your GitHub"
+
+msgid "FORM_DEVSTATUS_GITHUB_HELP"
+msgstr "Why not? We would love to see your cool creations :3"
+
+msgid "FORM_DEVSTATUS_WE_WILL_CONTACT"
+msgstr "We will definitely contact you. Or we hope that we will. "
+
+msgid "FORM_DEVSTATUS_WHY_YOU_CHOOSE"
+msgstr "Why did you choose us? (up to 250 characters)"
+
+msgid "FORM_DEVSTATUS_YOUR_EMAIL"
+msgstr "Your e-mail"
+
+msgid "FORM_DEVSTATUS_YOUR_USERNAME"
+msgstr "Username"
+
+msgid "FORM_INVITECODE_CODELIMITISNTOK_ERROR"
+msgstr "The invitation limit for this code has been reached. The owner has invited too many people recently."
+
+msgid "FORM_INVITECODE_DOESNOTEXIST_ERROR"
+msgstr "This invite code does not exist."
+
+msgid "FORM_INVITECODE_ENTER"
+msgstr "Enter invite code"
+
+msgid "FORM_INVITECODE_EXPIRED_ERROR"
+msgstr "Code expired (24 hours). Please request a new one."
+
+msgid "FORM_INVITECODE_TITLE"
+msgstr "Code"
+
+msgid "FORM_PASSWORDCONFIRM_CONFIRM"
+msgstr "Confirm password"
+
+msgid "FORM_PASSWORDCONFIRM_ENTER"
+msgstr "Enter current password"
+
+msgid "FORM_PASSWORDCONFIRM_WRONGPASS"
+msgstr "Incorrect password. Please try again."
+
+msgid "FORM_SCREENSHOTS"
+msgstr "Screenshots"
+
+msgid "File extension “%(extension)s” is not allowed. Allowed extensions are: “%(allowed_extensions)s”."
+msgstr "Extension “%(extension)s” is not allowed. Allowed extensions: “%(allowed_extensions)s”."
+
+msgid "INDEX_CATEGORY_PROMPT"
+msgstr "Or select a category:"
+
+msgid "INDEX_NO_CATEGORIES"
+msgstr "No categories added yet"
+
+msgid "INDEX_SEARCH_BTN"
+msgstr "Search"
+
+msgid "INDEX_SEARCH_PLACEHOLDER"
+msgstr "Example: Total Commander"
+
+msgid "INDEX_SEARCH_SECTION_TITLE"
+msgstr "Search catalog"
+
+msgid "INDEX_WELCOME_TEXT"
+msgstr "Welcome to LunaStore!<br>A collection of apps and extensions for a comfortable experience with this OS"
+
+msgid "INDEX_WELCOME_TITLE"
+msgstr "Welcome"
+
+msgid "INFO_2FA_DISABLED"
+msgstr "Two-factor authentication has been successfully disabled."
+
+msgid "INFO_2FA_ENABLED"
+msgstr "Two-factor authentication has been successfully enabled."
+
+msgid "INFO_ACCEPTED_AVATAR_FORMATS"
+msgstr "Allowed formats: .JPG, .PNG, .WEBP, .GIF"
+
+msgid "INFO_ACCEPTED_ICON_FORMATS"
+msgstr "Only allowed: .JPG, .JPEG, .PNG"
+
+msgid "INFO_ACCOUNT_WAS_DELETED"
+msgstr "Your account has been successfully deleted. If you want to return — we will be always waiting for you on our website!"
+
+msgid "INFO_API_SESSION_REVOKED"
+msgstr "API access key successfully revoked."
+
+msgid "INFO_APP_CREATE_REQUEST_WAS_SENT"
+msgstr "Application submitted for review"
+
+msgid "INFO_APP_DEMO"
+msgstr "Demo"
+
+msgid "INFO_APP_DEMOWITHPRICE"
+msgstr "Demo, then "
+
+msgid "INFO_APP_FREE"
+msgstr "Free"
+
+msgid "INFO_APP_WITHPRICE"
+msgstr "Paid: "
+
+msgid "INFO_AVATAR_WAS_CHANGED"
+msgstr "Profile picture updated"
+
+msgid "INFO_AVATAR_WAS_UPLOADED"
+msgstr "Profile picture uploaded!"
+
+msgid "INFO_CATEGORY_LIST_EMPTY"
+msgstr "'s all empty..."
+
+msgid "INFO_EMAIL_WAS_CHANGED"
+msgstr "Your email has been successfully changed."
+
+msgid "INFO_MAXIMUM_AVATAR_SIZE"
+msgstr "Maximum file size: 2 MB."
+
+msgid "INFO_NO_SCREENSHOTS"
+msgstr "No screenshots"
+
+msgid "INFO_PASSWORD_WAS_CHANGED"
+msgstr "Password successfully changed"
+
+msgid "INFO_PROFILE_IS_UPDATED"
+msgstr "Profile updated"
+
+msgid "INFO_RECOMENDATIONS_FOR_UPLOAD_AVATAR"
+msgstr "Recommended resolution: 64x64. Formats: .PNG, .JPG. Max.: 2 MB."
+
+msgid "INFO_SELECTED_FILES"
+msgstr "Selected files:"
+
+msgid "INFO_YOUR_IP_WAS_BANNED"
+msgstr "Your IP address has been banned. If you believe this is an error and you were banned 'without reason', please contact us via email: daniel@myslivets.com"
+
+msgid "JS_MARKETPLACE_ERROR"
+msgstr "LunaSpire error:"
+
+msgid "JS_MARKETPLACE_FILE_ERROR"
+msgstr "Error during file transfer"
+
+msgid "JS_MARKETPLACE_RETRY"
+msgstr "Try again"
+
+msgid "JS_MARKETPLACE_TOKEN_ERROR"
+msgstr "Unable to get upload token"
+
+msgid "JS_MARKETPLACE_UPLOADING"
 msgstr "Uploading..."
 
-#: templates/settings.html:135
-msgid "PAGE_SETTINGS_JS_ERR_TOKEN"
-msgstr ""
-"Failed to retrieve secure token from LunaSpire for upload. Please contact "
-"the site administrator regarding this error."
+msgid "LunaStore Admin"
+msgstr "who the fuck put the translations wrong again"
 
-#: templates/settings.html:136
-msgid "PAGE_SETTINGS_JS_ERR_CDN"
-msgstr ""
-"An error occurred while saving the file to the LunaSpire server. Please "
-"contact the site administrator regarding this error."
+msgid "MD_ALERT_CAUTION"
+msgstr "Caution"
 
-#: templates/settings.html:137
-msgid "PAGE_SETTINGS_JS_ERR_PREFIX"
-msgstr "Error occured:"
+msgid "MD_ALERT_IMPORTANT"
+msgstr "Important"
 
-#: templates/settings_apps.html:6
-msgid "PAGE_MANAGE_APPS_TITLE"
-msgstr "Managed applications"
+msgid "MD_ALERT_NOTE"
+msgstr "Note"
 
-#: templates/settings_apps.html:38
-msgid "PAGE_MANAGE_APPS_CREATE"
-msgstr "Create an app"
+msgid "MD_ALERT_TIP"
+msgstr "Tip"
 
-#: templates/settings_apps.html:41
-msgid "PAGE_MANAGE_APPS_HEADER"
-msgstr "Managed application pages"
+msgid "MD_ALERT_WARNING"
+msgstr "Warning"
 
-#: templates/settings_apps.html:45
-msgid "PAGE_MANAGE_APPS_COUNT"
-msgstr "Managed applications"
+msgid "MSG_DIST_CREATE_REQ_SENT"
+msgstr "New version addition request has been submitted for moderation."
 
-#: templates/settings_apps.html:47
-msgid "PAGE_MANAGE_APPS_MY_APPS"
-msgstr "My applications"
+msgid "MSG_DIST_EDIT_REQ_SENT"
+msgstr "Version change request has been submitted for moderation."
 
-#: templates/settings_apps.html:62 templates/settings_apps.html:78
-msgid "PAGE_MANAGE_APPS_ROLE_OWNER"
-msgstr "Owner"
+msgid "NOTIFICATIONS_LOADING"
+msgstr "Loading notifications..."
 
-#: templates/settings_apps.html:63
-msgid "PAGE_MANAGE_APPS_BTN_EDIT"
-msgstr "edit"
+msgid "NOTIF_APPEDITREQ_ACCEPTED_DESCRIPTION"
+msgstr "Your application edit request for %(app_name)s has been approved."
 
-#: templates/settings_apps.html:89
-msgid "PAGE_MANAGE_APPS_EMPTY_DESC"
-msgstr "You are not managing any applications yet."
+msgid "NOTIF_APPEDITREQ_ACCEPTED_TITLE"
+msgstr "Application edit request status"
 
-#: templates/settings_security.html:38
+msgid "NOTIF_APPEDITREQ_DECLINED_DESCRIPTION"
+msgstr "Your application edit request for %(app_name)s has been declined. Reason: %(reason)s"
+
+msgid "NOTIF_APPEDITREQ_DECLINED_TITLE"
+msgstr "Application edit request status"
+
+msgid "NOTIF_APPREQ_ACCEPTED_DESCRIPTION"
+msgstr "Congratulations! Your request to create the application %(app_name)s has been approved and it has been published in LunaStore."
+
+msgid "NOTIF_APPREQ_ACCEPTED_TITLE"
+msgstr "Application status"
+
+msgid "NOTIF_APPREQ_DECLINED_DESCRIPTION"
+msgstr "Your application creation request for %(app_name)s has been declined. Reason: %(reason)s"
+
+msgid "NOTIF_APPREQ_DECLINED_TITLE"
+msgstr "Application status"
+
+msgid "NOTIF_DEVSTATUS_ACCEPTED_DESCRIPTION"
+msgstr "Congratulations! Your application has been approved and you have received developer/publisher capabilities."
+
+msgid "NOTIF_DEVSTATUS_ACCEPTED_TITLE"
+msgstr "Developer status"
+
+msgid "NOTIF_DEVSTATUS_DECLINED_DESCRIPTION"
+msgstr "Your application has been declined and you have not received developer/publisher capabilities. Reason: %(reason)s"
+
+msgid "NOTIF_DEVSTATUS_DECLINED_TITLE"
+msgstr "Developer status"
+
+msgid "NOTIF_DEVSTATUS_SEND_DESCRIPTION"
+msgstr "Your request has been successfully submitted. You will receive a response in the 'Notifications' section. No further action is required."
+
+msgid "NOTIF_DEVSTATUS_SEND_TITLE"
+msgstr "Developer status"
+
+msgid "NOTIF_DISTREQ_ACCEPTED_DESCRIPTION"
+msgstr "Your request to publish version %(version)s for application \"%(app_name)s\" has been approved by a moderator."
+
+msgid "NOTIF_DISTREQ_ACCEPTED_TITLE"
+msgstr "New version published!"
+
+msgid "NOTIF_DISTREQ_DECLINED_DESCRIPTION"
+msgstr "Unfortunately, your request to publish version %(version)s for \"%(app_name)s\" has been declined. Reason: %(reason)s"
+
+msgid "NOTIF_DISTREQ_DECLINED_TITLE"
+msgstr "Publication request declined"
+
+msgid "NOTIF_LOGIN_DESCRIPTION"
+msgstr "Your account was logged into • Device: %(browser)s (%(os)s) • IP address: %(ip)s • Location: %(location)s • If this wasn't you, change your password immediately."
+
+msgid "NOTIF_LOGIN_TITLE"
+msgstr "New account login"
+
+msgid "NOTIF_WELCOME_DESCRIPTION"
+msgstr "Thanks for registering! We are very pleased that you care about the app directory. We hope you really enjoy it!"
+
+msgid "NOTIF_WELCOME_TITLE"
+msgstr "Welcome to LunaStore"
+
+msgid "PAGE_2FA_ATTEMPT_HEADER"
+msgstr "Two-factor verification"
+
+msgid "PAGE_2FA_ATTEMPT_SUBTITLE"
+msgstr "Enter the code to complete sign in"
+
+msgid "PAGE_2FA_ATTEMPT_TITLE"
+msgstr "2FA code entry"
+
+msgid "PAGE_2FA_CONNECT_BTN"
+msgstr "Connect"
+
+msgid "PAGE_2FA_CONTINUE_BTN"
+msgstr "Continue"
+
+msgid "PAGE_2FA_DISABLE_BTN"
+msgstr "Disable 2FA"
+
+msgid "PAGE_2FA_DISABLE_CONFIRM"
+msgstr "You really want to disable 2FA? This will lower the security level of your account."
+
+msgid "PAGE_2FA_DISABLE_INFO"
+msgstr "If you want to disable this login method, click the button below."
+
+msgid "PAGE_2FA_ENABLED_INFO"
+msgstr "An additional login method using a 2FA code on top of the standard username and password is enabled for this account"
+
+msgid "PAGE_2FA_ENTER_CODE"
+msgstr "enter the received code"
+
+msgid "PAGE_2FA_ENTER_CODE_HEADER"
+msgstr "Enter code"
+
+msgid "PAGE_2FA_INFO_1"
+msgstr "Secure your account with an additional login method using a 2FA code on top of the standard username and password"
+
+msgid "PAGE_2FA_INFO_2"
+msgstr "To start the setup, you will need a code generator (e.g., <b>Bitwarden</b>, <b>KeePassXC</b> or <b>Aegis</b>)"
+
+msgid "PAGE_2FA_INFO_3"
+msgstr "Code generation works without cellular service or any network connection. Scan this QR code on the screen with your app, enter the 6 digits received, and click \"Connect\""
+
+msgid "PAGE_2FA_INITIAL_SETUP"
+msgstr "Initial setup"
+
+msgid "PAGE_2FA_MANAGE"
+msgstr "Manage"
+
 msgid "PAGE_2FA_MANAGE_INFO"
 msgstr "Manage secondary 2FA code login method"
 
-#: templates/settings_security.html:79
-msgid "PAGE_SETTINGS_SECTION_PASSWORD"
-msgstr "Change password"
+msgid "PAGE_2FA_OPEN_GENERATOR"
+msgstr "Open your 2FA app and enter the received code"
 
-#: templates/settings_security.html:86
-msgid "PAGE_SETTINGS_LABEL_NEW_PASS"
-msgstr "New password:"
+msgid "PAGE_2FA_PASSWORD_CONFIRM"
+msgstr "Confirm access"
 
-#: templates/settings_security.html:90
-msgid "PAGE_SETTINGS_LABEL_CONFIRM_PASS"
-msgstr "Repeat password:"
+msgid "PAGE_2FA_PASSWORD_CONFIRM_TITLE"
+msgstr "Confirm password"
 
-#: templates/settings_security.html:101
-msgid "PAGE_SETTINGS_SECTION_CHANGE_EMAIL"
-msgstr "Change e-mail"
+msgid "PAGE_2FA_PASSWORD_PROMPT"
+msgstr "To access 2FA management, please enter your account password."
 
-#: templates/settings_security.html:103
-msgid "PAGE_SETTINGS_INFO_EMAIL_CHANGE"
-msgstr "Changing the e-mail requires password confirmation."
+msgid "PAGE_2FA_SECRET_KEY"
+msgstr "Your secret key"
 
-#: templates/storepage.html:28
-msgid "PAGE_APP_LABEL_NOT_TRANSLATED"
-msgstr ""
-"Unfortunately, the person who uploaded the app did not provide a translation "
-"for your language. Therefore, you are seeing the original version now."
+msgid "PAGE_2FA_SUBTITLE_MANAGE"
+msgstr "Manage 2FA code login"
 
-#: templates/storepage.html:51
-msgid "PAGE_APP_LABEL_AUTHOR"
-msgstr "Published by:"
+msgid "PAGE_2FA_TITLE"
+msgstr "Two-factor authentication"
 
-#: templates/storepage.html:64
-msgid "PAGE_APP_PRICE_DEMO_WITH_COST"
-msgstr "Demo, then "
+msgid "PAGE_ADDAPP_BACKBTN"
+msgstr "Back"
 
-#: templates/storepage.html:68
-msgid "PAGE_APP_PRICE_DEMO_FREE"
-msgstr "Demo"
+msgid "PAGE_ADDAPP_CHECKINFO_ACTIONS"
+msgstr "Actions"
 
-#: templates/storepage.html:74
-msgid "PAGE_APP_PRICE_PAID"
-msgstr "Paid: "
+msgid "PAGE_ADDAPP_CHECKINFO_AUTHOR_1"
+msgstr "Author: "
 
-#: templates/storepage.html:76
-msgid "PAGE_APP_PRICE_FREE"
-msgstr "Free"
+msgid "PAGE_ADDAPP_CHECKINFO_AUTHOR_2"
+msgstr "You"
 
-#: templates/storepage.html:86
+msgid "PAGE_ADDAPP_CHECKINFO_GOTODEVSITE"
+msgstr "Go to the developer's official website"
+
+msgid "PAGE_ADDAPP_CHECKINFO_NAME"
+msgstr "Name"
+
+msgid "PAGE_ADDAPP_CHECKINFO_NOTIFY"
+msgstr "Check all information before publishing. After moderation, the page will be published automatically and you will be able to upload new files there."
+
+msgid "PAGE_ADDAPP_CHECKINFO_OTHERINFO"
+msgstr "Additional information"
+
+msgid "PAGE_ADDAPP_CHECKINFO_SCREENSHOTS"
+msgstr "Screenshots"
+
+msgid "PAGE_ADDAPP_CHECKINFO_SLOGAN"
+msgstr "Slogan..."
+
+msgid "PAGE_ADDAPP_EDITAPPBTN"
+msgstr "Edit"
+
+msgid "PAGE_ADDAPP_NEXTBTN"
+msgstr "Next"
+
+msgid "PAGE_ADDAPP_PAGETITLE"
+msgstr "Add application"
+
+msgid "PAGE_ADDAPP_SENDAPPBTN"
+msgstr "Send for review"
+
+msgid "PAGE_ADDAPP_STEP1"
+msgstr "Step 1"
+
+msgid "PAGE_ADDAPP_STEP1_AGREE_RULES"
+msgstr "I agree with the site rules and am aware of the consequences of violating them"
+
+msgid "PAGE_ADDAPP_STEP1_DESC"
+msgstr "Start"
+
+msgid "PAGE_ADDAPP_STEP1_ICON"
+msgstr "App icon:"
+
+msgid "PAGE_ADDAPP_STEP1_ICONDESC_1"
+msgstr "Recommended resolution: 64x64."
+
+msgid "PAGE_ADDAPP_STEP1_ICONDESC_2"
+msgstr "Allowed formats: .PNG, .JPG"
+
+msgid "PAGE_ADDAPP_STEP1_ICONDESC_3"
+msgstr "Maximum file size: 2 MB."
+
+msgid "PAGE_ADDAPP_STEP1_NAME"
+msgstr "Basic information"
+
+msgid "PAGE_ADDAPP_STEP1_SLOGAN"
+msgstr "Slogan (140 characters):"
+
+msgid "PAGE_ADDAPP_STEP1_SLOGANDESC_1"
+msgstr "The slogan will be displayed on the app page, on the homepage, and in search"
+
+msgid "PAGE_ADDAPP_STEP1_SLOGANDESC_2"
+msgstr "Brevity is the soul of wit :)"
+
+msgid "PAGE_ADDAPP_STEP1_TITLE"
+msgstr "Name:"
+
+msgid "PAGE_ADDAPP_STEP1_TITLEDESC"
+msgstr "A great and memorable name will give the application a boost in brand awareness among users"
+
+msgid "PAGE_ADDAPP_STEP2"
+msgstr "Step 2"
+
+msgid "PAGE_ADDAPP_STEP2_CATEGORY"
+msgstr "Category:"
+
+msgid "PAGE_ADDAPP_STEP2_CATEGORYDESC"
+msgstr "This is crucial for accurate search and to display your the application in relevant sections. The administration reserves the right to change the category at its discretion."
+
+msgid "PAGE_ADDAPP_STEP2_DESC"
+msgstr "Description (1400 characters):"
+
+msgid "PAGE_ADDAPP_STEP2_DESCDESC"
+msgstr "Description will be shown on the application's page in \"Additional information\" section"
+
+msgid "PAGE_ADDAPP_STEP2_DESC_1"
+msgstr "Additional"
+
+msgid "PAGE_ADDAPP_STEP2_DESC_2"
+msgstr "information"
+
+msgid "PAGE_ADDAPP_STEP2_DEVSITE"
+msgstr "Developer's official website:"
+
+msgid "PAGE_ADDAPP_STEP2_NAME"
+msgstr "Additional information"
+
+msgid "PAGE_ADDAPP_STEP2_REQ"
+msgstr "System requirements (1400 characters):"
+
+msgid "PAGE_ADDAPP_STEP2_REQDESC"
+msgstr "System requirements will be shown on the application's page in \"Additional information\" section"
+
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTS"
+msgstr "Screenshots:"
+
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_1"
+msgstr "Maximum number of screenshots: 3"
+
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_2"
+msgstr "Allowed formats: .PNG, .JPG"
+
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_3"
+msgstr "Maximum file size: 2 MB."
+
+msgid "PAGE_ADDAPP_STEP3"
+msgstr "Step 3"
+
+msgid "PAGE_ADDAPP_STEP3_DESC_1"
+msgstr "Preview befrore"
+
+msgid "PAGE_ADDAPP_STEP3_DESC_2"
+msgstr "publication"
+
+msgid "PAGE_ADDAPP_SUCCESS"
+msgstr "Your application submission has been sent successfully."
+
+msgid "PAGE_ADMIN_APP_CATEGORY"
+msgstr "Category:"
+
+msgid "PAGE_ADMIN_APP_CATEGORYDESC"
+msgstr "This is crucial for proper search..."
+
+msgid "PAGE_ADMIN_APP_CURRENTSCRN"
+msgstr "Current screenshots"
+
+msgid "PAGE_ADMIN_APP_DESC"
+msgstr "Description (1400 characters):"
+
+msgid "PAGE_ADMIN_APP_DESCDESC"
+msgstr "Description will be shown on the application's page in \"Additional information\" section"
+
+msgid "PAGE_ADMIN_APP_DEVSITE"
+msgstr "Developer's official website:"
+
+msgid "PAGE_ADMIN_APP_DIST_ACTIONS"
+msgstr "Actions"
+
+msgid "PAGE_ADMIN_APP_DIST_ACTION_DELETE"
+msgstr "Delete"
+
+msgid "PAGE_ADMIN_APP_DIST_ACTION_EDIT"
+msgstr "Edit"
+
+msgid "PAGE_ADMIN_APP_DIST_ADD_NEW"
+msgstr "Add new version"
+
+msgid "PAGE_ADMIN_APP_DIST_DATE"
+msgstr "Date"
+
+msgid "PAGE_ADMIN_APP_DIST_DL_LINK_BLOCK"
+msgstr "Download link"
+
+msgid "PAGE_ADMIN_APP_DIST_DL_LINK_TEXT"
+msgstr "Open version list"
+
+msgid "PAGE_ADMIN_APP_DIST_EMPTY"
+msgstr "No uploaded versions yet."
+
+msgid "PAGE_ADMIN_APP_DIST_HEADER"
+msgstr "Distribution management — "
+
+msgid "PAGE_ADMIN_APP_DIST_NO_NOTES"
+msgstr "No notes"
+
+msgid "PAGE_ADMIN_APP_DIST_PENDING_CREATE"
+msgstr "(Create new) — Pending"
+
+msgid "PAGE_ADMIN_APP_DIST_PENDING_EDIT"
+msgstr "(Edit) — Pending"
+
+msgid "PAGE_ADMIN_APP_DIST_PENDING_TITLE"
+msgstr "Requests pending moderation:"
+
+msgid "PAGE_ADMIN_APP_DIST_SAVE"
+msgstr "Save"
+
+msgid "PAGE_ADMIN_APP_DIST_VERSION"
+msgstr "Version"
+
+msgid "PAGE_ADMIN_APP_DIST_VERSION_LABEL"
+msgstr "Version"
+
+msgid "PAGE_ADMIN_APP_FIRST_BLOCK"
+msgstr "Info"
+
+msgid "PAGE_ADMIN_APP_ICON"
+msgstr "App icon"
+
+msgid "PAGE_ADMIN_APP_ICON_REQ1"
+msgstr "Recommended icon resolution: 64x64."
+
+msgid "PAGE_ADMIN_APP_ICON_REQ2"
+msgstr "Allowed formats: .PNG, .JPG"
+
+msgid "PAGE_ADMIN_APP_ICON_REQ3"
+msgstr "Maximum file size: 2 MB."
+
+msgid "PAGE_ADMIN_APP_ID"
+msgstr "App ID:"
+
+msgid "PAGE_ADMIN_APP_IDDESC"
+msgstr "This cannot be changed"
+
+msgid "PAGE_ADMIN_APP_LOAD_ICON"
+msgstr "Upload icon"
+
+msgid "PAGE_ADMIN_APP_LOAD_SCRN"
+msgstr "Upload new screenshots (maximum 3)"
+
+msgid "PAGE_ADMIN_APP_MSG_SAVE_ERROR"
+msgstr "An error occurred while saving the form. Please check the entered data."
+
+msgid "PAGE_ADMIN_APP_MSG_SAVE_SUCCESS"
+msgstr "Data update request has been successfully submitted for moderation."
+
+msgid "PAGE_ADMIN_APP_NOICON"
+msgstr "No icon"
+
+msgid "PAGE_ADMIN_APP_PAGETITLE"
+msgstr "Edit application"
+
+msgid "PAGE_ADMIN_APP_PROFILE_BLOCK"
+msgstr "Basic information"
+
+msgid "PAGE_ADMIN_APP_REQ"
+msgstr "System requirements (1400 characters):"
+
+msgid "PAGE_ADMIN_APP_REQDESC"
+msgstr "System requirements will be shown on the application's page in \"Additional information\" section"
+
+msgid "PAGE_ADMIN_APP_SCRNS_TITLE"
+msgstr "Screenshots"
+
+msgid "PAGE_ADMIN_APP_SLOGAN"
+msgstr "Slogan (140 characters):"
+
+msgid "PAGE_ADMIN_APP_SLOGANDESC"
+msgstr "The slogan will be displayed on the app page, on the homepage, and in search"
+
+msgid "PAGE_ADMIN_APP_SLOGANDESC_2"
+msgstr "Brevity is the soul of wit :)"
+
+msgid "PAGE_ADMIN_APP_TAB_DISTRIBUTIONS"
+msgstr "Files"
+
+msgid "PAGE_ADMIN_APP_TITLE"
+msgstr "Application name:"
+
+msgid "PAGE_ADMIN_APP_TITLEDESC"
+msgstr "A great and memorable name will give the application a boost in brand awareness among users"
+
+msgid "PAGE_ADMIN_APP_TRANSLATIONINFO"
+msgstr "Translating information about your app can increase its recognition among a foreign audience, as well as improve its visibility in search engines. In any case, we advise authors to create translations into different languages."
+
+msgid "PAGE_ADMIN_APP_WARN_SCRN"
+msgstr "Warning: Uploading new files will remove current screenshots!"
+
+msgid "PAGE_API_EXPIRES"
+msgstr "Expires:"
+
+msgid "PAGE_API_ISSUED"
+msgstr "Issued:"
+
+msgid "PAGE_API_NO_SESSIONS"
+msgstr "You have no active API access keys."
+
+msgid "PAGE_API_REVOKE"
+msgstr "Revoke"
+
+msgid "PAGE_API_SESSIONS_DESC"
+msgstr "Devices and clients using API access to your account."
+
+msgid "PAGE_API_SESSIONS_TITLE"
+msgstr "API access keys"
+
+msgid "PAGE_API_TOKEN"
+msgstr "API Token"
+
+msgid "PAGE_APP_ACTION_MORE_APPS"
+msgstr "View other apps by this developer"
+
+msgid "PAGE_APP_ACTION_REPORT"
+msgstr "Report application"
+
+msgid "PAGE_APP_ACTION_SITE"
+msgstr "Go to the developer's official website"
+
+msgid "PAGE_APP_BTN_BACK"
+msgstr "Back"
+
 msgid "PAGE_APP_BTN_BUY"
 msgstr "Buy"
 
-#: templates/storepage.html:88
 msgid "PAGE_APP_BTN_INSTALL"
 msgstr "Install"
 
-#: templates/storepage.html:106
-msgid "PAGE_APP_MSG_DEMO_WARNING"
-msgstr ""
-"The software is distributed as a demo version; the full version should be "
-"purchased from the author. The file is provided from the developer's "
-"official website."
-
-#: templates/storepage.html:115
-msgid "PAGE_APP_MSG_DMCA_ERROR"
-msgstr ""
-"Due to a request from the copyright holder, this file cannot be downloaded "
-"at this time. We apologize for the inconvenience."
-
-#: templates/storepage.html:142
-msgid "PAGE_APP_SECTION_SCREENSHOTS"
-msgstr "Screenshots"
-
-#: templates/storepage.html:149
 msgid "PAGE_APP_IMG_ALT_SCREENSHOT"
 msgstr "Screenshot"
 
-#: templates/storepage.html:153
+msgid "PAGE_APP_LABEL_AUTHOR"
+msgstr "Published by:"
+
+msgid "PAGE_APP_LABEL_DOWNLOADS"
+msgstr "Number of downloads"
+
+msgid "PAGE_APP_LABEL_NOT_TRANSLATED"
+msgstr "Unfortunately, the person who uploaded the app did not provide a translation for your language. Therefore, you are seeing the original version now."
+
+msgid "PAGE_APP_LABEL_ORIGINAL_AUTHOR"
+msgstr "Original author:"
+
+msgid "PAGE_APP_LABEL_PRICE"
+msgstr "Price"
+
+msgid "PAGE_APP_MSG_DEMO_WARNING"
+msgstr "The software is distributed as a demo version; the full version should be purchased from the author. The file is provided from the developer's official website."
+
+msgid "PAGE_APP_MSG_DMCA_ERROR"
+msgstr "Due to a request from the copyright holder, this file cannot be downloaded at this time. We apologize for the inconvenience."
+
 msgid "PAGE_APP_MSG_NO_SCREENSHOTS"
 msgstr "No screenshots"
 
-#: templates/storepage.html:160
-msgid "PAGE_APP_SECTION_DESC"
-msgstr "Additional information"
+msgid "PAGE_APP_PRICE_DEMO_FREE"
+msgstr "Demo"
 
-#: templates/storepage.html:166
-msgid "PAGE_APP_SECTION_REQ"
-msgstr "System requirements "
+msgid "PAGE_APP_PRICE_DEMO_WITH_COST"
+msgstr "Demo, then "
 
-#: templates/storepage.html:172
-msgid "PAGE_APP_SECTION_RATING"
-msgstr "Rating"
+msgid "PAGE_APP_PRICE_FREE"
+msgstr "Free"
 
-#: templates/storepage.html:183
-#, python-format
+msgid "PAGE_APP_PRICE_PAID"
+msgstr "Paid: "
+
 msgid "PAGE_APP_RATING_BASED_ON_COUNT %(counter)s"
 msgid_plural "PAGE_APP_RATING_BASED_ON_COUNT_PLURAL %(counter)s"
 msgstr[0] "Overall rating based on <b>%(counter)s review</b>"
 msgstr[1] "Overall rating based on <b>%(counter)s reviews</b>"
 
-#: templates/storepage.html:191
-msgid "PAGE_APP_RATING_YOUR"
-msgstr "Your rating:"
+msgid "PAGE_APP_RATING_DELETE_DENIED"
+msgstr "Reviews for this app have been disabled by the author"
 
-#: templates/storepage.html:201
+msgid "PAGE_APP_RATING_DELETE_SUCCESS"
+msgstr "User ratings"
+
+msgid "PAGE_APP_RATING_DISABLED"
+msgstr "Reviews for this app have been disabled by the author"
+
+msgid "PAGE_APP_RATING_EVALUATE"
+msgstr "Rate..."
+
 msgid "PAGE_APP_RATING_LOGIN_PROMPT"
 msgstr "Sign in to leave a rating..."
 
-#: templates/storepage.html:213
-msgid "PAGE_APP_RATING_USERS"
-msgstr "User ratings"
-
-#: templates/storepage.html:220
-msgid "PAGE_APP_RATING_YOUR_REVIEW"
-msgstr "(your rating)"
-
-#: templates/storepage.html:233
 msgid "PAGE_APP_RATING_NO_REVIEWS"
 msgstr "No ratings"
 
-#: templates/storepage.html:262
+msgid "PAGE_APP_RATING_USERS"
+msgstr "User ratings"
+
+msgid "PAGE_APP_RATING_YOUR"
+msgstr "Your rating:"
+
+msgid "PAGE_APP_RATING_YOUR_REVIEW"
+msgstr "(your rating)"
+
 msgid "PAGE_APP_SECTION_ACTIONS"
 msgstr "Actions"
 
-#: templates/storepage.html:266
-msgid "PAGE_APP_ACTION_SITE"
-msgstr "Go to the developer's official website"
+msgid "PAGE_APP_SECTION_DESC"
+msgstr "Additional information"
 
-#: templates/storepage.html:268
-msgid "PAGE_APP_ACTION_REPORT"
-msgstr "Report application"
+msgid "PAGE_APP_SECTION_RATING"
+msgstr "Rating"
 
-#: templates/storepage.html:269
-msgid "PAGE_APP_ACTION_MORE_APPS"
-msgstr "View other apps by this developer"
+msgid "PAGE_APP_SECTION_REQ"
+msgstr "System requirements "
 
-#: templates/user/password_reset_complete.html:5
-msgid "PAGE_PASSWORD_RESET_COMPLETE_TITLE"
-msgstr "Password changed"
+msgid "PAGE_APP_SECTION_SCREENSHOTS"
+msgstr "Screenshots"
 
-#: templates/user/password_reset_complete.html:9
-#: templates/user/password_reset_confirm.html:9
-#: templates/user/password_reset_done.html:9
-#: templates/user/password_reset_form.html:9
-msgid "PAGE_PASSWORD_RESET_HEADER"
-msgstr "Reset password"
+msgid "PAGE_BADBROSER_DESC_3"
+msgstr "Thank you for your understanding."
 
-#: templates/user/password_reset_complete.html:16
+msgid "PAGE_BADBROWSER_DESC_1"
+msgstr "It's recommended to use RetroZilla, Internet Explorer 6 or higher installed for the best experience."
+
+msgid "PAGE_BADBROWSER_DESC_2"
+msgstr "Internet Explorer 6 can be downloaded either directly or via services"
+
+msgid "PAGE_BADBROWSER_TITLE"
+msgstr "Thank you for your interest in the Windows Store!"
+
+msgid "PAGE_BADBROWSER_WARN_DESC_1"
+msgstr "No worries, this is actually great, especially since the entire website design is adapted with minimal reliance specifically on this web browser."
+
+msgid "PAGE_BADBROWSER_WARN_DESC_2"
+msgstr "However, given modern server security aspects and the data stored for its users, we had to implement some adjustments for those visiting the site using this browser."
+
+msgid "PAGE_BADBROWSER_WARN_DESC_3"
+msgstr "This restriction does not affect the ability to download, browse the catalog, or perform searches."
+
+msgid "PAGE_BADBROWSER_WARN_FOOTER"
+msgstr "For a better user experience, we recommend using the RetroZilla or Supermium browsers"
+
+msgid "PAGE_BADBROWSER_WARN_RESTRICT_1"
+msgstr "<b>Unavailable</b> account system (login, registration)"
+
+msgid "PAGE_BADBROWSER_WARN_RESTRICT_2"
+msgstr "Application page administration is <b>restricted</b>"
+
+msgid "PAGE_BADBROWSER_WARN_SUBTITLE"
+msgstr "We've noticed that you're visiting the site using a veeery old browser."
+
+msgid "PAGE_BADBROWSER_WARN_TITLE"
+msgstr "Important notice"
+
+msgid "PAGE_CATEGORY_BUYBTN"
+msgstr "Buy"
+
+msgid "PAGE_CATEGORY_COUNTOFRESULTS"
+msgstr "Number of results:"
+
+msgid "PAGE_CATEGORY_DEMOBTN"
+msgstr "Demo"
+
+msgid "PAGE_CATEGORY_INSTALLBTN"
+msgstr "Install"
+
+msgid "PAGE_CATEGORY_SEARCHOFCATEGORY"
+msgstr "Search by category"
+
+msgid "PAGE_CATEGORY_SHOWCONTENTAS"
+msgstr "Show content as..."
+
+msgid "PAGE_CATEGORY_SHOWCONTENTASLIST"
+msgstr "Show content as list"
+
+msgid "PAGE_CATEGORY_SHOWCONTENTASTILES"
+msgstr "Show content as tiles"
+
+msgid "PAGE_DEBUG_DESC"
+msgstr "This page is used EXCLUSIVELY for testing and gathering information for a more accurate bug report. If you see this page, it means that the DEBUG variable in your settings.py is set to True."
+
+msgid "PAGE_DEBUG_MAININFO_TITLE"
+msgstr "Basic information"
+
+msgid "PAGE_DEBUG_TITLE"
+msgstr "Debug information"
+
+msgid "PAGE_DELACC_BLOCK_TITLE"
+msgstr "Settings"
+
+msgid "PAGE_DELACC_LASTPASS_TITLE"
+msgstr "If you have made a firm and clear decision, please enter your password one last time to confirm"
+
+msgid "PAGE_DELACC_TITLE"
+msgstr "Delete account"
+
+msgid "PAGE_DELACC_WARNDESC_1"
+msgstr "You have already clicked the account deletion button in your profile settings, we understand your decision. "
+
+msgid "PAGE_DELACC_WARNDESC_2"
+msgstr "However, we would like to reiterate that this action will result in the deletion of your profile data"
+
+msgid "PAGE_DELACC_WARNDESC_3"
+msgstr "with NO going back"
+
+msgid "PAGE_DELACC_WARNDESC_4"
+msgstr "Access to managed application pages will be lost, and submitted feedback will be anonymized."
+
+msgid "PAGE_DELACC_WARNDESC_5"
+msgstr "It is time to list your profile statistics:"
+
+msgid "PAGE_DELACC_WARNTITLE"
+msgstr "Please pay attention!"
+
+msgid "PAGE_DELACC_YOULEFTHERE_1"
+msgstr "Food for thought"
+
+msgid "PAGE_DELACC_YOULEFTHERE_APP_1"
+msgstr "Number of apps you uploaded:"
+
+msgid "PAGE_DELACC_YOULEFTHERE_APP_2"
+msgstr "You will not be able to manage them after deleting your account"
+
+msgid "PAGE_DELACC_YOULEFTHERE_AVATAR_1"
+msgstr "Your beautiful profile picture"
+
+msgid "PAGE_DELACC_YOULEFTHERE_AVATAR_2"
+msgstr "Accept yourself as you are"
+
+msgid "PAGE_DELACC_YOULEFTHERE_HISTORY_1"
+msgstr "History of uploaded applications"
+
+msgid "PAGE_DELACC_YOULEFTHERE_HISTORY_2"
+msgstr "...have you ever even looked there once?"
+
+msgid "PAGE_DELACC_YOULEFTHERE_INVITES_1"
+msgstr "The number of people invited by you:"
+
+msgid "PAGE_DELACC_YOULEFTHERE_INVITES_2"
+msgstr "They will be left without you and will be sad"
+
+msgid "PAGE_DELACC_YOULEFTHERE_TITLE"
+msgstr "You have left here..."
+
+msgid "PAGE_DELAPP_DELACCOUNTBTN"
+msgstr "Delete account"
+
+msgid "PAGE_DEVADD_ALREADYDEV_1"
+msgstr "You are already a developer!"
+
+msgid "PAGE_DEVADD_ALREADYDEV_2"
+msgstr "You already have developer status. You now have access to all additional app upload options on LunaStore."
+
+msgid "PAGE_DEVADD_DESC_1"
+msgstr "Are you a representative or a developer of your software?"
+
+msgid "PAGE_DEVADD_DESC_2"
+msgstr "Upgrade your profile to a developer account and publish software officially on LunaStore. Official downloads will be marked with a corresponding badge."
+
+msgid "PAGE_DEVADD_DISABLED_1"
+msgstr "Developer registration is temporarily disabled"
+
+msgid "PAGE_DEVADD_DISABLED_2"
+msgstr "We don't accept new developer status applications at this moment. Please try again later."
+
+msgid "PAGE_DEVADD_ENTERINFO_ABOUTYOU"
+msgstr "Tell us about yourself (up to 1000 characters):"
+
+msgid "PAGE_DEVADD_ENTERINFO_CONFIRM"
+msgstr "Registration confirmation"
+
+msgid "PAGE_DEVADD_ENTERINFO_EMAIL"
+msgstr "Contact e-mail:"
+
+msgid "PAGE_DEVADD_ENTERINFO_EMAILDESC"
+msgstr "We will definitely contact you. Or we hope that we will. "
+
+msgid "PAGE_DEVADD_ENTERINFO_GITHUBDESC"
+msgstr "Why not? We would love to see your cool creations :3"
+
+msgid "PAGE_DEVADD_ENTERINFO_TITLE"
+msgstr "Basic information"
+
+msgid "PAGE_DEVADD_ENTERINFO_USERNAME"
+msgstr "Username:"
+
+msgid "PAGE_DEVADD_ENTERINFO_USERNAMEDESC"
+msgstr "Username cannot be changed. If this is not the correct account, please sign in to the needed one."
+
+msgid "PAGE_DEVADD_ENTERINFO_WHYCHOOSEUS"
+msgstr "Why did you choose us? (250 characters):"
+
+msgid "PAGE_DEVADD_NOWCHECKING_1"
+msgstr "You have already submitted an application. The administrator will review it shortly."
+
+msgid "PAGE_DEVADD_NOWCHECKING_2"
+msgstr "If it is approved, you will receive a notification and your status."
+
+msgid "PAGE_DEVADD_NOWCHECKING_3"
+msgstr "If rejected, you will be able to reapply."
+
+msgid "PAGE_DEVADD_NOWCHECKING_TITLE"
+msgstr "Application currently in review"
+
+msgid "PAGE_DEVADD_SENDALLBTN"
+msgstr "Submit application"
+
+msgid "PAGE_DEVADD_TITLE"
+msgstr "Submit developer status application"
+
+msgid "PAGE_DIST_EDIT_CHANGE_FILE"
+msgstr "Replace file:"
+
+msgid "PAGE_DIST_EDIT_CURRENT_FILE"
+msgstr "Current file:"
+
+msgid "PAGE_DIST_EDIT_HEADER"
+msgstr "Edit distribution"
+
+msgid "PAGE_DIST_FORM_CANCEL"
+msgstr "Cancel"
+
+msgid "PAGE_DIST_FORM_CHANGELOG"
+msgstr "Changelog:"
+
+msgid "PAGE_DIST_FORM_CHANGELOG_DESC"
+msgstr "Describe what's new in this version"
+
+msgid "PAGE_DIST_FORM_ERR_CDN_REJECT"
+msgstr "The LunaSpire engine rejected the file upload. Please contact the administrator regarding this error."
+
+msgid "PAGE_DIST_FORM_ERR_GET_TOKEN"
+msgstr "Error receiving upload token from the LunaSpire engine. Please contact the administrator regarding this error."
+
+msgid "PAGE_DIST_FORM_ERR_NO_CONFIRM"
+msgstr "The LunaSpire engine did not return a confirmation token. Please contact the administrator regarding this error."
+
+msgid "PAGE_DIST_FORM_FILE"
+msgstr "File:"
+
+msgid "PAGE_DIST_FORM_FILE_ALREADY_UPLOADED"
+msgstr "File already uploaded (pending save)"
+
+msgid "PAGE_DIST_FORM_FILE_BUTTON"
+msgstr "Browse..."
+
+msgid "PAGE_DIST_FORM_FILE_DESC"
+msgstr "Supported formats: .exe, .zip, .rar, .7z and other archives."
+
+msgid "PAGE_DIST_FORM_FILE_NO_FILE"
+msgstr "No file selected."
+
+msgid "PAGE_DIST_FORM_FILE_UPLOADING"
+msgstr "Uploading..."
+
+msgid "PAGE_DIST_FORM_SAVE"
+msgstr "Save changes"
+
+msgid "PAGE_DIST_FORM_SAVED"
+msgstr "Distribution changes saved successfully."
+
+msgid "PAGE_DIST_FORM_URL"
+msgstr "External link (URL):"
+
+msgid "PAGE_DIST_FORM_URL_DESC"
+msgstr "Specify if the file is hosted on another resource"
+
+msgid "PAGE_DIST_FORM_VERSION"
+msgstr "Application version:"
+
+msgid "PAGE_DIST_FORM_VERSION_DESC"
+msgstr "Example: 1.0.0 or 2.1.4-beta"
+
+msgid "PAGE_DIST_FORM_VT_DESC"
+msgstr "Provide a link to the file scan results on virustotal.com"
+
+msgid "PAGE_DIST_FORM_VT_TITLE"
+msgstr "VirusTotal link (mandatory when uploading a file):"
+
+msgid "PAGE_DOWNLOAD_BACK"
+msgstr "Back"
+
+msgid "PAGE_DOWNLOAD_DEMO_WARNING"
+msgstr "The software is distributed as a demo version; the full version should be purchased from the author. The file is provided from the developer's official website."
+
+msgid "PAGE_DOWNLOAD_DL_ACTION"
+msgstr "download"
+
+msgid "PAGE_DOWNLOAD_DMCA_WARNING"
+msgstr "The ability to download the program has been disabled due to a copyright holder's complaint. Thank you for your understanding."
+
+msgid "PAGE_DOWNLOAD_GO_OFFICIAL"
+msgstr "Go to the official website"
+
+msgid "PAGE_DOWNLOAD_LATEST_VERSION_NOTE"
+msgstr "Latest downloaded version marked in bold"
+
+msgid "PAGE_DOWNLOAD_LOCAL_SOURCE"
+msgstr "Downloading from our website"
+
+msgid "PAGE_DOWNLOAD_MANAGE_DISTS"
+msgstr "Distribution management"
+
+msgid "PAGE_DOWNLOAD_NO_DISTRIBUTIONS"
+msgstr "No distributions added yet."
+
+msgid "PAGE_DOWNLOAD_NO_NOTES"
+msgstr "No notes"
+
+msgid "PAGE_DOWNLOAD_OFFICIAL_SOURCE"
+msgstr "Downloading from official source"
+
+msgid "PAGE_DOWNLOAD_TABLE_ACTION"
+msgstr "Action"
+
+msgid "PAGE_DOWNLOAD_TABLE_DATE"
+msgstr "Publication date"
+
+msgid "PAGE_DOWNLOAD_TABLE_LINK"
+msgstr "Link"
+
+msgid "PAGE_DOWNLOAD_TABLE_UPLOAD_DATE"
+msgstr "Upload date"
+
+msgid "PAGE_DOWNLOAD_TABLE_VERSION"
+msgstr "Version"
+
+msgid "PAGE_DOWNLOAD_TITLE"
+msgstr "Downloading"
+
+msgid "PAGE_DOWNLOAD_UPLOADED_VERSIONS"
+msgstr "Uploaded versions"
+
+msgid "PAGE_DOWNLOAD_VERSION_LIST"
+msgstr "Version list"
+
+msgid "PAGE_FAQ_A_ACC_BENEFITS"
+msgstr "With an account, you will be able to leave reviews for applications, present yourself well in this emerging community, and upload your own applications to the public catalog after strict moderation."
+
+msgid "PAGE_FAQ_A_ADD_APP"
+msgstr "Not yet. We are just getting started, so we are taking software from our own lists. Keep an eye on updates to this page."
+
+msgid "PAGE_FAQ_A_CREATE_ACC"
+msgstr "Click the \"Sign up\" button in the top header of the site"
+
+msgid "PAGE_FAQ_A_LEGAL"
+msgstr "Usually, such a question is asked by a software developer. However, if you are very concerned about the existence of an old version of your program on this site, you can contact us via e-mail. But we really hope that you will understand our situation and the purpose of the project."
+
+msgid "PAGE_FAQ_A_WHY_EXIST_PART1"
+msgstr "Good question. It all began when one of our team members wanted to upload a 3D Windows XP screensaver on a certain old software website that wasn't quite popular and was barely saved on the Internet Archive."
+
+msgid "PAGE_FAQ_A_WHY_EXIST_PART2"
+msgstr "In a few days the screensaver was deleted from the website, stating that \"It's not suitable for the website's topic\". When he questioned \"Why do you have Windows XP disk images on your website then?\", staff members couldn't give a straight answer."
+
+msgid "PAGE_FAQ_A_WHY_EXIST_PART3"
+msgstr "Nothing to worry about, we are not saddened and we won't be competitors to them, we just wanted to create our own little catalog :3"
+
+msgid "PAGE_FAQ_CARD_TEAM"
+msgstr "What do you mean by 'shared hobby'?"
+
+msgid "PAGE_FAQ_CARD_TEAMDESC_1"
+msgstr "You wouldn't believe it. Many passionate people with the same vision worked on this project."
+
+msgid "PAGE_FAQ_CARD_TEAMDESC_2"
+msgstr "It's time to name them:"
+
+msgid "PAGE_FAQ_CARD_TEAM_AUTHOR"
+msgstr "- idea's author, designer,"
+
+msgid "PAGE_FAQ_CARD_TEAM_BACKEND"
+msgstr "- backend development, consulting and inspiration"
+
+msgid "PAGE_FAQ_CARD_TEAM_CDNANDGIT"
+msgstr "- back-office work, CDN, internal Git"
+
+msgid "PAGE_FAQ_CARD_TEAM_DEV"
+msgstr "- developer"
+
+msgid "PAGE_FAQ_CARD_TEAM_FRONTEND"
+msgstr "- frontend"
+
+msgid "PAGE_FAQ_CARD_WHATISIT"
+msgstr "Where am I and what is this?"
+
+msgid "PAGE_FAQ_CARD_WHATISITDESC"
+msgstr "is a kind of alternative 'storefront' for games and software. We're currently aiming for the Windows XP era."
+
+msgid "PAGE_FAQ_CARD_WHYWESHOP"
+msgstr "Why's the \"store\" in quotation marks?"
+
+msgid "PAGE_FAQ_CARD_WHYWESHOPDESC"
+msgstr "We're a fan website and we don't think that this project will grow to a full-fledged storefront. But who knows? Although the advertisements in the left menu are not serious, and the entire project is a shared hobby."
+
+msgid "PAGE_FAQ_DESC"
+msgstr "Do you have any questions? This page has all information regarding this LunaStore"
+
+msgid "PAGE_FAQ_DONATETAB"
+msgstr "Donate"
+
+msgid "PAGE_FAQ_DONATE_TITLE"
+msgstr "How to support us?"
+
+msgid "PAGE_FAQ_LAST_UPDATE"
+msgstr "Last update"
+
+msgid "PAGE_FAQ_PRIVACYTAB"
+msgstr "Privacy"
+
+msgid "PAGE_FAQ_PRIVACY_EMPTY"
+msgstr "This document is not yet filled..."
+
+msgid "PAGE_FAQ_PRIVACY_TITLE"
+msgstr "Privacy Policy"
+
+msgid "PAGE_FAQ_Q_ACC_BENEFITS"
+msgstr "What are the benefits of having a LunaStore account?"
+
+msgid "PAGE_FAQ_Q_ADD_APP"
+msgstr "Okay, and how do I add an application here?"
+
+msgid "PAGE_FAQ_Q_CREATE_ACC"
+msgstr "How to create an account?"
+
+msgid "PAGE_FAQ_Q_LEGAL"
+msgstr "\"Hmm, and is this legal?\""
+
+msgid "PAGE_FAQ_Q_WHY_EXIST"
+msgstr "Why does this website exist/"
+
+msgid "PAGE_FAQ_RULESTAB"
+msgstr "Rules"
+
+msgid "PAGE_FAQ_TEAM_HEADER_OTHER"
+msgstr "We're also thankful to other developers:"
+
+msgid "PAGE_FAQ_TEAM_HEADER_TESTERS"
+msgstr "And let's not forget about our testers:"
+
+msgid "PAGE_FAQ_TEAM_HEADER_TRANSLATORS"
+msgstr "And about translators:"
+
+msgid "PAGE_FAQ_TEAM_ROLE_CHELKA0"
+msgstr "behind-the-scenes website design"
+
+msgid "PAGE_FAQ_TEAM_ROLE_COOKIE"
+msgstr "Second backend developer, lead developer of the luna package manager, and also Japanese translation"
+
+msgid "PAGE_FAQ_TEAM_ROLE_FAYZETWIN"
+msgstr "main backend developer, API"
+
+msgid "PAGE_FAQ_TEAM_ROLE_MONDY"
+msgstr "logo"
+
+msgid "PAGE_FAQ_TEAM_ROLE_NOCHA3"
+msgstr "native Windows XP client"
+
+msgid "PAGE_FAQ_TEAM_ROLE_ZAZIOS"
+msgstr "backend developer (Go)"
+
+msgid "PAGE_FAQ_TEAM_TESTERS_LIST"
+msgstr "[testers' nicknames are separated with commas]"
+
+msgid "PAGE_FAQ_TITLE"
+msgstr "FAQ"
+
+msgid "PAGE_FAQ_TITLE_2"
+msgstr "Support center"
+
+msgid "PAGE_FAQ_TOOLTIP_EASTEREGG"
+msgstr "WORKAROUNDS BICYCLES YOOO"
+
+msgid "PAGE_INVITE_ADMINSTATUS"
+msgstr "Moderator"
+
+msgid "PAGE_INVITE_BROWSER_TITLE"
+msgstr "Invite"
+
+msgid "PAGE_INVITE_CODE_ROTATION_WARN"
+msgstr "<b>Important:</b> invite codes currently change every 24 hours"
+
+msgid "PAGE_INVITE_COPY_CODE"
+msgstr "Copy this code below and send it to the required person"
+
+msgid "PAGE_INVITE_DESCRIPTION"
+msgstr "You can invite your friend or acquaintance with similar interests about retro stuff to LunaStore."
+
+msgid "PAGE_INVITE_HOW_TO_SEND"
+msgstr "Via e-mail, phone, chat, in person - doesn't matter. The invited user must enter the code during registration."
+
+msgid "PAGE_INVITE_INPUT_BTN"
+msgstr "Begin registration"
+
+msgid "PAGE_INVITE_INPUT_DESC_1"
+msgstr "You can enter an invitation code you received from an already <b>registered member</b>"
+
+msgid "PAGE_INVITE_INPUT_DESC_2"
+msgstr "This gives you a unique opportunity to create an account, <b>bypassing the closed public registration</b>"
+
+msgid "PAGE_INVITE_INPUT_HEADER"
+msgstr "Enter invite code"
+
+msgid "PAGE_INVITE_INPUT_LABEL"
+msgstr "Code"
+
+msgid "PAGE_INVITE_INPUT_TITLE"
+msgstr "Enter invite code"
+
+msgid "PAGE_INVITE_LIMIT_EXHAUSTED"
+msgstr "Invited users"
+
+msgid "PAGE_INVITE_LIMIT_INFO"
+msgstr "Currently you can invite <b>1</b> person. After the user accepts your invitation, the next one can be created only in a week"
+
+msgid "PAGE_INVITE_LIST_EMPTY"
+msgstr "You haven't invited anyone yet"
+
+msgid "PAGE_INVITE_LIST_HEADER"
+msgstr "Invited users"
+
+msgid "PAGE_INVITE_MAIN_TITLE"
+msgstr "Invite a person"
+
+msgid "PAGE_INVITE_NEXT_AVAILABLE"
+msgstr "Code"
+
+msgid "PAGE_INVITE_REGDATE"
+msgstr "Sign up"
+
+msgid "PAGE_INVITE_USERSTATUS"
+msgstr "User"
+
+msgid "PAGE_LOGIN_BROWSER_TITLE"
+msgstr "Sign in"
+
+msgid "PAGE_LOGIN_FORGOT_PASSWORD"
+msgstr "Forgot password?"
+
+msgid "PAGE_LOGIN_GREETING"
+msgstr "Introduce yourself..."
+
+msgid "PAGE_LOGIN_INFO_BULLET_1"
+msgstr "Leave app reviews"
+
+msgid "PAGE_LOGIN_INFO_BULLET_2"
+msgstr "Take the community by storm"
+
+msgid "PAGE_LOGIN_INFO_BULLET_3"
+msgstr "Upload software"
+
+msgid "PAGE_LOGIN_INFO_DESC_2"
+msgstr "Create one. It's free of charge."
+
+msgid "PAGE_LOGIN_INFO_TITLE_1"
+msgstr "Why do I need an account?"
+
+msgid "PAGE_LOGIN_INFO_TITLE_2"
+msgstr "You don't have an account?"
+
+msgid "PAGE_LOGIN_MAIN_TITLE"
+msgstr "Sign in"
+
+msgid "PAGE_LOGIN_PASSWORD_LABEL"
+msgstr "Password:"
+
+msgid "PAGE_LOGIN_REGISTER_BTN"
+msgstr "Sign up"
+
+msgid "PAGE_LOGIN_REQUIRED_WARNING"
+msgstr "You need to sign in to continue this action"
+
+msgid "PAGE_LOGIN_SUBMIT_BTN"
+msgstr "Sign in"
+
+msgid "PAGE_LOGIN_USERNAME_LABEL"
+msgstr "Username:"
+
+msgid "PAGE_MANAGEDIST_CREATE_SUCCESS"
+msgstr "New distribution created"
+
+msgid "PAGE_MANAGE_APPS_BTN_EDIT"
+msgstr "edit"
+
+msgid "PAGE_MANAGE_APPS_COUNT"
+msgstr "Managed applications"
+
+msgid "PAGE_MANAGE_APPS_CREATE"
+msgstr "Create an app"
+
+msgid "PAGE_MANAGE_APPS_EMPTY_DESC"
+msgstr "You are not managing any applications yet."
+
+msgid "PAGE_MANAGE_APPS_EMPTY_TITLE"
+msgstr "No applications ＞︿＜"
+
+msgid "PAGE_MANAGE_APPS_HEADER"
+msgstr "Managed application pages"
+
+msgid "PAGE_MANAGE_APPS_MY_APPS"
+msgstr "My applications"
+
+msgid "PAGE_MANAGE_APPS_ROLE_OWNER"
+msgstr "Owner"
+
+msgid "PAGE_MANAGE_APPS_TITLE"
+msgstr "Managed applications"
+
+msgid "PAGE_NOTIFICATIONS_COUNT_SINGLE"
+msgid_plural "PAGE_NOTIFICATIONS_COUNT_PLURAL"
+msgstr[0] "You have <b>%(counter)s</b> new notification"
+msgstr[1] "You have <b>%(counter)s</b> new notifications"
+
+msgid "PAGE_NOTIFICATIONS_EARLY"
+msgstr "Early notifications"
+
+msgid "PAGE_NOTIFICATIONS_NEW_COUNT"
+msgstr "just now"
+
+msgid "PAGE_NOTIFICATIONS_NOW"
+msgstr "just now"
+
+msgid "PAGE_NOTIFICATIONS_NO_NEW"
+msgstr "You have no new notifications"
+
+msgid "PAGE_NOTIFICATIONS_TAB"
+msgstr "Notifications"
+
+msgid "PAGE_NOTIFICATIONS_TITLE"
+msgstr "Notifications"
+
+msgid "PAGE_NOTIFY_TOAST_CLOSE"
+msgstr "Close"
+
+msgid "PAGE_NOTIFY_TOAST_NEW"
+msgstr "New notification"
+
+msgid "PAGE_NOTIFY_TOAST_VIEW"
+msgstr "View »"
+
+msgid "PAGE_OTHER_PROJECTS_BROWSER_TITLE"
+msgstr "Other projects"
+
+msgid "PAGE_OTHER_PROJECTS_BTN_GO"
+msgstr "Visit »"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_DM"
+msgstr "Daniel Myslivets official website (version for old computers and browsers)"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_FOXCORP"
+msgstr "Personal website of Milya Fox, a network engineer who helped with the project"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_GAMES"
+msgstr "Revival of Windows XP/7 internet games using a custom third-party server"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_KICQ"
+msgstr "Unofficial project that restores ICQ functionality"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_RENAISSANCE"
+msgstr "Unofficial project that restores Agent@Mail.ru functionality"
+
+msgid "PAGE_OTHER_PROJECTS_SECTION_FRIENDS"
+msgstr "Partner sites"
+
+msgid "PAGE_OTHER_PROJECTS_SECTION_MAIN"
+msgstr "Main"
+
+msgid "PAGE_OTHER_PROJECTS_SUBTITLE"
+msgstr "Partner sites and our other projects"
+
+msgid "PAGE_OTHER_PROJECTS_TITLE"
+msgstr "Other projects"
+
 msgid "PAGE_PASSWORD_RESET_COMPLETE_HEADER"
 msgstr "Success!"
 
-#: templates/user/password_reset_complete.html:20
-msgid "PAGE_PASSWORD_RESET_COMPLETE_TEXT_1"
-msgstr ""
-"Your password has been successfully changed. You can now log in to your "
-"account using your new password."
-
-#: templates/user/password_reset_complete.html:21
-msgid "PAGE_PASSWORD_RESET_COMPLETE_LOGIN_BTN"
-msgstr "Log in to account"
-
-#: templates/user/password_reset_complete.html:27
-msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TITLE"
-msgstr "All set"
-
-#: templates/user/password_reset_complete.html:28
 msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TEXT"
 msgstr "Your account is secure. Welcome back to LunaStore!"
 
-#: templates/user/password_reset_confirm.html:5
-msgid "PAGE_PASSWORD_RESET_CONFIRM_TITLE"
-msgstr "New password"
+msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TITLE"
+msgstr "All set"
 
-#: templates/user/password_reset_confirm.html:16
+msgid "PAGE_PASSWORD_RESET_COMPLETE_LOGIN_BTN"
+msgstr "Log in to account"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_TEXT_1"
+msgstr "Your password has been successfully changed. You can now log in to your account using your new password."
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_TITLE"
+msgstr "Password changed"
+
 msgid "PAGE_PASSWORD_RESET_CONFIRM_HEADER"
 msgstr "New password"
 
-#: templates/user/password_reset_confirm.html:44
-msgid "PAGE_PASSWORD_RESET_CONFIRM_SUBMIT_BTN"
-msgstr "Set password"
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TEXT"
+msgstr "Ensure your new password is unique and contains a combination of uppercase and lowercase letters, as well as numbers or special characters."
 
-#: templates/user/password_reset_confirm.html:49
-msgid "PAGE_PASSWORD_RESET_CONFIRM_INVALID_LINK"
-msgstr ""
-"The password reset link is invalid. It may have already been used, or it has "
-"expired. Please request a password reset again."
-
-#: templates/user/password_reset_confirm.html:56
 msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TITLE"
 msgstr "Strong password"
 
-#: templates/user/password_reset_confirm.html:57
-msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TEXT"
-msgstr ""
-"Ensure your new password is unique and contains a combination of uppercase "
-"and lowercase letters, as well as numbers or special characters."
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INVALID_LINK"
+msgstr "The password reset link is invalid. It may have already been used, or it has expired. Please request a password reset again."
 
-#: templates/user/password_reset_done.html:5
-#: templates/user/password_reset_email_html.html:38
-#: templates/user/password_reset_form.html:5
-msgid "PAGE_PASSWORD_RESET_TITLE"
-msgstr "Reset password"
+msgid "PAGE_PASSWORD_RESET_CONFIRM_SUBMIT_BTN"
+msgstr "Set password"
 
-#: templates/user/password_reset_done.html:16
+msgid "PAGE_PASSWORD_RESET_CONFIRM_TITLE"
+msgstr "New password"
+
 msgid "PAGE_PASSWORD_RESET_DONE_HEADER"
 msgstr "Email sent"
 
-#: templates/user/password_reset_done.html:20
-msgid "PAGE_PASSWORD_RESET_DONE_TEXT_1"
-msgstr ""
-"We have sent password reset instructions to your email address (if it exists "
-"in our system)"
+msgid "PAGE_PASSWORD_RESET_DONE_INFO_TEXT"
+msgstr "Usually the email arrives within a few minutes. If you have any difficulties, you can contact support."
 
-#: templates/user/password_reset_done.html:21
-msgid "PAGE_PASSWORD_RESET_DONE_TEXT_2"
-msgstr ""
-"Please check your email and click the link to complete the process. If you "
-"did not receive the email, please check your \"Spam\" folder."
-
-#: templates/user/password_reset_done.html:27
 msgid "PAGE_PASSWORD_RESET_DONE_INFO_TITLE"
 msgstr "What's next?"
 
-#: templates/user/password_reset_done.html:28
-msgid "PAGE_PASSWORD_RESET_DONE_INFO_TEXT"
-msgstr ""
-"Usually the email arrives within a few minutes. If you have any "
-"difficulties, you can contact support."
+msgid "PAGE_PASSWORD_RESET_DONE_TEXT_1"
+msgstr "We have sent password reset instructions to your email address (if it exists in our system)"
 
-#: templates/user/password_reset_email.html:2
+msgid "PAGE_PASSWORD_RESET_DONE_TEXT_2"
+msgstr "Please check your email and click the link to complete the process. If you did not receive the email, please check your \"Spam\" folder."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_FOOTER"
+msgstr "This email was sent automatically. Please do not reply to it."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_GREETING"
+msgstr "Hello"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_LABEL"
+msgstr "Email address"
+
 msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_1"
-msgstr ""
-"You received this email because a password reset was requested for your "
-"account on LunaStore."
+msgstr "You received this email because a password reset was requested for your account on LunaStore."
 
-#: templates/user/password_reset_email.html:4
 msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_2"
 msgstr "Please follow the link below to set a new password:"
 
-#: templates/user/password_reset_email.html:7
 msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_3"
 msgstr "If you did not request a password reset, simply ignore this email."
 
-#: templates/user/password_reset_email.html:9
 msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_4"
 msgstr ""
 "Best regards, \n"
 "LunaStore Team"
 
-#: templates/user/password_reset_email_html.html:44
-msgid "PAGE_PASSWORD_RESET_EMAIL_GREETING"
-msgstr "Hello"
-
-#: templates/user/password_reset_email_html.html:46
-msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_1"
-msgstr ""
-"You have requested a password reset for your LunaStore account. Please click "
-"the link below to set a new password:"
-
-#: templates/user/password_reset_email_html.html:46
-msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_2"
-msgstr ""
-"If you did not request a password reset, simply ignore this email. Your "
-"password will remain safe."
-
-#: templates/user/password_reset_email_html.html:48
 msgid "PAGE_PASSWORD_RESET_EMAIL_REGARDS"
 msgstr ""
 "Best regards, \n"
 "LunaStore Team"
 
-#: templates/user/password_reset_email_html.html:57
-msgid "PAGE_PASSWORD_RESET_EMAIL_FOOTER"
-msgstr "This email was sent automatically. Please do not reply to it."
+msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_1"
+msgstr "You have requested a password reset for your LunaStore account. Please click the link below to set a new password:"
 
-#: templates/user/password_reset_form.html:16
+msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_2"
+msgstr "If you did not request a password reset, simply ignore this email. Your password will remain safe."
+
 msgid "PAGE_PASSWORD_RESET_FORM_HEADER"
 msgstr "Reset password"
 
-#: templates/user/password_reset_form.html:22
-msgid "PAGE_PASSWORD_RESET_EMAIL_LABEL"
-msgstr "Email address"
+msgid "PAGE_PASSWORD_RESET_HEADER"
+msgstr "Reset password"
 
-#: templates/user/password_reset_form.html:38
-msgid "PAGE_PASSWORD_RESET_SUBMIT_BTN"
-msgstr "Send email"
+msgid "PAGE_PASSWORD_RESET_INFO_TEXT"
+msgstr "Enter the email address associated with your LunaStore account. We will send you instructions on how to reset your password."
 
-#: templates/user/password_reset_form.html:45
 msgid "PAGE_PASSWORD_RESET_INFO_TITLE"
 msgstr "Forgot password?"
 
-#: templates/user/password_reset_form.html:46
-msgid "PAGE_PASSWORD_RESET_INFO_TEXT"
-msgstr ""
-"Enter the email address associated with your LunaStore account. We will send "
-"you instructions on how to reset your password."
-
-#: templates/user/password_reset_subject.txt:1
 msgid "PAGE_PASSWORD_RESET_SUBJECT"
 msgstr "Password reset for LunaStore"
 
-msgid "PAGE_API_SESSIONS_TITLE"
-msgstr "API Access Keys"
+msgid "PAGE_PASSWORD_RESET_SUBMIT_BTN"
+msgstr "Send email"
 
-msgid "PAGE_API_SESSIONS_DESC"
-msgstr "Devices and clients using API access to your account."
+msgid "PAGE_PASSWORD_RESET_TITLE"
+msgstr "Reset password"
 
-msgid "PAGE_API_TOKEN"
-msgstr "API Access Key"
+msgid "PAGE_PROFILESETTINGS_LABEL_BIO"
+msgstr "Profile bio:"
 
-msgid "PAGE_API_ISSUED"
-msgstr "Issued:"
+msgid "PAGE_PROFILE_APPS_EMPTY_DESC"
+msgstr "User hasn't published any apps yet."
 
-msgid "PAGE_API_EXPIRES"
-msgstr "Expires:"
+msgid "PAGE_PROFILE_APPS_TITLE"
+msgstr "Published applications"
 
-msgid "PAGE_API_REVOKE"
-msgstr "Revoke"
+msgid "PAGE_PROFILE_BANNED_DESC"
+msgstr "This may have occurred due to a violation of site rules, suspicious activity, or a security system trigger. We care about the comfort of all users, so we are forced to temporarily or permanently restrict access to the site for such users."
 
-msgid "PAGE_API_NO_SESSIONS"
-msgstr "You have no active API access keys."
+msgid "PAGE_PROFILE_BANNED_DESC_2"
+msgstr "Since this user is banned, we recommend not to communicate with them, especially if they will ask you for money."
 
-msgid "INFO_API_SESSION_REVOKED"
-msgstr "API access key successfully revoked."
+msgid "PAGE_PROFILE_BANNED_INTRO"
+msgstr "This user has been banned."
 
-#~ msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
-#~ msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
-#~ msgstr[0] "%(counter)s reviews -"
-#~ msgstr[1] "%(counter)s reviews -"
+msgid "PAGE_PROFILE_CONTACT_INFO"
+msgstr "Contact information"
 
-#~ msgid "BANNED_IP_HEADER"
-#~ msgstr "Access restricted"
+msgid "PAGE_PROFILE_INVITES_EMPTY_DESC"
+msgstr "No one has registered using this user's invitation yet."
 
-#~ msgid "BANNED_IP_HOME_LINK"
-#~ msgstr "To home page"
+msgid "PAGE_PROFILE_INVITES_EMPTY_TITLE"
+msgstr "No invitations ＞︿＜"
 
-#~ msgid "BANNED_IP_SUBTITLE"
-#~ msgstr "Your IP address is blocked"
+msgid "PAGE_PROFILE_INVITES_PEOPLE"
+msgstr "people (showing first 5)"
 
-#~ msgid "BASE_LOGINPOPUP_DESC"
-#~ msgstr "Already have an account? Sign in."
+msgid "PAGE_PROFILE_INVITES_TEXT"
+msgstr "invited"
 
-#~ msgid "BASE_LOGINPOPUP_LOGINBTN"
-#~ msgstr "Sign in"
+msgid "PAGE_PROFILE_LABEL_EMAIL"
+msgstr "E-mail:"
 
-#~ msgid "BASE_LOGINPOPUP_LOGINFIELD"
-#~ msgstr "Username:"
+msgid "PAGE_PROFILE_LABEL_TELEGRAM"
+msgstr "Telegram:"
 
-#~ msgid "BASE_LOGINPOPUP_PASSWORDFIELD"
-#~ msgstr "Password:"
+msgid "PAGE_PROFILE_LABEL_WEBSITE"
+msgstr "Website:"
 
-#~ msgid "BASE_LOGINPOPUP_TITLE"
-#~ msgstr "Sign in"
+msgid "PAGE_PROFILE_LINK_ADDAPP"
+msgstr "add"
 
-#~ msgid "BASE_OPRJ_GAMESBTN"
-#~ msgstr "Games"
+msgid "PAGE_PROFILE_LINK_ALL"
+msgstr "show all"
 
-#~ msgid "BASE_OPRJ_OTHERPROJECTSBTN"
-#~ msgstr "All projects »"
+msgid "PAGE_PROFILE_NO_REVIEWS"
+msgstr "No reviews"
 
-#~ msgid "ERROR_CDNSECURITY"
-#~ msgstr ""
-#~ "A LunaSpire engine security error occurred while uploading the file. "
-#~ "Please contact your site administrator if you see this error repeatedly."
+msgid "PAGE_PROFILE_REVIEW_TO_APP"
+msgstr "to the app"
 
-#~ msgid "ERROR_CDN_INVALID_FORMAT"
-#~ msgstr ""
-#~ "Invalid file format on the CDN server. Please contact your administrator."
+msgid "PAGE_PROFILE_STAFF_ALT"
+msgstr "LunaStore Team"
 
-#~ msgid "ERROR_CDN_SESSION_EXPIRED"
-#~ msgstr "The upload session has expired. Please try again."
+msgid "PAGE_PROFILE_STATS_MEMBER_SINCE"
+msgstr "member since"
 
-#~ msgid "ERROR_DIST_SOURCE_REQUIRED"
-#~ msgstr "A file or download link must be provided."
+msgid "PAGE_PROFILE_TAB_APPS"
+msgstr "Apps"
 
-#~ msgid "ERROR_INVALID_IMAGE_FILE"
-#~ msgstr "Failed to process image. The file might be corrupted."
+msgid "PAGE_PROFILE_TAB_MAIN"
+msgstr "Main"
 
-#~ msgid "ERROR_INVALID_LUNASPIRE_TOKEN"
-#~ msgstr ""
-#~ "An invalid token type was received from the LunaSpire engine during "
-#~ "upload. Please contact your site administrator if you see this error "
-#~ "repeatedly."
+msgid "PAGE_PROFILE_TAB_REVIEWS"
+msgstr "Reviews"
 
-#~ msgid "ERROR_MAX_AVATAR_DIMENSIONS"
-#~ msgstr "Maximum image resolution — 64x64 pixels."
+msgid "PAGE_PROFILE_TITLE"
+msgstr "User Profile"
 
-#~ msgid "ERROR_PREVIEWSCRNS_1_BIGSIZE"
-#~ msgstr "Error: File"
+msgid "PAGE_REGISTER_BTN_SUBMIT"
+msgstr "Sign up"
 
-#~ msgid "ERROR_PREVIEWSCRNS_1_COUNT"
-#~ msgstr "Error: "
+msgid "PAGE_REGISTER_CAPTCHA_INSTRUCTION"
+msgstr "Enter characters from the image:"
 
-#~ msgid "ERROR_PREVIEWSCRNS_1_INVALIDFORMAT"
-#~ msgstr "Error: File"
+msgid "PAGE_REGISTER_CLICK_HERE"
+msgstr "here"
 
-#~ msgid "ERROR_PREVIEWSCRNS_2_BIGSIZE"
-#~ msgstr "is too big (2 MB max)."
+msgid "PAGE_REGISTER_CLOSED_MSG"
+msgstr "Public registration is currently closed and is done strictly by invitation from already existing members."
 
-#~ msgid "ERROR_PREVIEWSCRNS_2_COUNT"
-#~ msgstr "files selected. Maximum 3."
+msgid "PAGE_REGISTER_HAVE_INVITE_TEXT"
+msgstr "Have an invite code? Click"
 
-#~ msgid "ERROR_PREVIEWSCRNS_2_INVALIDFORMAT"
-#~ msgstr "is in invalid format."
+msgid "PAGE_REGISTER_HAVE_INVITE_TITLE"
+msgstr "Do you have an invitation?"
 
-#~ msgid "ERROR_PREVIEWSCRNS_3_COUNT"
-#~ msgstr "Maximum 3 files!"
+msgid "PAGE_REGISTER_HELP_EMAIL"
+msgstr "Will be used to log in to the account and to recover the password"
 
-#~ msgid "FORM_APPCREATE_MAXIMUM_SCREENSHOTS"
-#~ msgstr "Maximum 3 screenshots."
+msgid "PAGE_REGISTER_HELP_PASS1"
+msgstr "Come up with secure passwords. It's important, damn it!"
 
-#~ msgid "FORM_APPCREATE_TITLE_EXAMPLE"
-#~ msgstr "Example: Total Commander"
+msgid "PAGE_REGISTER_HELP_PASS2"
+msgstr "Practice makes perfect :D"
 
-#~ msgid "FORM_PASSWORDCONFIRM_WRONGPASS"
-#~ msgstr "Incorrect password. Please try again."
+msgid "PAGE_REGISTER_HELP_USERNAME"
+msgstr "Minimum 2 characters. This username will be how others find you. It cannot be changed after registration."
 
-#~ msgid ""
-#~ "File extension “%(extension)s” is not allowed. Allowed extensions are: “%"
-#~ "(allowed_extensions)s”."
-#~ msgstr ""
-#~ "Extension “%(extension)s” is not allowed. Allowed extensions: “%"
-#~ "(allowed_extensions)s”."
+msgid "PAGE_REGISTER_INFO_SPLASH"
+msgstr "By creating an account, you can publish your own apps, leave reviews for existing software, and maintain your personal library of favorites. Registration is open and free."
 
-#~ msgid "INFO_ACCEPTED_AVATAR_FORMATS"
-#~ msgstr "Allowed formats: .JPG, .PNG, .WEBP, .GIF"
+msgid "PAGE_REGISTER_LABEL_EMAIL"
+msgstr "E-mail:"
 
-#~ msgid "INFO_APP_WITHPRICE"
-#~ msgstr "Paid: "
+msgid "PAGE_REGISTER_LABEL_PASS1"
+msgstr "Password:"
 
-#~ msgid "INFO_AVATAR_WAS_CHANGED"
-#~ msgstr "Profile picture updated"
+msgid "PAGE_REGISTER_LABEL_PASS2"
+msgstr "Repeat password:"
 
-#~ msgid "INFO_MAXIMUM_AVATAR_SIZE"
-#~ msgstr "Maximum file size: 2 MB."
+msgid "PAGE_REGISTER_LABEL_USERNAME"
+msgstr "Username:"
 
-#~ msgid "INFO_SELECTED_FILES"
-#~ msgstr "Selected files:"
+msgid "PAGE_REGISTER_SECTION_CONFIRM"
+msgstr "Registration confirmation"
 
-#~ msgid "MSG_DIST_CREATE_REQ_SENT"
-#~ msgstr "New version addition request has been submitted for moderation."
+msgid "PAGE_REGISTER_SECTION_MAIN"
+msgstr "Basic information"
 
-#~ msgid "NOTIF_APPEDITREQ_ACCEPTED_DESCRIPTION"
-#~ msgstr "Your application edit request for %(app_name)s has been approved."
+msgid "PAGE_REGISTER_TITLE"
+msgstr "Sign up"
 
-#~ msgid "NOTIF_APPEDITREQ_ACCEPTED_TITLE"
-#~ msgstr "Application edit request status"
+msgid "PAGE_REPORTAPP_AUTHOR"
+msgstr "App complaint author:"
 
-#~ msgid "NOTIF_APPEDITREQ_DECLINED_DESCRIPTION"
-#~ msgstr ""
-#~ "Your application edit request for %(app_name)s has been declined. Reason: "
-#~ "%(reason)s"
+msgid "PAGE_REPORTAPP_EXPLAIN_LABEL"
+msgstr "Additional information (required):"
 
-#~ msgid "NOTIF_APPEDITREQ_DECLINED_TITLE"
-#~ msgstr "Application edit request status"
+msgid "PAGE_REPORTAPP_INFO_1"
+msgstr "You are about to report the app"
 
-#~ msgid "NOTIF_APPREQ_ACCEPTED_DESCRIPTION"
-#~ msgstr ""
-#~ "Congratulations! Your request to create the application %(app_name)s has "
-#~ "been approved and it has been published in LunaStore."
+msgid "PAGE_REPORTAPP_INFO_2"
+msgstr "Please select a reason and describe the issue in more detail:"
 
-#~ msgid "NOTIF_APPREQ_ACCEPTED_TITLE"
-#~ msgstr "Application status"
+msgid "PAGE_REPORTAPP_PAGE_TITLE"
+msgstr "Report an app"
 
-#~ msgid "NOTIF_APPREQ_DECLINED_DESCRIPTION"
-#~ msgstr ""
-#~ "Your application creation request for %(app_name)s has been declined. "
-#~ "Reason: %(reason)s"
+msgid "PAGE_REPORTAPP_REASON_INCORRECT"
+msgstr "Incorrect data or description"
 
-#~ msgid "NOTIF_APPREQ_DECLINED_TITLE"
-#~ msgstr "Application status"
+msgid "PAGE_REPORTAPP_REASON_MALWARE"
+msgstr "Aaah, help, there's malware here!"
 
-#~ msgid "NOTIF_DEVSTATUS_ACCEPTED_DESCRIPTION"
-#~ msgstr ""
-#~ "Congratulations! Your application has been approved and you have received "
-#~ "developer/publisher capabilities."
+msgid "PAGE_REPORTAPP_REASON_OTHER"
+msgstr "Other reason"
 
-#~ msgid "NOTIF_DEVSTATUS_ACCEPTED_TITLE"
-#~ msgstr "Developer status"
+msgid "PAGE_REPORTAPP_SUBMIT_BTN"
+msgstr "Submit report"
 
-#~ msgid "NOTIF_DEVSTATUS_DECLINED_DESCRIPTION"
-#~ msgstr ""
-#~ "Your application has been declined and you have not received developer/"
-#~ "publisher capabilities. Reason: %(reason)s"
+msgid "PAGE_REPORTAPP_SUCCESS_MSG"
+msgstr "Your report has been submitted."
 
-#~ msgid "NOTIF_DEVSTATUS_DECLINED_TITLE"
-#~ msgstr "Developer status"
+msgid "PAGE_REPORTAPP_TITLE"
+msgstr "Report an app"
 
-#~ msgid "NOTIF_DEVSTATUS_SEND_DESCRIPTION"
-#~ msgstr ""
-#~ "Your request has been successfully submitted. You will receive a response "
-#~ "in the 'Notifications' section. No further action is required."
+msgid "PAGE_REPORTAPP_TITLE_PATH"
+msgstr "App reports"
 
-#~ msgid "NOTIF_DEVSTATUS_SEND_TITLE"
-#~ msgstr "Developer status"
+msgid "PAGE_REPORTPROBLEM_AUTHOR"
+msgstr "Problem report author"
 
-#~ msgid "NOTIF_DISTREQ_ACCEPTED_DESCRIPTION"
-#~ msgstr ""
-#~ "Your request to publish version %(version)s for application \"%"
-#~ "(app_name)s\" has been approved by a moderator."
+msgid "PAGE_REPORTPROBLEM_INFO"
+msgstr "Here you can report any problem you found on our website!"
 
-#~ msgid "NOTIF_DISTREQ_ACCEPTED_TITLE"
-#~ msgstr "New version published!"
+msgid "PAGE_REPORTPROBLEM_SUBMIT_BTN"
+msgstr "Report a problem"
 
-#~ msgid "NOTIF_DISTREQ_DECLINED_DESCRIPTION"
-#~ msgstr ""
-#~ "Unfortunately, your request to publish version %(version)s for \"%"
-#~ "(app_name)s\" has been declined. Reason: %(reason)s"
+msgid "PAGE_REPORTPROBLEM_SUCCESS_MSG"
+msgstr "Successfully sent!"
 
-#~ msgid "NOTIF_DISTREQ_DECLINED_TITLE"
-#~ msgstr "Publication request declined"
+msgid "PAGE_REPORTPROBLEM_TITLE"
+msgstr "Report a problem"
 
-#~ msgid "NOTIF_WELCOME_DESCRIPTION"
-#~ msgstr ""
-#~ "Thanks for registering! We are very pleased that you care about the app "
-#~ "directory. We hope you really enjoy it!"
+msgid "PAGE_SEARCH_BADGE_DEMO"
+msgstr "Demo"
 
-#~ msgid "NOTIF_WELCOME_TITLE"
-#~ msgstr "Welcome to LunaStore"
+msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
+msgstr "Demo, then $%(price)s"
 
-#~ msgid "PAGE_ADMIN_APP_CURRENTSCRN"
-#~ msgstr "Current screenshots"
+msgid "PAGE_SEARCH_BADGE_DEMO_PRICE %(price)s"
+msgstr "Demo, then $%(price)s"
 
-#~ msgid "PAGE_ADMIN_APP_NOICON"
-#~ msgstr "No icon"
+msgid "PAGE_SEARCH_BADGE_FREE"
+msgstr "Free"
 
-#~ msgid "PAGE_ADMIN_APP_SLOGANDESC_2"
-#~ msgstr "Brevity is the soul of wit :)"
+msgid "PAGE_SEARCH_BADGE_NOT_FOUND"
+msgstr "No results found for \"%(q)s\""
 
-#~ msgid "PAGE_ADMIN_APP_WARN_SCRN"
-#~ msgstr "Warning: Uploading new files will remove current screenshots!"
+msgid "PAGE_SEARCH_BTN_DETAILS"
+msgstr "Details"
 
-#~ msgid "PAGE_APP_BTN_BACK"
-#~ msgstr "Back"
+msgid "PAGE_SEARCH_BTN_RESET"
+msgstr "Reset filters"
 
-#~ msgid "PAGE_APP_LABEL_DOWNLOADS"
-#~ msgstr "Number of downloads"
+msgid "PAGE_SEARCH_BTN_SUBMIT"
+msgstr "search"
 
-#~ msgid "PAGE_APP_RATING_EVALUATE"
-#~ msgstr "Rate..."
+msgid "PAGE_SEARCH_FILTER_AUTHOR_ID"
+msgstr "Author's ID"
 
-#~ msgid "PAGE_BADBROSER_DESC_3"
-#~ msgstr "Thank you for your understanding."
+msgid "PAGE_SEARCH_FILTER_CATEGORY"
+msgstr "Category"
 
-#~ msgid "PAGE_BADBROWSER_DESC_1"
-#~ msgstr ""
-#~ "It's recommended to use RetroZilla, Internet Explorer 6 or higher "
-#~ "installed for the best experience."
+msgid "PAGE_SEARCH_FILTER_CATEGORY_ALL"
+msgstr "All categories"
 
-#~ msgid "PAGE_BADBROWSER_DESC_2"
-#~ msgstr ""
-#~ "Internet Explorer 6 can be downloaded either directly or via services"
+msgid "PAGE_SEARCH_FILTER_FREE"
+msgstr "Only free"
 
-#~ msgid "PAGE_BADBROWSER_TITLE"
-#~ msgstr "Thank you for your interest in the Windows Store!"
+msgid "PAGE_SEARCH_HEADING"
+msgstr "Enter search query"
 
-#~ msgid "PAGE_CATEGORY_SHOWCONTENTAS"
-#~ msgstr "Show content as..."
+msgid "PAGE_SEARCH_IMG_ALT_NONE"
+msgstr "No icon"
 
-#~ msgid "PAGE_CATEGORY_SHOWCONTENTASLIST"
-#~ msgstr "Show content as list"
+msgid "PAGE_SEARCH_INPUT_PLACEHOLDER"
+msgstr "Example: Total Commander"
 
-#~ msgid "PAGE_CATEGORY_SHOWCONTENTASTILES"
-#~ msgstr "Show content as tiles"
+msgid "PAGE_SEARCH_LINK_ADVANCED"
+msgstr "Refine search criteria"
 
-#~ msgid "PAGE_DIST_FORM_SAVED"
-#~ msgstr "Distribution changes saved successfully."
+msgid "PAGE_SEARCH_MSG_NO_RESULTS %(q)s"
+msgstr "No results found for \"%(q)s\""
 
-#~ msgid "PAGE_DOWNLOAD_BACK"
-#~ msgstr "Back"
+msgid "PAGE_SEARCH_MSG_NO_RESULTS_EMPTY"
+msgstr "No results found for your search"
 
-#~ msgid "PAGE_DOWNLOAD_LOCAL_SOURCE"
-#~ msgstr "Downloading from our website"
+msgid "PAGE_SEARCH_SORT_LIST"
+msgstr "Show content as list"
 
-#~ msgid "PAGE_DOWNLOAD_TABLE_ACTION"
-#~ msgstr "Action"
+msgid "PAGE_SEARCH_SORT_PLACEHOLDER"
+msgstr "Show content as..."
 
-#~ msgid "PAGE_DOWNLOAD_TABLE_UPLOAD_DATE"
-#~ msgstr "Upload date"
+msgid "PAGE_SEARCH_SORT_TILES"
+msgstr "Show content as tiles"
 
-#~ msgid "PAGE_DOWNLOAD_UPLOADED_VERSIONS"
-#~ msgstr "Uploaded versions"
+msgid "PAGE_SEARCH_TITLE"
+msgstr "Search"
 
-#~ msgid "PAGE_FAQ_TEAM_ROLE_COOKIE"
-#~ msgstr ""
-#~ "Second backend developer, lead developer of the luna package manager, and "
-#~ "also Japanese translation"
+msgid "PAGE_SETTINGS_BTN_DELETE"
+msgstr "Delete account"
 
-#~ msgid "PAGE_FAQ_TEAM_TESTERS_LIST"
-#~ msgstr "[testers' nicknames are separated with commas]"
+msgid "PAGE_SETTINGS_BTN_SAVE"
+msgstr "Save"
 
-#~ msgid "PAGE_NOTIFICATIONS_COUNT_SINGLE"
-#~ msgid_plural "PAGE_NOTIFICATIONS_COUNT_PLURAL"
-#~ msgstr[0] "You have <b>%(counter)s</b> new notification"
-#~ msgstr[1] "You have <b>%(counter)s</b> new notifications"
+msgid "PAGE_SETTINGS_BTN_UPLOAD"
+msgstr "Upload"
 
-#~ msgid "PAGE_OTHER_PROJECTS_DESC_GAMES"
-#~ msgstr ""
-#~ "Revival of Windows XP/7 internet games using a custom third-party server"
+msgid "PAGE_SETTINGS_DELETE_WARNING"
+msgstr "If you do not wish to use the site, you have the right to delete your account. <br><br>However, please be aware that this action will result in the deletion of your profile data <b>WITHOUT the possibility of recovery</b>. Access to managed app pages will be lost, and sent feedback will be anonymized.<br><br>"
 
-#~ msgid "PAGE_PROFILE_LABEL_EMAIL"
-#~ msgstr "E-mail:"
+msgid "PAGE_SETTINGS_DEV_STATUS_HAS"
+msgstr "present"
 
-#~ msgid "PAGE_PROFILE_STAFF_ALT"
-#~ msgstr "LunaStore Team"
+msgid "PAGE_SETTINGS_HTML_TITLE"
+msgstr "Account Settings"
 
-#~ msgid "PAGE_PROFILE_TAB_APPS"
-#~ msgstr "Apps"
+msgid "PAGE_SETTINGS_INFO_AVATAR_RULES"
+msgstr "Recommended avatar size: 64x64.<br>Supported formats: .PNG, .JPG<br>Maximum size: 2 MB"
 
-#~ msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
-#~ msgstr "Demo, then $%(price)s"
+msgid "PAGE_SETTINGS_INFO_EMAIL_CHANGE"
+msgstr "Changing the e-mail requires password confirmation."
 
-#~ msgid "PAGE_SEARCH_BADGE_NOT_FOUND"
-#~ msgstr "No results found for \"%(q)s\""
+msgid "PAGE_SETTINGS_JS_ERR_CDN"
+msgstr "An error occurred while saving the file to the LunaSpire server. Please contact the site administrator regarding this error."
 
-#~ msgid "PAGE_SEARCH_IMG_ALT_NONE"
-#~ msgstr "No icon"
+msgid "PAGE_SETTINGS_JS_ERR_PREFIX"
+msgstr "Error occured:"
 
-#~ msgid "PAGE_SETTINGS_LABEL_HIDE_REVIEWS"
-#~ msgstr "Restrict access to my reviews for other users"
+msgid "PAGE_SETTINGS_JS_ERR_TOKEN"
+msgstr "Failed to retrieve secure token from LunaSpire for upload. Please contact the site administrator regarding this error."
 
-#~ msgid "PAGE_SETTINGS_SECTION_PRIVACY"
-#~ msgstr "Privacy"
+msgid "PAGE_SETTINGS_JS_SELECT_FILE"
+msgstr "Please select a file to upload!"
 
-#~ msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_1"
-#~ msgstr "Files passed validation: "
+msgid "PAGE_SETTINGS_JS_UPLOADING"
+msgstr "Uploading..."
 
-#~ msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_2"
-#~ msgstr "pcs. Ready for upload."
+msgid "PAGE_SETTINGS_LABEL_BIO"
+msgstr "Profile bio:"
 
-#~ msgid "SITE_DESCRIPTION"
-#~ msgstr ""
-#~ "LunaStore. Apps catalog for your old PC. Download apps, leave reviews and "
-#~ "join the community of old PC fans."
+msgid "PAGE_SETTINGS_LABEL_CHOOSE_FILE"
+msgstr "Select file:"
 
+msgid "PAGE_SETTINGS_LABEL_CONFIRM_PASS"
+msgstr "Repeat password:"
 
+msgid "PAGE_SETTINGS_LABEL_CUR_EMAIL"
+msgstr "Current e-mail:"
+
+msgid "PAGE_SETTINGS_LABEL_CUR_PASS"
+msgstr "Current password:"
+
+msgid "PAGE_SETTINGS_LABEL_DEV_STATUS"
+msgstr "Developer status:"
+
+msgid "PAGE_SETTINGS_LABEL_EMAIL"
+msgstr "Contact e-mail:"
+
+msgid "PAGE_SETTINGS_LABEL_HIDE_REVIEWS"
+msgstr "Restrict access to my reviews for other users"
+
+msgid "PAGE_SETTINGS_LABEL_NEW_EMAIL"
+msgstr "New e-mail:"
+
+msgid "PAGE_SETTINGS_LABEL_NEW_PASS"
+msgstr "New password:"
+
+msgid "PAGE_SETTINGS_LABEL_TELEGRAM"
+msgstr "Telegram:"
+
+msgid "PAGE_SETTINGS_LABEL_USERNAME"
+msgstr "Username:"
+
+msgid "PAGE_SETTINGS_LABEL_WEBSITE"
+msgstr "Website:"
+
+msgid "PAGE_SETTINGS_SECTION_AVATAR"
+msgstr "Edit avatar"
+
+msgid "PAGE_SETTINGS_SECTION_BASIC"
+msgstr "Basic information"
+
+msgid "PAGE_SETTINGS_SECTION_CHANGE_EMAIL"
+msgstr "Change e-mail"
+
+msgid "PAGE_SETTINGS_SECTION_DELETE"
+msgstr "Delete account"
+
+msgid "PAGE_SETTINGS_SECTION_PASSWORD"
+msgstr "Change password"
+
+msgid "PAGE_SETTINGS_SECTION_PRIVACY"
+msgstr "Privacy"
+
+msgid "PAGE_SETTINGS_TAB_ACCOUNT"
+msgstr "Account"
+
+msgid "PAGE_SETTINGS_TAB_APPS"
+msgstr "Apps"
+
+msgid "PAGE_SETTINGS_TAB_SECURITY"
+msgstr "Security"
+
+msgid "PAGE_SETTINGS_TITLE"
+msgstr "Settings"
+
+msgid "PAGE_SETTINGS_WARN_USERNAME_FROZEN"
+msgstr "Username cannot be changed after registration"
+
+msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_1"
+msgstr "Files passed validation: "
+
+msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_2"
+msgstr "pcs. Ready for upload."
+
+msgid "SET_APP_ALLOW_REVIEWS"
+msgstr "Allow reviews"
+
+msgid "SET_APP_ALLOW_REVIEWS_TOOLTIP"
+msgstr "Allow reviews"
+
+msgid "SET_APP_IS_PRIVATE"
+msgstr "Make the app private?"
+
+msgid "SET_APP_IS_PRIVATE_TOOLTIP"
+msgstr "A private app is not visible to other users. This setting can be changed after the app is published."
+
+msgid "SITE_DESCRIPTION"
+msgstr "LunaStore. Apps catalog for your old PC. Download apps, leave reviews and join the community of old PC fans."
+
+msgid "TEXT_APP_NO_DESC"
+msgstr "No description"
+
+msgid "TEXT_APP_NO_NAME"
+msgstr "Untitled"
+
+msgid "TEXT_APP_NO_SLOGAN"
+msgstr "No slogan"
+
+msgid "THICKBOX_CLOSE"
+msgstr "Close"
+
+msgid "THICKBOX_IMAGE"
+msgstr "Image"
+
+msgid "THICKBOX_NEXT"
+msgstr "Next"
+
+msgid "THICKBOX_NO_IFRAMES"
+msgstr "No iFrames"
+
+msgid "THICKBOX_OF"
+msgstr "of"
+
+msgid "THICKBOX_PREV"
+msgstr "Back"
+
+msgid "VIEW_LOGIN_BANNED_REASON"
+msgstr "Your account has been blocked. Reason: %(reason)s"
+
+msgid "VIEW_LOGIN_INVALID_CREDENTIALS"
+msgstr "Incorrect username or password."
+
+msgid "VIEW_LOGIN_SUCCESS"
+msgstr "Login successful! Welcome, %(username)s!"
