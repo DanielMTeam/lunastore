@@ -1,3203 +1,2248 @@
 msgid ""
 msgstr ""
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-11 17:23+0000\n"
 "Language: be\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n % 10 == 1 && n % 100 != 11 ? 0 : n % 10 "
-">= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2)\n"
+"Plural-Forms: nplurals=3; plural=(n % 10 == 1 && n % 100 != 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2)\n"
 "X-Generator: Tolgee\n"
 
-#: apps/core/mixins.py:11
-msgid "ERROR_CDN_TOKEN_MISSING"
-msgstr "Токен CDN не дадзены."
-
-#: apps/core/mixins.py:18
-msgid "ERROR_CDN_TOKEN_INVALID_TYPE"
-msgstr "Няправільны тып токена ад CDN."
-
-#: apps/core/mixins.py:25
-msgid "ERROR_CDN_TOKEN_EXPIRED_OR_USED"
-msgstr "Токен загрузкі састарэў або ўжо быў выкарыстаны."
-
-#: apps/core/mixins.py:33
-msgid "ERROR_CDN_TOKEN_EXPIRED"
-msgstr "Токен загрузкі састарэў або ўжо быў выкарыстаны."
-
-#: apps/core/mixins.py:35
-msgid "ERROR_CDN_TOKEN_INVALID"
-msgstr "Несапраўдны токен бяспекі CDN."
-
-#: apps/core/templatetags/markdown_tags.py:28
-msgid "MD_ALERT_NOTE"
-msgstr "Заўвага"
-
-#: apps/core/templatetags/markdown_tags.py:30
-msgid "MD_ALERT_TIP"
-msgstr "Парада"
-
-#: apps/core/templatetags/markdown_tags.py:32
-msgid "MD_ALERT_IMPORTANT"
-msgstr "Важна"
-
-#: apps/core/templatetags/markdown_tags.py:34
-msgid "MD_ALERT_WARNING"
-msgstr "Папярэджанне"
-
-#: apps/core/templatetags/markdown_tags.py:36
-msgid "MD_ALERT_CAUTION"
-msgstr "Асцярожна"
-
-#: apps/marketplace/decorators.py:22 apps/marketplace/decorators.py:39
-#: apps/marketplace/views.py:526 apps/marketplace/views.py:650
-msgid "ERROR_YOURE_NOT_OWNER_OF_APP"
-msgstr "Вы не з'яўляецеся адміністратарам гэтага дадатка."
-
-#: apps/marketplace/forms.py:215 apps/marketplace/forms.py:352
-#: apps/marketplace/forms.py:472
-msgid "FORM_SCREENSHOTS"
-msgstr "Скрыншоты"
-
-#: apps/marketplace/forms.py:240 apps/user/forms.py:160 apps/user/forms.py:439
-msgid "FORM_AGREE_RULES"
-msgstr "Я згодны з правіламі сайта і разумею наступствы іх парушэння"
-
-#: apps/marketplace/forms.py:243 apps/user/forms.py:158 apps/user/forms.py:445
-#: templates/app_add.html:456 templates/dev_add.html:114
-msgid "FORM_CAPTCHA"
-msgstr "Увядзіце сімвалы з карцінкі"
-
-#: apps/marketplace/forms.py:291
-msgid "ERROR_CDN_CHECKSUM_MISMATCH_SCREENSHOTS"
-msgstr "Памылка пры праверцы токенаў скрыншотаў."
-
-#: apps/marketplace/forms.py:468
-msgid "ACTION_CHOOSE_ICON"
-msgstr "Выберыце файл"
-
-#: apps/marketplace/forms.py:592
-msgid "ERROR_DIST_FORM_NO_FILE_OR_URL"
-msgstr "Трэба загрузіць файл або ўказаць спасылку для спампоўвання."
-
-#: apps/marketplace/forms.py:596
-msgid "ERROR_DIST_FORM_NO_VT_LINK"
-msgstr "Пры загрузцы файла спасылка на VirusTotal абавязковая."
-
-#: apps/marketplace/forms.py:609 apps/user/forms.py:378
-msgid "ERROR_DIST_FORM_CDN_INFO_FAIL"
-msgstr ""
-"Не ўдалося атрымаць інфармацыю пра файл ад сервера захавання. Паспрабуйце "
-"пазней."
-
-#: apps/marketplace/models.py:412
-msgid "PAGE_REPORTAPP_REASON_MALWARE"
-msgstr "Ааа, дапамажыце, тут вірусы!"
-
-#: apps/marketplace/models.py:413
-msgid "PAGE_REPORTAPP_REASON_INCORRECT"
-msgstr "Некарэктныя дадзеныя або апісанне"
-
-#: apps/marketplace/models.py:414
-msgid "PAGE_REPORTAPP_REASON_OTHER"
-msgstr "Іншая прычына"
-
-#: apps/marketplace/models.py:430
-msgid "PAGE_REPORTAPP_AUTHOR"
-msgstr "Аўтар скаргі на праграму:"
-
-#: apps/marketplace/models.py:442 templates/report_app.html:32
-msgid "PAGE_REPORTAPP_TITLE"
-msgstr "Скарга на дадатак"
-
-#: apps/marketplace/models.py:443
-msgid "PAGE_REPORTAPP_TITLE_PATH"
-msgstr "Скаргі на дадаткі"
-
-#: apps/marketplace/models.py:461
-msgid "PAGE_REPORTPROBLEM_AUTHOR"
-msgstr "Аўтар скаргі на праблему"
-
-#: apps/marketplace/views.py:245
-msgid "PAGE_ADDAPP_SUCCESS"
-msgstr "Ваша заяўка на дабаўленне дадатка паспяхова адпраўлена."
-
-#: apps/marketplace/views.py:255
-msgid "ERROR_CHECK_FORM"
-msgstr "Калі ласка, праверце форму. У некаторых палях дапушчаны памылкі."
-
-#: apps/marketplace/views.py:275 apps/marketplace/views.py:298
-msgid "ERROR_RATE_LIMIT_EXCEEDED"
-msgstr ""
-"Вы дасылаеце запыты занадта часта. Калі ласка, пачакайце некаторы час, каб "
-"працягнуць."
-
-#: apps/marketplace/views.py:316
-msgid "PAGE_ADMIN_APP_MSG_SAVE_SUCCESS"
-msgstr "Заяўка на абнаўленне даных паспяхова адпраўлена на мадэрацыю."
-
-#: apps/marketplace/views.py:320 apps/user/forms.py:147 apps/user/forms.py:152
-msgid "PAGE_ADMIN_APP_MSG_SAVE_ERROR"
-msgstr "Адбылася памылка пры захаванні формы. Праверце ўведзеныя даныя."
-
-#: apps/marketplace/views.py:409
-msgid "PAGE_REPORTAPP_SUCCESS_MSG"
-msgstr "Ваша скарга адпраўлена."
-
-#: apps/marketplace/views.py:434
-msgid "PAGE_REPORTPROBLEM_SUCCESS_MSG"
-msgstr "Паспяхова адпраўлена!"
-
-#: apps/marketplace/views.py:467
-msgid "PAGE_MANAGEDIST_CREATE_SUCCESS"
-msgstr "Новая дыстрыбуцыя створана"
-
-#: apps/marketplace/views.py:557
-msgid "MSG_DIST_EDIT_REQ_SENT"
-msgstr "Заява на змену версіі адпраўлена на мадэрацыю."
-
-#: apps/marketplace/views.py:605 templates/storepage.html:204
-#, fuzzy
-#| msgid "PAGE_APP_ACTION_SITE"
-msgid "PAGE_APP_RATING_DISABLED"
-msgstr "Перайсці на афіцыйны сайт распрацоўшчыка"
-
-#: apps/marketplace/views.py:632
-#, fuzzy
-#| msgid "PAGE_SETTINGS_DELETE_WARNING"
-msgid "PAGE_APP_RATING_DELETE_DENIED"
-msgstr ""
-"Калі Вы не хочаце карыстацца сайтам, то маеце поўнае права выдаліць свой "
-"акаўнт. <br><br>Аднак трэба разумець, што гэтае дзеянне пацягне за сабой "
-"знішчэнне дадзеных профіля <b>БЕЗ магчымасці аднаўлення</b>. Доступ да "
-"кіруемых старонак дадаткаў будзе знішчаны, а адпраўленыя водгукі будуць "
-"абязлічаны. <br><br>"
-
-#: apps/marketplace/views.py:637
-#, fuzzy
-#| msgid "PAGE_MANAGEDIST_CREATE_SUCCESS"
-msgid "PAGE_APP_RATING_DELETE_SUCCESS"
-msgstr "Новая дыстрыбуцыя створана"
-
-#: apps/user/decorators.py:21
-msgid "ERROR_YOU_DONT_HAVE_DEVSTATUS"
-msgstr ""
-"У вас няма статуса распрацоўшчыка для прагляду гэтай старонкі. Атрымаць его "
-"можна ў наладах Вашага профіля."
-
-#: apps/user/forms.py:134
-msgid "INFO_YOUR_IP_WAS_BANNED"
-msgstr ""
-"Ваш IP-адрас заблакіраваны. Калі вы лічыце, што адбылася памылка і вас "
-"заблакіравалі 'без прычыны', калі ласка, напішыце нам на электронную пошту: "
-"daniel@myslivets.com"
-
-#: apps/user/forms.py:165 apps/user/forms.py:442
-msgid "FORM_AGREE_POLICY"
-msgstr "Я прымаю умовы прыватнасці"
-
-#: apps/user/forms.py:189 apps/user/forms.py:406
-msgid "FORM_DEVSTATUS_YOUR_USERNAME"
-msgstr "Імя карыстальніка"
-
-#: apps/user/forms.py:255 templates/settings.html:58
-msgid "PAGE_SETTINGS_LABEL_WEBSITE"
-msgstr "Вэб-сайт:"
-
-#: apps/user/forms.py:273
-msgid "PAGE_PROFILESETTINGS_LABEL_BIO"
-msgstr "Апісанне профіля:"
-
-#: apps/user/forms.py:290
-msgid "ERROR_PROFILE_TELEGRAM_INVALID"
-msgstr ""
-"Няправільны фармат імя карыстальніка Telegram. Калі ласка, укажыце імя "
-"карыстальніка без спасылак і пратаколаў."
-
-#: apps/user/forms.py:300
-msgid "ERROR_PROFILE_OPENVK_INVALID"
-msgstr ""
-"Няправільны фармат імя карыстальніка OpenVK. Калі ласка, укажыце правільнае "
-"імя карыстальніка."
-
-#: apps/user/forms.py:324 apps/user/forms.py:500 apps/user/forms.py:562
-msgid "ERROR_CURRENT_PASSWORD_IS_WRONG"
-msgstr "Гэта няправільны пароль"
-
-#: apps/user/forms.py:335
-msgid "ERROR_NEW_PASSWORDS_DONT_MATCH"
-msgstr "Новыя паролі не супадаюць"
-
-#: apps/user/forms.py:338
-msgid "ERROR_NEW_PASSWORD_SAME_AS_OLD"
-msgstr "Новы пароль супадае са старым. Калі ласка, увядзіце іншы пароль."
-
-#: apps/user/forms.py:352
-msgid "ACTION_CHOOSE_FILE"
-msgstr "Выберыце файл"
-
-#: apps/user/forms.py:354
-msgid "INFO_RECOMENDATIONS_FOR_UPLOAD_AVATAR"
-msgstr "Рэкамендаваны памер: 64x64. Фарматы: .PNG, .JPG. Макс.: 2 Мб."
-
-#: apps/user/forms.py:413
-msgid "FORM_DEVSTATUS_YOUR_EMAIL"
-msgstr "Ваш e-mail"
-
-#: apps/user/forms.py:416
-msgid "FORM_DEVSTATUS_WE_WILL_CONTACT"
-msgstr "Мы абавязкова звяжамся з Вамі. Па меншай меры паспрабуем."
-
-#: apps/user/forms.py:420
-msgid "FORM_DEVSTATUS_GITHUB"
-msgstr "Спасылка на ваш GitHub"
-
-#: apps/user/forms.py:423
-msgid "FORM_DEVSTATUS_GITHUB_HELP"
-msgstr "А чаму не? Мы проста хочам паглядзець на вашыя прыгожыя распрацоўкі :3"
-
-#: apps/user/forms.py:427
-msgid "FORM_DEVSTATUS_ABOUT_YOU"
-msgstr "Раскажыце пра сябе (да 1000 сімвалаў)"
-
-#: apps/user/forms.py:433
-msgid "FORM_DEVSTATUS_WHY_YOU_CHOOSE"
-msgstr "Чаму Вы рашылі выбраць нас? (да 250 сімвалаў)"
-
-#: apps/user/forms.py:486
-msgid "FORM_PASSWORDCONFIRM_ENTER"
-msgstr "Увядзіце бягучы пароль"
-
-#: apps/user/forms.py:489
-msgid "FORM_PASSWORDCONFIRM_CONFIRM"
-msgstr "Пацвярдзіце пароль"
-
-#: apps/user/forms.py:506
-msgid "FORM_INVITECODE_TITLE"
-msgstr "Код"
-
-#: apps/user/forms.py:511
-msgid "FORM_INVITECODE_ENTER"
-msgstr "Увядзіце код"
-
-#: apps/user/forms.py:522
-msgid "FORM_INVITECODE_DOESNOTEXIST_ERROR"
-msgstr "Такі інвайт-код не знойдзены."
-
-#: apps/user/forms.py:525
-msgid "FORM_INVITECODE_EXPIRED_ERROR"
-msgstr "Срок дзеяння кода скончаны (24 гадзіны). Папрасіце новы."
-
-#: apps/user/forms.py:530
-msgid "FORM_INVITECODE_CODELIMITISNTOK_ERROR"
-msgstr ""
-"Ліміт прыглашэнняў па гэтым кодзе вычарпаны. Уладальнік прыгласіў занадта "
-"шмат людзей за апошні час."
-
-#: apps/user/forms.py:543 templates/settings_security.html:105
-msgid "PAGE_SETTINGS_LABEL_CUR_EMAIL"
-msgstr "Бягучы e-mail:"
-
-#: apps/user/forms.py:550 templates/settings_security.html:109
-msgid "PAGE_SETTINGS_LABEL_NEW_EMAIL"
-msgstr "Новы e-mail:"
-
-#: apps/user/forms.py:555 templates/2fa_password_confirm.html:23
-#: templates/settings_security.html:82 templates/settings_security.html:114
-msgid "PAGE_SETTINGS_LABEL_CUR_PASS"
-msgstr "Бягучы пароль:"
-
-#: apps/user/forms.py:570
-msgid "ERROR_EMAIL_IS_SAME"
-msgstr "Новы e-mail супадае з бягучым."
-
-#: apps/user/forms.py:574
-msgid "ERROR_EMAIL_ALREADY_EXISTS"
-msgstr "Карыстальнік з такім e-mail ужо існуе."
-
-#: apps/user/forms.py:630
-#, fuzzy
-#| msgid "ERROR_NEW_PASSWORD_SAME_AS_OLD"
-msgid "ERROR_PASSWORD_RESET_EMAIL_NOT_FOUND"
-msgstr "Новы пароль супадае са старым. Калі ласка, увядзіце іншы пароль."
-
-#: apps/user/models.py:24
-msgid "ERROR_EMAIL_ALREADY_IN_USE"
-msgstr "Гэты e-mail ужо выкарыстоўваецца."
-
-#: apps/user/tasks.py:55
-msgid "NOTIF_LOGIN_TITLE"
-msgstr "Новы ўваход у акаўнт"
-
-#: apps/user/tasks.py:56
-msgid "NOTIF_LOGIN_DESCRIPTION"
-msgstr ""
-"У ваш акаўнт быў выкананы ўваход • Прылада: %(browser)s (%(os)s) • IP-адрас: "
-"%(ip)s • Месцазнаходжанне: %(location)s • Калі гэта не вы, хутка змяніце "
-"пароль."
-
-#: apps/user/validators.py:51 apps/user/validators.py:57
-msgid "ERROR_EMAIL_INVALID_FORMAT"
-msgstr "Уведзены некарэктны адрас электроннай пошты."
-
-#: apps/user/validators.py:61
-msgid "ERROR_EMAIL_NO_ALIASES"
-msgstr "Выкарыстанне паштовых аліасаў са знакам \"+\" забаронена."
-
-#: apps/user/validators.py:66
-msgid "ERROR_EMAIL_DISPOSABLE_DOMAIN"
-msgstr "Рэгістрацыя з выкарыстаннем сэрвісаў часовай пошты забароненая."
-
-#: apps/user/validators.py:91
-#, python-format
-msgid "ERROR_EMAIL_DOMAIN_NO_MX %(domain)s"
-msgstr "Дамен %(domain)s не прымае пошту. Укажыце існуючы адрас."
-
-#: apps/user/views.py:125
-msgid "VIEW_LOGIN_BANNED_REASON"
-msgstr "Ваш акаўнт заблакіраваны. Прычына: %(reason)s"
-
-#: apps/user/views.py:152 apps/user/views.py:573
-msgid "VIEW_LOGIN_SUCCESS"
-msgstr "Уваход паспяховы! Вітаем, %(username)s!"
-
-#: apps/user/views.py:156
-msgid "VIEW_LOGIN_INVALID_CREDENTIALS"
-msgstr "Няверны лагін або пароль."
-
-#: apps/user/views.py:320
-msgid "INFO_PROFILE_IS_UPDATED"
-msgstr "Профіль абноўлены"
-
-#: apps/user/views.py:332 apps/user/views.py:614
-msgid "INFO_PASSWORD_WAS_CHANGED"
-msgstr "Пароль паспяхова зменены"
-
-#: apps/user/views.py:345
-msgid "INFO_AVATAR_WAS_UPLOADED"
-msgstr "Аватар паспяхова загружаны!"
-
-#: apps/user/views.py:360 apps/user/views.py:625
-msgid "INFO_EMAIL_WAS_CHANGED"
-msgstr "Ваш E-mail быў паспяхова зменены."
-
-#: apps/user/views.py:392
-msgid "INFO_APP_CREATE_REQUEST_WAS_SENT"
-msgstr "Заяўка адпраўлена на разгляд"
-
-#: apps/user/views.py:417
-msgid "ERROR_ACCESS_DENIED_PROFILE"
-msgstr "Доступ забаронены. Пачніце з налад профіля."
-
-#: apps/user/views.py:424
-msgid "INFO_ACCOUNT_WAS_DELETED"
-msgstr ""
-"Ваш акаўнт быў паспяхова выдалены. Калі вырашыце вярнуцца — мы заўсёды вас "
-"чакаем на нашым сайце!"
-
-#: apps/user/views.py:461
-msgid "PAGE_INVITE_LIMIT_INFO"
-msgstr ""
-"На дадзены момант Вы можаце прыгласіць <b>1</b> чалавека. Пасля прыняцця "
-"карыстальнікам вашага прыглашэння, наступнае можна будзе стварыць толькі "
-"праз тыдзень"
-
-#: apps/user/views.py:576 apps/user/views.py:678
-msgid "ERROR_2FA_INVALID_CODE"
-msgstr "Няправільны код"
-
-#: apps/user/views.py:651
-msgid "ERROR_2FA_INVALID_PASSWORD"
-msgstr "Няверны пароль"
-
-#: apps/user/views.py:660
-msgid "INFO_2FA_DISABLED"
-msgstr "Двухфакторная аўтэнтыфікацыя паспяхова адключана."
-
-#: apps/user/views.py:672
-msgid "INFO_2FA_ENABLED"
-msgstr "Двухфакторная аўтэнтыфікацыя паспяхова ўключана."
-
-#: templates/2fa_attempt.html:6
-msgid "PAGE_2FA_ATTEMPT_TITLE"
-msgstr "Увод кода 2FA"
-
-#: templates/2fa_attempt.html:12
-msgid "PAGE_2FA_ATTEMPT_HEADER"
-msgstr "Двухфакторная праверка"
-
-#: templates/2fa_attempt.html:18 templates/2fa_set.html:6
-#: templates/2fa_set.html:22 templates/settings_security.html:35
-msgid "PAGE_2FA_TITLE"
-msgstr "Двухфакторная аўтэнтыфікацыя"
-
-#: templates/2fa_attempt.html:19
-msgid "PAGE_2FA_ATTEMPT_SUBTITLE"
-msgstr "Увядзіце код для завяршэння ўваходу"
-
-#: templates/2fa_attempt.html:27
-msgid "PAGE_2FA_ENTER_CODE_HEADER"
-msgstr "Увод кода"
-
-#: templates/2fa_attempt.html:29 templates/2fa_set.html:56
-msgid "PAGE_2FA_ENABLED_INFO"
-msgstr ""
-"На гэтым акаўнце ўключаны дадатковы метад уваходу праз увод часовага кода "
-"доступу паверх стандартнага лагіна і пароля"
-
-#: templates/2fa_attempt.html:34
-msgid "PAGE_2FA_OPEN_GENERATOR"
-msgstr "Адкрыйце генератар кодаў і ўвядзіце атрыманы код"
-
-#: templates/2fa_attempt.html:38 templates/2fa_password_confirm.html:27
-msgid "PAGE_2FA_CONTINUE_BTN"
-msgstr "Працягнуць"
-
-#: templates/2fa_password_confirm.html:6
-msgid "PAGE_2FA_PASSWORD_CONFIRM_TITLE"
-msgstr "Пацвярджэнне пароля"
-
-#: templates/2fa_password_confirm.html:12 templates/2fa_set.html:13
-#: templates/settings.html:17 templates/settings_apps.html:15
-#: templates/settings_security.html:6 templates/settings_security.html:14
-msgid "PAGE_SETTINGS_TITLE"
-msgstr "Налады"
-
-#: templates/2fa_password_confirm.html:17
-msgid "PAGE_2FA_PASSWORD_CONFIRM"
-msgstr "Пацвярджэнне доступу"
-
-#: templates/2fa_password_confirm.html:19
-msgid "PAGE_2FA_PASSWORD_PROMPT"
-msgstr ""
-"Для доступу да кіравання 2FA, калі ласка, увядзіце пароль ад вашага акаўнта."
-
-#: templates/2fa_set.html:23
-msgid "PAGE_2FA_SUBTITLE_MANAGE"
-msgstr "Кіраванне ўваходам па аднаразовым кодзе"
-
-#: templates/2fa_set.html:31
-msgid "PAGE_2FA_INITIAL_SETUP"
-msgstr "Першапачатковая налада"
-
-#: templates/2fa_set.html:31 templates/settings_security.html:41
-msgid "PAGE_2FA_MANAGE"
-msgstr "Кіраванне"
-
-#: templates/2fa_set.html:34
-msgid "PAGE_2FA_INFO_1"
-msgstr ""
-"Забяспечце абарону свайго акаўнта дадатковым метадам уваходу праз увод "
-"часовага кода доступу паверх стандартнага лагіна і пароля"
-
-#: templates/2fa_set.html:36
-msgid "PAGE_2FA_INFO_2"
-msgstr ""
-"Для пачатку налады вам спатрэбіцца генератар кодаў (напрыклад: <b>Google "
-"Authenticator</b> або <b>Aegis</b>)"
-
-#: templates/2fa_set.html:38
-msgid "PAGE_2FA_INFO_3"
-msgstr ""
-"Генерацыя кодаў працуе без сотавай сувязі і якога-небудзь падключэння да "
-"сеткі. Адсканіруйце дадаткам гэты QR-код на экране, увядзіце атрыманыя 6 "
-"лічбаў і націсніце \"Падключыць\""
-
-#: templates/2fa_set.html:46
-msgid "PAGE_2FA_SECRET_KEY"
-msgstr "Ваш сакрэтны ключ"
-
-#: templates/2fa_set.html:48
-msgid "PAGE_2FA_ENTER_CODE"
-msgstr "увядзіце атрыманы код"
-
-#: templates/2fa_set.html:52
-msgid "PAGE_2FA_CONNECT_BTN"
-msgstr "Падключыць"
-
-#: templates/2fa_set.html:58
-msgid "PAGE_2FA_DISABLE_INFO"
-msgstr ""
-"Калі вы хочаце адключыць гэты метад уваходу, націсніце на кнопку ніжэй."
-
-#: templates/2fa_set.html:59
-msgid "PAGE_2FA_DISABLE_CONFIRM"
-msgstr ""
-"Вы ўпэўненыя, што хочаце адключыць 2FA? Гэта знізіць узровень бяспекі вашага "
-"акаўнта."
-
-#: templates/2fa_set.html:63
-msgid "PAGE_2FA_DISABLE_BTN"
-msgstr "Адключыць 2FA"
-
-#: templates/404.html:8
-msgid "404_TITLE"
-msgstr "Адбылася памылка"
-
-#: templates/404.html:9
-msgid "404_ELEMENT_NOT_FOUND"
-msgstr ""
-"Элемент або спасылка, якую вы хочаце наведаць, не знойдзены на нашым сайце."
-
-#: templates/404.html:10
-msgid "404_ELEMENT_NOT_FOUND_2"
-msgstr "Мы шукалі штосілы, праўда."
-
-#: templates/404.html:11
-msgid "404_ELEMENT_NOT_FOUND_3"
-msgstr ""
-"Калі гэты элемент быў даступны раней, то, верагодна, старонка была "
-"перамешчана або выдалена аўтарам або адміністрацыяй. Паспрабуйце паўтарыць "
-"спробу пазней. Дзякуй за разуменне."
-
-#: templates/404.html:12
-msgid "404_GO_TO_HOME"
-msgstr "Вярнуцца на галоўную"
-
-#: templates/admin_app.html:6 templates/admin_app.html:10
-#: templates/manage_distributions.html:10
-msgid "PAGE_ADMIN_APP_PAGETITLE"
-msgstr "Рэдагаванне дадатка"
-
-#: templates/admin_app.html:21 templates/app_add.html:14
-#: templates/storepage.html:14
-msgid "THICKBOX_IMAGE"
-msgstr "Малюнак"
-
-#: templates/admin_app.html:22 templates/app_add.html:15
-#: templates/storepage.html:15
-msgid "THICKBOX_OF"
-msgstr "з"
-
-#: templates/admin_app.html:23 templates/app_add.html:16
-#: templates/storepage.html:16
-msgid "THICKBOX_CLOSE"
-msgstr "Закрыць"
-
-#: templates/admin_app.html:24 templates/app_add.html:17
-#: templates/storepage.html:17
-msgid "THICKBOX_NEXT"
-msgstr "Наперад"
-
-#: templates/admin_app.html:25 templates/app_add.html:18
-#: templates/storepage.html:18
-msgid "THICKBOX_PREV"
-msgstr "Назад"
-
-#: templates/admin_app.html:26 templates/app_add.html:19
-#: templates/storepage.html:19
-msgid "THICKBOX_NO_IFRAMES"
-msgstr "Без iFrames"
-
-#: templates/admin_app.html:68 templates/manage_distributions.html:54
-msgid "PAGE_ADMIN_APP_FIRST_BLOCK"
-msgstr "Інфо"
-
-#: templates/admin_app.html:72 templates/manage_distributions.html:6
-#: templates/manage_distributions.html:58
-msgid "PAGE_ADMIN_APP_TAB_DISTRIBUTIONS"
-msgstr "Файлы"
-
-#: templates/admin_app.html:79
-msgid "PAGE_ADMIN_APP_TRANSLATIONINFO"
-msgstr ""
-"Пераклад інфармацыі пра Ваш дадатак можа павысіць яго пазнавальнасць для "
-"замежнай аўдыторыі, а таксама палепшыць яго бачнасць у пошукавых сістэмах. "
-"Ва ўсялякім выпадку, мы раім аўтарам рабіць пераклады на розныя мовы."
-
-#: templates/admin_app.html:90
-msgid "PAGE_ADMIN_APP_PROFILE_BLOCK"
-msgstr "Асноўная інфармацыя"
-
-#: templates/admin_app.html:94
-msgid "PAGE_ADMIN_APP_ID"
-msgstr "ID дадатка:"
-
-#: templates/admin_app.html:99
-msgid "PAGE_ADMIN_APP_IDDESC"
-msgstr "Гэту інфармацыю змяніць нельга"
-
-#: templates/admin_app.html:103 templates/app_add.html:222
-#: templates/storepage.html:52
-msgid "PAGE_APP_LABEL_ORIGINAL_AUTHOR"
-msgstr "Арыгінальны аўтар:"
-
-#: templates/admin_app.html:111
-msgid "PAGE_ADMIN_APP_TITLE"
-msgstr "Назва дадатка:"
-
-#: templates/admin_app.html:131
-msgid "PAGE_ADMIN_APP_TITLEDESC"
-msgstr ""
-"Адметная і запамінальная назва даст дадатку бонус да распазнавальнасці сярод "
-"карыстальнікаў"
-
-#: templates/admin_app.html:135
-msgid "PAGE_ADMIN_APP_SLOGAN"
-msgstr "Слоган (140 сімвалаў):"
-
-#: templates/admin_app.html:155
-msgid "PAGE_ADMIN_APP_SLOGANDESC"
-msgstr ""
-"Слоган будзе адлюстроўвацца на самой старонцы дадатка, на галоўнай і ў пошуку"
-
-#: templates/admin_app.html:159
-msgid "PAGE_ADMIN_APP_DESC"
-msgstr "Апісанне (1000 сімвалаў):"
-
-#: templates/admin_app.html:179
-msgid "PAGE_ADMIN_APP_DESCDESC"
-msgstr ""
-"Апісанне будзе паказвацца на старонцы дадатка ў блоку 'Дадатковая інфармацыя'"
-
-#: templates/admin_app.html:183
-msgid "PAGE_ADMIN_APP_REQ"
-msgstr "Сістэмныя патрабаванні (1400 сімвалаў):"
-
-#: templates/admin_app.html:203
-msgid "PAGE_ADMIN_APP_REQDESC"
-msgstr ""
-"Сістэмныя патрабаванні будуць паказвацца на старонцы дадатка ў блоку "
-"'Дадатковая інфармацыя'"
-
-#: templates/admin_app.html:209
-msgid "PAGE_ADMIN_APP_CATEGORY"
-msgstr "Катэгорыя:"
-
-#: templates/admin_app.html:211
-msgid "PAGE_ADMIN_APP_CATEGORYDESC"
-msgstr "Гэта вельмі важна для правільнага пошуку..."
-
-#: templates/admin_app.html:215
-msgid "PAGE_ADMIN_APP_DEVSITE"
-msgstr "Афіцыйны сайт распрацоўшчыка:"
-
-#: templates/admin_app.html:222 templates/app_add.html:279
-#: templates/category.html:57
-msgid "INFO_APP_DEMO"
-msgstr "Дэма"
-
-#: templates/admin_app.html:227 templates/app_add.html:285
-msgid "PAGE_APP_LABEL_PRICE"
-msgstr "Цана"
-
-#: templates/admin_app.html:233
-msgid "PAGE_ADMIN_APP_ICON"
-msgstr "Значок дадатка"
-
-#: templates/admin_app.html:239
-msgid "PAGE_ADMIN_APP_LOAD_ICON"
-msgstr "Загрузіць значок"
-
-#: templates/admin_app.html:244
-msgid "PAGE_ADMIN_APP_ICON_REQ1"
-msgstr "Рэкамендаваны памер значка: 64x64."
-
-#: templates/admin_app.html:245
-msgid "PAGE_ADMIN_APP_ICON_REQ2"
-msgstr "Дапушчальныя фарматы: .PNG, .JPG"
-
-#: templates/admin_app.html:246
-msgid "PAGE_ADMIN_APP_ICON_REQ3"
-msgstr "Максімальны памер: 2 Мб"
-
-#: templates/admin_app.html:254
-msgid "PAGE_ADMIN_APP_SCRNS_TITLE"
-msgstr "Скрыншоты"
-
-#: templates/admin_app.html:258
-msgid "PAGE_ADMIN_APP_LOAD_SCRN"
-msgstr "Загрузіць новыя скрыншоты (максімум 3 шт.)"
-
-#: templates/admin_app.html:259 templates/app_add.html:371
-msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_1"
-msgstr "Максімальная колькасць скрыншотаў: 3"
-
-#: templates/admin_app.html:272 templates/app_add.html:393
-msgid "SET_APP_IS_PRIVATE"
-msgstr "Зрабіць прыкладанне прыватным?"
-
-#: templates/admin_app.html:273 templates/app_add.html:394
-msgid "SET_APP_IS_PRIVATE_TOOLTIP"
-msgstr ""
-"Прыватнае прыкладанне не адлюстроўваецца іншым карыстальнікам. Гэтую наладу "
-"можна змяніць пасля публікацыі прыкладання."
-
-#: templates/admin_app.html:284 templates/app_add.html:404
-#, fuzzy
-#| msgid "SET_APP_IS_PRIVATE"
-msgid "SET_APP_ALLOW_REVIEWS"
-msgstr "Зрабіць прыкладанне прыватным?"
-
-#: templates/admin_app.html:287
-#, fuzzy
-#| msgid "SET_APP_IS_PRIVATE_TOOLTIP"
-msgid "SET_APP_ALLOW_REVIEWS_TOOLTIP"
-msgstr ""
-"Прыватнае прыкладанне не адлюстроўваецца іншым карыстальнікам. Гэтую наладу "
-"можна змяніць пасля публікацыі прыкладання."
-
-#: templates/admin_app.html:291 templates/distribution_form.html:174
-#: templates/manage_distributions.html:249
-#: templates/manage_distributions.html:275
-msgid "PAGE_ADMIN_APP_DIST_SAVE"
-msgstr "Захаваць"
-
-#: templates/admin_app.html:313 templates/app_add.html:531
-msgid "ERROR_INVALID_FILE_FORMAT"
-msgstr "Памылка: Недапушчальны фармат файла!"
-
-#: templates/admin_app.html:313 templates/app_add.html:531
-msgid "INFO_ACCEPTED_ICON_FORMATS"
-msgstr "Дазволены толькі: .JPG, .JPEG, .PNG"
-
-#: templates/admin_app.html:319 templates/app_add.html:539
-msgid "ERROR_INVALID_SIZE_ICON"
-msgstr "Памылка: Памер файла перавышае 2 Мб!"
-
-#: templates/admin_app.html:385 templates/app_add.html:662
-msgid "JS_MARKETPLACE_UPLOADING"
-msgstr "Загрузка..."
-
-#: templates/admin_app.html:386 templates/app_add.html:663
-msgid "JS_MARKETPLACE_ERROR"
-msgstr "Памылка LunaSpire:"
-
-#: templates/admin_app.html:387 templates/app_add.html:664
-msgid "JS_MARKETPLACE_RETRY"
-msgstr "Паспрабаваць зноў"
-
-#: templates/admin_app.html:388 templates/app_add.html:665
-msgid "JS_MARKETPLACE_TOKEN_ERROR"
-msgstr "Не ўдалося атрымаць токен __________"
-
-#: templates/admin_app.html:389 templates/app_add.html:666
-msgid "JS_MARKETPLACE_FILE_ERROR"
-msgstr "Памылка пры перадачы файла "
-
-#: templates/app_add.html:6 templates/app_add.html:122
-msgid "PAGE_ADDAPP_PAGETITLE"
-msgstr "Дабаўленне дадатка"
-
-#: templates/app_add.html:136
-msgid "PAGE_ADDAPP_STEP1"
-msgstr "Этап 1"
-
-#: templates/app_add.html:137
-msgid "PAGE_ADDAPP_STEP1_DESC"
-msgstr "Пачатак"
-
-#: templates/app_add.html:141
-msgid "PAGE_ADDAPP_STEP2"
-msgstr "Этап 2"
-
-#: templates/app_add.html:142
-msgid "PAGE_ADDAPP_STEP2_DESC_1"
-msgstr "Дадатковая"
-
-#: templates/app_add.html:142
-msgid "PAGE_ADDAPP_STEP2_DESC_2"
-msgstr "інфармацыя"
-
-#: templates/app_add.html:146
-msgid "PAGE_ADDAPP_STEP3"
-msgstr "Этап 3"
-
-#: templates/app_add.html:147
-msgid "PAGE_ADDAPP_STEP3_DESC_1"
-msgstr "Прагляд перад"
-
-#: templates/app_add.html:147
-msgid "PAGE_ADDAPP_STEP3_DESC_2"
-msgstr "публікацыяй"
-
-#: templates/app_add.html:156
-msgid "PAGE_ADDAPP_STEP1_NAME"
-msgstr "Асноўная інфармацыя"
-
-#: templates/app_add.html:160
-msgid "PAGE_ADDAPP_STEP1_TITLE"
-msgstr "Назва:"
-
-#: templates/app_add.html:186
-msgid "PAGE_ADDAPP_STEP1_TITLEDESC"
-msgstr ""
-"Адметная і запамінальная назва даст дадатку бонус да распазнавальнасці сярод "
-"карыстальнікаў"
-
-#: templates/app_add.html:190
-msgid "PAGE_ADDAPP_STEP1_SLOGAN"
-msgstr "Слоган (140 сімвалаў):"
-
-#: templates/app_add.html:216
-msgid "PAGE_ADDAPP_STEP1_SLOGANDESC_1"
-msgstr ""
-"Слоган будзе адлюстроўвацца на самой старонцы дадатка, на галоўнай і ў пошуку"
-
-#: templates/app_add.html:217
-msgid "PAGE_ADDAPP_STEP1_SLOGANDESC_2"
-msgstr "Кораткасць — сястра таленту :)"
-
-#: templates/app_add.html:234
-msgid "PAGE_ADDAPP_STEP1_ICON"
-msgstr "Пачатак"
-
-#: templates/app_add.html:235
-msgid "PAGE_ADDAPP_STEP1_ICONDESC_1"
-msgstr "Рэкамендуемы памер аватара: 64x64."
-
-#: templates/app_add.html:235
-msgid "PAGE_ADDAPP_STEP1_ICONDESC_2"
-msgstr "Дапушчальныя фарматы: .PNG, .JPG"
-
-#: templates/app_add.html:235
-msgid "PAGE_ADDAPP_STEP1_ICONDESC_3"
-msgstr "Максімальны памер: 2 Мб"
-
-#: templates/app_add.html:247
-msgid "PAGE_ADDAPP_STEP1_AGREE_RULES"
-msgstr "Я згодны з правіламі сайта і разумею наступствы іх парушэння"
-
-#: templates/app_add.html:261
-msgid "PAGE_ADDAPP_STEP2_NAME"
-msgstr "Дадатковая інфармацыя"
-
-#: templates/app_add.html:266
-msgid "PAGE_ADDAPP_STEP2_DEVSITE"
-msgstr "Афіцыйны сайт распрацоўшчыка:"
-
-#: templates/app_add.html:296
-msgid "PAGE_ADDAPP_STEP2_DESC"
-msgstr "Апісанне (1400 сімвалаў):"
-
-#: templates/app_add.html:322
-msgid "PAGE_ADDAPP_STEP2_DESCDESC"
-msgstr ""
-"Апісанне будзе паказвацца на старонцы дадатка ў блоку 'Дадатковая інфармацыя'"
-
-#: templates/app_add.html:326
-msgid "PAGE_ADDAPP_STEP2_REQ"
-msgstr "Сістэмныя патрабаванні (1400 сімвалаў):"
-
-#: templates/app_add.html:352
-msgid "PAGE_ADDAPP_STEP2_REQDESC"
-msgstr ""
-"Сістэмныя патрабаванні будуць паказвацца на старонцы дадатка ў блоку "
-"'Дадатковая інфармацыя'"
-
-#: templates/app_add.html:357
-msgid "PAGE_ADDAPP_STEP2_CATEGORY"
-msgstr "Катэгорыя:"
-
-#: templates/app_add.html:359
-msgid "PAGE_ADDAPP_STEP2_CATEGORYDESC"
-msgstr ""
-"Гэта вельмі важна для правільнага пошуку і паказа дадатка ў адпаведных "
-"блоках. Адміністрацыя мае магчымасць змяніць катэгорыю па сваім меркаванні"
-
-#: templates/app_add.html:370
-msgid "PAGE_ADDAPP_STEP2_SCREENSHOTS"
-msgstr "Скрыншоты:"
-
-#: templates/app_add.html:371
-msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_2"
-msgstr "Дапушчальныя фарматы: .PNG, .JPG"
-
-#: templates/app_add.html:371
-msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_3"
-msgstr "Максімальны памер: 2 Мб"
-
-#: templates/app_add.html:411
-msgid "PAGE_ADDAPP_BACKBTN"
-msgstr "Назад"
-
-#: templates/app_add.html:412
-msgid "PAGE_ADDAPP_NEXTBTN"
-msgstr "Далей"
-
-#: templates/app_add.html:420
-msgid "PAGE_ADDAPP_CHECKINFO_NOTIFY"
-msgstr ""
-"Праверце ўсю інфармацыю перад публікацыяй. Пасля мадэрацыі старонка будзе "
-"апублікавана аўтаматычна і вы зможаце загружаць туды новыя файлы."
-
-#: templates/app_add.html:429
-msgid "PAGE_ADDAPP_CHECKINFO_NAME"
-msgstr "Назва"
-
-#: templates/app_add.html:430
-msgid "PAGE_ADDAPP_CHECKINFO_SLOGAN"
-msgstr "Слоган..."
-
-#: templates/app_add.html:431
-msgid "PAGE_ADDAPP_CHECKINFO_AUTHOR_1"
-msgstr "Аўтар:"
-
-#: templates/app_add.html:431
-msgid "PAGE_ADDAPP_CHECKINFO_AUTHOR_2"
-msgstr "Вы"
-
-#: templates/app_add.html:435
-msgid "PAGE_ADDAPP_CHECKINFO_SCREENSHOTS"
-msgstr "Скрыншоты"
-
-#: templates/app_add.html:438 templates/app_add.html:630
-msgid "INFO_NO_SCREENSHOTS"
-msgstr "Няма скрыншотаў"
-
-#: templates/app_add.html:442
-msgid "PAGE_ADDAPP_CHECKINFO_OTHERINFO"
-msgstr "Дадатковая інфармацыя"
-
-#: templates/app_add.html:446
-msgid "PAGE_ADDAPP_CHECKINFO_ACTIONS"
-msgstr "Дзеянні"
-
-#: templates/app_add.html:449
-msgid "PAGE_ADDAPP_CHECKINFO_GOTODEVSITE"
-msgstr "Перайсці на афіцыйны сайт распрацоўшчыка"
-
-#: templates/app_add.html:471
-msgid "PAGE_ADDAPP_EDITAPPBTN"
-msgstr "Рэдагаваць"
-
-#: templates/app_add.html:473
-msgid "PAGE_ADDAPP_SENDAPPBTN"
-msgstr "Адправіць на разгляд"
-
-#: templates/app_add.html:559
-msgid "ERROR_NO_APPNAME"
-msgstr "Увядзіце назву дадатка!"
-
-#: templates/app_add.html:563
-msgid "ERROR_NO_AGREERULES"
-msgstr "Вы павінны згадзіцца з правіламі!"
-
-#: templates/app_add.html:594
-msgid "TEXT_APP_NO_NAME"
-msgstr "Без назвы"
-
-#: templates/app_add.html:595
-msgid "TEXT_APP_NO_SLOGAN"
-msgstr "Няма слогана"
-
-#: templates/app_add.html:596
-msgid "TEXT_APP_NO_DESC"
-msgstr "Няма апісання"
-
-#: templates/badbrowser.html:7
-msgid "PAGE_BADBROWSER_WARN_TITLE"
-msgstr "Важнае паведамленне"
-
-#: templates/badbrowser.html:12
-msgid "PAGE_BADBROWSER_WARN_SUBTITLE"
-msgstr "Мы заўважылі, што Вы наведваеце сайт праз ве-е-ельмі стары браўзер."
-
-#: templates/badbrowser.html:13
-msgid "PAGE_BADBROWSER_WARN_DESC_1"
-msgstr ""
-"Нічога страшнага, гэта вельмі крута, тым больш што дызайн сайта адаптаваны з "
-"мінімальным апорам менавіта на гэты вэб-браўзер."
-
-#: templates/badbrowser.html:14
-msgid "PAGE_BADBROWSER_WARN_DESC_2"
-msgstr ""
-"Аднак, улічваючы сучасныя аспекты бяспекі сервера і даных карыстальнікаў, "
-"якія на ім захаваны, нам прыйшлося ўвесці некаторыя карэктыроўкі для асоб, "
-"якія наведваюць сайт з гэтага браўзера."
-
-#: templates/badbrowser.html:17
-msgid "PAGE_BADBROWSER_WARN_RESTRICT_1"
-msgstr "<b>Недаступна</b> сістэма акаўнтаў (уваход, рэгістрацыя)"
-
-#: templates/badbrowser.html:18
-msgid "PAGE_BADBROWSER_WARN_RESTRICT_2"
-msgstr "Адміністраванне старонак дадаткаў <b>абмежавана</b>"
-
-#: templates/badbrowser.html:20
-msgid "PAGE_BADBROWSER_WARN_DESC_3"
-msgstr ""
-"На магчымасць спампоўвання, прагляд каталога і яго пошук гэтае абмежаванне "
-"не ўплывае."
-
-#: templates/badbrowser.html:21
-msgid "PAGE_BADBROWSER_WARN_FOOTER"
-msgstr ""
-"Для больш прыемнага досведу карыстання рэкамендуем вам браўзеры RetroZilla і "
-"Supermium"
-
-#: templates/banned_ip.html:6
-msgid "BANNED_IP_PAGE_TITLE"
-msgstr "Доступ абмежаваны"
-
-#: templates/banned_ip.html:16
-msgid "BANNED_IP_H2"
-msgstr "У доступе адмоўлена"
-
-#: templates/banned_ip.html:21
-msgid "BANNED_IP_INTRO"
-msgstr "Доступ да сайта з вашага IP-адраса спынены."
-
-#: templates/banned_ip.html:22
-msgid "BANNED_IP_REASON"
-msgstr ""
-"Гэта магло адбыцца з-за парушэння правіл рэсурса, падазронай актыўнасці або "
-"працы сістэмы бяспекі. Мы клапацімся пра камфорт усіх карыстальнікаў, таму "
-"вымушаны часова або назаўсёды абмежаваць вам доступ."
-
-#: templates/banned_ip.html:23
-msgid "BANNED_IP_RESOLUTION"
-msgstr ""
-"Калі вы лічыце, што блакіроўка была памылковай, або ў вас дынамічны IP-"
-"адрас, які раней належыў парушальніку, калі ласка, звяжыцеся з "
-"адміністрацыяй."
-
-#: templates/banned_ip.html:31
-msgid "BANNED_IP_CONTACT_SUPPORT"
-msgstr "Звязацца з тэхнічнай падтрымкай:"
-
-#: templates/banned_ip.html:46
-msgid "BANNED_IP_BACK_BUTTON"
-msgstr "Вернуцца назад"
-
-#: templates/banned_ip.html:54 templates/base.html:216
-msgid "BASE_PRIVACYPOLICYBTN"
-msgstr "Палітыка прыватнасці"
-
-#: templates/banned_ip.html:54 templates/base.html:217
-#: templates/help_center.html:34
-msgid "PAGE_FAQ_DONATETAB"
-msgstr "Заданаціць"
-
-#: templates/banned_ip.html:54 templates/base.html:218
-#: templates/help_center.html:40 templates/help_center.html:150
-msgid "PAGE_FAQ_RULESTAB"
-msgstr "Правілы"
-
-#: templates/banned_ip.html:54 templates/base.html:219
-msgid "BASE_FOOTER_TELEGRAM"
-msgstr "Наш Telegram-канал"
-
-#: templates/banned_ip.html:55 templates/base.html:231
-msgid "BASE_FOOTER_TEXT_1"
-msgstr "З душою зроблена камандай DM,"
-
-#: templates/banned_ip.html:55 templates/base.html:231
-msgid "BASE_FOOTER_TEXT_2"
-msgstr "Усе правы належаць зыходным праваўладальнікам"
-
-#: templates/base.html:11
 msgid " SITE_DESCRIPTION"
-msgstr ""
-"LunaStore. Даведнік дадаткаў для твайго старога ПК. Спампоўвайце дадаткі, "
-"пакідайце водгукі і станьце часткай суполкі аматараў старых ПК."
+msgstr "LunaStore. Даведнік дадаткаў для твайго старога ПК. Спампоўвайце дадаткі, пакідайце водгукі і станьце часткай суполкі аматараў старых ПК."
 
-#: templates/base.html:59
-msgid "BASE_IMPERSONATE_ATTENTION"
-msgstr "Увага!"
-
-#: templates/base.html:59
-msgid "BASE_IMPERSONATE_WARNING"
-msgstr ""
-"Вы часова ўвайшлі ў чужы акаўнт. Калі ласка, не злоўжывайце гэтым "
-"функцыяналам!"
-
-#: templates/base.html:60
-msgid "BASE_IMPERSONATE_RETURN"
-msgstr "Вярнуцца ў свой уліковы запіс"
-
-#: templates/base.html:65
-msgid "BASE_COOKIE_MESSAGE"
-msgstr ""
-"Усе дзеці любяць печыва, і мы таксама! Менавіта таму для стабільнай працы "
-"сайта мы выкарыстоўваем файлы Cookie. Больш падрабязна аб іх выкарыстанні "
-"напісана ў нашай"
-
-#: templates/base.html:66
-msgid "BASE_COOKIE_PRIVACYPOLICY"
-msgstr "Палітыцы прыватнасці"
-
-#: templates/base.html:67
-msgid "BASE_COOKIE_ACCEPT"
-msgstr "Добра, прыняць"
-
-#: templates/base.html:68
-msgid "BASE_COOKIE_DECLINE"
-msgstr "Не, дзякуй"
-
-#: templates/base.html:74
-msgid "BASE_AUTHLIKE"
-msgstr "Вы ўвайшлі як"
-
-#: templates/base.html:74
-msgid "BASE_LOGOUTBTN"
-msgstr "выйсці"
-
-#: templates/base.html:76
-msgid "BASE_LOGINBTN"
-msgstr "уваход"
-
-#: templates/base.html:76
-msgid "BASE_REGISTERBTN"
-msgstr "рэгістрацыя"
-
-#: templates/base.html:91
-msgid "BASE_OPRJ_TITLE"
-msgstr "іншыя праекты"
-
-#: templates/base.html:106 templates/index.html:26
-msgid "INDEX_SEARCH_PLACEHOLDER"
-msgstr "Напрыклад: Total Commander"
-
-#: templates/base.html:107 templates/category.html:46
-msgid "BASE_SEARCHBTN"
-msgstr "пошук"
-
-#: templates/base.html:131
-msgid "BASE_SIDEBAR_APP_TITLE"
-msgstr "Дадатак"
-
-#: templates/base.html:135
-msgid "BASE_SIDEBAR_APP_INSTALL"
-msgstr "Усталяваць"
-
-#: templates/base.html:140
-msgid "BASE_SIDEBAR_APP_DEV_SITE"
-msgstr "Сайт распрацоўшчыка"
-
-#: templates/base.html:144
-msgid "BASE_SIDEBAR_APP_REPORT"
-msgstr "Паскардзіцца"
-
-#: templates/base.html:146
-msgid "BASE_SIDEBAR_APP_EDIT"
-msgstr "Рэдагаваць старонку"
-
-#: templates/base.html:152
-msgid "BASE_SIDEBAR_ACCOUNT_TITLE"
-msgstr "Акаўнт"
-
-#: templates/base.html:156
-msgid "BASE_SIDEBAR_ACCOUNT_PROFILEBTN"
-msgstr "Мой профіль"
-
-#: templates/base.html:157
-msgid "BASE_SIDEBAR_ACCOUNT_SETTINGSBTN"
-msgstr "Налады"
-
-#: templates/base.html:159
-msgid "BASE_SIDEBAR_ACCOUNT_INVITEBTN"
-msgstr "Прыгласіць"
-
-#: templates/base.html:162 templates/notifications.html:18
-msgid "PAGE_NOTIFICATIONS_TAB"
-msgstr "Паведамленні"
-
-#: templates/base.html:170
-msgid "BASE_SIDEBAR_CATEGORIES_TITLE"
-msgstr "Катэгорыі"
-
-#: templates/base.html:174
-msgid "BASE_SIDEBAR_CATEGORIES_HOME"
-msgstr "Галоўная старонка"
-
-#: templates/base.html:212
-msgid "BASE_FOOTER_REPORT_PROBLEM"
-msgstr "Паведаміць пра праблему"
-
-#: templates/base.html:246
-msgid "PAGE_NOTIFY_TOAST_NEW"
-msgstr "Новае паведамленне"
-
-#: templates/base.html:247
-msgid "PAGE_NOTIFY_TOAST_CLOSE"
-msgstr "Закрыць"
-
-#: templates/base.html:248
-msgid "PAGE_NOTIFY_TOAST_VIEW"
-msgstr "Паглядзець »"
-
-#: templates/category.html:18 templates/search.html:13
-msgid "PAGE_SEARCH_SORT_PLACEHOLDER"
-msgstr "Паказваць змесціва..."
-
-#: templates/category.html:19 templates/search.html:14
-msgid "PAGE_SEARCH_SORT_TILES"
-msgstr "Паказваць змесціва пліткамі"
-
-#: templates/category.html:20 templates/search.html:15
-msgid "PAGE_SEARCH_SORT_LIST"
-msgstr "Паказваць змесціва спісам"
-
-#: templates/category.html:25
-msgid "PAGE_CATEGORY_COUNTOFRESULTS"
-msgstr "Колькасць вынікаў:"
-
-#: templates/category.html:40
-msgid "PAGE_CATEGORY_SEARCHOFCATEGORY"
-msgstr "Пошук па катэгорыях"
-
-#: templates/category.html:55
-msgid "INFO_APP_DEMOWITHPRICE"
-msgstr "Дэма, далей"
-
-#: templates/category.html:63
-msgid "INFO_APP_FREE"
-msgstr "Бясплатна"
-
-#: templates/category.html:68
-msgid "PAGE_CATEGORY_DEMOBTN"
-msgstr "Дэма"
-
-#: templates/category.html:70
-msgid "PAGE_CATEGORY_BUYBTN"
-msgstr "Купіць"
-
-#: templates/category.html:72
-msgid "PAGE_CATEGORY_INSTALLBTN"
-msgstr "Усталяваць"
-
-#: templates/debug_info.html:8
-msgid "PAGE_DEBUG_TITLE"
-msgstr "Інфармацыя для тэсціравання (Debug)"
-
-#: templates/debug_info.html:9
-msgid "PAGE_DEBUG_DESC"
-msgstr ""
-"Гэтая старонка выкарыстоўваецца ВЫКЛЮЧНА для тэсціравання і збору інфармацыі "
-"для больш граматнай падачы справаздач аб багах. Калі Вы бачыце гэтую "
-"старонку, гэта значыць, што ў вашым settings.py канстанта DEBUG = True."
-
-#: templates/debug_info.html:10
-msgid "PAGE_DEBUG_MAININFO_TITLE"
-msgstr "Асноўная інфармацыя"
-
-#: templates/del_acc.html:10
-msgid "PAGE_DELACC_BLOCK_TITLE"
-msgstr "Налады"
-
-#: templates/del_acc.html:22
-msgid "PAGE_DELACC_TITLE"
-msgstr "Выдаленне акаўнта"
-
-#: templates/del_acc.html:27
-msgid "PAGE_DELACC_WARNTITLE"
-msgstr "Прашу звярнуць увагу!"
-
-#: templates/del_acc.html:29
-msgid "PAGE_DELACC_WARNDESC_1"
-msgstr ""
-"Вы ўжо націснулі кнопку выдалення акаўнта ў наладах профіля, разумеем вашае "
-"рашэнне."
-
-#: templates/del_acc.html:29
-msgid "PAGE_DELACC_WARNDESC_2"
-msgstr ""
-"Аднак яшчэ раз хочам сказаць, што гэтае дзеянне пацягне за сабой знішчэнне "
-"даных профіля"
-
-#: templates/del_acc.html:29
-msgid "PAGE_DELACC_WARNDESC_3"
-msgstr "БЕЗ магчымасці аднаўлення"
-
-#: templates/del_acc.html:29
-msgid "PAGE_DELACC_WARNDESC_4"
-msgstr ""
-"Доступ да кіруемых старонак дадаткаў будзе страчаны, а адпраўленыя водгукі "
-"будуць абязлічаны."
-
-#: templates/del_acc.html:29
-msgid "PAGE_DELACC_WARNDESC_5"
-msgstr "Самы час пералічыць статыстыку вашага профіля:"
-
-#: templates/del_acc.html:33
-msgid "PAGE_DELACC_YOULEFTHERE_TITLE"
-msgstr "Вы засталіся тут..."
-
-#: templates/del_acc.html:34
-msgid "PAGE_DELACC_YOULEFTHERE_1"
-msgstr "Час задумацца"
-
-#: templates/del_acc.html:38
-msgid "PAGE_DELACC_YOULEFTHERE_APP_1"
-msgstr "Вось столькі вы загрузілі дадаткаў:"
-
-#: templates/del_acc.html:39
-msgid "PAGE_DELACC_YOULEFTHERE_APP_2"
-msgstr "Вы не зможаце кіраваць імі пасля выдалення акаўнта"
-
-#: templates/del_acc.html:43
-msgid "PAGE_DELACC_YOULEFTHERE_AVATAR_1"
-msgstr "Ваш прыгожы аватар"
-
-#: templates/del_acc.html:44
-msgid "PAGE_DELACC_YOULEFTHERE_AVATAR_2"
-msgstr "Прымі сябе такім, якім ты ёсць"
-
-#: templates/del_acc.html:48
-msgid "PAGE_DELACC_YOULEFTHERE_HISTORY_1"
-msgstr "Гісторыю знішчаных дадаткаў"
-
-#: templates/del_acc.html:49
-msgid "PAGE_DELACC_YOULEFTHERE_HISTORY_2"
-msgstr "Ладна, вы хаця б раз туды зазіралі?"
-
-#: templates/del_acc.html:53
-msgid "PAGE_DELACC_YOULEFTHERE_INVITES_1"
-msgstr "Вось столькі людзей, якіх вы прыгласілі:"
-
-#: templates/del_acc.html:54
-msgid "PAGE_DELACC_YOULEFTHERE_INVITES_2"
-msgstr "Яны застануцца без вас і будуць сумаваць"
-
-#: templates/del_acc.html:59
-msgid "PAGE_DELACC_LASTPASS_TITLE"
-msgstr ""
-"Калі Вы прынялі прам цвёрдае і дакладнае рашэнне, то для канчатковага "
-"пацвярджэння ўвядзіце Ваш пароль у апошні раз"
-
-#: templates/del_acc.html:78
-msgid "PAGE_DELAPP_DELACCOUNTBTN"
-msgstr "Выдаліць акаўнт"
-
-#: templates/dev_add.html:5 templates/dev_add.html:10
-msgid "PAGE_DEVADD_TITLE"
-msgstr "Падача заяўкі на статус распрацоўшчыка"
-
-#: templates/dev_add.html:15
-msgid "PAGE_DEVADD_DESC_1"
-msgstr "Вы з'яўляецеся прадстаўніком ці распрацоўшчыкам свайго софта?"
-
-#: templates/dev_add.html:15
-msgid "PAGE_DEVADD_DESC_2"
-msgstr ""
-"Палепшыце свой профіль да акаўнта распрацоўшчыка і выкладвайце праграмнае "
-"забеспячэнне афіцыйна на LunaStore. Афіцыйныя загрузкі будуць памечаны "
-"адпаведным знакам."
-
-#: templates/dev_add.html:19
-msgid "PAGE_DEVADD_DISABLED_1"
-msgstr "Рэгістрацыя распрацоўшчыкаў часова адключана"
-
-#: templates/dev_add.html:20
-msgid "PAGE_DEVADD_DISABLED_2"
-msgstr ""
-"У дадзены момант мы не прымаем новыя заяўкі на статус распрацоўшчыка. Калі "
-"ласка, паспрабуйце пазней."
-
-#: templates/dev_add.html:25
-msgid "PAGE_DEVADD_ALREADYDEV_1"
-msgstr "Вы ўжо распрацоўшчык!"
-
-#: templates/dev_add.html:26
-msgid "PAGE_DEVADD_ALREADYDEV_2"
-msgstr ""
-"У вас ужо ёсць статус распрацоўшчыка. Вам ужо даступны ўсе дадатковыя "
-"варыянты загрузкі дадаткаў на LunaStore."
-
-#: templates/dev_add.html:30
-msgid "PAGE_DEVADD_NOWCHECKING_TITLE"
-msgstr "Заяўка на разглядзе"
-
-#: templates/dev_add.html:31
-msgid "PAGE_DEVADD_NOWCHECKING_1"
-msgstr "Вы ўжо падалі заяўку. Адміністратар разгледзіць яе ў бліжэйшы час."
-
-#: templates/dev_add.html:32
-msgid "PAGE_DEVADD_NOWCHECKING_2"
-msgstr "Калі яе адобраць — вы атрымаеце паведамленне і статус."
-
-#: templates/dev_add.html:33
-msgid "PAGE_DEVADD_NOWCHECKING_3"
-msgstr "Калі адмовяць — вы зможаце падаць заяўку паўторна."
-
-#: templates/dev_add.html:37
-msgid "PAGE_DEVADD_ENTERINFO_TITLE"
-msgstr "Асноўная інфармацыя"
-
-#: templates/dev_add.html:45
-msgid "PAGE_DEVADD_ENTERINFO_USERNAME"
-msgstr "Імя карыстальніка:"
-
-#: templates/dev_add.html:54
-msgid "PAGE_DEVADD_ENTERINFO_USERNAMEDESC"
-msgstr ""
-"Імя карыстальніка змяніць нельга. Калі гэта не той акаўнт, перазайдзіце ў "
-"неабходны."
-
-#: templates/dev_add.html:59
-msgid "PAGE_DEVADD_ENTERINFO_EMAIL"
-msgstr "Кантактны e-mail:"
-
-#: templates/dev_add.html:68
-msgid "PAGE_DEVADD_ENTERINFO_EMAILDESC"
-msgstr "Мы абавязкова звяжамся з Вамі. Па меншай меры паспрабуем."
-
-#: templates/dev_add.html:82
-msgid "PAGE_DEVADD_ENTERINFO_GITHUBDESC"
-msgstr "А чаму не? Мы проста хочам паглядзець на вашыя прыгожыя распрацоўкі :3"
-
-#: templates/dev_add.html:87
-msgid "PAGE_DEVADD_ENTERINFO_ABOUTYOU"
-msgstr "Раскажыце пра сябе (1000 сімвалаў):"
-
-#: templates/dev_add.html:100
-msgid "PAGE_DEVADD_ENTERINFO_WHYCHOOSEUS"
-msgstr "Чаму Вы рашылі выбраць нас? (250 сімвалаў):"
-
-#: templates/dev_add.html:112
-msgid "PAGE_DEVADD_ENTERINFO_CONFIRM"
-msgstr "Пацвярджэнне рэгістрацыі"
-
-#: templates/dev_add.html:138
-msgid "PAGE_DEVADD_SENDALLBTN"
-msgstr "Падаць заяўку"
-
-#: templates/distribution_form.html:44
-msgid "PAGE_DIST_EDIT_HEADER"
-msgstr "Рэдагаваць дыстрыбуцыю"
-
-#: templates/distribution_form.html:52 templates/manage_distributions.html:159
-msgid "PAGE_DIST_FORM_VERSION"
-msgstr "Версія дадатка:"
-
-#: templates/distribution_form.html:54 templates/manage_distributions.html:161
-msgid "PAGE_DIST_FORM_VERSION_DESC"
-msgstr "Напрыклад: 1.0.0 або 2.1.4-beta"
-
-#: templates/distribution_form.html:59
-msgid "PAGE_DIST_EDIT_CURRENT_FILE"
-msgstr "Бягучы файл:"
-
-#: templates/distribution_form.html:71
-msgid "PAGE_DIST_EDIT_CHANGE_FILE"
-msgstr "Замяніць файл:"
-
-#: templates/distribution_form.html:71 templates/manage_distributions.html:165
-msgid "PAGE_DIST_FORM_FILE"
-msgstr "Файл:"
-
-#: templates/distribution_form.html:78 templates/manage_distributions.html:171
-msgid "PAGE_DIST_FORM_FILE_BUTTON"
-msgstr "Агляд..."
-
-#: templates/distribution_form.html:88 templates/distribution_form.html:172
-#: templates/distribution_form.html:189 templates/manage_distributions.html:181
-#: templates/manage_distributions.html:273
-#: templates/manage_distributions.html:290
-msgid "PAGE_DIST_FORM_FILE_NO_FILE"
-msgstr "Файл не абраны."
-
-#: templates/distribution_form.html:113 templates/manage_distributions.html:207
-msgid "PAGE_DIST_FORM_FILE_DESC"
-msgstr "Дапусцімыя фарматы: .exe, .zip, .rar, .7z і іншыя архівы."
-
-#: templates/distribution_form.html:117 templates/manage_distributions.html:211
-msgid "PAGE_DIST_FORM_VT_TITLE"
-msgstr "Спасылка на VirusTotal (абавязкова пры загрузцы файла):"
-
-#: templates/distribution_form.html:119 templates/manage_distributions.html:213
-msgid "PAGE_DIST_FORM_VT_DESC"
-msgstr ""
-"Укажыце спасылку на рэзультаты праверкі спампоўваемага файла на сайце "
-"virustotal.com"
-
-#: templates/distribution_form.html:123 templates/manage_distributions.html:217
-msgid "PAGE_DIST_FORM_URL"
-msgstr "Знешняя спасылка (URL):"
-
-#: templates/distribution_form.html:125 templates/manage_distributions.html:219
-msgid "PAGE_DIST_FORM_URL_DESC"
-msgstr "Пазначце, калі файл размешчаны на іншым рэсурсе"
-
-#: templates/distribution_form.html:154
-msgid "PAGE_DIST_FORM_SAVE"
-msgstr "Захаваць змены"
-
-#: templates/distribution_form.html:156
-msgid "PAGE_DIST_FORM_CANCEL"
-msgstr "Адхіліць"
-
-#: templates/distribution_form.html:173 templates/manage_distributions.html:274
-msgid "PAGE_DIST_FORM_FILE_UPLOADING"
-msgstr "Загрузка..."
-
-#: templates/distribution_form.html:175 templates/manage_distributions.html:276
-msgid "PAGE_DIST_FORM_FILE_ALREADY_UPLOADED"
-msgstr "Файл ужо загружаны (чакае захавання)"
-
-#: templates/distribution_form.html:176 templates/manage_distributions.html:277
-msgid "PAGE_DIST_FORM_ERR_GET_TOKEN"
-msgstr ""
-"Памылка атрымання токена загрузкі ад рухавіка LunaSpire. Калі ласка, "
-"звярніцеся з гэтай памылкай да адміністратара."
-
-#: templates/distribution_form.html:177 templates/manage_distributions.html:278
-msgid "PAGE_DIST_FORM_ERR_CDN_REJECT"
-msgstr ""
-"Рухавік LunaSpire адмовіў загрузку файла. Калі ласка, звярніцеся з гэтай "
-"памылкай да адміністратара."
-
-#: templates/distribution_form.html:178 templates/manage_distributions.html:279
-msgid "PAGE_DIST_FORM_ERR_NO_CONFIRM"
-msgstr ""
-"Рухавік LunaSpire не вярнуў токен пацвярджэння. Калі ласка, звярніцеся з "
-"гэтай памылкай да адміністратара."
-
-#: templates/download_list.html:7
-msgid "PAGE_DOWNLOAD_TITLE"
-msgstr "Спампоўка"
-
-#: templates/download_list.html:38
-msgid "PAGE_DOWNLOAD_LATEST_VERSION_NOTE"
-msgstr "Апошняя спампаваная версія памечана тлустым шрыфтам"
-
-#: templates/download_list.html:46
-msgid "PAGE_DOWNLOAD_VERSION_LIST"
-msgstr "Спіс версій"
-
-#: templates/download_list.html:52
-msgid "PAGE_DOWNLOAD_MANAGE_DISTS"
-msgstr "Кіраванне дыстрыбуцыямі"
-
-#: templates/download_list.html:62
-msgid "PAGE_DOWNLOAD_TABLE_VERSION"
-msgstr "Версія"
-
-#: templates/download_list.html:70
-msgid "PAGE_DOWNLOAD_TABLE_DATE"
-msgstr "Дата публікацыі"
-
-#: templates/download_list.html:76
-msgid "PAGE_DOWNLOAD_TABLE_LINK"
-msgstr "Спасылка"
-
-#: templates/download_list.html:87 templates/download_list.html:88
-#: templates/download_list.html:90
-msgid "PAGE_DOWNLOAD_DL_ACTION"
-msgstr "спампаваць"
-
-#: templates/download_list.html:103
-msgid "PAGE_DOWNLOAD_NO_NOTES"
-msgstr "Без заўваг"
-
-#: templates/download_list.html:110
-msgid "PAGE_DOWNLOAD_NO_DISTRIBUTIONS"
-msgstr "Дыстрыбуцыі пакуль не дададзены."
-
-#: templates/download_list.html:142
-msgid "PAGE_DOWNLOAD_OFFICIAL_SOURCE"
-msgstr "Спампоўка з афіцыйнай крыніцы"
-
-#: templates/download_list.html:148
-msgid "PAGE_DOWNLOAD_GO_OFFICIAL"
-msgstr "Перайсці на афіцыйны сайт"
-
-#: templates/download_list.html:160
-msgid "PAGE_DOWNLOAD_DMCA_WARNING"
-msgstr ""
-"Магчымасць спампоўвання праграмы была закрыта з-за скаргі праваўладара. "
-"Дзякуй за разуменне."
-
-#: templates/download_list.html:170
-msgid "PAGE_DOWNLOAD_DEMO_WARNING"
-msgstr ""
-"Праграма распаўсюджваецца ў якасці дэма-версіі, за поўную версію трэба "
-"заплаціць яе аўтару. Файл дадзены з афіцыйнага сайта распрацоўшчыка."
-
-#: templates/help_center.html:6
-msgid "PAGE_FAQ_TITLE"
-msgstr "Спраўка"
-
-#: templates/help_center.html:10
-msgid "PAGE_FAQ_TITLE_2"
-msgstr "Справачны цэнтр"
-
-#: templates/help_center.html:11
-msgid "PAGE_FAQ_DESC"
-msgstr ""
-"У Вас з'явіліся пытанні? На гэтай старонцы сабрана ўся інфармацыя, датычная "
-"гэтага LunaStore"
-
-#: templates/help_center.html:28
-msgid "PAGE_FAQ_PRIVACYTAB"
-msgstr "Прыватнасць"
-
-#: templates/help_center.html:52
-msgid "PAGE_FAQ_CARD_WHATISIT"
-msgstr "Куды я трапіў і што гэта?"
-
-#: templates/help_center.html:53
-msgid "PAGE_FAQ_CARD_WHATISITDESC"
-msgstr ""
-"свайго рода альтэрнатыўная 'крама' дадаткаў і гульняў. На дадзены момант "
-"мецім на эпоху Windows XP."
-
-#: templates/help_center.html:57
-msgid "PAGE_FAQ_CARD_WHYWESHOP"
-msgstr "Чаму 'крама' напісана ў двукоссі?"
-
-#: templates/help_center.html:58
-msgid "PAGE_FAQ_CARD_WHYWESHOPDESC"
-msgstr ""
-"Мы з'яўляемся фанацкім сайтам і не думаем, што такое прам вырасце да вялікай "
-"крамы. Хаця хто ведае. Аднак рэклама ў левым меню абсалютна несур'ёзная, а "
-"сам праект - як агульнае хобі."
-
-#: templates/help_center.html:62
-msgid "PAGE_FAQ_CARD_TEAM"
-msgstr "Што значыць 'агульнае хобі'?"
-
-#: templates/help_center.html:65
-msgid "PAGE_FAQ_CARD_TEAMDESC_1"
-msgstr ""
-"Не паверыш. Над гэтым праектам працавала шмат неабыякавых людзей з "
-"аднолькавай ідэяй."
-
-#: templates/help_center.html:66
-msgid "PAGE_FAQ_CARD_TEAMDESC_2"
-msgstr "Самы час іх пералічыць:"
-
-#: templates/help_center.html:68
-msgid "PAGE_FAQ_CARD_TEAM_AUTHOR"
-msgstr "- аўтар ідэі, дызайн,"
-
-#: templates/help_center.html:69
-msgid "PAGE_FAQ_TOOLTIP_EASTEREGG"
-msgstr "\"Имя Ибрагим вам что-нибудь говорит?\""
-
-#: templates/help_center.html:69
-msgid "PAGE_FAQ_CARD_TEAM_FRONTEND"
-msgstr "вёрстка інтэрфэйса (frontend)"
-
-#: templates/help_center.html:71
-msgid "PAGE_FAQ_CARD_TEAM_CDNANDGIT"
-msgstr "- закадравая праца, CDN, унутраны Git"
-
-#: templates/help_center.html:73
-msgid "PAGE_FAQ_TEAM_ROLE_FAYZETWIN"
-msgstr "асноўны backend-распрацоўшчык, API"
-
-#: templates/help_center.html:74
-msgid "PAGE_FAQ_TEAM_ROLE_ZAZIOS"
-msgstr "backend-распрацоўшчык (Go)"
-
-#: templates/help_center.html:75
-msgid "PAGE_FAQ_CARD_TEAM_BACKEND"
-msgstr "- backend-распрацоўка, кансультацыі і натхненне"
-
-#: templates/help_center.html:76
-msgid "PAGE_FAQ_CARD_TEAM_DEV"
-msgstr "- распрацоўшчык"
-
-#: templates/help_center.html:77
-msgid "PAGE_FAQ_TEAM_ROLE_MONDY"
-msgstr "лагатып"
-
-#: templates/help_center.html:79
-msgid "PAGE_FAQ_TEAM_HEADER_OTHER"
-msgstr "Таксама дзякуем іншых распрацоўшчыкаў:"
-
-#: templates/help_center.html:80
-msgid "PAGE_FAQ_TEAM_ROLE_NOCHA3"
-msgstr "натыўны кліент для Windows XP"
-
-#: templates/help_center.html:81
-msgid "PAGE_FAQ_TEAM_ROLE_CHELKA0"
-msgstr "афармленне сайта за кадрам"
-
-#: templates/help_center.html:83
-msgid "PAGE_FAQ_TEAM_HEADER_TESTERS"
-msgstr "І пра тэстыроўшчыкаў не забываем:"
-
-#: templates/help_center.html:86
-msgid "PAGE_FAQ_TEAM_HEADER_TRANSLATORS"
-msgstr "І пра перакладчыкаў:"
-
-#: templates/help_center.html:97
-msgid "PAGE_FAQ_Q_CREATE_ACC"
-msgstr "Як тут стварыць акаўнт?"
-
-#: templates/help_center.html:98
-msgid "PAGE_FAQ_A_CREATE_ACC"
-msgstr "У верхняй шапцы сайта націсніце кнопку \"рэгістрацыя\""
-
-#: templates/help_center.html:102
-msgid "PAGE_FAQ_Q_ACC_BENEFITS"
-msgstr "А што ўвогуле дае наяўнасць акаўнта на LunaStore?"
-
-#: templates/help_center.html:103
-msgid "PAGE_FAQ_A_ACC_BENEFITS"
-msgstr ""
-"З дапамогай акаўнта Вы зможаце пакідаць свае водгукі да дадаткаў, прыгожа "
-"заявіць пра сябе ў гэтай зараджаючайся суполцы і загружаць свае дадаткі ў "
-"агульны каталог пасля строгай мадэрацыі"
-
-#: templates/help_center.html:107
-msgid "PAGE_FAQ_Q_ADD_APP"
-msgstr "Окей, а як сюды загрузіць дадатак?"
-
-#: templates/help_center.html:108
-msgid "PAGE_FAQ_A_ADD_APP"
-msgstr ""
-"Пакуль ніяк. Мы толькі пачынаем, таму бярэм праграмнае забеспячэнне са сваіх "
-"спісаў. Сачыце за абнаўленнямі гэтай старонкі."
-
-#: templates/help_center.html:112
-msgid "PAGE_FAQ_Q_LEGAL"
-msgstr "\"Хмм, а ці гэта законна?\""
-
-#: templates/help_center.html:113
-msgid "PAGE_FAQ_A_LEGAL"
-msgstr ""
-"Звычайна такое пытанне задае распрацоўшчык праграмнага забеспячэння. Аднак "
-"калі Вас вельмі непакоіць існаванне старой версіі вашай праграмы на гэтым "
-"сайце, то можаце звязацца з намі па e-mail. Але вельмі спадзяёмся, што вы "
-"зразумееце нас і мэту нашага праекта."
-
-#: templates/help_center.html:117
-msgid "PAGE_FAQ_Q_WHY_EXIST"
-msgstr "Навошта гэты сайт існуе?"
-
-#: templates/help_center.html:120
-msgid "PAGE_FAQ_A_WHY_EXIST_PART1"
-msgstr ""
-"Добрае пытанне. Пачалося ўсё з таго, што ў аднаго з удзельнікаў праекта "
-"з'явілася жаданне загрузіць на адзін сайт са старым праграмным забеспячэннем "
-"скрынсэйвер 3D Windows XP, які па факце мала хто бачыў і ледзь захаваўся на "
-"вэб-архіве."
-
-#: templates/help_center.html:121
-msgid "PAGE_FAQ_A_WHY_EXIST_PART2"
-msgstr ""
-"Праз некалькі дзён пасля загрузкі, скрынсэйвер быў выдалены з сайта па "
-"прычыне \"не падыходзіць пад тэматыку сайта\". А на пытанне \"чаму ў Вас "
-"тады захаваны вобразы XP?\" адэкватнага адказу з адміністрцыі ніхто не даў."
-
-#: templates/help_center.html:122
-msgid "PAGE_FAQ_A_WHY_EXIST_PART3"
-msgstr ""
-"Нічога страшнага, мы не сумуем і канкурыраваць не хочам, проста вырашылі "
-"зрабіць свой маленькі каталог :3"
-
-#: templates/help_center.html:127 templates/help_center.html:136
-msgid "PAGE_FAQ_LAST_UPDATE"
-msgstr "Апошняе абнаўленне"
-
-#: templates/help_center.html:131
-msgid "PAGE_FAQ_PRIVACY_TITLE"
-msgstr "Палітыка прыватнасці"
-
-#: templates/help_center.html:138 templates/help_center.html:146
-#: templates/help_center.html:154
-msgid "PAGE_FAQ_PRIVACY_EMPTY"
-msgstr "Дакумент яшчэ не запоўнены..."
-
-#: templates/help_center.html:142
-msgid "PAGE_FAQ_DONATE_TITLE"
-msgstr "Як нас падтрымаць?"
-
-#: templates/includes/categories.html:11
-msgid "INFO_CATEGORY_LIST_EMPTY"
-msgstr "пустаааа...."
-
-#: templates/index.html:10
-msgid "INDEX_WELCOME_TITLE"
-msgstr "Сардэчна запрашаем"
-
-#: templates/index.html:11
-msgid "INDEX_WELCOME_TEXT"
-msgstr ""
-"Вітаем у LunaStore!<br>Зборнік дадаткаў і дапаўненняў для камфортнай працы з "
-"гэтай АС"
-
-#: templates/index.html:16
-msgid "INDEX_SEARCH_SECTION_TITLE"
-msgstr "Пошук па каталозе"
-
-#: templates/index.html:37
-msgid "INDEX_SEARCH_BTN"
-msgstr "Шукаць"
-
-#: templates/index.html:45
-msgid "INDEX_CATEGORY_PROMPT"
-msgstr "Або выберыце патрэбную катэгорыю:"
-
-#: templates/index.html:54
-msgid "INDEX_NO_CATEGORIES"
-msgstr "Катэгорыі пакуль не дададзены"
-
-#: templates/invite.html:6
-msgid "PAGE_INVITE_BROWSER_TITLE"
-msgstr "Прыгласіць"
-
-#: templates/invite.html:13
-msgid "PAGE_INVITE_MAIN_TITLE"
-msgstr "Прыгласіць чалавека"
-
-#: templates/invite.html:19
-msgid "PAGE_INVITE_DESCRIPTION"
-msgstr ""
-"Вы можаце прыгласіць свайго сябра або знаёмага з аднолькавымі інтарэсамі па "
-"рэтра-тэматыцы ў LunaStore."
-
-#: templates/invite.html:29
-msgid "PAGE_INVITE_COPY_CODE"
-msgstr "Скапіруйце гэты код ніжэй і адпраўце яго патрэбнаму Вам чалавеку"
-
-#: templates/invite.html:34
-msgid "PAGE_INVITE_HOW_TO_SEND"
-msgstr ""
-"Па e-mail, па тэлефоне, у чаце, пры сустрэчы - абсалютна няважна. Код "
-"абавязкова трэба будзе ўвесці запрашаемаму карыстальніку ў працэсе "
-"рэгістрацыі."
-
-#: templates/invite.html:41
-msgid "PAGE_INVITE_CODE_ROTATION_WARN"
-msgstr ""
-"<b>Важна:</b> на дадзены момант запрашальны код новага ўдзельніка мяняецца "
-"кожныя 24 гадзіны"
-
-#: templates/invite.html:49
-msgid "PAGE_INVITE_LIMIT_EXHAUSTED"
-msgstr "Запрошаныя карыстальнікі"
-
-#: templates/invite.html:50
-msgid "PAGE_INVITE_NEXT_AVAILABLE"
-msgstr "Код"
-
-#: templates/invite.html:57
-msgid "PAGE_INVITE_LIST_HEADER"
-msgstr "Запрошаныя карыстальнікі"
-
-#: templates/invite.html:64
-msgid "PAGE_INVITE_ADMINSTATUS"
-msgstr "Мадэратар"
-
-#: templates/invite.html:66
-msgid "PAGE_INVITE_USERSTATUS"
-msgstr "Карыстальнік"
-
-#: templates/invite.html:77
-msgid "PAGE_INVITE_REGDATE"
-msgstr "Рэгістрацыя"
-
-#: templates/invite.html:89
-msgid "PAGE_INVITE_LIST_EMPTY"
-msgstr "Вы пакуль яшчэ нікога не запрашалі"
-
-#: templates/invite_input.html:3
-msgid "PAGE_INVITE_INPUT_TITLE"
-msgstr "Увод запрашальнага кода"
-
-#: templates/invite_input.html:8
-msgid "PAGE_INVITE_INPUT_HEADER"
-msgstr "Увод кода запрашэння"
-
-#: templates/invite_input.html:12
-msgid "PAGE_INVITE_INPUT_DESC_1"
-msgstr ""
-"Вы можаце ўвесці код запрашэння, які Вы атрымалі ад ужо <b>зарэгістраванага "
-"карыстальніка</b>"
-
-#: templates/invite_input.html:14
-msgid "PAGE_INVITE_INPUT_DESC_2"
-msgstr ""
-"Такім чынам, Вы атрымліваеце ўнікальную магчымасць стварыць акаўнт <b>у "
-"абход закрытай публічнай рэгістрацыі</b>"
-
-#: templates/invite_input.html:27
-msgid "PAGE_INVITE_INPUT_LABEL"
-msgstr "Код"
-
-#: templates/invite_input.html:31
-msgid "PAGE_INVITE_INPUT_BTN"
-msgstr "Пачаць рэгістрацыю"
-
-#: templates/login_splash.html:6
-msgid "PAGE_LOGIN_BROWSER_TITLE"
-msgstr "Уваход"
-
-#: templates/login_splash.html:14
-msgid "PAGE_LOGIN_REQUIRED_WARNING"
-msgstr "Каб працягнуць гэтае дзеянне, трэба ўвайсці на сайт"
-
-#: templates/login_splash.html:20
-msgid "PAGE_LOGIN_MAIN_TITLE"
-msgstr "Уваход"
-
-#: templates/login_splash.html:28
-msgid "PAGE_LOGIN_GREETING"
-msgstr "Прадстаўцеся..."
-
-#: templates/login_splash.html:40
-msgid "PAGE_LOGIN_USERNAME_LABEL"
-msgstr "Лагін:"
-
-#: templates/login_splash.html:45
-msgid "PAGE_LOGIN_PASSWORD_LABEL"
-msgstr "Пароль:"
-
-#: templates/login_splash.html:50
-#, fuzzy
-#| msgid "PAGE_LOGIN_PASSWORD_LABEL"
-msgid "PAGE_LOGIN_FORGOT_PASSWORD"
-msgstr "Пароль:"
-
-#: templates/login_splash.html:51
-msgid "PAGE_LOGIN_SUBMIT_BTN"
-msgstr "Увайсці"
-
-#: templates/login_splash.html:59
-msgid "PAGE_LOGIN_INFO_TITLE_1"
-msgstr "Навошта патрэбны акаўнт?"
-
-#: templates/login_splash.html:61
-msgid "PAGE_LOGIN_INFO_BULLET_1"
-msgstr "Пакідайце водгукі да праграмага забеспячэння"
-
-#: templates/login_splash.html:62
-msgid "PAGE_LOGIN_INFO_BULLET_2"
-msgstr "Пакарыце суполку"
-
-#: templates/login_splash.html:63
-msgid "PAGE_LOGIN_INFO_BULLET_3"
-msgstr "Загружайце праграмнае забеспячэнне"
-
-#: templates/login_splash.html:66
-msgid "PAGE_LOGIN_INFO_TITLE_2"
-msgstr "У Вас няма акаўнта?"
-
-#: templates/login_splash.html:67
-msgid "PAGE_LOGIN_INFO_DESC_2"
-msgstr "Стварыце яго. Гэта бясплатна."
-
-#: templates/login_splash.html:68
-msgid "PAGE_LOGIN_REGISTER_BTN"
-msgstr "Зарэгістраваца"
-
-#: templates/manage_distributions.html:64
-msgid "PAGE_ADMIN_APP_DIST_HEADER"
-msgstr "Кіраванне дыстрыбуцыямі —"
-
-#: templates/manage_distributions.html:68
-msgid "PAGE_ADMIN_APP_DIST_PENDING_TITLE"
-msgstr "Заявы, якія чакаюць мадэрацыі:"
-
-#: templates/manage_distributions.html:72
-#: templates/manage_distributions.html:78
-msgid "PAGE_ADMIN_APP_DIST_VERSION_LABEL"
-msgstr "Версія"
-
-#: templates/manage_distributions.html:73
-msgid "PAGE_ADMIN_APP_DIST_PENDING_CREATE"
-msgstr "(Стварэнне новай) — Разглядаецца"
-
-#: templates/manage_distributions.html:79
-msgid "PAGE_ADMIN_APP_DIST_PENDING_EDIT"
-msgstr "(Змена) — Разглядаецца"
-
-#: templates/manage_distributions.html:90
-msgid "PAGE_ADMIN_APP_DIST_VERSION"
-msgstr "Версія"
-
-#: templates/manage_distributions.html:91
-msgid "PAGE_ADMIN_APP_DIST_DATE"
-msgstr "Дата"
-
-#: templates/manage_distributions.html:92
-msgid "PAGE_ADMIN_APP_DIST_ACTIONS"
-msgstr "Дзеянні"
-
-#: templates/manage_distributions.html:101
-msgid "PAGE_ADMIN_APP_DIST_ACTION_EDIT"
-msgstr "Змяніць"
-
-#: templates/manage_distributions.html:104 templates/profile.html:206
-#: templates/profile.html:234 templates/storepage.html:228
-msgid "PAGE_ADMIN_APP_DIST_ACTION_DELETE"
-msgstr "Выдаліць"
-
-#: templates/manage_distributions.html:114
-msgid "PAGE_ADMIN_APP_DIST_NO_NOTES"
-msgstr "Без заўваг"
-
-#: templates/manage_distributions.html:146
-msgid "PAGE_ADMIN_APP_DIST_EMPTY"
-msgstr "Пакуль што няма загружаных версій."
-
-#: templates/manage_distributions.html:152
-msgid "PAGE_ADMIN_APP_DIST_ADD_NEW"
-msgstr "Дадаць новую версію"
-
-#: templates/manage_distributions.html:224
-msgid "PAGE_DIST_FORM_CHANGELOG"
-msgstr "Спіс змен (Changelog):"
-
-#: templates/manage_distributions.html:244
-msgid "PAGE_DIST_FORM_CHANGELOG_DESC"
-msgstr "Апішыце, што новага ў гэтай версіі"
-
-#: templates/manage_distributions.html:256
-msgid "PAGE_ADMIN_APP_DIST_DL_LINK_BLOCK"
-msgstr "Спасылка на старонку спамповак"
-
-#: templates/manage_distributions.html:258
-msgid "PAGE_ADMIN_APP_DIST_DL_LINK_TEXT"
-msgstr "Адкрыць спіс версій"
-
-#: templates/notifications.html:6
-msgid "PAGE_NOTIFICATIONS_TITLE"
-msgstr "Паведамленні"
-
-#: templates/notifications.html:26
-msgid "NOTIFICATIONS_LOADING"
-msgstr "Загрузка паведамленняў..."
-
-#: templates/notifications.html:36
-msgid "PAGE_NOTIFICATIONS_EARLY"
-msgstr "Ранейшыя паведамленні"
-
-#: templates/notifications.html:72
-msgid "PAGE_NOTIFICATIONS_NO_NEW"
-msgstr "У Вас няма новых паведамленняў"
-
-#: templates/notifications.html:73
-msgid "PAGE_NOTIFICATIONS_NEW_COUNT"
-msgstr "толькі што"
-
-#: templates/notifications.html:74
-msgid "PAGE_NOTIFICATIONS_NOW"
-msgstr "толькі што"
-
-#: templates/other_projects.html:6
-msgid "PAGE_OTHER_PROJECTS_BROWSER_TITLE"
-msgstr "Іншыя праекты"
-
-#: templates/other_projects.html:11
-msgid "PAGE_OTHER_PROJECTS_TITLE"
-msgstr "Іншыя праекты"
-
-#: templates/other_projects.html:12
-msgid "PAGE_OTHER_PROJECTS_SUBTITLE"
-msgstr "Сайты-сябры і іншыя нашы праекты"
-
-#: templates/other_projects.html:17
-msgid "PAGE_OTHER_PROJECTS_SECTION_MAIN"
-msgstr "Асноўныя"
-
-#: templates/other_projects.html:23
-msgid "PAGE_OTHER_PROJECTS_DESC_DM"
-msgstr ""
-"Сайт-візітка Daniel Myslivets (версія для старых камп'ютараў і браўзераў)"
-
-#: templates/other_projects.html:24 templates/other_projects.html:33
-#: templates/other_projects.html:46 templates/other_projects.html:55
-msgid "PAGE_OTHER_PROJECTS_BTN_GO"
-msgstr "Перайсці »"
-
-#: templates/other_projects.html:32
-msgid "PAGE_OTHER_PROJECTS_DESC_RENAISSANCE"
-msgstr "Неафіцыйны праект: які аднаўляе працу Агента@Mail.ru"
-
-#: templates/other_projects.html:39
-msgid "PAGE_OTHER_PROJECTS_SECTION_FRIENDS"
-msgstr "Сайты-сябры"
-
-#: templates/other_projects.html:45
-msgid "PAGE_OTHER_PROJECTS_DESC_KICQ"
-msgstr "Неафіцыйны праект, які аднаўляе працу ICQ"
-
-#: templates/other_projects.html:54
-msgid "PAGE_OTHER_PROJECTS_DESC_FOXCORP"
-msgstr "Уласны сайт Milya Fox; сеткавы інжынер, які дапамагаў з праектам"
-
-#: templates/profile.html:6
-msgid "PAGE_PROFILE_TITLE"
-msgstr "Профіль карыстальніка"
-
-#: templates/profile.html:41
-msgid "CARD_USER_NO_DESC"
-msgstr "Апісанне профіля адсутнічае"
-
-#: templates/profile.html:46
-#, python-format
 msgid "%(counter)s PAGE_PROFILE_STATS_APP"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
 msgstr[0] "%(counter)s дадаткаў,"
 msgstr[1] "%(counter)s дадаткаў,"
 msgstr[2] "%(counter)s дадаткаў,"
 
-#: templates/profile.html:47
-msgid "PAGE_PROFILE_STATS_MEMBER_SINCE"
-msgstr "карыстальнік з"
-
-#: templates/profile.html:62
-msgid "PAGE_PROFILE_BANNED_INTRO"
-msgstr "Гэты карыстальнік быў заблакіраваны."
-
-#: templates/profile.html:63
-msgid "PAGE_PROFILE_BANNED_DESC"
-msgstr ""
-"Гэта магло адбыцца з-за парушэння правіл рэсурса, падазронай актыўнасці або "
-"працы сістэмы бяспекі. Мы клапацімся пра камфорт усіх карыстальнікаў, таму "
-"вымушаны часова або назаўсёды абмежаваць доступ да сайта падобным "
-"карыстальнікам."
-
-#: templates/profile.html:64
-msgid "PAGE_PROFILE_BANNED_DESC_2"
-msgstr ""
-"Паколькі гэты карыстальнік быў заблакіраваны, мы не рэкамендуем весці "
-"далейшыя дыялогі з ім, асабліва калі ў Вас папросяць грошы."
-
-#: templates/profile.html:73
-msgid "PAGE_PROFILE_TAB_MAIN"
-msgstr "Асноўнае"
-
-#: templates/profile.html:77 templates/profile.html:190
-#: templates/profile.html:218
-msgid "PAGE_PROFILE_TAB_REVIEWS"
-msgstr "Водгукі"
-
-#: templates/profile.html:83
-msgid "PAGE_PROFILE_CONTACT_INFO"
-msgstr "Кантактная інфармацыя"
-
-#: templates/profile.html:86
-msgid "PAGE_PROFILE_LABEL_WEBSITE"
-msgstr "Вэб-сайт:"
-
-#: templates/profile.html:96
-msgid "PAGE_PROFILE_LABEL_TELEGRAM"
-msgstr "Telegram:"
-
-#: templates/profile.html:124
-msgid "PAGE_PROFILE_APPS_TITLE"
-msgstr "Апублікаваныя дадаткі"
-
-#: templates/profile.html:124
-msgid "PAGE_PROFILE_LINK_ADDAPP"
-msgstr "дадаць"
-
-#: templates/profile.html:124 templates/profile.html:190
-msgid "PAGE_PROFILE_LINK_ALL"
-msgstr "паказаць усё"
-
-#: templates/profile.html:146 templates/settings_apps.html:88
-msgid "PAGE_MANAGE_APPS_EMPTY_TITLE"
-msgstr "Дадаткаў няма ＞︿＜"
-
-#: templates/profile.html:147
-msgid "PAGE_PROFILE_APPS_EMPTY_DESC"
-msgstr "Карыстальнік пакуль што не апублікаваў ніводнага дадатка."
-
-#: templates/profile.html:157
-msgid "PAGE_PROFILE_INVITES_TEXT"
-msgstr "прыгласіў"
-
-#: templates/profile.html:157
-msgid "PAGE_PROFILE_INVITES_PEOPLE"
-msgstr "чалавек (паказаны першыя 5)"
-
-#: templates/profile.html:179
-msgid "PAGE_PROFILE_INVITES_EMPTY_TITLE"
-msgstr "Прыглашэнняў няма ＞︿＜"
-
-#: templates/profile.html:180
-msgid "PAGE_PROFILE_INVITES_EMPTY_DESC"
-msgstr ""
-"Пакуль што ніводны чалавек не зарэгістраваўся па запрашэнні гэтага "
-"карыстальніка."
-
-#: templates/profile.html:192
-#, fuzzy, python-format
-#| msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
-#| msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
-msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_RECENT"
-msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_RECENT"
+msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
 msgstr[0] "%(counter)s водгукаў -"
 msgstr[1] "%(counter)s водгукаў -"
 msgstr[2] "%(counter)s водгукаў -"
 
-#: templates/profile.html:197 templates/profile.html:225
-#, fuzzy
-#| msgid "PAGE_PROFILE_TAB_APPS"
-msgid "PAGE_PROFILE_REVIEW_TO_APP"
-msgstr "Дадаткі"
-
-#: templates/profile.html:211 templates/profile.html:239
-#, fuzzy
-#| msgid "PAGE_PROFILE_TAB_REVIEWS"
-msgid "PAGE_PROFILE_NO_REVIEWS"
-msgstr "Водгукі"
-
-#: templates/profile.html:220
-#, fuzzy, python-format
-#| msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
-#| msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_ALL"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_ALL"
-msgstr[0] "%(counter)s водгукаў -"
-msgstr[1] "%(counter)s водгукаў -"
-msgstr[2] "%(counter)s водгукаў -"
+msgstr[0] "%(counter)s водгук (паказаны на гэтай старонцы)"
+msgstr[1] "%(counter)s водгукі (паказаны на гэтай старонцы)"
+msgstr[2] "%(counter)s водгукаў (паказаны на гэтай старонцы)"
 
-#: templates/register.html:8 templates/register.html:18
-#: templates/register_on.html:8
-msgid "PAGE_REGISTER_TITLE"
-msgstr "Рэгістрацыя"
+msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_RECENT"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_RECENT"
+msgstr[0] "%(counter)s водгук (паказаны апошнія 5)"
+msgstr[1] "%(counter)s водгукі (паказаны апошнія 5)"
+msgstr[2] "%(counter)s водгукаў (паказаны апошнія 5)"
 
-#: templates/register.html:11 templates/register.html:21
-msgid "PAGE_REGISTER_CLOSED_MSG"
-msgstr ""
-"Свабодная рэгістрацыя на дадзены момант закрыта і ажыццяўляецца толькі па "
-"запрашэннях ад ужо зарэгістраваных тут удзельнікаў."
+msgid "404_ELEMENT_NOT_FOUND"
+msgstr "Элемент або спасылка, якую вы хочаце наведаць, не знойдзены на нашым сайце."
 
-#: templates/register.html:23
-msgid "PAGE_REGISTER_HAVE_INVITE_TITLE"
-msgstr "У Вас ёсць запрашэнне?"
+msgid "404_ELEMENT_NOT_FOUND_2"
+msgstr "Мы шукалі штосілы, праўда."
 
-#: templates/register.html:26
-msgid "PAGE_REGISTER_HAVE_INVITE_TEXT"
-msgstr "Ёсць код запрашэння? Націсніце"
+msgid "404_ELEMENT_NOT_FOUND_3"
+msgstr "Калі гэты элемент быў даступны раней, то, верагодна, старонка была перамешчана або выдалена аўтарам або адміністрацыяй. Паспрабуйце паўтарыць спробу пазней. Дзякуй за разуменне."
 
-#: templates/register.html:27
-msgid "PAGE_REGISTER_CLICK_HERE"
-msgstr "сюды"
+msgid "404_GO_TO_HOME"
+msgstr "Вярнуцца на галоўную"
 
-#: templates/register_on.html:12
-msgid "PAGE_REGISTER_INFO_SPLASH"
-msgstr ""
-"Стварыўшы акаўнт, вы зможаце выкладываць свае дадаткі, пакідаць водгукі да "
-"ўжо загружаных праграм і весці ўласную бібліятэку захаваных элементаў. "
-"Рэгістрацыя адкрытая і бясплатная."
+msgid "404_TITLE"
+msgstr "Адбылася памылка"
 
-#: templates/register_on.html:14
-msgid "PAGE_REGISTER_SECTION_MAIN"
-msgstr "Асноўная інфармацыя"
+msgid "ACTION_CHOOSE_FILE"
+msgstr "Выберыце файл"
 
-#: templates/register_on.html:20
-msgid "PAGE_REGISTER_LABEL_USERNAME"
-msgstr "Імя карыстальніка:"
+msgid "ACTION_CHOOSE_ICON"
+msgstr "Выберыце файл"
 
-#: templates/register_on.html:28
-msgid "PAGE_REGISTER_HELP_USERNAME"
-msgstr ""
-"Мінімум 2 сімвалы. Па імя карыстальніка вас можна будзе знайсці. Пасля "
-"рэгістрацыі змяніць яго не атрымаецца."
+msgid "ARE_YOU_SURE"
+msgstr "Вы ўпэўнены?"
 
-#: templates/register_on.html:33
-msgid "PAGE_REGISTER_LABEL_EMAIL"
-msgstr "E-mail:"
+msgid "BANNED_IP_BACK_BUTTON"
+msgstr "Вернуцца назад"
 
-#: templates/register_on.html:41
-msgid "PAGE_REGISTER_HELP_EMAIL"
-msgstr "Будзе выкарыстоўвацца для ўваходу ў акаўнт і для аднаўлення пароля"
+msgid "BANNED_IP_CONTACT_SUPPORT"
+msgstr "Звязацца з тэхнічнай падтрымкай:"
 
-#: templates/register_on.html:46
-msgid "PAGE_REGISTER_LABEL_PASS1"
+msgid "BANNED_IP_H2"
+msgstr "У доступе адмоўлена"
+
+msgid "BANNED_IP_HEADER"
+msgstr "Доступ абмежаваны"
+
+msgid "BANNED_IP_HOME_LINK"
+msgstr "На галоўную"
+
+msgid "BANNED_IP_INTRO"
+msgstr "Доступ да сайта з вашага IP-адраса прыпынены."
+
+msgid "BANNED_IP_PAGE_TITLE"
+msgstr "Доступ абмежаваны"
+
+msgid "BANNED_IP_REASON"
+msgstr "Гэта магло адбыцца з-за парушэння правіл рэсурса, падазронай актыўнасці або працы сістэмы бяспекі. Мы клапацімся пра камфорт усіх карыстальнікаў, таму вымушаны часова або назаўсёды абмежаваць вам доступ."
+
+msgid "BANNED_IP_RESOLUTION"
+msgstr "Калі вы лічыце, што блакіроўка была памылковай, або ў вас дынамічны IP-адрас, які раней належыў парушальніку, калі ласка, звяжыцеся з адміністрацыяй."
+
+msgid "BANNED_IP_SUBTITLE"
+msgstr "Ваш IP-адрас заблакіраваны"
+
+msgid "BASE_AUTHLIKE"
+msgstr "Вы ўвайшлі як"
+
+msgid "BASE_COOKIE_ACCEPT"
+msgstr "Добра, прыняць"
+
+msgid "BASE_COOKIE_DECLINE"
+msgstr "Не, дзякуй"
+
+msgid "BASE_COOKIE_MESSAGE"
+msgstr "Усе дзеці любяць печыва, і мы таксама! Менавіта таму для стабільнай працы сайта мы выкарыстоўваем файлы Cookie. Больш падрабязна аб іх выкарыстанні напісана ў нашай"
+
+msgid "BASE_COOKIE_PRIVACYPOLICY"
+msgstr "Палітыцы прыватнасці"
+
+msgid "BASE_FOOTER_REPORT_PROBLEM"
+msgstr "Паведаміць пра праблему"
+
+msgid "BASE_FOOTER_TELEGRAM"
+msgstr "Наш Telegram-канал"
+
+msgid "BASE_FOOTER_TEXT_1"
+msgstr "З душою зроблена камандай DM,"
+
+msgid "BASE_FOOTER_TEXT_2"
+msgstr "Усе правы належаць зыходным праваўладальнікам"
+
+msgid "BASE_IMPERSONATE_ATTENTION"
+msgstr "Увага!"
+
+msgid "BASE_IMPERSONATE_RETURN"
+msgstr "Вярнуцца ў свой акаўнт"
+
+msgid "BASE_IMPERSONATE_WARNING"
+msgstr "Вы часова ўвайшлі ў чужы акаўнт. Калі ласка, не злоўжывайце гэтым функцыяналам!"
+
+msgid "BASE_LOGINBTN"
+msgstr "уваход"
+
+msgid "BASE_LOGINPOPUP_DESC"
+msgstr "У Вас ужо ёсць акаўнт? Прадстаўцеся."
+
+msgid "BASE_LOGINPOPUP_LOGINBTN"
+msgstr "Увайсці"
+
+msgid "BASE_LOGINPOPUP_LOGINFIELD"
+msgstr "Лагін:"
+
+msgid "BASE_LOGINPOPUP_PASSWORDFIELD"
 msgstr "Пароль:"
 
-#: templates/register_on.html:48
-msgid "PAGE_REGISTER_HELP_PASS1"
-msgstr "Прыдумывайце надзейныя паролі. Гэта важна, халера!"
+msgid "BASE_LOGINPOPUP_TITLE"
+msgstr "Аўтарызацыя"
 
-#: templates/register_on.html:53
-msgid "PAGE_REGISTER_LABEL_PASS2"
-msgstr "Паўтарыце пароль:"
+msgid "BASE_LOGOUTBTN"
+msgstr "выйсці"
 
-#: templates/register_on.html:61
-msgid "PAGE_REGISTER_HELP_PASS2"
-msgstr "Паўтарэнне - маці вучэння :D"
+msgid "BASE_OPRJ_GAMESBTN"
+msgstr "Гульні"
 
-#: templates/register_on.html:67
-msgid "PAGE_REGISTER_SECTION_CONFIRM"
-msgstr "Пацвярджэнне рэгістрацыі"
+msgid "BASE_OPRJ_OTHERPROJECTSBTN"
+msgstr "Усе праекты »"
 
-#: templates/register_on.html:71
-msgid "PAGE_REGISTER_CAPTCHA_INSTRUCTION"
-msgstr "Увядзіце сімвалы з карцінкі:"
+msgid "BASE_OPRJ_TITLE"
+msgstr "іншыя праекты"
 
-#: templates/register_on.html:104
-msgid "PAGE_REGISTER_BTN_SUBMIT"
-msgstr "Зарэгістравацца"
+msgid "BASE_PRIVACYPOLICYBTN"
+msgstr "Палітыка прыватнасці"
 
-#: templates/report_app.html:7 templates/report_problem.html:6
-msgid "PAGE_REPORTAPP_PAGE_TITLE"
-msgstr "Скарга на прыкладанне"
+msgid "BASE_REGISTERBTN"
+msgstr "рэгістрацыя"
 
-#: templates/report_app.html:38
-msgid "PAGE_REPORTAPP_INFO_1"
-msgstr "Вы збіраецеся адправіць скаргу на дадатак"
-
-#: templates/report_app.html:39
-msgid "PAGE_REPORTAPP_INFO_2"
-msgstr "Калі ласка, выберыце прычыну і апішыце праблему падрабязней:"
-
-#: templates/report_app.html:50
-msgid "PAGE_REPORTAPP_EXPLAIN_LABEL"
-msgstr "Дадатковая інфармацыя (абавязкова):"
-
-#: templates/report_app.html:59
-msgid "PAGE_REPORTAPP_SUBMIT_BTN"
-msgstr "Адправіць скаргу"
-
-#: templates/report_problem.html:17
-msgid "PAGE_REPORTPROBLEM_TITLE"
-msgstr "Паведаміць пра праблему"
-
-#: templates/report_problem.html:23
-msgid "PAGE_REPORTPROBLEM_INFO"
-msgstr ""
-"Тут вы можаце паведаміць пра любую праблему, якую выявілі на нашым сайце!"
-
-#: templates/report_problem.html:33
-msgid "PAGE_REPORTPROBLEM_SUBMIT_BTN"
-msgstr "Паведаміць пра праблему"
-
-#: templates/search.html:7
-msgid "PAGE_SEARCH_TITLE"
-msgstr "Пошук"
-
-#: templates/search.html:21
-msgid "PAGE_SEARCH_HEADING"
-msgstr "Увядзіце запыт"
-
-#: templates/search.html:33
-msgid "PAGE_SEARCH_INPUT_PLACEHOLDER"
-msgstr "Напрыклад: Total Commander"
-
-#: templates/search.html:35
-msgid "PAGE_SEARCH_BTN_SUBMIT"
+msgid "BASE_SEARCHBTN"
 msgstr "пошук"
 
-#: templates/search.html:41
-msgid "PAGE_SEARCH_LINK_ADVANCED"
-msgstr "Удакладніць параметры пошуку"
+msgid "BASE_SIDEBAR_ACCOUNT_INVITEBTN"
+msgstr "Прыгласіць"
 
-#: templates/search.html:49
-msgid "PAGE_SEARCH_FILTER_AUTHOR_ID"
-msgstr "ID аўтара"
+msgid "BASE_SIDEBAR_ACCOUNT_PROFILEBTN"
+msgstr "Мой профіль"
 
-#: templates/search.html:56
-msgid "PAGE_SEARCH_FILTER_CATEGORY"
-msgstr "Катэгорыя"
+msgid "BASE_SIDEBAR_ACCOUNT_SETTINGSBTN"
+msgstr "Налады"
 
-#: templates/search.html:58
-msgid "PAGE_SEARCH_FILTER_CATEGORY_ALL"
-msgstr "Усе катэгорыі"
-
-#: templates/search.html:74
-msgid "PAGE_SEARCH_FILTER_FREE"
-msgstr "Толькі бясплатныя"
-
-#: templates/search.html:81
-msgid "PAGE_SEARCH_BTN_RESET"
-msgstr "Скінуць фільтры"
-
-#: templates/search.html:98
-#, fuzzy, python-format
-#| msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
-msgid "PAGE_SEARCH_BADGE_DEMO_PRICE %(price)s"
-msgstr "Дэма, далей $%(price)s"
-
-#: templates/search.html:101
-msgid "PAGE_SEARCH_BADGE_DEMO"
-msgstr "Дэма"
-
-#: templates/search.html:107
-msgid "PAGE_SEARCH_BADGE_FREE"
-msgstr "Бясплатна"
-
-#: templates/search.html:113
-msgid "PAGE_SEARCH_BTN_DETAILS"
-msgstr "Падрабязней"
-
-#: templates/search.html:135
-#, python-format
-msgid "PAGE_SEARCH_MSG_NO_RESULTS %(q)s"
-msgstr "Пошук па запыце \"%(q)s\" не даў вынікаў"
-
-#: templates/search.html:137
-msgid "PAGE_SEARCH_MSG_NO_RESULTS_EMPTY"
-msgstr "Па вашым запыце нічога не знойдзена"
-
-#: templates/settings.html:6
-msgid "PAGE_SETTINGS_HTML_TITLE"
-msgstr "Налады акаўнта"
-
-#: templates/settings.html:25 templates/settings_apps.html:23
-#: templates/settings_security.html:22
-msgid "PAGE_SETTINGS_TAB_ACCOUNT"
+msgid "BASE_SIDEBAR_ACCOUNT_TITLE"
 msgstr "Акаўнт"
 
-#: templates/settings.html:29 templates/settings_apps.html:27
-#: templates/settings_security.html:26
-msgid "PAGE_SETTINGS_TAB_APPS"
-msgstr "Дадаткі"
+msgid "BASE_SIDEBAR_APP_DEV_SITE"
+msgstr "Сайт распрацоўшчыка"
 
-#: templates/settings.html:33 templates/settings_apps.html:31
-#: templates/settings_security.html:30
-msgid "PAGE_SETTINGS_TAB_SECURITY"
-msgstr "Бяспека"
+msgid "BASE_SIDEBAR_APP_EDIT"
+msgstr "Рэдагаваць старонку"
 
-#: templates/settings.html:42
-msgid "PAGE_SETTINGS_SECTION_BASIC"
-msgstr "Асноўная інфармацыя"
+msgid "BASE_SIDEBAR_APP_INSTALL"
+msgstr "Усталяваць"
 
-#: templates/settings.html:45
-msgid "PAGE_SETTINGS_LABEL_USERNAME"
-msgstr "Імя карыстальніка:"
+msgid "BASE_SIDEBAR_APP_REPORT"
+msgstr "Паскардзіцца"
 
-#: templates/settings.html:47
-msgid "PAGE_SETTINGS_WARN_USERNAME_FROZEN"
-msgstr "Імя карыстальніка пасля рэгістрацыі змяніць нельга"
+msgid "BASE_SIDEBAR_APP_TITLE"
+msgstr "Дадатак"
 
-#: templates/settings.html:50
-msgid "PAGE_SETTINGS_LABEL_EMAIL"
-msgstr "Кантактны e-mail:"
+msgid "BASE_SIDEBAR_CATEGORIES_HOME"
+msgstr "Галоўная старонка"
 
-#: templates/settings.html:54
-msgid "PAGE_SETTINGS_LABEL_TELEGRAM"
-msgstr "Telegram:"
+msgid "BASE_SIDEBAR_CATEGORIES_TITLE"
+msgstr "Катэгорыі"
 
-#: templates/settings.html:70
-msgid "PAGE_SETTINGS_LABEL_BIO"
-msgstr "Апісанне профіля:"
+msgid "CARD_USER_NO_DESC"
+msgstr "Апісанне профіля адсутнічае"
 
-#: templates/settings.html:75
-msgid "PAGE_SETTINGS_LABEL_DEV_STATUS"
-msgstr "Статус распрацоўшчыка:"
+msgid "ERROR_2FA_INVALID_CODE"
+msgstr "Няправільны код"
 
-#: templates/settings.html:77
-msgid "PAGE_SETTINGS_DEV_STATUS_HAS"
-msgstr "маецца"
+msgid "ERROR_2FA_INVALID_PASSWORD"
+msgstr "Няверны пароль"
 
-#: templates/settings.html:84 templates/settings_security.html:93
-#: templates/settings_security.html:117
-msgid "PAGE_SETTINGS_BTN_SAVE"
-msgstr "Захаваць"
+msgid "ERROR_ACCESS_DENIED_PROFILE"
+msgstr "Доступ забаронены. Пачніце з налад профіля."
 
-#: templates/settings.html:98
-msgid "PAGE_SETTINGS_SECTION_AVATAR"
-msgstr "Змяніць аватар"
+msgid "ERROR_CDNSECURITY"
+msgstr "Пры спампоўцы файла адбылася памылка бяспекі рухавіка LunaSpire. Калі ласка, звярніцеся з гэтай памылкай да адміністратара сайта, калі вы бачыце гэту памылку не ўпершыню."
 
-#: templates/settings.html:100
-msgid "PAGE_SETTINGS_INFO_AVATAR_RULES"
-msgstr ""
-"Рэкамендаваны памер аватара: 64x64. <br>Дапусцімыя "
-"фарматы: .PNG, .JPG<br>Максімальны памер: 2 Мб"
+msgid "ERROR_CDN_CHECKSUM_MISMATCH_SCREENSHOTS"
+msgstr "Памылка пры праверцы токенаў скрыншотаў."
 
-#: templates/settings.html:102
-msgid "PAGE_SETTINGS_LABEL_CHOOSE_FILE"
-msgstr "Выберыце файл:"
+msgid "ERROR_CDN_INVALID_FORMAT"
+msgstr "Недапушчальны фармат файла на серверы захавання (CDN). Калі ласка, звярніцеся да адміністратара."
 
-#: templates/settings.html:106
-msgid "PAGE_SETTINGS_BTN_UPLOAD"
-msgstr "Загрузіць"
+msgid "ERROR_CDN_SESSION_EXPIRED"
+msgstr "Час сэсіі загрузкі скончыўся. Паспрабуйце яшчэ раз."
 
-#: templates/settings.html:112
-msgid "PAGE_SETTINGS_SECTION_DELETE"
-msgstr "Выдаленне акаўнта"
+msgid "ERROR_CDN_TOKEN_EXPIRED"
+msgstr "Токен загрузкі састарэў або ўжо быў выкарыстаны."
 
-#: templates/settings.html:114
-msgid "PAGE_SETTINGS_DELETE_WARNING"
-msgstr ""
-"Калі Вы не хочаце карыстацца сайтам, то маеце поўнае права выдаліць свой "
-"акаўнт. <br><br>Аднак трэба разумець, што гэтае дзеянне пацягне за сабой "
-"знішчэнне дадзеных профіля <b>БЕЗ магчымасці аднаўлення</b>. Доступ да "
-"кіруемых старонак дадаткаў будзе знішчаны, а адпраўленыя водгукі будуць "
-"абязлічаны. <br><br>"
+msgid "ERROR_CDN_TOKEN_EXPIRED_OR_USED"
+msgstr "Токен загрузкі састарэў або ўжо быў выкарыстаны."
 
-#: templates/settings.html:122
-msgid "PAGE_SETTINGS_BTN_DELETE"
-msgstr "Выдаліць акаўнт"
+msgid "ERROR_CDN_TOKEN_INVALID"
+msgstr "Несапраўдны токен бяспекі CDN."
 
-#: templates/settings.html:133
-msgid "PAGE_SETTINGS_JS_SELECT_FILE"
-msgstr "Калі ласка, выберыце файл для загрузкі!"
+msgid "ERROR_CDN_TOKEN_INVALID_TYPE"
+msgstr "Няверны тып токена ад CDN."
 
-#: templates/settings.html:134
-msgid "PAGE_SETTINGS_JS_UPLOADING"
+msgid "ERROR_CDN_TOKEN_MISSING"
+msgstr "Токен CDN не дадзены."
+
+msgid "ERROR_CHECK_FORM"
+msgstr "Калі ласка, праверце форму. У некаторых палях дапушчаны памылкі."
+
+msgid "ERROR_CURRENT_PASSWORD_IS_WRONG"
+msgstr "Гэта няправільны пароль"
+
+msgid "ERROR_DIST_FORM_CDN_INFO_FAIL"
+msgstr "Не ўдалося атрымаць інфармацыю пра файл ад сервера захавання. Паспрабуйце пазней."
+
+msgid "ERROR_DIST_FORM_NO_FILE_OR_URL"
+msgstr "Трэба загрузіць файл або ўказаць спасылку для спампоўвання."
+
+msgid "ERROR_DIST_FORM_NO_VT_LINK"
+msgstr "Пры загрузцы файла спасылка на VirusTotal абавязковая."
+
+msgid "ERROR_DIST_SOURCE_REQUIRED"
+msgstr "Трэба пазначыць файл або спасылку для спампоўвання."
+
+msgid "ERROR_EMAIL_ALREADY_EXISTS"
+msgstr "Карыстальнік з такім e-mail ужо існуе."
+
+msgid "ERROR_EMAIL_ALREADY_IN_USE"
+msgstr "Гэты e-mail ужо выкарыстоўваецца."
+
+msgid "ERROR_EMAIL_DISPOSABLE_DOMAIN"
+msgstr "Рэгістрацыя з выкарыстаннем сэрвісаў часовай пошты забаронена."
+
+msgid "ERROR_EMAIL_DOMAIN_NO_MX %(domain)s"
+msgstr "Дамен %(domain)s не прымае пошту. Укажыце існуючы адрас."
+
+msgid "ERROR_EMAIL_INVALID_FORMAT"
+msgstr "Уведзены некарэктны адрас электроннай пошты."
+
+msgid "ERROR_EMAIL_IS_SAME"
+msgstr "Новы e-mail супадае з бягучым."
+
+msgid "ERROR_EMAIL_NO_ALIASES"
+msgstr "Выкарыстанне паштовых аліасаў са знакам \"+\" забаронена."
+
+msgid "ERROR_INVALID_FILE_FORMAT"
+msgstr "Памылка: Недапушчальны фармат файла!"
+
+msgid "ERROR_INVALID_IMAGE_FILE"
+msgstr "Не ўдалося апрацаваць выяву. Магчыма, файл пашкоджаны."
+
+msgid "ERROR_INVALID_LUNASPIRE_TOKEN"
+msgstr "Пры загрузцы быў атрыманы няправільны тып токена ад рухавіка LunaSpire. Калі ласка, звярніцеся з гэтай памылкай да адміністратара сайта, калі вы бачыце гэту памылку не ўпершыню."
+
+msgid "ERROR_INVALID_SIZE_ICON"
+msgstr "Памылка: Памер файла перавышае 2 Мб!"
+
+msgid "ERROR_MAX_AVATAR_DIMENSIONS"
+msgstr "Максімальны памер выявы — 64x64 пікселяў."
+
+msgid "ERROR_NEW_PASSWORDS_DONT_MATCH"
+msgstr "Новыя паролі не супадаюць"
+
+msgid "ERROR_NEW_PASSWORD_SAME_AS_OLD"
+msgstr "Новы пароль супадае са старым. Калі ласка, увядзіце іншы пароль."
+
+msgid "ERROR_NO_AGREERULES"
+msgstr "Вы павінны згадзіцца з правіламі!"
+
+msgid "ERROR_NO_APPNAME"
+msgstr "Увядзіце назву дадатка!"
+
+msgid "ERROR_PASSWORD_RESET_EMAIL_NOT_FOUND"
+msgstr "Акаўнт з такім адрасам электроннай пошты не знойдзены."
+
+msgid "ERROR_PREVIEWSCRNS_1_BIGSIZE"
+msgstr "Памылка: Файл"
+
+msgid "ERROR_PREVIEWSCRNS_1_COUNT"
+msgstr "Памылка: Выбрана"
+
+msgid "ERROR_PREVIEWSCRNS_1_INVALIDFORMAT"
+msgstr "Памылка: Файл"
+
+msgid "ERROR_PREVIEWSCRNS_2_BIGSIZE"
+msgstr " занадта вялікі (макс. 2 Мб)."
+
+msgid "ERROR_PREVIEWSCRNS_2_COUNT"
+msgstr " файлаў. Максімальная колькасць - 3."
+
+msgid "ERROR_PREVIEWSCRNS_2_INVALIDFORMAT"
+msgstr " мае недапушчальны фармат."
+
+msgid "ERROR_PREVIEWSCRNS_3_COUNT"
+msgstr "Максімум 3 файлы!"
+
+msgid "ERROR_PROFILE_OPENVK_INVALID"
+msgstr "Няправільны фармат імя карыстальніка OpenVK. Калі ласка, укажыце правільнае імя карыстальніка."
+
+msgid "ERROR_PROFILE_TELEGRAM_INVALID"
+msgstr "Няправільны фармат імя карыстальніка Telegram. Калі ласка, укажыце імя карыстальніка без спасылак і пратаколаў."
+
+msgid "ERROR_RATE_LIMIT_EXCEEDED"
+msgstr "Вы дасылаеце запыты занадта часта. Калі ласка, пачакайце некаторы час, каб працягнуць."
+
+msgid "ERROR_YOURE_NOT_OWNER_OF_APP"
+msgstr "Вы не з'яўляецеся адміністратарам гэтага дадатка."
+
+msgid "ERROR_YOU_DONT_HAVE_DEVSTATUS"
+msgstr "У вас няма статуса распрацоўшчыка для прагляду гэтай старонкі. Атрымаць его можна ў наладах Вашага профіля."
+
+msgid "FORM_AGREE_POLICY"
+msgstr "Я прымаю умовы прыватнасці"
+
+msgid "FORM_AGREE_RULES"
+msgstr "Я згодны з правіламі сайта і разумею наступствы іх парушэння"
+
+msgid "FORM_APPCREATE_MAXIMUM_SCREENSHOTS"
+msgstr "Максімум 3 скрыншоты."
+
+msgid "FORM_APPCREATE_TITLE_EXAMPLE"
+msgstr "Напрыклад: Total Commander"
+
+msgid "FORM_CAPTCHA"
+msgstr "Увядзіце сімвалы з карцінкі"
+
+msgid "FORM_DEVSTATUS_ABOUT_YOU"
+msgstr "Раскажыце пра сябе (да 1000 сімвалаў)"
+
+msgid "FORM_DEVSTATUS_GITHUB"
+msgstr "Спасылка на ваш GitHub"
+
+msgid "FORM_DEVSTATUS_GITHUB_HELP"
+msgstr "А чаму не? Мы проста хочам паглядзець на вашыя прыгожыя распрацоўкі :3"
+
+msgid "FORM_DEVSTATUS_WE_WILL_CONTACT"
+msgstr "Мы абавязкова звяжамся з Вамі. Па меншай меры паспрабуем."
+
+msgid "FORM_DEVSTATUS_WHY_YOU_CHOOSE"
+msgstr "Чаму Вы рашылі выбраць нас? (да 250 сімвалаў)"
+
+msgid "FORM_DEVSTATUS_YOUR_EMAIL"
+msgstr "Ваш e-mail"
+
+msgid "FORM_DEVSTATUS_YOUR_USERNAME"
+msgstr "Імя карыстальніка"
+
+msgid "FORM_INVITECODE_CODELIMITISNTOK_ERROR"
+msgstr "Ліміт прыглашэнняў па гэтым кодзе вычарпаны. Уладальнік прыгласіў занадта шмат людзей за апошні час."
+
+msgid "FORM_INVITECODE_DOESNOTEXIST_ERROR"
+msgstr "Такі інвайт-код не знойдзены."
+
+msgid "FORM_INVITECODE_ENTER"
+msgstr "Увядзіце код"
+
+msgid "FORM_INVITECODE_EXPIRED_ERROR"
+msgstr "Срок дзеяння кода скончаны (24 гадзіны). Папрасіце новы."
+
+msgid "FORM_INVITECODE_TITLE"
+msgstr "Код"
+
+msgid "FORM_PASSWORDCONFIRM_CONFIRM"
+msgstr "Пацвердзіце пароль"
+
+msgid "FORM_PASSWORDCONFIRM_ENTER"
+msgstr "Увядзіце бягучы пароль"
+
+msgid "FORM_PASSWORDCONFIRM_WRONGPASS"
+msgstr "Няверны пароль. Калі ласка, паспрабуйце зноў."
+
+msgid "FORM_SCREENSHOTS"
+msgstr "Скрыншоты"
+
+msgid "File extension “%(extension)s” is not allowed. Allowed extensions are: “%(allowed_extensions)s”."
+msgstr "Пашырэнне “%(extension)s” не дазволена. Дапусцімыя пашырэнні: “%(allowed_extensions)s”."
+
+msgid "INDEX_CATEGORY_PROMPT"
+msgstr "Або выберыце патрэбную катэгорыю:"
+
+msgid "INDEX_NO_CATEGORIES"
+msgstr "Катэгорыі пакуль не дададзены"
+
+msgid "INDEX_SEARCH_BTN"
+msgstr "Шукаць"
+
+msgid "INDEX_SEARCH_PLACEHOLDER"
+msgstr "Напрыклад: Total Commander"
+
+msgid "INDEX_SEARCH_SECTION_TITLE"
+msgstr "Пошук па каталозе"
+
+msgid "INDEX_WELCOME_TEXT"
+msgstr "Вітаем у LunaStore!<br>Зборнік дадаткаў і дапаўненняў для камфортнай працы з гэтай АС"
+
+msgid "INDEX_WELCOME_TITLE"
+msgstr "Сардэчна запрашаем"
+
+msgid "INFO_2FA_DISABLED"
+msgstr "Двухфакторная аўтэнтыфікацыя паспяхова адключана."
+
+msgid "INFO_2FA_ENABLED"
+msgstr "Двухфакторная аўтэнтыфікацыя паспяхова ўключана."
+
+msgid "INFO_ACCEPTED_AVATAR_FORMATS"
+msgstr "Дапусцімыя фарматы: .JPG, .PNG, .WEBP, .GIF"
+
+msgid "INFO_ACCEPTED_ICON_FORMATS"
+msgstr "Дазволены толькі: .JPG, .JPEG, .PNG"
+
+msgid "INFO_ACCOUNT_WAS_DELETED"
+msgstr "Ваш акаўнт быў паспяхова выдалены. Калі вырашыце вярнуцца — мы заўсёды вас чакаем на нашым сайце!"
+
+msgid "INFO_API_SESSION_REVOKED"
+msgstr "Ключ доступу да API паспяхова адкліканы."
+
+msgid "INFO_APP_CREATE_REQUEST_WAS_SENT"
+msgstr "Заява адпраўлена на разгляд"
+
+msgid "INFO_APP_DEMO"
+msgstr "Дэма"
+
+msgid "INFO_APP_DEMOWITHPRICE"
+msgstr "Дэма, далей"
+
+msgid "INFO_APP_FREE"
+msgstr "Бясплатна"
+
+msgid "INFO_APP_WITHPRICE"
+msgstr "Платнае:"
+
+msgid "INFO_AVATAR_WAS_CHANGED"
+msgstr "Аватар абноўлены"
+
+msgid "INFO_AVATAR_WAS_UPLOADED"
+msgstr "Аватар паспяхова загружаны!"
+
+msgid "INFO_CATEGORY_LIST_EMPTY"
+msgstr "пустаааа...."
+
+msgid "INFO_EMAIL_WAS_CHANGED"
+msgstr "Ваш e-mail быў паспяхова зменены."
+
+msgid "INFO_MAXIMUM_AVATAR_SIZE"
+msgstr "Максімальны памер файла: 2 Мб."
+
+msgid "INFO_NO_SCREENSHOTS"
+msgstr "Няма скрыншотаў"
+
+msgid "INFO_PASSWORD_WAS_CHANGED"
+msgstr "Пароль паспяхова зменены"
+
+msgid "INFO_PROFILE_IS_UPDATED"
+msgstr "Профіль абноўлены"
+
+msgid "INFO_RECOMENDATIONS_FOR_UPLOAD_AVATAR"
+msgstr "Рэкамендаваны памер: 64x64. Фарматы: .PNG, .JPG. Макс.: 2 Мб."
+
+msgid "INFO_SELECTED_FILES"
+msgstr "Выбрана файлаў:"
+
+msgid "INFO_YOUR_IP_WAS_BANNED"
+msgstr "Ваш IP-адрас заблакіраваны. Калі вы лічыце, што адбылася памылка і вас заблакіравалі 'без прычыны', калі ласка, напішыце нам на электронную пошту: daniel@myslivets.com"
+
+msgid "JS_MARKETPLACE_ERROR"
+msgstr "Памылка LunaSpire:"
+
+msgid "JS_MARKETPLACE_FILE_ERROR"
+msgstr "Памылка пры перадачы файла "
+
+msgid "JS_MARKETPLACE_RETRY"
+msgstr "Паспрабаваць зноў"
+
+msgid "JS_MARKETPLACE_TOKEN_ERROR"
+msgstr "Не ўдалося атрымаць токен загрузкі"
+
+msgid "JS_MARKETPLACE_UPLOADING"
 msgstr "Загрузка..."
 
-#: templates/settings.html:135
-msgid "PAGE_SETTINGS_JS_ERR_TOKEN"
-msgstr ""
-"Не ўдалося атрымаць бяспечны токен LunaSpire для загрузцы. Калі ласка, "
-"звярніцеся з гэтай памылкай да адміністратара сайта."
+msgid "LunaStore Admin"
+msgstr "сука хто зноў крыва пераклады ўставіў"
 
-#: templates/settings.html:136
-msgid "PAGE_SETTINGS_JS_ERR_CDN"
-msgstr ""
-"Адбылася памылка пры захаванні файла на серверы LunaSpire. Калі ласка, "
-"звярніцеся з гэтай памылкай да адміністратара сайта."
+msgid "MD_ALERT_CAUTION"
+msgstr "Асцярожна"
 
-#: templates/settings.html:137
-msgid "PAGE_SETTINGS_JS_ERR_PREFIX"
-msgstr "Адбылася памылка:"
+msgid "MD_ALERT_IMPORTANT"
+msgstr "Важна"
 
-#: templates/settings_apps.html:6
-msgid "PAGE_MANAGE_APPS_TITLE"
-msgstr "Адміністрыруемыя прыкладанні"
+msgid "MD_ALERT_NOTE"
+msgstr "Заўвага"
 
-#: templates/settings_apps.html:38
-msgid "PAGE_MANAGE_APPS_CREATE"
-msgstr "Стварыць дадатак"
+msgid "MD_ALERT_TIP"
+msgstr "Парада"
 
-#: templates/settings_apps.html:41
-msgid "PAGE_MANAGE_APPS_HEADER"
-msgstr "Адміністрыруемыя старонкі дадаткаў"
+msgid "MD_ALERT_WARNING"
+msgstr "Папярэджанне"
 
-#: templates/settings_apps.html:45
-msgid "PAGE_MANAGE_APPS_COUNT"
-msgstr "Адміністрыруемыя дадаткі"
+msgid "MSG_DIST_CREATE_REQ_SENT"
+msgstr "Заява на дабаўленне новай версіі адпраўлена на мадэрацыю."
 
-#: templates/settings_apps.html:47
-msgid "PAGE_MANAGE_APPS_MY_APPS"
-msgstr "Мае дадаткі"
+msgid "MSG_DIST_EDIT_REQ_SENT"
+msgstr "Заява на змену версіі адпраўлена на мадэрацыю."
 
-#: templates/settings_apps.html:62 templates/settings_apps.html:78
-msgid "PAGE_MANAGE_APPS_ROLE_OWNER"
-msgstr "Уладальнік"
+msgid "NOTIFICATIONS_LOADING"
+msgstr "Загрузка паведамленняў..."
 
-#: templates/settings_apps.html:63
-msgid "PAGE_MANAGE_APPS_BTN_EDIT"
-msgstr "рэдагаваць"
+msgid "NOTIF_APPEDITREQ_ACCEPTED_DESCRIPTION"
+msgstr "Ваша заява на рэдагаванне дадатка %(app_name)s была адобрана."
 
-#: templates/settings_apps.html:89
-msgid "PAGE_MANAGE_APPS_EMPTY_DESC"
-msgstr "Вы пакуль што не кіруеце ніводным дадаткам."
+msgid "NOTIF_APPEDITREQ_ACCEPTED_TITLE"
+msgstr "Статус заявы на рэдагаванне дадатка"
 
-#: templates/settings_security.html:38
+msgid "NOTIF_APPEDITREQ_DECLINED_DESCRIPTION"
+msgstr "Ваша заява на рэдагаванне дадатка %(app_name)s была адхілена. Прычына: %(reason)s"
+
+msgid "NOTIF_APPEDITREQ_DECLINED_TITLE"
+msgstr "Статус заявы на рэдагаванне дадатка"
+
+msgid "NOTIF_APPREQ_ACCEPTED_DESCRIPTION"
+msgstr "Віншуем! Ваша заява на стварэнне дадатка %(app_name)s была адобрана і ён быў апублікаваны ў LunaStore."
+
+msgid "NOTIF_APPREQ_ACCEPTED_TITLE"
+msgstr "Статус заявы"
+
+msgid "NOTIF_APPREQ_DECLINED_DESCRIPTION"
+msgstr "Ваша заява на стварэнне дадатка %(app_name)s была адхілена. Прычына: %(reason)s"
+
+msgid "NOTIF_APPREQ_DECLINED_TITLE"
+msgstr "Статус заявы"
+
+msgid "NOTIF_DEVSTATUS_ACCEPTED_DESCRIPTION"
+msgstr "Віншуем! Ваша заява была адобрана і вы атрымалі магчымасці распрацоўшчыка/выдаўца дадаткаў."
+
+msgid "NOTIF_DEVSTATUS_ACCEPTED_TITLE"
+msgstr "Статус распрацоўшчыка"
+
+msgid "NOTIF_DEVSTATUS_DECLINED_DESCRIPTION"
+msgstr "Ваша заява была адхілена і вы не атрымалі магчымасці распрацоўшчыка/выдаўца дадаткаў. Прычына: %(reason)s"
+
+msgid "NOTIF_DEVSTATUS_DECLINED_TITLE"
+msgstr "Статус распрацоўшчыка"
+
+msgid "NOTIF_DEVSTATUS_SEND_DESCRIPTION"
+msgstr "Ваша заява была паспяхова адпраўлена. Адказ прыйдзе ў раздзеле «Паведамленні». Нічога рабіць не трэба."
+
+msgid "NOTIF_DEVSTATUS_SEND_TITLE"
+msgstr "Статус распрацоўшчыка"
+
+msgid "NOTIF_DISTREQ_ACCEPTED_DESCRIPTION"
+msgstr "Ваша заява на публікацыю версіі %(version)s для праграмы \"%(app_name)s\" была адобрана мадэратарам."
+
+msgid "NOTIF_DISTREQ_ACCEPTED_TITLE"
+msgstr "Апублікавана новая версія!"
+
+msgid "NOTIF_DISTREQ_DECLINED_DESCRIPTION"
+msgstr "На жаль, ваша заява на публікацыю версіі %(version)s для \"%(app_name)s\" была адхілена. Прычына: %(reason)s"
+
+msgid "NOTIF_DISTREQ_DECLINED_TITLE"
+msgstr "Заява на публікацыю адхілена"
+
+msgid "NOTIF_LOGIN_DESCRIPTION"
+msgstr "У ваш акаўнт быў выкананы ўваход • Прылада: %(browser)s (%(os)s) • IP-адрас: %(ip)s • Месцазнаходжанне: %(location)s • Калі гэта не вы, хутка змяніце пароль."
+
+msgid "NOTIF_LOGIN_TITLE"
+msgstr "Новы ўваход у акаўнт"
+
+msgid "NOTIF_WELCOME_DESCRIPTION"
+msgstr "Дзякуй за рэгістрацыю! Вельмі прыемна, што Вы засталіся неабыякавымі да даведніка дадаткаў. Спадзяюся, Вам вельмі спадабаецца!"
+
+msgid "NOTIF_WELCOME_TITLE"
+msgstr "Сардэчна запрашаем у LunaStore"
+
+msgid "PAGE_2FA_ATTEMPT_HEADER"
+msgstr "Двухфакторная праверка"
+
+msgid "PAGE_2FA_ATTEMPT_SUBTITLE"
+msgstr "Увядзіце код для завяршэння ўваходу"
+
+msgid "PAGE_2FA_ATTEMPT_TITLE"
+msgstr "Увод кода 2FA"
+
+msgid "PAGE_2FA_CONNECT_BTN"
+msgstr "Падключыць"
+
+msgid "PAGE_2FA_CONTINUE_BTN"
+msgstr "Працягнуць"
+
+msgid "PAGE_2FA_DISABLE_BTN"
+msgstr "Адключыць 2FA"
+
+msgid "PAGE_2FA_DISABLE_CONFIRM"
+msgstr "Вы ўпэўненыя, што хочаце адключыць 2FA? Гэта знізіць узровень бяспекі вашага акаўнта."
+
+msgid "PAGE_2FA_DISABLE_INFO"
+msgstr "Калі вы хочаце адключыць гэты метад уваходу, націсніце на кнопку ніжэй."
+
+msgid "PAGE_2FA_ENABLED_INFO"
+msgstr "На гэтым акаўнце ўключаны дадатковы метад уваходу праз увод часовага кода доступу паверх стандартнага лагіна і пароля"
+
+msgid "PAGE_2FA_ENTER_CODE"
+msgstr "увядзіце атрыманы код"
+
+msgid "PAGE_2FA_ENTER_CODE_HEADER"
+msgstr "Увод кода"
+
+msgid "PAGE_2FA_INFO_1"
+msgstr "Забяспечце абарону свайго акаўнта дадатковым метадам уваходу праз увод часовага кода доступу паверх стандартнага лагіна і пароля"
+
+msgid "PAGE_2FA_INFO_2"
+msgstr "Для пачатку налады вам спатрэбіцца генератар кодаў (напрыклад: <b>Google Authenticator</b>, <b>KeePassXC</b> або <b>Aegis</b>)"
+
+msgid "PAGE_2FA_INFO_3"
+msgstr "Генерацыя кодаў працуе без сотавай сувязі і якога-небудзь падключэння да сеткі. Адсканіруйце дадаткам гэты QR-код на экране, увядзіце атрыманыя 6 лічбаў і націсніце \"Падключыць\""
+
+msgid "PAGE_2FA_INITIAL_SETUP"
+msgstr "Першапачатковая налада"
+
+msgid "PAGE_2FA_MANAGE"
+msgstr "Кіраванне"
+
 msgid "PAGE_2FA_MANAGE_INFO"
 msgstr "Кіраванне дадатковым метадам уваходу па аднаразовым кодзе"
 
-#: templates/settings_security.html:79
-msgid "PAGE_SETTINGS_SECTION_PASSWORD"
-msgstr "Змяніць пароль"
+msgid "PAGE_2FA_OPEN_GENERATOR"
+msgstr "Адкрыйце генератар кодаў і ўвядзіце атрыманы код"
 
-#: templates/settings_security.html:86
-msgid "PAGE_SETTINGS_LABEL_NEW_PASS"
-msgstr "Новы пароль:"
+msgid "PAGE_2FA_PASSWORD_CONFIRM"
+msgstr "Пацвярджэнне доступу"
 
-#: templates/settings_security.html:90
-msgid "PAGE_SETTINGS_LABEL_CONFIRM_PASS"
-msgstr "Паўтарыце пароль:"
+msgid "PAGE_2FA_PASSWORD_CONFIRM_TITLE"
+msgstr "Пацвярджэнне пароля"
 
-#: templates/settings_security.html:101
-msgid "PAGE_SETTINGS_SECTION_CHANGE_EMAIL"
-msgstr "Змяніць e-mail"
+msgid "PAGE_2FA_PASSWORD_PROMPT"
+msgstr "Для доступу да кіравання 2FA, калі ласка, увядзіце пароль ад вашага акаўнта."
 
-#: templates/settings_security.html:103
-msgid "PAGE_SETTINGS_INFO_EMAIL_CHANGE"
-msgstr "Змена e-mail патрабуе пацвярджэння паролем."
+msgid "PAGE_2FA_SECRET_KEY"
+msgstr "Ваш сакрэтны ключ"
 
-#: templates/storepage.html:28
-msgid "PAGE_APP_LABEL_NOT_TRANSLATED"
-msgstr ""
-"На жаль, той, хто загрузіў дадатак, не зрабіў пераклад на вашу мову. Таму "
-"зараз вы бачыце арыгінал."
+msgid "PAGE_2FA_SUBTITLE_MANAGE"
+msgstr "Кіраванне ўваходам па аднаразовым кодзе"
 
-#: templates/storepage.html:51
-msgid "PAGE_APP_LABEL_AUTHOR"
-msgstr "Апублікаваў:"
+msgid "PAGE_2FA_TITLE"
+msgstr "Двухфакторная аўтэнтыфікацыя"
 
-#: templates/storepage.html:64
-msgid "PAGE_APP_PRICE_DEMO_WITH_COST"
-msgstr "Дэма, далей"
+msgid "PAGE_ADDAPP_BACKBTN"
+msgstr "Назад"
 
-#: templates/storepage.html:68
-msgid "PAGE_APP_PRICE_DEMO_FREE"
-msgstr "Дэма"
+msgid "PAGE_ADDAPP_CHECKINFO_ACTIONS"
+msgstr "Дзеянні"
 
-#: templates/storepage.html:74
-msgid "PAGE_APP_PRICE_PAID"
-msgstr "Платнае:"
+msgid "PAGE_ADDAPP_CHECKINFO_AUTHOR_1"
+msgstr "Аўтар:"
 
-#: templates/storepage.html:76
-msgid "PAGE_APP_PRICE_FREE"
-msgstr "Бясплатна"
+msgid "PAGE_ADDAPP_CHECKINFO_AUTHOR_2"
+msgstr "Вы"
 
-#: templates/storepage.html:86
-msgid "PAGE_APP_BTN_BUY"
-msgstr "Купіць"
+msgid "PAGE_ADDAPP_CHECKINFO_GOTODEVSITE"
+msgstr "Перайсці на афіцыйны сайт распрацоўшчыка"
 
-#: templates/storepage.html:88
-msgid "PAGE_APP_BTN_INSTALL"
-msgstr "Усталяваць"
+msgid "PAGE_ADDAPP_CHECKINFO_NAME"
+msgstr "Назва"
 
-#: templates/storepage.html:106
-msgid "PAGE_APP_MSG_DEMO_WARNING"
-msgstr ""
-"Праграма распаўсюджваецца ў якасці дэма-версіі, за поўную версію трэба "
-"заплаціць яе аўтару. Файл дадзены з афіцыйнага сайта распрацоўшчыка."
+msgid "PAGE_ADDAPP_CHECKINFO_NOTIFY"
+msgstr "Праверце ўсю інфармацыю перад публікацыяй. Пасля мадэрацыі старонка будзе апублікавана аўтаматычна і вы зможаце загружаць туды новыя файлы."
 
-#: templates/storepage.html:115
-msgid "PAGE_APP_MSG_DMCA_ERROR"
-msgstr ""
-"Па запыце зыходнага праваўладальніка спампаваць файл на дадзены момант не "
-"атрымаецца. Прыносім свае выбачэнні."
-
-#: templates/storepage.html:142
-msgid "PAGE_APP_SECTION_SCREENSHOTS"
-msgstr "Скрыншоты"
-
-#: templates/storepage.html:149
-msgid "PAGE_APP_IMG_ALT_SCREENSHOT"
-msgstr "Скрыншот"
-
-#: templates/storepage.html:153
-msgid "PAGE_APP_MSG_NO_SCREENSHOTS"
-msgstr "Скрыншотаў няма."
-
-#: templates/storepage.html:160
-msgid "PAGE_APP_SECTION_DESC"
+msgid "PAGE_ADDAPP_CHECKINFO_OTHERINFO"
 msgstr "Дадатковая інфармацыя"
 
-#: templates/storepage.html:166
-msgid "PAGE_APP_SECTION_REQ"
-msgstr "Сістэмныя патрабаванні"
+msgid "PAGE_ADDAPP_CHECKINFO_SCREENSHOTS"
+msgstr "Скрыншоты"
 
-#: templates/storepage.html:172
-#, fuzzy
-#| msgid "PAGE_APP_SECTION_ACTIONS"
-msgid "PAGE_APP_SECTION_RATING"
+msgid "PAGE_ADDAPP_CHECKINFO_SLOGAN"
+msgstr "Слоган..."
+
+msgid "PAGE_ADDAPP_EDITAPPBTN"
+msgstr "Рэдагаваць"
+
+msgid "PAGE_ADDAPP_NEXTBTN"
+msgstr "Далей"
+
+msgid "PAGE_ADDAPP_PAGETITLE"
+msgstr "Дабаўленне дадатка"
+
+msgid "PAGE_ADDAPP_SENDAPPBTN"
+msgstr "Адправіць на разгляд"
+
+msgid "PAGE_ADDAPP_STEP1"
+msgstr "Этап 1"
+
+msgid "PAGE_ADDAPP_STEP1_AGREE_RULES"
+msgstr "Я згодны з правіламі сайта і разумею наступствы іх парушэння"
+
+msgid "PAGE_ADDAPP_STEP1_DESC"
+msgstr "Пачатак"
+
+msgid "PAGE_ADDAPP_STEP1_ICON"
+msgstr "Значок дадатка:"
+
+msgid "PAGE_ADDAPP_STEP1_ICONDESC_1"
+msgstr "Рэкамендуемы памер аватара: 64x64."
+
+msgid "PAGE_ADDAPP_STEP1_ICONDESC_2"
+msgstr "Дапушчальныя фарматы: .PNG, .JPG"
+
+msgid "PAGE_ADDAPP_STEP1_ICONDESC_3"
+msgstr "Максімальны памер: 2 Мб"
+
+msgid "PAGE_ADDAPP_STEP1_NAME"
+msgstr "Асноўная інфармацыя"
+
+msgid "PAGE_ADDAPP_STEP1_SLOGAN"
+msgstr "Слоган (140 сімвалаў):"
+
+msgid "PAGE_ADDAPP_STEP1_SLOGANDESC_1"
+msgstr "Слоган будзе адлюстроўвацца на самой старонцы дадатка, на галоўнай і ў пошуку"
+
+msgid "PAGE_ADDAPP_STEP1_SLOGANDESC_2"
+msgstr "Кораткасць — сястра таленту :)"
+
+msgid "PAGE_ADDAPP_STEP1_TITLE"
+msgstr "Назва:"
+
+msgid "PAGE_ADDAPP_STEP1_TITLEDESC"
+msgstr "Адметная і запамінальная назва даст дадатку бонус да распазнавальнасці сярод карыстальнікаў"
+
+msgid "PAGE_ADDAPP_STEP2"
+msgstr "Этап 2"
+
+msgid "PAGE_ADDAPP_STEP2_CATEGORY"
+msgstr "Катэгорыя:"
+
+msgid "PAGE_ADDAPP_STEP2_CATEGORYDESC"
+msgstr "Гэта вельмі важна для правільнага пошуку і паказу дадатка ў адпаведных блоках. Адміністрацыя мае магчымасць змяніць катэгорыю на свой погляд"
+
+msgid "PAGE_ADDAPP_STEP2_DESC"
+msgstr "Апісанне (1400 сімвалаў):"
+
+msgid "PAGE_ADDAPP_STEP2_DESCDESC"
+msgstr "Апісанне будзе паказвацца на старонцы дадатка ў блоку 'Дадатковая інфармацыя'"
+
+msgid "PAGE_ADDAPP_STEP2_DESC_1"
+msgstr "Дадатковая"
+
+msgid "PAGE_ADDAPP_STEP2_DESC_2"
+msgstr "інфармацыя"
+
+msgid "PAGE_ADDAPP_STEP2_DEVSITE"
+msgstr "Афіцыйны сайт распрацоўшчыка:"
+
+msgid "PAGE_ADDAPP_STEP2_NAME"
+msgstr "Дадатковая інфармацыя"
+
+msgid "PAGE_ADDAPP_STEP2_REQ"
+msgstr "Сістэмныя патрабаванні (1400 сімвалаў):"
+
+msgid "PAGE_ADDAPP_STEP2_REQDESC"
+msgstr "Сістэмныя патрабаванні будуць паказвацца на старонцы дадатка ў блоку 'Дадатковая інфармацыя'"
+
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTS"
+msgstr "Скрыншоты:"
+
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_1"
+msgstr "Максімальная колькасць скрыншотаў: 3"
+
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_2"
+msgstr "Дапушчальныя фарматы: .PNG, .JPG"
+
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_3"
+msgstr "Максімальны памер: 2 Мб"
+
+msgid "PAGE_ADDAPP_STEP3"
+msgstr "Этап 3"
+
+msgid "PAGE_ADDAPP_STEP3_DESC_1"
+msgstr "Прагляд перад"
+
+msgid "PAGE_ADDAPP_STEP3_DESC_2"
+msgstr "публікацыяй"
+
+msgid "PAGE_ADDAPP_SUCCESS"
+msgstr "Ваша заява на дабаўленне дадатка паспяхова адпраўлена."
+
+msgid "PAGE_ADMIN_APP_CATEGORY"
+msgstr "Катэгорыя:"
+
+msgid "PAGE_ADMIN_APP_CATEGORYDESC"
+msgstr "Гэта вельмі важна для правільнага пошуку..."
+
+msgid "PAGE_ADMIN_APP_CURRENTSCRN"
+msgstr "Бягучыя скрыншоты"
+
+msgid "PAGE_ADMIN_APP_DESC"
+msgstr "Апісанне (1000 сімвалаў):"
+
+msgid "PAGE_ADMIN_APP_DESCDESC"
+msgstr "Апісанне будзе паказвацца на старонцы дадатка ў блоку 'Дадатковая інфармацыя'"
+
+msgid "PAGE_ADMIN_APP_DEVSITE"
+msgstr "Афіцыйны сайт распрацоўшчыка:"
+
+msgid "PAGE_ADMIN_APP_DIST_ACTIONS"
 msgstr "Дзеянні"
 
-#: templates/storepage.html:191
-#, fuzzy
-#| msgid "PAGE_APP_ACTION_REPORT"
-msgid "PAGE_APP_RATING_YOUR"
-msgstr "Паскардзіцца на дадатак"
+msgid "PAGE_ADMIN_APP_DIST_ACTION_DELETE"
+msgstr "Выдаліць"
 
-#: templates/storepage.html:201
-#, fuzzy
-#| msgid "PAGE_APP_ACTION_REPORT"
-msgid "PAGE_APP_RATING_LOGIN_PROMPT"
-msgstr "Паскардзіцца на дадатак"
+msgid "PAGE_ADMIN_APP_DIST_ACTION_EDIT"
+msgstr "Змяніць"
 
-#: templates/storepage.html:213
-#, fuzzy
-#| msgid "PAGE_APP_ACTION_SITE"
-msgid "PAGE_APP_RATING_USERS"
-msgstr "Перайсці на афіцыйны сайт распрацоўшчыка"
+msgid "PAGE_ADMIN_APP_DIST_ADD_NEW"
+msgstr "Дадаць новую версію"
 
-#: templates/storepage.html:220
-#, fuzzy
-#| msgid "PAGE_APP_ACTION_SITE"
-msgid "PAGE_APP_RATING_YOUR_REVIEW"
-msgstr "Перайсці на афіцыйны сайт распрацоўшчыка"
+msgid "PAGE_ADMIN_APP_DIST_DATE"
+msgstr "Дата"
 
-#: templates/storepage.html:233
-#, fuzzy
-#| msgid "PAGE_APP_ACTION_MORE_APPS"
-msgid "PAGE_APP_RATING_NO_REVIEWS"
-msgstr "Паглядзець іншыя праграмы аўтара"
+msgid "PAGE_ADMIN_APP_DIST_DL_LINK_BLOCK"
+msgstr "Спасылка на старонку спамповак"
 
-#: templates/storepage.html:262
-msgid "PAGE_APP_SECTION_ACTIONS"
-msgstr "Дзеянні"
+msgid "PAGE_ADMIN_APP_DIST_DL_LINK_TEXT"
+msgstr "Адкрыць спіс версій"
 
-#: templates/storepage.html:266
-msgid "PAGE_APP_ACTION_SITE"
-msgstr "Перайсці на афіцыйны сайт распрацоўшчыка"
+msgid "PAGE_ADMIN_APP_DIST_EMPTY"
+msgstr "Пакуль што няма загружаных версій."
 
-#: templates/storepage.html:268
-msgid "PAGE_APP_ACTION_REPORT"
-msgstr "Паскардзіцца на дадатак"
+msgid "PAGE_ADMIN_APP_DIST_HEADER"
+msgstr "Кіраванне дыстрыбуцыямі —"
 
-#: templates/storepage.html:269
+msgid "PAGE_ADMIN_APP_DIST_NO_NOTES"
+msgstr "Без заўваг"
+
+msgid "PAGE_ADMIN_APP_DIST_PENDING_CREATE"
+msgstr "(Стварэнне новай) — Разглядаецца"
+
+msgid "PAGE_ADMIN_APP_DIST_PENDING_EDIT"
+msgstr "(Змена) — Разглядаецца"
+
+msgid "PAGE_ADMIN_APP_DIST_PENDING_TITLE"
+msgstr "Заявы, якія чакаюць мадэрацыі:"
+
+msgid "PAGE_ADMIN_APP_DIST_SAVE"
+msgstr "Захаваць"
+
+msgid "PAGE_ADMIN_APP_DIST_VERSION"
+msgstr "Версія"
+
+msgid "PAGE_ADMIN_APP_DIST_VERSION_LABEL"
+msgstr "Версія"
+
+msgid "PAGE_ADMIN_APP_FIRST_BLOCK"
+msgstr "Інфо"
+
+msgid "PAGE_ADMIN_APP_ICON"
+msgstr "Значок дадатка"
+
+msgid "PAGE_ADMIN_APP_ICON_REQ1"
+msgstr "Рэкамендаваны памер значка: 64x64."
+
+msgid "PAGE_ADMIN_APP_ICON_REQ2"
+msgstr "Дапушчальныя фарматы: .PNG, .JPG"
+
+msgid "PAGE_ADMIN_APP_ICON_REQ3"
+msgstr "Максімальны памер: 2 Мб"
+
+msgid "PAGE_ADMIN_APP_ID"
+msgstr "ID дадатка:"
+
+msgid "PAGE_ADMIN_APP_IDDESC"
+msgstr "Гэту інфармацыю змяніць нельга"
+
+msgid "PAGE_ADMIN_APP_LOAD_ICON"
+msgstr "Загрузіць значок"
+
+msgid "PAGE_ADMIN_APP_LOAD_SCRN"
+msgstr "Загрузіць новыя скрыншоты (максімум 3 шт.)"
+
+msgid "PAGE_ADMIN_APP_MSG_SAVE_ERROR"
+msgstr "Адбылася памылка пры захаванні формы. Праверце ўведзеныя даныя."
+
+msgid "PAGE_ADMIN_APP_MSG_SAVE_SUCCESS"
+msgstr "Заява на абнаўленне даных паспяхова адпраўлена на мадэрацыю."
+
+msgid "PAGE_ADMIN_APP_NOICON"
+msgstr "Няма іконкі"
+
+msgid "PAGE_ADMIN_APP_PAGETITLE"
+msgstr "Рэдагаванне дадатка"
+
+msgid "PAGE_ADMIN_APP_PROFILE_BLOCK"
+msgstr "Асноўная інфармацыя"
+
+msgid "PAGE_ADMIN_APP_REQ"
+msgstr "Сістэмныя патрабаванні (1400 сімвалаў):"
+
+msgid "PAGE_ADMIN_APP_REQDESC"
+msgstr "Сістэмныя патрабаванні будуць паказвацца на старонцы дадатка ў блоку 'Дадатковая інфармацыя'"
+
+msgid "PAGE_ADMIN_APP_SCRNS_TITLE"
+msgstr "Скрыншоты"
+
+msgid "PAGE_ADMIN_APP_SLOGAN"
+msgstr "Слоган (140 сімвалаў):"
+
+msgid "PAGE_ADMIN_APP_SLOGANDESC"
+msgstr "Слоган будзе адлюстроўвацца на самой старонцы дадатка, на галоўнай і ў пошуку"
+
+msgid "PAGE_ADMIN_APP_SLOGANDESC_2"
+msgstr "Кораткасць — сястра таленту :)"
+
+msgid "PAGE_ADMIN_APP_TAB_DISTRIBUTIONS"
+msgstr "Файлы"
+
+msgid "PAGE_ADMIN_APP_TITLE"
+msgstr "Назва дадатка:"
+
+msgid "PAGE_ADMIN_APP_TITLEDESC"
+msgstr "Адметная і запамінальная назва даст дадатку бонус да распазнавальнасці сярод карыстальнікаў"
+
+msgid "PAGE_ADMIN_APP_TRANSLATIONINFO"
+msgstr "Пераклад інфармацыі пра Ваш дадатак можа павысіць яго пазнавальнасць для замежнай аўдыторыі, а таксама палепшыць яго бачнасць у пошукавых сістэмах. Ва ўсялякім выпадку, мы раім аўтарам рабіць пераклады на розныя мовы."
+
+msgid "PAGE_ADMIN_APP_WARN_SCRN"
+msgstr "Увага: Загрузка новых файлаў выдаліць усе бягучыя скрыншоты!"
+
+msgid "PAGE_API_EXPIRES"
+msgstr "Сканчаецца:"
+
+msgid "PAGE_API_ISSUED"
+msgstr "Выдадзен:"
+
+msgid "PAGE_API_NO_SESSIONS"
+msgstr "У вас няма актыўных ключоў доступу да API."
+
+msgid "PAGE_API_REVOKE"
+msgstr "Адклікаць"
+
+msgid "PAGE_API_SESSIONS_DESC"
+msgstr "Прылады і кліенты, якія выкарыстоўваюць API-доступ да вашага акаўнта."
+
+msgid "PAGE_API_SESSIONS_TITLE"
+msgstr "Ключы доступу да API"
+
+msgid "PAGE_API_TOKEN"
+msgstr "API-токен"
+
 msgid "PAGE_APP_ACTION_MORE_APPS"
 msgstr "Паглядзець іншыя праграмы аўтара"
 
-#: templates/user/password_reset_complete.html:5
-#, fuzzy
-#| msgid "PAGE_2FA_PASSWORD_CONFIRM_TITLE"
-msgid "PAGE_PASSWORD_RESET_COMPLETE_TITLE"
-msgstr "Пацвярджэнне пароля"
+msgid "PAGE_APP_ACTION_REPORT"
+msgstr "Паскардзіцца на дадатак"
 
-#: templates/user/password_reset_complete.html:9
-#: templates/user/password_reset_confirm.html:9
-#: templates/user/password_reset_done.html:9
-#: templates/user/password_reset_form.html:9
-#, fuzzy
-#| msgid "PAGE_DIST_EDIT_HEADER"
-msgid "PAGE_PASSWORD_RESET_HEADER"
+msgid "PAGE_APP_ACTION_SITE"
+msgstr "Перайсці на афіцыйны сайт распрацоўшчыка"
+
+msgid "PAGE_APP_BTN_BACK"
+msgstr "Назад"
+
+msgid "PAGE_APP_BTN_BUY"
+msgstr "Купіць"
+
+msgid "PAGE_APP_BTN_INSTALL"
+msgstr "Усталяваць"
+
+msgid "PAGE_APP_IMG_ALT_SCREENSHOT"
+msgstr "Скрыншот"
+
+msgid "PAGE_APP_LABEL_AUTHOR"
+msgstr "Апублікаваў:"
+
+msgid "PAGE_APP_LABEL_DOWNLOADS"
+msgstr "Колькасць спампоўванняў"
+
+msgid "PAGE_APP_LABEL_NOT_TRANSLATED"
+msgstr "На жаль, той, хто загрузіў дадатак, не зрабіў пераклад на вашу мову. Таму зараз вы бачыце арыгінал."
+
+msgid "PAGE_APP_LABEL_ORIGINAL_AUTHOR"
+msgstr "Арыгінальны аўтар:"
+
+msgid "PAGE_APP_LABEL_PRICE"
+msgstr "Кошт"
+
+msgid "PAGE_APP_MSG_DEMO_WARNING"
+msgstr "Праграма распаўсюджваецца ў якасці дэма-версіі, за поўную версію трэба заплаціць яе аўтару. Файл дадзены з афіцыйнага сайта распрацоўшчыка."
+
+msgid "PAGE_APP_MSG_DMCA_ERROR"
+msgstr "Па запыце зыходнага праваўладальніка спампаваць файл на дадзены момант не атрымаецца. Прыносім свае выбачэнні."
+
+msgid "PAGE_APP_MSG_NO_SCREENSHOTS"
+msgstr "Скрыншотаў няма."
+
+msgid "PAGE_APP_PRICE_DEMO_FREE"
+msgstr "Дэма"
+
+msgid "PAGE_APP_PRICE_DEMO_WITH_COST"
+msgstr "Дэма, далей"
+
+msgid "PAGE_APP_PRICE_FREE"
+msgstr "Бясплатна"
+
+msgid "PAGE_APP_PRICE_PAID"
+msgstr "Платнае:"
+
+msgid "PAGE_APP_RATING_BASED_ON_COUNT %(counter)s"
+msgid_plural "PAGE_APP_RATING_BASED_ON_COUNT_PLURAL %(counter)s"
+msgstr[0] "Агульны рэйтынг складзены на аснове водгукаў ад <b>%(counter)s чалавека</b>"
+msgstr[1] "Агульны рэйтынг складзены на аснове водгукаў ад <b>%(counter)s чалавек</b>"
+msgstr[2] "Агульны рэйтынг складзены на аснове водгукаў ад <b>%(counter)s чалавек</b>"
+
+msgid "PAGE_APP_RATING_DELETE_DENIED"
+msgstr "Водгукі для гэтага дадатка адключаны аўтарам"
+
+msgid "PAGE_APP_RATING_DELETE_SUCCESS"
+msgstr "Ацэнкі карыстальнікаў"
+
+msgid "PAGE_APP_RATING_DISABLED"
+msgstr "Водгукі для гэтага дадатка адключаны аўтарам"
+
+msgid "PAGE_APP_RATING_EVALUATE"
+msgstr "Ацаніць..."
+
+msgid "PAGE_APP_RATING_LOGIN_PROMPT"
+msgstr "Увайдзіце, каб пакінуць ацэнку..."
+
+msgid "PAGE_APP_RATING_NO_REVIEWS"
+msgstr "Няма ацэнак"
+
+msgid "PAGE_APP_RATING_USERS"
+msgstr "Ацэнкі карыстальнікаў"
+
+msgid "PAGE_APP_RATING_YOUR"
+msgstr "Ваша ацэнка:"
+
+msgid "PAGE_APP_RATING_YOUR_REVIEW"
+msgstr "(ваша ацэнка)"
+
+msgid "PAGE_APP_SECTION_ACTIONS"
+msgstr "Дзеянні"
+
+msgid "PAGE_APP_SECTION_DESC"
+msgstr "Дадатковая інфармацыя"
+
+msgid "PAGE_APP_SECTION_RATING"
+msgstr "Рэйтынг"
+
+msgid "PAGE_APP_SECTION_REQ"
+msgstr "Сістэмныя патрабаванні"
+
+msgid "PAGE_APP_SECTION_SCREENSHOTS"
+msgstr "Скрыншоты"
+
+msgid "PAGE_BADBROSER_DESC_3"
+msgstr "Дзякуй за разуменне."
+
+msgid "PAGE_BADBROWSER_DESC_1"
+msgstr "Для паўнацэннага выкарыстання гэтага вэб-сэрвіса рэкамендуецца мець усталяваны браўзер Internet Explorer 6 і вышэй або RetroZilla."
+
+msgid "PAGE_BADBROWSER_DESC_2"
+msgstr "Спампаваць Internet Explorer 6 можна як напрамую, так і з дапамогай сэрвісаў"
+
+msgid "PAGE_BADBROWSER_TITLE"
+msgstr "Дзякуй за інтарэс да крамы Windows!"
+
+msgid "PAGE_BADBROWSER_WARN_DESC_1"
+msgstr "Нічога страшнага, гэта вельмі крута, тым больш што дызайн сайта адаптаваны з мінімальным апорам менавіта на гэты вэб-браўзер."
+
+msgid "PAGE_BADBROWSER_WARN_DESC_2"
+msgstr "Аднак, улічваючы сучасныя аспекты бяспекі сервера і даных карыстальнікаў, якія на ім захаваны, нам прыйшлося ўвесці некаторыя карэктыроўкі для асоб, якія наведваюць сайт з гэтага браўзера."
+
+msgid "PAGE_BADBROWSER_WARN_DESC_3"
+msgstr "На магчымасць спампоўвання, прагляд каталога і яго пошук гэтае абмежаванне не ўплывае."
+
+msgid "PAGE_BADBROWSER_WARN_FOOTER"
+msgstr "Для больш прыемнага досведу карыстання рэкамендуем вам браўзеры RetroZilla і Supermium"
+
+msgid "PAGE_BADBROWSER_WARN_RESTRICT_1"
+msgstr "<b>Недаступна</b> сістэма акаўнтаў (уваход, рэгістрацыя)"
+
+msgid "PAGE_BADBROWSER_WARN_RESTRICT_2"
+msgstr "Адміністраванне старонак дадаткаў <b>абмежавана</b>"
+
+msgid "PAGE_BADBROWSER_WARN_SUBTITLE"
+msgstr "Мы заўважылі, што Вы наведваеце сайт праз ве-е-ельмі стары браўзер."
+
+msgid "PAGE_BADBROWSER_WARN_TITLE"
+msgstr "Важнае паведамленне"
+
+msgid "PAGE_CATEGORY_BUYBTN"
+msgstr "Купіць"
+
+msgid "PAGE_CATEGORY_COUNTOFRESULTS"
+msgstr "Колькасць вынікаў:"
+
+msgid "PAGE_CATEGORY_DEMOBTN"
+msgstr "Дэма"
+
+msgid "PAGE_CATEGORY_INSTALLBTN"
+msgstr "Усталяваць"
+
+msgid "PAGE_CATEGORY_SEARCHOFCATEGORY"
+msgstr "Пошук па катэгорыях"
+
+msgid "PAGE_CATEGORY_SHOWCONTENTAS"
+msgstr "Паказваць змесціва..."
+
+msgid "PAGE_CATEGORY_SHOWCONTENTASLIST"
+msgstr "Паказваць змесціва спісам"
+
+msgid "PAGE_CATEGORY_SHOWCONTENTASTILES"
+msgstr "Паказваць змесціва пліткамі"
+
+msgid "PAGE_DEBUG_DESC"
+msgstr "Гэтая старонка выкарыстоўваецца ВЫКЛЮЧНА для тэсціравання і збору інфармацыі для больш граматнай падачы справаздач аб багах. Калі Вы бачыце гэтую старонку, гэта значыць, што ў вашым settings.py канстанта DEBUG = True."
+
+msgid "PAGE_DEBUG_MAININFO_TITLE"
+msgstr "Асноўная інфармацыя"
+
+msgid "PAGE_DEBUG_TITLE"
+msgstr "Інфармацыя для тэсціравання (Debug)"
+
+msgid "PAGE_DELACC_BLOCK_TITLE"
+msgstr "Налады"
+
+msgid "PAGE_DELACC_LASTPASS_TITLE"
+msgstr "Калі Вы прынялі прам цвёрдае і дакладнае рашэнне, то для канчатковага пацвярджэння ўвядзіце Ваш пароль у апошні раз"
+
+msgid "PAGE_DELACC_TITLE"
+msgstr "Выдаленне акаўнта"
+
+msgid "PAGE_DELACC_WARNDESC_1"
+msgstr "Вы ўжо націснулі кнопку выдалення акаўнта ў наладах профіля, разумеем вашае рашэнне."
+
+msgid "PAGE_DELACC_WARNDESC_2"
+msgstr "Аднак яшчэ раз хочам сказаць, што гэтае дзеянне пацягне за сабой знішчэнне даных профіля"
+
+msgid "PAGE_DELACC_WARNDESC_3"
+msgstr "БЕЗ магчымасці аднаўлення"
+
+msgid "PAGE_DELACC_WARNDESC_4"
+msgstr "Доступ да кіруемых старонак дадаткаў будзе страчаны, а адпраўленыя водгукі будуць абязлічаны."
+
+msgid "PAGE_DELACC_WARNDESC_5"
+msgstr "Самы час пералічыць статыстыку вашага профіля:"
+
+msgid "PAGE_DELACC_WARNTITLE"
+msgstr "Прашу звярнуць увагу!"
+
+msgid "PAGE_DELACC_YOULEFTHERE_1"
+msgstr "Час задумацца"
+
+msgid "PAGE_DELACC_YOULEFTHERE_APP_1"
+msgstr "Вось столькі вы загрузілі дадаткаў:"
+
+msgid "PAGE_DELACC_YOULEFTHERE_APP_2"
+msgstr "Вы не зможаце кіраваць імі пасля выдалення акаўнта"
+
+msgid "PAGE_DELACC_YOULEFTHERE_AVATAR_1"
+msgstr "Ваш прыгожы аватар"
+
+msgid "PAGE_DELACC_YOULEFTHERE_AVATAR_2"
+msgstr "Прымі сябе такім, якім ты ёсць"
+
+msgid "PAGE_DELACC_YOULEFTHERE_HISTORY_1"
+msgstr "Гісторыю знішчаных дадаткаў"
+
+msgid "PAGE_DELACC_YOULEFTHERE_HISTORY_2"
+msgstr "Ладна, вы хаця б раз туды зазіралі?"
+
+msgid "PAGE_DELACC_YOULEFTHERE_INVITES_1"
+msgstr "Вось столькі людзей, якіх вы прыгласілі:"
+
+msgid "PAGE_DELACC_YOULEFTHERE_INVITES_2"
+msgstr "Яны застануцца без вас і будуць сумаваць"
+
+msgid "PAGE_DELACC_YOULEFTHERE_TITLE"
+msgstr "Вы засталіся тут..."
+
+msgid "PAGE_DELAPP_DELACCOUNTBTN"
+msgstr "Выдаліць акаўнт"
+
+msgid "PAGE_DEVADD_ALREADYDEV_1"
+msgstr "Вы ўжо распрацоўшчык!"
+
+msgid "PAGE_DEVADD_ALREADYDEV_2"
+msgstr "У вас ужо ёсць статус распрацоўшчыка. Вам ужо даступны ўсе дадатковыя варыянты загрузкі дадаткаў на LunaStore."
+
+msgid "PAGE_DEVADD_DESC_1"
+msgstr "Вы з'яўляецеся прадстаўніком ці распрацоўшчыкам свайго софта?"
+
+msgid "PAGE_DEVADD_DESC_2"
+msgstr "Палепшыце свой профіль да акаўнта распрацоўшчыка і выкладвайце праграмнае забеспячэнне афіцыйна на LunaStore. Афіцыйныя загрузкі будуць памечаны адпаведным знакам."
+
+msgid "PAGE_DEVADD_DISABLED_1"
+msgstr "Рэгістрацыя распрацоўшчыкаў часова адключана"
+
+msgid "PAGE_DEVADD_DISABLED_2"
+msgstr "У дадзены момант мы не прымаем новыя заяўкі на статус распрацоўшчыка. Калі ласка, паспрабуйце пазней."
+
+msgid "PAGE_DEVADD_ENTERINFO_ABOUTYOU"
+msgstr "Раскажыце пра сябе (1000 сімвалаў):"
+
+msgid "PAGE_DEVADD_ENTERINFO_CONFIRM"
+msgstr "Пацвярджэнне рэгістрацыі"
+
+msgid "PAGE_DEVADD_ENTERINFO_EMAIL"
+msgstr "Кантактны e-mail:"
+
+msgid "PAGE_DEVADD_ENTERINFO_EMAILDESC"
+msgstr "Мы абавязкова звяжамся з Вамі. Па меншай меры паспрабуем."
+
+msgid "PAGE_DEVADD_ENTERINFO_GITHUBDESC"
+msgstr "А чаму не? Мы проста хочам паглядзець на вашыя прыгожыя распрацоўкі :3"
+
+msgid "PAGE_DEVADD_ENTERINFO_TITLE"
+msgstr "Асноўная інфармацыя"
+
+msgid "PAGE_DEVADD_ENTERINFO_USERNAME"
+msgstr "Імя карыстальніка:"
+
+msgid "PAGE_DEVADD_ENTERINFO_USERNAMEDESC"
+msgstr "Імя карыстальніка змяніць нельга. Калі гэта не той акаўнт, перазайдзіце ў неабходны."
+
+msgid "PAGE_DEVADD_ENTERINFO_WHYCHOOSEUS"
+msgstr "Чаму Вы рашылі выбраць нас? (250 сімвалаў):"
+
+msgid "PAGE_DEVADD_NOWCHECKING_1"
+msgstr "Вы ўжо падалі заяўку. Адміністратар разгледзіць яе ў бліжэйшы час."
+
+msgid "PAGE_DEVADD_NOWCHECKING_2"
+msgstr "Калі яе адобраць — вы атрымаеце паведамленне і статус."
+
+msgid "PAGE_DEVADD_NOWCHECKING_3"
+msgstr "Калі адхіляць — вы зможаце падаць заяўку паўторна."
+
+msgid "PAGE_DEVADD_NOWCHECKING_TITLE"
+msgstr "Заява на разглядзе"
+
+msgid "PAGE_DEVADD_SENDALLBTN"
+msgstr "Падаць заяўку"
+
+msgid "PAGE_DEVADD_TITLE"
+msgstr "Падача заяўкі на статус распрацоўшчыка"
+
+msgid "PAGE_DIST_EDIT_CHANGE_FILE"
+msgstr "Замяніць файл:"
+
+msgid "PAGE_DIST_EDIT_CURRENT_FILE"
+msgstr "Бягучы файл:"
+
+msgid "PAGE_DIST_EDIT_HEADER"
 msgstr "Рэдагаваць дыстрыбуцыю"
 
-#: templates/user/password_reset_complete.html:16
-#, fuzzy
-#| msgid "PAGE_2FA_ENTER_CODE_HEADER"
-msgid "PAGE_PASSWORD_RESET_COMPLETE_HEADER"
-msgstr "Увод кода"
+msgid "PAGE_DIST_FORM_CANCEL"
+msgstr "Адхіліць"
 
-#: templates/user/password_reset_complete.html:20
-#, fuzzy
-#| msgid "PAGE_2FA_PASSWORD_PROMPT"
-msgid "PAGE_PASSWORD_RESET_COMPLETE_TEXT_1"
-msgstr ""
-"Для доступу да кіравання 2FA, калі ласка, увядзіце пароль ад вашага акаўнта."
+msgid "PAGE_DIST_FORM_CHANGELOG"
+msgstr "Спіс змен (Changelog):"
 
-#: templates/user/password_reset_complete.html:21
-#, fuzzy
-#| msgid "PAGE_2FA_PASSWORD_PROMPT"
-msgid "PAGE_PASSWORD_RESET_COMPLETE_LOGIN_BTN"
-msgstr ""
-"Для доступу да кіравання 2FA, калі ласка, увядзіце пароль ад вашага акаўнта."
+msgid "PAGE_DIST_FORM_CHANGELOG_DESC"
+msgstr "Апішыце, што новага ў гэтай версіі"
 
-#: templates/user/password_reset_complete.html:27
-#, fuzzy
-#| msgid "PAGE_2FA_PASSWORD_CONFIRM_TITLE"
-msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TITLE"
-msgstr "Пацвярджэнне пароля"
+msgid "PAGE_DIST_FORM_ERR_CDN_REJECT"
+msgstr "Рухавік LunaSpire адхіліў загрузку файла. Калі ласка, звярніцеся з гэтай памылкай да адміністратара."
 
-#: templates/user/password_reset_complete.html:28
-#, fuzzy
-#| msgid "PAGE_2FA_PASSWORD_PROMPT"
-msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TEXT"
-msgstr ""
-"Для доступу да кіравання 2FA, калі ласка, увядзіце пароль ад вашага акаўнта."
+msgid "PAGE_DIST_FORM_ERR_GET_TOKEN"
+msgstr "Памылка атрымання токена загрузкі ад рухавіка LunaSpire. Калі ласка, звярніцеся з гэтай памылкай да адміністратара."
 
-#: templates/user/password_reset_confirm.html:5
-#, fuzzy
-#| msgid "PAGE_2FA_PASSWORD_CONFIRM_TITLE"
-msgid "PAGE_PASSWORD_RESET_CONFIRM_TITLE"
-msgstr "Пацвярджэнне пароля"
+msgid "PAGE_DIST_FORM_ERR_NO_CONFIRM"
+msgstr "Рухавік LunaSpire не вярнуў токен пацвярджэння. Калі ласка, звярніцеся з гэтай памылкай да адміністратара."
 
-#: templates/user/password_reset_confirm.html:16
-#, fuzzy
-#| msgid "PAGE_2FA_PASSWORD_CONFIRM"
-msgid "PAGE_PASSWORD_RESET_CONFIRM_HEADER"
-msgstr "Пацвярджэнне доступу"
+msgid "PAGE_DIST_FORM_FILE"
+msgstr "Файл:"
 
-#: templates/user/password_reset_confirm.html:44
-#, fuzzy
-#| msgid "PAGE_2FA_PASSWORD_CONFIRM_TITLE"
-msgid "PAGE_PASSWORD_RESET_CONFIRM_SUBMIT_BTN"
-msgstr "Пацвярджэнне пароля"
+msgid "PAGE_DIST_FORM_FILE_ALREADY_UPLOADED"
+msgstr "Файл ужо загружаны (чакае захавання)"
 
-#: templates/user/password_reset_confirm.html:49
-#, fuzzy
-#| msgid "PAGE_2FA_PASSWORD_CONFIRM_TITLE"
-msgid "PAGE_PASSWORD_RESET_CONFIRM_INVALID_LINK"
-msgstr "Пацвярджэнне пароля"
+msgid "PAGE_DIST_FORM_FILE_BUTTON"
+msgstr "Агляд..."
 
-#: templates/user/password_reset_confirm.html:56
-#, fuzzy
-#| msgid "PAGE_2FA_PASSWORD_CONFIRM_TITLE"
-msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TITLE"
-msgstr "Пацвярджэнне пароля"
+msgid "PAGE_DIST_FORM_FILE_DESC"
+msgstr "Дапусцімыя фарматы: .exe, .zip, .rar, .7z і іншыя архівы."
 
-#: templates/user/password_reset_confirm.html:57
-#, fuzzy
-#| msgid "PAGE_2FA_PASSWORD_CONFIRM_TITLE"
-msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TEXT"
-msgstr "Пацвярджэнне пароля"
+msgid "PAGE_DIST_FORM_FILE_NO_FILE"
+msgstr "Файл не абраны."
 
-#: templates/user/password_reset_done.html:5
-#: templates/user/password_reset_email_html.html:38
-#: templates/user/password_reset_form.html:5
-#, fuzzy
-#| msgid "PAGE_2FA_PASSWORD_CONFIRM_TITLE"
-msgid "PAGE_PASSWORD_RESET_TITLE"
-msgstr "Пацвярджэнне пароля"
+msgid "PAGE_DIST_FORM_FILE_UPLOADING"
+msgstr "Загрузка..."
 
-#: templates/user/password_reset_done.html:16
-#, fuzzy
-#| msgid "PAGE_2FA_ENTER_CODE_HEADER"
-msgid "PAGE_PASSWORD_RESET_DONE_HEADER"
-msgstr "Увод кода"
-
-#: templates/user/password_reset_done.html:20
-#, fuzzy
-#| msgid "PAGE_2FA_PASSWORD_PROMPT"
-msgid "PAGE_PASSWORD_RESET_DONE_TEXT_1"
-msgstr ""
-"Для доступу да кіравання 2FA, калі ласка, увядзіце пароль ад вашага акаўнта."
-
-#: templates/user/password_reset_done.html:21
-#, fuzzy
-#| msgid "PAGE_2FA_PASSWORD_PROMPT"
-msgid "PAGE_PASSWORD_RESET_DONE_TEXT_2"
-msgstr ""
-"Для доступу да кіравання 2FA, калі ласка, увядзіце пароль ад вашага акаўнта."
-
-#: templates/user/password_reset_done.html:27
-#, fuzzy
-#| msgid "PAGE_2FA_PASSWORD_CONFIRM_TITLE"
-msgid "PAGE_PASSWORD_RESET_DONE_INFO_TITLE"
-msgstr "Пацвярджэнне пароля"
-
-#: templates/user/password_reset_done.html:28
-#, fuzzy
-#| msgid "PAGE_2FA_PASSWORD_CONFIRM_TITLE"
-msgid "PAGE_PASSWORD_RESET_DONE_INFO_TEXT"
-msgstr "Пацвярджэнне пароля"
-
-#: templates/user/password_reset_email_html.html:44
-#, fuzzy
-#| msgid "PAGE_LOGIN_GREETING"
-msgid "PAGE_PASSWORD_RESET_EMAIL_GREETING"
-msgstr "Прадстаўцеся..."
-
-#: templates/user/password_reset_email_html.html:46
-#, fuzzy
-#| msgid "PAGE_2FA_PASSWORD_PROMPT"
-msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_1"
-msgstr ""
-"Для доступу да кіравання 2FA, калі ласка, увядзіце пароль ад вашага акаўнта."
-
-#: templates/user/password_reset_email_html.html:46
-#, fuzzy
-#| msgid "PAGE_2FA_PASSWORD_PROMPT"
-msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_2"
-msgstr ""
-"Для доступу да кіравання 2FA, калі ласка, увядзіце пароль ад вашага акаўнта."
-
-#: templates/user/password_reset_email_html.html:57
-#, fuzzy
-#| msgid "PAGE_BADBROWSER_WARN_FOOTER"
-msgid "PAGE_PASSWORD_RESET_EMAIL_FOOTER"
-msgstr ""
-"Для больш прыемнага досведу карыстання рэкамендуем вам браўзеры RetroZilla і "
-"Supermium"
-
-#: templates/user/password_reset_form.html:16
-#, fuzzy
-#| msgid "PAGE_DIST_FORM_SAVE"
-msgid "PAGE_PASSWORD_RESET_FORM_HEADER"
+msgid "PAGE_DIST_FORM_SAVE"
 msgstr "Захаваць змены"
 
-#: templates/user/password_reset_form.html:22
-#, fuzzy
-#| msgid "PAGE_LOGIN_PASSWORD_LABEL"
-msgid "PAGE_PASSWORD_RESET_EMAIL_LABEL"
+msgid "PAGE_DIST_FORM_SAVED"
+msgstr "Змены дыстрыбуцыі паспяхова зменены."
+
+msgid "PAGE_DIST_FORM_URL"
+msgstr "Знешняя спасылка (URL):"
+
+msgid "PAGE_DIST_FORM_URL_DESC"
+msgstr "Пазначце, калі файл размешчаны на іншым рэсурсе"
+
+msgid "PAGE_DIST_FORM_VERSION"
+msgstr "Версія дадатка:"
+
+msgid "PAGE_DIST_FORM_VERSION_DESC"
+msgstr "Напрыклад: 1.0.0 або 2.1.4-beta"
+
+msgid "PAGE_DIST_FORM_VT_DESC"
+msgstr "Укажыце спасылку на рэзультаты праверкі спампоўваемага файла на сайце virustotal.com"
+
+msgid "PAGE_DIST_FORM_VT_TITLE"
+msgstr "Спасылка на VirusTotal (абавязкова пры загрузцы файла):"
+
+msgid "PAGE_DOWNLOAD_BACK"
+msgstr "Назад"
+
+msgid "PAGE_DOWNLOAD_DEMO_WARNING"
+msgstr "Праграма распаўсюджваецца ў якасці дэма-версіі, за поўную версію трэба заплаціць яе аўтару. Файл дадзены з афіцыйнага сайта распрацоўшчыка."
+
+msgid "PAGE_DOWNLOAD_DL_ACTION"
+msgstr "спампаваць"
+
+msgid "PAGE_DOWNLOAD_DMCA_WARNING"
+msgstr "Магчымасць спампоўвання праграмы была закрыта з-за скаргі праваўладара. Дзякуй за разуменне."
+
+msgid "PAGE_DOWNLOAD_GO_OFFICIAL"
+msgstr "Перайсці на афіцыйны сайт"
+
+msgid "PAGE_DOWNLOAD_LATEST_VERSION_NOTE"
+msgstr "Апошняя спампаваная версія памечана тлустым шрыфтам"
+
+msgid "PAGE_DOWNLOAD_LOCAL_SOURCE"
+msgstr "Спампоўка з нашага сайта"
+
+msgid "PAGE_DOWNLOAD_MANAGE_DISTS"
+msgstr "Кіраванне дыстрыбуцыямі"
+
+msgid "PAGE_DOWNLOAD_NO_DISTRIBUTIONS"
+msgstr "Дыстрыбуцыі пакуль не дададзены."
+
+msgid "PAGE_DOWNLOAD_NO_NOTES"
+msgstr "Без заўваг"
+
+msgid "PAGE_DOWNLOAD_OFFICIAL_SOURCE"
+msgstr "Спампоўка з афіцыйнай крыніцы"
+
+msgid "PAGE_DOWNLOAD_TABLE_ACTION"
+msgstr "Дзеянне"
+
+msgid "PAGE_DOWNLOAD_TABLE_DATE"
+msgstr "Дата публікацыі"
+
+msgid "PAGE_DOWNLOAD_TABLE_LINK"
+msgstr "Спасылка"
+
+msgid "PAGE_DOWNLOAD_TABLE_UPLOAD_DATE"
+msgstr "Дата загрузкі"
+
+msgid "PAGE_DOWNLOAD_TABLE_VERSION"
+msgstr "Версія"
+
+msgid "PAGE_DOWNLOAD_TITLE"
+msgstr "Спампоўка"
+
+msgid "PAGE_DOWNLOAD_UPLOADED_VERSIONS"
+msgstr "Загружаныя версіі"
+
+msgid "PAGE_DOWNLOAD_VERSION_LIST"
+msgstr "Спіс версій"
+
+msgid "PAGE_FAQ_A_ACC_BENEFITS"
+msgstr "З дапамогай акаўнта Вы зможаце пакідаць свае водгукі да дадаткаў, прыгожа заявіць пра сябе ў гэтай зараджаючайся суполцы і загружаць свае дадаткі ў агульны каталог пасля строгай мадэрацыі"
+
+msgid "PAGE_FAQ_A_ADD_APP"
+msgstr "Пакуль ніяк. Мы толькі пачынаем, таму бярэм праграмнае забеспячэнне са сваіх спісаў. Сачыце за абнаўленнямі гэтай старонкі."
+
+msgid "PAGE_FAQ_A_CREATE_ACC"
+msgstr "У верхняй шапцы сайта націсніце кнопку \"рэгістрацыя\""
+
+msgid "PAGE_FAQ_A_LEGAL"
+msgstr "Звычайна такое пытанне задае распрацоўшчык праграмнага забеспячэння. Аднак калі Вас вельмі непакоіць існаванне старой версіі вашай праграмы на гэтым сайце, то можаце звязацца з намі па e-mail. Але вельмі спадзяёмся, што вы зразумееце нас і мэту нашага праекта."
+
+msgid "PAGE_FAQ_A_WHY_EXIST_PART1"
+msgstr "Добрае пытанне. Пачалося ўсё з таго, што ў аднаго з удзельнікаў праекта з'явілася жаданне загрузіць на адзін сайт са старым праграмным забеспячэннем скрынсэйвер 3D Windows XP, які па факце мала хто бачыў і ледзь захаваўся на вэб-архіве."
+
+msgid "PAGE_FAQ_A_WHY_EXIST_PART2"
+msgstr "Праз некалькі дзён пасля загрузкі, скрынсэйвер быў выдалены з сайта па прычыне \"не падыходзіць пад тэматыку сайта\". А на пытанне \"чаму ў Вас тады захаваны вобразы XP?\" адэкватнага адказу з адміністрцыі ніхто не даў."
+
+msgid "PAGE_FAQ_A_WHY_EXIST_PART3"
+msgstr "Нічога страшнага, мы не сумуем і канкурыраваць не хочам, проста вырашылі зрабіць свой маленькі каталог :3"
+
+msgid "PAGE_FAQ_CARD_TEAM"
+msgstr "Што значыць 'агульнае хобі'?"
+
+msgid "PAGE_FAQ_CARD_TEAMDESC_1"
+msgstr "Не паверыш. Над гэтым праектам працавала шмат неабыякавых людзей з аднолькавай ідэяй."
+
+msgid "PAGE_FAQ_CARD_TEAMDESC_2"
+msgstr "Самы час іх пералічыць:"
+
+msgid "PAGE_FAQ_CARD_TEAM_AUTHOR"
+msgstr "- аўтар ідэі, дызайн,"
+
+msgid "PAGE_FAQ_CARD_TEAM_BACKEND"
+msgstr "- backend-распрацоўка, кансультацыі і натхненне"
+
+msgid "PAGE_FAQ_CARD_TEAM_CDNANDGIT"
+msgstr "- закадравая праца, CDN, унутраны Git"
+
+msgid "PAGE_FAQ_CARD_TEAM_DEV"
+msgstr "- распрацоўшчык"
+
+msgid "PAGE_FAQ_CARD_TEAM_FRONTEND"
+msgstr "вёрстка інтэрфэйса (frontend)"
+
+msgid "PAGE_FAQ_CARD_WHATISIT"
+msgstr "Куды я трапіў і што гэта?"
+
+msgid "PAGE_FAQ_CARD_WHATISITDESC"
+msgstr "свайго рода альтэрнатыўная 'крама' дадаткаў і гульняў. На дадзены момант мецім на эпоху Windows XP."
+
+msgid "PAGE_FAQ_CARD_WHYWESHOP"
+msgstr "Чаму 'крама' напісана ў двукоссі?"
+
+msgid "PAGE_FAQ_CARD_WHYWESHOPDESC"
+msgstr "Мы з'яўляемся фанацкім сайтам і не думаем, што такое прам вырасце да вялікай крамы. Хаця хто ведае. Аднак рэклама ў левым меню абсалютна несур'ёзная, а сам праект - як агульнае хобі."
+
+msgid "PAGE_FAQ_DESC"
+msgstr "У Вас з'явіліся пытанні? На гэтай старонцы сабрана ўся інфармацыя, датычная гэтага LunaStore"
+
+msgid "PAGE_FAQ_DONATETAB"
+msgstr "Заданаціць"
+
+msgid "PAGE_FAQ_DONATE_TITLE"
+msgstr "Як нас падтрымаць?"
+
+msgid "PAGE_FAQ_LAST_UPDATE"
+msgstr "Апошняе абнаўленне"
+
+msgid "PAGE_FAQ_PRIVACYTAB"
+msgstr "Прыватнасць"
+
+msgid "PAGE_FAQ_PRIVACY_EMPTY"
+msgstr "Дакумент яшчэ не запоўнены..."
+
+msgid "PAGE_FAQ_PRIVACY_TITLE"
+msgstr "Палітыка прыватнасці"
+
+msgid "PAGE_FAQ_Q_ACC_BENEFITS"
+msgstr "А што ўвогуле дае наяўнасць акаўнта на LunaStore?"
+
+msgid "PAGE_FAQ_Q_ADD_APP"
+msgstr "Окей, а як сюды загрузіць дадатак?"
+
+msgid "PAGE_FAQ_Q_CREATE_ACC"
+msgstr "Як тут стварыць акаўнт?"
+
+msgid "PAGE_FAQ_Q_LEGAL"
+msgstr "\"Хмм, а ці гэта законна?\""
+
+msgid "PAGE_FAQ_Q_WHY_EXIST"
+msgstr "Навошта гэты сайт існуе?"
+
+msgid "PAGE_FAQ_RULESTAB"
+msgstr "Правілы"
+
+msgid "PAGE_FAQ_TEAM_HEADER_OTHER"
+msgstr "Таксама дзякуем іншых распрацоўшчыкаў:"
+
+msgid "PAGE_FAQ_TEAM_HEADER_TESTERS"
+msgstr "І пра тэстыроўшчыкаў не забываем:"
+
+msgid "PAGE_FAQ_TEAM_HEADER_TRANSLATORS"
+msgstr "І пра перакладчыкаў:"
+
+msgid "PAGE_FAQ_TEAM_ROLE_CHELKA0"
+msgstr "афармленне сайта за кадрам"
+
+msgid "PAGE_FAQ_TEAM_ROLE_COOKIE"
+msgstr "Другі backend-распрацоўшчык, галоўны распрацоўшчык пакетнага менеджара luna, а таксама пераклад на японскую"
+
+msgid "PAGE_FAQ_TEAM_ROLE_FAYZETWIN"
+msgstr "асноўны backend-распрацоўшчык, API"
+
+msgid "PAGE_FAQ_TEAM_ROLE_MONDY"
+msgstr "лагатып"
+
+msgid "PAGE_FAQ_TEAM_ROLE_NOCHA3"
+msgstr "натыўны кліент для Windows XP"
+
+msgid "PAGE_FAQ_TEAM_ROLE_ZAZIOS"
+msgstr "backend-распрацоўшчык (Go)"
+
+msgid "PAGE_FAQ_TEAM_TESTERS_LIST"
+msgstr "[нікі тэстыроўшчыкаў праз коску]"
+
+msgid "PAGE_FAQ_TITLE"
+msgstr "Спраўка"
+
+msgid "PAGE_FAQ_TITLE_2"
+msgstr "Справачны цэнтр"
+
+msgid "PAGE_FAQ_TOOLTIP_EASTEREGG"
+msgstr "\"Имя Ибрагим вам что-нибудь говорит?\""
+
+msgid "PAGE_INVITE_ADMINSTATUS"
+msgstr "Мадэратар"
+
+msgid "PAGE_INVITE_BROWSER_TITLE"
+msgstr "Прыгласіць"
+
+msgid "PAGE_INVITE_CODE_ROTATION_WARN"
+msgstr "<b>Важна:</b> на дадзены момант запрашальны код новага ўдзельніка мяняецца кожныя 24 гадзіны"
+
+msgid "PAGE_INVITE_COPY_CODE"
+msgstr "Скапіруйце гэты код ніжэй і адпраўце яго патрэбнаму Вам чалавеку"
+
+msgid "PAGE_INVITE_DESCRIPTION"
+msgstr "Вы можаце прыгласіць свайго сябра або знаёмага з аднолькавымі інтарэсамі па рэтра-тэматыцы ў LunaStore."
+
+msgid "PAGE_INVITE_HOW_TO_SEND"
+msgstr "Па e-mail, па тэлефоне, у чаце, пры сустрэчы - абсалютна няважна. Код абавязкова трэба будзе ўвесці запрашаемаму карыстальніку ў працэсе рэгістрацыі."
+
+msgid "PAGE_INVITE_INPUT_BTN"
+msgstr "Пачаць рэгістрацыю"
+
+msgid "PAGE_INVITE_INPUT_DESC_1"
+msgstr "Вы можаце ўвесці код запрашэння, які Вы атрымалі ад ужо <b>зарэгістраванага карыстальніка</b>"
+
+msgid "PAGE_INVITE_INPUT_DESC_2"
+msgstr "Такім чынам, Вы атрымліваеце ўнікальную магчымасць стварыць акаўнт <b>у абход закрытай публічнай рэгістрацыі</b>"
+
+msgid "PAGE_INVITE_INPUT_HEADER"
+msgstr "Увод кода запрашэння"
+
+msgid "PAGE_INVITE_INPUT_LABEL"
+msgstr "Код"
+
+msgid "PAGE_INVITE_INPUT_TITLE"
+msgstr "Увод запрашальнага кода"
+
+msgid "PAGE_INVITE_LIMIT_EXHAUSTED"
+msgstr "Запрошаныя карыстальнікі"
+
+msgid "PAGE_INVITE_LIMIT_INFO"
+msgstr "На дадзены момант Вы можаце прыгласіць <b>1</b> чалавека. Пасля прыняцця карыстальнікам вашага прыглашэння наступнае можна будзе стварыць толькі праз тыдзень"
+
+msgid "PAGE_INVITE_LIST_EMPTY"
+msgstr "Вы пакуль яшчэ нікога не запрашалі"
+
+msgid "PAGE_INVITE_LIST_HEADER"
+msgstr "Запрошаныя карыстальнікі"
+
+msgid "PAGE_INVITE_MAIN_TITLE"
+msgstr "Прыгласіць чалавека"
+
+msgid "PAGE_INVITE_NEXT_AVAILABLE"
+msgstr "Код"
+
+msgid "PAGE_INVITE_REGDATE"
+msgstr "Рэгістрацыя"
+
+msgid "PAGE_INVITE_USERSTATUS"
+msgstr "Карыстальнік"
+
+msgid "PAGE_LOGIN_BROWSER_TITLE"
+msgstr "Уваход"
+
+msgid "PAGE_LOGIN_FORGOT_PASSWORD"
+msgstr "Забыліся на пароль?"
+
+msgid "PAGE_LOGIN_GREETING"
+msgstr "Прадстаўцеся..."
+
+msgid "PAGE_LOGIN_INFO_BULLET_1"
+msgstr "Пакідайце водгукі да праграмага забеспячэння"
+
+msgid "PAGE_LOGIN_INFO_BULLET_2"
+msgstr "Пакарыце суполку"
+
+msgid "PAGE_LOGIN_INFO_BULLET_3"
+msgstr "Загружайце праграмнае забеспячэнне"
+
+msgid "PAGE_LOGIN_INFO_DESC_2"
+msgstr "Стварыце яго. Гэта бясплатна."
+
+msgid "PAGE_LOGIN_INFO_TITLE_1"
+msgstr "Навошта патрэбны акаўнт?"
+
+msgid "PAGE_LOGIN_INFO_TITLE_2"
+msgstr "У Вас няма акаўнта?"
+
+msgid "PAGE_LOGIN_MAIN_TITLE"
+msgstr "Уваход"
+
+msgid "PAGE_LOGIN_PASSWORD_LABEL"
 msgstr "Пароль:"
 
-#: templates/user/password_reset_form.html:38
-#, fuzzy
-#| msgid "PAGE_REPORTAPP_SUBMIT_BTN"
+msgid "PAGE_LOGIN_REGISTER_BTN"
+msgstr "Зарэгістраваца"
+
+msgid "PAGE_LOGIN_REQUIRED_WARNING"
+msgstr "Каб працягнуць гэтае дзеянне, трэба ўвайсці на сайт"
+
+msgid "PAGE_LOGIN_SUBMIT_BTN"
+msgstr "Увайсці"
+
+msgid "PAGE_LOGIN_USERNAME_LABEL"
+msgstr "Лагін:"
+
+msgid "PAGE_MANAGEDIST_CREATE_SUCCESS"
+msgstr "Новая дыстрыбуцыя створана"
+
+msgid "PAGE_MANAGE_APPS_BTN_EDIT"
+msgstr "рэдагаваць"
+
+msgid "PAGE_MANAGE_APPS_COUNT"
+msgstr "Адміністрыруемыя дадаткі"
+
+msgid "PAGE_MANAGE_APPS_CREATE"
+msgstr "Стварыць дадатак"
+
+msgid "PAGE_MANAGE_APPS_EMPTY_DESC"
+msgstr "Вы пакуль што не кіруеце ніводным дадаткам."
+
+msgid "PAGE_MANAGE_APPS_EMPTY_TITLE"
+msgstr "Дадаткаў няма ＞︿＜"
+
+msgid "PAGE_MANAGE_APPS_HEADER"
+msgstr "Адміністрыруемыя старонкі дадаткаў"
+
+msgid "PAGE_MANAGE_APPS_MY_APPS"
+msgstr "Мае дадаткі"
+
+msgid "PAGE_MANAGE_APPS_ROLE_OWNER"
+msgstr "Уладальнік"
+
+msgid "PAGE_MANAGE_APPS_TITLE"
+msgstr "Адміністрыруемыя дадаткі"
+
+msgid "PAGE_NOTIFICATIONS_COUNT_SINGLE"
+msgid_plural "PAGE_NOTIFICATIONS_COUNT_PLURAL"
+msgstr[0] "У Вас <b>%(counter)s</b> новае паведамленне"
+msgstr[1] "У Вас <b>%(counter)s</b> новыя паведамленні"
+msgstr[2] "У Вас <b>%(counter)s</b> новых паведамленняў"
+
+msgid "PAGE_NOTIFICATIONS_EARLY"
+msgstr "Ранейшыя паведамленні"
+
+msgid "PAGE_NOTIFICATIONS_NEW_COUNT"
+msgstr "толькі што"
+
+msgid "PAGE_NOTIFICATIONS_NOW"
+msgstr "толькі што"
+
+msgid "PAGE_NOTIFICATIONS_NO_NEW"
+msgstr "У Вас няма новых паведамленняў"
+
+msgid "PAGE_NOTIFICATIONS_TAB"
+msgstr "Паведамленні"
+
+msgid "PAGE_NOTIFICATIONS_TITLE"
+msgstr "Паведамленні"
+
+msgid "PAGE_NOTIFY_TOAST_CLOSE"
+msgstr "Закрыць"
+
+msgid "PAGE_NOTIFY_TOAST_NEW"
+msgstr "Новае паведамленне"
+
+msgid "PAGE_NOTIFY_TOAST_VIEW"
+msgstr "Паглядзець »"
+
+msgid "PAGE_OTHER_PROJECTS_BROWSER_TITLE"
+msgstr "Іншыя праекты"
+
+msgid "PAGE_OTHER_PROJECTS_BTN_GO"
+msgstr "Перайсці »"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_DM"
+msgstr "Сайт-візітка Daniel Myslivets (версія для старых камп'ютараў і браўзераў)"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_FOXCORP"
+msgstr "Уласны сайт Milya Fox; сеткавы інжынер, які дапамагаў з праектам"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_GAMES"
+msgstr "Рэінкарнацыя інтэрнэт-гульняў для Windows XP/7 у якасці пабочнага кастамнага сервера"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_KICQ"
+msgstr "Неафіцыйны праект, які аднаўляе працу ICQ"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_RENAISSANCE"
+msgstr "Неафіцыйны праект, які аднаўляе працу Агента@Mail.ru"
+
+msgid "PAGE_OTHER_PROJECTS_SECTION_FRIENDS"
+msgstr "Сайты-сябры"
+
+msgid "PAGE_OTHER_PROJECTS_SECTION_MAIN"
+msgstr "Асноўныя"
+
+msgid "PAGE_OTHER_PROJECTS_SUBTITLE"
+msgstr "Сайты-сябры і іншыя нашы праекты"
+
+msgid "PAGE_OTHER_PROJECTS_TITLE"
+msgstr "Іншыя праекты"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_HEADER"
+msgstr "Паспяхова!"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TEXT"
+msgstr "Ваш уліковы запіс у бяспецы. Сардэчна запрашаем зваротна ў LunaStore!"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TITLE"
+msgstr "Усё гатова"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_LOGIN_BTN"
+msgstr "Увайсці ў акаўнт"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_TEXT_1"
+msgstr "Ваш пароль быў паспяхова зменены. Цяпер вы можаце ўвайсці ў свой акаўнт, выкарыстоўваючы новы пароль."
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_TITLE"
+msgstr "Пароль зменены"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_HEADER"
+msgstr "Новы пароль"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TEXT"
+msgstr "Упэўніцеся, што ваш новы пароль унікальны і змяшчае камбінацыю вялікіх і маленькіх літар, а таксама лічбы або спецыяльныя сімвалы."
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TITLE"
+msgstr "Надзейны пароль"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INVALID_LINK"
+msgstr "Спасылка для скіду пароля несапраўдная. Магчыма, яна ўжо была выкарыстана або яна пратэрмінаваная. Калі ласка, запытайце скід пароля нанова."
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_SUBMIT_BTN"
+msgstr "Усталяваць пароль"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_TITLE"
+msgstr "Новы пароль"
+
+msgid "PAGE_PASSWORD_RESET_DONE_HEADER"
+msgstr "Ліст адпраўлены"
+
+msgid "PAGE_PASSWORD_RESET_DONE_INFO_TEXT"
+msgstr "Звычайна ліст дастаўляецца на працягу некалькіх хвілін. Калі ў вас з'явіліся цяжкасці, вы можаце звярнуцца ў службу падтрымкі."
+
+msgid "PAGE_PASSWORD_RESET_DONE_INFO_TITLE"
+msgstr "Што далей?"
+
+msgid "PAGE_PASSWORD_RESET_DONE_TEXT_1"
+msgstr "Мы адправілі інструкцыі па скідзе пароля на ўказаны вамі адрас электроннай пошты (калі ён існуе ў нашай сістэме)"
+
+msgid "PAGE_PASSWORD_RESET_DONE_TEXT_2"
+msgstr "Калі ласка, праверце пошту і перайдзіце па спасылцы для сканчэння працэдуры. Калі ліст не прыйшоў, праверце папку \"Спам\"."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_FOOTER"
+msgstr "Гэты ліст быў адпраўлены аўтаматычна. Калі ласка, не адказвайце на яго."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_GREETING"
+msgstr "Дзень добры"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_LABEL"
+msgstr "Адрас электроннай пошты"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_1"
+msgstr "Вы атрымалі гэты ліст, таму што быў запытаны скід пароля для вашага ўліковага запісу на сайце LunaStore."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_2"
+msgstr "Калі ласка, перайдзіце па наступнай спасылцы, каб задаць новы пароль:"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_3"
+msgstr "Калі вы не запытвалі скід пароля, проста праігнаруйце гэты ліст."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_4"
+msgstr ""
+"З павагай,\n"
+"Каманда LunaStore"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_REGARDS"
+msgstr "З павагай, Каманда LunaStore"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_1"
+msgstr "Вы запыталі скід пароля для акаўнта LunaStore. Калі ласка, перайдзіце па спасылцы ніжэй, каб усталяваць новы пароль:"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_2"
+msgstr "Калі вы не запытвалі скід пароля, проста праігнаруйце гэты ліст. Ваш пароль застанецца ў бяспецы."
+
+msgid "PAGE_PASSWORD_RESET_FORM_HEADER"
+msgstr "Скід пароля"
+
+msgid "PAGE_PASSWORD_RESET_HEADER"
+msgstr "Скід пароля"
+
+msgid "PAGE_PASSWORD_RESET_INFO_TEXT"
+msgstr "Увядзіце свой адрас электроннай пошты, прывязаны да вашага акаўнта LunaStore. Мы адправім вам інструкцыі па скідзе пароля."
+
+msgid "PAGE_PASSWORD_RESET_INFO_TITLE"
+msgstr "Забыліся на пароль?"
+
+msgid "PAGE_PASSWORD_RESET_SUBJECT"
+msgstr "Скід пароля на сайце LunaStore"
+
 msgid "PAGE_PASSWORD_RESET_SUBMIT_BTN"
+msgstr "Адправіць ліст"
+
+msgid "PAGE_PASSWORD_RESET_TITLE"
+msgstr "Скід пароля"
+
+msgid "PAGE_PROFILESETTINGS_LABEL_BIO"
+msgstr "Апісанне профіля:"
+
+msgid "PAGE_PROFILE_APPS_EMPTY_DESC"
+msgstr "Карыстальнік пакуль што не апублікаваў ніводнага дадатка."
+
+msgid "PAGE_PROFILE_APPS_TITLE"
+msgstr "Апублікаваныя дадаткі"
+
+msgid "PAGE_PROFILE_BANNED_DESC"
+msgstr "Гэта магло адбыцца з-за парушэння правіл рэсурса, падазронай актыўнасці або працы сістэмы бяспекі. Мы клапацімся пра камфорт усіх карыстальнікаў, таму вымушаны часова або назаўсёды абмежаваць доступ да сайта падобным карыстальнікам."
+
+msgid "PAGE_PROFILE_BANNED_DESC_2"
+msgstr "Паколькі гэты карыстальнік быў заблакіраваны, мы не рэкамендуем весці далейшыя дыялогі з ім, асабліва калі ў Вас папросяць грошы."
+
+msgid "PAGE_PROFILE_BANNED_INTRO"
+msgstr "Гэты карыстальнік быў заблакіраваны."
+
+msgid "PAGE_PROFILE_CONTACT_INFO"
+msgstr "Кантактная інфармацыя"
+
+msgid "PAGE_PROFILE_INVITES_EMPTY_DESC"
+msgstr "Пакуль што ніводны чалавек не зарэгістраваўся па запрашэнні гэтага карыстальніка."
+
+msgid "PAGE_PROFILE_INVITES_EMPTY_TITLE"
+msgstr "Прыглашэнняў няма ＞︿＜"
+
+msgid "PAGE_PROFILE_INVITES_PEOPLE"
+msgstr "чалавек (паказаны першыя 5)"
+
+msgid "PAGE_PROFILE_INVITES_TEXT"
+msgstr "прыгласіў"
+
+msgid "PAGE_PROFILE_LABEL_EMAIL"
+msgstr "E-mail:"
+
+msgid "PAGE_PROFILE_LABEL_TELEGRAM"
+msgstr "Telegram:"
+
+msgid "PAGE_PROFILE_LABEL_WEBSITE"
+msgstr "Вэб-сайт:"
+
+msgid "PAGE_PROFILE_LINK_ADDAPP"
+msgstr "дадаць"
+
+msgid "PAGE_PROFILE_LINK_ALL"
+msgstr "паказаць усё"
+
+msgid "PAGE_PROFILE_NO_REVIEWS"
+msgstr "Няма водгукаў"
+
+msgid "PAGE_PROFILE_REVIEW_TO_APP"
+msgstr "да дадатка"
+
+msgid "PAGE_PROFILE_STAFF_ALT"
+msgstr "Каманда LunaStore"
+
+msgid "PAGE_PROFILE_STATS_MEMBER_SINCE"
+msgstr "карыстальнік з"
+
+msgid "PAGE_PROFILE_TAB_APPS"
+msgstr "Дадаткі"
+
+msgid "PAGE_PROFILE_TAB_MAIN"
+msgstr "Асноўнае"
+
+msgid "PAGE_PROFILE_TAB_REVIEWS"
+msgstr "Водгукі"
+
+msgid "PAGE_PROFILE_TITLE"
+msgstr "Профіль карыстальніка"
+
+msgid "PAGE_REGISTER_BTN_SUBMIT"
+msgstr "Зарэгістравацца"
+
+msgid "PAGE_REGISTER_CAPTCHA_INSTRUCTION"
+msgstr "Увядзіце сімвалы з карцінкі:"
+
+msgid "PAGE_REGISTER_CLICK_HERE"
+msgstr "сюды"
+
+msgid "PAGE_REGISTER_CLOSED_MSG"
+msgstr "Свабодная рэгістрацыя на дадзены момант закрыта і ажыццяўляецца толькі па запрашэннях ад ужо зарэгістраваных тут удзельнікаў."
+
+msgid "PAGE_REGISTER_HAVE_INVITE_TEXT"
+msgstr "Ёсць код запрашэння? Націсніце"
+
+msgid "PAGE_REGISTER_HAVE_INVITE_TITLE"
+msgstr "У Вас ёсць запрашэнне?"
+
+msgid "PAGE_REGISTER_HELP_EMAIL"
+msgstr "Будзе выкарыстоўвацца для ўваходу ў акаўнт і для аднаўлення пароля"
+
+msgid "PAGE_REGISTER_HELP_PASS1"
+msgstr "Прыдумывайце надзейныя паролі. Гэта важна, халера!"
+
+msgid "PAGE_REGISTER_HELP_PASS2"
+msgstr "Паўтарэнне - маці вучэння :D"
+
+msgid "PAGE_REGISTER_HELP_USERNAME"
+msgstr "Мінімум 2 сімвалы. Па імя карыстальніка вас можна будзе знайсці. Пасля рэгістрацыі змяніць яго не атрымаецца."
+
+msgid "PAGE_REGISTER_INFO_SPLASH"
+msgstr "Стварыўшы акаўнт, вы зможаце выкладываць свае дадаткі, пакідаць водгукі да ўжо загружаных праграм і весці ўласную бібліятэку захаваных элементаў. Рэгістрацыя адкрытая і бясплатная."
+
+msgid "PAGE_REGISTER_LABEL_EMAIL"
+msgstr "E-mail:"
+
+msgid "PAGE_REGISTER_LABEL_PASS1"
+msgstr "Пароль:"
+
+msgid "PAGE_REGISTER_LABEL_PASS2"
+msgstr "Паўтарыце пароль:"
+
+msgid "PAGE_REGISTER_LABEL_USERNAME"
+msgstr "Імя карыстальніка:"
+
+msgid "PAGE_REGISTER_SECTION_CONFIRM"
+msgstr "Пацвярджэнне рэгістрацыі"
+
+msgid "PAGE_REGISTER_SECTION_MAIN"
+msgstr "Асноўная інфармацыя"
+
+msgid "PAGE_REGISTER_TITLE"
+msgstr "Рэгістрацыя"
+
+msgid "PAGE_REPORTAPP_AUTHOR"
+msgstr "Аўтар скаргі на праграму:"
+
+msgid "PAGE_REPORTAPP_EXPLAIN_LABEL"
+msgstr "Дадатковая інфармацыя (абавязкова):"
+
+msgid "PAGE_REPORTAPP_INFO_1"
+msgstr "Вы збіраецеся адправіць скаргу на дадатак"
+
+msgid "PAGE_REPORTAPP_INFO_2"
+msgstr "Калі ласка, выберыце прычыну і апішыце праблему падрабязней:"
+
+msgid "PAGE_REPORTAPP_PAGE_TITLE"
+msgstr "Скарга на дадатак"
+
+msgid "PAGE_REPORTAPP_REASON_INCORRECT"
+msgstr "Некарэктныя дадзеныя або апісанне"
+
+msgid "PAGE_REPORTAPP_REASON_MALWARE"
+msgstr "Ааа, дапамажыце, тут вірусы!"
+
+msgid "PAGE_REPORTAPP_REASON_OTHER"
+msgstr "Іншая прычына"
+
+msgid "PAGE_REPORTAPP_SUBMIT_BTN"
 msgstr "Адправіць скаргу"
 
-#: templates/user/password_reset_form.html:45
-#, fuzzy
-#| msgid "PAGE_2FA_PASSWORD_CONFIRM_TITLE"
-msgid "PAGE_PASSWORD_RESET_INFO_TITLE"
-msgstr "Пацвярджэнне пароля"
+msgid "PAGE_REPORTAPP_SUCCESS_MSG"
+msgstr "Ваша скарга адпраўлена."
 
-#: templates/user/password_reset_form.html:46
-#, fuzzy
-#| msgid "PAGE_2FA_PASSWORD_PROMPT"
-msgid "PAGE_PASSWORD_RESET_INFO_TEXT"
-msgstr ""
-"Для доступу да кіравання 2FA, калі ласка, увядзіце пароль ад вашага акаўнта."
+msgid "PAGE_REPORTAPP_TITLE"
+msgstr "Скарга на дадатак"
 
-#: templates/user/password_reset_subject.txt:1
-#, fuzzy
-#| msgid "PAGE_2FA_PASSWORD_PROMPT"
-msgid "PAGE_PASSWORD_RESET_SUBJECT"
-msgstr ""
-"Для доступу да кіравання 2FA, калі ласка, увядзіце пароль ад вашага акаўнта."
+msgid "PAGE_REPORTAPP_TITLE_PATH"
+msgstr "Скаргі на дадаткі"
 
-#~ msgid "BANNED_IP_HEADER"
-#~ msgstr "Доступ абмежаваны"
+msgid "PAGE_REPORTPROBLEM_AUTHOR"
+msgstr "Аўтар скаргі на праблему"
 
-#~ msgid "BANNED_IP_HOME_LINK"
-#~ msgstr "На галоўную"
+msgid "PAGE_REPORTPROBLEM_INFO"
+msgstr "Тут вы можаце паведаміць пра любую праблему, якую выявілі на нашым сайце!"
 
-#~ msgid "BANNED_IP_SUBTITLE"
-#~ msgstr "Ваш IP-адрас заблакіраваны"
+msgid "PAGE_REPORTPROBLEM_SUBMIT_BTN"
+msgstr "Паведаміць пра праблему"
 
-#~ msgid "BASE_LOGINPOPUP_DESC"
-#~ msgstr "У Вас ужо ёсць акаўнт? Прадстаўцеся."
+msgid "PAGE_REPORTPROBLEM_SUCCESS_MSG"
+msgstr "Паспяхова адпраўлена!"
 
-#~ msgid "BASE_LOGINPOPUP_LOGINBTN"
-#~ msgstr "Увайсці"
+msgid "PAGE_REPORTPROBLEM_TITLE"
+msgstr "Паведаміць пра праблему"
 
-#~ msgid "BASE_LOGINPOPUP_LOGINFIELD"
-#~ msgstr "Лагін:"
+msgid "PAGE_SEARCH_BADGE_DEMO"
+msgstr "Дэма"
 
-#~ msgid "BASE_LOGINPOPUP_PASSWORDFIELD"
-#~ msgstr "Пароль:"
+msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
+msgstr "Дэма, далей $%(price)s"
 
-#~ msgid "BASE_LOGINPOPUP_TITLE"
-#~ msgstr "Аўтарызацыя"
+msgid "PAGE_SEARCH_BADGE_DEMO_PRICE %(price)s"
+msgstr "Дэма, далей $%(price)s"
 
-#~ msgid "BASE_OPRJ_GAMESBTN"
-#~ msgstr "Гульні"
+msgid "PAGE_SEARCH_BADGE_FREE"
+msgstr "Бясплатна"
 
-#~ msgid "BASE_OPRJ_OTHERPROJECTSBTN"
-#~ msgstr "Усе праекты »"
+msgid "PAGE_SEARCH_BADGE_NOT_FOUND"
+msgstr "Пошук па запыце \"%(q)s\" не даў вынікаў"
 
-#~ msgid "ERROR_CDNSECURITY"
-#~ msgstr ""
-#~ "Пры спампоўцы файла адбылася памылка бяспекі рухавіка LunaSpire. Калі "
-#~ "ласка, звярніцеся з гэтай памылкай да адміністратара сайта, калі вы "
-#~ "бачыце гэту памылку не ўпершыню."
+msgid "PAGE_SEARCH_BTN_DETAILS"
+msgstr "Падрабязней"
 
-#~ msgid "ERROR_CDN_INVALID_FORMAT"
-#~ msgstr ""
-#~ "Недапушчальны фармат файла на серверы захавання (CDN). Калі ласка, "
-#~ "звярніцеся да адміністратара."
+msgid "PAGE_SEARCH_BTN_RESET"
+msgstr "Скінуць фільтры"
 
-#~ msgid "ERROR_CDN_SESSION_EXPIRED"
-#~ msgstr "Час сэсіі загрузкі скончыўся. Паспрабуйце яшчэ раз."
+msgid "PAGE_SEARCH_BTN_SUBMIT"
+msgstr "пошук"
 
-#~ msgid "ERROR_DIST_SOURCE_REQUIRED"
-#~ msgstr "Трэба пазначыць файл або спасылку для спампоўвання."
+msgid "PAGE_SEARCH_FILTER_AUTHOR_ID"
+msgstr "ID аўтара"
 
-#~ msgid "ERROR_INVALID_IMAGE_FILE"
-#~ msgstr "Не ўдалося апрацаваць выяву. Магчыма, файл пашкоджаны."
+msgid "PAGE_SEARCH_FILTER_CATEGORY"
+msgstr "Катэгорыя"
 
-#~ msgid "ERROR_INVALID_LUNASPIRE_TOKEN"
-#~ msgstr ""
-#~ "Пры загрузцы быў атрыманы няправільны тып токена ад рухавіка LunaSpire. "
-#~ "Калі ласка, звярніцеся з гэтай памылкай да адміністратара сайта, калі вы "
-#~ "бачыце гэту памылку не ўпершыню."
+msgid "PAGE_SEARCH_FILTER_CATEGORY_ALL"
+msgstr "Усе катэгорыі"
 
-#~ msgid "ERROR_MAX_AVATAR_DIMENSIONS"
-#~ msgstr "Максімальны памер выявы — 64x64 пікселяў."
+msgid "PAGE_SEARCH_FILTER_FREE"
+msgstr "Толькі бясплатныя"
 
-#~ msgid "ERROR_PREVIEWSCRNS_1_BIGSIZE"
-#~ msgstr "Памылка: Файл"
+msgid "PAGE_SEARCH_HEADING"
+msgstr "Увядзіце запыт"
 
-#~ msgid "ERROR_PREVIEWSCRNS_1_COUNT"
-#~ msgstr "Памылка: Выбрана"
+msgid "PAGE_SEARCH_IMG_ALT_NONE"
+msgstr "Няма іконкі"
 
-#~ msgid "ERROR_PREVIEWSCRNS_1_INVALIDFORMAT"
-#~ msgstr "Памылка: Файл"
+msgid "PAGE_SEARCH_INPUT_PLACEHOLDER"
+msgstr "Напрыклад: Total Commander"
 
-#~ msgid "ERROR_PREVIEWSCRNS_2_BIGSIZE"
-#~ msgstr " занадта вялікі (макс. 2 Мб)."
+msgid "PAGE_SEARCH_LINK_ADVANCED"
+msgstr "Удакладніць параметры пошуку"
 
-#~ msgid "ERROR_PREVIEWSCRNS_2_COUNT"
-#~ msgstr " файлаў. Максімальная колькасць — 3."
+msgid "PAGE_SEARCH_MSG_NO_RESULTS %(q)s"
+msgstr "Пошук па запыце \"%(q)s\" не даў вынікаў"
 
-#~ msgid "ERROR_PREVIEWSCRNS_2_INVALIDFORMAT"
-#~ msgstr " мае недапушчальны фармат."
+msgid "PAGE_SEARCH_MSG_NO_RESULTS_EMPTY"
+msgstr "Па вашым запыце нічога не знойдзена"
 
-#~ msgid "ERROR_PREVIEWSCRNS_3_COUNT"
-#~ msgstr "Максімум 3 файлы!"
+msgid "PAGE_SEARCH_SORT_LIST"
+msgstr "Паказваць змесціва спісам"
 
-#~ msgid "FORM_APPCREATE_MAXIMUM_SCREENSHOTS"
-#~ msgstr "Максімум 3 скрыншоты."
+msgid "PAGE_SEARCH_SORT_PLACEHOLDER"
+msgstr "Паказваць змесціва..."
 
-#~ msgid "FORM_APPCREATE_TITLE_EXAMPLE"
-#~ msgstr "Напрыклад: Total Commander"
+msgid "PAGE_SEARCH_SORT_TILES"
+msgstr "Паказваць змесціва пліткамі"
 
-#~ msgid "FORM_PASSWORDCONFIRM_WRONGPASS"
-#~ msgstr "Няверны пароль. Калі ласка, паспрабуйце зноў."
+msgid "PAGE_SEARCH_TITLE"
+msgstr "Пошук"
 
-#~ msgid ""
-#~ "File extension “%(extension)s” is not allowed. Allowed extensions are: “%"
-#~ "(allowed_extensions)s”."
-#~ msgstr ""
-#~ "Пашырэнне “%(extension)s” не дазволена. Дапусцімыя пашырэнні: “%"
-#~ "(allowed_extensions)s”."
+msgid "PAGE_SETTINGS_BTN_DELETE"
+msgstr "Выдаліць акаўнт"
 
-#~ msgid "INFO_ACCEPTED_AVATAR_FORMATS"
-#~ msgstr "Дапусцімыя фарматы: .JPG, .PNG, .WEBP, .GIF"
+msgid "PAGE_SETTINGS_BTN_SAVE"
+msgstr "Захаваць"
 
-#~ msgid "INFO_APP_WITHPRICE"
-#~ msgstr "Платнае:"
+msgid "PAGE_SETTINGS_BTN_UPLOAD"
+msgstr "Загрузіць"
 
-#~ msgid "INFO_AVATAR_WAS_CHANGED"
-#~ msgstr "Аватар абноўлены"
+msgid "PAGE_SETTINGS_DELETE_WARNING"
+msgstr "Калі Вы не хочаце карыстацца сайтам, то маеце поўнае права выдаліць свой акаўнт. <br><br>Аднак трэба разумець, што гэтае дзеянне пацягне за сабой знішчэнне дадзеных профіля <b>БЕЗ магчымасці аднаўлення</b>. Доступ да кіруемых старонак дадаткаў будзе знішчаны, а адпраўленыя водгукі будуць абязлічаны. <br><br>"
 
-#~ msgid "INFO_MAXIMUM_AVATAR_SIZE"
-#~ msgstr "Максімальны памер файла: 2 Мб."
+msgid "PAGE_SETTINGS_DEV_STATUS_HAS"
+msgstr "маецца"
 
-#~ msgid "INFO_SELECTED_FILES"
-#~ msgstr "Выбрана файлаў:"
+msgid "PAGE_SETTINGS_HTML_TITLE"
+msgstr "Налады акаўнта"
 
-#~ msgid "MSG_DIST_CREATE_REQ_SENT"
-#~ msgstr "Заява на дабаўленне новай версіі адпраўлена на мадэрацыю."
+msgid "PAGE_SETTINGS_INFO_AVATAR_RULES"
+msgstr "Рэкамендаваны памер аватара: 64x64. <br>Дапусцімыя фарматы: .PNG, .JPG<br>Максімальны памер: 2 Мб"
 
-#~ msgid "NOTIF_APPEDITREQ_ACCEPTED_DESCRIPTION"
-#~ msgstr "Ваша заява на рэдагаванне дадатка %(app_name)s была адобрана."
+msgid "PAGE_SETTINGS_INFO_EMAIL_CHANGE"
+msgstr "Змена e-mail патрабуе пацвярджэння паролем."
 
-#~ msgid "NOTIF_APPEDITREQ_ACCEPTED_TITLE"
-#~ msgstr "Статус заявы на рэдагаванне дадатка"
+msgid "PAGE_SETTINGS_JS_ERR_CDN"
+msgstr "Адбылася памылка пры захаванні файла на серверы LunaSpire. Калі ласка, звярніцеся з гэтай памылкай да адміністратара сайта."
 
-#~ msgid "NOTIF_APPEDITREQ_DECLINED_DESCRIPTION"
-#~ msgstr ""
-#~ "Ваша заява на рэдагаванне дадатка %(app_name)s была адмоўлена. Прычына: %"
-#~ "(reason)s"
+msgid "PAGE_SETTINGS_JS_ERR_PREFIX"
+msgstr "Адбылася памылка:"
 
-#~ msgid "NOTIF_APPEDITREQ_DECLINED_TITLE"
-#~ msgstr "Статус заявы на рэдагаванне дадатка"
+msgid "PAGE_SETTINGS_JS_ERR_TOKEN"
+msgstr "Не ўдалося атрымаць бяспечны токен LunaSpire для загрузцы. Калі ласка, звярніцеся з гэтай памылкай да адміністратара сайта."
 
-#~ msgid "NOTIF_APPREQ_ACCEPTED_DESCRIPTION"
-#~ msgstr ""
-#~ "Віншуем! Ваша заява на стварэнне дадатка %(app_name)s была адобрана і ён "
-#~ "быў апублікаваны ў LunaStore."
+msgid "PAGE_SETTINGS_JS_SELECT_FILE"
+msgstr "Калі ласка, выберыце файл для загрузкі!"
 
-#~ msgid "NOTIF_APPREQ_ACCEPTED_TITLE"
-#~ msgstr "Статус заявы"
+msgid "PAGE_SETTINGS_JS_UPLOADING"
+msgstr "Загрузка..."
 
-#~ msgid "NOTIF_APPREQ_DECLINED_DESCRIPTION"
-#~ msgstr ""
-#~ "Ваша заява на стварэнне дадатка %(app_name)s была адмоўлена. Прычына: %"
-#~ "(reason)s"
+msgid "PAGE_SETTINGS_LABEL_BIO"
+msgstr "Апісанне профіля:"
 
-#~ msgid "NOTIF_APPREQ_DECLINED_TITLE"
-#~ msgstr "Статус заявы"
+msgid "PAGE_SETTINGS_LABEL_CHOOSE_FILE"
+msgstr "Выберыце файл:"
 
-#~ msgid "NOTIF_DEVSTATUS_ACCEPTED_DESCRIPTION"
-#~ msgstr ""
-#~ "Віншуем! Ваша заява была адобрана і вы атрымалі магчымасці распрацоўшчыка/"
-#~ "выдаўца дадаткаў."
+msgid "PAGE_SETTINGS_LABEL_CONFIRM_PASS"
+msgstr "Паўтарыце пароль:"
 
-#~ msgid "NOTIF_DEVSTATUS_ACCEPTED_TITLE"
-#~ msgstr "Статус распрацоўшчыка"
+msgid "PAGE_SETTINGS_LABEL_CUR_EMAIL"
+msgstr "Бягучы e-mail:"
 
-#~ msgid "NOTIF_DEVSTATUS_DECLINED_DESCRIPTION"
-#~ msgstr ""
-#~ "Ваша заява была адмоўлена і вы не атрымалі магчымасці распрацоўшчыка/"
-#~ "выдаўца прыкладанняў. Прычына: %(reason)s"
+msgid "PAGE_SETTINGS_LABEL_CUR_PASS"
+msgstr "Бягучы пароль:"
 
-#~ msgid "NOTIF_DEVSTATUS_DECLINED_TITLE"
-#~ msgstr "Статус распрацоўшчыка"
+msgid "PAGE_SETTINGS_LABEL_DEV_STATUS"
+msgstr "Статус распрацоўшчыка:"
 
-#~ msgid "NOTIF_DEVSTATUS_SEND_DESCRIPTION"
-#~ msgstr ""
-#~ "Ваша заява была паспяхова адпраўлена. Адказ прыйдзе ў раздзеле "
-#~ "«Паведамленні». Нічога рабіць не трэба."
+msgid "PAGE_SETTINGS_LABEL_EMAIL"
+msgstr "Кантактны e-mail:"
 
-#~ msgid "NOTIF_DEVSTATUS_SEND_TITLE"
-#~ msgstr "Статус распрацоўшчыка"
+msgid "PAGE_SETTINGS_LABEL_HIDE_REVIEWS"
+msgstr "Абмежаваць доступ да маіх водгукаў для іншых карыстальнікаў"
 
-#~ msgid "NOTIF_DISTREQ_ACCEPTED_DESCRIPTION"
-#~ msgstr ""
-#~ "Ваша заяўка на публікацыю версіі %(version)s для праграмы \"%"
-#~ "(app_name)s\" была адобрана мадэратарам."
+msgid "PAGE_SETTINGS_LABEL_NEW_EMAIL"
+msgstr "Новы e-mail:"
 
-#~ msgid "NOTIF_DISTREQ_ACCEPTED_TITLE"
-#~ msgstr "Апублікавана новая версія!"
+msgid "PAGE_SETTINGS_LABEL_NEW_PASS"
+msgstr "Новы пароль:"
 
-#~ msgid "NOTIF_DISTREQ_DECLINED_DESCRIPTION"
-#~ msgstr ""
-#~ "На жаль, ваша заяўка на публікацыю версіі %(version)s для \"%"
-#~ "(app_name)s\" была адхілена. Прычына: %(reason)s"
+msgid "PAGE_SETTINGS_LABEL_TELEGRAM"
+msgstr "Telegram:"
 
-#~ msgid "NOTIF_DISTREQ_DECLINED_TITLE"
-#~ msgstr "Заяўка на публікацыю адхілена"
+msgid "PAGE_SETTINGS_LABEL_USERNAME"
+msgstr "Імя карыстальніка:"
 
-#~ msgid "NOTIF_WELCOME_DESCRIPTION"
-#~ msgstr ""
-#~ "Дзякуй за рэгістрацыю! Вельмі прыемна, што Вы засталіся неабыякавымі да "
-#~ "даведніка дадаткаў. Спадзяюся, Вам вельмі спадабаецца!"
+msgid "PAGE_SETTINGS_LABEL_WEBSITE"
+msgstr "Вэб-сайт:"
 
-#~ msgid "NOTIF_WELCOME_TITLE"
-#~ msgstr "Сардэчна запрашаем у LunaStore"
+msgid "PAGE_SETTINGS_SECTION_AVATAR"
+msgstr "Змяніць аватар"
 
-#~ msgid "PAGE_ADMIN_APP_CURRENTSCRN"
-#~ msgstr "Бягучыя скрыншоты"
+msgid "PAGE_SETTINGS_SECTION_BASIC"
+msgstr "Асноўная інфармацыя"
 
-#~ msgid "PAGE_ADMIN_APP_NOICON"
-#~ msgstr "Няма іконкі"
+msgid "PAGE_SETTINGS_SECTION_CHANGE_EMAIL"
+msgstr "Змяніць e-mail"
 
-#~ msgid "PAGE_ADMIN_APP_SLOGANDESC_2"
-#~ msgstr "Кораткасць — сястра таленту :)"
+msgid "PAGE_SETTINGS_SECTION_DELETE"
+msgstr "Выдаленне акаўнта"
 
-#~ msgid "PAGE_ADMIN_APP_WARN_SCRN"
-#~ msgstr "Увага: Загрузка новых файлаў выдаліць усе бягучыя скрыншоты!"
+msgid "PAGE_SETTINGS_SECTION_PASSWORD"
+msgstr "Змяніць пароль"
 
-#~ msgid "PAGE_APP_BTN_BACK"
-#~ msgstr "Назад"
+msgid "PAGE_SETTINGS_SECTION_PRIVACY"
+msgstr "Прыватнасць"
 
-#~ msgid "PAGE_APP_LABEL_DOWNLOADS"
-#~ msgstr "Колькасць спампоўванняў"
+msgid "PAGE_SETTINGS_TAB_ACCOUNT"
+msgstr "Акаўнт"
 
-#~ msgid "PAGE_BADBROSER_DESC_3"
-#~ msgstr "Дзякуй за разуменне."
+msgid "PAGE_SETTINGS_TAB_APPS"
+msgstr "Дадаткі"
 
-#~ msgid "PAGE_BADBROWSER_DESC_1"
-#~ msgstr ""
-#~ "Для паўнацэннага выкарыстання гэтага вэб-сэрвіса рэкамендуецца мець "
-#~ "усталяваны браўзер Internet Explorer 6 і вышэй або RetroZilla."
+msgid "PAGE_SETTINGS_TAB_SECURITY"
+msgstr "Бяспека"
 
-#~ msgid "PAGE_BADBROWSER_DESC_2"
-#~ msgstr ""
-#~ "Спампаваць Internet Explorer 6 можна як напрамую, так і з дапамогай "
-#~ "сэрвісаў"
+msgid "PAGE_SETTINGS_TITLE"
+msgstr "Налады"
 
-#~ msgid "PAGE_BADBROWSER_TITLE"
-#~ msgstr "Дзякуй за інтарэс да крамы Windows!"
+msgid "PAGE_SETTINGS_WARN_USERNAME_FROZEN"
+msgstr "Імя карыстальніка пасля рэгістрацыі змяніць нельга"
 
-#~ msgid "PAGE_CATEGORY_SHOWCONTENTAS"
-#~ msgstr "Паказваць змесціва..."
+msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_1"
+msgstr "Файлы прайшлі праверку:"
 
-#~ msgid "PAGE_CATEGORY_SHOWCONTENTASLIST"
-#~ msgstr "Паказваць змесціва спісам"
+msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_2"
+msgstr "шт. Гатовыя да загрузкі."
 
-#~ msgid "PAGE_CATEGORY_SHOWCONTENTASTILES"
-#~ msgstr "Паказваць змесціва пліткамі"
+msgid "SET_APP_ALLOW_REVIEWS"
+msgstr "Дазволіць водгукі"
 
-#~ msgid "PAGE_DIST_FORM_SAVED"
-#~ msgstr "Змены дыстрыбуцыі паспяхова зменены."
+msgid "SET_APP_ALLOW_REVIEWS_TOOLTIP"
+msgstr "Дазволіць водгукі"
 
-#~ msgid "PAGE_DOWNLOAD_BACK"
-#~ msgstr "Назад"
+msgid "SET_APP_IS_PRIVATE"
+msgstr "Зрабіць дадатак прыватным?"
 
-#~ msgid "PAGE_DOWNLOAD_LOCAL_SOURCE"
-#~ msgstr "Спампоўка з нашага сайта"
+msgid "SET_APP_IS_PRIVATE_TOOLTIP"
+msgstr "Прыватны дадатак не адлюстроўваецца іншым карыстальнікам. Гэтую наладу можна змяніць пасля публікацыі дадатка."
 
-#~ msgid "PAGE_DOWNLOAD_TABLE_ACTION"
-#~ msgstr "Дзеянне"
+msgid "SITE_DESCRIPTION"
+msgstr "LunaStore. Даведнік дадаткаў для твайго старога ПК. Спампоўвайце дадаткі, пакідайце водгукі і станьце часткай суполкі аматараў старых ПК."
 
-#~ msgid "PAGE_DOWNLOAD_TABLE_UPLOAD_DATE"
-#~ msgstr "Дата загрузкі"
+msgid "TEXT_APP_NO_DESC"
+msgstr "Няма апісання"
 
-#~ msgid "PAGE_DOWNLOAD_UPLOADED_VERSIONS"
-#~ msgstr "Загружаныя версіі"
+msgid "TEXT_APP_NO_NAME"
+msgstr "Без назвы"
 
-#~ msgid "PAGE_FAQ_TEAM_ROLE_COOKIE"
-#~ msgstr ""
-#~ "Другі backend-распрацоўшчык, галоўны распрацоўшчык пакетнага менеджара "
-#~ "luna, а таксама пераклад на японскую"
+msgid "TEXT_APP_NO_SLOGAN"
+msgstr "Няма слогана"
 
-#~ msgid "PAGE_FAQ_TEAM_TESTERS_LIST"
-#~ msgstr "(нікі тэстыроўшчыкаў праз коску)"
+msgid "THICKBOX_CLOSE"
+msgstr "Закрыць"
 
-#~ msgid "PAGE_NOTIFICATIONS_COUNT_SINGLE"
-#~ msgid_plural "PAGE_NOTIFICATIONS_COUNT_PLURAL"
-#~ msgstr[0] "У Вас <b>%(counter)s</b> новае паведамленне"
-#~ msgstr[1] "У Вас <b>%(counter)s</b> новых паведамлення"
-#~ msgstr[2] "У Вас <b>%(counter)s</b> новых паведамленняў"
+msgid "THICKBOX_IMAGE"
+msgstr "Карцінка"
 
-#~ msgid "PAGE_OTHER_PROJECTS_DESC_GAMES"
-#~ msgstr ""
-#~ "Рэінкарнацыя інтэрнэт-гульняў для Windows XP/7 у якасці пабочнага "
-#~ "кастамнага сервера"
+msgid "THICKBOX_NEXT"
+msgstr "Уперад"
 
-#~ msgid "PAGE_PROFILE_LABEL_EMAIL"
-#~ msgstr "E-mail:"
+msgid "THICKBOX_NO_IFRAMES"
+msgstr "Без iFrames"
 
-#~ msgid "PAGE_PROFILE_STAFF_ALT"
-#~ msgstr "Каманда LunaStore"
+msgid "THICKBOX_OF"
+msgstr "з"
 
-#~ msgid "PAGE_SEARCH_BADGE_NOT_FOUND"
-#~ msgstr "Пошук па запыце \"%(q)s\" не даў вынікаў"
+msgid "THICKBOX_PREV"
+msgstr "Назад"
 
-#~ msgid "PAGE_SEARCH_IMG_ALT_NONE"
-#~ msgstr "Няма іконкі"
+msgid "VIEW_LOGIN_BANNED_REASON"
+msgstr "Ваш акаўнт заблакіраваны. Прычына: %(reason)s"
 
-#~ msgid "PAGE_SETTINGS_LABEL_HIDE_REVIEWS"
-#~ msgstr "Абмежаваць доступ да маіх водгукаў для іншых карыстальнікаў"
+msgid "VIEW_LOGIN_INVALID_CREDENTIALS"
+msgstr "Няверны лагін або пароль."
 
-#~ msgid "PAGE_SETTINGS_SECTION_PRIVACY"
-#~ msgstr "Прыватнасць"
-
-#~ msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_1"
-#~ msgstr "Файлы прыйшлі праверку:"
-
-#~ msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_2"
-#~ msgstr "шт. Гатовыя да загрузкі."
-
-#~ msgid "SITE_DESCRIPTION"
-#~ msgstr ""
-#~ "LunaStore. Даведнік дадаткаў для твайго старога ПК. Спампоўвайце дадаткі, "
-#~ "пакідайце водгукі і станьце часткай суполкі аматараў старых ПК."
+msgid "VIEW_LOGIN_SUCCESS"
+msgstr "Уваход паспяховы! Вітаем, %(username)s!"

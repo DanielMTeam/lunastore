@@ -1,7 +1,5 @@
 msgid ""
 msgstr ""
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-11 17:23+0000\n"
 "Language: kk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -9,3155 +7,2230 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 "X-Generator: Tolgee\n"
 
-#: apps/core/mixins.py:11
-msgid "ERROR_CDN_TOKEN_MISSING"
-msgstr "CDN токені берілмеген."
-
-#: apps/core/mixins.py:18
-msgid "ERROR_CDN_TOKEN_INVALID_TYPE"
-msgstr "CDN токенінің түрі жарамсыз."
-
-#: apps/core/mixins.py:25
-msgid "ERROR_CDN_TOKEN_EXPIRED_OR_USED"
-msgstr "Жүктеу токенінің мерзімі өтті немесе ол бұрыннан пайдаланылды."
-
-#: apps/core/mixins.py:33
-msgid "ERROR_CDN_TOKEN_EXPIRED"
-msgstr "Жүктеу токенінің мерзімі өтті немесе ол бұрыннан пайдаланылды."
-
-#: apps/core/mixins.py:35
-msgid "ERROR_CDN_TOKEN_INVALID"
-msgstr "CDN қауіпсіздік токен жарамсыз."
-
-#: apps/core/templatetags/markdown_tags.py:28
-msgid "MD_ALERT_NOTE"
-msgstr "Ескертпе"
-
-#: apps/core/templatetags/markdown_tags.py:30
-msgid "MD_ALERT_TIP"
-msgstr "Кеңес"
-
-#: apps/core/templatetags/markdown_tags.py:32
-msgid "MD_ALERT_IMPORTANT"
-msgstr "Маңызды"
-
-#: apps/core/templatetags/markdown_tags.py:34
-msgid "MD_ALERT_WARNING"
-msgstr "Ескерту"
-
-#: apps/core/templatetags/markdown_tags.py:36
-msgid "MD_ALERT_CAUTION"
-msgstr "Сақ болыңыз"
-
-#: apps/marketplace/decorators.py:22 apps/marketplace/decorators.py:39
-#: apps/marketplace/views.py:526 apps/marketplace/views.py:650
-msgid "ERROR_YOURE_NOT_OWNER_OF_APP"
-msgstr "Сіз бұл қолданбаның әкімшісі емессіз."
-
-#: apps/marketplace/forms.py:215 apps/marketplace/forms.py:352
-#: apps/marketplace/forms.py:472
-msgid "FORM_SCREENSHOTS"
-msgstr "Скриншоттар"
-
-#: apps/marketplace/forms.py:240 apps/user/forms.py:160 apps/user/forms.py:439
-msgid "FORM_AGREE_RULES"
-msgstr ""
-"Мен сайт ережелерімен келісемін және оларды бұзған жағдайдағы салдары туралы "
-"хабардармын"
-
-#: apps/marketplace/forms.py:243 apps/user/forms.py:158 apps/user/forms.py:445
-#: templates/app_add.html:456 templates/dev_add.html:114
-msgid "FORM_CAPTCHA"
-msgstr "Суреттегі таңбаларды енгізіңіз"
-
-#: apps/marketplace/forms.py:291
-msgid "ERROR_CDN_CHECKSUM_MISMATCH_SCREENSHOTS"
-msgstr "Скриншот токендерін тексеру кезіндегі қателік."
-
-#: apps/marketplace/forms.py:468
-msgid "ACTION_CHOOSE_ICON"
-msgstr "Файлды таңдау"
-
-#: apps/marketplace/forms.py:592
-msgid "ERROR_DIST_FORM_NO_FILE_OR_URL"
-msgstr "Файлды жүктеу немесе жүктеп алу үшін сілтемені көрсету қажет"
-
-#: apps/marketplace/forms.py:596
-msgid "ERROR_DIST_FORM_NO_VT_LINK"
-msgstr "Файлды жүктеу кезінде VirusTotal сілтемесі міндетті."
-
-#: apps/marketplace/forms.py:609 apps/user/forms.py:378
-msgid "ERROR_DIST_FORM_CDN_INFO_FAIL"
-msgstr ""
-"Сақтау серверінен файл туралы ақпаратты алу мүмкін болмады. Кейінірек "
-"көріңіз."
-
-#: apps/marketplace/models.py:412
-msgid "PAGE_REPORTAPP_REASON_MALWARE"
-msgstr "Ааа, көмектесіңіз, мұнда вирустар бар!"
-
-#: apps/marketplace/models.py:413
-msgid "PAGE_REPORTAPP_REASON_INCORRECT"
-msgstr "Деректер немесе сипаттама дұрыс емес"
-
-#: apps/marketplace/models.py:414
-msgid "PAGE_REPORTAPP_REASON_OTHER"
-msgstr "Басқа себеп"
-
-#: apps/marketplace/models.py:430
-msgid "PAGE_REPORTAPP_AUTHOR"
-msgstr "Қолданба бойынша шағым авторы:"
-
-#: apps/marketplace/models.py:442 templates/report_app.html:32
-msgid "PAGE_REPORTAPP_TITLE"
-msgstr "Қолданбаға шағым"
-
-#: apps/marketplace/models.py:443
-msgid "PAGE_REPORTAPP_TITLE_PATH"
-msgstr "Қолданбаларға шағымдар"
-
-#: apps/marketplace/models.py:461
-msgid "PAGE_REPORTPROBLEM_AUTHOR"
-msgstr "Мәселе бойынша шағым авторы"
-
-#: apps/marketplace/views.py:245
-msgid "PAGE_ADDAPP_SUCCESS"
-msgstr "Қосымша қосу туралы өтінішіңіз сәтті жіберілді."
-
-#: apps/marketplace/views.py:255
-msgid "ERROR_CHECK_FORM"
-msgstr "Пішінді тексеріңіз. Кейбір өрістерде қателер бар."
-
-#: apps/marketplace/views.py:275 apps/marketplace/views.py:298
-msgid "ERROR_RATE_LIMIT_EXCEEDED"
-msgstr ""
-"Сұраныстарды тым жиі жіберудесіз. Жалғастыру үшін біраз уақыт күте тұрыңыз."
-
-#: apps/marketplace/views.py:316
-msgid "PAGE_ADMIN_APP_MSG_SAVE_SUCCESS"
-msgstr "Деректерді жаңарту туралы өтінім модерацияға сәтті жіберілді."
-
-#: apps/marketplace/views.py:320 apps/user/forms.py:147 apps/user/forms.py:152
-msgid "PAGE_ADMIN_APP_MSG_SAVE_ERROR"
-msgstr ""
-"Пішінді сақтау кезінде қате орын алды. Енгізілген деректерді тексеріңіз."
-
-#: apps/marketplace/views.py:409
-msgid "PAGE_REPORTAPP_SUCCESS_MSG"
-msgstr "Шағымыңыз жіберілді."
-
-#: apps/marketplace/views.py:434
-msgid "PAGE_REPORTPROBLEM_SUCCESS_MSG"
-msgstr "Сәтті жіберілді!"
-
-#: apps/marketplace/views.py:467
-msgid "PAGE_MANAGEDIST_CREATE_SUCCESS"
-msgstr "Жаңа дистрибуция жасалды"
-
-#: apps/marketplace/views.py:557
-msgid "MSG_DIST_EDIT_REQ_SENT"
-msgstr "Нұсқаны өзгерту туралы өтінім модерацияға жіберілді."
-
-#: apps/marketplace/views.py:605 templates/storepage.html:204
-msgid "PAGE_APP_RATING_DISABLED"
-msgstr "Бұл қолданбаға арналған пікірлер автор тарапынан өшірілген"
-
-#: apps/marketplace/views.py:632
-#, fuzzy
-#| msgid "PAGE_APP_RATING_DISABLED"
-msgid "PAGE_APP_RATING_DELETE_DENIED"
-msgstr "Бұл қолданбаға арналған пікірлер автор тарапынан өшірілген"
-
-#: apps/marketplace/views.py:637
-#, fuzzy
-#| msgid "PAGE_APP_RATING_USERS"
-msgid "PAGE_APP_RATING_DELETE_SUCCESS"
-msgstr "Пайдаланушылар бағалауы"
-
-#: apps/user/decorators.py:21
-msgid "ERROR_YOU_DONT_HAVE_DEVSTATUS"
-msgstr ""
-"Бұл бетті көру үшін сізде әзірлеуші мәртебесі жоқ. Оны профиль "
-"параметрлерінен алуға болады."
-
-#: apps/user/forms.py:134
-msgid "INFO_YOUR_IP_WAS_BANNED"
-msgstr ""
-"IP-мекенжайыңыз бұғатталды. Егер бұл қателік деп санасаңыз және сізді "
-"'себепсіз' бұғаттаса, бізге E-mail арқылы жазыңыз: daniel@myslivets.com"
-
-#: apps/user/forms.py:165 apps/user/forms.py:442
-msgid "FORM_AGREE_POLICY"
-msgstr "Мен құпиялылық шарттарын қабылдаймын"
-
-#: apps/user/forms.py:189 apps/user/forms.py:406
-msgid "FORM_DEVSTATUS_YOUR_USERNAME"
-msgstr "Пайдаланушы аты"
-
-#: apps/user/forms.py:255 templates/settings.html:58
-msgid "PAGE_SETTINGS_LABEL_WEBSITE"
-msgstr "Веб-сайт:"
-
-#: apps/user/forms.py:273
-msgid "PAGE_PROFILESETTINGS_LABEL_BIO"
-msgstr "Профиль сипаттамасы:"
-
-#: apps/user/forms.py:290
-msgid "ERROR_PROFILE_TELEGRAM_INVALID"
-msgstr ""
-"Telegram пайдаланушы атының пішімі қате. Пайдаланушы атын сілтемелерсіз және "
-"протоколдарсыз көрсетіңіз."
-
-#: apps/user/forms.py:300
-msgid "ERROR_PROFILE_OPENVK_INVALID"
-msgstr ""
-"OpenVK пайдаланушы атының пішімі қате. Жарамды пайдаланушы атын көрсетіңіз."
-
-#: apps/user/forms.py:324 apps/user/forms.py:500 apps/user/forms.py:562
-msgid "ERROR_CURRENT_PASSWORD_IS_WRONG"
-msgstr "Ағымдағы құпия сөз қате"
-
-#: apps/user/forms.py:335
-msgid "ERROR_NEW_PASSWORDS_DONT_MATCH"
-msgstr "Жаңа құпия сөздер сәйкес келмейді"
-
-#: apps/user/forms.py:338
-msgid "ERROR_NEW_PASSWORD_SAME_AS_OLD"
-msgstr "Жаңа құпия сөз ескісімен бірдей. Басқа құпия сөз енгізіңіз."
-
-#: apps/user/forms.py:352
-msgid "ACTION_CHOOSE_FILE"
-msgstr "Файлды таңдау"
-
-#: apps/user/forms.py:354
-msgid "INFO_RECOMENDATIONS_FOR_UPLOAD_AVATAR"
-msgstr "Ұсынылатын өлшем: 64x64. Пішімдер: PNG, JPG. Макс: 2 МБ."
-
-#: apps/user/forms.py:413
-msgid "FORM_DEVSTATUS_YOUR_EMAIL"
-msgstr "Сіздің E-mail"
-
-#: apps/user/forms.py:416
-msgid "FORM_DEVSTATUS_WE_WILL_CONTACT"
-msgstr "Біз Сізбен міндетті түрде хабарласамыз. Тым болмаса тырысып көреміз."
-
-#: apps/user/forms.py:420
-msgid "FORM_DEVSTATUS_GITHUB"
-msgstr "GitHub сілтемесі"
-
-#: apps/user/forms.py:423
-msgid "FORM_DEVSTATUS_GITHUB_HELP"
-msgstr ""
-"Неге болмасқа? Біз Сіздердің керемет әзірлемелеріңізді көргіміз келеді :3"
-
-#: apps/user/forms.py:427
-msgid "FORM_DEVSTATUS_ABOUT_YOU"
-msgstr "Өзіңіз туралы айтыңыз (1000 таңбаға дейін)"
-
-#: apps/user/forms.py:433
-msgid "FORM_DEVSTATUS_WHY_YOU_CHOOSE"
-msgstr "Бізді неліктен таңдадыңыз? (250 таңбаға дейін)"
-
-#: apps/user/forms.py:486
-msgid "FORM_PASSWORDCONFIRM_ENTER"
-msgstr "Ағымдағы құпия сөзді енгізіңіз"
-
-#: apps/user/forms.py:489
-msgid "FORM_PASSWORDCONFIRM_CONFIRM"
-msgstr "Құпия сөзді растау"
-
-#: apps/user/forms.py:506
-msgid "FORM_INVITECODE_TITLE"
-msgstr "Код"
-
-#: apps/user/forms.py:511
-msgid "FORM_INVITECODE_ENTER"
-msgstr "Кодты енгізіңіз"
-
-#: apps/user/forms.py:522
-msgid "FORM_INVITECODE_DOESNOTEXIST_ERROR"
-msgstr "Бұл инвайт-код табылмады."
-
-#: apps/user/forms.py:525
-msgid "FORM_INVITECODE_EXPIRED_ERROR"
-msgstr "Кодтың жарамдылық мерзімі өтті (24 сағат). Жаңасын сұраңыз."
-
-#: apps/user/forms.py:530
-msgid "FORM_INVITECODE_CODELIMITISNTOK_ERROR"
-msgstr ""
-"Бұл код бойынша шақыру лимиті таусылды. Иесі жақында тым көп адамды шақырды."
-
-#: apps/user/forms.py:543 templates/settings_security.html:105
-msgid "PAGE_SETTINGS_LABEL_CUR_EMAIL"
-msgstr "Ағымдағы e-mail:"
-
-#: apps/user/forms.py:550 templates/settings_security.html:109
-msgid "PAGE_SETTINGS_LABEL_NEW_EMAIL"
-msgstr "Жаңа e-mail:"
-
-#: apps/user/forms.py:555 templates/2fa_password_confirm.html:23
-#: templates/settings_security.html:82 templates/settings_security.html:114
-msgid "PAGE_SETTINGS_LABEL_CUR_PASS"
-msgstr "Ағымдағы құпия сөз:"
-
-#: apps/user/forms.py:570
-msgid "ERROR_EMAIL_IS_SAME"
-msgstr "Жаңа E-mail ағымдағысымен сәйкес келеді."
-
-#: apps/user/forms.py:574
-msgid "ERROR_EMAIL_ALREADY_EXISTS"
-msgstr "Бұл E-mail бар пайдаланушы бұрыннан бар."
-
-#: apps/user/forms.py:630
-msgid "ERROR_PASSWORD_RESET_EMAIL_NOT_FOUND"
-msgstr "Бұл электрондық пошта мекенжайы бар тіркелгі табылмады."
-
-#: apps/user/models.py:24
-msgid "ERROR_EMAIL_ALREADY_IN_USE"
-msgstr "Бұл E-mail мекенжайы қолданыста."
-
-#: apps/user/tasks.py:55
-msgid "NOTIF_LOGIN_TITLE"
-msgstr "Жаңа тіркелгіге кіру"
-
-#: apps/user/tasks.py:56
-msgid "NOTIF_LOGIN_DESCRIPTION"
-msgstr ""
-"Тіркелгіңізге кіру орындалды • Құрылғы: %(browser)s (%(os)s) • IP-мекенжайы: "
-"%(ip)s • Орналасқан жері: %(location)s • Егер бұл сіз болмасаңыз, құпия "
-"сөзді дереу өзгертіңіз."
-
-#: apps/user/validators.py:51 apps/user/validators.py:57
-msgid "ERROR_EMAIL_INVALID_FORMAT"
-msgstr "Электрондық пошта мекенжайы қате енгізілді."
-
-#: apps/user/validators.py:61
-msgid "ERROR_EMAIL_NO_ALIASES"
-msgstr ""
-"\"+\" белгісі бар пошталық бүркеншік аттарды пайдалануға тыйым салынады."
-
-#: apps/user/validators.py:66
-msgid "ERROR_EMAIL_DISPOSABLE_DOMAIN"
-msgstr ""
-"Уақытша электрондық пошта қызметтерін пайдаланып тіркелуге тыйым салынған."
-
-#: apps/user/validators.py:91
-#, python-format
-msgid "ERROR_EMAIL_DOMAIN_NO_MX %(domain)s"
-msgstr ""
-"%(domain)s домені электрондық поштаны қабылдамайды. Қолданыстағы мекенжайды "
-"көрсетіңіз."
-
-#: apps/user/views.py:125
-msgid "VIEW_LOGIN_BANNED_REASON"
-msgstr "Сіздің аккаунты бұғатталды. Себебі: %(reason)s"
-
-#: apps/user/views.py:152 apps/user/views.py:573
-msgid "VIEW_LOGIN_SUCCESS"
-msgstr "Сіз сәтті кірдіңіз! Сәлем, %(username)s!"
-
-#: apps/user/views.py:156
-msgid "VIEW_LOGIN_INVALID_CREDENTIALS"
-msgstr "Логин немесе құпия сөз дұрыс емес."
-
-#: apps/user/views.py:320
-msgid "INFO_PROFILE_IS_UPDATED"
-msgstr "Профиль жаңартылды"
-
-#: apps/user/views.py:332 apps/user/views.py:614
-msgid "INFO_PASSWORD_WAS_CHANGED"
-msgstr "Құпиясөз сәтті өзгертілді"
-
-#: apps/user/views.py:345
-msgid "INFO_AVATAR_WAS_UPLOADED"
-msgstr "Аватар сәтті жүктелді!"
-
-#: apps/user/views.py:360 apps/user/views.py:625
-msgid "INFO_EMAIL_WAS_CHANGED"
-msgstr "E-mail сәтті өзгертілді."
-
-#: apps/user/views.py:392
-msgid "INFO_APP_CREATE_REQUEST_WAS_SENT"
-msgstr "Өтінім қарауға жіберілді"
-
-#: apps/user/views.py:417
-msgid "ERROR_ACCESS_DENIED_PROFILE"
-msgstr "Қатынас шектелген. Профиль баптауларынан бастаңыз."
-
-#: apps/user/views.py:424
-msgid "INFO_ACCOUNT_WAS_DELETED"
-msgstr ""
-"Аккаунтыңыз сәтті жойылды. Оралуды шешсеңіз — біз сізді сайтымызда әрқашан "
-"күтеміз!"
-
-#: apps/user/views.py:461
-msgid "PAGE_INVITE_LIMIT_INFO"
-msgstr ""
-"Қазіргі уақытта сіз <b>1</b> адамды шақыра аласыз. Пайдаланушы сіздің "
-"шақыруыңызды қабылдағаннан кейін, келесі шақыруды тек бір аптадан кейін "
-"жасауға болады"
-
-#: apps/user/views.py:576 apps/user/views.py:678
-msgid "ERROR_2FA_INVALID_CODE"
-msgstr "Жарамсыз код"
-
-#: apps/user/views.py:651
-msgid "ERROR_2FA_INVALID_PASSWORD"
-msgstr "Пароль дұрыс емес"
-
-#: apps/user/views.py:660
-msgid "INFO_2FA_DISABLED"
-msgstr "Екі факторлық аутентификация сәтті өшірілді."
-
-#: apps/user/views.py:672
-msgid "INFO_2FA_ENABLED"
-msgstr "Екі факторлық аутентификация сәтті қосылды."
-
-#: templates/2fa_attempt.html:6
-msgid "PAGE_2FA_ATTEMPT_TITLE"
-msgstr "2FA кодын енгізу"
-
-#: templates/2fa_attempt.html:12
-msgid "PAGE_2FA_ATTEMPT_HEADER"
-msgstr "Екі факторлы тексеру"
-
-#: templates/2fa_attempt.html:18 templates/2fa_set.html:6
-#: templates/2fa_set.html:22 templates/settings_security.html:35
-msgid "PAGE_2FA_TITLE"
-msgstr "Екі факторлық аутентификация"
-
-#: templates/2fa_attempt.html:19
-msgid "PAGE_2FA_ATTEMPT_SUBTITLE"
-msgstr "Кіруді аяқтау үшін кодты енгізіңіз"
-
-#: templates/2fa_attempt.html:27
-msgid "PAGE_2FA_ENTER_CODE_HEADER"
-msgstr "Кодты енгізу"
-
-#: templates/2fa_attempt.html:29 templates/2fa_set.html:56
-msgid "PAGE_2FA_ENABLED_INFO"
-msgstr ""
-"Бұл аккаунтта стандартты логин мен парольден бөлек, уақытша кіру кодын "
-"енгізу арқылы қосымша кіру әдісі қосылған"
-
-#: templates/2fa_attempt.html:34
-msgid "PAGE_2FA_OPEN_GENERATOR"
-msgstr "Код генераторын ашып, алынған кодты енгізіңіз"
-
-#: templates/2fa_attempt.html:38 templates/2fa_password_confirm.html:27
-msgid "PAGE_2FA_CONTINUE_BTN"
-msgstr "Жалғастыру"
-
-#: templates/2fa_password_confirm.html:6
-msgid "PAGE_2FA_PASSWORD_CONFIRM_TITLE"
-msgstr "Құпия сөзді растау"
-
-#: templates/2fa_password_confirm.html:12 templates/2fa_set.html:13
-#: templates/settings.html:17 templates/settings_apps.html:15
-#: templates/settings_security.html:6 templates/settings_security.html:14
-msgid "PAGE_SETTINGS_TITLE"
-msgstr "Баптаулар"
-
-#: templates/2fa_password_confirm.html:17
-msgid "PAGE_2FA_PASSWORD_CONFIRM"
-msgstr "Кіруді растау"
-
-#: templates/2fa_password_confirm.html:19
-msgid "PAGE_2FA_PASSWORD_PROMPT"
-msgstr "2FA басқаруына кіру үшін тіркелгіңіздің құпия сөзін енгізіңіз."
-
-#: templates/2fa_set.html:23
-msgid "PAGE_2FA_SUBTITLE_MANAGE"
-msgstr "Бір реттік код арқылы кіруді басқару"
-
-#: templates/2fa_set.html:31
-msgid "PAGE_2FA_INITIAL_SETUP"
-msgstr "Бастапқы баптау"
-
-#: templates/2fa_set.html:31 templates/settings_security.html:41
-msgid "PAGE_2FA_MANAGE"
-msgstr "Басқару"
-
-#: templates/2fa_set.html:34
-msgid "PAGE_2FA_INFO_1"
-msgstr ""
-"Стандартты логин мен парольден бөлек, уақытша кіру кодын енгізу арқылы "
-"аккаунтыңызды қосымша қорғау әдісімен қамтамасыз етіңіз"
-
-#: templates/2fa_set.html:36
-msgid "PAGE_2FA_INFO_2"
-msgstr ""
-"Баптауды бастау үшін сізге код генераторы қажет болады (мысалы: <b>Google "
-"Authenticator</b> немесе <b>Aegis</b>)"
-
-#: templates/2fa_set.html:38
-msgid "PAGE_2FA_INFO_3"
-msgstr ""
-"Кодтарды генерациялау ұялы байланыссыз және желіге қосылусыз жұмыс істейді. "
-"Экрандағы осы QR-кодты қолданба арқылы сканерлеңіз, алынған 6 цифрды "
-"енгізіңіз және \"Қосу\" батырмасын басыңыз"
-
-#: templates/2fa_set.html:46
-msgid "PAGE_2FA_SECRET_KEY"
-msgstr "Сіздің құпия кілтіңіз"
-
-#: templates/2fa_set.html:48
-msgid "PAGE_2FA_ENTER_CODE"
-msgstr "алынған кодты енгізіңіз"
-
-#: templates/2fa_set.html:52
-msgid "PAGE_2FA_CONNECT_BTN"
-msgstr "Қосу"
-
-#: templates/2fa_set.html:58
-msgid "PAGE_2FA_DISABLE_INFO"
-msgstr "Егер сіз бұл кіру әдісін өшіргіңіз келсе, төмендегі түймені басыңыз."
-
-#: templates/2fa_set.html:59
-msgid "PAGE_2FA_DISABLE_CONFIRM"
-msgstr ""
-"2FA-ны өшіргіңіз келетініне сенімдісіз бе? Бұл аккаунтыныздың қауіпсіздік "
-"деңгейін төмендетеді."
-
-#: templates/2fa_set.html:63
-msgid "PAGE_2FA_DISABLE_BTN"
-msgstr "2FA-ны өшіру"
-
-#: templates/404.html:8
-msgid "404_TITLE"
-msgstr "Қате орын алды"
-
-#: templates/404.html:9
-msgid "404_ELEMENT_NOT_FOUND"
-msgstr ""
-"Сұратылған элемент немесе сіз өткіңіз келетін сілтеме біздің сайттан "
-"табылмады."
-
-#: templates/404.html:10
-msgid "404_ELEMENT_NOT_FOUND_2"
-msgstr "Біз оны табуға барынша тырыстық, шынымен."
-
-#: templates/404.html:11
-msgid "404_ELEMENT_NOT_FOUND_3"
-msgstr ""
-"Егер бұл бұрын қолжетімді болса, онда бет авторымен немесе әкімшілікпен "
-"жылжытылған немесе жойылған болуы мүмкін. Кейінірек қайталап көріңіз. "
-"Түсінгеніңізге рақмет."
-
-#: templates/404.html:12
-msgid "404_GO_TO_HOME"
-msgstr "Басты бетке оралу"
-
-#: templates/admin/broadcast_notify.html:23
-msgid "LunaStore Admin"
-msgstr "кім аударманы тағы қисық қойып шықты"
-
-#: templates/admin_app.html:6 templates/admin_app.html:10
-#: templates/manage_distributions.html:10
-msgid "PAGE_ADMIN_APP_PAGETITLE"
-msgstr "Қосымшаны өңдеу"
-
-#: templates/admin_app.html:21 templates/app_add.html:14
-#: templates/storepage.html:14
-msgid "THICKBOX_IMAGE"
-msgstr "Сурет"
-
-#: templates/admin_app.html:22 templates/app_add.html:15
-#: templates/storepage.html:15
-msgid "THICKBOX_OF"
-msgstr "ішінен"
-
-#: templates/admin_app.html:23 templates/app_add.html:16
-#: templates/storepage.html:16
-msgid "THICKBOX_CLOSE"
-msgstr "Жабу"
-
-#: templates/admin_app.html:24 templates/app_add.html:17
-#: templates/storepage.html:17
-msgid "THICKBOX_NEXT"
-msgstr "Келесі"
-
-#: templates/admin_app.html:25 templates/app_add.html:18
-#: templates/storepage.html:18
-msgid "THICKBOX_PREV"
-msgstr "Артқа"
-
-#: templates/admin_app.html:26 templates/app_add.html:19
-#: templates/storepage.html:19
-msgid "THICKBOX_NO_IFRAMES"
-msgstr "iFrame-сіз"
-
-#: templates/admin_app.html:68 templates/manage_distributions.html:54
-msgid "PAGE_ADMIN_APP_FIRST_BLOCK"
-msgstr "Инфо"
-
-#: templates/admin_app.html:72 templates/manage_distributions.html:6
-#: templates/manage_distributions.html:58
-msgid "PAGE_ADMIN_APP_TAB_DISTRIBUTIONS"
-msgstr "Файлдар"
-
-#: templates/admin_app.html:79
-msgid "PAGE_ADMIN_APP_TRANSLATIONINFO"
-msgstr ""
-"Қолданбаңыз туралы ақпаратты аудару оның шетелдік аудитория үшін "
-"танымалдылығын арттырып, іздеу жүйелеріндегі көрінісін жақсарта алады. Кез "
-"келген жағдайда біз авторларға әртүрлі тілдерге аударма жасауға кеңес "
-"береміз."
-
-#: templates/admin_app.html:90
-msgid "PAGE_ADMIN_APP_PROFILE_BLOCK"
-msgstr "Негізгі ақпарат"
-
-#: templates/admin_app.html:94
-msgid "PAGE_ADMIN_APP_ID"
-msgstr "Қосымша идентификаторы:"
-
-#: templates/admin_app.html:99
-msgid "PAGE_ADMIN_APP_IDDESC"
-msgstr "Бұл ақпаратты өзгерту мүмкін емес"
-
-#: templates/admin_app.html:103 templates/app_add.html:222
-#: templates/storepage.html:52
-msgid "PAGE_APP_LABEL_ORIGINAL_AUTHOR"
-msgstr "Түпнұсқа автор:"
-
-#: templates/admin_app.html:111
-msgid "PAGE_ADMIN_APP_TITLE"
-msgstr "Қосымшаның атауы:"
-
-#: templates/admin_app.html:131
-msgid "PAGE_ADMIN_APP_TITLEDESC"
-msgstr ""
-"Тамаша әрі есте қаларлық атау қолданбаға пайдаланушылар арасында "
-"танымалдылық бонусы береді"
-
-#: templates/admin_app.html:135
-msgid "PAGE_ADMIN_APP_SLOGAN"
-msgstr "Ұран (140 таңба):"
-
-#: templates/admin_app.html:155
-msgid "PAGE_ADMIN_APP_SLOGANDESC"
-msgstr ""
-"Ұран қолданбаның өз бетінде, басты бетте және іздеу жүйесінде көрсетіледі"
-
-#: templates/admin_app.html:159
-msgid "PAGE_ADMIN_APP_DESC"
-msgstr "Сипаттама (1000 таңба):"
-
-#: templates/admin_app.html:179
-msgid "PAGE_ADMIN_APP_DESCDESC"
-msgstr "Сипаттама қолданба бетіндегі 'Қосымша ақпарат' блогында көрсетіледі"
-
-#: templates/admin_app.html:183
-msgid "PAGE_ADMIN_APP_REQ"
-msgstr "Жүйелік талаптар (1400 таңба):"
-
-#: templates/admin_app.html:203
-msgid "PAGE_ADMIN_APP_REQDESC"
-msgstr ""
-"Жүйелік талаптар қолданба бетіндегі 'Қосымша ақпарат' блогында көрсетіледі"
-
-#: templates/admin_app.html:209
-msgid "PAGE_ADMIN_APP_CATEGORY"
-msgstr "Санаты:"
-
-#: templates/admin_app.html:211
-msgid "PAGE_ADMIN_APP_CATEGORYDESC"
-msgstr "Бұл дұрыс іздеу үшін өте маңызды..."
-
-#: templates/admin_app.html:215
-msgid "PAGE_ADMIN_APP_DEVSITE"
-msgstr "Әзірлеушінің ресми сайты:"
-
-#: templates/admin_app.html:222 templates/app_add.html:279
-#: templates/category.html:57
-msgid "INFO_APP_DEMO"
-msgstr "Демо"
-
-#: templates/admin_app.html:227 templates/app_add.html:285
-msgid "PAGE_APP_LABEL_PRICE"
-msgstr "Бағасы"
-
-#: templates/admin_app.html:233
-msgid "PAGE_ADMIN_APP_ICON"
-msgstr "Қолданба белгішесі"
-
-#: templates/admin_app.html:239
-msgid "PAGE_ADMIN_APP_LOAD_ICON"
-msgstr "Белгішені жүктеу"
-
-#: templates/admin_app.html:244
-msgid "PAGE_ADMIN_APP_ICON_REQ1"
-msgstr "Белгішесінің ұсынылатын өлшемі: 64x64."
-
-#: templates/admin_app.html:245
-msgid "PAGE_ADMIN_APP_ICON_REQ2"
-msgstr "Рұқсат етілген пішімдер: .PNG, .JPG"
-
-#: templates/admin_app.html:246
-msgid "PAGE_ADMIN_APP_ICON_REQ3"
-msgstr "Максималды өлшемі: 2 Мб"
-
-#: templates/admin_app.html:254
-msgid "PAGE_ADMIN_APP_SCRNS_TITLE"
-msgstr "Скриншоттар"
-
-#: templates/admin_app.html:258
-msgid "PAGE_ADMIN_APP_LOAD_SCRN"
-msgstr "Жаңа скриншоттарды жүктеу (максимум 3 дана)"
-
-#: templates/admin_app.html:259 templates/app_add.html:371
-msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_1"
-msgstr "Скриншоттардың максималды саны: 3"
-
-#: templates/admin_app.html:272 templates/app_add.html:393
-msgid "SET_APP_IS_PRIVATE"
-msgstr "Қосымшаны жеке ету керек пе?"
-
-#: templates/admin_app.html:273 templates/app_add.html:394
-msgid "SET_APP_IS_PRIVATE_TOOLTIP"
-msgstr ""
-"Жеке қолданба басқа пайдаланушыларға көрсетілмейді. Бұл параметрді қолданба "
-"жарияланғаннан кейін өзгертуге болады."
-
-#: templates/admin_app.html:284 templates/app_add.html:404
-msgid "SET_APP_ALLOW_REVIEWS"
-msgstr "Пікірлерге рұқсат беру"
-
-#: templates/admin_app.html:287
-#, fuzzy
-#| msgid "SET_APP_ALLOW_REVIEWS"
-msgid "SET_APP_ALLOW_REVIEWS_TOOLTIP"
-msgstr "Пікірлерге рұқсат беру"
-
-#: templates/admin_app.html:291 templates/distribution_form.html:174
-#: templates/manage_distributions.html:249
-#: templates/manage_distributions.html:275
-msgid "PAGE_ADMIN_APP_DIST_SAVE"
-msgstr "Сақтау"
-
-#: templates/admin_app.html:313 templates/app_add.html:531
-msgid "ERROR_INVALID_FILE_FORMAT"
-msgstr "Қате: Файл пішімі жарамсыз!"
-
-#: templates/admin_app.html:313 templates/app_add.html:531
-msgid "INFO_ACCEPTED_ICON_FORMATS"
-msgstr "Тек мына пішімдер рұқсат етіледі: .JPG, .JPEG, .PNG"
-
-#: templates/admin_app.html:319 templates/app_add.html:539
-msgid "ERROR_INVALID_SIZE_ICON"
-msgstr "Қате: Файл өлшемі 2 Мб-тан асады!"
-
-#: templates/admin_app.html:385 templates/app_add.html:662
-msgid "JS_MARKETPLACE_UPLOADING"
-msgstr "Жүктелуде..."
-
-#: templates/admin_app.html:386 templates/app_add.html:663
-msgid "JS_MARKETPLACE_ERROR"
-msgstr "LunaSpire қатесі: "
-
-#: templates/admin_app.html:387 templates/app_add.html:664
-msgid "JS_MARKETPLACE_RETRY"
-msgstr "Қайталау"
-
-#: templates/admin_app.html:388 templates/app_add.html:665
-msgid "JS_MARKETPLACE_TOKEN_ERROR"
-msgstr "Жүктеу токенін алу мүмкін болмады"
-
-#: templates/admin_app.html:389 templates/app_add.html:666
-msgid "JS_MARKETPLACE_FILE_ERROR"
-msgstr "Файлды тасымалдау кезінде қателік орын алды"
-
-#: templates/app_add.html:6 templates/app_add.html:122
-msgid "PAGE_ADDAPP_PAGETITLE"
-msgstr "Қосымшаны қосу"
-
-#: templates/app_add.html:136
-msgid "PAGE_ADDAPP_STEP1"
-msgstr "1-ші кезең"
-
-#: templates/app_add.html:137
-msgid "PAGE_ADDAPP_STEP1_DESC"
-msgstr "Бастау"
-
-#: templates/app_add.html:141
-msgid "PAGE_ADDAPP_STEP2"
-msgstr "2-ші кезең"
-
-#: templates/app_add.html:142
-msgid "PAGE_ADDAPP_STEP2_DESC_1"
-msgstr "Қосымша"
-
-#: templates/app_add.html:142
-msgid "PAGE_ADDAPP_STEP2_DESC_2"
-msgstr "ақпарат"
-
-#: templates/app_add.html:146
-msgid "PAGE_ADDAPP_STEP3"
-msgstr "3-ші кезең"
-
-#: templates/app_add.html:147
-msgid "PAGE_ADDAPP_STEP3_DESC_1"
-msgstr "Алдын ала қарау"
-
-#: templates/app_add.html:147
-msgid "PAGE_ADDAPP_STEP3_DESC_2"
-msgstr "жариялаумен"
-
-#: templates/app_add.html:156
-msgid "PAGE_ADDAPP_STEP1_NAME"
-msgstr "Негізгі ақпарат"
-
-#: templates/app_add.html:160
-msgid "PAGE_ADDAPP_STEP1_TITLE"
-msgstr "Атауы:"
-
-#: templates/app_add.html:186
-msgid "PAGE_ADDAPP_STEP1_TITLEDESC"
-msgstr ""
-"Тамаша әрі есте қаларлық атау қолданбаға пайдаланушылар арасында "
-"танымалдылық бонусы береді"
-
-#: templates/app_add.html:190
-msgid "PAGE_ADDAPP_STEP1_SLOGAN"
-msgstr "Ұран (140 таңба):"
-
-#: templates/app_add.html:216
-msgid "PAGE_ADDAPP_STEP1_SLOGANDESC_1"
-msgstr "Ұран қолданба бетінде, басты бетте және іздеуде көрсетіледі"
-
-#: templates/app_add.html:217
-msgid "PAGE_ADDAPP_STEP1_SLOGANDESC_2"
-msgstr "Қысқалық — таланттың әпкесі :)"
-
-#: templates/app_add.html:234
-msgid "PAGE_ADDAPP_STEP1_ICON"
-msgstr "Қолданба белгішесі:"
-
-#: templates/app_add.html:235
-msgid "PAGE_ADDAPP_STEP1_ICONDESC_1"
-msgstr "Аватардың ұсынылатын өлшемі: 64x64."
-
-#: templates/app_add.html:235
-msgid "PAGE_ADDAPP_STEP1_ICONDESC_2"
-msgstr "Рұқсат етілген пішімдер: .PNG, .JPG"
-
-#: templates/app_add.html:235
-msgid "PAGE_ADDAPP_STEP1_ICONDESC_3"
-msgstr "Максималды өлшемі: 2 Мб"
-
-#: templates/app_add.html:247
-msgid "PAGE_ADDAPP_STEP1_AGREE_RULES"
-msgstr ""
-"Мен сайт ережелерімен келісемін және оларды бұзған жағдайдағы салдары туралы "
-"хабардармын"
-
-#: templates/app_add.html:261
-msgid "PAGE_ADDAPP_STEP2_NAME"
-msgstr "Қосымша ақпарат"
-
-#: templates/app_add.html:266
-msgid "PAGE_ADDAPP_STEP2_DEVSITE"
-msgstr "Әзірлеушінің ресми сайты:"
-
-#: templates/app_add.html:296
-msgid "PAGE_ADDAPP_STEP2_DESC"
-msgstr "Сипаттама (1400 таңба):"
-
-#: templates/app_add.html:322
-msgid "PAGE_ADDAPP_STEP2_DESCDESC"
-msgstr "Сипаттама қолданба бетіндегі 'Қосымша ақпарат' блогында көрсетіледі"
-
-#: templates/app_add.html:326
-msgid "PAGE_ADDAPP_STEP2_REQ"
-msgstr "Жүйелік талаптар (1400 таңба):"
-
-#: templates/app_add.html:352
-msgid "PAGE_ADDAPP_STEP2_REQDESC"
-msgstr ""
-"Жүйелік талаптар қолданба бетіндегі 'Қосымша ақпарат' блогында көрсетіледі"
-
-#: templates/app_add.html:357
-msgid "PAGE_ADDAPP_STEP2_CATEGORY"
-msgstr "Санаты:"
-
-#: templates/app_add.html:359
-msgid "PAGE_ADDAPP_STEP2_CATEGORYDESC"
-msgstr ""
-"Бұл қолданбаны тиісті блоктарда дұрыс іздеу және көрсету үшін өте маңызды. "
-"Әкімшіліктің санатты өз қалауы бойынша өзгертуге құқығы бар"
-
-#: templates/app_add.html:370
-msgid "PAGE_ADDAPP_STEP2_SCREENSHOTS"
-msgstr "Скриншоттар:"
-
-#: templates/app_add.html:371
-msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_2"
-msgstr "Рұқсат етілген пішімдер: .PNG, .JPG"
-
-#: templates/app_add.html:371
-msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_3"
-msgstr "Максималды өлшемі: 2 Мб"
-
-#: templates/app_add.html:411
-msgid "PAGE_ADDAPP_BACKBTN"
-msgstr "Артқа"
-
-#: templates/app_add.html:412
-msgid "PAGE_ADDAPP_NEXTBTN"
-msgstr "Әрі қарай"
-
-#: templates/app_add.html:420
-msgid "PAGE_ADDAPP_CHECKINFO_NOTIFY"
-msgstr ""
-"Жариялау алдында барлық ақпаратты тексеріп алыңыз. Модерациядан өткеннен "
-"кейін бет автоматты түрде жарияланады және оған жаңа файлдарды жүктей аласыз."
-
-#: templates/app_add.html:429
-msgid "PAGE_ADDAPP_CHECKINFO_NAME"
-msgstr "Атауы"
-
-#: templates/app_add.html:430
-msgid "PAGE_ADDAPP_CHECKINFO_SLOGAN"
-msgstr "Ұран..."
-
-#: templates/app_add.html:431
-msgid "PAGE_ADDAPP_CHECKINFO_AUTHOR_1"
-msgstr "Автор:"
-
-#: templates/app_add.html:431
-msgid "PAGE_ADDAPP_CHECKINFO_AUTHOR_2"
-msgstr "Сіз"
-
-#: templates/app_add.html:435
-msgid "PAGE_ADDAPP_CHECKINFO_SCREENSHOTS"
-msgstr "Скриншоттар"
-
-#: templates/app_add.html:438 templates/app_add.html:630
-msgid "INFO_NO_SCREENSHOTS"
-msgstr "Скриншоттер жоқ"
-
-#: templates/app_add.html:442
-msgid "PAGE_ADDAPP_CHECKINFO_OTHERINFO"
-msgstr "Қосымша ақпарат"
-
-#: templates/app_add.html:446
-msgid "PAGE_ADDAPP_CHECKINFO_ACTIONS"
-msgstr "Әрекеттер"
-
-#: templates/app_add.html:449
-msgid "PAGE_ADDAPP_CHECKINFO_GOTODEVSITE"
-msgstr "Әзірлеушінің ресми сайтына өту"
-
-#: templates/app_add.html:471
-msgid "PAGE_ADDAPP_EDITAPPBTN"
-msgstr "Өңдеу"
-
-#: templates/app_add.html:473
-msgid "PAGE_ADDAPP_SENDAPPBTN"
-msgstr "Қарауға жіберу"
-
-#: templates/app_add.html:559
-msgid "ERROR_NO_APPNAME"
-msgstr "Қосымшаның атын енгізіңіз!"
-
-#: templates/app_add.html:563
-msgid "ERROR_NO_AGREERULES"
-msgstr "Ережелермен келісуіңіз керек!"
-
-#: templates/app_add.html:594
-msgid "TEXT_APP_NO_NAME"
-msgstr "Атауы жоқ"
-
-#: templates/app_add.html:595
-msgid "TEXT_APP_NO_SLOGAN"
-msgstr "Ұран жоқ"
-
-#: templates/app_add.html:596
-msgid "TEXT_APP_NO_DESC"
-msgstr "Сипаттамасы жоқ"
-
-#: templates/badbrowser.html:7
-msgid "PAGE_BADBROWSER_WARN_TITLE"
-msgstr "Маңызды хабарлама"
-
-#: templates/badbrowser.html:12
-msgid "PAGE_BADBROWSER_WARN_SUBTITLE"
-msgstr ""
-"Біз сіздің сайтқа ө-ө-өте ескі браузер арқылы кіріп жатқаныңызды байқадық."
-
-#: templates/badbrowser.html:13
-msgid "PAGE_BADBROWSER_WARN_DESC_1"
-msgstr ""
-"Ештеңе етпейді, бұл өте керемет, әсіресе сайттың бүкіл дизайны дәл осы веб-"
-"браузерге барынша бейімделген."
-
-#: templates/badbrowser.html:14
-msgid "PAGE_BADBROWSER_WARN_DESC_2"
-msgstr ""
-"Дегенмен, сервер қауіпсіздігі мен онда сақталған пайдаланушы деректерінің "
-"заманауи аспектілерін ескере отырып, біз осы браузер арқылы сайтқа кіретін "
-"пайдаланушылар үшін кейбір түзетулер енгізуге мәжбүр болдық."
-
-#: templates/badbrowser.html:17
-msgid "PAGE_BADBROWSER_WARN_RESTRICT_1"
-msgstr "<b>Қолжетімсіз</b> тіркелгілер жүйесі (кіру, тіркелу)"
-
-#: templates/badbrowser.html:18
-msgid "PAGE_BADBROWSER_WARN_RESTRICT_2"
-msgstr "Қолданба беттерін әкімшілендіру <b>шектелген</b>"
-
-#: templates/badbrowser.html:20
-msgid "PAGE_BADBROWSER_WARN_DESC_3"
-msgstr ""
-"Бұл шектеу жүктеп алу, каталогты қарап шығу және оны іздеу мүмкіндігіне әсер "
-"етпейді."
-
-#: templates/badbrowser.html:21
-msgid "PAGE_BADBROWSER_WARN_FOOTER"
-msgstr ""
-"Жағымдырақ пайдалану тәжірибесі үшін RetroZilla және Supermium браузерлерін "
-"ұсынамыз"
-
-#: templates/banned_ip.html:6
-msgid "BANNED_IP_PAGE_TITLE"
-msgstr "Қолжетімділікке тыйым салынған"
-
-#: templates/banned_ip.html:16
-msgid "BANNED_IP_H2"
-msgstr "Қатынасудан бас тартылды"
-
-#: templates/banned_ip.html:21
-msgid "BANNED_IP_INTRO"
-msgstr "IP-мекенжайыңыздан сайтқа кіруге тыйым салынды."
-
-#: templates/banned_ip.html:22
-msgid "BANNED_IP_REASON"
-msgstr ""
-"Бұл ресурстың ережелерін бұзу, күдікті әрекет немесе қауіпсіздік жүйесінің "
-"іске қосылуына байланысты орын алған болуы мүмкін. Біз барлық "
-"пайдаланушылардың жайлылығына мән береміз, сол себепті сіздің "
-"қолжетімділігіңізді уақытша немесе тұрақты түрде шектеуге мәжбүрміз."
-
-#: templates/banned_ip.html:23
-msgid "BANNED_IP_RESOLUTION"
-msgstr ""
-"Егер сіз бұғаттау қателікпен болды деп санасаңыз немесе бұрын бұзушыға "
-"тиесілі болған динамикалық IP-мекенжайыңыз болса, әкімшілікпен хабарласыңыз."
-
-#: templates/banned_ip.html:31
-msgid "BANNED_IP_CONTACT_SUPPORT"
-msgstr "Техникалық қолдау қызметіне хабарласу:"
-
-#: templates/banned_ip.html:46
-msgid "BANNED_IP_BACK_BUTTON"
-msgstr "Артқа оралу"
-
-#: templates/banned_ip.html:54 templates/base.html:216
-msgid "BASE_PRIVACYPOLICYBTN"
-msgstr "Құпиялылық саясаты"
-
-#: templates/banned_ip.html:54 templates/base.html:217
-#: templates/help_center.html:34
-msgid "PAGE_FAQ_DONATETAB"
-msgstr "Қайырымдылық жасау"
-
-#: templates/banned_ip.html:54 templates/base.html:218
-#: templates/help_center.html:40 templates/help_center.html:150
-msgid "PAGE_FAQ_RULESTAB"
-msgstr "Ережелер"
-
-#: templates/banned_ip.html:54 templates/base.html:219
-msgid "BASE_FOOTER_TELEGRAM"
-msgstr "Біздің Telegram арнамыз"
-
-#: templates/banned_ip.html:55 templates/base.html:231
-msgid "BASE_FOOTER_TEXT_1"
-msgstr "DM командасы жанымен жасаған,"
-
-#: templates/banned_ip.html:55 templates/base.html:231
-msgid "BASE_FOOTER_TEXT_2"
-msgstr "Барлық құқықтар тиісті авторлық құқық иелеріне тиесілі"
-
-#: templates/base.html:11
 msgid " SITE_DESCRIPTION"
-msgstr ""
-"LunaStore. Ескі компьютерлерге арналған қосымшалар анықтамасы. Қосымшаларды "
-"жүктеп алыңыз, пікір қалдырыңыз және ескі компьютерлер әуесқойлары "
-"қауымдастығының бір бөлігі болыңыз."
+msgstr "LunaStore. Ескі компьютерлерге арналған қосымшалар анықтамасы. Қосымшаларды жүктеп алыңыз, пікір қалдырыңыз және ескі компьютерлер әуесқойлары қауымдастығының бір бөлігі болыңыз."
 
-#: templates/base.html:59
-msgid "BASE_IMPERSONATE_ATTENTION"
-msgstr "Назар аударыңыз!"
-
-#: templates/base.html:59
-msgid "BASE_IMPERSONATE_WARNING"
-msgstr ""
-"Сіз уақытша басқа біреудің аккаунтына кірдіңіз. Өтінеміз, бұл функционалды "
-"асыра қолданбаңыз!"
-
-#: templates/base.html:60
-msgid "BASE_IMPERSONATE_RETURN"
-msgstr "Өз аккаунтыңызға оралу"
-
-#: templates/base.html:65
-msgid "BASE_COOKIE_MESSAGE"
-msgstr ""
-"Барлық балалар печеньені біз сияқты жақсы көреді. Сондықтан сайттың тұрақты "
-"жұмыс істеуі үшін біз Cookie файлдарын қолданамыз. Оларды пайдалану туралы "
-"толығырақ біздің"
-
-#: templates/base.html:66
-msgid "BASE_COOKIE_PRIVACYPOLICY"
-msgstr "Құпиялылық саясаты"
-
-#: templates/base.html:67
-msgid "BASE_COOKIE_ACCEPT"
-msgstr "Жақсы, қабылдау"
-
-#: templates/base.html:68
-msgid "BASE_COOKIE_DECLINE"
-msgstr "Жоқ, рақмет"
-
-#: templates/base.html:74
-msgid "BASE_AUTHLIKE"
-msgstr "Сіз кірдіңіз: "
-
-#: templates/base.html:74
-msgid "BASE_LOGOUTBTN"
-msgstr "шығу"
-
-#: templates/base.html:76
-msgid "BASE_LOGINBTN"
-msgstr "кіру"
-
-#: templates/base.html:76
-msgid "BASE_REGISTERBTN"
-msgstr "тіркелу"
-
-#: templates/base.html:91
-msgid "BASE_OPRJ_TITLE"
-msgstr "басқа жобалар"
-
-#: templates/base.html:106 templates/index.html:26
-msgid "INDEX_SEARCH_PLACEHOLDER"
-msgstr "Мысалы: Total Commander"
-
-#: templates/base.html:107 templates/category.html:46
-msgid "BASE_SEARCHBTN"
-msgstr "іздеу"
-
-#: templates/base.html:131
-msgid "BASE_SIDEBAR_APP_TITLE"
-msgstr "Қосымша"
-
-#: templates/base.html:135
-msgid "BASE_SIDEBAR_APP_INSTALL"
-msgstr "Орнату"
-
-#: templates/base.html:140
-msgid "BASE_SIDEBAR_APP_DEV_SITE"
-msgstr "Әзірлеуші сайты"
-
-#: templates/base.html:144
-msgid "BASE_SIDEBAR_APP_REPORT"
-msgstr "Шағымдану"
-
-#: templates/base.html:146
-msgid "BASE_SIDEBAR_APP_EDIT"
-msgstr "Бетті өңдеу"
-
-#: templates/base.html:152
-msgid "BASE_SIDEBAR_ACCOUNT_TITLE"
-msgstr "Аккаунт"
-
-#: templates/base.html:156
-msgid "BASE_SIDEBAR_ACCOUNT_PROFILEBTN"
-msgstr "Менің профилім"
-
-#: templates/base.html:157
-msgid "BASE_SIDEBAR_ACCOUNT_SETTINGSBTN"
-msgstr "Баптаулар"
-
-#: templates/base.html:159
-msgid "BASE_SIDEBAR_ACCOUNT_INVITEBTN"
-msgstr "Шақыру"
-
-#: templates/base.html:162 templates/notifications.html:18
-msgid "PAGE_NOTIFICATIONS_TAB"
-msgstr "Хабарламалар"
-
-#: templates/base.html:170
-msgid "BASE_SIDEBAR_CATEGORIES_TITLE"
-msgstr "Санаттар"
-
-#: templates/base.html:174
-msgid "BASE_SIDEBAR_CATEGORIES_HOME"
-msgstr "Басты бет"
-
-#: templates/base.html:212
-msgid "BASE_FOOTER_REPORT_PROBLEM"
-msgstr "Мәселе туралы хабарлау"
-
-#: templates/base.html:246
-msgid "PAGE_NOTIFY_TOAST_NEW"
-msgstr "Жаңа хабарлама"
-
-#: templates/base.html:247
-msgid "PAGE_NOTIFY_TOAST_CLOSE"
-msgstr "Жабу"
-
-#: templates/base.html:248
-msgid "PAGE_NOTIFY_TOAST_VIEW"
-msgstr "Көру »"
-
-#: templates/category.html:18 templates/search.html:13
-msgid "PAGE_SEARCH_SORT_PLACEHOLDER"
-msgstr "Мазмұнды көрсету..."
-
-#: templates/category.html:19 templates/search.html:14
-msgid "PAGE_SEARCH_SORT_TILES"
-msgstr "Мазмұнды плиткалар ретінде көрсету"
-
-#: templates/category.html:20 templates/search.html:15
-msgid "PAGE_SEARCH_SORT_LIST"
-msgstr "Мазмұнды тізім ретінде көрсету"
-
-#: templates/category.html:25
-msgid "PAGE_CATEGORY_COUNTOFRESULTS"
-msgstr "Нәтижелер саны:"
-
-#: templates/category.html:40
-msgid "PAGE_CATEGORY_SEARCHOFCATEGORY"
-msgstr "Санат бойынша іздеу"
-
-#: templates/category.html:55
-msgid "INFO_APP_DEMOWITHPRICE"
-msgstr "Демо, әрі қарай"
-
-#: templates/category.html:63
-msgid "INFO_APP_FREE"
-msgstr "Тегін"
-
-#: templates/category.html:68
-msgid "PAGE_CATEGORY_DEMOBTN"
-msgstr "Демо"
-
-#: templates/category.html:70
-msgid "PAGE_CATEGORY_BUYBTN"
-msgstr "Сатып алу"
-
-#: templates/category.html:72
-msgid "PAGE_CATEGORY_INSTALLBTN"
-msgstr "Орнату"
-
-#: templates/debug_info.html:8
-msgid "PAGE_DEBUG_TITLE"
-msgstr "Тестілеуге арналған ақпарат (Debug)"
-
-#: templates/debug_info.html:9
-msgid "PAGE_DEBUG_DESC"
-msgstr ""
-"Бұл бет ТЕК қана тестілеуге және қате туралы есепті (bug report) сауаттырақ "
-"жіберу үшін ақпарат жинауға арналған. Егер сіз осы бетті көріп тұрсаңыз, "
-"онда settings.py файлыңызда DEBUG = True константасы орнатылған деген сөз."
-
-#: templates/debug_info.html:10
-msgid "PAGE_DEBUG_MAININFO_TITLE"
-msgstr "Негізгі ақпарат"
-
-#: templates/del_acc.html:10
-msgid "PAGE_DELACC_BLOCK_TITLE"
-msgstr "Баптаулар"
-
-#: templates/del_acc.html:22
-msgid "PAGE_DELACC_TITLE"
-msgstr "Тіркелгіні жою"
-
-#: templates/del_acc.html:27
-msgid "PAGE_DELACC_WARNTITLE"
-msgstr "Назар аударыңыз!"
-
-#: templates/del_acc.html:29
-msgid "PAGE_DELACC_WARNDESC_1"
-msgstr ""
-"Сіз профиль параметрлерінде тіркелгіні жою түймесін бастыңыз, шешіміңізді "
-"түсінеміз."
-
-#: templates/del_acc.html:29
-msgid "PAGE_DELACC_WARNDESC_2"
-msgstr ""
-"Дегенмен, бұл әрекет профиль деректерінің жойылуына әкеп соғатынын тағы да "
-"ескерткіміз келеді"
-
-#: templates/del_acc.html:29
-msgid "PAGE_DELACC_WARNDESC_3"
-msgstr "Қалпына келтіру мүмкіндігінсіз"
-
-#: templates/del_acc.html:29
-msgid "PAGE_DELACC_WARNDESC_4"
-msgstr ""
-"Басқарылатын қолданба беттеріне қатынасу жоғалады, ал жіберілген пікірлер "
-"жекелендірілмейді."
-
-#: templates/del_acc.html:29
-msgid "PAGE_DELACC_WARNDESC_5"
-msgstr "Профиль статистикасын тізімдейтін уақыт келді:"
-
-#: templates/del_acc.html:33
-msgid "PAGE_DELACC_YOULEFTHERE_TITLE"
-msgstr "Сіз бұл жерде қалдырдыңыз..."
-
-#: templates/del_acc.html:34
-msgid "PAGE_DELACC_YOULEFTHERE_1"
-msgstr "Ойлануға негіз"
-
-#: templates/del_acc.html:38
-msgid "PAGE_DELACC_YOULEFTHERE_APP_1"
-msgstr "Сіз жүктеп алған қосымшалар саны:"
-
-#: templates/del_acc.html:39
-msgid "PAGE_DELACC_YOULEFTHERE_APP_2"
-msgstr "Тіркелгіні жойғаннан кейін оларды басқара алмайсыз"
-
-#: templates/del_acc.html:43
-msgid "PAGE_DELACC_YOULEFTHERE_AVATAR_1"
-msgstr "Сіздің тамаша аватарыңыз"
-
-#: templates/del_acc.html:44
-msgid "PAGE_DELACC_YOULEFTHERE_AVATAR_2"
-msgstr "Өзіңді бар болмысыңмен қабылда"
-
-#: templates/del_acc.html:48
-msgid "PAGE_DELACC_YOULEFTHERE_HISTORY_1"
-msgstr "Жүктелген қолданбалар тарихы"
-
-#: templates/del_acc.html:49
-msgid "PAGE_DELACC_YOULEFTHERE_HISTORY_2"
-msgstr "Жарайды, сіз ол жаққа кем дегенде бір рет қарадыңыз ба?"
-
-#: templates/del_acc.html:53
-msgid "PAGE_DELACC_YOULEFTHERE_INVITES_1"
-msgstr "Сіз шақырған адамдар саны:"
-
-#: templates/del_acc.html:54
-msgid "PAGE_DELACC_YOULEFTHERE_INVITES_2"
-msgstr "Олар сізсіз қалады және көңілдері түседі"
-
-#: templates/del_acc.html:59
-msgid "PAGE_DELACC_LASTPASS_TITLE"
-msgstr ""
-"Егер Cіз түпкілікті және нақты шешім қабылдасаңыз, соңғы растау үшін құпия "
-"сөзіңізді соңғы рет енгізіңіз"
-
-#: templates/del_acc.html:78
-msgid "PAGE_DELAPP_DELACCOUNTBTN"
-msgstr "Тіркелі жою"
-
-#: templates/dev_add.html:5 templates/dev_add.html:10
-msgid "PAGE_DEVADD_TITLE"
-msgstr "Әзірлеуші мәртебесіне өтінім беру"
-
-#: templates/dev_add.html:15
-msgid "PAGE_DEVADD_DESC_1"
-msgstr "Сіз өз бағдарламалық жасақтамаңыздың өкілі немесе әзірлеушісісіз бе?"
-
-#: templates/dev_add.html:15
-msgid "PAGE_DEVADD_DESC_2"
-msgstr ""
-"Профильіңізді әзірлеуші аккаунтына дейін жақсартып, бағдарламалық "
-"жасақтаманы LunaStore-да ресми түрде жариялаңыз. Ресми жүктеулер тиісті "
-"белгімен белгіленеді."
-
-#: templates/dev_add.html:19
-msgid "PAGE_DEVADD_DISABLED_1"
-msgstr "Әзірлеушілерді тіркеу уақытша өшірілді"
-
-#: templates/dev_add.html:20
-msgid "PAGE_DEVADD_DISABLED_2"
-msgstr ""
-"Қазіргі уақытта біз әзірлеуші мәртебесіне жаңа өтінімдерді қабылдамаймыз. "
-"Кейінірек көріңіз."
-
-#: templates/dev_add.html:25
-msgid "PAGE_DEVADD_ALREADYDEV_1"
-msgstr "Сіз қазірдің өзінде әзірлеушісіз!"
-
-#: templates/dev_add.html:26
-msgid "PAGE_DEVADD_ALREADYDEV_2"
-msgstr ""
-"Сізде әзірлеуші мәртебесі бар. Сізге LunaStore-да қолданбаларды жүктеудің "
-"барлық қосымша нұсқалары қазірдің өзінде қолжетімді."
-
-#: templates/dev_add.html:30
-msgid "PAGE_DEVADD_NOWCHECKING_TITLE"
-msgstr "Өтінім қаралуда"
-
-#: templates/dev_add.html:31
-msgid "PAGE_DEVADD_NOWCHECKING_1"
-msgstr "Сіз өтінім беріп қойдыңыз. Әкімші оны жақын арада қарастырады."
-
-#: templates/dev_add.html:32
-msgid "PAGE_DEVADD_NOWCHECKING_2"
-msgstr "Егер ол мақұлданса — сіз хабарлама мен статус аласыз."
-
-#: templates/dev_add.html:33
-msgid "PAGE_DEVADD_NOWCHECKING_3"
-msgstr "Егер қабылданбаса, өтінімді қайтадан бере аласыз."
-
-#: templates/dev_add.html:37
-msgid "PAGE_DEVADD_ENTERINFO_TITLE"
-msgstr "Негізгі ақпарат"
-
-#: templates/dev_add.html:45
-msgid "PAGE_DEVADD_ENTERINFO_USERNAME"
-msgstr "Пайдаланушы аты:"
-
-#: templates/dev_add.html:54
-msgid "PAGE_DEVADD_ENTERINFO_USERNAMEDESC"
-msgstr ""
-"Пайдаланушы атын өзгерту мүмкін емес. Егер бұл қажетті тіркелгі болмаса, "
-"қажеттісіне қайта кіріңіз."
-
-#: templates/dev_add.html:59
-msgid "PAGE_DEVADD_ENTERINFO_EMAIL"
-msgstr "Байланыс e-mail:"
-
-#: templates/dev_add.html:68
-msgid "PAGE_DEVADD_ENTERINFO_EMAILDESC"
-msgstr "Біз Сізбен міндетті түрде хабарласамыз. Тым болмаса тырысып көреміз."
-
-#: templates/dev_add.html:82
-msgid "PAGE_DEVADD_ENTERINFO_GITHUBDESC"
-msgstr ""
-"Неге болмасқа? Біз Сіздердің керемет әзірлемелеріңізді көргіміз келеді :3"
-
-#: templates/dev_add.html:87
-msgid "PAGE_DEVADD_ENTERINFO_ABOUTYOU"
-msgstr "Өзіңіз туралы айтыңыз (1000 таңба):"
-
-#: templates/dev_add.html:100
-msgid "PAGE_DEVADD_ENTERINFO_WHYCHOOSEUS"
-msgstr "Бізді неліктен таңдадыңыз? (250 таңба):"
-
-#: templates/dev_add.html:112
-msgid "PAGE_DEVADD_ENTERINFO_CONFIRM"
-msgstr "Тіркелуді растау"
-
-#: templates/dev_add.html:138
-msgid "PAGE_DEVADD_SENDALLBTN"
-msgstr "Өтінім беру"
-
-#: templates/distribution_form.html:44
-msgid "PAGE_DIST_EDIT_HEADER"
-msgstr "Дистрибуцияны өңдеу"
-
-#: templates/distribution_form.html:52 templates/manage_distributions.html:159
-msgid "PAGE_DIST_FORM_VERSION"
-msgstr "Қосымша нұсқасы:"
-
-#: templates/distribution_form.html:54 templates/manage_distributions.html:161
-msgid "PAGE_DIST_FORM_VERSION_DESC"
-msgstr "Мысалы: 1.0.0 немесе 2.1.4-beta"
-
-#: templates/distribution_form.html:59
-msgid "PAGE_DIST_EDIT_CURRENT_FILE"
-msgstr "Ағымдағы файл:"
-
-#: templates/distribution_form.html:71
-msgid "PAGE_DIST_EDIT_CHANGE_FILE"
-msgstr "Файлды ауыстыру:"
-
-#: templates/distribution_form.html:71 templates/manage_distributions.html:165
-msgid "PAGE_DIST_FORM_FILE"
-msgstr "Файл:"
-
-#: templates/distribution_form.html:78 templates/manage_distributions.html:171
-msgid "PAGE_DIST_FORM_FILE_BUTTON"
-msgstr "Шолу..."
-
-#: templates/distribution_form.html:88 templates/distribution_form.html:172
-#: templates/distribution_form.html:189 templates/manage_distributions.html:181
-#: templates/manage_distributions.html:273
-#: templates/manage_distributions.html:290
-msgid "PAGE_DIST_FORM_FILE_NO_FILE"
-msgstr "Файл таңдалмады."
-
-#: templates/distribution_form.html:113 templates/manage_distributions.html:207
-msgid "PAGE_DIST_FORM_FILE_DESC"
-msgstr "Рұқсат етілген пішімдер: .exe, .zip, .rar, .7z және басқа мұрағаттар."
-
-#: templates/distribution_form.html:117 templates/manage_distributions.html:211
-msgid "PAGE_DIST_FORM_VT_TITLE"
-msgstr "VirusTotal сілтемесі (файлды жүктеу кезінде міндетті):"
-
-#: templates/distribution_form.html:119 templates/manage_distributions.html:213
-msgid "PAGE_DIST_FORM_VT_DESC"
-msgstr ""
-"Жүктелетін файлды virustotal.com сайтында тексеру нәтижелеріне сілтемені "
-"көрсетіңіз"
-
-#: templates/distribution_form.html:123 templates/manage_distributions.html:217
-msgid "PAGE_DIST_FORM_URL"
-msgstr "Сыртқы сілтеме (URL):"
-
-#: templates/distribution_form.html:125 templates/manage_distributions.html:219
-msgid "PAGE_DIST_FORM_URL_DESC"
-msgstr "Файл басқа ресурсқа орналастырылған болса, оны көрсетіңіз"
-
-#: templates/distribution_form.html:154
-msgid "PAGE_DIST_FORM_SAVE"
-msgstr "Өзгерістерді сақтау"
-
-#: templates/distribution_form.html:156
-msgid "PAGE_DIST_FORM_CANCEL"
-msgstr "Болдырмау"
-
-#: templates/distribution_form.html:173 templates/manage_distributions.html:274
-msgid "PAGE_DIST_FORM_FILE_UPLOADING"
-msgstr "Жүктелуде..."
-
-#: templates/distribution_form.html:175 templates/manage_distributions.html:276
-msgid "PAGE_DIST_FORM_FILE_ALREADY_UPLOADED"
-msgstr "Файл жүктелген (сақтауды күтуде)"
-
-#: templates/distribution_form.html:176 templates/manage_distributions.html:277
-msgid "PAGE_DIST_FORM_ERR_GET_TOKEN"
-msgstr ""
-"LunaSpire қозғалтқышынан жүктеу токенін алу қатесі. Осы қате туралы сайт "
-"әкімшісіне хабарласыңыз."
-
-#: templates/distribution_form.html:177 templates/manage_distributions.html:278
-msgid "PAGE_DIST_FORM_ERR_CDN_REJECT"
-msgstr ""
-"LunaSpire қозғалтқышы файлды жүктеуден бас тартты. Осы қате туралы сайт "
-"әкімшісіне хабарласыңыз."
-
-#: templates/distribution_form.html:178 templates/manage_distributions.html:279
-msgid "PAGE_DIST_FORM_ERR_NO_CONFIRM"
-msgstr ""
-"LunaSpire қозғалтқышы растау токенін қайтармады. Осы қате туралы сайт "
-"әкімшісіне хабарласыңыз."
-
-#: templates/download_list.html:7
-msgid "PAGE_DOWNLOAD_TITLE"
-msgstr "Жүктеу"
-
-#: templates/download_list.html:38
-msgid "PAGE_DOWNLOAD_LATEST_VERSION_NOTE"
-msgstr "Соңғы жүктелген нұсқа жуан қаріппен белгіленген"
-
-#: templates/download_list.html:46
-msgid "PAGE_DOWNLOAD_VERSION_LIST"
-msgstr "Нұсқалар тізімі"
-
-#: templates/download_list.html:52
-msgid "PAGE_DOWNLOAD_MANAGE_DISTS"
-msgstr "Дистрибуцияны басқару"
-
-#: templates/download_list.html:62
-msgid "PAGE_DOWNLOAD_TABLE_VERSION"
-msgstr "Нұсқасы"
-
-#: templates/download_list.html:70
-msgid "PAGE_DOWNLOAD_TABLE_DATE"
-msgstr "Жарияланған күні"
-
-#: templates/download_list.html:76
-msgid "PAGE_DOWNLOAD_TABLE_LINK"
-msgstr "Сілтеме"
-
-#: templates/download_list.html:87 templates/download_list.html:88
-#: templates/download_list.html:90
-msgid "PAGE_DOWNLOAD_DL_ACTION"
-msgstr "жүктеу"
-
-#: templates/download_list.html:103
-msgid "PAGE_DOWNLOAD_NO_NOTES"
-msgstr "Ескертпелерсіз"
-
-#: templates/download_list.html:110
-msgid "PAGE_DOWNLOAD_NO_DISTRIBUTIONS"
-msgstr "Дистрибуциялар әлі қосылған жоқ."
-
-#: templates/download_list.html:142
-msgid "PAGE_DOWNLOAD_OFFICIAL_SOURCE"
-msgstr "Ресми дереккөзден жүктеп алу"
-
-#: templates/download_list.html:148
-msgid "PAGE_DOWNLOAD_GO_OFFICIAL"
-msgstr "Ресми сайтқа өту"
-
-#: templates/download_list.html:160
-msgid "PAGE_DOWNLOAD_DMCA_WARNING"
-msgstr ""
-"Бағдарламаны жүктеп алу мүмкіндігі құқық иесінің шағымына байланысты "
-"жабылды. Түсіністік танытқаныңызға рақмет."
-
-#: templates/download_list.html:170
-msgid "PAGE_DOWNLOAD_DEMO_WARNING"
-msgstr ""
-"Бағдарлама демо-нұсқа ретінде таратылады, толық нұсқасы үшін оның авторына "
-"төлеу қажет. Файл әзірлеушінің ресми сайтынан алынған."
-
-#: templates/help_center.html:6
-msgid "PAGE_FAQ_TITLE"
-msgstr "Анықтама"
-
-#: templates/help_center.html:10
-msgid "PAGE_FAQ_TITLE_2"
-msgstr "Анықтама орталығы"
-
-#: templates/help_center.html:11
-msgid "PAGE_FAQ_DESC"
-msgstr ""
-"Сұрақтарыңыз бар ма? Бұл бетте LunaStore туралы барлық ақпарат жинақталған"
-
-#: templates/help_center.html:28
-msgid "PAGE_FAQ_PRIVACYTAB"
-msgstr "Құпиялылық"
-
-#: templates/help_center.html:52
-msgid "PAGE_FAQ_CARD_WHATISIT"
-msgstr "Мен қайда келдім? Бұл не?"
-
-#: templates/help_center.html:53
-msgid "PAGE_FAQ_CARD_WHATISITDESC"
-msgstr ""
-"бағдарламалар мен ойындардың баламалы «дүкенінің» бір түрі. Қазіргі уақытта "
-"Windows XP дәуірін мақсат етіп отырмыз."
-
-#: templates/help_center.html:57
-msgid "PAGE_FAQ_CARD_WHYWESHOP"
-msgstr "«Дүкенінің» неге тырнақшаға алынған?"
-
-#: templates/help_center.html:58
-msgid "PAGE_FAQ_CARD_WHYWESHOPDESC"
-msgstr ""
-"Біз жанкүйерлер сайтымыз және бұл үлкен дүкенге айналады деп ойламаймыз. "
-"Дегенмен, кім білсін. Алайда сол жақ мәзірдегі жарнама мүлдем байыпты емес, "
-"ал жобаның өзі - ортақ хобби ретінде."
-
-#: templates/help_center.html:62
-msgid "PAGE_FAQ_CARD_TEAM"
-msgstr "'Ортақ хобби' дегеніміз не?"
-
-#: templates/help_center.html:65
-msgid "PAGE_FAQ_CARD_TEAMDESC_1"
-msgstr ""
-"Сенбейсің. Бұл жобамен ортақ идеясы бар көптеген жанашыр адамдар жұмыс "
-"істеді."
-
-#: templates/help_center.html:66
-msgid "PAGE_FAQ_CARD_TEAMDESC_2"
-msgstr "Оларды тізімдеудің дәл уақыты:"
-
-#: templates/help_center.html:68
-msgid "PAGE_FAQ_CARD_TEAM_AUTHOR"
-msgstr "- идея авторы, дизайн,"
-
-#: templates/help_center.html:69
-msgid "PAGE_FAQ_TOOLTIP_EASTEREGG"
-msgstr "ЕМАААА ТІРЕКТЕР ВЕЛОСИПЕДТЕР"
-
-#: templates/help_center.html:69
-msgid "PAGE_FAQ_CARD_TEAM_FRONTEND"
-msgstr "интерфейс бетін құрастыру (frontend)"
-
-#: templates/help_center.html:71
-msgid "PAGE_FAQ_CARD_TEAM_CDNANDGIT"
-msgstr "- кадр сыртындағы жұмыс, CDN, ішкі Git"
-
-#: templates/help_center.html:73
-msgid "PAGE_FAQ_TEAM_ROLE_FAYZETWIN"
-msgstr "негізгі backend-әзірлеуші, API"
-
-#: templates/help_center.html:74
-msgid "PAGE_FAQ_TEAM_ROLE_ZAZIOS"
-msgstr "backend-әзірлеуші (Go)"
-
-#: templates/help_center.html:75
-msgid "PAGE_FAQ_CARD_TEAM_BACKEND"
-msgstr "- backend әзірлеу, кеңес беру және шабыт"
-
-#: templates/help_center.html:76
-msgid "PAGE_FAQ_CARD_TEAM_DEV"
-msgstr "- әзірлеуші"
-
-#: templates/help_center.html:77
-msgid "PAGE_FAQ_TEAM_ROLE_MONDY"
-msgstr "логотип"
-
-#: templates/help_center.html:79
-msgid "PAGE_FAQ_TEAM_HEADER_OTHER"
-msgstr "Сондай-ақ басқа әзірлеушілерге алғыс білдіреміз:"
-
-#: templates/help_center.html:80
-msgid "PAGE_FAQ_TEAM_ROLE_NOCHA3"
-msgstr "Windows XP үшін нативті клиент"
-
-#: templates/help_center.html:81
-msgid "PAGE_FAQ_TEAM_ROLE_CHELKA0"
-msgstr "сайттың сыртқы көрінісін безендіру"
-
-#: templates/help_center.html:83
-msgid "PAGE_FAQ_TEAM_HEADER_TESTERS"
-msgstr "Тестерлерді де ұмытпаймыз:"
-
-#: templates/help_center.html:86
-msgid "PAGE_FAQ_TEAM_HEADER_TRANSLATORS"
-msgstr "Аудармашылар туралы:"
-
-#: templates/help_center.html:97
-msgid "PAGE_FAQ_Q_CREATE_ACC"
-msgstr "Мұнда қалай тіркелгі жасауға болады?"
-
-#: templates/help_center.html:98
-msgid "PAGE_FAQ_A_CREATE_ACC"
-msgstr "Сайттың жоғарғы жағындағы \"тіркелу\" түймесін басыңыз"
-
-#: templates/help_center.html:102
-msgid "PAGE_FAQ_Q_ACC_BENEFITS"
-msgstr "LunaStore аккаунтының болуы не береді?"
-
-#: templates/help_center.html:103
-msgid "PAGE_FAQ_A_ACC_BENEFITS"
-msgstr ""
-"Аккаунт арқылы сіз қолданбаларға өз пікіріңізді қалдыра аласыз, осы дамып "
-"келе жатқан қауымдастықта өзіңізді таныта аласыз және қатаң модерациядан "
-"кейін өз қолданбаларыңызды жалпы каталогқа жүктей аласыз"
-
-#: templates/help_center.html:107
-msgid "PAGE_FAQ_Q_ADD_APP"
-msgstr "Жарайды, ал бұған қосымшаны қалай қосуға болады?"
-
-#: templates/help_center.html:108
-msgid "PAGE_FAQ_A_ADD_APP"
-msgstr ""
-"Әзірше мүмкін емес. Біз тек бастап жатырмыз, сондықтан бағдарламалық "
-"жасақтаманы өз тізімімізден алып жатырмыз. Осы беттегі жаңартуларды "
-"қадағалаңыз."
-
-#: templates/help_center.html:112
-msgid "PAGE_FAQ_Q_LEGAL"
-msgstr "\"Хмм, бұл заңды ма?\""
-
-#: templates/help_center.html:113
-msgid "PAGE_FAQ_A_LEGAL"
-msgstr ""
-"Бұл сұрақты әдетте бағдарламалық жасақтаманы әзірлеуші қояды. Алайда, егер "
-"сізді бағдарламаңыздың ескі нұсқасының осы сайтта бар болуы қатты мазаласа, "
-"бізбен электронды пошта арқылы хабарласа аласыз. Бірақ біздің жағдайымызды "
-"түсініп, жобаның мақсатын ұғынасыз деп сенеміз."
-
-#: templates/help_center.html:117
-msgid "PAGE_FAQ_Q_WHY_EXIST"
-msgstr "Бұл сайт не үшін бар?"
-
-#: templates/help_center.html:120
-msgid "PAGE_FAQ_A_WHY_EXIST_PART1"
-msgstr ""
-"Тамаша сұрақ. Бәрі жобаға қатысушылардың бірінде ескі бағдарламалық "
-"жасақтамасы бар бір сайтқа 3D Windows XP скринсейверін жүктеу ниетінің пайда "
-"болуынан басталды, оны іс жүзінде өте аз адам көрген және веб-архивте әрең "
-"сақталған."
-
-#: templates/help_center.html:121
-msgid "PAGE_FAQ_A_WHY_EXIST_PART2"
-msgstr ""
-"Жүктелгеннен кейін екі күн өткен соң, скринсейвер «сайт тақырыбына сәйкес "
-"келмейді» деген себеппен сайттан жойылды. Ал «онда неге сайттарыңызда ХР "
-"образдары сақтаулы тұр?» деген сұраққа әкімшіліктен ешкім нақты жауап бере "
-"алмады."
-
-#: templates/help_center.html:122
-msgid "PAGE_FAQ_A_WHY_EXIST_PART3"
-msgstr ""
-"Ештеңе етпейді, біз мүлдем ренжімедік және бәсекелескіміз келмейді, жай ғана "
-"өз кішкене каталогымызды жасауды жөн көрдік :3"
-
-#: templates/help_center.html:127 templates/help_center.html:136
-msgid "PAGE_FAQ_LAST_UPDATE"
-msgstr "Соңғы жаңарту"
-
-#: templates/help_center.html:131
-msgid "PAGE_FAQ_PRIVACY_TITLE"
-msgstr "Құпиялылық саясаты"
-
-#: templates/help_center.html:138 templates/help_center.html:146
-#: templates/help_center.html:154
-msgid "PAGE_FAQ_PRIVACY_EMPTY"
-msgstr "Құжат әлі толтырылмаған..."
-
-#: templates/help_center.html:142
-msgid "PAGE_FAQ_DONATE_TITLE"
-msgstr "Бізге қалай қолдау көрсетуге болады?"
-
-#: templates/includes/categories.html:11
-msgid "INFO_CATEGORY_LIST_EMPTY"
-msgstr "ойбай... бұл орын бооооос..."
-
-#: templates/index.html:10
-msgid "INDEX_WELCOME_TITLE"
-msgstr "Қош келдіңіз"
-
-#: templates/index.html:11
-msgid "INDEX_WELCOME_TEXT"
-msgstr ""
-"LunaStore-ға қош келдіңіз!<br>Осы операциялық жүйемен ыңғайлы жұмыс істеуге "
-"арналған қолданбалар мен толықтырулар жинағы"
-
-#: templates/index.html:16
-msgid "INDEX_SEARCH_SECTION_TITLE"
-msgstr "Каталог бойынша іздеу"
-
-#: templates/index.html:37
-msgid "INDEX_SEARCH_BTN"
-msgstr "Іздеу"
-
-#: templates/index.html:45
-msgid "INDEX_CATEGORY_PROMPT"
-msgstr "Немесе қажетті санатты таңдаңыз:"
-
-#: templates/index.html:54
-msgid "INDEX_NO_CATEGORIES"
-msgstr "Санаттар әлі қосылған жоқ"
-
-#: templates/invite.html:6
-msgid "PAGE_INVITE_BROWSER_TITLE"
-msgstr "Шақыру"
-
-#: templates/invite.html:13
-msgid "PAGE_INVITE_MAIN_TITLE"
-msgstr "Адамды шақыру"
-
-#: templates/invite.html:19
-msgid "PAGE_INVITE_DESCRIPTION"
-msgstr ""
-"LunaStore-қа ретро-тақырып бойынша ортақ қызығушылықтары бар досыңызды "
-"немесе танысыңызды шақыра аласыз."
-
-#: templates/invite.html:29
-msgid "PAGE_INVITE_COPY_CODE"
-msgstr "Төмендегі кодты көшіріп алып, оны қажетті адамға жіберіңіз"
-
-#: templates/invite.html:34
-msgid "PAGE_INVITE_HOW_TO_SEND"
-msgstr ""
-"Электрондық пошта, телефон, чат немесе жеке кездесу арқылы болсын, маңызды "
-"емес. Шақырылған пайдаланушы кодты тіркелу процесінде міндетті түрде енгізуі "
-"керек."
-
-#: templates/invite.html:41
-msgid "PAGE_INVITE_CODE_ROTATION_WARN"
-msgstr ""
-"<b>Маңызды:</b> қазіргі уақытта жаңа қатысушының шақыру коды әр 24 сағат "
-"сайын өзгеріп отырады"
-
-#: templates/invite.html:49
-msgid "PAGE_INVITE_LIMIT_EXHAUSTED"
-msgstr "Шақырылған пайдаланушылар"
-
-#: templates/invite.html:50
-msgid "PAGE_INVITE_NEXT_AVAILABLE"
-msgstr "Код"
-
-#: templates/invite.html:57
-msgid "PAGE_INVITE_LIST_HEADER"
-msgstr "Шақырылған пайдаланушылар"
-
-#: templates/invite.html:64
-msgid "PAGE_INVITE_ADMINSTATUS"
-msgstr "Модератор"
-
-#: templates/invite.html:66
-msgid "PAGE_INVITE_USERSTATUS"
-msgstr "Пайдаланушы"
-
-#: templates/invite.html:77
-msgid "PAGE_INVITE_REGDATE"
-msgstr "Тіркелу"
-
-#: templates/invite.html:89
-msgid "PAGE_INVITE_LIST_EMPTY"
-msgstr "Сіз әлі ешкімді шақырған жоқсыз"
-
-#: templates/invite_input.html:3
-msgid "PAGE_INVITE_INPUT_TITLE"
-msgstr "Шақыру кодын енгізу"
-
-#: templates/invite_input.html:8
-msgid "PAGE_INVITE_INPUT_HEADER"
-msgstr "Шақыру кодын енгізу"
-
-#: templates/invite_input.html:12
-msgid "PAGE_INVITE_INPUT_DESC_1"
-msgstr ""
-"Сіз бұрыннан <b>тіркелген қатысушыдан</b> алған шақыру кодын енгізе аласыз"
-
-#: templates/invite_input.html:14
-msgid "PAGE_INVITE_INPUT_DESC_2"
-msgstr ""
-"Осылайша, сіз <b>жабық көпшілік тіркеуді айналып өтіп</b>, аккаунт ашудың "
-"бірегей мүмкіндігіне ие боласыз"
-
-#: templates/invite_input.html:27
-msgid "PAGE_INVITE_INPUT_LABEL"
-msgstr "Код"
-
-#: templates/invite_input.html:31
-msgid "PAGE_INVITE_INPUT_BTN"
-msgstr "Тіркелуді бастау"
-
-#: templates/login_splash.html:6
-msgid "PAGE_LOGIN_BROWSER_TITLE"
-msgstr "Кіру"
-
-#: templates/login_splash.html:14
-msgid "PAGE_LOGIN_REQUIRED_WARNING"
-msgstr "Бұл әрекетті жалғастыру үшін сайтқа кіру қажет"
-
-#: templates/login_splash.html:20
-msgid "PAGE_LOGIN_MAIN_TITLE"
-msgstr "Кіру"
-
-#: templates/login_splash.html:28
-msgid "PAGE_LOGIN_GREETING"
-msgstr "Өзіңізді таныстырыңыз..."
-
-#: templates/login_splash.html:40
-msgid "PAGE_LOGIN_USERNAME_LABEL"
-msgstr "Логин:"
-
-#: templates/login_splash.html:45
-msgid "PAGE_LOGIN_PASSWORD_LABEL"
-msgstr "Құпия сөз:"
-
-#: templates/login_splash.html:50
-msgid "PAGE_LOGIN_FORGOT_PASSWORD"
-msgstr "Құпия сөзді ұмыттыңыз ба?"
-
-#: templates/login_splash.html:51
-msgid "PAGE_LOGIN_SUBMIT_BTN"
-msgstr "Кіру"
-
-#: templates/login_splash.html:59
-msgid "PAGE_LOGIN_INFO_TITLE_1"
-msgstr "Тіркелгі не үшін қажет?"
-
-#: templates/login_splash.html:61
-msgid "PAGE_LOGIN_INFO_BULLET_1"
-msgstr "Бағдарламалық жасақтамаға пікір қалдырыңыз"
-
-#: templates/login_splash.html:62
-msgid "PAGE_LOGIN_INFO_BULLET_2"
-msgstr "Қоғамдастықты бағындырыңыз"
-
-#: templates/login_splash.html:63
-msgid "PAGE_LOGIN_INFO_BULLET_3"
-msgstr "Бағдарламалық жасақтаманы жүктеп алыңыз"
-
-#: templates/login_splash.html:66
-msgid "PAGE_LOGIN_INFO_TITLE_2"
-msgstr "Тіркелгіңіз жоқ па?"
-
-#: templates/login_splash.html:67
-msgid "PAGE_LOGIN_INFO_DESC_2"
-msgstr "Оны жасаңыз. Бұл тегін."
-
-#: templates/login_splash.html:68
-msgid "PAGE_LOGIN_REGISTER_BTN"
-msgstr "Тіркелу"
-
-#: templates/manage_distributions.html:64
-msgid "PAGE_ADMIN_APP_DIST_HEADER"
-msgstr "Дистрибуцияны басқару — "
-
-#: templates/manage_distributions.html:68
-msgid "PAGE_ADMIN_APP_DIST_PENDING_TITLE"
-msgstr "Модерацияны күтіп тұрған өтінімдер:"
-
-#: templates/manage_distributions.html:72
-#: templates/manage_distributions.html:78
-msgid "PAGE_ADMIN_APP_DIST_VERSION_LABEL"
-msgstr "Нұсқасы"
-
-#: templates/manage_distributions.html:73
-msgid "PAGE_ADMIN_APP_DIST_PENDING_CREATE"
-msgstr "(Жаңасын жасау) — Қаралуда"
-
-#: templates/manage_distributions.html:79
-msgid "PAGE_ADMIN_APP_DIST_PENDING_EDIT"
-msgstr "(Өзгерту) — Қаралуда"
-
-#: templates/manage_distributions.html:90
-msgid "PAGE_ADMIN_APP_DIST_VERSION"
-msgstr "Нұсқасы"
-
-#: templates/manage_distributions.html:91
-msgid "PAGE_ADMIN_APP_DIST_DATE"
-msgstr "Күні"
-
-#: templates/manage_distributions.html:92
-msgid "PAGE_ADMIN_APP_DIST_ACTIONS"
-msgstr "Әрекеттер"
-
-#: templates/manage_distributions.html:101
-msgid "PAGE_ADMIN_APP_DIST_ACTION_EDIT"
-msgstr "Өңдеу"
-
-#: templates/manage_distributions.html:104 templates/profile.html:206
-#: templates/profile.html:234 templates/storepage.html:228
-msgid "PAGE_ADMIN_APP_DIST_ACTION_DELETE"
-msgstr "Жою"
-
-#: templates/manage_distributions.html:114
-msgid "PAGE_ADMIN_APP_DIST_NO_NOTES"
-msgstr "Ескертпелерсіз"
-
-#: templates/manage_distributions.html:146
-msgid "PAGE_ADMIN_APP_DIST_EMPTY"
-msgstr "Әзірге жүктелген нұсқалар жоқ."
-
-#: templates/manage_distributions.html:152
-msgid "PAGE_ADMIN_APP_DIST_ADD_NEW"
-msgstr "Жаңа нұсқаны қосу"
-
-#: templates/manage_distributions.html:224
-msgid "PAGE_DIST_FORM_CHANGELOG"
-msgstr "Өзгерістер тізімі (Changelog):"
-
-#: templates/manage_distributions.html:244
-msgid "PAGE_DIST_FORM_CHANGELOG_DESC"
-msgstr "Бұл нұсқада не жаңалық бар екенін сипаттаңыз"
-
-#: templates/manage_distributions.html:256
-msgid "PAGE_ADMIN_APP_DIST_DL_LINK_BLOCK"
-msgstr "Жүктеу бетіне сілтеме"
-
-#: templates/manage_distributions.html:258
-msgid "PAGE_ADMIN_APP_DIST_DL_LINK_TEXT"
-msgstr "Нұсқалар тізімін ашу"
-
-#: templates/notifications.html:6
-msgid "PAGE_NOTIFICATIONS_TITLE"
-msgstr "Хабарламалар"
-
-#: templates/notifications.html:26
-msgid "NOTIFICATIONS_LOADING"
-msgstr "Хабарламалар жүктелуде..."
-
-#: templates/notifications.html:36
-msgid "PAGE_NOTIFICATIONS_EARLY"
-msgstr "Ерте хабарламалар"
-
-#: templates/notifications.html:72
-msgid "PAGE_NOTIFICATIONS_NO_NEW"
-msgstr "Сізде жаңа хабарламалар жоқ"
-
-#: templates/notifications.html:73
-msgid "PAGE_NOTIFICATIONS_NEW_COUNT"
-msgstr "жаңа ғана"
-
-#: templates/notifications.html:74
-msgid "PAGE_NOTIFICATIONS_NOW"
-msgstr "жаңа ғана"
-
-#: templates/other_projects.html:6
-msgid "PAGE_OTHER_PROJECTS_BROWSER_TITLE"
-msgstr "Басқа жобалар"
-
-#: templates/other_projects.html:11
-msgid "PAGE_OTHER_PROJECTS_TITLE"
-msgstr "Басқа жобалар"
-
-#: templates/other_projects.html:12
-msgid "PAGE_OTHER_PROJECTS_SUBTITLE"
-msgstr "Серіктес сайттар және басқа да жобаларымыз"
-
-#: templates/other_projects.html:17
-msgid "PAGE_OTHER_PROJECTS_SECTION_MAIN"
-msgstr "Негізгі"
-
-#: templates/other_projects.html:23
-msgid "PAGE_OTHER_PROJECTS_DESC_DM"
-msgstr ""
-"Daniel Myslivets визитка сайты (ескі компьютерлер мен браузерлерге арналған "
-"нұсқа)"
-
-#: templates/other_projects.html:24 templates/other_projects.html:33
-#: templates/other_projects.html:46 templates/other_projects.html:55
-msgid "PAGE_OTHER_PROJECTS_BTN_GO"
-msgstr "Өту »"
-
-#: templates/other_projects.html:32
-msgid "PAGE_OTHER_PROJECTS_DESC_RENAISSANCE"
-msgstr "Агент@Mail.ru жұмысын қалпына келтіретін бейресми жоба"
-
-#: templates/other_projects.html:39
-msgid "PAGE_OTHER_PROJECTS_SECTION_FRIENDS"
-msgstr "Серіктес сайттар"
-
-#: templates/other_projects.html:45
-msgid "PAGE_OTHER_PROJECTS_DESC_KICQ"
-msgstr "ICQ жұмысын қалпына келтіретін бейресми жоба"
-
-#: templates/other_projects.html:54
-msgid "PAGE_OTHER_PROJECTS_DESC_FOXCORP"
-msgstr "Milya Fox жеке сайты; жобаға көмектескен желі инженері"
-
-#: templates/profile.html:6
-msgid "PAGE_PROFILE_TITLE"
-msgstr "Пайдаланушы профилі"
-
-#: templates/profile.html:41
-msgid "CARD_USER_NO_DESC"
-msgstr "Профиль сипаттамасы жоқ"
-
-#: templates/profile.html:46
-#, python-format
 msgid "%(counter)s PAGE_PROFILE_STATS_APP"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
 msgstr[0] "%(counter)s қосымша,"
 
-#: templates/profile.html:47
-msgid "PAGE_PROFILE_STATS_MEMBER_SINCE"
-msgstr "мүше болған уақыты:"
+msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
+msgstr[0] "%(counter)s пікір,"
 
-#: templates/profile.html:62
-msgid "PAGE_PROFILE_BANNED_INTRO"
-msgstr "Бұл пайдаланушы бұғатталды."
-
-#: templates/profile.html:63
-msgid "PAGE_PROFILE_BANNED_DESC"
-msgstr ""
-"Бұл ресурстың ережелерін бұзу, күдікті әрекет немесе қауіпсіздік жүйесінің "
-"іске қосылуына байланысты орын алған болуы мүмкін. Біз барлық "
-"пайдаланушылардың жайлылығына мән береміз, сол себепті мұндай "
-"пайдаланушылардың сайтқа кіруіне уақытша немесе тұрақты түрде шектеу қоюға "
-"мәжбүрміз."
-
-#: templates/profile.html:64
-msgid "PAGE_PROFILE_BANNED_DESC_2"
-msgstr ""
-"Бұл пайдаланушы бұғатталғандықтан, біз онымен одан әрі сөйлесуге, әсіресе "
-"егер сізден ақша сұраса, кеңес бермейміз."
-
-#: templates/profile.html:73
-msgid "PAGE_PROFILE_TAB_MAIN"
-msgstr "Негізгі"
-
-#: templates/profile.html:77 templates/profile.html:190
-#: templates/profile.html:218
-msgid "PAGE_PROFILE_TAB_REVIEWS"
-msgstr "Пікірлер"
-
-#: templates/profile.html:83
-msgid "PAGE_PROFILE_CONTACT_INFO"
-msgstr "Байланыс ақпараты"
-
-#: templates/profile.html:86
-msgid "PAGE_PROFILE_LABEL_WEBSITE"
-msgstr "Веб-сайт:"
-
-#: templates/profile.html:96
-msgid "PAGE_PROFILE_LABEL_TELEGRAM"
-msgstr "Telegram:"
-
-#: templates/profile.html:124
-msgid "PAGE_PROFILE_APPS_TITLE"
-msgstr "Жарияланған қолданбалар"
-
-#: templates/profile.html:124
-msgid "PAGE_PROFILE_LINK_ADDAPP"
-msgstr "қосу"
-
-#: templates/profile.html:124 templates/profile.html:190
-msgid "PAGE_PROFILE_LINK_ALL"
-msgstr "барлығын көрсету"
-
-#: templates/profile.html:146 templates/settings_apps.html:88
-msgid "PAGE_MANAGE_APPS_EMPTY_TITLE"
-msgstr "Қосымшалар жоқ ＞︿＜"
-
-#: templates/profile.html:147
-msgid "PAGE_PROFILE_APPS_EMPTY_DESC"
-msgstr "Пайдаланушы әзірге ешқандай қосымша жариялаған жоқ."
-
-#: templates/profile.html:157
-msgid "PAGE_PROFILE_INVITES_TEXT"
-msgstr "шақырды"
-
-#: templates/profile.html:157
-msgid "PAGE_PROFILE_INVITES_PEOPLE"
-msgstr "адам (алғашқы 5-уі көрсетілген)"
-
-#: templates/profile.html:179
-msgid "PAGE_PROFILE_INVITES_EMPTY_TITLE"
-msgstr "Шақырулар жоқ ＞︿＜"
-
-#: templates/profile.html:180
-msgid "PAGE_PROFILE_INVITES_EMPTY_DESC"
-msgstr "Әзірге бұл пайдаланушының шақыруы бойынша ешкім тіркелмеді."
-
-#: templates/profile.html:192
-#, python-format
-msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_RECENT"
-msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_RECENT"
-msgstr[0] "%(counter)s пікір (соңғы 5-і көрсетілген)"
-
-#: templates/profile.html:197 templates/profile.html:225
-msgid "PAGE_PROFILE_REVIEW_TO_APP"
-msgstr "қосымшаға"
-
-#: templates/profile.html:211 templates/profile.html:239
-msgid "PAGE_PROFILE_NO_REVIEWS"
-msgstr "Пікірлер жоқ"
-
-#: templates/profile.html:220
-#, python-format
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_ALL"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_ALL"
-msgstr[0] "%(counter)s пікір (осы бетте көрсетілген)"
+msgstr[0] "%d пікір (осы бетте көрсетілген)"
 
-#: templates/register.html:8 templates/register.html:18
-#: templates/register_on.html:8
-msgid "PAGE_REGISTER_TITLE"
-msgstr "Тіркелу"
+msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_RECENT"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_RECENT"
+msgstr[0] "%d пікір (соңғы 5-і көрсетілген)"
 
-#: templates/register.html:11 templates/register.html:21
-msgid "PAGE_REGISTER_CLOSED_MSG"
-msgstr ""
-"Тіркелу қазіргі уақытта жабық және тек бұрыннан бар қатысушылардан алынған "
-"шақырулар арқылы ғана жүзеге асырылады."
+msgid "404_ELEMENT_NOT_FOUND"
+msgstr "Сұратылған элемент немесе сіз өткіңіз келетін сілтеме біздің сайттан табылмады."
 
-#: templates/register.html:23
-msgid "PAGE_REGISTER_HAVE_INVITE_TITLE"
-msgstr "Шақыруыңыз бар ма?"
+msgid "404_ELEMENT_NOT_FOUND_2"
+msgstr "Біз оны табуға барынша тырыстық, шынымен."
 
-#: templates/register.html:26
-msgid "PAGE_REGISTER_HAVE_INVITE_TEXT"
-msgstr "Шақыру коды бар ма? Басыңыз"
+msgid "404_ELEMENT_NOT_FOUND_3"
+msgstr "Егер бұл бұрын қолжетімді болса, онда бет авторымен немесе әкімшілікпен жылжытылған немесе жойылған болуы мүмкін. Кейінірек қайталап көріңіз. Түсінгеніңізге рақмет."
 
-#: templates/register.html:27
-msgid "PAGE_REGISTER_CLICK_HERE"
-msgstr "осында"
+msgid "404_GO_TO_HOME"
+msgstr "Басты бетке оралу"
 
-#: templates/register_on.html:12
-msgid "PAGE_REGISTER_INFO_SPLASH"
-msgstr ""
-"Тіркелгі жасау арқылы сіз өз қосымшаларыңызды жариялай аласыз, жүктелген "
-"бағдарламаларға пікір қалдыра аласыз және таңдаулы элементтердің жеке "
-"кітапханасын жүргізе аласыз. Тіркелу ашық әрі тегін."
+msgid "404_TITLE"
+msgstr "Қате орын алды"
 
-#: templates/register_on.html:14
-msgid "PAGE_REGISTER_SECTION_MAIN"
-msgstr "Негізгі ақпарат"
+msgid "ACTION_CHOOSE_FILE"
+msgstr "Файлды таңдау"
 
-#: templates/register_on.html:20
-msgid "PAGE_REGISTER_LABEL_USERNAME"
-msgstr "Пайдаланушы аты:"
+msgid "ACTION_CHOOSE_ICON"
+msgstr "Файлды таңдау"
 
-#: templates/register_on.html:28
-msgid "PAGE_REGISTER_HELP_USERNAME"
-msgstr ""
-"Кемінде 2 таңба. Пайдаланушы аты арқылы сізді іздеп табуға болады. "
-"Тіркелгеннен кейін оны өзгерту мүмкін болмайды."
+msgid "ARE_YOU_SURE"
+msgstr "Сенімдісіз бе?"
 
-#: templates/register_on.html:33
-msgid "PAGE_REGISTER_LABEL_EMAIL"
-msgstr "E-mail:"
+msgid "BANNED_IP_BACK_BUTTON"
+msgstr "Артқа оралу"
 
-#: templates/register_on.html:41
-msgid "PAGE_REGISTER_HELP_EMAIL"
-msgstr "Аккаунтқа кіру және парольді қалпына келтіру үшін пайдаланылады"
+msgid "BANNED_IP_CONTACT_SUPPORT"
+msgstr "Техникалық қолдау қызметіне хабарласу:"
 
-#: templates/register_on.html:46
-msgid "PAGE_REGISTER_LABEL_PASS1"
+msgid "BANNED_IP_H2"
+msgstr "Қатынасудан бас тартылды"
+
+msgid "BANNED_IP_HEADER"
+msgstr "Қолжетімділік шектелген"
+
+msgid "BANNED_IP_HOME_LINK"
+msgstr "Басты бетке"
+
+msgid "BANNED_IP_INTRO"
+msgstr "IP-мекенжайыңыздан сайтқа кіруге тыйым салынды."
+
+msgid "BANNED_IP_PAGE_TITLE"
+msgstr "Қолжетімділікке тыйым салынған"
+
+msgid "BANNED_IP_REASON"
+msgstr "Бұл ресурстың ережелерін бұзу, күдікті әрекет немесе қауіпсіздік жүйесінің іске қосылуына байланысты орын алған болуы мүмкін. Біз барлық пайдаланушылардың жайлылығына мән береміз, сол себепті сіздің қолжетімділігіңізді уақытша немесе тұрақты түрде шектеуге мәжбүрміз."
+
+msgid "BANNED_IP_RESOLUTION"
+msgstr "Егер сіз бұғаттау қателікпен болды деп санасаңыз немесе бұрын бұзушыға тиесілі болған динамикалық IP-мекенжайыңыз болса, әкімшілікпен хабарласыңыз."
+
+msgid "BANNED_IP_SUBTITLE"
+msgstr "Сіздің IP-мекенжайыңыз бұғатталған"
+
+msgid "BASE_AUTHLIKE"
+msgstr "Сіз кірдіңіз: "
+
+msgid "BASE_COOKIE_ACCEPT"
+msgstr "Жақсы, қабылдау"
+
+msgid "BASE_COOKIE_DECLINE"
+msgstr "Жоқ, рақмет"
+
+msgid "BASE_COOKIE_MESSAGE"
+msgstr "Барлық балалар печеньені біз сияқты жақсы көреді. Сондықтан сайттың тұрақты жұмыс істеуі үшін біз Cookie файлдарын қолданамыз. Оларды пайдалану туралы толығырақ біздің"
+
+msgid "BASE_COOKIE_PRIVACYPOLICY"
+msgstr "Құпиялылық саясаты"
+
+msgid "BASE_FOOTER_REPORT_PROBLEM"
+msgstr "Мәселе туралы хабарлау"
+
+msgid "BASE_FOOTER_TELEGRAM"
+msgstr "Біздің Telegram арнамыз"
+
+msgid "BASE_FOOTER_TEXT_1"
+msgstr "DM командасы жанымен жасаған,"
+
+msgid "BASE_FOOTER_TEXT_2"
+msgstr "Барлық құқықтар тиісті авторлық құқық иелеріне тиесілі"
+
+msgid "BASE_IMPERSONATE_ATTENTION"
+msgstr "Назар аударыңыз!"
+
+msgid "BASE_IMPERSONATE_RETURN"
+msgstr "Өз аккаунтыңызға оралу"
+
+msgid "BASE_IMPERSONATE_WARNING"
+msgstr "Сіз уақытша басқа біреудің аккаунтына кірдіңіз. Өтінеміз, бұл функционалды асыра қолданбаңыз!"
+
+msgid "BASE_LOGINBTN"
+msgstr "кіру"
+
+msgid "BASE_LOGINPOPUP_DESC"
+msgstr "Сізде аккаунт бар ма? Кіріңіз."
+
+msgid "BASE_LOGINPOPUP_LOGINBTN"
+msgstr "Кіру"
+
+msgid "BASE_LOGINPOPUP_LOGINFIELD"
+msgstr "Логин:"
+
+msgid "BASE_LOGINPOPUP_PASSWORDFIELD"
 msgstr "Құпия сөз:"
 
-#: templates/register_on.html:48
-msgid "PAGE_REGISTER_HELP_PASS1"
-msgstr "Сенімді құпия сөздер ойлап табыңыз. Бұл өте маңызды!"
+msgid "BASE_LOGINPOPUP_TITLE"
+msgstr "Авторизация"
 
-#: templates/register_on.html:53
-msgid "PAGE_REGISTER_LABEL_PASS2"
-msgstr "Құпия сөзді қайталаңыз:"
+msgid "BASE_LOGOUTBTN"
+msgstr "шығу"
 
-#: templates/register_on.html:61
-msgid "PAGE_REGISTER_HELP_PASS2"
-msgstr "Қайталау - білім анасы :D"
+msgid "BASE_OPRJ_GAMESBTN"
+msgstr "Ойындар"
 
-#: templates/register_on.html:67
-msgid "PAGE_REGISTER_SECTION_CONFIRM"
-msgstr "Тіркелуді растау"
+msgid "BASE_OPRJ_OTHERPROJECTSBTN"
+msgstr "Барлық жобалар »"
 
-#: templates/register_on.html:71
-msgid "PAGE_REGISTER_CAPTCHA_INSTRUCTION"
-msgstr "Суреттегі таңбаларды енгізіңіз:"
+msgid "BASE_OPRJ_TITLE"
+msgstr "басқа жобалар"
 
-#: templates/register_on.html:104
-msgid "PAGE_REGISTER_BTN_SUBMIT"
-msgstr "Тіркелу"
+msgid "BASE_PRIVACYPOLICYBTN"
+msgstr "Құпиялылық саясаты"
 
-#: templates/report_app.html:7 templates/report_problem.html:6
-msgid "PAGE_REPORTAPP_PAGE_TITLE"
-msgstr "Қолданбаға шағым"
+msgid "BASE_REGISTERBTN"
+msgstr "тіркелу"
 
-#: templates/report_app.html:38
-msgid "PAGE_REPORTAPP_INFO_1"
-msgstr "Сіз қолданбаға шағым жібергелі жатырсыз"
-
-#: templates/report_app.html:39
-msgid "PAGE_REPORTAPP_INFO_2"
-msgstr "Себепті таңдап, мәселені толығырақ сипаттаңыз:"
-
-#: templates/report_app.html:50
-msgid "PAGE_REPORTAPP_EXPLAIN_LABEL"
-msgstr "Қосымша ақпарат (міндетті):"
-
-#: templates/report_app.html:59
-msgid "PAGE_REPORTAPP_SUBMIT_BTN"
-msgstr "Шағымды жіберу"
-
-#: templates/report_problem.html:17
-msgid "PAGE_REPORTPROBLEM_TITLE"
-msgstr "Мәселе туралы хабарлау"
-
-#: templates/report_problem.html:23
-msgid "PAGE_REPORTPROBLEM_INFO"
-msgstr ""
-"Мұнда сіз біздің сайттан тапқан кез келген мәселе туралы хабарлай аласыз!"
-
-#: templates/report_problem.html:33
-msgid "PAGE_REPORTPROBLEM_SUBMIT_BTN"
-msgstr "Мәселе туралы хабарлау"
-
-#: templates/search.html:7
-msgid "PAGE_SEARCH_TITLE"
-msgstr "Іздеу"
-
-#: templates/search.html:21
-msgid "PAGE_SEARCH_HEADING"
-msgstr "Сұранысты енгізіңіз"
-
-#: templates/search.html:33
-msgid "PAGE_SEARCH_INPUT_PLACEHOLDER"
-msgstr "Мысалы: Total Commander"
-
-#: templates/search.html:35
-msgid "PAGE_SEARCH_BTN_SUBMIT"
+msgid "BASE_SEARCHBTN"
 msgstr "іздеу"
 
-#: templates/search.html:41
-msgid "PAGE_SEARCH_LINK_ADVANCED"
-msgstr "Іздеу параметрлерін нақтылау"
+msgid "BASE_SIDEBAR_ACCOUNT_INVITEBTN"
+msgstr "Шақыру"
 
-#: templates/search.html:49
-msgid "PAGE_SEARCH_FILTER_AUTHOR_ID"
-msgstr "Автордын индентификаторы"
+msgid "BASE_SIDEBAR_ACCOUNT_PROFILEBTN"
+msgstr "Менің профилім"
 
-#: templates/search.html:56
-msgid "PAGE_SEARCH_FILTER_CATEGORY"
-msgstr "Санаты"
+msgid "BASE_SIDEBAR_ACCOUNT_SETTINGSBTN"
+msgstr "Баптаулар"
 
-#: templates/search.html:58
-msgid "PAGE_SEARCH_FILTER_CATEGORY_ALL"
-msgstr "Барлық санаттар"
-
-#: templates/search.html:74
-msgid "PAGE_SEARCH_FILTER_FREE"
-msgstr "Тек тегін"
-
-#: templates/search.html:81
-msgid "PAGE_SEARCH_BTN_RESET"
-msgstr "Сүзгілерді тазарту"
-
-#: templates/search.html:98
-#, python-format
-msgid "PAGE_SEARCH_BADGE_DEMO_PRICE %(price)s"
-msgstr "Демо, әрі қарай $%(price)s"
-
-#: templates/search.html:101
-msgid "PAGE_SEARCH_BADGE_DEMO"
-msgstr "Демо"
-
-#: templates/search.html:107
-msgid "PAGE_SEARCH_BADGE_FREE"
-msgstr "Тегін"
-
-#: templates/search.html:113
-msgid "PAGE_SEARCH_BTN_DETAILS"
-msgstr "Толығырақ"
-
-#: templates/search.html:135
-#, python-format
-msgid "PAGE_SEARCH_MSG_NO_RESULTS %(q)s"
-msgstr "\"%(q)s\" сұранысы бойынша нәтиже табылмады"
-
-#: templates/search.html:137
-msgid "PAGE_SEARCH_MSG_NO_RESULTS_EMPTY"
-msgstr "Сұрауыңыз бойынша ештеңе табылмады"
-
-#: templates/settings.html:6
-msgid "PAGE_SETTINGS_HTML_TITLE"
-msgstr "Аккаунт баптаулары"
-
-#: templates/settings.html:25 templates/settings_apps.html:23
-#: templates/settings_security.html:22
-msgid "PAGE_SETTINGS_TAB_ACCOUNT"
+msgid "BASE_SIDEBAR_ACCOUNT_TITLE"
 msgstr "Аккаунт"
 
-#: templates/settings.html:29 templates/settings_apps.html:27
-#: templates/settings_security.html:26
-msgid "PAGE_SETTINGS_TAB_APPS"
-msgstr "Қосымшалар"
+msgid "BASE_SIDEBAR_APP_DEV_SITE"
+msgstr "Әзірлеуші сайты"
 
-#: templates/settings.html:33 templates/settings_apps.html:31
-#: templates/settings_security.html:30
-msgid "PAGE_SETTINGS_TAB_SECURITY"
-msgstr "Қауіпсіздік"
+msgid "BASE_SIDEBAR_APP_EDIT"
+msgstr "Бетті өңдеу"
 
-#: templates/settings.html:42
-msgid "PAGE_SETTINGS_SECTION_BASIC"
-msgstr "Негізгі ақпарат"
+msgid "BASE_SIDEBAR_APP_INSTALL"
+msgstr "Орнату"
 
-#: templates/settings.html:45
-msgid "PAGE_SETTINGS_LABEL_USERNAME"
-msgstr "Пайдаланушы аты:"
+msgid "BASE_SIDEBAR_APP_REPORT"
+msgstr "Шағымдану"
 
-#: templates/settings.html:47
-msgid "PAGE_SETTINGS_WARN_USERNAME_FROZEN"
-msgstr "Пайдаланушы атын тіркелуден кейін өзгерту мүмкін емес"
+msgid "BASE_SIDEBAR_APP_TITLE"
+msgstr "Қосымша"
 
-#: templates/settings.html:50
-msgid "PAGE_SETTINGS_LABEL_EMAIL"
-msgstr "Байланыс e-mail:"
+msgid "BASE_SIDEBAR_CATEGORIES_HOME"
+msgstr "Басты бет"
 
-#: templates/settings.html:54
-msgid "PAGE_SETTINGS_LABEL_TELEGRAM"
-msgstr "Telegram:"
+msgid "BASE_SIDEBAR_CATEGORIES_TITLE"
+msgstr "Санаттар"
 
-#: templates/settings.html:70
-msgid "PAGE_SETTINGS_LABEL_BIO"
-msgstr "Профиль сипаттамасы:"
+msgid "CARD_USER_NO_DESC"
+msgstr "Профиль сипаттамасы жоқ"
 
-#: templates/settings.html:75
-msgid "PAGE_SETTINGS_LABEL_DEV_STATUS"
-msgstr "Әзірлеуші мәртебесі: "
+msgid "ERROR_2FA_INVALID_CODE"
+msgstr "Жарамсыз код"
 
-#: templates/settings.html:77
-msgid "PAGE_SETTINGS_DEV_STATUS_HAS"
-msgstr "бар"
+msgid "ERROR_2FA_INVALID_PASSWORD"
+msgstr "Пароль дұрыс емес"
 
-#: templates/settings.html:84 templates/settings_security.html:93
-#: templates/settings_security.html:117
-msgid "PAGE_SETTINGS_BTN_SAVE"
-msgstr "Сақтау"
+msgid "ERROR_ACCESS_DENIED_PROFILE"
+msgstr "Қатынас шектелген. Профиль баптауларынан бастаңыз."
 
-#: templates/settings.html:98
-msgid "PAGE_SETTINGS_SECTION_AVATAR"
-msgstr "Аватарды өзгерту"
+msgid "ERROR_CDNSECURITY"
+msgstr "Файлды жүктеу кезінде LunaSpire қозғалтқышының қауіпсіздік қатесі орын алды. Егер бұл қатені бірінші рет көріп тұрмасаңыз, сайт әкімшісіне хабарласыңыз."
 
-#: templates/settings.html:100
-msgid "PAGE_SETTINGS_INFO_AVATAR_RULES"
-msgstr ""
-"Аватардың ұсынылатын өлшемі: 64x64.<br>Рұқсат етілген "
-"пішімдер: .PNG, .JPG<br>Максималды өлшемі: 2 Мб"
+msgid "ERROR_CDN_CHECKSUM_MISMATCH_SCREENSHOTS"
+msgstr "Скриншот токендерін тексеру кезіндегі қателік."
 
-#: templates/settings.html:102
-msgid "PAGE_SETTINGS_LABEL_CHOOSE_FILE"
-msgstr "Файлды таңдау:"
+msgid "ERROR_CDN_INVALID_FORMAT"
+msgstr "Сақтау серверіндегі (CDN) файл пішімі жарамсыз. Әкімшіге хабарласыңыз."
 
-#: templates/settings.html:106
-msgid "PAGE_SETTINGS_BTN_UPLOAD"
-msgstr "Жүктеу"
+msgid "ERROR_CDN_SESSION_EXPIRED"
+msgstr "Жүктеу сессиясының уақыты аяқталды. Қайталап көріңіз."
 
-#: templates/settings.html:112
-msgid "PAGE_SETTINGS_SECTION_DELETE"
-msgstr "Тіркелгіні жою"
+msgid "ERROR_CDN_TOKEN_EXPIRED"
+msgstr "Жүктеу токенінің мерзімі өтті немесе ол бұрыннан пайдаланылды."
 
-#: templates/settings.html:114
-msgid "PAGE_SETTINGS_DELETE_WARNING"
-msgstr ""
-"Егер сіз сайтты қолданғыңыз келмесе, өз аккаунтыңызды жоюға толық құқығыңыз "
-"бар. <br><br>Алайда, бұл әрекет профиль деректерін <b>қалпына келтіру "
-"мүмкіндігінсіз</b> жоятынын түсінуіңіз керек. Басқарылатын қолданбалар "
-"беттеріне қолжетімділік жоғалады, ал жіберілген пікірлер жеке деректерден "
-"ажыратылады.<br><br>"
+msgid "ERROR_CDN_TOKEN_EXPIRED_OR_USED"
+msgstr "Жүктеу токенінің мерзімі өтті немесе ол бұрыннан пайдаланылды."
 
-#: templates/settings.html:122
-msgid "PAGE_SETTINGS_BTN_DELETE"
-msgstr "Тіркелгіні жою"
+msgid "ERROR_CDN_TOKEN_INVALID"
+msgstr "CDN қауіпсіздік токен жарамсыз."
 
-#: templates/settings.html:133
-msgid "PAGE_SETTINGS_JS_SELECT_FILE"
-msgstr "Жүктеу үшін файлды таңдаңыз!"
+msgid "ERROR_CDN_TOKEN_INVALID_TYPE"
+msgstr "CDN токенінің түрі жарамсыз."
 
-#: templates/settings.html:134
-msgid "PAGE_SETTINGS_JS_UPLOADING"
+msgid "ERROR_CDN_TOKEN_MISSING"
+msgstr "CDN токені берілмеген."
+
+msgid "ERROR_CHECK_FORM"
+msgstr "Пішінді тексеріңіз. Кейбір өрістерде қателер бар."
+
+msgid "ERROR_CURRENT_PASSWORD_IS_WRONG"
+msgstr "Ағымдағы құпия сөз қате"
+
+msgid "ERROR_DIST_FORM_CDN_INFO_FAIL"
+msgstr "Сақтау серверінен файл туралы ақпаратты алу мүмкін болмады. Кейінірек көріңіз."
+
+msgid "ERROR_DIST_FORM_NO_FILE_OR_URL"
+msgstr "Файлды жүктеу немесе жүктеп алу үшін сілтемені көрсету қажет"
+
+msgid "ERROR_DIST_FORM_NO_VT_LINK"
+msgstr "Файлды жүктеу кезінде VirusTotal сілтемесі міндетті."
+
+msgid "ERROR_DIST_SOURCE_REQUIRED"
+msgstr "Жүктеп алу үшін файлды немесе сілтемені көрсету қажет."
+
+msgid "ERROR_EMAIL_ALREADY_EXISTS"
+msgstr "Бұл E-mail бар пайдаланушы бұрыннан бар."
+
+msgid "ERROR_EMAIL_ALREADY_IN_USE"
+msgstr "Бұл E-mail мекенжайы қолданыста."
+
+msgid "ERROR_EMAIL_DISPOSABLE_DOMAIN"
+msgstr "Уақытша электрондық пошта қызметтерін пайдаланып тіркелуге тыйым салынған."
+
+msgid "ERROR_EMAIL_DOMAIN_NO_MX %(domain)s"
+msgstr "%(domain)s домені электрондық поштаны қабылдамайды. Қолданыстағы мекенжайды көрсетіңіз."
+
+msgid "ERROR_EMAIL_INVALID_FORMAT"
+msgstr "Электрондық пошта мекенжайы қате енгізілді."
+
+msgid "ERROR_EMAIL_IS_SAME"
+msgstr "Жаңа E-mail ағымдағысымен сәйкес келеді."
+
+msgid "ERROR_EMAIL_NO_ALIASES"
+msgstr "\"+\" белгісі бар пошталық бүркеншік аттарды пайдалануға тыйым салынады."
+
+msgid "ERROR_INVALID_FILE_FORMAT"
+msgstr "Қате: Файл пішімі жарамсыз!"
+
+msgid "ERROR_INVALID_IMAGE_FILE"
+msgstr "Суретті өңдеу мүмкін болмады. Файл зақымдалған болуы мүмкін."
+
+msgid "ERROR_INVALID_LUNASPIRE_TOKEN"
+msgstr "Файлды жүктеу кезінде LunaSpire қозғалтқышынан жарамсыз токен түрі алынды. Егер бұл қатені бірінші рет көріп тұрмасаңыз, сайт әкімшісіне хабарласыңыз."
+
+msgid "ERROR_INVALID_SIZE_ICON"
+msgstr "Қате: Файл өлшемі 2 Мб-тан асады!"
+
+msgid "ERROR_MAX_AVATAR_DIMENSIONS"
+msgstr "Суреттің максималды өлшемі — 64x64 пиксель."
+
+msgid "ERROR_NEW_PASSWORDS_DONT_MATCH"
+msgstr "Жаңа құпия сөздер сәйкес келмейді"
+
+msgid "ERROR_NEW_PASSWORD_SAME_AS_OLD"
+msgstr "Жаңа құпия сөз ескісімен бірдей. Басқа құпия сөз енгізіңіз."
+
+msgid "ERROR_NO_AGREERULES"
+msgstr "Ережелермен келісуіңіз керек!"
+
+msgid "ERROR_NO_APPNAME"
+msgstr "Қосымшаның атын енгізіңіз!"
+
+msgid "ERROR_PASSWORD_RESET_EMAIL_NOT_FOUND"
+msgstr "Бұл электрондық пошта мекенжайы бар тіркелгі табылмады."
+
+msgid "ERROR_PREVIEWSCRNS_1_BIGSIZE"
+msgstr "Қате: Файл "
+
+msgid "ERROR_PREVIEWSCRNS_1_COUNT"
+msgstr "Қате: Таңдалды "
+
+msgid "ERROR_PREVIEWSCRNS_1_INVALIDFORMAT"
+msgstr "Қате: Файл "
+
+msgid "ERROR_PREVIEWSCRNS_2_BIGSIZE"
+msgstr "өлшемі тым үлкен (макс. 2 МБ)."
+
+msgid "ERROR_PREVIEWSCRNS_2_COUNT"
+msgstr " файл. Максимум 3."
+
+msgid "ERROR_PREVIEWSCRNS_2_INVALIDFORMAT"
+msgstr "пішімі жарамсыз."
+
+msgid "ERROR_PREVIEWSCRNS_3_COUNT"
+msgstr "Максимум 3 файл!"
+
+msgid "ERROR_PROFILE_OPENVK_INVALID"
+msgstr "OpenVK пайдаланушы атының пішімі қате. Жарамды пайдаланушы атын көрсетіңіз."
+
+msgid "ERROR_PROFILE_TELEGRAM_INVALID"
+msgstr "Telegram пайдаланушы атының форматы қате. Пайдаланушы атын сілтемелерсіз және протоколдарсыз көрсетіңіз."
+
+msgid "ERROR_RATE_LIMIT_EXCEEDED"
+msgstr "Сұраныстарды тым жиі жіберудесіз. Жалғастыру үшін біраз уақыт күте тұрыңыз."
+
+msgid "ERROR_YOURE_NOT_OWNER_OF_APP"
+msgstr "Сіз бұл қолданбаның әкімшісі емессіз."
+
+msgid "ERROR_YOU_DONT_HAVE_DEVSTATUS"
+msgstr "Бұл бетті көру үшін сізде әзірлеуші мәртебесі жоқ. Оны профиль параметрлерінен алуға болады."
+
+msgid "FORM_AGREE_POLICY"
+msgstr "Мен құпиялылық шарттарын қабылдаймын"
+
+msgid "FORM_AGREE_RULES"
+msgstr "Мен сайт ережелерімен келісемін және оларды бұзған жағдайдағы салдары туралы хабардармын"
+
+msgid "FORM_APPCREATE_MAXIMUM_SCREENSHOTS"
+msgstr "Максимум 3 скриншот."
+
+msgid "FORM_APPCREATE_TITLE_EXAMPLE"
+msgstr "Мысалы: Total Commander"
+
+msgid "FORM_CAPTCHA"
+msgstr "Суреттегі таңбаларды енгізіңіз"
+
+msgid "FORM_DEVSTATUS_ABOUT_YOU"
+msgstr "Өзіңіз туралы айтыңыз (1000 таңбаға дейін)"
+
+msgid "FORM_DEVSTATUS_GITHUB"
+msgstr "GitHub сілтемесі"
+
+msgid "FORM_DEVSTATUS_GITHUB_HELP"
+msgstr "Неге болмасқа? Біз Сіздердің керемет әзірлемелеріңізді көргіміз келеді :3"
+
+msgid "FORM_DEVSTATUS_WE_WILL_CONTACT"
+msgstr "Біз Сізбен міндетті түрде хабарласамыз. Тым болмаса тырысып көреміз."
+
+msgid "FORM_DEVSTATUS_WHY_YOU_CHOOSE"
+msgstr "Бізді неліктен таңдадыңыз? (250 таңбаға дейін)"
+
+msgid "FORM_DEVSTATUS_YOUR_EMAIL"
+msgstr "Сіздің E-mail"
+
+msgid "FORM_DEVSTATUS_YOUR_USERNAME"
+msgstr "Пайдаланушы аты"
+
+msgid "FORM_INVITECODE_CODELIMITISNTOK_ERROR"
+msgstr "Бұл код бойынша шақыру лимиті таусылды. Иесі жақында тым көп адамды шақырды."
+
+msgid "FORM_INVITECODE_DOESNOTEXIST_ERROR"
+msgstr "Бұл инвайт-код табылмады."
+
+msgid "FORM_INVITECODE_ENTER"
+msgstr "Кодты енгізіңіз"
+
+msgid "FORM_INVITECODE_EXPIRED_ERROR"
+msgstr "Кодтың жарамдылық мерзімі өтті (24 сағат). Жаңасын сұраңыз."
+
+msgid "FORM_INVITECODE_TITLE"
+msgstr "Код"
+
+msgid "FORM_PASSWORDCONFIRM_CONFIRM"
+msgstr "Құпия сөзді растау"
+
+msgid "FORM_PASSWORDCONFIRM_ENTER"
+msgstr "Ағымдағы құпия сөзді енгізіңіз"
+
+msgid "FORM_PASSWORDCONFIRM_WRONGPASS"
+msgstr "Құпия сөз қате. Қайталап көріңіз."
+
+msgid "FORM_SCREENSHOTS"
+msgstr "Скриншоттар"
+
+msgid "File extension “%(extension)s” is not allowed. Allowed extensions are: “%(allowed_extensions)s”."
+msgstr "“%(extension)s” файл кеңейтіліміне рұқсат жоқ. Рұқсат етілген кеңейтілімдер: “%(allowed_extensions)s”."
+
+msgid "INDEX_CATEGORY_PROMPT"
+msgstr "Немесе қажетті санатты таңдаңыз:"
+
+msgid "INDEX_NO_CATEGORIES"
+msgstr "Санаттар әлі қосылған жоқ"
+
+msgid "INDEX_SEARCH_BTN"
+msgstr "Іздеу"
+
+msgid "INDEX_SEARCH_PLACEHOLDER"
+msgstr "Мысалы: Total Commander"
+
+msgid "INDEX_SEARCH_SECTION_TITLE"
+msgstr "Каталог бойынша іздеу"
+
+msgid "INDEX_WELCOME_TEXT"
+msgstr "LunaStore-ға қош келдіңіз!<br>Осы операциялық жүйемен ыңғайлы жұмыс істеуге арналған қолданбалар мен толықтырулар жинағы"
+
+msgid "INDEX_WELCOME_TITLE"
+msgstr "Қош келдіңіз"
+
+msgid "INFO_2FA_DISABLED"
+msgstr "Екі факторлық аутентификация сәтті өшірілді."
+
+msgid "INFO_2FA_ENABLED"
+msgstr "Екі факторлық аутентификация сәтті қосылды."
+
+msgid "INFO_ACCEPTED_AVATAR_FORMATS"
+msgstr "Рұқсат етілген пішімдер: .JPG, .PNG, .WEBP, .GIF"
+
+msgid "INFO_ACCEPTED_ICON_FORMATS"
+msgstr "Тек мына пішімдер рұқсат етіледі: .JPG, .JPEG, .PNG"
+
+msgid "INFO_ACCOUNT_WAS_DELETED"
+msgstr "Аккаунтыңыз сәтті жойылды. Оралуды шешсеңіз — біз сізді сайтымызда әрқашан күтеміз!"
+
+msgid "INFO_API_SESSION_REVOKED"
+msgstr "API қолжетімділік кілті сәтті жойылды."
+
+msgid "INFO_APP_CREATE_REQUEST_WAS_SENT"
+msgstr "Өтінім қарауға жіберілді"
+
+msgid "INFO_APP_DEMO"
+msgstr "Демо"
+
+msgid "INFO_APP_DEMOWITHPRICE"
+msgstr "Демо, әрі қарай"
+
+msgid "INFO_APP_FREE"
+msgstr "Тегін"
+
+msgid "INFO_APP_WITHPRICE"
+msgstr "Ақылы:"
+
+msgid "INFO_AVATAR_WAS_CHANGED"
+msgstr "Аватар жаңартылды"
+
+msgid "INFO_AVATAR_WAS_UPLOADED"
+msgstr "Аватар сәтті жүктелді!"
+
+msgid "INFO_CATEGORY_LIST_EMPTY"
+msgstr "ойбай... бұл орын бооооос..."
+
+msgid "INFO_EMAIL_WAS_CHANGED"
+msgstr "E-mail сәтті өзгертілді."
+
+msgid "INFO_MAXIMUM_AVATAR_SIZE"
+msgstr "Файлдың максималды өлшемі: 2 МБ."
+
+msgid "INFO_NO_SCREENSHOTS"
+msgstr "Скриншоттер жоқ"
+
+msgid "INFO_PASSWORD_WAS_CHANGED"
+msgstr "Құпиясөз сәтті өзгертілді"
+
+msgid "INFO_PROFILE_IS_UPDATED"
+msgstr "Профиль жаңартылды"
+
+msgid "INFO_RECOMENDATIONS_FOR_UPLOAD_AVATAR"
+msgstr "Ұсынылатын өлшем: 64x64. Пішімдер: PNG, JPG. Макс: 2 МБ."
+
+msgid "INFO_SELECTED_FILES"
+msgstr "Таңдалған файлдар: "
+
+msgid "INFO_YOUR_IP_WAS_BANNED"
+msgstr "IP-мекенжайыңыз бұғатталды. Егер бұл қателік деп санасаңыз және сізді 'себепсіз' бұғаттаса, бізге E-mail арқылы жазыңыз: daniel@myslivets.com"
+
+msgid "JS_MARKETPLACE_ERROR"
+msgstr "LunaSpire қатесі: "
+
+msgid "JS_MARKETPLACE_FILE_ERROR"
+msgstr "Файлды тасымалдау кезінде қателік орын алды"
+
+msgid "JS_MARKETPLACE_RETRY"
+msgstr "Қайталау"
+
+msgid "JS_MARKETPLACE_TOKEN_ERROR"
+msgstr "Жүктеу токенін алу мүмкін болмады"
+
+msgid "JS_MARKETPLACE_UPLOADING"
 msgstr "Жүктелуде..."
 
-#: templates/settings.html:135
-msgid "PAGE_SETTINGS_JS_ERR_TOKEN"
-msgstr ""
-"LunaSpire жүктеуге арналған қауіпсіз токенді алу мүмкін болмады. Осы қате "
-"туралы сайт әкімшісіне хабарласыңыз."
+msgid "LunaStore Admin"
+msgstr "сука кім тағы да аударманы қате енгізді"
 
-#: templates/settings.html:136
-msgid "PAGE_SETTINGS_JS_ERR_CDN"
-msgstr ""
-"LunaSpire серверіне файлды сақтау кезінде қате орын алды. Осы қате туралы "
-"сайт әкімшісіне хабарласыңыз."
+msgid "MD_ALERT_CAUTION"
+msgstr "Абайлаңыз"
 
-#: templates/settings.html:137
-msgid "PAGE_SETTINGS_JS_ERR_PREFIX"
-msgstr "Қате орын алды:"
+msgid "MD_ALERT_IMPORTANT"
+msgstr "Маңызды"
 
-#: templates/settings_apps.html:6
-msgid "PAGE_MANAGE_APPS_TITLE"
-msgstr "Басқарылатын қосымшалар"
+msgid "MD_ALERT_NOTE"
+msgstr "Ескертпе"
 
-#: templates/settings_apps.html:38
-msgid "PAGE_MANAGE_APPS_CREATE"
-msgstr "Қосымшаны жасау"
+msgid "MD_ALERT_TIP"
+msgstr "Кеңес"
 
-#: templates/settings_apps.html:41
-msgid "PAGE_MANAGE_APPS_HEADER"
-msgstr "Басқарылатын қосымша беттері"
+msgid "MD_ALERT_WARNING"
+msgstr "Ескерту"
 
-#: templates/settings_apps.html:45
-msgid "PAGE_MANAGE_APPS_COUNT"
-msgstr "Басқарылатын қосымшалар"
+msgid "MSG_DIST_CREATE_REQ_SENT"
+msgstr "Жаңа нұсқаны қосу туралы өтінім модерацияға жіберілді."
 
-#: templates/settings_apps.html:47
-msgid "PAGE_MANAGE_APPS_MY_APPS"
-msgstr "Менің қосымшаларым"
+msgid "MSG_DIST_EDIT_REQ_SENT"
+msgstr "Нұсқаны өзгерту туралы өтінім модерацияға жіберілді."
 
-#: templates/settings_apps.html:62 templates/settings_apps.html:78
-msgid "PAGE_MANAGE_APPS_ROLE_OWNER"
-msgstr "Иесі"
+msgid "NOTIFICATIONS_LOADING"
+msgstr "Хабарламалар жүктелуде..."
 
-#: templates/settings_apps.html:63
-msgid "PAGE_MANAGE_APPS_BTN_EDIT"
-msgstr "өңдеу"
+msgid "NOTIF_APPEDITREQ_ACCEPTED_DESCRIPTION"
+msgstr "%(app_name)s қосымшасын өңдеуге сұранысыңыз мақұлданды."
 
-#: templates/settings_apps.html:89
-msgid "PAGE_MANAGE_APPS_EMPTY_DESC"
-msgstr "Сіз әзірге бірде-бір қосымшаны басқармайсыз."
+msgid "NOTIF_APPEDITREQ_ACCEPTED_TITLE"
+msgstr "Қосымшаны өңдеуге арналған өтінімнің мәртебесі"
 
-#: templates/settings_security.html:38
+msgid "NOTIF_APPEDITREQ_DECLINED_DESCRIPTION"
+msgstr "%(app_name)s қосымшасын өңдеуге сұранысыңыз қабылданбады. Себебі: %(reason)s"
+
+msgid "NOTIF_APPEDITREQ_DECLINED_TITLE"
+msgstr "Қосымшаны өңдеуге арналған өтінімнің мәртебесі"
+
+msgid "NOTIF_APPREQ_ACCEPTED_DESCRIPTION"
+msgstr "Құттықтаймыз! %(app_name)s қосымшасын жасауға сұранысыңыз мақұлданып, ол LunaStore дүкенінде жарияланды."
+
+msgid "NOTIF_APPREQ_ACCEPTED_TITLE"
+msgstr "Өтінім мәртебесі"
+
+msgid "NOTIF_APPREQ_DECLINED_DESCRIPTION"
+msgstr "%(app_name)s қосымшасын құруға сұранысыңыз қабылданбады. Себебі: %(reason)s"
+
+msgid "NOTIF_APPREQ_DECLINED_TITLE"
+msgstr "Өтінім мәртебесі"
+
+msgid "NOTIF_DEVSTATUS_ACCEPTED_DESCRIPTION"
+msgstr "Құттықтаймыз! Өтінішіңіз мақұлданды және сіз әзірлеуші/бағдарлама шығарушы мүмкіндіктеріне ие болдыңыз."
+
+msgid "NOTIF_DEVSTATUS_ACCEPTED_TITLE"
+msgstr "Әзірлеуші мәртебесі"
+
+msgid "NOTIF_DEVSTATUS_DECLINED_DESCRIPTION"
+msgstr "Өтінішіңіз қабылданбады және сіз әзірлеуші/бағдарлама шығарушы мүмкіндіктерін алмадыңыз. Себебі: %(reason)s"
+
+msgid "NOTIF_DEVSTATUS_DECLINED_TITLE"
+msgstr "Әзірлеуші мәртебесі"
+
+msgid "NOTIF_DEVSTATUS_SEND_DESCRIPTION"
+msgstr "Өтінішіңіз сәтті жіберілді. Жауап «Хабарламалар» бөліміне келеді. Ешқандай әрекет жасаудың қажеті жоқ."
+
+msgid "NOTIF_DEVSTATUS_SEND_TITLE"
+msgstr "Әзірлеуші мәртебесі"
+
+msgid "NOTIF_DISTREQ_ACCEPTED_DESCRIPTION"
+msgstr "%(app_name)s қолданбасының %(version)s нұсқасын жариялауға берген өтінішіңіз модератормен мақұлданды."
+
+msgid "NOTIF_DISTREQ_ACCEPTED_TITLE"
+msgstr "Жаңа нұсқа жарияланды!"
+
+msgid "NOTIF_DISTREQ_DECLINED_DESCRIPTION"
+msgstr "Өкінішке орай, %(app_name)s қосымшасының %(version)s нұсқасын жариялауға берген өтінішіңіз қабылданбады. Себебі: %(reason)s"
+
+msgid "NOTIF_DISTREQ_DECLINED_TITLE"
+msgstr "Жариялауға өтінім қабылданбады"
+
+msgid "NOTIF_LOGIN_DESCRIPTION"
+msgstr "Тіркелгіңізге кіру орындалды • Құрылғы: %(browser)s (%(os)s) • IP-мекенжайы: %(ip)s • Орналасқан жері: %(location)s • Егер бұл сіз болмасаңыз, құпия сөзді дереу өзгертіңіз."
+
+msgid "NOTIF_LOGIN_TITLE"
+msgstr "Жаңа тіркелгіге кіру"
+
+msgid "NOTIF_WELCOME_DESCRIPTION"
+msgstr "Тіркелгеніңізге рақмет! Қолданбалар анықтамалығына бей-жай қарамағаныңызға өте қуаныштымыз. Сізге қатты ұнайды деп үміттенемін!"
+
+msgid "NOTIF_WELCOME_TITLE"
+msgstr "LunaStore-қа қош келдіңіз"
+
+msgid "PAGE_2FA_ATTEMPT_HEADER"
+msgstr "Екі факторлы тексеру"
+
+msgid "PAGE_2FA_ATTEMPT_SUBTITLE"
+msgstr "Кіруді аяқтау үшін кодты енгізіңіз"
+
+msgid "PAGE_2FA_ATTEMPT_TITLE"
+msgstr "2FA кодын енгізу"
+
+msgid "PAGE_2FA_CONNECT_BTN"
+msgstr "Қосу"
+
+msgid "PAGE_2FA_CONTINUE_BTN"
+msgstr "Жалғастыру"
+
+msgid "PAGE_2FA_DISABLE_BTN"
+msgstr "2FA-ны өшіру"
+
+msgid "PAGE_2FA_DISABLE_CONFIRM"
+msgstr "2FA-ны өшіргіңіз келетініне сенімдісіз бе? Бұл аккаунтыныздың қауіпсіздік деңгейін төмендетеді."
+
+msgid "PAGE_2FA_DISABLE_INFO"
+msgstr "Егер сіз бұл кіру әдісін өшіргіңіз келсе, төмендегі түймені басыңыз."
+
+msgid "PAGE_2FA_ENABLED_INFO"
+msgstr "Бұл аккаунтта стандартты логин мен парольден бөлек, уақытша кіру кодын енгізу арқылы қосымша кіру әдісі қосылған"
+
+msgid "PAGE_2FA_ENTER_CODE"
+msgstr "алынған кодты енгізіңіз"
+
+msgid "PAGE_2FA_ENTER_CODE_HEADER"
+msgstr "Кодты енгізу"
+
+msgid "PAGE_2FA_INFO_1"
+msgstr "Стандартты логин мен парольден бөлек, уақытша кіру кодын енгізу арқылы аккаунтыңызды қосымша қорғау әдісімен қамтамасыз етіңіз"
+
+msgid "PAGE_2FA_INFO_2"
+msgstr "Баптауды бастау үшін сізге код генераторы қажет болады (мысалы: <b>Google Authenticator</b> немесе <b>Aegis</b>)"
+
+msgid "PAGE_2FA_INFO_3"
+msgstr "Кодтарды генерациялау ұялы байланыссыз және желіге қосылусыз жұмыс істейді. Экрандағы осы QR-кодты қолданба арқылы сканерлеңіз, алынған 6 цифрды енгізіңіз және \"Қосу\" батырмасын басыңыз"
+
+msgid "PAGE_2FA_INITIAL_SETUP"
+msgstr "Бастапқы баптау"
+
+msgid "PAGE_2FA_MANAGE"
+msgstr "Басқару"
+
 msgid "PAGE_2FA_MANAGE_INFO"
 msgstr "Бір реттік код арқылы кірудің қосымша әдісін басқару"
 
-#: templates/settings_security.html:79
-msgid "PAGE_SETTINGS_SECTION_PASSWORD"
-msgstr "Құпия сөзді өзгерту"
+msgid "PAGE_2FA_OPEN_GENERATOR"
+msgstr "Код генераторын ашып, алынған кодты енгізіңіз"
 
-#: templates/settings_security.html:86
-msgid "PAGE_SETTINGS_LABEL_NEW_PASS"
-msgstr "Жаңа құпия сөз:"
+msgid "PAGE_2FA_PASSWORD_CONFIRM"
+msgstr "Кіруді растау"
 
-#: templates/settings_security.html:90
-msgid "PAGE_SETTINGS_LABEL_CONFIRM_PASS"
-msgstr "Құпия сөзді қайталаңыз:"
+msgid "PAGE_2FA_PASSWORD_CONFIRM_TITLE"
+msgstr "Құпия сөзді растау"
 
-#: templates/settings_security.html:101
-msgid "PAGE_SETTINGS_SECTION_CHANGE_EMAIL"
-msgstr "E-mail өзгерту"
+msgid "PAGE_2FA_PASSWORD_PROMPT"
+msgstr "2FA басқаруына кіру үшін тіркелгіңіздің құпия сөзін енгізіңіз."
 
-#: templates/settings_security.html:103
-msgid "PAGE_SETTINGS_INFO_EMAIL_CHANGE"
-msgstr "E-mail өзгерту құпия сөзді растауды талап етеді."
+msgid "PAGE_2FA_SECRET_KEY"
+msgstr "Сіздің құпия кілтіңіз"
 
-#: templates/storepage.html:28
-msgid "PAGE_APP_LABEL_NOT_TRANSLATED"
-msgstr ""
-"Өкінішке орай, қолданбаны жүктеген адам оны сіздің тіліңізге аудармаған. "
-"Сондықтан қазір сіз түпнұсқасын көріп тұрсыз."
+msgid "PAGE_2FA_SUBTITLE_MANAGE"
+msgstr "Бір реттік код арқылы кіруді басқару"
 
-#: templates/storepage.html:51
-msgid "PAGE_APP_LABEL_AUTHOR"
-msgstr "Жариялаған:"
+msgid "PAGE_2FA_TITLE"
+msgstr "Екі факторлық аутентификация"
 
-#: templates/storepage.html:64
-msgid "PAGE_APP_PRICE_DEMO_WITH_COST"
-msgstr "Демо, әрі қарай"
+msgid "PAGE_ADDAPP_BACKBTN"
+msgstr "Артқа"
 
-#: templates/storepage.html:68
-msgid "PAGE_APP_PRICE_DEMO_FREE"
-msgstr "Демо"
+msgid "PAGE_ADDAPP_CHECKINFO_ACTIONS"
+msgstr "Әрекеттер"
 
-#: templates/storepage.html:74
-msgid "PAGE_APP_PRICE_PAID"
-msgstr "Ақылы:"
+msgid "PAGE_ADDAPP_CHECKINFO_AUTHOR_1"
+msgstr "Автор:"
 
-#: templates/storepage.html:76
-msgid "PAGE_APP_PRICE_FREE"
-msgstr "Тегін"
+msgid "PAGE_ADDAPP_CHECKINFO_AUTHOR_2"
+msgstr "Сіз"
 
-#: templates/storepage.html:86
+msgid "PAGE_ADDAPP_CHECKINFO_GOTODEVSITE"
+msgstr "Әзірлеушінің ресми сайтына өту"
+
+msgid "PAGE_ADDAPP_CHECKINFO_NAME"
+msgstr "Атауы"
+
+msgid "PAGE_ADDAPP_CHECKINFO_NOTIFY"
+msgstr "Жариялау алдында барлық ақпаратты тексеріп алыңыз. Модерациядан өткеннен кейін бет автоматты түрде жарияланады және оған жаңа файлдарды жүктей аласыз."
+
+msgid "PAGE_ADDAPP_CHECKINFO_OTHERINFO"
+msgstr "Қосымша ақпарат"
+
+msgid "PAGE_ADDAPP_CHECKINFO_SCREENSHOTS"
+msgstr "Скриншоттар"
+
+msgid "PAGE_ADDAPP_CHECKINFO_SLOGAN"
+msgstr "Ұран..."
+
+msgid "PAGE_ADDAPP_EDITAPPBTN"
+msgstr "Өңдеу"
+
+msgid "PAGE_ADDAPP_NEXTBTN"
+msgstr "Әрі қарай"
+
+msgid "PAGE_ADDAPP_PAGETITLE"
+msgstr "Қосымшаны қосу"
+
+msgid "PAGE_ADDAPP_SENDAPPBTN"
+msgstr "Қарауға жіберу"
+
+msgid "PAGE_ADDAPP_STEP1"
+msgstr "1-ші кезең"
+
+msgid "PAGE_ADDAPP_STEP1_AGREE_RULES"
+msgstr "Мен сайт ережелерімен келісемін және оларды бұзған жағдайдағы салдары туралы хабардармын"
+
+msgid "PAGE_ADDAPP_STEP1_DESC"
+msgstr "Бастау"
+
+msgid "PAGE_ADDAPP_STEP1_ICON"
+msgstr "Қолданба белгішесі:"
+
+msgid "PAGE_ADDAPP_STEP1_ICONDESC_1"
+msgstr "Аватардың ұсынылатын өлшемі: 64x64."
+
+msgid "PAGE_ADDAPP_STEP1_ICONDESC_2"
+msgstr "Рұқсат етілген пішімдер: .PNG, .JPG"
+
+msgid "PAGE_ADDAPP_STEP1_ICONDESC_3"
+msgstr "Максималды өлшемі: 2 Мб"
+
+msgid "PAGE_ADDAPP_STEP1_NAME"
+msgstr "Негізгі ақпарат"
+
+msgid "PAGE_ADDAPP_STEP1_SLOGAN"
+msgstr "Ұран (140 таңба):"
+
+msgid "PAGE_ADDAPP_STEP1_SLOGANDESC_1"
+msgstr "Ұран қолданба бетінде, басты бетте және іздеуде көрсетіледі"
+
+msgid "PAGE_ADDAPP_STEP1_SLOGANDESC_2"
+msgstr "Қысқалық — таланттың әпкесі :)"
+
+msgid "PAGE_ADDAPP_STEP1_TITLE"
+msgstr "Атауы:"
+
+msgid "PAGE_ADDAPP_STEP1_TITLEDESC"
+msgstr "Тамаша әрі есте қаларлық атау қолданбаға пайдаланушылар арасында танымалдылық бонусы береді"
+
+msgid "PAGE_ADDAPP_STEP2"
+msgstr "2-ші кезең"
+
+msgid "PAGE_ADDAPP_STEP2_CATEGORY"
+msgstr "Санаты:"
+
+msgid "PAGE_ADDAPP_STEP2_CATEGORYDESC"
+msgstr "Бұл қолданбаны тиісті блоктарда дұрыс іздеу және көрсету үшін өте маңызды. Әкімшіліктің санатты өз қалауы бойынша өзгертуге құқығы бар"
+
+msgid "PAGE_ADDAPP_STEP2_DESC"
+msgstr "Сипаттама (1400 таңба):"
+
+msgid "PAGE_ADDAPP_STEP2_DESCDESC"
+msgstr "Сипаттама қолданба бетіндегі 'Қосымша ақпарат' блогында көрсетіледі"
+
+msgid "PAGE_ADDAPP_STEP2_DESC_1"
+msgstr "Қосымша"
+
+msgid "PAGE_ADDAPP_STEP2_DESC_2"
+msgstr "ақпарат"
+
+msgid "PAGE_ADDAPP_STEP2_DEVSITE"
+msgstr "Әзірлеушінің ресми сайты:"
+
+msgid "PAGE_ADDAPP_STEP2_NAME"
+msgstr "Қосымша ақпарат"
+
+msgid "PAGE_ADDAPP_STEP2_REQ"
+msgstr "Жүйелік талаптар (1400 таңба):"
+
+msgid "PAGE_ADDAPP_STEP2_REQDESC"
+msgstr "Жүйелік талаптар қолданба бетіндегі 'Қосымша ақпарат' блогында көрсетіледі"
+
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTS"
+msgstr "Скриншоттар:"
+
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_1"
+msgstr "Скриншоттардың максималды саны: 3"
+
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_2"
+msgstr "Рұқсат етілген пішімдер: .PNG, .JPG"
+
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_3"
+msgstr "Максималды өлшемі: 2 Мб"
+
+msgid "PAGE_ADDAPP_STEP3"
+msgstr "3-ші кезең"
+
+msgid "PAGE_ADDAPP_STEP3_DESC_1"
+msgstr "Алдын ала қарау"
+
+msgid "PAGE_ADDAPP_STEP3_DESC_2"
+msgstr "жариялаумен"
+
+msgid "PAGE_ADDAPP_SUCCESS"
+msgstr "Қосымша қосу туралы өтінішіңіз сәтті жіберілді."
+
+msgid "PAGE_ADMIN_APP_CATEGORY"
+msgstr "Санаты:"
+
+msgid "PAGE_ADMIN_APP_CATEGORYDESC"
+msgstr "Бұл дұрыс іздеу үшін өте маңызды..."
+
+msgid "PAGE_ADMIN_APP_CURRENTSCRN"
+msgstr "Ағымдағы скриншоттар"
+
+msgid "PAGE_ADMIN_APP_DESC"
+msgstr "Сипаттама (1000 таңба):"
+
+msgid "PAGE_ADMIN_APP_DESCDESC"
+msgstr "Сипаттама қолданба бетіндегі 'Қосымша ақпарат' блогында көрсетіледі"
+
+msgid "PAGE_ADMIN_APP_DEVSITE"
+msgstr "Әзірлеушінің ресми сайты:"
+
+msgid "PAGE_ADMIN_APP_DIST_ACTIONS"
+msgstr "Әрекеттер"
+
+msgid "PAGE_ADMIN_APP_DIST_ACTION_DELETE"
+msgstr "Жою"
+
+msgid "PAGE_ADMIN_APP_DIST_ACTION_EDIT"
+msgstr "Өңдеу"
+
+msgid "PAGE_ADMIN_APP_DIST_ADD_NEW"
+msgstr "Жаңа нұсқаны қосу"
+
+msgid "PAGE_ADMIN_APP_DIST_DATE"
+msgstr "Күні"
+
+msgid "PAGE_ADMIN_APP_DIST_DL_LINK_BLOCK"
+msgstr "Жүктеу бетіне сілтеме"
+
+msgid "PAGE_ADMIN_APP_DIST_DL_LINK_TEXT"
+msgstr "Нұсқалар тізімін ашу"
+
+msgid "PAGE_ADMIN_APP_DIST_EMPTY"
+msgstr "Әзірге жүктелген нұсқалар жоқ."
+
+msgid "PAGE_ADMIN_APP_DIST_HEADER"
+msgstr "Дистрибуцияны басқару — "
+
+msgid "PAGE_ADMIN_APP_DIST_NO_NOTES"
+msgstr "Ескертпелерсіз"
+
+msgid "PAGE_ADMIN_APP_DIST_PENDING_CREATE"
+msgstr "(Жаңасын жасау) — Қаралуда"
+
+msgid "PAGE_ADMIN_APP_DIST_PENDING_EDIT"
+msgstr "(Өзгерту) — Қаралуда"
+
+msgid "PAGE_ADMIN_APP_DIST_PENDING_TITLE"
+msgstr "Модерацияны күтіп тұрған өтінімдер:"
+
+msgid "PAGE_ADMIN_APP_DIST_SAVE"
+msgstr "Сақтау"
+
+msgid "PAGE_ADMIN_APP_DIST_VERSION"
+msgstr "Нұсқасы"
+
+msgid "PAGE_ADMIN_APP_DIST_VERSION_LABEL"
+msgstr "Нұсқасы"
+
+msgid "PAGE_ADMIN_APP_FIRST_BLOCK"
+msgstr "Инфо"
+
+msgid "PAGE_ADMIN_APP_ICON"
+msgstr "Қолданба белгішесі"
+
+msgid "PAGE_ADMIN_APP_ICON_REQ1"
+msgstr "Белгішесінің ұсынылатын өлшемі: 64x64."
+
+msgid "PAGE_ADMIN_APP_ICON_REQ2"
+msgstr "Рұқсат етілген пішімдер: .PNG, .JPG"
+
+msgid "PAGE_ADMIN_APP_ICON_REQ3"
+msgstr "Максималды өлшемі: 2 Мб"
+
+msgid "PAGE_ADMIN_APP_ID"
+msgstr "Қосымша идентификаторы:"
+
+msgid "PAGE_ADMIN_APP_IDDESC"
+msgstr "Бұл ақпаратты өзгерту мүмкін емес"
+
+msgid "PAGE_ADMIN_APP_LOAD_ICON"
+msgstr "Белгішені жүктеу"
+
+msgid "PAGE_ADMIN_APP_LOAD_SCRN"
+msgstr "Жаңа скриншоттарды жүктеу (максимум 3 дана)"
+
+msgid "PAGE_ADMIN_APP_MSG_SAVE_ERROR"
+msgstr "Пішінді сақтау кезінде қате орын алды. Енгізілген деректерді тексеріңіз."
+
+msgid "PAGE_ADMIN_APP_MSG_SAVE_SUCCESS"
+msgstr "Деректерді жаңарту туралы өтінім модерацияға сәтті жіберілді."
+
+msgid "PAGE_ADMIN_APP_NOICON"
+msgstr "Белгіше жоқ"
+
+msgid "PAGE_ADMIN_APP_PAGETITLE"
+msgstr "Қосымшаны өңдеу"
+
+msgid "PAGE_ADMIN_APP_PROFILE_BLOCK"
+msgstr "Негізгі ақпарат"
+
+msgid "PAGE_ADMIN_APP_REQ"
+msgstr "Жүйелік талаптар (1400 таңба):"
+
+msgid "PAGE_ADMIN_APP_REQDESC"
+msgstr "Жүйелік талаптар қолданба бетіндегі 'Қосымша ақпарат' блогында көрсетіледі"
+
+msgid "PAGE_ADMIN_APP_SCRNS_TITLE"
+msgstr "Скриншоттар"
+
+msgid "PAGE_ADMIN_APP_SLOGAN"
+msgstr "Ұран (140 таңба):"
+
+msgid "PAGE_ADMIN_APP_SLOGANDESC"
+msgstr "Ұран қолданбаның өз бетінде, басты бетте және іздеу жүйесінде көрсетіледі"
+
+msgid "PAGE_ADMIN_APP_SLOGANDESC_2"
+msgstr "Қысқалық — таланттың әпкесі :)"
+
+msgid "PAGE_ADMIN_APP_TAB_DISTRIBUTIONS"
+msgstr "Файлдар"
+
+msgid "PAGE_ADMIN_APP_TITLE"
+msgstr "Қосымшаның атауы:"
+
+msgid "PAGE_ADMIN_APP_TITLEDESC"
+msgstr "Тамаша әрі есте қаларлық атау қолданбаға пайдаланушылар арасында танымалдылық бонусы береді"
+
+msgid "PAGE_ADMIN_APP_TRANSLATIONINFO"
+msgstr "Қолданбаңыз туралы ақпаратты аудару оның шетелдік аудитория үшін танымалдылығын арттырып, іздеу жүйелеріндегі көрінісін жақсарта алады. Кез келген жағдайда біз авторларға әртүрлі тілдерге аударма жасауға кеңес береміз."
+
+msgid "PAGE_ADMIN_APP_WARN_SCRN"
+msgstr "Назар аударыңыз: Жаңа файлдарды жүктеу ағымдағы барлық скриншоттарды жояды!"
+
+msgid "PAGE_API_EXPIRES"
+msgstr "Аяқталады:"
+
+msgid "PAGE_API_ISSUED"
+msgstr "Берілген:"
+
+msgid "PAGE_API_NO_SESSIONS"
+msgstr "Сізде белсенді API қатынас кілттері жоқ."
+
+msgid "PAGE_API_REVOKE"
+msgstr "Кері қайтару"
+
+msgid "PAGE_API_SESSIONS_DESC"
+msgstr "Тіркелгіңізге API арқылы қатынасатын құрылғылар мен клиенттер."
+
+msgid "PAGE_API_SESSIONS_TITLE"
+msgstr "API қолжетімділік кілттері"
+
+msgid "PAGE_API_TOKEN"
+msgstr "API токені"
+
+msgid "PAGE_APP_ACTION_MORE_APPS"
+msgstr "Автордың басқа қолданбаларын көру"
+
+msgid "PAGE_APP_ACTION_REPORT"
+msgstr "Қолданбаға шағымдану"
+
+msgid "PAGE_APP_ACTION_SITE"
+msgstr "Әзірлеушінің ресми сайтына өту"
+
+msgid "PAGE_APP_BTN_BACK"
+msgstr "Артқа"
+
 msgid "PAGE_APP_BTN_BUY"
 msgstr "Сатып алу"
 
-#: templates/storepage.html:88
 msgid "PAGE_APP_BTN_INSTALL"
 msgstr "Орнату"
 
-#: templates/storepage.html:106
-msgid "PAGE_APP_MSG_DEMO_WARNING"
-msgstr ""
-"Бағдарлама демо-нұсқа ретінде таратылады, толық нұсқасы үшін оның авторына "
-"төлеу қажет. Файл әзірлеушінің ресми сайтынан алынған."
-
-#: templates/storepage.html:115
-msgid "PAGE_APP_MSG_DMCA_ERROR"
-msgstr ""
-"Бастапқы құқық иеленушінің сұрауы бойынша файлды қазіргі уақытта жүктеп алу "
-"мүмкін емес. Кешірім сұраймыз."
-
-#: templates/storepage.html:142
-msgid "PAGE_APP_SECTION_SCREENSHOTS"
-msgstr "Скриншоттар"
-
-#: templates/storepage.html:149
 msgid "PAGE_APP_IMG_ALT_SCREENSHOT"
 msgstr "Скриншот"
 
-#: templates/storepage.html:153
+msgid "PAGE_APP_LABEL_AUTHOR"
+msgstr "Жариялаған:"
+
+msgid "PAGE_APP_LABEL_DOWNLOADS"
+msgstr "Жүктеулер саны"
+
+msgid "PAGE_APP_LABEL_NOT_TRANSLATED"
+msgstr "Өкінішке орай, қолданбаны жүктеген адам оны сіздің тіліңізге аудармаған. Сондықтан қазір сіз түпнұсқасын көріп тұрсыз."
+
+msgid "PAGE_APP_LABEL_ORIGINAL_AUTHOR"
+msgstr "Түпнұсқа автор:"
+
+msgid "PAGE_APP_LABEL_PRICE"
+msgstr "Бағасы"
+
+msgid "PAGE_APP_MSG_DEMO_WARNING"
+msgstr "Бағдарлама демо-нұсқа ретінде таратылады, толық нұсқасы үшін оның авторына төлеу қажет. Файл әзірлеушінің ресми сайтынан алынған."
+
+msgid "PAGE_APP_MSG_DMCA_ERROR"
+msgstr "Бастапқы құқық иеленушінің сұрауы бойынша файлды қазіргі уақытта жүктеп алу мүмкін емес. Кешірім сұраймыз."
+
 msgid "PAGE_APP_MSG_NO_SCREENSHOTS"
 msgstr "Скриншоттар жоқ."
 
-#: templates/storepage.html:160
-msgid "PAGE_APP_SECTION_DESC"
-msgstr "Қосымша ақпарат"
+msgid "PAGE_APP_PRICE_DEMO_FREE"
+msgstr "Демо"
 
-#: templates/storepage.html:166
-msgid "PAGE_APP_SECTION_REQ"
-msgstr "Жүйелік талаптар"
+msgid "PAGE_APP_PRICE_DEMO_WITH_COST"
+msgstr "Демо, әрі қарай"
 
-#: templates/storepage.html:172
-msgid "PAGE_APP_SECTION_RATING"
-msgstr "Рейтинг"
+msgid "PAGE_APP_PRICE_FREE"
+msgstr "Тегін"
 
-#: templates/storepage.html:183
-#, python-format
+msgid "PAGE_APP_PRICE_PAID"
+msgstr "Ақылы:"
+
 msgid "PAGE_APP_RATING_BASED_ON_COUNT %(counter)s"
 msgid_plural "PAGE_APP_RATING_BASED_ON_COUNT_PLURAL %(counter)s"
 msgstr[0] "Жалпы рейтинг <b>%(counter)s адамның</b> пікірі негізінде жасалған"
 
-#: templates/storepage.html:191
-msgid "PAGE_APP_RATING_YOUR"
-msgstr "Сіздің бағаңыз:"
+msgid "PAGE_APP_RATING_DELETE_DENIED"
+msgstr "Бұл қолданбаға арналған пікірлер автор тарапынан өшірілген"
 
-#: templates/storepage.html:201
+msgid "PAGE_APP_RATING_DELETE_SUCCESS"
+msgstr "Пайдаланушылар бағалауы"
+
+msgid "PAGE_APP_RATING_DISABLED"
+msgstr "Бұл қолданбаға арналған пікірлер автор тарапынан өшірілген"
+
+msgid "PAGE_APP_RATING_EVALUATE"
+msgstr "Бағалау..."
+
 msgid "PAGE_APP_RATING_LOGIN_PROMPT"
 msgstr "Бағалау үшін кіріңіз..."
 
-#: templates/storepage.html:213
-msgid "PAGE_APP_RATING_USERS"
-msgstr "Пайдаланушылар бағалауы"
-
-#: templates/storepage.html:220
-msgid "PAGE_APP_RATING_YOUR_REVIEW"
-msgstr "(сіздің бағаңыз)"
-
-#: templates/storepage.html:233
 msgid "PAGE_APP_RATING_NO_REVIEWS"
 msgstr "Пікірлер жоқ"
 
-#: templates/storepage.html:262
+msgid "PAGE_APP_RATING_USERS"
+msgstr "Пайдаланушылар бағалауы"
+
+msgid "PAGE_APP_RATING_YOUR"
+msgstr "Сіздің бағаңыз:"
+
+msgid "PAGE_APP_RATING_YOUR_REVIEW"
+msgstr "(сіздің бағаңыз)"
+
 msgid "PAGE_APP_SECTION_ACTIONS"
 msgstr "Әрекеттер"
 
-#: templates/storepage.html:266
-msgid "PAGE_APP_ACTION_SITE"
-msgstr "Әзірлеушінің ресми сайтына өту"
+msgid "PAGE_APP_SECTION_DESC"
+msgstr "Қосымша ақпарат"
 
-#: templates/storepage.html:268
-msgid "PAGE_APP_ACTION_REPORT"
-msgstr "Қолданбаға шағымдану"
+msgid "PAGE_APP_SECTION_RATING"
+msgstr "Рейтинг"
 
-#: templates/storepage.html:269
-msgid "PAGE_APP_ACTION_MORE_APPS"
-msgstr "Автордың басқа қолданбаларын көру"
+msgid "PAGE_APP_SECTION_REQ"
+msgstr "Жүйелік талаптар"
 
-#: templates/user/password_reset_complete.html:5
-msgid "PAGE_PASSWORD_RESET_COMPLETE_TITLE"
-msgstr "Құпиясөз өзгертілді"
+msgid "PAGE_APP_SECTION_SCREENSHOTS"
+msgstr "Скриншоттар"
 
-#: templates/user/password_reset_complete.html:9
-#: templates/user/password_reset_confirm.html:9
-#: templates/user/password_reset_done.html:9
-#: templates/user/password_reset_form.html:9
-msgid "PAGE_PASSWORD_RESET_HEADER"
-msgstr "Құпия сөзді қалпына келтіру"
+msgid "PAGE_BADBROSER_DESC_3"
+msgstr "Түсінгеніңізге рақмет."
 
-#: templates/user/password_reset_complete.html:16
+msgid "PAGE_BADBROWSER_DESC_1"
+msgstr "Бұл веб-қызметті толыққанды пайдалану үшін Internet Explorer 6 және одан жоғары немесе RetroZilla браузерін орнату ұсынылады."
+
+msgid "PAGE_BADBROWSER_DESC_2"
+msgstr "Internet Explorer 6 бағдарламасын тікелей немесе қызметтер арқылы жүктеп алуға болады"
+
+msgid "PAGE_BADBROWSER_TITLE"
+msgstr "Windows дүкеніне деген қызығушылығыңызға рақмет!"
+
+msgid "PAGE_BADBROWSER_WARN_DESC_1"
+msgstr "Ештеңе етпейді, бұл өте керемет, әсіресе сайттың бүкіл дизайны дәл осы веб-браузерге барынша бейімделген."
+
+msgid "PAGE_BADBROWSER_WARN_DESC_2"
+msgstr "Дегенмен, сервер қауіпсіздігі мен онда сақталған пайдаланушы деректерінің заманауи аспектілерін ескере отырып, біз осы браузер арқылы сайтқа кіретін пайдаланушылар үшін кейбір түзетулер енгізуге мәжбүр болдық."
+
+msgid "PAGE_BADBROWSER_WARN_DESC_3"
+msgstr "Бұл шектеу жүктеп алу, каталогты қарап шығу және оны іздеу мүмкіндігіне әсер етпейді."
+
+msgid "PAGE_BADBROWSER_WARN_FOOTER"
+msgstr "Жағымдырақ пайдалану тәжірибесі үшін RetroZilla және Supermium браузерлерін ұсынамыз"
+
+msgid "PAGE_BADBROWSER_WARN_RESTRICT_1"
+msgstr "<b>Қолжетімсіз</b> тіркелгілер жүйесі (кіру, тіркелу)"
+
+msgid "PAGE_BADBROWSER_WARN_RESTRICT_2"
+msgstr "Қолданба беттерін әкімшілендіру <b>шектелген</b>"
+
+msgid "PAGE_BADBROWSER_WARN_SUBTITLE"
+msgstr "Біз сіздің сайтқа ө-ө-өте ескі браузер арқылы кіріп жатқаныңызды байқадық."
+
+msgid "PAGE_BADBROWSER_WARN_TITLE"
+msgstr "Маңызды хабарлама"
+
+msgid "PAGE_CATEGORY_BUYBTN"
+msgstr "Сатып алу"
+
+msgid "PAGE_CATEGORY_COUNTOFRESULTS"
+msgstr "Нәтижелер саны:"
+
+msgid "PAGE_CATEGORY_DEMOBTN"
+msgstr "Демо"
+
+msgid "PAGE_CATEGORY_INSTALLBTN"
+msgstr "Орнату"
+
+msgid "PAGE_CATEGORY_SEARCHOFCATEGORY"
+msgstr "Санат бойынша іздеу"
+
+msgid "PAGE_CATEGORY_SHOWCONTENTAS"
+msgstr "Мазмұнды көрсету..."
+
+msgid "PAGE_CATEGORY_SHOWCONTENTASLIST"
+msgstr "Мазмұнды тізім ретінде көрсету"
+
+msgid "PAGE_CATEGORY_SHOWCONTENTASTILES"
+msgstr "Мазмұнды плиткалар ретінде көрсету"
+
+msgid "PAGE_DEBUG_DESC"
+msgstr "Бұл бет ТЕК қана тестілеуге және қате туралы есепті (bug report) сауаттырақ жіберу үшін ақпарат жинауға арналған. Егер сіз осы бетті көріп тұрсаңыз, онда settings.py файлыңызда DEBUG = True константасы орнатылған деген сөз."
+
+msgid "PAGE_DEBUG_MAININFO_TITLE"
+msgstr "Негізгі ақпарат"
+
+msgid "PAGE_DEBUG_TITLE"
+msgstr "Тестілеуге арналған ақпарат (Debug)"
+
+msgid "PAGE_DELACC_BLOCK_TITLE"
+msgstr "Баптаулар"
+
+msgid "PAGE_DELACC_LASTPASS_TITLE"
+msgstr "Егер Cіз түпкілікті және нақты шешім қабылдасаңыз, соңғы растау үшін құпия сөзіңізді соңғы рет енгізіңіз"
+
+msgid "PAGE_DELACC_TITLE"
+msgstr "Тіркелгіні жою"
+
+msgid "PAGE_DELACC_WARNDESC_1"
+msgstr "Сіз профиль параметрлерінде тіркелгіні жою түймесін бастыңыз, шешіміңізді түсінеміз."
+
+msgid "PAGE_DELACC_WARNDESC_2"
+msgstr "Дегенмен, бұл әрекет профиль деректерінің жойылуына әкеп соғатынын тағы да ескерткіміз келеді"
+
+msgid "PAGE_DELACC_WARNDESC_3"
+msgstr "Қалпына келтіру мүмкіндігінсіз"
+
+msgid "PAGE_DELACC_WARNDESC_4"
+msgstr "Басқарылатын қолданба беттеріне қатынасу жоғалады, ал жіберілген пікірлер жекелендірілмейді."
+
+msgid "PAGE_DELACC_WARNDESC_5"
+msgstr "Профиль статистикасын тізімдейтін уақыт келді:"
+
+msgid "PAGE_DELACC_WARNTITLE"
+msgstr "Назар аударыңыз!"
+
+msgid "PAGE_DELACC_YOULEFTHERE_1"
+msgstr "Ойлануға негіз"
+
+msgid "PAGE_DELACC_YOULEFTHERE_APP_1"
+msgstr "Сіз жүктеп алған қосымшалар саны:"
+
+msgid "PAGE_DELACC_YOULEFTHERE_APP_2"
+msgstr "Тіркелгіні жойғаннан кейін оларды басқара алмайсыз"
+
+msgid "PAGE_DELACC_YOULEFTHERE_AVATAR_1"
+msgstr "Сіздің тамаша аватарыңыз"
+
+msgid "PAGE_DELACC_YOULEFTHERE_AVATAR_2"
+msgstr "Өзіңді бар болмысыңмен қабылда"
+
+msgid "PAGE_DELACC_YOULEFTHERE_HISTORY_1"
+msgstr "Жүктелген қолданбалар тарихы"
+
+msgid "PAGE_DELACC_YOULEFTHERE_HISTORY_2"
+msgstr "Жарайды, сіз ол жаққа кем дегенде бір рет қарадыңыз ба?"
+
+msgid "PAGE_DELACC_YOULEFTHERE_INVITES_1"
+msgstr "Сіз шақырған адамдар саны:"
+
+msgid "PAGE_DELACC_YOULEFTHERE_INVITES_2"
+msgstr "Олар сізсіз қалады және көңілдері түседі"
+
+msgid "PAGE_DELACC_YOULEFTHERE_TITLE"
+msgstr "Сіз бұл жерде қалдырдыңыз..."
+
+msgid "PAGE_DELAPP_DELACCOUNTBTN"
+msgstr "Тіркелі жою"
+
+msgid "PAGE_DEVADD_ALREADYDEV_1"
+msgstr "Сіз қазірдің өзінде әзірлеушісіз!"
+
+msgid "PAGE_DEVADD_ALREADYDEV_2"
+msgstr "Сізде әзірлеуші мәртебесі бар. Сізге LunaStore-да қолданбаларды жүктеудің барлық қосымша нұсқалары қазірдің өзінде қолжетімді."
+
+msgid "PAGE_DEVADD_DESC_1"
+msgstr "Сіз өз бағдарламалық жасақтамаңыздың өкілі немесе әзірлеушісісіз бе?"
+
+msgid "PAGE_DEVADD_DESC_2"
+msgstr "Профильіңізді әзірлеуші аккаунтына дейін жақсартып, бағдарламалық жасақтаманы LunaStore-да ресми түрде жариялаңыз. Ресми жүктеулер тиісті белгімен белгіленеді."
+
+msgid "PAGE_DEVADD_DISABLED_1"
+msgstr "Әзірлеушілерді тіркеу уақытша өшірілді"
+
+msgid "PAGE_DEVADD_DISABLED_2"
+msgstr "Қазіргі уақытта біз әзірлеуші мәртебесіне жаңа өтінімдерді қабылдамаймыз. Кейінірек көріңіз."
+
+msgid "PAGE_DEVADD_ENTERINFO_ABOUTYOU"
+msgstr "Өзіңіз туралы айтыңыз (1000 таңба):"
+
+msgid "PAGE_DEVADD_ENTERINFO_CONFIRM"
+msgstr "Тіркелуді растау"
+
+msgid "PAGE_DEVADD_ENTERINFO_EMAIL"
+msgstr "Байланыс e-mail:"
+
+msgid "PAGE_DEVADD_ENTERINFO_EMAILDESC"
+msgstr "Біз Сізбен міндетті түрде хабарласамыз. Тым болмаса тырысып көреміз."
+
+msgid "PAGE_DEVADD_ENTERINFO_GITHUBDESC"
+msgstr "Неге болмасқа? Біз Сіздердің керемет әзірлемелеріңізді көргіміз келеді :3"
+
+msgid "PAGE_DEVADD_ENTERINFO_TITLE"
+msgstr "Негізгі ақпарат"
+
+msgid "PAGE_DEVADD_ENTERINFO_USERNAME"
+msgstr "Пайдаланушы аты:"
+
+msgid "PAGE_DEVADD_ENTERINFO_USERNAMEDESC"
+msgstr "Пайдаланушы атын өзгерту мүмкін емес. Егер бұл қажетті тіркелгі болмаса, қажеттісіне қайта кіріңіз."
+
+msgid "PAGE_DEVADD_ENTERINFO_WHYCHOOSEUS"
+msgstr "Бізді неліктен таңдадыңыз? (250 таңба):"
+
+msgid "PAGE_DEVADD_NOWCHECKING_1"
+msgstr "Сіз өтінім беріп қойдыңыз. Әкімші оны жақын арада қарастырады."
+
+msgid "PAGE_DEVADD_NOWCHECKING_2"
+msgstr "Егер ол мақұлданса — сіз хабарлама мен статус аласыз."
+
+msgid "PAGE_DEVADD_NOWCHECKING_3"
+msgstr "Егер қабылданбаса, өтінімді қайтадан бере аласыз."
+
+msgid "PAGE_DEVADD_NOWCHECKING_TITLE"
+msgstr "Өтінім қаралуда"
+
+msgid "PAGE_DEVADD_SENDALLBTN"
+msgstr "Өтінім беру"
+
+msgid "PAGE_DEVADD_TITLE"
+msgstr "Әзірлеуші мәртебесіне өтінім беру"
+
+msgid "PAGE_DIST_EDIT_CHANGE_FILE"
+msgstr "Файлды ауыстыру:"
+
+msgid "PAGE_DIST_EDIT_CURRENT_FILE"
+msgstr "Ағымдағы файл:"
+
+msgid "PAGE_DIST_EDIT_HEADER"
+msgstr "Дистрибуцияны өңдеу"
+
+msgid "PAGE_DIST_FORM_CANCEL"
+msgstr "Болдырмау"
+
+msgid "PAGE_DIST_FORM_CHANGELOG"
+msgstr "Өзгерістер тізімі (Changelog):"
+
+msgid "PAGE_DIST_FORM_CHANGELOG_DESC"
+msgstr "Бұл нұсқада не жаңалық бар екенін сипаттаңыз"
+
+msgid "PAGE_DIST_FORM_ERR_CDN_REJECT"
+msgstr "LunaSpire қозғалтқышы файлды жүктеуден бас тартты. Осы қате туралы сайт әкімшісіне хабарласыңыз."
+
+msgid "PAGE_DIST_FORM_ERR_GET_TOKEN"
+msgstr "LunaSpire қозғалтқышынан жүктеу токенін алу қатесі. Осы қате туралы сайт әкімшісіне хабарласыңыз."
+
+msgid "PAGE_DIST_FORM_ERR_NO_CONFIRM"
+msgstr "LunaSpire қозғалтқышы растау токенін қайтармады. Осы қате туралы сайт әкімшісіне хабарласыңыз."
+
+msgid "PAGE_DIST_FORM_FILE"
+msgstr "Файл:"
+
+msgid "PAGE_DIST_FORM_FILE_ALREADY_UPLOADED"
+msgstr "Файл жүктелген (сақтауды күтуде)"
+
+msgid "PAGE_DIST_FORM_FILE_BUTTON"
+msgstr "Шолу..."
+
+msgid "PAGE_DIST_FORM_FILE_DESC"
+msgstr "Рұқсат етілген пішімдер: .exe, .zip, .rar, .7z және басқа мұрағаттар."
+
+msgid "PAGE_DIST_FORM_FILE_NO_FILE"
+msgstr "Файл таңдалмады."
+
+msgid "PAGE_DIST_FORM_FILE_UPLOADING"
+msgstr "Жүктелуде..."
+
+msgid "PAGE_DIST_FORM_SAVE"
+msgstr "Өзгерістерді сақтау"
+
+msgid "PAGE_DIST_FORM_SAVED"
+msgstr "Тарату өзгерістері сәтті сақталды."
+
+msgid "PAGE_DIST_FORM_URL"
+msgstr "Сыртқы сілтеме (URL):"
+
+msgid "PAGE_DIST_FORM_URL_DESC"
+msgstr "Файл басқа ресурсқа орналастырылған болса, оны көрсетіңіз"
+
+msgid "PAGE_DIST_FORM_VERSION"
+msgstr "Қосымша нұсқасы:"
+
+msgid "PAGE_DIST_FORM_VERSION_DESC"
+msgstr "Мысалы: 1.0.0 немесе 2.1.4-beta"
+
+msgid "PAGE_DIST_FORM_VT_DESC"
+msgstr "Жүктелетін файлды virustotal.com сайтында тексеру нәтижелеріне сілтемені қалдырыңыз"
+
+msgid "PAGE_DIST_FORM_VT_TITLE"
+msgstr "VirusTotal сілтемесі (файлды жүктеу кезінде міндетті):"
+
+msgid "PAGE_DOWNLOAD_BACK"
+msgstr "Артқа"
+
+msgid "PAGE_DOWNLOAD_DEMO_WARNING"
+msgstr "Бағдарлама демо-нұсқа ретінде таратылады, толық нұсқасы үшін оның авторына төлеу қажет. Файл әзірлеушінің ресми сайтынан алынған."
+
+msgid "PAGE_DOWNLOAD_DL_ACTION"
+msgstr "жүктеу"
+
+msgid "PAGE_DOWNLOAD_DMCA_WARNING"
+msgstr "Бағдарламаны жүктеп алу мүмкіндігі құқық иесінің шағымына байланысты жабылды. Түсіністік танытқаныңызға рақмет."
+
+msgid "PAGE_DOWNLOAD_GO_OFFICIAL"
+msgstr "Ресми сайтқа өту"
+
+msgid "PAGE_DOWNLOAD_LATEST_VERSION_NOTE"
+msgstr "Соңғы жүктелген нұсқа жуан қаріппен белгіленген"
+
+msgid "PAGE_DOWNLOAD_LOCAL_SOURCE"
+msgstr "Біздің сайттан жүктеу"
+
+msgid "PAGE_DOWNLOAD_MANAGE_DISTS"
+msgstr "Дистрибуцияны басқару"
+
+msgid "PAGE_DOWNLOAD_NO_DISTRIBUTIONS"
+msgstr "Дистрибуциялар әлі қосылған жоқ."
+
+msgid "PAGE_DOWNLOAD_NO_NOTES"
+msgstr "Ескертпелерсіз"
+
+msgid "PAGE_DOWNLOAD_OFFICIAL_SOURCE"
+msgstr "Ресми дереккөзден жүктеп алу"
+
+msgid "PAGE_DOWNLOAD_TABLE_ACTION"
+msgstr "Әрекет"
+
+msgid "PAGE_DOWNLOAD_TABLE_DATE"
+msgstr "Жарияланған күні"
+
+msgid "PAGE_DOWNLOAD_TABLE_LINK"
+msgstr "Сілтеме"
+
+msgid "PAGE_DOWNLOAD_TABLE_UPLOAD_DATE"
+msgstr "Жүктелген күні"
+
+msgid "PAGE_DOWNLOAD_TABLE_VERSION"
+msgstr "Нұсқасы"
+
+msgid "PAGE_DOWNLOAD_TITLE"
+msgstr "Жүктеу"
+
+msgid "PAGE_DOWNLOAD_UPLOADED_VERSIONS"
+msgstr "Жүктелген нұсқалар"
+
+msgid "PAGE_DOWNLOAD_VERSION_LIST"
+msgstr "Нұсқалар тізімі"
+
+msgid "PAGE_FAQ_A_ACC_BENEFITS"
+msgstr "Аккаунт арқылы сіз қолданбаларға өз пікіріңізді қалдыра аласыз, осы дамып келе жатқан қауымдастықта өзіңізді таныта аласыз және қатаң модерациядан кейін өз қолданбаларыңызды жалпы каталогқа жүктей аласыз"
+
+msgid "PAGE_FAQ_A_ADD_APP"
+msgstr "Әзірше мүмкін емес. Біз тек бастап жатырмыз, сондықтан бағдарламалық жасақтаманы өз тізімімізден алып жатырмыз. Осы беттегі жаңартуларды қадағалаңыз."
+
+msgid "PAGE_FAQ_A_CREATE_ACC"
+msgstr "Сайттың жоғарғы жағындағы \"тіркелу\" түймесін басыңыз"
+
+msgid "PAGE_FAQ_A_LEGAL"
+msgstr "Бұл сұрақты әдетте бағдарламалық жасақтаманы әзірлеуші қояды. Алайда, егер сізді бағдарламаңыздың ескі нұсқасының осы сайтта бар болуы қатты мазаласа, бізбен электронды пошта арқылы хабарласа аласыз. Бірақ біздің жағдайымызды түсініп, жобаның мақсатын ұғынасыз деп сенеміз."
+
+msgid "PAGE_FAQ_A_WHY_EXIST_PART1"
+msgstr "Тамаша сұрақ. Бәрі жобаға қатысушылардың бірінде ескі бағдарламалық жасақтамасы бар бір сайтқа 3D Windows XP скринсейверін жүктеу ниетінің пайда болуынан басталды, оны іс жүзінде өте аз адам көрген және веб-архивте әрең сақталған."
+
+msgid "PAGE_FAQ_A_WHY_EXIST_PART2"
+msgstr "Жүктелгеннен кейін екі күн өткен соң, скринсейвер «сайт тақырыбына сәйкес келмейді» деген себеппен сайттан жойылды. Ал «онда неге сайттарыңызда ХР образдары сақтаулы тұр?» деген сұраққа әкімшіліктен ешкім нақты жауап бере алмады."
+
+msgid "PAGE_FAQ_A_WHY_EXIST_PART3"
+msgstr "Ештеңе етпейді, біз мүлдем ренжімедік және бәсекелескіміз келмейді, жай ғана өз кішкене каталогымызды жасауды жөн көрдік :3"
+
+msgid "PAGE_FAQ_CARD_TEAM"
+msgstr "'Ортақ хобби' дегеніміз не?"
+
+msgid "PAGE_FAQ_CARD_TEAMDESC_1"
+msgstr "Сенбейсің. Бұл жобамен ортақ идеясы бар көптеген жанашыр адамдар жұмыс істеді."
+
+msgid "PAGE_FAQ_CARD_TEAMDESC_2"
+msgstr "Оларды тізімдеудің дәл уақыты:"
+
+msgid "PAGE_FAQ_CARD_TEAM_AUTHOR"
+msgstr "- идея авторы, дизайн,"
+
+msgid "PAGE_FAQ_CARD_TEAM_BACKEND"
+msgstr "- backend әзірлеу, кеңес беру және шабыт"
+
+msgid "PAGE_FAQ_CARD_TEAM_CDNANDGIT"
+msgstr "- кадр сыртындағы жұмыс, CDN, ішкі Git"
+
+msgid "PAGE_FAQ_CARD_TEAM_DEV"
+msgstr "- әзірлеуші"
+
+msgid "PAGE_FAQ_CARD_TEAM_FRONTEND"
+msgstr "интерфейс бетін құрастыру (frontend)"
+
+msgid "PAGE_FAQ_CARD_WHATISIT"
+msgstr "Мен қайда келдім? Бұл не?"
+
+msgid "PAGE_FAQ_CARD_WHATISITDESC"
+msgstr "бағдарламалар мен ойындардың баламалы «дүкенінің» бір түрі. Қазіргі уақытта Windows XP дәуірін мақсат етіп отырмыз."
+
+msgid "PAGE_FAQ_CARD_WHYWESHOP"
+msgstr "«Дүкенінің» неге тырнақшаға алынған?"
+
+msgid "PAGE_FAQ_CARD_WHYWESHOPDESC"
+msgstr "Біз жанкүйерлер сайтымыз және бұл үлкен дүкенге айналады деп ойламаймыз. Дегенмен, кім білсін. Алайда сол жақ мәзірдегі жарнама мүлдем байыпты емес, ал жобаның өзі - ортақ хобби ретінде."
+
+msgid "PAGE_FAQ_DESC"
+msgstr "Сұрақтарыңыз бар ма? Бұл бетте LunaStore туралы барлық ақпарат жинақталған"
+
+msgid "PAGE_FAQ_DONATETAB"
+msgstr "Қайырымдылық жасау"
+
+msgid "PAGE_FAQ_DONATE_TITLE"
+msgstr "Бізге қалай қолдау көрсетуге болады?"
+
+msgid "PAGE_FAQ_LAST_UPDATE"
+msgstr "Соңғы жаңарту"
+
+msgid "PAGE_FAQ_PRIVACYTAB"
+msgstr "Құпиялылық"
+
+msgid "PAGE_FAQ_PRIVACY_EMPTY"
+msgstr "Құжат әлі толтырылмаған..."
+
+msgid "PAGE_FAQ_PRIVACY_TITLE"
+msgstr "Құпиялылық саясаты"
+
+msgid "PAGE_FAQ_Q_ACC_BENEFITS"
+msgstr "LunaStore аккаунтының болуы не береді?"
+
+msgid "PAGE_FAQ_Q_ADD_APP"
+msgstr "Жарайды, ал бұған қосымшаны қалай қосуға болады?"
+
+msgid "PAGE_FAQ_Q_CREATE_ACC"
+msgstr "Мұнда қалай тіркелгі жасауға болады?"
+
+msgid "PAGE_FAQ_Q_LEGAL"
+msgstr "\"Хмм, бұл заңды ма?\""
+
+msgid "PAGE_FAQ_Q_WHY_EXIST"
+msgstr "Бұл сайт не үшін бар?"
+
+msgid "PAGE_FAQ_RULESTAB"
+msgstr "Ережелер"
+
+msgid "PAGE_FAQ_TEAM_HEADER_OTHER"
+msgstr "Сондай-ақ басқа әзірлеушілерге алғыс білдіреміз:"
+
+msgid "PAGE_FAQ_TEAM_HEADER_TESTERS"
+msgstr "Тестерлерді де ұмытпаймыз:"
+
+msgid "PAGE_FAQ_TEAM_HEADER_TRANSLATORS"
+msgstr "Аудармашылар туралы:"
+
+msgid "PAGE_FAQ_TEAM_ROLE_CHELKA0"
+msgstr "сайттың сыртқы көрінісін безендіру"
+
+msgid "PAGE_FAQ_TEAM_ROLE_COOKIE"
+msgstr "Екінші backend-әзірлеуші, luna пакет менеджерінің бас әзірлеушісі, сондай-ақ жапон тіліне аударма"
+
+msgid "PAGE_FAQ_TEAM_ROLE_FAYZETWIN"
+msgstr "негізгі backend-әзірлеуші, API"
+
+msgid "PAGE_FAQ_TEAM_ROLE_MONDY"
+msgstr "логотип"
+
+msgid "PAGE_FAQ_TEAM_ROLE_NOCHA3"
+msgstr "Windows XP үшін нативті клиент"
+
+msgid "PAGE_FAQ_TEAM_ROLE_ZAZIOS"
+msgstr "backend-әзірлеуші (Go)"
+
+msgid "PAGE_FAQ_TEAM_TESTERS_LIST"
+msgstr "[сынаушылардың никнеймдері үтірмен бөлінген]"
+
+msgid "PAGE_FAQ_TITLE"
+msgstr "Анықтама"
+
+msgid "PAGE_FAQ_TITLE_2"
+msgstr "Анықтама орталығы"
+
+msgid "PAGE_FAQ_TOOLTIP_EASTEREGG"
+msgstr "ЕМАААА ТІРЕКТЕР ВЕЛОСИПЕДТЕР"
+
+msgid "PAGE_INVITE_ADMINSTATUS"
+msgstr "Модератор"
+
+msgid "PAGE_INVITE_BROWSER_TITLE"
+msgstr "Шақыру"
+
+msgid "PAGE_INVITE_CODE_ROTATION_WARN"
+msgstr "<b>Маңызды:</b> қазіргі уақытта жаңа қатысушының шақыру коды әр 24 сағат сайын өзгеріп отырады"
+
+msgid "PAGE_INVITE_COPY_CODE"
+msgstr "Төмендегі кодты көшіріп алып, оны қажетті адамға жіберіңіз"
+
+msgid "PAGE_INVITE_DESCRIPTION"
+msgstr "LunaStore-қа ретро-тақырып бойынша ортақ қызығушылықтары бар досыңызды немесе танысыңызды шақыра аласыз."
+
+msgid "PAGE_INVITE_HOW_TO_SEND"
+msgstr "Электрондық пошта, телефон, чат немесе жеке кездесу арқылы болсын, маңызды емес. Шақырылған пайдаланушы кодты тіркелу процесінде міндетті түрде енгізуі керек."
+
+msgid "PAGE_INVITE_INPUT_BTN"
+msgstr "Тіркелуді бастау"
+
+msgid "PAGE_INVITE_INPUT_DESC_1"
+msgstr "Сіз бұрыннан <b>тіркелген қатысушыдан</b> алған шақыру кодын енгізе аласыз"
+
+msgid "PAGE_INVITE_INPUT_DESC_2"
+msgstr "Осылайша, сіз <b>жабық көпшілік тіркеуді айналып өтіп</b>, аккаунт ашудың бірегей мүмкіндігіне ие боласыз"
+
+msgid "PAGE_INVITE_INPUT_HEADER"
+msgstr "Шақыру кодын енгізу"
+
+msgid "PAGE_INVITE_INPUT_LABEL"
+msgstr "Код"
+
+msgid "PAGE_INVITE_INPUT_TITLE"
+msgstr "Шақыру кодын енгізу"
+
+msgid "PAGE_INVITE_LIMIT_EXHAUSTED"
+msgstr "Шақырылған пайдаланушылар"
+
+msgid "PAGE_INVITE_LIMIT_INFO"
+msgstr "Қазіргі уақытта сіз <b>1</b> адамды шақыра аласыз. Пайдаланушы сіздің шақыруыңызды қабылдағаннан кейін, келесі шақыруды тек бір аптадан кейін жасауға болады"
+
+msgid "PAGE_INVITE_LIST_EMPTY"
+msgstr "Сіз әлі ешкімді шақырған жоқсыз"
+
+msgid "PAGE_INVITE_LIST_HEADER"
+msgstr "Шақырылған пайдаланушылар"
+
+msgid "PAGE_INVITE_MAIN_TITLE"
+msgstr "Адамды шақыру"
+
+msgid "PAGE_INVITE_NEXT_AVAILABLE"
+msgstr "Код"
+
+msgid "PAGE_INVITE_REGDATE"
+msgstr "Тіркелу"
+
+msgid "PAGE_INVITE_USERSTATUS"
+msgstr "Пайдаланушы"
+
+msgid "PAGE_LOGIN_BROWSER_TITLE"
+msgstr "Кіру"
+
+msgid "PAGE_LOGIN_FORGOT_PASSWORD"
+msgstr "Құпия сөзді ұмыттыңыз ба?"
+
+msgid "PAGE_LOGIN_GREETING"
+msgstr "Өзіңізді таныстырыңыз..."
+
+msgid "PAGE_LOGIN_INFO_BULLET_1"
+msgstr "Бағдарламалық жасақтамаға пікір қалдырыңыз"
+
+msgid "PAGE_LOGIN_INFO_BULLET_2"
+msgstr "Қоғамдастықты бағындырыңыз"
+
+msgid "PAGE_LOGIN_INFO_BULLET_3"
+msgstr "Бағдарламалық жасақтаманы жүктеп алыңыз"
+
+msgid "PAGE_LOGIN_INFO_DESC_2"
+msgstr "Оны жасаңыз. Бұл тегін."
+
+msgid "PAGE_LOGIN_INFO_TITLE_1"
+msgstr "Тіркелгі не үшін қажет?"
+
+msgid "PAGE_LOGIN_INFO_TITLE_2"
+msgstr "Тіркелгіңіз жоқ па?"
+
+msgid "PAGE_LOGIN_MAIN_TITLE"
+msgstr "Кіру"
+
+msgid "PAGE_LOGIN_PASSWORD_LABEL"
+msgstr "Құпия сөз:"
+
+msgid "PAGE_LOGIN_REGISTER_BTN"
+msgstr "Тіркелу"
+
+msgid "PAGE_LOGIN_REQUIRED_WARNING"
+msgstr "Бұл әрекетті жалғастыру үшін сайтқа кіру қажет"
+
+msgid "PAGE_LOGIN_SUBMIT_BTN"
+msgstr "Кіру"
+
+msgid "PAGE_LOGIN_USERNAME_LABEL"
+msgstr "Логин:"
+
+msgid "PAGE_MANAGEDIST_CREATE_SUCCESS"
+msgstr "Жаңа дистрибуция жасалды"
+
+msgid "PAGE_MANAGE_APPS_BTN_EDIT"
+msgstr "өңдеу"
+
+msgid "PAGE_MANAGE_APPS_COUNT"
+msgstr "Басқарылатын қосымшалар"
+
+msgid "PAGE_MANAGE_APPS_CREATE"
+msgstr "Қосымшаны жасау"
+
+msgid "PAGE_MANAGE_APPS_EMPTY_DESC"
+msgstr "Сіз әзірге бірде-бір қосымшаны басқармайсыз."
+
+msgid "PAGE_MANAGE_APPS_EMPTY_TITLE"
+msgstr "Қосымшалар жоқ ＞︿＜"
+
+msgid "PAGE_MANAGE_APPS_HEADER"
+msgstr "Басқарылатын қосымша беттері"
+
+msgid "PAGE_MANAGE_APPS_MY_APPS"
+msgstr "Менің қосымшаларым"
+
+msgid "PAGE_MANAGE_APPS_ROLE_OWNER"
+msgstr "Иесі"
+
+msgid "PAGE_MANAGE_APPS_TITLE"
+msgstr "Басқарылатын қосымшалар"
+
+msgid "PAGE_NOTIFICATIONS_COUNT_SINGLE"
+msgid_plural "PAGE_NOTIFICATIONS_COUNT_PLURAL"
+msgstr[0] "Сізде <b>%(counter)s</b> жаңа хабарлама бар"
+
+msgid "PAGE_NOTIFICATIONS_EARLY"
+msgstr "Ерте хабарламалар"
+
+msgid "PAGE_NOTIFICATIONS_NEW_COUNT"
+msgstr "жаңа ғана"
+
+msgid "PAGE_NOTIFICATIONS_NOW"
+msgstr "жаңа ғана"
+
+msgid "PAGE_NOTIFICATIONS_NO_NEW"
+msgstr "Сізде жаңа хабарламалар жоқ"
+
+msgid "PAGE_NOTIFICATIONS_TAB"
+msgstr "Хабарламалар"
+
+msgid "PAGE_NOTIFICATIONS_TITLE"
+msgstr "Хабарламалар"
+
+msgid "PAGE_NOTIFY_TOAST_CLOSE"
+msgstr "Жабу"
+
+msgid "PAGE_NOTIFY_TOAST_NEW"
+msgstr "Жаңа хабарлама"
+
+msgid "PAGE_NOTIFY_TOAST_VIEW"
+msgstr "Көру »"
+
+msgid "PAGE_OTHER_PROJECTS_BROWSER_TITLE"
+msgstr "Басқа жобалар"
+
+msgid "PAGE_OTHER_PROJECTS_BTN_GO"
+msgstr "Өту »"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_DM"
+msgstr "Daniel Myslivets визитка сайты (ескі компьютерлер мен браузерлерге арналған нұсқа)"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_FOXCORP"
+msgstr "Milya Fox жеке сайты; жобаға көмектескен желі инженері"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_GAMES"
+msgstr "Windows XP/7 желілік ойындарын үшінші тараптың жеке сервері ретінде қайта жаңғырту"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_KICQ"
+msgstr "ICQ жұмысын қалпына келтіретін бейресми жоба"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_RENAISSANCE"
+msgstr "Агент@Mail.ru жұмысын қалпына келтіретін бейресми жоба"
+
+msgid "PAGE_OTHER_PROJECTS_SECTION_FRIENDS"
+msgstr "Серіктес сайттар"
+
+msgid "PAGE_OTHER_PROJECTS_SECTION_MAIN"
+msgstr "Негізгі"
+
+msgid "PAGE_OTHER_PROJECTS_SUBTITLE"
+msgstr "Серіктес сайттар және басқа да жобаларымыз"
+
+msgid "PAGE_OTHER_PROJECTS_TITLE"
+msgstr "Басқа жобалар"
+
 msgid "PAGE_PASSWORD_RESET_COMPLETE_HEADER"
 msgstr "Сәтті!"
 
-#: templates/user/password_reset_complete.html:20
-msgid "PAGE_PASSWORD_RESET_COMPLETE_TEXT_1"
-msgstr ""
-"Құпия сөзіңіз сәтті өзгертілді. Енді жаңа құпия сөзді пайдаланып, "
-"тіркелгіңізге кіре аласыз."
-
-#: templates/user/password_reset_complete.html:21
-msgid "PAGE_PASSWORD_RESET_COMPLETE_LOGIN_BTN"
-msgstr "Аккаунтқа кіру"
-
-#: templates/user/password_reset_complete.html:27
-msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TITLE"
-msgstr "Дайын"
-
-#: templates/user/password_reset_complete.html:28
 msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TEXT"
 msgstr "Тіркелгіңіз қауіпсіз. LunaStore-қа қайта қош келдіңіз!"
 
-#: templates/user/password_reset_confirm.html:5
-msgid "PAGE_PASSWORD_RESET_CONFIRM_TITLE"
-msgstr "Жаңа құпия сөз"
+msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TITLE"
+msgstr "Дайын"
 
-#: templates/user/password_reset_confirm.html:16
+msgid "PAGE_PASSWORD_RESET_COMPLETE_LOGIN_BTN"
+msgstr "Аккаунтқа кіру"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_TEXT_1"
+msgstr "Құпия сөзіңіз сәтті өзгертілді. Енді жаңа құпия сөзді пайдаланып, тіркелгіңізге кіре аласыз."
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_TITLE"
+msgstr "Құпиясөз өзгертілді"
+
 msgid "PAGE_PASSWORD_RESET_CONFIRM_HEADER"
 msgstr "Жаңа құпия сөз"
 
-#: templates/user/password_reset_confirm.html:44
-msgid "PAGE_PASSWORD_RESET_CONFIRM_SUBMIT_BTN"
-msgstr "Құпия сөзді орнату"
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TEXT"
+msgstr "Жаңа құпия сөзіңіз бірегей екеніне және оның құрамында бас әріптер мен кіші әріптердің, сондай-ақ цифрлардың немесе арнайы таңбалардың тіркесі бар екеніне көз жеткізіңіз."
 
-#: templates/user/password_reset_confirm.html:49
-msgid "PAGE_PASSWORD_RESET_CONFIRM_INVALID_LINK"
-msgstr ""
-"Құпия сөзді қалпына келтіру сілтемесі жарамсыз. Ол бұрын пайдаланылған болуы "
-"немесе оның қолданылу мерзімі өтіп кеткен болуы мүмкін. Құпия сөзді қалпына "
-"келтіруді қайтадан сұрауыңызды өтінеміз."
-
-#: templates/user/password_reset_confirm.html:56
 msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TITLE"
 msgstr "Сенімді құпия сөз"
 
-#: templates/user/password_reset_confirm.html:57
-msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TEXT"
-msgstr ""
-"Жаңа құпия сөзіңіз бірегей екеніне және оның құрамында бас әріптер мен кіші "
-"әріптердің, сондай-ақ цифрлардың немесе арнайы таңбалардың тіркесі бар "
-"екеніне көз жеткізіңіз."
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INVALID_LINK"
+msgstr "Құпия сөзді қалпына келтіру сілтемесі жарамсыз. Ол бұрын пайдаланылған болуы немесе оның қолданылу мерзімі өтіп кеткен болуы мүмкін. Құпия сөзді қалпына келтіруді қайтадан сұрауыңызды өтінеміз."
 
-#: templates/user/password_reset_done.html:5
-#: templates/user/password_reset_email_html.html:38
-#: templates/user/password_reset_form.html:5
-msgid "PAGE_PASSWORD_RESET_TITLE"
-msgstr "Құпия сөзді қалпына келтіру"
+msgid "PAGE_PASSWORD_RESET_CONFIRM_SUBMIT_BTN"
+msgstr "Құпия сөзді орнату"
 
-#: templates/user/password_reset_done.html:16
+msgid "PAGE_PASSWORD_RESET_CONFIRM_TITLE"
+msgstr "Жаңа құпия сөз"
+
 msgid "PAGE_PASSWORD_RESET_DONE_HEADER"
 msgstr "Хат жіберілді"
 
-#: templates/user/password_reset_done.html:20
-msgid "PAGE_PASSWORD_RESET_DONE_TEXT_1"
-msgstr ""
-"Біз құпия сөзді қалпына келтіру туралы нұсқауларды сіз көрсеткен электрондық "
-"пошта мекенжайына жібердік (егер ол біздің жүйеде болса)"
+msgid "PAGE_PASSWORD_RESET_DONE_INFO_TEXT"
+msgstr "Хат әдетте бірнеше минут ішінде жеткізіледі. Егер қиындықтар туындаса, қолдау қызметіне хабарласа аласыз."
 
-#: templates/user/password_reset_done.html:21
-msgid "PAGE_PASSWORD_RESET_DONE_TEXT_2"
-msgstr ""
-"Өтінеміз, поштаңызды тексеріп, процедураны аяқтау үшін сілтемеге өтіңіз. "
-"Егер хат келмесе, \"Спам\" қалтасын тексеріңіз."
-
-#: templates/user/password_reset_done.html:27
 msgid "PAGE_PASSWORD_RESET_DONE_INFO_TITLE"
 msgstr "Әрі қарай не болады?"
 
-#: templates/user/password_reset_done.html:28
-msgid "PAGE_PASSWORD_RESET_DONE_INFO_TEXT"
-msgstr ""
-"Хат әдетте бірнеше минут ішінде жеткізіледі. Егер қиындықтар туындаса, "
-"қолдау қызметіне хабарласа аласыз."
+msgid "PAGE_PASSWORD_RESET_DONE_TEXT_1"
+msgstr "Біз құпия сөзді қалпына келтіру туралы нұсқауларды сіз көрсеткен электрондық пошта мекенжайына жібердік (егер ол біздің жүйеде болса)"
 
-#: templates/user/password_reset_email.html:2
+msgid "PAGE_PASSWORD_RESET_DONE_TEXT_2"
+msgstr "Өтінеміз, поштаңызды тексеріп, процедураны аяқтау үшін сілтемеге өтіңіз. Егер хат келмесе, \"Спам\" қалтасын тексеріңіз."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_FOOTER"
+msgstr "Бұл хат автоматты түрде жіберілді. Оған жауап бермеуіңізді сұраймыз."
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_GREETING"
+msgstr "Сәлеметсіз бе"
+
+msgid "PAGE_PASSWORD_RESET_EMAIL_LABEL"
+msgstr "Электрондық пошта мекенжайы"
+
 msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_1"
-msgstr ""
-"LunaStore сайтындағы тіркелгіңіздің құпия сөзін қалпына келтіру "
-"сұратылғандықтан, сізге осы хат жолданып отыр."
+msgstr "LunaStore сайтындағы тіркелгіңіздің құпия сөзін қалпына келтіру сұратылғандықтан, сізге осы хат жолданып отыр."
 
-#: templates/user/password_reset_email.html:4
 msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_2"
 msgstr "Жаңа құпия сөзді орнату үшін келесі сілтемеге өтіңіз:"
 
-#: templates/user/password_reset_email.html:7
 msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_3"
-msgstr ""
-"Егер сіз құпия сөзді қалпына келтіруді сұрамасаңыз, бұл хатты елемеңіз."
+msgstr "Егер сіз құпия сөзді қалпына келтіруді сұрамасаңыз, бұл хатты елемеңіз."
 
-#: templates/user/password_reset_email.html:9
 msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_4"
 msgstr ""
 "Ізгі ниетпен, \n"
 "LunaStore командасы"
 
-#: templates/user/password_reset_email_html.html:44
-msgid "PAGE_PASSWORD_RESET_EMAIL_GREETING"
-msgstr "Сәлеметсіз бе"
-
-#: templates/user/password_reset_email_html.html:46
-msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_1"
-msgstr ""
-"LunaStore аккаунтының паролін қалпына келтіруді сұрадыңыз. Жаңа пароль "
-"орнату үшін төмендегі сілтемеге өтіңіз:"
-
-#: templates/user/password_reset_email_html.html:46
-msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_2"
-msgstr ""
-"Егер сіз құпия сөзді қалпына келтіруді сұрамасаңыз, бұл хатты елемеңіз. "
-"Құпия сөзіңіз қауіпсіз күйде қалады."
-
-#: templates/user/password_reset_email_html.html:48
 msgid "PAGE_PASSWORD_RESET_EMAIL_REGARDS"
 msgstr "Ізгі ниетпен, LunaStore командасы"
 
-#: templates/user/password_reset_email_html.html:57
-msgid "PAGE_PASSWORD_RESET_EMAIL_FOOTER"
-msgstr "Бұл хат автоматты түрде жіберілді. Оған жауап бермеуіңізді сұраймыз."
+msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_1"
+msgstr "LunaStore аккаунтының паролін қалпына келтіруді сұрадыңыз. Жаңа пароль орнату үшін төмендегі сілтемеге өтіңіз:"
 
-#: templates/user/password_reset_form.html:16
+msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_2"
+msgstr "Егер сіз құпия сөзді қалпына келтіруді сұрамасаңыз, бұл хатты елемеңіз. Құпия сөзіңіз қауіпсіз күйде қалады."
+
 msgid "PAGE_PASSWORD_RESET_FORM_HEADER"
 msgstr "Құпия сөзді қалпына келтіру"
 
-#: templates/user/password_reset_form.html:22
-msgid "PAGE_PASSWORD_RESET_EMAIL_LABEL"
-msgstr "Электрондық пошта мекенжайы"
+msgid "PAGE_PASSWORD_RESET_HEADER"
+msgstr "Құпия сөзді қалпына келтіру"
 
-#: templates/user/password_reset_form.html:38
-msgid "PAGE_PASSWORD_RESET_SUBMIT_BTN"
-msgstr "Хатты жіберу"
+msgid "PAGE_PASSWORD_RESET_INFO_TEXT"
+msgstr "LunaStore аккаунтыңызға тіркелген электрондық пошта мекенжайыңызды енгізіңіз. Біз сізге құпия сөзді қалпына келтіру туралы нұсқаулық жібереміз."
 
-#: templates/user/password_reset_form.html:45
 msgid "PAGE_PASSWORD_RESET_INFO_TITLE"
 msgstr "Құпия сөзді ұмыттыңыз ба?"
 
-#: templates/user/password_reset_form.html:46
-msgid "PAGE_PASSWORD_RESET_INFO_TEXT"
-msgstr ""
-"LunaStore аккаунтыңызға тіркелген электрондық пошта мекенжайыңызды "
-"енгізіңіз. Біз сізге құпия сөзді қалпына келтіру туралы нұсқаулық жібереміз."
-
-#: templates/user/password_reset_subject.txt:1
 msgid "PAGE_PASSWORD_RESET_SUBJECT"
 msgstr "LunaStore сайтындағы құпия сөзді қалпына келтіру"
 
-#~ msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
-#~ msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
-#~ msgstr[0] "%(counter)s пікір,"
+msgid "PAGE_PASSWORD_RESET_SUBMIT_BTN"
+msgstr "Хатты жіберу"
 
-#~ msgid "BANNED_IP_HEADER"
-#~ msgstr "Қолжетімділік шектелген"
+msgid "PAGE_PASSWORD_RESET_TITLE"
+msgstr "Құпия сөзді қалпына келтіру"
 
-#~ msgid "BANNED_IP_HOME_LINK"
-#~ msgstr "Басты бетке"
+msgid "PAGE_PROFILESETTINGS_LABEL_BIO"
+msgstr "Профиль сипаттамасы:"
 
-#~ msgid "BANNED_IP_SUBTITLE"
-#~ msgstr "Сіздің IP-мекенжайыңыз бұғатталған"
+msgid "PAGE_PROFILE_APPS_EMPTY_DESC"
+msgstr "Пайдаланушы әзірге ешқандай қосымша жариялаған жоқ."
 
-#~ msgid "BASE_LOGINPOPUP_DESC"
-#~ msgstr "Сізде аккаунт бар ма? Кіріңіз."
+msgid "PAGE_PROFILE_APPS_TITLE"
+msgstr "Жарияланған қолданбалар"
 
-#~ msgid "BASE_LOGINPOPUP_LOGINBTN"
-#~ msgstr "Кіру"
+msgid "PAGE_PROFILE_BANNED_DESC"
+msgstr "Бұл ресурстың ережелерін бұзу, күдікті әрекет немесе қауіпсіздік жүйесінің іске қосылуына байланысты орын алған болуы мүмкін. Біз барлық пайдаланушылардың жайлылығына мән береміз, сол себепті мұндай пайдаланушылардың сайтқа кіруіне уақытша немесе тұрақты түрде шектеу қоюға мәжбүрміз."
 
-#~ msgid "BASE_LOGINPOPUP_LOGINFIELD"
-#~ msgstr "Логин:"
+msgid "PAGE_PROFILE_BANNED_DESC_2"
+msgstr "Бұл пайдаланушы бұғатталғандықтан, біз онымен одан әрі сөйлесуге, әсіресе егер сізден ақша сұраса, кеңес бермейміз."
 
-#~ msgid "BASE_LOGINPOPUP_PASSWORDFIELD"
-#~ msgstr "Құпия сөз:"
+msgid "PAGE_PROFILE_BANNED_INTRO"
+msgstr "Бұл пайдаланушы бұғатталды."
 
-#~ msgid "BASE_LOGINPOPUP_TITLE"
-#~ msgstr "Авторизация"
+msgid "PAGE_PROFILE_CONTACT_INFO"
+msgstr "Байланыс ақпараты"
 
-#~ msgid "BASE_OPRJ_GAMESBTN"
-#~ msgstr "Ойындар"
+msgid "PAGE_PROFILE_INVITES_EMPTY_DESC"
+msgstr "Әзірге бұл пайдаланушының шақыруы бойынша ешкім тіркелмеді."
 
-#~ msgid "BASE_OPRJ_OTHERPROJECTSBTN"
-#~ msgstr "Барлық жобалар »"
+msgid "PAGE_PROFILE_INVITES_EMPTY_TITLE"
+msgstr "Шақырулар жоқ ＞︿＜"
 
-#~ msgid "ERROR_CDNSECURITY"
-#~ msgstr ""
-#~ "Файлды жүктеу кезінде LunaSpire қозғалтқышының қауіпсіздік қатесі орын "
-#~ "алды. Егер бұл қатені бірінші рет көріп тұрмасаңыз, сайт әкімшісіне "
-#~ "хабарласыңыз."
+msgid "PAGE_PROFILE_INVITES_PEOPLE"
+msgstr "адам (алғашқы 5-уі көрсетілген)"
 
-#~ msgid "ERROR_CDN_INVALID_FORMAT"
-#~ msgstr ""
-#~ "Сақтау серверіндегі (CDN) файл пішімі жарамсыз. Әкімшіге хабарласыңыз."
+msgid "PAGE_PROFILE_INVITES_TEXT"
+msgstr "шақырды"
 
-#~ msgid "ERROR_CDN_SESSION_EXPIRED"
-#~ msgstr "Жүктеу сессиясының уақыты аяқталды. Қайталап көріңіз."
+msgid "PAGE_PROFILE_LABEL_EMAIL"
+msgstr "E-mail:"
 
-#~ msgid "ERROR_DIST_SOURCE_REQUIRED"
-#~ msgstr "Жүктеп алу үшін файлды немесе сілтемені көрсету қажет."
+msgid "PAGE_PROFILE_LABEL_TELEGRAM"
+msgstr "Telegram:"
 
-#~ msgid "ERROR_INVALID_IMAGE_FILE"
-#~ msgstr "Суретті өңдеу мүмкін болмады. Файл зақымдалған болуы мүмкін."
+msgid "PAGE_PROFILE_LABEL_WEBSITE"
+msgstr "Веб-сайт:"
 
-#~ msgid "ERROR_INVALID_LUNASPIRE_TOKEN"
-#~ msgstr ""
-#~ "Файлды жүктеу кезінде LunaSpire қозғалтқышынан жарамсыз токен түрі "
-#~ "алынды. Егер бұл қатені бірінші рет көріп тұрмасаңыз, сайт әкімшісіне "
-#~ "хабарласыңыз."
+msgid "PAGE_PROFILE_LINK_ADDAPP"
+msgstr "қосу"
 
-#~ msgid "ERROR_MAX_AVATAR_DIMENSIONS"
-#~ msgstr "Суреттің максималды өлшемі — 64x64 пиксель."
+msgid "PAGE_PROFILE_LINK_ALL"
+msgstr "барлығын көрсету"
 
-#~ msgid "ERROR_PREVIEWSCRNS_1_BIGSIZE"
-#~ msgstr "Қате: Файл "
+msgid "PAGE_PROFILE_NO_REVIEWS"
+msgstr "Пікірлер жоқ"
 
-#~ msgid "ERROR_PREVIEWSCRNS_1_COUNT"
-#~ msgstr "Қате: Таңдалды "
+msgid "PAGE_PROFILE_REVIEW_TO_APP"
+msgstr "қосымшаға"
 
-#~ msgid "ERROR_PREVIEWSCRNS_1_INVALIDFORMAT"
-#~ msgstr "Қате: Файл "
+msgid "PAGE_PROFILE_STAFF_ALT"
+msgstr "LunaStore командасы"
 
-#~ msgid "ERROR_PREVIEWSCRNS_2_BIGSIZE"
-#~ msgstr "өлшемі тым үлкен (макс. 2 МБ)."
+msgid "PAGE_PROFILE_STATS_MEMBER_SINCE"
+msgstr "мүше болған уақыты:"
 
-#~ msgid "ERROR_PREVIEWSCRNS_2_COUNT"
-#~ msgstr " файл. Максимум 3."
+msgid "PAGE_PROFILE_TAB_APPS"
+msgstr "Қосымшалар"
 
-#~ msgid "ERROR_PREVIEWSCRNS_2_INVALIDFORMAT"
-#~ msgstr "пішімі жарамсыз."
+msgid "PAGE_PROFILE_TAB_MAIN"
+msgstr "Негізгі"
 
-#~ msgid "ERROR_PREVIEWSCRNS_3_COUNT"
-#~ msgstr "Максимум 3 файл!"
+msgid "PAGE_PROFILE_TAB_REVIEWS"
+msgstr "Пікірлер"
 
-#~ msgid "FORM_APPCREATE_MAXIMUM_SCREENSHOTS"
-#~ msgstr "Максимум 3 скриншот."
+msgid "PAGE_PROFILE_TITLE"
+msgstr "Пайдаланушы профилі"
 
-#~ msgid "FORM_APPCREATE_TITLE_EXAMPLE"
-#~ msgstr "Мысалы: Total Commander"
+msgid "PAGE_REGISTER_BTN_SUBMIT"
+msgstr "Тіркелу"
 
-#~ msgid "FORM_PASSWORDCONFIRM_WRONGPASS"
-#~ msgstr "Құпия сөз қате. Қайталап көріңіз."
+msgid "PAGE_REGISTER_CAPTCHA_INSTRUCTION"
+msgstr "Суреттегі таңбаларды енгізіңіз:"
 
-#~ msgid ""
-#~ "File extension “%(extension)s” is not allowed. Allowed extensions are: “%"
-#~ "(allowed_extensions)s”."
-#~ msgstr ""
-#~ "“%(extension)s” файл кеңейтіліміне рұқсат жоқ. Рұқсат етілген "
-#~ "кеңейтілімдер: “%(allowed_extensions)s”."
+msgid "PAGE_REGISTER_CLICK_HERE"
+msgstr "осында"
 
-#~ msgid "INFO_ACCEPTED_AVATAR_FORMATS"
-#~ msgstr "Рұқсат етілген пішімдер: .JPG, .PNG, .WEBP, .GIF"
+msgid "PAGE_REGISTER_CLOSED_MSG"
+msgstr "Тіркелу қазіргі уақытта жабық және тек бұрыннан бар қатысушылардан алынған шақырулар арқылы ғана жүзеге асырылады."
 
-#~ msgid "INFO_APP_WITHPRICE"
-#~ msgstr "Ақылы:"
+msgid "PAGE_REGISTER_HAVE_INVITE_TEXT"
+msgstr "Шақыру коды бар ма? Басыңыз"
 
-#~ msgid "INFO_AVATAR_WAS_CHANGED"
-#~ msgstr "Аватар жаңартылды"
+msgid "PAGE_REGISTER_HAVE_INVITE_TITLE"
+msgstr "Шақыруыңыз бар ма?"
 
-#~ msgid "INFO_MAXIMUM_AVATAR_SIZE"
-#~ msgstr "Файлдың максималды өлшемі: 2 МБ."
+msgid "PAGE_REGISTER_HELP_EMAIL"
+msgstr "Аккаунтқа кіру және парольді қалпына келтіру үшін пайдаланылады"
 
-#~ msgid "INFO_SELECTED_FILES"
-#~ msgstr "Таңдалған файлдар: "
+msgid "PAGE_REGISTER_HELP_PASS1"
+msgstr "Сенімді құпия сөздер ойлап табыңыз. Бұл өте маңызды!"
 
-#~ msgid "MSG_DIST_CREATE_REQ_SENT"
-#~ msgstr "Жаңа нұсқаны қосу туралы өтінім модерацияға жіберілді."
+msgid "PAGE_REGISTER_HELP_PASS2"
+msgstr "Қайталау - білім анасы :D"
 
-#~ msgid "NOTIF_APPEDITREQ_ACCEPTED_DESCRIPTION"
-#~ msgstr "%(app_name)s қосымшасын өңдеуге сұранысыңыз мақұлданды."
+msgid "PAGE_REGISTER_HELP_USERNAME"
+msgstr "Кемінде 2 таңба. Пайдаланушы аты арқылы сізді іздеп табуға болады. Тіркелгеннен кейін оны өзгерту мүмкін болмайды."
 
-#~ msgid "NOTIF_APPEDITREQ_ACCEPTED_TITLE"
-#~ msgstr "Қосымшаны өңдеуге арналған өтінімнің мәртебесі"
+msgid "PAGE_REGISTER_INFO_SPLASH"
+msgstr "Тіркелгі жасау арқылы сіз өз қосымшаларыңызды жариялай аласыз, жүктелген бағдарламаларға пікір қалдыра аласыз және таңдаулы элементтердің жеке кітапханасын жүргізе аласыз. Тіркелу ашық әрі тегін."
 
-#~ msgid "NOTIF_APPEDITREQ_DECLINED_DESCRIPTION"
-#~ msgstr ""
-#~ "%(app_name)s қосымшасын өңдеуге сұранысыңыз қабылданбады. Себебі: %"
-#~ "(reason)s"
+msgid "PAGE_REGISTER_LABEL_EMAIL"
+msgstr "E-mail:"
 
-#~ msgid "NOTIF_APPEDITREQ_DECLINED_TITLE"
-#~ msgstr "Қосымшаны өңдеуге арналған өтінімнің мәртебесі"
+msgid "PAGE_REGISTER_LABEL_PASS1"
+msgstr "Құпия сөз:"
 
-#~ msgid "NOTIF_APPREQ_ACCEPTED_DESCRIPTION"
-#~ msgstr ""
-#~ "Құттықтаймыз! %(app_name)s қосымшасын жасауға сұранысыңыз мақұлданып, ол "
-#~ "LunaStore дүкенінде жарияланды."
+msgid "PAGE_REGISTER_LABEL_PASS2"
+msgstr "Құпия сөзді қайталаңыз:"
 
-#~ msgid "NOTIF_APPREQ_ACCEPTED_TITLE"
-#~ msgstr "Өтінім мәртебесі"
+msgid "PAGE_REGISTER_LABEL_USERNAME"
+msgstr "Пайдаланушы аты:"
 
-#~ msgid "NOTIF_APPREQ_DECLINED_DESCRIPTION"
-#~ msgstr ""
-#~ "%(app_name)s қосымшасын құруға сұранысыңыз қабылданбады. Себебі: %"
-#~ "(reason)s"
+msgid "PAGE_REGISTER_SECTION_CONFIRM"
+msgstr "Тіркелуді растау"
 
-#~ msgid "NOTIF_APPREQ_DECLINED_TITLE"
-#~ msgstr "Өтінім мәртебесі"
+msgid "PAGE_REGISTER_SECTION_MAIN"
+msgstr "Негізгі ақпарат"
 
-#~ msgid "NOTIF_DEVSTATUS_ACCEPTED_DESCRIPTION"
-#~ msgstr ""
-#~ "Құттықтаймыз! Өтінішіңіз мақұлданды және сіз әзірлеуші/бағдарлама "
-#~ "шығарушы мүмкіндіктеріне ие болдыңыз."
+msgid "PAGE_REGISTER_TITLE"
+msgstr "Тіркелу"
 
-#~ msgid "NOTIF_DEVSTATUS_ACCEPTED_TITLE"
-#~ msgstr "Әзірлеуші мәртебесі"
+msgid "PAGE_REPORTAPP_AUTHOR"
+msgstr "Қолданба бойынша шағым авторы:"
 
-#~ msgid "NOTIF_DEVSTATUS_DECLINED_DESCRIPTION"
-#~ msgstr ""
-#~ "Өтінішіңіз қабылданбады және сіз әзірлеуші/бағдарлама шығарушы "
-#~ "мүмкіндіктерін алмадыңыз. Себебі: %(reason)s"
+msgid "PAGE_REPORTAPP_EXPLAIN_LABEL"
+msgstr "Қосымша ақпарат (міндетті):"
 
-#~ msgid "NOTIF_DEVSTATUS_DECLINED_TITLE"
-#~ msgstr "Әзірлеуші мәртебесі"
+msgid "PAGE_REPORTAPP_INFO_1"
+msgstr "Сіз қолданбаға шағым жібергелі жатырсыз"
 
-#~ msgid "NOTIF_DEVSTATUS_SEND_DESCRIPTION"
-#~ msgstr ""
-#~ "Өтінішіңіз сәтті жіберілді. Жауап «Хабарламалар» бөліміне келеді. "
-#~ "Ешқандай әрекет жасаудың қажеті жоқ."
+msgid "PAGE_REPORTAPP_INFO_2"
+msgstr "Себепті таңдап, мәселені толығырақ сипаттаңыз:"
 
-#~ msgid "NOTIF_DEVSTATUS_SEND_TITLE"
-#~ msgstr "Әзірлеуші мәртебесі"
+msgid "PAGE_REPORTAPP_PAGE_TITLE"
+msgstr "Қолданбаға шағым"
 
-#~ msgid "NOTIF_DISTREQ_ACCEPTED_DESCRIPTION"
-#~ msgstr ""
-#~ "%(app_name)s қолданбасының %(version)s нұсқасын жариялауға берген "
-#~ "өтінішіңіз модератормен мақұлданды."
+msgid "PAGE_REPORTAPP_REASON_INCORRECT"
+msgstr "Деректер немесе сипаттама дұрыс емес"
 
-#~ msgid "NOTIF_DISTREQ_ACCEPTED_TITLE"
-#~ msgstr "Жаңа нұсқа жарияланды!"
+msgid "PAGE_REPORTAPP_REASON_MALWARE"
+msgstr "Ааа, көмектесіңіз, мұнда вирустар бар!"
 
-#~ msgid "NOTIF_DISTREQ_DECLINED_DESCRIPTION"
-#~ msgstr ""
-#~ "Өкінішке орай, %(app_name)s қосымшасының %(version)s нұсқасын жариялауға "
-#~ "берген өтінішіңіз қабылданбады. Себебі: %(reason)s"
+msgid "PAGE_REPORTAPP_REASON_OTHER"
+msgstr "Басқа себеп"
 
-#~ msgid "NOTIF_DISTREQ_DECLINED_TITLE"
-#~ msgstr "Жариялауға өтінім қабылданбады"
+msgid "PAGE_REPORTAPP_SUBMIT_BTN"
+msgstr "Шағымды жіберу"
 
-#~ msgid "NOTIF_WELCOME_DESCRIPTION"
-#~ msgstr ""
-#~ "Тіркелгеніңізге рақмет! Қолданбалар анықтамалығына бей-жай "
-#~ "қарамағаныңызға өте қуаныштымыз. Сізге қатты ұнайды деп үміттенемін!"
+msgid "PAGE_REPORTAPP_SUCCESS_MSG"
+msgstr "Шағымыңыз жіберілді."
 
-#~ msgid "NOTIF_WELCOME_TITLE"
-#~ msgstr "LunaStore-қа қош келдіңіз"
+msgid "PAGE_REPORTAPP_TITLE"
+msgstr "Қолданбаға шағым"
 
-#~ msgid "PAGE_ADMIN_APP_CURRENTSCRN"
-#~ msgstr "Ағымдағы скриншоттар"
+msgid "PAGE_REPORTAPP_TITLE_PATH"
+msgstr "Қолданбаларға шағымдар"
 
-#~ msgid "PAGE_ADMIN_APP_NOICON"
-#~ msgstr "Белгіше жоқ"
+msgid "PAGE_REPORTPROBLEM_AUTHOR"
+msgstr "Мәселе бойынша шағым авторы"
 
-#~ msgid "PAGE_ADMIN_APP_SLOGANDESC_2"
-#~ msgstr "Қысқалық — таланттың әпкесі :)"
+msgid "PAGE_REPORTPROBLEM_INFO"
+msgstr "Мұнда сіз біздің сайттан тапқан кез келген мәселе туралы хабарлай аласыз!"
 
-#~ msgid "PAGE_ADMIN_APP_WARN_SCRN"
-#~ msgstr ""
-#~ "Назар аударыңыз: Жаңа файлдарды жүктеу ағымдағы барлық скриншоттарды "
-#~ "жояды!"
+msgid "PAGE_REPORTPROBLEM_SUBMIT_BTN"
+msgstr "Мәселе туралы хабарлау"
 
-#~ msgid "PAGE_APP_BTN_BACK"
-#~ msgstr "Артқа"
+msgid "PAGE_REPORTPROBLEM_SUCCESS_MSG"
+msgstr "Сәтті жіберілді!"
 
-#~ msgid "PAGE_APP_LABEL_DOWNLOADS"
-#~ msgstr "Жүктеулер саны"
+msgid "PAGE_REPORTPROBLEM_TITLE"
+msgstr "Мәселе туралы хабарлау"
 
-#~ msgid "PAGE_APP_RATING_EVALUATE"
-#~ msgstr "Бағалау..."
+msgid "PAGE_SEARCH_BADGE_DEMO"
+msgstr "Демо"
 
-#~ msgid "PAGE_BADBROSER_DESC_3"
-#~ msgstr "Түсінгеніңізге рақмет."
+msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
+msgstr "Демо, әрі қарай $%(price)s"
 
-#~ msgid "PAGE_BADBROWSER_DESC_1"
-#~ msgstr ""
-#~ "Бұл веб-қызметті толыққанды пайдалану үшін Internet Explorer 6 және одан "
-#~ "жоғары немесе RetroZilla браузерін орнату ұсынылады."
+msgid "PAGE_SEARCH_BADGE_DEMO_PRICE %(price)s"
+msgstr "Демо, әрі қарай $%(price)s"
 
-#~ msgid "PAGE_BADBROWSER_DESC_2"
-#~ msgstr ""
-#~ "Internet Explorer 6 бағдарламасын тікелей немесе қызметтер арқылы жүктеп "
-#~ "алуға болады"
+msgid "PAGE_SEARCH_BADGE_FREE"
+msgstr "Тегін"
 
-#~ msgid "PAGE_BADBROWSER_TITLE"
-#~ msgstr "Windows дүкеніне деген қызығушылығыңызға рақмет!"
+msgid "PAGE_SEARCH_BADGE_NOT_FOUND"
+msgstr "\"%(q)s\" сұранысы бойынша нәтиже табылмады"
 
-#~ msgid "PAGE_CATEGORY_SHOWCONTENTAS"
-#~ msgstr "Мазмұнды көрсету..."
+msgid "PAGE_SEARCH_BTN_DETAILS"
+msgstr "Толығырақ"
 
-#~ msgid "PAGE_CATEGORY_SHOWCONTENTASLIST"
-#~ msgstr "Мазмұнды тізім ретінде көрсету"
+msgid "PAGE_SEARCH_BTN_RESET"
+msgstr "Сүзгілерді тазарту"
 
-#~ msgid "PAGE_CATEGORY_SHOWCONTENTASTILES"
-#~ msgstr "Мазмұнды плиткалар ретінде көрсету"
+msgid "PAGE_SEARCH_BTN_SUBMIT"
+msgstr "іздеу"
 
-#~ msgid "PAGE_DIST_FORM_SAVED"
-#~ msgstr "Тарату өзгерістері сәтті сақталды."
+msgid "PAGE_SEARCH_FILTER_AUTHOR_ID"
+msgstr "Автордын индентификаторы"
 
-#~ msgid "PAGE_DOWNLOAD_BACK"
-#~ msgstr "Артқа"
+msgid "PAGE_SEARCH_FILTER_CATEGORY"
+msgstr "Санаты"
 
-#~ msgid "PAGE_DOWNLOAD_LOCAL_SOURCE"
-#~ msgstr "Біздің сайттан жүктеу"
+msgid "PAGE_SEARCH_FILTER_CATEGORY_ALL"
+msgstr "Барлық санаттар"
 
-#~ msgid "PAGE_DOWNLOAD_TABLE_ACTION"
-#~ msgstr "Әрекет"
+msgid "PAGE_SEARCH_FILTER_FREE"
+msgstr "Тек тегін"
 
-#~ msgid "PAGE_DOWNLOAD_TABLE_UPLOAD_DATE"
-#~ msgstr "Жүктелген күні"
+msgid "PAGE_SEARCH_HEADING"
+msgstr "Сұранысты енгізіңіз"
 
-#~ msgid "PAGE_DOWNLOAD_UPLOADED_VERSIONS"
-#~ msgstr "Жүктелген нұсқалар"
+msgid "PAGE_SEARCH_IMG_ALT_NONE"
+msgstr "Белгіше жоқ"
 
-#~ msgid "PAGE_FAQ_TEAM_ROLE_COOKIE"
-#~ msgstr ""
-#~ "Екінші backend-әзірлеуші, luna пакет менеджерінің бас әзірлеушісі, сондай-"
-#~ "ақ жапон тіліне аударма"
+msgid "PAGE_SEARCH_INPUT_PLACEHOLDER"
+msgstr "Мысалы: Total Commander"
 
-#~ msgid "PAGE_FAQ_TEAM_TESTERS_LIST"
-#~ msgstr "[сынаушылардың никнеймдері үтірмен бөлінген]"
+msgid "PAGE_SEARCH_LINK_ADVANCED"
+msgstr "Іздеу параметрлерін нақтылау"
 
-#~ msgid "PAGE_NOTIFICATIONS_COUNT_SINGLE"
-#~ msgid_plural "PAGE_NOTIFICATIONS_COUNT_PLURAL"
-#~ msgstr[0] "Сізде <b>%(counter)s</b> жаңа хабарлама бар"
+msgid "PAGE_SEARCH_MSG_NO_RESULTS %(q)s"
+msgstr "\"%(q)s\" сұранысы бойынша нәтиже табылмады"
 
-#~ msgid "PAGE_OTHER_PROJECTS_DESC_GAMES"
-#~ msgstr ""
-#~ "Windows XP/7 желілік ойындарын үшінші тараптың жеке сервері ретінде қайта "
-#~ "жаңғырту"
+msgid "PAGE_SEARCH_MSG_NO_RESULTS_EMPTY"
+msgstr "Сұрауыңыз бойынша ештеңе табылмады"
 
-#~ msgid "PAGE_PROFILE_LABEL_EMAIL"
-#~ msgstr "E-mail:"
+msgid "PAGE_SEARCH_SORT_LIST"
+msgstr "Мазмұнды тізім ретінде көрсету"
 
-#~ msgid "PAGE_PROFILE_STAFF_ALT"
-#~ msgstr "LunaStore командасы"
+msgid "PAGE_SEARCH_SORT_PLACEHOLDER"
+msgstr "Мазмұнды көрсету..."
 
-#~ msgid "PAGE_PROFILE_TAB_APPS"
-#~ msgstr "Қосымшалар"
+msgid "PAGE_SEARCH_SORT_TILES"
+msgstr "Мазмұнды плиткалар ретінде көрсету"
 
-#~ msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
-#~ msgstr "Демо, әрі қарай $%(price)s"
+msgid "PAGE_SEARCH_TITLE"
+msgstr "Іздеу"
 
-#~ msgid "PAGE_SEARCH_BADGE_NOT_FOUND"
-#~ msgstr "\"%(q)s\" сұранысы бойынша нәтиже табылмады"
+msgid "PAGE_SETTINGS_BTN_DELETE"
+msgstr "Тіркелгіні жою"
 
-#~ msgid "PAGE_SEARCH_IMG_ALT_NONE"
-#~ msgstr "Белгіше жоқ"
+msgid "PAGE_SETTINGS_BTN_SAVE"
+msgstr "Сақтау"
 
-#~ msgid "PAGE_SETTINGS_LABEL_HIDE_REVIEWS"
-#~ msgstr "Басқа пайдаланушылар үшін пікірлерімді көрсетпеу"
+msgid "PAGE_SETTINGS_BTN_UPLOAD"
+msgstr "Жүктеу"
 
-#~ msgid "PAGE_SETTINGS_SECTION_PRIVACY"
-#~ msgstr "Құпиялылық"
+msgid "PAGE_SETTINGS_DELETE_WARNING"
+msgstr "Егер сіз сайтты қолданғыңыз келмесе, өз аккаунтыңызды жоюға толық құқығыңыз бар. <br><br>Алайда, бұл әрекет профиль деректерін <b>қалпына келтіру мүмкіндігінсіз</b> жоятынын түсінуіңіз керек. Басқарылатын қолданбалар беттеріне қолжетімділік жоғалады, ал жіберілген пікірлер жеке деректерден ажыратылады.<br><br>"
 
-#~ msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_1"
-#~ msgstr "Файлдар тексеруден өтті: "
+msgid "PAGE_SETTINGS_DEV_STATUS_HAS"
+msgstr "бар"
 
-#~ msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_2"
-#~ msgstr "дана. Жүктеуге дайын."
+msgid "PAGE_SETTINGS_HTML_TITLE"
+msgstr "Аккаунт баптаулары"
 
-#~ msgid "SITE_DESCRIPTION"
-#~ msgstr ""
-#~ "LunaStore. Ескі ПК-ге арналған қосымшалар анықтамалығы. Қосымшаларды "
-#~ "жүктеп алыңыз, пікір қалдырыңыз және ескі ДК әуесқойлары қауымдастығының "
-#~ "бір бөлігі болыңыз."
+msgid "PAGE_SETTINGS_INFO_AVATAR_RULES"
+msgstr "Аватардың ұсынылатын өлшемі: 64x64.<br>Рұқсат етілген пішімдер: .PNG, .JPG<br>Максималды өлшемі: 2 Мб"
+
+msgid "PAGE_SETTINGS_INFO_EMAIL_CHANGE"
+msgstr "E-mail өзгерту құпия сөзді растауды талап етеді."
+
+msgid "PAGE_SETTINGS_JS_ERR_CDN"
+msgstr "LunaSpire серверіне файлды сақтау кезінде қате орын алды. Осы қате туралы сайт әкімшісіне хабарласыңыз."
+
+msgid "PAGE_SETTINGS_JS_ERR_PREFIX"
+msgstr "Қате орын алды:"
+
+msgid "PAGE_SETTINGS_JS_ERR_TOKEN"
+msgstr "LunaSpire жүктеуге арналған қауіпсіз токенді алу мүмкін болмады. Осы қате туралы сайт әкімшісіне хабарласыңыз."
+
+msgid "PAGE_SETTINGS_JS_SELECT_FILE"
+msgstr "Жүктеу үшін файлды таңдаңыз!"
+
+msgid "PAGE_SETTINGS_JS_UPLOADING"
+msgstr "Жүктелуде..."
+
+msgid "PAGE_SETTINGS_LABEL_BIO"
+msgstr "Профиль сипаттамасы:"
+
+msgid "PAGE_SETTINGS_LABEL_CHOOSE_FILE"
+msgstr "Файлды таңдау:"
+
+msgid "PAGE_SETTINGS_LABEL_CONFIRM_PASS"
+msgstr "Құпия сөзді қайталаңыз:"
+
+msgid "PAGE_SETTINGS_LABEL_CUR_EMAIL"
+msgstr "Ағымдағы e-mail:"
+
+msgid "PAGE_SETTINGS_LABEL_CUR_PASS"
+msgstr "Ағымдағы құпия сөз:"
+
+msgid "PAGE_SETTINGS_LABEL_DEV_STATUS"
+msgstr "Әзірлеуші мәртебесі: "
+
+msgid "PAGE_SETTINGS_LABEL_EMAIL"
+msgstr "Байланыс e-mail:"
+
+msgid "PAGE_SETTINGS_LABEL_HIDE_REVIEWS"
+msgstr "Басқа пайдаланушылар үшін пікірлерімді көрсетпеу"
+
+msgid "PAGE_SETTINGS_LABEL_NEW_EMAIL"
+msgstr "Жаңа e-mail:"
+
+msgid "PAGE_SETTINGS_LABEL_NEW_PASS"
+msgstr "Жаңа құпия сөз:"
+
+msgid "PAGE_SETTINGS_LABEL_TELEGRAM"
+msgstr "Telegram:"
+
+msgid "PAGE_SETTINGS_LABEL_USERNAME"
+msgstr "Пайдаланушы аты:"
+
+msgid "PAGE_SETTINGS_LABEL_WEBSITE"
+msgstr "Веб-сайт:"
+
+msgid "PAGE_SETTINGS_SECTION_AVATAR"
+msgstr "Аватарды өзгерту"
+
+msgid "PAGE_SETTINGS_SECTION_BASIC"
+msgstr "Негізгі ақпарат"
+
+msgid "PAGE_SETTINGS_SECTION_CHANGE_EMAIL"
+msgstr "E-mail өзгерту"
+
+msgid "PAGE_SETTINGS_SECTION_DELETE"
+msgstr "Тіркелгіні жою"
+
+msgid "PAGE_SETTINGS_SECTION_PASSWORD"
+msgstr "Құпия сөзді өзгерту"
+
+msgid "PAGE_SETTINGS_SECTION_PRIVACY"
+msgstr "Құпиялылық"
+
+msgid "PAGE_SETTINGS_TAB_ACCOUNT"
+msgstr "Аккаунт"
+
+msgid "PAGE_SETTINGS_TAB_APPS"
+msgstr "Қосымшалар"
+
+msgid "PAGE_SETTINGS_TAB_SECURITY"
+msgstr "Қауіпсіздік"
+
+msgid "PAGE_SETTINGS_TITLE"
+msgstr "Баптаулар"
+
+msgid "PAGE_SETTINGS_WARN_USERNAME_FROZEN"
+msgstr "Пайдаланушы атын тіркелуден кейін өзгерту мүмкін емес"
+
+msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_1"
+msgstr "Файлдар тексеруден өтті: "
+
+msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_2"
+msgstr "дана. Жүктеуге дайын."
+
+msgid "SET_APP_ALLOW_REVIEWS"
+msgstr "Пікірлерге рұқсат беру"
+
+msgid "SET_APP_ALLOW_REVIEWS_TOOLTIP"
+msgstr "Пікірлерге рұқсат беру"
+
+msgid "SET_APP_IS_PRIVATE"
+msgstr "Қосымшаны жеке ету керек пе?"
+
+msgid "SET_APP_IS_PRIVATE_TOOLTIP"
+msgstr "Жеке қолданба басқа пайдаланушыларға көрсетілмейді. Бұл параметрді қолданба жарияланғаннан кейін өзгертуге болады."
+
+msgid "SITE_DESCRIPTION"
+msgstr "LunaStore. Ескі ПК-ге арналған қосымшалар анықтамалығы. Қосымшаларды жүктеп алыңыз, пікір қалдырыңыз және ескі ДК әуесқойлары қауымдастығының бір бөлігі болыңыз."
+
+msgid "TEXT_APP_NO_DESC"
+msgstr "Сипаттамасы жоқ"
+
+msgid "TEXT_APP_NO_NAME"
+msgstr "Атауы жоқ"
+
+msgid "TEXT_APP_NO_SLOGAN"
+msgstr "Ұран жоқ"
+
+msgid "THICKBOX_CLOSE"
+msgstr "Жабу"
+
+msgid "THICKBOX_IMAGE"
+msgstr "Сурет"
+
+msgid "THICKBOX_NEXT"
+msgstr "Келесі"
+
+msgid "THICKBOX_NO_IFRAMES"
+msgstr "iFrame-сіз"
+
+msgid "THICKBOX_OF"
+msgstr "ішінен"
+
+msgid "THICKBOX_PREV"
+msgstr "Артқа"
+
+msgid "VIEW_LOGIN_BANNED_REASON"
+msgstr "Сіздің аккаунты бұғатталды. Себебі: %(reason)s"
+
+msgid "VIEW_LOGIN_INVALID_CREDENTIALS"
+msgstr "Логин немесе құпия сөз дұрыс емес."
+
+msgid "VIEW_LOGIN_SUCCESS"
+msgstr "Сіз сәтті кірдіңіз! Сәлем, %(username)s!"
