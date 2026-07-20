@@ -2,7 +2,7 @@ services:
     redis:
         image: redis:7-alpine
         restart: always
-        command: redis-server --appendonly yes
+        command: redis-server --appendonly no
         networks:
             - storenetwork
         healthcheck:
