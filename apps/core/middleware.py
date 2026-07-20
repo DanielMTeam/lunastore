@@ -14,7 +14,7 @@ class RateLimitMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        if request.path.startswith(('/staticfiles/', '/media/')):
+        if request.path.startswith(('/staticfiles/', '/media/')) or request.path.endswith('/heartbeat/'):
             return self.get_response(request)
 
         if request.path.lower().endswith(

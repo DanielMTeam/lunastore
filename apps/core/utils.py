@@ -4,6 +4,10 @@ from django.contrib.gis.geoip2 import GeoIP2
 
 
 def get_client_ip(request):
+    ip = request.META.get("HTTP_CF_CONNECTING_IP")
+    if ip: return ip.split(",")[0].strip()
+    ip = request.META.get("HTTP_X_REAL_IP")
+    if ip: return ip.split(",")[0].strip()
     x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
     if x_forwarded_for:
         ip = x_forwarded_for.split(",")[0].strip()
