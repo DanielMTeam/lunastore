@@ -306,6 +306,10 @@ class CategoryViewSet(viewsets.GenericViewSet):
 
 
 class ServiceViewSet(viewsets.GenericViewSet):
+    def get_throttles(self):
+        if self.action == 'heartbeat':
+            return []
+        return super().get_throttles()
     @extend_schema(
         summary="check API status",
         description="API method like 'heartbeat' type; returns current time, status and version",
