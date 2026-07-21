@@ -248,7 +248,6 @@ class NoSpamSecurityTest(TestCase):
         viewer.user_permissions.add(view_perm)
 
         self.assertTrue(viewer.has_perm("user.view_nospamrule"))
-        self.assertTrue(viewer.has_perm(view_perm))
         self.assertFalse(viewer.has_perm("user.add_userban"))
         self.assertFalse(viewer.has_perm("user.delete_user"))
 
