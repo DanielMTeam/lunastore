@@ -193,10 +193,9 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
     ],
     "DEFAULT_THROTTLE_CLASSES": [
-        "rest_framework.throttling.AnonRateThrottle",
-        "rest_framework.throttling.UserRateThrottle"
+        "apps.api.throttling.RealIPAnonRateThrottle",
+        "apps.api.throttling.RealIPUserRateThrottle",
     ],
-    "NUM_PROXIES": 1,
     "DEFAULT_THROTTLE_RATES": {
         "anon": "100/day",
         "user": "1000/day"
