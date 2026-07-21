@@ -22,7 +22,7 @@ from apps.core.utils import force_logout
 
 from .middleware import BlockBannedIP
 from apps.core.utils import get_client_ip
-from .models import BlacklistedUsername, InviteToken, User, UserActivityLog, UserBan
+from .models import BlacklistedUsername, InviteToken, NoSpamRule, User, UserActivityLog, UserBan
 from .utils import get_cached_blacklist
 from .tasks import CACHE_KEY
 from .validators import validate_invite_limit
@@ -35,6 +35,12 @@ from django.core.mail import EmailMultiAlternatives
 from django.core.mail.backends.smtp import EmailBackend
 from constance import config
 from django.template import loader
+from unfold.widgets import (
+    UnfoldAdminIntegerFieldWidget,
+    UnfoldAdminSelectWidget,
+    UnfoldAdminTextInputWidget,
+    UnfoldBooleanWidget,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -692,3 +698,72 @@ class CustomPasswordResetForm(PasswordResetForm):
             target=send_mail_in_background,
             args=(subject, body, from_email, to_email, html_email)
         ).start()
+
+
+class NoSpamMassScanForm(forms.Form):
+    match_type = forms.ChoiceField(
+        label="Тип фильтра",
+        choices=[
+            choice for choice in NoSpamRule.MatchType.choices
+            if choice[0] != NoSpamRule.MatchType.REQUEST_RATE_SIGNAL
+        ],
+        help_text="По какому признаку искать уже существующих пользователей.",
+        widget=UnfoldAdminSelectWidget(),
+    )
+    pattern = forms.CharField(
+        label="Паттерн",
+        max_length=255,
+        help_text="Домен, regex, CIDR, код страны или диапазон ID (100:500).",
+        widget=UnfoldAdminTextInputWidget(),
+    )
+    action = forms.ChoiceField(
+        label="Действие",
+        choices=NoSpamRule.RuleAction.choices,
+        initial=NoSpamRule.RuleAction.LOG,
+        help_text="Сначала рекомендуется «Только лог», затем бан или удаление.",
+        widget=UnfoldAdminSelectWidget(),
+    )
+    reason = forms.CharField(
+        label="Причина",
+        max_length=255,
+        initial="mass noSpam scan",
+        help_text="Попадёт в журнал noSpam и в причину бана.",
+        widget=UnfoldAdminTextInputWidget(),
+    )
+    ban_by_ip = forms.BooleanField(
+        label="Банить также по последнему IP",
+        required=False,
+        widget=UnfoldBooleanWidget(),
+    )
+    is_permanent = forms.BooleanField(
+        label="Перманентный бан",
+        required=False,
+        widget=UnfoldBooleanWidget(),
+    )
+    ban_duration_minutes = forms.IntegerField(
+        label="Длительность бана (мин)",
+        min_value=1,
+        initial=60,
+        required=False,
+        widget=UnfoldAdminIntegerFieldWidget(),
+    )
+    confirm = forms.BooleanField(
+        label="Подтверждаю массовое действие",
+        required=False,
+        help_text="Обязательно для применения бана или удаления.",
+        widget=UnfoldBooleanWidget(),
+    )
+
+    def __init__(self, *args, **kwargs):
+        self.scan_step = kwargs.pop("scan_step", "preview")
+        super().__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        action = cleaned_data.get("action")
+        if self.scan_step == "apply" and action in {
+            NoSpamRule.RuleAction.BAN,
+            NoSpamRule.RuleAction.DELETE,
+        } and not cleaned_data.get("confirm"):
+            raise ValidationError("Для массового бана или удаления нужно подтверждение.")
+        return cleaned_data

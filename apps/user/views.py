@@ -43,6 +43,7 @@ from django_smart_ratelimit import ratelimit
 import pyotp
 import qrcode
 import base64
+import logging
 
 from apps.marketplace.models import Application
 
@@ -59,6 +60,45 @@ from .forms import (
 )
 from django.utils.decorators import method_decorator
 from apps.core.utils import get_client_ip
+from .services.antispam import AntiSpamService, NoSpamContext
+
+logger = logging.getLogger("user")
+
+
+def _should_deny_on_nospam_error() -> bool:
+    fail_mode = str(getattr(config, "NOSPAM_FAIL_MODE", "allow")).lower()
+    return fail_mode == "deny"
+
+
+def _run_nospam(
+    request,
+    entrypoint: str,
+    user=None,
+    email: str = "",
+    username: str = "",
+    invite_code: str = "",
+    target_user=None,
+    target_object=None,
+):
+    context = NoSpamContext(
+        entrypoint=entrypoint,
+        ip=get_client_ip(request),
+        email=email,
+        username=username,
+        user_agent=request.META.get("HTTP_USER_AGENT", ""),
+        invite_code=invite_code,
+        user=user,
+        extra={"path": request.path},
+    )
+    try:
+        return AntiSpamService.evaluate_and_apply(
+            context=context,
+            target_user=target_user,
+            target_object=target_object,
+        )
+    except Exception as exc:
+        logger.exception("nospam guard failed at %s: %s", entrypoint, exc)
+        return None
 
 
 def get_real_ip(group, request):
@@ -107,12 +147,39 @@ def login(request):
         username_val = request.POST.get(
             "login") or request.POST.get("username")
         password_val = request.POST.get("password")
+        nospam_decision = _run_nospam(
+            request=request,
+            entrypoint="login",
+            username=username_val or "",
+        )
+        if nospam_decision and nospam_decision.should_block:
+            messages.error(request, _("VIEW_LOGIN_INVALID_CREDENTIALS"))
+            return render(request, "login_splash.html", {"next": next_url}, status=403)
+        if nospam_decision is None and _should_deny_on_nospam_error():
+            messages.error(request, _("VIEW_LOGIN_INVALID_CREDENTIALS"))
+            return render(request, "login_splash.html", {"next": next_url}, status=503)
 
         form_data = {"username": username_val, "password": password_val}
         form = AuthenticationForm(request, data=form_data)
 
         if form.is_valid():
             user = form.get_user()
+            user_nospam_decision = _run_nospam(
+                request=request,
+                entrypoint="login",
+                user=user,
+                email=user.email,
+                username=user.username,
+                target_user=user,
+            )
+            if user_nospam_decision and user_nospam_decision.should_block:
+                messages.error(request, _("VIEW_LOGIN_INVALID_CREDENTIALS"))
+                return render(
+                    request, "login_splash.html", {
+                        "next": next_url}, status=403)
+            if user_nospam_decision is None and _should_deny_on_nospam_error():
+                messages.error(request, _("VIEW_LOGIN_INVALID_CREDENTIALS"))
+                return render(request, "login_splash.html", {"next": next_url}, status=503)
             ban = UserBan.objects.filter(user=user).first()
             if ban:
                 if (
@@ -211,6 +278,19 @@ def register(request):
                     status=403,
                 )
         raw_username = request.POST.get("username", "").lower().strip()
+        raw_email = request.POST.get("email", "").lower().strip()
+        raw_invite_code = request.session.get("allowed_invite_code", "")
+        nospam_decision = _run_nospam(
+            request=request,
+            entrypoint="register",
+            email=raw_email,
+            username=raw_username,
+            invite_code=raw_invite_code,
+        )
+        if nospam_decision and nospam_decision.should_block:
+            return redirect("502_error")
+        if nospam_decision is None and _should_deny_on_nospam_error():
+            return redirect("502_error")
         from .utils import get_cached_blacklist
         blacklist = get_cached_blacklist()
         is_blocked = False
@@ -232,6 +312,24 @@ def register(request):
             if invite_obj:
                 user.invited_by = invite_obj.owner
             user.save()
+            post_create_nospam_decision = _run_nospam(
+                request=request,
+                entrypoint="register",
+                user=user,
+                email=user.email,
+                username=user.username,
+                invite_code=raw_invite_code,
+                target_user=user,
+            )
+            if post_create_nospam_decision and post_create_nospam_decision.action == "delete":
+                dj_logout(request)
+                return redirect("502_error")
+            if post_create_nospam_decision and post_create_nospam_decision.action == "ban":
+                dj_logout(request)
+                return redirect("502_error")
+            if post_create_nospam_decision is None and _should_deny_on_nospam_error():
+                dj_logout(request)
+                return redirect("502_error")
             if config.INVITES_ON_REGISTER:
                 request.session.pop("allowed_invite_code", None)
             user_group = Group.objects.get(name="Пользователи")
@@ -334,6 +432,21 @@ def profile_settings(request):
         form_type = request.POST.get("form_type")
 
         if form_type == "profile":
+            proposed_username = request.POST.get("username", "")
+            decision = _run_nospam(
+                request=request,
+                entrypoint="profile_username",
+                user=user,
+                email=user.email,
+                username=proposed_username,
+                target_user=user,
+            )
+            if decision and decision.should_block:
+                messages.error(request, _("ERROR_ACCESS_DENIED_PROFILE"))
+                return redirect("settings")
+            if decision is None and _should_deny_on_nospam_error():
+                messages.error(request, _("ERROR_ACCESS_DENIED_PROFILE"))
+                return redirect("settings")
             forms["profile_form"] = ProfileUpdateForm(
                 request.POST, instance=user)
             if forms["profile_form"].is_valid():
@@ -377,6 +490,21 @@ def profile_settings(request):
             request.session["can_view_delete_page"] = True
             return redirect("delete_account")
         elif form_type == "email":
+            proposed_email = request.POST.get("new_email", "")
+            decision = _run_nospam(
+                request=request,
+                entrypoint="profile_email",
+                user=user,
+                email=proposed_email,
+                username=user.username,
+                target_user=user,
+            )
+            if decision and decision.should_block:
+                messages.error(request, _("ERROR_ACCESS_DENIED_PROFILE"))
+                return redirect("settings")
+            if decision is None and _should_deny_on_nospam_error():
+                messages.error(request, _("ERROR_ACCESS_DENIED_PROFILE"))
+                return redirect("settings")
             forms["email_form"] = EmailChangeForm(request.POST, user=user)
             if forms["email_form"].is_valid():
                 user.email = forms["email_form"].cleaned_data["new_email"]
@@ -398,6 +526,20 @@ def dev_status(request):
         user=request.user).exists()
     # initialize the form
     if request.method == "POST":
+        decision = _run_nospam(
+            request=request,
+            entrypoint="dev_status",
+            user=user,
+            email=request.POST.get("mail", ""),
+            username=user.username,
+            target_user=user,
+        )
+        if decision and decision.should_block:
+            messages.error(request, _("ERROR_ACCESS_DENIED_PROFILE"))
+            return redirect("home")
+        if decision is None and _should_deny_on_nospam_error():
+            messages.error(request, _("ERROR_ACCESS_DENIED_PROFILE"))
+            return redirect("home")
         form = DevStatusForm(request.POST, instance=user)
         if form.is_valid():
             # save model data
