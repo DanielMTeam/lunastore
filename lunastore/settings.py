@@ -68,6 +68,11 @@ RATE_LIMIT_ENABLED = os.getenv("RATE_LIMIT_ENABLED", "False") == "True"
 RATE_LIMIT_WINDOW = int(os.getenv("RATE_LIMIT_WINDOW", "50"))
 RATE_LIMIT = int(os.getenv("RATE_LIMIT", "35"))
 
+# drf api throttle defaults (overridable live via constance)
+API_THROTTLE_ENABLED = os.getenv("API_THROTTLE_ENABLED", "True") == "True"
+API_THROTTLE_ANON_RATE = os.getenv("API_THROTTLE_ANON_RATE", "1000/hour")
+API_THROTTLE_USER_RATE = os.getenv("API_THROTTLE_USER_RATE", "5000/hour")
+
 # django-smart-ratelimit (ratelimit for functions)
 RATELIMIT_BACKEND = 'redis'
 RATELIMIT_REDIS = {
@@ -197,8 +202,8 @@ REST_FRAMEWORK = {
         "apps.api.throttling.RealIPUserRateThrottle",
     ],
     "DEFAULT_THROTTLE_RATES": {
-        "anon": "100/day",
-        "user": "1000/day"
+        "anon": API_THROTTLE_ANON_RATE,
+        "user": API_THROTTLE_USER_RATE,
     },
 }
 
@@ -477,6 +482,21 @@ CONSTANCE_CONFIG = {
         "Время окна rate-limit (секунды)",
         int,
     ),
+    "API_THROTTLE_ENABLED": (
+        os.getenv("API_THROTTLE_ENABLED", "True") == "True",
+        "Включить DRF throttle для API",
+        bool,
+    ),
+    "API_THROTTLE_ANON_RATE": (
+        os.getenv("API_THROTTLE_ANON_RATE", "1000/hour"),
+        "Лимит анонимных API-запросов (формат: 1000/hour)",
+        str,
+    ),
+    "API_THROTTLE_USER_RATE": (
+        os.getenv("API_THROTTLE_USER_RATE", "5000/hour"),
+        "Лимит авторизованных API-запросов (формат: 5000/hour)",
+        str,
+    ),
     # -- gdpr --
     "RETENTION_ACTIVITY_LOG_DAYS": (
         int(os.getenv("RETENTION_ACTIVITY_LOG_DAYS", "0")),
@@ -623,6 +643,9 @@ CONSTANCE_CONFIG_FIELDSETS = {
             "RATE_LIMIT_ENABLED",
             "RATE_LIMIT_WINDOW",
             "RATE_LIMIT",
+            "API_THROTTLE_ENABLED",
+            "API_THROTTLE_ANON_RATE",
+            "API_THROTTLE_USER_RATE",
         ],
         "collapse": True,
     },
