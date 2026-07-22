@@ -16,6 +16,7 @@ _BOOL_KEYS: frozenset[str] = frozenset({
     "INVITES_ON_REGISTER",
     "ENABLE_DRM",
     "RATE_LIMIT_ENABLED",
+    "API_THROTTLE_ENABLED",
     "TELEGRAM_LOGGER_ENABLED",
     "SENTRY_ENABLED",
 })
