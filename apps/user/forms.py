@@ -761,9 +761,21 @@ class NoSpamMassScanForm(forms.Form):
     def clean(self):
         cleaned_data = super().clean()
         action = cleaned_data.get("action")
+        match_type = cleaned_data.get("match_type")
+        pattern = cleaned_data.get("pattern")
+
         if self.scan_step == "apply" and action in {
             NoSpamRule.RuleAction.BAN,
             NoSpamRule.RuleAction.DELETE,
         } and not cleaned_data.get("confirm"):
             raise ValidationError("Для массового бана или удаления нужно подтверждение.")
+
+        if match_type == NoSpamRule.MatchType.USER_ID_RANGE and pattern:
+            from apps.user.services.antispam import AntiSpamService
+
+            try:
+                AntiSpamService._parse_user_id_range(pattern)
+            except ValueError as exc:
+                self.add_error("pattern", str(exc))
+
         return cleaned_data

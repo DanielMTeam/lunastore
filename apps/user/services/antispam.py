@@ -7,7 +7,10 @@ from typing import Any
 
 from constance import config
 from django.core.cache import cache
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
 from django.db import transaction
+from django.db.models import QuerySet
 from django.utils import timezone
 
 from apps.core.utils import get_country_code
@@ -41,6 +44,350 @@ class NoSpamDecision:
     @property
     def should_block(self) -> bool:
         return self.action in {NoSpamRule.RuleAction.BAN, NoSpamRule.RuleAction.DELETE}
+
+
+def _extract_email_domain(email: str) -> str | None:
+    # extract domain from email using django email validator
+    value = email.strip().lower()
+    if not value:
+        return None
+    try:
+        validate_email(value)
+    except ValidationError:
+        return None
+    return value.rsplit("@", 1)[1]
+
+
+def _parse_user_id_range(pattern: str) -> tuple[int, int]:
+    # parse user id range; raises ValueError on invalid format
+    raw_value = pattern.strip()
+    if not raw_value:
+        raise ValueError("invalid user id range format: empty value")
+
+    for separator in (":", "-", ".."):
+        if separator in raw_value:
+            left, right = raw_value.split(separator, 1)
+            try:
+                min_id = int(left.strip())
+                max_id = int(right.strip())
+            except ValueError as exc:
+                raise ValueError(
+                    f"invalid user id range format: {pattern!r}"
+                ) from exc
+            if min_id > max_id:
+                min_id, max_id = max_id, min_id
+            return min_id, max_id
+
+    try:
+        single_id = int(raw_value)
+    except ValueError as exc:
+        raise ValueError(
+            f"invalid user id range format: {pattern!r}"
+        ) from exc
+    return single_id, single_id
+
+
+def _safe_regex_match(pattern: str, value: str) -> bool:
+    try:
+        return bool(re.search(pattern, value, re.IGNORECASE))
+    except re.error:
+        return False
+
+
+def _empty_users() -> QuerySet[User]:
+    return User.objects.none()
+
+
+class EmailDomainMatcher:
+    def match(
+        self,
+        pattern: str,
+        payload: dict[str, Any],
+        context: NoSpamContext,
+    ) -> tuple[bool, str]:
+        domain = _extract_email_domain(context.email)
+        if domain is None:
+            return False, ""
+        return domain == pattern.lower().strip(), domain
+
+    def find_users(
+        self,
+        pattern: str,
+        payload: dict[str, Any],
+    ) -> tuple[QuerySet[User], str]:
+        domain = pattern.lower().strip()
+        return User.objects.filter(email__iendswith=f"@{domain}").distinct(), domain
+
+
+class EmailRegexMatcher:
+    def match(
+        self,
+        pattern: str,
+        payload: dict[str, Any],
+        context: NoSpamContext,
+    ) -> tuple[bool, str]:
+        email = context.email.lower().strip()
+        return _safe_regex_match(pattern, email), email
+
+    def find_users(
+        self,
+        pattern: str,
+        payload: dict[str, Any],
+    ) -> tuple[QuerySet[User], str]:
+        return User.objects.filter(email__iregex=pattern).distinct(), pattern
+
+
+class UsernameRegexMatcher:
+    def match(
+        self,
+        pattern: str,
+        payload: dict[str, Any],
+        context: NoSpamContext,
+    ) -> tuple[bool, str]:
+        username = context.username.lower().strip()
+        return _safe_regex_match(pattern, username), username
+
+    def find_users(
+        self,
+        pattern: str,
+        payload: dict[str, Any],
+    ) -> tuple[QuerySet[User], str]:
+        return User.objects.filter(username__iregex=pattern).distinct(), pattern
+
+
+class UserAgentRegexMatcher:
+    def match(
+        self,
+        pattern: str,
+        payload: dict[str, Any],
+        context: NoSpamContext,
+    ) -> tuple[bool, str]:
+        user_agent = context.user_agent.strip()
+        return _safe_regex_match(pattern, user_agent), user_agent
+
+    def find_users(
+        self,
+        pattern: str,
+        payload: dict[str, Any],
+    ) -> tuple[QuerySet[User], str]:
+        from apps.user.models import UserSession
+
+        user_ids = UserSession.objects.filter(
+            user_agent__iregex=pattern,
+        ).values_list("user_id", flat=True)
+        return User.objects.filter(id__in=user_ids).distinct(), pattern
+
+
+class CountryCodeMatcher:
+    def match(
+        self,
+        pattern: str,
+        payload: dict[str, Any],
+        context: NoSpamContext,
+    ) -> tuple[bool, str]:
+        ip_value = context.ip or ""
+        if not ip_value:
+            return False, ""
+        country = get_country_code(ip_value)
+        return country.upper() == pattern.upper(), country
+
+    def find_users(
+        self,
+        pattern: str,
+        payload: dict[str, Any],
+    ) -> tuple[QuerySet[User], str]:
+        from apps.user.models import UserActivityLog
+
+        target_country = pattern.upper()
+        matched_ids: set[int] = set()
+        for user_id, ip_value in UserActivityLog.objects.values_list(
+            "user_id", "ip"
+        ).distinct():
+            if not ip_value:
+                continue
+            if get_country_code(ip_value).upper() == target_country:
+                matched_ids.add(user_id)
+        return User.objects.filter(id__in=matched_ids).distinct(), pattern
+
+
+class IpCidrMatcher:
+    def match(
+        self,
+        pattern: str,
+        payload: dict[str, Any],
+        context: NoSpamContext,
+    ) -> tuple[bool, str]:
+        ip_value = context.ip or ""
+        if not ip_value:
+            return False, ""
+        try:
+            network = ipaddress.ip_network(pattern.strip(), strict=False)
+            ip_obj = ipaddress.ip_address(ip_value)
+        except ValueError:
+            return False, ""
+        return ip_obj in network, ip_value
+
+    def find_users(
+        self,
+        pattern: str,
+        payload: dict[str, Any],
+    ) -> tuple[QuerySet[User], str]:
+        from apps.user.models import UserActivityLog
+
+        try:
+            network = ipaddress.ip_network(pattern.strip(), strict=False)
+        except ValueError:
+            return _empty_users(), pattern
+        matched_ids: set[int] = set()
+        for user_id, ip_value in UserActivityLog.objects.values_list(
+            "user_id", "ip"
+        ).distinct():
+            if not ip_value:
+                continue
+            try:
+                if ipaddress.ip_address(ip_value) in network:
+                    matched_ids.add(user_id)
+            except ValueError:
+                continue
+        return User.objects.filter(id__in=matched_ids).distinct(), pattern
+
+
+class InvitePatternMatcher:
+    def match(
+        self,
+        pattern: str,
+        payload: dict[str, Any],
+        context: NoSpamContext,
+    ) -> tuple[bool, str]:
+        invite_code = context.invite_code.strip()
+        if not invite_code:
+            return False, ""
+        return _safe_regex_match(pattern, invite_code), invite_code
+
+    def find_users(
+        self,
+        pattern: str,
+        payload: dict[str, Any],
+    ) -> tuple[QuerySet[User], str]:
+        from apps.user.models import InviteToken
+
+        owner_ids = InviteToken.objects.filter(
+            code__iregex=pattern,
+        ).values_list("owner_id", flat=True)
+        return User.objects.filter(invited_by_id__in=owner_ids).distinct(), pattern
+
+
+class UserIdRangeMatcher:
+    def match(
+        self,
+        pattern: str,
+        payload: dict[str, Any],
+        context: NoSpamContext,
+    ) -> tuple[bool, str]:
+        if context.user is None:
+            return False, ""
+        try:
+            min_id, max_id = _parse_user_id_range(pattern)
+        except ValueError:
+            return False, ""
+        user_id = context.user.pk
+        if user_id is None:
+            return False, ""
+        return min_id <= user_id <= max_id, str(user_id)
+
+    def find_users(
+        self,
+        pattern: str,
+        payload: dict[str, Any],
+    ) -> tuple[QuerySet[User], str]:
+        min_id, max_id = _parse_user_id_range(pattern)
+        matched_label = f"{min_id}:{max_id}"
+        return (
+            User.objects.filter(id__gte=min_id, id__lte=max_id).distinct(),
+            matched_label,
+        )
+
+
+class RequestRateSignalMatcher:
+    def match(
+        self,
+        pattern: str,
+        payload: dict[str, Any],
+        context: NoSpamContext,
+    ) -> tuple[bool, str]:
+        ip_value = context.ip or ""
+        if not ip_value:
+            return False, ""
+        max_hits = int(payload.get("max_hits", 10))
+        window_seconds = int(payload.get("window_seconds", 60))
+        rule_id = payload.get("rule_id", "adhoc")
+        signal_key = f"nospam_rate_{context.entrypoint}_{ip_value}_{rule_id}"
+        hits = cache.get(signal_key, 0)
+        if hits == 0:
+            cache.set(signal_key, 1, window_seconds)
+            return False, ""
+        try:
+            hits = cache.incr(signal_key)
+        except ValueError:
+            cache.set(signal_key, 1, window_seconds)
+            hits = 1
+        return hits >= max_hits, str(hits)
+
+    def find_users(
+        self,
+        pattern: str,
+        payload: dict[str, Any],
+    ) -> tuple[QuerySet[User], str]:
+        return _empty_users(), pattern
+
+
+class NoSpamMatchers:
+    # registry of match_type handlers for runtime checks and mass scan
+
+    _HANDLERS: dict[str, Any] = {
+        NoSpamRule.MatchType.EMAIL_DOMAIN: EmailDomainMatcher(),
+        NoSpamRule.MatchType.EMAIL_REGEX: EmailRegexMatcher(),
+        NoSpamRule.MatchType.USERNAME_REGEX: UsernameRegexMatcher(),
+        NoSpamRule.MatchType.USER_AGENT_REGEX: UserAgentRegexMatcher(),
+        NoSpamRule.MatchType.COUNTRY_CODE: CountryCodeMatcher(),
+        NoSpamRule.MatchType.IP_CIDR: IpCidrMatcher(),
+        NoSpamRule.MatchType.INVITE_PATTERN: InvitePatternMatcher(),
+        NoSpamRule.MatchType.USER_ID_RANGE: UserIdRangeMatcher(),
+        NoSpamRule.MatchType.REQUEST_RATE_SIGNAL: RequestRateSignalMatcher(),
+    }
+
+    @classmethod
+    def get(cls, match_type: str) -> Any | None:
+        return cls._HANDLERS.get(match_type)
+
+    @classmethod
+    def match(
+        cls,
+        match_type: str,
+        pattern: str,
+        payload: dict[str, Any],
+        context: NoSpamContext,
+    ) -> tuple[bool, str]:
+        handler = cls.get(match_type)
+        if handler is None:
+            return False, ""
+        return handler.match(pattern, payload, context)
+
+    @classmethod
+    def find_users(
+        cls,
+        match_type: str,
+        pattern: str,
+        payload: dict[str, Any] | None = None,
+    ) -> tuple[QuerySet[User], str]:
+        payload = payload or {}
+        pattern_value = pattern.strip()
+        if not pattern_value and match_type != NoSpamRule.MatchType.REQUEST_RATE_SIGNAL:
+            return _empty_users(), pattern_value
+        handler = cls.get(match_type)
+        if handler is None:
+            return _empty_users(), pattern_value
+        return handler.find_users(pattern_value, payload)
 
 
 class AntiSpamService:
@@ -80,7 +427,9 @@ class AntiSpamService:
                         matched_value=matched_value,
                     )
             except Exception as exc:
-                logger.exception("failed to evaluate noSpam rule id=%s: %s", rule.id, exc)
+                logger.exception(
+                    "failed to evaluate noSpam rule id=%s: %s", rule.id, exc
+                )
                 cls._store_event(
                     context=context,
                     rule=rule,
@@ -94,7 +443,11 @@ class AntiSpamService:
 
         final_rule = min(
             matched_rules,
-            key=lambda item: (-cls.ACTION_WEIGHT.get(item.action, 0), item.priority, -item.id),
+            key=lambda item: (
+                -cls.ACTION_WEIGHT.get(item.action, 0),
+                item.priority,
+                -item.id,
+            ),
         )
         return NoSpamDecision(
             matched_rules=matched_rules,
@@ -154,87 +507,31 @@ class AntiSpamService:
         cached = cache.get(NOSPAM_RULES_CACHE_KEY)
         if cached is not None:
             return cached
-        rules = list(NoSpamRule.objects.filter(is_enabled=True).order_by("priority", "-id"))
+        rules = list(
+            NoSpamRule.objects.filter(is_enabled=True).order_by("priority", "-id")
+        )
         cache.set(NOSPAM_RULES_CACHE_KEY, rules, ttl)
         return rules
 
     @classmethod
     def _match_rule(cls, rule: NoSpamRule, context: NoSpamContext) -> tuple[bool, str]:
-        email = context.email.lower().strip()
-        username = context.username.lower().strip()
-        user_agent = context.user_agent.strip()
-        ip_value = context.ip or ""
-
-        if rule.match_type == NoSpamRule.MatchType.EMAIL_DOMAIN:
-            if "@" not in email:
-                return False, ""
-            domain = email.rsplit("@", 1)[1]
-            return domain == rule.pattern.lower().strip(), domain
-
-        if rule.match_type == NoSpamRule.MatchType.EMAIL_REGEX:
-            return cls._safe_regex_match(rule.pattern, email), email
-
-        if rule.match_type == NoSpamRule.MatchType.USERNAME_REGEX:
-            return cls._safe_regex_match(rule.pattern, username), username
-
-        if rule.match_type == NoSpamRule.MatchType.USER_AGENT_REGEX:
-            return cls._safe_regex_match(rule.pattern, user_agent), user_agent
-
-        if rule.match_type == NoSpamRule.MatchType.COUNTRY_CODE:
-            if not ip_value:
-                return False, ""
-            country = get_country_code(ip_value)
-            return country.upper() == rule.pattern.upper(), country
-
-        if rule.match_type == NoSpamRule.MatchType.IP_CIDR:
-            if not ip_value:
-                return False, ""
-            try:
-                network = ipaddress.ip_network(rule.pattern.strip(), strict=False)
-                ip_obj = ipaddress.ip_address(ip_value)
-            except ValueError:
-                return False, ""
-            return ip_obj in network, ip_value
-
-        if rule.match_type == NoSpamRule.MatchType.INVITE_PATTERN:
-            invite_code = context.invite_code.strip()
-            if not invite_code:
-                return False, ""
-            return cls._safe_regex_match(rule.pattern, invite_code), invite_code
-
-        if rule.match_type == NoSpamRule.MatchType.USER_ID_RANGE:
-            if context.user is None:
-                return False, ""
-            parsed_range = cls._parse_user_id_range(rule.pattern)
-            if parsed_range is None:
-                return False, ""
-            min_id, max_id = parsed_range
-            user_id = context.user.pk
-            if user_id is None:
-                return False, ""
-            return min_id <= user_id <= max_id, str(user_id)
-
+        payload = dict(rule.payload or {})
         if rule.match_type == NoSpamRule.MatchType.REQUEST_RATE_SIGNAL:
-            if not ip_value:
-                return False, ""
-            max_hits = int(rule.payload.get("max_hits", 10))
-            window_seconds = int(rule.payload.get("window_seconds", 60))
-            signal_key = f"nospam_rate_{context.entrypoint}_{ip_value}_{rule.id}"
-            hits = cache.get(signal_key, 0)
-            if hits == 0:
-                cache.set(signal_key, 1, window_seconds)
-                return False, ""
-            try:
-                hits = cache.incr(signal_key)
-            except ValueError:
-                cache.set(signal_key, 1, window_seconds)
-                hits = 1
-            return hits >= max_hits, str(hits)
-
-        return False, ""
+            payload["rule_id"] = rule.id
+        return NoSpamMatchers.match(
+            match_type=rule.match_type,
+            pattern=rule.pattern,
+            payload=payload,
+            context=context,
+        )
 
     @classmethod
-    def _apply_ban(cls, context: NoSpamContext, rule: NoSpamRule | None, target_user: User | None) -> None:
+    def _apply_ban(
+        cls,
+        context: NoSpamContext,
+        rule: NoSpamRule | None,
+        target_user: User | None,
+    ) -> None:
         if target_user is None:
             return
         is_permanent = bool(rule.is_permanent) if rule else False
@@ -256,7 +553,9 @@ class AntiSpamService:
                 ban_values["ban_by_ip"] = True
                 ban_values["ip"] = context.ip
 
-            existing_ban = UserBan.objects.filter(user=target_user).order_by("-created_at").first()
+            existing_ban = (
+                UserBan.objects.filter(user=target_user).order_by("-created_at").first()
+            )
             if existing_ban is None:
                 UserBan.objects.create(user=target_user, **ban_values)
             else:
@@ -265,7 +564,9 @@ class AntiSpamService:
                 existing_ban.save(update_fields=list(ban_values.keys()))
 
     @classmethod
-    def _apply_delete(cls, target_user: User | None, target_object: Any | None) -> None:
+    def _apply_delete(
+        cls, target_user: User | None, target_object: Any | None
+    ) -> None:
         if target_object is not None:
             target_object.delete()
             return
@@ -296,33 +597,12 @@ class AntiSpamService:
             logger.exception("failed to write noSpam event: %s", exc)
 
     @staticmethod
-    def _parse_user_id_range(pattern: str) -> tuple[int, int] | None:
-        raw_value = pattern.strip()
-        if not raw_value:
-            return None
-        for separator in (":", "-", ".."):
-            if separator in raw_value:
-                left, right = raw_value.split(separator, 1)
-                try:
-                    min_id = int(left.strip())
-                    max_id = int(right.strip())
-                except ValueError:
-                    return None
-                if min_id > max_id:
-                    min_id, max_id = max_id, min_id
-                return min_id, max_id
-        try:
-            single_id = int(raw_value)
-            return single_id, single_id
-        except ValueError:
-            return None
+    def _parse_user_id_range(pattern: str) -> tuple[int, int]:
+        return _parse_user_id_range(pattern)
 
     @staticmethod
     def _safe_regex_match(pattern: str, value: str) -> bool:
-        try:
-            return bool(re.search(pattern, value, re.IGNORECASE))
-        except re.error:
-            return False
+        return _safe_regex_match(pattern, value)
 
     @classmethod
     def clear_rules_cache(cls) -> None:
@@ -358,8 +638,8 @@ class AntiSpamService:
                 cls._set_shield_block(block_minutes)
                 return
 
-        if "@" in context.email:
-            domain = context.email.lower().rsplit("@", 1)[1]
+        domain = _extract_email_domain(context.email)
+        if domain is not None:
             if cls._bump_counter(f"shield_domain_{domain}", window_seconds) >= domain_limit:
                 cls._set_shield_block(block_minutes)
                 return
@@ -387,81 +667,13 @@ class AntiSpamService:
         match_type: str,
         pattern: str,
         payload: dict[str, Any] | None = None,
-    ) -> tuple[Any, str]:
-        """Find existing users matching a single ad-hoc filter."""
-        from django.db.models import QuerySet
-        from apps.user.models import InviteToken, UserActivityLog, UserSession
-
-        payload = payload or {}
-        pattern_value = pattern.strip()
-        empty_qs: QuerySet[User] = User.objects.none()
-
-        if not pattern_value and match_type != NoSpamRule.MatchType.REQUEST_RATE_SIGNAL:
-            return empty_qs, pattern_value
-
-        if match_type == NoSpamRule.MatchType.EMAIL_DOMAIN:
-            domain = pattern_value.lower()
-            return User.objects.filter(email__iendswith=f"@{domain}").distinct(), domain
-
-        if match_type == NoSpamRule.MatchType.EMAIL_REGEX:
-            return User.objects.filter(email__iregex=pattern_value).distinct(), pattern_value
-
-        if match_type == NoSpamRule.MatchType.USERNAME_REGEX:
-            return User.objects.filter(username__iregex=pattern_value).distinct(), pattern_value
-
-        if match_type == NoSpamRule.MatchType.USER_AGENT_REGEX:
-            user_ids = UserSession.objects.filter(
-                user_agent__iregex=pattern_value,
-            ).values_list("user_id", flat=True)
-            return User.objects.filter(id__in=user_ids).distinct(), pattern_value
-
-        if match_type == NoSpamRule.MatchType.IP_CIDR:
-            try:
-                network = ipaddress.ip_network(pattern_value, strict=False)
-            except ValueError:
-                return empty_qs, pattern_value
-            matched_ids: set[int] = set()
-            for user_id, ip_value in UserActivityLog.objects.values_list("user_id", "ip").distinct():
-                if not ip_value:
-                    continue
-                try:
-                    if ipaddress.ip_address(ip_value) in network:
-                        matched_ids.add(user_id)
-                except ValueError:
-                    continue
-            return User.objects.filter(id__in=matched_ids).distinct(), pattern_value
-
-        if match_type == NoSpamRule.MatchType.COUNTRY_CODE:
-            target_country = pattern_value.upper()
-            matched_ids = set()
-            for user_id, ip_value in UserActivityLog.objects.values_list("user_id", "ip").distinct():
-                if not ip_value:
-                    continue
-                if get_country_code(ip_value).upper() == target_country:
-                    matched_ids.add(user_id)
-            return User.objects.filter(id__in=matched_ids).distinct(), pattern_value
-
-        if match_type == NoSpamRule.MatchType.INVITE_PATTERN:
-            owner_ids = InviteToken.objects.filter(
-                code__iregex=pattern_value,
-            ).values_list("owner_id", flat=True)
-            return User.objects.filter(invited_by_id__in=owner_ids).distinct(), pattern_value
-
-        if match_type == NoSpamRule.MatchType.USER_ID_RANGE:
-            parsed_range = cls._parse_user_id_range(pattern_value)
-            if parsed_range is None:
-                return empty_qs, pattern_value
-            min_id, max_id = parsed_range
-            matched_label = f"{min_id}:{max_id}"
-            return (
-                User.objects.filter(id__gte=min_id, id__lte=max_id).distinct(),
-                matched_label,
-            )
-
-        if match_type == NoSpamRule.MatchType.REQUEST_RATE_SIGNAL:
-            return empty_qs, pattern_value
-
-        return empty_qs, pattern_value
+    ) -> tuple[QuerySet[User], str]:
+        # find existing users matching a single ad-hoc filter
+        return NoSpamMatchers.find_users(
+            match_type=match_type,
+            pattern=pattern,
+            payload=payload,
+        )
 
     @classmethod
     def apply_mass_action(
@@ -474,7 +686,7 @@ class AntiSpamService:
         is_permanent: bool = False,
         ban_duration_minutes: int = 60,
     ) -> dict[str, int]:
-        """Apply selected action to users found by mass scan."""
+        # apply selected action to users found by mass scan
         from types import SimpleNamespace
         from apps.user.models import UserActivityLog
 
@@ -487,7 +699,11 @@ class AntiSpamService:
                 username=user.username,
             )
             if ban_by_ip:
-                latest_log = UserActivityLog.objects.filter(user=user).order_by("-timestamp").first()
+                latest_log = (
+                    UserActivityLog.objects.filter(user=user)
+                    .order_by("-timestamp")
+                    .first()
+                )
                 if latest_log:
                     context.ip = latest_log.ip
 
