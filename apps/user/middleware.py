@@ -1,10 +1,14 @@
 import logging
 
+from django.conf import settings
 from django.core.cache import cache
 from django.db.models import Q
+from django.shortcuts import render
 from django.utils import timezone
 from django.utils.deprecation import MiddlewareMixin
 from django.utils.translation import gettext_lazy as _
+
+from apps.core.utils import get_client_ip
 
 from .tasks import CACHE_KEY, refresh_banned_ips_cache
 
@@ -62,11 +66,12 @@ class UserSessionMiddleware:
             session_key = request.session.session_key
 
             from .models import UserSession
+            client_ip = get_client_ip(request) or ""
             user_session, created = UserSession.objects.get_or_create(
                 session_key=session_key,
                 defaults={
                     "user": request.user,
-                    "ip": self.get_client_ip(request),
+                    "ip": client_ip,
                     "user_agent": request.META.get("HTTP_USER_AGENT", "")[:255]
                 }
             )
@@ -76,7 +81,7 @@ class UserSessionMiddleware:
                 if (timezone.now() -
                         user_session.last_activity).total_seconds() > 300:
                     user_session.last_activity = timezone.now()
-                    user_session.ip = self.get_client_ip(request)
+                    user_session.ip = client_ip
                     user_session.user_agent = request.META.get(
                         "HTTP_USER_AGENT", "")[:255]
                     user_session.save(
@@ -87,11 +92,3 @@ class UserSessionMiddleware:
 
         response = self.get_response(request)
         return response
-
-    def get_client_ip(self, request):
-        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-        if x_forwarded_for:
-            ip = x_forwarded_for.split(',')[0]
-        else:
-            ip = request.META.get('REMOTE_ADDR')
-        return ip
