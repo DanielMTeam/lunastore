@@ -277,6 +277,12 @@ class DistributionViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class ServiceViewSet(viewsets.ViewSet):
+    def get_throttles(self) -> list:
+        # uptime monitors hit this every minute; do not burn anon daily quota
+        if self.action == "heartbeat":
+            return []
+        return super().get_throttles()
+
     @extend_schema(summary="check API status")
     @action(detail=False, methods=["get"], url_path="heartbeat")
     def heartbeat(self, request):
