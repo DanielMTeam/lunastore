@@ -228,8 +228,9 @@ class NoSpamSecurityTest(TestCase):
         parsed = AntiSpamService._parse_user_id_range("500:100")
         self.assertEqual(parsed, (100, 500))
 
-    def test_parse_user_id_range_invalid_returns_none(self):
-        self.assertIsNone(AntiSpamService._parse_user_id_range("not-a-range"))
+    def test_parse_user_id_range_invalid_raises(self):
+        with self.assertRaises(ValueError):
+            AntiSpamService._parse_user_id_range("not-a-range")
 
     def test_safe_regex_invalid_pattern_returns_false(self):
         self.assertFalse(AntiSpamService._safe_regex_match("[invalid", "value"))
@@ -250,6 +251,17 @@ class NoSpamSecurityTest(TestCase):
         self.assertTrue(viewer.has_perm("user.view_nospamrule"))
         self.assertFalse(viewer.has_perm("user.add_userban"))
         self.assertFalse(viewer.has_perm("user.delete_user"))
+
+        from apps.user.admin_views import _has_mass_action_permission
+        self.assertTrue(
+            _has_mass_action_permission(viewer, NoSpamRule.RuleAction.LOG)
+        )
+        self.assertFalse(
+            _has_mass_action_permission(viewer, NoSpamRule.RuleAction.BAN)
+        )
+        self.assertFalse(
+            _has_mass_action_permission(viewer, NoSpamRule.RuleAction.DELETE)
+        )
 
 
 @override_settings(CONSTANCE_BACKEND="constance.backends.memory.MemoryBackend")
