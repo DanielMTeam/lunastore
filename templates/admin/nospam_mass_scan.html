@@ -1,0 +1,77 @@
+{% extends "admin/base_site.html" %}
+{% load i18n unfold %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('LunaStore Admin') }}{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="px-4 py-3 sm:px-6 sm:py-4">
+        <h1 class="text-xl font-semibold text-font-important-light dark:text-font-important-dark">{{ title }}</h1>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="px-4 py-3 sm:px-6 sm:py-4 flex flex-col gap-6 max-w-5xl">
+    {% component "unfold/components/card.html" with title="Фильтр и действие" %}
+        {% component "unfold/components/text.html" %}
+            Здесь можно <strong>прямо сейчас</strong> найти уже существующих пользователей по одному фильтру
+            и применить действие: только лог, бан или удаление.
+            Рекомендуемый порядок: <strong>Найти</strong> → проверить список → <strong>Применить</strong>.
+        {% endcomponent %}
+
+        <form method="post" action="" class="mt-4">
+            {% csrf_token %}
+
+            {% include "unfold/helpers/form_errors.html" with errors=form.non_field_errors %}
+
+            {% for field in form %}
+                {% include "unfold/helpers/field.html" with field=field %}
+            {% endfor %}
+
+            <div class="flex flex-wrap gap-3 pt-4 border-t border-base-200 dark:border-base-800">
+                {% component "unfold/components/button.html" with submit=1 name="step" value="preview" variant="secondary" %}
+                    Найти совпадения
+                {% endcomponent %}
+                {% component "unfold/components/button.html" with submit=1 name="step" value="apply" variant="danger" %}
+                    Применить действие
+                {% endcomponent %}
+            </div>
+        </form>
+    {% endcomponent %}
+
+    {% if total_matches %}
+        {% component "unfold/components/card.html" with title="Результаты поиска" %}
+            {% component "unfold/components/text.html" %}
+                Найдено совпадений: <strong>{{ total_matches }}</strong>.
+                {% if total_matches > preview_limit %}
+                    Показаны первые {{ preview_limit }}.
+                {% endif %}
+            {% endcomponent %}
+
+            <div class="mt-4 overflow-x-auto border border-base-200 rounded-default dark:border-base-800">
+                <table class="w-full border-collapse text-sm">
+                    <thead>
+                        <tr class="border-b border-base-200 dark:border-base-800 *:px-3 *:py-2 *:text-left *:font-semibold">
+                            <th>ID</th>
+                            <th>Юзернейм</th>
+                            <th>Email</th>
+                            <th>Активен</th>
+                            <th>Регистрация</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in matched_users %}
+                            <tr class="border-b border-base-200 dark:border-base-800 last:border-b-0">
+                                <td class="px-3 py-2">{{ user.id }}</td>
+                                <td class="px-3 py-2">{{ user.username }}</td>
+                                <td class="px-3 py-2">{{ user.email }}</td>
+                                <td class="px-3 py-2">{% if user.is_active %}да{% else %}нет{% endif %}</td>
+                                <td class="px-3 py-2">{{ user.date_joined|date:"d.m.Y H:i" }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endcomponent %}
+    {% endif %}
+</div>
+{% endblock %}

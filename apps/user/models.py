@@ -204,3 +204,129 @@ class UserSession(models.Model):
 
     def __str__(self):
         return f"Сессия {self.user.username} ({self.ip})"
+
+
+class NoSpamRule(models.Model):
+    class RuleAction(models.TextChoices):
+        BAN = "ban", "Бан"
+        DELETE = "delete", "Удаление"
+        LOG = "log", "Только лог"
+
+    class MatchType(models.TextChoices):
+        EMAIL_DOMAIN = "email_domain", "Домен email"
+        EMAIL_REGEX = "email_regex", "Email regex"
+        USERNAME_REGEX = "username_regex", "Username regex"
+        IP_CIDR = "ip_cidr", "IP CIDR"
+        USER_AGENT_REGEX = "user_agent_regex", "User-Agent regex"
+        COUNTRY_CODE = "country_code", "Код страны"
+        INVITE_PATTERN = "invite_pattern", "Паттерн invite"
+        REQUEST_RATE_SIGNAL = "request_rate_signal", "Сигнал скорости запросов"
+        USER_ID_RANGE = "user_id_range", "Диапазон ID пользователя"
+
+    name = models.CharField("Название правила", max_length=120, unique=True)
+    is_enabled = models.BooleanField("Включено", default=True, db_index=True)
+    priority = models.PositiveIntegerField(
+        "Приоритет",
+        default=100,
+        db_index=True,
+        help_text="Чем меньше число, тем выше приоритет.",
+    )
+    entrypoints = models.CharField(
+        "Точки входа",
+        max_length=255,
+        blank=True,
+        default="",
+        help_text="CSV: register,login,jwt_token,profile_update,profile_email,profile_username,dev_status",
+    )
+    action = models.CharField(
+        "Действие",
+        max_length=16,
+        choices=RuleAction.choices,
+        default=RuleAction.LOG,
+    )
+    match_type = models.CharField(
+        "Тип фильтра",
+        max_length=32,
+        choices=MatchType.choices,
+        db_index=True,
+    )
+    pattern = models.CharField(
+        "Паттерн",
+        max_length=255,
+        blank=True,
+        default="",
+        help_text="Для диапазона ID: min:max, например 100:500",
+    )
+    payload = models.JSONField("Доп. настройки", default=dict, blank=True)
+    reason_template = models.CharField(
+        "Причина",
+        max_length=255,
+        default="noSpam rule matched",
+    )
+    ban_by_ip = models.BooleanField("Банить по IP", default=False)
+    is_permanent = models.BooleanField("Перманентный бан", default=False)
+    ban_duration_minutes = models.PositiveIntegerField(
+        "Длительность бана (мин)",
+        default=60,
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["priority", "-id"]
+        verbose_name = "noSpam правило"
+        verbose_name_plural = "noSpam правила"
+        indexes = [
+            models.Index(fields=["is_enabled", "priority"]),
+            models.Index(fields=["match_type", "is_enabled"]),
+        ]
+
+    def __str__(self) -> str:
+        return f"{self.name} ({self.match_type} -> {self.action})"
+
+    def get_entrypoints(self) -> set[str]:
+        if not self.entrypoints.strip():
+            return set()
+        return {item.strip() for item in self.entrypoints.split(",") if item.strip()}
+
+    def applies_to_entrypoint(self, entrypoint: str) -> bool:
+        configured = self.get_entrypoints()
+        if not configured:
+            return True
+        return entrypoint in configured
+
+
+class NoSpamEvent(models.Model):
+    rule = models.ForeignKey(
+        NoSpamRule,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="events",
+    )
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="nospam_events",
+    )
+    entrypoint = models.CharField(max_length=32)
+    action = models.CharField(
+        max_length=16,
+        choices=NoSpamRule.RuleAction.choices,
+        default=NoSpamRule.RuleAction.LOG,
+    )
+    reason = models.CharField(max_length=255)
+    ip = models.GenericIPAddressField(null=True, blank=True, db_index=True)
+    matched_value = models.CharField(max_length=255, blank=True, default="")
+    context = models.JSONField(default=dict, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+        verbose_name = "noSpam событие"
+        verbose_name_plural = "noSpam события"
+
+    def __str__(self) -> str:
+        return f"{self.entrypoint}: {self.action} ({self.reason})"

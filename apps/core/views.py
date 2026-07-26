@@ -10,11 +10,17 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.utils import timezone, translation
 
+from apps.core.utils import get_safe_redirect_url
+
 
 # Create your views here.
 def theme_switch(request):
     payload = request.GET.get('payload')
-    next_url = request.META.get('HTTP_REFERER', '/')
+    next_url = get_safe_redirect_url(
+        request,
+        request.META.get('HTTP_REFERER'),
+        fallback='/',
+    )
     response = redirect(next_url)
     if payload == 'on':
         response.set_cookie('dark_theme', 'on', max_age=31536000)
@@ -108,7 +114,8 @@ def debug_info(request):
 
 
 def force_language_change(request, lang_code):
-    next_url = request.GET.get("next", request.META.get("HTTP_REFERER", "/"))
+    candidate = request.GET.get("next") or request.META.get("HTTP_REFERER")
+    next_url = get_safe_redirect_url(request, candidate, fallback="/")
     response = HttpResponseRedirect(next_url)
 
     lang_code = lang_code.lower()

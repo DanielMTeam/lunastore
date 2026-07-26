@@ -2172,6 +2172,9 @@ msgstr "Қосымшалар"
 msgid "PAGE_SETTINGS_TAB_SECURITY"
 msgstr "Қауіпсіздік"
 
+msgid "PAGE_SETTINGS_TERMINATE_SESSION"
+msgstr "Сеансты аяқтау"
+
 msgid "PAGE_SETTINGS_TITLE"
 msgstr "Баптаулар"
 
