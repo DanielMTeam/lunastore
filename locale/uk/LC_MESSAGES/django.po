@@ -2187,6 +2187,9 @@ msgstr "Програми"
 msgid "PAGE_SETTINGS_TAB_SECURITY"
 msgstr "Безпека"
 
+msgid "PAGE_SETTINGS_TERMINATE_SESSION"
+msgstr "Завершити сеанс"
+
 msgid "PAGE_SETTINGS_TITLE"
 msgstr "Налаштування"
 

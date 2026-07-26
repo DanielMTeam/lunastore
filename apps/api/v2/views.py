@@ -5,6 +5,7 @@ import json
 import jwt
 from django.conf import settings
 from django.contrib.postgres.search import TrigramSimilarity
+from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.core.cache import cache
 from django.utils import timezone
@@ -42,6 +43,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 )
 class CustomTokenRefreshView(TokenRefreshView):
     pass
+
 
 class V2Pagination(LimitOffsetPagination):
     default_limit = 20
@@ -232,9 +234,16 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
     retrieve=extend_schema(summary="get detailed distribution info"),
 )
 class DistributionViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Distribution.objects.filter()
     serializer_class = DistributionSerializer
     pagination_class = V2Pagination
+
+    def get_queryset(self):
+        # hide private app distributions unless requester is the owner
+        qs = Distribution.objects.select_related("app", "app__user")
+        user = self.request.user
+        if user.is_authenticated:
+            return qs.filter(Q(app__is_private=False) | Q(app__user=user))
+        return qs.filter(app__is_private=False)
 
     @extend_schema(
         summary="get distributions by application",
@@ -249,7 +258,8 @@ class DistributionViewSet(viewsets.ReadOnlyModelViewSet):
             return Response({"error": "app_id is required"}, status=400)
 
         app = get_object_or_404(Application, pk=app_id)
-        if app.is_private:
+        if app.is_private and (
+                not request.user.is_authenticated or app.user_id != request.user.id):
             raise LunaException(
                 code=ErrorCodes.APPLICATION_PRIVATE,
                 message=f"Application (id: {app.id}) unavailable because it is private",
@@ -291,15 +301,11 @@ class ServiceViewSet(viewsets.ViewSet):
 
 
 class ExecuteView(APIView):
-    """
-    VK-like execute method for batch API requests (～￣▽￣)～
-    """
-
     @extend_schema(
         summary="Batch API execution",
         description="""
         VK-like execute method for batch API requests (～￣▽￣)～
-        
+
         Доступные методы и их назначение:
         - `user.list`: Получение списка всех пользователей (пагинировано). Зачем: для админки или списков.
         - `user.retrieve`: Получить инфу об одном пользователе (параметр `pk`). Зачем: профиль пользователя.

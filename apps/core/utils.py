@@ -1,19 +1,73 @@
+import ipaddress
+import logging
+from typing import Iterable, Optional
+
+from django.conf import settings
 from django.contrib.sessions.models import Session
-from django.utils import timezone
 from django.contrib.gis.geoip2 import GeoIP2
+from django.utils.http import url_has_allowed_host_and_scheme
+
+logger = logging.getLogger(__name__)
 
 
-def get_client_ip(request):
-    ip = request.META.get("HTTP_CF_CONNECTING_IP")
-    if ip: return ip.split(",")[0].strip()
-    ip = request.META.get("HTTP_X_REAL_IP")
-    if ip: return ip.split(",")[0].strip()
-    x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(",")[0].strip()
+def _parse_proxy_networks() -> list:
+    """parse TRUSTED_PROXIES setting into ip networks."""
+    raw = getattr(settings, "TRUSTED_PROXIES", None) or []
+    if isinstance(raw, str):
+        items = [p.strip() for p in raw.split(";") if p.strip()]
     else:
-        ip = request.META.get("REMOTE_ADDR")
-    return ip
+        items = [str(p).strip() for p in raw if str(p).strip()]
+
+    networks = []
+    for item in items:
+        try:
+            networks.append(ipaddress.ip_network(item, strict=False))
+        except ValueError:
+            logger.warning("invalid trusted proxy entry skipped: %s", item)
+    return networks
+
+
+def _ip_in_networks(ip_str: str, networks: Iterable) -> bool:
+    try:
+        addr = ipaddress.ip_address(ip_str)
+    except ValueError:
+        return False
+    return any(addr in network for network in networks)
+
+
+def get_client_ip(request) -> Optional[str]:
+    """
+    return client ip. proxy headers are trusted only when REMOTE_ADDR
+    belongs to TRUSTED_PROXIES (cidr/ip list from settings/env).
+    """
+    remote_addr = (request.META.get("REMOTE_ADDR") or "").strip()
+    networks = _parse_proxy_networks()
+
+    if networks and remote_addr and _ip_in_networks(remote_addr, networks):
+        for header in (
+            "HTTP_CF_CONNECTING_IP",
+            "HTTP_X_REAL_IP",
+            "HTTP_X_FORWARDED_FOR",
+        ):
+            value = request.META.get(header)
+            if not value:
+                continue
+            candidate = value.split(",")[0].strip()
+            if candidate:
+                return candidate
+
+    return remote_addr or None
+
+
+def get_safe_redirect_url(request, candidate: Optional[str], fallback: str = "/") -> str:
+    """validate redirect target against open-redirect attacks."""
+    if candidate and url_has_allowed_host_and_scheme(
+        url=candidate,
+        allowed_hosts={request.get_host()},
+        require_https=request.is_secure(),
+    ):
+        return candidate
+    return fallback
 
 
 def force_logout(user):

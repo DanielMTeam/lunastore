@@ -33,6 +33,7 @@ from django.utils import timezone
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 from PIL import Image
 from safedelete import HARD_DELETE
 from apps.core.notifications.services import NotificationService
@@ -236,6 +237,7 @@ def login(request):
     return render(request, "login_splash.html", {"next": next_url})
 
 
+@require_POST
 def logout(request):
     dj_logout(request)
     return redirect("/index.php")
@@ -766,7 +768,7 @@ def settings_security(request):
         "user": user,
         "active_sessions": UserSession.objects.filter(user=user),
         "api_sessions": OutstandingToken.objects.filter(
-            user=user, 
+            user=user,
             expires_at__gt=timezone.now()
         ).exclude(
             blacklistedtoken__isnull=False
@@ -824,7 +826,7 @@ def settings_security(request):
                 # Add to cache to invalidate access token instantly
                 from django.core.cache import cache
                 cache_key = f"token_blacklist_{token.jti}"
-                cache.set(cache_key, True, timeout=86400) # cache for 24h
+                cache.set(cache_key, True, timeout=86400)  # cache for 24h
                 messages.success(request, _("INFO_API_SESSION_REVOKED"))
             return redirect("settings_security")
 
@@ -944,6 +946,7 @@ def _get_2fa_setup_context(request):
 
 
 @login_required
+@require_POST
 def terminate_session(request, session_pk):
     current_session = UserSession.objects.filter(
         session_key=request.session.session_key).first()

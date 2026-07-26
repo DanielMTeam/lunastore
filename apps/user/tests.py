@@ -77,13 +77,18 @@ class UserActivityModelTest(TestCase):
 class AuthPagesTest(TestCase):
     def test_logout_url_by_path(self):
         logger.info('[User APP; Logout PAGE] Testing URL by direct path...')
-        resp = self.client.get('/logout.php')
+        resp = self.client.post('/logout.php')
         self.assertEqual(resp.status_code, 302)
 
     def test_logout_url_by_name(self):
         logger.info('[User APP; Logout PAGE] Testing URL by name...')
-        resp = self.client.get(reverse('logout'))
+        resp = self.client.post(reverse('logout'))
         self.assertEqual(resp.status_code, 302)
+
+    def test_logout_rejects_get(self):
+        logger.info('[User APP; Logout PAGE] Testing GET is rejected...')
+        resp = self.client.get(reverse('logout'))
+        self.assertEqual(resp.status_code, 405)
 
 
 @override_settings(CONSTANCE_BACKEND="constance.backends.memory.MemoryBackend")
