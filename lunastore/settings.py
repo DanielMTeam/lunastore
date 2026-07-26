@@ -1,3 +1,4 @@
+from datetime import timedelta
 from unfold.contrib.constance.settings import UNFOLD_CONSTANCE_ADDITIONAL_FIELDS
 from sentry_sdk.integrations.logging import LoggingIntegration
 import sentry_sdk
@@ -125,6 +126,11 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 ALLOWED_HOSTS = [host.strip() for host in os.getenv(
     "ALLOWED_HOSTS", "").split(";") if host.strip()]
 
+# cidr/ip list of reverse proxies allowed to set client ip headers
+TRUSTED_PROXIES = [
+    p.strip() for p in os.getenv("TRUSTED_PROXIES", "").split(";") if p.strip()
+]
+
 CSRF_TRUSTED_ORIGINS = [
     c.strip() for c in os.getenv(
         "CSRF_TRUSTED_ORIGINS",
@@ -203,7 +209,6 @@ REST_FRAMEWORK = {
     },
 }
 
-from datetime import timedelta
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=24),

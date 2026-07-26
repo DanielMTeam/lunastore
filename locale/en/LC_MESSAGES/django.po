@@ -2180,6 +2180,9 @@ msgstr "Apps"
 msgid "PAGE_SETTINGS_TAB_SECURITY"
 msgstr "Security"
 
+msgid "PAGE_SETTINGS_TERMINATE_SESSION"
+msgstr "Terminate session"
+
 msgid "PAGE_SETTINGS_TITLE"
 msgstr "Settings"
 
