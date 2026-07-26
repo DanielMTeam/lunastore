@@ -18,6 +18,8 @@ from .models import (
     BlacklistedUsername,
     DevRequestsModel,
     InviteToken,
+    NoSpamEvent,
+    NoSpamRule,
     User,
     UserActivityLog,
     UserBan,
@@ -355,3 +357,186 @@ class BlacklistedUsernameAdmin(SafeDeleteAdmin):
 class InviteTokenAdmin(unfold_admin.ModelAdmin):
     list_display = ("owner", "code", "created_at")
     list_filter = ("created_at",)
+
+
+@admin.register(NoSpamRule)
+class NoSpamRuleAdmin(unfold_admin.ModelAdmin):
+    list_display = (
+        "name",
+        "is_enabled",
+        "priority",
+        "entrypoints",
+        "action",
+        "match_type",
+        "updated_at",
+    )
+    search_fields = ("name", "pattern", "reason_template", "entrypoints")
+    list_filter = ("is_enabled", "action", "match_type", "is_permanent", "ban_by_ip")
+    actions = ("enable_rules", "disable_rules")
+    actions_detail = ("enable_rule_detail", "disable_rule_detail")
+    list_filter_submit = True
+    fieldsets = (
+        (
+            "Как работать",
+            {
+                "fields": (),
+                "description": (
+                    "<p><strong>Быстрый старт:</strong></p>"
+                    "<ol>"
+                    "<li>Включите <code>NOSPAM_ENABLED</code> в "
+                    "<em>Настройки сайта → NoSpam и anti-raider</em>.</li>"
+                    "<li>Создайте правило с действием <strong>Только лог</strong> "
+                    "и проверьте срабатывания в разделе "
+                    "<em>noSpam события</em>.</li>"
+                    "<li>Если правило ловит нужных — смените действие на "
+                    "<strong>Бан</strong> или <strong>Удаление</strong>.</li>"
+                    "</ol>"
+                    "<p><strong>Типы фильтров:</strong></p>"
+                    "<ul>"
+                    "<li><strong>Домен email</strong> — паттерн: <code>tempmail.com</code></li>"
+                    "<li><strong>Email / Username / User-Agent / Invite regex</strong> — "
+                    "обычное regex, например <code>^bot</code> или <code>.*@mail\\.ru$</code></li>"
+                    "<li><strong>IP CIDR</strong> — подсеть, например <code>10.0.0.0/8</code></li>"
+                    "<li><strong>Код страны</strong> — ISO-код: <code>RU</code>, <code>US</code></li>"
+                    "<li><strong>Диапазон ID</strong> — формат <code>мин:макс</code>, "
+                    "например <code>100:500</code> (можно одно значение: <code>42</code>)</li>"
+                    "<li><strong>Сигнал скорости</strong> — в payload: "
+                    "<code>{\"max_hits\": 5, \"window_seconds\": 60}</code></li>"
+                    "</ul>"
+                    "<p><strong>Точки входа</strong> (через запятую): "
+                    "<code>register</code>, <code>login</code>, <code>jwt_token</code>, "
+                    "<code>profile_email</code>, <code>profile_username</code>, "
+                    "<code>dev_status</code>. Если поле пустое — правило работает везде.</p>"
+                    "<p><strong>Пример:</strong> блок домена на регистрации — "
+                    "тип <em>Домен email</em>, паттерн <code>guerrillamail.com</code>, "
+                    "точки входа <code>register</code>, действие <em>Бан</em>.</p>"
+                ),
+            },
+        ),
+        (
+            "Основное",
+            {
+                "fields": (
+                    "name",
+                    "is_enabled",
+                    "priority",
+                    "entrypoints",
+                    "action",
+                    "reason_template",
+                ),
+            },
+        ),
+        (
+            "Условие срабатывания",
+            {
+                "fields": (
+                    "match_type",
+                    "pattern",
+                    "payload",
+                ),
+                "description": (
+                    "Поле <strong>Паттерн</strong> зависит от типа фильтра. "
+                    "Для <em>Сигнала скорости</em> используйте "
+                    "<strong>Доп. настройки</strong> (JSON), а не паттерн."
+                ),
+            },
+        ),
+        (
+            "Параметры бана",
+            {
+                "fields": (
+                    "ban_by_ip",
+                    "is_permanent",
+                    "ban_duration_minutes",
+                ),
+                "description": (
+                    "Используется только при действии <strong>Бан</strong>. "
+                    "Если перманентный бан выключен — срок берётся из "
+                    "<em>Длительность бана (мин)</em>."
+                ),
+            },
+        ),
+    )
+
+    @admin.action(description="Включить выбранные правила")
+    def enable_rules(self, request, queryset):
+        count = queryset.update(is_enabled=True)
+        self.message_user(request, f"Включено правил: {count}", level=messages.SUCCESS)
+
+    @admin.action(description="Выключить выбранные правила")
+    def disable_rules(self, request, queryset):
+        count = queryset.update(is_enabled=False)
+        self.message_user(request, f"Выключено правил: {count}", level=messages.SUCCESS)
+
+    @action(
+        description="Включить правило",
+        icon="toggle_on",
+        attrs={"class": "bg-success-600 text-white"},
+    )
+    def enable_rule_detail(self, request, object_id):
+        rule = self.get_object(request, object_id)
+        if rule is None:
+            self.message_user(request, "Правило не найдено.", level=messages.ERROR)
+            return redirect(reverse("admin:user_nospamrule_changelist"))
+        rule.is_enabled = True
+        rule.save(update_fields=["is_enabled"])
+        self.message_user(request, f"Правило «{rule.name}» включено.", level=messages.SUCCESS)
+        return redirect(reverse("admin:user_nospamrule_change", args=[object_id]))
+
+    @action(
+        description="Выключить правило",
+        icon="toggle_off",
+        attrs={"class": "bg-warning-600 text-white"},
+    )
+    def disable_rule_detail(self, request, object_id):
+        rule = self.get_object(request, object_id)
+        if rule is None:
+            self.message_user(request, "Правило не найдено.", level=messages.ERROR)
+            return redirect(reverse("admin:user_nospamrule_changelist"))
+        rule.is_enabled = False
+        rule.save(update_fields=["is_enabled"])
+        self.message_user(request, f"Правило «{rule.name}» выключено.", level=messages.SUCCESS)
+        return redirect(reverse("admin:user_nospamrule_change", args=[object_id]))
+
+
+@admin.register(NoSpamEvent)
+class NoSpamEventAdmin(unfold_admin.ModelAdmin):
+    list_display = ("created_at", "entrypoint", "action", "ip", "user", "rule", "reason")
+    search_fields = ("entrypoint", "reason", "ip", "matched_value")
+    list_filter = ("entrypoint", "action", "created_at")
+    fieldsets = (
+        (
+            "О событии",
+            {
+                "fields": (
+                    "created_at",
+                    "entrypoint",
+                    "action",
+                    "reason",
+                    "rule",
+                    "user",
+                    "ip",
+                    "matched_value",
+                    "context",
+                ),
+                "description": (
+                    "Журнал срабатываний noSpam. Используйте его для проверки правил "
+                    "в режиме <strong>Только лог</strong> перед включением бана или удаления."
+                ),
+            },
+        ),
+    )
+    readonly_fields = (
+        "created_at",
+        "entrypoint",
+        "action",
+        "ip",
+        "user",
+        "rule",
+        "reason",
+        "matched_value",
+        "context",
+    )
+
+    def has_add_permission(self, request):
+        return False

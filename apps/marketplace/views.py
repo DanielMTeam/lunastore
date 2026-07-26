@@ -1,5 +1,7 @@
 import jwt
+import logging
 import os
+import time
 import urllib.parse
 from constance import config
 from django.conf import settings
@@ -12,12 +14,16 @@ from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext as _
+from django.views.decorators.http import require_POST
 from django_smart_ratelimit import ratelimit
+from apps.core.utils import get_safe_redirect_url
 from apps.user.decorators import developer_required, require_modern_browser
 from .decorators import guard_private_app, user_is_owner
 from .forms import AppCreateForm, AppEditForm, AppReportForm, DistributionCreateForm, DistributionEditForm, ProblemReportForm
 from django.db.models import Avg
 from .models import AppCreateRequests, Application, Category, Distribution, AppEditRequests, DistributionCreateRequests, DistributionEditRequests, Review
+
+logger = logging.getLogger(__name__)
 
 
 def _format_legacy_date(value):
@@ -660,9 +666,10 @@ def rate_app(request):
 
 
 @login_required
+@require_POST
 @ratelimit(key='user', rate='5/1h', block=True)
 def delete_review(request):
-    review_id = request.GET.get("id") or request.POST.get("id")
+    review_id = request.POST.get("id")
     if not review_id:
         return redirect("home")
 
@@ -676,10 +683,12 @@ def delete_review(request):
     review.delete()
     messages.success(request, _("PAGE_APP_RATING_DELETE_SUCCESS"))
 
-    next_url = request.GET.get("next")
-    if next_url:
-        return redirect(next_url)
-    return redirect(f"{reverse('app')}?id={app_id}")
+    next_url = get_safe_redirect_url(
+        request,
+        request.POST.get("next"),
+        fallback=f"{reverse('app')}?id={app_id}",
+    )
+    return redirect(next_url)
 
 
 @login_required
@@ -711,13 +720,30 @@ def distribution_list_page(request, app_id):
 
 
 def get_file_action(request, dist_pk):
-    dist = get_object_or_404(Distribution, pk=dist_pk)
+    dist = get_object_or_404(Distribution.objects.select_related("app"), pk=dist_pk)
+    app = dist.app
+
+    # block private app downloads for non-owners
+    if app.is_private:
+        if not request.user.is_authenticated or app.user_id != request.user.id:
+            raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
 
     if dist.cdn_file_id:
-        payload = {"type": "cdn-download", "file_id": int(dist.cdn_file_id)}
-        download_token = jwt.encode(
-            payload, settings.LUNASPIRE_SECRET_KEY, algorithm="HS256"
-        )
+        payload = {
+            "type": "cdn-download",
+            "file_id": int(dist.cdn_file_id),
+            "exp": int(time.time()) + 600,
+            "app_id": int(app.id),
+        }
+        if request.user.is_authenticated:
+            payload["user_id"] = int(request.user.id)
+        try:
+            download_token = jwt.encode(
+                payload, settings.LUNASPIRE_SECRET_KEY, algorithm="HS256"
+            )
+        except Exception:
+            logger.exception("failed to encode cdn download jwt")
+            raise Http404("File not found")
 
         user_agent = request.META.get("HTTP_USER_AGENT", "")
         is_retro = any(

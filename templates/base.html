@@ -71,7 +71,11 @@
 
         <div class="dm_menu">
             {% if user.is_authenticated %}
-            {% trans "BASE_AUTHLIKE" %} <a href="/profile.php"><b>{{ user.username }}</b></a> - <a href="/logout.php">{% trans "BASE_LOGOUTBTN" %}</a>
+            {% trans "BASE_AUTHLIKE" %} <a href="/profile.php"><b>{{ user.username }}</b></a> -
+            <form method="post" action="{% url 'logout' %}" id="logout-form" style="margin:0;padding:0;display:inline;">
+                {% csrf_token %}
+                <a href="{% url 'logout' %}" onclick="document.getElementById('logout-form').submit();return false;">{% trans "BASE_LOGOUTBTN" %}</a>
+            </form>
             {% else %}
             <a href="{% url 'login' %}" id="login-link">{% trans "BASE_LOGINBTN" %}</a> - <a href="/register.php">{% trans "BASE_REGISTERBTN" %}</a>
             {% endif %}

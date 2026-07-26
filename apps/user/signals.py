@@ -20,7 +20,13 @@ from apps.marketplace.models import (
     DistributionCreateRequests, DistributionEditRequests,
     AppReportRequests, ProblemReportRequests
 )
-from .models import UserBan, BlacklistedUsername, DevRequestsModel
+from .models import (
+    BlacklistedUsername,
+    DevRequestsModel,
+    NoSpamRule,
+    UserBan,
+)
+from .services.antispam import AntiSpamService
 from .tasks import refresh_banned_ips_cache
 
 User = settings.AUTH_USER_MODEL
@@ -40,6 +46,12 @@ def update_blacklist_cache(sender: type, **kwargs: Any) -> None:
     log.info(
         "[signal apps.user] 'BlacklistedUsername' model changed, clearing cache...")
     cache.delete(CACHE_KEY_BLACKLIST)
+
+
+@receiver([post_save, post_delete], sender=NoSpamRule)
+def update_nospam_cache(sender: type, **kwargs: Any) -> None:
+    log.info("[signal apps.user] 'NoSpamRule' model changed, clearing noSpam cache...")
+    AntiSpamService.clear_rules_cache()
 
 
 @receiver(post_save, sender=User)

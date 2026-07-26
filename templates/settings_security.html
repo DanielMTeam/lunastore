@@ -58,7 +58,11 @@
                     {% if session.session_key != current_session_key %}
                     <div style="float: right; margin-top: 5px;">
                         {% if not is_new_session %}
-                        <a href="{% url 'terminate_session' session.pk %}" class="action_button" style="background-color: #8B0000; text-decoration: none; display: inline-block; padding: 5px 10px; font-size: 0.9em;">Завершить сеанс</a>
+                        {% trans "PAGE_SETTINGS_TERMINATE_SESSION" as terminate_session_label %}
+                        <form method="post" action="{% url 'terminate_session' session.pk %}" style="display:inline;margin:0;padding:0;">
+                            {% csrf_token %}
+                            <input type="submit" value="{{ terminate_session_label }}" class="action_button" style="background-color: #8B0000; text-decoration: none; display: inline-block; padding: 5px 10px; font-size: 0.9em; border: none; color: #fff; cursor: pointer;" />
+                        </form>
                         {% endif %}
                     </div>
                     {% endif %}

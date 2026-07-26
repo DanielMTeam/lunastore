@@ -1,3 +1,4 @@
+from datetime import timedelta
 from unfold.contrib.constance.settings import UNFOLD_CONSTANCE_ADDITIONAL_FIELDS
 from sentry_sdk.integrations.logging import LoggingIntegration
 import sentry_sdk
@@ -130,6 +131,11 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 ALLOWED_HOSTS = [host.strip() for host in os.getenv(
     "ALLOWED_HOSTS", "").split(";") if host.strip()]
 
+# cidr/ip list of reverse proxies allowed to set client ip headers
+TRUSTED_PROXIES = [
+    p.strip() for p in os.getenv("TRUSTED_PROXIES", "").split(";") if p.strip()
+]
+
 CSRF_TRUSTED_ORIGINS = [
     c.strip() for c in os.getenv(
         "CSRF_TRUSTED_ORIGINS",
@@ -207,7 +213,6 @@ REST_FRAMEWORK = {
     },
 }
 
-from datetime import timedelta
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=24),
@@ -482,6 +487,45 @@ CONSTANCE_CONFIG = {
         "Время окна rate-limit (секунды)",
         int,
     ),
+    "NOSPAM_ENABLED": (
+        os.getenv("NOSPAM_ENABLED", "False") == "True",
+        "Включить noSpam слой",
+        bool,
+    ),
+    "NOSPAM_FAIL_MODE": (
+        os.getenv("NOSPAM_FAIL_MODE", "allow"),
+        "Поведение при ошибке noSpam: allow|deny|log",
+        str,
+    ),
+    "NOSPAM_CACHE_TTL": (
+        int(os.getenv("NOSPAM_CACHE_TTL", "300")),
+        "TTL кэша правил noSpam (сек)",
+        int,
+    ),
+    "NOSPAM_SHIELD_ENABLED": (
+        os.getenv("NOSPAM_SHIELD_ENABLED", "True") == "True",
+        "Включить anti-raider shield mode",
+        bool,
+    ),
+    "NOSPAM_SHIELD_REG_PER_MIN": (
+        int(os.getenv("NOSPAM_SHIELD_REG_PER_MIN", "20")),
+        "Порог shield: действий с одного IP в минуту",
+        int,
+    ),
+    "NOSPAM_SHIELD_DOMAIN_PER_MIN": (
+        int(os.getenv("NOSPAM_SHIELD_DOMAIN_PER_MIN", "30")),
+        "Порог shield: действий по домену email в минуту",
+        int,
+    ),
+    "NOSPAM_SHIELD_UA_PER_MIN": (
+        int(os.getenv("NOSPAM_SHIELD_UA_PER_MIN", "40")),
+        "Порог shield: повторяемость user-agent в минуту",
+        int,
+    ),
+    "NOSPAM_SHIELD_BLOCK_MINUTES": (
+        int(os.getenv("NOSPAM_SHIELD_BLOCK_MINUTES", "15")),
+        "Длительность shield-блокировки (мин)",
+        int,
     "API_THROTTLE_ENABLED": (
         os.getenv("API_THROTTLE_ENABLED", "True") == "True",
         "Включить DRF throttle для API",
@@ -649,6 +693,19 @@ CONSTANCE_CONFIG_FIELDSETS = {
         ],
         "collapse": True,
     },
+    "NoSpam и anti-raider": {
+        "fields": [
+            "NOSPAM_ENABLED",
+            "NOSPAM_FAIL_MODE",
+            "NOSPAM_CACHE_TTL",
+            "NOSPAM_SHIELD_ENABLED",
+            "NOSPAM_SHIELD_REG_PER_MIN",
+            "NOSPAM_SHIELD_DOMAIN_PER_MIN",
+            "NOSPAM_SHIELD_UA_PER_MIN",
+            "NOSPAM_SHIELD_BLOCK_MINUTES",
+        ],
+        "collapse": True,
+    },
     "GDPR и безопасность": {
         "fields": ["RETENTION_ACTIVITY_LOG_DAYS", "BCRYPT_ROUNDS", "ALLOW_MODERATOR_LOGIN_AS_USER"],
         "collapse": True,
@@ -768,6 +825,41 @@ OIDC_RP_SIGN_ALGO = os.getenv("OIDC_SIGN_ALGO")
 
 def custom_environment_callback(request):
     return ["Production", "info"] if not DEBUG else ["Development", "success"]
+
+
+def _admin_url_name_active(request, url_names: tuple[str, ...]) -> bool:
+    match = getattr(request, "resolver_match", None)
+    if match is None:
+        return False
+    return match.url_name in url_names
+
+
+def nospam_rules_sidebar_active(request) -> bool:
+    return _admin_url_name_active(
+        request,
+        (
+            "user_nospamrule_changelist",
+            "user_nospamrule_add",
+            "user_nospamrule_change",
+            "user_nospamrule_delete",
+            "user_nospamrule_history",
+        ),
+    )
+
+
+def nospam_mass_scan_sidebar_active(request) -> bool:
+    return _admin_url_name_active(request, ("admin_nospam_mass_scan",))
+
+
+def nospam_events_sidebar_active(request) -> bool:
+    return _admin_url_name_active(
+        request,
+        (
+            "user_nospamevent_changelist",
+            "user_nospamevent_change",
+            "user_nospamevent_history",
+        ),
+    )
 
 
 # customize unfold theme
@@ -913,6 +1005,27 @@ UNFOLD = {"SITE_TITLE": "Панель LunaStore",
                                                  "icon": "redeem",
                                                  "link": reverse_lazy("admin:user_invitetoken_changelist"),
                                                  "permission": lambda request: request.user.has_perm("user.view_invitetoken"),
+                                                 }],
+                                      },
+                                     {"title": "noSpam",
+                                      "separator": True,
+                                      "items": [{"title": "Правила noSpam",
+                                                 "icon": "shield",
+                                                 "link": reverse_lazy("admin:user_nospamrule_changelist"),
+                                                 "active": nospam_rules_sidebar_active,
+                                                 "permission": lambda request: request.user.has_perm("user.view_nospamrule"),
+                                                 },
+                                                {"title": "Массовая проверка",
+                                                 "icon": "manage_search",
+                                                 "link": reverse_lazy("admin_nospam_mass_scan"),
+                                                 "active": nospam_mass_scan_sidebar_active,
+                                                 "permission": lambda request: request.user.has_perm("user.view_nospamrule"),
+                                                 },
+                                                {"title": "События noSpam",
+                                                 "icon": "history",
+                                                 "link": reverse_lazy("admin:user_nospamevent_changelist"),
+                                                 "active": nospam_events_sidebar_active,
+                                                 "permission": lambda request: request.user.has_perm("user.view_nospamevent"),
                                                  }],
                                       },
                                      {"title": "Приложения",
