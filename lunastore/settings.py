@@ -526,6 +526,7 @@ CONSTANCE_CONFIG = {
         int(os.getenv("NOSPAM_SHIELD_BLOCK_MINUTES", "15")),
         "Длительность shield-блокировки (мин)",
         int,
+    ),
     "API_THROTTLE_ENABLED": (
         os.getenv("API_THROTTLE_ENABLED", "True") == "True",
         "Включить DRF throttle для API",

@@ -3,9 +3,12 @@ from unfold.widgets import UnfoldAdminColorInputWidget
 from django import forms
 from django.conf import settings
 from django.contrib import admin, messages
+from django.core.exceptions import ImproperlyConfigured
+from django.http import JsonResponse
 from django.shortcuts import redirect
-from django.urls import reverse
+from django.urls import path, reverse
 from django.utils.html import format_html
+from urllib.parse import unquote
 from django.utils.safestring import mark_safe
 from unfold import admin as unfold_admin
 from unfold.decorators import action
@@ -16,6 +19,285 @@ from . import translation
 from .forms import ApplicationAdminForm, DistributionAdminForm, get_translated_widgets_dict
 from .models import *
 from modeltranslation.admin import TabbedTranslationAdmin, TranslationTabularInline, TranslationStackedInline
+import logging
+import time
+import jwt
+from uuid import uuid4
+
+
+logger = logging.getLogger(__name__)
+
+
+def _build_direct_cdn_download_url(obj) -> str | None:
+    if not obj.cdn_file_id:
+        return None
+
+    if not settings.LUNASPIRE_SECRET_KEY:
+        logger.warning("missing LUNASPIRE_SECRET_KEY, cannot build direct CDN url")
+        return None
+
+    try:
+        payload = {
+            "type": "cdn-download",
+            "file_id": int(obj.cdn_file_id),
+            "exp": int(time.time()) + 600,
+            "jti": uuid4().hex,
+        }
+        if getattr(obj, "app_id", None):
+            payload["app_id"] = int(obj.app_id)
+
+        download_token = jwt.encode(
+            payload,
+            settings.LUNASPIRE_SECRET_KEY,
+            algorithm="HS256",
+        )
+
+        spire_url = str(settings.LUNASPIRE_URL).strip()
+        if not spire_url:
+            raise ImproperlyConfigured("LUNASPIRE_URL is empty")
+        if not spire_url.startswith(("http://", "https://")):
+            spire_url = f"https://{spire_url}"
+        return f"{spire_url.rstrip('/')}/cdn/download?token={download_token}"
+    except Exception:
+        logger.exception(
+            "failed to build direct cdn download url for file_id=%s",
+            obj.cdn_file_id,
+        )
+        return None
+
+
+def _render_distribution_security_check(obj, refresh_url: str | None = None) -> str:
+    if not obj.cdn_hash:
+        return '<span class="text-gray-500 font-medium">Файл не загружался (только внешняя ссылка).</span>'
+
+    if obj.virustotal_url:
+        vt_link = format_html(
+            '<a href="{url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center rounded-md border border-blue-500/40 px-3 py-2 text-sm font-semibold text-blue-600 hover:text-blue-500 hover:border-blue-500/60 transition-colors">Перейти к отчету VirusTotal</a>',
+            url=obj.virustotal_url,
+        )
+        vt_link_text = format_html(
+            '<div class="mt-2 break-all text-xs text-gray-500 dark:text-gray-400">{url}</div>',
+            url=obj.virustotal_url,
+        )
+    else:
+        vt_link = '<span class="text-red-600 dark:text-red-400 font-bold">Ссылка VirusTotal не указана.</span>'
+        vt_link_text = ""
+
+    download_link_id = f"cdn_download_link_{obj.id}"
+    download_status_id = f"cdn_download_status_{obj.id}"
+    download_action_url = None
+    if refresh_url:
+        download_action_url = refresh_url.replace(
+            "/refresh-cdn-download/",
+            "/direct-cdn-download/",
+        )
+    direct_cdn_url = _build_direct_cdn_download_url(obj)
+    if direct_cdn_url:
+        refresh_button = ""
+        refresh_script = ""
+        if refresh_url and obj.cdn_file_id:
+            refresh_button = f"""
+                <button type="button" onclick="refreshCdnDownloadLink_{obj.id}()"
+                        class="rounded border border-gray-300 dark:border-base-700 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 transition-colors hover:bg-gray-100 dark:hover:bg-base-800 cursor-pointer">
+                    Обновить ссылку
+                </button>
+            """
+            refresh_script = f"""
+                <script>
+                    async function fetchFreshCdnDownloadLink_{obj.id}() {{
+                        const linkElem = document.getElementById("{download_link_id}");
+                        const statusElem = document.getElementById("{download_status_id}");
+                        if (!linkElem || !statusElem) {{
+                            return null;
+                        }}
+
+                        statusElem.textContent = "Обновление...";
+                        linkElem.classList.add("pointer-events-none", "opacity-70");
+                        try {{
+                            const refreshUrl = "{refresh_url}" + "?_ts=" + Date.now();
+                            const response = await fetch(refreshUrl, {{
+                                cache: "no-store",
+                                credentials: "same-origin",
+                                headers: {{
+                                    "X-Requested-With": "XMLHttpRequest",
+                                }},
+                            }});
+                            const data = await response.json();
+                            if (!response.ok) {{
+                                throw new Error(data.error || "Не удалось обновить ссылку");
+                            }}
+
+                            linkElem.href = data.url;
+                            statusElem.textContent = "Ссылка обновлена";
+                            window.setTimeout(function () {{
+                                statusElem.textContent = "";
+                            }}, 3000);
+                            return data.url;
+                        }} catch (error) {{
+                            statusElem.textContent = error.message || "Ошибка обновления ссылки";
+                            return null;
+                        }} finally {{
+                            linkElem.classList.remove("pointer-events-none", "opacity-70");
+                        }}
+                    }}
+
+                    async function refreshCdnDownloadLink_{obj.id}() {{
+                        await fetchFreshCdnDownloadLink_{obj.id}();
+                    }}
+
+                    async function downloadWithFreshLink_{obj.id}(event) {{
+                        event.preventDefault();
+                        window.open(event.currentTarget.href, "_blank", "noopener,noreferrer");
+                    }}
+                </script>
+            """
+
+        download_link = format_html(
+            """
+            <div class="flex flex-wrap items-center gap-2">
+                <a id="{link_id}" href="{download_href}" target="_blank" rel="noopener noreferrer" onclick="downloadWithFreshLink_{obj_id}(event)"
+                   class="inline-flex items-center rounded-md border border-emerald-500/40 px-3 py-2 text-sm font-semibold text-emerald-600 hover:text-emerald-500 hover:border-emerald-500/60 transition-colors">
+                    Скачать файл напрямую
+                </a>
+                {refresh_button}
+                <span id="{status_id}" class="text-xs text-gray-500 dark:text-gray-400"></span>
+            </div>
+            {refresh_script}
+            """,
+            link_id=download_link_id,
+            download_href=download_action_url or direct_cdn_url,
+            obj_id=obj.id,
+            refresh_button=mark_safe(refresh_button),
+            status_id=download_status_id,
+            refresh_script=mark_safe(refresh_script),
+        )
+    elif obj.cdn_file_id:
+        download_link = '<span class="text-red-600 dark:text-red-400 text-sm">Не удалось сформировать прямую ссылку на CDN.</span>'
+    else:
+        download_link = '<span class="text-gray-500 dark:text-gray-400 text-sm">Файл в CDN не найден.</span>'
+
+    input_id = f"vt_input_{obj.id}"
+    result_id = f"vt_result_{obj.id}"
+
+    html = f"""
+    <div class="p-4 rounded-lg border border-gray-200 dark:border-base-700 bg-gray-50 dark:bg-base-900/60">
+        <div class="mb-3">
+            <span class="text-sm text-gray-600 dark:text-gray-300">Хэш на CDN (LunaSpire):</span><br>
+            <code class="mt-1 inline-block break-all rounded border border-gray-200 dark:border-base-700 bg-white dark:bg-base-900 px-2 py-1 text-xs text-gray-800 dark:text-gray-100">{obj.cdn_hash}</code>
+        </div>
+
+        <div class="mb-4 space-y-2">
+            {vt_link}
+            {vt_link_text}
+            <div>{download_link}</div>
+        </div>
+
+        <div class="mt-4 rounded-md border border-gray-200 dark:border-base-700 bg-white dark:bg-base-900 p-4">
+            <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">Вставьте хэш с VirusTotal для сверки:</label>
+            <div class="flex flex-wrap items-center gap-2">
+                <input
+                    type="text"
+                    id="{input_id}"
+                    class="w-full max-w-lg rounded border border-gray-300 dark:border-base-700 bg-white dark:bg-base-950 px-3 py-2 text-sm text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:border-primary-600 focus:ring-primary-600 outline-none"
+                    placeholder="Вставьте хэш сюда..."
+                >
+                <button type="button" onclick="compareHashes_{obj.id}()"
+                        class="rounded bg-primary-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-primary-700 cursor-pointer">
+                    Сверить
+                </button>
+            </div>
+            <div id="{result_id}" class="mt-3 text-sm min-h-5"></div>
+        </div>
+
+        <script>
+            function compareHashes_{obj.id}() {{
+                const cdnHash = "{obj.cdn_hash}".toLowerCase().trim();
+                const inputElem = document.getElementById("{input_id}");
+                const resultElem = document.getElementById("{result_id}");
+                const vtHash = inputElem.value.toLowerCase().trim();
+
+                if (!vtHash) {{
+                    resultElem.innerHTML = "<span class='text-gray-500 dark:text-gray-400'>Пожалуйста, вставьте хэш в поле.</span>";
+                    return;
+                }}
+
+                if (vtHash === cdnHash) {{
+                    resultElem.innerHTML = "<span class='text-green-600 dark:text-green-400 font-bold'>Хэши совпадают! Файл подлинный.</span>";
+                }} else {{
+                    resultElem.innerHTML = "<span class='text-red-600 dark:text-red-400 font-bold'>Хэши не совпадают! Это другой файл.</span>";
+                }}
+            }}
+        </script>
+    </div>
+    """
+    return html
+
+
+class DistributionRequestSecurityMixin:
+    """Shared admin helpers for distribution request security checks."""
+
+    def get_urls(self):
+        urls = super().get_urls()
+        info = self.model._meta.app_label, self.model._meta.model_name
+        custom_urls = [
+            path(
+                "<path:object_id>/refresh-cdn-download/",
+                self.admin_site.admin_view(self.refresh_cdn_download_link),
+                name="%s_%s_refresh_cdn_download" % info,
+            ),
+            path(
+                "<path:object_id>/direct-cdn-download/",
+                self.admin_site.admin_view(self.direct_cdn_download),
+                name="%s_%s_direct_cdn_download" % info,
+            ),
+        ]
+        return custom_urls + urls
+
+    def refresh_cdn_download_link(self, request, object_id):
+        if request.method != "GET":
+            return JsonResponse({"error": "Method not allowed"}, status=405)
+
+        obj = self.get_object(request, unquote(object_id))
+        if obj is None:
+            return JsonResponse({"error": "Заявка не найдена"}, status=404)
+
+        download_url = _build_direct_cdn_download_url(obj)
+        if not download_url:
+            return JsonResponse(
+                {"error": "Не удалось сформировать прямую ссылку на CDN"},
+                status=500,
+            )
+
+        response = JsonResponse({"url": download_url})
+        response["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+        response["Pragma"] = "no-cache"
+        response["Expires"] = "0"
+        return response
+
+    def direct_cdn_download(self, request, object_id):
+        obj = self.get_object(request, unquote(object_id))
+        if obj is None:
+            return JsonResponse({"error": "Заявка не найдена"}, status=404)
+
+        download_url = _build_direct_cdn_download_url(obj)
+        if not download_url:
+            return JsonResponse(
+                {"error": "Не удалось сформировать прямую ссылку на CDN"},
+                status=500,
+            )
+        return redirect(download_url)
+
+    def _get_security_check_refresh_url(self, obj) -> str:
+        info = self.model._meta.app_label, self.model._meta.model_name
+        return reverse(
+            "admin:%s_%s_refresh_cdn_download" % info,
+            args=[obj.pk],
+        )
+
+    @admin.display(description="Проверка хэша")
+    def security_check(self, obj):
+        refresh_url = self._get_security_check_refresh_url(obj)
+        return mark_safe(_render_distribution_security_check(obj, refresh_url))
 
 
 class DistributionInlineForm(forms.ModelForm):
@@ -148,7 +430,10 @@ class DistributionAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
 
 
 @admin.register(DistributionCreateRequests)
-class DistributionCreateAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
+class DistributionCreateAdmin(
+        DistributionRequestSecurityMixin,
+        SafeDeleteAdmin,
+        TabbedTranslationAdmin):
     change_list_template = "admin/decline_forms/change_list_custom.html"
     change_form_template = "admin/decline_forms/change_form_custom.html"
 
@@ -180,74 +465,6 @@ class DistributionCreateAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
             "fields": ("user", "status")
         }),
     )
-
-    @admin.display(description="Проверка хэша")
-    def security_check(self, obj):
-        if not obj.cdn_hash:
-            return mark_safe(
-                '<span class="text-gray-500 font-medium">Файл не загружался (только внешняя ссылка).</span>')
-
-        # form link to VirusTotal report
-        vt_link = format_html(
-            '<a href="{}" target="_blank" class="font-semibold text-blue-600 hover:text-blue-800 underline">Перейти к отчету VirusTotal</a> ({})',
-            obj.virustotal_url, obj.virustotal_url
-        ) if obj.virustotal_url else '<span class="text-red-600 font-bold">Ссылка не указана!</span>'
-
-        # unique IDs for HTML elements (in case there are multiple blocks on
-        # the page)
-        input_id = f"vt_input_{obj.id}"
-        result_id = f"vt_result_{obj.id}"
-
-        html = f"""
-        <div class="p-4 bg-gray-50 rounded-md border border-gray-200">
-            <div class="mb-3">
-                <span class="text-gray-600 text-sm">Хэш на CDN (LunaSpire):</span><br>
-                <code class="bg-white px-2 py-1 border border-gray-200 rounded text-sm text-gray-800 mt-1 inline-block">{obj.cdn_hash}</code>
-            </div>
-
-            <div class="mb-4">
-                {vt_link}
-            </div>
-
-            <div class="mt-4 p-4 border border-gray-200 bg-white rounded-md shadow-sm">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Вставьте хэш с VirusTotal для сверки:</label>
-                <div class="flex items-center gap-2">
-                    <input type="text" id="{input_id}"
-                           class="border border-gray-300 rounded px-3 py-2 w-full max-w-lg text-sm focus:ring-primary-600 focus:border-primary-600 outline-none"
-                           placeholder="Вставьте хэш сюда...">
-
-                    <button type="button" onclick="compareHashes_{obj.id}()"
-                            class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded text-sm transition-colors cursor-pointer">
-                        Сверить
-                    </button>
-                </div>
-                <div id="{result_id}" class="mt-3 text-sm h-5"></div>
-            </div>
-
-            <script>
-                function compareHashes_{obj.id}() {{
-                    const cdnHash = "{obj.cdn_hash}".toLowerCase().trim();
-
-                    const inputElem = document.getElementById("{input_id}");
-                    const resultElem = document.getElementById("{result_id}");
-                    const vtHash = inputElem.value.toLowerCase().trim();
-
-                    if (!vtHash) {{
-                        resultElem.innerHTML = "<span class='text-gray-500'>Пожалуйста, вставьте хэш в поле.</span>";
-                        return;
-                    }}
-
-                    if (vtHash === cdnHash) {{
-                        resultElem.innerHTML = "<span class='text-green-600 font-bold'>Хэши совпадают! Файл подлинный.</span>";
-                    }} else {{
-                        resultElem.innerHTML = "<span class='text-red-600 font-bold'>Хэши не совпадают! Это другой файл.</span>";
-                    }}
-                }}
-            </script>
-        </div>
-        """
-
-        return mark_safe(html)
 
     @action(description="Одобрить заявку", icon="check_circle",
             attrs={"class": "bg-success-600 text-white"})
@@ -330,7 +547,10 @@ class DistributionCreateAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
 
 
 @admin.register(DistributionEditRequests)
-class DistributionEditRequestAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
+class DistributionEditRequestAdmin(
+        DistributionRequestSecurityMixin,
+        SafeDeleteAdmin,
+        TabbedTranslationAdmin):
     change_list_template = "admin/decline_forms/change_list_custom.html"
     change_form_template = "admin/decline_forms/change_form_custom.html"
 
@@ -371,74 +591,6 @@ class DistributionEditRequestAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
             "fields": ("user", "status")
         }),
     )
-
-    @admin.display(description="Проверка хэша")
-    def security_check(self, obj):
-        if not obj.cdn_hash:
-            return mark_safe(
-                '<span class="text-gray-500 font-medium">Файл не загружался (только внешняя ссылка).</span>')
-
-        # form link to VirusTotal report
-        vt_link = format_html(
-            '<a href="{}" target="_blank" class="font-semibold text-blue-600 hover:text-blue-800 underline">Перейти к отчету VirusTotal</a> ({})',
-            obj.virustotal_url, obj.virustotal_url
-        ) if obj.virustotal_url else '<span class="text-red-600 font-bold">Ссылка не указана!</span>'
-
-        # unique IDs for HTML elements (in case there are multiple blocks on
-        # the page)
-        input_id = f"vt_input_{obj.id}"
-        result_id = f"vt_result_{obj.id}"
-
-        html = f"""
-        <div class="p-4 bg-gray-50 rounded-md border border-gray-200">
-            <div class="mb-3">
-                <span class="text-gray-600 text-sm">Хэш на CDN (LunaSpire):</span><br>
-                <code class="bg-white px-2 py-1 border border-gray-200 rounded text-sm text-gray-800 mt-1 inline-block">{obj.cdn_hash}</code>
-            </div>
-
-            <div class="mb-4">
-                {vt_link}
-            </div>
-
-            <div class="mt-4 p-4 border border-gray-200 bg-white rounded-md shadow-sm">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Вставьте хэш с VirusTotal для сверки:</label>
-                <div class="flex items-center gap-2">
-                    <input type="text" id="{input_id}"
-                           class="border border-gray-300 rounded px-3 py-2 w-full max-w-lg text-sm focus:ring-primary-600 focus:border-primary-600 outline-none"
-                           placeholder="Вставьте хэш сюда...">
-
-                    <button type="button" onclick="compareHashes_{obj.id}()"
-                            class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded text-sm transition-colors cursor-pointer">
-                        Сверить
-                    </button>
-                </div>
-                <div id="{result_id}" class="mt-3 text-sm h-5"></div>
-            </div>
-
-            <script>
-                function compareHashes_{obj.id}() {{
-                    const cdnHash = "{obj.cdn_hash}".toLowerCase().trim();
-
-                    const inputElem = document.getElementById("{input_id}");
-                    const resultElem = document.getElementById("{result_id}");
-                    const vtHash = inputElem.value.toLowerCase().trim();
-
-                    if (!vtHash) {{
-                        resultElem.innerHTML = "<span class='text-gray-500'>Пожалуйста, вставьте хэш в поле.</span>";
-                        return;
-                    }}
-
-                    if (vtHash === cdnHash) {{
-                        resultElem.innerHTML = "<span class='text-green-600 font-bold'>Хэши совпадают! Файл подлинный.</span>";
-                    }} else {{
-                        resultElem.innerHTML = "<span class='text-red-600 font-bold'>Хэши не совпадают! Это другой файл.</span>";
-                    }}
-                }}
-            </script>
-        </div>
-        """
-
-        return mark_safe(html)
 
     @action(description="Одобрить изменения", icon="check_circle",
             attrs={"class": "bg-success-600 text-white"})
