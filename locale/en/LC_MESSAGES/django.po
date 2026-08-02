@@ -2426,3 +2426,11 @@ msgstr "Collections by"
 
 msgid "PAGE_PROFILE_COLLECTIONS_EMPTY"
 msgstr "This user has no public collections yet."
+msgid "PAGE_HOME_BROWSER_TITLE"
+msgstr "Home"
+
+msgid "PAGE_404_BROWSER_TITLE"
+msgstr "Page not found"
+
+msgid "PAGE_502_BROWSER_TITLE"
+msgstr "Something went wrong..."

@@ -2,9 +2,9 @@
 {% load i18n %}
 {% load static %}
 
-{% block content %}
-<title>{% trans "PAGE_NOTIFICATIONS_TITLE" %} - LunaStore</title>
+{% block title %}{% trans "PAGE_NOTIFICATIONS_TITLE" %} - LunaStore{% endblock %}
 
+{% block content %}
 <div class="content">
     <link rel="stylesheet" href="{% static './css/tabs.css' %}">
     <link rel="stylesheet" href="{% static './css/notify.css' %}">

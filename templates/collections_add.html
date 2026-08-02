@@ -2,9 +2,9 @@
 {% load i18n %}
 {% load static %}
 
-{% block content %}
-<title>{% trans "PAGE_COLLECTION_ADD_TITLE" %} - LunaStore</title>
+{% block title %}{% trans "PAGE_COLLECTION_ADD_TITLE" %} - LunaStore{% endblock %}
 
+{% block content %}
 <link rel="stylesheet" href="{% static './css/add_ui.css' %}">
 <link rel="stylesheet" href="{% static './css/profile.css' %}">
 <link rel="stylesheet" href="{% static './css/collections.css' %}">

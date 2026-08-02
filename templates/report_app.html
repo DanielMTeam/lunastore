@@ -3,9 +3,9 @@
 {% load static %}
 {% load markdown_tags %}
 
-{% block content %}
-<title>{% trans "PAGE_REPORTAPP_PAGE_TITLE" %} - {{ name }} - LunaStore</title>
+{% block title %}{% trans "PAGE_REPORTAPP_PAGE_TITLE" %} - {{ name }} - LunaStore{% endblock %}
 
+{% block content %}
 <link rel="stylesheet" href="{% static 'css/stpage.css' %}">
 <link rel="stylesheet" href="{% static 'css/reviews.css' %}">
 <link rel="stylesheet" href="{% static 'css/profile.css' %}">

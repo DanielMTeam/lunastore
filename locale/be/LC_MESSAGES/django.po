@@ -2433,3 +2433,11 @@ msgstr "Калекцыі карыстальніка"
 
 msgid "PAGE_PROFILE_COLLECTIONS_EMPTY"
 msgstr "У карыстальніка пакуль няма публічных калекцый."
+msgid "PAGE_HOME_BROWSER_TITLE"
+msgstr "Галоўная"
+
+msgid "PAGE_404_BROWSER_TITLE"
+msgstr "Старонка не знойдзена"
+
+msgid "PAGE_502_BROWSER_TITLE"
+msgstr "Нешта пайшло не так..."
