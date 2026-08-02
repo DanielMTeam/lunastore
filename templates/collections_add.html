@@ -3,34 +3,54 @@
 {% load static %}
 
 {% block content %}
-<title>{% trans "PAGE_APP_ADD_TO_COLLECTION" %} - LunaStore</title>
+<title>{% trans "PAGE_COLLECTION_ADD_TITLE" %} - LunaStore</title>
+
+<link rel="stylesheet" href="{% static './css/add_ui.css' %}">
+<link rel="stylesheet" href="{% static './css/profile.css' %}">
+<link rel="stylesheet" href="{% static './css/collections.css' %}">
 
 <div class="content">
-  <link rel="stylesheet" href="{% static './css/profile.css' %}">
-  <link rel="stylesheet" href="{% static './css/settings.css' %}">
-
-  <div class="profile_block">{% trans "PAGE_APP_ADD_TO_COLLECTION" %}</div>
-  <div class="profile_subblock">{{ application.title }}</div>
+  <div class="profile_block">{% trans "PAGE_COLLECTION_ADD_TITLE" %}</div>
 
   <div class="profile_block_content">
+    <div class="collection_add_app">
+      <img class="collection_add_app_icon" src="{{ application.icon_url }}" width="48" height="48" alt="">
+      <div class="collection_add_app_info">
+        <div class="collection_add_app_title">{{ application.title }}</div>
+      </div>
+      <div class="collection_add_clear"></div>
+    </div>
+
     <form method="post" action="">
       {% csrf_token %}
       <input type="hidden" name="appid" value="{{ application.id }}">
-      {% for col in user_collections %}
-      <div style="margin:8px 0;">
-        <label>
-          <input type="radio" name="collection_id" value="{{ col.id }}" {% if forloop.first %}checked{% endif %}>
-          <b>{{ col.title }}</b>
-          {% if col.is_system %}({% trans "PAGE_COLLECTION_SYSTEM_BADGE" %}){% endif %}
-        </label>
+
+      <div class="collection_add_list">
+        {% for col in user_collections %}
+        <div class="collection_add_option">
+          <label>
+            <input type="checkbox" name="collection_ids" value="{{ col.id }}" {% if col.id in selected_ids %}checked{% endif %}>
+            <b>{{ col.title }}</b>
+          </label>
+        </div>
+        {% empty %}
+        <div class="collection_add_empty">
+          {% trans "PAGE_COLLECTION_ADD_NO_CUSTOM" %}
+          <a href="{% url 'collections' %}?page=create">{% trans "PAGE_COLLECTION_BTN_CREATE" %}</a>
+        </div>
+        {% endfor %}
       </div>
-      {% empty %}
-      <div>{% trans "PAGE_COLLECTION_EMPTY" %}</div>
-      {% endfor %}
+
       {% if user_collections %}
-      <input type="submit" class="action_button" value="{% trans 'PAGE_COLLECTION_BTN_ADD_APP' %}">
+      <div class="collection-form-actions">
+        <input type="submit" class="action_button" value="{% trans 'PAGE_COLLECTION_BTN_SAVE' %}">
+        <a href="{% url 'app' %}?id={{ application.id }}" class="action_button action_button_secondary">{% trans "PAGE_COLLECTION_BTN_CANCEL" %}</a>
+      </div>
+      {% else %}
+      <div class="collection-form-actions">
+        <a href="{% url 'app' %}?id={{ application.id }}" class="action_button action_button_secondary">{% trans "PAGE_COLLECTION_BTN_CANCEL" %}</a>
+      </div>
       {% endif %}
-      <a href="{% url 'app' %}?id={{ application.id }}">{% trans "PAGE_COLLECTION_BTN_CANCEL" %}</a>
     </form>
   </div>
 </div>

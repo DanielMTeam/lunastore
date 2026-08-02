@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load static %}
+{% load markdown_tags %}
 
 {% block content %}
 <title>{{ collection.title }} - {% trans "PAGE_COLLECTION_TITLE" %} - LunaStore</title>
@@ -8,7 +9,7 @@
 <div class="content">
   <link rel="stylesheet" href="{% static './css/tabs.css' %}">
   <link rel="stylesheet" href="{% static './css/profile.css' %}">
-  <link rel="stylesheet" href="{% static './css/settings.css' %}">
+  <link rel="stylesheet" href="{% static './css/collections.css' %}">
 
   <div class="tabs">
     <div class="tab-bar">
@@ -44,19 +45,21 @@
         </div>
         <div class="collection_info">
           <div class="collection_title">{{ collection.title }}</div>
-          <div class="collection_desc">{{ collection.description }}</div>
+          <div class="collection_desc">{{ collection.description|render_markdown }}</div>
           <div class="collection_date">{% trans "PAGE_COLLECTION_DATE_CREATED" %} {{ collection.created_at|date:"d E Y H:i" }}</div>
           <div class="collection_date">{% trans "PAGE_COLLECTION_DATE_UPDATED" %} {{ collection.updated_at|timesince }}</div>
           <br>
           <div class="collection_actions">
+            {% if not collection.is_system %}
             <b>{% blocktranslate count counter=saves_count %}{{ counter }} PAGE_COLLECTION_SAVES_ONE{% plural %}{{ counter }} PAGE_COLLECTION_SAVES_MANY{% endblocktranslate %}</b>
-            {% if is_owner and not collection.is_system %}
+            {% if is_owner %}
             - <a href="{% url 'collections' %}?page=edit&id={{ collection.id }}">{% trans "PAGE_COLLECTION_ACTION_EDIT" %}</a>
             - <a href="{% url 'collections' %}?page=delete&id={{ collection.id }}">{% trans "PAGE_COLLECTION_ACTION_DELETE" %}</a>
-            {% elif user.is_authenticated and not is_owner %}
+            {% elif user.is_authenticated %}
             - <a href="{% url 'collections' %}?act=favorite&id={{ collection.id }}">
               {% if is_favorited %}{% trans "PAGE_COLLECTION_ACTION_UNFAVORITE" %}{% else %}{% trans "PAGE_COLLECTION_ACTION_FAVORITE" %}{% endif %}
             </a>
+            {% endif %}
             {% endif %}
           </div>
         </div>
@@ -70,20 +73,25 @@
 
       <div class="collection_view">
         {% for app in apps %}
-        <div class="collection_view_card">
-          <img src="{{ app.icon_url }}" width="48" height="48" alt="">
+        <div class="collection_view_card"{% if is_owner %} onmouseover="this.className=this.className.replace(' hover','')+' hover';" onmouseout="this.className=this.className.replace(/ hover/g,'');"{% endif %}>
+          <a href="{% url 'app' %}?id={{ app.id }}" class="collection_view_icon_link">
+            <img src="{{ app.icon_url }}" width="48" height="48" alt="">
+          </a>
           <div class="collection_element_info">
-            <a href="{% url 'app' %}?id={{ app.id }}"><div class="collection_card_name">{{ app.title }}</div></a>
-            <p>{{ app.slogan }}</p>
-            {% if is_owner %}
-            <form method="post" action="{% url 'collections' %}?act=remove_item" style="margin:4px 0 0 0; display:inline;">
-              {% csrf_token %}
-              <input type="hidden" name="collection_id" value="{{ collection.id }}">
-              <input type="hidden" name="appid" value="{{ app.id }}">
-              <button type="submit" style="font-size:11px;">{% trans "PAGE_COLLECTION_ACTION_REMOVE_APP" %}</button>
-            </form>
-            {% endif %}
+            <a href="{% url 'app' %}?id={{ app.id }}" class="collection_card_name_link"><span class="collection_card_name">{{ app.title }}</span></a>
+            <p>{% if app.slogan %}{{ app.slogan }}{% endif %}</p>
           </div>
+          {% if is_owner %}
+          <form method="post" action="{% url 'collections' %}?act=remove_item" class="collection_remove_form">
+            {% csrf_token %}
+            <input type="hidden" name="collection_id" value="{{ collection.id }}">
+            <input type="hidden" name="appid" value="{{ app.id }}">
+            <button type="submit" class="collection_remove_x" title="{% trans 'PAGE_COLLECTION_ACTION_REMOVE_APP' %}">
+              <img src="{% static './img/close_a.png' %}" width="11" height="11" alt="x">
+            </button>
+          </form>
+          {% endif %}
+          <div class="collection_add_clear"></div>
         </div>
         {% empty %}
         <div>{% trans "PAGE_COLLECTION_APPS_EMPTY" %}</div>
@@ -91,5 +99,6 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 {% endblock %}

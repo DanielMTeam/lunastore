@@ -2259,8 +2259,11 @@ msgstr[1] "Total %(counter)s collections"
 msgid "BASE_SIDEBAR_ACCOUNT_COLLECTIONS"
 msgstr "Collections"
 
+msgid "PAGE_APP_TO_COLLECTION"
+msgstr "to collection"
+
 msgid "PAGE_APP_ADD_TO_COLLECTION"
-msgstr "add to collection"
+msgstr "add"
 
 msgid "PAGE_COLLECTION_ACTION_DELETE"
 msgstr "delete"
@@ -2283,11 +2286,23 @@ msgstr "view"
 msgid "PAGE_COLLECTION_APPS_EMPTY"
 msgstr "This collection has no apps yet."
 
+msgid "PAGE_COLLECTION_ADD_NO_CUSTOM"
+msgstr "No custom collections yet. Create one:"
+
+msgid "PAGE_COLLECTION_ADD_TITLE"
+msgstr "Add to collection"
+
 msgid "PAGE_COLLECTION_BTN_ADD_APP"
 msgstr "Add"
 
+msgid "PAGE_COLLECTION_BTN_DELETE"
+msgstr "Delete"
+
 msgid "PAGE_COLLECTION_BTN_CANCEL"
 msgstr "Cancel"
+
+msgid "PAGE_COLLECTION_EDIT_TITLE"
+msgstr "Edit collection"
 
 msgid "PAGE_COLLECTION_BTN_CREATE"
 msgstr "Create new collection"

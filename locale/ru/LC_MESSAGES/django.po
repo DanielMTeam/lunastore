@@ -2265,8 +2265,11 @@ msgstr[2] "Всего %(counter)s коллекций"
 msgid "BASE_SIDEBAR_ACCOUNT_COLLECTIONS"
 msgstr "Коллекции"
 
+msgid "PAGE_APP_TO_COLLECTION"
+msgstr "в коллекцию"
+
 msgid "PAGE_APP_ADD_TO_COLLECTION"
-msgstr "добавить в коллекцию"
+msgstr "добавить"
 
 msgid "PAGE_COLLECTION_ACTION_DELETE"
 msgstr "удалить"
@@ -2289,11 +2292,23 @@ msgstr "просмотр"
 msgid "PAGE_COLLECTION_APPS_EMPTY"
 msgstr "В этой коллекции пока нет приложений."
 
+msgid "PAGE_COLLECTION_ADD_NO_CUSTOM"
+msgstr "Нет пользовательских коллекций. Создайте новую:"
+
+msgid "PAGE_COLLECTION_ADD_TITLE"
+msgstr "Добавление в коллекцию"
+
 msgid "PAGE_COLLECTION_BTN_ADD_APP"
 msgstr "Добавить"
 
+msgid "PAGE_COLLECTION_BTN_DELETE"
+msgstr "Удалить"
+
 msgid "PAGE_COLLECTION_BTN_CANCEL"
 msgstr "Отмена"
+
+msgid "PAGE_COLLECTION_EDIT_TITLE"
+msgstr "Редактирование коллекции"
 
 msgid "PAGE_COLLECTION_BTN_CREATE"
 msgstr "Создать новую коллекцию"

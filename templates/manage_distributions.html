@@ -14,7 +14,9 @@
 
     <link rel="stylesheet" href="{% static 'css/profile.css' %}">
     <link rel="stylesheet" href="{% static 'css/settings.css' %}">
-    <link rel="stylesheet" href="{% static 'css/tabs.css' %}"> <style>
+    <link rel="stylesheet" href="{% static 'css/tabs.css' %}">
+    <script src="{% static './js/field_locale_tabs.js' %}"></script>
+    <style>
         .lang-field-wrapper { display: none; }
         .lang-field-wrapper.active { display: block; }
 
@@ -291,19 +293,6 @@
                 displaySpan.style.color = "#000";
             }
         };
-    }
-
-    function switchFieldLocale(tabBtn, langCode) {
-        const container = tabBtn.closest('.field-tabs');
-
-        container.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        tabBtn.classList.add('active');
-        container.querySelectorAll('.lang-field-wrapper').forEach(wrapper => {
-            wrapper.classList.remove('active');
-            if (wrapper.classList.contains('lang-' + langCode)) {
-                wrapper.classList.add('active');
-            }
-        });
     }
 </script>
 {% endblock %}

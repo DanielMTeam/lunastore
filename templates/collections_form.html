@@ -3,59 +3,17 @@
 {% load static %}
 
 {% block content %}
-<title>{% if is_create %}{% trans "PAGE_COLLECTION_BTN_CREATE" %}{% else %}{% trans "PAGE_COLLECTION_ACTION_EDIT" %}{% endif %} - LunaStore</title>
+<title>{% if is_create %}{% trans "PAGE_COLLECTION_BTN_CREATE" %}{% else %}{% trans "PAGE_COLLECTION_EDIT_TITLE" %}{% endif %} - LunaStore</title>
 
-<link rel="stylesheet" href="{% static './css/add_ui.css' %}">
+<link rel="stylesheet" href="{% static './css/add_ui.css' %}?v=2">
 <link rel="stylesheet" href="{% static './css/tabs.css' %}">
 <link rel="stylesheet" href="{% static './css/profile.css' %}">
-<style type="text/css">
-.lang-field-wrapper { display: none; }
-.lang-field-wrapper.active { display: block; }
-.field-tabs {
-    border: 1px solid #9a9a9a !important;
-    margin-top: 5px;
-    background: #fff;
-}
-.field-tabs .tab-bar {
-    background: #e0e0e0;
-    padding: 2px 2px 0 2px;
-}
-.field-tabs .tab {
-    padding: 3px 8px 2px 8px;
-    font-size: 11px;
-    height: auto;
-}
-.field-tabs .tab-content {
-    padding: 8px;
-}
-.field-tabs .lang-field-wrapper input,
-.field-tabs .lang-field-wrapper textarea,
-.field-tabs .md-textarea {
-    width: 100% !important;
-    max-width: 100%;
-    box-sizing: border-box;
-}
-.field-tabs .md-editor-container {
-    width: 100%;
-    overflow: hidden;
-}
-.field-tabs .md-toolbar {
-    width: auto;
-}
-.collection-form-actions .action_button {
-    display: inline-block;
-    margin-right: 6px;
-    cursor: pointer;
-    text-decoration: none;
-    font-family: Tahoma, sans-serif;
-    font-size: 12px;
-    vertical-align: middle;
-}
-</style>
+<link rel="stylesheet" href="{% static './css/collections.css' %}?v=2">
+<script src="{% static './js/field_locale_tabs.js' %}?v=2"></script>
 
 <div class="content">
   <div class="profile_block">
-    {% if is_create %}{% trans "PAGE_COLLECTION_BTN_CREATE" %}{% else %}{% trans "PAGE_COLLECTION_ACTION_EDIT" %}{% endif %}
+    {% if is_create %}{% trans "PAGE_COLLECTION_BTN_CREATE" %}{% else %}{% trans "PAGE_COLLECTION_EDIT_TITLE" %}{% endif %}
   </div>
 
   <div class="profile_block_content">
@@ -120,8 +78,11 @@
       </div>
 
       <div class="add_app_pad">
-        <label class="agree">
-          {{ form.is_public }} {% trans "PAGE_COLLECTION_FIELD_PUBLIC" %}
+        <label for="{{ form.is_public.id_for_label }}" style="cursor: pointer;">
+          {{ form.is_public }}
+          <span class="checkbox-element__label">
+            <span>{% trans "PAGE_COLLECTION_FIELD_PUBLIC" %}</span>
+          </span>
         </label>
         {% if form.is_public.errors %}
         <div class="errorlist" style="color: #cc0000; font-size: 11px; margin-top: 4px;">
@@ -139,36 +100,5 @@
     </form>
   </div>
 </div>
-
-<script type="text/javascript">
-function switchFieldLocale(tabElement, langCode) {
-  var container = tabElement.parentNode;
-  while (container && (!container.className || container.className.indexOf('field-tabs') === -1)) {
-    container = container.parentNode;
-  }
-  if (!container) {
-    return;
-  }
-  var nodes = container.getElementsByTagName('*');
-  var i;
-  for (i = 0; i < nodes.length; i++) {
-    var el = nodes[i];
-    if (!el.className) {
-      continue;
-    }
-    if (el.getAttribute && el.getAttribute('data-lang-target')) {
-      el.className = el.className.replace(/\s*active/g, '');
-      if (el.getAttribute('data-lang-target') === langCode) {
-        el.className += ' active';
-      }
-    }
-    if (el.className.indexOf('lang-field-wrapper') !== -1) {
-      el.className = el.className.replace(/\s*active/g, '');
-      if (el.className.indexOf('lang-' + langCode) !== -1) {
-        el.className += ' active';
-      }
-    }
-  }
-}
-</script>
+</div>
 {% endblock %}

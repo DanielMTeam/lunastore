@@ -418,6 +418,7 @@ def profile(request):
                     "collection": col,
                     "mosaic": col.mosaic_icons(4),
                     "saves_count": col.favorites.count(),
+                    "apps_count": col.items_count,
                     "is_owner": is_owner,
                 }
             )

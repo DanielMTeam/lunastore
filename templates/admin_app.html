@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="{% static './css/tabs.css' %}">
   <link rel="stylesheet" href="{% static './css/thickbox.css'%}">
   <script src="{% static './js/jquery.min.js' %}"></script>
+  <script src="{% static './js/field_locale_tabs.js' %}"></script>
   <script>
       window.thickboxL10n = {
           image: "{% trans 'THICKBOX_IMAGE'|default:'Image' %}",
@@ -358,22 +359,6 @@
         }
         new ScreenshotManager('screenshots-interactive-container', fileInputId, 3, screenshotsArray, cdnPrefix);
     });
-
-    function switchFieldLocale(tabBtn, langCode) {
-        var $container = $(tabBtn).closest('.field-tabs');
-
-        $container.find('.tab').each(function() {
-            $(this).removeClass('active');
-        });
-        $(tabBtn).addClass('active');
-
-        $container.find('.lang-field-wrapper').each(function() {
-            $(this).removeClass('active');
-            if ($(this).hasClass('lang-' + langCode)) {
-                $(this).addClass('active');
-            }
-        });
-    }
 </script>
 <script type="text/javascript">
     window.CDN_CONFIG = {

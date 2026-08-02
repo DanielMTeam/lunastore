@@ -2249,8 +2249,11 @@ msgstr[0] "Барлығы %(counter)s жинақ"
 msgid "BASE_SIDEBAR_ACCOUNT_COLLECTIONS"
 msgstr "Жинақтар"
 
+msgid "PAGE_APP_TO_COLLECTION"
+msgstr "жинаққа"
+
 msgid "PAGE_APP_ADD_TO_COLLECTION"
-msgstr "жинаққа қосу"
+msgstr "қосу"
 
 msgid "PAGE_COLLECTION_ACTION_DELETE"
 msgstr "жою"
@@ -2273,11 +2276,23 @@ msgstr "қарау"
 msgid "PAGE_COLLECTION_APPS_EMPTY"
 msgstr "Бұл жинақта әзірге қосымшалар жоқ."
 
+msgid "PAGE_COLLECTION_ADD_NO_CUSTOM"
+msgstr "Пайдаланушы жинақтары жоқ. Жаңасын жасаңыз:"
+
+msgid "PAGE_COLLECTION_ADD_TITLE"
+msgstr "Жинаққа қосу"
+
 msgid "PAGE_COLLECTION_BTN_ADD_APP"
 msgstr "Қосу"
 
+msgid "PAGE_COLLECTION_BTN_DELETE"
+msgstr "Жою"
+
 msgid "PAGE_COLLECTION_BTN_CANCEL"
 msgstr "Болдырмау"
+
+msgid "PAGE_COLLECTION_EDIT_TITLE"
+msgstr "Жинақты өңдеу"
 
 msgid "PAGE_COLLECTION_BTN_CREATE"
 msgstr "Жаңа жинақ жасау"

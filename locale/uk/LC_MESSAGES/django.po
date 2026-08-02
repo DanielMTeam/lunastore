@@ -2268,8 +2268,11 @@ msgstr[2] "Усього %(counter)s колекцій"
 msgid "BASE_SIDEBAR_ACCOUNT_COLLECTIONS"
 msgstr "Колекції"
 
+msgid "PAGE_APP_TO_COLLECTION"
+msgstr "до колекції"
+
 msgid "PAGE_APP_ADD_TO_COLLECTION"
-msgstr "додати до колекції"
+msgstr "додати"
 
 msgid "PAGE_COLLECTION_ACTION_DELETE"
 msgstr "видалити"
@@ -2292,11 +2295,23 @@ msgstr "перегляд"
 msgid "PAGE_COLLECTION_APPS_EMPTY"
 msgstr "У цій колекції ще немає програм."
 
+msgid "PAGE_COLLECTION_ADD_NO_CUSTOM"
+msgstr "Немає користувацьких колекцій. Створіть нову:"
+
+msgid "PAGE_COLLECTION_ADD_TITLE"
+msgstr "Додавання до колекції"
+
 msgid "PAGE_COLLECTION_BTN_ADD_APP"
 msgstr "Додати"
 
+msgid "PAGE_COLLECTION_BTN_DELETE"
+msgstr "Видалити"
+
 msgid "PAGE_COLLECTION_BTN_CANCEL"
 msgstr "Скасувати"
+
+msgid "PAGE_COLLECTION_EDIT_TITLE"
+msgstr "Редагування колекції"
 
 msgid "PAGE_COLLECTION_BTN_CREATE"
 msgstr "Створити нову колекцію"
