@@ -22,6 +22,10 @@ class ErrorCodes:
     TWO_FACTOR_INVALID = 4001
     METHOD_NOT_FOUND = 4005
 
+    # Collection ErrorCode constants (5xxx like)
+    COLLECTION_NOT_FOUND = 5000
+    COLLECTION_PRIVATE = 5001
+
 
 PUB_UPLOAD_POLICIES = {
     "avatar": {

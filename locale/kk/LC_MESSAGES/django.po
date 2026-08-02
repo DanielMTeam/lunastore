@@ -2237,3 +2237,166 @@ msgstr "Логин немесе құпия сөз дұрыс емес."
 
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "Сіз сәтті кірдіңіз! Сәлем, %(username)s!"
+
+msgid "%(counter)s PAGE_COLLECTION_APPS_ONE"
+msgid_plural "%(counter)s PAGE_COLLECTION_APPS_MANY"
+msgstr[0] "%(counter)s қосымша"
+
+msgid "%(counter)s PAGE_COLLECTION_COUNT_ONE"
+msgid_plural "%(counter)s PAGE_COLLECTION_COUNT_MANY"
+msgstr[0] "Барлығы %(counter)s жинақ"
+
+msgid "BASE_SIDEBAR_ACCOUNT_COLLECTIONS"
+msgstr "Жинақтар"
+
+msgid "PAGE_APP_ADD_TO_COLLECTION"
+msgstr "жинаққа қосу"
+
+msgid "PAGE_COLLECTION_ACTION_DELETE"
+msgstr "жою"
+
+msgid "PAGE_COLLECTION_ACTION_EDIT"
+msgstr "өңдеу"
+
+msgid "PAGE_COLLECTION_ACTION_FAVORITE"
+msgstr "таңдаулыға"
+
+msgid "PAGE_COLLECTION_ACTION_REMOVE_APP"
+msgstr "алып тастау"
+
+msgid "PAGE_COLLECTION_ACTION_UNFAVORITE"
+msgstr "таңдаулыдан алу"
+
+msgid "PAGE_COLLECTION_ACTION_VIEW"
+msgstr "қарау"
+
+msgid "PAGE_COLLECTION_APPS_EMPTY"
+msgstr "Бұл жинақта әзірге қосымшалар жоқ."
+
+msgid "PAGE_COLLECTION_BTN_ADD_APP"
+msgstr "Қосу"
+
+msgid "PAGE_COLLECTION_BTN_CANCEL"
+msgstr "Болдырмау"
+
+msgid "PAGE_COLLECTION_BTN_CREATE"
+msgstr "Жаңа жинақ жасау"
+
+msgid "PAGE_COLLECTION_BTN_SAVE"
+msgstr "Сақтау"
+
+msgid "PAGE_COLLECTION_DATE_CREATED"
+msgstr "Жасалған күні:"
+
+msgid "PAGE_COLLECTION_DATE_UPDATED"
+msgstr "Жаңартылған"
+
+msgid "PAGE_COLLECTION_DELETE_CONFIRM_TEXT %(title)s"
+msgstr "«%(title)s» жинағын жойғыңыз келетініне сенімдісіз бе?"
+
+msgid "PAGE_COLLECTION_DELETE_CONFIRM_TITLE"
+msgstr "Жинақты жою"
+
+msgid "PAGE_COLLECTION_EMPTY"
+msgstr "Әзірге жинақтар жоқ."
+
+msgid "PAGE_COLLECTION_ERROR_ADD_APP"
+msgstr "Қосымшаны жинаққа қосу мүмкін болмады."
+
+msgid "PAGE_COLLECTION_ERROR_DELETE"
+msgstr "Жинақты жою мүмкін болмады."
+
+msgid "PAGE_COLLECTION_ERROR_DELETE_SYSTEM"
+msgstr "Жүйелік жинақты жоюға болмайды."
+
+msgid "PAGE_COLLECTION_ERROR_EDIT_SYSTEM"
+msgstr "Жүйелік жинақты өңдеуге болмайды."
+
+msgid "PAGE_COLLECTION_ERROR_FAVORITE"
+msgstr "Таңдаулыны өзгерту мүмкін болмады."
+
+msgid "PAGE_COLLECTION_ERROR_FAVORITE_OWN"
+msgstr "Өз жинағыңызды таңдаулыға қосуға болмайды."
+
+msgid "PAGE_COLLECTION_ERROR_PRIVATE"
+msgstr "Бұл жинақ жасырын."
+
+msgid "PAGE_COLLECTION_ERROR_REMOVE_APP"
+msgstr "Қосымшаны жинақтан алып тастау мүмкін болмады."
+
+msgid "PAGE_COLLECTION_ERROR_SAVE"
+msgstr "Жинақты сақтау мүмкін болмады."
+
+msgid "PAGE_COLLECTION_FIELD_TITLE"
+msgstr "Атауы"
+
+msgid "PAGE_COLLECTION_FIELD_TITLE_HINT"
+msgstr "Жинақ атауын қажетті тілдерде көрсетіңіз"
+
+msgid "PAGE_COLLECTION_FIELD_DESC"
+msgstr "Сипаттама"
+
+msgid "PAGE_COLLECTION_FIELD_DESC_HINT"
+msgstr "Жинақта не бар екенін қысқаша сипаттаңыз"
+
+msgid "PAGE_COLLECTION_FIELD_PUBLIC"
+msgstr "Ашық жинақ"
+
+msgid "PAGE_COLLECTION_LIKES_DESC"
+msgstr "Қосымшалар бетінде «Жинаққа қосу» белгісін қойып, оларды жылдам қолжетімділік үшін сақтаңыз"
+
+msgid "PAGE_COLLECTION_LIKES_TITLE"
+msgstr "Ұнаған қосымшалар"
+
+msgid "PAGE_COLLECTION_MSG_APP_ADDED"
+msgstr "Қосымша жинаққа қосылды."
+
+msgid "PAGE_COLLECTION_MSG_APP_ALREADY"
+msgstr "Қосымша осы жинақта бар."
+
+msgid "PAGE_COLLECTION_MSG_APP_NOT_IN"
+msgstr "Қосымша бұл жинақта жоқ."
+
+msgid "PAGE_COLLECTION_MSG_APP_REMOVED"
+msgstr "Қосымша жинақтан алынды."
+
+msgid "PAGE_COLLECTION_MSG_DELETED"
+msgstr "Жинақ жойылды."
+
+msgid "PAGE_COLLECTION_MSG_FAVORITED"
+msgstr "Жинақ таңдаулыға қосылды."
+
+msgid "PAGE_COLLECTION_MSG_SAVED"
+msgstr "Жинақ сақталды."
+
+msgid "PAGE_COLLECTION_MSG_UNFAVORITED"
+msgstr "Жинақ таңдаулыдан алынды."
+
+
+msgid "%(counter)s PAGE_COLLECTION_SAVES_ONE"
+msgid_plural "%(counter)s PAGE_COLLECTION_SAVES_MANY"
+msgstr[0] "%(counter)s сақтау"
+
+msgid "PAGE_COLLECTION_SYSTEM_BADGE"
+msgstr "жүйелік"
+
+msgid "PAGE_COLLECTION_TAB_LIKED"
+msgstr "Таңдаулы жинақтар"
+
+msgid "PAGE_COLLECTION_TAB_MINE"
+msgstr "Менің жинақтарым"
+
+msgid "PAGE_COLLECTION_TAB_VIEW"
+msgstr "Қарау"
+
+msgid "PAGE_COLLECTION_TITLE"
+msgstr "Жинақтар"
+
+msgid "PAGE_PROFILE_TAB_COLLECTIONS"
+msgstr "Жинақтар"
+
+msgid "PAGE_PROFILE_COLLECTIONS_TITLE"
+msgstr "Пайдаланушы жинақтары"
+
+msgid "PAGE_PROFILE_COLLECTIONS_EMPTY"
+msgstr "Пайдаланушының әзірге ашық жинақтары жоқ."

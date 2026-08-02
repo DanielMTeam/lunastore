@@ -2249,3 +2249,173 @@ msgstr "Неверный логин или пароль."
 
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "Вход выполнен успешно! Привет, %(username)s!"
+
+msgid "%(counter)s PAGE_COLLECTION_APPS_ONE"
+msgid_plural "%(counter)s PAGE_COLLECTION_APPS_MANY"
+msgstr[0] "%(counter)s приложение"
+msgstr[1] "%(counter)s приложения"
+msgstr[2] "%(counter)s приложений"
+
+msgid "%(counter)s PAGE_COLLECTION_COUNT_ONE"
+msgid_plural "%(counter)s PAGE_COLLECTION_COUNT_MANY"
+msgstr[0] "Всего %(counter)s коллекция"
+msgstr[1] "Всего %(counter)s коллекции"
+msgstr[2] "Всего %(counter)s коллекций"
+
+msgid "BASE_SIDEBAR_ACCOUNT_COLLECTIONS"
+msgstr "Коллекции"
+
+msgid "PAGE_APP_ADD_TO_COLLECTION"
+msgstr "добавить в коллекцию"
+
+msgid "PAGE_COLLECTION_ACTION_DELETE"
+msgstr "удалить"
+
+msgid "PAGE_COLLECTION_ACTION_EDIT"
+msgstr "редактировать"
+
+msgid "PAGE_COLLECTION_ACTION_FAVORITE"
+msgstr "в избранное"
+
+msgid "PAGE_COLLECTION_ACTION_REMOVE_APP"
+msgstr "убрать"
+
+msgid "PAGE_COLLECTION_ACTION_UNFAVORITE"
+msgstr "убрать из избранного"
+
+msgid "PAGE_COLLECTION_ACTION_VIEW"
+msgstr "просмотр"
+
+msgid "PAGE_COLLECTION_APPS_EMPTY"
+msgstr "В этой коллекции пока нет приложений."
+
+msgid "PAGE_COLLECTION_BTN_ADD_APP"
+msgstr "Добавить"
+
+msgid "PAGE_COLLECTION_BTN_CANCEL"
+msgstr "Отмена"
+
+msgid "PAGE_COLLECTION_BTN_CREATE"
+msgstr "Создать новую коллекцию"
+
+msgid "PAGE_COLLECTION_BTN_SAVE"
+msgstr "Сохранить"
+
+msgid "PAGE_COLLECTION_DATE_CREATED"
+msgstr "Дата создания:"
+
+msgid "PAGE_COLLECTION_DATE_UPDATED"
+msgstr "Обновлено"
+
+msgid "PAGE_COLLECTION_DELETE_CONFIRM_TEXT %(title)s"
+msgstr "Вы уверены, что хотите удалить коллекцию «%(title)s»?"
+
+msgid "PAGE_COLLECTION_DELETE_CONFIRM_TITLE"
+msgstr "Удаление коллекции"
+
+msgid "PAGE_COLLECTION_EMPTY"
+msgstr "Коллекций пока нет."
+
+msgid "PAGE_COLLECTION_ERROR_ADD_APP"
+msgstr "Не удалось добавить приложение в коллекцию."
+
+msgid "PAGE_COLLECTION_ERROR_DELETE"
+msgstr "Не удалось удалить коллекцию."
+
+msgid "PAGE_COLLECTION_ERROR_DELETE_SYSTEM"
+msgstr "Системную коллекцию нельзя удалить."
+
+msgid "PAGE_COLLECTION_ERROR_EDIT_SYSTEM"
+msgstr "Системную коллекцию нельзя редактировать."
+
+msgid "PAGE_COLLECTION_ERROR_FAVORITE"
+msgstr "Не удалось изменить избранное."
+
+msgid "PAGE_COLLECTION_ERROR_FAVORITE_OWN"
+msgstr "Нельзя добавить свою коллекцию в избранное."
+
+msgid "PAGE_COLLECTION_ERROR_PRIVATE"
+msgstr "Эта коллекция скрыта."
+
+msgid "PAGE_COLLECTION_ERROR_REMOVE_APP"
+msgstr "Не удалось убрать приложение из коллекции."
+
+msgid "PAGE_COLLECTION_ERROR_SAVE"
+msgstr "Не удалось сохранить коллекцию."
+
+msgid "PAGE_COLLECTION_FIELD_TITLE"
+msgstr "Название"
+
+msgid "PAGE_COLLECTION_FIELD_TITLE_HINT"
+msgstr "Укажите название коллекции на нужных языках"
+
+msgid "PAGE_COLLECTION_FIELD_DESC"
+msgstr "Описание"
+
+msgid "PAGE_COLLECTION_FIELD_DESC_HINT"
+msgstr "Кратко опишите, что входит в коллекцию"
+
+msgid "PAGE_COLLECTION_FIELD_PUBLIC"
+msgstr "Публичная коллекция"
+
+msgid "PAGE_COLLECTION_LIKES_DESC"
+msgstr "Ставьте отметки «Добавить в коллекцию» на странице приложений, чтобы сохранять их себе для быстрого доступа"
+
+msgid "PAGE_COLLECTION_LIKES_TITLE"
+msgstr "Понравившиеся программы"
+
+msgid "PAGE_COLLECTION_MSG_APP_ADDED"
+msgstr "Приложение добавлено в коллекцию."
+
+msgid "PAGE_COLLECTION_MSG_APP_ALREADY"
+msgstr "Приложение уже есть в этой коллекции."
+
+msgid "PAGE_COLLECTION_MSG_APP_NOT_IN"
+msgstr "Приложения нет в этой коллекции."
+
+msgid "PAGE_COLLECTION_MSG_APP_REMOVED"
+msgstr "Приложение убрано из коллекции."
+
+msgid "PAGE_COLLECTION_MSG_DELETED"
+msgstr "Коллекция удалена."
+
+msgid "PAGE_COLLECTION_MSG_FAVORITED"
+msgstr "Коллекция добавлена в избранное."
+
+msgid "PAGE_COLLECTION_MSG_SAVED"
+msgstr "Коллекция сохранена."
+
+msgid "PAGE_COLLECTION_MSG_UNFAVORITED"
+msgstr "Коллекция убрана из избранного."
+
+
+msgid "%(counter)s PAGE_COLLECTION_SAVES_ONE"
+msgid_plural "%(counter)s PAGE_COLLECTION_SAVES_MANY"
+msgstr[0] "%(counter)s сохранение"
+msgstr[1] "%(counter)s сохранения"
+msgstr[2] "%(counter)s сохранений"
+
+msgid "PAGE_COLLECTION_SYSTEM_BADGE"
+msgstr "системная"
+
+msgid "PAGE_COLLECTION_TAB_LIKED"
+msgstr "Избранные коллекции"
+
+msgid "PAGE_COLLECTION_TAB_MINE"
+msgstr "Мои коллекции"
+
+msgid "PAGE_COLLECTION_TAB_VIEW"
+msgstr "Просмотр"
+
+msgid "PAGE_COLLECTION_TITLE"
+msgstr "Коллекции"
+
+msgid "PAGE_PROFILE_TAB_COLLECTIONS"
+msgstr "Коллекции"
+
+msgid "PAGE_PROFILE_COLLECTIONS_TITLE"
+msgstr "Коллекции пользователя"
+
+msgid "PAGE_PROFILE_COLLECTIONS_EMPTY"
+msgstr "У пользователя пока нет публичных коллекций."
+

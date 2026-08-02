@@ -1,0 +1,33 @@
+{% load i18n %}
+{% load static %}
+<div class="collection_item">
+  <div class="collection_ava">
+    <table width="100%" id="avatar_col_{{ item.collection.id }}">
+      <tr>
+        <td width="32"><img src="{{ item.mosaic.0 }}" width="32" height="32" alt=""></td>
+        <td width="32"><img src="{{ item.mosaic.1 }}" width="32" height="32" alt=""></td>
+      </tr>
+      <tr>
+        <td width="32"><img src="{{ item.mosaic.2 }}" width="32" height="32" alt=""></td>
+        <td width="32"><img src="{{ item.mosaic.3 }}" width="32" height="32" alt=""></td>
+      </tr>
+    </table>
+  </div>
+  <div class="collection_info">
+    <div class="collection_title">
+      <a href="{% url 'collections' %}?page=view&id={{ item.collection.id }}">{{ item.collection.title }}</a>
+    </div>
+    <div class="collection_desc">{{ item.collection.description }}</div>
+    <div class="collection_date">{% trans "PAGE_COLLECTION_DATE_CREATED" %} {{ item.collection.created_at|date:"d E Y H:i" }}</div>
+    <div class="collection_date">{% trans "PAGE_COLLECTION_DATE_UPDATED" %} {{ item.collection.updated_at|timesince }}</div>
+    <br>
+    <div class="collection_actions">
+      <b>{% blocktranslate count counter=item.saves_count %}{{ counter }} PAGE_COLLECTION_SAVES_ONE{% plural %}{{ counter }} PAGE_COLLECTION_SAVES_MANY{% endblocktranslate %}</b> -
+      <a href="{% url 'collections' %}?page=view&id={{ item.collection.id }}">{% trans "PAGE_COLLECTION_ACTION_VIEW" %}</a>
+      {% if item.is_owner and not item.collection.is_system %}
+      - <a href="{% url 'collections' %}?page=edit&id={{ item.collection.id }}">{% trans "PAGE_COLLECTION_ACTION_EDIT" %}</a>
+      - <a href="{% url 'collections' %}?page=delete&id={{ item.collection.id }}">{% trans "PAGE_COLLECTION_ACTION_DELETE" %}</a>
+      {% endif %}
+    </div>
+  </div>
+</div>

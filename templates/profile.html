@@ -76,6 +76,10 @@
                 <img src="{% static './img/tabs/main.png'%}" class="tab-icon" alt="">
                 {% trans "PAGE_PROFILE_TAB_REVIEWS" %}
             </a>
+            <a href="/profile.php?id={{ obj.id }}&act=show_collections" class="tab {% if act == 'show_collections' %}active{% endif %}" style="text-decoration:none; color:black; display: inline-block;">
+                <img src="{% static './img/tabs/likes.png'%}" class="tab-icon" alt="">
+                {% trans "PAGE_PROFILE_TAB_COLLECTIONS" %}
+            </a>
         </div>
 
         <div class="tab-content" id="tab-view">
@@ -271,6 +275,21 @@
             </div>
             <br>
             {% endif %}
+
+            {% elif act == 'show_collections' %}
+            <div class="profile_block">{% trans "PAGE_PROFILE_COLLECTIONS_TITLE" %} {{ obj.username }}</div>
+            <div class="profile_subblock">
+                {% blocktranslate count counter=profile_collections_count %}{{ counter }} PAGE_COLLECTION_COUNT_ONE{% plural %}{{ counter }} PAGE_COLLECTION_COUNT_MANY{% endblocktranslate %}
+            </div>
+            <div class="profile_block_content">
+                {% if profile_collection_items %}
+                    {% for item in profile_collection_items %}
+                        {% include "includes/collection_item.html" with item=item %}
+                    {% endfor %}
+                {% else %}
+                    <div class="empty-state" style="text-align: center; padding: 20px; color: #555;">{% trans "PAGE_PROFILE_COLLECTIONS_EMPTY" %}</div>
+                {% endif %}
+            </div>
 
             {% endif %}
         </div>

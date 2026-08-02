@@ -2245,3 +2245,169 @@ msgstr "Incorrect username or password."
 
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "Login successful! Welcome, %(username)s!"
+
+msgid "%(counter)s PAGE_COLLECTION_APPS_ONE"
+msgid_plural "%(counter)s PAGE_COLLECTION_APPS_MANY"
+msgstr[0] "%(counter)s app"
+msgstr[1] "%(counter)s apps"
+
+msgid "%(counter)s PAGE_COLLECTION_COUNT_ONE"
+msgid_plural "%(counter)s PAGE_COLLECTION_COUNT_MANY"
+msgstr[0] "Total %(counter)s collection"
+msgstr[1] "Total %(counter)s collections"
+
+msgid "BASE_SIDEBAR_ACCOUNT_COLLECTIONS"
+msgstr "Collections"
+
+msgid "PAGE_APP_ADD_TO_COLLECTION"
+msgstr "add to collection"
+
+msgid "PAGE_COLLECTION_ACTION_DELETE"
+msgstr "delete"
+
+msgid "PAGE_COLLECTION_ACTION_EDIT"
+msgstr "edit"
+
+msgid "PAGE_COLLECTION_ACTION_FAVORITE"
+msgstr "add to favorites"
+
+msgid "PAGE_COLLECTION_ACTION_REMOVE_APP"
+msgstr "remove"
+
+msgid "PAGE_COLLECTION_ACTION_UNFAVORITE"
+msgstr "remove from favorites"
+
+msgid "PAGE_COLLECTION_ACTION_VIEW"
+msgstr "view"
+
+msgid "PAGE_COLLECTION_APPS_EMPTY"
+msgstr "This collection has no apps yet."
+
+msgid "PAGE_COLLECTION_BTN_ADD_APP"
+msgstr "Add"
+
+msgid "PAGE_COLLECTION_BTN_CANCEL"
+msgstr "Cancel"
+
+msgid "PAGE_COLLECTION_BTN_CREATE"
+msgstr "Create new collection"
+
+msgid "PAGE_COLLECTION_BTN_SAVE"
+msgstr "Save"
+
+msgid "PAGE_COLLECTION_DATE_CREATED"
+msgstr "Created:"
+
+msgid "PAGE_COLLECTION_DATE_UPDATED"
+msgstr "Updated"
+
+msgid "PAGE_COLLECTION_DELETE_CONFIRM_TEXT %(title)s"
+msgstr "Are you sure you want to delete the collection \"%(title)s\"?"
+
+msgid "PAGE_COLLECTION_DELETE_CONFIRM_TITLE"
+msgstr "Delete collection"
+
+msgid "PAGE_COLLECTION_EMPTY"
+msgstr "No collections yet."
+
+msgid "PAGE_COLLECTION_ERROR_ADD_APP"
+msgstr "Could not add the app to the collection."
+
+msgid "PAGE_COLLECTION_ERROR_DELETE"
+msgstr "Could not delete the collection."
+
+msgid "PAGE_COLLECTION_ERROR_DELETE_SYSTEM"
+msgstr "The system collection cannot be deleted."
+
+msgid "PAGE_COLLECTION_ERROR_EDIT_SYSTEM"
+msgstr "The system collection cannot be edited."
+
+msgid "PAGE_COLLECTION_ERROR_FAVORITE"
+msgstr "Could not update favorites."
+
+msgid "PAGE_COLLECTION_ERROR_FAVORITE_OWN"
+msgstr "You cannot favorite your own collection."
+
+msgid "PAGE_COLLECTION_ERROR_PRIVATE"
+msgstr "This collection is private."
+
+msgid "PAGE_COLLECTION_ERROR_REMOVE_APP"
+msgstr "Could not remove the app from the collection."
+
+msgid "PAGE_COLLECTION_ERROR_SAVE"
+msgstr "Could not save the collection."
+
+msgid "PAGE_COLLECTION_FIELD_TITLE"
+msgstr "Title"
+
+msgid "PAGE_COLLECTION_FIELD_TITLE_HINT"
+msgstr "Enter the collection title in the languages you need"
+
+msgid "PAGE_COLLECTION_FIELD_DESC"
+msgstr "Description"
+
+msgid "PAGE_COLLECTION_FIELD_DESC_HINT"
+msgstr "Briefly describe what is in the collection"
+
+msgid "PAGE_COLLECTION_FIELD_PUBLIC"
+msgstr "Public collection"
+
+msgid "PAGE_COLLECTION_LIKES_DESC"
+msgstr "Use \"Add to collection\" on app pages to save apps for quick access"
+
+msgid "PAGE_COLLECTION_LIKES_TITLE"
+msgstr "Liked apps"
+
+msgid "PAGE_COLLECTION_MSG_APP_ADDED"
+msgstr "App added to the collection."
+
+msgid "PAGE_COLLECTION_MSG_APP_ALREADY"
+msgstr "The app is already in this collection."
+
+msgid "PAGE_COLLECTION_MSG_APP_NOT_IN"
+msgstr "The app is not in this collection."
+
+msgid "PAGE_COLLECTION_MSG_APP_REMOVED"
+msgstr "App removed from the collection."
+
+msgid "PAGE_COLLECTION_MSG_DELETED"
+msgstr "Collection deleted."
+
+msgid "PAGE_COLLECTION_MSG_FAVORITED"
+msgstr "Collection added to favorites."
+
+msgid "PAGE_COLLECTION_MSG_SAVED"
+msgstr "Collection saved."
+
+msgid "PAGE_COLLECTION_MSG_UNFAVORITED"
+msgstr "Collection removed from favorites."
+
+
+msgid "%(counter)s PAGE_COLLECTION_SAVES_ONE"
+msgid_plural "%(counter)s PAGE_COLLECTION_SAVES_MANY"
+msgstr[0] "%(counter)s save"
+msgstr[1] "%(counter)s saves"
+
+msgid "PAGE_COLLECTION_SYSTEM_BADGE"
+msgstr "system"
+
+msgid "PAGE_COLLECTION_TAB_LIKED"
+msgstr "Favorite collections"
+
+msgid "PAGE_COLLECTION_TAB_MINE"
+msgstr "My collections"
+
+msgid "PAGE_COLLECTION_TAB_VIEW"
+msgstr "View"
+
+msgid "PAGE_COLLECTION_TITLE"
+msgstr "Collections"
+
+msgid "PAGE_PROFILE_TAB_COLLECTIONS"
+msgstr "Collections"
+
+msgid "PAGE_PROFILE_COLLECTIONS_TITLE"
+msgstr "Collections by"
+
+msgid "PAGE_PROFILE_COLLECTIONS_EMPTY"
+msgstr "This user has no public collections yet."

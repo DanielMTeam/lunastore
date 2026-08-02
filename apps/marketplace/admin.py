@@ -1452,3 +1452,36 @@ class ProblemReportRequestsAdmin(SafeDeleteAdmin):
                    },
                   ),
                  )
+
+
+class CollectionItemInline(unfold_admin.TabularInline):
+    model = CollectionItem
+    extra = 0
+    raw_id_fields = ("application",)
+    readonly_fields = ("added_at",)
+
+
+@admin.register(Collection)
+class CollectionAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
+    list_display = (
+        "id",
+        "title",
+        "owner",
+        "is_system",
+        "is_public",
+        "updated_at",
+    )
+    list_filter = SafeDeleteAdmin.list_filter + ["is_system", "is_public"]
+    search_fields = ("title", "owner__username")
+    raw_id_fields = ("owner",)
+    readonly_fields = ("created_at", "updated_at")
+    inlines = (CollectionItemInline,)
+
+
+@admin.register(CollectionFavorite)
+class CollectionFavoriteAdmin(unfold_admin.ModelAdmin):
+    list_display = ("id", "user", "collection", "created_at")
+    search_fields = ("user__username", "collection__title")
+    raw_id_fields = ("user", "collection")
+    readonly_fields = ("created_at",)
+

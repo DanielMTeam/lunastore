@@ -166,6 +166,7 @@
                                 {% trans "PAGE_NOTIFICATIONS_TAB" %}
                                 <span id="global-unread-count" style="display:none; color: red; font-weight: bold;"></span>
                             </a></li>
+                        <li class="collections" {% if route == 'collections' %}id="active" {% endif %} onclick="location.href='{% url 'collections' %}'"><a href="{% url 'collections' %}">{% trans "BASE_SIDEBAR_ACCOUNT_COLLECTIONS" %}</a></li>
                     </ul>
                     {% endwith %}
                 </div>
