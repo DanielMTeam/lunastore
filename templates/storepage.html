@@ -3,6 +3,8 @@
 {% load i18n %}
 {% load markdown_tags %}
 
+{% block title %}{{ title }} - LunaStore{% endblock %}
+
 {% block content %}
 <div class="content">
     <link rel="stylesheet" href='{% static "./css/stpage.css"%}'>
@@ -32,6 +34,47 @@
     <div class="section">
         <div class="st_general_card">
 
+        {% if not is_dmca %}
+        <div class="st_collection_wrap">
+            <div class="likewrap">
+                {% if user.is_authenticated %}
+                <form method="post" action="{% url 'collections' %}?act=toggle_like" class="like_form">
+                    {% csrf_token %}
+                    <input type="hidden" name="appid" value="{{ app_id }}">
+                    <button type="submit" class="lbtnlink like_submit">
+                        <table class="like{% if is_liked %} activelike{% endif %}" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td class="icon"></td>
+                                <td class="text">{% if is_liked %}{% trans "PAGE_COLLECTION_ACTION_REMOVE_APP" %}{% else %}{% trans "PAGE_APP_ADD_TO_COLLECTION" %}{% endif %}</td>
+                                <td class="likecounter">{{ likes_count }}</td>
+                                <td class="right"></td>
+                            </tr>
+                        </table>
+                    </button>
+                </form>
+                {% else %}
+                <a href="{% url 'login' %}?next={% url 'app' %}?id={{ app_id }}" class="lbtnlink">
+                    <table class="like{% if is_liked %} activelike{% endif %}" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td class="icon"></td>
+                            <td class="text">{% if is_liked %}{% trans "PAGE_COLLECTION_ACTION_REMOVE_APP" %}{% else %}{% trans "PAGE_APP_ADD_TO_COLLECTION" %}{% endif %}</td>
+                            <td class="likecounter">{{ likes_count }}</td>
+                            <td class="right"></td>
+                        </tr>
+                    </table>
+                </a>
+                {% endif %}
+            </div>
+            <div class="st_to_collection">
+                {% if user.is_authenticated %}
+                <a href="{% url 'collections' %}?act=add&appid={{ app_id }}">{% trans "PAGE_APP_TO_COLLECTION" %}</a>
+                {% else %}
+                <a href="{% url 'login' %}?next={% url 'collections' %}?act=add%26appid={{ app_id }}">{% trans "PAGE_APP_TO_COLLECTION" %}</a>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+
         <div class="st_app_icon" style="width: 64px; height: 64px; margin-right: 10px; float: left;">
             {% if icon_path %}
                 <img src="{{ icon_url }}" alt="{{ title }}" width="64" height="64" style="display: block; border: 0;">
@@ -40,13 +83,9 @@
             {% endif %}
         </div>
 
-        <div class="st_precard" style="width: 320px; float: left; margin-left: 0;">
-            <div class="st_card_title" style="font-size: 18px; margin-bottom: 2px;">{{ title }}</div>
-            <div class="st_clearb"></div>
-
+        <div class="st_app_precard">
+            <div class="st_card_title st_app_title">{{ title }}</div>
             <div class="st_card_desc" style="font-size: 13px; margin-bottom: 2px;">{{ slogan|render_markdown }}</div>
-            <div class="st_clearb"></div>
-
             <div class="st_card_author" style="font-size: 11px;">
                 {% trans "PAGE_APP_LABEL_AUTHOR" %} <a href="/profile.php?id={{ developer_id }}">{{ developer_name }}</a><br>
                 {% trans "PAGE_APP_LABEL_ORIGINAL_AUTHOR" %} {{ original_author }}
@@ -56,7 +95,7 @@
         <div class="st_clearb"></div>
 
         {% if not is_dmca %}
-            <div style="clear: both; padding-top: 10px;">
+            <div class="st_app_actions">
 
                 {% if is_demo %}
                       {% if price > 0 %}

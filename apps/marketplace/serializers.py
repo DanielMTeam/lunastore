@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Application, Category, Distribution
+from .models import Application, Category, Collection, Distribution
 from apps.user.serializers import UserSerializer
 
 
@@ -45,3 +45,31 @@ class DistributionSerializer(serializers.ModelSerializer):
             "published",
             "release_description",
         ]
+
+
+class CollectionSerializer(serializers.ModelSerializer):
+    owner = UserSerializer(read_only=True)
+    items_count = serializers.SerializerMethodField()
+    mosaic_icons = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Collection
+        fields = [
+            "id",
+            "title",
+            "description",
+            "owner",
+            "is_system",
+            "is_public",
+            "created_at",
+            "updated_at",
+            "items_count",
+            "mosaic_icons",
+        ]
+
+    def get_items_count(self, obj: Collection) -> int:
+        return obj.items.count()
+
+    def get_mosaic_icons(self, obj: Collection) -> list:
+        return obj.mosaic_icons(4)
+

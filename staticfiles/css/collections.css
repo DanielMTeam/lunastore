@@ -1,0 +1,101 @@
+/* collection create/edit form actions */
+
+.collection-form-actions .action_button {
+  display: inline-block;
+  margin-right: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: Tahoma, sans-serif;
+  font-size: 12px;
+  vertical-align: middle;
+}
+
+/* language tabs: hide inactive translation fields (ie6-safe) */
+.lang-field-wrapper {
+  display: none !important;
+}
+
+.lang-field-wrapper.active {
+  display: block !important;
+}
+
+/* add app to collection page */
+
+.collection_add_app {
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #d2e9ff;
+}
+
+.collection_add_app_icon {
+  float: left;
+  margin-right: 10px;
+  border: 1px solid #cfe1ff;
+  background: #fff;
+}
+
+.collection_add_app_info {
+  float: left;
+  padding-top: 4px;
+}
+
+.collection_add_app_title {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.collection_add_clear {
+  clear: both;
+  height: 0;
+  overflow: hidden;
+}
+
+.collection_add_list {
+  margin-bottom: 12px;
+}
+
+.collection_add_option {
+  margin: 6px 0;
+}
+
+.collection_add_option label {
+  cursor: pointer;
+  font-size: 12px;
+}
+
+/* collection view: remove app control (hover cross) */
+
+.collection_remove_form {
+  display: none;
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  margin: 0;
+  padding: 0;
+  z-index: 2;
+}
+
+.collection_view_card:hover .collection_remove_form,
+.collection_view_card.hover .collection_remove_form {
+  display: block;
+}
+
+.collection_remove_x {
+  display: block;
+  width: 11px;
+  height: 11px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  background: transparent;
+  line-height: 0;
+  overflow: hidden;
+}
+
+.collection_remove_x img {
+  display: block;
+  width: 11px;
+  height: 11px;
+  border: 0;
+}

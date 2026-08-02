@@ -7,11 +7,11 @@
 <html>
 
 <head>
-    <title>LunaStore</title>
+    <title>{% block title %}LunaStore{% endblock %}</title>
     <meta name="description" content="{% trans " SITE_DESCRIPTION" %}">
     <meta name="robots" content="noindex,nofollow">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <link rel="stylesheet" href="{% static './css/main.css'%}?v=4">
+    <link rel="stylesheet" href="{% static './css/main.css'%}?v=7">
     <link rel="stylesheet" href="{% static './css/notifications.css'%}">
     <link rel="stylesheet" href="{% static './css/reviews.css'%}">
     {% if request.COOKIES.dark_theme == 'on' %}
@@ -166,6 +166,7 @@
                                 {% trans "PAGE_NOTIFICATIONS_TAB" %}
                                 <span id="global-unread-count" style="display:none; color: red; font-weight: bold;"></span>
                             </a></li>
+                        <li class="collections" {% if route == 'collections' %}id="active" {% endif %} onclick="location.href='{% url 'collections' %}'"><a href="{% url 'collections' %}">{% trans "BASE_SIDEBAR_ACCOUNT_COLLECTIONS" %}</a></li>
                     </ul>
                     {% endwith %}
                 </div>
