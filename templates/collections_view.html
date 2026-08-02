@@ -3,9 +3,9 @@
 {% load static %}
 {% load markdown_tags %}
 
-{% block content %}
-<title>{{ collection.title }} - {% trans "PAGE_COLLECTION_TITLE" %} - LunaStore</title>
+{% block title %}{{ collection.title }} - {% trans "PAGE_COLLECTION_TITLE" %} - LunaStore{% endblock %}
 
+{% block content %}
 <div class="content">
   <link rel="stylesheet" href="{% static './css/tabs.css' %}">
   <link rel="stylesheet" href="{% static './css/profile.css' %}">

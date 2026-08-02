@@ -2415,3 +2415,11 @@ msgstr "Пайдаланушы жинақтары"
 
 msgid "PAGE_PROFILE_COLLECTIONS_EMPTY"
 msgstr "Пайдаланушының әзірге ашық жинақтары жоқ."
+msgid "PAGE_HOME_BROWSER_TITLE"
+msgstr "Басты бет"
+
+msgid "PAGE_404_BROWSER_TITLE"
+msgstr "Бет табылмады"
+
+msgid "PAGE_502_BROWSER_TITLE"
+msgstr "Бірдеңе дұрыс болмады..."

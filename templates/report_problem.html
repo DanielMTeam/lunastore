@@ -2,9 +2,9 @@
 {% load i18n %}
 {% load static %}
 
-{% block content %}
-<title>{% trans "PAGE_REPORTAPP_PAGE_TITLE" %} - LunaStore</title>
+{% block title %}{% trans "PAGE_REPORTAPP_PAGE_TITLE" %} - LunaStore{% endblock %}
 
+{% block content %}
 <link rel="stylesheet" href="{% static 'css/stpage.css' %}">
 <link rel="stylesheet" href="{% static 'css/reviews.css' %}">
 <link rel="stylesheet" href="{% static 'css/profile.css' %}">

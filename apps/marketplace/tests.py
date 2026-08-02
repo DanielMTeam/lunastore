@@ -227,7 +227,7 @@ class CollectionPageTest(TestCase):
         self.client.login(username="ColPageUser", password="password123")
         resp = self.client.post(
             f"/collections.php?act=add&appid={self.app.id}",
-            {"collection_id": self.public_col.id, "appid": self.app.id},
+            {"collection_ids": self.public_col.id, "appid": self.app.id},
         )
         self.assertEqual(resp.status_code, 302)
         self.assertTrue(
