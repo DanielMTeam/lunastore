@@ -817,7 +817,9 @@ class CollectionForm(forms.ModelForm):
                 ),
             }
         )
-        widgets["is_public"] = forms.CheckboxInput()
+        widgets["is_public"] = forms.CheckboxInput(
+            attrs={"class": "checkbox-element"}
+        )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

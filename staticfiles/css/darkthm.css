@@ -133,13 +133,18 @@ body {
     color: #fff !important;
     font-weight: bold !important;
     font-size: 12px !important;
+    /* 426 + padding 10 + border 2 = 438, same outer width as profile_block_content */
+    width: 426px !important;
+    border-top: 1px solid #7d7d7d !important;
+    border-left: 1px solid #7d7d7d !important;
+    border-right: 1px solid #7d7d7d !important;
 }
 
 .profile_block_content {
     padding: 10px !important;
     background: #323232 !important;
     color: #fff !important;
-    border: 1px solid #5a5a5a !important;
+    border: 1px solid #7d7d7d !important;
     position: relative !important;
 }
 
@@ -613,3 +618,85 @@ textarea:focus {
 
 .md-alert-caution { background: #662020 !important; border-color: #b33939 !important; }
 .md-btn-caution { color: #e67373 !important; }
+
+.collection_actions a {
+    color: #fff !important;
+}
+
+.collection_title a {
+    color: #fff !important;
+}
+
+.collection_title a:hover,
+.collection_title a:active {
+    color: #ffb3b3 !important;
+}
+
+.collection_view_card {
+    background: #323232 !important;
+    border: 1px solid #000 !important;
+    color: #fff !important;
+}
+
+.collection_card_name,
+.collection_card_name_link,
+.collection_element_info a.collection_card_name_link {
+    color: #fff !important;
+}
+
+.collection_card_name_link:hover,
+.collection_card_name_link:hover .collection_card_name,
+.collection_element_info a.collection_card_name_link:hover {
+    color: #ffb3b3 !important;
+    text-decoration: underline !important;
+}
+
+.collection_card_name_link:active,
+.collection_card_name_link:active .collection_card_name {
+    color: #ff8080 !important;
+    text-decoration: underline !important;
+}
+
+.action_button_secondary {
+    background-color: #555 !important;
+    color: #fff !important;
+    border: 1px solid #777 !important;
+}
+
+.collection_add_app {
+    border-bottom-color: #555 !important;
+}
+
+.collection_add_app_icon {
+    border-color: #555 !important;
+    background: #323232 !important;
+}
+
+.collection_add_app_title {
+    color: #fff !important;
+}
+
+.collection_add_option label {
+    color: #fff !important;
+}
+
+.collection_view_card p {
+    color: #bbb !important;
+}
+
+.collection_element_info a {
+    color: #fff !important;
+}
+
+.collection_remove_x {
+    background: transparent !important;
+}
+
+
+.st_to_collection a {
+    color: #9ec1ff !important;
+}
+
+.collection_desc_list {
+    color: #bbb !important;
+}

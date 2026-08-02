@@ -1582,13 +1582,16 @@ a.report_problem {
 
 .activelike {
     background-image: url(../img/like.png);
+    background-position: 0px -50px;
 }
 
+.like.activelike:hover,
 .activelike:hover {
     background-position: 0px -75px;
     color: #990000;
 }
 
+.like.activelike:active,
 .activelike:active {
     background-position: 0px -100px;
     color: #b20000;
@@ -1687,6 +1690,20 @@ a.report_problem {
   word-wrap: break-word;
 }
 
+.collection_desc p {
+  margin: 0;
+  padding: 0;
+}
+
+.collection_desc_list {
+  font-size: 11px;
+  color: #666;
+  max-height: 2.8em;
+  line-height: 1.4em;
+  overflow: hidden;
+  margin: 2px 0 4px 0;
+}
+
 .collection_date{
   color: #b3b3b3;
   font-size: 11px;
@@ -1694,6 +1711,8 @@ a.report_problem {
 
 .collection_actions{
   font-size: 11px;
+  margin: 6px 0 0 0;
+  padding: 0;
 }
 
 .collection_counter_block{
@@ -1712,31 +1731,43 @@ a.report_problem {
   width:425px;
   border:1px solid #d2e9ff;
   background:#fff;
-  margin:5px;
+  margin:5px 0;
   padding:5px;
-  display: inline-block;
+  display: block;
+  overflow: hidden;
+  zoom: 1;
+  position: relative;
+}
+
+.collection_view_icon_link {
+  float: left;
+  margin-right:6px;
+  display: block;
+  text-decoration: none;
+  border: 0;
 }
 
 .collection_view_card img {
-  margin-right:6px;
   width:48px;
   height:48px;
-  display: inline-block;
+  display: block;
+  border: 0;
 }
+
 .collection_view_card h3 {
   margin:0;
   font-size:13px;
   color:#0b3a72;
-  display: inline-block;
 }
+
 .collection_view_card p {
   margin:3px 0;
   font-size:11px;
   color:#333;
-  height:28px;
+  height:14px;
+  line-height:14px;
   overflow:hidden;
-  display: inline-block;
-  width: 365px;
+  display: block;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -1746,21 +1777,28 @@ a.report_problem {
   font-size: 14px;
 }
 
+.collection_card_name_link,
 .collection_element_info a{
   text-decoration: none;
   color: #000;
 }
 
 .collection_element_info{
-  display: inline-block;
+  display: block;
+  overflow: hidden;
+  zoom: 1;
 }
 
+.collection_card_name_link:hover,
+.collection_card_name_link:hover .collection_card_name,
 .collection_card_name:hover{
-  text-decoration: none;
+  text-decoration: underline;
   color: #990000;
 }
 
+.collection_card_name_link:active,
+.collection_card_name_link:active .collection_card_name,
 .collection_card_name:active{
-  text-decoration: none;
+  text-decoration: underline;
   color: #b20000;
 }

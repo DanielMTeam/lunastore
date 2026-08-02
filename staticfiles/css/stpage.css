@@ -251,3 +251,73 @@
 .st_rate_block a:hover {
     color: #990000;
 }
+/* storepage: likes button top-right + link to collections */
+.st_collection_wrap {
+    float: right;
+    margin: 0 0 6px 8px;
+    text-align: right;
+}
+
+.st_collection_wrap .likewrap {
+    text-align: right;
+}
+
+.st_collection_wrap .like_form {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+.st_collection_wrap .like_submit {
+    display: inline;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+}
+
+.st_to_collection {
+    margin-top: 4px;
+    font-size: 11px;
+}
+
+.st_to_collection a {
+    color: #215dc6;
+    text-decoration: underline;
+}
+
+.st_general_card .st_app_precard {
+    float: none;
+    width: auto;
+    margin-left: 0;
+    overflow: hidden;
+    zoom: 1;
+}
+
+.st_general_card .st_app_precard .st_app_title,
+.st_general_card .st_app_precard .st_card_title {
+    display: block;
+    float: none;
+    margin: 0 0 2px 0;
+    font-size: 18px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.st_general_card .st_app_precard .st_card_desc,
+.st_general_card .st_app_precard .st_card_author {
+    float: none;
+    margin-left: 0;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+.st_app_actions {
+    padding-top: 12px;
+    padding-bottom: 4px;
+    zoom: 1;
+}

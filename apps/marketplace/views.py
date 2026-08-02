@@ -20,6 +20,7 @@ from apps.core.utils import get_safe_redirect_url
 from apps.user.decorators import developer_required, require_modern_browser
 from .decorators import guard_private_app, user_is_owner
 from .forms import AppCreateForm, AppEditForm, AppReportForm, CollectionForm, DistributionCreateForm, DistributionEditForm, ProblemReportForm
+from django.db import transaction
 from django.db.models import Avg, Count
 from .models import AppCreateRequests, Application, Category, Collection, CollectionFavorite, CollectionItem, Distribution, AppEditRequests, DistributionCreateRequests, DistributionEditRequests, Review, get_or_create_likes_collection
 
@@ -112,6 +113,19 @@ def app(request):
         number=page_obj.number, on_each_side=2, on_ends=1
     )
 
+    is_liked = False
+    likes_count = CollectionItem.objects.filter(
+        application=obj, collection__is_system=True
+    ).count()
+    if request.user.is_authenticated:
+        likes_collection = Collection.objects.filter(
+            owner=request.user, is_system=True
+        ).first()
+        if likes_collection is not None:
+            is_liked = CollectionItem.objects.filter(
+                collection=likes_collection, application=obj
+            ).exists()
+
     context = {
         "app_id": obj.id,
         "is_demo": obj.is_demo,
@@ -141,6 +155,8 @@ def app(request):
         "page_obj": page_obj,
         "page_range": page_range,
         "collection_saves_count": CollectionItem.objects.filter(application=obj).count(),
+        "likes_count": likes_count,
+        "is_liked": is_liked,
     }
     return render(request, "storepage.html", context)
 
@@ -827,6 +843,8 @@ def collections(request):
         return _collections_favorite(request)
     if act == "remove_item":
         return _collections_remove_item(request)
+    if act == "toggle_like":
+        return _collections_toggle_like(request)
 
     if page == "view":
         return _collections_view(request)
@@ -868,11 +886,15 @@ def _collections_list(request, liked: bool = False):
 
     items = []
     for col in collections_qs:
+        apps_count = getattr(col, "items_count", None)
+        if apps_count is None:
+            apps_count = col.items.count()
         items.append(
             {
                 "collection": col,
                 "mosaic": col.mosaic_icons(4),
                 "saves_count": col.favorites.count(),
+                "apps_count": apps_count,
                 "is_owner": col.owner_id == request.user.id,
             }
         )
@@ -986,37 +1008,58 @@ def _collections_delete(request):
 
 @login_required
 def _collections_add(request):
+    # sync app membership in custom collections (likes toggled separately)
     app_id = request.GET.get("appid") or request.POST.get("appid")
     application = get_object_or_404(Application, id=app_id)
-    get_or_create_likes_collection(request.user)
-    user_collections = Collection.objects.filter(owner=request.user).order_by(
-        "-is_system", "title"
+    user_collections = list(
+        Collection.objects.filter(owner=request.user, is_system=False).order_by("title")
+    )
+    selected_ids = set(
+        CollectionItem.objects.filter(
+            application=application,
+            collection__owner=request.user,
+            collection__is_system=False,
+        ).values_list("collection_id", flat=True)
     )
 
     if request.method == "POST":
-        collection_id = request.POST.get("collection_id")
-        collection = get_object_or_404(
-            Collection, id=collection_id, owner=request.user
-        )
+        posted_ids = set()
+        for raw_id in request.POST.getlist("collection_ids"):
+            try:
+                posted_ids.add(int(raw_id))
+            except (TypeError, ValueError):
+                continue
+        allowed_ids = {col.id for col in user_collections}
+        posted_ids &= allowed_ids
         try:
-            _item, created = CollectionItem.objects.get_or_create(
-                collection=collection, application=application
-            )
-            if created:
-                _touch_collection(collection)
-                messages.success(request, _("PAGE_COLLECTION_MSG_APP_ADDED"))
-            else:
-                messages.info(request, _("PAGE_COLLECTION_MSG_APP_ALREADY"))
+            to_add = posted_ids - selected_ids
+            to_remove = selected_ids - posted_ids
+            with transaction.atomic():
+                for collection in user_collections:
+                    if collection.id in to_add:
+                        CollectionItem.objects.get_or_create(
+                            collection=collection, application=application
+                        )
+                        _touch_collection(collection)
+                    elif collection.id in to_remove:
+                        CollectionItem.objects.filter(
+                            collection=collection, application=application
+                        ).delete()
+                        _touch_collection(collection)
+            messages.success(request, _("PAGE_COLLECTION_MSG_SAVED"))
         except Exception:
             logger.exception(
-                "failed to add app %s to collection %s", app_id, collection_id
+                "failed to sync collections for app %s user %s",
+                app_id,
+                getattr(request.user, "pk", None),
             )
             messages.error(request, _("PAGE_COLLECTION_ERROR_ADD_APP"))
-        return redirect(f"{reverse('collections')}?page=view&id={collection.id}")
+        return redirect(f"{reverse('app')}?id={application.id}")
 
     context = {
         "application": application,
         "user_collections": user_collections,
+        "selected_ids": selected_ids,
     }
     return render(request, "collections_add.html", context)
 
@@ -1054,7 +1097,7 @@ def _collections_remove_item(request):
     app_id = request.POST.get("appid")
     collection = get_object_or_404(Collection, id=collection_id, owner=request.user)
     try:
-        deleted_count, _ = CollectionItem.objects.filter(
+        deleted_count, _deleted_by_model = CollectionItem.objects.filter(
             collection=collection, application_id=app_id
         ).delete()
         if deleted_count:
@@ -1069,3 +1112,33 @@ def _collections_remove_item(request):
         messages.error(request, _("PAGE_COLLECTION_ERROR_REMOVE_APP"))
     return redirect(f"{reverse('collections')}?page=view&id={collection.id}")
 
+
+@login_required
+@require_POST
+def _collections_toggle_like(request):
+    # toggle app in the system likes collection only (csrf-protected post)
+    app_id = request.POST.get("appid") or request.GET.get("appid")
+    application = get_object_or_404(Application, id=app_id)
+    try:
+        likes = get_or_create_likes_collection(request.user)
+        existing = CollectionItem.objects.filter(
+            collection=likes, application=application
+        ).first()
+        if existing is not None:
+            existing.delete()
+            _touch_collection(likes)
+            messages.success(request, _("PAGE_COLLECTION_MSG_APP_REMOVED"))
+        else:
+            CollectionItem.objects.get_or_create(
+                collection=likes, application=application
+            )
+            _touch_collection(likes)
+            messages.success(request, _("PAGE_COLLECTION_MSG_APP_ADDED"))
+    except Exception:
+        logger.exception(
+            "failed to toggle like for app %s user %s",
+            app_id,
+            getattr(request.user, "pk", None),
+        )
+        messages.error(request, _("PAGE_COLLECTION_ERROR_ADD_APP"))
+    return redirect(f"{reverse('app')}?id={application.id}")
