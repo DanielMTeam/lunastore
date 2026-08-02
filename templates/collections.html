@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+<title>{% trans "PAGE_COLLECTION_TITLE" %} - LunaStore</title>
+
+<div class="content">
+  <link rel="stylesheet" href="{% static './css/tabs.css' %}">
+  <link rel="stylesheet" href="{% static './css/profile.css' %}">
+  <link rel="stylesheet" href="{% static './css/settings.css' %}">
+
+  <div class="tabs">
+    <div class="tab-bar">
+      <a href="{% url 'collections' %}" class="tab {% if tab == 'mine' %}active{% endif %}" style="text-decoration:none; color:black; display: inline-block;">
+        <img src="{% static './img/tabs/likes.png' %}" class="tab-icon" alt="">
+        {% trans "PAGE_COLLECTION_TAB_MINE" %}
+      </a>
+      <a href="{% url 'collections' %}?page=liked" class="tab {% if tab == 'liked' %}active{% endif %}" style="text-decoration:none; color:black; display: inline-block;">
+        <img src="{% static './img/tabs/fav.png' %}" class="tab-icon" alt="">
+        {% trans "PAGE_COLLECTION_TAB_LIKED" %}
+      </a>
+    </div>
+
+    <div class="tab-content" id="tab-view">
+      {% if tab == 'mine' %}
+      <a href="{% url 'collections' %}?page=create" class="add_app_button">
+        {% trans "PAGE_COLLECTION_BTN_CREATE" %}
+      </a>
+      {% endif %}
+
+      <div class="profile_block">
+        {% if tab == 'liked' %}{% trans "PAGE_COLLECTION_TAB_LIKED" %}{% else %}{% trans "PAGE_COLLECTION_TAB_MINE" %}{% endif %}
+      </div>
+      <div class="profile_subblock">
+        {% blocktranslate count counter=collections_count %}{{ counter }} PAGE_COLLECTION_COUNT_ONE{% plural %}{{ counter }} PAGE_COLLECTION_COUNT_MANY{% endblocktranslate %}
+      </div>
+
+      <div class="profile_block_content">
+        {% if collection_items %}
+          {% for item in collection_items %}
+            {% include "includes/collection_item.html" with item=item %}
+          {% endfor %}
+        {% else %}
+          <div>{% trans "PAGE_COLLECTION_EMPTY" %}</div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -572,3 +572,165 @@ class Review(models.Model):
             self.rating} от {
             self.user} для {
             self.application.title}"
+
+
+# user-owned app collection (system likes or custom)
+class Collection(SafeDeleteModel):
+    _safedelete_policy = SOFT_DELETE
+
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="collections",
+        verbose_name="Владелец",
+    )
+    title = models.CharField(max_length=120, verbose_name="Название")
+    description = models.TextField(blank=True, default="", verbose_name="Описание")
+    is_system = models.BooleanField(
+        default=False,
+        verbose_name="Системная коллекция",
+        help_text="system likes collection; at most one per owner",
+    )
+    is_public = models.BooleanField(default=True, verbose_name="Публичная")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата обновления")
+
+    class Meta:
+        verbose_name = "Коллекция"
+        verbose_name_plural = "Коллекции"
+        constraints = [
+            models.UniqueConstraint(
+                fields=["owner"],
+                condition=models.Q(is_system=True, deleted__isnull=True),
+                name="uniq_system_collection_per_owner",
+            ),
+        ]
+        ordering = ["-updated_at"]
+
+    def __str__(self) -> str:
+        return str(self.title)
+
+    # return up to 'limit' application icon urls for the 2x2 mosaic
+    def mosaic_icons(self, limit: int = 4) -> list[str]:
+        icons: list[str] = []
+        try:
+            items = (
+                self.items.select_related("application")
+                .order_by("-added_at")[:limit]
+            )
+            for item in items:
+                icons.append(item.application.icon_url)
+        except Exception:
+            import logging
+
+            logging.getLogger(__name__).exception(
+                "failed to build mosaic icons for collection id=%s", self.pk
+            )
+        while len(icons) < limit:
+            icons.append("/staticfiles/img/noavatar_64.jpg")
+        return icons[:limit]
+
+
+# ensure the owner has a system likes collection with translated defaults
+def get_or_create_likes_collection(user) -> Collection:
+    from django.utils.translation import activate, get_language, gettext
+
+    existing = Collection.objects.filter(owner=user, is_system=True).first()
+    if existing is not None:
+        return existing
+
+    current_lang = get_language() or settings.LANGUAGE_CODE
+    title_fields: dict[str, str] = {}
+    desc_fields: dict[str, str] = {}
+    try:
+        for lang_code, _lang_name in settings.LANGUAGES:
+            activate(lang_code)
+            title_fields[f"title_{lang_code}"] = gettext(
+                "PAGE_COLLECTION_LIKES_TITLE"
+            )
+            desc_fields[f"description_{lang_code}"] = gettext(
+                "PAGE_COLLECTION_LIKES_DESC"
+            )
+    finally:
+        activate(current_lang)
+
+    create_kwargs: dict = {
+        "owner": user,
+        "is_system": True,
+        "is_public": True,
+        "title": title_fields.get(
+            f"title_{settings.LANGUAGE_CODE}",
+            "Понравившиеся программы",
+        ),
+        "description": desc_fields.get(
+            f"description_{settings.LANGUAGE_CODE}",
+            "",
+        ),
+    }
+    create_kwargs.update(title_fields)
+    create_kwargs.update(desc_fields)
+
+    try:
+        collection = Collection.objects.create(**create_kwargs)
+    except Exception:
+        import logging
+
+        logging.getLogger(__name__).exception(
+            "failed to create likes collection for user id=%s", getattr(user, "pk", None)
+        )
+        collection = Collection.objects.filter(owner=user, is_system=True).first()
+        if collection is None:
+            raise
+    return collection
+
+
+# application membership in a collection
+class CollectionItem(models.Model):
+    collection = models.ForeignKey(
+        Collection,
+        on_delete=models.CASCADE,
+        related_name="items",
+        verbose_name="Коллекция",
+    )
+    application = models.ForeignKey(
+        Application,
+        on_delete=models.CASCADE,
+        related_name="collection_items",
+        verbose_name="Приложение",
+    )
+    added_at = models.DateTimeField(auto_now_add=True, verbose_name="Добавлено")
+
+    class Meta:
+        verbose_name = "Элемент коллекции"
+        verbose_name_plural = "Элементы коллекций"
+        unique_together = ("collection", "application")
+        ordering = ["-added_at"]
+
+    def __str__(self) -> str:
+        return f"{self.collection_id}:{self.application_id}"
+
+
+# user favorite/save of another user's collection
+class CollectionFavorite(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="favorite_collections",
+        verbose_name="Пользователь",
+    )
+    collection = models.ForeignKey(
+        Collection,
+        on_delete=models.CASCADE,
+        related_name="favorites",
+        verbose_name="Коллекция",
+    )
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата")
+
+    class Meta:
+        verbose_name = "Избранная коллекция"
+        verbose_name_plural = "Избранные коллекции"
+        unique_together = ("user", "collection")
+        ordering = ["-created_at"]
+
+    def __str__(self) -> str:
+        return f"{self.user_id}:{self.collection_id}"

@@ -18,8 +18,8 @@ from rest_framework.views import APIView
 from rest_framework.exceptions import NotFound
 
 from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiParameter, OpenApiTypes, inline_serializer
-from apps.marketplace.models import Application, Category, Distribution
-from apps.marketplace.serializers import ApplicationSerializer, CategorySerializer, DistributionSerializer
+from apps.marketplace.models import Application, Category, Collection, Distribution
+from apps.marketplace.serializers import ApplicationSerializer, CategorySerializer, CollectionSerializer, DistributionSerializer
 from apps.user.models import User
 from apps.user.serializers import UserSerializer
 from apps.core.notifications.services import NotificationService
@@ -306,6 +306,92 @@ class ServiceViewSet(viewsets.ViewSet):
         return Response({"answer": "влад кунякин пробудил шаринган"})
 
 
+
+
+@extend_schema_view(
+    list=extend_schema(summary="get public collections"),
+    retrieve=extend_schema(summary="get detailed collection info"),
+)
+class CollectionViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = CollectionSerializer
+    pagination_class = V2Pagination
+
+    def get_queryset(self):
+        qs = Collection.objects.select_related("owner").order_by("-updated_at")
+        if getattr(self, "action", None) in ("list", "by_user"):
+            user = self.request.user
+            if user.is_authenticated and getattr(self, "action", None) == "list":
+                return qs.filter(Q(is_public=True) | Q(owner=user))
+            if getattr(self, "action", None) == "list":
+                return qs.filter(is_public=True)
+        return qs
+
+    def get_object(self):
+        obj = super().get_object()
+        user = self.request.user
+        if not obj.is_public and (not user.is_authenticated or user.id != obj.owner_id):
+            raise LunaException(
+                code=ErrorCodes.COLLECTION_PRIVATE,
+                message=f"Collection (id: {obj.id}) is private",
+                status_code=403,
+            )
+        return obj
+
+    @extend_schema(
+        summary="get apps in collection",
+        description="Returns paginated apps in a given collection",
+    )
+    @action(detail=True, methods=["get"], url_path="apps")
+    def apps(self, request, pk=None):
+        collection = self.get_object()
+        app_ids = collection.items.order_by("-added_at").values_list(
+            "application_id", flat=True
+        )
+        apps = Application.objects.filter(id__in=app_ids).exclude(is_private=True)
+        # preserve collection order
+        app_map = {app.id: app for app in apps}
+        ordered = [app_map[i] for i in app_ids if i in app_map]
+        page = self.paginate_queryset(ordered)
+        if page is not None:
+            serializer = ApplicationSerializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+        serializer = ApplicationSerializer(ordered, many=True)
+        return Response(serializer.data)
+
+    @extend_schema(
+        summary="get collections by user",
+        description="Returns public collections owned by user_id",
+        parameters=[
+            OpenApiParameter(
+                name="user_id",
+                description="Owner user id",
+                required=True,
+                type=int,
+                location=OpenApiParameter.QUERY,
+            )
+        ],
+    )
+    @action(detail=False, methods=["get"], url_path="by_user")
+    def by_user(self, request):
+        user_id = request.query_params.get("user_id")
+        if not user_id:
+            return Response({"error": "user_id parameter is required"}, status=400)
+        qs = Collection.objects.filter(owner_id=user_id, is_public=True).select_related(
+            "owner"
+        ).order_by("-updated_at")
+        requester = request.user
+        if requester.is_authenticated and str(requester.id) == str(user_id):
+            qs = Collection.objects.filter(owner_id=user_id).select_related(
+                "owner"
+            ).order_by("-updated_at")
+        page = self.paginate_queryset(qs)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+        serializer = self.get_serializer(qs, many=True)
+        return Response(serializer.data)
+
+
 class ExecuteView(APIView):
     @extend_schema(
         summary="Batch API execution",
@@ -324,6 +410,10 @@ class ExecuteView(APIView):
         - `distribution.list`: Список всех сборок/дистрибутивов вообще. Зачем: техническая статистика.
         - `distribution.retrieve`: Детали одной сборки (параметр `pk`). Зачем: перед скачиванием.
         - `distribution.by_app`: Сборки конкретного приложения (параметр `app_id`). Зачем: вкладка 'Версии' на странице приложения.
+        - `collection.list`: Список публичных коллекций. Зачем: каталог коллекций.
+        - `collection.retrieve`: Детали коллекции (параметр `pk`). Зачем: страница коллекции.
+        - `collection.apps`: Приложения в коллекции (параметр `pk`). Зачем: содержимое коллекции.
+        - `collection.by_user`: Коллекции пользователя (параметр `user_id`). Зачем: профиль.
         """
     )
     def post(self, request):
@@ -369,6 +459,10 @@ class ExecuteView(APIView):
                 "distribution.list": (DistributionViewSet, "list"),
                 "distribution.retrieve": (DistributionViewSet, "retrieve"),
                 "distribution.by_app": (DistributionViewSet, "by_app"),
+                "collection.list": (CollectionViewSet, "list"),
+                "collection.retrieve": (CollectionViewSet, "retrieve"),
+                "collection.apps": (CollectionViewSet, "apps"),
+                "collection.by_user": (CollectionViewSet, "by_user"),
             }
 
             if method_name not in view_mapping:
