@@ -67,3 +67,50 @@
     font-size: 16px;
     margin-left: 5px;
 }
+/* language field tabs (shared by app/collection forms) */
+
+.lang-field-wrapper {
+    display: none;
+}
+
+.lang-field-wrapper.active {
+    display: block;
+}
+
+.field-tabs {
+    border: 1px solid #9a9a9a !important;
+    margin-top: 5px;
+    background: #fff;
+}
+
+.field-tabs .tab-bar {
+    background: #e0e0e0;
+    padding: 2px 2px 0 2px;
+}
+
+.field-tabs .tab {
+    padding: 3px 8px 2px 8px;
+    font-size: 11px;
+    height: auto;
+}
+
+.field-tabs .tab-content {
+    padding: 8px;
+}
+
+.field-tabs .lang-field-wrapper input,
+.field-tabs .lang-field-wrapper textarea,
+.field-tabs .md-textarea {
+    width: 100% !important;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.field-tabs .md-editor-container {
+    width: 100%;
+    overflow: hidden;
+}
+
+.field-tabs .md-toolbar {
+    width: auto;
+}

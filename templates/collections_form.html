@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% if is_create %}{% trans "PAGE_COLLECTION_BTN_CREATE" %}{% else %}{% trans "PAGE_COLLECTION_EDIT_TITLE" %}{% endif %} - LunaStore{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static './css/add_ui.css' %}?v=2">
+<link rel="stylesheet" href="{% static './css/tabs.css' %}">
+<link rel="stylesheet" href="{% static './css/profile.css' %}">
+<link rel="stylesheet" href="{% static './css/collections.css' %}?v=2">
+<script src="{% static './js/field_locale_tabs.js' %}?v=2"></script>
+
+<div class="content">
+  <div class="profile_block">
+    {% if is_create %}{% trans "PAGE_COLLECTION_BTN_CREATE" %}{% else %}{% trans "PAGE_COLLECTION_EDIT_TITLE" %}{% endif %}
+  </div>
+
+  <div class="profile_block_content">
+    <form method="post" action="">
+      {% csrf_token %}
+      {% with trans=form.get_trans_fields %}
+
+      <div class="add_app_pad">
+        <div class="add_app_title">{% trans "PAGE_COLLECTION_FIELD_TITLE" %}</div>
+        <div class="tabs field-tabs">
+          <div class="tab-bar">
+            {% for item in trans.title %}
+            <div class="tab {% if forloop.first %}active{% endif %}"
+                 data-lang-target="{{ item.code }}"
+                 onclick="switchFieldLocale(this, '{{ item.code }}')">
+              {{ item.label }}
+            </div>
+            {% endfor %}
+          </div>
+          <div class="tab-content">
+            {% for item in trans.title %}
+            <div class="lang-field-wrapper lang-{{ item.code }} {% if forloop.first %}active{% endif %}">
+              {{ item.input }}
+              {% if item.input.errors %}
+              <div class="errorlist" style="color: #cc0000; font-size: 11px; margin-top: 4px; background: #ffebe8; padding: 3px; border: 1px solid #dd8888;">
+                {{ item.input.errors }}
+              </div>
+              {% endif %}
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="add_app_form_label">{% trans "PAGE_COLLECTION_FIELD_TITLE_HINT" %}</div>
+      </div>
+
+      <div class="add_app_pad">
+        <div class="add_app_title">{% trans "PAGE_COLLECTION_FIELD_DESC" %}</div>
+        <div class="tabs field-tabs">
+          <div class="tab-bar">
+            {% for item in trans.description %}
+            <div class="tab {% if forloop.first %}active{% endif %}"
+                 data-lang-target="{{ item.code }}"
+                 onclick="switchFieldLocale(this, '{{ item.code }}')">
+              {{ item.label }}
+            </div>
+            {% endfor %}
+          </div>
+          <div class="tab-content">
+            {% for item in trans.description %}
+            <div class="lang-field-wrapper lang-{{ item.code }} {% if forloop.first %}active{% endif %}">
+              {{ item.input }}
+              {% if item.input.errors %}
+              <div class="errorlist" style="color: #cc0000; font-size: 11px; margin-top: 4px; background: #ffebe8; padding: 3px; border: 1px solid #dd8888;">
+                {{ item.input.errors }}
+              </div>
+              {% endif %}
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="add_app_form_label">{% trans "PAGE_COLLECTION_FIELD_DESC_HINT" %}</div>
+      </div>
+
+      <div class="add_app_pad">
+        <label for="{{ form.is_public.id_for_label }}" style="cursor: pointer;">
+          {{ form.is_public }}
+          <span class="checkbox-element__label">
+            <span>{% trans "PAGE_COLLECTION_FIELD_PUBLIC" %}</span>
+          </span>
+        </label>
+        {% if form.is_public.errors %}
+        <div class="errorlist" style="color: #cc0000; font-size: 11px; margin-top: 4px;">
+          {{ form.is_public.errors }}
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="add_app_pad collection-form-actions">
+        <input type="submit" class="action_button" value="{% trans 'PAGE_COLLECTION_BTN_SAVE' %}">
+        <a href="{% url 'collections' %}" class="action_button action_button_secondary">{% trans "PAGE_COLLECTION_BTN_CANCEL" %}</a>
+      </div>
+
+      {% endwith %}
+    </form>
+  </div>
+</div>
+</div>
+{% endblock %}

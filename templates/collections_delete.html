@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans "PAGE_COLLECTION_ACTION_DELETE" %} - LunaStore{% endblock %}
+
+{% block content %}
+<div class="content">
+  <link rel="stylesheet" href="{% static './css/profile.css' %}">
+
+  <div class="profile_block">{% trans "PAGE_COLLECTION_DELETE_CONFIRM_TITLE" %}</div>
+  <div class="profile_block_content">
+    <p>{% blocktranslate with title=collection.title %}PAGE_COLLECTION_DELETE_CONFIRM_TEXT {{ title }}{% endblocktranslate %}</p>
+    <form method="post" action="">
+      {% csrf_token %}
+      <input type="submit" class="action_button" value="{% trans 'PAGE_COLLECTION_BTN_DELETE' %}">
+      <a href="{% url 'collections' %}?page=view&id={{ collection.id }}" class="action_button action_button_secondary" style="display:inline-block; margin-left:6px; text-decoration:none;">{% trans "PAGE_COLLECTION_BTN_CANCEL" %}</a>
+    </form>
+  </div>
+</div>
+</div>
+{% endblock %}

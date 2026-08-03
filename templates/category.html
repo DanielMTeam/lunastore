@@ -3,8 +3,9 @@
 {% load static %}
 {% load category %}
 {% load markdown_tags %}
+{% block title %}{{ name }} - LunaStore{% endblock %}
+
 {% block content %}
-<title>LunaStore</title>
 <div class="content">
 <div class="banner_image">
     <div id="welcome" {% if active_category.banner_filename %}style="background: url('{% static 'img/categorybanner/' %}{{ active_category.banner_filename }}') no-repeat; height: 100px;"{% endif %}>

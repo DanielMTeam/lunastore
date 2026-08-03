@@ -23,6 +23,7 @@ from .models import (
     DistributionCreateRequests,
     DistributionEditRequests,
     ProblemReportRequests,
+    Collection,
 )
 from apps.core.mixins import CDNTokenValidationMixin
 
@@ -795,3 +796,77 @@ class DistributionEditForm(BaseDistributionForm):
         if commit:
             instance.save()
         return instance
+
+
+# create/edit collection with multilingual title and description
+class CollectionForm(forms.ModelForm):
+    class Meta:
+        model = Collection
+        fields = get_translated_fields_list(["title", "description"]) + ["is_public"]
+        widgets = get_translated_widgets_dict(
+            {
+                "title": forms.TextInput(
+                    attrs={"class": "input-text", "style": "width: 100%;"}
+                ),
+                "description": forms.Textarea(
+                    attrs={
+                        "class": "brief_intro",
+                        "rows": 4,
+                        "style": "width: 100%; height: 100px; resize: none;",
+                    }
+                ),
+            }
+        )
+        widgets["is_public"] = forms.CheckboxInput(
+            attrs={"class": "checkbox-element"}
+        )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for lang_code, _lang_name in settings.LANGUAGES:
+            title_name = f"title_{lang_code}"
+            desc_name = f"description_{lang_code}"
+            if title_name in self.fields:
+                self.fields[title_name].label = ""
+                self.fields[title_name].required = lang_code == settings.LANGUAGE_CODE
+            if desc_name in self.fields:
+                self.fields[desc_name].label = ""
+                self.fields[desc_name].required = False
+        if "is_public" in self.fields:
+            self.fields["is_public"].label = _("PAGE_COLLECTION_FIELD_PUBLIC")
+
+    def get_trans_fields(self):
+        flags = {
+            "ru": "🇷🇺 RU",
+            "en": "🇬🇧 EN",
+            "be": "🇧🇾 BE",
+            "uk": "🇺🇦 UK",
+            "kk": "🇰🇿 KK",
+        }
+        data: dict = {}
+        for field_name in ("title", "description"):
+            data[field_name] = []
+            for lang_code, _ in settings.LANGUAGES:
+                full_name = f"{field_name}_{lang_code}"
+                if full_name in self.fields:
+                    data[field_name].append(
+                        {
+                            "code": lang_code,
+                            "label": flags.get(lang_code, lang_code.upper()),
+                            "input": self[full_name],
+                        }
+                    )
+        return data
+
+    def save(self, commit: bool = True):
+        instance = super().save(commit=False)
+        # keep base title/description in sync with default language
+        default_lang = settings.LANGUAGE_CODE
+        title_val = self.cleaned_data.get(f"title_{default_lang}") or ""
+        desc_val = self.cleaned_data.get(f"description_{default_lang}") or ""
+        instance.title = title_val
+        instance.description = desc_val
+        if commit:
+            instance.save()
+        return instance
+

@@ -2252,3 +2252,195 @@ msgstr "Неправильний логін або пароль."
 
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "Вхід виконано успішно! Привіт, %(username)s!"
+
+msgid "%(counter)s PAGE_COLLECTION_APPS_ONE"
+msgid_plural "%(counter)s PAGE_COLLECTION_APPS_MANY"
+msgstr[0] "%(counter)s програма"
+msgstr[1] "%(counter)s програми"
+msgstr[2] "%(counter)s програм"
+
+msgid "%(counter)s PAGE_COLLECTION_COUNT_ONE"
+msgid_plural "%(counter)s PAGE_COLLECTION_COUNT_MANY"
+msgstr[0] "Усього %(counter)s колекція"
+msgstr[1] "Усього %(counter)s колекції"
+msgstr[2] "Усього %(counter)s колекцій"
+
+msgid "BASE_SIDEBAR_ACCOUNT_COLLECTIONS"
+msgstr "Колекції"
+
+msgid "PAGE_APP_TO_COLLECTION"
+msgstr "до колекції"
+
+msgid "PAGE_APP_ADD_TO_COLLECTION"
+msgstr "додати"
+
+msgid "PAGE_COLLECTION_ACTION_DELETE"
+msgstr "видалити"
+
+msgid "PAGE_COLLECTION_ACTION_EDIT"
+msgstr "редагувати"
+
+msgid "PAGE_COLLECTION_ACTION_FAVORITE"
+msgstr "в обране"
+
+msgid "PAGE_COLLECTION_ACTION_REMOVE_APP"
+msgstr "прибрати"
+
+msgid "PAGE_COLLECTION_ACTION_UNFAVORITE"
+msgstr "прибрати з обраного"
+
+msgid "PAGE_COLLECTION_ACTION_VIEW"
+msgstr "перегляд"
+
+msgid "PAGE_COLLECTION_APPS_EMPTY"
+msgstr "У цій колекції ще немає програм."
+
+msgid "PAGE_COLLECTION_ADD_NO_CUSTOM"
+msgstr "Немає користувацьких колекцій. Створіть нову:"
+
+msgid "PAGE_COLLECTION_ADD_TITLE"
+msgstr "Додавання до колекції"
+
+msgid "PAGE_COLLECTION_BTN_ADD_APP"
+msgstr "Додати"
+
+msgid "PAGE_COLLECTION_BTN_DELETE"
+msgstr "Видалити"
+
+msgid "PAGE_COLLECTION_BTN_CANCEL"
+msgstr "Скасувати"
+
+msgid "PAGE_COLLECTION_EDIT_TITLE"
+msgstr "Редагування колекції"
+
+msgid "PAGE_COLLECTION_BTN_CREATE"
+msgstr "Створити нову колекцію"
+
+msgid "PAGE_COLLECTION_BTN_SAVE"
+msgstr "Зберегти"
+
+msgid "PAGE_COLLECTION_DATE_CREATED"
+msgstr "Дата створення:"
+
+msgid "PAGE_COLLECTION_DATE_UPDATED"
+msgstr "Оновлено"
+
+msgid "PAGE_COLLECTION_DELETE_CONFIRM_TEXT %(title)s"
+msgstr "Ви впевнені, що хочете видалити колекцію «%(title)s»?"
+
+msgid "PAGE_COLLECTION_DELETE_CONFIRM_TITLE"
+msgstr "Видалення колекції"
+
+msgid "PAGE_COLLECTION_EMPTY"
+msgstr "Колекцій поки немає."
+
+msgid "PAGE_COLLECTION_ERROR_ADD_APP"
+msgstr "Не вдалося додати програму до колекції."
+
+msgid "PAGE_COLLECTION_ERROR_DELETE"
+msgstr "Не вдалося видалити колекцію."
+
+msgid "PAGE_COLLECTION_ERROR_DELETE_SYSTEM"
+msgstr "Системну колекцію не можна видалити."
+
+msgid "PAGE_COLLECTION_ERROR_EDIT_SYSTEM"
+msgstr "Системну колекцію не можна редагувати."
+
+msgid "PAGE_COLLECTION_ERROR_FAVORITE"
+msgstr "Не вдалося змінити обране."
+
+msgid "PAGE_COLLECTION_ERROR_FAVORITE_OWN"
+msgstr "Не можна додати власну колекцію в обране."
+
+msgid "PAGE_COLLECTION_ERROR_PRIVATE"
+msgstr "Ця колекція прихована."
+
+msgid "PAGE_COLLECTION_ERROR_REMOVE_APP"
+msgstr "Не вдалося прибрати програму з колекції."
+
+msgid "PAGE_COLLECTION_ERROR_SAVE"
+msgstr "Не вдалося зберегти колекцію."
+
+msgid "PAGE_COLLECTION_FIELD_TITLE"
+msgstr "Назва"
+
+msgid "PAGE_COLLECTION_FIELD_TITLE_HINT"
+msgstr "Вкажіть назву колекції потрібними мовами"
+
+msgid "PAGE_COLLECTION_FIELD_DESC"
+msgstr "Опис"
+
+msgid "PAGE_COLLECTION_FIELD_DESC_HINT"
+msgstr "Коротко опишіть, що входить до колекції"
+
+msgid "PAGE_COLLECTION_FIELD_PUBLIC"
+msgstr "Публічна колекція"
+
+msgid "PAGE_COLLECTION_LIKES_DESC"
+msgstr "Ставте позначки «Додати до колекції» на сторінці програм, щоб зберігати їх для швидкого доступу"
+
+msgid "PAGE_COLLECTION_LIKES_TITLE"
+msgstr "Улюблені програми"
+
+msgid "PAGE_COLLECTION_MSG_APP_ADDED"
+msgstr "Програму додано до колекції."
+
+msgid "PAGE_COLLECTION_MSG_APP_ALREADY"
+msgstr "Програма вже є в цій колекції."
+
+msgid "PAGE_COLLECTION_MSG_APP_NOT_IN"
+msgstr "Програми немає в цій колекції."
+
+msgid "PAGE_COLLECTION_MSG_APP_REMOVED"
+msgstr "Програму прибрано з колекції."
+
+msgid "PAGE_COLLECTION_MSG_DELETED"
+msgstr "Колекцію видалено."
+
+msgid "PAGE_COLLECTION_MSG_FAVORITED"
+msgstr "Колекцію додано в обране."
+
+msgid "PAGE_COLLECTION_MSG_SAVED"
+msgstr "Колекцію збережено."
+
+msgid "PAGE_COLLECTION_MSG_UNFAVORITED"
+msgstr "Колекцію прибрано з обраного."
+
+
+msgid "%(counter)s PAGE_COLLECTION_SAVES_ONE"
+msgid_plural "%(counter)s PAGE_COLLECTION_SAVES_MANY"
+msgstr[0] "%(counter)s збереження"
+msgstr[1] "%(counter)s збереження"
+msgstr[2] "%(counter)s збережень"
+
+msgid "PAGE_COLLECTION_SYSTEM_BADGE"
+msgstr "системна"
+
+msgid "PAGE_COLLECTION_TAB_LIKED"
+msgstr "Обрані колекції"
+
+msgid "PAGE_COLLECTION_TAB_MINE"
+msgstr "Мої колекції"
+
+msgid "PAGE_COLLECTION_TAB_VIEW"
+msgstr "Перегляд"
+
+msgid "PAGE_COLLECTION_TITLE"
+msgstr "Колекції"
+
+msgid "PAGE_PROFILE_TAB_COLLECTIONS"
+msgstr "Колекції"
+
+msgid "PAGE_PROFILE_COLLECTIONS_TITLE"
+msgstr "Колекції користувача"
+
+msgid "PAGE_PROFILE_COLLECTIONS_EMPTY"
+msgstr "У користувача ще немає публічних колекцій."
+msgid "PAGE_HOME_BROWSER_TITLE"
+msgstr "Головна"
+
+msgid "PAGE_404_BROWSER_TITLE"
+msgstr "Сторінку не знайдено"
+
+msgid "PAGE_502_BROWSER_TITLE"
+msgstr "Щось пішло не так..."

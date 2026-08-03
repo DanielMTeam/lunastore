@@ -323,6 +323,8 @@ li.web {
     background-position: 0px -303px;
 }
 
+.sidebar li.collections{background-position: 0px -587px;}
+
 .sidebar_info {
     border: 1px solid #e6e6e6;
     padding: 25px;
@@ -1529,3 +1531,274 @@ a.report_problem {
 .md-btn-important { color: #44337a; }
 .md-btn-warning { color: #7b341e; }
 .md-btn-caution { color: #822727; }
+
+.likewrap{
+  text-align: right;
+}
+
+.like {
+    background-image: url(../img/like.png);
+    background-repeat: no-repeat;
+    color: #000;
+    display: inline-block;
+}
+
+.like .icon {
+    width: 26px;
+    height: 24px;
+}
+
+.like:hover {
+    background-position: 0px -25px;
+    color: #990000;
+}
+
+.like:active {
+    background-position: 0px -50px;
+    color: #b20000;
+}
+
+.like .text {
+    padding: 0 5px;
+    background: url(../img/like.png);
+    background-position: 0px -125px;
+    white-space: nowrap;
+}
+
+.like .right {
+    width: 3px;
+    height: 24px;
+    background: url(../img/like.png);
+    background-position: 3px 0px;
+}
+
+.lbtnlink {
+    text-decoration: none;
+}
+
+.lbtnlink:hover {
+    text-decoration: none;
+}
+
+.activelike {
+    background-image: url(../img/like.png);
+    background-position: 0px -50px;
+}
+
+.like.activelike:hover,
+.activelike:hover {
+    background-position: 0px -75px;
+    color: #990000;
+}
+
+.like.activelike:active,
+.activelike:active {
+    background-position: 0px -100px;
+    color: #b20000;
+}
+
+.likecounter{
+  margin-left: 5px;
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  font-weight: bold;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+/* big block */
+.bigblock{
+  border: 0px;
+  margin-bottom: 16px;
+}
+
+.bigblock_text_one{
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.bigblock_text_two{
+  font-size: 16px;
+}
+
+.bigblock_icon{
+  width: 64px;
+  height: 64px;
+}
+
+.bigblock_icon#luna{
+  width: 64px;
+  height: 64px;
+  background: url(../img/lunainst.png);
+}
+
+.reasonslist{
+  margin-left: 20px;
+}
+
+.reasonslist li{
+  list-style: square;
+}
+
+.collection_item{
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.collection_info{
+  width: 320px;
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 10px;
+}
+
+.collection_ava{
+  display: inline-block;
+  border: 1px solid #294b76;
+}
+
+.collection_ava img{
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+}
+
+.collection_title{
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.collection_title a{
+  text-decoration: none;
+  color: #000;
+}
+
+.collection_title a:hover{
+  text-decoration: none;
+  color: #990000;
+}
+
+.collection_title a:active{
+  text-decoration: none;
+  color: #b20000;
+}
+
+.collection_desc{
+  width: 320px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+}
+
+.collection_desc p {
+  margin: 0;
+  padding: 0;
+}
+
+.collection_desc_list {
+  font-size: 11px;
+  color: #666;
+  max-height: 2.8em;
+  line-height: 1.4em;
+  overflow: hidden;
+  margin: 2px 0 4px 0;
+}
+
+.collection_date{
+  color: #b3b3b3;
+  font-size: 11px;
+}
+
+.collection_actions{
+  font-size: 11px;
+  margin: 6px 0 0 0;
+  padding: 0;
+}
+
+.collection_counter_block{
+  background: #294b76;
+  color: #fff;
+  font-size: 12px;
+  padding: 5px;
+  font-weight: bold;
+}
+
+.collection_view{
+  display: block;
+}
+
+.collection_view_card {
+  width:425px;
+  border:1px solid #d2e9ff;
+  background:#fff;
+  margin:5px 0;
+  padding:5px;
+  display: block;
+  overflow: hidden;
+  zoom: 1;
+  position: relative;
+}
+
+.collection_view_icon_link {
+  float: left;
+  margin-right:6px;
+  display: block;
+  text-decoration: none;
+  border: 0;
+}
+
+.collection_view_card img {
+  width:48px;
+  height:48px;
+  display: block;
+  border: 0;
+}
+
+.collection_view_card h3 {
+  margin:0;
+  font-size:13px;
+  color:#0b3a72;
+}
+
+.collection_view_card p {
+  margin:3px 0;
+  font-size:11px;
+  color:#333;
+  height:14px;
+  line-height:14px;
+  overflow:hidden;
+  display: block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.collection_card_name{
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.collection_card_name_link,
+.collection_element_info a{
+  text-decoration: none;
+  color: #000;
+}
+
+.collection_element_info{
+  display: block;
+  overflow: hidden;
+  zoom: 1;
+}
+
+.collection_card_name_link:hover,
+.collection_card_name_link:hover .collection_card_name,
+.collection_card_name:hover{
+  text-decoration: underline;
+  color: #990000;
+}
+
+.collection_card_name_link:active,
+.collection_card_name_link:active .collection_card_name,
+.collection_card_name:active{
+  text-decoration: underline;
+  color: #b20000;
+}

@@ -2,13 +2,15 @@
 {% load i18n %}
 {% load static %}
 
+{% block title %}{% trans 'PAGE_ADDAPP_PAGETITLE' %} - LunaStore{% endblock %}
+
 {% block content %}
-<title>{% trans 'PAGE_ADDAPP_PAGETITLE' %} - LunaStore</title>
 <link rel="stylesheet" href="{% static './css/add_ui.css'%}">
 <link rel="stylesheet" href="{% static './css/stpage.css'%}">
 <link rel="stylesheet" href="{% static './css/tabs.css' %}">
 <link rel="stylesheet" href="{% static './css/thickbox.css'%}">
 <script src="{% static './js/jquery.min.js' %}"></script>
+<script src="{% static './js/field_locale_tabs.js' %}"></script>
 <script>
     window.thickboxL10n = {
         image: "{% trans 'THICKBOX_IMAGE'|default:'Image' %}",
@@ -629,27 +631,6 @@
         } else {
             scrCont.innerHTML = '<span style="color:#999; font-size:11px;">{% trans "INFO_NO_SCREENSHOTS" %}</span>';
         }
-    }
-
-    function switchFieldLocale(tabElement, langCode) {
-        // find the container of this specific field
-        const container = tabElement.closest('.field-tabs');
-
-        // change the active tab only in this block
-        container.querySelectorAll('.tab').forEach(t => {
-            t.classList.remove('active');
-            if (t.getAttribute('data-lang-target') === langCode) {
-                t.classList.add('active');
-            }
-        });
-
-        // change the visibility of the input only in this block
-        container.querySelectorAll('.lang-field-wrapper').forEach(wrapper => {
-            wrapper.classList.remove('active');
-            if (wrapper.classList.contains('lang-' + langCode)) {
-                wrapper.classList.add('active');
-            }
-        });
     }
 </script>
 <script type="text/javascript">

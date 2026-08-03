@@ -8,6 +8,7 @@ from .views import (
     CategoryViewSet,
     ServiceViewSet,
     DistributionViewSet,
+    CollectionViewSet,
     ExecuteView
 )
 
@@ -17,6 +18,7 @@ router.register(r'marketplace', MarketplaceViewSet, basename='v2-marketplace')
 router.register(r'category', CategoryViewSet, basename='v2-category')
 router.register(r'service', ServiceViewSet, basename='v2-service')
 router.register(r'distribution', DistributionViewSet, basename='v2-distribution')
+router.register(r'collection', CollectionViewSet, basename='v2-collection')
 
 
 urlpatterns = [

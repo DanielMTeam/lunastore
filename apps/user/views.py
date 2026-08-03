@@ -388,6 +388,8 @@ def profile(request):
     act = request.GET.get("act")
     reviews_page = None
     recent_reviews = None
+    profile_collection_items = None
+    profile_collections_count = 0
 
     if act == "show_reviews":
         reviews_list = Review.objects.filter(
@@ -397,6 +399,30 @@ def profile(request):
         paginator = Paginator(reviews_list, 5)
         page_number = request.GET.get("page")
         reviews_page = paginator.get_page(page_number)
+    elif act == "show_collections":
+        from django.db.models import Count
+        from apps.marketplace.models import Collection
+
+        is_owner = request.user.is_authenticated and request.user.id == obj.id
+        collections_qs = Collection.objects.filter(owner=obj).annotate(
+            items_count=Count("items")
+        ).order_by("-is_system", "-updated_at")
+        if not is_owner:
+            collections_qs = collections_qs.filter(is_public=True)
+        profile_collection_items = []
+        for col in collections_qs:
+            if col.is_system and col.items_count == 0:
+                continue
+            profile_collection_items.append(
+                {
+                    "collection": col,
+                    "mosaic": col.mosaic_icons(4),
+                    "saves_count": col.favorites.count(),
+                    "apps_count": col.items_count,
+                    "is_owner": is_owner,
+                }
+            )
+        profile_collections_count = len(profile_collection_items)
     else:
         recent_reviews = Review.objects.filter(user=obj).select_related(
             'application', 'user').order_by('-created_at')[:5]
@@ -411,7 +437,9 @@ def profile(request):
             "badges": badges,
             "act": act,
             "reviews_page": reviews_page,
-            "recent_reviews": recent_reviews
+            "recent_reviews": recent_reviews,
+            "profile_collection_items": profile_collection_items,
+            "profile_collections_count": profile_collections_count,
         },
     )
 
