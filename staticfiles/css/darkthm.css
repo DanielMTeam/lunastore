@@ -148,6 +148,10 @@ body {
     position: relative !important;
 }
 
+.error_layout {
+    color: #fff !important;
+}
+
 .info_splash {
     background: #296ba8 !important;
     border: 1px solid #13314d !important;
