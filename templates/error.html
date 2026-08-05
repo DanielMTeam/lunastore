@@ -6,16 +6,9 @@
 
 {% block content %}
 <div class="content">
-  <div class="preferences">
-    <div class="preferences_info">
-      <div class="preferences_title">{% block error_heading %}{% trans "PAGE_ERROR_HEADING" %}{% endblock %}</div>
-      <div style="clear: both"></div>
-    </div>
-  </div>
-
-  <link rel="stylesheet" href="{% static './css/settings.css' %}">
   <link rel="stylesheet" href="{% static './css/profile.css' %}">
 
+  <div class="profile_block">{% block error_heading %}{% trans "PAGE_ERROR_HEADING" %}{% endblock %}</div>
   <div class="profile_block_content">
     <div class="error_layout">
       {% block error_message %}{% endblock %}
@@ -25,5 +18,6 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 {% endblock %}
