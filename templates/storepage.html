@@ -267,7 +267,7 @@
                 <form method="post" action="{% url 'delete_review' %}" style="display:inline;margin:0;padding:0;" onsubmit="return confirm('{{ are_you_sure|escapejs }}');">
                     {% csrf_token %}
                     <input type="hidden" name="id" value="{{ review.id }}" />
-                    <input type="submit" value="{% trans "PAGE_ADMIN_APP_DIST_ACTION_DELETE" %}" style="background:none;border:none;padding:0;margin:0;color:#215dc6;text-decoration:underline;cursor:pointer;font:inherit;" />
+                    <input type="submit" value="{% trans "PAGE_ADMIN_APP_DIST_ACTION_DELETE" %}" />
                 </form>
             </div>
             {% endif %}

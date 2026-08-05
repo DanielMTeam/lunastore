@@ -2434,3 +2434,26 @@ msgstr "Page not found"
 
 msgid "PAGE_502_BROWSER_TITLE"
 msgstr "Something went wrong..."
+msgid "PAGE_ERROR_BROWSER_TITLE"
+msgstr "Error"
+
+msgid "PAGE_ERROR_HEADING"
+msgstr "Error"
+
+msgid "PAGE_400_BROWSER_TITLE"
+msgstr "Bad request"
+
+msgid "PAGE_400_DEFAULT_MESSAGE"
+msgstr "The request could not be processed. Check the data and try again."
+
+msgid "PAGE_403_BROWSER_TITLE"
+msgstr "Access denied"
+
+msgid "PAGE_403_DEFAULT_MESSAGE"
+msgstr "You do not have access to this page."
+
+msgid "PAGE_500_BROWSER_TITLE"
+msgstr "Internal error"
+
+msgid "PAGE_500_DEFAULT_MESSAGE"
+msgstr "An internal server error occurred. Please try again later."

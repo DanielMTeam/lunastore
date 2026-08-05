@@ -62,6 +62,14 @@
     position: relative;
     width: 416px;
 }
+
+/* generic error page body (403/400/404) */
+.error_layout {
+    font-size: 12px;
+    line-height: 1.4;
+    color: #000;
+}
+
 .profile_block a {
     color: #fff;
     text-decoration: none;

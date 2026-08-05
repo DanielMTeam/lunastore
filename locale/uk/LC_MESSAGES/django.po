@@ -2444,3 +2444,26 @@ msgstr "Сторінку не знайдено"
 
 msgid "PAGE_502_BROWSER_TITLE"
 msgstr "Щось пішло не так..."
+msgid "PAGE_ERROR_BROWSER_TITLE"
+msgstr "Помилка"
+
+msgid "PAGE_ERROR_HEADING"
+msgstr "Помилка"
+
+msgid "PAGE_400_BROWSER_TITLE"
+msgstr "Невірний запит"
+
+msgid "PAGE_400_DEFAULT_MESSAGE"
+msgstr "Запит не вдалося обробити. Перевірте дані та спробуйте знову."
+
+msgid "PAGE_403_BROWSER_TITLE"
+msgstr "Доступ заборонено"
+
+msgid "PAGE_403_DEFAULT_MESSAGE"
+msgstr "У вас немає доступу до цієї сторінки."
+
+msgid "PAGE_500_BROWSER_TITLE"
+msgstr "Внутрішня помилка"
+
+msgid "PAGE_500_DEFAULT_MESSAGE"
+msgstr "Сталася внутрішня помилка сервера. Спробуйте повторити спробу пізніше."

@@ -1,0 +1,10 @@
+{% extends 'error.html' %}
+{% load i18n %}
+
+{% block error_browser_title %}{% trans "PAGE_500_BROWSER_TITLE" %}{% endblock %}
+
+{% block error_heading %}{% trans "PAGE_ERROR_HEADING" %}{% endblock %}
+
+{% block error_message %}
+{% trans "PAGE_500_DEFAULT_MESSAGE" %}
+{% endblock %}

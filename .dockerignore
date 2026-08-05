@@ -3,3 +3,15 @@
 __pycache__
 staticfiles_collected
 staticfiles_build
+.gitignore
+node_modules
+lunaspire/storage
+lunaspire/media
+**/storage
+**/media
+**/static
+*.log
+*.sqlite3
+venv
+.venv
+.nvm

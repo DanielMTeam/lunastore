@@ -211,7 +211,7 @@
                             {% csrf_token %}
                             <input type="hidden" name="id" value="{{ review.id }}" />
                             <input type="hidden" name="next" value="/profile.php?id={{ obj.id }}" />
-                            <input type="submit" value="{% trans "PAGE_ADMIN_APP_DIST_ACTION_DELETE" %}" style="background:none;border:none;padding:0;margin:0;color:#215dc6;text-decoration:underline;cursor:pointer;font:inherit;" />
+                            <input type="submit" value="{% trans "PAGE_ADMIN_APP_DIST_ACTION_DELETE" %}" />
                         </form>
                     </div>
                     {% endif %}
@@ -244,7 +244,7 @@
                             {% csrf_token %}
                             <input type="hidden" name="id" value="{{ review.id }}" />
                             <input type="hidden" name="next" value="/profile.php?id={{ obj.id }}&act=show_reviews" />
-                            <input type="submit" value="{% trans "PAGE_ADMIN_APP_DIST_ACTION_DELETE" %}" style="background:none;border:none;padding:0;margin:0;color:#215dc6;text-decoration:underline;cursor:pointer;font:inherit;" />
+                            <input type="submit" value="{% trans "PAGE_ADMIN_APP_DIST_ACTION_DELETE" %}" />
                         </form>
                     </div>
                     {% endif %}

@@ -2442,3 +2442,26 @@ msgstr "Страница не найдена"
 
 msgid "PAGE_502_BROWSER_TITLE"
 msgstr "Что-то пошло не так..."
+msgid "PAGE_ERROR_BROWSER_TITLE"
+msgstr "Ошибка"
+
+msgid "PAGE_ERROR_HEADING"
+msgstr "Ошибка"
+
+msgid "PAGE_400_BROWSER_TITLE"
+msgstr "Неверный запрос"
+
+msgid "PAGE_400_DEFAULT_MESSAGE"
+msgstr "Запрос не удалось обработать. Проверьте данные и попробуйте снова."
+
+msgid "PAGE_403_BROWSER_TITLE"
+msgstr "Доступ запрещён"
+
+msgid "PAGE_403_DEFAULT_MESSAGE"
+msgstr "У вас нет доступа к этой странице."
+
+msgid "PAGE_500_BROWSER_TITLE"
+msgstr "Внутренняя ошибка"
+
+msgid "PAGE_500_DEFAULT_MESSAGE"
+msgstr "Произошла внутренняя ошибка сервера. Попробуйте повторить попытку позже."

@@ -2423,3 +2423,26 @@ msgstr "Бет табылмады"
 
 msgid "PAGE_502_BROWSER_TITLE"
 msgstr "Бірдеңе дұрыс болмады..."
+msgid "PAGE_ERROR_BROWSER_TITLE"
+msgstr "Қате"
+
+msgid "PAGE_ERROR_HEADING"
+msgstr "Қате"
+
+msgid "PAGE_400_BROWSER_TITLE"
+msgstr "Қате сұрау"
+
+msgid "PAGE_400_DEFAULT_MESSAGE"
+msgstr "Сұрауды өңдеу мүмкін болмады. Деректерді тексеріп, қайталап көріңіз."
+
+msgid "PAGE_403_BROWSER_TITLE"
+msgstr "Қол жеткізуге тыйым салынған"
+
+msgid "PAGE_403_DEFAULT_MESSAGE"
+msgstr "Бұл бетке кіруге рұқсатыңыз жоқ."
+
+msgid "PAGE_500_BROWSER_TITLE"
+msgstr "Ішкі қате"
+
+msgid "PAGE_500_DEFAULT_MESSAGE"
+msgstr "Сервердің ішкі қатесі орын алды. Кейінірек қайталап көріңіз."

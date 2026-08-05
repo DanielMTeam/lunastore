@@ -1,18 +1,12 @@
-﻿{% extends 'base.html' %}
+﻿{% extends 'error.html' %}
 {% load i18n %}
 
-{% block title %}{% trans "PAGE_404_BROWSER_TITLE" %} - LunaStore{% endblock %}
+{% block error_browser_title %}{% trans "PAGE_404_BROWSER_TITLE" %}{% endblock %}
 
-{% block content %}
-<div class="content">
-    <div class="section">
-        <div class="error_icon"></div>
-        <h2>{% trans "404_TITLE" %}</h2>
-        {% trans "404_ELEMENT_NOT_FOUND" %}<br>
-        {% trans "404_ELEMENT_NOT_FOUND_2" %}<br>
-        <br>{% trans "404_ELEMENT_NOT_FOUND_3" %}<br><br>
-        <div class="action"><a href="/">{% trans "404_GO_TO_HOME" %}</a></div>
-    </div>
-</div>
-</div>
+{% block error_heading %}{% trans "PAGE_ERROR_HEADING" %}{% endblock %}
+
+{% block error_message %}
+{% trans "404_ELEMENT_NOT_FOUND" %}<br>
+{% trans "404_ELEMENT_NOT_FOUND_2" %}<br>
+<br>{% trans "404_ELEMENT_NOT_FOUND_3" %}
 {% endblock %}

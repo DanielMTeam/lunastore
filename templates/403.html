@@ -1,0 +1,14 @@
+{% extends 'error.html' %}
+{% load i18n %}
+
+{% block error_browser_title %}{% trans "PAGE_403_BROWSER_TITLE" %}{% endblock %}
+
+{% block error_heading %}{% trans "PAGE_ERROR_HEADING" %}{% endblock %}
+
+{% block error_message %}
+{% if exception %}
+{{ exception }}
+{% else %}
+{% trans "PAGE_403_DEFAULT_MESSAGE" %}
+{% endif %}
+{% endblock %}

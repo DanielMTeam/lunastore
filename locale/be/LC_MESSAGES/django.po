@@ -2441,3 +2441,26 @@ msgstr "Старонка не знойдзена"
 
 msgid "PAGE_502_BROWSER_TITLE"
 msgstr "Нешта пайшло не так..."
+msgid "PAGE_ERROR_BROWSER_TITLE"
+msgstr "Памылка"
+
+msgid "PAGE_ERROR_HEADING"
+msgstr "Памылка"
+
+msgid "PAGE_400_BROWSER_TITLE"
+msgstr "Няправільны запыт"
+
+msgid "PAGE_400_DEFAULT_MESSAGE"
+msgstr "Запыт не ўдалося апрацаваць. Праверце даныя і паспрабуйце зноў."
+
+msgid "PAGE_403_BROWSER_TITLE"
+msgstr "Доступ забаронены"
+
+msgid "PAGE_403_DEFAULT_MESSAGE"
+msgstr "У вас няма доступу да гэтай старонкі."
+
+msgid "PAGE_500_BROWSER_TITLE"
+msgstr "Унутраная памылка"
+
+msgid "PAGE_500_DEFAULT_MESSAGE"
+msgstr "Адбылася ўнутраная памылка сервера. Паспрабуйце паўтарыць спробу пазней."
