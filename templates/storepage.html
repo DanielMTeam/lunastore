@@ -84,7 +84,7 @@
         </div>
 
         <div class="st_app_precard">
-            <div class="st_card_title st_app_title">{{ title }}</div>
+            <div class="st_card_title st_app_title" title="{{ title|escapejs }}">{{ title }}</div>
             <div class="st_card_desc" style="font-size: 13px; margin-bottom: 2px;">{{ slogan|render_markdown }}</div>
             <div class="st_card_author" style="font-size: 11px;">
                 {% trans "PAGE_APP_LABEL_AUTHOR" %} <a href="/profile.php?id={{ developer_id }}">{{ developer_name }}</a><br>
