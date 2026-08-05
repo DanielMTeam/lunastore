@@ -227,9 +227,9 @@
                 <div style="margin-top: 4px; overflow: hidden; zoom: 1;">
                     <div style="float: left;">
                         {% if request.COOKIES.dark_theme == 'on' %}
-                        <a href="/theme_switch.php?payload=off" alt="Выключить тёмную тему"><div class="thmsw" id="dark" style="float: none;"></div></a>
+                        <a href="{% url 'theme_switch' %}?payload=off&next={{ request.get_full_path|urlencode }}" alt="{% trans "BASE_THEME_DISABLE" %}" title="{% trans "BASE_THEME_DISABLE" %}"><div class="thmsw" id="dark" style="float: none;"></div></a>
                         {% else %}
-                        <a href="/theme_switch.php?payload=on" alt="Включить тёмную тему"><div class="thmsw" id="light" style="float: none;"></div></a>
+                        <a href="{% url 'theme_switch' %}?payload=on&next={{ request.get_full_path|urlencode }}" alt="{% trans "BASE_THEME_ENABLE" %}" title="{% trans "BASE_THEME_ENABLE" %}"><div class="thmsw" id="light" style="float: none;"></div></a>
                         {% endif %}
                     </div>
                     <div style="text-align: right; font-size: 11px;">

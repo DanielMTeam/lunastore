@@ -2467,3 +2467,9 @@ msgstr "Внутрішня помилка"
 
 msgid "PAGE_500_DEFAULT_MESSAGE"
 msgstr "Сталася внутрішня помилка сервера. Спробуйте повторити спробу пізніше."
+
+msgid "BASE_THEME_ENABLE"
+msgstr "Увімкнути темну тему"
+
+msgid "BASE_THEME_DISABLE"
+msgstr "Вимкнути темну тему"

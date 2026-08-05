@@ -2457,3 +2457,9 @@ msgstr "Internal error"
 
 msgid "PAGE_500_DEFAULT_MESSAGE"
 msgstr "An internal server error occurred. Please try again later."
+
+msgid "BASE_THEME_ENABLE"
+msgstr "Enable dark theme"
+
+msgid "BASE_THEME_DISABLE"
+msgstr "Disable dark theme"

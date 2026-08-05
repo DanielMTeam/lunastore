@@ -1,4 +1,5 @@
 import importlib.metadata
+import logging
 import platform
 import shutil
 import sys
@@ -12,21 +13,28 @@ from django.utils import timezone, translation
 
 from apps.core.utils import get_safe_redirect_url
 
+logger = logging.getLogger(__name__)
+
 
 # Create your views here.
 def theme_switch(request):
-    payload = request.GET.get('payload')
-    next_url = get_safe_redirect_url(
-        request,
-        request.META.get('HTTP_REFERER'),
-        fallback='/',
-    )
-    response = redirect(next_url)
-    if payload == 'on':
-        response.set_cookie('dark_theme', 'on', max_age=31536000)
-    else:
-        response.delete_cookie('dark_theme')
-    return response
+    """toggle dark theme cookie and return to the same page."""
+    payload = request.GET.get("payload")
+    try:
+        next_url = get_safe_redirect_url(
+            request,
+            request.GET.get("next") or request.META.get("HTTP_REFERER"),
+            fallback="/",
+        )
+        response = redirect(next_url)
+        if payload == "on":
+            response.set_cookie("dark_theme", "on", max_age=31536000)
+        else:
+            response.delete_cookie("dark_theme")
+        return response
+    except Exception:
+        logger.exception("theme_switch failed for payload=%s", payload)
+        return redirect("/")
 
 
 def debug_info(request):

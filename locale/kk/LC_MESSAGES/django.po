@@ -2446,3 +2446,9 @@ msgstr "Ішкі қате"
 
 msgid "PAGE_500_DEFAULT_MESSAGE"
 msgstr "Сервердің ішкі қатесі орын алды. Кейінірек қайталап көріңіз."
+
+msgid "BASE_THEME_ENABLE"
+msgstr "Қараңғы теманы қосу"
+
+msgid "BASE_THEME_DISABLE"
+msgstr "Қараңғы теманы өшіру"
