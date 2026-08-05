@@ -135,6 +135,9 @@
                 <div class="boxhead_primary"><b>{% trans "BASE_SIDEBAR_APP_TITLE" %}</b></div>
                 <div class="box">
                     <ul>
+                        <li class="updates" {% if is_app_page %}id="active" {% endif %} onclick="location.href='/app.php?id={{ app_id }}'">
+                            <a href="/app.php?id={{ app_id }}">{% trans "BASE_SIDEBAR_APP_PAGE" %}</a>
+                        </li>
                         <li class="setup" {% if is_download_page %}id="active" {% endif %} onclick="location.href='/download.php?id={{ app_id }}'">
                             <a href="/download.php?id={{ app_id }}"><b>{% trans "BASE_SIDEBAR_APP_INSTALL" %}</b></a>
                         </li>

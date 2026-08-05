@@ -157,6 +157,7 @@ def app(request):
         "collection_saves_count": CollectionItem.objects.filter(application=obj).count(),
         "likes_count": likes_count,
         "is_liked": is_liked,
+        "is_app_page": True,
     }
     return render(request, "storepage.html", context)
 

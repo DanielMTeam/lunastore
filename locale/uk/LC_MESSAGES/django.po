@@ -2473,3 +2473,6 @@ msgstr "Увімкнути темну тему"
 
 msgid "BASE_THEME_DISABLE"
 msgstr "Вимкнути темну тему"
+
+msgid "BASE_SIDEBAR_APP_PAGE"
+msgstr "Програми"

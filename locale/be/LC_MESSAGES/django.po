@@ -2470,3 +2470,6 @@ msgstr "Уключыць цёмную тэму"
 
 msgid "BASE_THEME_DISABLE"
 msgstr "Выключыць цёмную тэму"
+
+msgid "BASE_SIDEBAR_APP_PAGE"
+msgstr "Дадатак"

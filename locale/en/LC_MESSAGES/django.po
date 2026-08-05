@@ -2463,3 +2463,6 @@ msgstr "Enable dark theme"
 
 msgid "BASE_THEME_DISABLE"
 msgstr "Disable dark theme"
+
+msgid "BASE_SIDEBAR_APP_PAGE"
+msgstr "Application"

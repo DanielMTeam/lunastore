@@ -2452,3 +2452,6 @@ msgstr "Қараңғы теманы қосу"
 
 msgid "BASE_THEME_DISABLE"
 msgstr "Қараңғы теманы өшіру"
+
+msgid "BASE_SIDEBAR_APP_PAGE"
+msgstr "Қосымша"
