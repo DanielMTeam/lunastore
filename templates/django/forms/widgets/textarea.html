@@ -9,9 +9,12 @@
         <button type="button" class="md-btn md-btn-important" onclick="insertTag(this, '> [!IMPORTANT]\n> ', '\n')">Important</button>
         <button type="button" class="md-btn md-btn-warning" onclick="insertTag(this, '> [!WARNING]\n> ', '\n')">Warning</button>
         <button type="button" class="md-btn md-btn-caution" onclick="insertTag(this, '> [!CAUTION]\n> ', '\n')">Caution</button>
+        <span class="md-btn-sep">|</span>
+        <button id="edit" type="button" class="md-sw-mode" data-field-name="{{ widget.name }}" onclick="toggleMdMode(this)"></button>
     </div>
 {% endif %}
     <textarea name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %} {% if 'no-md' not in widget.attrs.class %}class="md-textarea"{% endif %}>{% if widget.value != None %}{{ widget.value|stringformat:'s' }}{% endif %}</textarea>
 {% if 'no-md' not in widget.attrs.class %}
+    <div id="mdpreview_{{ widget.name }}" class="md-preview" style="display: none;"></div>
 </div>
 {% endif %}

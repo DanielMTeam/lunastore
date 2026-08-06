@@ -1522,6 +1522,7 @@ a.report_problem {
 /* Markdown Editor Container & Toolbar */
 .md-editor-container { border: 1px solid #7aa0e6; background: #f2f6fc; padding: 5px; margin-bottom: 5px; width: 100%; box-sizing: border-box; }
 .md-toolbar { margin-bottom: 5px; background: #bfe0ff; padding: 5px; border-bottom: 1px solid #215dc6; }
+.md-toolbar * { vertical-align: middle; }
 .md-textarea { width: 100%; box-sizing: border-box; }
 .md-btn { border: 1px solid #7aa0e6; background: #e0edff; padding: 2px 6px; font-size: 11px; cursor: pointer; font-family: Tahoma, Arial, sans-serif; }
 .md-btn:hover { background: #c8e1ff; }
@@ -1531,6 +1532,21 @@ a.report_problem {
 .md-btn-important { color: #44337a; }
 .md-btn-warning { color: #7b341e; }
 .md-btn-caution { color: #822727; }
+.md-sw-mode {
+    width: 20px;
+    height: 18px;
+    background: url(../img/mdedswitch.jpg);
+    border: 0;
+}
+.md-sw-mode#edid { background-position: 0px 0px; }
+.md-sw-mode#view { background-position: 0px 18px; }
+
+/* Markdown Editor Preview */
+.md-preview {
+    padding: 5px;
+    border: 1px solid #9a9a9a;
+    background-color: #FFFFFF;
+}
 
 .likewrap{
   text-align: right;
