@@ -633,6 +633,16 @@ textarea:focus {
 .md-alert-caution { background: #662020 !important; border-color: #b33939 !important; }
 .md-btn-caution { color: #e67373 !important; }
 
+/* Markdown Editor Preview */
+.md-preview {
+    border-color: #555 !important;
+    background-color: #323232;
+}
+
+.md-sw-mode { background-position: 20px 0px !important; }
+.md-sw-mode#edid { background-position: 20px 0px !important; }
+.md-sw-mode#view { background-position: 20px 18px !important; }
+
 .collection_actions a {
     color: #fff !important;
 }

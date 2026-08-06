@@ -255,8 +255,17 @@
                     toastClose: "{% trans 'PAGE_NOTIFY_TOAST_CLOSE'|escapejs %}",
                     toastView: "{% trans 'PAGE_NOTIFY_TOAST_VIEW'|escapejs %}"
                 };
+
+                window.MD_ALERT_I18N = {
+                    alertCaution: "{% trans 'MD_ALERT_CAUTION'|escapejs %}",
+                    alertImportant: "{% trans 'MD_ALERT_IMPORTANT'|escapejs %}",
+                    alertNote: "{% trans 'MD_ALERT_NOTE'|escapejs %}",
+                    alertTip: "{% trans 'MD_ALERT_TIP'|escapejs %}",
+                    alertWarning: "{% trans 'MD_ALERT_WARNING'|escapejs %}"
+                };
             </script>
             <script src="{% static './js/global_notifications.js' %}"></script>
+            <script src="{% static './js/markdown_client.js' %}"></script>
             <script src="{% static './js/markdown_editor.js' %}"></script>
             {% endif %}
         </div>
