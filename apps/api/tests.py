@@ -209,4 +209,3 @@ class CollectionV2APITest(APITestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['responses'][0]['error_code'], 4005)
-

@@ -72,4 +72,3 @@ class CollectionSerializer(serializers.ModelSerializer):
 
     def get_mosaic_icons(self, obj: Collection) -> list:
         return obj.mosaic_icons(4)
-

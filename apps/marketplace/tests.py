@@ -256,4 +256,3 @@ class CollectionPageTest(TestCase):
         resp = self.client.post(f"/collections.php?page=delete&id={col.id}")
         self.assertEqual(resp.status_code, 302)
         self.assertFalse(Collection.objects.filter(id=col.id).exists())
-

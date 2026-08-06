@@ -869,4 +869,3 @@ class CollectionForm(forms.ModelForm):
         if commit:
             instance.save()
         return instance
-

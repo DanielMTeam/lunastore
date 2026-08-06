@@ -306,8 +306,6 @@ class ServiceViewSet(viewsets.ViewSet):
         return Response({"answer": "влад кунякин пробудил шаринган"})
 
 
-
-
 @extend_schema_view(
     list=extend_schema(summary="get public collections"),
     retrieve=extend_schema(summary="get detailed collection info"),

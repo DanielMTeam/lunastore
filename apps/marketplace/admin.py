@@ -1484,4 +1484,3 @@ class CollectionFavoriteAdmin(unfold_admin.ModelAdmin):
     search_fields = ("user__username", "collection__title")
     raw_id_fields = ("user", "collection")
     readonly_fields = ("created_at",)
-
