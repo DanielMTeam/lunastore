@@ -1524,7 +1524,7 @@ a.report_problem {
 .md-toolbar { margin-bottom: 5px; background: #bfe0ff; padding: 5px; border-bottom: 1px solid #215dc6; }
 .md-toolbar * { vertical-align: middle; }
 .md-textarea { width: 100%; box-sizing: border-box; }
-.md-btn { border: 1px solid #7aa0e6; background: #e0edff; padding: 2px 6px; font-size: 11px; cursor: pointer; font-family: Tahoma, Arial, sans-serif; }
+.md-btn { border: 1px solid #7aa0e6; background: #e0edff; padding: 2px 6px; font-size: 11px; cursor: pointer; font-family: Tahoma, Arial, sans-serif; overflow: visible; width: auto; }
 .md-btn:hover { background: #c8e1ff; }
 .md-btn-sep { border-left: 1px solid #215dc6; margin: 0 5px; }
 .md-btn-note { color: #0366d6; }
