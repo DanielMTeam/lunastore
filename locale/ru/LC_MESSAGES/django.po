@@ -577,6 +577,18 @@ msgstr "Ваша заявка была успешно отправлена. От
 msgid "NOTIF_DEVSTATUS_SEND_TITLE"
 msgstr "Статус разработчика"
 
+msgid "NOTIF_DISTEDITREQ_ACCEPTED_DESCRIPTION"
+msgstr "Ваша заявка на изменение версии %(version)s для приложения \"%(app_name)s\" была одобрена модератором."
+
+msgid "NOTIF_DISTEDITREQ_ACCEPTED_TITLE"
+msgstr "Изменение версии одобрено!"
+
+msgid "NOTIF_DISTEDITREQ_DECLINED_DESCRIPTION"
+msgstr "К сожалению, ваша заявка на изменение версии %(version)s для \"%(app_name)s\" была отклонена. Причина: %(reason)s"
+
+msgid "NOTIF_DISTEDITREQ_DECLINED_TITLE"
+msgstr "Заявка на изменение версии отклонена"
+
 msgid "NOTIF_DISTREQ_ACCEPTED_DESCRIPTION"
 msgstr "Ваша заявка на публикацию версии %(version)s для приложения \"%(app_name)s\" была одобрена модератором."
 

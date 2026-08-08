@@ -577,6 +577,18 @@ msgstr "Ваша заява была паспяхова адпраўлена. А
 msgid "NOTIF_DEVSTATUS_SEND_TITLE"
 msgstr "Статус распрацоўшчыка"
 
+msgid "NOTIF_DISTEDITREQ_ACCEPTED_DESCRIPTION"
+msgstr "Ваша заява на змену версіі %(version)s для праграмы \"%(app_name)s\" была адобрана мадэратарам."
+
+msgid "NOTIF_DISTEDITREQ_ACCEPTED_TITLE"
+msgstr "Змена версіі адобрана!"
+
+msgid "NOTIF_DISTEDITREQ_DECLINED_DESCRIPTION"
+msgstr "На жаль, ваша заява на змену версіі %(version)s для \"%(app_name)s\" была адхілена. Прычына: %(reason)s"
+
+msgid "NOTIF_DISTEDITREQ_DECLINED_TITLE"
+msgstr "Заява на змену версіі адхілена"
+
 msgid "NOTIF_DISTREQ_ACCEPTED_DESCRIPTION"
 msgstr "Ваша заява на публікацыю версіі %(version)s для праграмы \"%(app_name)s\" была адобрана мадэратарам."
 

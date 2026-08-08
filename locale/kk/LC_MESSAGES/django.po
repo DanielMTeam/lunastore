@@ -569,6 +569,18 @@ msgstr "Өтінішіңіз сәтті жіберілді. Жауап «Хаб�
 msgid "NOTIF_DEVSTATUS_SEND_TITLE"
 msgstr "Әзірлеуші мәртебесі"
 
+msgid "NOTIF_DISTEDITREQ_ACCEPTED_DESCRIPTION"
+msgstr "%(app_name)s қолданбасының %(version)s нұсқасын өзгертуге берген өтінішіңіз модератормен мақұлданды."
+
+msgid "NOTIF_DISTEDITREQ_ACCEPTED_TITLE"
+msgstr "Нұсқа өзгерісі мақұлданды!"
+
+msgid "NOTIF_DISTEDITREQ_DECLINED_DESCRIPTION"
+msgstr "Өкінішке орай, %(app_name)s қосымшасының %(version)s нұсқасын өзгертуге берген өтінішіңіз қабылданбады. Себебі: %(reason)s"
+
+msgid "NOTIF_DISTEDITREQ_DECLINED_TITLE"
+msgstr "Нұсқаны өзгерту өтініші қабылданбады"
+
 msgid "NOTIF_DISTREQ_ACCEPTED_DESCRIPTION"
 msgstr "%(app_name)s қолданбасының %(version)s нұсқасын жариялауға берген өтінішіңіз модератормен мақұлданды."
 

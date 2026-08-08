@@ -140,6 +140,17 @@ body {
     border-right: 1px solid #7d7d7d !important;
 }
 
+/* collection create/edit: fill .content (460px) with dark side borders */
+.collection-form-page .profile_block {
+    /* 448 + padding 5*2 + border 1*2 = 460 */
+    width: 448px !important;
+}
+
+.collection-form-page .profile_block_content {
+    /* 438 + padding 10*2 + border 2 = 460 */
+    width: 438px !important;
+}
+
 .profile_block_content {
     padding: 10px !important;
     background: #323232 !important;

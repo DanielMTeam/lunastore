@@ -1,3 +1,14 @@
+/* create/edit form: fill .content (460px), avoid uneven right gap */
+.collection-form-page .profile_block {
+  /* 450 + padding 5*2 = 460 (light theme, no side borders) */
+  width: 450px;
+}
+
+.collection-form-page .profile_block_content {
+  /* 438 + padding 10*2 + border 2 = 460 */
+  width: 438px;
+}
+
 /* collection create/edit form actions */
 
 .collection-form-actions .action_button {

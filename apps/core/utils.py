@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 
 def _parse_proxy_networks() -> list:
-    """parse TRUSTED_PROXIES setting into ip networks."""
+    # parse TRUSTED_PROXIES setting into ip networks
     raw = getattr(settings, "TRUSTED_PROXIES", None) or []
     if isinstance(raw, str):
         items = [p.strip() for p in raw.split(";") if p.strip()]
@@ -36,10 +36,8 @@ def _ip_in_networks(ip_str: str, networks: Iterable) -> bool:
 
 
 def get_client_ip(request) -> Optional[str]:
-    """
-    return client ip. proxy headers are trusted only when REMOTE_ADDR
-    belongs to TRUSTED_PROXIES (cidr/ip list from settings/env).
-    """
+    # return client ip. proxy headers are trusted only when REMOTE_ADDR
+    # belongs to TRUSTED_PROXIES (cidr/ip list from settings/env)
     remote_addr = (request.META.get("REMOTE_ADDR") or "").strip()
     networks = _parse_proxy_networks()
 
@@ -60,7 +58,7 @@ def get_client_ip(request) -> Optional[str]:
 
 
 def get_safe_redirect_url(request, candidate: Optional[str], fallback: str = "/") -> str:
-    """validate redirect target against open-redirect attacks."""
+    # validate redirect target against open-redirect attacks
     if candidate and url_has_allowed_host_and_scheme(
         url=candidate,
         allowed_hosts={request.get_host()},
@@ -79,19 +77,23 @@ def force_logout(user):
         user_sessions.delete()
 
 
-def get_location_geoip(ip):
-    g = GeoIP2()
+def get_location_geoip(ip: str) -> str:
+    # resolve city/country for ip; return Unknown if mmdb missing or invalid
     try:
+        g = GeoIP2()
         city_data = g.city(ip)
         return f"{city_data['city']}, {city_data['country_name']}"
-    except Exception:
+    except Exception as exc:
+        logger.warning("geoip location lookup failed for %s: %s", ip, exc)
         return "Unknown"
 
 
-def get_country_code(ip):
-    g = GeoIP2()
+def get_country_code(ip: str) -> str:
+    # resolve country code for ip; return Unknown if mmdb missing or invalid
     try:
+        g = GeoIP2()
         city_data = g.city(ip)
         return city_data.get('country_code', 'Unknown')
-    except Exception:
+    except Exception as exc:
+        logger.warning("geoip country lookup failed for %s: %s", ip, exc)
         return "Unknown"

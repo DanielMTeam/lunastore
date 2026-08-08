@@ -573,6 +573,18 @@ msgstr "Your request has been successfully submitted. You will receive a respons
 msgid "NOTIF_DEVSTATUS_SEND_TITLE"
 msgstr "Developer status"
 
+msgid "NOTIF_DISTEDITREQ_ACCEPTED_DESCRIPTION"
+msgstr "Your request to update version %(version)s for application \"%(app_name)s\" has been approved by a moderator."
+
+msgid "NOTIF_DISTEDITREQ_ACCEPTED_TITLE"
+msgstr "Version update approved!"
+
+msgid "NOTIF_DISTEDITREQ_DECLINED_DESCRIPTION"
+msgstr "Unfortunately, your request to update version %(version)s for \"%(app_name)s\" has been declined. Reason: %(reason)s"
+
+msgid "NOTIF_DISTEDITREQ_DECLINED_TITLE"
+msgstr "Version update request declined"
+
 msgid "NOTIF_DISTREQ_ACCEPTED_DESCRIPTION"
 msgstr "Your request to publish version %(version)s for application \"%(app_name)s\" has been approved by a moderator."
 
