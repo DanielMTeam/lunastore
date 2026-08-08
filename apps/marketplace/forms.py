@@ -554,6 +554,12 @@ class ApplicationAdminForm(forms.ModelForm, CDNTokenValidationMixin):
     class Meta:
         model = Application
         fields = "__all__"
+        # use textarea so admin save keeps newlines/indentation
+        widgets = get_translated_widgets_dict({
+            "description": forms.Textarea(attrs={"rows": 10}),
+            "requirements": forms.Textarea(attrs={"rows": 8}),
+            "slogan": forms.Textarea(attrs={"rows": 3}),
+        })
 
     def save(self, commit=True):
         app_instance = super().save(commit=False)
