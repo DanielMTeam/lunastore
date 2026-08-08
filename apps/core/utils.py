@@ -77,23 +77,48 @@ def force_logout(user):
         user_sessions.delete()
 
 
+# cached geoip reader; unavailable flag avoids retrying a broken mmdb every request
+_geoip_reader: Optional[GeoIP2] = None
+_geoip_unavailable: bool = False
+
+
+def _get_geoip() -> Optional[GeoIP2]:
+    # return GeoIP2 reader or None when database is missing/invalid
+    global _geoip_reader, _geoip_unavailable
+    if _geoip_unavailable:
+        return None
+    if _geoip_reader is not None:
+        return _geoip_reader
+    try:
+        _geoip_reader = GeoIP2()
+        return _geoip_reader
+    except Exception as exc:
+        _geoip_unavailable = True
+        logger.warning("geoip database unavailable, lookups disabled: %s", exc)
+        return None
+
+
 def get_location_geoip(ip: str) -> str:
     # resolve city/country for ip; return Unknown if mmdb missing or invalid
+    g = _get_geoip()
+    if g is None:
+        return "Unknown"
     try:
-        g = GeoIP2()
         city_data = g.city(ip)
         return f"{city_data['city']}, {city_data['country_name']}"
     except Exception as exc:
-        logger.warning("geoip location lookup failed for %s: %s", ip, exc)
+        logger.debug("geoip location lookup failed for %s: %s", ip, exc)
         return "Unknown"
 
 
 def get_country_code(ip: str) -> str:
     # resolve country code for ip; return Unknown if mmdb missing or invalid
+    g = _get_geoip()
+    if g is None:
+        return "Unknown"
     try:
-        g = GeoIP2()
         city_data = g.city(ip)
         return city_data.get('country_code', 'Unknown')
     except Exception as exc:
-        logger.warning("geoip country lookup failed for %s: %s", ip, exc)
+        logger.debug("geoip country lookup failed for %s: %s", ip, exc)
         return "Unknown"

@@ -821,15 +821,16 @@ AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
 ]
 
-OIDC_RP_CLIENT_ID = os.getenv("OIDC_CLIENT_ID")
-OIDC_RP_CLIENT_SECRET = os.getenv("OIDC_CLIENT_SECRET")
-OIDC_OP_AUTHORIZATION_ENDPOINT = os.getenv("OIDC_ENDPOINT")
-OIDC_OP_TOKEN_ENDPOINT = os.getenv("OIDC_TOKEN_ENDPOINT")
-OIDC_OP_USER_ENDPOINT = os.getenv("OIDC_USER_ENDPOINT")
-LOGIN_REDIRECT_URL = os.getenv("LOGIN_REDIRECT_URL")
-LOGOUT_REDIRECT_URL = os.getenv("LOGOUT_REDIRECT_URL")
-OIDC_OP_JWKS_ENDPOINT = os.getenv("OIDC_JWKS_ENDPOINT")
-OIDC_RP_SIGN_ALGO = os.getenv("OIDC_SIGN_ALGO")
+OIDC_RP_CLIENT_ID = os.getenv("OIDC_CLIENT_ID", "")
+OIDC_RP_CLIENT_SECRET = os.getenv("OIDC_CLIENT_SECRET", "")
+OIDC_OP_AUTHORIZATION_ENDPOINT = os.getenv("OIDC_ENDPOINT", "")
+OIDC_OP_TOKEN_ENDPOINT = os.getenv("OIDC_TOKEN_ENDPOINT", "")
+OIDC_OP_USER_ENDPOINT = os.getenv("OIDC_USER_ENDPOINT", "")
+LOGIN_REDIRECT_URL = os.getenv("LOGIN_REDIRECT_URL", "/")
+LOGOUT_REDIRECT_URL = os.getenv("LOGOUT_REDIRECT_URL", "/login.php")
+OIDC_OP_JWKS_ENDPOINT = os.getenv("OIDC_JWKS_ENDPOINT", "")
+# mozilla-django-oidc calls .startswith on this in __init__; never leave as None
+OIDC_RP_SIGN_ALGO = os.getenv("OIDC_SIGN_ALGO", "RS256")
 
 
 def custom_environment_callback(request):

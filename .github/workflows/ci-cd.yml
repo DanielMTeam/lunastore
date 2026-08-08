@@ -103,8 +103,20 @@ jobs:
           GEO_DOMAIN_PROXY_ENABLED=False
           SENTRY_ENABLED=False
           TELEGRAM_LOGGER_ENABLED=False
+          OIDC_SIGN_ALGO=RS256
+          OIDC_CLIENT_ID=
+          OIDC_CLIENT_SECRET=
+          OIDC_ENDPOINT=
+          OIDC_TOKEN_ENDPOINT=
+          OIDC_USER_ENDPOINT=
+          OIDC_JWKS_ENDPOINT=
+          LOGIN_REDIRECT_URL=/
+          LOGOUT_REDIRECT_URL=/login.php
           EOF
           fi
+
+      - name: Ensure static directory
+        run: mkdir -p static
 
       - name: Install dependencies
         run: |
@@ -131,6 +143,15 @@ jobs:
           GEO_DOMAIN_PROXY_ENABLED: "False"
           SENTRY_ENABLED: "False"
           TELEGRAM_LOGGER_ENABLED: "False"
+          OIDC_SIGN_ALGO: RS256
+          OIDC_CLIENT_ID: ""
+          OIDC_CLIENT_SECRET: ""
+          OIDC_ENDPOINT: ""
+          OIDC_TOKEN_ENDPOINT: ""
+          OIDC_USER_ENDPOINT: ""
+          OIDC_JWKS_ENDPOINT: ""
+          LOGIN_REDIRECT_URL: /
+          LOGOUT_REDIRECT_URL: /login.php
         run: |
           python manage.py test --noinput --keepdb
 
