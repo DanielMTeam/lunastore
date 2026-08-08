@@ -105,26 +105,34 @@ ADMIN_URL = os.getenv("ADMIN_URL", "admin")
 
 CORS_ALLOW_CREDENTIALS = True
 
+# empty cookie domain in debug/ci so localhost/testserver work
+_default_cookie_domain = "" if DEBUG else ".lunastore.app"
 SESSION_COOKIE_DOMAIN = os.getenv(
     "SESSION_COOKIE_DOMAIN",
-    ".lunastore.app") or None
-CSRF_COOKIE_DOMAIN = os.getenv("CSRF_COOKIE_DOMAIN", ".lunastore.app") or None
+    _default_cookie_domain) or None
+CSRF_COOKIE_DOMAIN = os.getenv(
+    "CSRF_COOKIE_DOMAIN",
+    _default_cookie_domain) or None
 
 LUNASPIRE_URL_WITHOUT_PROTO = os.getenv(
     "LUNASPIRE_URL_WITHOUT_PROTO", "spire.lunastore.app"
 )
 
+# semicolon-separated lists: drop empty segments (corsheaders rejects "")
+CORS_ALLOWED_ORIGINS = [
+    o.strip() for o in os.getenv("CORS_ALLOWED_ORIGINS", "").split(";")
+    if o.strip()
+]
+
 if not DEBUG:
     SESSION_COOKIE_SECURE = False
     CSRF_COOKIE_SECURE = False
     CORS_ALLOW_ALL_ORIGINS = False
-    CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "").split(";")
     SESSION_COOKIE_SAMESITE = None
     SESSION_COOKIE_HTTPONLY = True
     CSRF_COOKIE_HTTPONLY = True
 else:
     CORS_ALLOW_ALL_ORIGINS = False
-    CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "").split(";")
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
