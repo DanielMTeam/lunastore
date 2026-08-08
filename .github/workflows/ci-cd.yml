@@ -80,7 +80,24 @@ jobs:
 
       - name: Create .env file
         run: |
-          echo "${{ secrets.DJANGO_ENV_FILE }}" > .env
+          # prefer repo secret when present; otherwise write a minimal ci .env
+          if [ -n "${{ secrets.DJANGO_ENV_FILE }}" ]; then
+            printf '%s\n' "${{ secrets.DJANGO_ENV_FILE }}" > .env
+          else
+            cat > .env <<'EOF'
+          SECRET_KEY=ci-insecure-secret-key-for-tests-only
+          DEBUG=True
+          DB_NAME=lunastoredb
+          DB_USER=postgres
+          DB_PASSWORD=ci_postgres_pass
+          DB_HOST=localhost
+          DB_PORT=5432
+          LUNASPIRE_SECRET_KEY=ci-lunaspire-secret
+          LUNASPIRE_URL=http://127.0.0.1:8080
+          API_URL=http://127.0.0.1:7088
+          ALLOWED_HOSTS=localhost;127.0.0.1;testserver
+          EOF
+          fi
 
       - name: Install dependencies
         run: |
@@ -89,12 +106,15 @@ jobs:
 
       - name: Run tests
         env:
-          # override .env db settings for the ephemeral service container
+          SECRET_KEY: ci-insecure-secret-key-for-tests-only
+          DEBUG: "True"
           DB_NAME: lunastoredb
           DB_USER: postgres
           DB_PASSWORD: ci_postgres_pass
           DB_HOST: localhost
           DB_PORT: "5432"
+          LUNASPIRE_SECRET_KEY: ci-lunaspire-secret
+          ALLOWED_HOSTS: localhost;127.0.0.1;testserver
         run: |
           python manage.py test --noinput --keepdb
 
