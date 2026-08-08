@@ -26,6 +26,7 @@ from .models import (
     Collection,
 )
 from apps.core.mixins import CDNTokenValidationMixin
+from apps.marketplace.widgets import UnfoldMarkdownTextareaWidget
 
 _TRANS_FIELDS = ["title", "slogan", "description", "requirements", "changelog"]
 
@@ -556,9 +557,9 @@ class ApplicationAdminForm(forms.ModelForm, CDNTokenValidationMixin):
         fields = "__all__"
         # use textarea so admin save keeps newlines/indentation
         widgets = get_translated_widgets_dict({
-            "description": forms.Textarea(attrs={"rows": 10}),
-            "requirements": forms.Textarea(attrs={"rows": 8}),
-            "slogan": forms.Textarea(attrs={"rows": 3}),
+            "description": UnfoldMarkdownTextareaWidget(attrs={"rows": 10}),
+            "requirements": UnfoldMarkdownTextareaWidget(attrs={"rows": 8}),
+            "slogan": UnfoldMarkdownTextareaWidget(attrs={"rows": 3}),
         })
 
     def save(self, commit=True):
@@ -632,7 +633,7 @@ class DistributionAdminForm(forms.ModelForm):
         model = Distribution
         fields = "__all__"
         widgets = get_translated_widgets_dict({
-            'changelog': forms.Textarea(attrs={'rows': 3}),
+            "changelog": UnfoldMarkdownTextareaWidget(attrs={"rows": 3}),
         })
 
     def clean(self):

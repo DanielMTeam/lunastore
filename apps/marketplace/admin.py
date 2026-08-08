@@ -17,6 +17,7 @@ from safedelete.models import HARD_DELETE
 from lunastore.mixins import SafeDeleteAdmin
 from . import translation
 from .forms import ApplicationAdminForm, DistributionAdminForm, get_translated_widgets_dict
+from .widgets import UnfoldMarkdownTextareaWidget
 from .models import *
 from modeltranslation.admin import TabbedTranslationAdmin, TranslationTabularInline, TranslationStackedInline
 import logging
@@ -312,9 +313,9 @@ class DistributionInlineForm(forms.ModelForm):
         model = Distribution
         fields = "__all__"
         widgets = get_translated_widgets_dict({
-            'changelog': forms.Textarea(attrs={'rows': 3}),
+            "changelog": UnfoldMarkdownTextareaWidget(attrs={"rows": 3}),
         })
-        widgets['cdn_file_id'] = forms.HiddenInput()
+        widgets["cdn_file_id"] = forms.HiddenInput()
 
     def clean(self):
         from apps.core.mixins import CDNTokenValidationMixin
@@ -381,7 +382,13 @@ class DistributionAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
     )
 
     class Media:
-        js = ("js/marketplace_cdn.js", "js/admin_inline_tabs.js")
+        # markdown toolbar for changelog + cdn uploader + inline tabs
+        js = (
+            "js/markdown_client.js",
+            "js/markdown_editor.js",
+            "js/marketplace_cdn.js",
+            "js/admin_inline_tabs.js",
+        )
 
     def render_change_form(
             self,
@@ -759,7 +766,12 @@ class ApplicationAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
     )
 
     class Media:
-        js = ("js/marketplace_cdn.js",)
+        # markdown toolbar from shared textarea widget + cdn uploader
+        js = (
+            "js/markdown_client.js",
+            "js/markdown_editor.js",
+            "js/marketplace_cdn.js",
+        )
 
     def render_change_form(
             self,
