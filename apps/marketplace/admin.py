@@ -444,7 +444,7 @@ class DistributionCreateAdmin(
     change_list_template = "admin/decline_forms/change_list_custom.html"
     change_form_template = "admin/decline_forms/change_form_custom.html"
 
-    list_display = ("id", "app", "version", "user", "status", "created_at")
+    list_display = ("app", "id", "version", "user", "status", "created_at")
     search_fields = ["app__title", "version", "user__username"]
     list_filter = SafeDeleteAdmin.list_filter + ["status", "created_at"]
     actions_detail = ["approve_request", "reject_request"]
@@ -563,6 +563,7 @@ class DistributionEditRequestAdmin(
 
     list_display = (
         "id",
+        "app",
         "target_distribution",
         "user",
         "status",
