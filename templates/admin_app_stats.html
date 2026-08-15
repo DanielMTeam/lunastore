@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans "PAGE_ADMIN_APP_TAB_STATS" %} - {{ obj.title }} - LunaStore{% endblock %}
+
+{% block content %}
+<div class="content">
+  <div class="preferences">
+      <div class="preferences_info" id="{uid}">
+        <div class="preferences_title">{% trans "PAGE_ADMIN_APP_PAGETITLE" %}</div>
+        <div style="clear: both"></div>
+      </div>
+  </div>
+
+  <link rel="stylesheet" href="{% static './css/settings.css' %}">
+  <link rel="stylesheet" href="{% static './css/profile.css' %}">
+  <link rel="stylesheet" href="{% static './css/tabs.css' %}">
+  <style>
+    .stats_wrapper {
+      padding: 0;
+      margin-top: 5px;
+    }
+    .stats_wrapper .profile_block,
+    .tab-content .profile_block {
+      width: 100% !important;
+      box-sizing: border-box !important;
+      -moz-box-sizing: border-box !important;
+      -webkit-box-sizing: border-box !important;
+    }
+    .stats_wrapper .profile_block_content,
+    .tab-content .profile_block_content {
+      width: 100% !important;
+      box-sizing: border-box !important;
+      -moz-box-sizing: border-box !important;
+      -webkit-box-sizing: border-box !important;
+      margin-bottom: 12px;
+    }
+    .stats_wrapper .app_version_table,
+    .tab-content .app_version_table {
+      width: 100% !important;
+      box-sizing: border-box !important;
+      -moz-box-sizing: border-box !important;
+      -webkit-box-sizing: border-box !important;
+      margin-bottom: 12px;
+    }
+    .stats_wrapper .xp_chart_container,
+    .tab-content .xp_chart_container {
+      width: 100% !important;
+      box-sizing: border-box !important;
+      -moz-box-sizing: border-box !important;
+      -webkit-box-sizing: border-box !important;
+      margin-bottom: 12px;
+    }
+  </style>
+  <!--[if lte IE 6]>
+  <style>
+    .stats_wrapper .profile_block,
+    .tab-content .profile_block {
+      width: 428px !important;
+    }
+    .stats_wrapper .profile_block_content,
+    .tab-content .profile_block_content {
+      width: 416px !important;
+    }
+  </style>
+  <![endif]-->
+
+  <div class="tabs">
+    <div class="tab-bar">
+      <a href="{% url 'edit_app_info' pk=obj.pk %}" class="tab" style="text-decoration: none; color: inherit;">
+        <img src="{% static './img/tabs/main.png' %}" class="tab-icon" alt="">
+        {% trans "PAGE_ADMIN_APP_FIRST_BLOCK" %}
+      </a>
+      <a href="{% url 'manage_distributions' %}?id={{ obj.pk }}" class="tab" style="text-decoration: none; color: inherit;">
+        <img src="{% static './img/tabs/programs.png' %}" class="tab-icon" alt="">
+        {% trans "PAGE_ADMIN_APP_TAB_DISTRIBUTIONS" %}
+      </a>
+      <div class="tab active">
+        <img src="{% static './img/tabs/stats.png' %}" class="tab-icon" alt="">
+        {% trans "PAGE_ADMIN_APP_TAB_STATS" %}
+      </div>
+    </div>
+
+    <div class="tab-content" id="tab-view">
+      <div class="brief_admin">
+        <img src="{{ obj.icon_url }}" alt="" width="48" height="48">
+        <h3><p>{{ obj.title }}</p></h3>
+        <p>{% if obj.slogan %}{{ obj.slogan }}{% endif %}</p>
+        <p><a href="{% url 'app' %}?id={{ obj.pk }}">{% trans "PAGE_ADMIN_APP_BACKTOAPP" %}</a></p>
+      </div>
+
+      <div class="stats_wrapper">
+        <h4>{% trans "PAGE_ADMIN_APP_STATS_30_DAYS" %}</h4>
+        <div class="separator_store"></div><br>
+
+        {% include 'includes/xp_chart.html' with stats=stats %}
+
+        <h4>{% trans "PAGE_ADMIN_APP_STATS_DETAILED" %}</h4>
+        <div class="separator_store"></div><br>
+
+        <div class="profile_block">{% trans "PAGE_ADMIN_APP_STATS_DOWNLOADS" %}</div>
+        <div class="profile_block_content">
+          {% trans "PAGE_ADMIN_APP_STATS_TOTAL_DOWNLOADS" %}: <b>{{ stats.total_downloads }}</b><br>
+          {% trans "PAGE_ADMIN_APP_STATS_UNIQUE_DOWNLOADERS" %}: <b>{{ stats.unique_downloaders }}</b>
+          <div class="pref_warn_label">{% trans "PAGE_ADMIN_APP_STATS_DOWNLOADS_HINT" %}</div>
+        </div>
+
+        <div class="profile_block">{% trans "PAGE_ADMIN_APP_STATS_VIEWS" %}</div>
+        <div class="profile_block_content">
+          {% trans "PAGE_ADMIN_APP_STATS_TOTAL_VIEWS" %}: <b>{{ stats.total_views }}</b><br>
+          {% trans "PAGE_ADMIN_APP_STATS_UNIQUE_VIEWERS" %}: <b>{{ stats.unique_viewers }}</b>
+        </div>
+
+        <div class="profile_block">{% trans "PAGE_ADMIN_APP_STATS_ENGAGEMENT" %}</div>
+        <div class="profile_block_content">
+          {% trans "PAGE_ADMIN_APP_STATS_TOTAL_LIKES" %}: <b>{{ stats.total_likes }}</b><br>
+          {% trans "PAGE_ADMIN_APP_STATS_TOTAL_RATES" %}: <b>{{ stats.total_rates }}</b>
+        </div>
+
+        <h4>{% trans "PAGE_ADMIN_APP_STATS_TOP_COUNTRIES" %}</h4>
+        <div class="separator_store"></div><br>
+        {% if stats.countries_breakdown %}
+          <table class="app_version_table" cellpadding="0" cellspacing="0">
+            <thead>
+              <tr>
+                <th>{% trans "PAGE_ADMIN_APP_STATS_COUNTRY" %}</th>
+                <th>{% trans "PAGE_ADMIN_APP_STATS_COUNT" %}</th>
+                <th>{% trans "PAGE_ADMIN_APP_STATS_SHARE" %}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in stats.countries_breakdown %}
+                <tr>
+                  <td>{{ item.name }}</td>
+                  <td>{{ item.count }}</td>
+                  <td>{{ item.percentage }}%</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <div class="search_error">{% trans "PAGE_ADMIN_APP_STATS_NO_DATA" %}</div>
+        {% endif %}
+
+        <br>
+
+        <h4>{% trans "PAGE_ADMIN_APP_STATS_TOP_OS" %}</h4>
+        <div class="separator_store"></div><br>
+        {% if stats.os_breakdown %}
+          <table class="app_version_table" cellpadding="0" cellspacing="0">
+            <thead>
+              <tr>
+                <th>{% trans "PAGE_ADMIN_APP_STATS_OS" %}</th>
+                <th>{% trans "PAGE_ADMIN_APP_STATS_COUNT" %}</th>
+                <th>{% trans "PAGE_ADMIN_APP_STATS_SHARE" %}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in stats.os_breakdown %}
+                <tr>
+                  <td>{{ item.name }}</td>
+                  <td>{{ item.count }}</td>
+                  <td>{{ item.percentage }}%</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <div class="search_error">{% trans "PAGE_ADMIN_APP_STATS_NO_DATA" %}</div>
+        {% endif %}
+
+        {% if stats.distributions_breakdown %}
+          <br>
+          <h4>{% trans "PAGE_ADMIN_APP_STATS_DISTRIBUTIONS" %}</h4>
+          <div class="separator_store"></div><br>
+          <table class="app_version_table" cellpadding="0" cellspacing="0">
+            <thead>
+              <tr>
+                <th>{% trans "PAGE_ADMIN_APP_DIST_VERSION" %}</th>
+                <th>{% trans "PAGE_ADMIN_APP_STATS_COUNT" %}</th>
+                <th>{% trans "PAGE_ADMIN_APP_STATS_SHARE" %}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in stats.distributions_breakdown %}
+                <tr>
+                  <td>{% if item.name == '0' or not item.name %}{% trans "PAGE_ADMIN_APP_STATS_DIST_GENERAL" %}{% else %}#{{ item.name }}{% endif %}</td>
+                  <td>{{ item.count }}</td>
+                  <td>{{ item.percentage }}%</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% enblock %}

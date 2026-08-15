@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import asdict, dataclass, field
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from enum import StrEnum
 from typing import Any, ClassVar, Optional
 
@@ -247,8 +247,66 @@ class BreakdownItem:
 
 
 @dataclass
+class ChartBarItem:
+    date: str
+    val1: int
+    val2: int
+    height1: int  # percentage 0..100
+    height2: int  # percentage 0..100
+    short_date: str = ""
+
+
+def _build_chart_bars(
+    series1: list[TimeseriesPoint],
+    series2: list[TimeseriesPoint],
+    days: int = 14,
+) -> list[ChartBarItem]:
+    data1_by_date = {p.date: p.count for p in series1}
+    data2_by_date = {p.date: p.count for p in series2}
+    if not data1_by_date and not data2_by_date:
+        return []
+
+    # Generate contiguous date range for the specified number of days
+    now = datetime.now(timezone.utc).date()
+    all_dates = [(now - timedelta(days=i)).isoformat() for i in range(days - 1, -1, -1)]
+
+    max_val = max(
+        max(data1_by_date.values(), default=0),
+        max(data2_by_date.values(), default=0),
+    )
+    if max_val <= 0:
+        max_val = 1
+
+    bars = []
+    for d in all_dates:
+        v1 = data1_by_date.get(d, 0)
+        v2 = data2_by_date.get(d, 0)
+        h1 = int(round((v1 / max_val) * 85)) if v1 > 0 else 0
+        h2 = int(round((v2 / max_val) * 85)) if v2 > 0 else 0
+        if v1 > 0 and h1 < 2:
+            h1 = 2
+        if v2 > 0 and h2 < 2:
+            h2 = 2
+        # short date e.g. "15.08" from "2026-08-15"
+        parts = d.split("-")
+        short_d = f"{parts[2]}.{parts[1]}" if len(parts) == 3 else d
+        bars.append(
+            ChartBarItem(
+                date=d,
+                val1=v1,
+                val2=v2,
+                height1=h1,
+                height2=h2,
+                short_date=short_d,
+            )
+        )
+    return bars
+
+
+@dataclass
 class AppAnalyticsSummary:
     app_id: int
+    days: int = 14
     total_views: int = 0
     total_downloads: int = 0
     total_likes: int = 0
@@ -261,10 +319,19 @@ class AppAnalyticsSummary:
     os_breakdown: list[BreakdownItem] = field(default_factory=list)
     distributions_breakdown: list[BreakdownItem] = field(default_factory=list)
 
+    @property
+    def has_chart_data(self) -> bool:
+        return bool(self.views_history or self.downloads_history)
+
+    @property
+    def chart_bars(self) -> list[ChartBarItem]:
+        return _build_chart_bars(self.views_history, self.downloads_history, days=self.days)
+
 
 @dataclass
 class CollectionAnalyticsSummary:
     collection_id: int
+    days: int = 14
     total_views: int = 0
     total_favorites: int = 0
     total_item_adds: int = 0
@@ -272,3 +339,11 @@ class CollectionAnalyticsSummary:
     views_history: list[TimeseriesPoint] = field(default_factory=list)
     favorites_history: list[TimeseriesPoint] = field(default_factory=list)
     countries_breakdown: list[BreakdownItem] = field(default_factory=list)
+
+    @property
+    def has_chart_data(self) -> bool:
+        return bool(self.views_history or self.favorites_history)
+
+    @property
+    def chart_bars(self) -> list[ChartBarItem]:
+        return _build_chart_bars(self.views_history, self.favorites_history, days=self.days)

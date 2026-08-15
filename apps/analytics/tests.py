@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from contextlib import contextmanager
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Iterator
 from unittest.mock import MagicMock, patch
 
@@ -275,6 +275,40 @@ class AnalyticsEnabledTrackingTests(SimpleTestCase):
                 track_collection_item_change(None, 7, app_id=10, is_added=True)
                 self.assertEqual(mock_task.enqueue.call_count, 3)
 
+    def test_track_app_download_deduplication(self) -> None:
+        mock_config = MagicMock()
+        mock_config.ANALYTICS_ENABLED = True
+        req = HttpRequest()
+        req.META["REMOTE_ADDR"] = "192.0.2.100"
+        with patch("constance.config", mock_config):
+            with patch("apps.analytics.tasks.insert_app_event_task") as mock_task:
+                mock_task.enqueue = MagicMock()
+                with patch("django.core.cache.cache.add", side_effect=[True, False]):
+                    # first download -> enqueued
+                    track_app_download(req, 100, distribution_id=1, deduplicate=True)
+                    self.assertEqual(mock_task.enqueue.call_count, 1)
+
+                    # second quick download -> deduplicated, not enqueued
+                    track_app_download(req, 100, distribution_id=1, deduplicate=True)
+                    self.assertEqual(mock_task.enqueue.call_count, 1)
+
+    def test_track_app_view_deduplication(self) -> None:
+        mock_config = MagicMock()
+        mock_config.ANALYTICS_ENABLED = True
+        req = HttpRequest()
+        req.META["REMOTE_ADDR"] = "192.0.2.101"
+        with patch("constance.config", mock_config):
+            with patch("apps.analytics.tasks.insert_app_event_task") as mock_task:
+                mock_task.enqueue = MagicMock()
+                with patch("django.core.cache.cache.add", side_effect=[True, False]):
+                    # first view -> enqueued
+                    track_app_view(req, 200, deduplicate=True)
+                    self.assertEqual(mock_task.enqueue.call_count, 1)
+
+                    # second quick view -> deduplicated, not enqueued
+                    track_app_view(req, 200, deduplicate=True)
+                    self.assertEqual(mock_task.enqueue.call_count, 1)
+
 
 class AnalyticsReportingTests(SimpleTestCase):
     def tearDown(self) -> None:
@@ -299,7 +333,7 @@ class AnalyticsReportingTests(SimpleTestCase):
 
         with patch("constance.config", mock_config):
             with patch("apps.analytics.client.get_analytics_client", return_value=mock_client):
-                summary = get_app_analytics(42, days=30)
+                summary = get_app_analytics(42)
                 self.assertEqual(summary.app_id, 42)
                 self.assertEqual(summary.total_views, 150)
                 self.assertEqual(summary.total_downloads, 45)
@@ -332,7 +366,7 @@ class AnalyticsReportingTests(SimpleTestCase):
 
         with patch("constance.config", mock_config):
             with patch("apps.analytics.client.get_analytics_client", return_value=mock_client):
-                summary = get_collection_analytics(88, days=30)
+                summary = get_collection_analytics(88)
                 self.assertEqual(summary.collection_id, 88)
                 self.assertEqual(summary.total_views, 60)
                 self.assertEqual(summary.total_favorites, 15)
@@ -393,3 +427,28 @@ class ReportingHelpersTests(SimpleTestCase):
             with patch("sentry_sdk.capture_exception") as mock_capture:
                 report_analytics_error(RuntimeError("x"), "hello")
         mock_capture.assert_not_called()
+
+    def test_summary_chart_bars_calculation(self) -> None:
+        today = datetime.now(timezone.utc).date()
+        d1 = (today - timedelta(days=1)).isoformat()
+        d2 = today.isoformat()
+        summary = AppAnalyticsSummary(
+            app_id=1,
+            days=2,
+            views_history=[TimeseriesPoint(date=d1, count=100), TimeseriesPoint(date=d2, count=50)],
+            downloads_history=[TimeseriesPoint(date=d1, count=20), TimeseriesPoint(date=d2, count=10)],
+        )
+        self.assertTrue(summary.has_chart_data)
+        bars = summary.chart_bars
+        self.assertEqual(len(bars), 2)
+        self.assertEqual(bars[0].date, d1)
+        self.assertEqual(bars[0].height1, 85)
+        self.assertEqual(bars[0].height2, 17)
+        self.assertEqual(bars[1].date, d2)
+        self.assertEqual(bars[1].height1, 42)
+        self.assertEqual(bars[1].height2, 8)
+
+    def test_summary_empty_chart_bars(self) -> None:
+        summary = AppAnalyticsSummary(app_id=1)
+        self.assertFalse(summary.has_chart_data)
+        self.assertEqual(summary.chart_bars, [])

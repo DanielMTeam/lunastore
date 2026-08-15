@@ -2301,6 +2301,9 @@ msgstr "прыбраць з абранага"
 msgid "PAGE_COLLECTION_ACTION_VIEW"
 msgstr "прагляд"
 
+msgid "PAGE_COLLECTION_ACTION_STATS"
+msgstr "статыстыка"
+
 msgid "PAGE_COLLECTION_APPS_EMPTY"
 msgstr "У гэтай калекцыі пакуль няма праграм."
 

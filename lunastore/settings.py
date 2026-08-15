@@ -36,7 +36,10 @@ SENTRY_ENVIRONMENT = os.getenv("SENTRY_ENVIRONMENT", "production")
 
 # optional clickhouse analytics (disabled by default)
 ANALYTICS_ENABLED = os.getenv("ANALYTICS_ENABLED", "False") == "True"
-CLICKHOUSE_HOST = os.getenv("CLICKHOUSE_HOST", "clickhouse")
+CLICKHOUSE_HOST = os.getenv(
+    "CLICKHOUSE_HOST",
+    "clickhouse" if (os.path.exists("/.dockerenv") or os.getenv("DOCKER_CONTAINER")) else "127.0.0.1",
+)
 CLICKHOUSE_PORT = int(os.getenv("CLICKHOUSE_PORT", "8123"))
 CLICKHOUSE_USER = os.getenv("CLICKHOUSE_USER", "analytics")
 CLICKHOUSE_PASSWORD = os.getenv("CLICKHOUSE_PASSWORD", "")
@@ -86,12 +89,21 @@ API_THROTTLE_ENABLED = os.getenv("API_THROTTLE_ENABLED", "True") == "True"
 API_THROTTLE_ANON_RATE = os.getenv("API_THROTTLE_ANON_RATE", "1000/hour")
 API_THROTTLE_USER_RATE = os.getenv("API_THROTTLE_USER_RATE", "5000/hour")
 
+# redis configuration
+REDIS_HOST = os.getenv(
+    "REDIS_HOST",
+    "redis" if (os.path.exists("/.dockerenv") or os.getenv("DOCKER_CONTAINER")) else "127.0.0.1",
+)
+REDIS_PORT = int(os.getenv("REDIS_PORT", "6379"))
+REDIS_DB = int(os.getenv("REDIS_DB", "1"))
+REDIS_URL = os.getenv("REDIS_URL", f"redis://{REDIS_HOST}:{REDIS_PORT}/{REDIS_DB}")
+
 # django-smart-ratelimit (ratelimit for functions)
-RATELIMIT_BACKEND = 'redis'
+RATELIMIT_BACKEND = os.getenv("RATELIMIT_BACKEND", "redis")
 RATELIMIT_REDIS = {
-    'host': 'redis',
-    'port': 6379,
-    'db': 1,
+    'host': REDIS_HOST,
+    'port': REDIS_PORT,
+    'db': REDIS_DB,
 }
 
 ADMIN_EMAIL = os.getenv("ADMIN_EMAIL", "")
@@ -266,9 +278,10 @@ else:
     CACHES = {
         "default": {
             "BACKEND": "django_redis.cache.RedisCache",
-            "LOCATION": "redis://redis:6379/1",
+            "LOCATION": REDIS_URL,
             "OPTIONS": {
                 "CLIENT_CLASS": "django_redis.client.DefaultClient",
+                "IGNORE_EXCEPTIONS": True,
             }
         }
     }
@@ -277,7 +290,7 @@ else:
 # django-constance configuration
 # backend: Redis (same instance as cache)
 CONSTANCE_BACKEND = "constance.backends.redisd.RedisBackend"
-CONSTANCE_REDIS_CONNECTION = "redis://redis:6379/1"
+CONSTANCE_REDIS_CONNECTION = REDIS_URL
 
 CONSTANCE_ADDITIONAL_FIELDS = {
     **UNFOLD_CONSTANCE_ADDITIONAL_FIELDS,

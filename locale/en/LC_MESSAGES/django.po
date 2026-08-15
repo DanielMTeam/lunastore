@@ -2295,6 +2295,9 @@ msgstr "remove from favorites"
 msgid "PAGE_COLLECTION_ACTION_VIEW"
 msgstr "view"
 
+msgid "PAGE_COLLECTION_ACTION_STATS"
+msgstr "stats"
+
 msgid "PAGE_COLLECTION_APPS_EMPTY"
 msgstr "This collection has no apps yet."
 
@@ -2478,3 +2481,94 @@ msgstr "Disable dark theme"
 
 msgid "BASE_SIDEBAR_APP_PAGE"
 msgstr "Application"
+
+msgid "PAGE_ADMIN_APP_TAB_STATS"
+msgstr "Statistics"
+
+msgid "PAGE_ADMIN_APP_BACKTOAPP"
+msgstr "Back to page"
+
+msgid "PAGE_ADMIN_APP_STATS_30_DAYS"
+msgstr "Visual statistics for 14 days"
+
+msgid "PAGE_ADMIN_APP_STATS_DETAILED"
+msgstr "Detailed statistics"
+
+msgid "PAGE_ADMIN_APP_STATS_DOWNLOADS"
+msgstr "Downloads"
+
+msgid "PAGE_ADMIN_APP_STATS_TOTAL_DOWNLOADS"
+msgstr "Total downloads"
+
+msgid "PAGE_ADMIN_APP_STATS_UNIQUE_DOWNLOADERS"
+msgstr "Unique downloaders"
+
+msgid "PAGE_ADMIN_APP_STATS_DOWNLOADS_HINT"
+msgstr "Statistics are recorded when the \"Install\" button is clicked on the application page"
+
+msgid "PAGE_ADMIN_APP_STATS_VIEWS"
+msgstr "Views"
+
+msgid "PAGE_ADMIN_APP_STATS_TOTAL_VIEWS"
+msgstr "Total views"
+
+msgid "PAGE_ADMIN_APP_STATS_UNIQUE_VIEWERS"
+msgstr "Unique viewers"
+
+msgid "PAGE_ADMIN_APP_STATS_ENGAGEMENT"
+msgstr "Engagement"
+
+msgid "PAGE_ADMIN_APP_STATS_TOTAL_LIKES"
+msgstr "Total likes"
+
+msgid "PAGE_ADMIN_APP_STATS_TOTAL_RATES"
+msgstr "Total ratings"
+
+msgid "PAGE_ADMIN_APP_STATS_TOP_COUNTRIES"
+msgstr "Top 10 countries for 30 days"
+
+msgid "PAGE_ADMIN_APP_STATS_COUNTRY"
+msgstr "Country"
+
+msgid "PAGE_ADMIN_APP_STATS_COUNT"
+msgstr "Count"
+
+msgid "PAGE_ADMIN_APP_STATS_SHARE"
+msgstr "Share"
+
+msgid "PAGE_ADMIN_APP_STATS_TOP_OS"
+msgstr "Top 10 operating systems for 30 days"
+
+msgid "PAGE_ADMIN_APP_STATS_OS"
+msgstr "Operating system"
+
+msgid "PAGE_ADMIN_APP_STATS_DISTRIBUTIONS"
+msgstr "Downloads by distributions (versions)"
+
+msgid "PAGE_ADMIN_APP_STATS_DIST_GENERAL"
+msgstr "Main"
+
+msgid "PAGE_ADMIN_APP_STATS_NO_DATA"
+msgstr "No data available"
+
+msgid "PAGE_COLLECTION_TAB_STATS"
+msgstr "Statistics"
+
+msgid "PAGE_COLLECTION_BACK_TO_VIEW"
+msgstr "Back to collection view"
+
+msgid "PAGE_COLLECTION_STATS_30_DAYS"
+msgstr "Activity statistics for 14 days"
+
+msgid "PAGE_COLLECTION_STATS_VIEWS"
+msgstr "Views"
+
+msgid "PAGE_COLLECTION_STATS_FAVORITES"
+msgstr "Favorites (saves)"
+
+msgid "PAGE_COLLECTION_STATS_TOTAL_FAVORITES"
+msgstr "Total favorites"
+
+msgid "PAGE_COLLECTION_STATS_TOTAL_ITEM_ADDS"
+msgstr "App additions"
+

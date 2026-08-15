@@ -14,19 +14,27 @@
   <div class="tabs">
     <div class="tab-bar">
       {% if user.is_authenticated %}
-      <a href="{% url 'collections' %}" class="tab" style="text-decoration:none; color:black; display: inline-block;">
+      <a href="{% url 'collections' %}" class="tab" style="text-decoration: none; color: inherit;">
         <img src="{% static './img/tabs/likes.png' %}" class="tab-icon" alt="">
         {% trans "PAGE_COLLECTION_TAB_MINE" %}
       </a>
-      <a href="{% url 'collections' %}?page=liked" class="tab" style="text-decoration:none; color:black; display: inline-block;">
+      {% if not is_owner %}
+      <a href="{% url 'collections' %}?page=liked" class="tab" style="text-decoration: none; color: inherit;">
         <img src="{% static './img/tabs/fav.png' %}" class="tab-icon" alt="">
         {% trans "PAGE_COLLECTION_TAB_LIKED" %}
       </a>
       {% endif %}
-      <a href="{% url 'collections' %}?page=view&id={{ collection.id }}" class="tab active" style="text-decoration:none; color:black; display: inline-block;">
+      {% endif %}
+      <div class="tab active">
         <img src="{% static './img/tabs/terms.png' %}" class="tab-icon" alt="">
         {% trans "PAGE_COLLECTION_TAB_VIEW" %}
+      </div>
+      {% if is_owner and not collection.is_system %}
+      <a href="{% url 'collections' %}?page=stats&id={{ collection.id }}" class="tab" style="text-decoration: none; color: inherit;">
+        <img src="{% static './img/tabs/stats.png' %}" class="tab-icon" alt="">
+        {% trans "PAGE_COLLECTION_TAB_STATS" %}
       </a>
+      {% endif %}
     </div>
 
     <div class="tab-content" id="tab-view">
@@ -53,6 +61,7 @@
             {% if not collection.is_system %}
             <b>{% blocktranslate count counter=saves_count %}{{ counter }} PAGE_COLLECTION_SAVES_ONE{% plural %}{{ counter }} PAGE_COLLECTION_SAVES_MANY{% endblocktranslate %}</b>
             {% if is_owner %}
+            - <a href="{% url 'collections' %}?page=stats&id={{ collection.id }}">{% trans "PAGE_COLLECTION_ACTION_STATS" %}</a>
             - <a href="{% url 'collections' %}?page=edit&id={{ collection.id }}">{% trans "PAGE_COLLECTION_ACTION_EDIT" %}</a>
             - <a href="{% url 'collections' %}?page=delete&id={{ collection.id }}">{% trans "PAGE_COLLECTION_ACTION_DELETE" %}</a>
             {% elif user.is_authenticated %}

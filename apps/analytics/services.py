@@ -59,6 +59,46 @@ def ping() -> bool:
 
 
 #
+# deduplication & cooldown helpers
+#
+
+
+def _get_actor_key(request: Optional[HttpRequest]) -> str:
+    # return unique actor key (user ID, session ID, or client IP)
+    if request is None:
+        return ""
+    try:
+        user = getattr(request, "user", None)
+        if user and getattr(user, "is_authenticated", False):
+            return f"u:{user.pk}"
+        session = getattr(request, "session", None)
+        if session and getattr(session, "session_key", None):
+            return f"s:{session.session_key}"
+        from apps.core.utils import get_client_ip
+
+        ip = get_client_ip(request)
+        if ip:
+            return f"ip:{ip}"
+    except Exception:
+        logger.debug("failed to resolve actor key", exc_info=True)
+    return ""
+
+
+def _is_event_deduplicated(dedup_key: str, timeout: int) -> bool:
+    # returns True if event was recently recorded and should be ignored
+    if not dedup_key or timeout <= 0:
+        return False
+    try:
+        from django.core.cache import cache
+
+        was_added = cache.add(dedup_key, 1, timeout=timeout)
+        return not was_added
+    except Exception:
+        logger.debug("deduplication cache check failed key=%s", dedup_key, exc_info=True)
+        return False
+
+
+#
 # application tracking api
 #
 
@@ -72,7 +112,10 @@ def track_app_event(event: AppEvent) -> None:
     from apps.analytics.tasks import insert_app_event_task
 
     try:
-        insert_app_event_task.enqueue(event.to_clickhouse_row())
+        row = list(event.to_clickhouse_row())
+        if hasattr(row[0], "isoformat"):
+            row[0] = row[0].isoformat()
+        insert_app_event_task.enqueue(row)
     except Exception as exc:
         report_analytics_error(
             exc,
@@ -86,9 +129,20 @@ def track_app_view(
     *,
     category_id: Optional[int] = None,
     meta: Optional[dict[str, Any]] = None,
+    deduplicate: bool = True,
+    dedup_timeout: int = 1800,
 ) -> None:
     if not is_enabled() or not app_id:
         return
+
+    if deduplicate and request is not None:
+        actor = _get_actor_key(request)
+        if actor:
+            key = f"analytics:dedup:app_v:{app_id}:{actor}"
+            if _is_event_deduplicated(key, dedup_timeout):
+                logger.debug("track_app_view skipped by dedup key=%s", key)
+                return
+
     event = AppEvent.from_request(
         request,
         app_id,
@@ -106,9 +160,20 @@ def track_app_download(
     distribution_id: Optional[int] = None,
     category_id: Optional[int] = None,
     meta: Optional[dict[str, Any]] = None,
+    deduplicate: bool = True,
+    dedup_timeout: int = 600,
 ) -> None:
     if not is_enabled() or not app_id:
         return
+
+    if deduplicate and request is not None:
+        actor = _get_actor_key(request)
+        if actor:
+            key = f"analytics:dedup:dl:{app_id}:{distribution_id or 0}:{actor}"
+            if _is_event_deduplicated(key, dedup_timeout):
+                logger.debug("track_app_download skipped by dedup key=%s", key)
+                return
+
     event = AppEvent.from_request(
         request,
         app_id,
@@ -195,7 +260,10 @@ def track_collection_event(event: CollectionEvent) -> None:
     from apps.analytics.tasks import insert_collection_event_task
 
     try:
-        insert_collection_event_task.enqueue(event.to_clickhouse_row())
+        row = list(event.to_clickhouse_row())
+        if hasattr(row[0], "isoformat"):
+            row[0] = row[0].isoformat()
+        insert_collection_event_task.enqueue(row)
     except Exception as exc:
         report_analytics_error(
             exc,
@@ -211,9 +279,20 @@ def track_collection_view(
     is_system: bool = False,
     is_public: bool = True,
     meta: Optional[dict[str, Any]] = None,
+    deduplicate: bool = True,
+    dedup_timeout: int = 1800,
 ) -> None:
     if not is_enabled() or not collection_id:
         return
+
+    if deduplicate and request is not None:
+        actor = _get_actor_key(request)
+        if actor:
+            key = f"analytics:dedup:col_v:{collection_id}:{actor}"
+            if _is_event_deduplicated(key, dedup_timeout):
+                logger.debug("track_collection_view skipped by dedup key=%s", key)
+                return
+
     event = CollectionEvent.from_request(
         request,
         collection_id,
@@ -324,10 +403,19 @@ def track_event(
 #
 
 
-def get_app_analytics(app_id: int, days: int = 30) -> AppAnalyticsSummary:
-    # fetch aggregated analytics summary for a given app
-    summary = AppAnalyticsSummary(app_id=int(app_id))
+def get_app_analytics(
+    app_id: int,
+    days: int = 30,
+    chart_days: int = 14,
+) -> AppAnalyticsSummary:
+    # fetch aggregated analytics summary for a given app (chart over chart_days, tables over days)
+    summary = AppAnalyticsSummary(app_id=int(app_id), days=int(chart_days))
     if not is_enabled() or not app_id:
+        try:
+            from apps.marketplace.models import Review
+            summary.total_rates = Review.objects.filter(application_id=app_id).count()
+        except Exception:
+            pass
         return summary
 
     from apps.analytics.client import get_analytics_client
@@ -336,11 +424,17 @@ def get_app_analytics(app_id: int, days: int = 30) -> AppAnalyticsSummary:
         client = get_analytics_client(force_enabled=True)
     except Exception as exc:
         report_analytics_error(exc, "get_app_analytics client unavailable")
+        try:
+            from apps.marketplace.models import Review
+            summary.total_rates = Review.objects.filter(application_id=app_id).count()
+        except Exception:
+            pass
         return summary
 
-    params = {"app_id": int(app_id), "days": int(days)}
+    totals_params = {"app_id": int(app_id), "days": int(days)}
+    chart_params = {"app_id": int(app_id), "days": int(chart_days)}
 
-    # 1. Total counts & unique counts
+    # 1. Total counts & unique counts (30 days)
     try:
         totals_query = """
             SELECT
@@ -354,7 +448,7 @@ def get_app_analytics(app_id: int, days: int = 30) -> AppAnalyticsSummary:
             WHERE app_id = %(app_id)s
               AND event_time >= now() - toIntervalDay(%(days)s)
         """
-        totals_rows = client.query_rows(totals_query, params)
+        totals_rows = client.query_rows(totals_query, totals_params)
         if totals_rows:
             row = totals_rows[0]
             summary.total_views = int(row[0] or 0)
@@ -366,7 +460,7 @@ def get_app_analytics(app_id: int, days: int = 30) -> AppAnalyticsSummary:
     except Exception as exc:
         report_analytics_error(exc, f"failed to query totals for app_id={app_id}")
 
-    # 2. Daily timeseries (views and downloads)
+    # 2. Daily timeseries (views and downloads over chart_days = 14 days)
     try:
         ts_query = """
             SELECT
@@ -379,14 +473,14 @@ def get_app_analytics(app_id: int, days: int = 30) -> AppAnalyticsSummary:
             GROUP BY dt
             ORDER BY dt ASC
         """
-        for r in client.query_rows(ts_query, params):
+        for r in client.query_rows(ts_query, chart_params):
             d_str = str(r[0])
             summary.views_history.append(TimeseriesPoint(date=d_str, count=int(r[1] or 0)))
             summary.downloads_history.append(TimeseriesPoint(date=d_str, count=int(r[2] or 0)))
     except Exception as exc:
         report_analytics_error(exc, f"failed to query timeseries for app_id={app_id}")
 
-    # 3. Countries breakdown
+    # 3. Countries breakdown (30 days)
     try:
         country_query = """
             SELECT
@@ -400,7 +494,7 @@ def get_app_analytics(app_id: int, days: int = 30) -> AppAnalyticsSummary:
             ORDER BY cnt DESC
             LIMIT 10
         """
-        country_rows = client.query_rows(country_query, params)
+        country_rows = client.query_rows(country_query, totals_params)
         total_c = sum(int(r[1]) for r in country_rows) or 1
         summary.countries_breakdown = [
             BreakdownItem(
@@ -413,7 +507,7 @@ def get_app_analytics(app_id: int, days: int = 30) -> AppAnalyticsSummary:
     except Exception as exc:
         report_analytics_error(exc, f"failed to query countries for app_id={app_id}")
 
-    # 4. OS breakdown
+    # 4. OS breakdown (30 days)
     try:
         os_query = """
             SELECT
@@ -427,7 +521,7 @@ def get_app_analytics(app_id: int, days: int = 30) -> AppAnalyticsSummary:
             ORDER BY cnt DESC
             LIMIT 10
         """
-        os_rows = client.query_rows(os_query, params)
+        os_rows = client.query_rows(os_query, totals_params)
         total_os = sum(int(r[1]) for r in os_rows) or 1
         summary.os_breakdown = [
             BreakdownItem(
@@ -440,7 +534,7 @@ def get_app_analytics(app_id: int, days: int = 30) -> AppAnalyticsSummary:
     except Exception as exc:
         report_analytics_error(exc, f"failed to query OS for app_id={app_id}")
 
-    # 5. Distributions breakdown
+    # 5. Distributions breakdown (30 days)
     try:
         dist_query = """
             SELECT
@@ -454,7 +548,7 @@ def get_app_analytics(app_id: int, days: int = 30) -> AppAnalyticsSummary:
             ORDER BY cnt DESC
             LIMIT 10
         """
-        dist_rows = client.query_rows(dist_query, params)
+        dist_rows = client.query_rows(dist_query, totals_params)
         total_d = sum(int(r[1]) for r in dist_rows) or 1
         summary.distributions_breakdown = [
             BreakdownItem(
@@ -476,10 +570,16 @@ def get_app_analytics(app_id: int, days: int = 30) -> AppAnalyticsSummary:
 def get_collection_analytics(
     collection_id: int,
     days: int = 30,
+    chart_days: int = 14,
 ) -> CollectionAnalyticsSummary:
-    # fetch aggregated analytics summary for a given collection
-    summary = CollectionAnalyticsSummary(collection_id=int(collection_id))
+    # fetch aggregated analytics summary for a given collection (chart over chart_days, tables over days)
+    summary = CollectionAnalyticsSummary(collection_id=int(collection_id), days=int(chart_days))
     if not is_enabled() or not collection_id:
+        try:
+            from apps.marketplace.models import CollectionFavorite
+            summary.total_favorites = CollectionFavorite.objects.filter(collection_id=collection_id).count()
+        except Exception:
+            pass
         return summary
 
     from apps.analytics.client import get_analytics_client
@@ -488,11 +588,17 @@ def get_collection_analytics(
         client = get_analytics_client(force_enabled=True)
     except Exception as exc:
         report_analytics_error(exc, "get_collection_analytics client unavailable")
+        try:
+            from apps.marketplace.models import CollectionFavorite
+            summary.total_favorites = CollectionFavorite.objects.filter(collection_id=collection_id).count()
+        except Exception:
+            pass
         return summary
 
-    params = {"collection_id": int(collection_id), "days": int(days)}
+    totals_params = {"collection_id": int(collection_id), "days": int(days)}
+    chart_params = {"collection_id": int(collection_id), "days": int(chart_days)}
 
-    # 1. Total counts & unique viewers
+    # 1. Total counts & unique viewers (30 days)
     try:
         totals_query = """
             SELECT
@@ -504,7 +610,7 @@ def get_collection_analytics(
             WHERE collection_id = %(collection_id)s
               AND event_time >= now() - toIntervalDay(%(days)s)
         """
-        totals_rows = client.query_rows(totals_query, params)
+        totals_rows = client.query_rows(totals_query, totals_params)
         if totals_rows:
             row = totals_rows[0]
             summary.total_views = int(row[0] or 0)
@@ -517,7 +623,7 @@ def get_collection_analytics(
             f"failed to query totals for collection_id={collection_id}",
         )
 
-    # 2. Daily timeseries (views and favorites)
+    # 2. Daily timeseries (views and favorites over chart_days = 14 days)
     try:
         ts_query = """
             SELECT
@@ -530,7 +636,7 @@ def get_collection_analytics(
             GROUP BY dt
             ORDER BY dt ASC
         """
-        for r in client.query_rows(ts_query, params):
+        for r in client.query_rows(ts_query, chart_params):
             d_str = str(r[0])
             summary.views_history.append(TimeseriesPoint(date=d_str, count=int(r[1] or 0)))
             summary.favorites_history.append(TimeseriesPoint(date=d_str, count=int(r[2] or 0)))
@@ -540,7 +646,7 @@ def get_collection_analytics(
             f"failed to query timeseries for collection_id={collection_id}",
         )
 
-    # 3. Countries breakdown
+    # 3. Countries breakdown (30 days)
     try:
         country_query = """
             SELECT
@@ -554,7 +660,7 @@ def get_collection_analytics(
             ORDER BY cnt DESC
             LIMIT 10
         """
-        country_rows = client.query_rows(country_query, params)
+        country_rows = client.query_rows(country_query, totals_params)
         total_c = sum(int(r[1]) for r in country_rows) or 1
         summary.countries_breakdown = [
             BreakdownItem(

@@ -16,19 +16,18 @@ from apps.analytics.reporting import (
 logger = logging.getLogger("analytics")
 
 
-@task()
-def insert_table_rows_task(
+def _insert_table_rows(
     table: str,
     data: Sequence[Sequence[Any]],
     column_names: Sequence[str],
 ) -> None:
-    # generic async insert of rows into any clickhouse table
+    # generic insert of rows into any clickhouse table
     from apps.analytics.client import get_analytics_client
     from apps.analytics.services import is_enabled
 
     if not is_enabled():
         logger.debug(
-            "insert_table_rows_task skipped: disabled table=%s",
+            "insert_table_rows skipped: disabled table=%s",
             table,
         )
         return
@@ -36,19 +35,38 @@ def insert_table_rows_task(
     if not data:
         return
 
+    formatted_data = []
+    for row in data:
+        row_list = list(row)
+        if row_list and isinstance(row_list[0], str):
+            try:
+                row_list[0] = datetime.fromisoformat(row_list[0])
+            except Exception:
+                pass
+        formatted_data.append(row_list)
+
     try:
         client = get_analytics_client(force_enabled=True)
-        client.insert_rows(table, data, column_names)
+        client.insert_rows(table, formatted_data, column_names)
     except Exception as exc:
         report_analytics_error(
             exc,
-            f"insert_table_rows_task failed table={table} count={len(data)}",
+            f"insert_table_rows failed table={table} count={len(data)}",
         )
         if isinstance(exc, AnalyticsUnavailableError):
             raise
         raise AnalyticsUnavailableError(
-            f"insert_table_rows_task failed table={table} count={len(data)}"
+            f"insert_table_rows failed table={table} count={len(data)}"
         ) from exc
+
+
+@task()
+def insert_table_rows_task(
+    table: str,
+    data: Sequence[Sequence[Any]],
+    column_names: Sequence[str],
+) -> None:
+    _insert_table_rows(table, data, column_names)
 
 
 @task()
@@ -58,7 +76,7 @@ def insert_app_event_task(
     # insert single app event row into analytics_app_events
     from apps.analytics.models import AppEvent
 
-    insert_table_rows_task(AppEvent.TABLE_NAME, [row], AppEvent.COLUMN_NAMES)
+    _insert_table_rows(AppEvent.TABLE_NAME, [row], AppEvent.COLUMN_NAMES)
 
 
 @task()
@@ -68,7 +86,7 @@ def insert_collection_event_task(
     # insert single collection event row into analytics_collection_events
     from apps.analytics.models import CollectionEvent
 
-    insert_table_rows_task(
+    _insert_table_rows(
         CollectionEvent.TABLE_NAME,
         [row],
         CollectionEvent.COLUMN_NAMES,

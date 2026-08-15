@@ -16,6 +16,15 @@ from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 from django_smart_ratelimit import ratelimit
+from apps.analytics.services import (
+    get_app_analytics,
+    get_collection_analytics,
+    track_app_download,
+    track_app_rate,
+    track_app_view,
+    track_collection_favorite,
+    track_collection_view,
+)
 from apps.core.utils import get_safe_redirect_url
 from apps.user.decorators import developer_required, require_modern_browser
 from .decorators import guard_private_app, user_is_owner
@@ -77,6 +86,8 @@ def category(request):
 def app(request):
     id = request.GET.get("id")
     obj = get_object_or_404(Application.objects.select_related("user"), id=id)
+    first_cat_id = obj.categories.values_list("id", flat=True).first()
+    track_app_view(request, app_id=obj.pk, category_id=first_cat_id)
     obj_dist = Distribution.objects.filter(
         app__id=id).order_by("-published").first()
     download_page_url = f"{reverse('download')}?id={obj.id}"
@@ -381,6 +392,33 @@ def application_edit_info(request, pk):
                   )
 
 
+@login_required
+@require_modern_browser
+@user_is_owner(Application)
+@ratelimit(key='ip', rate='30/1m', block=True)
+def application_stats(request, pk):
+    if getattr(request, 'limited', False):
+        messages.error(request, _("ERROR_RATE_LIMIT_EXCEEDED"))
+        return redirect(request.META.get('HTTP_REFERER', '/'))
+
+    obj = get_object_or_404(Application, pk=pk)
+    stats = get_app_analytics(app_id=obj.pk, days=30, chart_days=14)
+
+    return render(
+        request,
+        "admin_app_stats.html",
+        {
+            "obj": obj,
+            "app": obj,
+            "stats": stats,
+            "is_stats_page": True,
+            "app_id": obj.pk,
+            "developer_id": obj.user.pk,
+            "developer_site": obj.developer_site,
+        },
+    )
+
+
 def search(request):
     query = request.GET.get("q")
     view_mode = request.GET.get("view", "tiles")
@@ -678,6 +716,8 @@ def rate_app(request):
             review.rating = rating
             review.save()
 
+        track_app_rate(request, app_id=obj.pk, rating=rating)
+
         # go back to app page
         return redirect(f"{reverse('app')}?id={app_id}")
     return redirect("home")
@@ -745,6 +785,9 @@ def get_file_action(request, dist_pk):
     if app.is_private:
         if not request.user.is_authenticated or app.user_id != request.user.id:
             raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
+
+    # track download analytics
+    track_app_download(request, app_id=app.pk, distribution_id=dist.pk)
 
     if dist.cdn_file_id:
         payload = {
@@ -849,6 +892,8 @@ def collections(request):
 
     if page == "view":
         return _collections_view(request)
+    if page == "stats":
+        return _collections_stats(request)
     if page in ("edit", "create"):
         return _collections_edit(request)
     if page == "delete":
@@ -937,6 +982,12 @@ def _collections_view(request):
             user=request.user, collection=collection
         ).exists()
 
+    track_collection_view(
+        request,
+        collection_id=collection.pk,
+        owner_id=collection.owner_id,
+    )
+
     context = {
         "collection": collection,
         "mosaic": collection.mosaic_icons(4),
@@ -948,6 +999,36 @@ def _collections_view(request):
         "tab": "view",
     }
     return render(request, "collections_view.html", context)
+
+
+def _collections_stats(request):
+    collection_id = request.GET.get("id")
+    collection = get_object_or_404(
+        Collection.objects.select_related("owner"), id=collection_id
+    )
+    if not _user_can_view_collection(request.user, collection):
+        messages.error(request, _("PAGE_COLLECTION_ERROR_PRIVATE"))
+        if request.user.is_authenticated:
+            return redirect("collections")
+        return redirect("login")
+
+    is_owner = request.user.is_authenticated and (
+        request.user.id == collection.owner_id or request.user.is_staff
+    )
+    if not is_owner:
+        messages.error(request, _("ERROR_YOURE_NOT_OWNER_OF_APP"))
+        return redirect(f"/collections.php?page=view&id={collection.id}")
+
+    stats = get_collection_analytics(collection_id=collection.id, days=30, chart_days=14)
+
+    context = {
+        "collection": collection,
+        "mosaic": collection.mosaic_icons(4),
+        "stats": stats,
+        "is_owner": is_owner,
+        "tab": "stats",
+    }
+    return render(request, "collections_stats.html", context)
 
 
 @login_required
@@ -1082,8 +1163,10 @@ def _collections_favorite(request):
         )
         if not created:
             fav.delete()
+            track_collection_favorite(request, collection_id=collection.pk, is_favorite=False)
             messages.success(request, _("PAGE_COLLECTION_MSG_UNFAVORITED"))
         else:
+            track_collection_favorite(request, collection_id=collection.pk, is_favorite=True)
             messages.success(request, _("PAGE_COLLECTION_MSG_FAVORITED"))
     except Exception:
         logger.exception("failed to toggle favorite for collection %s", collection_id)

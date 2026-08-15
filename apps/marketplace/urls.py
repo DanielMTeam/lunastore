@@ -13,6 +13,7 @@ urlpatterns = [
     path(
         "edit_app_info.php/<int:pk>/", views.application_edit_info, name="edit_app_info"
     ),
+    path("app_stats.php/<int:pk>/", views.application_stats, name="app_stats"),
     path("search.php", views.search, name="search"),
     path("report_app.php", views.report_app, name="report_app"),
     path("report_problem.php", views.report_problem, name="report_problem"),
