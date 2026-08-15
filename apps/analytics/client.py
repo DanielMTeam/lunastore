@@ -6,7 +6,7 @@ import json
 import logging
 import threading
 from datetime import datetime, timezone
-from typing import Any, Mapping, Optional, Protocol, Sequence
+from typing import TYPE_CHECKING, Any, Mapping, Optional, Protocol, Sequence
 
 from django.conf import settings
 
@@ -14,6 +14,9 @@ from apps.analytics.reporting import (
     AnalyticsUnavailableError,
     optional_user_id,
 )
+
+if TYPE_CHECKING:
+    from apps.analytics.models import AppEvent, CollectionEvent
 
 logger = logging.getLogger("analytics")
 
@@ -40,6 +43,33 @@ class AnalyticsClient(Protocol):
     def insert_events_batch(
         self,
         rows: Sequence[Mapping[str, Any]],
+    ) -> None:
+        ...
+
+    def insert_rows(
+        self,
+        table: str,
+        data: Sequence[Sequence[Any]],
+        column_names: Sequence[str],
+    ) -> None:
+        ...
+
+    def query_rows(
+        self,
+        query: str,
+        parameters: Optional[Mapping[str, Any]] = None,
+    ) -> list[Sequence[Any]]:
+        ...
+
+    def insert_app_events(
+        self,
+        events: Sequence[AppEvent],
+    ) -> None:
+        ...
+
+    def insert_collection_events(
+        self,
+        events: Sequence[CollectionEvent],
     ) -> None:
         ...
 
@@ -77,6 +107,44 @@ class NullAnalyticsClient:
         logger.debug(
             "null client skipped insert_events_batch count=%s",
             len(rows),
+        )
+
+    def insert_rows(
+        self,
+        table: str,
+        data: Sequence[Sequence[Any]],
+        column_names: Sequence[str],
+    ) -> None:
+        logger.debug(
+            "null client skipped insert_rows table=%s count=%s",
+            table,
+            len(data),
+        )
+
+    def query_rows(
+        self,
+        query: str,
+        parameters: Optional[Mapping[str, Any]] = None,
+    ) -> list[Sequence[Any]]:
+        logger.debug("null client skipped query_rows query=%s", query[:120])
+        return []
+
+    def insert_app_events(
+        self,
+        events: Sequence[AppEvent],
+    ) -> None:
+        logger.debug(
+            "null client skipped insert_app_events count=%s",
+            len(events),
+        )
+
+    def insert_collection_events(
+        self,
+        events: Sequence[CollectionEvent],
+    ) -> None:
+        logger.debug(
+            "null client skipped insert_collection_events count=%s",
+            len(events),
         )
 
     def execute(self, query: str) -> Any:
@@ -143,11 +211,21 @@ class ClickHouseAnalyticsClient:
             ]
             for row in rows
         ]
+        self.insert_rows("analytics_events", data, column_names)
+
+    def insert_rows(
+        self,
+        table: str,
+        data: Sequence[Sequence[Any]],
+        column_names: Sequence[str],
+    ) -> None:
+        if not data:
+            return
         try:
             self._client.insert(
-                "analytics_events",
+                table,
                 data,
-                column_names=column_names,
+                column_names=list(column_names),
                 settings={
                     "async_insert": 1,
                     # wait until server accepted the insert
@@ -156,10 +234,52 @@ class ClickHouseAnalyticsClient:
             )
         except Exception:
             logger.exception(
-                "clickhouse insert_events_batch failed count=%s",
-                len(rows),
+                "clickhouse insert_rows failed table=%s count=%s",
+                table,
+                len(data),
             )
             raise
+
+    def query_rows(
+        self,
+        query: str,
+        parameters: Optional[Mapping[str, Any]] = None,
+    ) -> list[Sequence[Any]]:
+        try:
+            result = self._client.query(
+                query,
+                parameters=dict(parameters or {}),
+            )
+            return list(result.result_rows or [])
+        except Exception:
+            logger.exception("clickhouse query_rows failed")
+            raise
+
+    def insert_app_events(
+        self,
+        events: Sequence[AppEvent],
+    ) -> None:
+        if not events:
+            return
+        from apps.analytics.models import AppEvent
+
+        data = [e.to_clickhouse_row() for e in events]
+        self.insert_rows(AppEvent.TABLE_NAME, data, AppEvent.COLUMN_NAMES)
+
+    def insert_collection_events(
+        self,
+        events: Sequence[CollectionEvent],
+    ) -> None:
+        if not events:
+            return
+        from apps.analytics.models import CollectionEvent
+
+        data = [e.to_clickhouse_row() for e in events]
+        self.insert_rows(
+            CollectionEvent.TABLE_NAME,
+            data,
+            CollectionEvent.COLUMN_NAMES,
+        )
 
     def execute(self, query: str) -> Any:
         try:

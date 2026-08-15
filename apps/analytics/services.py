@@ -1,4 +1,4 @@
-# public analytics api for the rest of the project
+# public analytics api for tracking and reporting
 
 from __future__ import annotations
 
@@ -6,6 +6,18 @@ import logging
 from datetime import datetime
 from typing import Any, Mapping, Optional
 
+from django.http import HttpRequest
+
+from apps.analytics.models import (
+    AppAnalyticsSummary,
+    AppEvent,
+    AppEventType,
+    BreakdownItem,
+    CollectionAnalyticsSummary,
+    CollectionEvent,
+    CollectionEventType,
+    TimeseriesPoint,
+)
 from apps.analytics.reporting import (
     AnalyticsUnavailableError,
     report_analytics_error,
@@ -46,6 +58,231 @@ def ping() -> bool:
         return False
 
 
+#
+# application tracking api
+#
+
+
+def track_app_event(event: AppEvent) -> None:
+    # enqueue app event insert via django.tasks; no-op when analytics is off
+    if not is_enabled():
+        logger.debug("track_app_event skipped: disabled")
+        return
+
+    from apps.analytics.tasks import insert_app_event_task
+
+    try:
+        insert_app_event_task.enqueue(event.to_clickhouse_row())
+    except Exception as exc:
+        report_analytics_error(
+            exc,
+            f"failed to enqueue app event app_id={event.app_id} type={event.event_type}",
+        )
+
+
+def track_app_view(
+    request: Optional[HttpRequest],
+    app_id: int,
+    *,
+    category_id: Optional[int] = None,
+    meta: Optional[dict[str, Any]] = None,
+) -> None:
+    if not is_enabled() or not app_id:
+        return
+    event = AppEvent.from_request(
+        request,
+        app_id,
+        event_type=AppEventType.VIEW,
+        category_id=category_id,
+        meta=meta,
+    )
+    track_app_event(event)
+
+
+def track_app_download(
+    request: Optional[HttpRequest],
+    app_id: int,
+    *,
+    distribution_id: Optional[int] = None,
+    category_id: Optional[int] = None,
+    meta: Optional[dict[str, Any]] = None,
+) -> None:
+    if not is_enabled() or not app_id:
+        return
+    event = AppEvent.from_request(
+        request,
+        app_id,
+        event_type=AppEventType.DOWNLOAD,
+        distribution_id=distribution_id,
+        category_id=category_id,
+        meta=meta,
+    )
+    track_app_event(event)
+
+
+def track_app_like(
+    request: Optional[HttpRequest],
+    app_id: int,
+    is_like: bool = True,
+    *,
+    meta: Optional[dict[str, Any]] = None,
+) -> None:
+    if not is_enabled() or not app_id:
+        return
+    evt_type = AppEventType.LIKE if is_like else AppEventType.UNLIKE
+    event = AppEvent.from_request(
+        request,
+        app_id,
+        event_type=evt_type,
+        meta=meta,
+    )
+    track_app_event(event)
+
+
+def track_app_rate(
+    request: Optional[HttpRequest],
+    app_id: int,
+    *,
+    rating: Optional[int] = None,
+    meta: Optional[dict[str, Any]] = None,
+) -> None:
+    if not is_enabled() or not app_id:
+        return
+    combined_meta = dict(meta or {})
+    if rating is not None:
+        combined_meta["rating"] = int(rating)
+    event = AppEvent.from_request(
+        request,
+        app_id,
+        event_type=AppEventType.RATE,
+        meta=combined_meta,
+    )
+    track_app_event(event)
+
+
+def track_app_collection_add(
+    request: Optional[HttpRequest],
+    app_id: int,
+    *,
+    collection_id: Optional[int] = None,
+    meta: Optional[dict[str, Any]] = None,
+) -> None:
+    if not is_enabled() or not app_id:
+        return
+    combined_meta = dict(meta or {})
+    if collection_id is not None:
+        combined_meta["collection_id"] = int(collection_id)
+    event = AppEvent.from_request(
+        request,
+        app_id,
+        event_type=AppEventType.ADD_TO_COLLECTION,
+        meta=combined_meta,
+    )
+    track_app_event(event)
+
+
+#
+# collection tracking api
+#
+
+
+def track_collection_event(event: CollectionEvent) -> None:
+    # enqueue collection event insert via django.tasks; no-op when analytics is off
+    if not is_enabled():
+        logger.debug("track_collection_event skipped: disabled")
+        return
+
+    from apps.analytics.tasks import insert_collection_event_task
+
+    try:
+        insert_collection_event_task.enqueue(event.to_clickhouse_row())
+    except Exception as exc:
+        report_analytics_error(
+            exc,
+            f"failed to enqueue collection event collection_id={event.collection_id} type={event.event_type}",
+        )
+
+
+def track_collection_view(
+    request: Optional[HttpRequest],
+    collection_id: int,
+    *,
+    owner_id: Optional[int] = None,
+    is_system: bool = False,
+    is_public: bool = True,
+    meta: Optional[dict[str, Any]] = None,
+) -> None:
+    if not is_enabled() or not collection_id:
+        return
+    event = CollectionEvent.from_request(
+        request,
+        collection_id,
+        event_type=CollectionEventType.VIEW,
+        owner_id=owner_id,
+        is_system=is_system,
+        is_public=is_public,
+        meta=meta,
+    )
+    track_collection_event(event)
+
+
+def track_collection_favorite(
+    request: Optional[HttpRequest],
+    collection_id: int,
+    is_favorite: bool = True,
+    *,
+    owner_id: Optional[int] = None,
+    meta: Optional[dict[str, Any]] = None,
+) -> None:
+    if not is_enabled() or not collection_id:
+        return
+    evt_type = (
+        CollectionEventType.FAVORITE
+        if is_favorite
+        else CollectionEventType.UNFAVORITE
+    )
+    event = CollectionEvent.from_request(
+        request,
+        collection_id,
+        event_type=evt_type,
+        owner_id=owner_id,
+        meta=meta,
+    )
+    track_collection_event(event)
+
+
+def track_collection_item_change(
+    request: Optional[HttpRequest],
+    collection_id: int,
+    app_id: int,
+    is_added: bool = True,
+    *,
+    owner_id: Optional[int] = None,
+    meta: Optional[dict[str, Any]] = None,
+) -> None:
+    if not is_enabled() or not collection_id or not app_id:
+        return
+    evt_type = (
+        CollectionEventType.ADD_ITEM
+        if is_added
+        else CollectionEventType.REMOVE_ITEM
+    )
+    event = CollectionEvent.from_request(
+        request,
+        collection_id,
+        event_type=evt_type,
+        owner_id=owner_id,
+        app_id=app_id,
+        meta=meta,
+    )
+    track_collection_event(event)
+
+
+#
+# legacy raw event api
+#
+
+
 def track_event(
     event_name: str,
     *,
@@ -80,3 +317,322 @@ def track_event(
             exc,
             f"failed to enqueue analytics event name={event_name}",
         )
+
+
+#
+# analytical reporting & query helpers (parameterized SQL)
+#
+
+
+def get_app_analytics(app_id: int, days: int = 30) -> AppAnalyticsSummary:
+    # fetch aggregated analytics summary for a given app
+    summary = AppAnalyticsSummary(app_id=int(app_id))
+    if not is_enabled() or not app_id:
+        return summary
+
+    from apps.analytics.client import get_analytics_client
+
+    try:
+        client = get_analytics_client(force_enabled=True)
+    except Exception as exc:
+        report_analytics_error(exc, "get_app_analytics client unavailable")
+        return summary
+
+    params = {"app_id": int(app_id), "days": int(days)}
+
+    # 1. Total counts & unique counts
+    try:
+        totals_query = """
+            SELECT
+                countIf(event_type = 'view') AS views,
+                countIf(event_type = 'download') AS downloads,
+                countIf(event_type = 'like') AS likes,
+                countIf(event_type = 'rate') AS rates,
+                uniqIf(if(user_id IS NOT NULL, toString(user_id), ip), event_type = 'view') AS unique_viewers,
+                uniqIf(if(user_id IS NOT NULL, toString(user_id), ip), event_type = 'download') AS unique_downloaders
+            FROM analytics_app_events
+            WHERE app_id = %(app_id)s
+              AND event_time >= now() - toIntervalDay(%(days)s)
+        """
+        totals_rows = client.query_rows(totals_query, params)
+        if totals_rows:
+            row = totals_rows[0]
+            summary.total_views = int(row[0] or 0)
+            summary.total_downloads = int(row[1] or 0)
+            summary.total_likes = int(row[2] or 0)
+            summary.total_rates = int(row[3] or 0)
+            summary.unique_viewers = int(row[4] or 0)
+            summary.unique_downloaders = int(row[5] or 0)
+    except Exception as exc:
+        report_analytics_error(exc, f"failed to query totals for app_id={app_id}")
+
+    # 2. Daily timeseries (views and downloads)
+    try:
+        ts_query = """
+            SELECT
+                toDate(event_time) AS dt,
+                countIf(event_type = 'view') AS views_cnt,
+                countIf(event_type = 'download') AS downloads_cnt
+            FROM analytics_app_events
+            WHERE app_id = %(app_id)s
+              AND event_time >= now() - toIntervalDay(%(days)s)
+            GROUP BY dt
+            ORDER BY dt ASC
+        """
+        for r in client.query_rows(ts_query, params):
+            d_str = str(r[0])
+            summary.views_history.append(TimeseriesPoint(date=d_str, count=int(r[1] or 0)))
+            summary.downloads_history.append(TimeseriesPoint(date=d_str, count=int(r[2] or 0)))
+    except Exception as exc:
+        report_analytics_error(exc, f"failed to query timeseries for app_id={app_id}")
+
+    # 3. Countries breakdown
+    try:
+        country_query = """
+            SELECT
+                if(country = '' OR country IS NULL, 'Unknown', country) AS c,
+                count() AS cnt
+            FROM analytics_app_events
+            WHERE app_id = %(app_id)s
+              AND event_type = 'view'
+              AND event_time >= now() - toIntervalDay(%(days)s)
+            GROUP BY c
+            ORDER BY cnt DESC
+            LIMIT 10
+        """
+        country_rows = client.query_rows(country_query, params)
+        total_c = sum(int(r[1]) for r in country_rows) or 1
+        summary.countries_breakdown = [
+            BreakdownItem(
+                name=str(r[0]),
+                count=int(r[1]),
+                percentage=round((int(r[1]) / total_c) * 100, 1),
+            )
+            for r in country_rows
+        ]
+    except Exception as exc:
+        report_analytics_error(exc, f"failed to query countries for app_id={app_id}")
+
+    # 4. OS breakdown
+    try:
+        os_query = """
+            SELECT
+                if(os_name = '' OR os_name IS NULL, 'Unknown', os_name) AS os,
+                count() AS cnt
+            FROM analytics_app_events
+            WHERE app_id = %(app_id)s
+              AND event_type = 'view'
+              AND event_time >= now() - toIntervalDay(%(days)s)
+            GROUP BY os
+            ORDER BY cnt DESC
+            LIMIT 10
+        """
+        os_rows = client.query_rows(os_query, params)
+        total_os = sum(int(r[1]) for r in os_rows) or 1
+        summary.os_breakdown = [
+            BreakdownItem(
+                name=str(r[0]),
+                count=int(r[1]),
+                percentage=round((int(r[1]) / total_os) * 100, 1),
+            )
+            for r in os_rows
+        ]
+    except Exception as exc:
+        report_analytics_error(exc, f"failed to query OS for app_id={app_id}")
+
+    # 5. Distributions breakdown
+    try:
+        dist_query = """
+            SELECT
+                if(distribution_id IS NULL, 0, distribution_id) AS dist_id,
+                count() AS cnt
+            FROM analytics_app_events
+            WHERE app_id = %(app_id)s
+              AND event_type = 'download'
+              AND event_time >= now() - toIntervalDay(%(days)s)
+            GROUP BY dist_id
+            ORDER BY cnt DESC
+            LIMIT 10
+        """
+        dist_rows = client.query_rows(dist_query, params)
+        total_d = sum(int(r[1]) for r in dist_rows) or 1
+        summary.distributions_breakdown = [
+            BreakdownItem(
+                name=str(r[0]),
+                count=int(r[1]),
+                percentage=round((int(r[1]) / total_d) * 100, 1),
+            )
+            for r in dist_rows
+        ]
+    except Exception as exc:
+        report_analytics_error(
+            exc,
+            f"failed to query distributions for app_id={app_id}",
+        )
+
+    return summary
+
+
+def get_collection_analytics(
+    collection_id: int,
+    days: int = 30,
+) -> CollectionAnalyticsSummary:
+    # fetch aggregated analytics summary for a given collection
+    summary = CollectionAnalyticsSummary(collection_id=int(collection_id))
+    if not is_enabled() or not collection_id:
+        return summary
+
+    from apps.analytics.client import get_analytics_client
+
+    try:
+        client = get_analytics_client(force_enabled=True)
+    except Exception as exc:
+        report_analytics_error(exc, "get_collection_analytics client unavailable")
+        return summary
+
+    params = {"collection_id": int(collection_id), "days": int(days)}
+
+    # 1. Total counts & unique viewers
+    try:
+        totals_query = """
+            SELECT
+                countIf(event_type = 'view') AS views,
+                countIf(event_type = 'favorite') AS favorites,
+                countIf(event_type = 'add_item') AS item_adds,
+                uniqIf(if(user_id IS NOT NULL, toString(user_id), ip), event_type = 'view') AS unique_viewers
+            FROM analytics_collection_events
+            WHERE collection_id = %(collection_id)s
+              AND event_time >= now() - toIntervalDay(%(days)s)
+        """
+        totals_rows = client.query_rows(totals_query, params)
+        if totals_rows:
+            row = totals_rows[0]
+            summary.total_views = int(row[0] or 0)
+            summary.total_favorites = int(row[1] or 0)
+            summary.total_item_adds = int(row[2] or 0)
+            summary.unique_viewers = int(row[3] or 0)
+    except Exception as exc:
+        report_analytics_error(
+            exc,
+            f"failed to query totals for collection_id={collection_id}",
+        )
+
+    # 2. Daily timeseries (views and favorites)
+    try:
+        ts_query = """
+            SELECT
+                toDate(event_time) AS dt,
+                countIf(event_type = 'view') AS views_cnt,
+                countIf(event_type = 'favorite') AS fav_cnt
+            FROM analytics_collection_events
+            WHERE collection_id = %(collection_id)s
+              AND event_time >= now() - toIntervalDay(%(days)s)
+            GROUP BY dt
+            ORDER BY dt ASC
+        """
+        for r in client.query_rows(ts_query, params):
+            d_str = str(r[0])
+            summary.views_history.append(TimeseriesPoint(date=d_str, count=int(r[1] or 0)))
+            summary.favorites_history.append(TimeseriesPoint(date=d_str, count=int(r[2] or 0)))
+    except Exception as exc:
+        report_analytics_error(
+            exc,
+            f"failed to query timeseries for collection_id={collection_id}",
+        )
+
+    # 3. Countries breakdown
+    try:
+        country_query = """
+            SELECT
+                if(country = '' OR country IS NULL, 'Unknown', country) AS c,
+                count() AS cnt
+            FROM analytics_collection_events
+            WHERE collection_id = %(collection_id)s
+              AND event_type = 'view'
+              AND event_time >= now() - toIntervalDay(%(days)s)
+            GROUP BY c
+            ORDER BY cnt DESC
+            LIMIT 10
+        """
+        country_rows = client.query_rows(country_query, params)
+        total_c = sum(int(r[1]) for r in country_rows) or 1
+        summary.countries_breakdown = [
+            BreakdownItem(
+                name=str(r[0]),
+                count=int(r[1]),
+                percentage=round((int(r[1]) / total_c) * 100, 1),
+            )
+            for r in country_rows
+        ]
+    except Exception as exc:
+        report_analytics_error(
+            exc,
+            f"failed to query countries for collection_id={collection_id}",
+        )
+
+    return summary
+
+
+def get_popular_apps(
+    days: int = 7,
+    limit: int = 10,
+    event_type: str = "view",
+) -> list[dict[str, Any]]:
+    # get top application ids by event count over time
+    if not is_enabled():
+        return []
+
+    from apps.analytics.client import get_analytics_client
+
+    try:
+        client = get_analytics_client(force_enabled=True)
+        query = """
+            SELECT app_id, count() AS cnt
+            FROM analytics_app_events
+            WHERE event_type = %(event_type)s
+              AND event_time >= now() - toIntervalDay(%(days)s)
+            GROUP BY app_id
+            ORDER BY cnt DESC
+            LIMIT %(limit)s
+        """
+        rows = client.query_rows(
+            query,
+            {"event_type": str(event_type), "days": int(days), "limit": int(limit)},
+        )
+        return [{"app_id": int(r[0]), "count": int(r[1])} for r in rows]
+    except Exception as exc:
+        report_analytics_error(exc, "get_popular_apps failed")
+        return []
+
+
+def get_popular_collections(
+    days: int = 7,
+    limit: int = 10,
+    event_type: str = "view",
+) -> list[dict[str, Any]]:
+    # get top collection ids by event count over time
+    if not is_enabled():
+        return []
+
+    from apps.analytics.client import get_analytics_client
+
+    try:
+        client = get_analytics_client(force_enabled=True)
+        query = """
+            SELECT collection_id, count() AS cnt
+            FROM analytics_collection_events
+            WHERE event_type = %(event_type)s
+              AND event_time >= now() - toIntervalDay(%(days)s)
+              AND is_public = 1
+            GROUP BY collection_id
+            ORDER BY cnt DESC
+            LIMIT %(limit)s
+        """
+        rows = client.query_rows(
+            query,
+            {"event_type": str(event_type), "days": int(days), "limit": int(limit)},
+        )
+        return [{"collection_id": int(r[0]), "count": int(r[1])} for r in rows]
+    except Exception as exc:
+        report_analytics_error(exc, "get_popular_collections failed")
+        return []

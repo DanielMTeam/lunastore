@@ -16,3 +16,6 @@ AGENTS.md
 node_modules/
 package-lock.json
 .cursor/
+.agents/
+run-dev.ps1
+run-dev.cmd
