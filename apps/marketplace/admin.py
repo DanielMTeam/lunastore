@@ -563,7 +563,6 @@ class DistributionEditRequestAdmin(
 
     list_display = (
         "id",
-        "app",
         "target_distribution",
         "user",
         "status",
