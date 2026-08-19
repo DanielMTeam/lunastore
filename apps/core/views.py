@@ -7,7 +7,7 @@ import sys
 import django
 from django.conf import settings
 from django.core.cache import cache
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.utils import timezone, translation
 
@@ -144,4 +144,76 @@ def force_language_change(request, lang_code):
             samesite=samesite,
         )
 
+    return response
+
+
+def robots_txt(request):
+    """Generate robots.txt disallowing admin, auth, api and utility endpoints and pointing to sitemap.xml."""
+    scheme = "https" if request.is_secure() or not settings.DEBUG else "http"
+    host = request.get_host()
+    admin_url = getattr(settings, "ADMIN_URL", "admin").strip("/")
+
+    disallow_paths = [
+        f"/{admin_url}/",
+        "/admin/",
+        "/oidc/",
+        "/broadcast/",
+        "/nospam/",
+        "/method/",
+        "/v2/",
+        "/schema/",
+        "/captcha/",
+        "/theme_switch.php",
+        "/debug_info.php",
+        "/set-lang/",
+        "/jsi18n/",
+        "/502.php",
+        "/search.php",
+        "/report_app.php",
+        "/report_problem.php",
+        "/rate_app.php",
+        "/delete_review.php",
+        "/get_dist_file/",
+        "/app_add.php",
+        "/settings_apps.php",
+        "/edit_app_info.php/",
+        "/app_stats.php/",
+        "/distributions.php",
+        "/distribution_edit.php/",
+        "/distribution_delete.php/",
+        "/login.php",
+        "/logout.php",
+        "/register.php",
+        "/settings.php",
+        "/settings_security.php",
+        "/settings_2fa_set.php",
+        "/2fa_attempt.php",
+        "/dev_status.php",
+        "/delete_account.php",
+        "/invite.php",
+        "/invite_code.php",
+        "/notifications.php",
+        "/revert_impersonation.php",
+        "/terminate_session.php/",
+        "/password_reset.php",
+        "/password_reset_done.php",
+        "/reset.php/",
+        "/password_reset_complete.php",
+    ]
+
+    seen = set()
+    unique_paths = []
+    for p in disallow_paths:
+        if p not in seen:
+            seen.add(p)
+            unique_paths.append(p)
+
+    lines = ["User-agent: *"]
+    for p in unique_paths:
+        lines.append(f"Disallow: {p}")
+    lines.append("")
+    lines.append(f"Sitemap: {scheme}://{host}/sitemap.xml")
+
+    response = HttpResponse("\n".join(lines), content_type="text/plain; charset=utf-8")
+    response["Cache-Control"] = "public, max-age=86400"
     return response
