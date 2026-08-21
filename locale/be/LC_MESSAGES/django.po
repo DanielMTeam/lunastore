@@ -2485,3 +2485,28 @@ msgstr "Выключыць цёмную тэму"
 
 msgid "BASE_SIDEBAR_APP_PAGE"
 msgstr "Дадатак"
+
+msgid "PAGE_SETTINGS_DEV_STATUS_GET"
+msgstr "Атрымаць"
+
+msgid "PAGE_SETTINGS_SECTION_ACTIVE_SESSIONS"
+msgstr "Актыўныя сеансы"
+
+msgid "PAGE_SETTINGS_ACTIVE_SESSIONS_DESC"
+msgstr "Прылады, з якіх выкананы ўваход у ваш акаўнт."
+
+msgid "PAGE_SETTINGS_UNKNOWN_DEVICE"
+msgstr "Невядомая прылада"
+
+msgid "PAGE_SETTINGS_ACTIVITY"
+msgstr "Актыўнасць"
+
+msgid "PAGE_SETTINGS_CURRENT_SESSION"
+msgstr "Бягучы сеанс"
+
+msgid "PAGE_SECURITY_WARN_TITLE"
+msgstr "У мэтах бяспекі"
+
+msgid "PAGE_SECURITY_WARN_NEW_SESSION_DESC"
+msgstr "змена пароля і прывязанай пошты недаступная для новых прылад (менш за 24 гадзіны)."
+

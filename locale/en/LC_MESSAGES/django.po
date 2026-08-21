@@ -2478,3 +2478,28 @@ msgstr "Disable dark theme"
 
 msgid "BASE_SIDEBAR_APP_PAGE"
 msgstr "Application"
+
+msgid "PAGE_SETTINGS_DEV_STATUS_GET"
+msgstr "Get"
+
+msgid "PAGE_SETTINGS_SECTION_ACTIVE_SESSIONS"
+msgstr "Active sessions"
+
+msgid "PAGE_SETTINGS_ACTIVE_SESSIONS_DESC"
+msgstr "Devices from which you are logged into your account."
+
+msgid "PAGE_SETTINGS_UNKNOWN_DEVICE"
+msgstr "Unknown device"
+
+msgid "PAGE_SETTINGS_ACTIVITY"
+msgstr "Activity"
+
+msgid "PAGE_SETTINGS_CURRENT_SESSION"
+msgstr "Current session"
+
+msgid "PAGE_SECURITY_WARN_TITLE"
+msgstr "For security reasons"
+
+msgid "PAGE_SECURITY_WARN_NEW_SESSION_DESC"
+msgstr "changing password and linked email is unavailable on new devices (less than 24 hours)."
+
