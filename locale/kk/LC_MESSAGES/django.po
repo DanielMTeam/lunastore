@@ -2285,6 +2285,9 @@ msgstr "таңдаулыдан алу"
 msgid "PAGE_COLLECTION_ACTION_VIEW"
 msgstr "қарау"
 
+msgid "PAGE_COLLECTION_ACTION_STATS"
+msgstr "статистика"
+
 msgid "PAGE_COLLECTION_APPS_EMPTY"
 msgstr "Бұл жинақта әзірге қосымшалар жоқ."
 

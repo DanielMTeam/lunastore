@@ -103,6 +103,7 @@ jobs:
           GEO_DOMAIN_PROXY_ENABLED=False
           SENTRY_ENABLED=False
           TELEGRAM_LOGGER_ENABLED=False
+          ANALYTICS_ENABLED=False
           OIDC_SIGN_ALGO=RS256
           OIDC_CLIENT_ID=
           OIDC_CLIENT_SECRET=
@@ -143,6 +144,7 @@ jobs:
           GEO_DOMAIN_PROXY_ENABLED: "False"
           SENTRY_ENABLED: "False"
           TELEGRAM_LOGGER_ENABLED: "False"
+          ANALYTICS_ENABLED: "False"
           OIDC_SIGN_ALGO: RS256
           OIDC_CLIENT_ID: ""
           OIDC_CLIENT_SECRET: ""
