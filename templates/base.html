@@ -143,7 +143,7 @@
                         </li>
 
                         {% if developer_site %}
-                        <li class="web" onclick="window.open('{{ developer_site }}', '_blank')">
+                        <li class="web" onclick="window.open('{{ developer_site }}', '_blank'); return false">
                             <a href="{{ developer_site }}" target="_blank">{% trans "BASE_SIDEBAR_APP_DEV_SITE" %}</a>
                         </li>
                         {% endif %}
