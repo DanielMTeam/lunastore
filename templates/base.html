@@ -149,7 +149,7 @@
                         {% endif %}
 
                         <li class="alert" {% if is_report_page %}id="active" {% endif %} onclick="location.href='/report_app.php?id={{ app_id }}'"><a href="/report_app.php?id={{ app_id }}">{% trans "BASE_SIDEBAR_APP_REPORT" %}</a></li>
-                        {% if user.is_authenticated and user.id == developer_id %}
+                        {% if user.is_authenticated and user.id == developer_id and is_modern_browser %}
                         <li class="editapp" {% if is_edit_page %}id="active" {% endif %} onclick="location.href='/edit_app_info.php/{{ app_id }}/'"><a href="/edit_app_info.php/{{ app_id }}/">{% trans "BASE_SIDEBAR_APP_EDIT" %}</a></li>
                         {% endif %}
                     </ul>
@@ -165,10 +165,12 @@
                         <li class="newbie" {% if route == 'invite_person' %}id="active" {% endif %} onclick="location.href='{% url 'invite_person' %}'"><a href="{% url 'invite_person' %}">
                                 {% trans "BASE_SIDEBAR_ACCOUNT_INVITEBTN" %}
                             </a></li>
+                        {% if is_modern_browser %}
                         <li class="notify" {% if route == 'notifications' %}id="active" {% endif %} onclick="location.href='{% url 'notifications' %}'"><a href="{% url 'notifications' %}">
                                 {% trans "PAGE_NOTIFICATIONS_TAB" %}
                                 <span id="global-unread-count" style="display:none; color: red; font-weight: bold;"></span>
                             </a></li>
+                        {% endif %}
                         <li class="collections" {% if route == 'collections' %}id="active" {% endif %} onclick="location.href='{% url 'collections' %}'"><a href="{% url 'collections' %}">{% trans "BASE_SIDEBAR_ACCOUNT_COLLECTIONS" %}</a></li>
                     </ul>
                     {% endwith %}
@@ -244,10 +246,9 @@
 
 
             {% if user.is_authenticated %}
+            {% if is_modern_browser %}
             <meta id="global-notify-token" content="{{ notify_token }}">
             <meta id="global-api-url" content="{{ api_url }}">
-            <script src="{% url 'javascript-catalog' %}"></script>
-
             <div id="audio-placeholder" style="display:none;"></div>
 
             <script type="text/javascript">
@@ -266,6 +267,8 @@
                 };
             </script>
             <script src="{% static './js/global_notifications.js' %}"></script>
+            {% endif %}
+            <script src="{% url 'javascript-catalog' %}"></script>
             <script src="{% static './js/markdown_client.js' %}"></script>
             <script src="{% static './js/markdown_editor.js' %}?v=2"></script>
             {% endif %}
