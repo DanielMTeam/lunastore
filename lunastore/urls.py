@@ -17,9 +17,26 @@ Including another URLconf
 
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path
 
+from apps.core.sitemaps import sitemaps
+from apps.core.views import robots_txt
+
 urlpatterns = [
+    path(
+        "sitemap.xml",
+        sitemap,
+        {"sitemaps": sitemaps},
+        name="django.contrib.sitemaps.views.sitemap",
+    ),
+    path(
+        "sitemap-<section>.xml",
+        sitemap,
+        {"sitemaps": sitemaps},
+        name="django.contrib.sitemaps.views.sitemap",
+    ),
+    path("robots.txt", robots_txt, name="robots_txt"),
     path("", include("apps.marketplace.urls")),
     path("", include("apps.user.urls")),
     path("", include("apps.core.urls")),
