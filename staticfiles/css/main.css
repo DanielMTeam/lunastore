@@ -198,112 +198,104 @@ a img {
     padding: 5px;
 }
 
-.sidebar ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.sidebar a {
-    text-decoration: none;
-    color: #215dc6;
-}
-
 .sidebar a:hover {
     color: crimson;
 }
 
-.sidebar li {
-    padding: 4px;
+.sidebar_menu a {
     padding-left: 24px;
+    line-height: 22px; 
+    display: block;
     cursor: pointer;
     background: url(../img/icons.png);
     background-repeat: no-repeat;
+    text-decoration: none;
+    color: #215dc6;
 }
 
-.sidebar li.active {
+.sidebar_menu a.active {
     background: #bfe0ff;
     border: 1px solid #215dc6;
     font-weight: bold;
     color: #000;
 }
 
-.sidebar li#active {
+.sidebar_menu a#active {
     /* background:#bfe0ff; */
     border: 1px solid #215dc6;
     font-weight: bold;
     color: #000;
 }
 
-.sidebar li.myhome {
+.sidebar_menu a.myhome {
     background-position: 0px -2px;
 }
 
-.sidebar li.top {
+.sidebar_menu a.top {
     background-position: 0px -25px;
 }
 
-.sidebar li.updates {
+.sidebar_menu a.updates {
     background-position: 0px -47px;
 }
 
-.sidebar li.entertainment {
+.sidebar_menu a.entertainment {
     background-position: 0px -69px;
 }
 
-.sidebar li.util {
+.sidebar_menu a.util {
     background-position: 0px -89px;
 }
 
-.sidebar li.media {
+.sidebar_menu a.media {
     background-position: 0px -111px;
 }
 
-.sidebar li.office {
+.sidebar_menu a.office {
     background-position: 0px -132px;
 }
 
-.sidebar li.internet {
+.sidebar_menu a.internet {
     background-position: 0px -153px;
 }
 
-.sidebar li.other {
+.sidebar_menu a.other {
     background-position: 0px -175px;
 }
 
-.sidebar li.themes {
+.sidebar_menu a.themes {
     background-position: 0px -196px;
 }
 
-.sidebar li.newbie {
+.sidebar_menu a.newbie {
     background-position: 0px -283px;
 }
 
-.sidebar li.setup {
+.sidebar_menu a.setup {
     background-position: 0px -218px;
 }
 
-.sidebar li.settings {
+.sidebar_menu a.settings {
     background-position: 0px -389px;
 }
 
-.sidebar li.alert {
+.sidebar_menu a.alert {
     background-position: 0px -240px;
 }
 
-.sidebar li.notify {
+.sidebar_menu a.notify {
     background-position: 0px -324px;
 }
 
-.sidebar li.web {
+.sidebar_menu a.web {
     background-position: 0px -412px;
 }
 
-.sidebar li.mypc {
+.sidebar_menu a.mypc {
     background-position: 0px -478px;
 }
 
-.sidebar li.paint {
+.sidebar_menu a.paint {
     background-position: 0px -544px;
 }
 
@@ -311,23 +303,23 @@ li.web {
     background-position: 0px -412px;
 }
 
-.sidebar li.review {
+.sidebar_menu a.review {
     background-position: 0px -522px;
 }
 
-.sidebar li.editapp {
+.sidebar_menu a.editapp {
     background-position: 0px -261px;
 }
 
-.sidebar li.backtoapp {
+.sidebar_menu a.backtoapp {
     background-position: 0px -303px;
 }
 
-.sidebar li.collections {
+.sidebar_menu a.collections {
     background-position: 0px -587px;
 }
 
-.sidebar li.emuvm {
+.sidebar_menu a.emuvm {
     background-position: 0px -606px;
 }
 
