@@ -46,6 +46,8 @@ def help_center(request):
             ).first()
 
         context["donate_doc"] = doc
+    if current_page == "client":
+        return render(request, "client_download.html")
 
     return render(request, "help_center.html", context)
 
