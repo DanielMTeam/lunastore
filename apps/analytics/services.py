@@ -143,13 +143,21 @@ def track_app_view(
                 logger.debug("track_app_view skipped by dedup key=%s", key)
                 return
 
-    event = AppEvent.from_request(
-        request,
-        app_id,
-        event_type=AppEventType.VIEW,
-        category_id=category_id,
-        meta=meta,
-    )
+    if request is not None:
+        event = AppEvent.from_request(
+            request,
+            app_id,
+            event_type=AppEventType.VIEW,
+            category_id=category_id,
+            meta=meta,
+        )
+    else:
+        event = AppEvent(
+            app_id=int(app_id),
+            event_type=AppEventType.VIEW,
+            category_id=category_id,
+            meta=meta or {},
+        )
     track_app_event(event)
 
 
@@ -174,14 +182,23 @@ def track_app_download(
                 logger.debug("track_app_download skipped by dedup key=%s", key)
                 return
 
-    event = AppEvent.from_request(
-        request,
-        app_id,
-        event_type=AppEventType.DOWNLOAD,
-        distribution_id=distribution_id,
-        category_id=category_id,
-        meta=meta,
-    )
+    if request is not None:
+        event = AppEvent.from_request(
+            request,
+            app_id,
+            event_type=AppEventType.DOWNLOAD,
+            distribution_id=distribution_id,
+            category_id=category_id,
+            meta=meta,
+        )
+    else:
+        event = AppEvent(
+            app_id=int(app_id),
+            event_type=AppEventType.DOWNLOAD,
+            distribution_id=distribution_id,
+            category_id=category_id,
+            meta=meta or {},
+        )
     track_app_event(event)
 
 
@@ -195,12 +212,19 @@ def track_app_like(
     if not is_enabled() or not app_id:
         return
     evt_type = AppEventType.LIKE if is_like else AppEventType.UNLIKE
-    event = AppEvent.from_request(
-        request,
-        app_id,
-        event_type=evt_type,
-        meta=meta,
-    )
+    if request is not None:
+        event = AppEvent.from_request(
+            request,
+            app_id,
+            event_type=evt_type,
+            meta=meta,
+        )
+    else:
+        event = AppEvent(
+            app_id=int(app_id),
+            event_type=evt_type,
+            meta=meta or {},
+        )
     track_app_event(event)
 
 
@@ -216,12 +240,19 @@ def track_app_rate(
     combined_meta = dict(meta or {})
     if rating is not None:
         combined_meta["rating"] = int(rating)
-    event = AppEvent.from_request(
-        request,
-        app_id,
-        event_type=AppEventType.RATE,
-        meta=combined_meta,
-    )
+    if request is not None:
+        event = AppEvent.from_request(
+            request,
+            app_id,
+            event_type=AppEventType.RATE,
+            meta=combined_meta,
+        )
+    else:
+        event = AppEvent(
+            app_id=int(app_id),
+            event_type=AppEventType.RATE,
+            meta=combined_meta,
+        )
     track_app_event(event)
 
 
@@ -237,12 +268,47 @@ def track_app_collection_add(
     combined_meta = dict(meta or {})
     if collection_id is not None:
         combined_meta["collection_id"] = int(collection_id)
-    event = AppEvent.from_request(
-        request,
-        app_id,
-        event_type=AppEventType.ADD_TO_COLLECTION,
-        meta=combined_meta,
-    )
+    if request is not None:
+        event = AppEvent.from_request(
+            request,
+            app_id,
+            event_type=AppEventType.ADD_TO_COLLECTION,
+            meta=combined_meta,
+        )
+    else:
+        event = AppEvent(
+            app_id=int(app_id),
+            event_type=AppEventType.ADD_TO_COLLECTION,
+            meta=combined_meta,
+        )
+    track_app_event(event)
+
+
+def track_app_collection_remove(
+    request: Optional[HttpRequest],
+    app_id: int,
+    *,
+    collection_id: Optional[int] = None,
+    meta: Optional[dict[str, Any]] = None,
+) -> None:
+    if not is_enabled() or not app_id:
+        return
+    combined_meta = dict(meta or {})
+    if collection_id is not None:
+        combined_meta["collection_id"] = int(collection_id)
+    if request is not None:
+        event = AppEvent.from_request(
+            request,
+            app_id,
+            event_type=AppEventType.REMOVE_FROM_COLLECTION,
+            meta=combined_meta,
+        )
+    else:
+        event = AppEvent(
+            app_id=int(app_id),
+            event_type=AppEventType.REMOVE_FROM_COLLECTION,
+            meta=combined_meta,
+        )
     track_app_event(event)
 
 
@@ -293,15 +359,25 @@ def track_collection_view(
                 logger.debug("track_collection_view skipped by dedup key=%s", key)
                 return
 
-    event = CollectionEvent.from_request(
-        request,
-        collection_id,
-        event_type=CollectionEventType.VIEW,
-        owner_id=owner_id,
-        is_system=is_system,
-        is_public=is_public,
-        meta=meta,
-    )
+    if request is not None:
+        event = CollectionEvent.from_request(
+            request,
+            collection_id,
+            event_type=CollectionEventType.VIEW,
+            owner_id=owner_id,
+            is_system=is_system,
+            is_public=is_public,
+            meta=meta,
+        )
+    else:
+        event = CollectionEvent(
+            collection_id=int(collection_id),
+            event_type=CollectionEventType.VIEW,
+            owner_id=owner_id,
+            is_system=is_system,
+            is_public=is_public,
+            meta=meta or {},
+        )
     track_collection_event(event)
 
 
@@ -320,13 +396,21 @@ def track_collection_favorite(
         if is_favorite
         else CollectionEventType.UNFAVORITE
     )
-    event = CollectionEvent.from_request(
-        request,
-        collection_id,
-        event_type=evt_type,
-        owner_id=owner_id,
-        meta=meta,
-    )
+    if request is not None:
+        event = CollectionEvent.from_request(
+            request,
+            collection_id,
+            event_type=evt_type,
+            owner_id=owner_id,
+            meta=meta,
+        )
+    else:
+        event = CollectionEvent(
+            collection_id=int(collection_id),
+            event_type=evt_type,
+            owner_id=owner_id,
+            meta=meta or {},
+        )
     track_collection_event(event)
 
 
@@ -346,14 +430,23 @@ def track_collection_item_change(
         if is_added
         else CollectionEventType.REMOVE_ITEM
     )
-    event = CollectionEvent.from_request(
-        request,
-        collection_id,
-        event_type=evt_type,
-        owner_id=owner_id,
-        app_id=app_id,
-        meta=meta,
-    )
+    if request is not None:
+        event = CollectionEvent.from_request(
+            request,
+            collection_id,
+            event_type=evt_type,
+            owner_id=owner_id,
+            app_id=app_id,
+            meta=meta,
+        )
+    else:
+        event = CollectionEvent(
+            collection_id=int(collection_id),
+            event_type=evt_type,
+            owner_id=owner_id,
+            app_id=app_id,
+            meta=meta or {},
+        )
     track_collection_event(event)
 
 

@@ -21,6 +21,7 @@ class AppEventType(StrEnum):
     UNLIKE = "unlike"
     RATE = "rate"
     ADD_TO_COLLECTION = "add_to_collection"
+    REMOVE_FROM_COLLECTION = "remove_from_collection"
     EXTERNAL_LINK = "external_link"
 
 
@@ -105,20 +106,20 @@ class AppEvent(BaseAnalyticsEvent):
             int(self.distribution_id) if self.distribution_id is not None else None,
             int(self.category_id) if self.category_id is not None else None,
             optional_user_id(self.user_id),
-            str(self.ip or "")[:45],
-            str(self.country or "")[:8],
-            str(self.os_name or "")[:64],
-            str(self.os_version or "")[:32],
-            str(self.browser or "")[:64],
-            str(self.referer or "")[:500],
-            str(self.session_id or "")[:64],
+            self.ip[:45],
+            self.country[:8],
+            self.os_name[:64],
+            self.os_version[:32],
+            self.browser[:64],
+            self.referer[:500],
+            self.session_id[:64],
             self.meta_json(),
         ]
 
     @classmethod
     def from_request(
         cls,
-        request: Optional[HttpRequest],
+        request: HttpRequest,
         app_id: int,
         event_type: str | AppEventType = AppEventType.VIEW,
         *,
@@ -134,14 +135,14 @@ class AppEvent(BaseAnalyticsEvent):
             app_id=int(app_id),
             distribution_id=distribution_id,
             category_id=category_id,
-            user_id=req_meta["user_id"],
-            ip=req_meta["ip"],
-            country=req_meta["country"],
-            os_name=req_meta["os_name"],
-            os_version=req_meta["os_version"],
-            browser=req_meta["browser"],
-            referer=req_meta["referer"],
-            session_id=req_meta["session_id"],
+            user_id=req_meta.user_id,
+            ip=req_meta.ip,
+            country=req_meta.country,
+            os_name=req_meta.os_name,
+            os_version=req_meta.os_version,
+            browser=req_meta.browser,
+            referer=req_meta.referer,
+            session_id=req_meta.session_id,
             meta=meta or {},
         )
 
@@ -189,19 +190,19 @@ class CollectionEvent(BaseAnalyticsEvent):
             int(self.app_id) if self.app_id is not None else None,
             1 if self.is_system else 0,
             1 if self.is_public else 0,
-            str(self.ip or "")[:45],
-            str(self.country or "")[:8],
-            str(self.os_name or "")[:64],
-            str(self.browser or "")[:64],
-            str(self.referer or "")[:500],
-            str(self.session_id or "")[:64],
+            self.ip[:45],
+            self.country[:8],
+            self.os_name[:64],
+            self.browser[:64],
+            self.referer[:500],
+            self.session_id[:64],
             self.meta_json(),
         ]
 
     @classmethod
     def from_request(
         cls,
-        request: Optional[HttpRequest],
+        request: HttpRequest,
         collection_id: int,
         event_type: str | CollectionEventType = CollectionEventType.VIEW,
         *,
@@ -218,16 +219,16 @@ class CollectionEvent(BaseAnalyticsEvent):
             event_type=event_type,
             collection_id=int(collection_id),
             owner_id=owner_id,
-            user_id=req_meta["user_id"],
+            user_id=req_meta.user_id,
             app_id=app_id,
             is_system=is_system,
             is_public=is_public,
-            ip=req_meta["ip"],
-            country=req_meta["country"],
-            os_name=req_meta["os_name"],
-            browser=req_meta["browser"],
-            referer=req_meta["referer"],
-            session_id=req_meta["session_id"],
+            ip=req_meta.ip,
+            country=req_meta.country,
+            os_name=req_meta.os_name,
+            browser=req_meta.browser,
+            referer=req_meta.referer,
+            session_id=req_meta.session_id,
             meta=meta or {},
         )
 

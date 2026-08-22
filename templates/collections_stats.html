@@ -63,18 +63,18 @@
   <div class="tabs">
     <div class="tab-bar">
       {% if user.is_authenticated %}
-      <a href="{% url 'collections' %}" class="tab" style="text-decoration: none; color: inherit;">
+      <a href="{% url 'collections' %}" class="tab" style="text-decoration: none;">
         <img src="{% static './img/tabs/likes.png' %}" class="tab-icon" alt="">
         {% trans "PAGE_COLLECTION_TAB_MINE" %}
       </a>
       {% if not is_owner %}
-      <a href="{% url 'collections' %}?page=liked" class="tab" style="text-decoration: none; color: inherit;">
+      <a href="{% url 'collections' %}?page=liked" class="tab" style="text-decoration: none;">
         <img src="{% static './img/tabs/fav.png' %}" class="tab-icon" alt="">
         {% trans "PAGE_COLLECTION_TAB_LIKED" %}
       </a>
       {% endif %}
       {% endif %}
-      <a href="{% url 'collections' %}?page=view&id={{ collection.id }}" class="tab" style="text-decoration: none; color: inherit;">
+      <a href="{% url 'collections' %}?page=view&id={{ collection.id }}" class="tab" style="text-decoration: none;">
         <img src="{% static './img/tabs/terms.png' %}" class="tab-icon" alt="">
         {% trans "PAGE_COLLECTION_TAB_VIEW" %}
       </a>

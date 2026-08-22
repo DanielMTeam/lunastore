@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 import logging
-from typing import Any, Optional
+from typing import Optional
 
 from django.http import HttpRequest
 
@@ -12,20 +13,19 @@ from apps.core.utils import get_client_ip, get_country_code
 logger = logging.getLogger("analytics")
 
 
-def extract_request_meta(request: Optional[HttpRequest]) -> dict[str, Any]:
-    # return normalized, length-bounded client metadata from request
-    if request is None:
-        return {
-            "user_id": None,
-            "ip": "",
-            "country": "",
-            "os_name": "",
-            "os_version": "",
-            "browser": "",
-            "referer": "",
-            "session_id": "",
-        }
+@dataclass(slots=True)
+class RequestMeta:
+    user_id: Optional[int] = None
+    ip: str = ""
+    country: str = ""
+    os_name: str = ""
+    os_version: str = ""
+    browser: str = ""
+    referer: str = ""
+    session_id: str = ""
 
+
+def extract_request_meta(request: HttpRequest) -> RequestMeta:
     # resolve authenticated user id
     user_id: Optional[int] = None
     try:
@@ -98,13 +98,13 @@ def extract_request_meta(request: Optional[HttpRequest]) -> dict[str, Any]:
     except Exception:
         logger.debug("failed to extract session_key", exc_info=True)
 
-    return {
-        "user_id": user_id,
-        "ip": ip,
-        "country": country,
-        "os_name": os_name,
-        "os_version": os_version,
-        "browser": browser,
-        "referer": referer,
-        "session_id": session_id,
-    }
+    return RequestMeta(
+        user_id=user_id,
+        ip=ip,
+        country=country,
+        os_name=os_name,
+        os_version=os_version,
+        browser=browser,
+        referer=referer,
+        session_id=session_id,
+    )

@@ -41,6 +41,7 @@ from apps.analytics.services import (
     is_enabled,
     ping,
     track_app_collection_add,
+    track_app_collection_remove,
     track_app_download,
     track_app_event,
     track_app_like,
@@ -149,12 +150,6 @@ class AnalyticsModelsTests(SimpleTestCase):
 
 
 class RequestMetadataExtractorTests(SimpleTestCase):
-    def test_extract_none_request(self) -> None:
-        meta = extract_request_meta(None)
-        self.assertIsNone(meta["user_id"])
-        self.assertEqual(meta["ip"], "")
-        self.assertEqual(meta["country"], "")
-
     def test_extract_with_request(self) -> None:
         request = HttpRequest()
         request.META["REMOTE_ADDR"] = "192.168.1.100"
@@ -163,10 +158,10 @@ class RequestMetadataExtractorTests(SimpleTestCase):
         request.META["HTTP_REFERER"] = "http://lunastore.app/catalog"
 
         meta = extract_request_meta(request)
-        self.assertEqual(meta["ip"], "192.168.1.100")
-        self.assertEqual(meta["country"], "KZ")
-        self.assertEqual(meta["referer"], "http://lunastore.app/catalog")
-        self.assertTrue("Windows" in meta["os_name"] or meta["os_name"] != "")
+        self.assertEqual(meta.ip, "192.168.1.100")
+        self.assertEqual(meta.country, "KZ")
+        self.assertEqual(meta.referer, "http://lunastore.app/catalog")
+        self.assertTrue("Windows" in meta.os_name or meta.os_name != "")
 
     def test_extract_authenticated_user(self) -> None:
         request = HttpRequest()
@@ -177,7 +172,7 @@ class RequestMetadataExtractorTests(SimpleTestCase):
         request.user = mock_user
 
         meta = extract_request_meta(request)
-        self.assertEqual(meta["user_id"], 999)
+        self.assertEqual(meta.user_id, 999)
 
 
 class AnalyticsDisabledTests(SimpleTestCase):
@@ -262,7 +257,8 @@ class AnalyticsEnabledTrackingTests(SimpleTestCase):
                 track_app_like(None, 12, is_like=True)
                 track_app_rate(None, 12, rating=5)
                 track_app_collection_add(None, 12, collection_id=77)
-                self.assertEqual(mock_task.enqueue.call_count, 3)
+                track_app_collection_remove(None, 12, collection_id=77)
+                self.assertEqual(mock_task.enqueue.call_count, 4)
 
     def test_track_collection_events_enqueues(self) -> None:
         mock_config = MagicMock()

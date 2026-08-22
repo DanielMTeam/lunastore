@@ -311,7 +311,9 @@ def reset_analytics_client() -> None:
 
 
 def get_analytics_client(*, force_enabled: bool = False) -> AnalyticsClient:
-    # reuse one live client; null only when analytics is off
+    # Reusing a thread-safe long-lived client shares the underlying urllib3 HTTP connection pool,
+    # avoiding TCP/TLS handshake and auth overhead on every analytics operation while
+    # taking full advantage of ClickHouse async_insert batching
     from apps.analytics.services import is_enabled
 
     if not force_enabled and not is_enabled():
