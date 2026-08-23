@@ -307,6 +307,10 @@ a img {
     background-position: 0px -544px;
 }
 
+.sidebar li.emuvm {
+    background-position: 0px -605px;
+}
+
 li.web {
     background-position: 0px -412px;
 }
@@ -1219,7 +1223,31 @@ input[type="submit"] {
 }
 
 .stats_wrapper {
-    padding: 10px;
+    padding: 0;
+    margin-top: 5px;
+}
+
+.stats_wrapper .profile_block {
+    width: 100% !important;
+    box-sizing: border-box;
+}
+
+.stats_wrapper .profile_block_content {
+    width: 100% !important;
+    box-sizing: border-box;
+    margin-bottom: 12px;
+}
+
+.stats_wrapper .app_version_table {
+    width: 100% !important;
+    box-sizing: border-box;
+    margin-bottom: 12px;
+}
+
+.stats_wrapper .xp_chart_container {
+    width: 100% !important;
+    box-sizing: border-box;
+    margin-bottom: 12px;
 }
 
 /* Login page */
@@ -1823,4 +1851,95 @@ a.report_problem {
 .collection_card_name:active{
   text-decoration: underline;
   color: #b20000;
+}
+
+/* Windows XP Retro Analytics Chart */
+.xp_chart_container {
+    margin-top: 5px;
+    margin-bottom: 15px;
+    background: #ffffff;
+    border: 1px solid #7f9db9;
+    padding: 8px;
+    box-sizing: border-box;
+}
+.xp_chart_wrapper {
+    width: 100%;
+    overflow: hidden;
+}
+.xp_chart_grid {
+    width: 100%;
+    height: 120px;
+    background: #fbfbfb;
+    border-bottom: 1px solid #7f9db9;
+    border-top: 1px dashed #e0e0e0;
+    position: relative;
+    box-sizing: border-box;
+}
+.xp_chart_table {
+    width: 100%;
+    height: 118px;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.xp_chart_col {
+    vertical-align: bottom !important;
+    text-align: center;
+    padding: 0 1px;
+    height: 118px;
+    cursor: pointer;
+}
+.xp_chart_col:hover {
+    background: #eef5ff;
+}
+.xp_bar {
+    width: 5px;
+    min-width: 3px;
+    max-width: 8px;
+    display: block;
+    box-sizing: border-box;
+}
+.xp_bar_series1 {
+    background: #316ac5;
+    border: 1px solid #1e4a8b;
+    border-bottom: none;
+}
+.xp_bar_series2 {
+    background: #5fa359;
+    border: 1px solid #3c7037;
+    border-bottom: none;
+}
+.xp_chart_date {
+    font-size: 8px;
+    color: #666666;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 13px;
+    height: 13px;
+    margin-top: 1px;
+}
+.xp_chart_legend {
+    margin-top: 6px;
+    font-size: 11px;
+    color: #333333;
+    text-align: right;
+}
+.xp_legend_item {
+    display: inline-block;
+    margin-left: 12px;
+}
+.xp_legend_color {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 4px;
+    vertical-align: middle;
+    border: 1px solid #999;
+}
+.xp_color_series1 {
+    background: #316ac5;
+}
+.xp_color_series2 {
+    background: #5fa359;
 }

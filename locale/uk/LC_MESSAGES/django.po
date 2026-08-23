@@ -2304,6 +2304,9 @@ msgstr "прибрати з обраного"
 msgid "PAGE_COLLECTION_ACTION_VIEW"
 msgstr "перегляд"
 
+msgid "PAGE_COLLECTION_ACTION_STATS"
+msgstr "статистика"
+
 msgid "PAGE_COLLECTION_APPS_EMPTY"
 msgstr "У цій колекції ще немає програм."
 

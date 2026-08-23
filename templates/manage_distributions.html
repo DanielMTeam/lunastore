@@ -60,6 +60,10 @@
                 <img src="{% static './img/tabs/programs.png'%}" class="tab-icon" alt="">
                 {% trans "PAGE_ADMIN_APP_TAB_DISTRIBUTIONS" %}
             </div>
+            <a href="{% url 'app_stats' pk=app.pk %}" class="tab" style="text-decoration: none; color: inherit;">
+                <img src="{% static './img/tabs/stats.png'%}" class="tab-icon" alt="">
+                {% trans "PAGE_ADMIN_APP_TAB_STATS" %}
+            </a>
         </div>
 
         <div class="tab-content" id="tab-view">
