@@ -2580,3 +2580,28 @@ msgstr "Всего сохранений"
 msgid "PAGE_COLLECTION_STATS_TOTAL_ITEM_ADDS"
 msgstr "Добавлений приложений"
 
+
+msgid "PAGE_SETTINGS_DEV_STATUS_GET"
+msgstr "Получить"
+
+msgid "PAGE_SETTINGS_SECTION_ACTIVE_SESSIONS"
+msgstr "Активные сеансы"
+
+msgid "PAGE_SETTINGS_ACTIVE_SESSIONS_DESC"
+msgstr "Устройства, с которых выполнен вход в ваш аккаунт."
+
+msgid "PAGE_SETTINGS_UNKNOWN_DEVICE"
+msgstr "Неизвестное устройство"
+
+msgid "PAGE_SETTINGS_ACTIVITY"
+msgstr "Активность"
+
+msgid "PAGE_SETTINGS_CURRENT_SESSION"
+msgstr "Текущий сеанс"
+
+msgid "PAGE_SECURITY_WARN_TITLE"
+msgstr "В целях безопасности"
+
+msgid "PAGE_SECURITY_WARN_NEW_SESSION_DESC"
+msgstr "смена пароля и привязанной почты недоступна для новых устройств (менее 24 часов)."
+

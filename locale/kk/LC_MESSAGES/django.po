@@ -2470,3 +2470,28 @@ msgstr "Қараңғы теманы өшіру"
 
 msgid "BASE_SIDEBAR_APP_PAGE"
 msgstr "Қосымша"
+
+msgid "PAGE_SETTINGS_DEV_STATUS_GET"
+msgstr "Алу"
+
+msgid "PAGE_SETTINGS_SECTION_ACTIVE_SESSIONS"
+msgstr "Белсенді сессиялар"
+
+msgid "PAGE_SETTINGS_ACTIVE_SESSIONS_DESC"
+msgstr "Тіркелгіңізге кірген құрылғылар."
+
+msgid "PAGE_SETTINGS_UNKNOWN_DEVICE"
+msgstr "Белгісіз құрылғы"
+
+msgid "PAGE_SETTINGS_ACTIVITY"
+msgstr "Белсенділік"
+
+msgid "PAGE_SETTINGS_CURRENT_SESSION"
+msgstr "Ағымдағы сессия"
+
+msgid "PAGE_SECURITY_WARN_TITLE"
+msgstr "Қауіпсіздік мақсатында"
+
+msgid "PAGE_SECURITY_WARN_NEW_SESSION_DESC"
+msgstr "құпия сөз бен байланыстырылған поштаны өзгерту жаңа құрылғылар үшін қолжетімсіз (24 сағаттан аз)."
+

@@ -335,7 +335,6 @@ def app_add(request):
 
 
 @login_required
-@require_modern_browser
 def settings_apps(request):
     if getattr(request, 'limited', False):
         messages.error(request, _("ERROR_RATE_LIMIT_EXCEEDED"))

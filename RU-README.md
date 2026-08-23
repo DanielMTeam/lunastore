@@ -11,7 +11,7 @@
 
   <br>
 
-  [English](README.md) • [Русский](#)
+  [English](README.md) • **Русский**
 </div>
 
 ---

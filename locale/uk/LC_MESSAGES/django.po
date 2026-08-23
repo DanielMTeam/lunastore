@@ -2491,3 +2491,28 @@ msgstr "Вимкнути темну тему"
 
 msgid "BASE_SIDEBAR_APP_PAGE"
 msgstr "Програми"
+
+msgid "PAGE_SETTINGS_DEV_STATUS_GET"
+msgstr "Отримати"
+
+msgid "PAGE_SETTINGS_SECTION_ACTIVE_SESSIONS"
+msgstr "Активні сеанси"
+
+msgid "PAGE_SETTINGS_ACTIVE_SESSIONS_DESC"
+msgstr "Пристрої, з яких здійснено вхід до вашого облікового запису."
+
+msgid "PAGE_SETTINGS_UNKNOWN_DEVICE"
+msgstr "Невідомий пристрій"
+
+msgid "PAGE_SETTINGS_ACTIVITY"
+msgstr "Активність"
+
+msgid "PAGE_SETTINGS_CURRENT_SESSION"
+msgstr "Поточний сеанс"
+
+msgid "PAGE_SECURITY_WARN_TITLE"
+msgstr "З міркувань безпеки"
+
+msgid "PAGE_SECURITY_WARN_NEW_SESSION_DESC"
+msgstr "зміна пароля та прив'язаної пошти недоступна для нових пристроїв (менше 24 годин)."
+

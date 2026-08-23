@@ -327,7 +327,13 @@ li.web {
     background-position: 0px -303px;
 }
 
-.sidebar li.collections{background-position: 0px -587px;}
+.sidebar li.collections {
+    background-position: 0px -587px;
+}
+
+.sidebar li.emuvm {
+    background-position: 0px -606px;
+}
 
 .sidebar_info {
     border: 1px solid #e6e6e6;
