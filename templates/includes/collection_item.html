@@ -27,6 +27,7 @@
       <b>{% blocktranslate count counter=item.apps_count %}{{ counter }} PAGE_COLLECTION_APPS_ONE{% plural %}{{ counter }} PAGE_COLLECTION_APPS_MANY{% endblocktranslate %}</b>
       - <a href="{% url 'collections' %}?page=view&id={{ item.collection.id }}">{% trans "PAGE_COLLECTION_ACTION_VIEW" %}</a>
       {% if item.is_owner and not item.collection.is_system %}
+      - <a href="{% url 'collections' %}?page=stats&id={{ item.collection.id }}">{% trans "PAGE_COLLECTION_ACTION_STATS" %}</a>
       - <a href="{% url 'collections' %}?page=edit&id={{ item.collection.id }}">{% trans "PAGE_COLLECTION_ACTION_EDIT" %}</a>
       - <a href="{% url 'collections' %}?page=delete&id={{ item.collection.id }}">{% trans "PAGE_COLLECTION_ACTION_DELETE" %}</a>
       {% endif %}

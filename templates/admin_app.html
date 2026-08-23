@@ -4,6 +4,8 @@
 
 {% block title %}{% trans "PAGE_ADMIN_APP_PAGETITLE" %} - LunaStore{% endblock %}
 
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
+
 {% block content %}
 <div class="content">
   <div class="preferences">
@@ -72,6 +74,10 @@
         <a href="{% url 'manage_distributions' %}?id={{ obj.pk }}" class="tab" style="text-decoration: none; color: inherit;">
             <img src="{% static './img/tabs/programs.png'%}" class="tab-icon" alt="">
           {% trans "PAGE_ADMIN_APP_TAB_DISTRIBUTIONS" %}
+        </a>
+        <a href="{% url 'app_stats' pk=obj.pk %}" class="tab" style="text-decoration: none; color: inherit;">
+            <img src="{% static './img/tabs/stats.png'%}" class="tab-icon" alt="">
+          {% trans "PAGE_ADMIN_APP_TAB_STATS" %}
         </a>
       </div>
 

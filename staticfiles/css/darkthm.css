@@ -151,6 +151,16 @@ body {
     width: 438px !important;
 }
 
+.stats_wrapper .profile_block {
+    width: 100% !important;
+    box-sizing: border-box;
+}
+
+.stats_wrapper .profile_block_content {
+    width: 100% !important;
+    box-sizing: border-box;
+}
+
 .profile_block_content {
     padding: 10px !important;
     background: #323232 !important;
@@ -735,3 +745,66 @@ textarea:focus {
 .collection_desc_list {
     color: #bbb !important;
 }
+
+.collection_title {
+    color: #fff !important;
+}
+
+.collection_desc,
+.collection_desc p {
+    color: #ddd !important;
+}
+
+.collection_date {
+    color: #bbb !important;
+}
+
+.collection_info a {
+    color: #9ec1ff !important;
+}
+
+.brief_admin {
+    border-bottom-color: #555 !important;
+}
+
+.brief_admin h3,
+.brief_admin h3 p {
+    color: #fff !important;
+}
+
+.brief_admin p {
+    color: #bbb !important;
+}
+
+.brief_admin p a {
+    color: #9ec1ff !important;
+}
+
+.stats_wrapper h4 {
+    color: #fff !important;
+}
+
+.stats_wrapper .search_error {
+    color: #bbb !important;
+}
+
+/* XP Chart Dark Theme Overrides */
+.xp_chart_container {
+    background: #25282c !important;
+    border-color: #40444b !important;
+}
+.xp_chart_grid {
+    background: #1e2023 !important;
+    border-bottom-color: #40444b !important;
+    border-top-color: #33363b !important;
+}
+.xp_chart_col:hover {
+    background: #2e3238 !important;
+}
+.xp_chart_date {
+    color: #a0a0a0 !important;
+}
+.xp_chart_legend {
+    color: #d0d0d0 !important;
+}
+

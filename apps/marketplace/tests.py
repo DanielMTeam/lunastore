@@ -2,7 +2,7 @@ from constance.test import override_config
 from apps.marketplace.models import Distribution
 import logging
 
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from apps.marketplace.models import Application, Category, Collection, CollectionFavorite, CollectionItem, get_or_create_likes_collection
@@ -256,3 +256,45 @@ class CollectionPageTest(TestCase):
         resp = self.client.post(f"/collections.php?page=delete&id={col.id}")
         self.assertEqual(resp.status_code, 302)
         self.assertFalse(Collection.objects.filter(id=col.id).exists())
+
+    def test_collection_stats_view(self):
+        self.client.login(username="ColPageUser", password="password123")
+        resp = self.client.get(f"/collections.php?page=stats&id={self.public_col.id}")
+        self.assertEqual(resp.status_code, 200)
+        self.assertTemplateUsed(resp, "collections_stats.html")
+
+
+@override_settings(RATELIMIT_BACKEND='memory', RATELIMIT_ENABLE=False)
+class AppStatsViewTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.owner = User.objects.create_user(
+            username="StatsOwner", password="password123", email="statsowner@example.com"
+        )
+        cls.other_user = User.objects.create_user(
+            username="StatsOther", password="password123", email="statsother@example.com"
+        )
+        cls.app = Application.objects.create(
+            user=cls.owner,
+            title="StatsApp",
+            description="App for stats",
+            slogan="Slogan stats",
+            price=0,
+        )
+
+    def test_app_stats_guest_redirects(self):
+        resp = self.client.get(f"/app_stats.php/{self.app.pk}/")
+        self.assertEqual(resp.status_code, 302)
+
+    def test_app_stats_non_owner_forbidden(self):
+        self.client.login(username="StatsOther", password="password123")
+        resp = self.client.get(f"/app_stats.php/{self.app.pk}/")
+        self.assertEqual(resp.status_code, 403)
+
+    def test_app_stats_owner_ok(self):
+        self.client.login(username="StatsOwner", password="password123")
+        resp = self.client.get(f"/app_stats.php/{self.app.pk}/")
+        self.assertEqual(resp.status_code, 200)
+        self.assertTemplateUsed(resp, "admin_app_stats.html")
+        self.assertTemplateUsed(resp, "includes/xp_chart.html")
+        self.assertIn("stats", resp.context)
