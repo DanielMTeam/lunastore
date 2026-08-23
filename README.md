@@ -1,8 +1,6 @@
 <div align="center">
-  <img src="staticfiles/img/logo.png" alt="LunaStore Logo" width="300" height="300">
+  <img src="staticfiles/img/banner.png" alt="LunaStore Logo">
   <br><br>
-
-  # LunaStore
 
   **An app store for old operating systems (Windows XP and others)**
 
