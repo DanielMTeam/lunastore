@@ -1,8 +1,6 @@
 <div align="center">
-  <img src="staticfiles/img/logo.png" alt="LunaStore Logo" width="300" height="300">
+  <img src="staticfiles/img/banner.png" alt="LunaStore Logo">
   <br><br>
-
-  # LunaStore
 
   **Каталог програм для старих операційних систем (Windows XP та інших)**
 
