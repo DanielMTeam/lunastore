@@ -3,9 +3,9 @@
 
 {% for category in categories %}
 {% if active_category and category.id == active_category.id %}
-<a class="{{ category.icon|default:'top' }}" id="active" href="/category.php?id={{ category.id }}">{{ category.name }}</a>
+<li><a class="{{ category.icon|default:'top' }}" id="active" href="/category.php?id={{ category.id }}">{{ category.name }}</a></li>
 {% else %}
-<a class="{{ category.icon|default:'top' }}" href="/category.php?id={{ category.id }}">{{ category.name }}</a>
+<li><a class="{{ category.icon|default:'top' }}" href="/category.php?id={{ category.id }}">{{ category.name }}</a></li>
 {% endif %}
 {% empty %}
     <li>{% trans "INFO_CATEGORY_LIST_EMPTY" %}</li>

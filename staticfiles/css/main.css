@@ -202,6 +202,16 @@ a img {
     color: crimson;
 }
 
+.sidebar_menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar_menu li {
+    zoom: 1;
+}
+
 .sidebar_menu a {
     padding-left: 24px;
     line-height: 22px; 
