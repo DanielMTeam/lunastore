@@ -136,10 +136,12 @@ class UserRegistrationForm(UserCreationForm):
         super().__init__(*args, **kwargs)
 
     def clean(self):
+        cleaned_data = super().clean()
         if self.request:
             ip = get_client_ip(self.request)
             if ip in BlockBannedIP.get_banned_set():
                 raise forms.ValidationError(_("INFO_YOUR_IP_WAS_BANNED"))
+        return cleaned_data
 
     def clean_username(self):
         username = self.cleaned_data.get("username")
@@ -162,6 +164,17 @@ class UserRegistrationForm(UserCreationForm):
                         _("PAGE_ADMIN_APP_MSG_SAVE_ERROR"))
 
         return username
+
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        if not email:
+            return email
+
+        email = email.lower().strip()
+        if User.all_objects.filter(email__iexact=email).exists():
+            raise forms.ValidationError(_("ERROR_EMAIL_ALREADY_IN_USE"))
+
+        return email
 
     username = forms.CharField(max_length=45, min_length=2)
     email = forms.EmailField(max_length=45)
