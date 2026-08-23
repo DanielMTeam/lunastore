@@ -56,12 +56,6 @@ form table td input[type="password"] {
     border-radius: 6px !important;
 }
 
-
-#changelist-form table th:nth-child(3),
-#changelist-form table td:nth-child(3) {
-    display: none !important;
-}
-
 /* markdown toolbar adapted for unfold admin */
 .md-editor-container {
     width: 100%;
