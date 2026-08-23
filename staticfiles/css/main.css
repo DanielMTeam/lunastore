@@ -314,6 +314,8 @@ a img {
 }
 
 li.web {
+    background: url(../img/icons.png);
+    background-repeat: no-repeat;
     background-position: 0px -412px;
 }
 
