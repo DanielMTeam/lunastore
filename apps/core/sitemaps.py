@@ -16,22 +16,22 @@ class StaticViewSitemap(Sitemap):
                 "changefreq": "daily",
             },
             {
-                "location": f"{reverse('help_center')}?page=faq",
+                "location": reverse("help_center", query={"page": "faq"}),
                 "priority": 0.6,
                 "changefreq": "monthly",
             },
             {
-                "location": f"{reverse('help_center')}?page=privacy",
+                "location": reverse("help_center", query={"page": "privacy"}),
                 "priority": 0.5,
                 "changefreq": "monthly",
             },
             {
-                "location": f"{reverse('help_center')}?page=rules",
+                "location": reverse("help_center", query={"page": "rules"}),
                 "priority": 0.5,
                 "changefreq": "monthly",
             },
             {
-                "location": f"{reverse('help_center')}?page=donate",
+                "location": reverse("help_center", query={"page": "donate"}),
                 "priority": 0.5,
                 "changefreq": "monthly",
             },
@@ -70,7 +70,7 @@ class CategorySitemap(Sitemap):
         )
 
     def location(self, obj):
-        return f"{reverse('category')}?id={obj.id}"
+        return reverse("category", query={"id": obj.id})
 
 
 class ApplicationSitemap(Sitemap):
@@ -89,7 +89,7 @@ class ApplicationSitemap(Sitemap):
         return obj.published
 
     def location(self, obj):
-        return f"{reverse('app')}?id={obj.id}"
+        return reverse("app", query={"id": obj.id})
 
 
 class ApplicationDownloadSitemap(Sitemap):
@@ -113,7 +113,7 @@ class ApplicationDownloadSitemap(Sitemap):
         return obj.published
 
     def location(self, obj):
-        return f"{reverse('download')}?id={obj.id}"
+        return reverse("download", query={"id": obj.id})
 
 
 class CollectionSitemap(Sitemap):
@@ -138,7 +138,7 @@ class CollectionSitemap(Sitemap):
         return obj.updated_at
 
     def location(self, obj):
-        return f"{reverse('collections')}?page=view&id={obj.id}"
+        return reverse("collections", query={"page": "view", "id": obj.id})
 
 
 class AuthorProfileSitemap(Sitemap):
@@ -160,7 +160,7 @@ class AuthorProfileSitemap(Sitemap):
         )
 
     def location(self, obj):
-        return f"{reverse('profile')}?id={obj.id}"
+        return reverse("profile", query={"id": obj.id})
 
 
 sitemaps = {

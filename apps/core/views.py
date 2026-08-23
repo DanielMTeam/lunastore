@@ -201,12 +201,7 @@ def robots_txt(request):
         "/password_reset_complete.php",
     ]
 
-    seen = set()
-    unique_paths = []
-    for p in disallow_paths:
-        if p not in seen:
-            seen.add(p)
-            unique_paths.append(p)
+    unique_paths = list(dict.fromkeys(disallow_paths))
 
     lines = ["User-agent: *"]
     for p in unique_paths:
