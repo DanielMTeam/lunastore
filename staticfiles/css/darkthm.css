@@ -56,7 +56,7 @@ body {
     display: block !important;
 }
 
-.sidebar li#active {
+.sidebar a#active {
     border: 1px solid #202020 !important;
     font-weight: bold !important;
     color: #cacaca !important;
@@ -67,7 +67,7 @@ body {
     color: #fff !important;
 }
 
-.sidebar a: hover {
+.sidebar a:hover {
     text-decoration: none !important;
     color: #e6e6e6 !important;
 }
