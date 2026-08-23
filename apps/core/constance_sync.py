@@ -19,6 +19,7 @@ _BOOL_KEYS: frozenset[str] = frozenset({
     "API_THROTTLE_ENABLED",
     "TELEGRAM_LOGGER_ENABLED",
     "SENTRY_ENABLED",
+    "ANALYTICS_ENABLED",
 })
 
 

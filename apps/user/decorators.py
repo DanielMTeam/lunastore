@@ -29,24 +29,31 @@ def developer_required(view_func=None, redirect_url='index'):
     return decorator
 
 
+def is_outdated_browser(request):
+    if hasattr(request, 'user_agent'):
+        browser = request.user_agent.browser
+        family = browser.family
+        version = browser.version[0] if browser.version else 0
+
+        return (
+            # block only IE 6 and 7 (six seveeeeeeen)
+            (family == 'IE' and version in [6, 7]) or
+            family == 'Opera Mini' or
+            (family == 'Safari' and version < 11) or
+            (family in ['Chrome', 'Firefox'] and version < 60)
+        )
+    return False
+
+
+def is_modern_browser(request):
+    return not is_outdated_browser(request)
+
+
 def require_modern_browser(view_func):
     @wraps(view_func)
     def _wrapped_view(request, *args, **kwargs):
-        if hasattr(request, 'user_agent'):
-            browser = request.user_agent.browser
-            family = browser.family
-            version = browser.version[0] if browser.version else 0
-
-            is_outdated = (
-                # block only IE 6 and 7 (six seveeeeeeen)
-                (family == 'IE' and version in [6, 7]) or
-                family == 'Opera Mini' or
-                (family == 'Safari' and version < 11) or
-                (family in ['Chrome', 'Firefox'] and version < 60)
-            )
-
-            if is_outdated:
-                return render(request, "badbrowser.html", status=403)
+        if is_outdated_browser(request):
+            return render(request, "badbrowser.html", status=403)
 
         return view_func(request, *args, **kwargs)
 
