@@ -78,7 +78,7 @@
                     </thead>
                     <tbody>
                         {% for dist in distributions %}
-                        <tr onmouseover="rowHover(this, true);" onmouseout="rowHover(this, false);">
+                        <tr>
                             <td>{% if dist.is_latest %}<b>{{ dist.version }}</b>{% else %}{{ dist.version }}{% endif %}</td>
                             <td>{{ dist.published }}</td>
                             <td>

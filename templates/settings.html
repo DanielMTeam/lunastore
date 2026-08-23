@@ -76,7 +76,7 @@
                             {% if is_developer %}
                                 <span>{% trans "PAGE_SETTINGS_DEV_STATUS_HAS" %}</span>
                             {% else %}
-                                <a href="{% url 'dev_status' %}" class="action_button">Получить</a>
+                                <a href="{% url 'dev_status' %}" class="action_button">{% trans "PAGE_SETTINGS_DEV_STATUS_GET" %}</a>
                             {% endif %}
                         </div>
                         <br>

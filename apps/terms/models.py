@@ -7,6 +7,7 @@ class LegalDocument(models.Model):
         ("en", "English"),
         ("uk", "Українська"),
         ("be", "Белорусский"),
+        ("kk", "Қазақша"),
     )
 
     doc_type = models.CharField(

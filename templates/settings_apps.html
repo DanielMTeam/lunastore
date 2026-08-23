@@ -33,10 +33,11 @@
         </div>
 
         <div class="tab-content" id="tab-view">
-
+            {% if is_modern_browser %}
             <a href="{% url 'app_add' %}" class="add_app_button" >
                 {% trans "PAGE_MANAGE_APPS_CREATE" %}
             </a>
+            {% endif %}
 
             <div class="profile_block">{% trans "PAGE_MANAGE_APPS_HEADER" %}</div>
 
@@ -60,7 +61,9 @@
 
                             <a href="/app.php?id={{ app.pk }}"><h3>{{ app.title }}</h3></a>
                             <p><b>{% trans "PAGE_MANAGE_APPS_ROLE_OWNER" %}</b></p>
+                            {% if is_modern_browser %}
                             <a href="{% url 'edit_app_info' pk=app.pk %}">{% trans "PAGE_MANAGE_APPS_BTN_EDIT" %}</a>
+                            {% endif %}
                         </div>
                     {% endfor %}
                     {% for req in app_requests %}

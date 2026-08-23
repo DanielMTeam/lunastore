@@ -2301,6 +2301,9 @@ msgstr "убрать из избранного"
 msgid "PAGE_COLLECTION_ACTION_VIEW"
 msgstr "просмотр"
 
+msgid "PAGE_COLLECTION_ACTION_STATS"
+msgstr "статистика"
+
 msgid "PAGE_COLLECTION_APPS_EMPTY"
 msgstr "В этой коллекции пока нет приложений."
 
@@ -2486,3 +2489,119 @@ msgstr "Выключить тёмную тему"
 
 msgid "BASE_SIDEBAR_APP_PAGE"
 msgstr "Приложение"
+
+msgid "PAGE_ADMIN_APP_TAB_STATS"
+msgstr "Статистика"
+
+msgid "PAGE_ADMIN_APP_BACKTOAPP"
+msgstr "Вернуться к странице"
+
+msgid "PAGE_ADMIN_APP_STATS_30_DAYS"
+msgstr "Визуальная статистика за 14 дней"
+
+msgid "PAGE_ADMIN_APP_STATS_DETAILED"
+msgstr "Детальная статистика"
+
+msgid "PAGE_ADMIN_APP_STATS_DOWNLOADS"
+msgstr "Скачивания"
+
+msgid "PAGE_ADMIN_APP_STATS_TOTAL_DOWNLOADS"
+msgstr "Количество скачиваний"
+
+msgid "PAGE_ADMIN_APP_STATS_UNIQUE_DOWNLOADERS"
+msgstr "Уникальных пользователей, скачавших приложение"
+
+msgid "PAGE_ADMIN_APP_STATS_DOWNLOADS_HINT"
+msgstr "Статистика записывается после нажатия на кнопку \"Установить\" на странице приложения"
+
+msgid "PAGE_ADMIN_APP_STATS_VIEWS"
+msgstr "Просмотры"
+
+msgid "PAGE_ADMIN_APP_STATS_TOTAL_VIEWS"
+msgstr "Всего просмотров"
+
+msgid "PAGE_ADMIN_APP_STATS_UNIQUE_VIEWERS"
+msgstr "Уникальных просмотров"
+
+msgid "PAGE_ADMIN_APP_STATS_ENGAGEMENT"
+msgstr "Активность"
+
+msgid "PAGE_ADMIN_APP_STATS_TOTAL_LIKES"
+msgstr "Количество лайков"
+
+msgid "PAGE_ADMIN_APP_STATS_TOTAL_RATES"
+msgstr "Количество оценок"
+
+msgid "PAGE_ADMIN_APP_STATS_TOP_COUNTRIES"
+msgstr "Топ-10 по странам за 30 дней"
+
+msgid "PAGE_ADMIN_APP_STATS_COUNTRY"
+msgstr "Страна"
+
+msgid "PAGE_ADMIN_APP_STATS_COUNT"
+msgstr "Количество"
+
+msgid "PAGE_ADMIN_APP_STATS_SHARE"
+msgstr "Доля"
+
+msgid "PAGE_ADMIN_APP_STATS_TOP_OS"
+msgstr "Топ-10 по операционным системам за 30 дней"
+
+msgid "PAGE_ADMIN_APP_STATS_OS"
+msgstr "Операционная система"
+
+msgid "PAGE_ADMIN_APP_STATS_DISTRIBUTIONS"
+msgstr "Скачивания по дистрибуциям (версиям)"
+
+msgid "PAGE_ADMIN_APP_STATS_DIST_GENERAL"
+msgstr "Основная"
+
+msgid "PAGE_ADMIN_APP_STATS_NO_DATA"
+msgstr "Нет данных"
+
+msgid "PAGE_COLLECTION_TAB_STATS"
+msgstr "Статистика"
+
+msgid "PAGE_COLLECTION_BACK_TO_VIEW"
+msgstr "Вернуться к просмотру коллекции"
+
+msgid "PAGE_COLLECTION_STATS_30_DAYS"
+msgstr "Статистика активности за 14 дней"
+
+msgid "PAGE_COLLECTION_STATS_VIEWS"
+msgstr "Просмотры"
+
+msgid "PAGE_COLLECTION_STATS_FAVORITES"
+msgstr "Сохранения в избранное"
+
+msgid "PAGE_COLLECTION_STATS_TOTAL_FAVORITES"
+msgstr "Всего сохранений"
+
+msgid "PAGE_COLLECTION_STATS_TOTAL_ITEM_ADDS"
+msgstr "Добавлений приложений"
+
+
+msgid "PAGE_SETTINGS_DEV_STATUS_GET"
+msgstr "Получить"
+
+msgid "PAGE_SETTINGS_SECTION_ACTIVE_SESSIONS"
+msgstr "Активные сеансы"
+
+msgid "PAGE_SETTINGS_ACTIVE_SESSIONS_DESC"
+msgstr "Устройства, с которых выполнен вход в ваш аккаунт."
+
+msgid "PAGE_SETTINGS_UNKNOWN_DEVICE"
+msgstr "Неизвестное устройство"
+
+msgid "PAGE_SETTINGS_ACTIVITY"
+msgstr "Активность"
+
+msgid "PAGE_SETTINGS_CURRENT_SESSION"
+msgstr "Текущий сеанс"
+
+msgid "PAGE_SECURITY_WARN_TITLE"
+msgstr "В целях безопасности"
+
+msgid "PAGE_SECURITY_WARN_NEW_SESSION_DESC"
+msgstr "смена пароля и привязанной почты недоступна для новых устройств (менее 24 часов)."
+

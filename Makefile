@@ -51,6 +51,25 @@ dev-test:
 	docker compose -f $(DEV_COMPOSE) exec web python manage.py test
 
 #
+# development analytics (clickhouse, optional profile)
+#
+
+dev-analytics-up:
+	docker compose -f $(DEV_COMPOSE) --profile analytics up -d clickhouse
+
+dev-analytics-down:
+	docker compose -f $(DEV_COMPOSE) --profile analytics stop clickhouse
+
+dev-analytics-logs:
+	docker compose -f $(DEV_COMPOSE) --profile analytics logs -f clickhouse
+
+dev-analytics-migrate:
+	docker compose -f $(DEV_COMPOSE) exec web python manage.py analytics_migrate
+
+dev-analytics-ping:
+	docker compose -f $(DEV_COMPOSE) exec web python manage.py analytics_ping
+
+#
 # production commands
 #
 
@@ -98,6 +117,27 @@ i18n-compile:
 
 test:
 	docker compose -f $(PROD_COMPOSE) exec lunastore python manage.py test
+
+#
+# production analytics (clickhouse, optional profile)
+#
+
+analytics-up:
+	docker compose -f $(PROD_COMPOSE) --profile analytics up -d clickhouse
+
+analytics-down:
+	@echo "Attention: now you will stop PRODUCTION clickhouse"
+	docker compose -f $(PROD_COMPOSE) --profile analytics stop clickhouse
+
+analytics-logs:
+	docker compose -f $(PROD_COMPOSE) --profile analytics logs -f clickhouse
+
+analytics-migrate:
+	@echo "Attention: analytics migrate will run on PRODUCTION clickhouse"
+	docker compose -f $(PROD_COMPOSE) exec lunastore python manage.py analytics_migrate
+
+analytics-ping:
+	docker compose -f $(PROD_COMPOSE) exec lunastore python manage.py analytics_ping
 
 tolgee-push:
 	tolgee push

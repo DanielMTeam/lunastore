@@ -24,11 +24,17 @@ def geo_domains_processor(request):
 
 
 def notification_context(request):
+    from apps.user.decorators import is_modern_browser
+    is_modern = is_modern_browser(request)
     if request.user.is_authenticated:
         geo_domains = getattr(request, 'geo_domains', {})
         api_url = geo_domains.get('SPIRE_URL', settings.LUNASPIRE_URL)
         return {
+            'is_modern_browser': is_modern,
             'notify_token': NotificationService.get_receive_token(
                 request.user.id),
-            'api_url': api_url}
-    return {}
+            'api_url': api_url,
+        }
+    return {
+        'is_modern_browser': is_modern,
+    }

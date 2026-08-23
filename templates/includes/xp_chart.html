@@ -1,0 +1,45 @@
+{% load i18n %}
+{% load static %}
+
+<div class="xp_chart_container">
+  {% if stats.has_chart_data %}
+    <div class="xp_chart_wrapper">
+      <div class="xp_chart_grid">
+        <table class="xp_chart_table" cellpadding="0" cellspacing="0" border="0" width="100%">
+          <tr>
+            {% for bar in stats.chart_bars %}
+              <td class="xp_chart_col" valign="bottom" align="center" title="{{ bar.date }}: {% if label1 %}{{ label1 }}: {{ bar.val1 }}{% else %}{{ bar.val1 }}{% endif %}{% if label2 %}, {{ label2 }}: {{ bar.val2 }}{% endif %}">
+                <table cellpadding="0" cellspacing="0" border="0" align="center" style="margin: 0 auto;">
+                  <tr>
+                    <td valign="bottom" align="center" style="padding: 0 1px; vertical-align: bottom;">
+                      {% if bar.height1 > 0 %}
+                        <div class="xp_bar xp_bar_series1" style="height: {{ bar.height1 }}px;"></div>
+                      {% else %}
+                        <div style="height: 1px; width: 4px;"></div>
+                      {% endif %}
+                    </td>
+                    <td valign="bottom" align="center" style="padding: 0 1px; vertical-align: bottom;">
+                      {% if bar.height2 > 0 %}
+                        <div class="xp_bar xp_bar_series2" style="height: {{ bar.height2 }}px;"></div>
+                      {% else %}
+                        <div style="height: 1px; width: 4px;"></div>
+                      {% endif %}
+                    </td>
+                  </tr>
+                </table>
+                <div class="xp_chart_date">{{ bar.short_date }}</div>
+              </td>
+            {% endfor %}
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="xp_chart_legend">
+      <span class="xp_legend_item"><span class="xp_legend_color xp_color_series1"></span> {% if label1 %}{{ label1 }}{% else %}{% trans "PAGE_ADMIN_APP_STATS_VIEWS" %}{% endif %}</span>
+      <span class="xp_legend_item"><span class="xp_legend_color xp_color_series2"></span> {% if label2 %}{{ label2 }}{% else %}{% trans "PAGE_ADMIN_APP_STATS_DOWNLOADS" %}{% endif %}</span>
+    </div>
+  {% else %}
+    <div class="search_error">{% trans "PAGE_ADMIN_APP_STATS_NO_DATA" %}</div>
+  {% endif %}
+</div>
+

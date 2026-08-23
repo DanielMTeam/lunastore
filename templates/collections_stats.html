@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load markdown_tags %}
+
+{% block title %}{{ collection.title }} - {% trans "PAGE_COLLECTION_TAB_STATS" %} - LunaStore{% endblock %}
+
+{% block content %}
+<div class="content">
+  <link rel="stylesheet" href="{% static './css/tabs.css' %}">
+  <link rel="stylesheet" href="{% static './css/profile.css' %}">
+  <link rel="stylesheet" href="{% static './css/collections.css' %}">
+  <style>
+    .stats_wrapper {
+      padding: 0;
+      margin-top: 5px;
+    }
+    .stats_wrapper .profile_block,
+    .tab-content .profile_block {
+      width: 100% !important;
+      box-sizing: border-box !important;
+      -moz-box-sizing: border-box !important;
+      -webkit-box-sizing: border-box !important;
+    }
+    .stats_wrapper .profile_block_content,
+    .tab-content .profile_block_content {
+      width: 100% !important;
+      box-sizing: border-box !important;
+      -moz-box-sizing: border-box !important;
+      -webkit-box-sizing: border-box !important;
+      margin-bottom: 12px;
+    }
+    .stats_wrapper .app_version_table,
+    .tab-content .app_version_table {
+      width: 100% !important;
+      box-sizing: border-box !important;
+      -moz-box-sizing: border-box !important;
+      -webkit-box-sizing: border-box !important;
+      margin-bottom: 12px;
+    }
+    .stats_wrapper .xp_chart_container,
+    .tab-content .xp_chart_container {
+      width: 100% !important;
+      box-sizing: border-box !important;
+      -moz-box-sizing: border-box !important;
+      -webkit-box-sizing: border-box !important;
+      margin-bottom: 12px;
+    }
+  </style>
+  <!--[if lte IE 6]>
+  <style>
+    .stats_wrapper .profile_block,
+    .tab-content .profile_block {
+      width: 428px !important;
+    }
+    .stats_wrapper .profile_block_content,
+    .tab-content .profile_block_content {
+      width: 416px !important;
+    }
+  </style>
+  <![endif]-->
+
+  <div class="tabs">
+    <div class="tab-bar">
+      {% if user.is_authenticated %}
+      <a href="{% url 'collections' %}" class="tab" style="text-decoration: none;">
+        <img src="{% static './img/tabs/likes.png' %}" class="tab-icon" alt="">
+        {% trans "PAGE_COLLECTION_TAB_MINE" %}
+      </a>
+      {% if not is_owner %}
+      <a href="{% url 'collections' %}?page=liked" class="tab" style="text-decoration: none;">
+        <img src="{% static './img/tabs/fav.png' %}" class="tab-icon" alt="">
+        {% trans "PAGE_COLLECTION_TAB_LIKED" %}
+      </a>
+      {% endif %}
+      {% endif %}
+      <a href="{% url 'collections' %}?page=view&id={{ collection.id }}" class="tab" style="text-decoration: none;">
+        <img src="{% static './img/tabs/terms.png' %}" class="tab-icon" alt="">
+        {% trans "PAGE_COLLECTION_TAB_VIEW" %}
+      </a>
+      {% if is_owner and not collection.is_system %}
+      <div class="tab active">
+        <img src="{% static './img/tabs/stats.png' %}" class="tab-icon" alt="">
+        {% trans "PAGE_COLLECTION_TAB_STATS" %}
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="tab-content" id="tab-view">
+      <div class="collection_item">
+        <div class="collection_ava">
+          <table width="100%" id="avatar_col_{{ collection.id }}">
+            <tr>
+              <td width="32"><img src="{{ mosaic.0 }}" width="32" height="32" alt=""></td>
+              <td width="32"><img src="{{ mosaic.1 }}" width="32" height="32" alt=""></td>
+            </tr>
+            <tr>
+              <td width="32"><img src="{{ mosaic.2 }}" width="32" height="32" alt=""></td>
+              <td width="32"><img src="{{ mosaic.3 }}" width="32" height="32" alt=""></td>
+            </tr>
+          </table>
+        </div>
+        <div class="collection_info">
+          <div class="collection_title">{{ collection.title }}</div>
+          <div class="collection_desc">{{ collection.description|render_markdown }}</div>
+          <br>
+          <div class="collection_actions">
+            <a href="{% url 'collections' %}?page=view&id={{ collection.id }}">{% trans "PAGE_COLLECTION_BACK_TO_VIEW" %}</a>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="stats_wrapper">
+        <h4>{% trans "PAGE_COLLECTION_STATS_30_DAYS" %}</h4>
+        <div class="separator_store"></div><br>
+
+        {% trans "PAGE_COLLECTION_STATS_VIEWS" as views_label %}
+        {% trans "PAGE_COLLECTION_STATS_FAVORITES" as favs_label %}
+        {% include 'includes/xp_chart.html' with stats=stats label1=views_label label2=favs_label %}
+
+        <h4>{% trans "PAGE_ADMIN_APP_STATS_DETAILED" %}</h4>
+        <div class="separator_store"></div><br>
+
+        <div class="profile_block">{% trans "PAGE_COLLECTION_STATS_VIEWS" %}</div>
+        <div class="profile_block_content">
+          {% trans "PAGE_ADMIN_APP_STATS_TOTAL_VIEWS" %}: <b>{{ stats.total_views }}</b><br>
+          {% trans "PAGE_ADMIN_APP_STATS_UNIQUE_VIEWERS" %}: <b>{{ stats.unique_viewers }}</b>
+        </div>
+
+        <div class="profile_block">{% trans "PAGE_COLLECTION_STATS_FAVORITES" %}</div>
+        <div class="profile_block_content">
+          {% trans "PAGE_COLLECTION_STATS_TOTAL_FAVORITES" %}: <b>{{ stats.total_favorites }}</b><br>
+          {% trans "PAGE_COLLECTION_STATS_TOTAL_ITEM_ADDS" %}: <b>{{ stats.total_item_adds }}</b>
+        </div>
+
+        <h4>{% trans "PAGE_ADMIN_APP_STATS_TOP_COUNTRIES" %}</h4>
+        <div class="separator_store"></div><br>
+        {% if stats.countries_breakdown %}
+          <table class="app_version_table" cellpadding="0" cellspacing="0">
+            <thead>
+              <tr>
+                <th>{% trans "PAGE_ADMIN_APP_STATS_COUNTRY" %}</th>
+                <th>{% trans "PAGE_ADMIN_APP_STATS_COUNT" %}</th>
+                <th>{% trans "PAGE_ADMIN_APP_STATS_SHARE" %}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in stats.countries_breakdown %}
+                <tr>
+                  <td>{{ item.name }}</td>
+                  <td>{{ item.count }}</td>
+                  <td>{{ item.percentage }}%</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <div class="search_error">{% trans "PAGE_ADMIN_APP_STATS_NO_DATA" %}</div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}

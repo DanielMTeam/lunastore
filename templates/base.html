@@ -9,7 +9,7 @@
 <head>
     <title>{% block title %}LunaStore{% endblock %}</title>
     <meta name="description" content="{% trans " SITE_DESCRIPTION" %}">
-    <meta name="robots" content="index, follow">
+    {% block robots %}<meta name="robots" content="index,follow">{% endblock %}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="{% static './css/main.css'%}">
     <link rel="stylesheet" href="{% static './css/notifications.css'%}">
@@ -44,7 +44,7 @@
     <script src="{% static './js/dd_belatedpng.min.js' %}"></script>
     <script>
     /* EXAMPLE */
-    DD_belatedPNG.fix('.ls_dm_logo, .error_icon_small, .good_icon_small, .info_icon_small, .sidebar li, .category_icon, .balloon_img, .dm_menu, .actionsm li, .rating, .r5, .r4_5, .r4, .r3_5, .r3, .r2_5, .r2, .r1_5, .r1, .r0_5');
+    DD_belatedPNG.fix('.ls_dm_logo, .error_icon_small, .good_icon_small, .info_icon_small, .sidebar_menu a, .category_icon, .balloon_img, .dm_menu, .actionsm li, .rating, .r5, .r4_5, .r4, .r3_5, .r3, .r2_5, .r2, .r1_5, .r1, .r0_5');
   </script>
   <![endif]-->
 </head>
@@ -134,23 +134,21 @@
                 {% if app_id %}
                 <div class="boxhead_primary"><b>{% trans "BASE_SIDEBAR_APP_TITLE" %}</b></div>
                 <div class="box">
-                    <ul>
-                        <li class="updates" {% if is_app_page %}id="active" {% endif %} onclick="location.href='/app.php?id={{ app_id }}'">
-                            <a href="/app.php?id={{ app_id }}">{% trans "BASE_SIDEBAR_APP_PAGE" %}</a>
-                        </li>
-                        <li class="setup" {% if is_download_page %}id="active" {% endif %} onclick="location.href='/download.php?id={{ app_id }}'">
-                            <a href="/download.php?id={{ app_id }}"><b>{% trans "BASE_SIDEBAR_APP_INSTALL" %}</b></a>
-                        </li>
+                    <ul class="sidebar_menu">
+                        <li><a class="updates" {% if is_app_page %}id="active" {% endif %} href="/app.php?id={{ app_id }}">
+                            {% trans "BASE_SIDEBAR_APP_PAGE" %}
+                        </a></li>
+                        <li><a class="setup" {% if is_download_page %}id="active" {% endif %} href="/download.php?id={{ app_id }}">
+                            <b>{% trans "BASE_SIDEBAR_APP_INSTALL" %}</b>
+                        </a></li>
 
                         {% if developer_site %}
-                        <li class="web" onclick="window.open('{{ developer_site }}', '_blank')">
-                            <a href="{{ developer_site }}" target="_blank">{% trans "BASE_SIDEBAR_APP_DEV_SITE" %}</a>
-                        </li>
+                        <li><a class="web" href="{{ developer_site }}" target="_blank">{% trans "BASE_SIDEBAR_APP_DEV_SITE" %}</a></li>
                         {% endif %}
 
-                        <li class="alert" {% if is_report_page %}id="active" {% endif %} onclick="location.href='/report_app.php?id={{ app_id }}'"><a href="/report_app.php?id={{ app_id }}">{% trans "BASE_SIDEBAR_APP_REPORT" %}</a></li>
-                        {% if user.is_authenticated and user.id == developer_id %}
-                        <li class="editapp" {% if is_edit_page %}id="active" {% endif %} onclick="location.href='/edit_app_info.php/{{ app_id }}/'"><a href="/edit_app_info.php/{{ app_id }}/">{% trans "BASE_SIDEBAR_APP_EDIT" %}</a></li>
+                        <li><a class="alert" {% if is_report_page %}id="active" {% endif %} href="/report_app.php?id={{ app_id }}">{% trans "BASE_SIDEBAR_APP_REPORT" %}</a></li>
+                        {% if user.is_authenticated and user.id == developer_id and is_modern_browser %}
+                        <li><a class="editapp" {% if is_edit_page %}id="active" {% endif %} href="/edit_app_info.php/{{ app_id }}/">{% trans "BASE_SIDEBAR_APP_EDIT" %}</a></li>
                         {% endif %}
                     </ul>
                 </div>
@@ -159,17 +157,17 @@
                 <div class="boxhead_primary"><b>{% trans "BASE_SIDEBAR_ACCOUNT_TITLE" %}</b></div>
                 <div class="box">
                     {% with route=request.resolver_match.url_name %}
-                    <ul>
-                        <li class="myhome" {% if route == 'profile' and request.GET.id == request.user.id|stringformat:"s" %} id="active" {% endif %} onclick="location.href='/profile.php?id={{ request.user.id }}'"><a href="/profile.php?id={{ request.user.id }}">{% trans "BASE_SIDEBAR_ACCOUNT_PROFILEBTN" %}</a></li>
-                        <li class="settings" {% if route == 'settings' or route == 'settings_security' or route == 'settings_apps' or route == "settings_2fa_set" %} id="active" {% endif %} onclick="location.href='{% url 'settings' %}'"><a href="{% url 'settings' %}">{% trans "BASE_SIDEBAR_ACCOUNT_SETTINGSBTN" %}</a></li>
-                        <li class="newbie" {% if route == 'invite_person' %}id="active" {% endif %} onclick="location.href='{% url 'invite_person' %}'"><a href="{% url 'invite_person' %}">
-                                {% trans "BASE_SIDEBAR_ACCOUNT_INVITEBTN" %}
-                            </a></li>
-                        <li class="notify" {% if route == 'notifications' %}id="active" {% endif %} onclick="location.href='{% url 'notifications' %}'"><a href="{% url 'notifications' %}">
-                                {% trans "PAGE_NOTIFICATIONS_TAB" %}
-                                <span id="global-unread-count" style="display:none; color: red; font-weight: bold;"></span>
-                            </a></li>
-                        <li class="collections" {% if route == 'collections' %}id="active" {% endif %} onclick="location.href='{% url 'collections' %}'"><a href="{% url 'collections' %}">{% trans "BASE_SIDEBAR_ACCOUNT_COLLECTIONS" %}</a></li>
+                    <ul class="sidebar_menu">
+                        <li><a class="myhome" {% if route == 'profile' and request.GET.id == request.user.id|stringformat:"s" %} id="active" {% endif %} href="/profile.php?id={{ request.user.id }}">{% trans "BASE_SIDEBAR_ACCOUNT_PROFILEBTN" %}</a></li>
+                        <li><a class="settings" {% if route == 'settings' or route == 'settings_security' or route == 'settings_apps' or route == "settings_2fa_set" %} id="active" {% endif %} href="{% url 'settings' %}">{% trans "BASE_SIDEBAR_ACCOUNT_SETTINGSBTN" %}</a></li>
+                        <li><a class="newbie" {% if route == 'invite_person' %}id="active" {% endif %} href="{% url 'invite_person' %}">{% trans "BASE_SIDEBAR_ACCOUNT_INVITEBTN" %}</a></li>
+                        {% if is_modern_browser %}
+                        <li><a class="notify" {% if route == 'notifications' %}id="active" {% endif %} href="{% url 'notifications' %}">
+                            {% trans "PAGE_NOTIFICATIONS_TAB" %}
+                            <span id="global-unread-count" style="display:none; color: red; font-weight: bold;"></span>
+                        </a></li>
+                        {% endif %}
+                        <li><a class="collections" {% if route == 'collections' %}id="active" {% endif %} href="{% url 'collections' %}">{% trans "BASE_SIDEBAR_ACCOUNT_COLLECTIONS" %}</a></li>
                     </ul>
                     {% endwith %}
                 </div>
@@ -177,10 +175,10 @@
 
                 <div class="boxhead"><b>{% trans "BASE_SIDEBAR_CATEGORIES_TITLE" %}</b></div>
                 <div class="box">
-                    <ul>
-                        <li class="myhome" {% if request.resolver_match.url_name == 'index' %}id="active" {% endif %} onclick="location.href='/index.php'">
-                            <a href="/index.php">{% trans "BASE_SIDEBAR_CATEGORIES_HOME" %}</a>
-                        </li>
+                    <ul class="sidebar_menu">
+                        <li><a class="myhome" {% if request.resolver_match.url_name == 'index' %}id="active" {% endif %} href="/index.php">
+                            {% trans "BASE_SIDEBAR_CATEGORIES_HOME" %}
+                        </a></li>
                         {% show_categories active_category=active_category %}
                     </ul>
                 </div>
@@ -224,8 +222,9 @@
                 <a href="/help_center.php?page=privacy">{% trans "BASE_PRIVACYPOLICYBTN" %}</a> -
                 <a href="/help_center.php?page=donate">{% trans "PAGE_FAQ_DONATETAB" %}</a> -
                 <a href="/help_center.php?page=rules">{% trans "PAGE_FAQ_RULESTAB" %}</a> -
-                <a href="https://telegram.me/lunastore_official">{% trans "BASE_FOOTER_TELEGRAM" %}</a>
-                
+                <a href="https://telegram.me/lunastore_official">{% trans "BASE_FOOTER_TELEGRAM" %}</a> -
+                <a href="https://discord.gg/nqss8Gy2bj">Discord</a>
+
                 <div style="clear: both;"></div>
                 <div style="margin-top: 4px; overflow: hidden; zoom: 1;">
                     <div style="float: left;">
@@ -243,10 +242,9 @@
 
 
             {% if user.is_authenticated %}
+            {% if is_modern_browser %}
             <meta id="global-notify-token" content="{{ notify_token }}">
             <meta id="global-api-url" content="{{ api_url }}">
-            <script src="{% url 'javascript-catalog' %}"></script>
-
             <div id="audio-placeholder" style="display:none;"></div>
 
             <script type="text/javascript">
@@ -265,6 +263,8 @@
                 };
             </script>
             <script src="{% static './js/global_notifications.js' %}"></script>
+            {% endif %}
+            <script src="{% url 'javascript-catalog' %}"></script>
             <script src="{% static './js/markdown_client.js' %}"></script>
             <script src="{% static './js/markdown_editor.js' %}?v=2"></script>
             {% endif %}
