@@ -12,9 +12,9 @@ msgstr "LunaStore. Довідник програм для твого старо�
 
 msgid "%(counter)s PAGE_PROFILE_STATS_APP"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
-msgstr[0] "\"%(counter)s програм,\""
-msgstr[1] "\"%(counter)s програм,\""
-msgstr[2] "\"%(counter)s програм,\""
+msgstr[0] "%(counter)s програм,"
+msgstr[1] "%(counter)s програм,"
+msgstr[2] "%(counter)s програм,"
 
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
