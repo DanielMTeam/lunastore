@@ -12,10 +12,23 @@ window.updateCountUI = function (count) {
     }
   }
 };
+function translateNotif(key) {
+  if (typeof django !== "undefined" && django.gettext) {
+    return django.gettext(key);
+  }
+  if (window.notifs && window.notifs[key]) {
+    return window.notifs[key];
+  }
+  return key;
+}
 function loadNotificationLang() {
+  var notifications = {};
+  if (typeof django === "undefined" || !django.catalog) {
+    window.notifs = notifications;
+    return;
+  }
   var allTranslations = django.catalog;
   var keys = Object.keys(allTranslations);
-  var notifications = {};
   for (var i = 0; i < keys.length; i++) {
     if (keys[i].indexOf('NOTIF_') === 0) {
       notifications[keys[i]] = django.gettext(keys[i]);
@@ -60,11 +73,11 @@ function createNotification(title, message) {
   balloon.appendChild(bTitle);
   var nTitle = document.createElement('div');
   nTitle.className = 'notify_title';
-  nTitle.innerHTML = window.notifs[title] || title;
+  nTitle.innerHTML = translateNotif(title);
   balloon.appendChild(nTitle);
   var bText = document.createElement('div');
   bText.className = 'balloon_text';
-  bText.innerHTML = window.notifs[message] || message;
+  bText.innerHTML = translateNotif(message);
   balloon.appendChild(bText);
   var closeLink = document.createElement('a');
   closeLink.href = '#';
