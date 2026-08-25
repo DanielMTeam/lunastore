@@ -23,14 +23,11 @@ function insertTag(btn, openTag, closeTag) {
     elem.value += openTag + closeTag;
   }
 }
-
 function toggleMdMode(btn) {
   var fieldName = btn.getAttribute('data-field-name');
   if (!fieldName) return;
-  
   var fieldEdit = document.getElementById("id_" + fieldName);
   var fieldPreview = document.getElementById("mdpreview_" + fieldName);
-
   if (btn.id == 'edit') {
     btn.id = 'view';
     fieldEdit.style.display = 'none';
