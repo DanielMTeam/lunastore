@@ -4,7 +4,6 @@ import json
 
 import jwt
 from django.conf import settings
-from django.contrib.postgres.search import TrigramSimilarity
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.core.cache import cache
@@ -23,6 +22,7 @@ from apps.marketplace.serializers import ApplicationSerializer, CategorySerializ
 from apps.user.models import User
 from apps.user.serializers import UserSerializer
 from apps.core.notifications.services import NotificationService
+from apps.core.search import SearchService, SearchUnavailableError
 
 from apps.api.constants import ErrorCodes, PUB_UPLOAD_POLICIES, ALLOWED_MIMES
 from apps.api.exceptions import LunaException
@@ -144,6 +144,37 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
             "ws_url": getattr(request, 'geo_domains', {}).get('SPIRE_URL', settings.LUNASPIRE_URL)
         })
 
+    @extend_schema(
+        summary="search users",
+        description="Returns paginated list of users matching the query",
+        parameters=[
+            OpenApiParameter(
+                name="query",
+                description="Search query",
+                required=True,
+                type=str,
+                location=OpenApiParameter.QUERY,
+            )
+        ],
+    )
+    @action(detail=False, methods=["get"], url_path="search")
+    def search(self, request):
+        query = request.query_params.get("query")
+        if not query:
+            return Response({"error": "Query parameter is required"}, status=400)
+        paginator = self.pagination_class()
+        limit = paginator.get_limit(request)
+        offset = paginator.get_offset(request)
+        try:
+            user_ids, total = SearchService.search_user_ids(query, limit=limit, offset=offset)
+        except SearchUnavailableError:
+            return Response({"error": "Search service unavailable"}, status=503)
+        results = SearchService.order_queryset_by_ids(self.get_queryset(), user_ids)
+        serializer = self.get_serializer(results, many=True)
+        paginator.request = request
+        paginator.count = total
+        return paginator.get_paginated_response(serializer.data)
+
 
 @extend_schema_view(
     list=extend_schema(summary="get paginated list of applications"),
@@ -151,7 +182,7 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
 )
 class MarketplaceViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
-        return Application.objects.exclude(is_private=True)
+        return Application.objects.filter(is_private=False, is_under_dmca=False)
     serializer_class = ApplicationSerializer
     pagination_class = V2Pagination
 
@@ -175,7 +206,10 @@ class MarketplaceViewSet(viewsets.ReadOnlyModelViewSet):
         summary="search applications",
         description="Returns paginated list of applications matching the query",
         parameters=[
-            OpenApiParameter(name="query", description="Search query", required=True, type=str, location=OpenApiParameter.QUERY)
+            OpenApiParameter(name="query", description="Search query", required=True, type=str, location=OpenApiParameter.QUERY),
+            OpenApiParameter(name="category", description="Category ID filter", required=False, type=int, location=OpenApiParameter.QUERY),
+            OpenApiParameter(name="author", description="Author user ID filter", required=False, type=int, location=OpenApiParameter.QUERY),
+            OpenApiParameter(name="is_free", description="Only free apps (true/on/1)", required=False, type=str, location=OpenApiParameter.QUERY),
         ],
     )
     @action(detail=False, methods=["get"], url_path="search")
@@ -184,23 +218,64 @@ class MarketplaceViewSet(viewsets.ReadOnlyModelViewSet):
         if not query:
             return Response({"error": "Query parameter is required"}, status=400)
 
-        results = (
-            Application.objects.annotate(
-                similarity=TrigramSimilarity("title", query)
-                + TrigramSimilarity("description", query)
-                + TrigramSimilarity("slogan", query),
-            )
-            .filter(similarity__gt=0.1)
-            .exclude(is_private=True)
-            .order_by("-similarity")
-        )
-        page = self.paginate_queryset(results)
-        if page is not None:
-            serializer = self.get_serializer(page, many=True)
-            return self.get_paginated_response(serializer.data)
+        category_id = request.query_params.get("category")
+        author_id = request.query_params.get("author")
+        is_free = request.query_params.get("is_free", "").lower() in ("1", "true", "on", "yes")
+        paginator = self.pagination_class()
+        limit = paginator.get_limit(request)
+        offset = paginator.get_offset(request)
 
+        try:
+            app_ids, total = SearchService.search_application_ids(
+                query,
+                limit=limit,
+                offset=offset,
+                category_id=category_id,
+                author_id=author_id,
+                is_free=is_free,
+            )
+        except SearchUnavailableError:
+            return Response({"error": "Search service unavailable"}, status=503)
+
+        results = SearchService.order_queryset_by_ids(self.get_queryset(), app_ids)
         serializer = self.get_serializer(results, many=True)
-        return Response(serializer.data)
+        paginator.request = request
+        paginator.count = total
+        return paginator.get_paginated_response(serializer.data)
+
+
+class SearchSuggestView(APIView):
+    @extend_schema(
+        summary="search suggest (typeahead)",
+        description="Returns lightweight app and user suggestions for a query",
+        parameters=[
+            OpenApiParameter(name="query", description="Search query", required=True, type=str),
+            OpenApiParameter(name="limit", description="Max results per type", required=False, type=int),
+            OpenApiParameter(
+                name="type",
+                description="all, apps, or users",
+                required=False,
+                type=str,
+            ),
+        ],
+    )
+    def get(self, request):
+        query = (request.query_params.get("query") or "").strip()
+        if len(query) < 2:
+            return Response({"apps": [], "users": []})
+        try:
+            limit = int(request.query_params.get("limit", "8"))
+        except (TypeError, ValueError):
+            limit = 8
+        limit = max(1, min(limit, 20))
+        search_type = request.query_params.get("type", "all")
+        if search_type not in ("all", "apps", "users"):
+            search_type = "all"
+        try:
+            data = SearchService.suggest(query, limit=limit, search_type=search_type)
+        except SearchUnavailableError:
+            return Response({"error": "Search service unavailable"}, status=503)
+        return Response(data)
 
 
 @extend_schema_view(
@@ -401,6 +476,7 @@ class ExecuteView(APIView):
         - `user.retrieve`: Получить инфу об одном пользователе (параметр `pk`). Зачем: профиль пользователя.
         - `marketplace.list`: Список всех приложений в магазине. Зачем: главная страница или лента.
         - `marketplace.retrieve`: Детали одного приложения (параметр `pk`). Зачем: страница приложения.
+        - `user.search`: Поиск пользователей (параметр `query`). Зачем: строка поиска пользователей.
         - `marketplace.search`: Поиск приложений (параметр `query`). Зачем: строка поиска.
         - `category.list`: Список всех категорий. Зачем: боковое меню или фильтры.
         - `category.retrieve`: Детали категории (параметр `pk`). Зачем: заголовок страницы категории.
@@ -448,6 +524,7 @@ class ExecuteView(APIView):
             view_mapping = {
                 "user.list": (UserViewSet, "list"),
                 "user.retrieve": (UserViewSet, "retrieve"),
+                "user.search": (UserViewSet, "search"),
                 "marketplace.list": (MarketplaceViewSet, "list"),
                 "marketplace.retrieve": (MarketplaceViewSet, "retrieve"),
                 "marketplace.search": (MarketplaceViewSet, "search"),

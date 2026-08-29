@@ -226,6 +226,30 @@ body {
     z-index: 0 !important;
 }
 
+.search_user_desc {
+    color: #ccc;
+}
+
+.search_suggest_dropdown {
+    background: #1a1a1a !important;
+    border-color: #4a4a4a !important;
+}
+
+.search_suggest_section_title {
+    background: #2a2a2a !important;
+    border-color: #4a4a4a !important;
+    color: #ddd !important;
+}
+
+.search_suggest_item {
+    color: #8cb4ff !important;
+    border-color: #333 !important;
+}
+
+.search_suggest_item:hover {
+    background: #2a3344 !important;
+}
+
 .search_icon {
     background: url("../img/search_icon_small.png") no-repeat !important;
     z-index: 10 !important;

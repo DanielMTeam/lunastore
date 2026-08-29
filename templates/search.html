@@ -7,6 +7,8 @@
 
 {% block content %}
 <div class="content">
+<link rel="stylesheet" href="{% static './css/tabs.css' %}">
+<link rel="stylesheet" href="{% static './css/profile.css' %}">
 
 <div class="list_settings">
     <div class="selector">
@@ -22,151 +24,285 @@
     <h2>{% trans "PAGE_SEARCH_HEADING" %}</h2>
 </div>
 
-<div class="section">
-    <form action="{% url 'search' %}" method="get" style="margin: 0; padding: 0;">
+<div class="tabs search_page_tabs">
+    <div class="tab-bar">
+        <a href="?{% if url_params_tabs %}{{ url_params_tabs|safe }}&amp;{% endif %}type=apps"
+           class="tab{% if search_type != 'users' %} active{% endif %}"
+           style="text-decoration:none; color:black; display:inline-block;">
+            {% trans "PAGE_SEARCH_TAB_APPS" %}
+        </a>
+        <a href="?{% if url_params_tabs %}{{ url_params_tabs|safe }}&amp;{% endif %}type=users"
+           class="tab{% if search_type == 'users' %} active{% endif %}"
+           style="text-decoration:none; color:black; display:inline-block;">
+            {% trans "PAGE_SEARCH_TAB_USERS" %}
+        </a>
+    </div>
 
-        {% if view_mode == 'list' %}
-            <input type="hidden" name="view" value="list">
-        {% endif %}
+    <div class="tab-content" id="tab-view">
+        <form action="{% url 'search' %}" method="get" style="margin: 0; padding: 0;">
 
-        <div class="search_full" style="text-align: left; margin-bottom: 10px;">
-            <input type="text" name="q" id="q" class="search_icon"
-                   placeholder="{% trans 'PAGE_SEARCH_INPUT_PLACEHOLDER' %}"
-                   value="{{ request.GET.q }}">
-            <button type="submit">{% trans "PAGE_SEARCH_BTN_SUBMIT" %}</button>
-        </div>
+            {% if view_mode == 'list' %}
+                <input type="hidden" name="view" value="list">
+            {% endif %}
+            <input type="hidden" name="type" value="{{ search_type|default:'apps' }}">
 
-        <div class="info_splash info_splash_filters">
-
-            <div class="search_filter_title">
-                {% trans "PAGE_SEARCH_LINK_ADVANCED" %}
-            </div>
-
-            <table cellpadding="0" cellspacing="0" border="0" class="search_filter_table">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%" class="search_form_table">
                 <tr>
-                    <td colspan="2" class="search_filter_td_top">
-
-                        <span class="search_filter_item">
-                            {% trans "PAGE_SEARCH_FILTER_AUTHOR_ID" %}:
-                            <input type="text" name="author" value="{{ f_author|default:'' }}"
-                                   oninput="this.value = this.value.replace(/[^0-9]/g, '');"
-                                   class="search_filter_input">
-                        </span>
-
-                        <span class="search_filter_item_last">
-                            {% trans "PAGE_SEARCH_FILTER_CATEGORY" %}:
-                            <select name="category" class="search_filter_select">
-                                <option value="">{% trans "PAGE_SEARCH_FILTER_CATEGORY_ALL" %}</option>
-                                {% for cat in categories %}
-                                    <option value="{{ cat.id }}" {% if request.GET.category == cat.id|stringformat:"s" %}selected{% endif %}>
-                                        {{ cat.name }}
-                                    </option>
-                                {% endfor %}
-                            </select>
-                        </span>
-
+                    <td class="search_form_input_cell">
+                        <div class="search_suggest_wrap">
+                            <input type="text" name="q" id="search_q" class="search_icon search_suggest_input"
+                                   placeholder="{% trans 'PAGE_SEARCH_INPUT_PLACEHOLDER' %}"
+                                   value="{{ request.GET.q }}"
+                                   autocomplete="off">
+                            <div class="search_suggest_dropdown" style="display: none;"></div>
+                        </div>
                     </td>
-                </tr>
-
-                <tr>
-                    <td valign="middle" class="search_filter_td_bottom">
-                        <label class="search_filter_label">
-                            <input type="checkbox" name="is_free" class="search_filter_checkbox" {% if request.GET.is_free == 'on' %}checked{% endif %}>
-                            <span class="search_filter_checkbox_text">{% trans "PAGE_SEARCH_FILTER_FREE" %}</span>
-                        </label>
-                    </td>
-
-                    <td align="right" valign="middle">
-                        <a href="{% url 'search' %}?view={{ view_mode }}"
-                           class="search_filter_reset_btn">
-                            {% trans "PAGE_SEARCH_BTN_RESET" %}
-                        </a>
+                    <td class="search_form_btn_cell">
+                        <button type="submit" class="search_form_btn">{% trans "PAGE_SEARCH_BTN_SUBMIT" %}</button>
                     </td>
                 </tr>
             </table>
-        </div>
-    </form>
-</div>
 
-<div class="section">
-    <br>
-    {% for app in results %}
-        <div class="card {% if view_mode == 'list' %}listview{% endif %}">
+            {% if search_type != 'users' %}
+            <div class="info_splash info_splash_filters">
 
-            {% if app.is_demo %}
-                {% if app.price > 0 %}
-                    <div class="badge demo">
-                        {% blocktranslate with price=app.price %}PAGE_SEARCH_BADGE_DEMO_PRICE {{ price }}{% endblocktranslate %}
-                    </div>
-                {% else %}
-                    <div class="badge demo">{% trans "PAGE_SEARCH_BADGE_DEMO" %}</div>
-                {% endif %}
-            {% elif not app.is_demo %}
-                {% if app.price > 0 %}
-                    <div class="badge paid">${{ app.price }}</div>
-                {% else %}
-                    <div class="badge free">{% trans "PAGE_SEARCH_BADGE_FREE" %}</div>
-                {% endif %}
-            {% endif %}
+                <div class="search_filter_title">
+                    {% trans "PAGE_SEARCH_LINK_ADVANCED" %}
+                </div>
 
-            {% if not app.is_under_dmca %}
-            <div class="action">
-                <a href="./app.php?id={{ app.id }}">{% trans "PAGE_SEARCH_BTN_DETAILS" %}</a>
+                <table cellpadding="0" cellspacing="0" border="0" class="search_filter_table">
+                    <tr>
+                        <td class="search_filter_td_top search_filter_td_left" width="50%" valign="middle">
+                            <table cellpadding="0" cellspacing="0" border="0" class="search_filter_inner">
+                                <tr>
+                                    <td class="search_filter_label_cell" nowrap="nowrap">{% trans "PAGE_SEARCH_FILTER_AUTHOR_ID" %}:</td>
+                                    <td>
+                                        <input type="text" name="author" value="{{ f_author|default:'' }}"
+                                               oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                                               class="search_filter_input">
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="search_filter_td_top search_filter_td_right" width="50%" valign="middle" align="right">
+                            <table cellpadding="0" cellspacing="0" border="0" class="search_filter_inner" align="right">
+                                <tr>
+                                    <td class="search_filter_label_cell" nowrap="nowrap">{% trans "PAGE_SEARCH_FILTER_CATEGORY" %}:</td>
+                                    <td>
+                                        <select name="category" class="search_filter_select">
+                                            <option value="">{% trans "PAGE_SEARCH_FILTER_CATEGORY_ALL" %}</option>
+                                            {% for cat in categories %}
+                                                <option value="{{ cat.id }}" {% if request.GET.category == cat.id|stringformat:"s" %}selected{% endif %}>
+                                                    {{ cat.name }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td valign="middle" class="search_filter_td_bottom search_filter_td_left">
+                            <label class="search_filter_label">
+                                <input type="checkbox" name="is_free" class="search_filter_checkbox" {% if request.GET.is_free == 'on' %}checked{% endif %}>
+                                <span class="search_filter_checkbox_text">{% trans "PAGE_SEARCH_FILTER_FREE" %}</span>
+                            </label>
+                        </td>
+
+                        <td align="right" valign="middle" class="search_filter_td_bottom search_filter_td_right">
+                            <a href="{% url 'search' %}?view={{ view_mode }}"
+                               class="search_filter_reset_btn">
+                                {% trans "PAGE_SEARCH_BTN_RESET" %}
+                            </a>
+                        </td>
+                    </tr>
+                </table>
             </div>
             {% endif %}
+        </form>
 
-            {% if app.icon_path %}
-                <div class="card_icon"><img src="{{ app.icon_url }}" alt="{{ app.title }}" width="48" height="48"></div>
-            {% else %}
-                <div class="card_icon"><img src="{% static './img/noavatar_64.jpg' %}" alt="{{ app.title }}" width="48" height="48"></div>
-            {% endif %}
-
-            <div class="card_text">
-                <a href="/app.php?id={{ app.pk }}"><h3>{{ app.title }}</h3></a>
-                <p>{{ app.slogan|render_markdown }}</p>
-            </div>
-            <div class="rating {{ app.star_class }}" style="position: absolute; right: 5px; bottom: 20px;"></div>
+        {% if search_unavailable %}
+        <div class="search_error" style="margin-top: 10px;">
+            <span>{% trans "PAGE_SEARCH_MSG_UNAVAILABLE" %}</span>
         </div>
-
-    {% empty %}
-        <div style="clear:both"></div>
-        <div class="search_error">
-            <span>
-                {% if query %}
-                    {% blocktrans with q=query %}PAGE_SEARCH_MSG_NO_RESULTS {{ q }}{% endblocktrans %}
-                {% else %}
-                    {% trans "PAGE_SEARCH_MSG_NO_RESULTS_EMPTY" %}
-                {% endif %}
-                <br>
-                ＞︿＜
-            </span>
-        </div>
-    {% endfor %}
-    <div style="clear:both"></div>
-</div>
-
-{% if results.has_other_pages %}
-<div class="section">
-    <div class="paginator">
-        {% if results.has_previous %}
-            <a href="?{{ url_params }}&page={{ results.previous_page_number }}">&laquo;</a>
         {% endif %}
 
-        {% for num in results.paginator.page_range %}
-            {% if results.number == num %}
-                <a class="active" href="#">{{ num }}</a>
-            {% elif num > results.number|add:'-3' and num < results.number|add:'3' %}
-                <a href="?{{ url_params }}&page={{ num }}">{{ num }}</a>
-            {% endif %}
-        {% endfor %}
+        {% if search_type == 'users' %}
+            <div class="profile_block">{% trans "PAGE_SEARCH_TAB_USERS" %}</div>
+            <div class="profile_subblock">
+                {% trans "PAGE_SEARCH_USERS_COUNT" %}: {{ results.paginator.count }}
+            </div>
+            <div class="profile_block_content">
+                {% for user in results %}
+                    <div class="search_user_row">
+                        <div class="search_user_avatar">
+                            <a href="/profile.php?id={{ user.pk }}">
+                                <img src="{{ user.avatar_url }}" alt="{{ user.username }}" width="48" height="48" class="png-fix">
+                            </a>
+                        </div>
+                        <div class="search_user_body">
+                            <div class="search_user_name">
+                                <a href="/profile.php?id={{ user.pk }}">{{ user.username }}</a>
+                            </div>
+                            <div class="search_user_desc">
+                                {% if user.description %}
+                                    {{ user.description }}
+                                {% else %}
+                                    {% trans "CARD_USER_NO_DESC" %}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
+                {% empty %}
+                    {% if not search_unavailable %}
+                    <div class="search_error" style="border: 0; padding: 40px 20px;">
+                        <span>
+                            {% if query %}
+                                {% blocktrans with q=query %}PAGE_SEARCH_MSG_NO_USERS {{ q }}{% endblocktrans %}
+                            {% else %}
+                                {% trans "PAGE_SEARCH_MSG_NO_RESULTS_EMPTY" %}
+                            {% endif %}
+                            <br>
+                            ＞︿＜
+                        </span>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="search_tab_results">
+            {% for app in results %}
+                {% if view_mode == 'list' %}
+                <div class="search_list_card">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%" class="search_list_table">
+                        <tr>
+                            <td rowspan="2" valign="top" class="search_list_icon">
+                                {% if app.icon_path %}
+                                    <img src="{{ app.icon_url }}" alt="{{ app.title }}" width="48" height="48">
+                                {% else %}
+                                    <img src="{% static './img/noavatar_64.jpg' %}" alt="{{ app.title }}" width="48" height="48">
+                                {% endif %}
+                            </td>
+                            <td valign="top" class="search_list_body">
+                                <a href="/app.php?id={{ app.pk }}"><h3>{{ app.title }}</h3></a>
+                                <p>{{ app.slogan|render_markdown }}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="bottom" class="search_list_action">
+                                {% if not app.is_under_dmca %}
+                                <div class="action">
+                                    <a href="./app.php?id={{ app.id }}">{% trans "PAGE_SEARCH_BTN_DETAILS" %}</a>
+                                </div>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="rating {{ app.star_class }}" style="position: absolute; right: 5px; bottom: 20px;"></div>
+                    {% if app.is_demo %}
+                        {% if app.price > 0 %}
+                            <div class="badge demo">
+                                {% blocktranslate with price=app.price %}PAGE_SEARCH_BADGE_DEMO_PRICE {{ price }}{% endblocktranslate %}
+                            </div>
+                        {% else %}
+                            <div class="badge demo">{% trans "PAGE_SEARCH_BADGE_DEMO" %}</div>
+                        {% endif %}
+                    {% elif not app.is_demo %}
+                        {% if app.price > 0 %}
+                            <div class="badge paid">${{ app.price }}</div>
+                        {% else %}
+                            <div class="badge free">{% trans "PAGE_SEARCH_BADGE_FREE" %}</div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                {% else %}
+                <div class="card">
 
-        {% if results.has_next %}
-            <a href="?{{ url_params }}&page={{ results.next_page_number }}">&raquo;</a>
+                    {% if app.is_demo %}
+                        {% if app.price > 0 %}
+                            <div class="badge demo">
+                                {% blocktranslate with price=app.price %}PAGE_SEARCH_BADGE_DEMO_PRICE {{ price }}{% endblocktranslate %}
+                            </div>
+                        {% else %}
+                            <div class="badge demo">{% trans "PAGE_SEARCH_BADGE_DEMO" %}</div>
+                        {% endif %}
+                    {% elif not app.is_demo %}
+                        {% if app.price > 0 %}
+                            <div class="badge paid">${{ app.price }}</div>
+                        {% else %}
+                            <div class="badge free">{% trans "PAGE_SEARCH_BADGE_FREE" %}</div>
+                        {% endif %}
+                    {% endif %}
+
+                    {% if not app.is_under_dmca %}
+                    <div class="action">
+                        <a href="./app.php?id={{ app.id }}">{% trans "PAGE_SEARCH_BTN_DETAILS" %}</a>
+                    </div>
+                    {% endif %}
+
+                    {% if app.icon_path %}
+                        <div class="card_icon"><img src="{{ app.icon_url }}" alt="{{ app.title }}" width="48" height="48"></div>
+                    {% else %}
+                        <div class="card_icon"><img src="{% static './img/noavatar_64.jpg' %}" alt="{{ app.title }}" width="48" height="48"></div>
+                    {% endif %}
+
+                    <div class="card_text">
+                        <a href="/app.php?id={{ app.pk }}"><h3>{{ app.title }}</h3></a>
+                        <p>{{ app.slogan|render_markdown }}</p>
+                        <div class="rating {{ app.star_class }}" style="position: absolute; right: 5px; bottom: 20px;"></div>
+                    </div>
+                </div>
+                {% endif %}
+
+            {% empty %}
+                {% if not search_unavailable %}
+                <div style="clear:both"></div>
+                <div class="search_error">
+                    <span>
+                        {% if query %}
+                            {% blocktrans with q=query %}PAGE_SEARCH_MSG_NO_RESULTS {{ q }}{% endblocktrans %}
+                        {% else %}
+                            {% trans "PAGE_SEARCH_MSG_NO_RESULTS_EMPTY" %}
+                        {% endif %}
+                        <br>
+                        ＞︿＜
+                    </span>
+                </div>
+                {% endif %}
+            {% endfor %}
+            </div>
+        {% endif %}
+        <div style="clear:both"></div>
+
+        {% if results.has_other_pages %}
+        <div class="paginator" style="margin-top: 10px;">
+            {% if results.has_previous %}
+                <a href="?{{ url_params }}&page={{ results.previous_page_number }}">&laquo;</a>
+            {% endif %}
+
+            {% for num in results.paginator.page_range %}
+                {% if results.number == num %}
+                    <a class="active" href="#">{{ num }}</a>
+                {% elif num > results.number|add:'-3' and num < results.number|add:'3' %}
+                    <a href="?{{ url_params }}&page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if results.has_next %}
+                <a href="?{{ url_params }}&page={{ results.next_page_number }}">&raquo;</a>
+            {% endif %}
+        </div>
         {% endif %}
     </div>
 </div>
-{% endif %}
 
 </div>
 </div>
+
+<script>
+window.SEARCH_SUGGEST_TYPE = "{{ search_type|default:'apps' }}";
+</script>
 {% endblock %}

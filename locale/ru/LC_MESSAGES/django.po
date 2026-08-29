@@ -2091,6 +2091,27 @@ msgstr "Показывать содержимое плитками"
 msgid "PAGE_SEARCH_TITLE"
 msgstr "Поиск"
 
+msgid "PAGE_SEARCH_TAB_APPS"
+msgstr "Приложения"
+
+msgid "PAGE_SEARCH_TAB_USERS"
+msgstr "Пользователи"
+
+msgid "PAGE_SEARCH_MSG_NO_USERS"
+msgstr "Пользователи по запросу «%(q)s» не найдены"
+
+msgid "PAGE_SEARCH_MSG_UNAVAILABLE"
+msgstr "Поиск временно недоступен. Попробуйте позже."
+
+msgid "PAGE_SEARCH_SUGGEST_APPS"
+msgstr "Приложения"
+
+msgid "PAGE_SEARCH_SUGGEST_USERS"
+msgstr "Пользователи"
+
+msgid "PAGE_SEARCH_USERS_COUNT"
+msgstr "Найдено"
+
 msgid "PAGE_SETTINGS_BTN_DELETE"
 msgstr "Удалить аккаунт"
 

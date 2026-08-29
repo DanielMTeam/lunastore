@@ -50,6 +50,9 @@ dev-logs:
 dev-test:
 	docker compose -f $(DEV_COMPOSE) exec web python manage.py test
 
+dev-reindex-search:
+	docker compose -f $(DEV_COMPOSE) exec web python manage.py reindex_search
+
 #
 # development analytics (clickhouse, optional profile)
 #
