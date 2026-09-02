@@ -21,8 +21,8 @@
     <script>window.DARK_THEME_CSS_URL = "{% static 'css/darkthm.css' %}";</script>
     <script src="{% static './js/cookie.js'%}"></script>
     <script defer src="https://analytics.myslivets.com/script.js" data-website-id="bce1e0a4-fb9e-40e8-85c9-04c8bd3c8940"></script>
+    {% if is_modern_browser %}
     <script src="https://cdn.jsdelivr.net/npm/@tolgee/web/dist/tolgee-web.production.umd.min.js"></script>
-
     <script>
         try {
             var web = window['@tolgee/web'];
@@ -36,9 +36,10 @@
 
             tolgee.run();
         } catch (e) {
-            // Tolgee is not supported in old IE, gracefully fail
+            // Tolgee is not supported in some old browsers, gracefully fail
         }
     </script>
+    {% endif %}
 
     <!--[if IE 6]>
     <script src="{% static './js/dd_belatedpng.min.js' %}"></script>
