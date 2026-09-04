@@ -9,7 +9,8 @@ from .views import (
     ServiceViewSet,
     DistributionViewSet,
     CollectionViewSet,
-    ExecuteView
+    ExecuteView,
+    SearchSuggestView,
 )
 
 router = DefaultRouter()
@@ -23,6 +24,7 @@ router.register(r'collection', CollectionViewSet, basename='v2-collection')
 
 urlpatterns = [
     path('execute/', ExecuteView.as_view(), name='v2-execute'),
+    path('search/suggest/', SearchSuggestView.as_view(), name='v2-search-suggest'),
     path('auth/token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('auth/token/refresh/', CustomTokenRefreshView.as_view(), name='token_refresh'),
     path('auth/token/revoke/', TokenBlacklistView.as_view(), name='token_revoke'),

@@ -49,6 +49,16 @@ CLICKHOUSE_DATABASE = os.getenv(
 )
 CLICKHOUSE_SECURE = os.getenv("CLICKHOUSE_SECURE", "False") == "True"
 
+# meilisearch full-text search
+MEILISEARCH_URL = os.getenv(
+    "MEILISEARCH_URL",
+    "http://meilisearch:7700"
+    if (os.path.exists("/.dockerenv") or os.getenv("DOCKER_CONTAINER"))
+    else "http://127.0.0.1:7700",
+)
+MEILISEARCH_MASTER_KEY = os.getenv("MEILI_MASTER_KEY", "")
+MEILISEARCH_ENABLED = os.getenv("MEILISEARCH_ENABLED", "True") == "True"
+
 if SENTRY_ENABLED and SENTRY_DSN:
     _sentry_logging = LoggingIntegration(
         level=logging.INFO,
