@@ -273,7 +273,7 @@
             {% endif %}
 
             <script>
-            window.SEARCH_SUGGEST_URL = "{% url 'search_suggest' %}";
+            window.SEARCH_SUGGEST_URL = "{% url 'search' %}?mode=suggest";
             window.SEARCH_SUGGEST_TYPE = "all";
             window.SEARCH_SUGGEST_LABEL_APPS = "{% trans 'PAGE_SEARCH_SUGGEST_APPS'|escapejs %}";
             window.SEARCH_SUGGEST_LABEL_USERS = "{% trans 'PAGE_SEARCH_SUGGEST_USERS'|escapejs %}";

@@ -29,11 +29,13 @@
         <a href="?{% if url_params_tabs %}{{ url_params_tabs|safe }}&amp;{% endif %}type=apps"
            class="tab{% if search_type != 'users' %} active{% endif %}"
            style="text-decoration:none; color:black; display:inline-block;">
+            <img src="{% static './img/tabs/programs.png' %}" class="tab-icon" alt="">
             {% trans "PAGE_SEARCH_TAB_APPS" %}
         </a>
         <a href="?{% if url_params_tabs %}{{ url_params_tabs|safe }}&amp;{% endif %}type=users"
            class="tab{% if search_type == 'users' %} active{% endif %}"
            style="text-decoration:none; color:black; display:inline-block;">
+            <img src="{% static './img/tabs/account.png' %}" class="tab-icon" alt="">
             {% trans "PAGE_SEARCH_TAB_USERS" %}
         </a>
     </div>
@@ -166,7 +168,7 @@
                                 {% trans "PAGE_SEARCH_MSG_NO_RESULTS_EMPTY" %}
                             {% endif %}
                             <br>
-                            ＞︿＜
+                            (:-:)
                         </span>
                     </div>
                     {% endif %}
@@ -268,7 +270,7 @@
                             {% trans "PAGE_SEARCH_MSG_NO_RESULTS_EMPTY" %}
                         {% endif %}
                         <br>
-                        ＞︿＜
+                        (:-:)
                     </span>
                 </div>
                 {% endif %}

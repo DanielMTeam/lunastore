@@ -248,34 +248,27 @@
     return html;
   }
 
-  function renderAppItem(item) {
-    var icon = item.icon_url || "/staticfiles/img/noavatar_64.jpg";
+  function renderSuggestItem(url, icon, label) {
+    var fallbackIcon = "/staticfiles/img/noavatar_64.jpg";
     return (
       '<a class="search_suggest_item" href="' +
-      escapeHtml(item.url) +
+      escapeHtml(url) +
       '">' +
       '<img src="' +
-      escapeHtml(icon) +
+      escapeHtml(icon || fallbackIcon) +
       '" width="24" height="24" alt="" class="search_suggest_icon png-fix">' +
       '<span class="search_suggest_text">' +
-      escapeHtml(item.title) +
+      escapeHtml(label) +
       "</span></a>"
     );
   }
 
+  function renderAppItem(item) {
+    return renderSuggestItem(item.url, item.icon_url, item.title);
+  }
+
   function renderUserItem(item) {
-    var icon = item.avatar_url || "/staticfiles/img/noavatar_64.jpg";
-    return (
-      '<a class="search_suggest_item" href="' +
-      escapeHtml(item.url) +
-      '">' +
-      '<img src="' +
-      escapeHtml(icon) +
-      '" width="24" height="24" alt="" class="search_suggest_icon png-fix">' +
-      '<span class="search_suggest_text">' +
-      escapeHtml(item.username) +
-      "</span></a>"
-    );
+    return renderSuggestItem(item.url, item.avatar_url, item.username);
   }
 
   function showSuggestions(input, data) {
@@ -320,11 +313,13 @@
       return;
     }
 
-    var suggestUrl = window.SEARCH_SUGGEST_URL || "/search/suggest.php";
+    var suggestUrl = window.SEARCH_SUGGEST_URL || "/search.php?mode=suggest";
     var searchType = window.SEARCH_SUGGEST_TYPE || "all";
+    var sep = suggestUrl.indexOf("?") === -1 ? "?" : "&";
     var url =
       suggestUrl +
-      "?q=" +
+      sep +
+      "q=" +
       encodeURIComponent(query) +
       "&type=" +
       encodeURIComponent(searchType) +

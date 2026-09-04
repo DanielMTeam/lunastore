@@ -22,7 +22,13 @@ from apps.marketplace.serializers import ApplicationSerializer, CategorySerializ
 from apps.user.models import User
 from apps.user.serializers import UserSerializer
 from apps.core.notifications.services import NotificationService
-from apps.core.search import SearchService, SearchUnavailableError
+from apps.core.search import (
+    SearchService,
+    SearchUnavailableError,
+    is_query_too_short,
+    normalize_query,
+    parse_is_free,
+)
 
 from apps.api.constants import ErrorCodes, PUB_UPLOAD_POLICIES, ALLOWED_MIMES
 from apps.api.exceptions import LunaException
@@ -166,7 +172,11 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
         limit = paginator.get_limit(request)
         offset = paginator.get_offset(request)
         try:
-            user_ids, total = SearchService.search_user_ids(query, limit=limit, offset=offset)
+            user_ids, total = SearchService.search_user_ids(
+                normalize_query(query),
+                limit=limit,
+                offset=offset,
+            )
         except SearchUnavailableError:
             return Response({"error": "Search service unavailable"}, status=503)
         results = SearchService.order_queryset_by_ids(self.get_queryset(), user_ids)
@@ -209,7 +219,7 @@ class MarketplaceViewSet(viewsets.ReadOnlyModelViewSet):
             OpenApiParameter(name="query", description="Search query", required=True, type=str, location=OpenApiParameter.QUERY),
             OpenApiParameter(name="category", description="Category ID filter", required=False, type=int, location=OpenApiParameter.QUERY),
             OpenApiParameter(name="author", description="Author user ID filter", required=False, type=int, location=OpenApiParameter.QUERY),
-            OpenApiParameter(name="is_free", description="Only free apps (true/on/1)", required=False, type=str, location=OpenApiParameter.QUERY),
+            OpenApiParameter(name="is_free", description="Only free apps (on/1/true)", required=False, type=str, location=OpenApiParameter.QUERY),
         ],
     )
     @action(detail=False, methods=["get"], url_path="search")
@@ -220,14 +230,14 @@ class MarketplaceViewSet(viewsets.ReadOnlyModelViewSet):
 
         category_id = request.query_params.get("category")
         author_id = request.query_params.get("author")
-        is_free = request.query_params.get("is_free", "").lower() in ("1", "true", "on", "yes")
+        is_free = parse_is_free(request.query_params.get("is_free"))
         paginator = self.pagination_class()
         limit = paginator.get_limit(request)
         offset = paginator.get_offset(request)
 
         try:
             app_ids, total = SearchService.search_application_ids(
-                query,
+                normalize_query(query),
                 limit=limit,
                 offset=offset,
                 category_id=category_id,
@@ -260,8 +270,8 @@ class SearchSuggestView(APIView):
         ],
     )
     def get(self, request):
-        query = (request.query_params.get("query") or "").strip()
-        if len(query) < 2:
+        query = normalize_query(request.query_params.get("query"))
+        if is_query_too_short(query):
             return Response({"apps": [], "users": []})
         try:
             limit = int(request.query_params.get("limit", "8"))

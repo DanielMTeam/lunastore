@@ -5,12 +5,21 @@ from django.test import TestCase, override_settings
 
 from apps.core.search.documents import application_is_indexable, application_to_document, user_to_document
 from apps.core.search.pagination import MeilisearchPaginator
-from apps.core.search.service import SearchService, _build_app_filters, _join_filters, normalize_query
+from apps.core.search.service import (
+    SearchService,
+    _build_app_filters,
+    _join_filters,
+    is_query_too_short,
+    normalize_query,
+    parse_is_free,
+    parse_optional_int,
+)
 from apps.marketplace.models import Application, Category
 
 User = get_user_model()
 
 
+@override_settings(MEILISEARCH_ENABLED=False)
 class SearchDocumentsTest(TestCase):
     @classmethod
     def setUpTestData(cls):
@@ -84,6 +93,24 @@ class SearchFiltersTest(TestCase):
         self.assertEqual(normalize_query("x" * 300), "x" * 200)
         self.assertEqual(normalize_query(None), "")
 
+    def test_is_query_too_short(self):
+        self.assertTrue(is_query_too_short("a"))
+        self.assertTrue(is_query_too_short(" "))
+        self.assertFalse(is_query_too_short("ab"))
+
+    def test_parse_is_free(self):
+        self.assertTrue(parse_is_free("on"))
+        self.assertTrue(parse_is_free("1"))
+        self.assertTrue(parse_is_free("true"))
+        self.assertFalse(parse_is_free("yes"))
+        self.assertFalse(parse_is_free(""))
+
+    def test_parse_optional_int(self):
+        self.assertEqual(parse_optional_int("9"), 9)
+        self.assertIsNone(parse_optional_int("bad"))
+        self.assertIsNone(parse_optional_int(""))
+        self.assertIsNone(parse_optional_int(None))
+
 
 class MeilisearchPaginatorTest(TestCase):
     def test_paginator_reports_total_and_pages(self):
@@ -104,18 +131,20 @@ class MeilisearchPaginatorTest(TestCase):
 class SearchServiceTest(TestCase):
     @classmethod
     def setUpTestData(cls):
-        cls.user = User.objects.create_user(
-            username="api_search_user",
-            password="password123",
-            email="api_search_user@example.com",
-            is_active=True,
-        )
-        cls.app = Application.objects.create(
-            user=cls.user,
-            title="Searchable App",
-            description="Description",
-            is_private=False,
-        )
+        # avoid real meilisearch during fixture create (signals)
+        with override_settings(MEILISEARCH_ENABLED=False):
+            cls.user = User.objects.create_user(
+                username="api_search_user",
+                password="password123",
+                email="api_search_user@example.com",
+                is_active=True,
+            )
+            cls.app = Application.objects.create(
+                user=cls.user,
+                title="Searchable App",
+                description="Description",
+                is_private=False,
+            )
 
     @patch("apps.core.search.service.get_meili_client")
     def test_search_application_ids_returns_ordered_ids(self, mock_get_client):
@@ -214,11 +243,11 @@ class SearchServiceTest(TestCase):
         }
         mock_get_client.return_value = mock_client
 
-        response = self.client.get("/search/suggest.php", {"q": "lu"})
+        response = self.client.get("/search.php", {"mode": "suggest", "q": "lu"})
         self.assertEqual(response.status_code, 200)
         self.assertJSONEqual(response.content, {"apps": [], "users": []})
 
-        short = self.client.get("/search/suggest.php", {"q": "l"})
+        short = self.client.get("/search.php", {"mode": "suggest", "q": "l"})
         self.assertJSONEqual(short.content, {"apps": [], "users": []})
 
     @patch("apps.core.search.service._add_documents")

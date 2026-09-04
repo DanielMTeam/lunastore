@@ -22,7 +22,14 @@ from apps.analytics.services import (
     track_app_view,
 )
 from apps.core.utils import get_safe_redirect_url
-from apps.core.search import SearchService, SearchUnavailableError, normalize_query
+from apps.core.search import (
+    SearchService,
+    SearchUnavailableError,
+    is_query_too_short,
+    normalize_query,
+    parse_is_free,
+    parse_optional_int,
+)
 from apps.core.search.pagination import MeilisearchPaginator
 from apps.core.search.service import SEARCH_PAGE_SIZE
 from apps.user.decorators import developer_required, require_modern_browser
@@ -437,17 +444,43 @@ def application_stats(request, pk):
     )
 
 
+def _search_suggest_response(request):
+    query = normalize_query(request.GET.get("q"))
+    if is_query_too_short(query):
+        return JsonResponse({"apps": [], "users": []})
+
+    try:
+        limit = int(request.GET.get("limit", "8"))
+    except (TypeError, ValueError):
+        limit = 8
+    limit = max(1, min(limit, 20))
+
+    search_type = request.GET.get("type", "all")
+    if search_type not in ("all", "apps", "users"):
+        search_type = "all"
+
+    try:
+        data = SearchService.suggest(query, limit=limit, search_type=search_type)
+    except SearchUnavailableError:
+        return JsonResponse({"apps": [], "users": [], "error": "unavailable"}, status=503)
+
+    return JsonResponse(data)
+
+
 @ratelimit(key='ip', rate='30/1m', block=True)
 def search(request):
+    if request.GET.get("mode") == "suggest":
+        return _search_suggest_response(request)
+
     query = normalize_query(request.GET.get("q"))
     view_mode = request.GET.get("view", "tiles")
     search_type = request.GET.get("type", "apps")
     if search_type not in ("apps", "users"):
         search_type = "apps"
 
-    f_author = request.GET.get("author", "")
-    is_free = request.GET.get("is_free")
-    f_category = request.GET.get("category", "")
+    f_author = parse_optional_int(request.GET.get("author"))
+    is_free = parse_is_free(request.GET.get("is_free"))
+    f_category = parse_optional_int(request.GET.get("category"))
 
     categories = Category.objects.all()
     search_unavailable = False
@@ -485,7 +518,7 @@ def search(request):
             is_under_dmca=False,
         )
 
-        if f_category:
+        if f_category is not None:
             results_qs = results_qs.filter(categories__id=f_category)
 
         meili_total = None
@@ -495,9 +528,9 @@ def search(request):
                     query,
                     limit=SEARCH_PAGE_SIZE,
                     offset=offset,
-                    category_id=f_category or None,
-                    author_id=f_author or None,
-                    is_free=is_free == "on",
+                    category_id=f_category,
+                    author_id=f_author,
+                    is_free=is_free,
                 )
                 results_qs = SearchService.order_queryset_by_ids(results_qs, app_ids)
             except SearchUnavailableError:
@@ -505,9 +538,9 @@ def search(request):
                 results_qs = results_qs.none()
                 meili_total = 0
         else:
-            if f_author:
+            if f_author is not None:
                 results_qs = results_qs.filter(user_id=f_author)
-            if is_free == "on":
+            if is_free:
                 results_qs = results_qs.filter(price=0)
             results_qs = results_qs.order_by("-id")
             paginator = Paginator(results_qs, SEARCH_PAGE_SIZE)
@@ -537,7 +570,7 @@ def search(request):
         "query": query,
         "view_mode": view_mode,
         "search_type": search_type,
-        "f_author": f_author,
+        "f_author": f_author if f_author is not None else "",
         "search_unavailable": search_unavailable,
         "url_params": url_params,
         "url_params_no_view": url_params_no_view,
@@ -545,30 +578,6 @@ def search(request):
         "categories": categories,
     }
     return render(request, "search.html", context)
-
-
-@ratelimit(key='ip', rate='20/1m', block=True)
-def search_suggest(request):
-    query = normalize_query(request.GET.get("q"))
-    if len(query) < 2:
-        return JsonResponse({"apps": [], "users": []})
-
-    try:
-        limit = int(request.GET.get("limit", "8"))
-    except (TypeError, ValueError):
-        limit = 8
-    limit = max(1, min(limit, 20))
-
-    search_type = request.GET.get("type", "all")
-    if search_type not in ("all", "apps", "users"):
-        search_type = "all"
-
-    try:
-        data = SearchService.suggest(query, limit=limit, search_type=search_type)
-    except SearchUnavailableError:
-        return JsonResponse({"apps": [], "users": [], "error": "unavailable"}, status=503)
-
-    return JsonResponse(data)
 
 
 @ratelimit(key='ip', rate='20/1m', block=True)

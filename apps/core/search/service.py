@@ -23,6 +23,7 @@ logger = logging.getLogger(__name__)
 
 PRIMARY_KEY = "id"
 MAX_QUERY_LENGTH = 200
+MIN_QUERY_LENGTH = 2
 SEARCH_PAGE_SIZE = 10
 
 _indexes_ready = False
@@ -32,6 +33,24 @@ def normalize_query(query: Optional[str]) -> str:
     if not query:
         return ""
     return query.strip()[:MAX_QUERY_LENGTH]
+
+
+def is_query_too_short(query: Optional[str]) -> bool:
+    return len(normalize_query(query)) < MIN_QUERY_LENGTH
+
+
+def parse_is_free(value) -> bool:
+    # checkbox "on", api "1" / "true"
+    return str(value or "").strip().lower() in ("on", "1", "true")
+
+
+def parse_optional_int(value) -> Optional[int]:
+    if value is None or value == "":
+        return None
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
 
 
 def _extract_total_hits(result: dict, fallback: int = 0) -> int:
@@ -81,21 +100,17 @@ def _ensure_indexes_once() -> None:
 
 def _build_app_filters(
     *,
-    category_id: Optional[str] = None,
-    author_id: Optional[str] = None,
+    category_id=None,
+    author_id=None,
     is_free: bool = False,
 ) -> list[str]:
     filters = ["is_private = false", "is_under_dmca = false"]
-    if category_id:
-        try:
-            filters.append(f"category_ids = {int(category_id)}")
-        except (TypeError, ValueError):
-            pass
-    if author_id:
-        try:
-            filters.append(f"user_id = {int(author_id)}")
-        except (TypeError, ValueError):
-            pass
+    category_id = parse_optional_int(category_id)
+    author_id = parse_optional_int(author_id)
+    if category_id is not None:
+        filters.append(f"category_ids = {category_id}")
+    if author_id is not None:
+        filters.append(f"user_id = {author_id}")
     if is_free:
         filters.append("price = 0")
     return filters
@@ -185,8 +200,8 @@ class SearchService:
         *,
         limit: int = SEARCH_PAGE_SIZE,
         offset: int = 0,
-        category_id: Optional[str] = None,
-        author_id: Optional[str] = None,
+        category_id=None,
+        author_id=None,
         is_free: bool = False,
     ) -> tuple[list[int], int]:
         query = normalize_query(query)
