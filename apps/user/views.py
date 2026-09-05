@@ -364,7 +364,10 @@ def register(request):
     else:
         if request.user.is_authenticated:
             return redirect("home")
-        form = UserRegistrationForm(request=request)
+        invite_code = None
+        if config.INVITES_ON_REGISTER:
+            invite_code = request.session.get("allowed_invite_code")
+        form = UserRegistrationForm(request=request, invite_code=invite_code)
     return render(
         request, "register_on.html", {
             "form": form, "invite_obj": invite_obj})

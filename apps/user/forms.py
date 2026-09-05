@@ -133,7 +133,12 @@ class UserBanForm(forms.ModelForm):
 class UserRegistrationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request", None)
+        invite_code = kwargs.pop("invite_code", None)
         super().__init__(*args, **kwargs)
+
+        if invite_code:
+            self.fields["code"].initial = invite_code
+            self.fields["code"].widget.attrs["readonly"] = True
 
     def clean(self):
         cleaned_data = super().clean()
@@ -190,6 +195,7 @@ class UserRegistrationForm(UserCreationForm):
         required=True,
     )
     code = forms.CharField(max_length=12, required=False)
+
     class Meta:
         model = User
         fields = ["username", "email"]

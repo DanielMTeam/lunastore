@@ -65,7 +65,7 @@
         </label>
 
         <label>
-            <div class="reg_pad"><div class="reg_title">{% trans "FORM_INVITECODE_TITLE" %}</div>
+            <div class="reg_pad"><div class="reg_title">{% trans "PAGE_REGISTER_LABEL_CODE" %}</div>
             {% if form.code.errors %}
                 <div class="error_splash" style="margin-bottom: 5px;"> 
                     {% for error in form.code.errors %}
@@ -73,7 +73,7 @@
                     {% endfor %}
                 </div>
             {% endif %} {{ form.code }}
-            <div class="regform_label">{% trans "PAGE_REGISTER_HELP_PASS2" %}</div>
+            <div class="regform_label">{% trans "PAGE_REGISTER_HELP_CODE" %}</div>
             </div>
         </label>
 
