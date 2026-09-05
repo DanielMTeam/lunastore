@@ -15,7 +15,7 @@
 </div>
 <div class="list_settings">
     <div class="selector">
-        <select onchange="window.location.href = '?show={{ show }}&view=' + this.value;">
+        <select onchange="window.location.href = '?show={{ show|escapejs }}&view=' + this.value;">
                 <option value="" disabled {% if not view_mode %}selected{% endif %}>{% trans "PAGE_SEARCH_SORT_PLACEHOLDER" %}</option>
                 <option value="tiles" {% if view_mode == 'tiles' %}selected{% endif %}>{% trans "PAGE_SEARCH_SORT_TILES" %}</option>
                 <option value="list" {% if view_mode == 'list' %}selected{% endif %}>{% trans "PAGE_SEARCH_SORT_LIST" %}</option>

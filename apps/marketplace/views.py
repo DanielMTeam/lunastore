@@ -84,23 +84,29 @@ def marketplace(request):
 
 def store_listing(request):
     # store.php?show=top — monthly popular apps listing
+    valid_shows = frozenset({"top", "new"})
+    valid_views = frozenset({"tiles", "list"})
     show = request.GET.get("show", "top")
+    if show not in valid_shows:
+        show = "top"
     page = request.GET.get("page")
     view_mode = request.GET.get("view", "tiles")
+    if view_mode not in valid_views:
+        view_mode = "tiles"
 
     from apps.analytics.services import get_popular_apps
-    from apps.marketplace.services.home import hydrate_apps_by_ids, _public_apps_qs
+    from apps.marketplace.services.home import hydrate_apps_by_ids, public_apps_qs
 
     if show == "top":
         popular = get_popular_apps(days=30, limit=100, event_type="download")
         popular_ids = [item["app_id"] for item in popular]
         apps = hydrate_apps_by_ids(popular_ids)
         if not apps:
-            apps = list(_public_apps_qs().order_by("-published")[:50])
+            apps = list(public_apps_qs().order_by("-published")[:50])
         title = _("INDEX_MONTHLY_TOP_TITLE")
         description = _("INDEX_MONTHLY_TOP_DESC")
     else:
-        apps = list(_public_apps_qs().order_by("-published")[:50])
+        apps = list(public_apps_qs().order_by("-published")[:50])
         title = _("INDEX_STORE_LISTING_TITLE")
         description = ""
 
@@ -856,8 +862,14 @@ def get_file_action(request, dist_pk):
         if not request.user.is_authenticated or app.user_id != request.user.id:
             raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
 
-    # track download analytics
-    track_app_download(request, app_id=app.pk, distribution_id=dist.pk)
+    # track download analytics (first category for CH category filters)
+    first_cat_id = app.categories.values_list("id", flat=True).first()
+    track_app_download(
+        request,
+        app_id=app.pk,
+        distribution_id=dist.pk,
+        category_id=first_cat_id,
+    )
 
     if dist.cdn_file_id:
         payload = {

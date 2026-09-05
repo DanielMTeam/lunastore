@@ -753,7 +753,11 @@ class HomeCategoryBlock(models.Model):
     apps_limit = models.PositiveSmallIntegerField(
         default=4,
         verbose_name="Кол-во приложений",
-        help_text="Сколько карточек показывать в блоке",
+        help_text="Сколько карточек показывать в блоке (макс. 24)",
+        validators=[
+            MinValueValidator(1),
+            MaxValueValidator(24),
+        ],
     )
 
     class Meta:

@@ -807,6 +807,11 @@ li.web {
     height: 100px;
 }
 
+.banner_image .home_category_banner {
+    background: url(../img/categorybanner/themes.png) no-repeat;
+    height: 100px;
+}
+
 .banner_image #popular {
     background: url(../img/categorybanner/popular.png) no-repeat;
 }

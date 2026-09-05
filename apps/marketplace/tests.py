@@ -163,6 +163,36 @@ class HomePageTest(TestCase):
         self.assertEqual(resp.status_code, 200)
         self.assertTemplateUsed(resp, "store_listing.html")
 
+    def test_store_listing_rejects_xss_show(self):
+        with override_config(ANALYTICS_ENABLED=False):
+            resp = self.client.get(
+                reverse("store_listing")
+                + "?show=top'-alert(1)-'"
+            )
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.context["show"], "top")
+        self.assertNotContains(resp, "alert(1)")
+
+    def test_soft_deleted_category_block_hidden(self):
+        from apps.marketplace.models import HomeCategoryBlock
+
+        deleted_cat = Category.objects.create(name="GoneCat", description="x")
+        HomeCategoryBlock.objects.create(
+            category=deleted_cat,
+            sort_order=0,
+            is_enabled=True,
+            apps_limit=4,
+        )
+        deleted_cat.delete()
+        with override_config(
+            ANALYTICS_ENABLED=False,
+            HOME_EDITOR_CHOICE_CATEGORY_ID=0,
+            HOME_APP_OF_THE_DAY_ID=0,
+        ):
+            resp = self.client.get(reverse("index"))
+        names = [b["category"].name for b in resp.context["category_blocks"]]
+        self.assertNotIn("GoneCat", names)
+
 
 class HomeLayoutSettingsTest(TestCase):
     @classmethod
@@ -254,6 +284,28 @@ class HomeServiceTest(TestCase):
         from apps.marketplace.services.home import get_editor_choice_block
 
         self.assertIsNone(get_editor_choice_block())
+
+    def test_apps_for_category_filters_popular_by_membership(self):
+        from apps.marketplace.services.home import get_apps_for_category
+
+        other = Category.objects.create(name="OtherCat", description="o")
+        other_app = Application.objects.create(
+            user=self.user,
+            title="OtherApp",
+            description="desc",
+            slogan="slogan",
+        )
+        other_app.categories.add(other)
+
+        with patch(
+            "apps.analytics.services.get_popular_apps",
+            return_value=[
+                {"app_id": other_app.pk, "count": 99},
+                {"app_id": self.app.pk, "count": 10},
+            ],
+        ):
+            apps = get_apps_for_category(self.category, limit=4)
+        self.assertEqual([a.pk for a in apps], [self.app.pk])
 
 
 class ProxyDownloadTest(TestCase):

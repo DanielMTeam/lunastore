@@ -5,16 +5,20 @@ from __future__ import annotations
 import logging
 from typing import Any, Optional
 
-from django.db.models import Avg
+from django.db.models import Avg, QuerySet
 from django.http import HttpRequest
 
 from apps.marketplace.models import Application, Category, HomeCategoryBlock
+from apps.user.models import User
 
 logger = logging.getLogger("marketplace")
 
-HOME_LAYOUT_RICH = "rich"
-HOME_LAYOUT_COMPACT = "compact"
+HOME_LAYOUT_RICH = User.HOME_LAYOUT_RICH
+HOME_LAYOUT_COMPACT = User.HOME_LAYOUT_COMPACT
 VALID_HOME_LAYOUTS = frozenset({HOME_LAYOUT_RICH, HOME_LAYOUT_COMPACT})
+
+# cap admin-configured block size so one section cannot pull hundreds of rows
+MAX_CATEGORY_APPS_LIMIT = 24
 
 
 def resolve_home_layout(request: HttpRequest) -> str:
@@ -30,7 +34,7 @@ def resolve_home_layout(request: HttpRequest) -> str:
     return HOME_LAYOUT_RICH
 
 
-def _public_apps_qs():
+def public_apps_qs() -> QuerySet:
     return (
         Application.objects.filter(is_private=False, is_under_dmca=False)
         .select_related("user")
@@ -39,11 +43,18 @@ def _public_apps_qs():
     )
 
 
-def hydrate_apps_by_ids(app_ids: list[int], *, limit: Optional[int] = None) -> list[Application]:
+def hydrate_apps_by_ids(
+    app_ids: list[int],
+    *,
+    limit: Optional[int] = None,
+    category: Optional[Category] = None,
+) -> list[Application]:
     # preserve order of app_ids; skip missing/private
     if not app_ids:
         return []
-    qs = _public_apps_qs().filter(pk__in=app_ids)
+    qs = public_apps_qs().filter(pk__in=app_ids)
+    if category is not None:
+        qs = qs.filter(categories=category)
     by_id = {app.pk: app for app in qs}
     ordered: list[Application] = []
     for app_id in app_ids:
@@ -55,8 +66,24 @@ def hydrate_apps_by_ids(app_ids: list[int], *, limit: Optional[int] = None) -> l
     return ordered
 
 
+def _fill_latest_apps(
+    apps: list[Application],
+    *,
+    limit: int,
+    category: Optional[Category] = None,
+) -> list[Application]:
+    if len(apps) >= limit:
+        return apps[:limit]
+    existing = {app.pk for app in apps}
+    qs = public_apps_qs().exclude(pk__in=existing)
+    if category is not None:
+        qs = qs.filter(categories=category)
+    fillers = list(qs.order_by("-published")[: max(0, limit - len(apps))])
+    return apps + fillers
+
+
 def _fallback_latest_apps(limit: int = 1) -> list[Application]:
-    return list(_public_apps_qs().order_by("-published")[:limit])
+    return list(public_apps_qs().order_by("-published")[:limit])
 
 
 def get_app_of_the_day() -> Optional[Application]:
@@ -102,15 +129,17 @@ def get_apps_for_category(
     limit: int = 4,
     days: int = 30,
 ) -> list[Application]:
+    # rank by global download popularity, then keep apps in this category (Postgres M2M).
+    # CH category_id is incomplete historically; membership filter is the source of truth.
     from apps.analytics.services import get_popular_apps
 
+    limit = max(1, min(int(limit or 4), MAX_CATEGORY_APPS_LIMIT))
     popular_ids: list[int] = []
     try:
         popular = get_popular_apps(
             days=days,
-            limit=limit * 2,
+            limit=max(limit * 20, 50),
             event_type="download",
-            category_id=category.pk,
         )
         popular_ids = [item["app_id"] for item in popular]
     except Exception:
@@ -118,19 +147,10 @@ def get_apps_for_category(
             "get_popular_apps failed for category_id=%s", category.pk
         )
 
-    apps = hydrate_apps_by_ids(popular_ids, limit=limit)
-    if len(apps) >= limit:
-        return apps[:limit]
-
-    # fill from category by published date
-    existing = {app.pk for app in apps}
-    fillers = list(
-        _public_apps_qs()
-        .filter(categories=category)
-        .exclude(pk__in=existing)
-        .order_by("-published")[: max(0, limit - len(apps))]
+    apps = hydrate_apps_by_ids(
+        popular_ids, limit=limit, category=category
     )
-    return apps + fillers
+    return _fill_latest_apps(apps, limit=limit, category=category)
 
 
 def get_editor_choice_block(*, limit: int = 3) -> Optional[dict[str, Any]]:
@@ -161,35 +181,29 @@ def get_monthly_top_apps(*, limit: int = 4) -> list[Application]:
         logger.exception("get_popular_apps monthly failed")
 
     apps = hydrate_apps_by_ids(popular_ids, limit=limit)
-    if len(apps) >= limit:
-        return apps[:limit]
-    existing = {app.pk for app in apps}
-    fillers = list(
-        _public_apps_qs()
-        .exclude(pk__in=existing)
-        .order_by("-published")[: max(0, limit - len(apps))]
-    )
-    return apps + fillers
+    return _fill_latest_apps(apps, limit=limit)
 
 
 def get_category_blocks() -> list[dict[str, Any]]:
     blocks = (
-        HomeCategoryBlock.objects.filter(is_enabled=True)
+        HomeCategoryBlock.objects.filter(
+            is_enabled=True,
+            category__deleted__isnull=True,
+        )
         .select_related("category")
         .order_by("sort_order", "id")
     )
     result: list[dict[str, Any]] = []
     for block in blocks:
         category = block.category
-        apps = get_apps_for_category(category, limit=block.apps_limit or 4)
+        if category is None or getattr(category, "deleted", None):
+            continue
+        apps_limit = max(1, min(block.apps_limit or 4, MAX_CATEGORY_APPS_LIMIT))
+        apps = get_apps_for_category(category, limit=apps_limit)
         if not apps:
             continue
         total_count = (
-            Application.objects.filter(
-                categories=category,
-                is_private=False,
-                is_under_dmca=False,
-            ).count()
+            public_apps_qs().filter(categories=category).count()
         )
         result.append(
             {

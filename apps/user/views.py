@@ -569,6 +569,8 @@ def settings_ui(request):
                 layout,
                 max_age=365 * 24 * 60 * 60,
                 path="/",
+                httponly=True,
+                samesite="Lax",
             )
             return response
         messages.error(request, _("ERROR_HOME_LAYOUT_INVALID"))

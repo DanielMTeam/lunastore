@@ -130,7 +130,7 @@
 
   {% for section in category_blocks %}
     <div class="banner_image">
-      <div id="themes"{% if section.category.banner_filename %} style="background: url('{% static 'img/categorybanner/' %}{{ section.category.banner_filename }}') no-repeat; height: 100px;"{% endif %}>
+      <div id="home_cat_{{ section.category.id }}" class="home_category_banner"{% if section.category.banner_filename %} style="background: url('{% static 'img/categorybanner/' %}{{ section.category.banner_filename }}') no-repeat; height: 100px;"{% endif %}>
         <div class="banner_text">{{ section.category.name }}</div>
         {% if section.category.description %}
           <div class="banner_text_mini">{{ section.category.description }}</div>
