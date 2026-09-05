@@ -59,7 +59,20 @@
                         {{ error }}
                     {% endfor %}
                 </div>
-            {% endif %} {{form.password2}}
+            {% endif %} {{ form.password2 }}
+            <div class="regform_label">{% trans "PAGE_REGISTER_HELP_PASS2" %}</div>
+            </div>
+        </label>
+
+        <label>
+            <div class="reg_pad"><div class="reg_title">{% trans "FORM_INVITECODE_TITLE" %}</div>
+            {% if form.code.errors %}
+                <div class="error_splash" style="margin-bottom: 5px;"> 
+                    {% for error in form.code.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %} {{ form.code }}
             <div class="regform_label">{% trans "PAGE_REGISTER_HELP_PASS2" %}</div>
             </div>
         </label>

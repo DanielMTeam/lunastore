@@ -282,6 +282,8 @@ def register(request):
         raw_username = request.POST.get("username", "").lower().strip()
         raw_email = request.POST.get("email", "").lower().strip()
         raw_invite_code = request.session.get("allowed_invite_code", "")
+        if not config.INVITES_ON_REGISTER:
+            raw_invite_code = request.POST.get("code", "").strip()
         nospam_decision = _run_nospam(
             request=request,
             entrypoint="register",
@@ -307,6 +309,17 @@ def register(request):
             return redirect("502_error")
         form = UserRegistrationForm(request.POST, request=request)
         if form.is_valid():
+            if not config.INVITES_ON_REGISTER and raw_invite_code:
+                invite_form = InviteCodeForm({"code": raw_invite_code})
+                if not invite_form.is_valid():
+                    for error in invite_form.errors.get("code", []):
+                        form.add_error("code", error)
+                    return render(
+                        request,
+                        "register_on.html",
+                        {"form": form, "invite_obj": None},
+                    )
+                invite_obj = InviteToken.objects.get(code=raw_invite_code)
             if config.INVITES_ON_REGISTER and invite_obj:
                 if not validate_invite_limit(invite_obj.owner):
                     return redirect("invite_code")

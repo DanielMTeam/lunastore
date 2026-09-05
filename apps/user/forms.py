@@ -189,7 +189,7 @@ class UserRegistrationForm(UserCreationForm):
         widget=forms.CheckboxInput,
         required=True,
     )
-
+    code = forms.CharField(max_length=12, required=False)
     class Meta:
         model = User
         fields = ["username", "email"]
