@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load markdown_tags %}
+
+{% block title %}{{ name }} - LunaStore{% endblock %}
+
+{% block content %}
+<div class="content">
+<div class="banner_image">
+    <div id="top20" style="height: 100px;">
+        <div class="banner_text">{{ name }}</div>
+        {% if description %}<div class="banner_text_mini">{{ description }}</div>{% endif %}
+    </div>
+</div>
+<div class="list_settings">
+    <div class="selector">
+        <select onchange="window.location.href = '?show={{ show }}&view=' + this.value;">
+                <option value="" disabled {% if not view_mode %}selected{% endif %}>{% trans "PAGE_SEARCH_SORT_PLACEHOLDER" %}</option>
+                <option value="tiles" {% if view_mode == 'tiles' %}selected{% endif %}>{% trans "PAGE_SEARCH_SORT_TILES" %}</option>
+                <option value="list" {% if view_mode == 'list' %}selected{% endif %}>{% trans "PAGE_SEARCH_SORT_LIST" %}</option>
+            </select>
+    </div>
+</div>
+    <div class="section">
+    <h2>{% trans "PAGE_CATEGORY_COUNTOFRESULTS" %} {{ count }}</h2>
+    </div>
+  <div class="section">
+
+
+<div class="section">
+
+  <div class="search_full">
+      <form action="{% url 'search' %}" method="get" class="search_full" style="margin: 0; padding: 0;">
+
+          {% if view_mode == 'list' %}
+              <input type="hidden" name="view" value="list">
+          {% endif %}
+
+          <input type="text" name="q" id="q" class="search_icon"
+                 placeholder="{% trans 'PAGE_CATEGORY_SEARCHOFCATEGORY' %} &quot;{{ name }}&quot;"
+                 style="vertical-align: middle;">
+
+          <button type="submit" style="vertical-align: middle;">
+            {% trans "BASE_SEARCHBTN" %}
+          </button>
+        </form>
+  </div>
+ </div>
+    {% for app in page_obj %}
+    <div class="card {% if view_mode == 'list' %}listview{% endif %}">
+      {% if app.is_demo %}
+        {% if app.price > 0 %}
+          <div class="badge demo">{% trans "INFO_APP_DEMOWITHPRICE" %} ${{ app.price }}</div>
+        {% else %}
+          <div class="badge demo">{% trans "INFO_APP_DEMO" %}</div>
+        {% endif %}
+      {% elif not app.is_demo %}
+        {% if app.price > 0 %}
+          <div class="badge paid">${{ app.price }}</div>
+        {% else %}
+          <div class="badge free">{% trans "INFO_APP_FREE" %}</div>
+        {% endif %}
+      {% endif %}
+      {% if not app.is_under_dmca %}
+        {% if app.is_demo %}
+          <div class="action"><a href="./app.php?id={{ app.id }}">{% trans "PAGE_CATEGORY_DEMOBTN" %}</a></div>
+        {% elif not app.is_demo and app.price > 0 %}
+          <div class="action"><a href="./app.php?id={{ app.id }}">{% trans "PAGE_CATEGORY_BUYBTN" %}</a></div>
+        {% elif not app.is_demo and app.price == 0 %}
+          <div class="action"><a href="./app.php?id={{ app.id }}">{% trans "PAGE_CATEGORY_INSTALLBTN" %}</a></div>
+        {% endif %}
+      {% endif %}
+
+        {% if app.icon_path %}
+            <div class="card_icon"><img src="{{ app.icon_url }}" alt="{{ app.title }}" width="48" height="48"></div>
+        {% else %}
+            <div class="card_icon"><img src="{% static './img/noavatar_64.jpg' %}" alt="{{ app.title }}" width="48" height="48"></div>
+        {% endif %}
+      <div class="card_text">
+        <a href="./app.php?id={{ app.id }}"><h3>{{ app.title }}</h3></a>
+        {% if app.slogan|length >= 45 %}
+        <p title="{{ app.slogan }}">
+          {{ app.slogan|truncatechars:45|render_markdown }}
+        </p>
+        <div class="rating {{ app.star_class }}" style="position: absolute; right: 5px; bottom: 20px;"></div>
+        {% else %}
+        <p>
+          {{ app.slogan|render_markdown }}
+        </p>
+        <div class="rating {{ app.star_class }}" style="position: absolute; right: 5px; bottom: 20px;"></div>
+        {% endif %}
+      </div>
+    </div>
+    {% empty %}
+      <p>{% trans "INDEX_NO_APPS" %}</p>
+    {% endfor %}
+    <div style="clear:both"></div>
+  </div>
+<div class="section">
+  <div class="paginator">
+    {% for page_num in page_range %}
+      {% if page_num == page_obj.paginator.ELLIPSIS %}
+        <span>{{ page_num }}</span>
+      {% elif page_num == page_obj.number %}
+      <a class="active" href="/store.php?show={{ show }}&page={{ page_num }}{% if view_mode %}&view={{ view_mode }}{% endif %}">{{ page_num }}</a>
+      {% else %}
+      <a href="/store.php?show={{ show }}&page={{ page_num }}{% if view_mode %}&view={{ view_mode }}{% endif %}">{{ page_num }}</a>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+    </div>
+  </div>
+{% endblock %}

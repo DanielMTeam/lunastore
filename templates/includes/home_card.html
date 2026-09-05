@@ -1,0 +1,32 @@
+{% load i18n %}
+{% load static %}
+{# store-style card for rich homepage sections (matches index_NEW mockup) #}
+<div class="card">
+  {% if app.icon_path %}
+    <img src="{{ app.icon_url }}" alt="{{ app.title }}" width="48" height="48">
+  {% else %}
+    <img src="{% static './img/noavatar_64.jpg' %}" alt="{{ app.title }}" width="48" height="48">
+  {% endif %}
+  <a href="{% url 'app' %}?id={{ app.id }}"><h3>{{ app.title }}</h3></a>
+  <p>{% if app.slogan %}{{ app.slogan|truncatechars:45 }}{% else %}{{ app.description|truncatechars:45 }}{% endif %}</p>
+  {% if app.is_demo %}
+    {% if app.price > 0 %}
+      <div class="badge demo">{% trans "INFO_APP_DEMOWITHPRICE" %} ${{ app.price }}</div>
+    {% else %}
+      <div class="badge demo">{% trans "INFO_APP_DEMO" %}</div>
+    {% endif %}
+  {% elif app.price > 0 %}
+    <div class="badge paid">${{ app.price }}</div>
+  {% else %}
+    <div class="badge free">{% trans "INFO_APP_FREE" %}</div>
+  {% endif %}
+  {% if not app.is_under_dmca %}
+    {% if app.is_demo %}
+      <div class="action"><a href="{% url 'app' %}?id={{ app.id }}">{% trans "PAGE_CATEGORY_DEMOBTN" %}</a></div>
+    {% elif app.price > 0 %}
+      <div class="action"><a href="{% url 'app' %}?id={{ app.id }}">{% trans "PAGE_CATEGORY_BUYBTN" %}</a></div>
+    {% else %}
+      <div class="action"><a href="{% url 'app' %}?id={{ app.id }}">{% trans "PAGE_CATEGORY_INSTALLBTN" %}</a></div>
+    {% endif %}
+  {% endif %}
+</div>

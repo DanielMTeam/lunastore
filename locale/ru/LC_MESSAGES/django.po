@@ -422,10 +422,40 @@ msgid "INDEX_SEARCH_SECTION_TITLE"
 msgstr "Поиск по каталогу"
 
 msgid "INDEX_WELCOME_TEXT"
-msgstr "Приветствуем в LunaStore!<br>Сборник приложений и дополнений для комфортной работы с данной ОС"
+msgstr "Приветствуем в магазине Windows!<br>Огромный сборник приложений и дополнений для комфортной работы с данной ОС"
 
 msgid "INDEX_WELCOME_TITLE"
 msgstr "Добро пожаловать"
+
+msgid "INDEX_CONFIGURE_HOME"
+msgstr "Настроить главную страницу"
+
+msgid "INDEX_APP_OF_THE_DAY"
+msgstr "Приложение дня"
+
+msgid "INDEX_FOR_YOU"
+msgstr "Для вас"
+
+msgid "INDEX_EDITOR_CHOICE"
+msgstr "Выбор редакции"
+
+msgid "INDEX_SEE_ALL"
+msgstr "все"
+
+msgid "INDEX_SEE_MORE"
+msgstr "Ещё..."
+
+msgid "INDEX_MONTHLY_TOP_TITLE"
+msgstr "Приложения месяца"
+
+msgid "INDEX_MONTHLY_TOP_DESC"
+msgstr "Востребованные за последний месяц, по скачиваниям"
+
+msgid "INDEX_STORE_LISTING_TITLE"
+msgstr "Каталог"
+
+msgid "INDEX_NO_APPS"
+msgstr "Приложения не найдены"
 
 msgid "INFO_2FA_DISABLED"
 msgstr "Двухфакторная аутентификация успешно отключена."
@@ -2194,7 +2224,28 @@ msgid "PAGE_SETTINGS_TAB_APPS"
 msgstr "Приложения"
 
 msgid "PAGE_SETTINGS_TAB_SECURITY"
-msgstr "Безопасность"
+msgstr "Защита"
+
+msgid "PAGE_SETTINGS_TAB_UI"
+msgstr "Вид"
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_TITLE"
+msgstr "Вид главной страницы"
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_INFO"
+msgstr "Вы можете настроить внешний вид главной страницы между содержательной и сокращённой."
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_RICH"
+msgstr "Содержательная"
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_COMPACT"
+msgstr "Сокращённая"
+
+msgid "INFO_HOME_LAYOUT_UPDATED"
+msgstr "Вид главной страницы сохранён"
+
+msgid "ERROR_HOME_LAYOUT_INVALID"
+msgstr "Некорректный вид главной страницы"
 
 msgid "PAGE_SETTINGS_TERMINATE_SESSION"
 msgstr "Завершить сеанс"

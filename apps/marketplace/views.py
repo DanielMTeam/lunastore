@@ -63,8 +63,63 @@ def home_redirect(request):
 
 # home page
 def marketplace(request):
-    categories = Category.objects.all()
-    return render(request, "index.html", {"categories": categories})
+    from apps.marketplace.services.home import (
+        HOME_LAYOUT_COMPACT,
+        HOME_LAYOUT_RICH,
+        build_rich_home_context,
+        resolve_home_layout,
+    )
+
+    layout = resolve_home_layout(request)
+    if layout == HOME_LAYOUT_COMPACT:
+        categories = Category.objects.all()
+        return render(
+            request,
+            "index.html",
+            {"categories": categories, "home_layout": HOME_LAYOUT_COMPACT},
+        )
+    context = build_rich_home_context(request)
+    return render(request, "index_rich.html", context)
+
+
+def store_listing(request):
+    # store.php?show=top — monthly popular apps listing
+    show = request.GET.get("show", "top")
+    page = request.GET.get("page")
+    view_mode = request.GET.get("view", "tiles")
+
+    from apps.analytics.services import get_popular_apps
+    from apps.marketplace.services.home import hydrate_apps_by_ids, _public_apps_qs
+
+    if show == "top":
+        popular = get_popular_apps(days=30, limit=100, event_type="download")
+        popular_ids = [item["app_id"] for item in popular]
+        apps = hydrate_apps_by_ids(popular_ids)
+        if not apps:
+            apps = list(_public_apps_qs().order_by("-published")[:50])
+        title = _("INDEX_MONTHLY_TOP_TITLE")
+        description = _("INDEX_MONTHLY_TOP_DESC")
+    else:
+        apps = list(_public_apps_qs().order_by("-published")[:50])
+        title = _("INDEX_STORE_LISTING_TITLE")
+        description = ""
+
+    paginator = Paginator(apps, 10)
+    page_obj = paginator.get_page(page)
+    page_range = paginator.get_elided_page_range(
+        number=page_obj.number, on_each_side=2, on_ends=1
+    )
+    context = {
+        "page_obj": page_obj,
+        "page_range": page_range,
+        "name": title,
+        "description": description,
+        "view_mode": view_mode,
+        "count": len(apps),
+        "show": show,
+        "active_category": None,
+    }
+    return render(request, "store_listing.html", context)
 
 
 def category(request):

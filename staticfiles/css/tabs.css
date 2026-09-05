@@ -61,3 +61,23 @@
   top: -1px;
   z-index: 1;
 }
+
+/* 4 tabs in ~460px content (settings) */
+.tab-bar-compact {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.tab-bar-compact .tab {
+  padding: 3px 4px 2px 4px;
+  margin-right: 1px;
+  font-size: 11px;
+  line-height: 14px;
+}
+
+.tab-bar-compact .tab-icon {
+  width: 14px;
+  height: 14px;
+  margin-right: 2px;
+  top: 0;
+}

@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans "PAGE_HOME_BROWSER_TITLE" %} - LunaStore{% endblock %}
+
+{% block content %}
+<div class="content">
+  <div class="banner_image">
+    <div id="welcome_home">
+      <div class="banner_text">{% trans "INDEX_WELCOME_TITLE" %}</div>
+      <div class="banner_text_mini">
+        {% trans "INDEX_WELCOME_TEXT" %}
+        <br><br>
+        {% if user.is_authenticated %}
+          <div class="home_change_button"><a href="{% url 'settings_ui' %}">{% trans "INDEX_CONFIGURE_HOME" %}</a></div>
+        {% else %}
+          <div class="home_change_button"><a href="{% url 'login' %}?next={% url 'settings_ui' %}">{% trans "INDEX_CONFIGURE_HOME" %}</a></div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="search_full" style="padding: 10px 0 15px; text-align: center;">
+      <form action="{% url 'search' %}" method="get" style="margin: 0; padding: 0;">
+        <table border="0" cellpadding="0" cellspacing="0" align="center" style="margin: 0 auto; width: 330px;">
+          <tr>
+            <td style="vertical-align: middle; padding: 0; text-align: left;">
+              <div class="sidebar" style="position: relative; width: 280px; height: 26px; margin: 0; padding: 0; border: none; background: none; float: none; display: block; *display: inline; *zoom: 1;">
+                <input type="text" name="q" placeholder="{% trans 'INDEX_SEARCH_PLACEHOLDER' %}"
+                       style="width: 243px; border: 1px solid #7aa0e6; padding: 3px 3px 3px 30px; margin: 0; position: absolute; left: 0; top: 0; height: 18px; font-family: Tahoma, Arial, sans-serif;">
+                <div style="position: absolute; left: 4px; top: 4px; z-index: 10; width: 24px; height: 18px;">
+                  <li class="web" style="width: 24px; height: 18px; margin: 0; padding: 0; list-style: none; display: block; border: none; background-color: transparent;"></li>
+                </div>
+              </div>
+            </td>
+            <td style="width: 70px; vertical-align: middle; padding: 0 0 0 5px; text-align: left;">
+              <button type="submit" style="margin: 0; height: 22px; width: 65px; display: block;">
+                {% trans 'INDEX_SEARCH_BTN' %}
+              </button>
+            </td>
+          </tr>
+        </table>
+      </form>
+
+      <div class="index_categories">
+        <span class="prompt">{% trans "INDEX_CATEGORY_PROMPT" %}</span>
+        {% if categories %}
+          {% for category in categories %}
+            <a href="{% url 'category' %}?id={{ category.pk }}">{{ category.name }}</a>
+            {% if not forloop.last %}<span class="separator">|</span>{% endif %}
+          {% endfor %}
+        {% else %}
+          <span class="empty">{% trans "INDEX_NO_CATEGORIES" %}</span>
+        {% endif %}
+      </div>
+    </div>
+
+    {% if app_of_the_day %}
+      <div class="home_block">{% trans "INDEX_APP_OF_THE_DAY" %}</div>
+      <div class="home_block_content">
+        <table class="app_day_block" width="100%">
+          <tr>
+            <td width="80">
+              <div class="app_day_icon">
+                {% if app_of_the_day.icon_path %}
+                  <img src="{{ app_of_the_day.icon_url }}" alt="{{ app_of_the_day.title }}" width="72" height="72">
+                {% else %}
+                  <img src="{% static './img/noavatar_64.jpg' %}" alt="{{ app_of_the_day.title }}" width="72" height="72">
+                {% endif %}
+              </div>
+            </td>
+            <td>
+              <div class="app_day_block_info">
+                <div class="app_day_block_name">{{ app_of_the_day.title }}</div>
+                <div class="app_day_block_desc">{% if app_of_the_day.slogan %}{{ app_of_the_day.slogan|truncatechars:80 }}{% else %}{{ app_of_the_day.description|truncatechars:80 }}{% endif %}</div>
+                {% if app_of_the_day.star_class %}<div class="home_rating {{ app_of_the_day.star_class }}"></div>{% else %}<div class="home_rating"></div>{% endif %}
+                <br><br>
+                <div class="app_day_button_wrap action">
+                  <a href="{% url 'app' %}?id={{ app_of_the_day.id }}">{% trans "PAGE_CATEGORY_INSTALLBTN" %}</a>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    {% endif %}
+
+    {% if for_you_apps %}
+      <div class="home_block">{% trans "INDEX_FOR_YOU" %}</div>
+      <div class="home_block_content">
+        {% for app in for_you_apps %}
+          {% include "includes/home_item.html" with app=app %}
+        {% endfor %}
+        <div style="clear:both"></div>
+      </div>
+    {% endif %}
+
+    {% if editor_choice %}
+      <div class="home_block">
+        {% trans "INDEX_EDITOR_CHOICE" %}
+        | <div class="home_block_other"><a href="{% url 'category' %}?id={{ editor_choice.category.id }}">{% trans "INDEX_SEE_ALL" %}</a></div>
+      </div>
+      <div class="home_block_content">
+        {% for app in editor_choice.apps %}
+          {% include "includes/home_item.html" with app=app %}
+        {% endfor %}
+        <div style="clear:both"></div>
+      </div>
+    {% endif %}
+  </div>
+
+  {% if monthly_top_apps %}
+    <div class="banner_image">
+      <div id="top20">
+        <div class="banner_text">{% trans "INDEX_MONTHLY_TOP_TITLE" %}</div>
+      </div>
+    </div>
+    <div class="section">
+      <h2>{% trans "INDEX_MONTHLY_TOP_DESC" %}</h2>
+      <div class="separator_store"></div>
+      {% for app in monthly_top_apps %}
+        {% include "includes/home_card.html" with app=app %}
+      {% endfor %}
+      <div style="clear:both"></div>
+      <div class="card_other_button"><a href="{% url 'store_listing' %}?show=top">{% trans "INDEX_SEE_MORE" %}</a></div>
+    </div>
+  {% endif %}
+
+  {% for section in category_blocks %}
+    <div class="banner_image">
+      <div id="themes"{% if section.category.banner_filename %} style="background: url('{% static 'img/categorybanner/' %}{{ section.category.banner_filename }}') no-repeat; height: 100px;"{% endif %}>
+        <div class="banner_text">{{ section.category.name }}</div>
+        {% if section.category.description %}
+          <div class="banner_text_mini">{{ section.category.description }}</div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="section">
+      <h2>{{ section.category.name }} ({{ section.total_count }})</h2>
+      <div class="separator_store"></div>
+      {% for app in section.apps %}
+        {% include "includes/home_card.html" with app=app %}
+      {% endfor %}
+      <div style="clear:both"></div>
+      <div class="card_other_button"><a href="{% url 'category' %}?id={{ section.category.id }}">{% trans "INDEX_SEE_MORE" %}</a></div>
+    </div>
+  {% endfor %}
+</div>
+</div>
+{% endblock %}

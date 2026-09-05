@@ -792,6 +792,11 @@ li.web {
     height: 100px;
 }
 
+.banner_image #welcome_home {
+    background: url(../img/categorybanner/homepage2.png) no-repeat;
+    height: 150px;
+}
+
 .banner_image #help_center {
     background: url(../img/categorybanner/help.png) no-repeat;
     height: 100px;
@@ -921,7 +926,8 @@ li.web {
 }
 
 .search_icon {
-    background: url("../img/search_icon_small.png") no-repeat;
+    background: #fff url("../img/search_icon_small.png") no-repeat 4px center;
+    padding-left: 25px;
 }
 
 .ls_dm_logo {
@@ -1440,6 +1446,244 @@ a.report_problem {
 
 .index_categories .empty {
     color: #999;
+}
+
+/* вид главной страницы */
+.design_main_switch {
+    width: 100%;
+    border: 1px solid #7aa0e6;
+    background: #daeeff;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.design_main_switch td {
+    vertical-align: top;
+    width: 50%;
+    padding: 6px 4px;
+}
+
+.design_switch_pic {
+    width: 180px;
+    height: 135px;
+    border: 1px solid #0b3a72;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.design_switch_pic img {
+    width: 180px;
+    height: 135px;
+    border: 0;
+    display: block;
+}
+
+.design_switch_select {
+    display: block;
+    width: 180px;
+    margin: 8px auto 0;
+    text-align: center;
+    font-size: 11px;
+}
+
+.design_switch_select input {
+    display: block;
+    margin: 0 auto 4px;
+}
+
+/* HOME PAGE 2.0 */
+.home_block {
+    padding: 5px;
+    background: #2b67b3;
+    color: #fff;
+    font-weight: bold;
+    font-size: 12px;
+    margin-top: 12px;
+}
+
+.home_block a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.home_block a:hover {
+    color: #e8e8e8;
+    text-decoration: none;
+}
+
+.home_block_content {
+    padding: 10px;
+    background: #ffffff;
+    border: 1px solid #2b67b3;
+    position: relative;
+}
+
+.home_block_other {
+    display: inline-block;
+    font-weight: normal;
+}
+
+.home_item {
+    float: left;
+    width: 125px;
+    height: 170px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border: 1px solid #d2e9ff;
+    padding: 5px;
+}
+
+.home_item_name {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.home_item_name a {
+    color: #000;
+    text-decoration: none;
+}
+
+.home_item_name a:hover {
+    color: #990000;
+    text-decoration: none;
+}
+
+.home_item_name a:active {
+    color: #cc0000;
+    text-decoration: none;
+}
+
+.home_item_icon {
+    height: 72px;
+    text-align: center;
+}
+
+.home_item_icon img {
+    width: 48px;
+    height: 48px;
+    border: 0;
+}
+
+.home_item_badge {
+    font-weight: bold;
+    font-size: 12px;
+    color: #b20000;
+}
+
+.home_item_badge.free {
+    color: #5fa359;
+}
+
+.home_item_badge.demo {
+    color: #ff7300;
+}
+
+.home_item_desc {
+    height: 50px;
+    overflow: hidden;
+    font-size: 11px;
+}
+
+.home_rating {
+    display: inline-block;
+    width: 80px;
+    height: 16px;
+    background: url(../img/rating.png) no-repeat 0px -160px;
+}
+
+.home_rating.r5 {
+    background: url(../img/rating.png) no-repeat 0px 0px;
+}
+
+.home_rating.r4_5 {
+    background: url(../img/rating.png) no-repeat 0px -16px;
+}
+
+.home_rating.r4 {
+    background: url(../img/rating.png) no-repeat 0px -32px;
+}
+
+.home_rating.r3_5 {
+    background: url(../img/rating.png) no-repeat 0px -48px;
+}
+
+.home_rating.r3 {
+    background: url(../img/rating.png) no-repeat 0px -64px;
+}
+
+.home_rating.r2_5 {
+    background: url(../img/rating.png) no-repeat 0px -80px;
+}
+
+.home_rating.r2 {
+    background: url(../img/rating.png) no-repeat 0px -96px;
+}
+
+.home_rating.r1_5 {
+    background: url(../img/rating.png) no-repeat 0px -112px;
+}
+
+.home_rating.r1 {
+    background: url(../img/rating.png) no-repeat 0px -128px;
+}
+
+.home_rating.r0_5 {
+    background: url(../img/rating.png) no-repeat 0px -144px;
+}
+
+.app_day_icon img {
+    width: 72px;
+    height: 72px;
+    border: 0;
+}
+
+.app_day_block {
+    border: 0;
+}
+
+.app_day_block_info {
+    width: 333px;
+}
+
+.app_day_block_name {
+    font-size: 16px;
+    font-weight: bold;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 333px;
+    white-space: nowrap;
+}
+
+.app_day_block_desc {
+    margin-bottom: 5px;
+    font-size: 12px;
+    width: 333px;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.app_day_button_wrap {
+    margin-bottom: 10px;
+}
+
+.home_change_button a {
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.home_change_button a:hover {
+    color: #e6e6e6;
+    text-decoration: none;
+}
+
+.home_change_button a:active {
+    color: #dadada;
+    text-decoration: none;
 }
 
 /* Я давно это мечтал сделать: переключение темы сайта. УРАаа*/

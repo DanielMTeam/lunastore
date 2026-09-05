@@ -35,9 +35,11 @@ from apps.analytics.reporting import (
 )
 from apps.analytics.services import (
     get_app_analytics,
+    get_app_of_the_day_id,
     get_collection_analytics,
     get_popular_apps,
     get_popular_collections,
+    get_similar_app_ids,
     is_enabled,
     ping,
     track_app_collection_add,
@@ -396,6 +398,66 @@ class AnalyticsReportingTests(SimpleTestCase):
                 self.assertEqual(len(popular), 1)
                 self.assertEqual(popular[0]["collection_id"], 5)
                 self.assertEqual(popular[0]["count"], 120)
+
+    def test_get_popular_apps_with_category(self) -> None:
+        mock_config = MagicMock()
+        mock_config.ANALYTICS_ENABLED = True
+        mock_client = MagicMock()
+        mock_client.query_rows.return_value = [(55, 10)]
+
+        with patch("constance.config", mock_config):
+            with patch("apps.analytics.client.get_analytics_client", return_value=mock_client):
+                popular = get_popular_apps(days=7, limit=5, category_id=3)
+                self.assertEqual(popular[0]["app_id"], 55)
+                call_kwargs = mock_client.query_rows.call_args
+                self.assertIn("category_id", call_kwargs[0][1])
+                self.assertEqual(call_kwargs[0][1]["category_id"], 3)
+
+    def test_get_app_of_the_day_id(self) -> None:
+        mock_config = MagicMock()
+        mock_config.ANALYTICS_ENABLED = True
+        mock_client = MagicMock()
+        mock_client.query_rows.return_value = [(42, 99)]
+        mock_cache = MagicMock()
+        mock_cache.get.return_value = None
+
+        with patch("constance.config", mock_config):
+            with patch("apps.analytics.client.get_analytics_client", return_value=mock_client):
+                with patch("django.core.cache.cache", mock_cache):
+                    app_id = get_app_of_the_day_id()
+        self.assertEqual(app_id, 42)
+        mock_cache.set.assert_called_once()
+
+    def test_get_similar_app_ids(self) -> None:
+        mock_config = MagicMock()
+        mock_config.ANALYTICS_ENABLED = True
+        mock_client = MagicMock()
+        mock_client.query_rows.side_effect = [
+            [(1,), (2,)],
+            [(10, 5), (11, 3)],
+        ]
+        mock_cache = MagicMock()
+        mock_cache.get.return_value = None
+
+        with patch("constance.config", mock_config):
+            with patch("apps.analytics.client.get_analytics_client", return_value=mock_client):
+                with patch("django.core.cache.cache", mock_cache):
+                    ids = get_similar_app_ids(7, limit=6)
+        self.assertEqual(ids, [10, 11])
+
+    def test_get_similar_app_ids_insufficient_history(self) -> None:
+        mock_config = MagicMock()
+        mock_config.ANALYTICS_ENABLED = True
+        mock_client = MagicMock()
+        mock_client.query_rows.return_value = [(1,)]
+        mock_cache = MagicMock()
+        mock_cache.get.return_value = None
+
+        with patch("constance.config", mock_config):
+            with patch("apps.analytics.client.get_analytics_client", return_value=mock_client):
+                with patch("django.core.cache.cache", mock_cache):
+                    ids = get_similar_app_ids(7, min_history=2)
+        self.assertEqual(ids, [])
 
 
 class ReportingHelpersTests(SimpleTestCase):
