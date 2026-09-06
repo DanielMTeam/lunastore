@@ -11,11 +11,9 @@ reveal.py
 ..env.swp
 .tolgeerc
 .venv
-AGENTS.md
 .pyc
 node_modules/
 package-lock.json
 .cursor/
-.agents/
 run-dev.ps1
 run-dev.cmd
