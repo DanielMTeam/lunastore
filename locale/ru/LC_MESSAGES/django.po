@@ -1950,6 +1950,9 @@ msgstr "Повторение - мать учения :D"
 msgid "PAGE_REGISTER_HELP_USERNAME"
 msgstr "Минимум 2 символа. По имени пользователя вас можно будет найти. После регистрации изменить его не получится."
 
+msgid "PAGE_REGISTER_HELP_CODE"
+msgstr "Оставьте поле пустым, если не имеете его"
+
 msgid "PAGE_REGISTER_INFO_SPLASH"
 msgstr "Создав аккаунт, вы сможете выкладывать свои приложения, оставлять отзывы к уже загруженным программам и вести собственную библиотеку избранных элементов. Регистрация открытая и бесплатная."
 
@@ -1964,6 +1967,9 @@ msgstr "Повторите пароль:"
 
 msgid "PAGE_REGISTER_LABEL_USERNAME"
 msgstr "Имя пользователя:"
+
+msgid "PAGE_REGISTER_LABEL_CODE"
+msgstr "Код приглашения:"
 
 msgid "PAGE_REGISTER_SECTION_CONFIRM"
 msgstr "Подтверждение регистрации"
