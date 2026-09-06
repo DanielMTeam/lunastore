@@ -1645,6 +1645,15 @@ msgstr "Чтобы продолжить данное действие, нужн�
 msgid "PAGE_LOGIN_SUBMIT_BTN"
 msgstr "Войти"
 
+msgid "PAGE_LOGIN_OR_DIVIDER"
+msgstr "или"
+
+msgid "PAGE_LOGIN_PASSPORT_BTN"
+msgstr "Войти через LunaPassport"
+
+msgid "PAGE_LOGIN_PASSPORT_PENDING_HINT"
+msgstr "Чтобы привязать LunaPassport, войдите в аккаунт LunaStore с этой почтой:"
+
 msgid "PAGE_LOGIN_USERNAME_LABEL"
 msgstr "Логин:"
 
@@ -2184,6 +2193,30 @@ msgstr "Удаление аккаунта"
 msgid "PAGE_SETTINGS_SECTION_PASSWORD"
 msgstr "Изменить пароль"
 
+msgid "PAGE_SETTINGS_PASSPORT_TITLE"
+msgstr "LunaPassport"
+
+msgid "PAGE_SETTINGS_PASSPORT_DESC"
+msgstr "Привяжите аккаунт LunaPassport, чтобы входить на LunaStore без пароля (через OAuth)."
+
+msgid "PAGE_SETTINGS_PASSPORT_LINKED_AS"
+msgstr "Привязан как:"
+
+msgid "PAGE_SETTINGS_PASSPORT_LINK"
+msgstr "Привязать LunaPassport"
+
+msgid "PAGE_SETTINGS_PASSPORT_UNLINK"
+msgstr "Отвязать"
+
+msgid "PAGE_SETTINGS_PASSPORT_UNLINK_NEED_PASSWORD"
+msgstr "Сначала задайте пароль аккаунта, затем можно отвязать LunaPassport."
+
+msgid "PAGE_SETTINGS_PASSPORT_PENDING"
+msgstr "Ожидает подтверждения привязки для:"
+
+msgid "PAGE_SETTINGS_PASSPORT_CONFIRM"
+msgstr "Подтвердить привязку"
+
 msgid "PAGE_SETTINGS_SECTION_PRIVACY"
 msgstr "Приватность"
 
@@ -2261,6 +2294,54 @@ msgstr "Неверный логин или пароль."
 
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "Вход выполнен успешно! Привет, %(username)s!"
+
+msgid "VIEW_PASSPORT_OAUTH_DENIED"
+msgstr "LunaPassport отклонил вход: %(detail)s"
+
+msgid "VIEW_PASSPORT_STATE_MISMATCH"
+msgstr "Ошибка безопасности OAuth (state). Попробуйте снова."
+
+msgid "VIEW_PASSPORT_TOKEN_FAILED"
+msgstr "Не удалось завершить вход через LunaPassport. Попробуйте позже."
+
+msgid "VIEW_PASSPORT_LINK_LOGIN_REQUIRED"
+msgstr "Чтобы привязать LunaPassport, сначала войдите в аккаунт."
+
+msgid "VIEW_PASSPORT_SUB_TAKEN"
+msgstr "Этот LunaPassport уже привязан к другому аккаунту LunaStore."
+
+msgid "VIEW_PASSPORT_ALREADY_LINKED_OTHER"
+msgstr "К вашему аккаунту уже привязан другой LunaPassport."
+
+msgid "VIEW_PASSPORT_LINKED_OK"
+msgstr "LunaPassport успешно привязан."
+
+msgid "VIEW_PASSPORT_EMAIL_EXISTS_LOGIN"
+msgstr "Аккаунт с этой почтой уже есть. Войдите в него, чтобы подтвердить привязку LunaPassport."
+
+msgid "VIEW_PASSPORT_INVITES_REQUIRED"
+msgstr "Регистрация только по приглашениям. Войдите в существующий аккаунт и привяжите LunaPassport в настройках."
+
+msgid "VIEW_PASSPORT_REGISTER_BLOCKED"
+msgstr "Не удалось создать аккаунт через LunaPassport."
+
+msgid "VIEW_PASSPORT_NEED_ACCOUNT"
+msgstr "Войдите или зарегистрируйтесь, затем привяжите LunaPassport в настройках безопасности."
+
+msgid "VIEW_PASSPORT_NOT_LINKED"
+msgstr "LunaPassport не привязан."
+
+msgid "VIEW_PASSPORT_UNLINK_NEED_PASSWORD"
+msgstr "Нельзя отвязать LunaPassport, пока у аккаунта нет пароля. Сначала задайте пароль."
+
+msgid "VIEW_PASSPORT_UNLINKED_OK"
+msgstr "LunaPassport отвязан."
+
+msgid "VIEW_PASSPORT_NO_PENDING"
+msgstr "Нет ожидающей привязки LunaPassport."
+
+msgid "VIEW_PASSPORT_EMAIL_MISMATCH"
+msgstr "Почта LunaPassport не совпадает с почтой аккаунта LunaStore. Привязка отменена."
 
 msgid "%(counter)s PAGE_COLLECTION_APPS_ONE"
 msgid_plural "%(counter)s PAGE_COLLECTION_APPS_MANY"

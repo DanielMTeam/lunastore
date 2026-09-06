@@ -113,6 +113,12 @@ jobs:
           OIDC_JWKS_ENDPOINT=
           LOGIN_REDIRECT_URL=/
           LOGOUT_REDIRECT_URL=/login.php
+          LUNAPASSPORT_ENABLED=False
+          LUNAPASSPORT_BASE_URL=
+          LUNAPASSPORT_CLIENT_ID=
+          LUNAPASSPORT_CLIENT_SECRET=
+          LUNAPASSPORT_REDIRECT_URI=
+          LUNAPASSPORT_AUTO_REGISTER=False
           EOF
           fi
 
@@ -154,6 +160,12 @@ jobs:
           OIDC_JWKS_ENDPOINT: ""
           LOGIN_REDIRECT_URL: /
           LOGOUT_REDIRECT_URL: /login.php
+          LUNAPASSPORT_ENABLED: "False"
+          LUNAPASSPORT_BASE_URL: ""
+          LUNAPASSPORT_CLIENT_ID: ""
+          LUNAPASSPORT_CLIENT_SECRET: ""
+          LUNAPASSPORT_REDIRECT_URI: ""
+          LUNAPASSPORT_AUTO_REGISTER: "False"
         run: |
           python manage.py test --noinput --keepdb
 

@@ -18,6 +18,7 @@ from .models import (
     BlacklistedUsername,
     DevRequestsModel,
     InviteToken,
+    LunaPassportLink,
     NoSpamEvent,
     NoSpamRule,
     User,
@@ -540,3 +541,12 @@ class NoSpamEventAdmin(unfold_admin.ModelAdmin):
 
     def has_add_permission(self, request):
         return False
+
+
+@admin.register(LunaPassportLink)
+class LunaPassportLinkAdmin(SafeDeleteAdmin):
+    list_display = ("id", "user", "sign_in", "passport_name", "sub", "linked_at")
+    search_fields = ("sub", "sign_in", "passport_name", "user__username", "user__email")
+    list_filter = SafeDeleteAdmin.list_filter + ["linked_at"]
+    readonly_fields = ("linked_at",)
+    raw_id_fields = ("user",)
