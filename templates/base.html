@@ -168,6 +168,7 @@
                         </a></li>
                         {% endif %}
                         <li><a class="collections" {% if route == 'collections' %}id="active" {% endif %} href="{% url 'collections' %}">{% trans "BASE_SIDEBAR_ACCOUNT_COLLECTIONS" %}</a></li>
+                        <li><a class="lunastore" {% if route == 'help_center' and request.GET.page == 'client' %}id="active" {% endif %} href="/help_center.php?page=client">LunaStore Integration</a></li>
                     </ul>
                     {% endwith %}
                 </div>

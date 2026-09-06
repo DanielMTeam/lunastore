@@ -2605,3 +2605,29 @@ msgstr "В целях безопасности"
 msgid "PAGE_SECURITY_WARN_NEW_SESSION_DESC"
 msgstr "смена пароля и привязанной почты недоступна для новых устройств (менее 24 часов)."
 
+msgid "PAGE_CLIENT_PAGETITLE"
+msgstr "LunaStore Integration - Приложения"
+
+msgid "PAGE_CLIENT_TITLE"
+msgstr "Интегрируйте LunaStore в свой Windows"
+
+msgid "PAGE_CLIENT_DESC_1"
+msgstr "<b>Адаптация</b> устаревших ссылок каталога Windows"
+
+msgid "PAGE_CLIENT_DESC_2"
+msgstr "<b>Быстрый поиск</b> приложения в каталоге"
+
+msgid "PAGE_CLIENT_DESC_2_1"
+msgstr "(в два клика, мы проверили)"
+
+msgid "PAGE_CLIENT_DESC_3"
+msgstr "...и <b>многое другое</b>"
+
+msgid "PAGE_CLIENT_DESC_3_1"
+msgstr "(в будущем)"
+
+msgid "PAGE_CLIENT_DISCLAIMER"
+msgstr "Предназначено для Microsoft Windows XP. Размер файла: 640 Кб. Дополнение не собирает аналитические данные.<br>Данное ПО предоставляется \"как есть\" и его установка из официальных источников <b>сугубо добровольна</b>. Доступно на русском и английском языках."
+
+msgid "PAGE_CLIENT_BTN_INSTALL"
+msgstr "Установить"

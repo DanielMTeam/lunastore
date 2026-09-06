@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans 'PAGE_CLIENT_PAGETITLE' %} - LunaStore{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static './css/client.css'%}">
+<div class="content">
+    <div class="promo_block">{% trans 'PAGE_CLIENT_TITLE' %}</div>
+        <div class="wrapper">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" id="table1">
+            <tr>
+            <td>
+                <div class="cl1_1">
+                <div class="intro_pos_one">
+                <div class="introtext">{% trans 'PAGE_CLIENT_DESC_1' %}</div>
+                </div>
+            </div>
+            </td>
+
+            <td>
+                <div class="cl1_2">
+                <div class="intro_pos_two">
+                <div class="introtext">{% trans 'PAGE_CLIENT_DESC_2' %}<br><small>{% trans 'PAGE_CLIENT_DESC_2_1' %}</small></div>
+                </div>
+                </div>
+            </td>
+
+            </tr>
+            <tr>
+            <td>
+                <div class="cl2_1">
+                <div class="intro_pos_three">
+                    <div class="introtext">{% trans 'PAGE_CLIENT_DESC_3' %}<br><small>{% trans 'PAGE_CLIENT_DESC_3_1' %}</small></div>
+                </div>
+                </div>
+            </td>
+
+            <td>
+                <div class="cl2_2">
+                <div class="intro_pos_four">
+                <div class="dwnldtext">
+                    <a id="dwnlnk" href="/download.php?id=111">
+                        <div class="downloadbtn">
+                        <div class="downloadbtntext">{% trans 'PAGE_CLIENT_BTN_INSTALL' %}</div>
+                        </div>
+                    </a>
+                </div>
+                </div>
+
+                </div>
+            </td>
+
+            </tr>
+        </table>
+
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" id="table2">
+            <tr>
+            <td><div class="cl_bottom"></div></td>
+            </tr>
+        </table>
+
+        <div class="disclaimer">
+            <table border="0" width="100%">
+            <tr>
+                <td>{% trans 'PAGE_CLIENT_DISCLAIMER' %}</td>
+            </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
