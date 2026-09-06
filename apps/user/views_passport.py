@@ -389,28 +389,23 @@ def passport_callback(request):
 
 @ratelimit(key=get_real_ip, rate="30/10m", block=True)
 def _passport_callback_inner(request):
-    expected_state, intent, next_url = passport.pop_oauth_session(request)
+    returned_state = request.GET.get("state") or ""
     error = request.GET.get("error")
+    code = request.GET.get("code")
+
+    intent, next_url = passport.consume_oauth_state(request, returned_state)
+
     if error:
         desc = request.GET.get("error_description") or error
         messages.error(
             request,
             _("VIEW_PASSPORT_OAUTH_DENIED") % {"detail": desc},
         )
-        return redirect("settings_security" if intent == passport.INTENT_LINK else "login")
+        return redirect(
+            "settings_security" if intent == passport.INTENT_LINK else "login"
+        )
 
-    state = request.GET.get("state") or ""
-    code = request.GET.get("code")
-    if (
-        not expected_state
-        or not state
-        or not code
-        or not secrets.compare_digest(str(expected_state), str(state))
-    ):
-        messages.error(request, _("VIEW_PASSPORT_STATE_MISMATCH"))
-        return redirect("login")
-
-    if intent not in (passport.INTENT_LOGIN, passport.INTENT_LINK):
+    if not intent or not code:
         messages.error(request, _("VIEW_PASSPORT_STATE_MISMATCH"))
         return redirect("login")
 

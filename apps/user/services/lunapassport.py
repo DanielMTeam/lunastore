@@ -11,6 +11,7 @@ from urllib.parse import urlencode, urlparse
 
 import requests
 from constance import config
+from django.core.cache import cache
 from django.http import HttpRequest
 
 logger = logging.getLogger(__name__)
@@ -26,6 +27,8 @@ INTENT_LOGIN = "login"
 INTENT_LINK = "link"
 
 _HTTP_TIMEOUT = 15
+_OAUTH_STATE_TTL = 600
+_OAUTH_STATE_CACHE_PREFIX = "lunapassport_oauth_state:"
 _BLOCKED_HOSTS = frozenset({
     "metadata.google.internal",
     "metadata",
@@ -109,7 +112,8 @@ def revoke_url() -> str:
 
 
 def redirect_uri() -> str:
-    return _cfg("LUNAPASSPORT_REDIRECT_URI")
+    # env overrides constance — avoids stale redis value after .env edit
+    return _secret_cfg("LUNAPASSPORT_REDIRECT_URI")
 
 
 def client_id() -> str:
@@ -121,7 +125,12 @@ def client_secret() -> str:
 
 
 def create_state() -> str:
-    return secrets.token_urlsafe(24)
+    # hex only — avoids +/= URL decoding quirks in browsers / proxies
+    return secrets.token_hex(24)
+
+
+def _state_cache_key(state: str) -> str:
+    return f"{_OAUTH_STATE_CACHE_PREFIX}{state}"
 
 
 def store_oauth_session(
@@ -131,19 +140,57 @@ def store_oauth_session(
     intent: str,
     next_url: str | None = None,
 ) -> None:
+    payload = {
+        "intent": intent,
+        "next_url": next_url or "",
+    }
+    # redis/cache survives lost session cookies after https IdP → http app
+    cache.set(_state_cache_key(state), payload, timeout=_OAUTH_STATE_TTL)
+
     request.session[SESSION_STATE_KEY] = state
     request.session[SESSION_INTENT_KEY] = intent
     if next_url:
         request.session[SESSION_NEXT_KEY] = next_url
     else:
         request.session.pop(SESSION_NEXT_KEY, None)
+    request.session.modified = True
+    request.session.save()
 
 
-def pop_oauth_session(request: HttpRequest) -> tuple[str | None, str | None, str | None]:
-    state = request.session.pop(SESSION_STATE_KEY, None)
-    intent = request.session.pop(SESSION_INTENT_KEY, None)
-    next_url = request.session.pop(SESSION_NEXT_KEY, None)
-    return state, intent, next_url
+def consume_oauth_state(
+    request: HttpRequest,
+    returned_state: str,
+) -> tuple[str | None, str | None]:
+    # returns (intent, next_url) or (None, None) on failure
+    returned_state = (returned_state or "").strip()
+    if not returned_state:
+        return None, None
+
+    cached = cache.get(_state_cache_key(returned_state))
+    session_state = request.session.get(SESSION_STATE_KEY)
+
+    # prefer cache (works even if session cookie was dropped)
+    if isinstance(cached, dict):
+        cache.delete(_state_cache_key(returned_state))
+        request.session.pop(SESSION_STATE_KEY, None)
+        request.session.pop(SESSION_INTENT_KEY, None)
+        next_url = request.session.pop(SESSION_NEXT_KEY, None) or cached.get("next_url") or None
+        intent = cached.get("intent")
+        if intent in (INTENT_LOGIN, INTENT_LINK):
+            return intent, next_url or None
+        return None, None
+
+    # fallback: session-only (older in-flight flows)
+    if (
+        session_state
+        and secrets.compare_digest(str(session_state), returned_state)
+    ):
+        intent = request.session.pop(SESSION_INTENT_KEY, None)
+        next_url = request.session.pop(SESSION_NEXT_KEY, None)
+        request.session.pop(SESSION_STATE_KEY, None)
+        if intent in (INTENT_LOGIN, INTENT_LINK):
+            return intent, next_url
+    return None, None
 
 
 def store_pending_link(
@@ -153,6 +200,7 @@ def store_pending_link(
     request.session[SESSION_PENDING_SUB] = profile.sub
     request.session[SESSION_PENDING_SIGN_IN] = profile.sign_in
     request.session[SESSION_PENDING_NAME] = profile.passport_name
+    request.session.modified = True
 
 
 def get_pending_profile(request: HttpRequest) -> PassportProfile | None:
