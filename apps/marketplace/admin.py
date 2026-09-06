@@ -678,7 +678,17 @@ class DistributionEditRequestAdmin(
 
 @admin.register(Category)
 class CategoryAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
-    pass
+    list_display = ("name", "icon", "is_admin_only", "banner_filename")
+    search_fields = ("name",)
+
+
+@admin.register(HomeCategoryBlock)
+class HomeCategoryBlockAdmin(unfold_admin.ModelAdmin):
+    list_display = ("category", "sort_order", "is_enabled", "apps_limit")
+    list_editable = ("sort_order", "is_enabled", "apps_limit")
+    list_filter = ("is_enabled",)
+    autocomplete_fields = ("category",)
+    ordering = ("sort_order", "id")
 
 
 class BadgeAdminForm(forms.ModelForm):

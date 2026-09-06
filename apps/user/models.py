@@ -48,6 +48,18 @@ class User(AbstractUser, SafeDeleteModel):
     totp_secret = models.CharField(max_length=32, null=True, blank=True)
     totp_enabled = models.BooleanField(default=False)
     last_username_change = models.DateTimeField(null=True, blank=True)
+    HOME_LAYOUT_RICH = "rich"
+    HOME_LAYOUT_COMPACT = "compact"
+    HOME_LAYOUT_CHOICES = (
+        (HOME_LAYOUT_RICH, "Содержательная"),
+        (HOME_LAYOUT_COMPACT, "Сокращённая"),
+    )
+    home_layout = models.CharField(
+        max_length=16,
+        choices=HOME_LAYOUT_CHOICES,
+        default=HOME_LAYOUT_RICH,
+        verbose_name="Вид главной страницы",
+    )
 
     @property
     def avatar_url(self) -> str:

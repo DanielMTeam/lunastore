@@ -776,6 +776,7 @@ def get_popular_apps(
     days: int = 7,
     limit: int = 10,
     event_type: str = "view",
+    category_id: Optional[int] = None,
 ) -> list[dict[str, Any]]:
     # get top application ids by event count over time
     if not is_enabled():
@@ -785,23 +786,173 @@ def get_popular_apps(
 
     try:
         client = get_analytics_client(force_enabled=True)
-        query = """
+        category_clause = ""
+        params: dict[str, Any] = {
+            "event_type": str(event_type),
+            "days": int(days),
+            "limit": int(limit),
+        }
+        if category_id is not None:
+            category_clause = "AND category_id = %(category_id)s"
+            params["category_id"] = int(category_id)
+        query = f"""
             SELECT app_id, count() AS cnt
             FROM analytics_app_events
             WHERE event_type = %(event_type)s
               AND event_time >= now() - toIntervalDay(%(days)s)
+              {category_clause}
+            GROUP BY app_id
+            ORDER BY cnt DESC
+            LIMIT %(limit)s
+        """
+        rows = client.query_rows(query, params)
+        return [{"app_id": int(r[0]), "count": int(r[1])} for r in rows]
+    except Exception as exc:
+        report_analytics_error(exc, "get_popular_apps failed")
+        return []
+
+
+def get_app_of_the_day_id(
+    *,
+    hours: int = 24,
+    event_type: str = "download",
+    cache_ttl: int = 3600,
+) -> Optional[int]:
+    # top app by downloads in the last N hours (cached)
+    if not is_enabled():
+        return None
+
+    cache_key = f"analytics:app_of_day:{event_type}:{hours}"
+    try:
+        from django.core.cache import cache
+
+        cached = cache.get(cache_key)
+        if cached is not None:
+            return int(cached) if cached else None
+    except Exception:
+        logger.debug("app_of_the_day cache get failed", exc_info=True)
+
+    from apps.analytics.client import get_analytics_client
+
+    app_id: Optional[int] = None
+    try:
+        client = get_analytics_client(force_enabled=True)
+        query = """
+            SELECT app_id, count() AS cnt
+            FROM analytics_app_events
+            WHERE event_type = %(event_type)s
+              AND event_time >= now() - toIntervalHour(%(hours)s)
+            GROUP BY app_id
+            ORDER BY cnt DESC
+            LIMIT 1
+        """
+        rows = client.query_rows(
+            query,
+            {"event_type": str(event_type), "hours": int(hours)},
+        )
+        if rows:
+            app_id = int(rows[0][0])
+    except Exception as exc:
+        report_analytics_error(exc, "get_app_of_the_day_id failed")
+        return None
+
+    try:
+        from django.core.cache import cache
+
+        cache.set(cache_key, app_id or 0, timeout=cache_ttl)
+    except Exception:
+        logger.debug("app_of_the_day cache set failed", exc_info=True)
+
+    return app_id
+
+
+def get_similar_app_ids(
+    user_id: int,
+    *,
+    days: int = 90,
+    limit: int = 6,
+    min_history: int = 2,
+    cache_ttl: int = 1800,
+) -> list[int]:
+    # item-item CF: users who viewed/downloaded same apps → their other apps
+    if not is_enabled() or not user_id:
+        return []
+
+    cache_key = f"analytics:similar:{user_id}:{days}:{limit}"
+    try:
+        from django.core.cache import cache
+
+        cached = cache.get(cache_key)
+        if cached is not None:
+            return [int(x) for x in cached]
+    except Exception:
+        logger.debug("similar_apps cache get failed", exc_info=True)
+
+    from apps.analytics.client import get_analytics_client
+
+    result: list[int] = []
+    try:
+        client = get_analytics_client(force_enabled=True)
+        # seed apps the user interacted with
+        seed_query = """
+            SELECT DISTINCT app_id
+            FROM analytics_app_events
+            WHERE user_id = %(user_id)s
+              AND event_type IN ('view', 'download')
+              AND event_time >= now() - toIntervalDay(%(days)s)
+            LIMIT 50
+        """
+        seed_rows = client.query_rows(
+            seed_query,
+            {"user_id": int(user_id), "days": int(days)},
+        )
+        seed_ids = [int(r[0]) for r in seed_rows if r and r[0]]
+        if len(seed_ids) < min_history:
+            return []
+
+        similar_query = """
+            SELECT app_id, count() AS cnt
+            FROM analytics_app_events
+            WHERE event_type IN ('view', 'download')
+              AND event_time >= now() - toIntervalDay(%(days)s)
+              AND user_id IS NOT NULL
+              AND user_id != %(user_id)s
+              AND user_id IN (
+                  SELECT DISTINCT user_id
+                  FROM analytics_app_events
+                  WHERE user_id IS NOT NULL
+                    AND user_id != %(user_id)s
+                    AND event_type IN ('view', 'download')
+                    AND event_time >= now() - toIntervalDay(%(days)s)
+                    AND app_id IN %(seed_ids)s
+              )
+              AND app_id NOT IN %(seed_ids)s
             GROUP BY app_id
             ORDER BY cnt DESC
             LIMIT %(limit)s
         """
         rows = client.query_rows(
-            query,
-            {"event_type": str(event_type), "days": int(days), "limit": int(limit)},
+            similar_query,
+            {
+                "user_id": int(user_id),
+                "days": int(days),
+                "seed_ids": seed_ids,
+                "limit": int(limit),
+            },
         )
-        return [{"app_id": int(r[0]), "count": int(r[1])} for r in rows]
+        result = [int(r[0]) for r in rows if r and r[0]]
     except Exception as exc:
-        report_analytics_error(exc, "get_popular_apps failed")
+        report_analytics_error(exc, "get_similar_app_ids failed")
         return []
+
+    try:
+        from django.core.cache import cache
+
+        cache.set(cache_key, result, timeout=cache_ttl)
+    except Exception:
+        logger.debug("similar_apps cache set failed", exc_info=True)
+
+    return result
 
 
 def get_popular_collections(

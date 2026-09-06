@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "PAGE_SETTINGS_HTML_TITLE" %} - LunaStore{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static './css/settings.css'%}">
+<link rel="stylesheet" href="{% static './css/profile.css'%}">
+<link rel="stylesheet" href="{% static './css/tabs.css'%}">
+
+<div class="content">
+    <div class="preferences">
+        <div class="preferences_info">
+            <div class="preferences_title">{% trans "PAGE_SETTINGS_TITLE" %}</div>
+            <div style="clear: both"></div>
+        </div>
+    </div>
+
+    <div class="tabs">
+        {% include "includes/settings_tabs.html" with active_tab="ui" %}
+
+        <div class="tab-content" id="tab-view">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="profile_block">{% trans "PAGE_SETTINGS_HOME_LAYOUT_TITLE" %}</div>
+                <div class="profile_block_content">
+                    {% trans "PAGE_SETTINGS_HOME_LAYOUT_INFO" %}
+                    <br><br>
+
+                    <table class="design_main_switch" border="0" width="100%" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td align="center">
+                                <div class="design_switch_pic">
+                                    <img src="{% static './img/home_view_1.png' %}" alt="" width="180" height="135">
+                                </div>
+                                <label class="design_switch_select">
+                                    <input type="radio" name="home_view" value="{{ HOME_LAYOUT_RICH }}"{% if home_layout == HOME_LAYOUT_RICH %} checked{% endif %}>
+                                    {% trans "PAGE_SETTINGS_HOME_LAYOUT_RICH" %}
+                                </label>
+                            </td>
+                            <td align="center">
+                                <div class="design_switch_pic">
+                                    <img src="{% static './img/home_view_2.png' %}" alt="" width="180" height="135">
+                                </div>
+                                <label class="design_switch_select">
+                                    <input type="radio" name="home_view" value="{{ HOME_LAYOUT_COMPACT }}"{% if home_layout == HOME_LAYOUT_COMPACT %} checked{% endif %}>
+                                    {% trans "PAGE_SETTINGS_HOME_LAYOUT_COMPACT" %}
+                                </label>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <br><br>
+                    <input type="submit" class="action_button" value="{% trans 'PAGE_SETTINGS_BTN_SAVE' %}">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

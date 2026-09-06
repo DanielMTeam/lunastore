@@ -63,8 +63,69 @@ def home_redirect(request):
 
 # home page
 def marketplace(request):
-    categories = Category.objects.all()
-    return render(request, "index.html", {"categories": categories})
+    from apps.marketplace.services.home import (
+        HOME_LAYOUT_COMPACT,
+        HOME_LAYOUT_RICH,
+        build_rich_home_context,
+        resolve_home_layout,
+    )
+
+    layout = resolve_home_layout(request)
+    if layout == HOME_LAYOUT_COMPACT:
+        categories = Category.objects.all()
+        return render(
+            request,
+            "index.html",
+            {"categories": categories, "home_layout": HOME_LAYOUT_COMPACT},
+        )
+    context = build_rich_home_context(request)
+    return render(request, "index_rich.html", context)
+
+
+def store_listing(request):
+    # store.php?show=top — monthly popular apps listing
+    valid_shows = frozenset({"top", "new"})
+    valid_views = frozenset({"tiles", "list"})
+    show = request.GET.get("show", "top")
+    if show not in valid_shows:
+        show = "top"
+    page = request.GET.get("page")
+    view_mode = request.GET.get("view", "tiles")
+    if view_mode not in valid_views:
+        view_mode = "tiles"
+
+    from apps.analytics.services import get_popular_apps
+    from apps.marketplace.services.home import hydrate_apps_by_ids, public_apps_qs
+
+    if show == "top":
+        popular = get_popular_apps(days=30, limit=100, event_type="download")
+        popular_ids = [item["app_id"] for item in popular]
+        apps = hydrate_apps_by_ids(popular_ids)
+        if not apps:
+            apps = list(public_apps_qs().order_by("-published")[:50])
+        title = _("INDEX_MONTHLY_TOP_TITLE")
+        description = _("INDEX_MONTHLY_TOP_DESC")
+    else:
+        apps = list(public_apps_qs().order_by("-published")[:50])
+        title = _("INDEX_STORE_LISTING_TITLE")
+        description = ""
+
+    paginator = Paginator(apps, 10)
+    page_obj = paginator.get_page(page)
+    page_range = paginator.get_elided_page_range(
+        number=page_obj.number, on_each_side=2, on_ends=1
+    )
+    context = {
+        "page_obj": page_obj,
+        "page_range": page_range,
+        "name": title,
+        "description": description,
+        "view_mode": view_mode,
+        "count": len(apps),
+        "show": show,
+        "active_category": None,
+    }
+    return render(request, "store_listing.html", context)
 
 
 def category(request):
@@ -801,8 +862,14 @@ def get_file_action(request, dist_pk):
         if not request.user.is_authenticated or app.user_id != request.user.id:
             raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
 
-    # track download analytics
-    track_app_download(request, app_id=app.pk, distribution_id=dist.pk)
+    # track download analytics (first category for CH category filters)
+    first_cat_id = app.categories.values_list("id", flat=True).first()
+    track_app_download(
+        request,
+        app_id=app.pk,
+        distribution_id=dist.pk,
+        category_id=first_cat_id,
+    )
 
     if dist.cdn_file_id:
         payload = {

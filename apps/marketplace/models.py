@@ -734,3 +734,36 @@ class CollectionFavorite(models.Model):
 
     def __str__(self) -> str:
         return f"{self.user_id}:{self.collection_id}"
+
+
+# configurable category section on the rich homepage
+class HomeCategoryBlock(models.Model):
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.CASCADE,
+        related_name="home_blocks",
+        verbose_name="Категория",
+    )
+    sort_order = models.PositiveIntegerField(
+        default=0,
+        verbose_name="Порядок",
+        help_text="Меньше значение — выше на главной",
+    )
+    is_enabled = models.BooleanField(default=True, verbose_name="Включён")
+    apps_limit = models.PositiveSmallIntegerField(
+        default=4,
+        verbose_name="Кол-во приложений",
+        help_text="Сколько карточек показывать в блоке (макс. 24)",
+        validators=[
+            MinValueValidator(1),
+            MaxValueValidator(24),
+        ],
+    )
+
+    class Meta:
+        verbose_name = "Блок категории на главной"
+        verbose_name_plural = "Блоки категорий на главной"
+        ordering = ["sort_order", "id"]
+
+    def __str__(self) -> str:
+        return f"{self.category} (#{self.sort_order})"
