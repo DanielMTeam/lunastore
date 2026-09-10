@@ -43,6 +43,46 @@
                 </a>
             </div>
             <br>
+
+            {% if lunapassport_enabled %}
+            <div class="profile_block">{% trans "PAGE_SETTINGS_PASSPORT_TITLE" %}</div>
+            <div class="profile_block_content">
+                <div class="pref_pad">{% trans "PAGE_SETTINGS_PASSPORT_DESC" %}</div>
+                {% if passport_link %}
+                <div class="pref_pad">
+                    <strong>{% trans "PAGE_SETTINGS_PASSPORT_LINKED_AS" %}</strong>
+                    {{ passport_link.sign_in }}
+                    {% if passport_link.passport_name %}
+                    ({{ passport_link.passport_name }})
+                    {% endif %}
+                </div>
+                {% if has_usable_password %}
+                <form method="post" action="{% url 'passport_unlink' %}" style="margin: 10px 0;">
+                    {% csrf_token %}
+                    <input type="submit" class="action_button" style="background-color: #8B0000; color: #fff; border: none; cursor: pointer;"
+                           value="{% trans 'PAGE_SETTINGS_PASSPORT_UNLINK' %}" />
+                </form>
+                {% else %}
+                <div class="info_splash">{% trans "PAGE_SETTINGS_PASSPORT_UNLINK_NEED_PASSWORD" %}</div>
+                {% endif %}
+                {% else %}
+                <a href="{% url 'passport_link' %}" class="action_button" style="display: inline-block; text-decoration: none; margin-top: 10px;">
+                    {% trans "PAGE_SETTINGS_PASSPORT_LINK" %}
+                </a>
+                {% endif %}
+                {% if pending_passport %}
+                <div class="info_splash" style="margin-top: 12px;">
+                    {% trans "PAGE_SETTINGS_PASSPORT_PENDING" %}
+                    {{ pending_passport.sign_in }}
+                    <form method="post" action="{% url 'passport_confirm_pending' %}" style="margin-top: 8px;">
+                        {% csrf_token %}
+                        <input type="submit" class="action_button" value="{% trans 'PAGE_SETTINGS_PASSPORT_CONFIRM' %}" />
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+            <br>
+            {% endif %}
             
             <div class="profile_block">{% trans "PAGE_SETTINGS_SECTION_ACTIVE_SESSIONS" %}</div>
             <div class="profile_block_content">

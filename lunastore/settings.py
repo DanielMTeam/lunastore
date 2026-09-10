@@ -702,6 +702,37 @@ CONSTANCE_CONFIG = {
         "Разрешить модераторам входить от имени других пользователей",
         bool,
     ),
+    # -- LunaPassport OAuth (runtime) --
+    "LUNAPASSPORT_ENABLED": (
+        os.getenv("LUNAPASSPORT_ENABLED", "False") == "True",
+        "Включить вход и привязку через LunaPassport OAuth2",
+        bool,
+    ),
+    "LUNAPASSPORT_BASE_URL": (
+        os.getenv("LUNAPASSPORT_BASE_URL", ""),
+        "Базовый URL LunaPassport (только http/https, без userinfo; env перекрывает Constance)",
+        str,
+    ),
+    "LUNAPASSPORT_CLIENT_ID": (
+        os.getenv("LUNAPASSPORT_CLIENT_ID", ""),
+        "OAuth client_id приложения LunaPassport (env перекрывает Constance)",
+        str,
+    ),
+    "LUNAPASSPORT_CLIENT_SECRET": (
+        os.getenv("LUNAPASSPORT_CLIENT_SECRET", ""),
+        "OAuth client_secret (лучше держать в .env; env перекрывает Constance)",
+        str,
+    ),
+    "LUNAPASSPORT_REDIRECT_URI": (
+        os.getenv("LUNAPASSPORT_REDIRECT_URI", ""),
+        "Точный redirect_uri (байт в байт), зарегистрированный в /partners",
+        str,
+    ),
+    "LUNAPASSPORT_AUTO_REGISTER": (
+        os.getenv("LUNAPASSPORT_AUTO_REGISTER", "False") == "True",
+        "Создавать аккаунт LunaStore при первом входе через Passport (если регистрация включена)",
+        bool,
+    ),
 }
 
 CONSTANCE_CONFIG_FIELDSETS = {
@@ -709,6 +740,17 @@ CONSTANCE_CONFIG_FIELDSETS = {
         "fields": [
             "REGISTRATION_IS_ENABLED",
             "DEVELOPER_REGISTRATION_IS_ENABLED",
+        ],
+        "collapse": True,
+    },
+    "LunaPassport OAuth": {
+        "fields": [
+            "LUNAPASSPORT_ENABLED",
+            "LUNAPASSPORT_BASE_URL",
+            "LUNAPASSPORT_CLIENT_ID",
+            "LUNAPASSPORT_CLIENT_SECRET",
+            "LUNAPASSPORT_REDIRECT_URI",
+            "LUNAPASSPORT_AUTO_REGISTER",
         ],
         "collapse": True,
     },
@@ -1195,6 +1237,7 @@ TEMPLATES = [
                 "django.template.context_processors.i18n",
                 "apps.core.context_processors.random_banner",
                 "apps.core.context_processors.drm_settings",
+                "apps.core.context_processors.lunapassport_settings",
                 "apps.core.context_processors.geo_domains_processor",
                 "apps.core.context_processors.notification_context",
             ],

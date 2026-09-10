@@ -1640,6 +1640,15 @@ msgstr "You need to sign in to continue this action"
 msgid "PAGE_LOGIN_SUBMIT_BTN"
 msgstr "Sign in"
 
+msgid "PAGE_LOGIN_OR_DIVIDER"
+msgstr "or"
+
+msgid "PAGE_LOGIN_PASSPORT_BTN"
+msgstr "Sign in with LunaPassport"
+
+msgid "PAGE_LOGIN_PASSPORT_PENDING_HINT"
+msgstr "To link LunaPassport, sign in to the LunaStore account for:"
+
 msgid "PAGE_LOGIN_USERNAME_LABEL"
 msgstr "Username:"
 
@@ -2180,6 +2189,30 @@ msgstr "Delete account"
 msgid "PAGE_SETTINGS_SECTION_PASSWORD"
 msgstr "Change password"
 
+msgid "PAGE_SETTINGS_PASSPORT_TITLE"
+msgstr "LunaPassport"
+
+msgid "PAGE_SETTINGS_PASSPORT_DESC"
+msgstr "Link your LunaPassport account to sign in to LunaStore via OAuth."
+
+msgid "PAGE_SETTINGS_PASSPORT_LINKED_AS"
+msgstr "Linked as:"
+
+msgid "PAGE_SETTINGS_PASSPORT_LINK"
+msgstr "Link LunaPassport"
+
+msgid "PAGE_SETTINGS_PASSPORT_UNLINK"
+msgstr "Unlink"
+
+msgid "PAGE_SETTINGS_PASSPORT_UNLINK_NEED_PASSWORD"
+msgstr "Set an account password before unlinking LunaPassport."
+
+msgid "PAGE_SETTINGS_PASSPORT_PENDING"
+msgstr "Pending link confirmation for:"
+
+msgid "PAGE_SETTINGS_PASSPORT_CONFIRM"
+msgstr "Confirm link"
+
 msgid "PAGE_SETTINGS_SECTION_PRIVACY"
 msgstr "Privacy"
 
@@ -2257,6 +2290,57 @@ msgstr "Incorrect username or password."
 
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "Login successful! Welcome, %(username)s!"
+
+msgid "VIEW_PASSPORT_OAUTH_DENIED"
+msgstr "LunaPassport denied sign-in: %(detail)s"
+
+msgid "VIEW_PASSPORT_STATE_MISMATCH"
+msgstr "OAuth security check failed (state). Please try again."
+
+msgid "VIEW_PASSPORT_TOKEN_FAILED"
+msgstr "Could not complete LunaPassport sign-in. Try again later."
+
+msgid "VIEW_PASSPORT_LINK_LOGIN_REQUIRED"
+msgstr "Sign in first to link LunaPassport."
+
+msgid "VIEW_PASSPORT_SUB_TAKEN"
+msgstr "This LunaPassport is already linked to another LunaStore account."
+
+msgid "VIEW_PASSPORT_ALREADY_LINKED_OTHER"
+msgstr "Your account already has a different LunaPassport linked."
+
+msgid "VIEW_PASSPORT_LINKED_OK"
+msgstr "LunaPassport linked successfully."
+
+msgid "VIEW_PASSPORT_EMAIL_EXISTS_LOGIN"
+msgstr "An account with this email already exists. Sign in to confirm linking LunaPassport."
+
+msgid "VIEW_PASSPORT_EMAIL_ALREADY_EXISTS"
+msgstr "An account with this email already exists. Registration via LunaPassport is not available."
+
+msgid "VIEW_PASSPORT_INVITES_REQUIRED"
+msgstr "Registration requires an invite. Sign in to an existing account and link LunaPassport in settings."
+
+msgid "VIEW_PASSPORT_REGISTER_BLOCKED"
+msgstr "Could not create an account via LunaPassport."
+
+msgid "VIEW_PASSPORT_NEED_ACCOUNT"
+msgstr "Sign in or register, then link LunaPassport in security settings."
+
+msgid "VIEW_PASSPORT_NOT_LINKED"
+msgstr "LunaPassport is not linked."
+
+msgid "VIEW_PASSPORT_UNLINK_NEED_PASSWORD"
+msgstr "Cannot unlink LunaPassport until the account has a password. Set a password first."
+
+msgid "VIEW_PASSPORT_UNLINKED_OK"
+msgstr "LunaPassport unlinked."
+
+msgid "VIEW_PASSPORT_NO_PENDING"
+msgstr "No pending LunaPassport link."
+
+msgid "VIEW_PASSPORT_EMAIL_MISMATCH"
+msgstr "LunaPassport email does not match this LunaStore account. Link cancelled."
 
 msgid "%(counter)s PAGE_COLLECTION_APPS_ONE"
 msgid_plural "%(counter)s PAGE_COLLECTION_APPS_MANY"

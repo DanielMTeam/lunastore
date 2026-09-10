@@ -330,3 +330,36 @@ class NoSpamEvent(models.Model):
 
     def __str__(self) -> str:
         return f"{self.entrypoint}: {self.action} ({self.reason})"
+
+
+# oauth link between a lunastore user and a lunapassport identity
+class LunaPassportLink(SafeDeleteModel):
+    _safedelete_policy = SOFT_DELETE_CASCADE
+
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="passport_link",
+    )
+    sub = models.CharField(
+        "Passport sub",
+        max_length=255,
+        unique=True,
+        db_index=True,
+        help_text="Stable identity from /oauth/userinfo (sub)",
+    )
+    sign_in = models.EmailField("Passport sign_in")
+    passport_name = models.CharField(
+        "Passport display name",
+        max_length=255,
+        blank=True,
+        default="",
+    )
+    linked_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Привязка LunaPassport"
+        verbose_name_plural = "Привязки LunaPassport"
+
+    def __str__(self) -> str:
+        return f"{self.user_id}: {self.sign_in}"

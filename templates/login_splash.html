@@ -52,6 +52,21 @@
                         <div style="clear:both"></div>
                     </div>
                 </form>
+                {% if lunapassport_enabled %}
+                <div style="margin-top: 16px; text-align: center;">
+                    <div style="margin-bottom: 8px; color: #666;">{% trans "PAGE_LOGIN_OR_DIVIDER" %}</div>
+                    <a href="{% url 'passport_login' %}{% if next %}?next={{ next|urlencode }}{% elif request.GET.next %}?next={{ request.GET.next|urlencode }}{% endif %}"
+                       class="action_button" style="display:inline-block;">
+                        {% trans "PAGE_LOGIN_PASSPORT_BTN" %}
+                    </a>
+                </div>
+                {% endif %}
+                {% if pending_passport %}
+                <div class="info_splash" style="margin-top: 12px;">
+                    {% trans "PAGE_LOGIN_PASSPORT_PENDING_HINT" %}
+                    {{ pending_passport.sign_in }}
+                </div>
+                {% endif %}
                 <div style="clear:both"></div>
             </div>
 
