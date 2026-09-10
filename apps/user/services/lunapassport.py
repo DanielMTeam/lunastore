@@ -64,13 +64,13 @@ def is_enabled() -> bool:
     if not bool(getattr(config, "LUNAPASSPORT_ENABLED", False)):
         return False
     try:
-        base_url()
+        get_base_url()
     except LunaPassportError:
         return False
     return bool(
-        client_id()
-        and client_secret()
-        and redirect_uri()
+        get_client_id()
+        and get_client_secret()
+        and get_redirect_uri()
     )
 
 
@@ -88,39 +88,39 @@ def _assert_safe_absolute_url(url: str, *, label: str) -> str:
     return url.rstrip("/")
 
 
-def base_url() -> str:
+def get_base_url() -> str:
     raw = _secret_cfg("LUNAPASSPORT_BASE_URL")
     if not raw:
         raise LunaPassportError("missing_base_url")
     return _assert_safe_absolute_url(raw, label="base_url")
 
 
-def authorize_url() -> str:
-    return f"{base_url()}/oauth/authorize"
+def get_authorize_url() -> str:
+    return f"{get_base_url()}/oauth/authorize"
 
 
-def token_url() -> str:
-    return f"{base_url()}/oauth/token"
+def get_token_url() -> str:
+    return f"{get_base_url()}/oauth/token"
 
 
-def userinfo_url() -> str:
-    return f"{base_url()}/oauth/userinfo"
+def get_userinfo_url() -> str:
+    return f"{get_base_url()}/oauth/userinfo"
 
 
-def revoke_url() -> str:
-    return f"{base_url()}/oauth/revoke"
+def get_revoke_url() -> str:
+    return f"{get_base_url()}/oauth/revoke"
 
 
-def redirect_uri() -> str:
+def get_redirect_uri() -> str:
     # env overrides constance — avoids stale redis value after .env edit
     return _secret_cfg("LUNAPASSPORT_REDIRECT_URI")
 
 
-def client_id() -> str:
+def get_client_id() -> str:
     return _secret_cfg("LUNAPASSPORT_CLIENT_ID")
 
 
-def client_secret() -> str:
+def get_client_secret() -> str:
     return _secret_cfg("LUNAPASSPORT_CLIENT_SECRET")
 
 
@@ -225,25 +225,25 @@ def build_authorize_url(state: str) -> str:
     query = urlencode(
         {
             "response_type": "code",
-            "client_id": client_id(),
-            "redirect_uri": redirect_uri(),
+            "client_id": get_client_id(),
+            "redirect_uri": get_redirect_uri(),
             "state": state,
         }
     )
-    return f"{authorize_url()}?{query}"
+    return f"{get_authorize_url()}?{query}"
 
 
 def exchange_code(code: str) -> str:
     # exchange authorization code for access_token
     try:
         response = requests.post(
-            token_url(),
+            get_token_url(),
             data={
                 "grant_type": "authorization_code",
                 "code": code,
-                "redirect_uri": redirect_uri(),
-                "client_id": client_id(),
-                "client_secret": client_secret(),
+                "redirect_uri": get_redirect_uri(),
+                "client_id": get_client_id(),
+                "client_secret": get_client_secret(),
             },
             headers={"Accept": "application/json"},
             timeout=_HTTP_TIMEOUT,
@@ -271,7 +271,7 @@ def exchange_code(code: str) -> str:
 def fetch_userinfo(access_token: str) -> PassportProfile:
     try:
         response = requests.get(
-            userinfo_url(),
+            get_userinfo_url(),
             headers={
                 "Authorization": f"Bearer {access_token}",
                 "Accept": "application/json",
@@ -304,7 +304,7 @@ def fetch_userinfo(access_token: str) -> PassportProfile:
 def revoke_token(access_token: str) -> None:
     try:
         requests.post(
-            revoke_url(),
+            get_revoke_url(),
             data={"token": access_token},
             timeout=_HTTP_TIMEOUT,
             allow_redirects=False,

@@ -2315,6 +2315,9 @@ msgstr "LunaPassport linked successfully."
 msgid "VIEW_PASSPORT_EMAIL_EXISTS_LOGIN"
 msgstr "An account with this email already exists. Sign in to confirm linking LunaPassport."
 
+msgid "VIEW_PASSPORT_EMAIL_ALREADY_EXISTS"
+msgstr "An account with this email already exists. Registration via LunaPassport is not available."
+
 msgid "VIEW_PASSPORT_INVITES_REQUIRED"
 msgstr "Registration requires an invite. Sign in to an existing account and link LunaPassport in settings."
 

@@ -2319,6 +2319,9 @@ msgstr "LunaPassport успешно привязан."
 msgid "VIEW_PASSPORT_EMAIL_EXISTS_LOGIN"
 msgstr "Аккаунт с этой почтой уже есть. Войдите в него, чтобы подтвердить привязку LunaPassport."
 
+msgid "VIEW_PASSPORT_EMAIL_ALREADY_EXISTS"
+msgstr "Аккаунт с таким email уже есть. Регистрация через LunaPassport недоступна."
+
 msgid "VIEW_PASSPORT_INVITES_REQUIRED"
 msgstr "Регистрация только по приглашениям. Войдите в существующий аккаунт и привяжите LunaPassport в настройках."
 
