@@ -59,6 +59,23 @@ services:
             timeout: 5s
             retries: 5
 
+    meilisearch:
+        image: getmeili/meilisearch:v1.12
+        restart: unless-stopped
+        networks:
+            - storenetwork
+        environment:
+            MEILI_ENV: production
+            MEILI_MASTER_KEY: ${MEILI_MASTER_KEY}
+        volumes:
+            - meili_data:/meili_data
+        healthcheck:
+            test: ["CMD", "wget", "-qO-", "http://localhost:7700/health"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+            start_period: 10s
+
     lunaspire:
         build: ./lunaspire/
         image: lunaspire:selfhost
@@ -102,6 +119,8 @@ services:
                 condition: service_healthy
             lunaspire:
                 condition: service_healthy
+            meilisearch:
+                condition: service_healthy
         volumes:
             - static_volume:/app/staticfiles_build
             - ./media:/app/media
@@ -137,3 +156,4 @@ volumes:
     pg_data:
     redis_data:
     clickhouse_data:
+    meili_data:

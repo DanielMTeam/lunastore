@@ -30,3 +30,4 @@ sentry-sdk[django]==2.64.0
 clickhouse-connect==0.8.18
 geoip2==5.2.0
 djangorestframework-simplejwt==5.4.0
+meilisearch>=0.34.0

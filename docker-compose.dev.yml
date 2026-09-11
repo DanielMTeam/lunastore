@@ -38,6 +38,23 @@ services:
             retries: 5
             start_period: 20s
 
+    meilisearch:
+        image: getmeili/meilisearch:v1.12
+        restart: unless-stopped
+        environment:
+            MEILI_ENV: development
+            MEILI_MASTER_KEY: ${MEILI_MASTER_KEY:-dev-master-key}
+        volumes:
+            - meili_data:/meili_data
+        ports:
+            - "7700:7700"
+        healthcheck:
+            test: ["CMD", "wget", "-qO-", "http://localhost:7700/health"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+            start_period: 10s
+
     db:
         image: postgres:18-alpine
         container_name: lunastore_db
@@ -96,6 +113,8 @@ services:
         depends_on:
             db:
                 condition: service_healthy
+            meilisearch:
+                condition: service_healthy
         env_file:
             - .env
         volumes:
@@ -113,6 +132,8 @@ services:
             - "9088:9088"
         depends_on:
             db:
+                condition: service_healthy
+            meilisearch:
                 condition: service_healthy
         volumes:
             - .:/app
@@ -132,6 +153,8 @@ services:
         depends_on:
             db:
                 condition: service_healthy
+            meilisearch:
+                condition: service_healthy
         volumes:
             - .:/app
             - static_volume:/app/staticfiles_build
@@ -143,3 +166,4 @@ volumes:
     pg_data:
     redis_data:
     clickhouse_data:
+    meili_data:

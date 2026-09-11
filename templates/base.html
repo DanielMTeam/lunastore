@@ -105,11 +105,12 @@
                 <div class="subtitle txtr">{{ motds|random }}</div>
             </div>
 
-            <div class="searchbar" style="margin-top: 13px;">
-                <form action="{% url 'search' %}" method="get" style="display: inline;">
-                    <input type="text" name="q" id="q" value="{{ request.GET.q|default_if_none:'' }}" placeholder="{% trans "INDEX_SEARCH_PLACEHOLDER" %}">
+            <div class="searchbar search_suggest_wrap" style="margin-top: 13px;">
+                <form action="{% url 'search' %}" method="get" style="display: inline; margin: 0; padding: 0;">
+                    <input type="text" name="q" id="q" class="search_suggest_input" value="{{ request.GET.q|default_if_none:'' }}" placeholder="{% trans "INDEX_SEARCH_PLACEHOLDER" %}" autocomplete="off">
                     <button type="submit">{% trans "BASE_SEARCHBTN" %}</button>
                 </form>
+                <div class="search_suggest_dropdown" style="display: none;"></div>
             </div>
         </div>
 
@@ -270,6 +271,14 @@
             <script src="{% static './js/markdown_client.js' %}"></script>
             <script src="{% static './js/markdown_editor.js' %}?v=2"></script>
             {% endif %}
+
+            <script>
+            window.SEARCH_SUGGEST_URL = "{% url 'search' %}?mode=suggest";
+            window.SEARCH_SUGGEST_TYPE = "all";
+            window.SEARCH_SUGGEST_LABEL_APPS = "{% trans 'PAGE_SEARCH_SUGGEST_APPS'|escapejs %}";
+            window.SEARCH_SUGGEST_LABEL_USERS = "{% trans 'PAGE_SEARCH_SUGGEST_USERS'|escapejs %}";
+            </script>
+            <script src="{% static './js/search_suggest.js' %}"></script>
         </div>
 
 </body>
