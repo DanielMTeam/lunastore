@@ -2079,6 +2079,27 @@ msgstr "Мазмұнды плиткалар ретінде көрсету"
 msgid "PAGE_SEARCH_TITLE"
 msgstr "Іздеу"
 
+msgid "PAGE_SEARCH_TAB_APPS"
+msgstr "Қолданбалар"
+
+msgid "PAGE_SEARCH_TAB_USERS"
+msgstr "Пайдаланушылар"
+
+msgid "PAGE_SEARCH_MSG_NO_USERS %(q)s"
+msgstr "«%(q)s» сұранысы бойынша пайдаланушылар табылмады"
+
+msgid "PAGE_SEARCH_MSG_UNAVAILABLE"
+msgstr "Іздеу уақытша қолжетімсіз. Кейінірек көріңіз."
+
+msgid "PAGE_SEARCH_SUGGEST_APPS"
+msgstr "Қолданбалар"
+
+msgid "PAGE_SEARCH_SUGGEST_USERS"
+msgstr "Пайдаланушылар"
+
+msgid "PAGE_SEARCH_USERS_COUNT"
+msgstr "Табылды"
+
 msgid "PAGE_SETTINGS_BTN_DELETE"
 msgstr "Тіркелгіні жою"
 

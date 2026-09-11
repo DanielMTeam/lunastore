@@ -2087,6 +2087,27 @@ msgstr "Show content as tiles"
 msgid "PAGE_SEARCH_TITLE"
 msgstr "Search"
 
+msgid "PAGE_SEARCH_TAB_APPS"
+msgstr "Applications"
+
+msgid "PAGE_SEARCH_TAB_USERS"
+msgstr "Users"
+
+msgid "PAGE_SEARCH_MSG_NO_USERS %(q)s"
+msgstr "No users found for \"%(q)s\""
+
+msgid "PAGE_SEARCH_MSG_UNAVAILABLE"
+msgstr "Search is temporarily unavailable. Please try again later."
+
+msgid "PAGE_SEARCH_SUGGEST_APPS"
+msgstr "Applications"
+
+msgid "PAGE_SEARCH_SUGGEST_USERS"
+msgstr "Users"
+
+msgid "PAGE_SEARCH_USERS_COUNT"
+msgstr "Found"
+
 msgid "PAGE_SETTINGS_BTN_DELETE"
 msgstr "Delete account"
 

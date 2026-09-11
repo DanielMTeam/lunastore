@@ -226,6 +226,16 @@ body {
     z-index: 0 !important;
 }
 
+.search_page_tabs .search_form_input_cell input.search_suggest_input {
+    border: 1px solid #4a4a4a !important;
+    background: #000 url("../img/search_icon_small.png") no-repeat !important;
+    color: #fff !important;
+}
+
+.search_user_name a {
+    color: #8cb4ff !important;
+}
+
 .search_user_desc {
     color: #ccc;
 }

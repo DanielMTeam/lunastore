@@ -2091,6 +2091,27 @@ msgstr "Відображати вміст плитками"
 msgid "PAGE_SEARCH_TITLE"
 msgstr "Пошук"
 
+msgid "PAGE_SEARCH_TAB_APPS"
+msgstr "Програми"
+
+msgid "PAGE_SEARCH_TAB_USERS"
+msgstr "Користувачі"
+
+msgid "PAGE_SEARCH_MSG_NO_USERS %(q)s"
+msgstr "Користувачів за запитом «%(q)s» не знайдено"
+
+msgid "PAGE_SEARCH_MSG_UNAVAILABLE"
+msgstr "Пошук тимчасово недоступний. Спробуйте пізніше."
+
+msgid "PAGE_SEARCH_SUGGEST_APPS"
+msgstr "Програми"
+
+msgid "PAGE_SEARCH_SUGGEST_USERS"
+msgstr "Користувачі"
+
+msgid "PAGE_SEARCH_USERS_COUNT"
+msgstr "Знайдено"
+
 msgid "PAGE_SETTINGS_BTN_DELETE"
 msgstr "Видалити обліковий запис"
 

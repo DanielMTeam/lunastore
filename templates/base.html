@@ -19,7 +19,10 @@
     {% endif %}
     <link rel="shortcut icon" href="{% static './favicon.ico'%}">
     <script>window.DARK_THEME_CSS_URL = "{% static 'css/darkthm.css' %}";</script>
-    <script src="{% static './js/cookie.js'%}"></script>
+    <script src="{% static './js/cookie.js' %}"></script>
+    {% if is_modern_browser %}
+    {# real IE < 9 never executes these even if UA lies to the server :D #}
+    <!--[if gte IE 9]><!-->
     <script defer src="https://analytics.myslivets.com/script.js" data-website-id="bce1e0a4-fb9e-40e8-85c9-04c8bd3c8940"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tolgee/web/dist/tolgee-web.production.umd.min.js"></script>
 
@@ -39,6 +42,8 @@
             // Tolgee is not supported in old IE, gracefully fail
         }
     </script>
+    <!--<![endif]-->
+    {% endif %}
 
     <!--[if IE 6]>
     <script src="{% static './js/dd_belatedpng.min.js' %}"></script>
@@ -244,6 +249,7 @@
 
             {% if user.is_authenticated %}
             {% if is_modern_browser %}
+            <!--[if gte IE 9]><!-->
             <meta id="global-notify-token" content="{{ notify_token }}">
             <meta id="global-api-url" content="{{ api_url }}">
             <div id="audio-placeholder" style="display:none;"></div>
@@ -263,13 +269,16 @@
                     alertWarning: "{% trans 'MD_ALERT_WARNING'|escapejs %}"
                 };
             </script>
+            <!--<![endif]-->
             {% endif %}
             <script src="{% url 'javascript-catalog' %}"></script>
             {% if is_modern_browser %}
+            <!--[if gte IE 9]><!-->
             <script src="{% static './js/global_notifications.js' %}"></script>
-            {% endif %}
             <script src="{% static './js/markdown_client.js' %}"></script>
             <script src="{% static './js/markdown_editor.js' %}?v=2"></script>
+            <!--<![endif]-->
+            {% endif %}
             {% endif %}
 
             <script>
@@ -278,7 +287,7 @@
             window.SEARCH_SUGGEST_LABEL_APPS = "{% trans 'PAGE_SEARCH_SUGGEST_APPS'|escapejs %}";
             window.SEARCH_SUGGEST_LABEL_USERS = "{% trans 'PAGE_SEARCH_SUGGEST_USERS'|escapejs %}";
             </script>
-            <script src="{% static './js/search_suggest.js' %}"></script>
+            <script src="{% static './js/search_suggest.js' %}?v=2"></script>
         </div>
 
 </body>

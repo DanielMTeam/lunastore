@@ -282,16 +282,17 @@ a img {
 .search_page_tabs .search_form_table {
     width: 100%;
     margin-bottom: 10px;
-    table-layout: fixed;
+    table-layout: auto;
 }
 
 .search_page_tabs .search_form_input_cell {
     padding-right: 6px;
     vertical-align: middle;
+    width: 99%;
 }
 
 .search_page_tabs .search_form_btn_cell {
-    width: 70px;
+    width: 1%;
     vertical-align: middle;
     text-align: right;
     white-space: nowrap;
@@ -300,10 +301,12 @@ a img {
 .search_page_tabs .search_suggest_wrap {
     position: relative;
     zoom: 1;
+    width: 370px;
 }
 
 .search_page_tabs .search_form_input_cell input.search_suggest_input {
-    width: 100%;
+    /* content ~460px; button ~64px — width:100% + padding-left overlaps the button */
+    width: 340px;
     margin: 0;
     vertical-align: middle;
     border: 1px solid #7aa0e6;
@@ -393,82 +396,7 @@ a img {
 }
 
 .search_tab_results .card {
-    margin-left: 0;
-    margin-top: 0;
-    margin-bottom: 8px;
-    margin-right: 8px;
-}
-
-.search_list_card {
-    border: 1px solid #d2e9ff;
-    background: #fff;
-    margin-bottom: 8px;
-    padding: 5px;
-    overflow: hidden;
-    zoom: 1;
-    position: relative;
-    min-height: 75px;
-}
-
-.search_list_table {
-    width: 100%;
-    table-layout: fixed;
-}
-
-.search_list_icon {
-    width: 54px;
-    padding-right: 6px;
-    vertical-align: top;
-}
-
-.search_list_icon img {
-    width: 48px;
-    height: 48px;
-    display: block;
-    border: 0;
-}
-
-.search_list_body {
-    vertical-align: top;
-    overflow: hidden;
-    padding-right: 90px;
-}
-
-.search_list_body h3 {
-    margin: 0;
-    font-size: 12px;
-    color: #0b3a72;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.search_list_body h3 a {
-    color: #0b3a72;
-    text-decoration: none;
-}
-
-.search_list_body h3 a:hover {
-    text-decoration: underline;
-}
-
-.search_list_body p {
-    margin: 3px 0 0 0;
-    font-size: 11px;
-    color: #333;
-    height: 28px;
-    overflow: hidden;
-}
-
-.search_list_action {
-    vertical-align: bottom;
-    padding-top: 2px;
-}
-
-.search_list_action .action {
-    position: static;
-    clear: none;
-    margin: 0;
+    margin: 0 5px 5px 0;
 }
 
 .search_tab_results .search_error {

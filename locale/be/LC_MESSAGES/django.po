@@ -2091,6 +2091,27 @@ msgstr "Паказваць змесціва пліткамі"
 msgid "PAGE_SEARCH_TITLE"
 msgstr "Пошук"
 
+msgid "PAGE_SEARCH_TAB_APPS"
+msgstr "Праграмы"
+
+msgid "PAGE_SEARCH_TAB_USERS"
+msgstr "Карыстальнікі"
+
+msgid "PAGE_SEARCH_MSG_NO_USERS %(q)s"
+msgstr "Карыстальнікі па запыце «%(q)s» не знойдзены"
+
+msgid "PAGE_SEARCH_MSG_UNAVAILABLE"
+msgstr "Пошук часова недаступны. Паспрабуйце пазней."
+
+msgid "PAGE_SEARCH_SUGGEST_APPS"
+msgstr "Праграмы"
+
+msgid "PAGE_SEARCH_SUGGEST_USERS"
+msgstr "Карыстальнікі"
+
+msgid "PAGE_SEARCH_USERS_COUNT"
+msgstr "Знойдзена"
+
 msgid "PAGE_SETTINGS_BTN_DELETE"
 msgstr "Выдаліць акаўнт"
 

@@ -2097,7 +2097,7 @@ msgstr "Приложения"
 msgid "PAGE_SEARCH_TAB_USERS"
 msgstr "Пользователи"
 
-msgid "PAGE_SEARCH_MSG_NO_USERS"
+msgid "PAGE_SEARCH_MSG_NO_USERS %(q)s"
 msgstr "Пользователи по запросу «%(q)s» не найдены"
 
 msgid "PAGE_SEARCH_MSG_UNAVAILABLE"
