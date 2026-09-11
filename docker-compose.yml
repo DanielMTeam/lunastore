@@ -70,7 +70,7 @@ services:
         volumes:
             - meili_data:/meili_data
         healthcheck:
-            test: ["CMD", "wget", "-qO-", "http://localhost:7700/health"]
+            test: ["CMD-SHELL", "wget --no-verbose --spider http://127.0.0.1:7700/health || exit 1"]
             interval: 10s
             timeout: 5s
             retries: 5
