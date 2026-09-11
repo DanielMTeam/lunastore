@@ -51,15 +51,15 @@
             <table cellpadding="0" cellspacing="0" border="0" width="100%" class="search_form_table">
                 <tr>
                     <td class="search_form_input_cell">
-                        <div class="search_suggest_wrap">
-                            <input type="text" name="q" id="search_q" class="search_icon search_suggest_input"
+                        <div class="search_suggest_wrap search_form_field">
+                            <input type="text" name="q" id="search_q" class="search_suggest_input"
                                    placeholder="{% trans 'PAGE_SEARCH_INPUT_PLACEHOLDER' %}"
                                    value="{{ request.GET.q }}"
                                    autocomplete="off">
                             <div class="search_suggest_dropdown" style="display: none;"></div>
                         </div>
                     </td>
-                    <td class="search_form_btn_cell">
+                    <td class="search_form_btn_cell" width="70">
                         <button type="submit" class="search_form_btn">{% trans "PAGE_SEARCH_BTN_SUBMIT" %}</button>
                     </td>
                 </tr>
