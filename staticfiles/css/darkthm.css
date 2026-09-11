@@ -226,14 +226,9 @@ body {
     z-index: 0 !important;
 }
 
-.search_page_tabs .search_suggest_wrap.search_form_field {
-    border: 1px solid #4a4a4a !important;
-    background: #000 url("../img/search_icon_small.png") no-repeat 4px 3px !important;
-}
-
 .search_page_tabs .search_form_input_cell input.search_suggest_input {
-    border: 0 !important;
-    background: transparent !important;
+    border: 1px solid #4a4a4a !important;
+    background: #000 url("../img/search_icon_small.png") no-repeat !important;
     color: #fff !important;
 }
 
