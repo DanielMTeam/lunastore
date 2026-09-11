@@ -86,16 +86,23 @@ Paths are slash-separated (trailing slash as configured by Django):
 | Path | HTTP | Description | Typical params |
 | :--- | :--- | :--- | :--- |
 | `/method/user/getProfileInfo/` | GET | Public user profile | `id` |
+| `/method/user/search/` | GET | Meilisearch user search; enumerated map `{"1": {...}, ...}` | `query` |
 | `/method/user/getPublicUploadToken/` | GET | Public LunaSpire upload JWT | auth as required |
 | `/method/user/getPrivateUploadToken/` | GET | Private upload JWT | auth as required |
 | `/method/user/getNotificationToken/` | GET | Notification receive token | auth as required |
 | `/method/marketplace/getAppInfo/` | GET | Application details | `id` |
-| `/method/marketplace/search/` | GET | Trigram search | `q`, `limit`, `offset` |
+| `/method/marketplace/search/` | GET | Meilisearch app search; enumerated map `{"1": {...}, ...}` (up to 1000 hits) | `query` |
 | `/method/category/getAppList/` | GET | Apps in a category | category id param |
 | `/method/distribution/getDistributionsList/` | GET | Distributions for an app | app id param |
 | `/method/service/heartbeat/` | GET | Health / heartbeat | — |
 | `/method/service/developersList/` | GET | Developers list | — |
 | `/method/service/kunyakin/` | GET | Service easter-egg / status helper | — |
+
+V1 search notes:
+- Query parameter is always **`query`** (not `q`).
+- Response is an **enumerated object** keyed by `"1"`, `"2"`, … — not a JSON array.
+- Search is backed by **Meilisearch**. If the search service is unavailable, the API returns HTTP **503**.
+- Missing `query` returns HTTP **400** (`LunaException` / `VALIDATION_ERROR`).
 
 There is no V1 `getDownloadLink` action; downloads go through the web `/get_dist_file/<id>/` → LunaSpire JWT redirect flow.
 
@@ -111,7 +118,8 @@ Most marketplace resources are **read-only** ViewSets.
 | :--- | :--- | :--- |
 | `/v2/marketplace/` | GET | Published apps (pagination, filters) |
 | `/v2/marketplace/{id}/` | GET | App detail (screenshots, reviews context) |
-| `/v2/marketplace/search/` | GET | Fuzzy trigram search (`?q=winamp`) |
+| `/v2/marketplace/search/` | GET | Meilisearch app search (`?query=winamp`); LimitOffset `{count,next,previous,results}`; optional `category`, `author`, `is_free`, `limit`, `offset` |
+| `/v2/search/suggest/` | GET | Typeahead suggestions (`?query=lu`); `{apps, users}`; optional `limit`, `type` (`all`/`apps`/`users`) |
 | `/v2/category/` | GET | Category list |
 | `/v2/category/{id}/` | GET | Category detail |
 | `/v2/category/{id}/apps/` | GET | Apps in category |
@@ -121,13 +129,21 @@ Most marketplace resources are **read-only** ViewSets.
 | `/v2/collection/{id}/` | GET | Collection detail |
 | `/v2/collection/{id}/apps/` | GET | Apps in collection |
 | `/v2/collection/by_user/` | GET | Collections owned by a user |
+| `/v2/user/` | GET | User list |
 | `/v2/user/{id}/` | GET | Public user profile |
+| `/v2/user/search/` | GET | Meilisearch user search (`?query=...`); LimitOffset `{count,next,previous,results}` |
 | `/v2/user/getPublicUploadToken/` | GET | Public upload JWT (auth) |
 | `/v2/user/getPrivateUploadToken/` | GET | Private upload JWT (auth) |
 | `/v2/user/getNotificationToken/` | GET | Notification token (auth) |
 | `/v2/service/heartbeat/` | GET | Healthcheck |
 | `/v2/service/developersList/` | GET | Developers list |
 | `/v2/service/kunyakin/` | GET | Service helper |
+
+V2 search notes:
+- Query parameter is always **`query`** (not `q`).
+- Pagination uses standard LimitOffset (`limit` default 20, max 100; `offset`).
+- Unavailable Meilisearch → HTTP **503** with `{"error": "Search service unavailable"}`.
+- Missing `query` on search endpoints → HTTP **400**.
 
 There is no `/v2/distribution/{id}/download_token/`, no write CRUD on collections, and no `/v2/service/status/`.
 
@@ -160,6 +176,7 @@ There is no `/v2/distribution/{id}/download_token/`, no write CRUD on collection
 
 - Body key is **`code`** (not `methods`).
 - Method names map to ViewSet actions such as `list`, `retrieve`, `search`, `apps`, `by_app`, `by_user`.
+- Search methods available in execute: `user.search` (`params.query`), `marketplace.search` (`params.query`, optional filters).
 
 ### Response
 ```json

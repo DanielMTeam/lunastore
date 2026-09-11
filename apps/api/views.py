@@ -32,6 +32,9 @@ from .constants import ErrorCodes, PUB_UPLOAD_POLICIES, ALLOWED_MIMES
 from .exceptions import LunaException
 from django.core.cache import cache
 
+# v1 returns enumerated map of all matches; cap at meili maxTotalHits default
+V1_SEARCH_MAX_RESULTS = 1000
+
 
 class UserViewSet(viewsets.GenericViewSet):
     queryset = User.objects.filter(is_active=True)
@@ -75,17 +78,24 @@ class UserViewSet(viewsets.GenericViewSet):
 
     @extend_schema(
         summary="search users by query",
-        description="returns list of users matching the query",
+        description='enumerated map {"1": {...}, "2": {...}} via meilisearch, up to 1000',
         parameters=[
             OpenApiParameter(
                 name="query",
-                description="Search query",
+                description="search query",
                 required=True,
                 type=OpenApiTypes.STR,
                 location=OpenApiParameter.QUERY,
             )
         ],
-        responses={200: UserSerializer(many=True)},
+        responses={
+            200: inline_serializer(
+                name="V1UserSearchEnumerated",
+                fields={
+                    "1": UserSerializer(),
+                },
+            ),
+        },
     )
     @action(detail=False, methods=["get"], url_path="search")
     def search(self, request):
@@ -97,7 +107,11 @@ class UserViewSet(viewsets.GenericViewSet):
                 status_code=400,
             )
         try:
-            user_ids, _total = SearchService.search_user_ids(query)
+            user_ids, _total = SearchService.search_user_ids(
+                query,
+                limit=V1_SEARCH_MAX_RESULTS,
+                offset=0,
+            )
         except SearchUnavailableError:
             raise LunaException(
                 code=ErrorCodes.UNKNOWN_ERROR,
@@ -259,18 +273,25 @@ class MarketplaceViewSet(viewsets.GenericViewSet):
         return Response(serializer.data)
 
     @extend_schema(
-        summary="get app or apps from name (e.g. search app method)",
-        description="returns app, or list of apps",
+        summary="search apps by query",
+        description='enumerated map {"1": {...}, "2": {...}} via meilisearch, up to 1000',
         parameters=[
             OpenApiParameter(
                 name="query",
-                description="query data",
+                description="search query",
                 required=True,
                 type=OpenApiTypes.STR,
                 location=OpenApiParameter.QUERY,
             )
         ],
-        responses={200: ApplicationSerializer(many=True)},
+        responses={
+            200: inline_serializer(
+                name="V1ApplicationSearchEnumerated",
+                fields={
+                    "1": ApplicationSerializer(),
+                },
+            ),
+        },
     )
     @action(detail=False, methods=["get"], url_path="search")
     def search(self, request):
@@ -283,7 +304,11 @@ class MarketplaceViewSet(viewsets.GenericViewSet):
                 status_code=400,
             )
         try:
-            app_ids, _total = SearchService.search_application_ids(query)
+            app_ids, _total = SearchService.search_application_ids(
+                query,
+                limit=V1_SEARCH_MAX_RESULTS,
+                offset=0,
+            )
         except SearchUnavailableError:
             raise LunaException(
                 code=ErrorCodes.UNKNOWN_ERROR,

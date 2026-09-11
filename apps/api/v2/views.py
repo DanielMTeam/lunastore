@@ -16,7 +16,14 @@ from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.views import APIView
 from rest_framework.exceptions import NotFound
 
-from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiParameter, OpenApiTypes, inline_serializer
+from drf_spectacular.utils import (
+    OpenApiParameter,
+    OpenApiResponse,
+    OpenApiTypes,
+    extend_schema,
+    extend_schema_view,
+    inline_serializer,
+)
 from apps.marketplace.models import Application, Category, Collection, Distribution
 from apps.marketplace.serializers import ApplicationSerializer, CategorySerializer, CollectionSerializer, DistributionSerializer
 from apps.user.models import User
@@ -56,6 +63,48 @@ class V2Pagination(LimitOffsetPagination):
     max_limit = 100
 
 
+def _meili_limit_offset_response(view, request, queryset, search_callable):
+    # meili ids -> orm hydrate -> limit/offset envelope
+    # set limit/offset explicitly: get_limit/get_offset alone do not assign them
+    paginator = V2Pagination()
+    paginator.limit = paginator.get_limit(request)
+    paginator.offset = paginator.get_offset(request)
+    ids, total = search_callable(limit=paginator.limit, offset=paginator.offset)
+    results = SearchService.order_queryset_by_ids(queryset, ids)
+    serializer = view.get_serializer(results, many=True)
+    paginator.request = request
+    paginator.count = total
+    return paginator.get_paginated_response(serializer.data)
+
+
+def _paginated_search_response_schema(item_serializer, name):
+    return inline_serializer(
+        name=name,
+        fields={
+            "count": serializers.IntegerField(),
+            "next": serializers.URLField(allow_null=True),
+            "previous": serializers.URLField(allow_null=True),
+            "results": item_serializer,
+        },
+    )
+
+
+_SEARCH_ERROR_400 = OpenApiResponse(
+    response=inline_serializer(
+        name="SearchQueryRequired",
+        fields={"error": serializers.CharField()},
+    ),
+    description="missing query",
+)
+_SEARCH_ERROR_503 = OpenApiResponse(
+    response=inline_serializer(
+        name="SearchUnavailable",
+        fields={"error": serializers.CharField()},
+    ),
+    description="meilisearch unavailable",
+)
+
+
 @extend_schema_view(
     list=extend_schema(summary="get paginated list of users"),
     retrieve=extend_schema(summary="get detailed user profile"),
@@ -63,6 +112,7 @@ class V2Pagination(LimitOffsetPagination):
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = User.objects.filter(is_active=True)
     serializer_class = UserSerializer
+    pagination_class = V2Pagination
 
     @extend_schema(
         summary="get public upload token",
@@ -152,38 +202,57 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
 
     @extend_schema(
         summary="search users",
-        description="Returns paginated list of users matching the query",
+        description="paginated user search via meilisearch ({count, next, previous, results})",
         parameters=[
             OpenApiParameter(
                 name="query",
-                description="Search query",
+                description="search query",
                 required=True,
-                type=str,
+                type=OpenApiTypes.STR,
                 location=OpenApiParameter.QUERY,
-            )
+            ),
+            OpenApiParameter(
+                name="limit",
+                description="page size (default 20, max 100)",
+                required=False,
+                type=OpenApiTypes.INT,
+                location=OpenApiParameter.QUERY,
+            ),
+            OpenApiParameter(
+                name="offset",
+                description="result offset",
+                required=False,
+                type=OpenApiTypes.INT,
+                location=OpenApiParameter.QUERY,
+            ),
         ],
+        responses={
+            200: _paginated_search_response_schema(
+                UserSerializer(many=True), "UserSearchPaginated"
+            ),
+            400: _SEARCH_ERROR_400,
+            503: _SEARCH_ERROR_503,
+        },
     )
     @action(detail=False, methods=["get"], url_path="search")
     def search(self, request):
         query = request.query_params.get("query")
         if not query:
             return Response({"error": "Query parameter is required"}, status=400)
-        paginator = self.pagination_class()
-        limit = paginator.get_limit(request)
-        offset = paginator.get_offset(request)
-        try:
-            user_ids, total = SearchService.search_user_ids(
+
+        def _search(*, limit, offset):
+            return SearchService.search_user_ids(
                 normalize_query(query),
                 limit=limit,
                 offset=offset,
             )
+
+        try:
+            return _meili_limit_offset_response(
+                self, request, self.get_queryset(), _search
+            )
         except SearchUnavailableError:
             return Response({"error": "Search service unavailable"}, status=503)
-        results = SearchService.order_queryset_by_ids(self.get_queryset(), user_ids)
-        serializer = self.get_serializer(results, many=True)
-        paginator.request = request
-        paginator.count = total
-        return paginator.get_paginated_response(serializer.data)
 
 
 @extend_schema_view(
@@ -214,13 +283,58 @@ class MarketplaceViewSet(viewsets.ReadOnlyModelViewSet):
 
     @extend_schema(
         summary="search applications",
-        description="Returns paginated list of applications matching the query",
+        description="paginated app search via meilisearch; optional category/author/is_free",
         parameters=[
-            OpenApiParameter(name="query", description="Search query", required=True, type=str, location=OpenApiParameter.QUERY),
-            OpenApiParameter(name="category", description="Category ID filter", required=False, type=int, location=OpenApiParameter.QUERY),
-            OpenApiParameter(name="author", description="Author user ID filter", required=False, type=int, location=OpenApiParameter.QUERY),
-            OpenApiParameter(name="is_free", description="Only free apps (on/1/true)", required=False, type=str, location=OpenApiParameter.QUERY),
+            OpenApiParameter(
+                name="query",
+                description="search query",
+                required=True,
+                type=OpenApiTypes.STR,
+                location=OpenApiParameter.QUERY,
+            ),
+            OpenApiParameter(
+                name="category",
+                description="category id filter",
+                required=False,
+                type=OpenApiTypes.INT,
+                location=OpenApiParameter.QUERY,
+            ),
+            OpenApiParameter(
+                name="author",
+                description="author user id filter",
+                required=False,
+                type=OpenApiTypes.INT,
+                location=OpenApiParameter.QUERY,
+            ),
+            OpenApiParameter(
+                name="is_free",
+                description="only free apps (on/1/true)",
+                required=False,
+                type=OpenApiTypes.STR,
+                location=OpenApiParameter.QUERY,
+            ),
+            OpenApiParameter(
+                name="limit",
+                description="page size (default 20, max 100)",
+                required=False,
+                type=OpenApiTypes.INT,
+                location=OpenApiParameter.QUERY,
+            ),
+            OpenApiParameter(
+                name="offset",
+                description="result offset",
+                required=False,
+                type=OpenApiTypes.INT,
+                location=OpenApiParameter.QUERY,
+            ),
         ],
+        responses={
+            200: _paginated_search_response_schema(
+                ApplicationSerializer(many=True), "ApplicationSearchPaginated"
+            ),
+            400: _SEARCH_ERROR_400,
+            503: _SEARCH_ERROR_503,
+        },
     )
     @action(detail=False, methods=["get"], url_path="search")
     def search(self, request):
@@ -231,12 +345,9 @@ class MarketplaceViewSet(viewsets.ReadOnlyModelViewSet):
         category_id = request.query_params.get("category")
         author_id = request.query_params.get("author")
         is_free = parse_is_free(request.query_params.get("is_free"))
-        paginator = self.pagination_class()
-        limit = paginator.get_limit(request)
-        offset = paginator.get_offset(request)
 
-        try:
-            app_ids, total = SearchService.search_application_ids(
+        def _search(*, limit, offset):
+            return SearchService.search_application_ids(
                 normalize_query(query),
                 limit=limit,
                 offset=offset,
@@ -244,30 +355,70 @@ class MarketplaceViewSet(viewsets.ReadOnlyModelViewSet):
                 author_id=author_id,
                 is_free=is_free,
             )
+
+        try:
+            return _meili_limit_offset_response(
+                self, request, self.get_queryset(), _search
+            )
         except SearchUnavailableError:
             return Response({"error": "Search service unavailable"}, status=503)
-
-        results = SearchService.order_queryset_by_ids(self.get_queryset(), app_ids)
-        serializer = self.get_serializer(results, many=True)
-        paginator.request = request
-        paginator.count = total
-        return paginator.get_paginated_response(serializer.data)
 
 
 class SearchSuggestView(APIView):
     @extend_schema(
-        summary="search suggest (typeahead)",
-        description="Returns lightweight app and user suggestions for a query",
+        summary="search suggest",
+        description="typeahead suggestions ({apps, users}); query shorter than 2 chars returns empty lists",
         parameters=[
-            OpenApiParameter(name="query", description="Search query", required=True, type=str),
-            OpenApiParameter(name="limit", description="Max results per type", required=False, type=int),
+            OpenApiParameter(
+                name="query",
+                description="search query",
+                required=True,
+                type=OpenApiTypes.STR,
+                location=OpenApiParameter.QUERY,
+            ),
+            OpenApiParameter(
+                name="limit",
+                description="max results (default 8, max 20)",
+                required=False,
+                type=OpenApiTypes.INT,
+                location=OpenApiParameter.QUERY,
+            ),
             OpenApiParameter(
                 name="type",
                 description="all, apps, or users",
                 required=False,
-                type=str,
+                type=OpenApiTypes.STR,
+                location=OpenApiParameter.QUERY,
             ),
         ],
+        responses={
+            200: inline_serializer(
+                name="SearchSuggestResponse",
+                fields={
+                    "apps": inline_serializer(
+                        name="SearchSuggestApp",
+                        fields={
+                            "id": serializers.IntegerField(),
+                            "title": serializers.CharField(),
+                            "icon_url": serializers.CharField(),
+                            "url": serializers.CharField(),
+                        },
+                        many=True,
+                    ),
+                    "users": inline_serializer(
+                        name="SearchSuggestUser",
+                        fields={
+                            "id": serializers.IntegerField(),
+                            "username": serializers.CharField(),
+                            "avatar_url": serializers.CharField(),
+                            "url": serializers.CharField(),
+                        },
+                        many=True,
+                    ),
+                },
+            ),
+            503: _SEARCH_ERROR_503,
+        },
     )
     def get(self, request):
         query = normalize_query(request.query_params.get("query"))
