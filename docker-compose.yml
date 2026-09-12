@@ -67,14 +67,16 @@ services:
         environment:
             MEILI_ENV: production
             MEILI_MASTER_KEY: ${MEILI_MASTER_KEY}
+            # Allows in-place DB upgrade when the Meilisearch image version changes.
+            MEILI_UPGRADE_DB: "true"
         volumes:
             - meili_data:/meili_data
         healthcheck:
             test: ["CMD-SHELL", "wget --no-verbose --spider http://127.0.0.1:7700/health || exit 1"]
             interval: 10s
             timeout: 5s
-            retries: 5
-            start_period: 10s
+            retries: 12
+            start_period: 120s
 
     lunaspire:
         build: ./lunaspire/

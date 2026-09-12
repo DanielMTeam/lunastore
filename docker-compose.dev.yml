@@ -44,6 +44,8 @@ services:
         environment:
             MEILI_ENV: development
             MEILI_MASTER_KEY: ${MEILI_MASTER_KEY:-dev-master-key}
+            # Allows in-place DB upgrade when the Meilisearch image version changes.
+            MEILI_UPGRADE_DB: "true"
         volumes:
             - meili_data:/meili_data
         ports:
@@ -52,8 +54,8 @@ services:
             test: ["CMD", "wget", "-qO-", "http://localhost:7700/health"]
             interval: 10s
             timeout: 5s
-            retries: 5
-            start_period: 10s
+            retries: 12
+            start_period: 120s
 
     db:
         image: postgres:18-alpine
