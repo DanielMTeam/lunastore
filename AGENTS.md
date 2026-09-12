@@ -10,7 +10,7 @@
 
 | Component | Technologies / Stack | Details |
 | :--- | :--- | :--- |
-| **Backend** | Python 3.13 / Django 6.0.7, DRF 3.17.1 | Clean architecture under `apps/` (`core`, `user`, `marketplace`, `api`, `terms`, `analytics`) |
+| **Backend** | Python 3.13 / Django 6.1.1, DRF 3.18.1 | Clean architecture under `apps/` (`core`, `user`, `marketplace`, `api`, `terms`, `analytics`) |
 | **Database** | PostgreSQL 18 | `pg_trgm` (GIN trigram search), `django-safedelete` |
 | **Cache & Throttling** | Redis 7 | `django-redis`, `django-smart-ratelimit`, `django-constance[redis]` |
 | **Analytics (optional)** | ClickHouse | Compose profile `analytics`; `apps/analytics`; gated by `ANALYTICS_ENABLED` |
