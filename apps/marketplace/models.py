@@ -50,6 +50,12 @@ class Category(SafeDeleteModel):
     def __repr__(self):
         return f"<Category {self.name}>"
 
+    @property
+    def banner_url(self) -> str | None:
+        if not self.banner_filename:
+            return None
+        return f"/staticfiles/img/categorybanner/{self.banner_filename.lstrip('/')}"
+
 
 class Badge(models.Model):
     PREDEFINED_STYLES = (
