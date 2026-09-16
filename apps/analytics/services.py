@@ -793,6 +793,7 @@ def get_popular_apps(
             "limit": int(limit),
         }
         if category_id is not None:
+            # bound via clickhouse-connect parameters= (not string-interpolated)
             category_clause = "AND category_id = %(category_id)s"
             params["category_id"] = int(category_id)
         query = f"""

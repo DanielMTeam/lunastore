@@ -736,7 +736,8 @@ class CollectionFavorite(models.Model):
         return f"{self.user_id}:{self.collection_id}"
 
 
-# configurable category section on the rich homepage
+# admin-configured category blocks for the rich homepage (not API)
+# managed in admin, rendered to users via index_rich.html
 class HomeCategoryBlock(models.Model):
     category = models.ForeignKey(
         Category,
