@@ -221,11 +221,12 @@ body {
 
 .search_full input {
     border: 1px solid #4a4a4a !important;
-    background: #000 !important;
+    background-color: #000 !important;
     color: #fff !important;
     z-index: 0 !important;
 }
 
+.search_full input.search_icon,
 .search_page_tabs .search_suggest_wrap.search_form_field {
     border: 1px solid #4a4a4a !important;
     background: #000 url("../img/search_icon_small.png") no-repeat 4px 1px !important;
@@ -266,9 +267,11 @@ body {
 }
 
 .search_icon {
-    background: url("../img/search_icon_small.png") no-repeat !important;
-    z-index: 10 !important;
-    position: static !important;
+    background-color: #000 !important;
+    background-image: url("../img/search_icon_small.png") !important;
+    background-repeat: no-repeat !important;
+    background-position: 4px center !important;
+    padding-left: 25px !important;
 }
 
 .profile_card {
@@ -330,6 +333,15 @@ body {
 
 .card h3 {
     color: #fff !important;
+}
+
+.card_other_button,
+.card_other_button a {
+    color: #7aa0e6 !important;
+}
+
+.card_other_button a:hover {
+    color: #a8c4f0 !important;
 }
 
 .action a {
@@ -569,6 +581,55 @@ input[type="submit"] {
 
 .index_categories .empty {
     color: #999 !important;
+}
+
+.home_block {
+    background: #4a4a4a !important;
+    color: #fff !important;
+}
+
+.home_block_content {
+    background: #323232 !important;
+    border-color: #000 !important;
+}
+
+.home_item {
+    border-color: #555 !important;
+    background: #3a3a3a !important;
+}
+
+.home_item_name a {
+    color: #fff !important;
+}
+
+.home_item_name a:hover {
+    color: #ffa84c !important;
+}
+
+.home_item_desc {
+    color: #bebdbd !important;
+}
+
+.app_day_block_name {
+    color: #fff !important;
+}
+
+.app_day_block_desc {
+    color: #bebdbd !important;
+}
+
+.design_main_switch {
+    border-color: #000 !important;
+    background: #3a3a3a !important;
+}
+
+.design_switch_pic {
+    border-color: #777 !important;
+}
+
+.banner_image #welcome_home {
+    /* keep photographic banner; only ensure height matches light theme */
+    height: 150px !important;
 }
 
 .search_filter_title {

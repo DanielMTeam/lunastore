@@ -1,6 +1,7 @@
 from constance.test import override_config
 from apps.marketplace.models import Distribution
 import logging
+from unittest.mock import patch
 
 from django.test import TestCase, override_settings
 from django.urls import reverse
@@ -62,16 +63,249 @@ class ApplicationModelTest(TestCase):
 
 
 class HomePageTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = User.objects.create_user(
+            username="HomeUser",
+            password="password123",
+            email="homeuser@example.com",
+        )
+        cls.category = Category.objects.create(
+            name="HomeCat",
+            description="Home category desc",
+            icon="themes",
+        )
+        cls.app = Application.objects.create(
+            user=cls.user,
+            title="HomeApp",
+            description="Home description long enough",
+            slogan="Home slogan",
+            price=0,
+        )
+        cls.app.categories.add(cls.category)
+
     def test_url_by_url(self):
         logger.info(
             "[Marketplace APP; Home PAGE] Testing URL by direct path...")
-        resp = self.client.get("/index.php")
+        with override_config(ANALYTICS_ENABLED=False):
+            resp = self.client.get("/index.php")
         self.assertEqual(resp.status_code, 200)
 
     def test_url_by_name(self):
         logger.info("[Marketplace APP; Home PAGE] Testing URL by name...")
-        resp = self.client.get(reverse("index"))
+        with override_config(ANALYTICS_ENABLED=False):
+            resp = self.client.get(reverse("index"))
         self.assertEqual(resp.status_code, 200)
+
+    def test_rich_home_default(self):
+        with override_config(ANALYTICS_ENABLED=False):
+            resp = self.client.get(reverse("index"))
+        self.assertEqual(resp.status_code, 200)
+        self.assertTemplateUsed(resp, "index_rich.html")
+        self.assertContains(resp, "HomeApp")
+
+    def test_compact_home_via_cookie(self):
+        self.client.cookies["home_layout"] = "compact"
+        with override_config(ANALYTICS_ENABLED=False):
+            resp = self.client.get(reverse("index"))
+        self.assertEqual(resp.status_code, 200)
+        self.assertTemplateUsed(resp, "index.html")
+
+    def test_user_home_layout_overrides_cookie(self):
+        self.user.home_layout = "compact"
+        self.user.save(update_fields=["home_layout"])
+        self.client.force_login(self.user)
+        self.client.cookies["home_layout"] = "rich"
+        with override_config(ANALYTICS_ENABLED=False):
+            resp = self.client.get(reverse("index"))
+        self.assertTemplateUsed(resp, "index.html")
+
+    @override_config(
+        ANALYTICS_ENABLED=False,
+        HOME_EDITOR_CHOICE_CATEGORY_ID=0,
+        HOME_APP_OF_THE_DAY_ID=0,
+    )
+    def test_editor_choice_hidden_when_zero(self):
+        resp = self.client.get(reverse("index"))
+        self.assertEqual(resp.context["editor_choice"], None)
+
+    @override_config(
+        ANALYTICS_ENABLED=False,
+        HOME_EDITOR_CHOICE_CATEGORY_ID=999999,
+        HOME_APP_OF_THE_DAY_ID=0,
+    )
+    def test_editor_choice_missing_category(self):
+        resp = self.client.get(reverse("index"))
+        self.assertEqual(resp.context["editor_choice"], None)
+
+    def test_home_category_block(self):
+        from apps.marketplace.models import HomeCategoryBlock
+
+        HomeCategoryBlock.objects.create(
+            category=self.category,
+            sort_order=1,
+            is_enabled=True,
+            apps_limit=4,
+        )
+        with override_config(
+            ANALYTICS_ENABLED=False,
+            HOME_EDITOR_CHOICE_CATEGORY_ID=0,
+            HOME_APP_OF_THE_DAY_ID=0,
+        ):
+            resp = self.client.get(reverse("index"))
+        self.assertEqual(resp.status_code, 200)
+        self.assertTrue(len(resp.context["category_blocks"]) >= 1)
+        self.assertContains(resp, "HomeCat")
+
+    def test_store_listing_top(self):
+        with override_config(ANALYTICS_ENABLED=False):
+            resp = self.client.get(reverse("store_listing") + "?show=top")
+        self.assertEqual(resp.status_code, 200)
+        self.assertTemplateUsed(resp, "store_listing.html")
+
+    def test_store_listing_rejects_xss_show(self):
+        with override_config(ANALYTICS_ENABLED=False):
+            resp = self.client.get(
+                reverse("store_listing")
+                + "?show=top'-alert(1)-'"
+            )
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.context["show"], "top")
+        self.assertNotContains(resp, "alert(1)")
+
+    def test_soft_deleted_category_block_hidden(self):
+        from apps.marketplace.models import HomeCategoryBlock
+
+        deleted_cat = Category.objects.create(name="GoneCat", description="x")
+        HomeCategoryBlock.objects.create(
+            category=deleted_cat,
+            sort_order=0,
+            is_enabled=True,
+            apps_limit=4,
+        )
+        deleted_cat.delete()
+        with override_config(
+            ANALYTICS_ENABLED=False,
+            HOME_EDITOR_CHOICE_CATEGORY_ID=0,
+            HOME_APP_OF_THE_DAY_ID=0,
+        ):
+            resp = self.client.get(reverse("index"))
+        names = [b["category"].name for b in resp.context["category_blocks"]]
+        self.assertNotIn("GoneCat", names)
+
+
+class HomeLayoutSettingsTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = User.objects.create_user(
+            username="UiUser",
+            password="password123",
+            email="uiuser@example.com",
+        )
+
+    def test_settings_ui_requires_login(self):
+        resp = self.client.get(reverse("settings_ui"))
+        self.assertEqual(resp.status_code, 302)
+
+    def test_settings_ui_post_saves_layout(self):
+        self.client.force_login(self.user)
+        resp = self.client.post(
+            reverse("settings_ui"),
+            {"home_view": "compact"},
+        )
+        self.assertEqual(resp.status_code, 302)
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.home_layout, "compact")
+        self.assertEqual(resp.cookies["home_layout"].value, "compact")
+
+    def test_settings_ui_rejects_invalid(self):
+        self.client.force_login(self.user)
+        resp = self.client.post(
+            reverse("settings_ui"),
+            {"home_view": "weird"},
+        )
+        self.assertEqual(resp.status_code, 302)
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.home_layout, "rich")
+
+
+class HomeServiceTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = User.objects.create_user(
+            username="SvcUser",
+            password="password123",
+            email="svcuser@example.com",
+        )
+        cls.category = Category.objects.create(name="SvcCat", description="d")
+        cls.app = Application.objects.create(
+            user=cls.user,
+            title="SvcApp",
+            description="desc",
+            slogan="slogan",
+        )
+        cls.app.categories.add(cls.category)
+
+    @override_config(HOME_APP_OF_THE_DAY_ID=0, ANALYTICS_ENABLED=False)
+    def test_app_of_the_day_fallback(self):
+        from apps.marketplace.services.home import get_app_of_the_day
+
+        with patch(
+            "apps.analytics.services.get_app_of_the_day_id",
+            return_value=None,
+        ):
+            app = get_app_of_the_day()
+        self.assertIsNotNone(app)
+        self.assertEqual(app.pk, self.app.pk)
+
+    @override_config(HOME_APP_OF_THE_DAY_ID=0, ANALYTICS_ENABLED=False)
+    def test_app_of_the_day_from_analytics(self):
+        from apps.marketplace.services.home import get_app_of_the_day
+
+        with patch(
+            "apps.analytics.services.get_app_of_the_day_id",
+            return_value=self.app.pk,
+        ):
+            app = get_app_of_the_day()
+        self.assertEqual(app.pk, self.app.pk)
+
+    def test_for_you_empty_without_analytics(self):
+        from apps.marketplace.services.home import get_for_you_apps
+
+        with patch(
+            "apps.analytics.services.get_similar_app_ids",
+            return_value=[],
+        ):
+            apps = get_for_you_apps(self.user.pk)
+        self.assertEqual(apps, [])
+
+    @override_config(HOME_EDITOR_CHOICE_CATEGORY_ID=0, ANALYTICS_ENABLED=False)
+    def test_editor_choice_disabled(self):
+        from apps.marketplace.services.home import get_editor_choice_block
+
+        self.assertIsNone(get_editor_choice_block())
+
+    def test_apps_for_category_filters_popular_by_membership(self):
+        from apps.marketplace.services.home import get_apps_for_category
+
+        other = Category.objects.create(name="OtherCat", description="o")
+        other_app = Application.objects.create(
+            user=self.user,
+            title="OtherApp",
+            description="desc",
+            slogan="slogan",
+        )
+        other_app.categories.add(other)
+
+        with patch(
+            "apps.analytics.services.get_popular_apps",
+            return_value=[
+                {"app_id": other_app.pk, "count": 99},
+                {"app_id": self.app.pk, "count": 10},
+            ],
+        ):
+            apps = get_apps_for_category(self.category, limit=4)
+        self.assertEqual([a.pk for a in apps], [self.app.pk])
 
 
 class ProxyDownloadTest(TestCase):

@@ -6,6 +6,7 @@ from . import views
 urlpatterns = [
     path("", views.home_redirect, name="home"),
     path("index.php", views.marketplace, name="index"),
+    path("store.php", views.store_listing, name="store_listing"),
     path("category.php", views.category, name="category"),
     path("app.php", views.app, name="app"),
     path("app_add.php", views.app_add, name="app_add"),
