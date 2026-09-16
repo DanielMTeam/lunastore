@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load static %}
+{% load markdown_tags %}
 {# store-style card for rich homepage sections (matches index_NEW mockup) #}
 <div class="card">
   {% if app.icon_path %}
@@ -8,7 +9,7 @@
     <img src="{% static './img/noavatar_64.jpg' %}" alt="{{ app.title }}" width="48" height="48">
   {% endif %}
   <a href="{% url 'app' %}?id={{ app.id }}"><h3>{{ app.title }}</h3></a>
-  <p>{% if app.slogan %}{{ app.slogan|truncatechars:45 }}{% else %}{{ app.description|truncatechars:45 }}{% endif %}</p>
+  <p>{% if app.slogan %}{{ app.slogan|truncatechars:45|render_markdown }}{% else %}{{ app.description|truncatechars:45|render_markdown }}{% endif %}</p>
   {% if app.is_demo %}
     {% if app.price > 0 %}
       <div class="badge demo">{% trans "INFO_APP_DEMOWITHPRICE" %} ${{ app.price }}</div>

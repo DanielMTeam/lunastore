@@ -1812,21 +1812,29 @@ a.report_problem {
 .home_item {
     float: left;
     width: 125px;
-    height: 170px;
+    height: 185px;
     margin-right: 5px;
     margin-bottom: 5px;
     border: 1px solid #d2e9ff;
     padding: 5px;
+    overflow: hidden;
 }
 
 .home_item_name {
     font-size: 12px;
     font-weight: bold;
+    height: 32px;
+    line-height: 16px;
+    overflow: hidden;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .home_item_name a {
     color: #000;
     text-decoration: none;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .home_item_name a:hover {
@@ -1865,9 +1873,11 @@ a.report_problem {
 }
 
 .home_item_desc {
-    height: 50px;
+    height: 36px;
     overflow: hidden;
     font-size: 11px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .home_rating {
