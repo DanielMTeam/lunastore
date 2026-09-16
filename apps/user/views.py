@@ -106,6 +106,17 @@ def get_real_ip(group, request):
     return get_client_ip(request)
 
 
+def _login_template_context(request, next_url=None, **extra):
+    from apps.user.services import lunapassport as passport_svc
+    ctx = {
+        "next": next_url,
+        "lunapassport_enabled": passport_svc.is_enabled(),
+        "pending_passport": passport_svc.get_pending_profile(request),
+    }
+    ctx.update(extra)
+    return ctx
+
+
 @method_decorator(ratelimit(key=get_real_ip,
                   rate='15/h', block=True), name='post')
 @method_decorator(ratelimit(key='post:email',
@@ -155,10 +166,14 @@ def login(request):
         )
         if nospam_decision and nospam_decision.should_block:
             messages.error(request, _("VIEW_LOGIN_INVALID_CREDENTIALS"))
-            return render(request, "login_splash.html", {"next": next_url}, status=403)
+            return render(
+                request, "login_splash.html", _login_template_context(
+                    request, next_url), status=403)
         if nospam_decision is None and _should_deny_on_nospam_error():
             messages.error(request, _("VIEW_LOGIN_INVALID_CREDENTIALS"))
-            return render(request, "login_splash.html", {"next": next_url}, status=503)
+            return render(
+                request, "login_splash.html", _login_template_context(
+                    request, next_url), status=503)
 
         form_data = {"username": username_val, "password": password_val}
         form = AuthenticationForm(request, data=form_data)
@@ -176,11 +191,13 @@ def login(request):
             if user_nospam_decision and user_nospam_decision.should_block:
                 messages.error(request, _("VIEW_LOGIN_INVALID_CREDENTIALS"))
                 return render(
-                    request, "login_splash.html", {
-                        "next": next_url}, status=403)
+                    request, "login_splash.html", _login_template_context(
+                        request, next_url), status=403)
             if user_nospam_decision is None and _should_deny_on_nospam_error():
                 messages.error(request, _("VIEW_LOGIN_INVALID_CREDENTIALS"))
-                return render(request, "login_splash.html", {"next": next_url}, status=503)
+                return render(
+                    request, "login_splash.html", _login_template_context(
+                        request, next_url), status=503)
             ban = UserBan.objects.filter(user=user).first()
             if ban:
                 if (
@@ -201,8 +218,8 @@ def login(request):
                         "reason": reason}
                     messages.error(request, error_msg)
                     return render(
-                        request, "login_splash.html", {
-                            "next": next_url})
+                        request, "login_splash.html", _login_template_context(
+                            request, next_url))
 
             if user.totp_enabled:
                 request.session["2fa_user_id"] = user.id
@@ -220,6 +237,9 @@ def login(request):
                 user_agent=user_agent
             )
 
+            from apps.user.views_passport import try_auto_bind_pending_after_login
+            try_auto_bind_pending_after_login(request, user)
+
             if next_url and url_has_allowed_host_and_scheme(
                 url=next_url,
                 allowed_hosts={request.get_host()},
@@ -234,7 +254,11 @@ def login(request):
         else:
             messages.error(request, _("VIEW_LOGIN_INVALID_CREDENTIALS"))
 
-    return render(request, "login_splash.html", {"next": next_url})
+    return render(
+        request,
+        "login_splash.html",
+        _login_template_context(request, next_url),
+    )
 
 
 @require_POST
@@ -341,6 +365,8 @@ def register(request):
             )
             user.backend = "django.contrib.auth.backends.ModelBackend"
             dj_login(request, user)
+            from apps.user.views_passport import try_auto_bind_pending_after_login
+            try_auto_bind_pending_after_login(request, user)
             send_notification.enqueue(
                 user_id=user.id,
                 title_key="NOTIF_WELCOME_TITLE",
@@ -810,6 +836,9 @@ def two_factor_attempt(request):
                 if "2fa_next_url" in request.session:
                     del request.session["2fa_next_url"]
 
+                from apps.user.views_passport import try_auto_bind_pending_after_login
+                try_auto_bind_pending_after_login(request, user)
+
                 if next_url and url_has_allowed_host_and_scheme(
                     url=next_url,
                     allowed_hosts={request.get_host()},
@@ -832,6 +861,18 @@ def two_factor_attempt(request):
 @login_required
 def settings_security(request):
     user = request.user
+    from apps.user.models import LunaPassportLink
+    from apps.user.services import lunapassport as passport_svc
+
+    passport_link = None
+    pending_passport = None
+    if passport_svc.is_enabled():
+        passport_link = LunaPassportLink.objects.filter(user=user).first()
+        pending_passport = passport_svc.get_pending_profile(request)
+        if pending_passport and pending_passport.sign_in.lower() != user.email.lower():
+            passport_svc.clear_pending_link(request)
+            pending_passport = None
+
     forms = {
         "password_form": PasswordChangeForm(user=user),
         "email_form": EmailChangeForm(user=user),
@@ -845,6 +886,10 @@ def settings_security(request):
         ).order_by('-created_at'),
         "current_session_key": request.session.session_key,
         "is_new_session": False,
+        "lunapassport_enabled": passport_svc.is_enabled(),
+        "passport_link": passport_link,
+        "pending_passport": pending_passport,
+        "has_usable_password": user.has_usable_password(),
     }
 
     current_session = UserSession.objects.filter(

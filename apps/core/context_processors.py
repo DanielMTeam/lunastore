@@ -19,6 +19,11 @@ def drm_settings(request):
     return {"ENABLE_DRM": config.ENABLE_DRM}
 
 
+def lunapassport_settings(request):
+    from apps.user.services import lunapassport as passport_svc
+    return {"lunapassport_enabled": passport_svc.is_enabled()}
+
+
 def geo_domains_processor(request):
     return {"geo_domains": getattr(request, 'geo_domains', {})}
 

@@ -3,6 +3,7 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 
 from . import views
+from . import views_passport
 from .forms import CustomPasswordResetForm
 
 urlpatterns = [
@@ -10,6 +11,24 @@ urlpatterns = [
     path("login.php", views.login, name="login"),
     path("logout.php", views.logout, name="logout"),
     path("register.php", views.register, name="register"),
+    # LunaPassport OAuth
+    path("passport/login.php", views_passport.passport_login, name="passport_login"),
+    path("passport/link.php", views_passport.passport_link, name="passport_link"),
+    path(
+        "passport/callback.php",
+        views_passport.passport_callback,
+        name="passport_callback",
+    ),
+    path(
+        "passport/unlink.php",
+        views_passport.passport_unlink,
+        name="passport_unlink",
+    ),
+    path(
+        "passport/confirm_pending.php",
+        views_passport.passport_confirm_pending,
+        name="passport_confirm_pending",
+    ),
     # profile
     path("profile.php", views.profile, name="profile"),
     path("settings.php", views.profile_settings, name="settings"),

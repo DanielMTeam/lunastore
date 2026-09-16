@@ -316,3 +316,39 @@ class NoSpamMassActionTest(TestCase):
                 action=NoSpamRule.RuleAction.BAN,
             ).exists()
         )
+
+
+class LunaPassportTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = User.objects.create_user(
+            username="passport_user",
+            email="passport_user@example.com",
+            password="TestPassword123!",
+        )
+
+    def test_passport_endpoints_404_when_disabled(self):
+        resp = self.client.get(reverse("passport_login"))
+        self.assertEqual(resp.status_code, 404)
+        resp = self.client.get(reverse("passport_callback"))
+        self.assertEqual(resp.status_code, 404)
+
+    def test_passport_link_model(self):
+        from apps.user.models import LunaPassportLink
+        link = LunaPassportLink.objects.create(
+            user=self.user,
+            sub="passport_user@example.com",
+            sign_in="passport_user@example.com",
+            passport_name="Passport User",
+        )
+        self.assertEqual(self.user.passport_link.sub, link.sub)
+
+    def test_unlink_requires_login(self):
+        resp = self.client.post(reverse("passport_unlink"))
+        self.assertEqual(resp.status_code, 302)
+        self.assertIn("login.php", resp.url)
+
+    def test_sanitize_and_unique_username_helpers(self):
+        from apps.user.views_passport import _sanitize_username, _unique_username
+        self.assertEqual(_sanitize_username("Foo.Bar!"), "foo.bar")
+        self.assertTrue(_unique_username("passport_user").startswith("passport_user"))
