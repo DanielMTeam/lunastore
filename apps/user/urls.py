@@ -32,6 +32,7 @@ urlpatterns = [
     # profile
     path("profile.php", views.profile, name="profile"),
     path("settings.php", views.profile_settings, name="settings"),
+    path("settings_ui.php", views.settings_ui, name="settings_ui"),
     path(
         "settings_security.php",
         views.settings_security,

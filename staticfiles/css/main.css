@@ -69,6 +69,8 @@ a img {
     color: #fff;
     padding: 6px 10px;
     height: 50px;
+    position: relative;
+    z-index: 100;
 }
 
 .header h1 {
@@ -146,6 +148,285 @@ a img {
 .search_full button:active {
     border: 1px solid #5fa359;
     background: #006000;
+}
+
+.search_suggest_wrap {
+    position: relative;
+    zoom: 1;
+}
+
+.search_suggest_wrap.search_suggest_open {
+    z-index: 5000;
+}
+
+.searchbar.search_suggest_wrap .search_suggest_dropdown {
+    width: 260px;
+}
+
+.search_suggest_dropdown {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: 1000;
+    width: 420px;
+    max-width: 100%;
+    background: #fff;
+    border: 1px solid #7aa0e6;
+    border-top: none;
+    text-align: left;
+}
+
+.search_suggest_shim {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: 999;
+    border: none;
+    margin: 0;
+    padding: 0;
+    display: none;
+    filter: alpha(opacity=0);
+}
+
+.search_suggest_section_title {
+    background: #f0f0f0;
+    border-bottom: 1px solid #d4d4d4;
+    padding: 3px 8px;
+    font-size: 11px;
+    font-weight: bold;
+    color: #444;
+}
+
+.search_suggest_item {
+    display: block;
+    padding: 4px 8px;
+    color: #003399;
+    text-decoration: none;
+    border-bottom: 1px solid #eee;
+    overflow: hidden;
+    zoom: 1;
+}
+
+.search_suggest_item:hover {
+    background: #eef3ff;
+}
+
+.search_suggest_icon {
+    float: left;
+    margin-right: 8px;
+    border: 0;
+}
+
+.search_suggest_text {
+    display: block;
+    overflow: hidden;
+    line-height: 24px;
+}
+
+.search_user_card {
+    margin-bottom: 8px;
+}
+
+.search_user_row {
+    padding: 8px 0;
+    border-bottom: 1px solid #e6e6e6;
+    overflow: hidden;
+    zoom: 1;
+}
+
+.search_user_row_last,
+.search_user_row:last-child {
+    border-bottom: 0;
+}
+
+.search_user_avatar {
+    float: left;
+    width: 48px;
+    height: 48px;
+    margin-right: 10px;
+}
+
+.search_user_avatar img {
+    display: block;
+    border: 0;
+}
+
+.search_user_body {
+    overflow: hidden;
+    zoom: 1;
+}
+
+.search_user_name {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.search_user_name a {
+    color: #003399;
+    text-decoration: none;
+}
+
+.search_user_name a:hover {
+    text-decoration: underline;
+}
+
+.search_user_desc {
+    color: #444;
+    line-height: 1.4;
+}
+
+.search_page_tabs .tab-content {
+    padding: 10px;
+}
+
+.search_page_tabs .search_form_table {
+    width: 100%;
+    margin-bottom: 10px;
+    table-layout: fixed;
+}
+
+.search_page_tabs .search_form_input_cell {
+    padding-right: 6px;
+    vertical-align: middle;
+}
+
+.search_page_tabs .search_form_btn_cell {
+    width: 70px;
+    vertical-align: middle;
+    text-align: right;
+    white-space: nowrap;
+}
+
+/* Icon + border on wrap so input can be width:100% without eating the button */
+.search_page_tabs .search_suggest_wrap.search_form_field {
+    position: relative;
+    zoom: 1;
+    width: auto;
+    height: 24px;
+    border: 1px solid #7aa0e6;
+    background: #fff url("../img/search_icon_small.png") no-repeat 4px 1px;
+    padding-left: 28px;
+    overflow: hidden;
+}
+
+.search_page_tabs .search_form_input_cell input.search_suggest_input {
+    width: 100%;
+    height: 22px;
+    margin: 0;
+    padding: 2px 4px 2px 0;
+    border: 0;
+    background: transparent;
+    vertical-align: middle;
+    font-size: 11px;
+    line-height: 18px;
+    outline: none;
+}
+
+.search_page_tabs .search_form_btn_cell .search_form_btn {
+    width: 64px;
+    height: 24px;
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+    border: 1px solid #006000;
+    background: #5fa359;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 11px;
+}
+
+.search_page_tabs .search_form_btn_cell .search_form_btn:active {
+    border: 1px solid #5fa359;
+    background: #006000;
+}
+
+.search_page_tabs .search_suggest_wrap .search_suggest_dropdown {
+    width: 100%;
+    left: 0;
+    right: auto;
+}
+
+.search_page_tabs .search_filter_inner {
+    font-size: 11px;
+}
+
+.search_page_tabs .search_filter_label_cell {
+    padding-right: 6px;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.search_page_tabs .search_filter_td_left {
+    text-align: left;
+    vertical-align: middle;
+}
+
+.search_page_tabs .search_filter_td_right {
+    text-align: right;
+    vertical-align: middle;
+}
+
+.search_page_tabs .search_filter_input,
+.search_page_tabs .search_filter_select {
+    margin-left: 0;
+    vertical-align: middle;
+    height: 20px;
+    line-height: 16px;
+}
+
+.search_page_tabs .search_filter_reset_btn {
+    float: none;
+    display: inline-block;
+    width: auto;
+    min-width: 100px;
+    vertical-align: middle;
+}
+
+.search_page_tabs .profile_block,
+.search_page_tabs .profile_subblock,
+.search_page_tabs .profile_block_content {
+    width: auto;
+}
+
+.search_page_tabs .profile_block_content {
+    border-left: 1px solid #2b67b3;
+    border-right: 1px solid #2b67b3;
+    border-bottom: 1px solid #2b67b3;
+    padding: 10px;
+}
+
+.search_tab_results {
+    overflow: hidden;
+    zoom: 1;
+    clear: both;
+    margin-top: 10px;
+    margin-right: -6px;
+    width: auto;
+}
+
+/* gap between tiles via mr; container -6px eats trailing mr so row fills edge */
+.search_tab_results .card {
+    width: 204px;
+    margin: 0 6px 6px 0;
+}
+
+/* full row inside tab-content (~438px): 426 + 10pad + 2border */
+.search_tab_results .card.listview {
+    width: 426px;
+    margin: 0 6px 6px 0;
+    float: left;
+    clear: both;
+}
+
+.search_tab_results .card.listview .card_text,
+.search_tab_results .card.listview h3 {
+    width: 360px;
+}
+
+.search_tab_results .search_error {
+    margin-left: 0;
+    margin-right: 0;
 }
 
 .main {
@@ -792,12 +1073,22 @@ li.web {
     height: 100px;
 }
 
+.banner_image #welcome_home {
+    background: url(../img/categorybanner/homepage2.png) no-repeat;
+    height: 150px;
+}
+
 .banner_image #help_center {
     background: url(../img/categorybanner/help.png) no-repeat;
     height: 100px;
 }
 
 .banner_image #themes {
+    background: url(../img/categorybanner/themes.png) no-repeat;
+    height: 100px;
+}
+
+.banner_image .home_category_banner {
     background: url(../img/categorybanner/themes.png) no-repeat;
     height: 100px;
 }
@@ -921,7 +1212,8 @@ li.web {
 }
 
 .search_icon {
-    background: url("../img/search_icon_small.png") no-repeat;
+    background: #fff url("../img/search_icon_small.png") no-repeat 4px center;
+    padding-left: 25px;
 }
 
 .ls_dm_logo {
@@ -1440,6 +1732,244 @@ a.report_problem {
 
 .index_categories .empty {
     color: #999;
+}
+
+/* вид главной страницы */
+.design_main_switch {
+    width: 100%;
+    border: 1px solid #7aa0e6;
+    background: #daeeff;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.design_main_switch td {
+    vertical-align: top;
+    width: 50%;
+    padding: 6px 4px;
+}
+
+.design_switch_pic {
+    width: 180px;
+    height: 135px;
+    border: 1px solid #0b3a72;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.design_switch_pic img {
+    width: 180px;
+    height: 135px;
+    border: 0;
+    display: block;
+}
+
+.design_switch_select {
+    display: block;
+    width: 180px;
+    margin: 8px auto 0;
+    text-align: center;
+    font-size: 11px;
+}
+
+.design_switch_select input {
+    display: block;
+    margin: 0 auto 4px;
+}
+
+/* HOME PAGE 2.0 */
+.home_block {
+    padding: 5px;
+    background: #2b67b3;
+    color: #fff;
+    font-weight: bold;
+    font-size: 12px;
+    margin-top: 12px;
+}
+
+.home_block a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.home_block a:hover {
+    color: #e8e8e8;
+    text-decoration: none;
+}
+
+.home_block_content {
+    padding: 10px;
+    background: #ffffff;
+    border: 1px solid #2b67b3;
+    position: relative;
+}
+
+.home_block_other {
+    display: inline-block;
+    font-weight: normal;
+}
+
+.home_item {
+    float: left;
+    width: 125px;
+    height: 170px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border: 1px solid #d2e9ff;
+    padding: 5px;
+}
+
+.home_item_name {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.home_item_name a {
+    color: #000;
+    text-decoration: none;
+}
+
+.home_item_name a:hover {
+    color: #990000;
+    text-decoration: none;
+}
+
+.home_item_name a:active {
+    color: #cc0000;
+    text-decoration: none;
+}
+
+.home_item_icon {
+    height: 72px;
+    text-align: center;
+}
+
+.home_item_icon img {
+    width: 48px;
+    height: 48px;
+    border: 0;
+}
+
+.home_item_badge {
+    font-weight: bold;
+    font-size: 12px;
+    color: #b20000;
+}
+
+.home_item_badge.free {
+    color: #5fa359;
+}
+
+.home_item_badge.demo {
+    color: #ff7300;
+}
+
+.home_item_desc {
+    height: 50px;
+    overflow: hidden;
+    font-size: 11px;
+}
+
+.home_rating {
+    display: inline-block;
+    width: 80px;
+    height: 16px;
+    background: url(../img/rating.png) no-repeat 0px -160px;
+}
+
+.home_rating.r5 {
+    background: url(../img/rating.png) no-repeat 0px 0px;
+}
+
+.home_rating.r4_5 {
+    background: url(../img/rating.png) no-repeat 0px -16px;
+}
+
+.home_rating.r4 {
+    background: url(../img/rating.png) no-repeat 0px -32px;
+}
+
+.home_rating.r3_5 {
+    background: url(../img/rating.png) no-repeat 0px -48px;
+}
+
+.home_rating.r3 {
+    background: url(../img/rating.png) no-repeat 0px -64px;
+}
+
+.home_rating.r2_5 {
+    background: url(../img/rating.png) no-repeat 0px -80px;
+}
+
+.home_rating.r2 {
+    background: url(../img/rating.png) no-repeat 0px -96px;
+}
+
+.home_rating.r1_5 {
+    background: url(../img/rating.png) no-repeat 0px -112px;
+}
+
+.home_rating.r1 {
+    background: url(../img/rating.png) no-repeat 0px -128px;
+}
+
+.home_rating.r0_5 {
+    background: url(../img/rating.png) no-repeat 0px -144px;
+}
+
+.app_day_icon img {
+    width: 72px;
+    height: 72px;
+    border: 0;
+}
+
+.app_day_block {
+    border: 0;
+}
+
+.app_day_block_info {
+    width: 333px;
+}
+
+.app_day_block_name {
+    font-size: 16px;
+    font-weight: bold;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 333px;
+    white-space: nowrap;
+}
+
+.app_day_block_desc {
+    margin-bottom: 5px;
+    font-size: 12px;
+    width: 333px;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.app_day_button_wrap {
+    margin-bottom: 10px;
+}
+
+.home_change_button a {
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.home_change_button a:hover {
+    color: #e6e6e6;
+    text-decoration: none;
+}
+
+.home_change_button a:active {
+    color: #dadada;
+    text-decoration: none;
 }
 
 /* Я давно это мечтал сделать: переключение темы сайта. УРАаа*/

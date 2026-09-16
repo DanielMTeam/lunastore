@@ -423,6 +423,36 @@ msgstr "Welcome to LunaStore!<br>A collection of apps and extensions for a comfo
 msgid "INDEX_WELCOME_TITLE"
 msgstr "Welcome"
 
+msgid "INDEX_CONFIGURE_HOME"
+msgstr "Customize homepage"
+
+msgid "INDEX_APP_OF_THE_DAY"
+msgstr "App of the day"
+
+msgid "INDEX_FOR_YOU"
+msgstr "For you"
+
+msgid "INDEX_EDITOR_CHOICE"
+msgstr "Editor's choice"
+
+msgid "INDEX_SEE_ALL"
+msgstr "all"
+
+msgid "INDEX_SEE_MORE"
+msgstr "More..."
+
+msgid "INDEX_MONTHLY_TOP_TITLE"
+msgstr "Apps of the month"
+
+msgid "INDEX_MONTHLY_TOP_DESC"
+msgstr "Most downloaded over the last month"
+
+msgid "INDEX_STORE_LISTING_TITLE"
+msgstr "Catalog"
+
+msgid "INDEX_NO_APPS"
+msgstr "No apps found"
+
 msgid "INFO_2FA_DISABLED"
 msgstr "Two-factor authentication has been successfully disabled."
 
@@ -2096,6 +2126,27 @@ msgstr "Show content as tiles"
 msgid "PAGE_SEARCH_TITLE"
 msgstr "Search"
 
+msgid "PAGE_SEARCH_TAB_APPS"
+msgstr "Applications"
+
+msgid "PAGE_SEARCH_TAB_USERS"
+msgstr "Users"
+
+msgid "PAGE_SEARCH_MSG_NO_USERS %(q)s"
+msgstr "No users found for \"%(q)s\""
+
+msgid "PAGE_SEARCH_MSG_UNAVAILABLE"
+msgstr "Search is temporarily unavailable. Please try again later."
+
+msgid "PAGE_SEARCH_SUGGEST_APPS"
+msgstr "Applications"
+
+msgid "PAGE_SEARCH_SUGGEST_USERS"
+msgstr "Users"
+
+msgid "PAGE_SEARCH_USERS_COUNT"
+msgstr "Found"
+
 msgid "PAGE_SETTINGS_BTN_DELETE"
 msgstr "Delete account"
 
@@ -2224,6 +2275,27 @@ msgstr "Apps"
 
 msgid "PAGE_SETTINGS_TAB_SECURITY"
 msgstr "Security"
+
+msgid "PAGE_SETTINGS_TAB_UI"
+msgstr "Look"
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_TITLE"
+msgstr "Homepage layout"
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_INFO"
+msgstr "You can switch the homepage between the rich and compact layouts."
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_RICH"
+msgstr "Rich"
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_COMPACT"
+msgstr "Compact"
+
+msgid "INFO_HOME_LAYOUT_UPDATED"
+msgstr "Homepage layout saved"
+
+msgid "ERROR_HOME_LAYOUT_INVALID"
+msgstr "Invalid homepage layout"
 
 msgid "PAGE_SETTINGS_TERMINATE_SESSION"
 msgstr "Terminate session"

@@ -1,0 +1,28 @@
+{% load i18n %}
+{% load static %}
+{# home_item tile for rich homepage blocks #}
+<div class="home_item">
+  <a href="{% url 'app' %}?id={{ app.id }}">
+    <div class="home_item_icon">
+      {% if app.icon_path %}
+        <img src="{{ app.icon_url }}" alt="{{ app.title }}" width="48" height="48">
+      {% else %}
+        <img src="{% static './img/noavatar_64.jpg' %}" alt="{{ app.title }}" width="48" height="48">
+      {% endif %}
+    </div>
+  </a>
+  <div class="home_item_name"><a href="{% url 'app' %}?id={{ app.id }}">{{ app.title|truncatechars:22 }}</a></div>
+  <div class="home_item_desc">{% if app.slogan %}{{ app.slogan|truncatechars:60 }}{% else %}{{ app.description|truncatechars:60 }}{% endif %}</div>
+  {% if app.star_class %}<div class="home_rating {{ app.star_class }}"></div>{% else %}<div class="home_rating"></div>{% endif %}
+  {% if app.is_demo %}
+    {% if app.price > 0 %}
+      <div class="home_item_badge demo">{% trans "INFO_APP_DEMOWITHPRICE" %} ${{ app.price }}</div>
+    {% else %}
+      <div class="home_item_badge demo">{% trans "INFO_APP_DEMO" %}</div>
+    {% endif %}
+  {% elif app.price > 0 %}
+    <div class="home_item_badge">${{ app.price }}</div>
+  {% else %}
+    <div class="home_item_badge free">{% trans "INFO_APP_FREE" %}</div>
+  {% endif %}
+</div>

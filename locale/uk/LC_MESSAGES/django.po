@@ -427,6 +427,36 @@ msgstr "Ласкаво просимо до LunaStore!<br>Збірник прог
 msgid "INDEX_WELCOME_TITLE"
 msgstr "Ласкаво просимо"
 
+msgid "INDEX_CONFIGURE_HOME"
+msgstr "Налаштувати головну сторінку"
+
+msgid "INDEX_APP_OF_THE_DAY"
+msgstr "Застосунок дня"
+
+msgid "INDEX_FOR_YOU"
+msgstr "Для вас"
+
+msgid "INDEX_EDITOR_CHOICE"
+msgstr "Вибір редакції"
+
+msgid "INDEX_SEE_ALL"
+msgstr "усі"
+
+msgid "INDEX_SEE_MORE"
+msgstr "Ще..."
+
+msgid "INDEX_MONTHLY_TOP_TITLE"
+msgstr "Застосунки місяця"
+
+msgid "INDEX_MONTHLY_TOP_DESC"
+msgstr "Найпопулярніші за останній місяць за завантаженнями"
+
+msgid "INDEX_STORE_LISTING_TITLE"
+msgstr "Каталог"
+
+msgid "INDEX_NO_APPS"
+msgstr "Застосунки не знайдено"
+
 msgid "INFO_2FA_DISABLED"
 msgstr "Двофакторна автентифікація успішно відключена."
 
@@ -2091,6 +2121,27 @@ msgstr "Відображати вміст плитками"
 msgid "PAGE_SEARCH_TITLE"
 msgstr "Пошук"
 
+msgid "PAGE_SEARCH_TAB_APPS"
+msgstr "Програми"
+
+msgid "PAGE_SEARCH_TAB_USERS"
+msgstr "Користувачі"
+
+msgid "PAGE_SEARCH_MSG_NO_USERS %(q)s"
+msgstr "Користувачів за запитом «%(q)s» не знайдено"
+
+msgid "PAGE_SEARCH_MSG_UNAVAILABLE"
+msgstr "Пошук тимчасово недоступний. Спробуйте пізніше."
+
+msgid "PAGE_SEARCH_SUGGEST_APPS"
+msgstr "Програми"
+
+msgid "PAGE_SEARCH_SUGGEST_USERS"
+msgstr "Користувачі"
+
+msgid "PAGE_SEARCH_USERS_COUNT"
+msgstr "Знайдено"
+
 msgid "PAGE_SETTINGS_BTN_DELETE"
 msgstr "Видалити обліковий запис"
 
@@ -2191,13 +2242,34 @@ msgid "PAGE_SETTINGS_SECTION_PRIVACY"
 msgstr "Приватність"
 
 msgid "PAGE_SETTINGS_TAB_ACCOUNT"
-msgstr "Обліковий запис"
+msgstr "Акаунт"
 
 msgid "PAGE_SETTINGS_TAB_APPS"
 msgstr "Програми"
 
 msgid "PAGE_SETTINGS_TAB_SECURITY"
-msgstr "Безпека"
+msgstr "Захист"
+
+msgid "PAGE_SETTINGS_TAB_UI"
+msgstr "Вигляд"
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_TITLE"
+msgstr "Вигляд головної сторінки"
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_INFO"
+msgstr "Ви можете налаштувати зовнішній вигляд головної сторінки між змістовною та скороченою."
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_RICH"
+msgstr "Змістовна"
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_COMPACT"
+msgstr "Скорочена"
+
+msgid "INFO_HOME_LAYOUT_UPDATED"
+msgstr "Вигляд головної сторінки збережено"
+
+msgid "ERROR_HOME_LAYOUT_INVALID"
+msgstr "Некоректний вигляд головної сторінки"
 
 msgid "PAGE_SETTINGS_TERMINATE_SESSION"
 msgstr "Завершити сеанс"

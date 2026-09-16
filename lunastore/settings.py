@@ -49,6 +49,16 @@ CLICKHOUSE_DATABASE = os.getenv(
 )
 CLICKHOUSE_SECURE = os.getenv("CLICKHOUSE_SECURE", "False") == "True"
 
+# meilisearch full-text search
+MEILISEARCH_URL = os.getenv(
+    "MEILISEARCH_URL",
+    "http://meilisearch:7700"
+    if (os.path.exists("/.dockerenv") or os.getenv("DOCKER_CONTAINER"))
+    else "http://127.0.0.1:7700",
+)
+MEILISEARCH_MASTER_KEY = os.getenv("MEILI_MASTER_KEY", "")
+MEILISEARCH_ENABLED = os.getenv("MEILISEARCH_ENABLED", "True") == "True"
+
 if SENTRY_ENABLED and SENTRY_DSN:
     _sentry_logging = LoggingIntegration(
         level=logging.INFO,
@@ -506,6 +516,16 @@ CONSTANCE_CONFIG = {
         "Кол-во скриншотов на приложение",
         int,
     ),
+    "HOME_EDITOR_CHOICE_CATEGORY_ID": (
+        int(os.getenv("HOME_EDITOR_CHOICE_CATEGORY_ID", "0")),
+        "ID категории для блока «Выбор редакции» на главной (0 = скрыть)",
+        int,
+    ),
+    "HOME_APP_OF_THE_DAY_ID": (
+        int(os.getenv("HOME_APP_OF_THE_DAY_ID", "0")),
+        "ID приложения дня (0 = автоматически по аналитике)",
+        int,
+    ),
     # -- rate limiting --
     "RATE_LIMIT_ENABLED": (
         os.getenv("RATE_LIMIT_ENABLED", "False") == "True",
@@ -763,7 +783,14 @@ CONSTANCE_CONFIG_FIELDSETS = {
         "collapse": True,
     },
     "Контент и внешний вид": {
-        "fields": ["MOTD_LIST", "SCREENSHOT_COUNT", "ENABLE_DRM", "ENABLE_DISTRIBUTION_PROXY"],
+        "fields": [
+            "MOTD_LIST",
+            "SCREENSHOT_COUNT",
+            "ENABLE_DRM",
+            "ENABLE_DISTRIBUTION_PROXY",
+            "HOME_EDITOR_CHOICE_CATEGORY_ID",
+            "HOME_APP_OF_THE_DAY_ID",
+        ],
         "collapse": True,
     },
     "Rate Limiting": {
@@ -1037,6 +1064,7 @@ UNFOLD = {"SITE_TITLE": "Панель LunaStore",
                     },
                    {"models": ["marketplace.application",
                                "marketplace.category",
+                               "marketplace.homecategoryblock",
                                "marketplace.distribution",
                                "marketplace.badge",
                                "marketplace.appreportrequests",
@@ -1130,6 +1158,11 @@ UNFOLD = {"SITE_TITLE": "Панель LunaStore",
                                                  "icon": "category",
                                                  "link": reverse_lazy("admin:marketplace_category_changelist"),
                                                  "permission": lambda request: request.user.has_perm("marketplace.view_category"),
+                                                 },
+                                                {"title": "Блоки главной",
+                                                 "icon": "view_agenda",
+                                                 "link": reverse_lazy("admin:marketplace_homecategoryblock_changelist"),
+                                                 "permission": lambda request: request.user.has_perm("marketplace.view_homecategoryblock"),
                                                  },
                                                 {"title": "Бейджики",
                                                  "icon": "local_police",

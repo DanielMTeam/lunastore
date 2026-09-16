@@ -3,7 +3,6 @@ import re
 import uuid
 
 from django.conf import settings
-from django.contrib.postgres.indexes import GinIndex
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.urls import reverse
@@ -50,6 +49,12 @@ class Category(SafeDeleteModel):
 
     def __repr__(self):
         return f"<Category {self.name}>"
+
+    @property
+    def banner_url(self) -> str | None:
+        if not self.banner_filename:
+            return None
+        return f"/staticfiles/img/categorybanner/{self.banner_filename.lstrip('/')}"
 
 
 class Badge(models.Model):
@@ -232,13 +237,6 @@ class Application(BaseApplicationInfo, SafeDeleteModel):
         permissions = [
             ("set_dmca_flag", "Can set DMCA flag on application"),
             ("set_demo_flag", "Can set demo flag on application"),
-        ]
-        indexes = [
-            GinIndex(
-                name="app_trgm_idx",
-                fields=["title", "description", "slogan"],
-                opclasses=["gin_trgm_ops", "gin_trgm_ops", "gin_trgm_ops"],
-            ),
         ]
 
     def __str__(self):
@@ -734,3 +732,37 @@ class CollectionFavorite(models.Model):
 
     def __str__(self) -> str:
         return f"{self.user_id}:{self.collection_id}"
+
+
+# admin-configured category blocks for the rich homepage (not API)
+# managed in admin, rendered to users via index_rich.html
+class HomeCategoryBlock(models.Model):
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.CASCADE,
+        related_name="home_blocks",
+        verbose_name="Категория",
+    )
+    sort_order = models.PositiveIntegerField(
+        default=0,
+        verbose_name="Порядок",
+        help_text="Меньше значение — выше на главной",
+    )
+    is_enabled = models.BooleanField(default=True, verbose_name="Включён")
+    apps_limit = models.PositiveSmallIntegerField(
+        default=4,
+        verbose_name="Кол-во приложений",
+        help_text="Сколько карточек показывать в блоке (макс. 24)",
+        validators=[
+            MinValueValidator(1),
+            MaxValueValidator(24),
+        ],
+    )
+
+    class Meta:
+        verbose_name = "Блок категории на главной"
+        verbose_name_plural = "Блоки категорий на главной"
+        ordering = ["sort_order", "id"]
+
+    def __str__(self) -> str:
+        return f"{self.category} (#{self.sort_order})"

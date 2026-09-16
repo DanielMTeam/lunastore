@@ -19,7 +19,10 @@
     {% endif %}
     <link rel="shortcut icon" href="{% static './favicon.ico'%}">
     <script>window.DARK_THEME_CSS_URL = "{% static 'css/darkthm.css' %}";</script>
-    <script src="{% static './js/cookie.js'%}"></script>
+    <script src="{% static './js/cookie.js' %}"></script>
+    {% if is_modern_browser %}
+    {# real IE < 9 never executes these even if UA lies to the server :D #}
+    <!--[if gte IE 9]><!-->
     <script defer src="https://analytics.myslivets.com/script.js" data-website-id="bce1e0a4-fb9e-40e8-85c9-04c8bd3c8940"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tolgee/web/dist/tolgee-web.production.umd.min.js"></script>
 
@@ -39,12 +42,14 @@
             // Tolgee is not supported in old IE, gracefully fail
         }
     </script>
+    <!--<![endif]-->
+    {% endif %}
 
     <!--[if IE 6]>
     <script src="{% static './js/dd_belatedpng.min.js' %}"></script>
     <script>
     /* EXAMPLE */
-    DD_belatedPNG.fix('.ls_dm_logo, .error_icon_small, .good_icon_small, .info_icon_small, .sidebar_menu a, .category_icon, .balloon_img, .dm_menu, .actionsm li, .rating, .r5, .r4_5, .r4, .r3_5, .r3, .r2_5, .r2, .r1_5, .r1, .r0_5');
+    DD_belatedPNG.fix('.ls_dm_logo, .error_icon_small, .good_icon_small, .info_icon_small, .sidebar_menu a, .category_icon, .balloon_img, .dm_menu, .actionsm li, .rating, .home_rating, .r5, .r4_5, .r4, .r3_5, .r3, .r2_5, .r2, .r1_5, .r1, .r0_5');
   </script>
   <![endif]-->
 </head>
@@ -105,11 +110,12 @@
                 <div class="subtitle txtr">{{ motds|random }}</div>
             </div>
 
-            <div class="searchbar" style="margin-top: 13px;">
-                <form action="{% url 'search' %}" method="get" style="display: inline;">
-                    <input type="text" name="q" id="q" value="{{ request.GET.q|default_if_none:'' }}" placeholder="{% trans "INDEX_SEARCH_PLACEHOLDER" %}">
+            <div class="searchbar search_suggest_wrap" style="margin-top: 13px;">
+                <form action="{% url 'search' %}" method="get" style="display: inline; margin: 0; padding: 0;">
+                    <input type="text" name="q" id="q" class="search_suggest_input" value="{{ request.GET.q|default_if_none:'' }}" placeholder="{% trans "INDEX_SEARCH_PLACEHOLDER" %}" autocomplete="off">
                     <button type="submit">{% trans "BASE_SEARCHBTN" %}</button>
                 </form>
+                <div class="search_suggest_dropdown" style="display: none;"></div>
             </div>
         </div>
 
@@ -159,7 +165,7 @@
                     {% with route=request.resolver_match.url_name %}
                     <ul class="sidebar_menu">
                         <li><a class="myhome" {% if route == 'profile' and request.GET.id == request.user.id|stringformat:"s" %} id="active" {% endif %} href="/profile.php?id={{ request.user.id }}">{% trans "BASE_SIDEBAR_ACCOUNT_PROFILEBTN" %}</a></li>
-                        <li><a class="settings" {% if route == 'settings' or route == 'settings_security' or route == 'settings_apps' or route == "settings_2fa_set" %} id="active" {% endif %} href="{% url 'settings' %}">{% trans "BASE_SIDEBAR_ACCOUNT_SETTINGSBTN" %}</a></li>
+                        <li><a class="settings" {% if route == 'settings' or route == 'settings_security' or route == 'settings_apps' or route == "settings_2fa_set" or route == 'settings_ui' %} id="active" {% endif %} href="{% url 'settings' %}">{% trans "BASE_SIDEBAR_ACCOUNT_SETTINGSBTN" %}</a></li>
                         <li><a class="newbie" {% if route == 'invite_person' %}id="active" {% endif %} href="{% url 'invite_person' %}">{% trans "BASE_SIDEBAR_ACCOUNT_INVITEBTN" %}</a></li>
                         {% if is_modern_browser %}
                         <li><a class="notify" {% if route == 'notifications' %}id="active" {% endif %} href="{% url 'notifications' %}">
@@ -243,6 +249,7 @@
 
             {% if user.is_authenticated %}
             {% if is_modern_browser %}
+            <!--[if gte IE 9]><!-->
             <meta id="global-notify-token" content="{{ notify_token }}">
             <meta id="global-api-url" content="{{ api_url }}">
             <div id="audio-placeholder" style="display:none;"></div>
@@ -262,14 +269,25 @@
                     alertWarning: "{% trans 'MD_ALERT_WARNING'|escapejs %}"
                 };
             </script>
+            <!--<![endif]-->
             {% endif %}
             <script src="{% url 'javascript-catalog' %}"></script>
             {% if is_modern_browser %}
+            <!--[if gte IE 9]><!-->
             <script src="{% static './js/global_notifications.js' %}"></script>
-            {% endif %}
             <script src="{% static './js/markdown_client.js' %}"></script>
-            <script src="{% static './js/markdown_editor.js' %}?v=2"></script>
+            <script src="{% static './js/markdown_editor.js' %}"></script>
+            <!--<![endif]-->
             {% endif %}
+            {% endif %}
+
+            <script>
+            window.SEARCH_SUGGEST_URL = "{% url 'search' %}?mode=suggest";
+            window.SEARCH_SUGGEST_TYPE = "all";
+            window.SEARCH_SUGGEST_LABEL_APPS = "{% trans 'PAGE_SEARCH_SUGGEST_APPS'|escapejs %}";
+            window.SEARCH_SUGGEST_LABEL_USERS = "{% trans 'PAGE_SEARCH_SUGGEST_USERS'|escapejs %}";
+            </script>
+            <script src="{% static './js/search_suggest.js' %}"></script>
         </div>
 
 </body>

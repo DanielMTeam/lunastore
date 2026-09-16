@@ -427,6 +427,36 @@ msgstr "Вітаем у LunaStore!<br>Зборнік дадаткаў і дап�
 msgid "INDEX_WELCOME_TITLE"
 msgstr "Сардэчна запрашаем"
 
+msgid "INDEX_CONFIGURE_HOME"
+msgstr "Наладзіць галоўную старонку"
+
+msgid "INDEX_APP_OF_THE_DAY"
+msgstr "Праграма дня"
+
+msgid "INDEX_FOR_YOU"
+msgstr "Для вас"
+
+msgid "INDEX_EDITOR_CHOICE"
+msgstr "Выбар рэдакцыі"
+
+msgid "INDEX_SEE_ALL"
+msgstr "усе"
+
+msgid "INDEX_SEE_MORE"
+msgstr "Яшчэ..."
+
+msgid "INDEX_MONTHLY_TOP_TITLE"
+msgstr "Праграмы месяца"
+
+msgid "INDEX_MONTHLY_TOP_DESC"
+msgstr "Папулярныя за апошні месяц па спампоўках"
+
+msgid "INDEX_STORE_LISTING_TITLE"
+msgstr "Каталог"
+
+msgid "INDEX_NO_APPS"
+msgstr "Праграмы не знойдзены"
+
 msgid "INFO_2FA_DISABLED"
 msgstr "Двухфакторная аўтэнтыфікацыя паспяхова адключана."
 
@@ -2091,6 +2121,27 @@ msgstr "Паказваць змесціва пліткамі"
 msgid "PAGE_SEARCH_TITLE"
 msgstr "Пошук"
 
+msgid "PAGE_SEARCH_TAB_APPS"
+msgstr "Праграмы"
+
+msgid "PAGE_SEARCH_TAB_USERS"
+msgstr "Карыстальнікі"
+
+msgid "PAGE_SEARCH_MSG_NO_USERS %(q)s"
+msgstr "Карыстальнікі па запыце «%(q)s» не знойдзены"
+
+msgid "PAGE_SEARCH_MSG_UNAVAILABLE"
+msgstr "Пошук часова недаступны. Паспрабуйце пазней."
+
+msgid "PAGE_SEARCH_SUGGEST_APPS"
+msgstr "Праграмы"
+
+msgid "PAGE_SEARCH_SUGGEST_USERS"
+msgstr "Карыстальнікі"
+
+msgid "PAGE_SEARCH_USERS_COUNT"
+msgstr "Знойдзена"
+
 msgid "PAGE_SETTINGS_BTN_DELETE"
 msgstr "Выдаліць акаўнт"
 
@@ -2194,7 +2245,28 @@ msgid "PAGE_SETTINGS_TAB_APPS"
 msgstr "Дадаткі"
 
 msgid "PAGE_SETTINGS_TAB_SECURITY"
-msgstr "Бяспека"
+msgstr "Ахова"
+
+msgid "PAGE_SETTINGS_TAB_UI"
+msgstr "Выгляд"
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_TITLE"
+msgstr "Выгляд галоўнай старонкі"
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_INFO"
+msgstr "Вы можаце наладзіць знешні выгляд галоўнай старонкі паміж змястоўнай і скарочанай."
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_RICH"
+msgstr "Змястоўная"
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_COMPACT"
+msgstr "Скарочаная"
+
+msgid "INFO_HOME_LAYOUT_UPDATED"
+msgstr "Выгляд галоўнай старонкі захаваны"
+
+msgid "ERROR_HOME_LAYOUT_INVALID"
+msgstr "Няправільны выгляд галоўнай старонкі"
 
 msgid "PAGE_SETTINGS_TERMINATE_SESSION"
 msgstr "Завяршыць сеанс"

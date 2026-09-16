@@ -575,6 +575,48 @@ def profile_settings(request):
 
 
 @login_required
+def settings_ui(request):
+    from apps.marketplace.services.home import (
+        HOME_LAYOUT_COMPACT,
+        HOME_LAYOUT_RICH,
+        VALID_HOME_LAYOUTS,
+    )
+
+    user = request.user
+    if request.method == "POST":
+        layout = request.POST.get("home_view", "")
+        if layout in VALID_HOME_LAYOUTS:
+            user.home_layout = layout
+            user.save(update_fields=["home_layout"])
+            messages.success(request, _("INFO_HOME_LAYOUT_UPDATED"))
+            response = redirect("settings_ui")
+            response.set_cookie(
+                "home_layout",
+                layout,
+                max_age=365 * 24 * 60 * 60,
+                path="/",
+                httponly=True,
+                samesite="Lax",
+            )
+            return response
+        messages.error(request, _("ERROR_HOME_LAYOUT_INVALID"))
+        return redirect("settings_ui")
+
+    current = getattr(user, "home_layout", None) or HOME_LAYOUT_RICH
+    if current not in VALID_HOME_LAYOUTS:
+        current = HOME_LAYOUT_RICH
+    return render(
+        request,
+        "settings_ui.html",
+        {
+            "home_layout": current,
+            "HOME_LAYOUT_RICH": HOME_LAYOUT_RICH,
+            "HOME_LAYOUT_COMPACT": HOME_LAYOUT_COMPACT,
+        },
+    )
+
+
+@login_required
 def dev_status(request):
     user = request.user
     is_developer = request.user.groups.filter(name="Разработчики").exists()

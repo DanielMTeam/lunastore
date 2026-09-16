@@ -1,0 +1,44 @@
+{% load static %}
+{% load i18n %}
+{# settings tab bar; pass active_tab: account|apps|security|ui #}
+<div class="tab-bar tab-bar-compact">
+    {% if active_tab == "account" %}
+        <div class="tab active">
+            <img src="{% static './img/tabs/account.png' %}" class="tab-icon" alt=""> {% trans "PAGE_SETTINGS_TAB_ACCOUNT" %}
+        </div>
+    {% else %}
+        <a href="{% url 'settings' %}" class="tab" style="display: block; text-decoration: none; color: inherit;">
+            <img src="{% static './img/tabs/account.png' %}" class="tab-icon" alt=""> {% trans "PAGE_SETTINGS_TAB_ACCOUNT" %}
+        </a>
+    {% endif %}
+
+    {% if active_tab == "apps" %}
+        <div class="tab active">
+            <img src="{% static './img/tabs/programs.png' %}" class="tab-icon" alt=""> {% trans "PAGE_SETTINGS_TAB_APPS" %}
+        </div>
+    {% else %}
+        <a href="{% url 'settings_apps' %}" class="tab" style="display: block; text-decoration: none; color: inherit;">
+            <img src="{% static './img/tabs/programs.png' %}" class="tab-icon" alt=""> {% trans "PAGE_SETTINGS_TAB_APPS" %}
+        </a>
+    {% endif %}
+
+    {% if active_tab == "security" %}
+        <div class="tab active">
+            <img src="{% static './img/tabs/privacy.png' %}" class="tab-icon" alt=""> {% trans "PAGE_SETTINGS_TAB_SECURITY" %}
+        </div>
+    {% else %}
+        <a href="{% url 'settings_security' %}" class="tab" style="display: block; text-decoration: none; color: inherit;">
+            <img src="{% static './img/tabs/privacy.png' %}" class="tab-icon" alt=""> {% trans "PAGE_SETTINGS_TAB_SECURITY" %}
+        </a>
+    {% endif %}
+
+    {% if active_tab == "ui" %}
+        <div class="tab active">
+            <img src="{% static './img/tabs/ui.png' %}" class="tab-icon" alt=""> {% trans "PAGE_SETTINGS_TAB_UI" %}
+        </div>
+    {% else %}
+        <a href="{% url 'settings_ui' %}" class="tab" style="display: block; text-decoration: none; color: inherit;">
+            <img src="{% static './img/tabs/ui.png' %}" class="tab-icon" alt=""> {% trans "PAGE_SETTINGS_TAB_UI" %}
+        </a>
+    {% endif %}
+</div>

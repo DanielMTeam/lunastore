@@ -7,10 +7,9 @@ from constance import config
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.postgres.search import TrigramSimilarity
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext as _
@@ -23,7 +22,18 @@ from apps.analytics.services import (
     track_app_view,
 )
 from apps.core.utils import get_safe_redirect_url
+from apps.core.search import (
+    SearchService,
+    SearchUnavailableError,
+    is_query_too_short,
+    normalize_query,
+    parse_is_free,
+    parse_optional_int,
+)
+from apps.core.search.pagination import MeilisearchPaginator
+from apps.core.search.service import SEARCH_PAGE_SIZE
 from apps.user.decorators import developer_required, require_modern_browser
+from apps.user.models import User
 from .decorators import guard_private_app, user_is_owner
 from .forms import (
     AppCreateForm,
@@ -63,8 +73,69 @@ def home_redirect(request):
 
 # home page
 def marketplace(request):
-    categories = Category.objects.all()
-    return render(request, "index.html", {"categories": categories})
+    from apps.marketplace.services.home import (
+        HOME_LAYOUT_COMPACT,
+        HOME_LAYOUT_RICH,
+        build_rich_home_context,
+        resolve_home_layout,
+    )
+
+    layout = resolve_home_layout(request)
+    if layout == HOME_LAYOUT_COMPACT:
+        categories = Category.objects.all()
+        return render(
+            request,
+            "index.html",
+            {"categories": categories, "home_layout": HOME_LAYOUT_COMPACT},
+        )
+    context = build_rich_home_context(request)
+    return render(request, "index_rich.html", context)
+
+
+def store_listing(request):
+    # store.php?show=top — monthly popular apps listing
+    valid_shows = frozenset({"top", "new"})
+    valid_views = frozenset({"tiles", "list"})
+    show = request.GET.get("show", "top")
+    if show not in valid_shows:
+        show = "top"
+    page = request.GET.get("page")
+    view_mode = request.GET.get("view", "tiles")
+    if view_mode not in valid_views:
+        view_mode = "tiles"
+
+    from apps.analytics.services import get_popular_apps
+    from apps.marketplace.services.home import hydrate_apps_by_ids, public_apps_qs
+
+    if show == "top":
+        popular = get_popular_apps(days=30, limit=100, event_type="download")
+        popular_ids = [item["app_id"] for item in popular]
+        apps = hydrate_apps_by_ids(popular_ids)
+        if not apps:
+            apps = list(public_apps_qs().order_by("-published")[:50])
+        title = _("INDEX_MONTHLY_TOP_TITLE")
+        description = _("INDEX_MONTHLY_TOP_DESC")
+    else:
+        apps = list(public_apps_qs().order_by("-published")[:50])
+        title = _("INDEX_STORE_LISTING_TITLE")
+        description = ""
+
+    paginator = Paginator(apps, 10)
+    page_obj = paginator.get_page(page)
+    page_range = paginator.get_elided_page_range(
+        number=page_obj.number, on_each_side=2, on_ends=1
+    )
+    context = {
+        "page_obj": page_obj,
+        "page_range": page_range,
+        "name": title,
+        "description": description,
+        "view_mode": view_mode,
+        "count": len(apps),
+        "show": show,
+        "active_category": None,
+    }
+    return render(request, "store_listing.html", context)
 
 
 def category(request):
@@ -434,43 +505,111 @@ def application_stats(request, pk):
     )
 
 
+def _search_suggest_response(request):
+    query = normalize_query(request.GET.get("q"))
+    if is_query_too_short(query):
+        return JsonResponse({"apps": [], "users": []})
+
+    try:
+        limit = int(request.GET.get("limit", "8"))
+    except (TypeError, ValueError):
+        limit = 8
+    limit = max(1, min(limit, 20))
+
+    search_type = request.GET.get("type", "all")
+    if search_type not in ("all", "apps", "users"):
+        search_type = "all"
+
+    try:
+        data = SearchService.suggest(query, limit=limit, search_type=search_type)
+    except SearchUnavailableError:
+        return JsonResponse({"apps": [], "users": [], "error": "unavailable"}, status=503)
+
+    return JsonResponse(data)
+
+
+@ratelimit(key='ip', rate='30/1m', block=True)
 def search(request):
-    query = request.GET.get("q")
+    if request.GET.get("mode") == "suggest":
+        return _search_suggest_response(request)
+
+    query = normalize_query(request.GET.get("q"))
     view_mode = request.GET.get("view", "tiles")
+    search_type = request.GET.get("type", "apps")
+    if search_type not in ("apps", "users"):
+        search_type = "apps"
 
-    f_author = request.GET.get("author", "")
-    is_free = request.GET.get("is_free")
-    f_category = request.GET.get("category", "")
+    f_author = parse_optional_int(request.GET.get("author"))
+    is_free = parse_is_free(request.GET.get("is_free"))
+    f_category = parse_optional_int(request.GET.get("category"))
 
-    results = Application.objects.select_related("user").prefetch_related(
-        "categories", "badges").annotate(
-        cached_avg_rating=Avg('reviews__rating')).filter(
-            is_private=False)
     categories = Category.objects.all()
+    search_unavailable = False
 
-    if f_category:
-        results = results.filter(categories__id=f_category)
+    try:
+        page_number = max(1, int(request.GET.get("page", 1)))
+    except (TypeError, ValueError):
+        page_number = 1
+    offset = (page_number - 1) * SEARCH_PAGE_SIZE
 
-    if query:
-        results = results.annotate(
-            similarity=TrigramSimilarity("title", query)
-            + TrigramSimilarity("description", query)
-            + TrigramSimilarity("slogan", query),
-        ).filter(similarity__gt=0.1)
-
-    if f_author:
-        results = results.filter(user_id=f_author)
-    if is_free == "on":
-        results = results.filter(price=0)
-
-    if query:
-        results = results.order_by("-similarity")
+    if search_type == "users":
+        results_qs = User.objects.filter(is_active=True)
+        meili_total = None
+        if query:
+            try:
+                user_ids, meili_total = SearchService.search_user_ids(
+                    query,
+                    limit=SEARCH_PAGE_SIZE,
+                    offset=offset,
+                )
+                results_qs = SearchService.order_queryset_by_ids(results_qs, user_ids)
+            except SearchUnavailableError:
+                search_unavailable = True
+                results_qs = results_qs.none()
+                meili_total = 0
+        else:
+            results_qs = results_qs.order_by("-id")
+            paginator = Paginator(results_qs, SEARCH_PAGE_SIZE)
+            page_obj = paginator.get_page(page_number)
     else:
-        results = results.order_by("-id")
+        results_qs = Application.objects.select_related("user").prefetch_related(
+            "categories", "badges").annotate(
+            cached_avg_rating=Avg('reviews__rating')).filter(
+            is_private=False,
+            is_under_dmca=False,
+        )
 
-    paginator = Paginator(results, 10)
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
+        if f_category is not None:
+            results_qs = results_qs.filter(categories__id=f_category)
+
+        meili_total = None
+        if query:
+            try:
+                app_ids, meili_total = SearchService.search_application_ids(
+                    query,
+                    limit=SEARCH_PAGE_SIZE,
+                    offset=offset,
+                    category_id=f_category,
+                    author_id=f_author,
+                    is_free=is_free,
+                )
+                results_qs = SearchService.order_queryset_by_ids(results_qs, app_ids)
+            except SearchUnavailableError:
+                search_unavailable = True
+                results_qs = results_qs.none()
+                meili_total = 0
+        else:
+            if f_author is not None:
+                results_qs = results_qs.filter(user_id=f_author)
+            if is_free:
+                results_qs = results_qs.filter(price=0)
+            results_qs = results_qs.order_by("-id")
+            paginator = Paginator(results_qs, SEARCH_PAGE_SIZE)
+            page_obj = paginator.get_page(page_number)
+
+    if query and meili_total is not None:
+        paginator = MeilisearchPaginator(results_qs, SEARCH_PAGE_SIZE, meili_total)
+        page_obj = paginator.get_page(page_number)
 
     query_params = request.GET.copy()
     if "page" in query_params:
@@ -482,12 +621,21 @@ def search(request):
         del query_params_no_view["view"]
     url_params_no_view = query_params_no_view.urlencode()
 
+    query_params_tabs = query_params_no_view.copy()
+    if "type" in query_params_tabs:
+        del query_params_tabs["type"]
+    url_params_tabs = query_params_tabs.urlencode()
+
     context = {
         "results": page_obj,
         "query": query,
         "view_mode": view_mode,
+        "search_type": search_type,
+        "f_author": f_author if f_author is not None else "",
+        "search_unavailable": search_unavailable,
         "url_params": url_params,
         "url_params_no_view": url_params_no_view,
+        "url_params_tabs": url_params_tabs,
         "categories": categories,
     }
     return render(request, "search.html", context)
@@ -801,8 +949,14 @@ def get_file_action(request, dist_pk):
         if not request.user.is_authenticated or app.user_id != request.user.id:
             raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
 
-    # track download analytics
-    track_app_download(request, app_id=app.pk, distribution_id=dist.pk)
+    # track download analytics (first category for CH category filters)
+    first_cat_id = app.categories.values_list("id", flat=True).first()
+    track_app_download(
+        request,
+        app_id=app.pk,
+        distribution_id=dist.pk,
+        category_id=first_cat_id,
+    )
 
     if dist.cdn_file_id:
         payload = {

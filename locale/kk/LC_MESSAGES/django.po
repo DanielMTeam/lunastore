@@ -419,6 +419,36 @@ msgstr "LunaStore-ға қош келдіңіз!<br>Осы операциялық
 msgid "INDEX_WELCOME_TITLE"
 msgstr "Қош келдіңіз"
 
+msgid "INDEX_CONFIGURE_HOME"
+msgstr "Басты бетті баптау"
+
+msgid "INDEX_APP_OF_THE_DAY"
+msgstr "Күннің қосымшасы"
+
+msgid "INDEX_FOR_YOU"
+msgstr "Сізге"
+
+msgid "INDEX_EDITOR_CHOICE"
+msgstr "Редакция таңдауы"
+
+msgid "INDEX_SEE_ALL"
+msgstr "барлығы"
+
+msgid "INDEX_SEE_MORE"
+msgstr "Тағы..."
+
+msgid "INDEX_MONTHLY_TOP_TITLE"
+msgstr "Айдың қосымшалары"
+
+msgid "INDEX_MONTHLY_TOP_DESC"
+msgstr "Соңғы айдағы ең көп жүктелгендер"
+
+msgid "INDEX_STORE_LISTING_TITLE"
+msgstr "Каталог"
+
+msgid "INDEX_NO_APPS"
+msgstr "Қосымшалар табылмады"
+
 msgid "INFO_2FA_DISABLED"
 msgstr "Екі факторлық аутентификация сәтті өшірілді."
 
@@ -2079,6 +2109,27 @@ msgstr "Мазмұнды плиткалар ретінде көрсету"
 msgid "PAGE_SEARCH_TITLE"
 msgstr "Іздеу"
 
+msgid "PAGE_SEARCH_TAB_APPS"
+msgstr "Қолданбалар"
+
+msgid "PAGE_SEARCH_TAB_USERS"
+msgstr "Пайдаланушылар"
+
+msgid "PAGE_SEARCH_MSG_NO_USERS %(q)s"
+msgstr "«%(q)s» сұранысы бойынша пайдаланушылар табылмады"
+
+msgid "PAGE_SEARCH_MSG_UNAVAILABLE"
+msgstr "Іздеу уақытша қолжетімсіз. Кейінірек көріңіз."
+
+msgid "PAGE_SEARCH_SUGGEST_APPS"
+msgstr "Қолданбалар"
+
+msgid "PAGE_SEARCH_SUGGEST_USERS"
+msgstr "Пайдаланушылар"
+
+msgid "PAGE_SEARCH_USERS_COUNT"
+msgstr "Табылды"
+
 msgid "PAGE_SETTINGS_BTN_DELETE"
 msgstr "Тіркелгіні жою"
 
@@ -2179,10 +2230,31 @@ msgid "PAGE_SETTINGS_TAB_ACCOUNT"
 msgstr "Аккаунт"
 
 msgid "PAGE_SETTINGS_TAB_APPS"
-msgstr "Қосымшалар"
+msgstr "Қосымша"
 
 msgid "PAGE_SETTINGS_TAB_SECURITY"
-msgstr "Қауіпсіздік"
+msgstr "Қорғау"
+
+msgid "PAGE_SETTINGS_TAB_UI"
+msgstr "Көрініс"
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_TITLE"
+msgstr "Басты беттің түрі"
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_INFO"
+msgstr "Басты беттің сыртқы түрін толық немесе қысқартылған нұсқа арасында өзгертуге болады."
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_RICH"
+msgstr "Толық"
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_COMPACT"
+msgstr "Қысқартылған"
+
+msgid "INFO_HOME_LAYOUT_UPDATED"
+msgstr "Басты беттің түрі сақталды"
+
+msgid "ERROR_HOME_LAYOUT_INVALID"
+msgstr "Басты беттің түрі дұрыс емес"
 
 msgid "PAGE_SETTINGS_TERMINATE_SESSION"
 msgstr "Сеансты аяқтау"
