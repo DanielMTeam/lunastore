@@ -29,7 +29,7 @@ class ApplicationSerializer(serializers.ModelSerializer):
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ["id", "name", "description"]
+        fields = ["id", "name", "description", "icon", "banner_url"]
 
 
 class DistributionSerializer(serializers.ModelSerializer):

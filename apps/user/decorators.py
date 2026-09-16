@@ -30,14 +30,21 @@ def developer_required(view_func=None, redirect_url='index'):
 
 
 def is_outdated_browser(request):
+    import re
+
+    ua = request.META.get('HTTP_USER_AGENT', '') or ''
+    msie = re.search(r'MSIE\s+(\d+)', ua, re.IGNORECASE)
+    if msie and int(msie.group(1)) < 8:
+        return True
+
     if hasattr(request, 'user_agent'):
         browser = request.user_agent.browser
         family = browser.family
         version = browser.version[0] if browser.version else 0
 
         return (
-            # block only IE 6 and 7 (six seveeeeeeen)
-            (family == 'IE' and version in [6, 7]) or
+            # IE < 8 (incl. 4/5/5.5/6/7 — UA may report oddly in XP VMs)
+            (family == 'IE' and version < 8) or
             family == 'Opera Mini' or
             (family == 'Safari' and version < 11) or
             (family in ['Chrome', 'Firefox'] and version < 60)

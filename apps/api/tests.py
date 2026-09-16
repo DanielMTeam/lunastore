@@ -1,8 +1,10 @@
 from rest_framework.test import APITestCase
 from rest_framework import status
 from django.test import override_settings
+from unittest.mock import patch
 from apps.user.models import User
 from apps.marketplace.models import Application, Category, Collection, CollectionItem
+from apps.core.search import SearchUnavailableError
 import logging
 
 logger = logging.getLogger('api_tests')
@@ -94,6 +96,111 @@ class APIViewsTest(APITestCase):
         self.assertEqual(
             response.data['answer'],
             'влад кунякин пробудил шаринган')
+
+
+@override_settings(
+    ROOT_URLCONF='lunastore.urls_api',
+    MEILISEARCH_ENABLED=True,
+    RATELIMIT_BACKEND='memory',
+)
+class SearchAPITest(APITestCase):
+    @classmethod
+    def setUpTestData(cls):
+        with override_settings(MEILISEARCH_ENABLED=False):
+            cls.user = User.objects.create(
+                username='SearchApiUser',
+                password='ApiPassword123!',
+                email='searchapi@example.com',
+                is_active=True,
+            )
+            cls.app = Application.objects.create(
+                user=cls.user,
+                title='SearchableCleaner',
+                description='Cleans via search API',
+                slogan='Find me',
+                price=0,
+                is_private=False,
+                is_under_dmca=False,
+            )
+
+    @patch('apps.api.views.SearchService.search_application_ids')
+    def test_v1_marketplace_search_enumerated(self, mock_search):
+        mock_search.return_value = ([self.app.id], 1)
+        response = self.client.get(
+            '/method/marketplace/search/', {'query': 'Searchable'}
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn('1', response.data)
+        self.assertEqual(response.data['1']['title'], 'SearchableCleaner')
+        mock_search.assert_called_once()
+        self.assertEqual(mock_search.call_args.kwargs.get('limit'), 1000)
+
+    @patch('apps.api.views.SearchService.search_user_ids')
+    def test_v1_user_search_enumerated(self, mock_search):
+        mock_search.return_value = ([self.user.id], 1)
+        response = self.client.get('/method/user/search/', {'query': 'SearchApi'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn('1', response.data)
+        self.assertEqual(response.data['1']['username'], 'SearchApiUser')
+
+    def test_v1_marketplace_search_missing_query(self):
+        response = self.client.get('/method/marketplace/search/')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data['error_code'], 2)
+
+    @patch('apps.api.views.SearchService.search_application_ids')
+    def test_v1_marketplace_search_unavailable(self, mock_search):
+        mock_search.side_effect = SearchUnavailableError('down')
+        response = self.client.get(
+            '/method/marketplace/search/', {'query': 'Searchable'}
+        )
+        self.assertEqual(response.status_code, status.HTTP_503_SERVICE_UNAVAILABLE)
+        self.assertEqual(response.data['error_code'], 1)
+
+    @patch('apps.api.v2.views.SearchService.search_user_ids')
+    def test_v2_user_search_paginated(self, mock_search):
+        mock_search.return_value = ([self.user.id], 1)
+        response = self.client.get('/v2/user/search/', {'query': 'SearchApi'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 1)
+        self.assertIn('results', response.data)
+        self.assertEqual(response.data['results'][0]['username'], 'SearchApiUser')
+
+    @patch('apps.api.v2.views.SearchService.search_application_ids')
+    def test_v2_marketplace_search_paginated(self, mock_search):
+        mock_search.return_value = ([self.app.id], 1)
+        response = self.client.get(
+            '/v2/marketplace/search/', {'query': 'Searchable'}
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 1)
+        self.assertEqual(response.data['results'][0]['title'], 'SearchableCleaner')
+
+    def test_v2_marketplace_search_missing_query(self):
+        response = self.client.get('/v2/marketplace/search/')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data['error'], 'Query parameter is required')
+
+    @patch('apps.api.v2.views.SearchService.search_application_ids')
+    def test_v2_marketplace_search_unavailable(self, mock_search):
+        mock_search.side_effect = SearchUnavailableError('down')
+        response = self.client.get(
+            '/v2/marketplace/search/', {'query': 'Searchable'}
+        )
+        self.assertEqual(response.status_code, status.HTTP_503_SERVICE_UNAVAILABLE)
+        self.assertEqual(response.data['error'], 'Search service unavailable')
+
+    @patch('apps.api.v2.views.SearchService.suggest')
+    def test_v2_search_suggest(self, mock_suggest):
+        mock_suggest.return_value = {
+            'apps': [{'id': self.app.id, 'title': 'SearchableCleaner',
+                      'icon_url': '', 'url': f'/app.php?id={self.app.id}'}],
+            'users': [],
+        }
+        response = self.client.get('/v2/search/suggest/', {'query': 'Search'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data['apps']), 1)
+        self.assertEqual(response.data['users'], [])
 
 
 @override_settings(ROOT_URLCONF='lunastore.urls_api')

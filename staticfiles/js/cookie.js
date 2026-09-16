@@ -8,7 +8,6 @@ function setCookie(name, value, days) {
   document.cookie = name + "=" + (value || "") + expires + "; path=/";
 }
 
-// get cookie
 function getCookie(name) {
   var nameEQ = name + "=";
   var ca = document.cookie.split(";");
@@ -20,18 +19,61 @@ function getCookie(name) {
   return null;
 }
 
-// there is cookie?
-document.addEventListener("DOMContentLoaded", function () {
-  if (!getCookie("cookie_consent_accepted")) {
-    document.getElementById("cookie-banner").style.display = "block";
+function cookieById(id) {
+  if (document.getElementById) {
+    return document.getElementById(id);
+  }
+  if (document.all) {
+    return document.all[id];
+  }
+  return null;
+}
+
+function onDomReady(fn) {
+  // Prefer attachEvent first: IE6-10. Never call addEventListener on old IE.
+  if (document.attachEvent) {
+    document.attachEvent("onreadystatechange", function () {
+      if (document.readyState === "complete") {
+        fn();
+      }
+    });
+  } else if (document.addEventListener) {
+    document.addEventListener("DOMContentLoaded", fn, false);
+  } else {
+    window.onload = fn;
+  }
+}
+
+onDomReady(function () {
+  var banner = cookieById("cookie-banner");
+  if (banner && !getCookie("cookie_consent_accepted")) {
+    banner.style.display = "block";
   }
 });
+
 function acceptCookies(e) {
-  e.preventDefault();
+  e = e || window.event;
+  if (e && e.preventDefault) {
+    e.preventDefault();
+  } else if (e) {
+    e.returnValue = false;
+  }
   setCookie("cookie_consent_accepted", "true", 365);
-  document.getElementById("cookie-banner").style.display = "none";
+  var banner = cookieById("cookie-banner");
+  if (banner) {
+    banner.style.display = "none";
+  }
 }
+
 function closeCookieBanner(e) {
-  e.preventDefault();
-  document.getElementById("cookie-banner").style.display = "none";
+  e = e || window.event;
+  if (e && e.preventDefault) {
+    e.preventDefault();
+  } else if (e) {
+    e.returnValue = false;
+  }
+  var banner = cookieById("cookie-banner");
+  if (banner) {
+    banner.style.display = "none";
+  }
 }

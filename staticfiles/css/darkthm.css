@@ -227,6 +227,45 @@ body {
 }
 
 .search_full input.search_icon,
+.search_page_tabs .search_suggest_wrap.search_form_field {
+    border: 1px solid #4a4a4a !important;
+    background: #000 url("../img/search_icon_small.png") no-repeat 4px 1px !important;
+}
+
+.search_page_tabs .search_form_input_cell input.search_suggest_input {
+    border: 0 !important;
+    background: transparent !important;
+    color: #fff !important;
+}
+
+.search_user_name a {
+    color: #8cb4ff !important;
+}
+
+.search_user_desc {
+    color: #ccc;
+}
+
+.search_suggest_dropdown {
+    background: #1a1a1a !important;
+    border-color: #4a4a4a !important;
+}
+
+.search_suggest_section_title {
+    background: #2a2a2a !important;
+    border-color: #4a4a4a !important;
+    color: #ddd !important;
+}
+
+.search_suggest_item {
+    color: #8cb4ff !important;
+    border-color: #333 !important;
+}
+
+.search_suggest_item:hover {
+    background: #2a3344 !important;
+}
+
 .search_icon {
     background-color: #000 !important;
     background-image: url("../img/search_icon_small.png") !important;
