@@ -75,7 +75,7 @@
             <td>
               <div class="app_day_block_info">
                 <div class="app_day_block_name">{{ app_of_the_day.title }}</div>
-                <div class="app_day_block_desc">{% if app_of_the_day.slogan %}{{ app_of_the_day.slogan|truncatechars:80|render_markdown }}{% else %}{{ app_of_the_day.description|truncatechars:80|render_markdown }}{% endif %}</div>
+                <div class="app_day_block_desc">{% if app_of_the_day.slogan %}{{ app_of_the_day.slogan|render_markdown }}{% else %}{{ app_of_the_day.description|truncatechars:160|render_markdown }}{% endif %}</div>
                 {% if app_of_the_day.star_class %}<div class="home_rating {{ app_of_the_day.star_class }}"></div>{% else %}<div class="home_rating"></div>{% endif %}
                 <br><br>
                 <div class="app_day_button_wrap action">

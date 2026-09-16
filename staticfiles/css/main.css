@@ -1812,7 +1812,8 @@ a.report_problem {
 .home_item {
     float: left;
     width: 125px;
-    height: 185px;
+    min-height: 170px;
+    height: auto;
     margin-right: 5px;
     margin-bottom: 5px;
     border: 1px solid #d2e9ff;
@@ -1823,9 +1824,7 @@ a.report_problem {
 .home_item_name {
     font-size: 12px;
     font-weight: bold;
-    height: 32px;
     line-height: 16px;
-    overflow: hidden;
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
@@ -1873,9 +1872,10 @@ a.report_problem {
 }
 
 .home_item_desc {
-    height: 36px;
-    overflow: hidden;
     font-size: 11px;
+    line-height: 14px;
+    max-height: 42px;
+    overflow: hidden;
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
@@ -1884,6 +1884,7 @@ a.report_problem {
     display: inline-block;
     width: 80px;
     height: 16px;
+    margin-top: 3px;
     background: url(../img/rating.png) no-repeat 0px -160px;
 }
 
@@ -1956,9 +1957,7 @@ a.report_problem {
     font-size: 12px;
     width: 333px;
     word-wrap: break-word;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+    overflow-wrap: break-word;
 }
 
 .app_day_button_wrap {

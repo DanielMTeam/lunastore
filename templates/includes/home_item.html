@@ -13,7 +13,7 @@
     </div>
   </a>
   <div class="home_item_name"><a href="{% url 'app' %}?id={{ app.id }}">{{ app.title }}</a></div>
-  <div class="home_item_desc">{% if app.slogan %}{{ app.slogan|truncatechars:60|render_markdown }}{% else %}{{ app.description|truncatechars:60|render_markdown }}{% endif %}</div>
+  <div class="home_item_desc">{% if app.slogan %}{{ app.slogan|render_markdown }}{% else %}{{ app.description|truncatechars:160|render_markdown }}{% endif %}</div>
   {% if app.star_class %}<div class="home_rating {{ app.star_class }}"></div>{% else %}<div class="home_rating"></div>{% endif %}
   {% if app.is_demo %}
     {% if app.price > 0 %}
