@@ -181,10 +181,16 @@ def get_verify() -> bool | str:
 
 
 def build_tls_context(cafile: str) -> ssl.SSLContext:
-    # Python 3.13+/urllib3 enable VERIFY_X509_STRICT, which rejects private CAs without
-    # the keyUsage extension. Chain, hostname, validity dates and signatures stay verified.
+    # Python 3.13+/urllib3 set VERIFY_X509_STRICT and Debian images default to SECLEVEL=2;
+    # both reject legacy private CAs (no keyUsage, weak digest/small keys). The pushed
+    # context keeps full chain, hostname, validity and signature verification and only
+    # drops those formal policy checks (the trust anchor is pinned by LUNAPASSPORT_CA_BUNDLE).
     context = ssl.create_default_context(cafile=cafile)
     context.verify_flags &= ~ssl.VERIFY_X509_STRICT
+    try:
+        context.set_ciphers("DEFAULT@SECLEVEL=0")
+    except ssl.SSLError:
+        logger.warning("OpenSSL does not accept @SECLEVEL=0; legacy CA checks remain enabled")
     return context
 
 

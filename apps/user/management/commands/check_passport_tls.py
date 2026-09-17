@@ -43,6 +43,7 @@ class Command(BaseCommand):
         self.stdout.write(f"base URL:  {base_url}")
         self.stdout.write(f"CA bundle: {ca_bundle or '-'}")
         self.stdout.write(f"verify:    {verify!r}")
+        self.stdout.write("policy:    X509_STRICT off, SECLEVEL=0 (pinned private CA)")
 
         if parsed.scheme != "https":
             self.stdout.write(self.style.WARNING("base URL is not https — TLS checks skipped"))
