@@ -5,6 +5,7 @@ from __future__ import annotations
 import logging
 import os
 import secrets
+import ssl
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -15,6 +16,7 @@ from constance import config
 from django.conf import settings
 from django.core.cache import cache
 from django.http import HttpRequest
+from requests.adapters import HTTPAdapter
 
 logger = logging.getLogger(__name__)
 
@@ -178,6 +180,31 @@ def get_verify() -> bool | str:
     return verify
 
 
+def build_tls_context(cafile: str) -> ssl.SSLContext:
+    # Python 3.13+/urllib3 enable VERIFY_X509_STRICT, which rejects private CAs without
+    # the keyUsage extension. Chain, hostname, validity dates and signatures stay verified.
+    context = ssl.create_default_context(cafile=cafile)
+    context.verify_flags &= ~ssl.VERIFY_X509_STRICT
+    return context
+
+
+class _PassportTLSAdapter(HTTPAdapter):
+    def __init__(self, cafile: str, *args: Any, **kwargs: Any) -> None:
+        self._cafile = cafile
+        super().__init__(*args, **kwargs)
+
+    def init_poolmanager(self, *args: Any, **kwargs: Any) -> Any:
+        kwargs["ssl_context"] = build_tls_context(self._cafile)
+        return super().init_poolmanager(*args, **kwargs)
+
+
+def build_http_session(verify: bool | str) -> requests.Session:
+    session = requests.Session()
+    if isinstance(verify, str):
+        session.mount("https://", _PassportTLSAdapter(verify))
+    return session
+
+
 def create_state() -> str:
     # hex only — avoids +/= URL decoding quirks in browsers / proxies
     return secrets.token_hex(24)
@@ -289,21 +316,23 @@ def build_authorize_url(state: str) -> str:
 
 def exchange_code(code: str) -> str:
     # exchange authorization code for access_token
+    verify = get_verify()
     try:
-        response = requests.post(
-            get_token_url(),
-            data={
-                "grant_type": "authorization_code",
-                "code": code,
-                "redirect_uri": get_redirect_uri(),
-                "client_id": get_client_id(),
-                "client_secret": get_client_secret(),
-            },
-            headers={"Accept": "application/json"},
-            timeout=_HTTP_TIMEOUT,
-            allow_redirects=False,
-            verify=get_verify(),
-        )
+        with build_http_session(verify) as session:
+            response = session.post(
+                get_token_url(),
+                data={
+                    "grant_type": "authorization_code",
+                    "code": code,
+                    "redirect_uri": get_redirect_uri(),
+                    "client_id": get_client_id(),
+                    "client_secret": get_client_secret(),
+                },
+                headers={"Accept": "application/json"},
+                timeout=_HTTP_TIMEOUT,
+                allow_redirects=False,
+                verify=verify,
+            )
     except requests.exceptions.SSLError as exc:
         logger.error(
             "LunaPassport TLS verification failed for %s: %s; set LUNAPASSPORT_CA_BUNDLE "
@@ -332,17 +361,19 @@ def exchange_code(code: str) -> str:
 
 
 def fetch_userinfo(access_token: str) -> PassportProfile:
+    verify = get_verify()
     try:
-        response = requests.get(
-            get_userinfo_url(),
-            headers={
-                "Authorization": f"Bearer {access_token}",
-                "Accept": "application/json",
-            },
-            timeout=_HTTP_TIMEOUT,
-            allow_redirects=False,
-            verify=get_verify(),
-        )
+        with build_http_session(verify) as session:
+            response = session.get(
+                get_userinfo_url(),
+                headers={
+                    "Authorization": f"Bearer {access_token}",
+                    "Accept": "application/json",
+                },
+                timeout=_HTTP_TIMEOUT,
+                allow_redirects=False,
+                verify=verify,
+            )
     except requests.exceptions.SSLError as exc:
         logger.error(
             "LunaPassport TLS verification failed for %s: %s; set LUNAPASSPORT_CA_BUNDLE "
@@ -375,13 +406,15 @@ def fetch_userinfo(access_token: str) -> PassportProfile:
 
 def revoke_token(access_token: str) -> None:
     try:
-        requests.post(
-            get_revoke_url(),
-            data={"token": access_token},
-            timeout=_HTTP_TIMEOUT,
-            allow_redirects=False,
-            verify=get_verify(),
-        )
+        verify = get_verify()
+        with build_http_session(verify) as session:
+            session.post(
+                get_revoke_url(),
+                data={"token": access_token},
+                timeout=_HTTP_TIMEOUT,
+                allow_redirects=False,
+                verify=verify,
+            )
     except requests.RequestException:
         logger.exception("LunaPassport revoke failed (ignored)")
     except LunaPassportError:

@@ -51,10 +51,15 @@ class Command(BaseCommand):
         context = ssl.create_default_context()
         context.check_hostname = False
         context.verify_mode = ssl.CERT_NONE
+        chain_der = []
         try:
             with socket.create_connection((host, port), timeout=timeout) as sock:
                 with context.wrap_socket(sock, server_hostname=host) as tls_sock:
                     der = tls_sock.getpeercert(binary_form=True)
+                    get_chain = getattr(tls_sock, "get_unverified_chain", None)
+                    if callable(get_chain):
+                        for item in get_chain():
+                            chain_der.append(item if isinstance(item, bytes) else item.public_bytes())
         except OSError as exc:
             self.stdout.write(self.style.ERROR(f"TLS connection to {host}:{port} failed: {exc}"))
             return
@@ -72,6 +77,15 @@ class Command(BaseCommand):
         except x509.ExtensionNotFound:
             pass
 
+        if len(chain_der) > 1:
+            self.stdout.write(f"server chain ({len(chain_der)} certs, root may be missing):")
+            for index, chain_item in enumerate(chain_der[1:], start=1):
+                chain_cert = x509.load_der_x509_certificate(chain_item)
+                self.stdout.write(
+                    f"  [{index}] {chain_cert.subject.rfc4514_string()} "
+                    f"(issuer: {chain_cert.issuer.rfc4514_string()})"
+                )
+
         if verify is False:
             self.stdout.write(self.style.WARNING(
                 "TLS verification is DISABLED — insecure, do not use in production"
@@ -79,8 +93,10 @@ class Command(BaseCommand):
             return
 
         try:
-            check_context = ssl.create_default_context(
-                cafile=verify if isinstance(verify, str) else None
+            check_context = (
+                lunapassport.build_tls_context(verify)
+                if isinstance(verify, str)
+                else ssl.create_default_context()
             )
             with socket.create_connection((host, port), timeout=timeout) as sock:
                 with check_context.wrap_socket(sock, server_hostname=host):
@@ -88,8 +104,8 @@ class Command(BaseCommand):
         except ssl.SSLError as exc:
             self.stdout.write(self.style.ERROR(f"TLS verification FAILED: {exc}"))
             self.stdout.write(
-                "hint: save the server certificate as PEM and set LUNAPASSPORT_CA_BUNDLE to its path; "
-                "the certificate hostname must match the base URL"
+                "hint: LUNAPASSPORT_CA_BUNDLE must contain the issuing CA certificate (Root Authority), "
+                "not the leaf/server certificate; the hostname must also match the base URL"
             )
             return
 
@@ -97,7 +113,8 @@ class Command(BaseCommand):
 
         try:
             userinfo_url = lunapassport.get_userinfo_url()
-            response = requests.get(userinfo_url, timeout=timeout, verify=verify)
+            with lunapassport.build_http_session(verify) as session:
+                response = session.get(userinfo_url, timeout=timeout, verify=verify)
             self.stdout.write(f"HTTP probe {userinfo_url}: {response.status_code}")
         except requests.RequestException as exc:
             self.stdout.write(self.style.ERROR(f"HTTP probe failed: {exc}"))

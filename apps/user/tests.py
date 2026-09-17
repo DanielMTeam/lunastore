@@ -401,10 +401,32 @@ class LunaPassportTests(TestCase):
         "LUNAPASSPORT_REDIRECT_URI": "http://localhost/passport/callback.php",
         "LUNAPASSPORT_VERIFY_SSL": "False",
     })
-    @mock.patch("apps.user.services.lunapassport.requests.post")
-    def test_exchange_code_passes_verify(self, mock_post):
+    @mock.patch("apps.user.services.lunapassport.build_http_session")
+    def test_exchange_code_passes_verify(self, mock_session_factory):
         from apps.user.services import lunapassport as passport
-        mock_post.return_value.status_code = 200
-        mock_post.return_value.json.return_value = {"access_token": "tok"}
+        session = mock_session_factory.return_value
+        session.__enter__.return_value = session
+        session.post.return_value.status_code = 200
+        session.post.return_value.json.return_value = {"access_token": "tok"}
         self.assertEqual(passport.exchange_code("abc"), "tok")
-        self.assertFalse(mock_post.call_args.kwargs["verify"])
+        self.assertFalse(session.post.call_args.kwargs["verify"])
+
+    def test_build_tls_context_relaxes_x509_strict_only(self):
+        import ssl
+
+        import requests.certs
+        from apps.user.services import lunapassport as passport
+        context = passport.build_tls_context(requests.certs.where())
+        self.assertFalse(context.verify_flags & ssl.VERIFY_X509_STRICT)
+        self.assertEqual(context.verify_mode, ssl.CERT_REQUIRED)
+        self.assertTrue(context.check_hostname)
+
+    def test_build_http_session_mounts_tls_adapter_for_ca_bundle(self):
+        import requests.certs
+        from apps.user.services import lunapassport as passport
+        session = passport.build_http_session(requests.certs.where())
+        try:
+            adapter = session.get_adapter("https://example.com")
+            self.assertIsInstance(adapter, passport._PassportTLSAdapter)
+        finally:
+            session.close()
