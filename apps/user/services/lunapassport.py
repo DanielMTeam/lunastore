@@ -306,8 +306,10 @@ def exchange_code(code: str) -> str:
         )
     except requests.exceptions.SSLError as exc:
         logger.error(
-            "LunaPassport TLS verification failed; set LUNAPASSPORT_CA_BUNDLE "
-            "to the passport certificate (PEM) or LUNAPASSPORT_VERIFY_SSL=False"
+            "LunaPassport TLS verification failed for %s: %s; set LUNAPASSPORT_CA_BUNDLE "
+            "to the passport certificate (PEM) or LUNAPASSPORT_VERIFY_SSL=False",
+            get_token_url(),
+            exc,
         )
         raise LunaPassportError("token_ssl_error") from exc
     except requests.RequestException as exc:
@@ -343,8 +345,10 @@ def fetch_userinfo(access_token: str) -> PassportProfile:
         )
     except requests.exceptions.SSLError as exc:
         logger.error(
-            "LunaPassport TLS verification failed; set LUNAPASSPORT_CA_BUNDLE "
-            "to the passport certificate (PEM) or LUNAPASSPORT_VERIFY_SSL=False"
+            "LunaPassport TLS verification failed for %s: %s; set LUNAPASSPORT_CA_BUNDLE "
+            "to the passport certificate (PEM) or LUNAPASSPORT_VERIFY_SSL=False",
+            get_userinfo_url(),
+            exc,
         )
         raise LunaPassportError("userinfo_ssl_error") from exc
     except requests.RequestException as exc:

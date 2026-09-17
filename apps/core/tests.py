@@ -199,6 +199,10 @@ class TLSVerificationChecksTest(TestCase):
     def test_lunapassport_insecure_warning(self):
         self.assertIn("core.W004", self._security_issue_ids())
 
+    def test_sentry_missing_bundle_warning(self):
+        with override_settings(SENTRY_CA_BUNDLE="certs/definitely-missing.pem"):
+            self.assertIn("core.W005", self._security_issue_ids())
+
     def test_lunapassport_invalid_bundle_warning(self):
         with tempfile.NamedTemporaryFile("wb", suffix=".pem", delete=False) as fh:
             fh.write(b"not a pem certificate")

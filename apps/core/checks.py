@@ -41,6 +41,21 @@ def oidc_tls_verification_check(app_configs, **kwargs):
 
 
 @register(Tags.security)
+def sentry_tls_verification_check(app_configs, **kwargs):
+    path = getattr(settings, "SENTRY_CA_BUNDLE", "")
+    if not path:
+        return []
+    problem = _ca_bundle_problem(path)
+    if problem:
+        return [Warning(
+            f"SENTRY_CA_BUNDLE CA bundle problem ({problem}): {path}",
+            hint="Set SENTRY_CA_BUNDLE to a valid PEM file with certificates.",
+            id="core.W005",
+        )]
+    return []
+
+
+@register(Tags.security)
 def lunapassport_tls_verification_check(app_configs, **kwargs):
     from apps.user.services import lunapassport
 

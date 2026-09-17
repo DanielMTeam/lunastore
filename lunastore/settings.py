@@ -28,6 +28,8 @@ DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", EMAIL_HOST_USER)
 
 SENTRY_ENABLED = os.getenv("SENTRY_ENABLED", "False") == "True"
 SENTRY_DSN = os.getenv("SENTRY_DSN", "")
+# optional PEM CA bundle for a self-signed GlitchTip/Sentry endpoint
+SENTRY_CA_BUNDLE = os.getenv("SENTRY_CA_BUNDLE", "")
 SENTRY_TRACES_SAMPLE_RATE = float(
     os.getenv("SENTRY_TRACES_SAMPLE_RATE", "0.2"))
 SENTRY_PROFILES_SAMPLE_RATE = float(
@@ -66,6 +68,7 @@ if SENTRY_ENABLED and SENTRY_DSN:
     )
     sentry_sdk.init(
         dsn=SENTRY_DSN,
+        ca_certs=SENTRY_CA_BUNDLE or None,
         traces_sample_rate=SENTRY_TRACES_SAMPLE_RATE,
         profiles_sample_rate=SENTRY_PROFILES_SAMPLE_RATE,
         send_default_pii=True,
@@ -650,6 +653,11 @@ CONSTANCE_CONFIG = {
         "Sentry DSN (требует перезагрузки)",
         str,
     ),
+    "SENTRY_CA_BUNDLE": (
+        os.getenv("SENTRY_CA_BUNDLE", ""),
+        "Путь к PEM-сертификату GlitchTip/Sentry при самоподписанном сертификате (требует перезагрузки)",
+        str,
+    ),
     "SENTRY_TRACES_SAMPLE_RATE": (
         float(os.getenv("SENTRY_TRACES_SAMPLE_RATE", "0.2")),
         "Sentry traces sample rate (требует перезагрузки)",
@@ -905,6 +913,7 @@ CONSTANCE_CONFIG_FIELDSETS = {
         "fields": [
             "SENTRY_ENABLED",
             "SENTRY_DSN",
+            "SENTRY_CA_BUNDLE",
             "SENTRY_TRACES_SAMPLE_RATE",
             "SENTRY_PROFILES_SAMPLE_RATE",
             "SENTRY_ENVIRONMENT",
