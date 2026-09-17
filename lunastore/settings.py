@@ -440,6 +440,11 @@ CONSTANCE_CONFIG = {
         "OpenID JWKS Endpoint (требует перезагрузки)",
         str,
     ),
+    "OIDC_VERIFY_SSL": (
+        os.getenv("OIDC_VERIFY_SSL", "True"),
+        "Проверка TLS-сертификата OpenID-провайдера: True/False или путь к PEM CA bundle (требует перезагрузки)",
+        str,
+    ),
     # -- media --
     "EXTERNAL_MEDIA_URL": (
         os.getenv("EXTERNAL_MEDIA_URL", "/media/"),
@@ -753,6 +758,16 @@ CONSTANCE_CONFIG = {
         "Создавать аккаунт LunaStore при первом входе через Passport (если регистрация включена)",
         bool,
     ),
+    "LUNAPASSPORT_VERIFY_SSL": (
+        os.getenv("LUNAPASSPORT_VERIFY_SSL", "True") == "True",
+        "Проверять TLS-сертификат LunaPassport (False — только для доверенного самоподписанного)",
+        bool,
+    ),
+    "LUNAPASSPORT_CA_BUNDLE": (
+        os.getenv("LUNAPASSPORT_CA_BUNDLE", ""),
+        "Путь к PEM-сертификату/CA LunaPassport (приоритетнее VERIFY_SSL; от корня проекта или абсолютный)",
+        str,
+    ),
 }
 
 CONSTANCE_CONFIG_FIELDSETS = {
@@ -771,6 +786,8 @@ CONSTANCE_CONFIG_FIELDSETS = {
             "LUNAPASSPORT_CLIENT_SECRET",
             "LUNAPASSPORT_REDIRECT_URI",
             "LUNAPASSPORT_AUTO_REGISTER",
+            "LUNAPASSPORT_VERIFY_SSL",
+            "LUNAPASSPORT_CA_BUNDLE",
         ],
         "collapse": True,
     },
@@ -856,6 +873,7 @@ CONSTANCE_CONFIG_FIELDSETS = {
             "LOGOUT_REDIRECT_URL",
             "OIDC_SIGN_ALGO",
             "OIDC_JWKS_ENDPOINT",
+            "OIDC_VERIFY_SSL",
         ],
         "collapse": True,
     },
@@ -937,6 +955,22 @@ OIDC_OP_USER_ENDPOINT = os.getenv("OIDC_USER_ENDPOINT", "")
 LOGIN_REDIRECT_URL = os.getenv("LOGIN_REDIRECT_URL", "/")
 LOGOUT_REDIRECT_URL = os.getenv("LOGOUT_REDIRECT_URL", "/login.php")
 OIDC_OP_JWKS_ENDPOINT = os.getenv("OIDC_JWKS_ENDPOINT", "")
+
+
+def _env_bool_or_path(name: str, default: bool = True) -> bool | str:
+    # requests-style TLS verify: True/False or path to a PEM CA bundle
+    raw = str(os.getenv(name, "") or "").strip()
+    if not raw:
+        return default
+    if raw.lower() in ("0", "false", "no", "off"):
+        return False
+    if raw.lower() in ("1", "true", "yes", "on"):
+        return True
+    return raw
+
+
+# self-signed / private-CA OpenID provider support
+OIDC_VERIFY_SSL = _env_bool_or_path("OIDC_VERIFY_SSL")
 # mozilla-django-oidc calls .startswith on this in __init__; never leave as None
 OIDC_RP_SIGN_ALGO = os.getenv("OIDC_SIGN_ALGO", "RS256")
 

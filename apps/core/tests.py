@@ -1,6 +1,11 @@
 import logging
+import os
+import tempfile
+from unittest import mock
+
 from django.contrib.auth import get_user_model
-from django.test import TestCase
+from django.core.checks import Tags, run_checks
+from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from apps.marketplace.models import (
@@ -176,3 +181,30 @@ class SitemapAndRobotsTest(TestCase):
         self.assertIn("Disallow: /settings.php", content)
         self.assertIn("Disallow: /app_add.php", content)
         self.assertIn("Sitemap: https://testserver/sitemap.xml", content)
+
+
+class TLSVerificationChecksTest(TestCase):
+    def _security_issue_ids(self):
+        return [issue.id for issue in run_checks(tags=[Tags.security])]
+
+    def test_oidc_insecure_warning(self):
+        with override_settings(OIDC_VERIFY_SSL=False):
+            self.assertIn("core.W001", self._security_issue_ids())
+
+    def test_oidc_missing_bundle_warning(self):
+        with override_settings(OIDC_VERIFY_SSL="certs/definitely-missing.pem"):
+            self.assertIn("core.W002", self._security_issue_ids())
+
+    @mock.patch.dict(os.environ, {"LUNAPASSPORT_VERIFY_SSL": "False"})
+    def test_lunapassport_insecure_warning(self):
+        self.assertIn("core.W004", self._security_issue_ids())
+
+    def test_lunapassport_invalid_bundle_warning(self):
+        with tempfile.NamedTemporaryFile("wb", suffix=".pem", delete=False) as fh:
+            fh.write(b"not a pem certificate")
+            bundle_path = fh.name
+        try:
+            with mock.patch.dict(os.environ, {"LUNAPASSPORT_CA_BUNDLE": bundle_path}):
+                self.assertIn("core.W003", self._security_issue_ids())
+        finally:
+            os.unlink(bundle_path)

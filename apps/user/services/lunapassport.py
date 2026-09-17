@@ -6,11 +6,13 @@ import logging
 import os
 import secrets
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any
 from urllib.parse import urlencode, urlparse
 
 import requests
 from constance import config
+from django.conf import settings
 from django.core.cache import cache
 from django.http import HttpRequest
 
@@ -34,6 +36,8 @@ _BLOCKED_HOSTS = frozenset({
     "metadata",
     "169.254.169.254",
 })
+_PEM_CERT_MARKER = b"-----BEGIN CERTIFICATE-----"
+_insecure_tls_warned = False
 
 
 # raised when lunapassport oauth exchange fails
@@ -58,6 +62,14 @@ def _secret_cfg(name: str) -> str:
     if env_val:
         return env_val
     return _cfg(name)
+
+
+def _bool_cfg(name: str, default: bool = False) -> bool:
+    # env ("True"/"False") overrides constance; anything non-truthy counts as False
+    env_val = str(os.getenv(name, "") or "").strip().lower()
+    if env_val:
+        return env_val in ("1", "true", "yes", "on")
+    return bool(getattr(config, name, default))
 
 
 def is_enabled() -> bool:
@@ -122,6 +134,48 @@ def get_client_id() -> str:
 
 def get_client_secret() -> str:
     return _secret_cfg("LUNAPASSPORT_CLIENT_SECRET")
+
+
+def get_ca_bundle() -> str:
+    # optional PEM bundle for self-signed / private-CA passports (e.g. Windows XP setups)
+    raw = _secret_cfg("LUNAPASSPORT_CA_BUNDLE")
+    if not raw:
+        return ""
+    path = Path(raw).expanduser()
+    if not path.is_absolute():
+        path = Path(settings.BASE_DIR) / path
+    if not path.is_file():
+        logger.error("LunaPassport CA bundle not found: %s", path)
+        raise LunaPassportError("invalid_ca_bundle")
+    try:
+        with path.open("rb") as fh:
+            content = fh.read(1024 * 1024)
+    except OSError as exc:
+        logger.error("LunaPassport CA bundle is unreadable: %s (%s)", path, exc)
+        raise LunaPassportError("invalid_ca_bundle") from exc
+    if _PEM_CERT_MARKER not in content:
+        logger.error(
+            "LunaPassport CA bundle has no PEM certificates (convert DER to PEM): %s",
+            path,
+        )
+        raise LunaPassportError("invalid_ca_bundle")
+    return str(path)
+
+
+def get_verify() -> bool | str:
+    # requests' verify argument: True / False / path to a PEM CA bundle
+    global _insecure_tls_warned
+    bundle = get_ca_bundle()
+    if bundle:
+        return bundle
+    verify = _bool_cfg("LUNAPASSPORT_VERIFY_SSL", True)
+    if verify is False and not _insecure_tls_warned:
+        _insecure_tls_warned = True
+        logger.warning(
+            "LunaPassport TLS verification is DISABLED (LUNAPASSPORT_VERIFY_SSL=False); "
+            "OAuth traffic can be intercepted — prefer LUNAPASSPORT_CA_BUNDLE in production"
+        )
+    return verify
 
 
 def create_state() -> str:
@@ -248,7 +302,14 @@ def exchange_code(code: str) -> str:
             headers={"Accept": "application/json"},
             timeout=_HTTP_TIMEOUT,
             allow_redirects=False,
+            verify=get_verify(),
         )
+    except requests.exceptions.SSLError as exc:
+        logger.error(
+            "LunaPassport TLS verification failed; set LUNAPASSPORT_CA_BUNDLE "
+            "to the passport certificate (PEM) or LUNAPASSPORT_VERIFY_SSL=False"
+        )
+        raise LunaPassportError("token_ssl_error") from exc
     except requests.RequestException as exc:
         logger.exception("LunaPassport token request failed")
         raise LunaPassportError("token_request_failed") from exc
@@ -278,7 +339,14 @@ def fetch_userinfo(access_token: str) -> PassportProfile:
             },
             timeout=_HTTP_TIMEOUT,
             allow_redirects=False,
+            verify=get_verify(),
         )
+    except requests.exceptions.SSLError as exc:
+        logger.error(
+            "LunaPassport TLS verification failed; set LUNAPASSPORT_CA_BUNDLE "
+            "to the passport certificate (PEM) or LUNAPASSPORT_VERIFY_SSL=False"
+        )
+        raise LunaPassportError("userinfo_ssl_error") from exc
     except requests.RequestException as exc:
         logger.exception("LunaPassport userinfo request failed")
         raise LunaPassportError("userinfo_request_failed") from exc
@@ -308,6 +376,7 @@ def revoke_token(access_token: str) -> None:
             data={"token": access_token},
             timeout=_HTTP_TIMEOUT,
             allow_redirects=False,
+            verify=get_verify(),
         )
     except requests.RequestException:
         logger.exception("LunaPassport revoke failed (ignored)")

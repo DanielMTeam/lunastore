@@ -126,6 +126,7 @@ services:
         volumes:
             - static_volume:/app/staticfiles_build
             - ./media:/app/media
+            - ./certs:/app/certs:ro
         ports:
             - "7088:7088" # API
             - "8088:8088" # Admin

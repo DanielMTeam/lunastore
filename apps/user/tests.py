@@ -6,6 +6,9 @@ from apps.user.services.antispam import AntiSpamService, NoSpamContext
 from apps.user.forms import NoSpamMassScanForm
 from rest_framework.test import APIClient
 import logging
+import os
+import tempfile
+from unittest import mock
 
 logger = logging.getLogger('user')
 
@@ -352,3 +355,56 @@ class LunaPassportTests(TestCase):
         from apps.user.views_passport import _sanitize_username, _unique_username
         self.assertEqual(_sanitize_username("Foo.Bar!"), "foo.bar")
         self.assertTrue(_unique_username("passport_user").startswith("passport_user"))
+
+    def test_verify_defaults_to_true(self):
+        from apps.user.services import lunapassport as passport
+        self.assertTrue(passport.get_verify())
+
+    def test_verify_false_from_env(self):
+        from apps.user.services import lunapassport as passport
+        with mock.patch.dict(os.environ, {"LUNAPASSPORT_VERIFY_SSL": "False"}):
+            self.assertFalse(passport.get_verify())
+
+    def test_verify_uses_ca_bundle(self):
+        from apps.user.services import lunapassport as passport
+        with tempfile.NamedTemporaryFile("w", suffix=".pem", delete=False) as fh:
+            fh.write("-----BEGIN CERTIFICATE-----\n")
+            bundle_path = fh.name
+        try:
+            with mock.patch.dict(os.environ, {"LUNAPASSPORT_CA_BUNDLE": bundle_path}):
+                self.assertEqual(passport.get_verify(), bundle_path)
+        finally:
+            os.unlink(bundle_path)
+
+    def test_verify_missing_ca_bundle_raises(self):
+        from apps.user.services import lunapassport as passport
+        with mock.patch.dict(os.environ, {"LUNAPASSPORT_CA_BUNDLE": "certs/missing.pem"}):
+            with self.assertRaises(passport.LunaPassportError):
+                passport.get_verify()
+
+    def test_verify_invalid_ca_bundle_raises(self):
+        from apps.user.services import lunapassport as passport
+        with tempfile.NamedTemporaryFile("wb", suffix=".pem", delete=False) as fh:
+            fh.write(b"not a pem certificate")
+            bundle_path = fh.name
+        try:
+            with mock.patch.dict(os.environ, {"LUNAPASSPORT_CA_BUNDLE": bundle_path}):
+                with self.assertRaises(passport.LunaPassportError):
+                    passport.get_verify()
+        finally:
+            os.unlink(bundle_path)
+
+    @mock.patch.dict(os.environ, {
+        "LUNAPASSPORT_BASE_URL": "https://passport.internal",
+        "LUNAPASSPORT_CLIENT_ID": "cid",
+        "LUNAPASSPORT_CLIENT_SECRET": "secret",
+        "LUNAPASSPORT_REDIRECT_URI": "http://localhost/passport/callback.php",
+        "LUNAPASSPORT_VERIFY_SSL": "False",
+    })
+    @mock.patch("apps.user.services.lunapassport.requests.post")
+    def test_exchange_code_passes_verify(self, mock_post):
+        from apps.user.services import lunapassport as passport
+        mock_post.return_value.status_code = 200
+        mock_post.return_value.json.return_value = {"access_token": "tok"}
+        self.assertEqual(passport.exchange_code("abc"), "tok")
+        self.assertFalse(mock_post.call_args.kwargs["verify"])

@@ -6,6 +6,7 @@ debug.log
 dev.log.md
 .editorconfig
 media
+certs
 static
 reveal.py
 ..env.swp

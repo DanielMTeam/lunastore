@@ -22,6 +22,7 @@ _BOOL_KEYS: frozenset[str] = frozenset({
     "ANALYTICS_ENABLED",
     "LUNAPASSPORT_ENABLED",
     "LUNAPASSPORT_AUTO_REGISTER",
+    "LUNAPASSPORT_VERIFY_SSL",
 })
 
 

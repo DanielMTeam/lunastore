@@ -124,6 +124,7 @@ services:
         volumes:
             - static_volume:/app/staticfiles_build
             - /opt/lunastore/media:/app/media
+            - /opt/lunastore/certs:/app/certs:ro
         command: >
             sh -c "python manage.py collectstatic --noinput &&
                    DJANGO_ROOT_URLCONF=lunastore.urls_api      gunicorn lunastore.wsgi:application --bind 0.0.0.0:7088 --workers 5 &
