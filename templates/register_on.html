@@ -64,6 +64,19 @@
             </div>
         </label>
 
+        <label>
+            <div class="reg_pad"><div class="reg_title">{% trans "PAGE_REGISTER_LABEL_CODE" %}</div>
+            {% if form.code.errors %}
+                <div class="error_splash" style="margin-bottom: 5px;"> 
+                    {% for error in form.code.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %} {{form.code}}
+            <div class="regform_label">{% trans "PAGE_REGISTER_HELP_CODE" %}</div>
+            </div>
+        </label>
+
  <label>
 
             <h2>{% trans "PAGE_REGISTER_SECTION_CONFIRM" %}</h2>
