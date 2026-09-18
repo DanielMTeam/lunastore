@@ -129,6 +129,18 @@
                     <div class="pref_warn_label">{% trans "PAGE_DIST_FORM_URL_DESC" %}</div>
                 </div>
 
+                <div class="pref_pad">
+                    <div class="pref_item_title">{% trans "PAGE_DIST_FORM_LUNABOX_TYPE_TITLE" %}</div>
+                    {{ form.lunabox_type }}
+                    <div class="pref_warn_label">{% trans "PAGE_DIST_FORM_LUNABOX_TYPE_DESC" %}</div>
+                </div>
+
+                <div class="pref_pad" id="lunabox-path-pad" style="display: none;">
+                    <div class="pref_item_title">{% trans "PAGE_DIST_FORM_LUNABOX_PATH_TITLE" %}</div>
+                    {{ form.lunabox_path }}
+                    <div class="pref_warn_label">{% trans "PAGE_DIST_FORM_LUNABOX_PATH_DESC" %}</div>
+                </div>
+
                 {% with trans=form.get_trans_fields %}
                     {% if trans.changelog %}
                         <div class="tabs field-tabs">
@@ -195,5 +207,29 @@
             }
         };
     }
+</script>
+<script type="text/javascript">
+    var lunaboxTypeSelect = document.getElementById('id_lunabox_type');
+    var lunaboxPathPad = document.getElementById('lunabox-path-pad');
+    var lunaboxPathInput = document.getElementById('id_lunabox_path');
+
+    function toggleLunaboxPathField() {
+        if (!lunaboxTypeSelect) {
+            return;
+        }
+        var value = lunaboxTypeSelect.value;
+        var showPath = (value === 'app_zip' || value === 'installer_zip');
+        if (lunaboxPathPad) {
+            lunaboxPathPad.style.display = showPath ? '' : 'none';
+        }
+        if (lunaboxPathInput && !showPath) {
+            lunaboxPathInput.value = '';
+        }
+    }
+
+    if (lunaboxTypeSelect) {
+        lunaboxTypeSelect.onchange = toggleLunaboxPathField;
+    }
+    toggleLunaboxPathField();
 </script>
 {% endblock %}

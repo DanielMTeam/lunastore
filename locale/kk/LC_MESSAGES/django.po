@@ -629,6 +629,12 @@ msgstr "Тіркелгіңізге кіру орындалды • Құрылғ�
 msgid "NOTIF_LOGIN_TITLE"
 msgstr "Жаңа тіркелгіге кіру"
 
+msgid "NOTIF_LUNABOX_MANIFEST_DESCRIPTION"
+msgstr "\"%(app_name)s\" қолданбасында түрі көрсетілмеген таратулар бар. LunaBox орнатуы үшін түрі мен жолды көрсетіңіз. Толтырылмаған: %(count)s."
+
+msgid "NOTIF_LUNABOX_MANIFEST_TITLE"
+msgstr "Тарату ақпаратын толтырыңыз"
+
 msgid "NOTIF_WELCOME_DESCRIPTION"
 msgstr "Тіркелгеніңізге рақмет! Қолданбалар анықтамалығына бей-жай қарамағаныңызға өте қуаныштымыз. Сізге қатты ұнайды деп үміттенемін!"
 
@@ -1346,6 +1352,36 @@ msgstr "Файл таңдалмады."
 
 msgid "PAGE_DIST_FORM_FILE_UPLOADING"
 msgstr "Жүктелуде..."
+
+msgid "PAGE_DIST_FORM_LUNABOX_PATH_DESC"
+msgstr "Мысалы: folder1/inst.exe. Жол zip-мұрағат мазмұнына қатысты көрсетіледі. «zip-мұрағаттағы қолданба» және «zip-мұрағаттағы орнатқыш» түрлеріне қатысты."
+
+msgid "PAGE_DIST_FORM_LUNABOX_PATH_REQUIRED"
+msgstr "«zip-мұрағаттағы қолданба» және «zip-мұрағаттағы орнатқыш» түрлері үшін мұрағат ішіндегі жолды көрсету қажет."
+
+msgid "PAGE_DIST_FORM_LUNABOX_PATH_TITLE"
+msgstr "Мұрағатқа қатысты жол:"
+
+msgid "PAGE_DIST_FORM_LUNABOX_TYPE_APP_ZIP"
+msgstr "zip-мұрағаттағы қолданба"
+
+msgid "PAGE_DIST_FORM_LUNABOX_TYPE_DESC"
+msgstr "LunaBox файлмен не істеу керектігін анықтайды."
+
+msgid "PAGE_DIST_FORM_LUNABOX_TYPE_FILE"
+msgstr "Басқа файл (жай ғана жүктеп алу, ештеңе жасамау)"
+
+msgid "PAGE_DIST_FORM_LUNABOX_TYPE_INSTALLER"
+msgstr "Орнатқыш (орнату үшін іске қосу керек)"
+
+msgid "PAGE_DIST_FORM_LUNABOX_TYPE_INSTALLER_ZIP"
+msgstr "zip-мұрағаттағы орнатқыш"
+
+msgid "PAGE_DIST_FORM_LUNABOX_TYPE_PROGRAM"
+msgstr "Автономды қолданба (орнатылған, тікелей іске қосу)"
+
+msgid "PAGE_DIST_FORM_LUNABOX_TYPE_TITLE"
+msgstr "Тарату түрі:"
 
 msgid "PAGE_DIST_FORM_SAVE"
 msgstr "Өзгерістерді сақтау"

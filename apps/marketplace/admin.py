@@ -488,6 +488,7 @@ class DistributionCreateAdmin(
             cdn_file_id=req.cdn_file_id,
             url=req.url,
         )
+        dist.lunabox_manifest = req.lunabox_manifest
 
         for lang_code, _ in settings.LANGUAGES:
             lang_field = f"changelog_{lang_code}"
@@ -611,6 +612,7 @@ class DistributionEditRequestAdmin(
         dist = req.target_distribution
         dist.version = req.version
         dist.url = req.url
+        dist.lunabox_manifest = req.lunabox_manifest
 
         if req.cdn_file_id:
             dist.cdn_file_id = req.cdn_file_id

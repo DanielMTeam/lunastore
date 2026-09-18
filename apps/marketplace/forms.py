@@ -650,6 +650,38 @@ class DistributionAdminForm(forms.ModelForm):
 
 ALLOWED_EXTENSIONS = ["exe", "zip", "rar", "7z"]
 
+# UI-level types for the lunabox manifest. Stored values:
+#   program        - self contained app (already installed, use directly)
+#   installer      - installer, executed right after download
+#   app_zip        - self contained app inside a zip archive (requires path)
+#   installer_zip  - installer inside a zip archive (requires path)
+#   file           - other file, download and do nothing
+LUNABOX_TYPE_CHOICES = [
+    ("program", _("PAGE_DIST_FORM_LUNABOX_TYPE_PROGRAM")),
+    ("installer", _("PAGE_DIST_FORM_LUNABOX_TYPE_INSTALLER")),
+    ("app_zip", _("PAGE_DIST_FORM_LUNABOX_TYPE_APP_ZIP")),
+    ("installer_zip", _("PAGE_DIST_FORM_LUNABOX_TYPE_INSTALLER_ZIP")),
+    ("file", _("PAGE_DIST_FORM_LUNABOX_TYPE_FILE")),
+]
+
+# UI types that require a path inside the archive
+LUNABOX_PATH_REQUIRED_TYPES = ("app_zip", "installer_zip")
+
+
+def build_lunabox_manifest(lunabox_type, lunabox_path=""):
+    """Convert the UI-level type to the manifest dict stored on the model."""
+    path = (lunabox_path or "").strip()
+
+    if lunabox_type == "app_zip":
+        return {"type": "program", "path": path}
+    if lunabox_type == "installer_zip":
+        return {"type": "installer", "path": path}
+    if lunabox_type == "program":
+        return {"type": "program", "path": ""}
+    if lunabox_type == "installer":
+        return {"type": "installer", "path": ""}
+    return {"type": "file", "path": ""}
+
 
 class BaseDistributionForm(forms.ModelForm, CDNTokenValidationMixin):
     cdn_confirm_token = forms.CharField(
@@ -667,6 +699,24 @@ class BaseDistributionForm(forms.ModelForm, CDNTokenValidationMixin):
             attrs={
                 "class": "input-text"}))
 
+    lunabox_type = forms.ChoiceField(
+        choices=LUNABOX_TYPE_CHOICES,
+        required=True,
+        initial="file",
+        label=_("PAGE_DIST_FORM_LUNABOX_TYPE_TITLE"),
+        widget=forms.Select(
+            attrs={
+                "class": "input-text"}))
+
+    lunabox_path = forms.CharField(
+        max_length=255,
+        required=False,
+        label=_("PAGE_DIST_FORM_LUNABOX_PATH_TITLE"),
+        widget=forms.TextInput(
+            attrs={
+                "class": "input-text",
+                "placeholder": "folder1/inst.exe"}))
+
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
         # the target distribution for edit mode
@@ -675,6 +725,21 @@ class BaseDistributionForm(forms.ModelForm, CDNTokenValidationMixin):
 
     def clean(self):
         cleaned_data = super().clean()
+
+        lunabox_type = cleaned_data.get("lunabox_type")
+        lunabox_path = cleaned_data.get("lunabox_path") or ""
+
+        if lunabox_type in LUNABOX_PATH_REQUIRED_TYPES:
+            if not lunabox_path.strip():
+                self.add_error(
+                    "lunabox_path",
+                    ValidationError(_("PAGE_DIST_FORM_LUNABOX_PATH_REQUIRED")))
+        else:
+            lunabox_path = ""
+
+        cleaned_data["lunabox_manifest"] = build_lunabox_manifest(
+            lunabox_type or "file", lunabox_path)
+
         cdn_token = cleaned_data.get("cdn_confirm_token")
         url = cleaned_data.get("url")
 
@@ -746,7 +811,8 @@ class DistributionCreateForm(BaseDistributionForm):
     class Meta:
         model = DistributionCreateRequests
         fields = get_translated_fields_list(
-            ["version", "url", "changelog"]) + ["virustotal_url"]
+            ["version", "url", "changelog"]) + [
+            "virustotal_url", "lunabox_type", "lunabox_path"]
         widgets = get_translated_widgets_dict(
             {
                 "version": forms.TextInput(
@@ -762,6 +828,7 @@ class DistributionCreateForm(BaseDistributionForm):
     def save(self, commit=True):
         instance = super().save(commit=False)
         instance.cdn_file_id = self.cleaned_data.get("cdn_file_id")
+        instance.lunabox_manifest = self.cleaned_data.get("lunabox_manifest")
 
         if "cdn_hash_extracted" in self.cleaned_data:
             true_hash = self.cleaned_data["cdn_hash_extracted"]
@@ -776,7 +843,8 @@ class DistributionEditForm(BaseDistributionForm):
     class Meta:
         model = DistributionEditRequests
         fields = get_translated_fields_list(
-            ["version", "url", "changelog"]) + ["virustotal_url"]
+            ["version", "url", "changelog"]) + [
+            "virustotal_url", "lunabox_type", "lunabox_path"]
         widgets = get_translated_widgets_dict(
             {
                 "version": forms.TextInput(
@@ -794,6 +862,7 @@ class DistributionEditForm(BaseDistributionForm):
         instance.target_distribution = self.target_dist
         instance.user = self.user
         instance.cdn_file_id = self.cleaned_data.get("cdn_file_id")
+        instance.lunabox_manifest = self.cleaned_data.get("lunabox_manifest")
 
         # write true hash from CDN
         if "cdn_hash_extracted" in self.cleaned_data:

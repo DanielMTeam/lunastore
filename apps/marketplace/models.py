@@ -270,6 +270,22 @@ class BaseDistributionInfo(SafeDeleteModel):
         null=True,
         verbose_name="Описание релиза"
     )
+    lunabox_manifest = models.JSONField(
+        verbose_name="Инструкция для лунной коробки как ставить приложение",
+        default=None,
+        null=True,
+        blank=True,
+        # None - manifest not configured yet (user should fill it via new distribution form)
+        # types:
+        # file - means, just download it and do nothing
+        # installer - means it is installer and should be executed right after download
+        # program - means it is already installed, and lunastore should use it directly without installing
+        # path should be empty only if <type_of_file> is not in archive, for example:
+        # lunabox downloaded tits.zip (this is example name for distribution)
+        # and it sees that path is not empty, it checks if archive type supported (only zip rn)
+        # and if supported it will extract it and
+        # install folder1/inst.exe if path = "folder1/inst.exe" it is should be relative to archive
+    )
 
     class Meta:
         abstract = True
@@ -297,6 +313,28 @@ class BaseDistributionInfo(SafeDeleteModel):
     def is_external(self) -> bool:
         # check if file is hosted externally
         return not bool(self.cdn_file_id) and bool(self.url)
+
+    @property
+    def lunabox_manifest_is_filled(self) -> bool:
+        # manifest is configured only when 'type' is known and set by the user
+        manifest = self.lunabox_manifest or {}
+        return bool(manifest.get("type"))
+
+    @property
+    def lunabox_type(self) -> str:
+        manifest = self.lunabox_manifest or {}
+        mtype = manifest.get("type", "file")
+        path = manifest.get("path") or ""
+        if mtype == "program":
+            return "app_zip" if path else "program"
+        if mtype == "installer":
+            return "installer_zip" if path else "installer"
+        return "file"
+
+    @property
+    def lunabox_path(self) -> str:
+        manifest = self.lunabox_manifest or {}
+        return manifest.get("path") or ""
 
 
 class Distribution(BaseDistributionInfo):
