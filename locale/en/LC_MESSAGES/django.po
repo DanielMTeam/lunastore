@@ -2021,6 +2021,9 @@ msgstr "Practice makes perfect :D"
 msgid "PAGE_REGISTER_HELP_USERNAME"
 msgstr "Minimum 2 characters. This username will be how others find you. It cannot be changed after registration."
 
+msgid "PAGE_REGISTER_HELP_CODE"
+msgstr "Leave blank if you don't have one"
+
 msgid "PAGE_REGISTER_INFO_SPLASH"
 msgstr "By creating an account, you can publish your own apps, leave reviews for existing software, and maintain your personal library of favorites. Registration is open and free."
 
@@ -2035,6 +2038,9 @@ msgstr "Repeat password:"
 
 msgid "PAGE_REGISTER_LABEL_USERNAME"
 msgstr "Username:"
+
+msgid "PAGE_REGISTER_LABEL_CODE"
+msgstr "Invite code:"
 
 msgid "PAGE_REGISTER_SECTION_CONFIRM"
 msgstr "Registration confirmation"

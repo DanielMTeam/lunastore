@@ -2016,6 +2016,9 @@ msgstr "Повторення - мати навчання :D"
 msgid "PAGE_REGISTER_HELP_USERNAME"
 msgstr "Мінімум 2 символа. За іменем користувача вас можна буде знайти. Після реєстрації змінити його не вийде. "
 
+msgid "PAGE_REGISTER_HELP_CODE"
+msgstr "Залиште поле порожнім, якщо не маєте його"
+
 msgid "PAGE_REGISTER_INFO_SPLASH"
 msgstr "Створивши обліковий запис, ви зможете викладати свої застосунки, залишати відгуки до вже завантажених програм та вести власну бібліотеку обраних елементів. Реєстрація відкрита та безкоштовна."
 
@@ -2030,6 +2033,9 @@ msgstr "Повторіть пароль:"
 
 msgid "PAGE_REGISTER_LABEL_USERNAME"
 msgstr "Ім'я користувача:"
+
+msgid "PAGE_REGISTER_LABEL_CODE"
+msgstr "Код запрошення:"
 
 msgid "PAGE_REGISTER_SECTION_CONFIRM"
 msgstr "Підтвердження реєстрації "

@@ -2004,6 +2004,9 @@ msgstr "Қайталау - білім анасы :D"
 msgid "PAGE_REGISTER_HELP_USERNAME"
 msgstr "Кемінде 2 таңба. Пайдаланушы аты арқылы сізді іздеп табуға болады. Тіркелгеннен кейін оны өзгерту мүмкін болмайды."
 
+msgid "PAGE_REGISTER_HELP_CODE"
+msgstr "Егер жоқ болса, өрісті бос қалдырыңыз"
+
 msgid "PAGE_REGISTER_INFO_SPLASH"
 msgstr "Тіркелгі жасау арқылы сіз өз қосымшаларыңызды жариялай аласыз, жүктелген бағдарламаларға пікір қалдыра аласыз және таңдаулы элементтердің жеке кітапханасын жүргізе аласыз. Тіркелу ашық әрі тегін."
 
@@ -2018,6 +2021,9 @@ msgstr "Құпия сөзді қайталаңыз:"
 
 msgid "PAGE_REGISTER_LABEL_USERNAME"
 msgstr "Пайдаланушы аты:"
+
+msgid "PAGE_REGISTER_LABEL_CODE"
+msgstr "Шақыру коды:"
 
 msgid "PAGE_REGISTER_SECTION_CONFIRM"
 msgstr "Тіркелуді растау"

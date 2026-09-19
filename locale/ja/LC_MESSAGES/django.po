@@ -64,3 +64,10 @@ msgstr "自己完結型アプリ（インストール済み、直接実行）"
 
 msgid "PAGE_DIST_FORM_LUNABOX_TYPE_TITLE"
 msgstr "配布タイプ:"
+
+msgid "PAGE_REGISTER_HELP_CODE"
+msgstr "お持ちでない場合は空欄のままにしてください"
+
+msgid "PAGE_REGISTER_LABEL_CODE"
+msgstr "招待コード:"
+

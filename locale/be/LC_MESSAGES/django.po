@@ -2016,6 +2016,9 @@ msgstr "Паўтарэнне - маці вучэння :D"
 msgid "PAGE_REGISTER_HELP_USERNAME"
 msgstr "Мінімум 2 сімвалы. Па імя карыстальніка вас можна будзе знайсці. Пасля рэгістрацыі змяніць яго не атрымаецца."
 
+msgid "PAGE_REGISTER_HELP_CODE"
+msgstr "Пакіньце поле пустым, калі не маеце яго"
+
 msgid "PAGE_REGISTER_INFO_SPLASH"
 msgstr "Стварыўшы акаўнт, вы зможаце выкладываць свае дадаткі, пакідаць водгукі да ўжо загружаных праграм і весці ўласную бібліятэку захаваных элементаў. Рэгістрацыя адкрытая і бясплатная."
 
@@ -2030,6 +2033,9 @@ msgstr "Паўтарыце пароль:"
 
 msgid "PAGE_REGISTER_LABEL_USERNAME"
 msgstr "Імя карыстальніка:"
+
+msgid "PAGE_REGISTER_LABEL_CODE"
+msgstr "Код запрашэння:"
 
 msgid "PAGE_REGISTER_SECTION_CONFIRM"
 msgstr "Пацвярджэнне рэгістрацыі"
