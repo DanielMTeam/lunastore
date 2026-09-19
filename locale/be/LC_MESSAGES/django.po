@@ -175,6 +175,9 @@ msgstr "Налады"
 msgid "BASE_SIDEBAR_ACCOUNT_TITLE"
 msgstr "Акаўнт"
 
+msgid "BASE_SIDEBAR_ACCOUNT_ADMINBTN"
+msgstr "Адмін-панэль"
+
 msgid "BASE_SIDEBAR_APP_DEV_SITE"
 msgstr "Сайт распрацоўшчыка"
 

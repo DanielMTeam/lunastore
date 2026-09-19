@@ -430,3 +430,65 @@ class LunaPassportTests(TestCase):
             self.assertIsInstance(adapter, passport._PassportTLSAdapter)
         finally:
             session.close()
+
+
+class AdminRedirectTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.regular_user = User.objects.create_user(
+            username="regular_user",
+            password="Password123!",
+            email="regular@example.com",
+        )
+        cls.staff_user = User.objects.create_user(
+            username="staff_user",
+            password="Password123!",
+            email="staff@example.com",
+            is_staff=True,
+        )
+
+    def test_anonymous_user_404(self):
+        response = self.client.get(reverse("admin_redirect"))
+        self.assertEqual(response.status_code, 404)
+
+        response_panel = self.client.get(reverse("admin_panel"))
+        self.assertEqual(response_panel.status_code, 404)
+
+    def test_regular_user_404(self):
+        self.client.force_login(self.regular_user)
+        response = self.client.get(reverse("admin_redirect"))
+        self.assertEqual(response.status_code, 404)
+
+    def test_staff_user_redirect_default(self):
+        self.client.force_login(self.staff_user)
+        with override_settings(ADMIN_URL="admin"):
+            response = self.client.get(reverse("admin_redirect"))
+            self.assertEqual(response.status_code, 302)
+            self.assertEqual(response.url, "http://testserver/admin/")
+
+    def test_staff_user_redirect_port_switch(self):
+        self.client.force_login(self.staff_user)
+        with override_settings(ADMIN_URL="office"):
+            response = self.client.get(reverse("admin_redirect"), HTTP_HOST="localhost:9088")
+            self.assertEqual(response.status_code, 302)
+            self.assertEqual(response.url, "http://localhost:8088/office/")
+
+    def test_staff_user_redirect_full_url(self):
+        self.client.force_login(self.staff_user)
+        with override_settings(ADMIN_URL="https://admin.lunastore.app/secret"):
+            response = self.client.get(reverse("admin_redirect"))
+            self.assertEqual(response.status_code, 302)
+            self.assertEqual(response.url, "https://admin.lunastore.app/secret/")
+
+    def test_sidebar_admin_link_visibility(self):
+        # Non-staff user should NOT see the admin link in sidebar
+        self.client.force_login(self.regular_user)
+        response = self.client.get(reverse("index"))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, reverse("admin_redirect"))
+
+        # Staff user SHOULD see the admin link in sidebar
+        self.client.force_login(self.staff_user)
+        response = self.client.get(reverse("index"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, reverse("admin_redirect"))

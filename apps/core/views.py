@@ -156,6 +156,8 @@ def robots_txt(request):
     disallow_paths = [
         f"/{admin_url}/",
         "/admin/",
+        "/admin.php",
+        "/admin_redirect.php",
         "/oidc/",
         "/broadcast/",
         "/nospam/",

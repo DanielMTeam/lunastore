@@ -620,6 +620,10 @@ li.web {
     background-position: 0px -606px;
 }
 
+.sidebar_menu a.admin {
+    background-position: 0px -345px;
+}
+
 .sidebar_info {
     border: 1px solid #e6e6e6;
     padding: 25px;

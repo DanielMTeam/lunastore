@@ -171,6 +171,9 @@ msgstr "Settings"
 msgid "BASE_SIDEBAR_ACCOUNT_TITLE"
 msgstr "Account"
 
+msgid "BASE_SIDEBAR_ACCOUNT_ADMINBTN"
+msgstr "Admin panel"
+
 msgid "BASE_SIDEBAR_APP_DEV_SITE"
 msgstr "Developer's website"
 

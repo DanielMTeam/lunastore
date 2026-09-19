@@ -56,6 +56,14 @@ urlpatterns = [
         views.revert_impersonation,
         name="revert_impersonation"),
     path(
+        "admin.php",
+        views.admin_redirect,
+        name="admin_panel"),
+    path(
+        "admin_redirect.php",
+        views.admin_redirect,
+        name="admin_redirect"),
+    path(
         "terminate_session.php/<int:session_pk>/",
         views.terminate_session,
         name="terminate_session"),

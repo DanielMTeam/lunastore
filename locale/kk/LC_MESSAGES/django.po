@@ -167,6 +167,9 @@ msgstr "Баптаулар"
 msgid "BASE_SIDEBAR_ACCOUNT_TITLE"
 msgstr "Аккаунт"
 
+msgid "BASE_SIDEBAR_ACCOUNT_ADMINBTN"
+msgstr "Әкімші тақтасы"
+
 msgid "BASE_SIDEBAR_APP_DEV_SITE"
 msgstr "Әзірлеуші сайты"
 

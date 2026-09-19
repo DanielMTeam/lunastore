@@ -1049,6 +1049,31 @@ def revert_impersonation(request):
     return redirect("home")
 
 
+def admin_redirect(request):
+    if not request.user.is_authenticated or not request.user.is_staff:
+        raise Http404()
+
+    host = request.get_host()
+    if ":908" in host:
+        host = host.replace(":908", ":808")
+
+    admin_path = getattr(settings, "ADMIN_URL", None)
+    if not admin_path:
+        try:
+            from constance import config
+            admin_path = getattr(config, "ADMIN_URL", "admin")
+        except Exception:
+            admin_path = "admin"
+
+    if admin_path.startswith("http://") or admin_path.startswith("https://"):
+        admin_url = f"{admin_path.rstrip('/')}/"
+    else:
+        admin_path = admin_path.strip("/")
+        admin_url = f"{request.scheme}://{host}/{admin_path}/"
+
+    return redirect(admin_url)
+
+
 def _get_2fa_setup_context(request):
     user = request.user
     if user.totp_enabled:
