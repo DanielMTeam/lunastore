@@ -43,6 +43,7 @@ from .forms import (
     DistributionEditForm,
     ProblemReportForm,
 )
+from .services.lunabox import notify_unfilled_lunabox_manifests
 from django.db import transaction
 from django.db.models import Avg, Count
 from .models import (
@@ -731,6 +732,9 @@ def manage_distributions(request):
             for error in errors:
                 messages.error(request, error)
 
+    # remind developers to fill in the lunabox manifest for old releases
+    notify_unfilled_lunabox_manifests(request.user)
+
     dist_rows = []
     for dist in distributions:
         dist_rows.append({"id": dist.id,
@@ -788,6 +792,8 @@ def distribution_edit(request, dist_pk):
     initial_data = {
         "version": distribution.version,
         "url": distribution.url,
+        "lunabox_type": distribution.lunabox_type,
+        "lunabox_path": distribution.lunabox_path,
     }
 
     # automatically populate changelog translations

@@ -28,3 +28,39 @@ msgstr ""
 
 msgid "BASE_COOKIE_PRIVACYPOLICY"
 msgstr "プライバシーポリシー"
+
+msgid "NOTIF_LUNABOX_MANIFEST_DESCRIPTION"
+msgstr "アプリ「%(app_name)s」にタイプが未設定の配布があります。LunaBox がインストールできるよう、タイプとパスを設定してください。未設定: %(count)s"
+
+msgid "NOTIF_LUNABOX_MANIFEST_TITLE"
+msgstr "配布情報を入力してください"
+
+msgid "PAGE_DIST_FORM_LUNABOX_PATH_DESC"
+msgstr "例: folder1/inst.exe。zipアーカイブの内容を基準にします。「zipアーカイブ内のアプリ」と「zipアーカイブ内のインストーラー」に適用されます。"
+
+msgid "PAGE_DIST_FORM_LUNABOX_PATH_REQUIRED"
+msgstr "「zipアーカイブ内のアプリ」と「zipアーカイブ内のインストーラー」にはアーカイブ内のパスが必要です。"
+
+msgid "PAGE_DIST_FORM_LUNABOX_PATH_TITLE"
+msgstr "アーカイブを基準にしたパス:"
+
+msgid "PAGE_DIST_FORM_LUNABOX_TYPE_APP_ZIP"
+msgstr "zipアーカイブ内のアプリ"
+
+msgid "PAGE_DIST_FORM_LUNABOX_TYPE_DESC"
+msgstr "LunaBoxがファイルをどう処理するかを指定してください。"
+
+msgid "PAGE_DIST_FORM_LUNABOX_TYPE_FILE"
+msgstr "その他のファイル（ダウンロードのみ、何もしない）"
+
+msgid "PAGE_DIST_FORM_LUNABOX_TYPE_INSTALLER"
+msgstr "インストーラー（インストールに実行が必要）"
+
+msgid "PAGE_DIST_FORM_LUNABOX_TYPE_INSTALLER_ZIP"
+msgstr "zipアーカイブ内のインストーラー"
+
+msgid "PAGE_DIST_FORM_LUNABOX_TYPE_PROGRAM"
+msgstr "自己完結型アプリ（インストール済み、直接実行）"
+
+msgid "PAGE_DIST_FORM_LUNABOX_TYPE_TITLE"
+msgstr "配布タイプ:"
