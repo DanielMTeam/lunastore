@@ -219,6 +219,8 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
   deploy:
+    needs: build
+    if: (github.ref == 'refs/heads/main' && github.event_name == 'push') || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - name: Deploy LunaStore
