@@ -637,6 +637,12 @@ msgstr "У ваш обліковий запис було здійснено вх
 msgid "NOTIF_LOGIN_TITLE"
 msgstr "Новий вхід в обліковий запис"
 
+msgid "NOTIF_LUNABOX_MANIFEST_DESCRIPTION"
+msgstr "У застосунку \"%(app_name)s\" є дистрибуції без зазначеного типу. Вкажіть тип і шлях в архіві, щоб LunaBox міг встановити застосунок. Не заповнено: %(count)s."
+
+msgid "NOTIF_LUNABOX_MANIFEST_TITLE"
+msgstr "Заповніть інформацію про дистрибуцію"
+
 msgid "NOTIF_WELCOME_DESCRIPTION"
 msgstr "Дякуємо за реєстрацію! Дуже приємно, що Ви залишилися небайдужими до довідника програм. Сподіваємось, Вам дуже сподобається!"
 
@@ -1356,6 +1362,36 @@ msgstr "Файл не обрано."
 
 msgid "PAGE_DIST_FORM_FILE_UPLOADING"
 msgstr "Завантаження..."
+
+msgid "PAGE_DIST_FORM_LUNABOX_PATH_DESC"
+msgstr "Наприклад: folder1/inst.exe. Шлях вказується відносно вмісту zip-архіву. Відноситься до типів «Застосунок у zip-архіві» та «Інсталятор у zip-архіві»."
+
+msgid "PAGE_DIST_FORM_LUNABOX_PATH_REQUIRED"
+msgstr "Для типів «Застосунок у zip-архіві» та «Інсталятор у zip-архіві» необхідно вказати шлях усередині архіву."
+
+msgid "PAGE_DIST_FORM_LUNABOX_PATH_TITLE"
+msgstr "Шлях відносно архіву:"
+
+msgid "PAGE_DIST_FORM_LUNABOX_TYPE_APP_ZIP"
+msgstr "Застосунок у zip-архіві"
+
+msgid "PAGE_DIST_FORM_LUNABOX_TYPE_DESC"
+msgstr "Визначає, що LunaBox має робити з файлом."
+
+msgid "PAGE_DIST_FORM_LUNABOX_TYPE_FILE"
+msgstr "Інший файл (просто завантажити, нічого не робити)"
+
+msgid "PAGE_DIST_FORM_LUNABOX_TYPE_INSTALLER"
+msgstr "Інсталятор (потрібно запустити для встановлення)"
+
+msgid "PAGE_DIST_FORM_LUNABOX_TYPE_INSTALLER_ZIP"
+msgstr "Інсталятор у zip-архіві"
+
+msgid "PAGE_DIST_FORM_LUNABOX_TYPE_PROGRAM"
+msgstr "Автономний застосунок (вже встановлено, запускати напряму)"
+
+msgid "PAGE_DIST_FORM_LUNABOX_TYPE_TITLE"
+msgstr "Тип поширення:"
 
 msgid "PAGE_DIST_FORM_SAVE"
 msgstr "Зберегти зміни"

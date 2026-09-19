@@ -633,6 +633,12 @@ msgstr "Your account was logged into • Device: %(browser)s (%(os)s) • IP add
 msgid "NOTIF_LOGIN_TITLE"
 msgstr "New account login"
 
+msgid "NOTIF_LUNABOX_MANIFEST_DESCRIPTION"
+msgstr "App \"%(app_name)s\" has distributions without a specified type. Set the type and path so LunaBox can install the app. %(count)s unfilled."
+
+msgid "NOTIF_LUNABOX_MANIFEST_TITLE"
+msgstr "Fill in distribution info"
+
 msgid "NOTIF_WELCOME_DESCRIPTION"
 msgstr "Thanks for registering! We are very pleased that you care about the app directory. We hope you really enjoy it!"
 
@@ -1351,6 +1357,36 @@ msgstr "No file selected."
 
 msgid "PAGE_DIST_FORM_FILE_UPLOADING"
 msgstr "Uploading..."
+
+msgid "PAGE_DIST_FORM_LUNABOX_PATH_DESC"
+msgstr "Example: folder1/inst.exe. Relative to the zip archive contents; applies to 'App in zip archive' and 'Installer in zip archive' types."
+
+msgid "PAGE_DIST_FORM_LUNABOX_PATH_REQUIRED"
+msgstr "The path inside the archive is required for 'App in zip archive' and 'Installer in zip archive' types."
+
+msgid "PAGE_DIST_FORM_LUNABOX_PATH_TITLE"
+msgstr "Path relative to the archive:"
+
+msgid "PAGE_DIST_FORM_LUNABOX_TYPE_APP_ZIP"
+msgstr "App in zip archive"
+
+msgid "PAGE_DIST_FORM_LUNABOX_TYPE_DESC"
+msgstr "Defines what LunaBox should do with the file."
+
+msgid "PAGE_DIST_FORM_LUNABOX_TYPE_FILE"
+msgstr "Other file (just download, do nothing)"
+
+msgid "PAGE_DIST_FORM_LUNABOX_TYPE_INSTALLER"
+msgstr "Installer (must be run to install)"
+
+msgid "PAGE_DIST_FORM_LUNABOX_TYPE_INSTALLER_ZIP"
+msgstr "Installer in zip archive"
+
+msgid "PAGE_DIST_FORM_LUNABOX_TYPE_PROGRAM"
+msgstr "Self contained app (already installed, run directly)"
+
+msgid "PAGE_DIST_FORM_LUNABOX_TYPE_TITLE"
+msgstr "Distribution type:"
 
 msgid "PAGE_DIST_FORM_SAVE"
 msgstr "Save changes"
