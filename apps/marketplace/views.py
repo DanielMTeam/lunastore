@@ -139,9 +139,12 @@ def store_listing(request):
 
 
 def category(request):
+    valid_views = frozenset({"tiles", "list"})
     id = request.GET.get("id")
     page = request.GET.get("page")
     view_mode = request.GET.get("view", "tiles")
+    if view_mode not in valid_views:
+        view_mode = "tiles"
 
     # get model objects
     obj_category = get_object_or_404(Category, id=id)
@@ -534,7 +537,10 @@ def search(request):
         return _search_suggest_response(request)
 
     query = normalize_query(request.GET.get("q"))
+    valid_views = frozenset({"tiles", "list"})
     view_mode = request.GET.get("view", "tiles")
+    if view_mode not in valid_views:
+        view_mode = "tiles"
     search_type = request.GET.get("type", "apps")
     if search_type not in ("apps", "users"):
         search_type = "apps"

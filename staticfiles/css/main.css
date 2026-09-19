@@ -681,13 +681,13 @@ li.web {
 }
 
 .listview .card_text {
-    width: 370px;
+    width: 360px;
 }
 
 .listview h3 {
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 370px;
+    width: 360px;
     white-space: nowrap;
 }
 
@@ -735,6 +735,9 @@ li.web {
     color: #333;
     height: 28px;
     overflow: hidden;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .badge {

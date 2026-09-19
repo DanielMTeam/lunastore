@@ -81,17 +81,28 @@
         {% endif %}
       <div class="card_text">
         <a href="./app.php?id={{ app.id }}"><h3>{{ app.title }}</h3></a>
-        {% if app.slogan|length >= 45 %}
-        <p title="{{ app.slogan }}">
-          {{ app.slogan|truncatechars:45|render_markdown }}
-        </p>
-        <div class="rating {{ app.star_class }}" style="position: absolute; right: 5px; bottom: 20px;"></div>
+        {% if view_mode == 'list' %}
+          {% if app.slogan|length >= 85 %}
+          <p title="{{ app.slogan }}">
+            {{ app.slogan|truncatechars:85|render_markdown }}
+          </p>
+          {% else %}
+          <p>
+            {{ app.slogan|render_markdown }}
+          </p>
+          {% endif %}
         {% else %}
-        <p>
-          {{ app.slogan|render_markdown }}
-        </p>
-        <div class="rating {{ app.star_class }}" style="position: absolute; right: 5px; bottom: 20px;"></div>
+          {% if app.slogan|length >= 45 %}
+          <p title="{{ app.slogan }}">
+            {{ app.slogan|truncatechars:45|render_markdown }}
+          </p>
+          {% else %}
+          <p>
+            {{ app.slogan|render_markdown }}
+          </p>
+          {% endif %}
         {% endif %}
+        <div class="rating {{ app.star_class }}" style="position: absolute; right: 5px; bottom: 20px;"></div>
       </div>
     </div>
     {% endfor %}

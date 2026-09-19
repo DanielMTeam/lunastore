@@ -13,9 +13,9 @@
 <div class="list_settings">
     <div class="selector">
         <select onchange="location = '?{{ url_params_no_view|safe }}{% if url_params_no_view %}&{% endif %}view=' + this.value;">
-            <option value="" disabled selected>{% trans "PAGE_SEARCH_SORT_PLACEHOLDER" %}</option>
-            <option value="tiles">{% trans "PAGE_SEARCH_SORT_TILES" %}</option>
-            <option value="list">{% trans "PAGE_SEARCH_SORT_LIST" %}</option>
+            <option value="" disabled {% if not view_mode %}selected{% endif %}>{% trans "PAGE_SEARCH_SORT_PLACEHOLDER" %}</option>
+            <option value="tiles" {% if view_mode == 'tiles' %}selected{% endif %}>{% trans "PAGE_SEARCH_SORT_TILES" %}</option>
+            <option value="list" {% if view_mode == 'list' %}selected{% endif %}>{% trans "PAGE_SEARCH_SORT_LIST" %}</option>
         </select>
     </div>
 </div>
@@ -209,12 +209,22 @@
 
                     <div class="card_text">
                         <a href="/app.php?id={{ app.pk }}"><h3>{{ app.title }}</h3></a>
-                        {% if app.slogan|length >= 45 %}
-                        <p title="{{ app.slogan }}">
-                            {{ app.slogan|truncatechars:45|render_markdown }}
-                        </p>
+                        {% if view_mode == 'list' %}
+                            {% if app.slogan|length >= 85 %}
+                            <p title="{{ app.slogan }}">
+                                {{ app.slogan|truncatechars:85|render_markdown }}
+                            </p>
+                            {% else %}
+                            <p>{{ app.slogan|render_markdown }}</p>
+                            {% endif %}
                         {% else %}
-                        <p>{{ app.slogan|render_markdown }}</p>
+                            {% if app.slogan|length >= 45 %}
+                            <p title="{{ app.slogan }}">
+                                {{ app.slogan|truncatechars:45|render_markdown }}
+                            </p>
+                            {% else %}
+                            <p>{{ app.slogan|render_markdown }}</p>
+                            {% endif %}
                         {% endif %}
                     </div>
                     <div class="rating {{ app.star_class }}" style="position: absolute; right: 5px; bottom: 20px;"></div>

@@ -532,3 +532,76 @@ class AppStatsViewTest(TestCase):
         self.assertTemplateUsed(resp, "admin_app_stats.html")
         self.assertTemplateUsed(resp, "includes/xp_chart.html")
         self.assertIn("stats", resp.context)
+
+
+@override_settings(RATELIMIT_BACKEND='memory', RATELIMIT_ENABLE=False)
+class ViewModeSloganTest(TestCase):
+    @classmethod
+    @patch("apps.core.search.service.SearchService.index_application")
+    @patch("apps.core.search.service.SearchService.index_user")
+    def setUpTestData(cls, mock_index_user, mock_index_app):
+        cls.user = User.objects.create_user(
+            username="SloganUser", password="password123", email="slogan@example.com"
+        )
+        cls.category = Category.objects.create(
+            name="Tools",
+            description="Tools category",
+        )
+        cls.slogan_65 = "A freeware task manager and system monitor for Microsoft Windows."
+        cls.app = Application.objects.create(
+            user=cls.user,
+            title="Process Explorer",
+            description="Process Explorer desc",
+            slogan=cls.slogan_65,
+            price=0,
+            is_private=False,
+            is_under_dmca=False,
+        )
+        cls.app.categories.add(cls.category)
+
+    def test_category_view_slogan_tiles(self):
+        resp = self.client.get(f"/category.php?id={self.category.id}&view=tiles")
+        self.assertEqual(resp.status_code, 200)
+        self.assertContains(resp, "A freeware task manager and system monitor f…")
+
+    def test_category_view_slogan_list(self):
+        resp = self.client.get(f"/category.php?id={self.category.id}&view=list")
+        self.assertEqual(resp.status_code, 200)
+        self.assertContains(resp, self.slogan_65)
+        self.assertNotContains(resp, "A freeware task manager and system monitor f…")
+
+    def test_search_view_slogan_tiles(self):
+        resp = self.client.get("/search.php?view=tiles")
+        self.assertEqual(resp.status_code, 200)
+        self.assertContains(resp, "A freeware task manager and system monitor f…")
+
+    def test_search_view_slogan_list(self):
+        resp = self.client.get("/search.php?view=list")
+        self.assertEqual(resp.status_code, 200)
+        self.assertContains(resp, self.slogan_65)
+        self.assertNotContains(resp, "A freeware task manager and system monitor f…")
+
+    def test_store_listing_slogan_tiles(self):
+        resp = self.client.get("/store.php?show=new&view=tiles")
+        self.assertEqual(resp.status_code, 200)
+        self.assertContains(resp, "A freeware task manager and system monitor f…")
+
+    def test_store_listing_slogan_list(self):
+        resp = self.client.get("/store.php?show=new&view=list")
+        self.assertEqual(resp.status_code, 200)
+        self.assertContains(resp, self.slogan_65)
+        self.assertNotContains(resp, "A freeware task manager and system monitor f…")
+
+    @patch("apps.core.search.service.SearchService.index_application")
+    def test_long_slogan_in_list_view_truncated_at_85(self, _mock_idx):
+        long_slogan = "A" * 120
+        self.app.slogan = long_slogan
+        self.app.save(update_fields=["slogan"])
+        try:
+            resp = self.client.get(f"/category.php?id={self.category.id}&view=list")
+            self.assertEqual(resp.status_code, 200)
+            self.assertContains(resp, "A" * 84 + "…")
+            self.assertNotContains(resp, long_slogan + "</p>")
+        finally:
+            self.app.slogan = self.slogan_65
+            self.app.save(update_fields=["slogan"])
