@@ -229,9 +229,9 @@ jobs:
         run: |
           response=$(curl -s -o /dev/null -w "%{http_code}" -X POST "$DEPLOY_URL")
           
-          if [ "$response" -eq 200 ]; then
-            echo "Deployment successfully triggered!"
-          else
-            echo "Deployment failed with HTTP status code: $response"
-            exit 1
+          if [[ $response -eq 200 || $response -eq 202 ]]; then 
+            echo "Deployment successfully triggered!" 
+          else 
+            echo "Deployment failed with HTTP status code: $response" 
+            exit 1 
           fi
