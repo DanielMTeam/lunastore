@@ -3,7 +3,7 @@ from rest_framework import status
 from django.test import override_settings
 from unittest.mock import patch
 from apps.user.models import User
-from apps.marketplace.models import Application, Category, Collection, CollectionItem
+from apps.marketplace.models import Application, Category, Collection, CollectionItem, Distribution
 from apps.core.search import SearchUnavailableError
 import logging
 
@@ -35,6 +35,19 @@ class APIViewsTest(APITestCase):
             is_under_dmca=False
         )
         cls.app.categories.add(cls.category)
+
+        Distribution.objects.create(
+            app=cls.app,
+            version="1.0.0",
+            url="https://example.com/cleaner-legacy.zip",
+            changelog="Initial release",
+        )
+        Distribution.objects.create(
+            app=cls.app,
+            version="2.1.0",
+            url="https://example.com/cleaner.zip",
+            changelog="Faster cleaning",
+        )
 
         cls.dmca_app = Application.objects.create(
             user=cls.user,
@@ -71,6 +84,21 @@ class APIViewsTest(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['title'], 'SuperCleaner')
+        self.assertEqual(response.data['version'], '2.1.0')
+
+    def test_get_app_info_version_none_without_distribution(self):
+        no_dist_app = Application.objects.create(
+            user=self.user,
+            title='NoDistApp',
+            description='Just an app',
+            price=0,
+            is_under_dmca=False,
+        )
+        url = '/method/marketplace/getAppInfo/'
+        response = self.client.get(url, {'id': no_dist_app.id})
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIsNone(response.data['version'])
 
     def test_get_app_info_dmca(self):
         url = '/method/marketplace/getAppInfo/'

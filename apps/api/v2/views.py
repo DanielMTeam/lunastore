@@ -25,7 +25,7 @@ from drf_spectacular.utils import (
     inline_serializer,
 )
 from apps.marketplace.models import Application, Category, Collection, Distribution
-from apps.marketplace.serializers import ApplicationSerializer, CategorySerializer, CollectionSerializer, DistributionSerializer
+from apps.marketplace.serializers import ApplicationSerializer, CategorySerializer, CollectionSerializer, DistributionSerializer, annotate_app_last_version
 from apps.user.models import User
 from apps.user.serializers import UserSerializer
 from apps.core.notifications.services import NotificationService
@@ -261,7 +261,9 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
 )
 class MarketplaceViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
-        return Application.objects.filter(is_private=False, is_under_dmca=False)
+        return annotate_app_last_version(
+            Application.objects.filter(is_private=False, is_under_dmca=False)
+        )
     serializer_class = ApplicationSerializer
     pagination_class = V2Pagination
 
@@ -455,7 +457,9 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
     @action(detail=True, methods=["get"], url_path="apps")
     def apps(self, request, pk=None):
         category = self.get_object()
-        apps = Application.objects.filter(categories=category).exclude(is_private=True).order_by("-published")
+        apps = annotate_app_last_version(
+            Application.objects.filter(categories=category).exclude(is_private=True)
+        ).order_by("-published")
         page = self.paginate_queryset(apps)
         if page is not None:
             serializer = ApplicationSerializer(page, many=True)
@@ -581,7 +585,9 @@ class CollectionViewSet(viewsets.ReadOnlyModelViewSet):
         app_ids = collection.items.order_by("-added_at").values_list(
             "application_id", flat=True
         )
-        apps = Application.objects.filter(id__in=app_ids).exclude(is_private=True)
+        apps = annotate_app_last_version(
+            Application.objects.filter(id__in=app_ids).exclude(is_private=True)
+        )
         # preserve collection order
         app_map = {app.id: app for app in apps}
         ordered = [app_map[i] for i in app_ids if i in app_map]

@@ -265,7 +265,7 @@ class BaseDistributionInfo(SafeDeleteModel):
         max_length=210,
         verbose_name="Список изменений")
     lunabox_manifest = models.JSONField(
-        verbose_name="Инструкция для лунной коробки как ставить приложение",
+        verbose_name="Инструкция для лунной коробки как ставить приложение - {\"type\":\"program\",\"path\":\"\"}",
         default=None,
         null=True,
         blank=True,
@@ -279,6 +279,7 @@ class BaseDistributionInfo(SafeDeleteModel):
         # and it sees that path is not empty, it checks if archive type supported (only zip rn)
         # and if supported it will extract it and
         # install folder1/inst.exe if path = "folder1/inst.exe" it is should be relative to archive
+        # {"type":"program","path":""}
     )
 
     class Meta:

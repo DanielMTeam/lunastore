@@ -22,6 +22,7 @@ from apps.marketplace.serializers import (
     ApplicationSerializer,
     CategorySerializer,
     DistributionSerializer,
+    annotate_app_last_version,
 )
 from apps.user.models import User
 from apps.user.serializers import UserSerializer
@@ -223,7 +224,7 @@ class UserViewSet(viewsets.GenericViewSet):
 
 
 class MarketplaceViewSet(viewsets.GenericViewSet):
-    queryset = Application.objects.filter()
+    queryset = annotate_app_last_version(Application.objects.filter())
     serializer_class = ApplicationSerializer
 
     @extend_schema(
@@ -316,7 +317,9 @@ class MarketplaceViewSet(viewsets.GenericViewSet):
                 status_code=503,
             )
         results = SearchService.order_queryset_by_ids(
-            Application.objects.filter(is_private=False, is_under_dmca=False),
+            annotate_app_last_version(
+                Application.objects.filter(is_private=False, is_under_dmca=False)
+            ),
             app_ids,
         )
 
@@ -356,9 +359,11 @@ class CategoryViewSet(viewsets.GenericViewSet):
             )
         try:
             category = self.get_queryset().get(pk=id)
-            apps = Application.objects.filter(
-                categories=category).exclude(
-                is_private=True).order_by("-published")
+            apps = annotate_app_last_version(
+                Application.objects.filter(
+                    categories=category).exclude(
+                    is_private=True).order_by("-published")
+            )
         except Category.DoesNotExist:
             raise LunaException(
                 code=ErrorCodes.CATEGORY_NOT_FOUND,

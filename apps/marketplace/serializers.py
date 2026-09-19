@@ -1,11 +1,24 @@
+from django.db.models import OuterRef, Subquery
+
 from rest_framework import serializers
 
 from .models import Application, Category, Collection, Distribution
 from apps.user.serializers import UserSerializer
 
 
+def annotate_app_last_version(queryset):
+    # annotate each app with the version of its most recent published distribution
+    last_dist = Distribution.objects.filter(app_id=OuterRef("pk")).order_by(
+        "-published"
+    )
+    return queryset.annotate(
+        last_dist_version=Subquery(last_dist.values("version")[:1])
+    )
+
+
 class ApplicationSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
+    version = serializers.SerializerMethodField()
 
     class Meta:
         model = Application
@@ -23,7 +36,14 @@ class ApplicationSerializer(serializers.ModelSerializer):
             "is_under_dmca",
             "icon_url",
             "user",
+            "version",
         ]
+
+    def get_version(self, obj):
+        if hasattr(obj, "last_dist_version"):
+            return obj.last_dist_version
+        last_dist = obj.distributions.order_by("-published").first()
+        return last_dist.version if last_dist else None
 
 
 class CategorySerializer(serializers.ModelSerializer):
