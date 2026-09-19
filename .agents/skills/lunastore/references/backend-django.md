@@ -44,7 +44,7 @@ erDiagram
   - Search: `GinIndex` with `gin_trgm_ops` on `['title', 'description', 'slogan']`.
   - Properties `icon_url` and `screenshot_urls` return protocol-relative LunaSpire CDN URLs.
 - **`Distribution`**: A concrete release/installer.
-  - Fields: `app`, `version`, `cdn_file_id`, `url` (external link), `changelog`, `release_description`.
+  - Fields: `app`, `version`, `cdn_file_id`, `url` (external link), `changelog`.
   - Property `link` routes downloads through `/get_dist_file/<id>/`.
 - **`Review`**: 1–5 star rating. **Hard delete**.
 - **`Collection` / `CollectionItem` / `CollectionFavorite`**:

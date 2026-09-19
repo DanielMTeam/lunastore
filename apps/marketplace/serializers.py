@@ -43,7 +43,6 @@ class DistributionSerializer(serializers.ModelSerializer):
             "url",
             "has_download",
             "published",
-            "release_description",
             "lunabox_manifest",
         ]
 

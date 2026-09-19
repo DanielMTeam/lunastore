@@ -264,12 +264,6 @@ class BaseDistributionInfo(SafeDeleteModel):
     changelog = models.CharField(
         max_length=210,
         verbose_name="Список изменений")
-    release_description = models.TextField(
-        max_length=1500,
-        blank=True,
-        null=True,
-        verbose_name="Описание релиза"
-    )
     lunabox_manifest = models.JSONField(
         verbose_name="Инструкция для лунной коробки как ставить приложение",
         default=None,
