@@ -621,33 +621,6 @@ class ApplicationAdminForm(forms.ModelForm, CDNTokenValidationMixin):
         return cleaned_data
 
 
-class DistributionAdminForm(forms.ModelForm):
-    dist_file = forms.FileField(
-        label="Файл дистрибуции (CDN)",
-        required=False,
-    )
-    cdn_confirm_token = forms.CharField(
-        widget=forms.HiddenInput(), required=False)
-
-    class Meta:
-        model = Distribution
-        fields = "__all__"
-        widgets = get_translated_widgets_dict({
-            "changelog": UnfoldMarkdownTextareaWidget(attrs={"rows": 3}),
-        })
-
-    def clean(self):
-        from apps.core.mixins import CDNTokenValidationMixin
-        mixin = CDNTokenValidationMixin()
-        cleaned_data = super().clean()
-        cdn_token = cleaned_data.get("cdn_confirm_token")
-        if cdn_token:
-            decoded = mixin.validate_cdn_token(cdn_token)
-            cleaned_data["cdn_file_id"] = decoded.get("file_id")
-            self.instance.cdn_file_id = decoded.get("file_id")
-        return cleaned_data
-
-
 ALLOWED_EXTENSIONS = ["exe", "zip", "rar", "7z"]
 
 # UI-level types for the lunabox manifest. Stored values:
@@ -681,6 +654,71 @@ def build_lunabox_manifest(lunabox_type, lunabox_path=""):
     if lunabox_type == "installer":
         return {"type": "installer", "path": ""}
     return {"type": "file", "path": ""}
+
+
+class DistributionAdminForm(forms.ModelForm):
+    dist_file = forms.FileField(
+        label="Файл дистрибуции (CDN)",
+        required=False,
+    )
+    cdn_confirm_token = forms.CharField(
+        widget=forms.HiddenInput(), required=False)
+    lunabox_type = forms.ChoiceField(
+        choices=LUNABOX_TYPE_CHOICES,
+        required=True,
+        initial="file",
+        label=_("PAGE_DIST_FORM_LUNABOX_TYPE_TITLE"))
+    lunabox_path = forms.CharField(
+        max_length=255,
+        required=False,
+        label=_("PAGE_DIST_FORM_LUNABOX_PATH_TITLE"),
+        widget=forms.TextInput(
+            attrs={"placeholder": "folder1/inst.exe"}))
+
+    class Meta:
+        model = Distribution
+        fields = "__all__"
+        widgets = get_translated_widgets_dict({
+            "changelog": UnfoldMarkdownTextareaWidget(attrs={"rows": 3}),
+        })
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance and self.instance.pk:
+            self.fields["lunabox_type"].initial = self.instance.lunabox_type
+            self.fields["lunabox_path"].initial = self.instance.lunabox_path
+
+    def clean(self):
+        from apps.core.mixins import CDNTokenValidationMixin
+        mixin = CDNTokenValidationMixin()
+        cleaned_data = super().clean()
+        cdn_token = cleaned_data.get("cdn_confirm_token")
+        if cdn_token:
+            decoded = mixin.validate_cdn_token(cdn_token)
+            cleaned_data["cdn_file_id"] = decoded.get("file_id")
+            self.instance.cdn_file_id = decoded.get("file_id")
+
+        lunabox_type = cleaned_data.get("lunabox_type")
+        lunabox_path = cleaned_data.get("lunabox_path") or ""
+        if lunabox_type in LUNABOX_PATH_REQUIRED_TYPES:
+            if not lunabox_path.strip():
+                self.add_error(
+                    "lunabox_path",
+                    ValidationError(_("PAGE_DIST_FORM_LUNABOX_PATH_REQUIRED")))
+        else:
+            lunabox_path = ""
+        cleaned_data["lunabox_manifest"] = build_lunabox_manifest(
+            lunabox_type or "file", lunabox_path)
+        return cleaned_data
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        instance.lunabox_manifest = self.cleaned_data.get("lunabox_manifest")
+        if "cdn_file_id" in self.cleaned_data and self.cleaned_data["cdn_file_id"]:
+            instance.cdn_file_id = self.cleaned_data["cdn_file_id"]
+        if commit:
+            instance.save()
+        return instance
 
 
 class BaseDistributionForm(forms.ModelForm, CDNTokenValidationMixin):

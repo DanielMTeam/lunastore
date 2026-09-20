@@ -10,13 +10,21 @@ from django.urls import path, reverse
 from django.utils.html import format_html
 from urllib.parse import unquote
 from django.utils.safestring import mark_safe
+from django.utils.translation import gettext_lazy as _
 from unfold import admin as unfold_admin
 from unfold.decorators import action
 from apps.core.tasks import send_notification
 from safedelete.models import HARD_DELETE
 from lunastore.mixins import SafeDeleteAdmin
 from . import translation
-from .forms import ApplicationAdminForm, DistributionAdminForm, get_translated_widgets_dict
+from .forms import (
+    ApplicationAdminForm,
+    DistributionAdminForm,
+    build_lunabox_manifest,
+    get_translated_widgets_dict,
+    LUNABOX_PATH_REQUIRED_TYPES,
+    LUNABOX_TYPE_CHOICES,
+)
 from .widgets import UnfoldMarkdownTextareaWidget
 from .models import *
 from modeltranslation.admin import TabbedTranslationAdmin, TranslationTabularInline, TranslationStackedInline
@@ -300,6 +308,17 @@ class DistributionRequestSecurityMixin:
         refresh_url = self._get_security_check_refresh_url(obj)
         return mark_safe(_render_distribution_security_check(obj, refresh_url))
 
+    @admin.display(description="Инструкция для LunaBox")
+    def lunabox_manifest_display(self, obj):
+        if not obj.lunabox_manifest_is_filled:
+            return "-"
+        labels = dict(LUNABOX_TYPE_CHOICES)
+        label = labels.get(obj.lunabox_type, obj.lunabox_type)
+        path = obj.lunabox_path
+        if path:
+            return f"{label} — путь: {path}"
+        return label
+
 
 class DistributionInlineForm(forms.ModelForm):
     dist_file = forms.FileField(
@@ -308,6 +327,17 @@ class DistributionInlineForm(forms.ModelForm):
     )
     cdn_confirm_token = forms.CharField(
         widget=forms.HiddenInput(), required=False)
+    lunabox_type = forms.ChoiceField(
+        choices=LUNABOX_TYPE_CHOICES,
+        required=True,
+        initial="file",
+        label=_("PAGE_DIST_FORM_LUNABOX_TYPE_TITLE"))
+    lunabox_path = forms.CharField(
+        max_length=255,
+        required=False,
+        label=_("PAGE_DIST_FORM_LUNABOX_PATH_TITLE"),
+        widget=forms.TextInput(
+            attrs={"placeholder": "folder1/inst.exe"}))
 
     class Meta:
         model = Distribution
@@ -316,6 +346,12 @@ class DistributionInlineForm(forms.ModelForm):
             "changelog": UnfoldMarkdownTextareaWidget(attrs={"rows": 3}),
         })
         widgets["cdn_file_id"] = forms.HiddenInput()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance and self.instance.pk:
+            self.fields["lunabox_type"].initial = self.instance.lunabox_type
+            self.fields["lunabox_path"].initial = self.instance.lunabox_path
 
     def clean(self):
         from apps.core.mixins import CDNTokenValidationMixin
@@ -326,10 +362,21 @@ class DistributionInlineForm(forms.ModelForm):
             decoded = mixin.validate_cdn_token(cdn_token)
             cleaned_data["cdn_file_id"] = decoded.get("file_id")
             self.instance.cdn_file_id = decoded.get("file_id")
+
+        lunabox_type = cleaned_data.get("lunabox_type")
+        lunabox_path = cleaned_data.get("lunabox_path") or ""
+        if lunabox_type in LUNABOX_PATH_REQUIRED_TYPES:
+            if not lunabox_path.strip():
+                self.add_error("lunabox_path", _("PAGE_DIST_FORM_LUNABOX_PATH_REQUIRED"))
+        else:
+            lunabox_path = ""
+        cleaned_data["lunabox_manifest"] = build_lunabox_manifest(
+            lunabox_type or "file", lunabox_path)
         return cleaned_data
 
     def save(self, commit=True):
         instance = super().save(commit=False)
+        instance.lunabox_manifest = self.cleaned_data.get("lunabox_manifest")
         if "cdn_file_id" in self.cleaned_data and self.cleaned_data["cdn_file_id"]:
             instance.cdn_file_id = self.cleaned_data["cdn_file_id"]
         if commit:
@@ -347,6 +394,8 @@ class DistributionInline(TranslationStackedInline):
         "cdn_file_id",
         "url",
         "changelog",
+        "lunabox_type",
+        "lunabox_path",
         "published")
     readonly_fields = ("published",)
     extra = 0
@@ -375,6 +424,8 @@ class DistributionAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
                     "cdn_file_id",
                     "url",
                     "changelog",
+                    "lunabox_type",
+                    "lunabox_path",
                     "published",
                 )
             },
@@ -458,11 +509,12 @@ class DistributionCreateAdmin(
         "cdn_file_id",
         "url",
         "changelog",
+        "lunabox_manifest_display",
         "security_check")
 
     fieldsets = (
         ("Информация о дистрибуции", {
-            "fields": ("app", "version", "changelog", "url", "cdn_file_id")
+            "fields": ("app", "version", "changelog", "url", "cdn_file_id", "lunabox_manifest_display")
         }),
         ("Безопасность", {
             "fields": ("security_check",),
@@ -585,11 +637,12 @@ class DistributionEditRequestAdmin(
         "cdn_file_id",
         "url",
         "changelog",
+        "lunabox_manifest_display",
         "security_check")
 
     fieldsets = (
         ("Информация об изменениях", {
-            "fields": ("target_distribution", "version", "changelog", "url", "cdn_file_id")
+            "fields": ("target_distribution", "version", "changelog", "url", "cdn_file_id", "lunabox_manifest_display")
         }),
         ("Безопасность", {
             "fields": ("security_check",),
