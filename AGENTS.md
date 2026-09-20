@@ -13,6 +13,7 @@
 | **Backend** | Python 3.13 / Django 6.1.1, DRF 3.18.1 | Clean architecture under `apps/` (`core`, `user`, `marketplace`, `api`, `terms`, `analytics`) |
 | **Database** | PostgreSQL 18 | `pg_trgm` (GIN trigram search), `django-safedelete` |
 | **Cache & Throttling** | Redis 7 | `django-redis`, `django-smart-ratelimit`, `django-constance[redis]` |
+| **Tasks & Queues** | Redis 7 / `django.tasks` | `django-tasks-redis`, `python manage.py run_tasks_worker` |
 | **Analytics (optional)** | ClickHouse | Compose profile `analytics`; `apps/analytics`; gated by `ANALYTICS_ENABLED` |
 | **Storage & CDN** | **LunaSpire** (Go engine) | Host `6080` → container `8080`. File storage, CDN, push notifications, JWT tokens |
 | **Admin Panel** | `django-unfold` | Port `8088` (`urls_private.py`). Moderation, Constance, noSpam under `/${ADMIN_URL}/` |
@@ -80,6 +81,8 @@ make dev-collectstatic    # Collect static files
 make dev-superuser        # Create Django superuser
 make dev-test             # Run Django tests
 make dev-logs             # Tail logs
+make dev-worker-logs      # Tail worker logs
+make dev-worker-restart   # Restart background worker
 
 # === Optional analytics (ClickHouse profile) ===
 make dev-analytics-up     # Start ClickHouse (compose profile analytics)

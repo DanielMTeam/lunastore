@@ -162,6 +162,21 @@ services:
             - static_volume:/app/staticfiles_build
             - ./media:/root/lunastore/media
 
+    worker:
+        build: .
+        container_name: lunastore_worker
+        command: python manage.py run_tasks_worker --continuous --interval 1.0
+        env_file:
+            - .env
+        depends_on:
+            db:
+                condition: service_healthy
+            redis:
+                condition: service_healthy
+        volumes:
+            - .:/app
+            - ./media:/root/lunastore/media
+
 volumes:
     static_volume:
     media_volume:

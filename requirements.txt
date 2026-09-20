@@ -19,6 +19,7 @@ whitenoise==6.12.0
 django-modeltranslation==0.20.6
 django-user_agents==0.4.0
 django-redis==7.0.0
+django-tasks-redis==0.3.0
 django-constance[redis]==4.3.5
 user_agents==2.2.0
 django-smart-ratelimit==4.12.1

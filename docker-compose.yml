@@ -157,6 +157,26 @@ services:
             - "8082:8088"
             - "9082:9088"
 
+    lunastore-worker:
+        image: lunastore:local
+        container_name: lunastore_worker
+        restart: unless-stopped
+        networks:
+            - storenetwork
+        env_file:
+            - .env
+        depends_on:
+            db:
+                condition: service_healthy
+            redis:
+                condition: service_healthy
+            lunaspire:
+                condition: service_healthy
+        volumes:
+            - /opt/lunastore/media:/app/media
+            - /opt/lunastore/certs:/app/certs:ro
+        command: python manage.py run_tasks_worker --continuous --interval 1.0
+
 networks:
     storenetwork:
         name: lunastore_network

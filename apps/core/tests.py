@@ -212,3 +212,101 @@ class TLSVerificationChecksTest(TestCase):
                 self.assertIn("core.W003", self._security_issue_ids())
         finally:
             os.unlink(bundle_path)
+
+
+class TasksAndWorkerIntegrationTest(TestCase):
+    def test_send_telegram_notification_missing_config(self):
+        from apps.core.tasks import send_telegram_notification_task
+
+        with override_settings(TELEGRAM_BOT_TOKEN="", TELEGRAM_LOG_CHAT_ID=""):
+            result = send_telegram_notification_task.call("test message")
+            self.assertFalse(result)
+
+    @mock.patch("apps.core.tasks.requests.post")
+    def test_send_telegram_notification_success(self, mock_post):
+        from apps.core.tasks import send_telegram_notification_task
+
+        mock_post.return_value.status_code = 200
+
+        with override_settings(
+            TELEGRAM_BOT_TOKEN="mock_token",
+            TELEGRAM_LOG_CHAT_ID="12345",
+            TELEGRAM_LOG_TOPIC_ID=678,
+        ):
+            result = send_telegram_notification_task.call("hello telegram")
+            self.assertTrue(result)
+            mock_post.assert_called_once()
+            call_kwargs = mock_post.call_args[1]
+            self.assertEqual(call_kwargs["json"]["chat_id"], "12345")
+            self.assertEqual(call_kwargs["json"]["text"], "hello telegram")
+            self.assertEqual(call_kwargs["json"]["message_thread_id"], 678)
+
+    @mock.patch("apps.core.tasks.time.sleep")
+    @mock.patch("apps.core.tasks.requests.post")
+    def test_send_telegram_notification_rate_limit_retry(self, mock_post, mock_sleep):
+        from apps.core.tasks import send_telegram_notification_task
+
+        resp_429 = mock.MagicMock()
+        resp_429.status_code = 429
+        resp_429.json.return_value = {"parameters": {"retry_after": 2}}
+
+        resp_200 = mock.MagicMock()
+        resp_200.status_code = 200
+
+        mock_post.side_effect = [resp_429, resp_200]
+
+        with override_settings(
+            TELEGRAM_BOT_TOKEN="mock_token",
+            TELEGRAM_LOG_CHAT_ID="12345",
+        ):
+            result = send_telegram_notification_task.call("retry test", max_retries=2)
+            self.assertTrue(result)
+            self.assertEqual(mock_post.call_count, 2)
+            mock_sleep.assert_called_with(2)
+
+    @mock.patch("apps.core.tasks.time.sleep")
+    @mock.patch("apps.core.tasks.requests.post")
+    def test_send_telegram_notification_retry_on_network_failure(self, mock_post, mock_sleep):
+        import requests
+        from apps.core.tasks import send_telegram_notification_task
+
+        mock_post.side_effect = requests.RequestException("Connection timed out")
+
+        with override_settings(
+            TELEGRAM_BOT_TOKEN="mock_token",
+            TELEGRAM_LOG_CHAT_ID="12345",
+        ):
+            result = send_telegram_notification_task.call("fail test", max_retries=3, retry_delay=0.1)
+            self.assertFalse(result)
+            self.assertEqual(mock_post.call_count, 3)
+
+    def test_send_telegram_notification_helper_enqueues(self):
+        from apps.core.tasks import send_telegram_notification
+
+        with mock.patch("apps.core.tasks.send_telegram_notification_task") as mock_task:
+            with self.captureOnCommitCallbacks(execute=True):
+                send_telegram_notification("queue test message")
+            mock_task.enqueue.assert_called_once_with("queue test message")
+
+    @mock.patch("apps.core.tasks.NotificationService.send_notification")
+    def test_broadcast_notification_task(self, mock_send_notif):
+        from apps.core.tasks import broadcast_notification_task
+
+        mock_send_notif.return_value = True
+
+        delivered = broadcast_notification_task.call(
+            user_ids=[101, 102, 103],
+            title="Broadcast Title",
+            content="Broadcast Body",
+        )
+        self.assertEqual(delivered, 3)
+        self.assertEqual(mock_send_notif.call_count, 3)
+
+    def test_run_tasks_worker_command_execution(self):
+        from django.core.management import call_command
+        from io import StringIO
+
+        out = StringIO()
+        call_command("run_tasks_worker", max_tasks=1, stdout=out)
+        output = out.getvalue()
+        self.assertIn("Starting LunaStore Redis task worker", output)

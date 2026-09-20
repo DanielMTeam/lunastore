@@ -47,6 +47,12 @@ dev-restart:
 dev-logs:
 	docker compose -f $(DEV_COMPOSE) logs -f
 
+dev-worker-logs:
+	docker compose -f $(DEV_COMPOSE) logs -f worker
+
+dev-worker-restart:
+	docker compose -f $(DEV_COMPOSE) restart worker
+
 dev-test:
 	docker compose -f $(DEV_COMPOSE) exec web python manage.py test
 

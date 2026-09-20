@@ -235,6 +235,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "django_extensions",
     'django_user_agents',
+    'django_tasks_redis',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
 ]
@@ -278,8 +279,28 @@ SPECTACULAR_SETTINGS = {
 
 
 # tasks configuration
+TASKS_BACKEND = os.getenv(
+    "TASKS_BACKEND",
+    "immediate" if ("test" in sys.argv) else "redis",
+)
 
-TASKS = {"default": {"BACKEND": "django.tasks.backends.immediate.ImmediateBackend"}}
+if TASKS_BACKEND == "immediate" or "test" in sys.argv:
+    TASKS = {
+        "default": {
+            "BACKEND": "django.tasks.backends.immediate.ImmediateBackend",
+        }
+    }
+else:
+    TASKS = {
+        "default": {
+            "BACKEND": "django_tasks_redis.RedisTaskBackend",
+            "OPTIONS": {
+                "REDIS_URL": REDIS_URL,
+                "REDIS_KEY_PREFIX": "lunastore_tasks",
+                "REDIS_CONSUMER_GROUP": "lunastore_workers",
+            },
+        }
+    }
 
 if 'test' in sys.argv:
     CACHES = {

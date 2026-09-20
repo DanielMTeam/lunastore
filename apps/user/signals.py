@@ -10,7 +10,7 @@ from django.apps import AppConfig
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.sessions.models import Session
+from django.db import transaction
 from django.db.models.signals import post_delete, post_save
 from django.dispatch import receiver
 
@@ -38,7 +38,7 @@ def update_ipban_cache(sender: type, **kwargs: Any) -> None:
     # update ip ban cache on save or delete of userban
     log.info(
         "[signal apps.user] 'UserBanForm' model changed, refreshing banned IPs cache...")
-    refresh_banned_ips_cache.enqueue()
+    transaction.on_commit(lambda: refresh_banned_ips_cache.enqueue())
 
 
 @receiver([post_save, post_delete], sender=BlacklistedUsername)

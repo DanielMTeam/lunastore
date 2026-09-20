@@ -1,5 +1,7 @@
+import time
 import requests
 from django.conf import settings
+from django.db import transaction
 from django.tasks import task
 import logging
 from django.contrib.auth import get_user_model
@@ -11,27 +13,115 @@ logger = logging.getLogger('core')
 User = get_user_model()
 
 
-def send_telegram_notification(message: str):
-    bot_token = settings.TELEGRAM_BOT_TOKEN
-    chat_id = settings.TELEGRAM_LOG_CHAT_ID
-    topic_id = settings.TELEGRAM_LOG_TOPIC_ID
+# telegram notification task with retries
+@task()
+def send_telegram_notification_task(
+    message: str,
+    max_retries: int = 3,
+    retry_delay: float = 2.0,
+) -> bool:
+    bot_token = getattr(settings, 'TELEGRAM_BOT_TOKEN', '')
+    chat_id = getattr(settings, 'TELEGRAM_LOG_CHAT_ID', '')
+    topic_id = getattr(settings, 'TELEGRAM_LOG_TOPIC_ID', '')
+
+    if not bot_token or not chat_id:
+        logger.warning("Telegram bot_token or chat_id not configured; skipping notification.")
+        return False
 
     url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
-
     payload = {
         "chat_id": chat_id,
         "text": message,
-        "parse_mode": "HTML"
+        "parse_mode": "HTML",
     }
-
-    # if we have a topic_id, add it to the payload
     if topic_id:
         payload["message_thread_id"] = topic_id
 
-    try:
-        requests.post(url, json=payload, timeout=5)
-    except requests.RequestException as e:
-        logger.error(f"Error sending log to Telegram: {e}")
+    for attempt in range(1, max_retries + 1):
+        try:
+            resp = requests.post(url, json=payload, timeout=5)
+            if resp.status_code == 200:
+                return True
+
+            if resp.status_code == 429:
+                wait_seconds = 5
+                try:
+                    params = resp.json().get("parameters", {})
+                    wait_seconds = int(params.get("retry_after", 5))
+                except Exception:
+                    pass
+                logger.warning(
+                    f"Telegram rate limited (429). Attempt {attempt}/{max_retries}, waiting {wait_seconds}s..."
+                )
+                if attempt < max_retries:
+                    time.sleep(wait_seconds)
+                    continue
+
+            logger.warning(
+                f"Telegram sendMessage returned HTTP {resp.status_code} "
+                f"(attempt {attempt}/{max_retries}): {resp.text}"
+            )
+            if resp.status_code >= 500 and attempt < max_retries:
+                time.sleep(retry_delay * (2 ** (attempt - 1)))
+                continue
+
+            return False
+        except requests.RequestException as exc:
+            logger.warning(
+                f"Telegram network exception (attempt {attempt}/{max_retries}): {exc}"
+            )
+            if attempt < max_retries:
+                time.sleep(retry_delay * (2 ** (attempt - 1)))
+                continue
+            logger.error(
+                f"Failed to send telegram notification after {max_retries} attempts: {exc}"
+            )
+            return False
+
+    return False
+
+
+# enqueue telegram notification after db transaction commits
+def send_telegram_notification(message: str):
+    def _enqueue():
+        try:
+            send_telegram_notification_task.enqueue(message)
+        except Exception as exc:
+            logger.error(f"Failed to enqueue telegram notification: {exc}")
+            try:
+                send_telegram_notification_task.call(message)
+            except Exception as call_exc:
+                logger.error(f"Synchronous fallback failed for telegram notification: {call_exc}")
+
+    transaction.on_commit(_enqueue)
+
+
+# async mass notification delivery
+@task()
+def broadcast_notification_task(
+    user_ids: list[int],
+    title: str,
+    content: str,
+    meta: dict = None,
+) -> int:
+    if meta is None:
+        meta = {"type": "info", "icon": "system.png"}
+
+    delivered_count = 0
+    for uid in user_ids:
+        try:
+            if NotificationService.send_notification(
+                user_id=uid,
+                title=title,
+                content=content,
+                meta=meta,
+            ):
+                delivered_count += 1
+        except Exception as exc:
+            logger.error(f"Failed to deliver broadcast notification to user {uid}: {exc}")
+
+    logger.info(f"Broadcast notification completed: delivered {delivered_count}/{len(user_ids)}")
+    return delivered_count
 
 
 @task()

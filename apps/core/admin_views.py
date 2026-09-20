@@ -1,14 +1,10 @@
-import jwt
-import requests
-import time
-from django.conf import settings
 from django.shortcuts import render
 from django.contrib import messages
-from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import user_passes_test
 from .forms import BroadcastNotificationForm
 from django.contrib.auth import get_user_model
 from django.contrib import admin
+from .tasks import broadcast_notification_task
 
 User = get_user_model()
 
@@ -41,49 +37,24 @@ def admin_broadcast_notification(request):
                 # send to all active users
                 users = User.objects.filter(is_active=True)
 
-            success_count = 0
-            api_url = getattr(
-                settings,
-                'LUNASPIRE_URL',
-                'http://192.168.48.128:8080')
-
-            # send notifications
-            for u in users:
-                payload = {
-                    "type": "notify-send",
-                    "title": title,
-                    "content": content,
-                    "user_id": int(u.id),
-                    "meta": meta_data,
-                    "exp": int(time.time()) + 600
-                }
-                token = jwt.encode(
-                    payload,
-                    settings.LUNASPIRE_SECRET_KEY,
-                    algorithm="HS256")
-
-                try:
-                    resp = requests.put(
-                        f"{api_url}/notifications/send?token={token}",
-                        timeout=2
-                    )
-                    print(token)
-                    print(resp.text, resp.status_code)
-                    if resp.status_code == 200:
-                        success_count += 1
-                except Exception as e:
-                    messages.error(
-                        request,
-                        f"Ошибка отправки уведомления для ID {
-                            u.id}: {e}")
-
-            if users:
+            user_ids = list(users.values_list('id', flat=True))
+            if user_ids:
+                broadcast_notification_task.enqueue(
+                    user_ids=user_ids,
+                    title=title,
+                    content=content,
+                    meta=meta_data,
+                )
                 if target_user_id:
                     messages.success(
-                        request, f"Уведомление успешно отправлено пользователю ID {target_user_id}.")
+                        request,
+                        f"Уведомление для пользователя ID {target_user_id} передано в очередь фоновой доставки."
+                    )
                 else:
                     messages.success(
-                        request, f"Массовая рассылка завершена. Доставлено: {success_count} шт.")
+                        request,
+                        f"Массовая рассылка передана в очередь фоновой доставки ({len(user_ids)} получателей)."
+                    )
     else:
         form = BroadcastNotificationForm()
 
