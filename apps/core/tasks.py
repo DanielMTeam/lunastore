@@ -22,7 +22,7 @@ def send_telegram_notification_task(
     retry_delay: float = 2.0,
     disable_web_page_preview: bool = True,
 ) -> bool:
-    print("test1")
+    logger.warning("im called2")
     bot_token = getattr(settings, "TELEGRAM_BOT_TOKEN", "")
     chat_id = getattr(settings, "TELEGRAM_LOG_CHAT_ID", "")
     topic_id = getattr(settings, "TELEGRAM_LOG_TOPIC_ID", None)
