@@ -1,27 +1,47 @@
+import logging
 from django.conf import settings
+from django.contrib.admin.models import LogEntry
+from django.db import transaction
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.admin.models import LogEntry
 from apps.core.logger.services import LoggerService
 from .tasks import send_telegram_notification
-import logging
+
+logger = logging.getLogger('core')
 
 
 @receiver(post_save, sender=LogEntry)
 def notify_on_admin_action(sender, instance, created, **kwargs):
-    logger = logging.getLogger('core')
-    logger.warning("im called0")
-    if created:
-        logger.warning("im called1")
-        # check flag
-        if not settings.TELEGRAM_LOGGER_ENABLED:
+    if not created:
+        return
+
+    # Check settings flag
+    telegram_enabled = getattr(settings, 'TELEGRAM_LOGGER_ENABLED', False)
+    if not telegram_enabled:
+        return
+
+    # Check moderator login message match
+    change_msg = instance.change_message or ''
+    is_login_event = (
+        'Вход в систему (IP:' in change_msg
+        or 'Неудачная попытка входа (IP:' in change_msg
+    )
+
+    if is_login_event:
+        from constance import config
+
+        notify_mod = getattr(config, 'TELEGRAM_NOTIFY_MODERATOR_LOGINS', False)
+        if not notify_mod:
             return
 
-        # check if it is a moderator login log entry
-        if "Вход в систему (IP:" in instance.change_message or "Неудачная попытка входа (IP:" in instance.change_message:
-            from constance import config
-            if not getattr(config, 'TELEGRAM_NOTIFY_MODERATOR_LOGINS', False):
-                return
+    logger.warning(
+        f'[SIGNAL DEBUG] All checks passed. Preparing message for LogEntry ID {instance.pk}'
+    )
 
-        message = LoggerService.format_log_message(instance)
-        send_telegram_notification(message)
+    message = LoggerService.format_log_message(instance)
+
+    # Ensure Celery task runs ONLY AFTER DB transaction commits
+    transaction.on_commit(
+        lambda: send_telegram_notification.delay(message)
+    )
