@@ -1,5 +1,6 @@
 import time
 import requests
+import html
 from django.conf import settings
 from django.db import transaction
 from django.tasks import task
@@ -19,13 +20,16 @@ def send_telegram_notification_task(
     message: str,
     max_retries: int = 3,
     retry_delay: float = 2.0,
+    disable_web_page_preview: bool = True,
 ) -> bool:
-    bot_token = getattr(settings, 'TELEGRAM_BOT_TOKEN', '')
-    chat_id = getattr(settings, 'TELEGRAM_LOG_CHAT_ID', '')
-    topic_id = getattr(settings, 'TELEGRAM_LOG_TOPIC_ID', '')
+    bot_token = getattr(settings, "TELEGRAM_BOT_TOKEN", "")
+    chat_id = getattr(settings, "TELEGRAM_LOG_CHAT_ID", "")
+    topic_id = getattr(settings, "TELEGRAM_LOG_TOPIC_ID", None)
 
     if not bot_token or not chat_id:
-        logger.warning("Telegram bot_token or chat_id not configured; skipping notification.")
+        logger.warning(
+            "Telegram bot_token or chat_id not configured; skipping notification."
+        )
         return False
 
     url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
@@ -33,16 +37,24 @@ def send_telegram_notification_task(
         "chat_id": chat_id,
         "text": message,
         "parse_mode": "HTML",
+        "disable_web_page_preview": disable_web_page_preview,
     }
+
+    # Ensure topic_id is sent as an integer if provided
     if topic_id:
-        payload["message_thread_id"] = topic_id
+        try:
+            payload["message_thread_id"] = int(topic_id)
+        except (ValueError, TypeError):
+            logger.warning(f"Invalid TELEGRAM_LOG_TOPIC_ID format: {topic_id}")
 
     for attempt in range(1, max_retries + 1):
         try:
             resp = requests.post(url, json=payload, timeout=5)
+
             if resp.status_code == 200:
                 return True
 
+            # Handle Rate Limiting (429)
             if resp.status_code == 429:
                 wait_seconds = 5
                 try:
@@ -50,22 +62,40 @@ def send_telegram_notification_task(
                     wait_seconds = int(params.get("retry_after", 5))
                 except Exception:
                     pass
+
                 logger.warning(
                     f"Telegram rate limited (429). Attempt {attempt}/{max_retries}, waiting {wait_seconds}s..."
                 )
                 if attempt < max_retries:
                     time.sleep(wait_seconds)
                     continue
+                return False
 
+            # Handle Bad Formatting (400) - Fall back to plain text
+            if (
+                resp.status_code == 400
+                and "can't parse entities" in resp.text.lower()
+            ):
+                logger.warning(
+                    "Telegram HTML parsing failed. Retrying with plain text escape..."
+                )
+                payload["text"] = html.escape(message)
+                payload.pop("parse_mode", None)
+                continue
+
+            # Log other status code failures
             logger.warning(
                 f"Telegram sendMessage returned HTTP {resp.status_code} "
                 f"(attempt {attempt}/{max_retries}): {resp.text}"
             )
+
+            # Retry on 5xx server errors or transient network failures
             if resp.status_code >= 500 and attempt < max_retries:
                 time.sleep(retry_delay * (2 ** (attempt - 1)))
                 continue
 
             return False
+
         except requests.RequestException as exc:
             logger.warning(
                 f"Telegram network exception (attempt {attempt}/{max_retries}): {exc}"
@@ -73,9 +103,6 @@ def send_telegram_notification_task(
             if attempt < max_retries:
                 time.sleep(retry_delay * (2 ** (attempt - 1)))
                 continue
-            logger.error(
-                f"Failed to send telegram notification after {max_retries} attempts: {exc}"
-            )
             return False
 
     return False
