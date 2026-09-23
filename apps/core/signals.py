@@ -1,14 +1,9 @@
-import logging
 from django.conf import settings
 from django.contrib.admin.models import LogEntry
-from django.db import transaction
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.contrib.admin.models import LogEntry
 from apps.core.logger.services import LoggerService
 from .tasks import send_telegram_notification
-
-logger = logging.getLogger('core')
 
 
 @receiver(post_save, sender=LogEntry)
@@ -35,13 +30,7 @@ def notify_on_admin_action(sender, instance, created, **kwargs):
         if not notify_mod:
             return
 
-    logger.warning(
-        f'[SIGNAL DEBUG] All checks passed. Preparing message for LogEntry ID {instance.pk}'
-    )
-
     message = LoggerService.format_log_message(instance)
 
-    # Ensure Celery task runs ONLY AFTER DB transaction commits
-    transaction.on_commit(
-        lambda: send_telegram_notification.delay(message)
-    )
+    # send_telegram_notification enqueues the task after the DB transaction commits
+    send_telegram_notification(message)
