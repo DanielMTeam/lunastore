@@ -459,14 +459,21 @@ input[type="submit"] {
     color: #fff !important;
 }
 
-/* keep light-theme blue button inside review cards (card bg stays light) */
-.review_body input[type="submit"] {
-    border: 1px solid #7aa0e6 !important;
-    background: #2f78d6 !important;
+.review_body {
+    background: #323232 !important;
+    border: 1px solid #000 !important;
+}
+
+.review_author a {
+    color: #9ec1ff !important;
+}
+
+.review_date {
+    color: #999 !important;
+}
+
+.review_author {
     color: #fff !important;
-    padding: 4px 6px !important;
-    font-size: 12px !important;
-    text-decoration: none !important;
 }
 
 .action_button {
