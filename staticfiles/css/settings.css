@@ -149,10 +149,11 @@
     font-size: 14px;
 
     display: block;
-    width: 438px;
+    width: auto;
     margin: 10px auto 20px;
     text-decoration: none;
     box-sizing: border-box;
+    zoom: 1;
 }
 
 .add_app_button:hover {

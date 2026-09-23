@@ -495,7 +495,7 @@ a img {
 
 .sidebar_menu a {
     padding-left: 24px;
-    line-height: 22px; 
+    line-height: 22px;
     display: block;
     cursor: pointer;
     background: url(../img/icons.png);
@@ -2247,14 +2247,16 @@ a.report_problem {
 
 .collection_info{
   width: 320px;
-  display: inline-block;
+  display: block;
   vertical-align: top;
   margin-left: 10px;
+  float: left;
 }
 
 .collection_ava{
-  display: inline-block;
+  display: block;
   border: 1px solid #294b76;
+  float: left;
 }
 
 .collection_ava img{
