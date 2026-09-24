@@ -5,7 +5,6 @@ class StaticFilesStorage(CompressedManifestStaticFilesStorage):
     def url(self, name, force=False):
         while name.startswith("./"):
             name = name[2:]
-
             
         try:
             return super().url(name, force=True)
@@ -13,3 +12,4 @@ class StaticFilesStorage(CompressedManifestStaticFilesStorage):
             if "could not be found" in str(e):
                 return name
             raise
+        
