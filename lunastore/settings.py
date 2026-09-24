@@ -1479,7 +1479,7 @@ STATICFILES_DIRS = [BASE_DIR / "staticfiles"]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-STATIC_HASHING = os.getenv("STATIC_HASHING", "False") == "True"
+STATIC_HASHING = os.getenv("STATIC_HASHING", "True") == "True"
 
 STORAGES = {
     "default": {
