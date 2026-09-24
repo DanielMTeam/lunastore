@@ -2206,32 +2206,6 @@ a.report_problem {
   padding-right: 5px;
 }
 
-/* big block */
-.bigblock{
-  border: 0px;
-  margin-bottom: 16px;
-}
-
-.bigblock_text_one{
-  font-weight: bold;
-  font-size: 16px;
-}
-
-.bigblock_text_two{
-  font-size: 16px;
-}
-
-.bigblock_icon{
-  width: 64px;
-  height: 64px;
-}
-
-.bigblock_icon#luna{
-  width: 64px;
-  height: 64px;
-  background: url(../img/lunainst.png);
-}
-
 .reasonslist{
   margin-left: 20px;
 }

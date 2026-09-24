@@ -127,7 +127,7 @@ services:
     web:
         build: .
         container_name: lunastore_web
-        command: python manage.py runserver 0.0.0.0:9088
+        command: python manage.py runserver 0.0.0.0:9088 --nostatic
         env_file:
             - .env
         ports:

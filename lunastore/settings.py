@@ -797,6 +797,11 @@ CONSTANCE_CONFIG = {
         "Путь к PEM-сертификату/CA LunaPassport (приоритетнее VERIFY_SSL; от корня проекта или абсолютный)",
         str,
     ),
+    "STATIC_HASHING": (
+        os.getenv("STATIC_HASHING", "True") == "True",
+        "Использовать хеширование для статики (требует перезагрузки)",
+        bool
+    ),
 }
 
 CONSTANCE_CONFIG_FIELDSETS = {
@@ -874,6 +879,7 @@ CONSTANCE_CONFIG_FIELDSETS = {
             "SECRET_KEY",
             "ADMIN_URL",
             "ADMIN_EMAIL",
+            "STATIC_HASHING",
         ],
         "collapse": True,
     },
@@ -1473,12 +1479,16 @@ STATICFILES_DIRS = [BASE_DIR / "staticfiles"]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+STATIC_HASHING = os.getenv("STATIC_HASHING", "True") == "True"
+
 STORAGES = {
     "default": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
     },
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.StaticFilesStorage",
+        "BACKEND": "apps.core.staticfiles.StaticFilesStorage"
+        if STATIC_HASHING
+        else "whitenoise.storage.StaticFilesStorage"
     },
 }
 
