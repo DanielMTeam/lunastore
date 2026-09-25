@@ -13,8 +13,9 @@
     <div class="error_layout">
       {% block error_message %}{% endblock %}
       <br><br>
+      {% url 'home' as home_url %}
       <div class="action">
-        <a href="{% url 'home' %}">{% trans "404_GO_TO_HOME" %}</a>
+        <a href="{{ home_url|default:'/' }}">{% trans "404_GO_TO_HOME" %}</a>
       </div>
     </div>
   </div>

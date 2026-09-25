@@ -77,12 +77,14 @@
         <div class="dm_menu">
             {% if user.is_authenticated %}
             {% trans "BASE_AUTHLIKE" %} <a href="/profile.php"><b>{{ user.username }}</b></a> -
-            <form method="post" action="{% url 'logout' %}" id="logout-form" style="margin:0;padding:0;display:inline;">
+            {% url 'logout' as logout_url %}
+            <form method="post" action="{{ logout_url|default:'/logout.php' }}" id="logout-form" style="margin:0;padding:0;display:inline;">
                 {% csrf_token %}
-                <a href="{% url 'logout' %}" onclick="document.getElementById('logout-form').submit();return false;">{% trans "BASE_LOGOUTBTN" %}</a>
+                <a href="{{ logout_url|default:'/logout.php' }}" onclick="document.getElementById('logout-form').submit();return false;">{% trans "BASE_LOGOUTBTN" %}</a>
             </form>
             {% else %}
-            <a href="{% url 'login' %}" id="login-link">{% trans "BASE_LOGINBTN" %}</a> - <a href="/register.php">{% trans "BASE_REGISTERBTN" %}</a>
+            {% url 'login' as login_url %}
+            <a href="{{ login_url|default:'/login.php' }}" id="login-link">{% trans "BASE_LOGINBTN" %}</a> - <a href="/register.php">{% trans "BASE_REGISTERBTN" %}</a>
             {% endif %}
 
             | <a href="http://old.myslivets.com">myslivets.com</a> |

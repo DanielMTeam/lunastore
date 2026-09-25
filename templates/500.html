@@ -1,10 +1,52 @@
-{% extends 'error.html' %}
+{% load static %}
 {% load i18n %}
+<!DOCTYPE html>
+<html>
 
-{% block error_browser_title %}{% trans "PAGE_500_BROWSER_TITLE" %}{% endblock %}
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>{% trans "PAGE_500_BROWSER_TITLE" %} - LunaStore</title>
+<link rel="stylesheet" href="{% static './css/main.css' %}">
+</head>
 
-{% block error_heading %}{% trans "PAGE_ERROR_HEADING" %}{% endblock %}
+<body>
+<div class="container">
 
-{% block error_message %}
-{% trans "PAGE_500_DEFAULT_MESSAGE" %}
-{% endblock %}
+  <div class="dm_menu">
+    <a href="http://old.myslivets.com">myslivets.com</a> | <a href="/other_projects.php">{% trans "BASE_OPRJ_TITLE" %}</a>
+  </div>
+
+  <div class="header">
+    <a href="/">
+      <div class="ls_dm_logo"></div>
+    </a>
+    <div class="rl_l">
+      <h1 class="txtr">LunaStore</h1>
+      <div class="subtitle txtr">Windows XP Professional</div>
+    </div>
+  </div>
+
+  <div class="headerline"></div>
+
+  <div class="main">
+    <div class="warning_icon"></div>
+
+    <div class="content" style="width:620px!important;">
+      <div class="section">
+        <h2>{% trans "PAGE_ERROR_HEADING" %}</h2>
+
+        {% trans "PAGE_500_DEFAULT_MESSAGE" %}
+
+        <br><br>
+        <div class="action"><a href="/">{% trans "404_GO_TO_HOME" %}</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    {% trans "BASE_FOOTER_TEXT_1" %} {% now "Y" %}<br>{% trans "BASE_FOOTER_TEXT_2" %}
+  </div>
+</div>
+
+</body>
+</html>
