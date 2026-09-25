@@ -106,6 +106,7 @@ services:
             start_period: 5s
 
     x-lunastore-template: &lunastore_base
+        build: .
         image: lunastore:local
         env_file:
             - .env
@@ -122,7 +123,7 @@ services:
             meilisearch:
                 condition: service_healthy
         volumes:
-            - static_volume:/app/static
+            - /opt/lunastore/static:/app/static
             - /opt/lunastore/media:/app/media
             - /opt/lunastore/certs:/app/certs:ro
         command: >
@@ -158,6 +159,7 @@ services:
             - "9082:9088"
 
     lunastore-worker:
+        build: .
         image: lunastore:local
         container_name: lunastore_worker
         restart: unless-stopped
@@ -183,7 +185,6 @@ networks:
         driver: bridge
 
 volumes:
-    static_volume:
     media_volume:
     pg_data:
     redis_data:
