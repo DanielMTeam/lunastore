@@ -50,6 +50,13 @@ CLICKHOUSE_DATABASE = os.getenv(
     "lunastore_analytics",
 )
 CLICKHOUSE_SECURE = os.getenv("CLICKHOUSE_SECURE", "False") == "True"
+CLICKHOUSE_CONNECT_TIMEOUT = float(os.getenv("CLICKHOUSE_CONNECT_TIMEOUT", "2.0"))
+CLICKHOUSE_TIMEOUT = float(os.getenv("CLICKHOUSE_TIMEOUT", "5.0"))
+ANALYTICS_CIRCUIT_BREAKER_TIMEOUT = int(os.getenv("ANALYTICS_CIRCUIT_BREAKER_TIMEOUT", "30"))
+ANALYTICS_FLUSH_THRESHOLD = int(os.getenv("ANALYTICS_FLUSH_THRESHOLD", "500"))
+ANALYTICS_BUFFER_MAX_SIZE = int(os.getenv("ANALYTICS_BUFFER_MAX_SIZE", "100000"))
+ANALYTICS_FLUSH_BATCH_SIZE = int(os.getenv("ANALYTICS_FLUSH_BATCH_SIZE", "1000"))
+ANALYTICS_FLUSH_INTERVAL = float(os.getenv("ANALYTICS_FLUSH_INTERVAL", "5.0"))
 
 # meilisearch full-text search
 MEILISEARCH_URL = os.getenv(
@@ -700,6 +707,31 @@ CONSTANCE_CONFIG = {
         "Включить ClickHouse-аналитику",
         bool,
     ),
+    "ANALYTICS_CIRCUIT_BREAKER_TIMEOUT": (
+        int(os.getenv("ANALYTICS_CIRCUIT_BREAKER_TIMEOUT", "30")),
+        "Таймаут размыкания Circuit Breaker для ClickHouse в сек (при сбоях)",
+        int,
+    ),
+    "ANALYTICS_FLUSH_THRESHOLD": (
+        int(os.getenv("ANALYTICS_FLUSH_THRESHOLD", "500")),
+        "Порог размера буфера в Redis для немедленного вызова сброса",
+        int,
+    ),
+    "ANALYTICS_BUFFER_MAX_SIZE": (
+        int(os.getenv("ANALYTICS_BUFFER_MAX_SIZE", "100000")),
+        "Максимальный размер буфера в Redis перед удалением старых записей",
+        int,
+    ),
+    "ANALYTICS_FLUSH_BATCH_SIZE": (
+        int(os.getenv("ANALYTICS_FLUSH_BATCH_SIZE", "1000")),
+        "Размер пачки при сбросе буфера в ClickHouse",
+        int,
+    ),
+    "ANALYTICS_FLUSH_INTERVAL": (
+        float(os.getenv("ANALYTICS_FLUSH_INTERVAL", "5.0")),
+        "Интервал периодического сброса аналитики в воркере (сек)",
+        float,
+    ),
     # -- email (require restart) --
     "EMAIL_HOST": (
         os.getenv("EMAIL_HOST", ""),
@@ -950,6 +982,11 @@ CONSTANCE_CONFIG_FIELDSETS = {
     "Analytics / ClickHouse": {
         "fields": [
             "ANALYTICS_ENABLED",
+            "ANALYTICS_CIRCUIT_BREAKER_TIMEOUT",
+            "ANALYTICS_FLUSH_THRESHOLD",
+            "ANALYTICS_BUFFER_MAX_SIZE",
+            "ANALYTICS_FLUSH_BATCH_SIZE",
+            "ANALYTICS_FLUSH_INTERVAL",
         ],
         "collapse": True,
     },
