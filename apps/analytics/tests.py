@@ -10,6 +10,15 @@ from unittest.mock import MagicMock, patch
 from django.http import HttpRequest
 from django.test import SimpleTestCase, override_settings
 
+from apps.analytics.buffer import (
+    clear_buffer,
+    clear_memory_buffers,
+    get_all_buffer_lengths,
+    get_buffer_length,
+    pop_buffer_batch,
+    push_event_to_buffer,
+    set_memory_fallback,
+)
 from apps.analytics.client import (
     ClickHouseAnalyticsClient,
     NullAnalyticsClient,
@@ -17,6 +26,13 @@ from apps.analytics.client import (
     reset_analytics_client,
 )
 from apps.analytics.extractors import extract_request_meta
+from apps.analytics.flusher import (
+    flush_all_analytics_buffers,
+    flush_table_buffer,
+    is_circuit_open,
+    record_circuit_failure,
+    record_circuit_success,
+)
 from apps.analytics.models import (
     AppAnalyticsSummary,
     AppEvent,
@@ -178,8 +194,13 @@ class RequestMetadataExtractorTests(SimpleTestCase):
 
 
 class AnalyticsDisabledTests(SimpleTestCase):
+    def setUp(self) -> None:
+        set_memory_fallback(True)
+        clear_memory_buffers()
+
     def tearDown(self) -> None:
         reset_analytics_client()
+        clear_memory_buffers()
 
     def test_is_enabled_false(self) -> None:
         mock_config = MagicMock()
@@ -197,17 +218,15 @@ class AnalyticsDisabledTests(SimpleTestCase):
         mock_config = MagicMock()
         mock_config.ANALYTICS_ENABLED = False
         with patch("constance.config", mock_config):
-            with patch("apps.analytics.tasks.insert_app_event_task") as mock_task:
-                track_app_view(None, 42)
-                mock_task.enqueue.assert_not_called()
+            track_app_view(None, 42)
+            self.assertEqual(get_buffer_length(AppEvent.TABLE_NAME), 0)
 
     def test_track_collection_view_skipped_when_disabled(self) -> None:
         mock_config = MagicMock()
         mock_config.ANALYTICS_ENABLED = False
         with patch("constance.config", mock_config):
-            with patch("apps.analytics.tasks.insert_collection_event_task") as mock_task:
-                track_collection_view(None, 99)
-                mock_task.enqueue.assert_not_called()
+            track_collection_view(None, 99)
+            self.assertEqual(get_buffer_length(CollectionEvent.TABLE_NAME), 0)
 
     @override_settings(ANALYTICS_ENABLED=False)
     def test_get_client_returns_null_client(self) -> None:
@@ -221,57 +240,59 @@ class AnalyticsDisabledTests(SimpleTestCase):
 
 
 class AnalyticsEnabledTrackingTests(SimpleTestCase):
+    def setUp(self) -> None:
+        set_memory_fallback(True)
+        clear_memory_buffers()
+        record_circuit_success()
+
     def tearDown(self) -> None:
         reset_analytics_client()
+        clear_memory_buffers()
 
-    def test_track_app_view_enqueues(self) -> None:
+    def test_track_app_view_buffers(self) -> None:
         mock_config = MagicMock()
         mock_config.ANALYTICS_ENABLED = True
         with patch("constance.config", mock_config):
-            with patch("apps.analytics.tasks.insert_app_event_task") as mock_task:
-                mock_task.enqueue = MagicMock()
-                track_app_view(None, 42, category_id=3)
-                mock_task.enqueue.assert_called_once()
-                row = mock_task.enqueue.call_args[0][0]
-                self.assertEqual(row[1], "view")
-                self.assertEqual(row[2], 42)
-                self.assertEqual(row[4], 3)
+            track_app_view(None, 42, category_id=3)
+            self.assertEqual(get_buffer_length(AppEvent.TABLE_NAME), 1)
+            rows = pop_buffer_batch(AppEvent.TABLE_NAME)
+            self.assertEqual(len(rows), 1)
+            row = rows[0]
+            self.assertEqual(row[1], "view")
+            self.assertEqual(row[2], 42)
+            self.assertEqual(row[4], 3)
 
-    def test_track_app_download_enqueues(self) -> None:
+    def test_track_app_download_buffers(self) -> None:
         mock_config = MagicMock()
         mock_config.ANALYTICS_ENABLED = True
         with patch("constance.config", mock_config):
-            with patch("apps.analytics.tasks.insert_app_event_task") as mock_task:
-                mock_task.enqueue = MagicMock()
-                track_app_download(None, 10, distribution_id=55)
-                mock_task.enqueue.assert_called_once()
-                row = mock_task.enqueue.call_args[0][0]
-                self.assertEqual(row[1], "download")
-                self.assertEqual(row[2], 10)
-                self.assertEqual(row[3], 55)
+            track_app_download(None, 10, distribution_id=55)
+            self.assertEqual(get_buffer_length(AppEvent.TABLE_NAME), 1)
+            rows = pop_buffer_batch(AppEvent.TABLE_NAME)
+            self.assertEqual(len(rows), 1)
+            row = rows[0]
+            self.assertEqual(row[1], "download")
+            self.assertEqual(row[2], 10)
+            self.assertEqual(row[3], 55)
 
     def test_track_app_like_and_rate(self) -> None:
         mock_config = MagicMock()
         mock_config.ANALYTICS_ENABLED = True
         with patch("constance.config", mock_config):
-            with patch("apps.analytics.tasks.insert_app_event_task") as mock_task:
-                mock_task.enqueue = MagicMock()
-                track_app_like(None, 12, is_like=True)
-                track_app_rate(None, 12, rating=5)
-                track_app_collection_add(None, 12, collection_id=77)
-                track_app_collection_remove(None, 12, collection_id=77)
-                self.assertEqual(mock_task.enqueue.call_count, 4)
+            track_app_like(None, 12, is_like=True)
+            track_app_rate(None, 12, rating=5)
+            track_app_collection_add(None, 12, collection_id=77)
+            track_app_collection_remove(None, 12, collection_id=77)
+            self.assertEqual(get_buffer_length(AppEvent.TABLE_NAME), 4)
 
-    def test_track_collection_events_enqueues(self) -> None:
+    def test_track_collection_events_buffers(self) -> None:
         mock_config = MagicMock()
         mock_config.ANALYTICS_ENABLED = True
         with patch("constance.config", mock_config):
-            with patch("apps.analytics.tasks.insert_collection_event_task") as mock_task:
-                mock_task.enqueue = MagicMock()
-                track_collection_view(None, 7, owner_id=2)
-                track_collection_favorite(None, 7, is_favorite=True)
-                track_collection_item_change(None, 7, app_id=10, is_added=True)
-                self.assertEqual(mock_task.enqueue.call_count, 3)
+            track_collection_view(None, 7, owner_id=2)
+            track_collection_favorite(None, 7, is_favorite=True)
+            track_collection_item_change(None, 7, app_id=10, is_added=True)
+            self.assertEqual(get_buffer_length(CollectionEvent.TABLE_NAME), 3)
 
     def test_track_app_download_deduplication(self) -> None:
         mock_config = MagicMock()
@@ -279,16 +300,12 @@ class AnalyticsEnabledTrackingTests(SimpleTestCase):
         req = HttpRequest()
         req.META["REMOTE_ADDR"] = "192.0.2.100"
         with patch("constance.config", mock_config):
-            with patch("apps.analytics.tasks.insert_app_event_task") as mock_task:
-                mock_task.enqueue = MagicMock()
-                with patch("django.core.cache.cache.add", side_effect=[True, False]):
-                    # first download -> enqueued
-                    track_app_download(req, 100, distribution_id=1, deduplicate=True)
-                    self.assertEqual(mock_task.enqueue.call_count, 1)
+            with patch("django.core.cache.cache.add", side_effect=[True, False]):
+                track_app_download(req, 100, distribution_id=1, deduplicate=True)
+                self.assertEqual(get_buffer_length(AppEvent.TABLE_NAME), 1)
 
-                    # second quick download -> deduplicated, not enqueued
-                    track_app_download(req, 100, distribution_id=1, deduplicate=True)
-                    self.assertEqual(mock_task.enqueue.call_count, 1)
+                track_app_download(req, 100, distribution_id=1, deduplicate=True)
+                self.assertEqual(get_buffer_length(AppEvent.TABLE_NAME), 1)
 
     def test_track_app_view_deduplication(self) -> None:
         mock_config = MagicMock()
@@ -296,16 +313,12 @@ class AnalyticsEnabledTrackingTests(SimpleTestCase):
         req = HttpRequest()
         req.META["REMOTE_ADDR"] = "192.0.2.101"
         with patch("constance.config", mock_config):
-            with patch("apps.analytics.tasks.insert_app_event_task") as mock_task:
-                mock_task.enqueue = MagicMock()
-                with patch("django.core.cache.cache.add", side_effect=[True, False]):
-                    # first view -> enqueued
-                    track_app_view(req, 200, deduplicate=True)
-                    self.assertEqual(mock_task.enqueue.call_count, 1)
+            with patch("django.core.cache.cache.add", side_effect=[True, False]):
+                track_app_view(req, 200, deduplicate=True)
+                self.assertEqual(get_buffer_length(AppEvent.TABLE_NAME), 1)
 
-                    # second quick view -> deduplicated, not enqueued
-                    track_app_view(req, 200, deduplicate=True)
-                    self.assertEqual(mock_task.enqueue.call_count, 1)
+                track_app_view(req, 200, deduplicate=True)
+                self.assertEqual(get_buffer_length(AppEvent.TABLE_NAME), 1)
 
 
 class AnalyticsReportingTests(SimpleTestCase):
@@ -510,3 +523,367 @@ class ReportingHelpersTests(SimpleTestCase):
         summary = AppAnalyticsSummary(app_id=1)
         self.assertFalse(summary.has_chart_data)
         self.assertEqual(summary.chart_bars, [])
+
+
+class AnalyticsBufferTests(SimpleTestCase):
+    def setUp(self) -> None:
+        set_memory_fallback(True)
+        clear_memory_buffers()
+
+    def tearDown(self) -> None:
+        clear_memory_buffers()
+
+    def test_push_and_pop_buffer(self) -> None:
+        row1 = ["2026-09-25T12:00:00+00:00", "view", 1, None, None, None, "", "", "", "", "", "", "", "{}"]
+        row2 = ["2026-09-25T12:01:00+00:00", "download", 2, None, None, None, "", "", "", "", "", "", "", "{}"]
+
+        success1 = push_event_to_buffer("test_table", row1)
+        success2 = push_event_to_buffer("test_table", row2)
+
+        self.assertTrue(success1)
+        self.assertTrue(success2)
+        self.assertEqual(get_buffer_length("test_table"), 2)
+
+        popped = pop_buffer_batch("test_table", batch_size=1)
+        self.assertEqual(len(popped), 1)
+        self.assertEqual(popped[0][1], "view")
+        self.assertEqual(get_buffer_length("test_table"), 1)
+
+        popped_remaining = pop_buffer_batch("test_table", batch_size=10)
+        self.assertEqual(len(popped_remaining), 1)
+        self.assertEqual(popped_remaining[0][1], "download")
+        self.assertEqual(get_buffer_length("test_table"), 0)
+
+    def test_pop_empty_buffer(self) -> None:
+        self.assertEqual(pop_buffer_batch("empty_table"), [])
+
+    def test_buffer_lengths_dict(self) -> None:
+        push_event_to_buffer(AppEvent.TABLE_NAME, ["dummy"])
+        push_event_to_buffer(CollectionEvent.TABLE_NAME, ["dummy"])
+        lengths = get_all_buffer_lengths()
+        self.assertEqual(lengths[AppEvent.TABLE_NAME], 1)
+        self.assertEqual(lengths[CollectionEvent.TABLE_NAME], 1)
+        self.assertEqual(lengths["analytics_events"], 0)
+
+    def test_clear_buffer(self) -> None:
+        push_event_to_buffer("test_table", ["sample"])
+        self.assertEqual(get_buffer_length("test_table"), 1)
+        clear_buffer("test_table")
+        self.assertEqual(get_buffer_length("test_table"), 0)
+
+
+class AnalyticsFlusherTests(SimpleTestCase):
+    def setUp(self) -> None:
+        set_memory_fallback(True)
+        clear_memory_buffers()
+        record_circuit_success()
+
+    def tearDown(self) -> None:
+        clear_memory_buffers()
+        record_circuit_success()
+
+    def test_flush_table_buffer_success(self) -> None:
+        mock_config = MagicMock()
+        mock_config.ANALYTICS_ENABLED = True
+        mock_client = MagicMock()
+
+        row1 = ["2026-09-25T12:00:00+00:00", "view", 10, None, None, None, "", "", "", "", "", "", "", "{}"]
+        row2 = ["2026-09-25T12:05:00+00:00", "download", 10, None, None, None, "", "", "", "", "", "", "", "{}"]
+        push_event_to_buffer(AppEvent.TABLE_NAME, row1)
+        push_event_to_buffer(AppEvent.TABLE_NAME, row2)
+
+        with patch("constance.config", mock_config):
+            flushed = flush_table_buffer(AppEvent.TABLE_NAME, batch_size=1000, client=mock_client)
+
+        self.assertEqual(flushed, 2)
+        mock_client.insert_rows.assert_called_once()
+        args, kwargs = mock_client.insert_rows.call_args
+        self.assertEqual(args[0], AppEvent.TABLE_NAME)
+        self.assertEqual(len(args[1]), 2)
+        self.assertEqual(args[2], AppEvent.COLUMN_NAMES)
+        self.assertEqual(kwargs.get("wait_for_async_insert"), 0)
+        self.assertEqual(get_buffer_length(AppEvent.TABLE_NAME), 0)
+
+    def test_flush_table_buffer_requeues_on_error(self) -> None:
+        mock_config = MagicMock()
+        mock_config.ANALYTICS_ENABLED = True
+        mock_client = MagicMock()
+        mock_client.insert_rows.side_effect = RuntimeError("ClickHouse connection refused")
+
+        row = ["2026-09-25T12:00:00+00:00", "view", 99, None, None, None, "", "", "", "", "", "", "", "{}"]
+        push_event_to_buffer(AppEvent.TABLE_NAME, row)
+
+        with _quiet_analytics_logs():
+            with patch("constance.config", mock_config):
+                flushed = flush_table_buffer(AppEvent.TABLE_NAME, batch_size=1000, client=mock_client)
+
+        self.assertEqual(flushed, 0)
+        self.assertTrue(is_circuit_open())
+        # row should be requeued back into buffer
+        self.assertEqual(get_buffer_length(AppEvent.TABLE_NAME), 1)
+
+    def test_flush_skipped_when_circuit_breaker_open(self) -> None:
+        mock_config = MagicMock()
+        mock_config.ANALYTICS_ENABLED = True
+        mock_client = MagicMock()
+        record_circuit_failure()
+
+        push_event_to_buffer(AppEvent.TABLE_NAME, ["sample"])
+        with patch("constance.config", mock_config):
+            flushed = flush_table_buffer(AppEvent.TABLE_NAME, client=mock_client)
+
+        self.assertEqual(flushed, 0)
+        mock_client.insert_rows.assert_not_called()
+        self.assertEqual(get_buffer_length(AppEvent.TABLE_NAME), 1)
+
+    def test_flush_all_analytics_buffers(self) -> None:
+        mock_config = MagicMock()
+        mock_config.ANALYTICS_ENABLED = True
+        mock_client = MagicMock()
+
+        push_event_to_buffer(
+            AppEvent.TABLE_NAME,
+            ["2026-09-25T12:00:00+00:00", "view", 1, None, None, None, "", "", "", "", "", "", "", "{}"],
+        )
+        push_event_to_buffer(
+            CollectionEvent.TABLE_NAME,
+            ["2026-09-25T12:00:00+00:00", "view", 2, None, None, None, 0, 1, "", "", "", "", "", "", "{}"],
+        )
+
+        with patch("constance.config", mock_config):
+            stats = flush_all_analytics_buffers(client=mock_client)
+
+        self.assertEqual(stats[AppEvent.TABLE_NAME], 1)
+        self.assertEqual(stats[CollectionEvent.TABLE_NAME], 1)
+        self.assertEqual(stats["analytics_events"], 0)
+
+
+class AnalyticsCommandAndTaskTests(SimpleTestCase):
+    def setUp(self) -> None:
+        set_memory_fallback(True)
+        clear_memory_buffers()
+        record_circuit_success()
+
+    def tearDown(self) -> None:
+        clear_memory_buffers()
+        record_circuit_success()
+
+    def test_flush_analytics_task(self) -> None:
+        from apps.analytics.tasks import flush_analytics_task
+
+        mock_config = MagicMock()
+        mock_config.ANALYTICS_ENABLED = True
+        mock_client = MagicMock()
+
+        push_event_to_buffer(
+            AppEvent.TABLE_NAME,
+            ["2026-09-25T12:00:00+00:00", "view", 5, None, None, None, "", "", "", "", "", "", "", "{}"],
+        )
+
+        with patch("constance.config", mock_config):
+            with patch("apps.analytics.client.get_analytics_client", return_value=mock_client):
+                result = flush_analytics_task.call()
+
+        self.assertEqual(result.get(AppEvent.TABLE_NAME), 1)
+        mock_client.insert_rows.assert_called_once()
+
+    def test_analytics_flush_management_command(self) -> None:
+        from io import StringIO
+        from django.core.management import call_command
+
+        mock_config = MagicMock()
+        mock_config.ANALYTICS_ENABLED = True
+        mock_client = MagicMock()
+
+        push_event_to_buffer(
+            AppEvent.TABLE_NAME,
+            ["2026-09-25T12:00:00+00:00", "view", 77, None, None, None, "", "", "", "", "", "", "", "{}"],
+        )
+
+        out = StringIO()
+        with patch("constance.config", mock_config):
+            with patch("apps.analytics.client.get_analytics_client", return_value=mock_client):
+                call_command("analytics_flush", stdout=out)
+
+        output = out.getvalue()
+        self.assertIn("Flushing up to 1000 rows", output)
+        self.assertIn("analytics_app_events: 1 rows flushed", output)
+
+
+class AnalyticsConfigTests(SimpleTestCase):
+    def test_default_config_values(self) -> None:
+        from apps.analytics.config import (
+            DEFAULT_BUFFER_MAX_SIZE,
+            DEFAULT_CIRCUIT_BREAKER_TIMEOUT,
+            DEFAULT_FLUSH_BATCH_SIZE,
+            DEFAULT_FLUSH_INTERVAL,
+            DEFAULT_FLUSH_THRESHOLD,
+            get_buffer_max_size,
+            get_circuit_breaker_timeout,
+            get_flush_batch_size,
+            get_flush_interval,
+            get_flush_threshold,
+        )
+
+        mock_config = MagicMock()
+        mock_config.ANALYTICS_CIRCUIT_BREAKER_TIMEOUT = None
+        mock_config.ANALYTICS_FLUSH_THRESHOLD = None
+        mock_config.ANALYTICS_BUFFER_MAX_SIZE = None
+        mock_config.ANALYTICS_FLUSH_BATCH_SIZE = None
+        mock_config.ANALYTICS_FLUSH_INTERVAL = None
+
+        with patch("constance.config", mock_config):
+            self.assertEqual(get_circuit_breaker_timeout(), DEFAULT_CIRCUIT_BREAKER_TIMEOUT)
+            self.assertEqual(get_flush_threshold(), DEFAULT_FLUSH_THRESHOLD)
+            self.assertEqual(get_buffer_max_size(), DEFAULT_BUFFER_MAX_SIZE)
+            self.assertEqual(get_flush_batch_size(), DEFAULT_FLUSH_BATCH_SIZE)
+            self.assertEqual(get_flush_interval(), DEFAULT_FLUSH_INTERVAL)
+
+    def test_settings_override(self) -> None:
+        from apps.analytics.config import (
+            get_buffer_max_size,
+            get_circuit_breaker_timeout,
+            get_flush_batch_size,
+            get_flush_interval,
+            get_flush_threshold,
+        )
+
+        mock_config = MagicMock()
+        mock_config.ANALYTICS_CIRCUIT_BREAKER_TIMEOUT = None
+        mock_config.ANALYTICS_FLUSH_THRESHOLD = None
+        mock_config.ANALYTICS_BUFFER_MAX_SIZE = None
+        mock_config.ANALYTICS_FLUSH_BATCH_SIZE = None
+        mock_config.ANALYTICS_FLUSH_INTERVAL = None
+
+        with patch("constance.config", mock_config):
+            with override_settings(
+                ANALYTICS_CIRCUIT_BREAKER_TIMEOUT=45,
+                ANALYTICS_FLUSH_THRESHOLD=300,
+                ANALYTICS_BUFFER_MAX_SIZE=50000,
+                ANALYTICS_FLUSH_BATCH_SIZE=250,
+                ANALYTICS_FLUSH_INTERVAL=2.5,
+            ):
+                self.assertEqual(get_circuit_breaker_timeout(), 45)
+                self.assertEqual(get_flush_threshold(), 300)
+                self.assertEqual(get_buffer_max_size(), 50000)
+                self.assertEqual(get_flush_batch_size(), 250)
+                self.assertEqual(get_flush_interval(), 2.5)
+
+    def test_constance_override_takes_priority(self) -> None:
+        from apps.analytics.config import (
+            get_buffer_max_size,
+            get_circuit_breaker_timeout,
+            get_flush_batch_size,
+            get_flush_interval,
+            get_flush_threshold,
+        )
+
+        mock_config = MagicMock()
+        mock_config.ANALYTICS_CIRCUIT_BREAKER_TIMEOUT = 90
+        mock_config.ANALYTICS_FLUSH_THRESHOLD = 700
+        mock_config.ANALYTICS_BUFFER_MAX_SIZE = 200000
+        mock_config.ANALYTICS_FLUSH_BATCH_SIZE = 500
+        mock_config.ANALYTICS_FLUSH_INTERVAL = 10.0
+
+        with patch("constance.config", mock_config):
+            with override_settings(
+                ANALYTICS_CIRCUIT_BREAKER_TIMEOUT=15,
+                ANALYTICS_FLUSH_THRESHOLD=100,
+            ):
+                self.assertEqual(get_circuit_breaker_timeout(), 90)
+                self.assertEqual(get_flush_threshold(), 700)
+                self.assertEqual(get_buffer_max_size(), 200000)
+                self.assertEqual(get_flush_batch_size(), 500)
+                self.assertEqual(get_flush_interval(), 10.0)
+
+    def test_record_circuit_failure_with_custom_timeout(self) -> None:
+        from django.core.cache import cache
+
+        mock_config = MagicMock()
+        mock_config.ANALYTICS_CIRCUIT_BREAKER_TIMEOUT = 120
+
+        with patch("constance.config", mock_config):
+            with patch.object(cache, "set") as mock_cache_set:
+                record_circuit_failure()
+                mock_cache_set.assert_called_with("analytics:circuit_open", 1, timeout=120)
+
+                record_circuit_failure(timeout=15)
+                mock_cache_set.assert_called_with("analytics:circuit_open", 1, timeout=15)
+
+
+class AnalyticsSecurityTests(SimpleTestCase):
+    def setUp(self) -> None:
+        set_memory_fallback(True)
+        clear_memory_buffers()
+
+    def tearDown(self) -> None:
+        clear_memory_buffers()
+
+    def test_invalid_table_name_rejected(self) -> None:
+        # invalid table names
+        malicious_tables = [
+            "analytics_app_events; FLUSHALL",
+            "../../etc/passwd",
+            "analytics:buffer:hack",
+            "table with spaces",
+            "table\nnewline",
+            "a" * 100,  # exceeds 64 chars
+        ]
+        for tbl in malicious_tables:
+            res = push_event_to_buffer(tbl, ["test"])
+            self.assertFalse(res)
+            self.assertEqual(get_buffer_length(tbl), 0)
+            self.assertEqual(pop_buffer_batch(tbl), [])
+
+    def test_oversized_payload_rejected(self) -> None:
+        # oversized payload
+        huge_payload = ["A" * 70_000]
+        res = push_event_to_buffer(AppEvent.TABLE_NAME, huge_payload)
+        self.assertFalse(res)
+        self.assertEqual(get_buffer_length(AppEvent.TABLE_NAME), 0)
+
+    def test_non_retryable_error_does_not_poison_queue(self) -> None:
+        # non-retryable error handling
+        class DataError(Exception):
+            pass
+
+        mock_config = MagicMock()
+        mock_config.ANALYTICS_ENABLED = True
+        mock_client = MagicMock()
+        mock_client.insert_rows.side_effect = DataError("Type mismatch: cannot parse column")
+
+        push_event_to_buffer(
+            AppEvent.TABLE_NAME,
+            ["2026-09-25T12:00:00+00:00", "view", 1, None, None, None, "", "", "", "", "", "", "", "{}"],
+        )
+
+        with patch("constance.config", mock_config):
+            with _quiet_analytics_logs():
+                flushed = flush_table_buffer(AppEvent.TABLE_NAME, client=mock_client)
+
+        self.assertEqual(flushed, 0)
+        # Poison pill should NOT be requeued back into the buffer
+        self.assertEqual(get_buffer_length(AppEvent.TABLE_NAME), 0)
+
+    def test_config_bounds_clamping(self) -> None:
+        from apps.analytics.config import (
+            get_buffer_max_size,
+            get_circuit_breaker_timeout,
+            get_flush_batch_size,
+            get_flush_interval,
+            get_flush_threshold,
+        )
+
+        mock_config = MagicMock()
+        mock_config.ANALYTICS_CIRCUIT_BREAKER_TIMEOUT = -10
+        mock_config.ANALYTICS_FLUSH_THRESHOLD = 0
+        mock_config.ANALYTICS_BUFFER_MAX_SIZE = 10
+        mock_config.ANALYTICS_FLUSH_BATCH_SIZE = 999_999
+        mock_config.ANALYTICS_FLUSH_INTERVAL = 0.001
+
+        with patch("constance.config", mock_config):
+            self.assertEqual(get_circuit_breaker_timeout(), 1)
+            self.assertEqual(get_flush_threshold(), 1)
+            self.assertEqual(get_buffer_max_size(), 100)
+            self.assertEqual(get_flush_batch_size(), 50_000)
+            self.assertEqual(get_flush_interval(), 0.1)

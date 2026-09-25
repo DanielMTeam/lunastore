@@ -51,6 +51,8 @@ class AnalyticsClient(Protocol):
         table: str,
         data: Sequence[Sequence[Any]],
         column_names: Sequence[str],
+        *,
+        wait_for_async_insert: int = 0,
     ) -> None:
         ...
 
@@ -114,6 +116,8 @@ class NullAnalyticsClient:
         table: str,
         data: Sequence[Sequence[Any]],
         column_names: Sequence[str],
+        *,
+        wait_for_async_insert: int = 0,
     ) -> None:
         logger.debug(
             "null client skipped insert_rows table=%s count=%s",
@@ -218,6 +222,8 @@ class ClickHouseAnalyticsClient:
         table: str,
         data: Sequence[Sequence[Any]],
         column_names: Sequence[str],
+        *,
+        wait_for_async_insert: int = 0,
     ) -> None:
         if not data:
             return
@@ -228,8 +234,8 @@ class ClickHouseAnalyticsClient:
                 column_names=list(column_names),
                 settings={
                     "async_insert": 1,
-                    # wait until server accepted the insert
-                    "wait_for_async_insert": 1,
+                    # 0 = server buffers and returns immediately; 1 = wait for buffer flush
+                    "wait_for_async_insert": wait_for_async_insert,
                 },
             )
         except Exception:
@@ -333,6 +339,8 @@ def get_analytics_client(*, force_enabled: bool = False) -> AnalyticsClient:
             ) from exc
 
         try:
+            connect_timeout = float(getattr(settings, "CLICKHOUSE_CONNECT_TIMEOUT", 2.0))
+            send_receive_timeout = float(getattr(settings, "CLICKHOUSE_TIMEOUT", 5.0))
             raw = clickhouse_connect.get_client(
                 host=getattr(settings, "CLICKHOUSE_HOST", "clickhouse"),
                 port=int(getattr(settings, "CLICKHOUSE_PORT", 8123)),
@@ -344,6 +352,12 @@ def get_analytics_client(*, force_enabled: bool = False) -> AnalyticsClient:
                     "lunastore_analytics",
                 ),
                 secure=bool(getattr(settings, "CLICKHOUSE_SECURE", False)),
+                connect_timeout=connect_timeout,
+                send_receive_timeout=send_receive_timeout,
+                settings={
+                    "async_insert": 1,
+                    "wait_for_async_insert": 0,
+                },
             )
             _shared_client = ClickHouseAnalyticsClient(raw, shared=True)
             return _shared_client

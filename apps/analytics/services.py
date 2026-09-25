@@ -49,12 +49,19 @@ def ping() -> bool:
         return False
 
     from apps.analytics.client import get_analytics_client
+    from apps.analytics.flusher import record_circuit_failure, record_circuit_success
 
     try:
         client = get_analytics_client(force_enabled=True)
-        return client.ping()
+        res = client.ping()
+        if res:
+            record_circuit_success()
+        else:
+            record_circuit_failure()
+        return res
     except AnalyticsUnavailableError as exc:
         report_analytics_error(exc, "analytics ping unavailable")
+        record_circuit_failure()
         return False
 
 
@@ -104,22 +111,32 @@ def _is_event_deduplicated(dedup_key: str, timeout: int) -> bool:
 
 
 def track_app_event(event: AppEvent) -> None:
-    # enqueue app event insert via django.tasks; no-op when analytics is off
+    # buffer app event insert via redis; no-op when analytics is off
     if not is_enabled():
         logger.debug("track_app_event skipped: disabled")
         return
 
-    from apps.analytics.tasks import insert_app_event_task
-
     try:
+        from apps.analytics.buffer import get_buffer_length, push_event_to_buffer
+        from apps.analytics.config import get_flush_threshold
+        from apps.analytics.tasks import flush_analytics_task
+
         row = list(event.to_clickhouse_row())
         if hasattr(row[0], "isoformat"):
             row[0] = row[0].isoformat()
-        insert_app_event_task.enqueue(row)
+
+        push_event_to_buffer(event.TABLE_NAME, row)
+
+        # threshold trigger: if buffer exceeds threshold, enqueue a flush task
+        if get_buffer_length(event.TABLE_NAME) >= get_flush_threshold():
+            try:
+                flush_analytics_task.enqueue()
+            except Exception:
+                pass
     except Exception as exc:
         report_analytics_error(
             exc,
-            f"failed to enqueue app event app_id={event.app_id} type={event.event_type}",
+            f"failed to buffer app event app_id={event.app_id} type={event.event_type}",
         )
 
 
@@ -318,22 +335,31 @@ def track_app_collection_remove(
 
 
 def track_collection_event(event: CollectionEvent) -> None:
-    # enqueue collection event insert via django.tasks; no-op when analytics is off
+    # buffer collection event insert via redis; no-op when analytics is off
     if not is_enabled():
         logger.debug("track_collection_event skipped: disabled")
         return
 
-    from apps.analytics.tasks import insert_collection_event_task
-
     try:
+        from apps.analytics.buffer import get_buffer_length, push_event_to_buffer
+        from apps.analytics.config import get_flush_threshold
+        from apps.analytics.tasks import flush_analytics_task
+
         row = list(event.to_clickhouse_row())
         if hasattr(row[0], "isoformat"):
             row[0] = row[0].isoformat()
-        insert_collection_event_task.enqueue(row)
+
+        push_event_to_buffer(event.TABLE_NAME, row)
+
+        if get_buffer_length(event.TABLE_NAME) >= get_flush_threshold():
+            try:
+                flush_analytics_task.enqueue()
+            except Exception:
+                pass
     except Exception as exc:
         report_analytics_error(
             exc,
-            f"failed to enqueue collection event collection_id={event.collection_id} type={event.event_type}",
+            f"failed to buffer collection event collection_id={event.collection_id} type={event.event_type}",
         )
 
 
@@ -462,7 +488,7 @@ def track_event(
     event_time: Optional[datetime] = None,
     properties: Optional[Mapping[str, Any]] = None,
 ) -> None:
-    # enqueue insert via django.tasks; no-op when analytics is off
+    # buffer insert via redis; no-op when analytics is off
     if not is_enabled():
         logger.debug(
             "track_event skipped: analytics disabled name=%s",
@@ -474,20 +500,26 @@ def track_event(
         logger.warning("track_event skipped: empty event_name")
         return
 
-    from apps.analytics.tasks import insert_analytics_event
-
-    props = dict(properties) if properties else {}
     try:
-        insert_analytics_event.enqueue(
-            event_name,
-            user_id,
-            event_time.isoformat() if event_time is not None else None,
-            props,
-        )
+        import json
+        from apps.analytics.buffer import get_buffer_length, push_event_to_buffer
+        from apps.analytics.config import get_flush_threshold
+        from apps.analytics.tasks import flush_analytics_task
+
+        props = json.dumps(dict(properties or {}), ensure_ascii=False)
+        evt_time = event_time.isoformat() if event_time is not None else datetime.now(timezone.utc).isoformat()
+        row = [event_name, user_id, evt_time, props]
+        push_event_to_buffer("analytics_events", row)
+
+        if get_buffer_length("analytics_events") >= get_flush_threshold():
+            try:
+                flush_analytics_task.enqueue()
+            except Exception:
+                pass
     except Exception as exc:
         report_analytics_error(
             exc,
-            f"failed to enqueue analytics event name={event_name}",
+            f"failed to buffer analytics event name={event_name}",
         )
 
 
@@ -512,11 +544,22 @@ def get_app_analytics(
         return summary
 
     from apps.analytics.client import get_analytics_client
+    from apps.analytics.flusher import is_circuit_open, record_circuit_failure, record_circuit_success
+
+    if is_circuit_open():
+        logger.debug("get_app_analytics skipped: clickhouse circuit breaker open")
+        try:
+            from apps.marketplace.models import Review
+            summary.total_rates = Review.objects.filter(application_id=app_id).count()
+        except Exception:
+            pass
+        return summary
 
     try:
         client = get_analytics_client(force_enabled=True)
     except Exception as exc:
         report_analytics_error(exc, "get_app_analytics client unavailable")
+        record_circuit_failure()
         try:
             from apps.marketplace.models import Review
             summary.total_rates = Review.objects.filter(application_id=app_id).count()
@@ -676,11 +719,22 @@ def get_collection_analytics(
         return summary
 
     from apps.analytics.client import get_analytics_client
+    from apps.analytics.flusher import is_circuit_open, record_circuit_failure, record_circuit_success
+
+    if is_circuit_open():
+        logger.debug("get_collection_analytics skipped: clickhouse circuit breaker open")
+        try:
+            from apps.marketplace.models import CollectionFavorite
+            summary.total_favorites = CollectionFavorite.objects.filter(collection_id=collection_id).count()
+        except Exception:
+            pass
+        return summary
 
     try:
         client = get_analytics_client(force_enabled=True)
     except Exception as exc:
         report_analytics_error(exc, "get_collection_analytics client unavailable")
+        record_circuit_failure()
         try:
             from apps.marketplace.models import CollectionFavorite
             summary.total_favorites = CollectionFavorite.objects.filter(collection_id=collection_id).count()
@@ -782,6 +836,12 @@ def get_popular_apps(
     if not is_enabled():
         return []
 
+    from apps.analytics.flusher import is_circuit_open, record_circuit_failure, record_circuit_success
+
+    if is_circuit_open():
+        logger.debug("get_popular_apps skipped: clickhouse circuit breaker open")
+        return []
+
     from apps.analytics.client import get_analytics_client
 
     try:
@@ -807,9 +867,11 @@ def get_popular_apps(
             LIMIT %(limit)s
         """
         rows = client.query_rows(query, params)
+        record_circuit_success()
         return [{"app_id": int(r[0]), "count": int(r[1])} for r in rows]
     except Exception as exc:
         report_analytics_error(exc, "get_popular_apps failed")
+        record_circuit_failure()
         return []
 
 
@@ -833,6 +895,12 @@ def get_app_of_the_day_id(
     except Exception:
         logger.debug("app_of_the_day cache get failed", exc_info=True)
 
+    from apps.analytics.flusher import is_circuit_open, record_circuit_failure, record_circuit_success
+
+    if is_circuit_open():
+        logger.debug("get_app_of_the_day_id skipped: clickhouse circuit breaker open")
+        return None
+
     from apps.analytics.client import get_analytics_client
 
     app_id: Optional[int] = None
@@ -853,8 +921,10 @@ def get_app_of_the_day_id(
         )
         if rows:
             app_id = int(rows[0][0])
+        record_circuit_success()
     except Exception as exc:
         report_analytics_error(exc, "get_app_of_the_day_id failed")
+        record_circuit_failure()
         return None
 
     try:
@@ -888,6 +958,12 @@ def get_similar_app_ids(
             return [int(x) for x in cached]
     except Exception:
         logger.debug("similar_apps cache get failed", exc_info=True)
+
+    from apps.analytics.flusher import is_circuit_open, record_circuit_failure, record_circuit_success
+
+    if is_circuit_open():
+        logger.debug("get_similar_app_ids skipped: clickhouse circuit breaker open")
+        return []
 
     from apps.analytics.client import get_analytics_client
 
@@ -942,8 +1018,10 @@ def get_similar_app_ids(
             },
         )
         result = [int(r[0]) for r in rows if r and r[0]]
+        record_circuit_success()
     except Exception as exc:
         report_analytics_error(exc, "get_similar_app_ids failed")
+        record_circuit_failure()
         return []
 
     try:
@@ -965,6 +1043,12 @@ def get_popular_collections(
     if not is_enabled():
         return []
 
+    from apps.analytics.flusher import is_circuit_open, record_circuit_failure, record_circuit_success
+
+    if is_circuit_open():
+        logger.debug("get_popular_collections skipped: clickhouse circuit breaker open")
+        return []
+
     from apps.analytics.client import get_analytics_client
 
     try:
@@ -983,7 +1067,9 @@ def get_popular_collections(
             query,
             {"event_type": str(event_type), "days": int(days), "limit": int(limit)},
         )
+        record_circuit_success()
         return [{"collection_id": int(r[0]), "count": int(r[1])} for r in rows]
     except Exception as exc:
         report_analytics_error(exc, "get_popular_collections failed")
+        record_circuit_failure()
         return []
