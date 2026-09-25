@@ -562,16 +562,16 @@ msgid "MSG_DIST_EDIT_REQ_SENT"
 msgstr "Version change request has been submitted for moderation."
 
 msgid "MSG_TRUSTED_AUTO_APPROVED_APP"
-msgstr "✅ Your application request was approved automatically: you are a trusted author. The application is already published on LunaStore!"
+msgstr "Your application submission has been approved automatically, the application is now published."
 
 msgid "MSG_TRUSTED_AUTO_APPROVED_APP_EDIT"
-msgstr "✅ Your application edit request was approved automatically: you are a trusted author. The changes are already applied!"
+msgstr "Data update request has been approved automatically, the changes have been applied."
 
 msgid "MSG_TRUSTED_AUTO_APPROVED_DIST"
-msgstr "✅ The new distribution was approved automatically: you are a trusted author. The release is already published!"
+msgstr "New version addition request has been approved automatically, the distribution is now created."
 
 msgid "MSG_TRUSTED_AUTO_APPROVED_DIST_EDIT"
-msgstr "✅ Your distribution edit request was approved automatically: you are a trusted author. The changes are already applied!"
+msgstr "Version change request has been approved automatically, the changes have been applied."
 
 msgid "NOTIFICATIONS_LOADING"
 msgstr "Loading notifications..."
