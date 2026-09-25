@@ -121,7 +121,7 @@ services:
             - .env
         volumes:
             - .:/app
-            - static_volume:/app/staticfiles_build
+            - static_volume:/app/static
             - ./media:/root/lunastore/media
 
     web:
@@ -139,7 +139,7 @@ services:
                 condition: service_healthy
         volumes:
             - .:/app
-            - static_volume:/app/staticfiles_build
+            - static_volume:/app/static
             - ./media:/root/lunastore/media
 
     api:
@@ -159,7 +159,7 @@ services:
                 condition: service_healthy
         volumes:
             - .:/app
-            - static_volume:/app/staticfiles_build
+            - static_volume:/app/static
             - ./media:/root/lunastore/media
 
     worker:

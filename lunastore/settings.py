@@ -798,9 +798,9 @@ CONSTANCE_CONFIG = {
         str,
     ),
     "STATIC_HASHING": (
-        os.getenv("STATIC_HASHING", "True") == "True",
+        os.getenv("STATIC_HASHING", str(not DEBUG)) == "True",
         "Использовать хеширование для статики (требует перезагрузки)",
-        bool
+        bool,
     ),
 }
 
@@ -1479,7 +1479,8 @@ STATICFILES_DIRS = [BASE_DIR / "staticfiles"]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-STATIC_HASHING = os.getenv("STATIC_HASHING", "True") == "True"
+STATIC_HASHING = os.getenv("STATIC_HASHING", str(not DEBUG)) == "True"
+WHITENOISE_MANIFEST_STRICT = False
 
 STORAGES = {
     "default": {
