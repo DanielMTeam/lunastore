@@ -19,3 +19,5 @@ package-lock.json
 run-dev.ps1
 run-dev.cmd
 TODO.md
+docker-compose.override.yml
+docker-compose.override.*.yml
