@@ -53,12 +53,25 @@ class UserAdmin(BaseUserAdmin, unfold_admin.ModelAdmin):
                               "openvk",
                               "website")},
                   ),
+                 ("Модерация",
+                  {"fields": ("is_trusted",),
+                   "description": "Доверенные авторы: заявки на публикацию и правку приложений/дистрибуций одобряются автоматически. Одобрение всё равно попадает в лог админки и в Telegram.",
+                   },
+                  ),
                  ("Безопасность (2FA)",
                   {"fields": ("totp_enabled",
                               "totp_secret")},
                   ),
                  )
-    list_display = ["pk", "display_username", "email", "invited_by"]
+    list_display = ["pk", "display_username", "email", "invited_by",
+                    "is_trusted"]
+    list_filter = [
+        "is_trusted",
+        "is_staff",
+        "is_superuser",
+        "is_active",
+        "groups",
+    ]
     search_fields = ["username", "email", "pk"]
     actions = ["disable_2fa"]
     actions_detail = ["login_as_user"]

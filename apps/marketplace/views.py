@@ -44,6 +44,7 @@ from .forms import (
     ProblemReportForm,
 )
 from .services.lunabox import notify_unfilled_lunabox_manifests
+from .services.moderation import auto_approve_request
 from django.db import transaction
 from django.db.models import Avg, Count
 from .models import (
@@ -378,7 +379,11 @@ def app_add(request):
             app_request.user = request.user
             app_request.save()
             form.save_m2m()
-            messages.success(request, _("PAGE_ADDAPP_SUCCESS"))
+
+            if auto_approve_request(app_request):
+                messages.success(request, _("MSG_TRUSTED_AUTO_APPROVED_APP"))
+            else:
+                messages.success(request, _("PAGE_ADDAPP_SUCCESS"))
             return redirect("home")
         else:
             # print only system/global errors (e.g. if CDN token is invalid)
@@ -456,7 +461,12 @@ def application_edit_info(request, pk):
             edit_request.user = request.user
             edit_request.save()
             form.save_m2m()
-            messages.success(request, _("PAGE_ADMIN_APP_MSG_SAVE_SUCCESS"))
+
+            if auto_approve_request(edit_request):
+                messages.success(
+                    request, _("MSG_TRUSTED_AUTO_APPROVED_APP_EDIT"))
+            else:
+                messages.success(request, _("PAGE_ADMIN_APP_MSG_SAVE_SUCCESS"))
             request.session.save()
             return redirect("edit_app_info", pk=obj.pk)
         else:
@@ -724,7 +734,11 @@ def manage_distributions(request):
         distribution.app = app_obj
         distribution.user = request.user
         distribution.save()
-        messages.success(request, _("PAGE_MANAGEDIST_CREATE_SUCCESS"))
+
+        if auto_approve_request(distribution):
+            messages.success(request, _("MSG_TRUSTED_AUTO_APPROVED_DIST"))
+        else:
+            messages.success(request, _("PAGE_MANAGEDIST_CREATE_SUCCESS"))
         return redirect(reverse("manage_distributions") +
                         "?id=" + str(app_obj.id))
     elif request.method == "POST" and not form.is_valid():
@@ -820,7 +834,10 @@ def distribution_edit(request, dist_pk):
         edit_req.app = distribution.app
         edit_req.save()
 
-        messages.success(request, _("MSG_DIST_EDIT_REQ_SENT"))
+        if auto_approve_request(edit_req):
+            messages.success(request, _("MSG_TRUSTED_AUTO_APPROVED_DIST_EDIT"))
+        else:
+            messages.success(request, _("MSG_DIST_EDIT_REQ_SENT"))
         return redirect(
             reverse("manage_distributions") + "?id=" + str(distribution.app.id)
         )

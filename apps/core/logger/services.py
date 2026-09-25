@@ -3,6 +3,11 @@ from django.urls import reverse
 from django.conf import settings
 
 
+# marker used in LogEntry.change_message to flag approvals that were made
+# automatically for trusted authors (see apps.marketplace.services.moderation)
+AUTO_APPROVAL_MARKER = "автоодобрение"
+
+
 class LoggerService:
     @staticmethod
     def format_log_message(log_entry: LogEntry) -> str:
@@ -49,7 +54,10 @@ class LoggerService:
         # check for approvals (status changed to approved)
         if log_entry.action_flag == CHANGE and 'status' in change_message.lower(
         ) and 'approved' in change_message.lower():
-            action_text = "✅ <b>Одобрил(а) заявку:</b>"
+            if AUTO_APPROVAL_MARKER in change_message.lower():
+                action_text = "⚡️ <b>Автоодобрил(а) заявку (доверенный автор):</b>"
+            else:
+                action_text = "✅ <b>Одобрил(а) заявку:</b>"
 
         if change_message.startswith("Вход в систему"):
             ip = change_message.split("IP: ")[1].strip(

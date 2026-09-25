@@ -565,6 +565,18 @@ msgstr "Заявка на добавление новой версии отпр�
 msgid "MSG_DIST_EDIT_REQ_SENT"
 msgstr "Заявка на изменение версии отправлена на модерацию."
 
+msgid "MSG_TRUSTED_AUTO_APPROVED_APP"
+msgstr "✅ Заявка на добавление приложения одобрена автоматически: вы доверенный автор. Приложение уже опубликовано в LunaStore!"
+
+msgid "MSG_TRUSTED_AUTO_APPROVED_APP_EDIT"
+msgstr "✅ Заявка на изменение приложения одобрена автоматически: вы доверенный автор. Изменения уже применены!"
+
+msgid "MSG_TRUSTED_AUTO_APPROVED_DIST"
+msgstr "✅ Новая дистрибуция одобрена автоматически: вы доверенный автор. Релиз уже опубликован!"
+
+msgid "MSG_TRUSTED_AUTO_APPROVED_DIST_EDIT"
+msgstr "✅ Заявка на изменение дистрибуции одобрена автоматически: вы доверенный автор. Изменения уже применены!"
+
 msgid "NOTIFICATIONS_LOADING"
 msgstr "Загрузка уведомлений..."
 

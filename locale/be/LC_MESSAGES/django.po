@@ -565,6 +565,18 @@ msgstr "Заява на дабаўленне новай версіі адпра�
 msgid "MSG_DIST_EDIT_REQ_SENT"
 msgstr "Заява на змену версіі адпраўлена на мадэрацыю."
 
+msgid "MSG_TRUSTED_AUTO_APPROVED_APP"
+msgstr "✅ Вашая заява на дабаўленне дадатка зацверджана аўтаматычна: вы давераны аўтар. Дадатак ужо апублікаваны ў LunaStore!"
+
+msgid "MSG_TRUSTED_AUTO_APPROVED_APP_EDIT"
+msgstr "✅ Вашая заява на змену дадатка зацверджана аўтаматычна: вы давераны аўтар. Змены ўжо прыменены!"
+
+msgid "MSG_TRUSTED_AUTO_APPROVED_DIST"
+msgstr "✅ Новая дыстрыбуцыя зацверджана аўтаматычна: вы давераны аўтар. Рэліз ужо апублікаваны!"
+
+msgid "MSG_TRUSTED_AUTO_APPROVED_DIST_EDIT"
+msgstr "✅ Вашая заява на змену дыстрыбуцыі зацверджана аўтаматычна: вы давераны аўтар. Змены ўжо прыменены!"
+
 msgid "NOTIFICATIONS_LOADING"
 msgstr "Загрузка паведамленняў..."
 

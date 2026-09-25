@@ -60,6 +60,12 @@ class User(AbstractUser, SafeDeleteModel):
         default=HOME_LAYOUT_RICH,
         verbose_name="Вид главной страницы",
     )
+    is_trusted = models.BooleanField(
+        default=False,
+        verbose_name="Доверенный автор",
+        help_text="Заявки на публикацию и правку приложений/дистрибуций "
+        "одобряются автоматически, но всё равно логируются и отправляются в Telegram",
+    )
 
     @property
     def avatar_url(self) -> str:

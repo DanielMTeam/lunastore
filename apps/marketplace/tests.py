@@ -3,10 +3,28 @@ from apps.marketplace.models import Distribution
 import logging
 from unittest.mock import patch
 
+from django.contrib.admin.models import CHANGE, LogEntry
+from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
-from apps.marketplace.models import Application, Category, Collection, CollectionFavorite, CollectionItem, get_or_create_likes_collection
+from apps.core.logger.services import AUTO_APPROVAL_MARKER
+from apps.marketplace.models import (
+    AppCreateRequests,
+    AppEditRequests,
+    Application,
+    Category,
+    Collection,
+    CollectionFavorite,
+    CollectionItem,
+    DistributionCreateRequests,
+    DistributionEditRequests,
+    get_or_create_likes_collection,
+)
+from apps.marketplace.services.moderation import (
+    approve_app_create_request,
+    auto_approve_request,
+)
 from apps.user.models import User
 
 logger = logging.getLogger("marketplace")
@@ -605,3 +623,230 @@ class ViewModeSloganTest(TestCase):
         finally:
             self.app.slogan = self.slogan_65
             self.app.save(update_fields=["slogan"])
+
+
+class TrustedAuthorAutoApprovalTest(TestCase):
+    """Requests from authors flagged as trusted are approved on the spot.
+
+    The automatic approval must keep the regular audit trail: an admin
+    LogEntry (mirrored to Telegram), an explicit Telegram message, and the
+    usual in-app notification for the author.
+    """
+
+    @classmethod
+    def setUpTestData(cls):
+        logger.info(
+            "[Marketplace APP; TrustedAuthor MODEL] Creating test data in DB...")
+        cls.trusted = User.objects.create(
+            username="TrustedDev",
+            password="password123",
+            email="trusted@example.com",
+            is_trusted=True)
+        cls.regular = User.objects.create(
+            username="RegularDev",
+            password="password123",
+            email="regular@example.com")
+        cls.moderator = User.objects.create(
+            username="Moderator",
+            password="password123",
+            email="moderator@example.com",
+            is_staff=True)
+        cls.app = Application.objects.create(
+            user=cls.regular,
+            title="ExistingApp",
+            description="TestDescription",
+            slogan="TestSlogan",
+            price=0,
+        )
+
+    def _app_create_request(self, user):
+        return AppCreateRequests.objects.create(
+            user=user,
+            title="AutoApp",
+            description="TestDescription",
+            slogan="TestSlogan",
+            price=0,
+        )
+
+    def _app_edit_request(self, user):
+        return AppEditRequests.objects.create(
+            user=user,
+            target_application=self.app,
+            title="RenamedApp",
+            description="TestDescription",
+            slogan="TestSlogan",
+            price=0,
+        )
+
+    def _dist_create_request(self, user):
+        return DistributionCreateRequests.objects.create(
+            user=user,
+            app=self.app,
+            version="1.0",
+            changelog="Initial",
+            virustotal_url="https://www.virustotal.com/gui/example",
+        )
+
+    def _dist_edit_request(self, user):
+        distribution = Distribution.objects.create(
+            app=self.app, version="1.0", changelog="Initial")
+        return DistributionEditRequests.objects.create(
+            user=user,
+            target_distribution=distribution,
+            app=self.app,
+            version="2.0",
+            changelog="Updated",
+        )
+
+    def _approval_log(self, request_model, pk):
+        return LogEntry.objects.filter(
+            content_type=ContentType.objects.get_for_model(request_model),
+            object_id=str(pk),
+        ).first()
+
+    def _notification_titles(self, mock_send_notification):
+        calls = mock_send_notification.enqueue.call_args_list
+        return [call[1].get("title_key") for call in calls]
+
+    @patch("apps.marketplace.services.moderation.send_notification")
+    def test_regular_author_keeps_request_pending(self, mock_send_notification):
+        req = self._app_create_request(self.regular)
+
+        self.assertIsNone(auto_approve_request(req))
+
+        req.refresh_from_db()
+        self.assertEqual(req.status, "pending")
+        self.assertFalse(Application.objects.filter(title="AutoApp").exists())
+        self.assertFalse(mock_send_notification.enqueue.called)
+
+    @patch("apps.marketplace.services.moderation.send_notification")
+    def test_trusted_author_app_request_is_approved(
+            self, mock_send_notification):
+        req = self._app_create_request(self.trusted)
+
+        created = auto_approve_request(req)
+
+        self.assertIsInstance(created, Application)
+        self.assertEqual(created.title, "AutoApp")
+        self.assertEqual(created.user, self.trusted)
+        self.assertFalse(AppCreateRequests.objects.filter(pk=req.pk).exists())
+        self.assertIn(
+            "NOTIF_APPREQ_ACCEPTED_TITLE",
+            self._notification_titles(mock_send_notification))
+
+    @patch("apps.marketplace.services.moderation.send_notification")
+    def test_trusted_author_app_edit_request_is_applied(
+            self, mock_send_notification):
+        req = self._app_edit_request(self.trusted)
+
+        updated = auto_approve_request(req)
+
+        self.assertIsInstance(updated, Application)
+        self.app.refresh_from_db()
+        self.assertEqual(self.app.title, "RenamedApp")
+        self.assertFalse(AppEditRequests.objects.filter(pk=req.pk).exists())
+        self.assertIn(
+            "NOTIF_APPEDITREQ_ACCEPTED_TITLE",
+            self._notification_titles(mock_send_notification))
+
+    @patch("apps.marketplace.services.moderation.send_notification")
+    def test_trusted_author_dist_create_request_is_published(
+            self, mock_send_notification):
+        req = self._dist_create_request(self.trusted)
+
+        created = auto_approve_request(req)
+
+        self.assertIsInstance(created, Distribution)
+        self.assertEqual(created.version, "1.0")
+        self.assertEqual(created.app, self.app)
+        self.assertFalse(
+            DistributionCreateRequests.objects.filter(pk=req.pk).exists())
+        self.assertIn(
+            "NOTIF_DISTREQ_ACCEPTED_TITLE",
+            self._notification_titles(mock_send_notification))
+
+    @patch("apps.marketplace.services.moderation.send_notification")
+    def test_trusted_author_dist_edit_request_is_applied(
+            self, mock_send_notification):
+        req = self._dist_edit_request(self.trusted)
+
+        created = auto_approve_request(req)
+
+        self.assertIsInstance(created, Distribution)
+        self.assertEqual(created.version, "2.0")
+        self.assertFalse(
+            DistributionEditRequests.objects.filter(pk=req.pk).exists())
+        self.assertIn(
+            "NOTIF_DISTEDITREQ_ACCEPTED_TITLE",
+            self._notification_titles(mock_send_notification))
+
+    @override_settings(TELEGRAM_LOGGER_ENABLED=True)
+    @patch("apps.marketplace.services.moderation.send_telegram_notification")
+    @patch("apps.core.signals.send_telegram_notification")
+    @patch("apps.marketplace.services.moderation.send_notification")
+    def test_auto_approval_is_logged_and_sent_to_telegram(
+            self, mock_send_notification, mock_log_tg, mock_auto_tg):
+        req = self._app_create_request(self.trusted)
+
+        auto_approve_request(req)
+
+        log_entry = self._approval_log(AppCreateRequests, req.pk)
+        self.assertIsNotNone(log_entry)
+        self.assertEqual(log_entry.action_flag, CHANGE)
+        self.assertEqual(log_entry.user_id, self.trusted.pk)
+        self.assertIn("status approved", log_entry.change_message)
+        self.assertIn(AUTO_APPROVAL_MARKER, log_entry.change_message)
+
+        # admin log -> moderator telegram chat
+        self.assertEqual(mock_log_tg.call_count, 1)
+        log_message = mock_log_tg.call_args[0][0]
+        self.assertIn(AUTO_APPROVAL_MARKER, log_message)
+        self.assertIn("⚡️", log_message)
+
+        # dedicated telegram ping for the automatic approval
+        self.assertEqual(mock_auto_tg.call_count, 1)
+        auto_message = mock_auto_tg.call_args[0][0]
+        self.assertIn("TrustedDev", auto_message)
+        self.assertIn("AutoApp", auto_message)
+        self.assertIn("одобрена автоматически", auto_message)
+
+    @override_settings(TELEGRAM_LOGGER_ENABLED=True)
+    @patch("apps.marketplace.services.moderation.send_telegram_notification")
+    @patch("apps.core.signals.send_telegram_notification")
+    @patch("apps.marketplace.services.moderation.send_notification")
+    def test_manual_approval_is_logged_without_auto_marker(
+            self, mock_send_notification, mock_log_tg, mock_auto_tg):
+        req = self._app_create_request(self.regular)
+
+        created = approve_app_create_request(req, actor=self.moderator)
+
+        self.assertIsInstance(created, Application)
+        log_entry = self._approval_log(AppCreateRequests, req.pk)
+        self.assertIsNotNone(log_entry)
+        self.assertEqual(log_entry.user_id, self.moderator.pk)
+        self.assertIn("status approved", log_entry.change_message)
+        self.assertNotIn(AUTO_APPROVAL_MARKER, log_entry.change_message)
+
+        # moderators keep the regular log, but no automatic ping is sent
+        self.assertEqual(mock_log_tg.call_count, 1)
+        self.assertIn("✅", mock_log_tg.call_args[0][0])
+        self.assertFalse(mock_auto_tg.called)
+
+    @patch("apps.marketplace.services.moderation.send_notification")
+    def test_already_approved_request_is_not_processed_twice(
+            self, mock_send_notification):
+        req = self._app_create_request(self.trusted)
+        req.status = "approved"
+        req.save()
+
+        self.assertIsNone(auto_approve_request(req))
+        self.assertEqual(mock_send_notification.enqueue.call_count, 0)
+
+    @patch("apps.marketplace.services.moderation.send_notification")
+    def test_failing_auto_approval_falls_back_to_manual_moderation(
+            self, mock_send_notification):
+        req = self._app_create_request(self.trusted)
+        mock_send_notification.enqueue.side_effect = RuntimeError("boom")
+
+        self.assertIsNone(auto_approve_request(req))
+        self.assertTrue(AppCreateRequests.objects.filter(pk=req.pk).exists())

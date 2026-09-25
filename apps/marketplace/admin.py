@@ -27,6 +27,12 @@ from .forms import (
 )
 from .widgets import UnfoldMarkdownTextareaWidget
 from .models import *
+from .services.moderation import (
+    approve_app_create_request,
+    approve_app_edit_request,
+    approve_dist_create_request,
+    approve_dist_edit_request,
+)
 from modeltranslation.admin import TabbedTranslationAdmin, TranslationTabularInline, TranslationStackedInline
 import logging
 import time
@@ -534,44 +540,15 @@ class DistributionCreateAdmin(
             return redirect(
                 reverse("admin:marketplace_distributioncreaterequests_changelist"))
 
-        dist = Distribution(
-            app=req.app,
-            version=req.version,
-            cdn_file_id=req.cdn_file_id,
-            url=req.url,
-        )
-        dist.lunabox_manifest = req.lunabox_manifest
+        dist = approve_dist_create_request(req, actor=request.user)
+        if dist is None:
+            self.message_user(
+                request,
+                "Не удалось одобрить заявку",
+                messages.ERROR)
+            return redirect(
+                reverse("admin:marketplace_distributioncreaterequests_changelist"))
 
-        for lang_code, _ in settings.LANGUAGES:
-            lang_field = f"changelog_{lang_code}"
-            val = getattr(req, lang_field, None)
-            setattr(dist, lang_field, val)
-
-        dist.save()
-
-        req.status = "approved"
-        req.save()
-
-        send_notification.enqueue(
-            user_id=req.user.id,
-            title_key="NOTIF_DISTREQ_ACCEPTED_TITLE",
-            content_key="NOTIF_DISTREQ_ACCEPTED_DESCRIPTION",
-            context={"app_name": req.app.title, "version": req.version},
-            meta={"icon": "help.png"}
-        )
-
-        from django.contrib.admin.models import LogEntry, CHANGE
-        from django.contrib.contenttypes.models import ContentType
-        LogEntry.objects.create(
-            user_id=request.user.id,
-            content_type_id=ContentType.objects.get_for_model(req).pk,
-            object_id=str(req.id),
-            object_repr=str(req),
-            action_flag=CHANGE,
-            change_message="status approved: Одобрена заявка на дистрибуцию"
-        )
-
-        req.delete(force_policy=HARD_DELETE)
         self.message_user(
             request,
             "Дистрибуция успешно создана и опубликована!",
@@ -662,44 +639,15 @@ class DistributionEditRequestAdmin(
             return redirect(
                 reverse("admin:marketplace_distributioneditrequests_changelist"))
 
-        dist = req.target_distribution
-        dist.version = req.version
-        dist.url = req.url
-        dist.lunabox_manifest = req.lunabox_manifest
+        dist = approve_dist_edit_request(req, actor=request.user)
+        if dist is None:
+            self.message_user(
+                request,
+                "Не удалось применить изменения: целевая дистрибуция не найдена",
+                messages.ERROR)
+            return redirect(
+                reverse("admin:marketplace_distributioneditrequests_changelist"))
 
-        if req.cdn_file_id:
-            dist.cdn_file_id = req.cdn_file_id
-
-        for lang_code, _ in settings.LANGUAGES:
-            lang_field = f"changelog_{lang_code}"
-            if hasattr(req, lang_field):
-                setattr(dist, lang_field, getattr(req, lang_field))
-
-        dist.save()
-
-        req.status = "approved"
-        req.save()
-
-        send_notification.enqueue(
-            user_id=req.user.id,
-            title_key="NOTIF_DISTEDITREQ_ACCEPTED_TITLE",
-            content_key="NOTIF_DISTEDITREQ_ACCEPTED_DESCRIPTION",
-            context={"app_name": req.app.title, "version": req.version},
-            meta={"icon": "help.png"}
-        )
-
-        from django.contrib.admin.models import LogEntry, CHANGE
-        from django.contrib.contenttypes.models import ContentType
-        LogEntry.objects.create(
-            user_id=request.user.id,
-            content_type_id=ContentType.objects.get_for_model(req).pk,
-            object_id=str(
-                req.id),
-            object_repr=str(req),
-            action_flag=CHANGE,
-            change_message="status approved: Одобрена заявка на изменение дистрибуции")
-
-        req.delete(force_policy=HARD_DELETE)
         self.message_user(
             request,
             "Изменения успешно применены к дистрибуции!",
@@ -980,51 +928,17 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
                     "admin:marketplace_appcreaterequests_change",
                     args=[object_id]))
 
-        app = Application(
-            user=req.user,
-            price=req.price,
-            icon_id=req.icon_id,
-            icon_path=req.icon_path,
-            screenshots=req.screenshots,
-            developer_site=req.developer_site,
-            original_author=req.original_author,
-            is_demo=req.is_demo,
-            is_private=req.is_private
-        )
+        app = approve_app_create_request(req, actor=request.user)
+        if app is None:
+            self.message_user(
+                request,
+                "Не удалось одобрить заявку",
+                messages.ERROR)
+            return redirect(
+                reverse(
+                    "admin:marketplace_appcreaterequests_change",
+                    args=[object_id]))
 
-        # copy locale
-        trans_fields = ["title", "description", "requirements", "slogan"]
-        for field in trans_fields:
-            for lang_code, _ in settings.LANGUAGES:
-                lang_field = f"{field}_{lang_code}"
-                val = getattr(req, lang_field, None)
-                setattr(app, lang_field, val)
-
-        app.save()
-        app.categories.set(req.categories.all())
-        app.badges.set(req.badges.all())
-        req.status = "approved"
-        req.save()
-        send_notification.enqueue(
-            user_id=req.user.id,
-            title_key="NOTIF_APPREQ_ACCEPTED_TITLE",
-            content_key="NOTIF_APPREQ_ACCEPTED_DESCRIPTION",
-            context={"app_name": app.title},
-            meta={"icon": "help.png"}
-        )
-
-        from django.contrib.admin.models import LogEntry, CHANGE
-        from django.contrib.contenttypes.models import ContentType
-        LogEntry.objects.create(
-            user_id=request.user.id,
-            content_type_id=ContentType.objects.get_for_model(req).pk,
-            object_id=str(req.id),
-            object_repr=str(req),
-            action_flag=CHANGE,
-            change_message="status approved: Одобрена заявка на приложение"
-        )
-
-        req.delete()
         self.message_user(
             request,
             "Приложение(-ия) успешно создано!",
@@ -1178,8 +1092,8 @@ class AppEditRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
                     "admin:marketplace_appeditrequests_change",
                     args=[object_id]))
 
-        app = req.target_application
-        if not app:
+        app = approve_app_edit_request(req, actor=request.user)
+        if app is None:
             self.message_user(
                 request,
                 "Ошибка: Целевое приложение не найдено (возможно, удалено)",
@@ -1190,52 +1104,6 @@ class AppEditRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
                     "admin:marketplace_appeditrequests_change",
                     args=[object_id]))
 
-        app.categories.set(req.categories.all())
-        app.badges.set(req.badges.all())
-        app.original_author = req.original_author
-        app.price = req.price
-        app.is_demo = req.is_demo
-        app.developer_site = req.developer_site
-        app.is_private = req.is_private
-
-        if req.icon_path:
-            app.icon_id = req.icon_id
-            app.icon_path = req.icon_path
-        if req.screenshots is not None:
-            app.screenshots = req.screenshots
-
-        trans_fields = ["title", "description", "requirements", "slogan"]
-        for field in trans_fields:
-            for lang_code, _ in settings.LANGUAGES:
-                lang_field = f"{field}_{lang_code}"
-
-                val = getattr(req, lang_field, None)
-                setattr(app, lang_field, val)
-
-        app.save()
-
-        req.status = "approved"
-        req.save()
-        send_notification.enqueue(
-            user_id=req.user.id,
-            title_key="NOTIF_APPEDITREQ_ACCEPTED_TITLE",
-            content_key="NOTIF_APPEDITREQ_ACCEPTED_DESCRIPTION",
-            context={"app_name": req.title},
-            meta={"icon": "help.png"}
-        )
-
-        from django.contrib.admin.models import LogEntry, CHANGE
-        from django.contrib.contenttypes.models import ContentType
-        LogEntry.objects.create(
-            user_id=request.user.id,
-            content_type_id=ContentType.objects.get_for_model(req).pk,
-            object_id=str(
-                req.id),
-            object_repr=str(req),
-            action_flag=CHANGE,
-            change_message="status approved: Одобрена заявка на изменение приложения")
-
-        req.delete()
         self.message_user(
             request,
             "Приложение успешно обновлено!",
