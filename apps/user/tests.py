@@ -492,3 +492,66 @@ class AdminRedirectTest(TestCase):
         response = self.client.get(reverse("index"))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, reverse("admin_redirect"))
+
+
+class UserSafeDeleteUniquenessTests(TestCase):
+    def test_re_registration_after_soft_delete(self):
+        user1 = User.objects.create_user(
+            username="recycled_user",
+            email="recycled@example.com",
+            password="Password123!"
+        )
+        # Soft delete first user
+        user1.delete()
+        self.assertIsNotNone(user1.deleted)
+
+        # Creating a second user with the same username and email should succeed
+        user2 = User.objects.create_user(
+            username="recycled_user",
+            email="recycled@example.com",
+            password="NewPassword123!"
+        )
+        self.assertEqual(user2.username, "recycled_user")
+        self.assertEqual(user2.email, "recycled@example.com")
+        self.assertIsNone(user2.deleted)
+
+        # Both users exist in all_objects
+        self.assertEqual(User.all_objects.filter(username="recycled_user").count(), 2)
+        # Only 1 user exists in active objects
+        self.assertEqual(User.objects.filter(username="recycled_user").count(), 1)
+
+    def test_duplicate_active_user_raises_integrity_error(self):
+        from django.db import IntegrityError, transaction
+
+        User.objects.create_user(
+            username="active_user",
+            email="active@example.com",
+            password="Password123!"
+        )
+        with self.assertRaises(IntegrityError):
+            with transaction.atomic():
+                User.objects.create(
+                    username="active_user",
+                    email="different@example.com",
+                    password="Password123!"
+                )
+        with self.assertRaises(IntegrityError):
+            with transaction.atomic():
+                User.objects.create(
+                    username="different_user",
+                    email="active@example.com",
+                    password="Password123!"
+                )
+
+    def test_blacklisted_username_recreation_after_soft_delete(self):
+        from apps.user.models import BlacklistedUsername
+
+        w1 = BlacklistedUsername.objects.create(word="badname")
+        w1.delete()
+        self.assertIsNotNone(w1.deleted)
+
+        # Creating another active entry with same word should succeed
+        w2 = BlacklistedUsername.objects.create(word="badname")
+        self.assertIsNone(w2.deleted)
+        self.assertEqual(BlacklistedUsername.objects.filter(word="badname").count(), 1)
+        self.assertEqual(BlacklistedUsername.all_objects.filter(word="badname").count(), 2)

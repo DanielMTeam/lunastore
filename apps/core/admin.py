@@ -1,14 +1,13 @@
 from django.contrib import admin
 from django.utils.html import format_html
 from django.contrib.admin.models import LogEntry
-from lunastore.mixins import SafeDeleteAdmin
 from unfold.admin import ModelAdmin
 
 from .models import Banner
 
 
 @admin.register(Banner)
-class BannerAdmin(SafeDeleteAdmin):
+class BannerAdmin(ModelAdmin):
     list_display = ("title", "display_image", "is_active", "url")
     list_filter = ("is_active",)
 

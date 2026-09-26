@@ -4,7 +4,7 @@ import json
 
 import jwt
 from django.conf import settings
-from django.db.models import Q
+from django.db.models import Count, Prefetch, Q
 from django.shortcuts import get_object_or_404
 from django.core.cache import cache
 from django.utils import timezone
@@ -24,7 +24,7 @@ from drf_spectacular.utils import (
     extend_schema_view,
     inline_serializer,
 )
-from apps.marketplace.models import Application, Category, Collection, Distribution
+from apps.marketplace.models import Application, Category, Collection, CollectionItem, Distribution
 from apps.marketplace.serializers import ApplicationSerializer, CategorySerializer, CollectionSerializer, DistributionSerializer, annotate_app_last_version
 from apps.user.models import User
 from apps.user.serializers import UserSerializer
@@ -555,7 +555,17 @@ class CollectionViewSet(viewsets.ReadOnlyModelViewSet):
     pagination_class = V2Pagination
 
     def get_queryset(self):
-        qs = Collection.objects.select_related("owner").order_by("-updated_at")
+        qs = (
+            Collection.objects.select_related("owner")
+            .annotate(items_count=Count("items", distinct=True))
+            .prefetch_related(
+                Prefetch(
+                    "items",
+                    queryset=CollectionItem.objects.select_related("application").order_by("-added_at"),
+                )
+            )
+            .order_by("-updated_at")
+        )
         if getattr(self, "action", None) in ("list", "by_user"):
             user = self.request.user
             if user.is_authenticated and getattr(self, "action", None) == "list":
@@ -616,14 +626,14 @@ class CollectionViewSet(viewsets.ReadOnlyModelViewSet):
         user_id = request.query_params.get("user_id")
         if not user_id:
             return Response({"error": "user_id parameter is required"}, status=400)
-        qs = Collection.objects.filter(owner_id=user_id, is_public=True).select_related(
-            "owner"
-        ).order_by("-updated_at")
+        try:
+            user_id = int(user_id)
+        except (ValueError, TypeError):
+            return Response({"error": "user_id must be an integer"}, status=400)
+        qs = self.get_queryset().filter(owner_id=user_id)
         requester = request.user
-        if requester.is_authenticated and str(requester.id) == str(user_id):
-            qs = Collection.objects.filter(owner_id=user_id).select_related(
-                "owner"
-            ).order_by("-updated_at")
+        if not (requester.is_authenticated and str(requester.id) == str(user_id)):
+            qs = qs.filter(is_public=True)
         page = self.paginate_queryset(qs)
         if page is not None:
             serializer = self.get_serializer(page, many=True)
