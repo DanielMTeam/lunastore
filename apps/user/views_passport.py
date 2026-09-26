@@ -442,13 +442,6 @@ def _passport_callback_inner(request):
         messages.warning(request, _("VIEW_PASSPORT_EMAIL_EXISTS_LOGIN"))
         return redirect("login")
 
-    if User.objects.all_with_deleted().filter(
-        email__iexact=profile.sign_in,
-        deleted__isnull=False,
-    ).exists():
-        messages.error(request, _("VIEW_PASSPORT_EMAIL_ALREADY_EXISTS"))
-        return redirect("login")
-
     auto_register = bool(getattr(config, "LUNAPASSPORT_AUTO_REGISTER", False))
     if auto_register and config.REGISTRATION_IS_ENABLED:
         if config.INVITES_ON_REGISTER:

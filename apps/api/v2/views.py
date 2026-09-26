@@ -626,6 +626,10 @@ class CollectionViewSet(viewsets.ReadOnlyModelViewSet):
         user_id = request.query_params.get("user_id")
         if not user_id:
             return Response({"error": "user_id parameter is required"}, status=400)
+        try:
+            user_id = int(user_id)
+        except (ValueError, TypeError):
+            return Response({"error": "user_id must be an integer"}, status=400)
         qs = self.get_queryset().filter(owner_id=user_id)
         requester = request.user
         if not (requester.is_authenticated and str(requester.id) == str(user_id)):

@@ -704,7 +704,9 @@ class Collection(SafeDeleteModel):
                     .order_by("-added_at")[:limit]
                 )
             for item in items:
-                icons.append(item.application.icon_url)
+                app = getattr(item, "application", None)
+                if app and not getattr(app, "deleted", None):
+                    icons.append(app.icon_url)
         except Exception:
             import logging
 

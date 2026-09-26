@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.core.exceptions import PermissionDenied
 from safedelete.models import HARD_DELETE
 from unfold.admin import ModelAdmin
 from unfold.decorators import action, display
@@ -53,19 +54,24 @@ class SafeDeleteAdmin(ModelAdmin):
         else:
             super().delete_queryset(request, queryset)
 
-    @action(description="Восстановить выбранные из корзины")
+    @action(description="Восстановить выбранные из корзины", permissions=["change"])
     def restore_objects(self, request, queryset):
+        if not self.has_change_permission(request):
+            raise PermissionDenied
         count = 0
         for obj in queryset:
-            if hasattr(obj, 'undelete'):
+            if hasattr(obj, "undelete") and self.has_change_permission(request, obj):
                 obj.undelete()
                 count += 1
         self.message_user(request, f"Восстановлено объектов: {count}.")
 
-    @action(description="Удалить навсегда (Очистить из БД)")
+    @action(description="Удалить навсегда (Очистить из БД)", permissions=["delete"])
     def hard_delete_objects(self, request, queryset):
+        if not self.has_delete_permission(request):
+            raise PermissionDenied
         count = 0
         for obj in queryset:
-            obj.delete(force_policy=HARD_DELETE)
-            count += 1
+            if self.has_delete_permission(request, obj):
+                obj.delete(force_policy=HARD_DELETE)
+                count += 1
         self.message_user(request, f"Окончательно удалено из БД объектов: {count}.")

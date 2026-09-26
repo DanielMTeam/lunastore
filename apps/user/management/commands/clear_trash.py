@@ -41,7 +41,7 @@ class Command(BaseCommand):
                 count = trash_qs.count()
                 if count > 0:
                     self.stdout.write(f"Cleaning table {model.__name__}... Found objects: {count}")
-                    for obj in list(trash_qs):
+                    for obj in trash_qs.iterator(chunk_size=1000):
                         try:
                             obj.delete(force_policy=HARD_DELETE)
                             total_deleted += 1
