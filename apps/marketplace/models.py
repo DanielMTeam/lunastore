@@ -8,6 +8,8 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from safedelete.models import SOFT_DELETE, SOFT_DELETE_CASCADE, SafeDeleteModel
+from safedelete.queryset import SafeDeleteQueryset
+from safedelete.managers import SafeDeleteManager
 from django.utils.translation import get_language
 
 
@@ -189,8 +191,24 @@ class BaseApplicationInfo(SafeDeleteModel):
         return urls
 
 
-class Application(BaseApplicationInfo, SafeDeleteModel):
+class ApplicationQuerySet(SafeDeleteQueryset):
+    def with_rating(self):
+        from django.db.models import Avg
+        return self.annotate(cached_avg_rating=Avg("reviews__rating"))
+
+
+class ApplicationManager(SafeDeleteManager):
+    def get_queryset(self):
+        return ApplicationQuerySet(self.model, using=self._db)
+
+    def with_rating(self):
+        return self.get_queryset().with_rating()
+
+
+class Application(BaseApplicationInfo):
     _safedelete_policy = SOFT_DELETE_CASCADE
+
+    objects = ApplicationManager()
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -201,6 +219,28 @@ class Application(BaseApplicationInfo, SafeDeleteModel):
 
     is_under_dmca = models.BooleanField(default=False)
     published = models.DateTimeField(auto_now=True)
+    rating_cache = models.FloatField(
+        default=0.0,
+        db_index=True,
+        verbose_name="Кэш среднего рейтинга",
+    )
+    reviews_count = models.PositiveIntegerField(
+        default=0,
+        verbose_name="Количество отзывов",
+    )
+
+    def update_rating_cache(self):
+        from django.db.models import Avg, Count
+        agg = self.reviews.aggregate(avg=Avg("rating"), count=Count("id"))
+        avg_val = round(agg["avg"] or 0.0, 1)
+        count_val = agg["count"] or 0
+        self.rating_cache = avg_val
+        self.reviews_count = count_val
+        Application.objects.all_with_deleted().filter(pk=self.pk).update(
+            rating_cache=avg_val,
+            reviews_count=count_val,
+        )
+        return avg_val
 
     @property
     def is_translated_to_current_lang(self):
@@ -211,15 +251,10 @@ class Application(BaseApplicationInfo, SafeDeleteModel):
 
     @property
     def avg_rating(self):
-        if hasattr(self, 'cached_avg_rating'):
+        if hasattr(self, "cached_avg_rating"):
             avg = self.cached_avg_rating
-        else:
-            from django.db.models import Avg
-            from .models import Review
-            avg = self.reviews.aggregate(Avg('rating'))['rating__avg']
-        if avg:
-            return round(avg, 1)
-        return 0
+            return round(avg, 1) if avg else 0
+        return self.rating_cache
 
     @property
     def star_class(self):
@@ -594,9 +629,25 @@ class Review(models.Model):
     )
 
     class Meta:
-        unique_together = ('application', 'user')
+        constraints = [
+            models.UniqueConstraint(
+                fields=["application", "user"],
+                name="unique_review_application_user",
+            )
+        ]
         verbose_name = "Оценка"
         verbose_name_plural = "Оценки"
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if self.application_id:
+            self.application.update_rating_cache()
+
+    def delete(self, *args, **kwargs):
+        app = self.application
+        super().delete(*args, **kwargs)
+        if app:
+            app.update_rating_cache()
 
     def __str__(self):
         return f"Оценка {
@@ -645,10 +696,13 @@ class Collection(SafeDeleteModel):
     def mosaic_icons(self, limit: int = 4) -> list[str]:
         icons: list[str] = []
         try:
-            items = (
-                self.items.select_related("application")
-                .order_by("-added_at")[:limit]
-            )
+            if hasattr(self, '_prefetched_objects_cache') and 'items' in self._prefetched_objects_cache:
+                items = list(self.items.all())[:limit]
+            else:
+                items = (
+                    self.items.select_related("application")
+                    .order_by("-added_at")[:limit]
+                )
             for item in items:
                 icons.append(item.application.icon_url)
         except Exception:
@@ -734,7 +788,12 @@ class CollectionItem(models.Model):
     class Meta:
         verbose_name = "Элемент коллекции"
         verbose_name_plural = "Элементы коллекций"
-        unique_together = ("collection", "application")
+        constraints = [
+            models.UniqueConstraint(
+                fields=["collection", "application"],
+                name="unique_collectionitem_collection_application",
+            )
+        ]
         ordering = ["-added_at"]
 
     def __str__(self) -> str:
@@ -760,7 +819,12 @@ class CollectionFavorite(models.Model):
     class Meta:
         verbose_name = "Избранная коллекция"
         verbose_name_plural = "Избранные коллекции"
-        unique_together = ("user", "collection")
+        constraints = [
+            models.UniqueConstraint(
+                fields=["user", "collection"],
+                name="unique_collectionfavorite_user_collection",
+            )
+        ]
         ordering = ["-created_at"]
 
     def __str__(self) -> str:

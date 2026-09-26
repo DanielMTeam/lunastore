@@ -18,7 +18,8 @@ class Command(BaseCommand):
         parser.add_argument(
             '--all',
             action='store_true',
-            help='Delete ABSOLUTELY EVERYTHING from the trash right now (ignoring time)')
+            help='Delete ABSOLUTELY EVERYTHING from the trash right now (ignoring time)'
+        )
 
     def handle(self, *args, **options):
         days = options['days']
@@ -26,32 +27,36 @@ class Command(BaseCommand):
         threshold_date = timezone.now() - timedelta(days=days)
 
         total_deleted = 0
+        total_errors = 0
 
         self.stdout.write("Starting database scan for trashed objects...\n")
 
         for model in apps.get_models():
             if issubclass(model, SafeDeleteModel) and not model._meta.proxy:
-
                 if delete_all:
                     trash_qs = model.objects.deleted_only()
                 else:
                     trash_qs = model.objects.deleted_only().filter(deleted__lt=threshold_date)
 
                 count = trash_qs.count()
-
                 if count > 0:
-                    self.stdout.write(
-                        f"Cleaning table {
-                            model.__name__}... Found objects: {count}")
-                    for obj in trash_qs:
-                        obj.delete(force_policy=HARD_DELETE)
-
-                    total_deleted += count
+                    self.stdout.write(f"Cleaning table {model.__name__}... Found objects: {count}")
+                    for obj in list(trash_qs):
+                        try:
+                            obj.delete(force_policy=HARD_DELETE)
+                            total_deleted += 1
+                        except Exception as e:
+                            total_errors += 1
+                            self.stdout.write(
+                                self.style.ERROR(f"Failed to delete {model.__name__} (id={getattr(obj, 'pk', None)}): {e}")
+                            )
 
         if total_deleted > 0:
             self.stdout.write(
                 self.style.SUCCESS(
-                    f'\nSuccess! Permanently deleted objects across the entire database: {total_deleted}'))
+                    f"\nSuccess! Permanently deleted objects: {total_deleted}"
+                    + (f" (Errors: {total_errors})" if total_errors else "")
+                )
+            )
         else:
-            self.stdout.write(self.style.WARNING(
-                '\nTrash is empty, so.. nothing to delete, lmao'))
+            self.stdout.write(self.style.WARNING("\nTrash is empty, no objects to permanently delete."))

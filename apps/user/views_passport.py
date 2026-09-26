@@ -210,14 +210,6 @@ def _create_user_from_passport(request, profile: passport.PassportProfile) -> Us
     except ValidationError:
         return None
 
-    # soft-deleted email still occupies unique; user message is set in callback
-    if User.objects.all_with_deleted().filter(
-        email__iexact=email,
-        deleted__isnull=False,
-    ).exists():
-        logger.info("passport register blocked: soft-deleted email collision")
-        return None
-
     local = email.split("@", 1)[0]
     base = _sanitize_username(local or profile.passport_name or "passport")
     if _username_blacklisted(base):

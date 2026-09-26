@@ -1,12 +1,6 @@
 from django.db import models
 
 
-def get_file_path(instance, filename):
-    ext = os.path.splitext(filename)[1]
-    new_filename = f"{uuid.uuid4()}{ext}"
-    return os.path.join("sidebar_pics/", new_filename)
-
-
 class Banner(models.Model):
     title = models.CharField(
         max_length=100,

@@ -3,24 +3,51 @@ import hashlib
 import re
 
 from django.conf import settings
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
 from django.utils import timezone
 from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
 from safedelete.models import SOFT_DELETE_CASCADE, SafeDeleteModel
+from safedelete.managers import SafeDeleteManager
 from .validators import validate_email_mx
+
+
+class SafeDeleteUserManager(SafeDeleteManager, UserManager):
+    pass
 
 
 class User(AbstractUser, SafeDeleteModel):
     _safedelete_policy = SOFT_DELETE_CASCADE
 
+    objects = SafeDeleteUserManager()
+
     class Meta:
         verbose_name = "Пользователь"
         verbose_name_plural = "Пользователи"
+        constraints = [
+            models.UniqueConstraint(
+                fields=["email"],
+                condition=models.Q(deleted__isnull=True),
+                name="unique_active_user_email",
+            ),
+            models.UniqueConstraint(
+                fields=["username"],
+                condition=models.Q(deleted__isnull=True),
+                name="unique_active_user_username",
+            ),
+        ]
 
+    username = models.CharField(
+        _("username"),
+        max_length=150,
+        help_text=_("Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."),
+        validators=[AbstractUser.username_validator],
+        error_messages={
+            "unique": _("A user with that username already exists."),
+        },
+    )
     email = models.EmailField(
-        unique=True,
         error_messages={
             "unique": _("ERROR_EMAIL_ALREADY_IN_USE"),
         },
@@ -161,7 +188,7 @@ class BlacklistedUsername(SafeDeleteModel):
     _safedelete_policy = SOFT_DELETE_CASCADE
 
     word = models.CharField(
-        max_length=50, unique=True, verbose_name="Запрещённый юзернейм"
+        max_length=50, verbose_name="Запрещённый юзернейм"
     )
     is_regex = models.BooleanField(
         default=False, verbose_name="Это регулярное выражение? (regex type)"
@@ -173,6 +200,13 @@ class BlacklistedUsername(SafeDeleteModel):
     class Meta:
         verbose_name = "Бан-ворд (юзернейм)"
         verbose_name_plural = "Бан-ворды (юзернеймы)"
+        constraints = [
+            models.UniqueConstraint(
+                fields=["word"],
+                condition=models.Q(deleted__isnull=True),
+                name="unique_active_blacklisted_username_word",
+            ),
+        ]
 
 
 class InviteToken(models.Model):
