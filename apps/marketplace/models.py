@@ -198,8 +198,7 @@ class ApplicationQuerySet(SafeDeleteQueryset):
 
 
 class ApplicationManager(SafeDeleteManager):
-    def get_queryset(self):
-        return ApplicationQuerySet(self.model, using=self._db)
+    _queryset_class = ApplicationQuerySet
 
     def with_rating(self):
         return self.get_queryset().with_rating()
