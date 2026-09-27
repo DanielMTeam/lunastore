@@ -1611,7 +1611,8 @@ class ReviewAdmin(unfold_admin.ModelAdmin):
             badge_color = "color: #dc2626; font-weight: bold;"
         else:
             badge_color = "color: #d97706; font-weight: bold;"
-        return format_html('<span style="{}">{:.2f}</span>', badge_color, score)
+        score_text = f"{score:.2f}"
+        return format_html('<span style="{}">{}</span>', badge_color, score_text)
     ai_score_badge.short_description = "AI Скор"
 
     def ai_flags_display(self, obj):
