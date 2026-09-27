@@ -461,11 +461,21 @@ input[type="submit"] {
 
 .review_body {
     background: #323232 !important;
-    border: 1px solid #000 !important;
+    border: 1px solid #444 !important;
+}
+
+.review_body hr {
+    border: 0 !important;
+    border-bottom: 1px solid #444 !important;
 }
 
 .review_author a {
-    color: #9ec1ff !important;
+    color: #eee !important;
+    text-decoration: underline !important;
+}
+
+.review_author a:hover {
+    color: #ffa84c !important;
 }
 
 .review_date {
@@ -474,6 +484,77 @@ input[type="submit"] {
 
 .review_author {
     color: #fff !important;
+}
+
+.review_text {
+    color: #eee !important;
+}
+
+.review_actions {
+    color: #666 !important;
+}
+
+.review_actions a,
+.review_actions a:link,
+.review_actions a:visited {
+    color: #ccc !important;
+    text-decoration: underline !important;
+}
+
+.review_actions a:hover,
+.review_actions a:active {
+    color: #ffa84c !important;
+    text-decoration: underline !important;
+}
+
+.reply_adm_body {
+    border: 1px solid #444 !important;
+    background: #252525 !important;
+}
+
+.reply_adm_body .review_author {
+    color: #fff !important;
+}
+
+.reply_adm_body .review_date {
+    color: #999 !important;
+}
+
+.reply_adm_body hr {
+    border: 0 !important;
+    border-bottom: 1px solid #444 !important;
+}
+
+.reply_adm_text {
+    color: #eee !important;
+}
+
+.reply_form_wrap textarea {
+    background: #424242 !important;
+    border: 1px solid #222 !important;
+    color: #eee !important;
+}
+
+.st_rate_form_actions input[type="submit"],
+.reply_form_wrap input[type="submit"] {
+    background: #3c3c3c !important;
+    border: 1px solid #555 !important;
+    color: #eee !important;
+    padding: 3px 14px !important;
+    cursor: pointer !important;
+}
+
+.st_rate_form_actions input[type="submit"]:hover,
+.reply_form_wrap input[type="submit"]:hover {
+    background: #4a4a4a !important;
+    border-color: #ffa84c !important;
+    color: #fff !important;
+}
+
+.st_rate_form_actions input[type="submit"]:active,
+.reply_form_wrap input[type="submit"]:active {
+    background: #2a2a2a !important;
+    border-color: #ff8c1a !important;
 }
 
 .action_button {
@@ -913,5 +994,27 @@ textarea:focus {
 }
 .xp_chart_legend {
     color: #d0d0d0 !important;
+}
+
+/* Storepage review form dark theme overrides */
+.st_rate_form_wrap {
+    border-top: 1px solid #444 !important;
+}
+
+.st_rate_form_text textarea {
+    background: #424242 !important;
+    border: 1px solid #222 !important;
+    color: #eee !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 52px !important;
+    min-height: 52px !important;
+    max-height: 52px !important;
+    resize: none !important;
+}
+
+.st_rate_form_text textarea:focus {
+    border-color: #ffa84c !important;
+    background-color: #383838 !important;
 }
 

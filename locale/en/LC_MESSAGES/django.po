@@ -1113,13 +1113,76 @@ msgid "PAGE_APP_RATING_NO_REVIEWS"
 msgstr "No ratings"
 
 msgid "PAGE_APP_RATING_USERS"
-msgstr "User ratings"
+msgstr "Reviews"
 
 msgid "PAGE_APP_RATING_YOUR"
 msgstr "Your rating:"
 
 msgid "PAGE_APP_RATING_YOUR_REVIEW"
-msgstr "(your rating)"
+msgstr "(your review)"
+
+msgid "PAGE_APP_REVIEW_ACTION_EDIT"
+msgstr "edit"
+
+msgid "PAGE_APP_REVIEW_ACTION_DELETE"
+msgstr "delete"
+
+msgid "PAGE_APP_REVIEW_ACTION_REPLY"
+msgstr "reply to review"
+
+msgid "PAGE_APP_REVIEW_DEV_REPLY"
+msgstr "Developer response"
+
+msgid "PAGE_APP_REVIEW_REPLY_PLACEHOLDER"
+msgstr "Write an official developer response (up to 2000 chars)..."
+
+msgid "PAGE_APP_REVIEW_REPLY_SUBMIT"
+msgstr "Post response"
+
+msgid "PAGE_APP_REVIEW_REPLY_UPDATE"
+msgstr "Update response"
+
+msgid "PAGE_APP_REVIEW_REPLY_SUCCESS"
+msgstr "Developer response published successfully."
+
+msgid "PAGE_APP_REVIEW_REPLY_DELETED"
+msgstr "Developer response removed."
+
+msgid "PAGE_APP_REVIEW_REPLY_EMPTY"
+msgstr "Response text cannot be empty."
+
+msgid "PAGE_APP_REVIEW_REPLY_DENIED"
+msgstr "You do not have permission to reply to this review."
+
+msgid "PAGE_APP_REVIEW_REPLY_DELETE_DENIED"
+msgstr "You do not have permission to delete this response."
+
+msgid "PAGE_APP_REVIEW_PLACEHOLDER"
+msgstr "Write your review (optional, up to 2000 characters)..."
+
+msgid "PAGE_APP_REVIEW_SUBMIT_BTN"
+msgstr "Submit review"
+
+msgid "PAGE_APP_REVIEW_UPDATE_BTN"
+msgstr "Update review"
+
+msgid "PAGE_APP_REVIEW_APPROVED"
+msgstr "Your review has been successfully published."
+
+msgid "PAGE_APP_REVIEW_REJECTED_GENERIC"
+msgstr "Your review was automatically rejected due to disallowed language or spam."
+
+msgid "PAGE_APP_REVIEW_PENDING"
+msgstr "Your review has been sent to moderators for review."
+
+msgid "PAGE_APP_REVIEW_STATUS_PENDING"
+msgstr "Review pending moderation"
+
+msgid "PAGE_APP_REVIEW_STATUS_REJECTED"
+msgstr "Review rejected"
+
+msgid "PAGE_APP_RATING_SUCCESS"
+msgstr "Your rating has been saved."
 
 msgid "PAGE_APP_SECTION_ACTIONS"
 msgstr "Actions"

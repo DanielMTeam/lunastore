@@ -9,9 +9,10 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.http import Http404, HttpResponse, JsonResponse
+from django.http import Http404, HttpResponse, HttpResponseForbidden, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 from django_smart_ratelimit import ratelimit
@@ -21,7 +22,7 @@ from apps.analytics.services import (
     track_app_rate,
     track_app_view,
 )
-from apps.core.utils import get_safe_redirect_url
+from apps.core.utils import get_safe_redirect_url, get_client_ip
 from apps.core.search import (
     SearchService,
     SearchUnavailableError,
@@ -60,6 +61,9 @@ from .models import (
     Review,
 )
 from .views_collections import collections
+from constance import config
+from .services.ai_moderation import moderate_review_text
+from .tasks import moderate_review_task
 
 logger = logging.getLogger(__name__)
 
@@ -184,9 +188,11 @@ def app(request):
         app__id=id).order_by("-published").first()
     download_page_url = f"{reverse('download')}?id={obj.id}"
 
-    # get all reviews for this app
-    reviews = Review.objects.filter(application=obj).select_related(
-        "user").order_by('-created_at')
+    # get all approved reviews for this app
+    reviews = Review.objects.filter(
+        application=obj,
+        status=Review.STATUS_APPROVED,
+    ).select_related("user").order_by('-created_at')
     review_count = reviews.count()
 
     # calculate average rating
@@ -206,7 +212,8 @@ def app(request):
     user_review = None
     if request.user.is_authenticated:
         user_review = Review.objects.filter(
-            application=obj, user=request.user).first()
+            application=obj, user=request.user
+        ).exclude(status=Review.STATUS_REJECTED).first()
 
     # set up paginator for reviews list
     page = request.GET.get("page", 1)
@@ -261,6 +268,9 @@ def app(request):
         "likes_count": likes_count,
         "is_liked": is_liked,
         "is_app_page": True,
+        "is_app_developer": request.user.is_authenticated and (
+            request.user == obj.user or request.user.is_staff
+        ),
     }
     return render(request, "storepage.html", context)
 
@@ -870,10 +880,21 @@ def distribution_edit(request, dist_pk):
     return render(request, "distribution_form.html", context)
 
 
+def get_real_ip(group, request):
+    return get_client_ip(request)
+
+
 @login_required
-@ratelimit(key='user', rate='5/1h', block=True)
-@ratelimit(key='ip', rate='10/1h', block=True)
+@ratelimit(key='user', rate='60/1h', block=False)
+@ratelimit(key=get_real_ip, rate='120/1h', block=False)
 def rate_app(request):
+    if getattr(request, 'limited', False):
+        app_id = request.GET.get("id") or request.POST.get("id")
+        messages.error(request, _("ERROR_RATE_LIMIT_EXCEEDED"))
+        if app_id:
+            return redirect(f"{reverse('app')}?id={app_id}")
+        return redirect("home")
+
     # save user rating here
     if request.method == "POST":
         app_id = request.GET.get("id") or request.POST.get("id")
@@ -897,16 +918,94 @@ def rate_app(request):
             messages.error(request, _("PAGE_APP_RATING_DISABLED"))
             return redirect(f"{reverse('app')}?id={app_id}")
 
-        # create or update the rating
+        review_text = (request.POST.get("text") or "").strip()[:2000]
+        status = Review.STATUS_APPROVED
+        ai_score = None
+        ai_flags = []
+        ai_reason = ""
+        ai_raw_response = None
+        should_enqueue_async = False
+
+        if review_text:
+            ai_enabled = getattr(config, "AI_MODERATION_ENABLED", True)
+            fast_path = getattr(config, "AI_MODERATION_FAST_PATH", True)
+
+            if ai_enabled and fast_path:
+                result = moderate_review_text(review_text, app_title=obj.title)
+                if result.reason == "service_error" or (result.decision == "pending" and result.score is None):
+                    status = Review.STATUS_PENDING
+                    ai_reason = result.reason or "service_error"
+                    if result.reason == "service_error":
+                        should_enqueue_async = True
+                    messages.info(request, _("PAGE_APP_REVIEW_PENDING"))
+                elif result.decision == Review.STATUS_REJECTED:
+                    logger.info(
+                        "Review for app %s by user %s rejected by AI: flags=%s, score=%s, reason=%s",
+                        obj.id, request.user.id, result.flags, result.score, result.reason,
+                    )
+                    messages.error(request, _("PAGE_APP_REVIEW_REJECTED_GENERIC"))
+                    return redirect(f"{reverse('app')}?id={app_id}")
+                elif result.decision == Review.STATUS_APPROVED:
+                    status = Review.STATUS_APPROVED
+                    ai_score = result.score
+                    ai_flags = result.flags
+                    ai_reason = result.reason
+                    ai_raw_response = result.raw_response
+                    messages.success(request, _("PAGE_APP_REVIEW_APPROVED"))
+                else:  # pending (borderline score 0.31 - 0.79)
+                    status = Review.STATUS_PENDING
+                    ai_score = result.score
+                    ai_flags = result.flags
+                    ai_reason = result.reason
+                    ai_raw_response = result.raw_response
+                    messages.info(request, _("PAGE_APP_REVIEW_PENDING"))
+
+                    # Alert moderators about borderline review in Telegram
+                    from apps.core.tasks import send_telegram_notification
+                    from django.utils.html import escape
+                    clean_preview = escape(review_text[:300])
+                    score_str = f"{result.score:.2f}" if result.score is not None else "N/A"
+                    flags_str = ", ".join(result.flags) if result.flags else "нет"
+                    tg_msg = (
+                        "📝 <b>Новый отзыв требует проверки модератором</b>\n\n"
+                        f"Приложение: <b>{escape(obj.title)}</b>\n"
+                        f"Автор: <b>{escape(request.user.username)}</b> (Оценка: {rating} ★)\n"
+                        f"AI Скор: <code>{score_str}</code> (Флаги: {escape(flags_str)})\n"
+                        f"Причина: <i>{escape(result.reason or 'ручная очередь')}</i>\n\n"
+                        f"Текст:\n<blockquote>{clean_preview}</blockquote>"
+                    )
+                    try:
+                        send_telegram_notification(tg_msg)
+                    except Exception as exc:
+                        logger.warning("Failed to send telegram notification for review: %s", exc)
+            elif ai_enabled:
+                status = Review.STATUS_PENDING
+                should_enqueue_async = True
+                messages.info(request, _("PAGE_APP_REVIEW_PENDING"))
+            else:
+                status = Review.STATUS_PENDING
+                ai_reason = "ai_disabled"
+                messages.info(request, _("PAGE_APP_REVIEW_PENDING"))
+        else:
+            messages.success(request, _("PAGE_APP_RATING_SUCCESS"))
+
+        # create or update the review
         review, created = Review.objects.update_or_create(
             application=obj,
             user=request.user,
-            defaults={'rating': rating}
+            defaults={
+                'rating': rating,
+                'text': review_text,
+                'status': status,
+                'ai_score': ai_score,
+                'ai_flags': ai_flags,
+                'ai_reason': ai_reason,
+                'ai_raw_response': ai_raw_response,
+            }
         )
-        if not created:
-            # update existing rating
-            review.rating = rating
-            review.save()
+
+        if should_enqueue_async:
+            moderate_review_task.enqueue(review.id)
 
         track_app_rate(request, app_id=obj.pk, rating=rating)
 
@@ -917,8 +1016,17 @@ def rate_app(request):
 
 @login_required
 @require_POST
-@ratelimit(key='user', rate='5/1h', block=True)
+@ratelimit(key='user', rate='60/1h', block=False)
 def delete_review(request):
+    if getattr(request, 'limited', False):
+        review_id = request.POST.get("id")
+        messages.error(request, _("ERROR_RATE_LIMIT_EXCEEDED"))
+        if review_id:
+            review = Review.objects.filter(id=review_id).first()
+            if review:
+                return redirect(f"{reverse('app')}?id={review.application.id}")
+        return redirect("home")
+
     review_id = request.POST.get("id")
     if not review_id:
         return redirect("home")
@@ -939,6 +1047,96 @@ def delete_review(request):
         fallback=f"{reverse('app')}?id={app_id}",
     )
     return redirect(next_url)
+
+
+@login_required
+@require_POST
+@ratelimit(key='user', rate='30/1h', block=False)
+def reply_review(request):
+    if getattr(request, 'limited', False):
+        messages.error(request, _("ERROR_RATE_LIMIT_EXCEEDED"))
+        review_id = request.POST.get("review_id") or request.GET.get("id")
+        if review_id:
+            review = Review.objects.filter(id=review_id).select_related("application").first()
+            if review:
+                return redirect(f"{reverse('app')}?id={review.application.id}#rev{review.id}")
+        return redirect("home")
+
+    review_id = request.POST.get("review_id") or request.GET.get("id")
+    if not review_id:
+        return redirect("home")
+
+    review = get_object_or_404(
+        Review.objects.select_related("application", "application__user"),
+        id=review_id,
+    )
+
+    is_dev = (
+        request.user == review.application.user
+        or request.user.is_staff
+        or request.user.has_perm("marketplace.change_review")
+    )
+    if not is_dev:
+        return HttpResponseForbidden(_("PAGE_APP_REVIEW_REPLY_DENIED"))
+
+    reply_text = (request.POST.get("developer_reply") or "").strip()[:2000]
+    if not reply_text:
+        messages.error(request, _("PAGE_APP_REVIEW_REPLY_EMPTY"))
+        return redirect(f"{reverse('app')}?id={review.application.id}#rev{review.id}")
+
+    ai_enabled = getattr(config, "AI_MODERATION_ENABLED", True)
+    if ai_enabled:
+        mod_result = moderate_review_text(reply_text, app_title=review.application.title)
+        if mod_result.decision == Review.STATUS_REJECTED:
+            messages.error(request, _("PAGE_APP_REVIEW_REJECTED_GENERIC"))
+            return redirect(f"{reverse('app')}?id={review.application.id}#rev{review.id}")
+
+    review.developer_reply = reply_text
+    review.developer_reply_at = timezone.now()
+    review.developer_reply_by = request.user
+    review.save(update_fields=["developer_reply", "developer_reply_at", "developer_reply_by", "updated_at"])
+
+    messages.success(request, _("PAGE_APP_REVIEW_REPLY_SUCCESS"))
+    return redirect(f"{reverse('app')}?id={review.application.id}#rev{review.id}")
+
+
+@login_required
+@require_POST
+@ratelimit(key='user', rate='30/1h', block=False)
+def delete_review_reply(request):
+    if getattr(request, 'limited', False):
+        messages.error(request, _("ERROR_RATE_LIMIT_EXCEEDED"))
+        review_id = request.POST.get("review_id") or request.GET.get("id")
+        if review_id:
+            review = Review.objects.filter(id=review_id).select_related("application").first()
+            if review:
+                return redirect(f"{reverse('app')}?id={review.application.id}#rev{review.id}")
+        return redirect("home")
+
+    review_id = request.POST.get("review_id") or request.GET.get("id")
+    if not review_id:
+        return redirect("home")
+
+    review = get_object_or_404(
+        Review.objects.select_related("application", "application__user"),
+        id=review_id,
+    )
+
+    is_dev = (
+        request.user == review.application.user
+        or request.user.is_staff
+        or request.user.has_perm("marketplace.delete_review")
+    )
+    if not is_dev:
+        return HttpResponseForbidden(_("PAGE_APP_REVIEW_REPLY_DELETE_DENIED"))
+
+    review.developer_reply = ""
+    review.developer_reply_at = None
+    review.developer_reply_by = None
+    review.save(update_fields=["developer_reply", "developer_reply_at", "developer_reply_by", "updated_at"])
+
+    messages.success(request, _("PAGE_APP_REVIEW_REPLY_DELETED"))
+    return redirect(f"{reverse('app')}?id={review.application.id}#rev{review.id}")
 
 
 @login_required

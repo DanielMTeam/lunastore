@@ -433,9 +433,15 @@ def profile(request):
     profile_collection_items = None
     profile_collections_count = 0
 
+    is_profile_owner = request.user.is_authenticated and (
+        request.user.id == obj.id or request.user.is_staff
+    )
+
     if act == "show_reviews":
-        reviews_list = Review.objects.filter(
-            user=obj).select_related(
+        reviews_list = Review.objects.filter(user=obj).exclude(status=Review.STATUS_REJECTED)
+        if not is_profile_owner:
+            reviews_list = reviews_list.filter(status=Review.STATUS_APPROVED)
+        reviews_list = reviews_list.select_related(
             'application',
             'user').order_by('-created_at')
         paginator = Paginator(reviews_list, 5)
@@ -466,7 +472,10 @@ def profile(request):
             )
         profile_collections_count = len(profile_collection_items)
     else:
-        recent_reviews = Review.objects.filter(user=obj).select_related(
+        recent_qs = Review.objects.filter(user=obj).exclude(status=Review.STATUS_REJECTED)
+        if not is_profile_owner:
+            recent_qs = recent_qs.filter(status=Review.STATUS_APPROVED)
+        recent_reviews = recent_qs.select_related(
             'application', 'user').order_by('-created_at')[:5]
 
     return render(

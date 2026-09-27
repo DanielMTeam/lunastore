@@ -204,6 +204,16 @@
                     <hr>
                     <!-- show stars for this review -->
                     <div class="rating r{{ review.rating }}"></div>
+                    {% if review.status != "approved" and request.user == obj %}
+                    <span style="display:inline-block; font-size:10px; padding:1px 5px; margin-top:3px; background:{% if review.status == 'rejected' %}#f2dede; color:#a94442; border:1px solid #ebccd1;{% else %}#fcf8e3; color:#8a6d3b; border:1px solid #faebcc;{% endif %}">
+                        {{ review.get_status_display }}
+                    </span>
+                    {% endif %}
+                    {% if review.text %}
+                    <div class="review_text">
+                        {{ review.text|linebreaksbr }}
+                    </div>
+                    {% endif %}
                     {% if review.user == request.user or perms.marketplace.delete_review %}
                     <div style="margin-top: 5px; font-size: 11px;">
                         {% trans "ARE_YOU_SURE" as are_you_sure %}
@@ -237,6 +247,16 @@
                     <hr>
                     <!-- show stars for this review -->
                     <div class="rating r{{ review.rating }}"></div>
+                    {% if review.status != "approved" and request.user == obj %}
+                    <span style="display:inline-block; font-size:10px; padding:1px 5px; margin-top:3px; background:{% if review.status == 'rejected' %}#f2dede; color:#a94442; border:1px solid #ebccd1;{% else %}#fcf8e3; color:#8a6d3b; border:1px solid #faebcc;{% endif %}">
+                        {{ review.get_status_display }}
+                    </span>
+                    {% endif %}
+                    {% if review.text %}
+                    <div class="review_text">
+                        {{ review.text|linebreaksbr }}
+                    </div>
+                    {% endif %}
                     {% if review.user == request.user or perms.marketplace.delete_review %}
                     <div style="margin-top: 5px; font-size: 11px;">
                         {% trans "ARE_YOU_SURE" as are_you_sure %}

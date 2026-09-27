@@ -1429,3 +1429,193 @@ class CollectionFavoriteAdmin(unfold_admin.ModelAdmin):
     search_fields = ("user__username", "collection__title")
     raw_id_fields = ("user", "collection")
     readonly_fields = ("created_at",)
+
+
+@admin.register(Review)
+class ReviewAdmin(unfold_admin.ModelAdmin):
+    list_display = (
+        "id",
+        "app_link",
+        "user_link",
+        "rating_stars",
+        "text_preview",
+        "status_badge",
+        "ai_score_badge",
+        "ai_flags_display",
+        "created_at",
+    )
+    list_filter = (
+        "status",
+        "rating",
+        "created_at",
+    )
+    search_fields = (
+        "text",
+        "user__username",
+        "application__title",
+    )
+    raw_id_fields = ("application", "user", "moderated_by", "developer_reply_by")
+    readonly_fields = (
+        "created_at",
+        "updated_at",
+        "moderated_at",
+        "developer_reply_at",
+        "ai_score",
+        "ai_flags",
+        "ai_reason",
+        "ai_raw_response",
+    )
+    fieldsets = (
+        ("Информация об отзыве", {
+            "fields": (
+                "application",
+                "user",
+                "rating",
+                "text",
+                "status",
+            ),
+        }),
+        ("Ответ разработчика", {
+            "fields": (
+                "developer_reply",
+                "developer_reply_by",
+                "developer_reply_at",
+            ),
+        }),
+        ("ИИ-модерация (OpenRouter)", {
+            "fields": (
+                "ai_score",
+                "ai_flags",
+                "ai_reason",
+                "ai_raw_response",
+            ),
+            "classes": ("collapse",),
+        }),
+        ("Ручная модерация", {
+            "fields": (
+                "moderated_by",
+                "moderated_at",
+                "moderation_note",
+            ),
+        }),
+        ("Временные метки", {
+            "fields": (
+                "created_at",
+                "updated_at",
+            ),
+            "classes": ("collapse",),
+        }),
+    )
+    actions = ["approve_reviews", "reject_reviews", "recheck_ai_action"]
+    actions_detail = ["approve_detail", "reject_detail"]
+
+    @action(description="Одобрить выбранные отзывы", icon="check_circle")
+    def approve_reviews(self, request, queryset):
+        from django.utils import timezone
+        count = queryset.update(
+            status=Review.STATUS_APPROVED,
+            moderated_by=request.user,
+            moderated_at=timezone.now(),
+        )
+        self.message_user(request, f"Одобрено отзывов: {count}", messages.SUCCESS)
+
+    @action(description="Отклонить выбранные отзывы", icon="cancel")
+    def reject_reviews(self, request, queryset):
+        from django.utils import timezone
+        count = queryset.update(
+            status=Review.STATUS_REJECTED,
+            moderated_by=request.user,
+            moderated_at=timezone.now(),
+        )
+        self.message_user(request, f"Отклонено отзывов: {count}", messages.WARNING)
+
+    @action(description="Перепроверить через ИИ", icon="refresh")
+    def recheck_ai_action(self, request, queryset):
+        from .tasks import moderate_review_task
+        for review in queryset:
+            moderate_review_task.enqueue(review.id)
+        self.message_user(request, f"Запущена фоновая перепроверка ИИ для {queryset.count()} отзывов", messages.INFO)
+
+    @action(description="Одобрить отзыв", icon="check")
+    def approve_detail(self, request, object_id):
+        from django.utils import timezone
+        Review.objects.filter(id=object_id).update(
+            status=Review.STATUS_APPROVED,
+            moderated_by=request.user,
+            moderated_at=timezone.now(),
+        )
+        self.message_user(request, "Отзыв успешно одобрен", messages.SUCCESS)
+        return redirect(reverse("admin:marketplace_review_changelist"))
+
+    @action(description="Отклонить отзыв", icon="close")
+    def reject_detail(self, request, object_id):
+        from django.utils import timezone
+        Review.objects.filter(id=object_id).update(
+            status=Review.STATUS_REJECTED,
+            moderated_by=request.user,
+            moderated_at=timezone.now(),
+        )
+        self.message_user(request, "Отзыв отклонён", messages.WARNING)
+        return redirect(reverse("admin:marketplace_review_changelist"))
+
+    def app_link(self, obj):
+        if not obj.application:
+            return "---"
+        url = reverse("admin:marketplace_application_change", args=[obj.application.id])
+        return format_html(
+            '<a href="{}" style="font-weight:bold; color: #3b82f6;">{}</a>',
+            url,
+            obj.application.title,
+        )
+    app_link.short_description = "Приложение"
+
+    def user_link(self, obj):
+        if not obj.user:
+            return "---"
+        url = reverse("admin:user_user_change", args=[obj.user.id])
+        return format_html('<a href="{}">{}</a>', url, obj.user.username)
+    user_link.short_description = "Пользователь"
+
+    def rating_stars(self, obj):
+        return f"{obj.rating} ★"
+    rating_stars.short_description = "Оценка"
+
+    def text_preview(self, obj):
+        if not obj.text:
+            return format_html('<span style="color: #9ca3af;">(без текста)</span>')
+        preview = obj.text[:60] + ("..." if len(obj.text) > 60 else "")
+        return preview
+    text_preview.short_description = "Текст"
+
+    def status_badge(self, obj):
+        colors = {
+            Review.STATUS_APPROVED: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300",
+            Review.STATUS_PENDING: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300",
+            Review.STATUS_REJECTED: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300",
+        }
+        color_class = colors.get(obj.status, "bg-gray-100 text-gray-800")
+        return format_html(
+            '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {}">{}</span>',
+            color_class,
+            obj.get_status_display(),
+        )
+    status_badge.short_description = "Статус"
+
+    def ai_score_badge(self, obj):
+        if obj.ai_score is None:
+            return "---"
+        score = obj.ai_score
+        if score <= 0.30:
+            badge_color = "color: #16a34a; font-weight: bold;"
+        elif score >= 0.80:
+            badge_color = "color: #dc2626; font-weight: bold;"
+        else:
+            badge_color = "color: #d97706; font-weight: bold;"
+        return format_html('<span style="{}">{:.2f}</span>', badge_color, score)
+    ai_score_badge.short_description = "AI Скор"
+
+    def ai_flags_display(self, obj):
+        if not obj.ai_flags:
+            return "---"
+        return ", ".join(obj.ai_flags)
+    ai_flags_display.short_description = "Флаги"

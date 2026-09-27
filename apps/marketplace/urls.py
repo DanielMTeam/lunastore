@@ -33,5 +33,7 @@ urlpatterns = [
     path("get_dist_file/<int:dist_pk>/", views.get_file_action, name="download_action"),
     path("rate_app.php", views.rate_app, name="rate_app"),
     path("delete_review.php", views.delete_review, name="delete_review"),
+    path("reply_review.php", views.reply_review, name="reply_review"),
+    path("delete_review_reply.php", views.delete_review_reply, name="delete_review_reply"),
     path("collections.php", views.collections, name="collections"),
 ]

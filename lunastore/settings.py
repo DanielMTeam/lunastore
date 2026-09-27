@@ -802,6 +802,57 @@ CONSTANCE_CONFIG = {
         "Использовать хеширование для статики (требует перезагрузки)",
         bool,
     ),
+    # -- AI Moderation (OpenRouter) --
+    "AI_MODERATION_ENABLED": (
+        os.getenv("AI_MODERATION_ENABLED", "True") == "True",
+        "Включить автоматическую ИИ-модерацию отзывов",
+        bool,
+    ),
+    "OPENROUTER_API_KEY": (
+        os.getenv("OPENROUTER_API_KEY", ""),
+        "API-ключ OpenRouter для ИИ-модерации",
+        str,
+    ),
+    "AI_MODERATION_MODEL": (
+        os.getenv("AI_MODERATION_MODEL", "typesafe/jev-router"),
+        "Основная модель ИИ в OpenRouter (по умолчанию Jev Router)",
+        str,
+    ),
+    "AI_MODERATION_FALLBACK_MODEL": (
+        os.getenv("AI_MODERATION_FALLBACK_MODEL", "deepseek/deepseek-v4.1-flash"),
+        "Резервная модель ИИ в OpenRouter",
+        str,
+    ),
+    "AI_MODERATION_REJECT_THRESHOLD": (
+        float(os.getenv("AI_MODERATION_REJECT_THRESHOLD", "0.80")),
+        "Порог автоотклонения (индекс >= X)",
+        float,
+    ),
+    "AI_MODERATION_APPROVE_THRESHOLD": (
+        float(os.getenv("AI_MODERATION_APPROVE_THRESHOLD", "0.30")),
+        "Порог автоодобрения (индекс <= X)",
+        float,
+    ),
+    "AI_MODERATION_TIMEOUT": (
+        float(os.getenv("AI_MODERATION_TIMEOUT", "3.5")),
+        "Таймаут синхронного fast-path (в секундах)",
+        float,
+    ),
+    "AI_MODERATION_FAST_PATH": (
+        os.getenv("AI_MODERATION_FAST_PATH", "True") == "True",
+        "Синхронный быстрый ответ (fast-path до таймаута)",
+        bool,
+    ),
+    "AI_MODERATION_STOP_WORDS": (
+        os.getenv("AI_MODERATION_STOP_WORDS", ""),
+        "Запрещённые фразы и стоп-слова (по одной на строку или через запятую; мгновенный отказ без расхода токенов)",
+        "textarea",
+    ),
+    "AI_MODERATION_CUSTOM_INSTRUCTIONS": (
+        os.getenv("AI_MODERATION_CUSTOM_INSTRUCTIONS", ""),
+        "Дополнительные инструкции для ИИ (политика, экстремистские кричалки, контекст модерации)",
+        "textarea",
+    ),
 }
 
 CONSTANCE_CONFIG_FIELDSETS = {
@@ -967,6 +1018,21 @@ CONSTANCE_CONFIG_FIELDSETS = {
     },
     "Geo Реверс-прокси": {
         "fields": ["GEO_DOMAIN_PROXY_ENABLED", "GEO_DOMAIN_OVERRIDES"],
+        "collapse": True,
+    },
+    "ИИ-модерация отзывов (OpenRouter)": {
+        "fields": [
+            "AI_MODERATION_ENABLED",
+            "OPENROUTER_API_KEY",
+            "AI_MODERATION_MODEL",
+            "AI_MODERATION_FALLBACK_MODEL",
+            "AI_MODERATION_REJECT_THRESHOLD",
+            "AI_MODERATION_APPROVE_THRESHOLD",
+            "AI_MODERATION_TIMEOUT",
+            "AI_MODERATION_FAST_PATH",
+            "AI_MODERATION_STOP_WORDS",
+            "AI_MODERATION_CUSTOM_INSTRUCTIONS",
+        ],
         "collapse": True,
     },
 }

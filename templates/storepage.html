@@ -211,6 +211,44 @@
         <h2>{% trans "PAGE_APP_SECTION_RATING" %}</h2>
         <div class="separator_store"></div>
 
+        {% if allow_reviews and user.is_authenticated %}
+        <form id="rating-form" method="POST" action="{% url 'rate_app' %}?id={{ app_id }}">
+            {% csrf_token %}
+            <input type="hidden" name="rating" id="rating-input" value="{% if user_review %}{{ user_review.rating }}{% endif %}">
+            <div class="st_rate_block">
+              <div class="st_rate_block_left">
+                <div class="st_rate_summary">{{ avg_rating_display }}</div>
+                <div class="rating {{ star_class }}"></div>
+              </div>
+
+              <div class="st_rate_block_right">
+                <span class="st_rate_info">
+                  {% blocktrans count counter=review_count %}PAGE_APP_RATING_BASED_ON_COUNT {{ counter }}{% plural %}PAGE_APP_RATING_BASED_ON_COUNT_PLURAL {{ counter }}{% endblocktrans %}
+                  <br>
+                  {% trans "PAGE_APP_RATING_YOUR" %}
+                  <div id="interactive-rating" class="rating {% if user_review %}r{{ user_review.rating }}{% endif %}" data-current-rating="{% if user_review %}r{{ user_review.rating }}{% endif %}" style="cursor: pointer; display: inline-block; vertical-align: middle; margin-left: 5px;">
+                      <a href="#" class="rate-star" data-rating="1" style="display:block; float:left; width:16px; height:16px; text-decoration:none;"></a>
+                      <a href="#" class="rate-star" data-rating="2" style="display:block; float:left; width:16px; height:16px; text-decoration:none;"></a>
+                      <a href="#" class="rate-star" data-rating="3" style="display:block; float:left; width:16px; height:16px; text-decoration:none;"></a>
+                      <a href="#" class="rate-star" data-rating="4" style="display:block; float:left; width:16px; height:16px; text-decoration:none;"></a>
+                      <a href="#" class="rate-star" data-rating="5" style="display:block; float:left; width:16px; height:16px; text-decoration:none;"></a>
+                  </div>
+                </span>
+              </div>
+              <div style="clear: both;"></div>
+            </div>
+
+            <div class="st_rate_form_wrap">
+                <div class="st_rate_form_text">
+                    <textarea name="text" id="review-text-input" maxlength="2000" placeholder="{% trans "PAGE_APP_REVIEW_PLACEHOLDER" %}" style="height: 52px; min-height: 52px; max-height: 52px; resize: none; width: 100%; box-sizing: border-box;">{% if user_review %}{{ user_review.text }}{% endif %}</textarea>
+                </div>
+                <div class="st_rate_form_actions">
+                    <input type="submit" id="rating-submit-btn" value="{% if user_review %}{% trans "PAGE_APP_REVIEW_UPDATE_BTN" %}{% else %}{% trans "PAGE_APP_REVIEW_SUBMIT_BTN" %}{% endif %}" />
+                </div>
+            </div>
+            <script src="{% static './js/rating.js' %}"></script>
+        </form>
+        {% else %}
         <div class="st_rate_block">
           <div class="st_rate_block_left">
             <div class="st_rate_summary">{{ avg_rating_display }}</div>
@@ -221,37 +259,23 @@
             <span class="st_rate_info">
               {% blocktrans count counter=review_count %}PAGE_APP_RATING_BASED_ON_COUNT {{ counter }}{% plural %}PAGE_APP_RATING_BASED_ON_COUNT_PLURAL {{ counter }}{% endblocktrans %}
               <br>
-              {% if allow_reviews %}
-                {% if user.is_authenticated %}
-                  <form id="rating-form" method="POST" action="{% url 'rate_app' %}?id={{ app_id }}" style="display:none;">
-                      {% csrf_token %}
-                      <input type="hidden" name="rating" id="rating-input" value="{% if user_review %}{{ user_review.rating }}{% endif %}">
-                  </form>
-                  {% trans "PAGE_APP_RATING_YOUR" %} 
-                  <div id="interactive-rating" class="rating {% if user_review %}r{{ user_review.rating }}{% endif %}" data-current-rating="{% if user_review %}r{{ user_review.rating }}{% endif %}" style="cursor: pointer; display: inline-block; vertical-align: middle; margin-left: 5px;">
-                      <a href="#" class="rate-star" data-rating="1" style="display:block; float:left; width:16px; height:16px; text-decoration:none;"></a>
-                      <a href="#" class="rate-star" data-rating="2" style="display:block; float:left; width:16px; height:16px; text-decoration:none;"></a>
-                      <a href="#" class="rate-star" data-rating="3" style="display:block; float:left; width:16px; height:16px; text-decoration:none;"></a>
-                      <a href="#" class="rate-star" data-rating="4" style="display:block; float:left; width:16px; height:16px; text-decoration:none;"></a>
-                      <a href="#" class="rate-star" data-rating="5" style="display:block; float:left; width:16px; height:16px; text-decoration:none;"></a>
-                  </div>
-                  <script src="{% static './js/rating.js' %}"></script>
-                {% else %}
-                  <a href="/login.php" class="rating_login_btn">{% trans "PAGE_APP_RATING_LOGIN_PROMPT" %}</a>
-                {% endif %}
+              {% if not allow_reviews %}
+                <span style="color: #888;">{% trans "PAGE_APP_RATING_DISABLED" %}</span>
               {% else %}
-                {% trans "PAGE_APP_RATING_DISABLED" %}
+                <a href="/login.php" class="rating_login_btn">{% trans "PAGE_APP_RATING_LOGIN_PROMPT" %}</a>
               {% endif %}
             </span>
           </div>
+          <div style="clear: both;"></div>
         </div>
-        <div style="clear: both;"></div>
+        {% endif %}
     </div>
 
     <div class="st_other_card">
         <h2>{% trans "PAGE_APP_RATING_USERS" %}</h2>
         <div class="separator_store"></div>
           <br>
+
         {% for review in page_obj %}
         <div class="review_body" id="rev{{ review.id }}">
             <div class="review_author">
@@ -260,15 +284,83 @@
             </div>
             <div class="review_date">{{ review.created_at|date:"d E Y в H:i" }}</div>
             <hr>
+            {% if review.text %}
+            <div class="review_text">{{ review.text|linebreaksbr }}</div>
+            <hr>
+            {% endif %}
             <div class="rating r{{ review.rating }}"></div>
-            {% if review.user == request.user or perms.marketplace.delete_review %}
-            <div style="margin-top: 5px; font-size: 11px;">
-                {% trans "ARE_YOU_SURE" as are_you_sure %}
-                <form method="post" action="{% url 'delete_review' %}" style="display:inline;margin:0;padding:0;" onsubmit="return confirm('{{ are_you_sure|escapejs }}');">
+
+            {% if review.user == request.user or perms.marketplace.delete_review or is_app_developer %}
+            <div class="review_actions">
+                {% if review.user == request.user %}
+                    <a href="#rating-form" onclick="editReview('{{ review.rating }}', '{{ review.text|escapejs }}'); return false;">{% trans "PAGE_APP_REVIEW_ACTION_EDIT" %}</a>
+                    -
+                {% endif %}
+                {% if review.user == request.user or perms.marketplace.delete_review %}
+                    <a href="#" onclick="deleteReview('{{ review.id }}'); return false;">{% trans "PAGE_APP_REVIEW_ACTION_DELETE" %}</a>
+                {% endif %}
+                {% if is_app_developer and not review.developer_reply %}
+                    {% if review.user == request.user or perms.marketplace.delete_review %} - {% endif %}
+                    <a href="#" onclick="toggleReplyForm('{{ review.id }}'); return false;">{% trans "PAGE_APP_REVIEW_ACTION_REPLY" %}</a>
+                {% endif %}
+            </div>
+            <form id="delete-review-form-{{ review.id }}" method="post" action="{% url 'delete_review' %}" style="display:none;">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ review.id }}" />
+            </form>
+            {% endif %}
+
+            {% if is_app_developer and not review.developer_reply %}
+            <div id="reply-form-{{ review.id }}" class="reply_form_wrap" style="display:none; margin-top:8px;">
+                <form method="post" action="{% url 'reply_review' %}">
                     {% csrf_token %}
-                    <input type="hidden" name="id" value="{{ review.id }}" />
-                    <input type="submit" value="{% trans "PAGE_ADMIN_APP_DIST_ACTION_DELETE" %}" />
+                    <input type="hidden" name="review_id" value="{{ review.id }}">
+                    <textarea name="developer_reply" rows="2" maxlength="2000" placeholder="{% trans "PAGE_APP_REVIEW_REPLY_PLACEHOLDER" %}" style="height:48px; min-height:48px; max-height:48px; resize:none; width:100%; box-sizing:border-box;"></textarea>
+                    <div style="text-align:right; margin-top:4px;">
+                        <input type="submit" value="{% trans "PAGE_APP_REVIEW_REPLY_SUBMIT" %}" />
+                    </div>
                 </form>
+            </div>
+            {% endif %}
+
+            {% if review.developer_reply %}
+            <div class="reply_adm">
+                <div class="reply_adm_arrow"></div>
+                <div class="reply_adm_body">
+                    <div class="review_author">
+                        <b>{% trans "PAGE_APP_REVIEW_DEV_REPLY" %}</b>
+                        {% if is_app_developer %}
+                        <span class="review_actions" style="font-weight:normal; margin-left:6px;">
+                            <a href="#" onclick="toggleEditReplyForm('{{ review.id }}'); return false;">{% trans "PAGE_APP_REVIEW_ACTION_EDIT" %}</a>
+                            -
+                            <a href="#" onclick="deleteReviewReply('{{ review.id }}'); return false;">{% trans "PAGE_APP_REVIEW_ACTION_DELETE" %}</a>
+                        </span>
+                        {% endif %}
+                    </div>
+                    {% if review.developer_reply_at %}
+                    <div class="review_date">{{ review.developer_reply_at|date:"d E Y в H:i" }}</div>
+                    {% endif %}
+                    <hr>
+                    <div class="reply_adm_text">{{ review.developer_reply|linebreaksbr }}</div>
+
+                    {% if is_app_developer %}
+                    <div id="edit-reply-form-{{ review.id }}" class="reply_form_wrap" style="display:none; margin-top:8px;">
+                        <form method="post" action="{% url 'reply_review' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="review_id" value="{{ review.id }}">
+                            <textarea name="developer_reply" rows="2" maxlength="2000" style="height:48px; min-height:48px; max-height:48px; resize:none; width:100%; box-sizing:border-box;">{{ review.developer_reply }}</textarea>
+                            <div style="text-align:right; margin-top:4px;">
+                                <input type="submit" value="{% trans "PAGE_APP_REVIEW_REPLY_UPDATE" %}" />
+                            </div>
+                        </form>
+                    </div>
+                    <form id="delete-reply-form-{{ review.id }}" method="post" action="{% url 'delete_review_reply' %}" style="display:none;">
+                        {% csrf_token %}
+                        <input type="hidden" name="review_id" value="{{ review.id }}" />
+                    </form>
+                    {% endif %}
+                </div>
+                <div style="clear: both;"></div>
             </div>
             {% endif %}
         </div>
