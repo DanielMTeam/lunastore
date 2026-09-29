@@ -9,7 +9,7 @@ from django.utils import timezone
 from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
 from safedelete.models import SOFT_DELETE_CASCADE, SafeDeleteModel
-from .validators import validate_email_mx
+from .validators import validate_email_mx, validate_english_username
 
 
 class User(AbstractUser, SafeDeleteModel):
@@ -18,6 +18,19 @@ class User(AbstractUser, SafeDeleteModel):
     class Meta:
         verbose_name = "Пользователь"
         verbose_name_plural = "Пользователи"
+
+    username = models.CharField(
+        _("username"),
+        max_length=150,
+        unique=True,
+        help_text=_(
+            "Required. 150 characters or fewer. English letters, digits and . _ - only."
+        ),
+        validators=[validate_english_username],
+        error_messages={
+            "unique": _("ERROR_USERNAME_ALREADY_IN_USE"),
+        },
+    )
 
     email = models.EmailField(
         unique=True,
@@ -66,6 +79,11 @@ class User(AbstractUser, SafeDeleteModel):
         help_text="Заявки на публикацию и правку приложений/дистрибуций "
         "одобряются автоматически, но всё равно логируются и отправляются в Telegram",
     )
+
+    def clean(self):
+        super().clean()
+        if self.username:
+            validate_english_username(self.username)
 
     @property
     def avatar_url(self) -> str:

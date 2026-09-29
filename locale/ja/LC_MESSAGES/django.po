@@ -71,3 +71,24 @@ msgstr "お持ちでない場合は空欄のままにしてください"
 msgid "PAGE_REGISTER_LABEL_CODE"
 msgstr "招待コード:"
 
+msgid "ERROR_USERNAME_ALREADY_IN_USE"
+msgstr "このユーザー名は既に使用されています。"
+
+msgid "ERROR_USERNAME_BLACKLISTED"
+msgstr "このユーザー名は禁止されています。"
+
+msgid "ERROR_USERNAME_CHANGE_COOLDOWN"
+msgstr "ユーザー名は年に1回しか変更できません。"
+
+msgid "ERROR_USERNAME_EMPTY"
+msgstr "ユーザー名を空にすることはできません。"
+
+msgid "ERROR_USERNAME_INVALID_CHARS"
+msgstr "ユーザー名には英字、数字、および . _ - 記号のみを使用できます。"
+
+msgid "ERROR_USERNAME_INVALID_DOTS"
+msgstr "ユーザー名の先頭または末尾にドットを使用したり、連続したドットを含めることはできません。"
+
+msgid "ERROR_USERNAME_NO_LETTERS"
+msgstr "ユーザー名には少なくとも1つの英字を含める必要があります。"
+

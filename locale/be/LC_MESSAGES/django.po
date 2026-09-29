@@ -277,6 +277,27 @@ msgstr "Новы e-mail супадае з бягучым."
 msgid "ERROR_EMAIL_NO_ALIASES"
 msgstr "Выкарыстанне паштовых аліасаў са знакам \"+\" забаронена."
 
+msgid "ERROR_USERNAME_ALREADY_IN_USE"
+msgstr "Гэтае імя карыстальніка ўжо занята."
+
+msgid "ERROR_USERNAME_BLACKLISTED"
+msgstr "Гэтае імя карыстальніка забароненае."
+
+msgid "ERROR_USERNAME_CHANGE_COOLDOWN"
+msgstr "Імя карыстальніка можна змяняць толькі 1 раз на год."
+
+msgid "ERROR_USERNAME_EMPTY"
+msgstr "Імя карыстальніка не можа быць пустым."
+
+msgid "ERROR_USERNAME_INVALID_CHARS"
+msgstr "Імя карыстальніка можа змяшчаць толькі англійскія літары, лічбы і сімвалы . _ -"
+
+msgid "ERROR_USERNAME_INVALID_DOTS"
+msgstr "Імя карыстальніка не можа пачынацца або заканчвацца кропкай, а таксама змяшчаць дзве кропкі запар."
+
+msgid "ERROR_USERNAME_NO_LETTERS"
+msgstr "Імя карыстальніка павінна змяшчаць хаця б адну англійскую літару."
+
 msgid "ERROR_INVALID_FILE_FORMAT"
 msgstr "Памылка: Недапушчальны фармат файла!"
 

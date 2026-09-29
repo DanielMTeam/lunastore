@@ -273,6 +273,27 @@ msgstr "The new email is the same as the current one."
 msgid "ERROR_EMAIL_NO_ALIASES"
 msgstr "Email aliases with the \"+\" sign are prohibited."
 
+msgid "ERROR_USERNAME_ALREADY_IN_USE"
+msgstr "This username is already taken."
+
+msgid "ERROR_USERNAME_BLACKLISTED"
+msgstr "This username is not allowed."
+
+msgid "ERROR_USERNAME_CHANGE_COOLDOWN"
+msgstr "Username can only be changed once a year."
+
+msgid "ERROR_USERNAME_EMPTY"
+msgstr "Username cannot be empty."
+
+msgid "ERROR_USERNAME_INVALID_CHARS"
+msgstr "Username may contain only English letters, numbers, and . _ - characters."
+
+msgid "ERROR_USERNAME_INVALID_DOTS"
+msgstr "Username cannot start or end with a dot, or contain consecutive dots."
+
+msgid "ERROR_USERNAME_NO_LETTERS"
+msgstr "Username must contain at least one English letter."
+
 msgid "ERROR_INVALID_FILE_FORMAT"
 msgstr "Error: Invalid file format!"
 

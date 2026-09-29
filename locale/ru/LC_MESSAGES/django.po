@@ -277,6 +277,27 @@ msgstr "Новый e-mail совпадает с текущим."
 msgid "ERROR_EMAIL_NO_ALIASES"
 msgstr "Использование почтовых алиасов со знаком \"+\" запрещено."
 
+msgid "ERROR_USERNAME_ALREADY_IN_USE"
+msgstr "Этот юзернейм уже занят."
+
+msgid "ERROR_USERNAME_BLACKLISTED"
+msgstr "Этот юзернейм запрещен."
+
+msgid "ERROR_USERNAME_CHANGE_COOLDOWN"
+msgstr "Юзернейм можно менять только 1 раз в год."
+
+msgid "ERROR_USERNAME_EMPTY"
+msgstr "Имя пользователя не может быть пустым."
+
+msgid "ERROR_USERNAME_INVALID_CHARS"
+msgstr "Имя пользователя может содержать только английские буквы, цифры и символы . _ -"
+
+msgid "ERROR_USERNAME_INVALID_DOTS"
+msgstr "Имя пользователя не может начинаться или заканчиваться точкой, а также содержать две точки подряд."
+
+msgid "ERROR_USERNAME_NO_LETTERS"
+msgstr "Имя пользователя должно содержать хотя бы одну английскую букву."
+
 msgid "ERROR_INVALID_FILE_FORMAT"
 msgstr "Ошибка: Недопустимый формат файла!"
 

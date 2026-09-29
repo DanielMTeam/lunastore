@@ -269,6 +269,27 @@ msgstr "Жаңа E-mail ағымдағысымен сәйкес келеді."
 msgid "ERROR_EMAIL_NO_ALIASES"
 msgstr "\"+\" белгісі бар пошталық бүркеншік аттарды пайдалануға тыйым салынады."
 
+msgid "ERROR_USERNAME_ALREADY_IN_USE"
+msgstr "Бұл пайдаланушы аты бос емес."
+
+msgid "ERROR_USERNAME_BLACKLISTED"
+msgstr "Бұл пайдаланушы атына тыйым салынған."
+
+msgid "ERROR_USERNAME_CHANGE_COOLDOWN"
+msgstr "Пайдаланушы атын жылына 1 рет қана өзгертуге болады."
+
+msgid "ERROR_USERNAME_EMPTY"
+msgstr "Пайдаланушы аты бос болмауы керек."
+
+msgid "ERROR_USERNAME_INVALID_CHARS"
+msgstr "Пайдаланушы аты тек ағылшын әріптерінен, сандардан және . _ - таңбаларынан тұруы мүмкін."
+
+msgid "ERROR_USERNAME_INVALID_DOTS"
+msgstr "Пайдаланушы аты нүктеден басталмауы немесе аяқталмауы, сондай-ақ қатар екі нүктеден тұрмауы керек."
+
+msgid "ERROR_USERNAME_NO_LETTERS"
+msgstr "Пайдаланушы атында кем дегенде бір ағылшын әрпі болуы керек."
+
 msgid "ERROR_INVALID_FILE_FORMAT"
 msgstr "Қате: Файл пішімі жарамсыз!"
 

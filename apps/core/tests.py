@@ -312,7 +312,7 @@ class TasksAndWorkerIntegrationTest(TestCase):
         self.assertIn("Starting LunaStore Redis task worker", output)
 
 
-@override_settings(ROOT_URLCONF="lunastore.urls_private")
+@override_settings(ROOT_URLCONF="lunastore.urls_private", MEILISEARCH_ENABLED=False)
 class AdminBroadcastNotificationViewTest(TestCase):
     def setUp(self):
         self.superuser = User.objects.create_superuser(
