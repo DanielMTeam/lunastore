@@ -4,8 +4,7 @@ import tempfile
 from unittest import mock
 
 from django.contrib.auth import get_user_model
-from django.core.checks import Tags, run_checks
-from django.test import TestCase, override_settings
+from django.test import SimpleTestCase, TestCase, override_settings
 from django.urls import reverse
 
 from apps.marketplace.models import (
@@ -392,3 +391,21 @@ class AdminBroadcastNotificationViewTest(TestCase):
         mock_task.enqueue.assert_not_called()
         messages_list = list(response.context["messages"])
         self.assertTrue(any("Пользователь с ID 999999 не найден." in str(m) for m in messages_list))
+
+
+class StaticFilesStorageFallbackTest(SimpleTestCase):
+    def test_storage_fallback_on_missing_hashed_file(self):
+        from apps.core.staticfiles import StaticFilesStorage
+
+        storage = StaticFilesStorage()
+        storage.hashed_files["css/broken.css"] = "css/broken.badhash123.css"
+
+        # The hashed file does not exist on disk, so it must fall back to unhashed clean_name
+        result_url = storage.url("./css/broken.css")
+        self.assertEqual(result_url, "/staticfiles/css/broken.css")
+
+    def test_storage_normalizes_dot_slash(self):
+        from apps.core.staticfiles import StaticFilesStorage
+
+        storage = StaticFilesStorage()
+        self.assertEqual(storage.url("./css/main.css"), storage.url("css/main.css"))
