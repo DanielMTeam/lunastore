@@ -310,3 +310,85 @@ class TasksAndWorkerIntegrationTest(TestCase):
         call_command("run_tasks_worker", max_tasks=1, stdout=out)
         output = out.getvalue()
         self.assertIn("Starting LunaStore Redis task worker", output)
+
+
+@override_settings(ROOT_URLCONF="lunastore.urls_private")
+class AdminBroadcastNotificationViewTest(TestCase):
+    def setUp(self):
+        self.superuser = User.objects.create_superuser(
+            username="admin_broadcast_test",
+            password="adminpassword123",
+            email="admin_broadcast@example.com",
+        )
+        self.user1 = User.objects.create_user(
+            username="user1_broadcast_test",
+            password="password123",
+            email="user1_broadcast@example.com",
+            is_active=True,
+        )
+        self.user2 = User.objects.create_user(
+            username="user2_broadcast_test",
+            password="password123",
+            email="user2_broadcast@example.com",
+            is_active=True,
+        )
+        self.inactive_user = User.objects.create_user(
+            username="inactive_broadcast_test",
+            password="password123",
+            email="inactive_broadcast@example.com",
+            is_active=False,
+        )
+        self.client.force_login(self.superuser)
+
+    @mock.patch("apps.core.admin_views.broadcast_notification_task")
+    def test_broadcast_to_single_user(self, mock_task):
+        url = reverse("broadcast")
+        response = self.client.post(url, {
+            "title": "Important Notification",
+            "content": "Message for single user",
+            "level": "important",
+            "user_id": self.user1.id,
+        }, follow=True)
+        self.assertEqual(response.status_code, 200)
+        mock_task.enqueue.assert_called_once_with(
+            user_ids=[self.user1.id],
+            title="Important Notification",
+            content="Message for single user",
+            meta={"type": "important", "icon": "system.png"},
+        )
+        messages_list = list(response.context["messages"])
+        self.assertTrue(any(f"ID {self.user1.id}" in str(m) for m in messages_list))
+
+    @mock.patch("apps.core.admin_views.broadcast_notification_task")
+    def test_broadcast_to_all_active_users(self, mock_task):
+        url = reverse("broadcast")
+        response = self.client.post(url, {
+            "title": "Broadcast Notification",
+            "content": "Message for all active users",
+            "level": "normal",
+            "user_id": "",
+        }, follow=True)
+        self.assertEqual(response.status_code, 200)
+        mock_task.enqueue.assert_called_once()
+        called_kwargs = mock_task.enqueue.call_args.kwargs
+        self.assertIn(self.user1.id, called_kwargs["user_ids"])
+        self.assertIn(self.user2.id, called_kwargs["user_ids"])
+        self.assertIn(self.superuser.id, called_kwargs["user_ids"])
+        self.assertNotIn(self.inactive_user.id, called_kwargs["user_ids"])
+        self.assertEqual(called_kwargs["title"], "Broadcast Notification")
+        self.assertEqual(called_kwargs["content"], "Message for all active users")
+        self.assertEqual(called_kwargs["meta"], {"type": "normal", "icon": "system.png"})
+
+    @mock.patch("apps.core.admin_views.broadcast_notification_task")
+    def test_broadcast_to_non_existent_user(self, mock_task):
+        url = reverse("broadcast")
+        response = self.client.post(url, {
+            "title": "Missing User",
+            "content": "Message for ghost",
+            "level": "critical",
+            "user_id": 999999,
+        }, follow=True)
+        self.assertEqual(response.status_code, 200)
+        mock_task.enqueue.assert_not_called()
+        messages_list = list(response.context["messages"])
+        self.assertTrue(any("Пользователь с ID 999999 не найден." in str(m) for m in messages_list))
