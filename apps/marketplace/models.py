@@ -690,6 +690,13 @@ class Review(models.Model):
         return f"Отзыв {self.rating}★ от {self.user} для {self.application.title}"
 
 
+class PendingReview(Review):
+    class Meta:
+        proxy = True
+        verbose_name = "Отзыв на модерации"
+        verbose_name_plural = "Отзывы на модерации"
+
+
 # user-owned app collection (system likes or custom)
 class Collection(SafeDeleteModel):
     _safedelete_policy = SOFT_DELETE
