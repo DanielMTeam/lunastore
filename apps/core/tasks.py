@@ -26,7 +26,12 @@ def send_telegram_notification_task(
     chat_id = getattr(settings, "TELEGRAM_LOG_CHAT_ID", "")
     topic_id = getattr(settings, "TELEGRAM_LOG_TOPIC_ID", None)
 
-    if not bot_token or not chat_id:
+    if (
+        not bot_token
+        or not chat_id
+        or str(bot_token).strip() in ("", "...", "None")
+        or str(chat_id).strip() in ("", "...", "None")
+    ):
         logger.warning(
             "Telegram bot_token or chat_id not configured; skipping notification."
         )
@@ -41,7 +46,7 @@ def send_telegram_notification_task(
     }
 
     # Ensure topic_id is sent as an integer if provided
-    if topic_id:
+    if topic_id and str(topic_id).strip() not in ("", "...", "None"):
         try:
             payload["message_thread_id"] = int(topic_id)
         except (ValueError, TypeError):
