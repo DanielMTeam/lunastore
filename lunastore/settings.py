@@ -144,6 +144,7 @@ TELEGRAM_LOG_TOPIC_ID = os.getenv("TELEGRAM_LOG_TOPIC_ID", "")
 LUNASPIRE_SECRET_KEY = os.getenv("LUNASPIRE_SECRET_KEY")
 LUNASPIRE_URL = os.getenv("LUNASPIRE_URL", "spire.lunastore.app")
 API_URL = os.getenv("API_URL", "api.lunastore.app")
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "").strip().strip('\'"')
 
 ADMIN_URL = os.getenv("ADMIN_URL", "admin")
 

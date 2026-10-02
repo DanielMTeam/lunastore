@@ -317,7 +317,10 @@ def moderate_review_text(
             tokens_used={"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0},
         )
 
-    api_key = getattr(config, "OPENROUTER_API_KEY", "") or getattr(settings, "OPENROUTER_API_KEY", "")
+    api_key = (
+        getattr(config, "OPENROUTER_API_KEY", "")
+        or getattr(settings, "OPENROUTER_API_KEY", "")
+    ).strip().strip("'\"")
     if not api_key:
         logger.warning("OPENROUTER_API_KEY is not configured. Review routed to manual moderation.")
         return AIModerationResult(
