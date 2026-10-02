@@ -1624,7 +1624,7 @@ class ReviewAdmin(unfold_admin.ModelAdmin):
 
     def text_preview(self, obj):
         if not obj.text:
-            return format_html('<span style="color: #9ca3af;">(без текста)</span>')
+            return mark_safe('<span style="color: #9ca3af;">(без текста)</span>')
         preview = obj.text[:60] + ("..." if len(obj.text) > 60 else "")
         return preview
     text_preview.short_description = "Текст"

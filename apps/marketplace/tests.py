@@ -1324,6 +1324,22 @@ class ReviewAndModerationTest(TestCase):
         self.assertEqual(self.app.reviews_count, 0)
         self.assertEqual(Review.objects.count(), 0)
 
+    def test_review_admin_text_preview_with_empty_text(self):
+        """Admin text_preview helper renders placeholder cleanly for empty text without TypeError."""
+        from django.contrib.admin.sites import AdminSite
+        from apps.marketplace.admin import ReviewAdmin
+
+        admin_instance = ReviewAdmin(Review, AdminSite())
+        rev = Review.objects.create(
+            application=self.app,
+            user=self.user,
+            rating=5,
+            text="",
+            status=Review.STATUS_APPROVED,
+        )
+        preview = admin_instance.text_preview(rev)
+        self.assertIn("без текста", preview)
+
     def test_cannot_reply_to_unapproved_review(self):
         """Developer cannot reply to pending or rejected reviews."""
         rev = Review.objects.create(
