@@ -140,6 +140,25 @@ class Command(BaseCommand):
                 )
             except Exception as e:
                 logger.error(f"Worker task processing exception: {e}")
+                try:
+                    from django.tasks import task_backends
+                    bk = task_backends[backend_name]
+                    broker = getattr(bk, "broker", None)
+                    if broker:
+                        pending_msgs = broker.receive(
+                            queue_name=queue_name,
+                            max_messages=1,
+                            wait_seconds=0,
+                            worker_id=worker_id,
+                        )
+                        for msg in pending_msgs:
+                            broker.ack(msg)
+                            logger.warning(
+                                "Acknowledged unstartable task message %s to prevent infinite loop",
+                                getattr(msg, "task_id", msg),
+                            )
+                except Exception as ack_err:
+                    logger.debug(f"Failed to ack unstartable task message: {ack_err}")
                 result = None
 
             if result is not None:

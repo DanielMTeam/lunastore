@@ -11,3 +11,5 @@ class CoreConfig(AppConfig):
         import apps.core.constance_sync  # noqa: F401 — register constance → .env sync
         import apps.core.search.signals  # noqa: F401 — meilisearch index sync
         import apps.core.checks  # noqa: F401 — TLS/security system checks
+        from apps.core.task_patches import patch_redis_tasks_resolver
+        patch_redis_tasks_resolver()
