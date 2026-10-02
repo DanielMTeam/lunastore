@@ -151,8 +151,10 @@ class UserRegistrationForm(UserCreationForm):
         username = self.cleaned_data.get("username")
         if not username:
             return username
-
         validate_english_username(username)
+
+        if User.objects.filter(username__iexact=username).exists():
+            raise forms.ValidationError(_("ERROR_USERNAME_ALREADY_IN_USE"))
 
         banned_records = get_cached_blacklist()
 
@@ -177,7 +179,7 @@ class UserRegistrationForm(UserCreationForm):
             return email
 
         email = email.lower().strip()
-        if User.all_objects.filter(email__iexact=email).exists():
+        if User.objects.filter(email__iexact=email).exists():
             raise forms.ValidationError(_("ERROR_EMAIL_ALREADY_IN_USE"))
 
         return email

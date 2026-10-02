@@ -22,7 +22,12 @@ class LegalDocument(models.Model):
     )
 
     class Meta:
-        unique_together = ("doc_type", "language")
+        constraints = [
+            models.UniqueConstraint(
+                fields=["doc_type", "language"],
+                name="unique_legaldocument_doc_type_language",
+            )
+        ]
         verbose_name = "Юридический документ"
         verbose_name_plural = "Юридические документы"
 

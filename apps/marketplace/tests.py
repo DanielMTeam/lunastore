@@ -19,6 +19,7 @@ from apps.marketplace.models import (
     CollectionItem,
     DistributionCreateRequests,
     DistributionEditRequests,
+    Review,
     get_or_create_likes_collection,
 )
 from apps.marketplace.services.moderation import (
@@ -850,3 +851,88 @@ class TrustedAuthorAutoApprovalTest(TestCase):
 
         self.assertIsNone(auto_approve_request(req))
         self.assertTrue(AppCreateRequests.objects.filter(pk=req.pk).exists())
+
+
+class RatingAndCollectionOptimizationTests(TestCase):
+    @classmethod
+    @patch("apps.core.search.service.SearchService.index_application")
+    @patch("apps.core.search.service.SearchService.index_user")
+    def setUpTestData(cls, mock_index_user, mock_index_app):
+        cls.user1 = User.objects.create_user(username="rater1", password="password123", email="r1@example.com")
+        cls.user2 = User.objects.create_user(username="rater2", password="password123", email="r2@example.com")
+        cls.app = Application.objects.create(
+            user=cls.user1,
+            title="RatedApp",
+            description="Rated app description",
+            price=0,
+        )
+
+    def test_rating_cache_updates_on_review_save_and_delete(self):
+        # Initial rating cache is 0
+        self.assertEqual(self.app.rating_cache, 0.0)
+        self.assertEqual(self.app.reviews_count, 0)
+        self.assertEqual(self.app.avg_rating, 0.0)
+
+        # Create review 1: rating 4
+        r1 = Review.objects.create(application=self.app, user=self.user1, rating=4)
+        self.app.refresh_from_db()
+        self.assertEqual(self.app.rating_cache, 4.0)
+        self.assertEqual(self.app.reviews_count, 1)
+        self.assertEqual(self.app.avg_rating, 4.0)
+
+        # Create review 2: rating 5 -> average is 4.5
+        r2 = Review.objects.create(application=self.app, user=self.user2, rating=5)
+        self.app.refresh_from_db()
+        self.assertEqual(self.app.rating_cache, 4.5)
+        self.assertEqual(self.app.reviews_count, 2)
+        self.assertEqual(self.app.avg_rating, 4.5)
+
+        # Delete review 2 -> average returns to 4.0
+        r2.delete()
+        self.app.refresh_from_db()
+        self.assertEqual(self.app.rating_cache, 4.0)
+        self.assertEqual(self.app.reviews_count, 1)
+        self.assertEqual(self.app.avg_rating, 4.0)
+
+        # Delete review 1 -> average returns to 0.0
+        r1.delete()
+        self.app.refresh_from_db()
+        self.assertEqual(self.app.rating_cache, 0.0)
+        self.assertEqual(self.app.reviews_count, 0)
+        self.assertEqual(self.app.avg_rating, 0.0)
+
+    def test_avg_rating_queries_count_is_zero(self):
+        Review.objects.create(application=self.app, user=self.user1, rating=5)
+        app = Application.objects.get(pk=self.app.pk)
+        # avg_rating should read rating_cache directly without any SQL queries
+        with self.assertNumQueries(0):
+            val = app.avg_rating
+            star = app.star_class
+        self.assertEqual(val, 5.0)
+        self.assertEqual(star, "r5")
+
+    def test_collection_mosaic_icons_uses_prefetched_items(self):
+        col = Collection.objects.create(owner=self.user1, title="TestCol")
+        CollectionItem.objects.create(collection=col, application=self.app)
+
+        from django.db.models import Prefetch
+        prefetched_col = Collection.objects.prefetch_related(
+            Prefetch("items", queryset=CollectionItem.objects.select_related("application"))
+        ).get(pk=col.pk)
+
+        # With prefetched items, mosaic_icons(4) should execute 0 queries
+        with self.assertNumQueries(0):
+            icons = prefetched_col.mosaic_icons(4)
+        self.assertEqual(len(icons), 4)
+
+    def test_collection_serializer_uses_annotated_items_count(self):
+        from apps.marketplace.serializers import CollectionSerializer
+        from django.db.models import Count
+
+        col = Collection.objects.create(owner=self.user1, title="TestSerializerCol")
+        CollectionItem.objects.create(collection=col, application=self.app)
+
+        annotated_col = Collection.objects.annotate(items_count=Count("items")).get(pk=col.pk)
+        serializer = CollectionSerializer(annotated_col)
+        # Serializer should use the annotated items_count directly
+        self.assertEqual(serializer.data["items_count"], 1)

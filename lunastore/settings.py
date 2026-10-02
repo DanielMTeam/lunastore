@@ -1500,3 +1500,6 @@ if "test" in sys.argv:
     CONSTANCE_BACKEND = "constance.backends.memory.MemoryBackend"
 
 PASSWORD_RESET_TIMEOUT = 3600
+
+# Silence auth.W004 since User.username uniqueness is enforced via partial UniqueConstraint for SafeDeleteModel
+SILENCED_SYSTEM_CHECKS = ["auth.W004"]
