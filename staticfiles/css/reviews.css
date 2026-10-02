@@ -24,12 +24,25 @@
 }
 
 .review_text{
-    width: 400px;
+    margin-top: 6px;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #000;
     word-wrap: break-word;
 }
 
 .review_actions{
-    font-size: 10px;
+    font-size: 11px;
+    margin-top: 5px;
+}
+
+.review_actions a{
+    color: #215dc6;
+    text-decoration: underline;
+}
+
+.review_actions a:hover{
+    color: #990000;
 }
 
 .rating{
@@ -77,4 +90,58 @@
 
 .r0_5{
     background: url(../img/rating.png) no-repeat 0px -144px;
+}
+
+.reply_adm{
+    padding: 10px 0 5px 0;
+    display: block;
+    zoom: 1;
+}
+
+.reply_adm_arrow{
+    width: 48px;
+    height: 48px;
+    background: url(../img/reply_arrow.png) no-repeat;
+    display: inline-block;
+    vertical-align: top;
+    float: left;
+}
+
+.reply_adm_body{
+    border: 1px solid #215dc6;
+    display: inline-block;
+    padding: 8px 10px;
+    background: #f4f8ff;
+    max-width: 85%;
+    box-sizing: border-box;
+}
+
+.reply_adm_body hr{
+    border: 0;
+    border-bottom: 1px solid #215dc6;
+    margin: 4px 0 6px 0;
+}
+
+.reply_adm_text{
+    word-wrap: break-word;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #000;
+}
+
+.reply_form_wrap textarea {
+    font-family: Tahoma, Arial, sans-serif;
+    font-size: 11px;
+    padding: 4px 6px;
+    border: 1px solid #7f9db9;
+    background: #fff;
+    color: #000;
+    display: block;
+}
+
+.reply_form_wrap input[type="submit"] {
+    font-family: Tahoma, Arial, sans-serif;
+    font-size: 11px;
+    padding: 2px 10px;
+    cursor: pointer;
 }

@@ -230,7 +230,8 @@ class Application(BaseApplicationInfo):
 
     def update_rating_cache(self):
         from django.db.models import Avg, Count
-        agg = self.reviews.aggregate(avg=Avg("rating"), count=Count("id"))
+        from .models import Review
+        agg = self.reviews.filter(status=Review.STATUS_APPROVED).aggregate(avg=Avg("rating"), count=Count("id"))
         avg_val = round(agg["avg"] or 0.0, 1)
         count_val = agg["count"] or 0
         self.rating_cache = avg_val
@@ -604,8 +605,16 @@ class ProblemReportRequests(SafeDeleteModel):
         return f"Жалоба #{self.id} на проблему"
 
 
-# TODO: create the authorization-specific models
 class Review(models.Model):
+    STATUS_APPROVED = "approved"
+    STATUS_PENDING = "pending"
+    STATUS_REJECTED = "rejected"
+    STATUS_CHOICES = (
+        (STATUS_APPROVED, _("PAGE_APP_REVIEW_STATUS_APPROVED")),
+        (STATUS_PENDING, _("PAGE_APP_REVIEW_STATUS_PENDING")),
+        (STATUS_REJECTED, _("PAGE_APP_REVIEW_STATUS_REJECTED")),
+    )
+
     application = models.ForeignKey(
         Application,
         on_delete=models.CASCADE,
@@ -622,9 +631,86 @@ class Review(models.Model):
         validators=[MinValueValidator(1), MaxValueValidator(5)],
         verbose_name="Оценка"
     )
+    text = models.TextField(
+        blank=True,
+        default="",
+        max_length=2000,
+        verbose_name="Текст отзыва",
+    )
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default=STATUS_APPROVED,
+        db_default=STATUS_APPROVED,
+        db_index=True,
+        verbose_name="Статус",
+    )
+    ai_score = models.FloatField(
+        null=True,
+        blank=True,
+        verbose_name="AI индекс нарушений (0.0 - 1.0)",
+    )
+    ai_flags = models.JSONField(
+        default=list,
+        blank=True,
+        verbose_name="AI флаги нарушений",
+    )
+    ai_reason = models.CharField(
+        max_length=255,
+        blank=True,
+        default="",
+        verbose_name="Причина вердикта ИИ",
+    )
+    ai_raw_response = models.JSONField(
+        null=True,
+        blank=True,
+        verbose_name="Сырой ответ ИИ",
+    )
+    moderated_at = models.DateTimeField(
+        null=True,
+        blank=True,
+        verbose_name="Дата модерации",
+    )
+    moderated_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="moderated_reviews",
+        verbose_name="Модератор",
+    )
+    moderation_note = models.CharField(
+        max_length=255,
+        blank=True,
+        default="",
+        verbose_name="Заметка модератора",
+    )
+    developer_reply = models.TextField(
+        blank=True,
+        default="",
+        max_length=2000,
+        verbose_name="Ответ разработчика",
+    )
+    developer_reply_at = models.DateTimeField(
+        null=True,
+        blank=True,
+        verbose_name="Дата ответа разработчика",
+    )
+    developer_reply_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="developer_replies",
+        verbose_name="Автор ответа",
+    )
     created_at = models.DateTimeField(
         auto_now_add=True,
-        verbose_name="Дата создания"
+        verbose_name="Дата создания",
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        verbose_name="Дата обновления",
     )
 
     class Meta:
@@ -634,8 +720,11 @@ class Review(models.Model):
                 name="unique_review_application_user",
             )
         ]
-        verbose_name = "Оценка"
-        verbose_name_plural = "Оценки"
+        indexes = [
+            models.Index(fields=["application", "status"]),
+        ]
+        verbose_name = _("Отзыв")
+        verbose_name_plural = _("Отзывы")
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -655,10 +744,14 @@ class Review(models.Model):
                 pass
 
     def __str__(self):
-        return f"Оценка {
-            self.rating} от {
-            self.user} для {
-            self.application.title}"
+        return f"Отзыв {self.rating}★ от {self.user} для {self.application.title}"
+
+
+class PendingReview(Review):
+    class Meta:
+        proxy = True
+        verbose_name = "Отзыв на модерации"
+        verbose_name_plural = "Отзывы на модерации"
 
 
 # user-owned app collection (system likes or custom)

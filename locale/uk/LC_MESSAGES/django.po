@@ -1121,10 +1121,10 @@ msgstr[1] "Загальний рейтинг складений на основ�
 msgstr[2] "Загальний рейтинг складений на основі відгуків від <b>%(counter)s людей</b>"
 
 msgid "PAGE_APP_RATING_DELETE_DENIED"
-msgstr "Відгуки для цієї програми відключені автором"
+msgstr "У вас немає прав для видалення цього відгуку."
 
 msgid "PAGE_APP_RATING_DELETE_SUCCESS"
-msgstr "Відгук успішно видалено"
+msgstr "Ваш відгук успішно видалено."
 
 msgid "PAGE_APP_RATING_DISABLED"
 msgstr "Відгуки для цього додатка вимкнені автором"

@@ -1121,10 +1121,10 @@ msgstr[1] "Агульны рэйтынг складзены на аснове в
 msgstr[2] "Агульны рэйтынг складзены на аснове водгукаў ад <b>%(counter)s чалавек</b>"
 
 msgid "PAGE_APP_RATING_DELETE_DENIED"
-msgstr "Водгукі для гэтага дадатка адключаны аўтарам"
+msgstr "У вас няма правоў выдаляць гэты водгук."
 
 msgid "PAGE_APP_RATING_DELETE_SUCCESS"
-msgstr "Ацэнкі карыстальнікаў"
+msgstr "Ваш водгук паспяхова выдалены."
 
 msgid "PAGE_APP_RATING_DISABLED"
 msgstr "Водгукі для гэтага дадатка адключаны аўтарам"

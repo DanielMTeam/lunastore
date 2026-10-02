@@ -1121,10 +1121,10 @@ msgstr[1] "Общий рейтинг составлен на основе отз
 msgstr[2] "Общий рейтинг составлен на основе отзывов от <b>%(counter)s человек</b>"
 
 msgid "PAGE_APP_RATING_DELETE_DENIED"
-msgstr "Отзывы для этого приложения отключены автором"
+msgstr "У вас нет прав для удаления этого отзыва."
 
 msgid "PAGE_APP_RATING_DELETE_SUCCESS"
-msgstr "Оценки пользователей"
+msgstr "Ваш отзыв успешно удалён."
 
 msgid "PAGE_APP_RATING_DISABLED"
 msgstr "Отзывы для этого приложения отключены автором"
@@ -1139,13 +1139,88 @@ msgid "PAGE_APP_RATING_NO_REVIEWS"
 msgstr "Нет оценок"
 
 msgid "PAGE_APP_RATING_USERS"
-msgstr "Оценки пользователей"
+msgstr "Отзывы"
 
 msgid "PAGE_APP_RATING_YOUR"
 msgstr "Ваша оценка:"
 
 msgid "PAGE_APP_RATING_YOUR_REVIEW"
-msgstr "(ваша оценка)"
+msgstr "(ваш отзыв)"
+
+msgid "PAGE_APP_REVIEW_ACTION_EDIT"
+msgstr "редактировать"
+
+msgid "PAGE_APP_REVIEW_ACTION_DELETE"
+msgstr "удалить"
+
+msgid "PAGE_APP_REVIEW_ACTION_REPLY"
+msgstr "ответить на отзыв"
+
+msgid "PAGE_APP_REVIEW_DEV_REPLY"
+msgstr "Ответ разработчика"
+
+msgid "PAGE_APP_REVIEW_REPLY_PLACEHOLDER"
+msgstr "Напишите официальный ответ разработчика (до 2000 символов)..."
+
+msgid "PAGE_APP_REVIEW_REPLY_SUBMIT"
+msgstr "Отправить ответ"
+
+msgid "PAGE_APP_REVIEW_REPLY_UPDATE"
+msgstr "Сохранить ответ"
+
+msgid "PAGE_APP_REVIEW_REPLY_SUCCESS"
+msgstr "Ответ разработчика успешно опубликован."
+
+msgid "PAGE_APP_REVIEW_REPLY_DELETED"
+msgstr "Ответ разработчика удалён."
+
+msgid "PAGE_APP_REVIEW_REPLY_EMPTY"
+msgstr "Текст ответа не может быть пустым."
+
+msgid "PAGE_APP_REVIEW_REPLY_DENIED"
+msgstr "У вас нет прав отвечать на этот отзыв."
+
+msgid "PAGE_APP_REVIEW_REPLY_DELETE_DENIED"
+msgstr "У вас нет прав удалять этот ответ."
+
+msgid "PAGE_APP_REVIEW_PLACEHOLDER"
+msgstr "Напишите ваш отзыв (необязательно, до 2000 символов)..."
+
+msgid "PAGE_APP_REVIEW_SUBMIT_BTN"
+msgstr "Оставить отзыв"
+
+msgid "PAGE_APP_REVIEW_UPDATE_BTN"
+msgstr "Обновить отзыв"
+
+msgid "PAGE_APP_REVIEW_APPROVED"
+msgstr "Ваш отзыв успешно опубликован."
+
+msgid "PAGE_APP_REVIEW_REJECTED_GENERIC"
+msgstr "Ваш отзыв отклонён автоматической модерацией из-за наличия недопустимой лексики или спама."
+
+msgid "PAGE_APP_REVIEW_PENDING"
+msgstr "Ваш отзыв отправлен на проверку модераторам."
+
+msgid "PAGE_APP_REVIEW_STATUS_APPROVED"
+msgstr "Отзыв одобрен"
+
+msgid "PAGE_APP_REVIEW_STATUS_PENDING"
+msgstr "Отзыв на модерации"
+
+msgid "PAGE_APP_REVIEW_STATUS_REJECTED"
+msgstr "Отзыв отклонён"
+
+msgid "PAGE_APP_RATING_SELECT_REQUIRED"
+msgstr "Пожалуйста, поставьте оценку (1-5 звезд)"
+
+msgid "PAGE_APP_REVIEW_CONFIRM_DELETE"
+msgstr "Вы уверены, что хотите удалить этот отзыв?"
+
+msgid "PAGE_APP_REVIEW_CONFIRM_DELETE_REPLY"
+msgstr "Вы уверены, что хотите удалить ответ разработчика?"
+
+msgid "PAGE_APP_RATING_SUCCESS"
+msgstr "Ваша оценка сохранена."
 
 msgid "PAGE_APP_SECTION_ACTIONS"
 msgstr "Действия"

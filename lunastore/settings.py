@@ -144,6 +144,7 @@ TELEGRAM_LOG_TOPIC_ID = os.getenv("TELEGRAM_LOG_TOPIC_ID", "")
 LUNASPIRE_SECRET_KEY = os.getenv("LUNASPIRE_SECRET_KEY")
 LUNASPIRE_URL = os.getenv("LUNASPIRE_URL", "spire.lunastore.app")
 API_URL = os.getenv("API_URL", "api.lunastore.app")
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "").strip().strip('\'"')
 
 ADMIN_URL = os.getenv("ADMIN_URL", "admin")
 
@@ -834,6 +835,57 @@ CONSTANCE_CONFIG = {
         "Использовать хеширование для статики (требует перезагрузки)",
         bool,
     ),
+    # -- AI Moderation (OpenRouter) --
+    "AI_MODERATION_ENABLED": (
+        os.getenv("AI_MODERATION_ENABLED", "True") == "True",
+        "Включить автоматическую ИИ-модерацию отзывов",
+        bool,
+    ),
+    "OPENROUTER_API_KEY": (
+        os.getenv("OPENROUTER_API_KEY", ""),
+        "API-ключ OpenRouter для ИИ-модерации",
+        str,
+    ),
+    "AI_MODERATION_MODEL": (
+        os.getenv("AI_MODERATION_MODEL", "typesafe/jev-router"),
+        "Основная модель ИИ в OpenRouter (по умолчанию Jev Router)",
+        str,
+    ),
+    "AI_MODERATION_FALLBACK_MODEL": (
+        os.getenv("AI_MODERATION_FALLBACK_MODEL", "deepseek/deepseek-v4.1-flash"),
+        "Резервная модель ИИ в OpenRouter",
+        str,
+    ),
+    "AI_MODERATION_REJECT_THRESHOLD": (
+        float(os.getenv("AI_MODERATION_REJECT_THRESHOLD", "0.80")),
+        "Порог автоотклонения (индекс >= X)",
+        float,
+    ),
+    "AI_MODERATION_APPROVE_THRESHOLD": (
+        float(os.getenv("AI_MODERATION_APPROVE_THRESHOLD", "0.30")),
+        "Порог автоодобрения (индекс <= X)",
+        float,
+    ),
+    "AI_MODERATION_TIMEOUT": (
+        float(os.getenv("AI_MODERATION_TIMEOUT", "3.5")),
+        "Таймаут синхронного fast-path (в секундах)",
+        float,
+    ),
+    "AI_MODERATION_FAST_PATH": (
+        os.getenv("AI_MODERATION_FAST_PATH", "True") == "True",
+        "Синхронный быстрый ответ (fast-path до таймаута)",
+        bool,
+    ),
+    "AI_MODERATION_STOP_WORDS": (
+        os.getenv("AI_MODERATION_STOP_WORDS", ""),
+        "Запрещённые фразы и стоп-слова (по одной на строку или через запятую; мгновенный отказ без расхода токенов)",
+        "textarea",
+    ),
+    "AI_MODERATION_CUSTOM_INSTRUCTIONS": (
+        os.getenv("AI_MODERATION_CUSTOM_INSTRUCTIONS", ""),
+        "Дополнительные инструкции для ИИ (политика, экстремистские кричалки, контекст модерации)",
+        "textarea",
+    ),
 }
 
 CONSTANCE_CONFIG_FIELDSETS = {
@@ -1006,6 +1058,21 @@ CONSTANCE_CONFIG_FIELDSETS = {
         "fields": ["GEO_DOMAIN_PROXY_ENABLED", "GEO_DOMAIN_OVERRIDES"],
         "collapse": True,
     },
+    "ИИ-модерация отзывов (OpenRouter)": {
+        "fields": [
+            "AI_MODERATION_ENABLED",
+            "OPENROUTER_API_KEY",
+            "AI_MODERATION_MODEL",
+            "AI_MODERATION_FALLBACK_MODEL",
+            "AI_MODERATION_REJECT_THRESHOLD",
+            "AI_MODERATION_APPROVE_THRESHOLD",
+            "AI_MODERATION_TIMEOUT",
+            "AI_MODERATION_FAST_PATH",
+            "AI_MODERATION_STOP_WORDS",
+            "AI_MODERATION_CUSTOM_INSTRUCTIONS",
+        ],
+        "collapse": True,
+    },
 }
 
 # media path
@@ -1174,6 +1241,8 @@ UNFOLD = {"SITE_TITLE": "Панель LunaStore",
                                "marketplace.homecategoryblock",
                                "marketplace.distribution",
                                "marketplace.badge",
+                               "marketplace.review",
+                               "marketplace.pendingreview",
                                "marketplace.appreportrequests",
                                "marketplace.problemreportrequests",
                                "marketplace.appeditrequests",
@@ -1182,6 +1251,14 @@ UNFOLD = {"SITE_TITLE": "Панель LunaStore",
                     "items": [{"title": "Приложения",
                                "link": reverse_lazy("admin:marketplace_application_changelist"),
                                "icon": "apps",
+                               },
+                              {"title": "Отзывы",
+                               "link": reverse_lazy("admin:marketplace_review_changelist"),
+                               "icon": "rate_review",
+                               },
+                              {"title": "На модерации",
+                               "link": reverse_lazy("admin:marketplace_pendingreview_changelist"),
+                               "icon": "pending_actions",
                                },
                               {"title": "Заявки",
                                "link": reverse_lazy("admin:marketplace_appeditrequests_changelist"),
@@ -1280,6 +1357,16 @@ UNFOLD = {"SITE_TITLE": "Панель LunaStore",
                                                  "icon": "app_registration",
                                                  "link": reverse_lazy("admin:marketplace_distribution_changelist"),
                                                  "permission": lambda request: request.user.has_perm("marketplace.view_distribution"),
+                                                 },
+                                                {"title": "Отзывы",
+                                                 "icon": "rate_review",
+                                                 "link": reverse_lazy("admin:marketplace_review_changelist"),
+                                                 "permission": lambda request: request.user.has_perm("marketplace.view_review"),
+                                                 },
+                                                {"title": "Отзывы на модерации",
+                                                 "icon": "pending_actions",
+                                                 "link": reverse_lazy("admin:marketplace_pendingreview_changelist"),
+                                                 "permission": lambda request: request.user.has_perm("marketplace.view_review"),
                                                  },
                                                 {"title": "Жалобы на приложения",
                                                  "icon": "report",
