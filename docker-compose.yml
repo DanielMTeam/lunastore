@@ -127,11 +127,12 @@ services:
             - /opt/lunastore/media:/app/media
             - /opt/lunastore/certs:/app/certs:ro
         command: >
-            sh -c "python manage.py collectstatic --noinput &&
+            sh -c "python manage.py collectstatic --noinput && (
                    DJANGO_ROOT_URLCONF=lunastore.urls_api      gunicorn lunastore.wsgi:application --bind 0.0.0.0:7088 --workers 5 &
                    DJANGO_ROOT_URLCONF=lunastore.urls_private  gunicorn lunastore.wsgi:application --bind 0.0.0.0:8088 --workers 5 &
                    DJANGO_ROOT_URLCONF=lunastore.urls          gunicorn lunastore.wsgi:application --bind 0.0.0.0:9088 --workers 5 &
-                   wait"
+                   wait
+                   )"
         healthcheck:
             test:
                 [

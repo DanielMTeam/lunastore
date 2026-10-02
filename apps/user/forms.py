@@ -18,14 +18,13 @@ from django.core.files.base import ContentFile
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from PIL import Image
-from apps.core.utils import force_logout
+from apps.core.utils import force_logout, get_client_ip
 
 from .middleware import BlockBannedIP
-from apps.core.utils import get_client_ip
 from .models import BlacklistedUsername, InviteToken, NoSpamRule, User, UserActivityLog, UserBan
 from .utils import get_cached_blacklist
 from .tasks import CACHE_KEY
-from .validators import validate_invite_limit
+from .validators import validate_english_username, validate_invite_limit
 from apps.core.mixins import CDNTokenValidationMixin
 
 import threading
@@ -152,6 +151,10 @@ class UserRegistrationForm(UserCreationForm):
         username = self.cleaned_data.get("username")
         if not username:
             return username
+        validate_english_username(username)
+
+        if User.objects.filter(username__iexact=username).exists():
+            raise forms.ValidationError(_("ERROR_USERNAME_ALREADY_IN_USE"))
 
         banned_records = get_cached_blacklist()
 
@@ -176,12 +179,16 @@ class UserRegistrationForm(UserCreationForm):
             return email
 
         email = email.lower().strip()
-        if User.all_objects.filter(email__iexact=email).exists():
+        if User.objects.filter(email__iexact=email).exists():
             raise forms.ValidationError(_("ERROR_EMAIL_ALREADY_IN_USE"))
 
         return email
 
-    username = forms.CharField(max_length=45, min_length=2)
+    username = forms.CharField(
+        max_length=45,
+        min_length=2,
+        validators=[validate_english_username],
+    )
     email = forms.EmailField(max_length=45)
     captcha = CaptchaField(label=_("FORM_CAPTCHA"))
     agree_with_site_rules = forms.BooleanField(
@@ -217,6 +224,9 @@ class ProfileUpdateForm(forms.ModelForm):
     username = forms.CharField(
         label=_("FORM_DEVSTATUS_YOUR_USERNAME"),
         required=True,
+        max_length=45,
+        min_length=2,
+        validators=[validate_english_username],
         widget=forms.TextInput(attrs={"class": "input-text"}),
     )
 
@@ -243,18 +253,20 @@ class ProfileUpdateForm(forms.ModelForm):
 
     def clean_username(self):
         username = self.cleaned_data.get("username")
+        if username:
+            validate_english_username(username)
         user = self.instance
         if username and user.username != username:
             if user.last_username_change:
                 import datetime
                 if (timezone.now() - user.last_username_change).days < 365:
                     raise ValidationError(
-                        "Юзернейм можно менять только 1 раз в год.")
+                        _("ERROR_USERNAME_CHANGE_COOLDOWN"))
 
             if User.objects.filter(
                     username__iexact=username).exclude(
                     pk=user.pk).exists():
-                raise ValidationError("Этот юзернейм уже занят.")
+                raise ValidationError(_("ERROR_USERNAME_ALREADY_IN_USE"))
 
             is_blacklisted = False
             for ban in get_cached_blacklist():
@@ -268,7 +280,7 @@ class ProfileUpdateForm(forms.ModelForm):
                         is_blacklisted = True
                         break
             if is_blacklisted:
-                raise ValidationError("Этот юзернейм запрещен.")
+                raise ValidationError(_("ERROR_USERNAME_BLACKLISTED"))
 
         return username
 

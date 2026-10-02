@@ -26,18 +26,18 @@ def admin_broadcast_notification(request):
 
             if target_user_id:
                 # send to one user
-                try:
-                    target_user = User.objects.get(id=target_user_id)
-                    users = [target_user]
-                except User.DoesNotExist:
+                user_ids = list(
+                    User.objects.filter(id=target_user_id).values_list('id', flat=True)
+                )
+                if not user_ids:
                     messages.error(
-                        request, f"Пользователь с ID {target_user_id} не найден.")
-                    users = []
+                        request, f"Пользователь с ID {target_user_id} не найден."
+                    )
             else:
                 # send to all active users
-                users = User.objects.filter(is_active=True)
-
-            user_ids = list(users.values_list('id', flat=True))
+                user_ids = list(
+                    User.objects.filter(is_active=True).values_list('id', flat=True)
+                )
             if user_ids:
                 broadcast_notification_task.enqueue(
                     user_ids=user_ids,

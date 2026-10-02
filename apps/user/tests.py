@@ -492,3 +492,172 @@ class AdminRedirectTest(TestCase):
         response = self.client.get(reverse("index"))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, reverse("admin_redirect"))
+
+
+@override_settings(MEILISEARCH_ENABLED=False)
+class EnglishUsernameValidationTest(TestCase):
+    def test_validator_accepts_valid_english_usernames(self):
+        from apps.user.validators import validate_english_username
+        valid_cases = ["john", "alex_123", "retro.fan", "cool-dev", "user_name_99", "A1_B2"]
+        for username in valid_cases:
+            with self.subTest(username=username):
+                try:
+                    validate_english_username(username)
+                except Exception as exc:
+                    self.fail(f"validate_english_username raised unexpected exception for '{username}': {exc}")
+
+    def test_validator_rejects_russian_usernames(self):
+        from django.core.exceptions import ValidationError
+        from apps.user.validators import validate_english_username
+        russian_cases = ["Саша", "Иван123", "юзер", "Тест_Ник", "привет", "user_русский"]
+        for username in russian_cases:
+            with self.subTest(username=username):
+                with self.assertRaises(ValidationError):
+                    validate_english_username(username)
+
+    def test_validator_rejects_arabic_and_other_scripts(self):
+        from django.core.exceptions import ValidationError
+        from apps.user.validators import validate_english_username
+        foreign_cases = ["محمد", "أحمد", "مرحبا", "你好", "user🚀", "user@test", "user name"]
+        for username in foreign_cases:
+            with self.subTest(username=username):
+                with self.assertRaises(ValidationError):
+                    validate_english_username(username)
+
+    def test_validator_rejects_digits_only_or_dots(self):
+        from django.core.exceptions import ValidationError
+        from apps.user.validators import validate_english_username
+        invalid_cases = ["12345", ".username", "username.", "user..name", "...", ""]
+        for username in invalid_cases:
+            with self.subTest(username=username):
+                with self.assertRaises(ValidationError):
+                    validate_english_username(username)
+
+    def test_user_model_clean_rejects_russian_username(self):
+        from django.core.exceptions import ValidationError
+        user = User(username="РусскийНик", email="test_ru@example.com")
+        with self.assertRaises(ValidationError):
+            user.clean()
+
+    @mock.patch("apps.user.validators.validate_email_mx")
+    def test_profile_update_form_rejects_russian_username(self, mock_mx):
+        from apps.user.forms import ProfileUpdateForm
+        user = User.objects.create_user(username="english_user", password="password123", email="en@gmail.com")
+        form = ProfileUpdateForm(
+            data={"username": "РусскийНик", "email": "en@gmail.com"},
+            instance=user,
+        )
+        self.assertFalse(form.is_valid())
+        self.assertIn("username", form.errors)
+
+    @mock.patch("apps.user.validators.validate_email_mx")
+    def test_profile_update_form_accepts_valid_english_username(self, mock_mx):
+        from apps.user.forms import ProfileUpdateForm
+        user = User.objects.create_user(username="english_user2", password="password123", email="en2@gmail.com")
+        form = ProfileUpdateForm(
+            data={"username": "new_english_nick", "email": "en2@gmail.com"},
+            instance=user,
+        )
+        self.assertTrue(form.is_valid(), form.errors)
+
+    def test_user_registration_form_clean_username(self):
+        from apps.user.forms import UserRegistrationForm
+        from django.core.exceptions import ValidationError
+
+        form = UserRegistrationForm()
+        form.cleaned_data = {"username": "РусскийНик"}
+        with self.assertRaises(ValidationError):
+            form.clean_username()
+
+        form.cleaned_data = {"username": "محمد"}
+        with self.assertRaises(ValidationError):
+            form.clean_username()
+
+        form.cleaned_data = {"username": "valid_english_user"}
+        self.assertEqual(form.clean_username(), "valid_english_user")
+
+    def test_username_translation_keys_resolve(self):
+        from django.utils import translation
+        from django.utils.translation import gettext as _
+        with translation.override("ru"):
+            self.assertEqual(
+                _("ERROR_USERNAME_INVALID_CHARS"),
+                "Имя пользователя может содержать только английские буквы, цифры и символы . _ -",
+            )
+            self.assertEqual(
+                _("ERROR_USERNAME_ALREADY_IN_USE"),
+                "Этот юзернейм уже занят.",
+            )
+        with translation.override("en"):
+            self.assertEqual(
+                _("ERROR_USERNAME_INVALID_CHARS"),
+                "Username may contain only English letters, numbers, and . _ - characters.",
+            )
+            self.assertEqual(
+                _("ERROR_USERNAME_ALREADY_IN_USE"),
+                "This username is already taken.",
+            )
+
+
+@override_settings(MEILISEARCH_ENABLED=False)
+class UserSafeDeleteUniquenessTests(TestCase):
+    def test_re_registration_after_soft_delete(self):
+        user1 = User.objects.create_user(
+            username="recycled_user",
+            email="recycled@example.com",
+            password="Password123!"
+        )
+        # Soft delete first user
+        user1.delete()
+        self.assertIsNotNone(user1.deleted)
+
+        # Creating a second user with the same username and email should succeed
+        user2 = User.objects.create_user(
+            username="recycled_user",
+            email="recycled@example.com",
+            password="NewPassword123!"
+        )
+        self.assertEqual(user2.username, "recycled_user")
+        self.assertEqual(user2.email, "recycled@example.com")
+        self.assertIsNone(user2.deleted)
+
+        # Both users exist in all_objects
+        self.assertEqual(User.all_objects.filter(username="recycled_user").count(), 2)
+        # Only 1 user exists in active objects
+        self.assertEqual(User.objects.filter(username="recycled_user").count(), 1)
+
+    def test_duplicate_active_user_raises_integrity_error(self):
+        from django.db import IntegrityError, transaction
+
+        User.objects.create_user(
+            username="active_user",
+            email="active@example.com",
+            password="Password123!"
+        )
+        with self.assertRaises(IntegrityError):
+            with transaction.atomic():
+                User.objects.create(
+                    username="active_user",
+                    email="different@example.com",
+                    password="Password123!"
+                )
+        with self.assertRaises(IntegrityError):
+            with transaction.atomic():
+                User.objects.create(
+                    username="different_user",
+                    email="active@example.com",
+                    password="Password123!"
+                )
+
+    def test_blacklisted_username_recreation_after_soft_delete(self):
+        from apps.user.models import BlacklistedUsername
+
+        w1 = BlacklistedUsername.objects.create(word="badname")
+        w1.delete()
+        self.assertIsNotNone(w1.deleted)
+
+        # Creating another active entry with same word should succeed
+        w2 = BlacklistedUsername.objects.create(word="badname")
+        self.assertIsNone(w2.deleted)
+        self.assertEqual(BlacklistedUsername.objects.filter(word="badname").count(), 1)
+        self.assertEqual(BlacklistedUsername.all_objects.filter(word="badname").count(), 2)

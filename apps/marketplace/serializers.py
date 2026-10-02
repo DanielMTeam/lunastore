@@ -88,6 +88,8 @@ class CollectionSerializer(serializers.ModelSerializer):
         ]
 
     def get_items_count(self, obj: Collection) -> int:
+        if hasattr(obj, "items_count"):
+            return obj.items_count
         return obj.items.count()
 
     def get_mosaic_icons(self, obj: Collection) -> list:

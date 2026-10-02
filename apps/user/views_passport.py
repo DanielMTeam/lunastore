@@ -210,14 +210,6 @@ def _create_user_from_passport(request, profile: passport.PassportProfile) -> Us
     except ValidationError:
         return None
 
-    # soft-deleted email still occupies unique; user message is set in callback
-    if User.objects.all_with_deleted().filter(
-        email__iexact=email,
-        deleted__isnull=False,
-    ).exists():
-        logger.info("passport register blocked: soft-deleted email collision")
-        return None
-
     local = email.split("@", 1)[0]
     base = _sanitize_username(local or profile.passport_name or "passport")
     if _username_blacklisted(base):
@@ -448,13 +440,6 @@ def _passport_callback_inner(request):
     if email_owner:
         passport.store_pending_link(request, profile)
         messages.warning(request, _("VIEW_PASSPORT_EMAIL_EXISTS_LOGIN"))
-        return redirect("login")
-
-    if User.objects.all_with_deleted().filter(
-        email__iexact=profile.sign_in,
-        deleted__isnull=False,
-    ).exists():
-        messages.error(request, _("VIEW_PASSPORT_EMAIL_ALREADY_EXISTS"))
         return redirect("login")
 
     auto_register = bool(getattr(config, "LUNAPASSPORT_AUTO_REGISTER", False))

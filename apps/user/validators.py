@@ -12,6 +12,22 @@ from disposable_email_domains import blocklist
 from django.core.cache import cache
 from django.utils.translation import gettext_lazy as _
 
+ENGLISH_USERNAME_REGEX = r"^[a-zA-Z0-9_.-]+$"
+
+
+def validate_english_username(value):
+    if not value or not isinstance(value, str):
+        raise ValidationError(_("ERROR_USERNAME_EMPTY"))
+
+    if not re.match(ENGLISH_USERNAME_REGEX, value):
+        raise ValidationError(_("ERROR_USERNAME_INVALID_CHARS"))
+
+    if not re.search(r"[a-zA-Z]", value):
+        raise ValidationError(_("ERROR_USERNAME_NO_LETTERS"))
+
+    if value.startswith(".") or value.endswith(".") or ".." in value:
+        raise ValidationError(_("ERROR_USERNAME_INVALID_DOTS"))
+
 
 def validate_username_blacklist(value):
     from .utils import get_cached_blacklist

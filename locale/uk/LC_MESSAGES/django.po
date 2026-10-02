@@ -277,6 +277,27 @@ msgstr "Новий e-mail збігається з поточним."
 msgid "ERROR_EMAIL_NO_ALIASES"
 msgstr "Використання адрес електронної пошти зі знаком \"+\" заборонено."
 
+msgid "ERROR_USERNAME_ALREADY_IN_USE"
+msgstr "Це ім'я користувача вже зайняте."
+
+msgid "ERROR_USERNAME_BLACKLISTED"
+msgstr "Це ім'я користувача заборонене."
+
+msgid "ERROR_USERNAME_CHANGE_COOLDOWN"
+msgstr "Ім'я користувача можна змінювати лише 1 раз на рік."
+
+msgid "ERROR_USERNAME_EMPTY"
+msgstr "Ім'я користувача не може бути порожнім."
+
+msgid "ERROR_USERNAME_INVALID_CHARS"
+msgstr "Ім'я користувача може містити лише англійські літери, цифри та символи . _ -"
+
+msgid "ERROR_USERNAME_INVALID_DOTS"
+msgstr "Ім'я користувача не може починатися або закінчуватися крапкою, а також містити дві крапки поспіль."
+
+msgid "ERROR_USERNAME_NO_LETTERS"
+msgstr "Ім'я користувача повинно містити щонайменше одну англійську літеру."
+
 msgid "ERROR_INVALID_FILE_FORMAT"
 msgstr "Помилка: Некоректний формат файлу!"
 
