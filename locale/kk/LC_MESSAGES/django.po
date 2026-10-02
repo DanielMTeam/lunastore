@@ -1111,10 +1111,10 @@ msgid_plural "PAGE_APP_RATING_BASED_ON_COUNT_PLURAL %(counter)s"
 msgstr[0] "Жалпы рейтинг <b>%(counter)s адамның</b> пікірі негізінде жасалған"
 
 msgid "PAGE_APP_RATING_DELETE_DENIED"
-msgstr "Бұл қолданбаға арналған пікірлер автор тарапынан өшірілген"
+msgstr "Бұл пікірді өшіруге құқығыңыз жоқ."
 
 msgid "PAGE_APP_RATING_DELETE_SUCCESS"
-msgstr "Пайдаланушылар бағалауы"
+msgstr "Пікіріңіз сәтті өшірілді."
 
 msgid "PAGE_APP_RATING_DISABLED"
 msgstr "Бұл қолданбаға арналған пікірлер автор тарапынан өшірілген"

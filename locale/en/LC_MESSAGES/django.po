@@ -1116,10 +1116,10 @@ msgstr[0] "Overall rating based on <b>%(counter)s review</b>"
 msgstr[1] "Overall rating based on <b>%(counter)s reviews</b>"
 
 msgid "PAGE_APP_RATING_DELETE_DENIED"
-msgstr "Reviews for this app have been disabled by the author"
+msgstr "You do not have permission to delete this review."
 
 msgid "PAGE_APP_RATING_DELETE_SUCCESS"
-msgstr "User ratings"
+msgstr "Your review has been successfully deleted."
 
 msgid "PAGE_APP_RATING_DISABLED"
 msgstr "Reviews for this app have been disabled by the author"

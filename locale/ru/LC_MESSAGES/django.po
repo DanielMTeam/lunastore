@@ -1121,10 +1121,10 @@ msgstr[1] "Общий рейтинг составлен на основе отз
 msgstr[2] "Общий рейтинг составлен на основе отзывов от <b>%(counter)s человек</b>"
 
 msgid "PAGE_APP_RATING_DELETE_DENIED"
-msgstr "Отзывы для этого приложения отключены автором"
+msgstr "У вас нет прав для удаления этого отзыва."
 
 msgid "PAGE_APP_RATING_DELETE_SUCCESS"
-msgstr "Оценки пользователей"
+msgstr "Ваш отзыв успешно удалён."
 
 msgid "PAGE_APP_RATING_DISABLED"
 msgstr "Отзывы для этого приложения отключены автором"
