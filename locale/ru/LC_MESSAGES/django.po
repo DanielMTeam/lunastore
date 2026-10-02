@@ -1201,11 +1201,23 @@ msgstr "Ваш отзыв отклонён автоматической моде
 msgid "PAGE_APP_REVIEW_PENDING"
 msgstr "Ваш отзыв отправлен на проверку модераторам."
 
+msgid "PAGE_APP_REVIEW_STATUS_APPROVED"
+msgstr "Отзыв одобрен"
+
 msgid "PAGE_APP_REVIEW_STATUS_PENDING"
 msgstr "Отзыв на модерации"
 
 msgid "PAGE_APP_REVIEW_STATUS_REJECTED"
 msgstr "Отзыв отклонён"
+
+msgid "PAGE_APP_RATING_SELECT_REQUIRED"
+msgstr "Пожалуйста, поставьте оценку (1-5 звезд)"
+
+msgid "PAGE_APP_REVIEW_CONFIRM_DELETE"
+msgstr "Вы уверены, что хотите удалить этот отзыв?"
+
+msgid "PAGE_APP_REVIEW_CONFIRM_DELETE_REPLY"
+msgstr "Вы уверены, что хотите удалить ответ разработчика?"
 
 msgid "PAGE_APP_RATING_SUCCESS"
 msgstr "Ваша оценка сохранена."

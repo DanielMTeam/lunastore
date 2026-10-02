@@ -1523,24 +1523,41 @@ class ReviewAdmin(unfold_admin.ModelAdmin):
             return [a for a in actions if getattr(a, "name", "") != "reject_detail"]
         return actions
 
+    def _apply_review_status(self, queryset_or_ids, status, user):
+        from django.utils import timezone
+        if hasattr(queryset_or_ids, "values_list"):
+            app_ids = list(queryset_or_ids.values_list("application_id", flat=True).distinct())
+            count = queryset_or_ids.update(
+                status=status,
+                moderated_by=user,
+                moderated_at=timezone.now(),
+            )
+        else:
+            ids = list(queryset_or_ids)
+            app_ids = list(Review.objects.filter(id__in=ids).values_list("application_id", flat=True).distinct())
+            count = Review.objects.filter(id__in=ids).update(
+                status=status,
+                moderated_by=user,
+                moderated_at=timezone.now(),
+            )
+        for app in Application.objects.filter(id__in=app_ids):
+            app.update_rating_cache()
+        return count
+
+    def get_changelist_url(self):
+        try:
+            return reverse("admin:marketplace_review_changelist")
+        except Exception:
+            return "/admin/marketplace/review/"
+
     @action(description="Одобрить выбранные отзывы", icon="check_circle")
     def approve_reviews(self, request, queryset):
-        from django.utils import timezone
-        count = queryset.update(
-            status=Review.STATUS_APPROVED,
-            moderated_by=request.user,
-            moderated_at=timezone.now(),
-        )
+        count = self._apply_review_status(queryset, Review.STATUS_APPROVED, request.user)
         self.message_user(request, f"Одобрено отзывов: {count}", messages.SUCCESS)
 
     @action(description="Отклонить выбранные отзывы", icon="cancel")
     def reject_reviews(self, request, queryset):
-        from django.utils import timezone
-        count = queryset.update(
-            status=Review.STATUS_REJECTED,
-            moderated_by=request.user,
-            moderated_at=timezone.now(),
-        )
+        count = self._apply_review_status(queryset, Review.STATUS_REJECTED, request.user)
         self.message_user(request, f"Отклонено отзывов: {count}", messages.WARNING)
 
     @action(description="Перепроверить через ИИ", icon="refresh")
@@ -1552,33 +1569,25 @@ class ReviewAdmin(unfold_admin.ModelAdmin):
 
     @action(description="Одобрить отзыв", icon="check")
     def approve_detail(self, request, object_id):
-        from django.utils import timezone
         rev = Review.objects.filter(id=object_id).first()
+        changelist_url = self.get_changelist_url()
         if rev and rev.status == Review.STATUS_APPROVED:
             self.message_user(request, "Отзыв уже одобрен", messages.INFO)
-            return redirect(reverse("admin:marketplace_review_changelist"))
-        Review.objects.filter(id=object_id).update(
-            status=Review.STATUS_APPROVED,
-            moderated_by=request.user,
-            moderated_at=timezone.now(),
-        )
+            return redirect(changelist_url)
+        self._apply_review_status([object_id], Review.STATUS_APPROVED, request.user)
         self.message_user(request, "Отзыв успешно одобрен", messages.SUCCESS)
-        return redirect(reverse("admin:marketplace_review_changelist"))
+        return redirect(changelist_url)
 
     @action(description="Отклонить отзыв", icon="close")
     def reject_detail(self, request, object_id):
-        from django.utils import timezone
         rev = Review.objects.filter(id=object_id).first()
+        changelist_url = self.get_changelist_url()
         if rev and rev.status == Review.STATUS_REJECTED:
             self.message_user(request, "Отзыв уже отклонён", messages.INFO)
-            return redirect(reverse("admin:marketplace_review_changelist"))
-        Review.objects.filter(id=object_id).update(
-            status=Review.STATUS_REJECTED,
-            moderated_by=request.user,
-            moderated_at=timezone.now(),
-        )
+            return redirect(changelist_url)
+        self._apply_review_status([object_id], Review.STATUS_REJECTED, request.user)
         self.message_user(request, "Отзыв отклонён", messages.WARNING)
-        return redirect(reverse("admin:marketplace_review_changelist"))
+        return redirect(changelist_url)
 
     def app_link(self, obj):
         if not obj.application:
@@ -1667,6 +1676,12 @@ class PendingReviewAdmin(ReviewAdmin):
     def get_actions_detail(self, request, object_id):
         return unfold_admin.ModelAdmin.get_actions_detail(self, request, object_id)
 
+    def get_changelist_url(self):
+        try:
+            return reverse("admin:marketplace_pendingreview_changelist")
+        except Exception:
+            return "/admin/marketplace/pendingreview/"
+
     def has_module_permission(self, request):
         return request.user.has_perm("marketplace.view_review") or request.user.has_perm(
             "marketplace.view_pendingreview"
@@ -1686,54 +1701,3 @@ class PendingReviewAdmin(ReviewAdmin):
         return request.user.has_perm("marketplace.delete_review") or request.user.has_perm(
             "marketplace.delete_pendingreview"
         )
-
-    @action(description="Одобрить выбранные отзывы", icon="check_circle")
-    def approve_reviews(self, request, queryset):
-        from django.utils import timezone
-        count = queryset.update(
-            status=Review.STATUS_APPROVED,
-            moderated_by=request.user,
-            moderated_at=timezone.now(),
-        )
-        self.message_user(request, f"Одобрено отзывов: {count}", messages.SUCCESS)
-
-    @action(description="Отклонить выбранные отзывы", icon="cancel")
-    def reject_reviews(self, request, queryset):
-        from django.utils import timezone
-        count = queryset.update(
-            status=Review.STATUS_REJECTED,
-            moderated_by=request.user,
-            moderated_at=timezone.now(),
-        )
-        self.message_user(request, f"Отклонено отзывов: {count}", messages.WARNING)
-
-    @action(description="Одобрить отзыв", icon="check")
-    def approve_detail(self, request, object_id):
-        from django.utils import timezone
-        rev = Review.objects.filter(id=object_id).first()
-        if rev and rev.status == Review.STATUS_APPROVED:
-            self.message_user(request, "Отзыв уже одобрен", messages.INFO)
-            return redirect(reverse("admin:marketplace_pendingreview_changelist"))
-        Review.objects.filter(id=object_id).update(
-            status=Review.STATUS_APPROVED,
-            moderated_by=request.user,
-            moderated_at=timezone.now(),
-        )
-        self.message_user(request, "Отзыв успешно одобрен", messages.SUCCESS)
-        return redirect(reverse("admin:marketplace_pendingreview_changelist"))
-
-    @action(description="Отклонить отзыв", icon="close")
-    def reject_detail(self, request, object_id):
-        from django.utils import timezone
-        rev = Review.objects.filter(id=object_id).first()
-        if rev and rev.status == Review.STATUS_REJECTED:
-            self.message_user(request, "Отзыв уже отклонён", messages.INFO)
-            return redirect(reverse("admin:marketplace_pendingreview_changelist"))
-        Review.objects.filter(id=object_id).update(
-            status=Review.STATUS_REJECTED,
-            moderated_by=request.user,
-            moderated_at=timezone.now(),
-        )
-        self.message_user(request, "Отзыв отклонён", messages.WARNING)
-        return redirect(reverse("admin:marketplace_pendingreview_changelist"))
-

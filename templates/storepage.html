@@ -246,7 +246,6 @@
                     <input type="submit" id="rating-submit-btn" value="{% if user_review %}{% trans "PAGE_APP_REVIEW_UPDATE_BTN" %}{% else %}{% trans "PAGE_APP_REVIEW_SUBMIT_BTN" %}{% endif %}" />
                 </div>
             </div>
-            <script src="{% static './js/rating.js' %}"></script>
         </form>
         {% else %}
         <div class="st_rate_block">
@@ -282,7 +281,7 @@
                 <a href="/profile.php?id={{ review.user.id }}">{{ review.user.username }}</a> 
                 {% if review.user == request.user %}<b>{% trans "PAGE_APP_RATING_YOUR_REVIEW" %}</b>{% endif %}
             </div>
-            <div class="review_date">{{ review.created_at|date:"d E Y в H:i" }}</div>
+            <div class="review_date">{{ review.created_at|date:"d E Y H:i" }}</div>
             <hr>
             {% if review.text %}
             <div class="review_text">{{ review.text|linebreaksbr }}</div>
@@ -338,7 +337,7 @@
                         {% endif %}
                     </div>
                     {% if review.developer_reply_at %}
-                    <div class="review_date">{{ review.developer_reply_at|date:"d E Y в H:i" }}</div>
+                    <div class="review_date">{{ review.developer_reply_at|date:"d E Y H:i" }}</div>
                     {% endif %}
                     <hr>
                     <div class="reply_adm_text">{{ review.developer_reply|linebreaksbr }}</div>
@@ -391,6 +390,14 @@
                 </div>
             </div>
         {% endif %}
+        <script type="text/javascript">
+            window.LUNA_RATING_I18N = {
+                selectRating: "{% trans "PAGE_APP_RATING_SELECT_REQUIRED"|escapejs %}",
+                confirmDeleteReview: "{% trans "PAGE_APP_REVIEW_CONFIRM_DELETE"|escapejs %}",
+                confirmDeleteReply: "{% trans "PAGE_APP_REVIEW_CONFIRM_DELETE_REPLY"|escapejs %}"
+            };
+        </script>
+        <script src="{% static 'js/rating.js' %}"></script>
     </div>
 
     <div class="st_other_card">

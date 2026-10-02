@@ -8,7 +8,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('marketplace', '0045_alter_distribution_lunabox_manifest_and_more'),
+        ('marketplace', '0046_alter_collectionfavorite_unique_together_and_more'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
@@ -55,7 +55,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='review',
             name='status',
-            field=models.CharField(choices=[('approved', 'Одобрен'), ('pending', 'На модерации'), ('rejected', 'Отклонён')], db_default='approved', db_index=True, default='approved', max_length=20, verbose_name='Статус'),
+            field=models.CharField(choices=[('approved', 'PAGE_APP_REVIEW_STATUS_APPROVED'), ('pending', 'PAGE_APP_REVIEW_STATUS_PENDING'), ('rejected', 'PAGE_APP_REVIEW_STATUS_REJECTED')], db_default='approved', db_index=True, default='approved', max_length=20, verbose_name='Статус'),
         ),
         migrations.AddField(
             model_name='review',

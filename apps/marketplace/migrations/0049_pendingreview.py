@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('marketplace', '0047_add_review_developer_reply'),
+        ('marketplace', '0048_add_review_developer_reply'),
     ]
 
     operations = [

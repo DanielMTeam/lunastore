@@ -20,14 +20,16 @@ $(document).ready(function () {
     var val = $("#rating-input").val();
     if (!val || parseInt(val, 10) < 1 || parseInt(val, 10) > 5) {
       e.preventDefault();
-      alert("Пожалуйста, поставьте оценку (1-5 звезд)");
+      var i18n = window.LUNA_RATING_I18N || {};
+      alert(i18n.selectRating || "Пожалуйста, поставьте оценку (1-5 звезд)");
       return false;
     }
   });
 });
 
 window.deleteReview = function (id) {
-  if (confirm("Вы уверены, что хотите удалить этот отзыв?")) {
+  var i18n = window.LUNA_RATING_I18N || {};
+  if (confirm(i18n.confirmDeleteReview || "Вы уверены, что хотите удалить этот отзыв?")) {
     var form = document.getElementById("delete-review-form-" + id);
     if (form) {
       form.submit();
@@ -36,7 +38,8 @@ window.deleteReview = function (id) {
 };
 
 window.deleteReviewReply = function (id) {
-  if (confirm("Вы уверены, что хотите удалить ответ разработчика?")) {
+  var i18n = window.LUNA_RATING_I18N || {};
+  if (confirm(i18n.confirmDeleteReply || "Вы уверены, что хотите удалить ответ разработчика?")) {
     var form = document.getElementById("delete-reply-form-" + id);
     if (form) {
       form.submit();

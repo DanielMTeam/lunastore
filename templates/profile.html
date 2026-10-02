@@ -200,7 +200,7 @@
                     <div class="review_author">
                         <a href="/profile.php?id={{ review.user.id }}">{{ review.user.username }}</a> {% trans "PAGE_PROFILE_REVIEW_TO_APP" %} <a href="/app.php?id={{ review.application.id }}">{{ review.application.title }}</a>
                     </div>
-                    <div class="review_date">{{ review.created_at|date:"d E Y в H:i" }}</div>
+                    <div class="review_date">{{ review.created_at|date:"d E Y H:i" }}</div>
                     <hr>
                     <!-- show stars for this review -->
                     <div class="rating r{{ review.rating }}"></div>
@@ -243,7 +243,7 @@
                     <div class="review_author">
                         <a href="/profile.php?id={{ review.user.id }}">{{ review.user.username }}</a> {% trans "PAGE_PROFILE_REVIEW_TO_APP" %} <a href="/app.php?id={{ review.application.id }}">{{ review.application.title }}</a>
                     </div>
-                    <div class="review_date">{{ review.created_at|date:"d E Y в H:i" }}</div>
+                    <div class="review_date">{{ review.created_at|date:"d E Y H:i" }}</div>
                     <hr>
                     <!-- show stars for this review -->
                     <div class="rating r{{ review.rating }}"></div>

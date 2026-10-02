@@ -8,7 +8,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('marketplace', '0046_alter_review_options_review_ai_flags_and_more'),
+        ('marketplace', '0047_alter_review_options_review_ai_flags_and_more'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 

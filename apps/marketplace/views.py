@@ -192,7 +192,7 @@ def app(request):
     reviews = Review.objects.filter(
         application=obj,
         status=Review.STATUS_APPROVED,
-    ).select_related("user").order_by('-created_at')
+    ).select_related("user", "developer_reply_by").order_by('-created_at')
     review_count = reviews.count()
 
     # calculate average rating
@@ -269,7 +269,9 @@ def app(request):
         "is_liked": is_liked,
         "is_app_page": True,
         "is_app_developer": request.user.is_authenticated and (
-            request.user == obj.user or request.user.is_staff
+            request.user == obj.user
+            or request.user.is_staff
+            or request.user.has_perm("marketplace.change_review")
         ),
     }
     return render(request, "storepage.html", context)
@@ -1071,6 +1073,9 @@ def reply_review(request):
         id=review_id,
     )
 
+    if review.status != Review.STATUS_APPROVED:
+        return HttpResponseForbidden(_("PAGE_APP_REVIEW_REPLY_DENIED"))
+
     is_dev = (
         request.user == review.application.user
         or request.user.is_staff
@@ -1124,6 +1129,7 @@ def delete_review_reply(request):
 
     is_dev = (
         request.user == review.application.user
+        or request.user == review.developer_reply_by
         or request.user.is_staff
         or request.user.has_perm("marketplace.delete_review")
     )

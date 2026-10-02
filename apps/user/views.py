@@ -438,9 +438,10 @@ def profile(request):
     )
 
     if act == "show_reviews":
-        reviews_list = Review.objects.filter(user=obj).exclude(status=Review.STATUS_REJECTED)
-        if not is_profile_owner:
-            reviews_list = reviews_list.filter(status=Review.STATUS_APPROVED)
+        if is_profile_owner:
+            reviews_list = Review.objects.filter(user=obj)
+        else:
+            reviews_list = Review.objects.filter(user=obj, status=Review.STATUS_APPROVED)
         reviews_list = reviews_list.select_related(
             'application',
             'user').order_by('-created_at')
@@ -472,9 +473,10 @@ def profile(request):
             )
         profile_collections_count = len(profile_collection_items)
     else:
-        recent_qs = Review.objects.filter(user=obj).exclude(status=Review.STATUS_REJECTED)
-        if not is_profile_owner:
-            recent_qs = recent_qs.filter(status=Review.STATUS_APPROVED)
+        if is_profile_owner:
+            recent_qs = Review.objects.filter(user=obj)
+        else:
+            recent_qs = Review.objects.filter(user=obj, status=Review.STATUS_APPROVED)
         recent_reviews = recent_qs.select_related(
             'application', 'user').order_by('-created_at')[:5]
 

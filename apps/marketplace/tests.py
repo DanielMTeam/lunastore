@@ -1271,6 +1271,91 @@ class ReviewAndModerationTest(TestCase):
         self.assertIn("Normal retro review", sent_content)
         self.assertIn("</untrusted_review_text>", sent_content)
 
+    @override_settings(ROOT_URLCONF='lunastore.urls_private')
+    def test_admin_approve_and_reject_actions_update_rating_cache(self):
+        """Admin bulk and detail approval/rejection updates app.rating_cache."""
+        from django.test import RequestFactory
+        from django.contrib.admin.sites import AdminSite
+        from django.contrib.messages.storage.fallback import FallbackStorage
+        from apps.marketplace.admin import ReviewAdmin
+
+        admin_instance = ReviewAdmin(Review, AdminSite())
+        factory = RequestFactory()
+
+        rev1 = Review.objects.create(
+            application=self.app,
+            user=self.user,
+            rating=5,
+            status=Review.STATUS_PENDING,
+        )
+        rev2 = Review.objects.create(
+            application=self.app,
+            user=self.user2,
+            rating=3,
+            status=Review.STATUS_PENDING,
+        )
+
+        self.app.refresh_from_db()
+        self.assertEqual(self.app.rating_cache, 0.0)
+        self.assertEqual(self.app.reviews_count, 0)
+
+        # Bulk approve rev1 and rev2
+        req = factory.post("/admin/")
+        req.user = self.moderator
+        req.session = {}
+        req._messages = FallbackStorage(req)
+
+        admin_instance.approve_reviews(req, Review.objects.filter(id__in=[rev1.id, rev2.id]))
+        self.app.refresh_from_db()
+        self.assertEqual(self.app.rating_cache, 4.0)
+        self.assertEqual(self.app.reviews_count, 2)
+
+        # Detail reject rev2
+        admin_instance.reject_detail(req, rev2.id)
+        self.app.refresh_from_db()
+        self.assertEqual(self.app.rating_cache, 5.0)
+        self.assertEqual(self.app.reviews_count, 1)
+
+        # Detail approve rev2 back
+        admin_instance.approve_detail(req, rev2.id)
+        self.app.refresh_from_db()
+        self.assertEqual(self.app.rating_cache, 4.0)
+        self.assertEqual(self.app.reviews_count, 2)
+
+        # Bulk reject both
+        admin_instance.reject_reviews(req, Review.objects.filter(id__in=[rev1.id, rev2.id]))
+        self.app.refresh_from_db()
+        self.assertEqual(self.app.rating_cache, 0.0)
+        self.assertEqual(self.app.reviews_count, 0)
+
+    def test_cannot_reply_to_unapproved_review(self):
+        """Developer cannot reply to pending or rejected reviews."""
+        rev = Review.objects.create(
+            application=self.app,
+            user=self.user2,
+            rating=5,
+            text="Pending review",
+            status=Review.STATUS_PENDING,
+        )
+        self.client.force_login(self.user)
+        resp = self.client.post(
+            reverse("reply_review"),
+            {"review_id": rev.id, "developer_reply": "Reply attempt"},
+        )
+        self.assertEqual(resp.status_code, 403)
+        rev.refresh_from_db()
+        self.assertEqual(rev.developer_reply, "")
+
+        rev.status = Review.STATUS_REJECTED
+        rev.save()
+        resp = self.client.post(
+            reverse("reply_review"),
+            {"review_id": rev.id, "developer_reply": "Reply attempt 2"},
+        )
+        self.assertEqual(resp.status_code, 403)
+        rev.refresh_from_db()
+        self.assertEqual(rev.developer_reply, "")
+
 
 class RatingAndCollectionOptimizationTests(TestCase):
     @classmethod
