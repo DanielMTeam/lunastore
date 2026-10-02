@@ -52,7 +52,7 @@ class AnalyticsClient(Protocol):
         data: Sequence[Sequence[Any]],
         column_names: Sequence[str],
         *,
-        wait_for_async_insert: int = 0,
+        wait_for_async_insert: int = 1,
     ) -> None:
         ...
 
@@ -117,7 +117,7 @@ class NullAnalyticsClient:
         data: Sequence[Sequence[Any]],
         column_names: Sequence[str],
         *,
-        wait_for_async_insert: int = 0,
+        wait_for_async_insert: int = 1,
     ) -> None:
         logger.debug(
             "null client skipped insert_rows table=%s count=%s",
@@ -223,7 +223,7 @@ class ClickHouseAnalyticsClient:
         data: Sequence[Sequence[Any]],
         column_names: Sequence[str],
         *,
-        wait_for_async_insert: int = 0,
+        wait_for_async_insert: int = 1,
     ) -> None:
         if not data:
             return
@@ -356,7 +356,7 @@ def get_analytics_client(*, force_enabled: bool = False) -> AnalyticsClient:
                 send_receive_timeout=send_receive_timeout,
                 settings={
                     "async_insert": 1,
-                    "wait_for_async_insert": 0,
+                    "wait_for_async_insert": 1,
                 },
             )
             _shared_client = ClickHouseAnalyticsClient(raw, shared=True)

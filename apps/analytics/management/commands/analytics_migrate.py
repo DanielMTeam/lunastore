@@ -81,9 +81,9 @@ class Command(BaseCommand):
 
             if re.match(r"^[a-zA-Z0-9_]+$", ch_user):
                 try:
-                    client.execute(f"ALTER USER `{ch_user}` SETTINGS async_insert = 1, wait_for_async_insert = 0")
+                    client.execute(f"ALTER USER `{ch_user}` SETTINGS async_insert = 1, wait_for_async_insert = 1")
                     self.stdout.write(
-                        self.style.SUCCESS(f"Configured async_insert=1, wait_for_async_insert=0 for user '{ch_user}'")
+                        self.style.SUCCESS(f"Configured async_insert=1, wait_for_async_insert=1 for user '{ch_user}'")
                     )
                 except Exception as exc:
                     logger.debug("could not alter user settings (permission denied or unsupported): %s", exc)

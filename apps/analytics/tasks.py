@@ -168,7 +168,6 @@ def insert_analytics_events_batch(
 @task()
 def flush_analytics_task(batch_size: Optional[int] = None) -> dict[str, int]:
     # background task to drain all redis buffers into clickhouse
-    from django.core.cache import cache
     from apps.analytics.config import get_flush_batch_size
     from apps.analytics.flusher import flush_all_analytics_buffers
     from apps.analytics.services import is_enabled
@@ -179,20 +178,4 @@ def flush_analytics_task(batch_size: Optional[int] = None) -> dict[str, int]:
     if batch_size is None:
         batch_size = get_flush_batch_size()
 
-    lock_key = "analytics:tasks:flush_lock"
-    try:
-        acquired = cache.add(lock_key, 1, timeout=30)
-    except Exception:
-        acquired = True
-
-    if not acquired:
-        logger.debug("flush_analytics_task skipped: already running")
-        return {}
-
-    try:
-        return flush_all_analytics_buffers(batch_size=batch_size)
-    finally:
-        try:
-            cache.delete(lock_key)
-        except Exception:
-            pass
+    return flush_all_analytics_buffers(batch_size=batch_size)

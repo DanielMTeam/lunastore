@@ -15,6 +15,7 @@ from apps.analytics.buffer import (
     clear_memory_buffers,
     get_all_buffer_lengths,
     get_buffer_length,
+    get_dead_letter_length,
     pop_buffer_batch,
     push_event_to_buffer,
     set_memory_fallback,
@@ -27,6 +28,7 @@ from apps.analytics.client import (
 )
 from apps.analytics.extractors import extract_request_meta
 from apps.analytics.flusher import (
+    _format_batch_rows,
     flush_all_analytics_buffers,
     flush_table_buffer,
     is_circuit_open,
@@ -601,7 +603,7 @@ class AnalyticsFlusherTests(SimpleTestCase):
         self.assertEqual(args[0], AppEvent.TABLE_NAME)
         self.assertEqual(len(args[1]), 2)
         self.assertEqual(args[2], AppEvent.COLUMN_NAMES)
-        self.assertEqual(kwargs.get("wait_for_async_insert"), 0)
+        self.assertEqual(kwargs.get("wait_for_async_insert"), 1)
         self.assertEqual(get_buffer_length(AppEvent.TABLE_NAME), 0)
 
     def test_flush_table_buffer_requeues_on_error(self) -> None:
@@ -656,6 +658,37 @@ class AnalyticsFlusherTests(SimpleTestCase):
         self.assertEqual(stats[AppEvent.TABLE_NAME], 1)
         self.assertEqual(stats[CollectionEvent.TABLE_NAME], 1)
         self.assertEqual(stats["analytics_events"], 0)
+
+    def test_format_batch_rows_dynamic_columns(self) -> None:
+        raw_rows = [
+            ["app_installed", 123, "2026-10-02T15:30:00+00:00", '{"src": "test"}'],
+        ]
+        columns = ["event_name", "user_id", "event_time", "properties"]
+        formatted = _format_batch_rows(raw_rows, columns)
+        self.assertEqual(len(formatted), 1)
+        self.assertEqual(formatted[0][0], "app_installed")  # string preserved, not parsed as date
+        self.assertEqual(formatted[0][1], 123)
+        self.assertIsInstance(formatted[0][2], datetime)  # event_time at index 2 correctly converted
+        self.assertEqual(formatted[0][3], '{"src": "test"}')
+
+    def test_transient_failures_never_drop_buffer(self) -> None:
+        mock_config = MagicMock()
+        mock_config.ANALYTICS_ENABLED = True
+        mock_client = MagicMock()
+        mock_client.insert_rows.side_effect = RuntimeError("ClickHouse connection timed out")
+
+        push_event_to_buffer(AppEvent.TABLE_NAME, ["2026-10-02T12:00:00+00:00", "view", 1])
+
+        # simulate 8 consecutive transient failures (circuit breaker manually reset to simulate retries)
+        with _quiet_analytics_logs():
+            with patch("constance.config", mock_config):
+                for _ in range(8):
+                    record_circuit_success()
+                    flushed = flush_table_buffer(AppEvent.TABLE_NAME, client=mock_client)
+                    self.assertEqual(flushed, 0)
+
+        # verify event was never dropped and is still preserved in buffer
+        self.assertEqual(get_buffer_length(AppEvent.TABLE_NAME), 1)
 
 
 class AnalyticsCommandAndTaskTests(SimpleTestCase):
@@ -887,3 +920,38 @@ class AnalyticsSecurityTests(SimpleTestCase):
             self.assertEqual(get_buffer_max_size(), 100)
             self.assertEqual(get_flush_batch_size(), 50_000)
             self.assertEqual(get_flush_interval(), 0.1)
+
+    def test_threshold_flush_task_enqueue_throttled(self) -> None:
+        from apps.analytics.services import track_app_event
+
+        mock_config = MagicMock()
+        mock_config.ANALYTICS_ENABLED = True
+        mock_config.ANALYTICS_FLUSH_THRESHOLD = 1
+
+        with patch("constance.config", mock_config):
+            with patch("apps.analytics.tasks.flush_analytics_task") as mock_task:
+                # 5 rapid events that are each >= threshold
+                for i in range(5):
+                    event = AppEvent(app_id=100 + i)
+                    track_app_event(event)
+
+                # due to cache lock throttling (timeout=5s), enqueue is called only once
+                self.assertEqual(mock_task.enqueue.call_count, 1)
+
+    def test_memory_buffers_thread_safety(self) -> None:
+        import concurrent.futures
+
+        clear_memory_buffers()
+        row = ["2026-10-02T12:00:00+00:00", "view", 1]
+
+        def _worker(thread_id: int) -> None:
+            for _ in range(50):
+                push_event_to_buffer("thread_test_table", row)
+
+        with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+            futures = [executor.submit(_worker, i) for i in range(5)]
+            for f in futures:
+                f.result()
+
+        self.assertEqual(get_buffer_length("thread_test_table"), 250)
+        clear_buffer("thread_test_table")

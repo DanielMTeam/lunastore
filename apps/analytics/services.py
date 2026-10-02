@@ -127,12 +127,15 @@ def track_app_event(event: AppEvent) -> None:
 
         push_event_to_buffer(event.TABLE_NAME, row)
 
-        # threshold trigger: if buffer exceeds threshold, enqueue a flush task
+        # threshold trigger: if buffer exceeds threshold, enqueue a flush task (throttled)
         if get_buffer_length(event.TABLE_NAME) >= get_flush_threshold():
-            try:
-                flush_analytics_task.enqueue()
-            except Exception:
-                pass
+            from django.core.cache import cache
+
+            if cache.add("analytics:tasks:flush_scheduled", 1, timeout=5):
+                try:
+                    flush_analytics_task.enqueue()
+                except Exception:
+                    cache.delete("analytics:tasks:flush_scheduled")
     except Exception as exc:
         report_analytics_error(
             exc,
@@ -352,10 +355,13 @@ def track_collection_event(event: CollectionEvent) -> None:
         push_event_to_buffer(event.TABLE_NAME, row)
 
         if get_buffer_length(event.TABLE_NAME) >= get_flush_threshold():
-            try:
-                flush_analytics_task.enqueue()
-            except Exception:
-                pass
+            from django.core.cache import cache
+
+            if cache.add("analytics:tasks:flush_scheduled", 1, timeout=5):
+                try:
+                    flush_analytics_task.enqueue()
+                except Exception:
+                    cache.delete("analytics:tasks:flush_scheduled")
     except Exception as exc:
         report_analytics_error(
             exc,
@@ -512,10 +518,13 @@ def track_event(
         push_event_to_buffer("analytics_events", row)
 
         if get_buffer_length("analytics_events") >= get_flush_threshold():
-            try:
-                flush_analytics_task.enqueue()
-            except Exception:
-                pass
+            from django.core.cache import cache
+
+            if cache.add("analytics:tasks:flush_scheduled", 1, timeout=5):
+                try:
+                    flush_analytics_task.enqueue()
+                except Exception:
+                    cache.delete("analytics:tasks:flush_scheduled")
     except Exception as exc:
         report_analytics_error(
             exc,

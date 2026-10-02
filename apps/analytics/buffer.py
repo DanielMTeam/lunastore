@@ -31,10 +31,16 @@ def is_valid_table_name(table_name: str) -> bool:
 
 
 _memory_buffers: dict[str, list[str]] = defaultdict(list)
+_memory_buffer_lock = threading.Lock()
 _use_memory_fallback: bool = False
 _direct_redis_client: Any = None
 _direct_redis_lock = threading.Lock()
 _last_direct_redis_fail_time: float = 0.0
+_last_redis_fail_time: float = 0.0
+
+DEAD_LETTER_KEY_PREFIX = "analytics:dead_letter:"
+DEAD_LETTER_MAX_SIZE = 10_000
+DEAD_LETTER_TTL = 7 * 86400  # 7 days
 
 
 def set_memory_fallback(enabled: bool) -> None:
@@ -45,7 +51,8 @@ def set_memory_fallback(enabled: bool) -> None:
 
 def clear_memory_buffers() -> None:
     # reset in-memory buffers
-    _memory_buffers.clear()
+    with _memory_buffer_lock:
+        _memory_buffers.clear()
 
 
 def get_buffer_key(table_name: str) -> str:
@@ -54,6 +61,10 @@ def get_buffer_key(table_name: str) -> str:
 
 def get_redis_client() -> Any:
     if _use_memory_fallback:
+        return None
+
+    global _last_redis_fail_time
+    if time.time() - _last_redis_fail_time < 5.0:
         return None
 
     # django-redis cache backend
@@ -116,10 +127,10 @@ def push_event_to_buffer(table_name: str, row: Sequence[Any]) -> bool:
         try:
             pipe = redis_client.pipeline(transaction=False)
             # drain transient in-memory events if redis recovered
-            if _memory_buffers.get(table_name):
+            with _memory_buffer_lock:
                 mem_items = _memory_buffers.pop(table_name, [])
-                if mem_items:
-                    pipe.rpush(key, *mem_items)
+            if mem_items:
+                pipe.rpush(key, *mem_items)
 
             pipe.rpush(key, payload)
             pipe.llen(key)
@@ -128,20 +139,24 @@ def push_event_to_buffer(table_name: str, row: Sequence[Any]) -> bool:
 
             # enforce max buffer size to prevent memory exhaustion
             if buffer_len > max_size:
-                redis_client.ltrim(key, buffer_len - max_size, -1)
+                redis_client.ltrim(key, -max_size, -1)
             return True
         except Exception as exc:
+            global _last_redis_fail_time
+            _last_redis_fail_time = time.time()
             logger.warning("redis push_event_to_buffer failed for table=%s: %s", table_name, exc)
             # fallback to in-memory on redis failure
-            _memory_buffers[table_name].append(payload)
-            if len(_memory_buffers[table_name]) > max_size:
-                _memory_buffers[table_name] = _memory_buffers[table_name][-max_size:]
+            with _memory_buffer_lock:
+                _memory_buffers[table_name].append(payload)
+                if len(_memory_buffers[table_name]) > max_size:
+                    _memory_buffers[table_name] = _memory_buffers[table_name][-max_size:]
             return True
     else:
         # in-memory buffer fallback
-        _memory_buffers[table_name].append(payload)
-        if len(_memory_buffers[table_name]) > max_size:
-            _memory_buffers[table_name] = _memory_buffers[table_name][-max_size:]
+        with _memory_buffer_lock:
+            _memory_buffers[table_name].append(payload)
+            if len(_memory_buffers[table_name]) > max_size:
+                _memory_buffers[table_name] = _memory_buffers[table_name][-max_size:]
         return True
 
 
@@ -166,11 +181,11 @@ def pop_buffer_batch(table_name: str, batch_size: Optional[int] = None) -> list[
     if redis_client is not None:
         key = get_buffer_key(table_name)
         # drain residual memory buffer if any
-        if _memory_buffers.get(table_name):
+        with _memory_buffer_lock:
+            residual = _memory_buffers.pop(table_name, [])
+        if residual:
             try:
-                residual = _memory_buffers.pop(table_name, [])
-                if residual:
-                    redis_client.rpush(key, *residual)
+                redis_client.rpush(key, *residual)
             except Exception:
                 pass
 
@@ -184,12 +199,15 @@ def pop_buffer_batch(table_name: str, batch_size: Optional[int] = None) -> list[
                     for item in popped
                 ]
         except Exception as exc:
+            global _last_redis_fail_time
+            _last_redis_fail_time = time.time()
             logger.warning("redis lpop failed for table=%s: %s", table_name, exc)
     else:
         # in-memory buffer pop
-        mem_list = _memory_buffers.get(table_name, [])
-        raw_items = mem_list[:batch_size]
-        _memory_buffers[table_name] = mem_list[batch_size:]
+        with _memory_buffer_lock:
+            mem_list = _memory_buffers.get(table_name, [])
+            raw_items = mem_list[:batch_size]
+            _memory_buffers[table_name] = mem_list[batch_size:]
 
     result_rows: list[list[Any]] = []
     for item in raw_items:
@@ -215,8 +233,10 @@ def get_buffer_length(table_name: str) -> int:
             return int(redis_client.llen(key))
         except Exception as exc:
             logger.debug("get_buffer_length failed for table=%s: %s", table_name, exc)
-            return len(_memory_buffers.get(table_name, []))
-    return len(_memory_buffers.get(table_name, []))
+            with _memory_buffer_lock:
+                return len(_memory_buffers.get(table_name, []))
+    with _memory_buffer_lock:
+        return len(_memory_buffers.get(table_name, []))
 
 
 def get_all_buffer_lengths() -> dict[str, int]:
@@ -239,4 +259,53 @@ def clear_buffer(table_name: str) -> None:
             redis_client.delete(key)
         except Exception as exc:
             logger.debug("clear_buffer failed for table=%s: %s", table_name, exc)
-    _memory_buffers.pop(table_name, None)
+    with _memory_buffer_lock:
+        _memory_buffers.pop(table_name, None)
+
+
+def push_to_dead_letter_queue(table_name: str, rows: Sequence[Sequence[Any]], reason: str = "") -> None:
+    # write unparseable/poison pill events to a DLQ list in Redis for inspection
+    if not is_valid_table_name(table_name) or not rows:
+        return
+
+    dlq_payloads: list[str] = []
+    for r in rows:
+        try:
+            entry = {
+                "row": list(r),
+                "reason": str(reason),
+                "failed_at": time.time(),
+            }
+            dlq_payloads.append(json.dumps(entry, ensure_ascii=False, default=str))
+        except Exception:
+            pass
+
+    if not dlq_payloads:
+        return
+
+    redis_client = get_redis_client()
+    if redis_client is not None:
+        dlq_key = f"{DEAD_LETTER_KEY_PREFIX}{table_name}"
+        try:
+            pipe = redis_client.pipeline(transaction=False)
+            pipe.rpush(dlq_key, *dlq_payloads)
+            pipe.ltrim(dlq_key, -DEAD_LETTER_MAX_SIZE, -1)
+            pipe.expire(dlq_key, DEAD_LETTER_TTL)
+            pipe.execute()
+        except Exception as exc:
+            logger.warning("failed to write to DLQ for table=%s: %s", table_name, exc)
+
+
+def get_dead_letter_length(table_name: str) -> int:
+    # return number of events currently waiting in DLQ
+    if not is_valid_table_name(table_name):
+        return 0
+
+    redis_client = get_redis_client()
+    if redis_client is not None:
+        dlq_key = f"{DEAD_LETTER_KEY_PREFIX}{table_name}"
+        try:
+            return int(redis_client.llen(dlq_key))
+        except Exception:
+            return 0
+    return 0

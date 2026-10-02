@@ -17,6 +17,8 @@ logger = logging.getLogger("analytics")
 
 CIRCUIT_BREAKER_KEY = "analytics:circuit_open"
 CIRCUIT_BREAKER_TIMEOUT = 30  # seconds fallback
+FLUSH_LOCK_KEY = "analytics:tasks:flush_lock"
+FLUSH_LOCK_TIMEOUT = 30  # seconds lock lifetime
 
 
 def is_circuit_open() -> bool:
@@ -53,15 +55,17 @@ def _resolve_table_columns(table_name: str) -> list[str]:
     return []
 
 
-def _format_batch_rows(rows: Sequence[Sequence[Any]]) -> list[list[Any]]:
+def _format_batch_rows(rows: Sequence[Sequence[Any]], column_names: Sequence[str]) -> list[list[Any]]:
+    time_indices = [idx for idx, col in enumerate(column_names) if col == "event_time"]
     formatted: list[list[Any]] = []
     for row in rows:
         row_list = list(row)
-        if row_list and isinstance(row_list[0], str):
-            try:
-                row_list[0] = datetime.fromisoformat(row_list[0])
-            except Exception:
-                pass
+        for idx in time_indices:
+            if idx < len(row_list) and isinstance(row_list[idx], str):
+                try:
+                    row_list[idx] = datetime.fromisoformat(row_list[idx])
+                except Exception:
+                    pass
         formatted.append(row_list)
     return formatted
 
@@ -82,13 +86,14 @@ def _requeue_unwritten_rows(table_name: str, rows: Sequence[Sequence[Any]]) -> N
         except Exception as exc:
             logger.error("failed to requeue unwritten rows to redis for table=%s: %s", table_name, exc)
     else:
-        from apps.analytics.buffer import _memory_buffers
+        from apps.analytics.buffer import _memory_buffers, _memory_buffer_lock
 
         serialized_rows = [
             json.dumps(r, ensure_ascii=False, default=str)
             for r in rows
         ]
-        _memory_buffers[table_name] = serialized_rows + _memory_buffers[table_name]
+        with _memory_buffer_lock:
+            _memory_buffers[table_name] = serialized_rows + _memory_buffers[table_name]
 
 
 def flush_table_buffer(
@@ -119,7 +124,7 @@ def flush_table_buffer(
         logger.error("unknown table columns for table=%s, dropping batch of %d rows", table_name, len(rows))
         return 0
 
-    formatted_rows = _format_batch_rows(rows)
+    formatted_rows = _format_batch_rows(rows, column_names)
 
     if client is None:
         try:
@@ -135,7 +140,7 @@ def flush_table_buffer(
             table_name,
             formatted_rows,
             column_names,
-            wait_for_async_insert=0,
+            wait_for_async_insert=1,
         )
         record_circuit_success()
         try:
@@ -151,7 +156,7 @@ def flush_table_buffer(
         )
         record_circuit_failure()
 
-        # drop non-retryable errors or repeated failures
+        # drop and route to DLQ only on unrecoverable schema/syntax errors
         is_non_retryable = type(exc).__name__ in (
             "DataError",
             "ProgrammingError",
@@ -159,26 +164,18 @@ def flush_table_buffer(
             "NotSupportedError",
         )
 
-        fail_key = f"analytics:flusher:fails:{table_name}"
-        try:
-            fails = cache.incr(fail_key)
-        except Exception:
-            fails = 1
-            try:
-                cache.set(fail_key, 1, timeout=300)
-            except Exception:
-                pass
+        if is_non_retryable:
+            from apps.analytics.buffer import push_to_dead_letter_queue
 
-        if is_non_retryable or fails > 5:
             logger.critical(
-                "dropping unwritten batch of %d rows for table=%s to prevent queue freeze (non_retryable=%s fails=%d): %s",
+                "dropping unwritten batch of %d rows for table=%s to DLQ (non_retryable=True): %s",
                 len(rows),
                 table_name,
-                is_non_retryable,
-                fails,
                 exc,
             )
+            push_to_dead_letter_queue(table_name, rows, reason=str(exc))
         else:
+            # transient network or service outage -> requeue rows back into Redis buffer
             _requeue_unwritten_rows(table_name, rows)
         return 0
 
@@ -187,16 +184,29 @@ def flush_all_analytics_buffers(
     batch_size: Optional[int] = None,
     client: Optional[Any] = None,
 ) -> dict[str, int]:
-    # drain all buffers up to batch_size per table
+    # drain all buffers up to batch_size per table with distributed locking
     from apps.analytics.models import AppEvent, CollectionEvent
 
-    if batch_size is None:
-        batch_size = get_flush_batch_size()
+    try:
+        if not cache.add(FLUSH_LOCK_KEY, 1, timeout=FLUSH_LOCK_TIMEOUT):
+            logger.debug("flush_all_analytics_buffers skipped: flush lock already held")
+            return {}
+    except Exception:
+        pass
 
-    tables = [AppEvent.TABLE_NAME, CollectionEvent.TABLE_NAME, "analytics_events"]
-    result: dict[str, int] = {}
+    try:
+        if batch_size is None:
+            batch_size = get_flush_batch_size()
 
-    for table in tables:
-        result[table] = flush_table_buffer(table, batch_size=batch_size, client=client)
+        tables = [AppEvent.TABLE_NAME, CollectionEvent.TABLE_NAME, "analytics_events"]
+        result: dict[str, int] = {}
 
-    return result
+        for table in tables:
+            result[table] = flush_table_buffer(table, batch_size=batch_size, client=client)
+
+        return result
+    finally:
+        try:
+            cache.delete(FLUSH_LOCK_KEY)
+        except Exception:
+            pass
