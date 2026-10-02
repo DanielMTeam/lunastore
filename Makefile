@@ -78,6 +78,9 @@ dev-analytics-migrate:
 dev-analytics-ping:
 	docker compose -f $(DEV_COMPOSE) exec web python manage.py analytics_ping
 
+dev-analytics-flush:
+	docker compose -f $(DEV_COMPOSE) exec web python manage.py analytics_flush
+
 #
 # production commands
 #
@@ -147,6 +150,9 @@ analytics-migrate:
 
 analytics-ping:
 	docker compose -f $(PROD_COMPOSE) exec lunastore python manage.py analytics_ping
+
+analytics-flush:
+	docker compose -f $(PROD_COMPOSE) exec lunastore python manage.py analytics_flush
 
 tolgee-push:
 	tolgee push

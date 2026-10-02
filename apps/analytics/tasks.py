@@ -163,3 +163,19 @@ def insert_analytics_events_batch(
         raise AnalyticsUnavailableError(
             f"insert_analytics_events_batch failed count={len(rows)}"
         ) from exc
+
+
+@task()
+def flush_analytics_task(batch_size: Optional[int] = None) -> dict[str, int]:
+    # background task to drain all redis buffers into clickhouse
+    from apps.analytics.config import get_flush_batch_size
+    from apps.analytics.flusher import flush_all_analytics_buffers
+    from apps.analytics.services import is_enabled
+
+    if not is_enabled():
+        return {}
+
+    if batch_size is None:
+        batch_size = get_flush_batch_size()
+
+    return flush_all_analytics_buffers(batch_size=batch_size)

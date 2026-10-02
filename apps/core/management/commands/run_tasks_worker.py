@@ -52,6 +52,12 @@ class Command(BaseCommand):
             default=60.0,
             help="Interval in seconds for claiming stale/orphaned tasks (default: 60.0)",
         )
+        parser.add_argument(
+            "--flush-analytics-interval",
+            type=float,
+            default=None,
+            help="Interval in seconds for flushing buffered analytics to ClickHouse (default: from Constance/settings)",
+        )
 
     def handle(self, *args, **options):
         queue_name = options.get("queue_name")
@@ -88,6 +94,8 @@ class Command(BaseCommand):
 
         tasks_processed = 0
         last_claim_time = time.time()
+        last_analytics_flush_time = time.time()
+        flush_analytics_interval_arg = options.get("flush_analytics_interval")
 
         while not self.should_stop:
             current_time = time.time()
@@ -99,6 +107,30 @@ class Command(BaseCommand):
                 except Exception as e:
                     logger.warning(f"Error claiming stale tasks: {e}")
                 last_claim_time = current_time
+
+            if flush_analytics_interval_arg is not None:
+                flush_interval = flush_analytics_interval_arg
+            else:
+                try:
+                    from apps.analytics.config import get_flush_interval
+
+                    flush_interval = get_flush_interval()
+                except Exception:
+                    flush_interval = 5.0
+
+            if current_time - last_analytics_flush_time >= flush_interval:
+                try:
+                    from apps.analytics.flusher import flush_all_analytics_buffers
+                    from apps.analytics.services import is_enabled as is_analytics_enabled
+
+                    if is_analytics_enabled():
+                        flush_stats = flush_all_analytics_buffers()
+                        total_flushed = sum(flush_stats.values())
+                        if total_flushed > 0:
+                            logger.info("flushed %d analytics rows: %s", total_flushed, flush_stats)
+                except Exception as e:
+                    logger.warning(f"Error flushing analytics buffers: {e}")
+                last_analytics_flush_time = current_time
 
             try:
                 result = executor.process_one_task(
