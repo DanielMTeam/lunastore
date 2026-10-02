@@ -4,6 +4,7 @@ import tempfile
 from unittest import mock
 
 from django.contrib.auth import get_user_model
+from django.core.checks import Tags, run_checks
 from django.test import SimpleTestCase, TestCase, override_settings
 from django.urls import reverse
 
