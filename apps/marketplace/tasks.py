@@ -33,12 +33,27 @@ def moderate_review_task(review_id: int) -> None:
         app_title=review.application.title,
     )
 
+    if result.decision == Review.STATUS_REJECTED:
+        app = review.application
+        logger.info(
+            "AI Moderation for Review #%d: rejected (score=%s, reason=%s), deleting",
+            review.id,
+            result.score,
+            result.reason,
+        )
+        review.delete()
+        if app:
+            app.update_rating_cache()
+        return
+
     review.ai_score = result.score
     review.ai_flags = result.flags
     review.ai_reason = result.reason
     review.ai_raw_response = result.raw_response
     review.status = result.decision
     review.save()
+    if review.status == Review.STATUS_APPROVED:
+        review.application.update_rating_cache()
 
     logger.info(
         "AI Moderation for Review #%d: status=%s, score=%s, model=%s",

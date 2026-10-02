@@ -1519,9 +1519,20 @@ class ReviewAdmin(unfold_admin.ModelAdmin):
             return actions
         if review.status == Review.STATUS_APPROVED:
             return [a for a in actions if getattr(a, "name", "") != "approve_detail"]
-        if review.status == Review.STATUS_REJECTED:
-            return [a for a in actions if getattr(a, "name", "") != "reject_detail"]
         return actions
+
+    def _delete_reviews(self, queryset_or_ids):
+        if hasattr(queryset_or_ids, "values_list"):
+            app_ids = list(queryset_or_ids.values_list("application_id", flat=True).distinct())
+            count, _ = queryset_or_ids.delete()
+        else:
+            ids = list(queryset_or_ids)
+            qs = Review.objects.filter(id__in=ids)
+            app_ids = list(qs.values_list("application_id", flat=True).distinct())
+            count, _ = qs.delete()
+        for app in Application.objects.filter(id__in=app_ids):
+            app.update_rating_cache()
+        return count
 
     def _apply_review_status(self, queryset_or_ids, status, user):
         from django.utils import timezone
@@ -1557,8 +1568,8 @@ class ReviewAdmin(unfold_admin.ModelAdmin):
 
     @action(description="Отклонить выбранные отзывы", icon="cancel")
     def reject_reviews(self, request, queryset):
-        count = self._apply_review_status(queryset, Review.STATUS_REJECTED, request.user)
-        self.message_user(request, f"Отклонено отзывов: {count}", messages.WARNING)
+        count = self._delete_reviews(queryset)
+        self.message_user(request, f"Отклонено и удалено отзывов: {count}", messages.WARNING)
 
     @action(description="Перепроверить через ИИ", icon="refresh")
     def recheck_ai_action(self, request, queryset):
@@ -1582,11 +1593,11 @@ class ReviewAdmin(unfold_admin.ModelAdmin):
     def reject_detail(self, request, object_id):
         rev = Review.objects.filter(id=object_id).first()
         changelist_url = self.get_changelist_url()
-        if rev and rev.status == Review.STATUS_REJECTED:
-            self.message_user(request, "Отзыв уже отклонён", messages.INFO)
+        if not rev:
+            self.message_user(request, "Отзыв не найден", messages.INFO)
             return redirect(changelist_url)
-        self._apply_review_status([object_id], Review.STATUS_REJECTED, request.user)
-        self.message_user(request, "Отзыв отклонён", messages.WARNING)
+        self._delete_reviews([object_id])
+        self.message_user(request, "Отзыв отклонён и удалён", messages.WARNING)
         return redirect(changelist_url)
 
     def app_link(self, obj):

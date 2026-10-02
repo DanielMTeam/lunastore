@@ -1039,8 +1039,10 @@ def delete_review(request):
         messages.error(request, _("PAGE_APP_RATING_DELETE_DENIED"))
         return redirect(f"{reverse('app')}?id={review.application.id}")
 
-    app_id = review.application.id
+    app = review.application
+    app_id = app.id
     review.delete()
+    app.update_rating_cache()
     messages.success(request, _("PAGE_APP_RATING_DELETE_SUCCESS"))
 
     next_url = get_safe_redirect_url(

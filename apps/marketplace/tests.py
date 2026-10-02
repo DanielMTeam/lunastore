@@ -1310,23 +1310,19 @@ class ReviewAndModerationTest(TestCase):
         self.assertEqual(self.app.rating_cache, 4.0)
         self.assertEqual(self.app.reviews_count, 2)
 
-        # Detail reject rev2
+        # Detail reject rev2: should delete review and update app rating cache
         admin_instance.reject_detail(req, rev2.id)
         self.app.refresh_from_db()
         self.assertEqual(self.app.rating_cache, 5.0)
         self.assertEqual(self.app.reviews_count, 1)
+        self.assertFalse(Review.objects.filter(id=rev2.id).exists())
 
-        # Detail approve rev2 back
-        admin_instance.approve_detail(req, rev2.id)
-        self.app.refresh_from_db()
-        self.assertEqual(self.app.rating_cache, 4.0)
-        self.assertEqual(self.app.reviews_count, 2)
-
-        # Bulk reject both
-        admin_instance.reject_reviews(req, Review.objects.filter(id__in=[rev1.id, rev2.id]))
+        # Bulk reject rev1: should delete review and reset app rating cache
+        admin_instance.reject_reviews(req, Review.objects.filter(id=rev1.id))
         self.app.refresh_from_db()
         self.assertEqual(self.app.rating_cache, 0.0)
         self.assertEqual(self.app.reviews_count, 0)
+        self.assertEqual(Review.objects.count(), 0)
 
     def test_cannot_reply_to_unapproved_review(self):
         """Developer cannot reply to pending or rejected reviews."""
