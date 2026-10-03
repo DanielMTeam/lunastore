@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.conf import settings
 import json
 import logging
-from apps.core.utils import get_client_ip, get_country_code
+from apps.core.utils import get_client_ip
 
 logger = logging.getLogger(__name__)
 
@@ -72,80 +72,28 @@ class RateLimitMiddleware:
         return response
 
 
-class GeoDomainMiddleware:
+class FallbackGeoRedirectMiddleware:
+    # fallback redirects for standalone/self-host when reverse proxy is not doing them
     def __init__(self, get_response):
         self.get_response = get_response
 
     def __call__(self, request):
-        from .local import set_current_request
-        set_current_request(request)
-
-        ip = get_client_ip(request)
-        country_code = get_country_code(ip)
-
-        # Default domains
-        geo_domains = {
-            "API_URL": settings.API_URL,
-            "SPIRE_URL": settings.LUNASPIRE_URL,
-        }
-
-        # Override domains if present in config and enabled
-        if getattr(config, 'GEO_DOMAIN_PROXY_ENABLED', True):
-            raw_overrides = getattr(config, 'GEO_DOMAIN_OVERRIDES', '{}')
-            try:
-                overrides = json.loads(raw_overrides)
-                current_host = request.get_host().split(':')[0]
-
-                # If IP-based country code is not in overrides, check if we're
-                # currently on a regional domain
-                if country_code not in overrides:
-                    for code, override_data in overrides.items():
-                        if isinstance(override_data, dict) and override_data.get(
-                                'BASE_URL') == current_host:
-                            country_code = code
-                            break
-
-                if country_code in overrides:
-                    country_overrides = overrides[country_code]
-                    if isinstance(country_overrides, dict):
-                        # update with matched ones
-                        if 'BASE_URL' in country_overrides:
-                            geo_domains['BASE_URL'] = country_overrides['BASE_URL']
-                        if 'API_URL' in country_overrides:
-                            api_val = country_overrides['API_URL']
-                            if not api_val.startswith('http'):
-                                api_val = 'https://' + api_val
-                            geo_domains['API_URL'] = api_val
-                        if 'SPIRE_URL' in country_overrides:
-                            spire_val = country_overrides['SPIRE_URL']
-                            if not spire_val.startswith('http'):
-                                spire_val = 'https://' + spire_val
-                            geo_domains['SPIRE_URL'] = spire_val
-            except json.JSONDecodeError:
-                logger.error(
-                    "Failed to parse GEO_DOMAIN_OVERRIDES json in Constance config.")
-            except Exception as e:
-                logger.error(f"Error processing geo domains: {e}")
-
-        request.geo_domains = geo_domains
-
-        # Redirect if current host doesn't match geo BASE_URL
-        base_url = geo_domains.get('BASE_URL')
-        if base_url:
-            current_host = request.get_host().split(':')[0]
-            base_url_domain = base_url.split(':')[0]
-
-            # We only redirect if it's explicitly enabled and the domain
-            # differs
-            if getattr(config, 'GEO_DOMAIN_PROXY_ENABLED',
-                       True) and current_host != base_url_domain:
-                # Do not redirect for static/media files to prevent loops if
-                # they share domain
-                if not request.path.startswith(('/media/', '/staticfiles/')):
-                    from django.shortcuts import redirect
-                    new_url = f"{
-                        request.scheme}://{base_url}{
-                        request.get_full_path()}"
-                    return redirect(new_url)
+        if getattr(config, 'GEO_DOMAIN_PYTHON_FALLBACK_REDIRECTS', False):
+            if request.method in ('GET', 'HEAD') and not request.path.startswith(
+                ('/media/', '/staticfiles/', '/static/', '/method/', '/v2/')
+            ):
+                from apps.core.utils import get_geo_domains
+                geo_domains = get_geo_domains(request)
+                base_url = geo_domains.get('BASE_URL')
+                if base_url:
+                    current_host = request.get_host().split(':')[0].lower()
+                    base_url_domain = base_url.split(':')[0].lower()
+                    if current_host != base_url_domain:
+                        from django.shortcuts import redirect
+                        return redirect(f"{request.scheme}://{base_url}{request.get_full_path()}")
 
         return self.get_response(request)
+
+
+# backward compatibility alias
+GeoDomainMiddleware = FallbackGeoRedirectMiddleware

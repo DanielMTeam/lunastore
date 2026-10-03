@@ -62,6 +62,11 @@ class UserSessionMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
+        from apps.core.local import set_current_request
+        from apps.core.utils import get_geo_domains
+        set_current_request(request)
+        get_geo_domains(request)
+
         if request.user.is_authenticated and request.session.session_key:
             session_key = request.session.session_key
 

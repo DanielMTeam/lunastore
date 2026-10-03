@@ -25,14 +25,16 @@ def lunapassport_settings(request):
 
 
 def geo_domains_processor(request):
-    return {"geo_domains": getattr(request, 'geo_domains', {})}
+    from apps.core.utils import get_geo_domains
+    return {"geo_domains": get_geo_domains(request)}
 
 
 def notification_context(request):
     from apps.user.decorators import is_modern_browser
     is_modern = is_modern_browser(request)
     if request.user.is_authenticated:
-        geo_domains = getattr(request, 'geo_domains', {})
+        from apps.core.utils import get_geo_domains
+        geo_domains = get_geo_domains(request)
         api_url = geo_domains.get('SPIRE_URL', settings.LUNASPIRE_URL)
         return {
             'is_modern_browser': is_modern,
