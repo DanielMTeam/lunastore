@@ -139,7 +139,7 @@ class Command(BaseCommand):
                     worker_id=worker_id,
                 )
             except Exception as e:
-                logger.error(f"Worker task processing exception: {e}")
+                logger.warning("Worker task processing exception: %s", e)
                 try:
                     from django.tasks import task_backends
                     bk = task_backends[backend_name]
@@ -158,7 +158,8 @@ class Command(BaseCommand):
                                 getattr(msg, "task_id", msg),
                             )
                 except Exception as ack_err:
-                    logger.debug(f"Failed to ack unstartable task message: {ack_err}")
+                    logger.debug("Failed to ack unstartable task message: %s", ack_err)
+                time.sleep(interval)
                 result = None
 
             if result is not None:

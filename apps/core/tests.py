@@ -410,3 +410,45 @@ class StaticFilesStorageFallbackTest(SimpleTestCase):
 
         storage = StaticFilesStorage()
         self.assertEqual(storage.url("./css/main.css"), storage.url("css/main.css"))
+
+
+class TaskPatchesTestCase(SimpleTestCase):
+    def setUp(self):
+        super().setUp()
+        from apps.core.task_patches import patch_redis_tasks_resolver
+        patch_redis_tasks_resolver()
+
+    def test_safe_resolve_task_normal(self):
+        from django_tasks_redis.backends import RedisTaskBackend
+
+        backend = RedisTaskBackend(alias="default", params={"OPTIONS": {}})
+        task = backend._resolve_task("apps.core.tasks.send_telegram_notification")
+        self.assertTrue(callable(task) or hasattr(task, "func"))
+
+    def test_safe_resolve_task_synthesizes_flush_analytics(self):
+        import apps.analytics.tasks
+        from django_tasks_redis.backends import RedisTaskBackend
+
+        orig_attr = getattr(apps.analytics.tasks, "flush_analytics_task", None)
+        try:
+            if hasattr(apps.analytics.tasks, "flush_analytics_task"):
+                delattr(apps.analytics.tasks, "flush_analytics_task")
+
+            backend = RedisTaskBackend(alias="default", params={"OPTIONS": {}})
+            with mock.patch("importlib.reload", side_effect=Exception("reload error")):
+                task = backend._resolve_task("apps.analytics.tasks.flush_analytics_task")
+                self.assertIsNotNone(task)
+                result = task.func() if hasattr(task, "func") else task()
+                self.assertIsInstance(result, dict)
+        finally:
+            if orig_attr is not None:
+                setattr(apps.analytics.tasks, "flush_analytics_task", orig_attr)
+
+    def test_safe_resolve_task_discards_unknown_task(self):
+        from django_tasks_redis.backends import RedisTaskBackend
+
+        backend = RedisTaskBackend(alias="default", params={"OPTIONS": {}})
+        task = backend._resolve_task("apps.core.tasks.fictional_unregistered_task")
+        self.assertIsNotNone(task)
+        result = task.func() if hasattr(task, "func") else task()
+        self.assertEqual(result.get("status"), "discarded")
