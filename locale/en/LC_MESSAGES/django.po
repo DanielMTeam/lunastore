@@ -2457,7 +2457,7 @@ msgid "PAGE_SETTINGS_TITLE"
 msgstr "Settings"
 
 msgid "PAGE_SETTINGS_WARN_USERNAME_FROZEN"
-msgstr "Username cannot be changed after registration"
+msgstr "Username can only be changed once a year after registration"
 
 msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_1"
 msgstr "Files passed validation: "

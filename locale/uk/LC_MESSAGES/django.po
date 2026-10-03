@@ -2356,7 +2356,7 @@ msgid "PAGE_SETTINGS_TITLE"
 msgstr "Налаштування"
 
 msgid "PAGE_SETTINGS_WARN_USERNAME_FROZEN"
-msgstr "Ім'я користувача після реєстрації змінити не можна"
+msgstr "Ім'я користувача після реєстрації можна змінювати 1 раз на рік"
 
 msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_1"
 msgstr "Файли пройшли перевірку:"
