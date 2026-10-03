@@ -126,24 +126,22 @@ flowchart TD
 
 ---
 
-## Domain routing and GeoIP (`GeoDomainMiddleware`)
+## Domain routing and GeoIP (Reverse Proxy & Edge Ingress)
 
-LunaStore supports dynamic geo routing via [`GeoDomainMiddleware`](../../../apps/core/middleware.py):
+LunaStore offloads GeoIP country detection and regional domain redirects to the reverse proxy layer (Nginx `ngx_http_geoip2_module`, Cloudflare `CF-IPCountry`, or Caddy) to ensure sub-millisecond TTFB and zero overhead on Python workers:
 
-1. Incoming requests resolve the real client IP (`apps.core.utils.get_client_ip`).
-2. MaxMind GeoIP2 (`geo.mmdb` under `apps/core/geolocation/`) yields a two-letter country code.
-3. Constance stores JSON `GEO_DOMAIN_OVERRIDES`, for example:
-   ```json
-   {
-     "RU": {
-       "BASE_URL": "ru.lunastore.app",
-       "API_URL": "api.ru.lunastore.app",
-       "SPIRE_URL": "spire.ru.lunastore.app"
-     }
-   }
-   ```
-4. Matching countries are redirected to the regional mirror while preserving path and query.
-5. Static/media paths (`/staticfiles/`, `/media/`) skip redirects to avoid loops.
+1. **Reverse Proxy / Edge:**
+   - Reverse proxy evaluates client IP using MaxMind GeoIP2 or Cloudflare country header.
+   - For regional users (e.g. `RU`), Nginx/Cloudflare issues an immediate 302 redirect from `lunastore.app` to `ru.lunastore.app` at the edge (bypassing Django, and skipping static/media/api endpoints).
+   - Upstream proxy headers forwarded to Django:
+     - `X-Country-Code: RU` (Nginx, Caddy, Traefik)
+     - `CF-IPCountry: RU` (Cloudflare)
+2. **Django Backend:**
+   - Country code is retrieved via [`apps.core.utils.get_country_from_request`](../../../apps/core/utils.py) without MMDB disk reads.
+   - Regional domain overrides (API/Spire URLs) are resolved in-memory via `get_geo_domains(request)`.
+   - `GeoDomainMiddleware` is removed from global `MIDDLEWARE`.
+   - **Zero-config fallback:** When running in local development or standalone setups without an edge proxy, Django seamlessly falls back to reading `apps/core/geolocation/geo.mmdb` and caches the IP country in Redis for 24 hours. Python redirects can be optionally enabled via `GEO_DOMAIN_PYTHON_FALLBACK_REDIRECTS`.
+
 
 ---
 

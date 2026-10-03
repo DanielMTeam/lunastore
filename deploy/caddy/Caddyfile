@@ -1,0 +1,83 @@
+# ==============================================================================
+# LunaStore — Caddy Configuration
+# ==============================================================================
+# Caddy reverse proxy configuration with header forwarding and regional support.
+# ==============================================================================
+
+(common_headers) {
+    header_up Host {host}
+    header_up X-Real-IP {remote_host}
+    header_up X-Forwarded-For {remote_host}
+    header_up X-Forwarded-Proto {scheme}
+}
+
+lunastore.app {
+    # Static files mapping
+    handle_path /staticfiles/* {
+        root * /opt/lunastore/static
+        file_server
+    }
+
+    handle_path /media/* {
+        root * /opt/lunastore/media
+        file_server
+    }
+
+    # Dedicated API routing
+    handle /method/* {
+        reverse_proxy 127.0.0.1:7088 {
+            import common_headers
+            header_up X-Country-Code {http.request.header.CF-IPCountry}
+        }
+    }
+
+    handle /v2/* {
+        reverse_proxy 127.0.0.1:7088 {
+            import common_headers
+            header_up X-Country-Code {http.request.header.CF-IPCountry}
+        }
+    }
+
+    # Main Web service
+    handle {
+        reverse_proxy 127.0.0.1:9088 {
+            import common_headers
+            # Forward Cloudflare country header or Caddy geoip if available
+            header_up X-Country-Code {http.request.header.CF-IPCountry}
+        }
+    }
+}
+
+# Regional mirror for RU
+ru.lunastore.app {
+    handle_path /staticfiles/* {
+        root * /opt/lunastore/static
+        file_server
+    }
+
+    handle_path /media/* {
+        root * /opt/lunastore/media
+        file_server
+    }
+
+    handle /method/* {
+        reverse_proxy 127.0.0.1:7088 {
+            import common_headers
+            header_up X-Country-Code "RU"
+        }
+    }
+
+    handle /v2/* {
+        reverse_proxy 127.0.0.1:7088 {
+            import common_headers
+            header_up X-Country-Code "RU"
+        }
+    }
+
+    handle {
+        reverse_proxy 127.0.0.1:9088 {
+            import common_headers
+            header_up X-Country-Code "RU"
+        }
+    }
+}

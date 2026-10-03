@@ -185,11 +185,20 @@ class CountryCodeMatcher:
         payload: dict[str, Any],
         context: NoSpamContext,
     ) -> tuple[bool, str]:
-        ip_value = context.ip or ""
-        if not ip_value:
-            return False, ""
-        country = get_country_code(ip_value)
-        return country.upper() == pattern.upper(), country
+        country = context.extra.get("country_code") if context.extra else ""
+        if not country:
+            ip_value = context.ip or ""
+            if not ip_value:
+                return False, ""
+            cache_key = f"geoip_cc_{ip_value}"
+            cached = cache.get(cache_key)
+            if cached:
+                country = cached
+            else:
+                country = get_country_code(ip_value)
+                if country and country != "Unknown":
+                    cache.set(cache_key, country.upper(), timeout=86400)
+        return (country or "").upper() == (pattern or "").upper(), country or ""
 
     def find_users(
         self,
@@ -205,7 +214,13 @@ class CountryCodeMatcher:
         ).distinct():
             if not ip_value:
                 continue
-            if get_country_code(ip_value).upper() == target_country:
+            cache_key = f"geoip_cc_{ip_value}"
+            country = cache.get(cache_key)
+            if not country:
+                country = get_country_code(ip_value)
+                if country and country != "Unknown":
+                    cache.set(cache_key, country.upper(), timeout=86400)
+            if country and country.upper() == target_country:
                 matched_ids.add(user_id)
         return User.objects.filter(id__in=matched_ids).distinct(), pattern
 

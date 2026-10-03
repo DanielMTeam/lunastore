@@ -8,7 +8,7 @@ from typing import Optional
 
 from django.http import HttpRequest
 
-from apps.core.utils import get_client_ip, get_country_code
+from apps.core.utils import get_client_ip, get_country_from_request
 
 logger = logging.getLogger("analytics")
 
@@ -44,19 +44,14 @@ def extract_request_meta(request: HttpRequest) -> RequestMeta:
     except Exception:
         logger.debug("failed to resolve client ip", exc_info=True)
 
-    # resolve country (geoip or cloudflare header)
+    # resolve country (proxy headers or cached geoip fallback)
     country = ""
-    if ip:
-        try:
-            cf_country = request.META.get("HTTP_CF_IPCOUNTRY", "").strip()
-            if cf_country and cf_country != "XX" and len(cf_country) <= 4:
-                country = cf_country.upper()
-            else:
-                code = get_country_code(ip)
-                if code and code != "Unknown":
-                    country = str(code).strip()[:8].upper()
-        except Exception:
-            logger.debug("failed to resolve country code for ip=%s", ip, exc_info=True)
+    try:
+        c = get_country_from_request(request)
+        if c and c != "Unknown":
+            country = c[:8].upper()
+    except Exception:
+        logger.debug("failed to resolve country code for request", exc_info=True)
 
     # resolve os & browser from user-agent
     os_name = ""
