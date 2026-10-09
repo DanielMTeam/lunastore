@@ -504,6 +504,37 @@ class GeoIPDetectionAndRoutingTest(TestCase):
         with mock.patch.object(self.geo_config, "GEO_DOMAIN_PROXY_ENABLED", False):
             self.assertNotIn("BASE_URL", get_geo_domains(request))
 
+    def test_geo_domains_ignore_invalid_url_values(self):
+        from django.conf import settings
+        from apps.core.utils import get_geo_domains
+
+        for value in (None, 123, [], {}, "", "   "):
+            with self.subTest(value=value):
+                overrides = json.dumps({"RU": {key: value for key in ("BASE_URL", "API_URL", "SPIRE_URL")}})
+                with mock.patch.object(self.geo_config, "GEO_DOMAIN_OVERRIDES", overrides):
+                    request = self.factory.get("/", HTTP_X_COUNTRY_CODE="RU")
+                    self.assertEqual(get_geo_domains(request), {
+                        "API_URL": settings.API_URL,
+                        "SPIRE_URL": settings.LUNASPIRE_URL,
+                    })
+
+    def test_geo_domains_keep_valid_values_when_another_value_is_invalid(self):
+        from django.conf import settings
+        from apps.core.utils import get_geo_domains
+
+        overrides = json.dumps({"RU": {"BASE_URL": "ru.lunastore.app", "API_URL": None}})
+        with mock.patch.object(self.geo_config, "GEO_DOMAIN_OVERRIDES", overrides):
+            request = self.factory.get("/", HTTP_X_COUNTRY_CODE="RU")
+            domains = get_geo_domains(request)
+            self.assertEqual(domains["BASE_URL"], "ru.lunastore.app")
+            self.assertEqual(domains["API_URL"], settings.API_URL)
+
+    def test_invalid_geo_domain_values_do_not_break_requests(self):
+        overrides = json.dumps({"RU": {"BASE_URL": 123, "SPIRE_URL": None}})
+        with mock.patch.object(self.geo_config, "GEO_DOMAIN_OVERRIDES", overrides):
+            response = self.client.get("/index.php", HTTP_X_COUNTRY_CODE="RU")
+            self.assertEqual(response.status_code, 200)
+
     def test_no_redirect_in_django_by_default(self):
         # reverse proxy handles redirects outside django
         response = self.client.get("/index.php", HTTP_X_COUNTRY_CODE="RU")
@@ -526,6 +557,12 @@ class GeoIPDetectionAndRoutingTest(TestCase):
             response = middleware(request)
             self.assertEqual(response.status_code, 302)
             self.assertEqual(response.url, "http://ru.lunastore.app/index.php")
+
+    def test_fallback_redirect_through_django_client(self):
+        with mock.patch.object(self.geo_config, "GEO_DOMAIN_PYTHON_FALLBACK_REDIRECTS", True):
+            response = self.client.get("/index.php?q=test", HTTP_X_COUNTRY_CODE="RU", HTTP_HOST="lunastore.app")
+            self.assertEqual(response.status_code, 302)
+            self.assertEqual(response.url, "http://ru.lunastore.app/index.php?q=test")
 
     def test_country_from_request_sanitization(self):
         from apps.core.utils import get_country_from_request

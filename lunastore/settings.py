@@ -1452,6 +1452,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     'django_user_agents.middleware.UserAgentMiddleware',
     "apps.user.middleware.UserSessionMiddleware",
+    "apps.core.middleware.FallbackGeoRedirectMiddleware",
     *([] if not RATE_LIMIT_ENABLED else ["apps.core.middleware.RateLimitMiddleware"]),
 ]
 

@@ -206,9 +206,22 @@ def get_geo_domains(request=None) -> dict[str, str]:
         raw_overrides = getattr(config, "GEO_DOMAIN_OVERRIDES", "{}")
         if _parsed_geo_overrides[0] != raw_overrides:
             try:
-                _parsed_geo_overrides = (raw_overrides, json.loads(raw_overrides))
-            except Exception:
-                _parsed_geo_overrides = (raw_overrides, {})
+                parsed = json.loads(raw_overrides)
+            except (TypeError, ValueError):
+                parsed = {}
+            validated = {}
+            if isinstance(parsed, dict):
+                for code, values in parsed.items():
+                    if not isinstance(values, dict):
+                        continue
+                    valid_values = {}
+                    for key in ("BASE_URL", "API_URL", "SPIRE_URL"):
+                        value = values.get(key)
+                        if isinstance(value, str) and value.strip():
+                            valid_values[key] = value.strip()
+                    if valid_values:
+                        validated[code] = valid_values
+            _parsed_geo_overrides = (raw_overrides, validated)
 
         overrides = _parsed_geo_overrides[1]
         if overrides and isinstance(overrides, dict):
