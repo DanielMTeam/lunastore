@@ -2353,7 +2353,7 @@ msgid "PAGE_SETTINGS_TITLE"
 msgstr "Налады"
 
 msgid "PAGE_SETTINGS_WARN_USERNAME_FROZEN"
-msgstr "Імя карыстальніка пасля рэгістрацыі змяніць нельга"
+msgstr "Імя карыстальніка пасля рэгістрацыі можна змяняць 1 раз на год"
 
 msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_1"
 msgstr "Файлы прайшлі праверку:"

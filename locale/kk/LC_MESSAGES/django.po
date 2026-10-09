@@ -2341,7 +2341,7 @@ msgid "PAGE_SETTINGS_TITLE"
 msgstr "Баптаулар"
 
 msgid "PAGE_SETTINGS_WARN_USERNAME_FROZEN"
-msgstr "Пайдаланушы атын тіркелуден кейін өзгерту мүмкін емес"
+msgstr "Пайдаланушы атын тіркелуден кейін жылына 1 рет қана өзгертуге болады"
 
 msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_1"
 msgstr "Файлдар тексеруден өтті: "

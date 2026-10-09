@@ -93,7 +93,7 @@ services:
                 condition: service_healthy
         volumes:
             - ./lunaspire/public:/root/public
-            - ./lunaspire/storage:/root/storage
+            - /mnt/data/lunaspire/storage:/root/storage
         ports:
             - "6080:8080"
         command: >
