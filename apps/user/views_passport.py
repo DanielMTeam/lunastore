@@ -23,7 +23,7 @@ from django_smart_ratelimit import ratelimit
 from safedelete import HARD_DELETE
 
 from apps.core.tasks import send_notification
-from apps.core.utils import get_client_ip
+from apps.core.utils import get_client_ip, get_country_from_request
 from apps.user.models import LunaPassportLink, User, UserActivityLog, UserBan
 from apps.user.services import lunapassport as passport
 from apps.user.services.antispam import AntiSpamService, NoSpamContext
@@ -61,7 +61,7 @@ def _run_nospam(
         user_agent=request.META.get("HTTP_USER_AGENT", ""),
         invite_code=invite_code,
         user=user,
-        extra={"path": request.path},
+        extra={"path": request.path, "country_code": get_country_from_request(request)},
     )
     try:
         return AntiSpamService.evaluate_and_apply(

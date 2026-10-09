@@ -779,6 +779,11 @@ CONSTANCE_CONFIG = {
         "Переопределения доменов по странам (JSON)",
         "textarea",
     ),
+    "GEO_DOMAIN_PYTHON_FALLBACK_REDIRECTS": (
+        os.getenv("GEO_DOMAIN_PYTHON_FALLBACK_REDIRECTS", "False") == "True",
+        "Выполнять редиректы в Python (только для standalone/self-host без Nginx/Cloudflare)",
+        bool,
+    ),
     "ENABLE_DISTRIBUTION_PROXY": (
         os.getenv("ENABLE_DISTRIBUTION_PROXY", "True") == "True",
         "Проксировать внешние ссылки скачивания (дистрибуции) через Nginx (X-Accel-Redirect)",
@@ -1055,7 +1060,11 @@ CONSTANCE_CONFIG_FIELDSETS = {
         "collapse": True,
     },
     "Geo Реверс-прокси": {
-        "fields": ["GEO_DOMAIN_PROXY_ENABLED", "GEO_DOMAIN_OVERRIDES"],
+        "fields": [
+            "GEO_DOMAIN_PROXY_ENABLED",
+            "GEO_DOMAIN_OVERRIDES",
+            "GEO_DOMAIN_PYTHON_FALLBACK_REDIRECTS",
+        ],
         "collapse": True,
     },
     "ИИ-модерация отзывов (OpenRouter)": {
@@ -1443,7 +1452,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     'django_user_agents.middleware.UserAgentMiddleware',
     "apps.user.middleware.UserSessionMiddleware",
-    "apps.core.middleware.GeoDomainMiddleware",
+    "apps.core.middleware.FallbackGeoRedirectMiddleware",
     *([] if not RATE_LIMIT_ENABLED else ["apps.core.middleware.RateLimitMiddleware"]),
 ]
 

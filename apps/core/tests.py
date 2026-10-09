@@ -1,11 +1,15 @@
+import json
 import logging
 import os
 import tempfile
+from types import SimpleNamespace
 from unittest import mock
 
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 from django.core.checks import Tags, run_checks
-from django.test import SimpleTestCase, TestCase, override_settings
+from django.http import HttpResponse
+from django.test import RequestFactory, SimpleTestCase, TestCase, override_settings
 from django.urls import reverse
 
 from apps.marketplace.models import (
@@ -410,6 +414,296 @@ class StaticFilesStorageFallbackTest(SimpleTestCase):
 
         storage = StaticFilesStorage()
         self.assertEqual(storage.url("./css/main.css"), storage.url("css/main.css"))
+
+
+@override_settings(
+    ALLOWED_HOSTS=["testserver", "lunastore.app", "ru.lunastore.app", "api.ru.lunastore.app", "spire.ru.lunastore.app"],
+    TRUSTED_PROXIES=["127.0.0.1/32"],
+)
+class GeoIPDetectionAndRoutingTest(TestCase):
+    def setUp(self):
+        super().setUp()
+        cache.clear()
+        self.addCleanup(cache.clear)
+        self.factory = RequestFactory()
+        self.geo_config = SimpleNamespace(
+            GEO_DOMAIN_PROXY_ENABLED=True,
+            GEO_DOMAIN_PYTHON_FALLBACK_REDIRECTS=False,
+            GEO_DOMAIN_OVERRIDES=json.dumps({
+                "RU": {
+                    "BASE_URL": "ru.lunastore.app",
+                    "API_URL": "//api.ru.lunastore.app",
+                    "SPIRE_URL": "//spire.ru.lunastore.app",
+                }
+            }),
+        )
+        # Both modules must read the same configuration, independent of the environment.
+        for target in ("apps.core.utils.config", "apps.core.middleware.config"):
+            patcher = mock.patch(target, self.geo_config)
+            patcher.start()
+            self.addCleanup(patcher.stop)
+        geoip_patcher = mock.patch("apps.core.utils.get_country_code", return_value="Unknown")
+        geoip_patcher.start()
+        self.addCleanup(geoip_patcher.stop)
+
+    def test_country_from_request_x_country_code(self):
+        from apps.core.utils import get_country_from_request
+
+        request = self.factory.get("/", HTTP_X_COUNTRY_CODE="RU")
+        self.assertEqual(get_country_from_request(request), "RU")
+
+    def test_country_from_request_cf_ipcountry(self):
+        from apps.core.utils import get_country_from_request
+
+        request = self.factory.get("/", HTTP_CF_IPCOUNTRY="KZ")
+        self.assertEqual(get_country_from_request(request), "KZ")
+
+    def test_country_from_request_x_geoip_country(self):
+        from apps.core.utils import get_country_from_request
+
+        request = self.factory.get("/", HTTP_X_GEOIP_COUNTRY="BY")
+        self.assertEqual(get_country_from_request(request), "BY")
+
+    def test_country_from_request_priority(self):
+        from apps.core.utils import get_country_from_request
+
+        request = self.factory.get(
+            "/",
+            HTTP_X_COUNTRY_CODE="RU",
+            HTTP_CF_IPCOUNTRY="US",
+        )
+        self.assertEqual(get_country_from_request(request), "RU")
+
+    @mock.patch("apps.core.utils.get_country_code")
+    def test_country_from_request_fallback_and_caching(self, mock_get_code):
+        from apps.core.utils import get_country_from_request
+
+        mock_get_code.return_value = "DE"
+        request = self.factory.get("/", REMOTE_ADDR="198.51.100.42")
+
+        # first call hits mock
+        code1 = get_country_from_request(request)
+        self.assertEqual(code1, "DE")
+        mock_get_code.assert_called_once_with("198.51.100.42")
+
+        # second call hits cache
+        mock_get_code.reset_mock()
+        code2 = get_country_from_request(request)
+        self.assertEqual(code2, "DE")
+        mock_get_code.assert_not_called()
+
+    def test_geo_domains_resolution(self):
+        from apps.core.utils import get_geo_domains
+
+        request = self.factory.get("/", HTTP_HOST="ru.lunastore.app")
+        domains = get_geo_domains(request)
+        self.assertEqual(domains.get("BASE_URL"), "ru.lunastore.app")
+        self.assertIn("ru.lunastore.app", domains.get("SPIRE_URL", ""))
+
+    def test_main_domain_does_not_select_mirror_by_country(self):
+        from django.conf import settings
+        from apps.core.utils import get_geo_domains
+
+        with mock.patch("apps.core.utils.get_country_from_request") as country_lookup:
+            request = self.factory.get("/", HTTP_HOST="lunastore.app", HTTP_X_COUNTRY_CODE="RU")
+            self.assertEqual(get_geo_domains(request), {
+                "API_URL": settings.API_URL,
+                "SPIRE_URL": settings.LUNASPIRE_URL,
+            })
+            country_lookup.assert_not_called()
+
+    def test_api_and_cdn_mirror_hosts_select_regional_urls(self):
+        from apps.core.utils import get_geo_domains
+
+        for host in ("api.ru.lunastore.app", "spire.ru.lunastore.app"):
+            with self.subTest(host=host):
+                request = self.factory.get("/", HTTP_HOST=host, HTTP_X_COUNTRY_CODE="DE")
+                domains = get_geo_domains(request)
+                self.assertEqual(domains["API_URL"], "//api.ru.lunastore.app")
+                self.assertEqual(domains["SPIRE_URL"], "//spire.ru.lunastore.app")
+
+    def test_opt_in_country_redirect_does_not_replace_hostname_cache(self):
+        from apps.core.utils import get_geo_domains
+
+        request = self.factory.get("/", HTTP_HOST="lunastore.app", HTTP_X_COUNTRY_CODE="RU")
+        primary = get_geo_domains(request)
+        self.assertNotIn("BASE_URL", primary)
+        self.assertEqual(get_geo_domains(request, allow_country_fallback=True)["BASE_URL"], "ru.lunastore.app")
+        self.assertEqual(get_geo_domains(request), primary)
+
+    def test_geo_domains_disabled(self):
+        from apps.core.utils import get_geo_domains
+
+        request = self.factory.get("/", HTTP_HOST="ru.lunastore.app", HTTP_X_COUNTRY_CODE="RU")
+        with mock.patch.object(self.geo_config, "GEO_DOMAIN_PROXY_ENABLED", False):
+            self.assertNotIn("BASE_URL", get_geo_domains(request))
+
+    def test_geo_domains_ignore_invalid_url_values(self):
+        from django.conf import settings
+        from apps.core.utils import get_geo_domains
+
+        for value in (None, 123, [], {}, "", "   "):
+            with self.subTest(value=value):
+                overrides = json.dumps({"RU": {key: value for key in ("BASE_URL", "API_URL", "SPIRE_URL")}})
+                with mock.patch.object(self.geo_config, "GEO_DOMAIN_OVERRIDES", overrides):
+                    request = self.factory.get("/", HTTP_X_COUNTRY_CODE="RU")
+                    self.assertEqual(get_geo_domains(request), {
+                        "API_URL": settings.API_URL,
+                        "SPIRE_URL": settings.LUNASPIRE_URL,
+                    })
+
+    def test_geo_domains_keep_valid_values_when_another_value_is_invalid(self):
+        from django.conf import settings
+        from apps.core.utils import get_geo_domains
+
+        overrides = json.dumps({"RU": {"BASE_URL": "ru.lunastore.app", "API_URL": None}})
+        with mock.patch.object(self.geo_config, "GEO_DOMAIN_OVERRIDES", overrides):
+            request = self.factory.get("/", HTTP_HOST="ru.lunastore.app", HTTP_X_COUNTRY_CODE="RU")
+            domains = get_geo_domains(request)
+            self.assertEqual(domains["BASE_URL"], "ru.lunastore.app")
+            self.assertEqual(domains["API_URL"], settings.API_URL)
+
+    def test_invalid_geo_domain_values_do_not_break_requests(self):
+        overrides = json.dumps({"RU": {"BASE_URL": 123, "SPIRE_URL": None}})
+        with mock.patch.object(self.geo_config, "GEO_DOMAIN_OVERRIDES", overrides):
+            response = self.client.get("/index.php", HTTP_X_COUNTRY_CODE="RU")
+            self.assertEqual(response.status_code, 200)
+
+    def test_no_redirect_in_django_by_default(self):
+        # reverse proxy handles redirects outside django
+        response = self.client.get("/index.php", HTTP_X_COUNTRY_CODE="RU")
+        self.assertEqual(response.status_code, 200)
+
+    def test_fallback_redirect_middleware_disabled_by_default(self):
+        from apps.core.middleware import FallbackGeoRedirectMiddleware
+
+        middleware = FallbackGeoRedirectMiddleware(lambda req: HttpResponse("OK"))
+        request = self.factory.get("/index.php", HTTP_X_COUNTRY_CODE="RU", HTTP_HOST="lunastore.app")
+        response = middleware(request)
+        self.assertEqual(response.status_code, 200)
+
+    def test_fallback_redirect_middleware_when_enabled(self):
+        from apps.core.middleware import FallbackGeoRedirectMiddleware
+
+        middleware = FallbackGeoRedirectMiddleware(lambda req: HttpResponse("OK"))
+        request = self.factory.get("/index.php", HTTP_X_COUNTRY_CODE="RU", HTTP_HOST="lunastore.app")
+        with mock.patch.object(self.geo_config, "GEO_DOMAIN_PYTHON_FALLBACK_REDIRECTS", True):
+            response = middleware(request)
+            self.assertEqual(response.status_code, 302)
+            self.assertEqual(response.url, "http://ru.lunastore.app/index.php")
+
+    def test_fallback_redirect_through_django_client(self):
+        with mock.patch.object(self.geo_config, "GEO_DOMAIN_PYTHON_FALLBACK_REDIRECTS", True):
+            response = self.client.get("/index.php?q=test", HTTP_X_COUNTRY_CODE="RU", HTTP_HOST="lunastore.app")
+            self.assertEqual(response.status_code, 302)
+            self.assertEqual(response.url, "http://ru.lunastore.app/index.php?q=test")
+
+    def test_country_from_request_sanitization(self):
+        from apps.core.utils import get_country_from_request
+
+        for bad in ["XX", "T1", "RUS", "R1", "ru1", "R$", "12", "", "   ", "R\nU"]:
+            request = self.factory.get("/", HTTP_X_COUNTRY_CODE=bad)
+            self.assertEqual(get_country_from_request(request), "Unknown")
+
+        # valid 2-letter alpha with surrounding whitespace strips cleanly
+        request = self.factory.get("/", HTTP_X_COUNTRY_CODE="  RU  ")
+        self.assertEqual(get_country_from_request(request), "RU")
+
+    @override_settings(TRUSTED_PROXIES=[])
+    def test_country_headers_require_explicit_proxy_trust(self):
+        from apps.core.utils import get_country_from_request
+
+        for peer in ("127.0.0.1", "10.0.0.2", "93.184.216.34"):
+            with self.subTest(peer=peer):
+                request = self.factory.get(
+                    "/", REMOTE_ADDR=peer, HTTP_X_COUNTRY_CODE="RU", HTTP_CF_IPCOUNTRY="RU",
+                    HTTP_X_GEOIP_COUNTRY="RU", HTTP_X_GEOIP_COUNTRY_CODE="RU",
+                )
+                self.assertEqual(get_country_from_request(request), "Unknown")
+
+    def test_mirror_host_does_not_override_client_country(self):
+        from apps.core.utils import get_country_from_request, get_geo_domains
+
+        request = self.factory.get("/", HTTP_HOST="ru.lunastore.app", HTTP_X_COUNTRY_CODE="DE")
+        self.assertEqual(get_geo_domains(request)["BASE_URL"], "ru.lunastore.app")
+        self.assertEqual(get_country_from_request(request), "DE")
+
+    def test_fallback_redirect_skips_current_mirror(self):
+        from apps.core.middleware import FallbackGeoRedirectMiddleware
+
+        middleware = FallbackGeoRedirectMiddleware(lambda req: HttpResponse("OK"))
+        request = self.factory.get("/index.php", HTTP_X_COUNTRY_CODE="RU", HTTP_HOST="ru.lunastore.app")
+        with mock.patch.object(self.geo_config, "GEO_DOMAIN_PYTHON_FALLBACK_REDIRECTS", True):
+            self.assertEqual(middleware(request).status_code, 200)
+
+    @mock.patch("apps.core.utils.get_country_code")
+    def test_country_from_request_spoofing_protection(self, mock_get_code):
+        from apps.core.utils import get_country_from_request
+
+        mock_get_code.return_value = "DE"
+
+        # public client ip sends a spoofed header -> header must be ignored and fallback used
+        request = self.factory.get("/", HTTP_X_COUNTRY_CODE="US", REMOTE_ADDR="93.184.216.34")
+        self.assertEqual(get_country_from_request(request), "DE")
+        mock_get_code.assert_called_once_with("93.184.216.34")
+
+        # private / loopback ip sends header -> trusted
+        request_local = self.factory.get("/", HTTP_X_COUNTRY_CODE="US", REMOTE_ADDR="127.0.0.1")
+        self.assertEqual(get_country_from_request(request_local), "US")
+
+    def test_fallback_redirect_skips_post_and_assets(self):
+        from apps.core.middleware import FallbackGeoRedirectMiddleware
+
+        middleware = FallbackGeoRedirectMiddleware(lambda req: HttpResponse("OK"))
+        with mock.patch.object(self.geo_config, "GEO_DOMAIN_PYTHON_FALLBACK_REDIRECTS", True):
+
+            # post request should never redirect
+            req_post = self.factory.post("/index.php", HTTP_X_COUNTRY_CODE="RU", HTTP_HOST="lunastore.app")
+            self.assertEqual(middleware(req_post).status_code, 200)
+
+            # static/media assets should never redirect
+            for path in ["/media/test.png", "/staticfiles/js/app.js", "/method/test/"]:
+                req_asset = self.factory.get(path, HTTP_X_COUNTRY_CODE="RU", HTTP_HOST="lunastore.app")
+                self.assertEqual(middleware(req_asset).status_code, 200)
+
+    def test_geo_domains_normalization(self):
+        from apps.core.utils import get_geo_domains
+
+        # test scheme normalization and protocol-relative support
+        overrides = json.dumps({
+            "RU": {
+                "BASE_URL": "https://ru.lunastore.app/",
+                "API_URL": "//api.ru.lunastore.app",
+                "SPIRE_URL": "//spire.ru.lunastore.app"
+            }
+        })
+        with mock.patch.object(self.geo_config, "GEO_DOMAIN_OVERRIDES", overrides):
+            req = self.factory.get("/", HTTP_HOST="ru.lunastore.app", HTTP_X_COUNTRY_CODE="RU")
+            domains = get_geo_domains(req)
+            self.assertEqual(domains["BASE_URL"], "ru.lunastore.app")
+            self.assertEqual(domains["API_URL"], "//api.ru.lunastore.app")
+            self.assertEqual(domains["SPIRE_URL"], "//spire.ru.lunastore.app")
+
+
+class CDNFileInfoURLTest(SimpleTestCase):
+    @override_settings(LUNASPIRE_SECRET_KEY="test-cdn-secret-at-least-32-characters")
+    @mock.patch("apps.core.mixins.requests.get")
+    def test_server_requests_use_absolute_urls(self, mock_get):
+        import requests
+        from apps.core.mixins import CDNTokenValidationMixin
+
+        mock_get.return_value.status_code = 200
+        mock_get.return_value.json.return_value = {"status": 200, "info": [{"path": "icons/test.png"}]}
+        for base_url, expected in (
+            ("//spire.ru.lunastore.app/", "https://spire.ru.lunastore.app/cdn/info"),
+            ("https://spire.ru.lunastore.app", "https://spire.ru.lunastore.app/cdn/info"),
+            ("http://127.0.0.1:6080/", "http://127.0.0.1:6080/cdn/info"),
+        ):
+            with self.subTest(base_url=base_url), mock.patch("apps.core.local.get_geo_spire_url", return_value=base_url):
+                self.assertEqual(CDNTokenValidationMixin().get_cdn_file_info(1, fields="path"), {"path": "icons/test.png"})
+                actual_url = mock_get.call_args.args[0]
+                self.assertEqual(actual_url, expected)
+                self.assertEqual(requests.Request("GET", actual_url).prepare().url, expected)
 
 
 class TaskPatchesTestCase(SimpleTestCase):

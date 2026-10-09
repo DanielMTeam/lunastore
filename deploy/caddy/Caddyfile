@@ -1,0 +1,84 @@
+# ==============================================================================
+# LunaStore — Caddy Configuration
+# ==============================================================================
+# Caddy uses Django's cached GeoIP fallback; standard Caddy has no GeoIP reader.
+# Set Django TRUSTED_PROXIES to the exact Caddy upstream peer addresses.
+# For a CDN in front of Caddy, configure global trusted_proxies with verified
+# provider CIDRs so {client_ip} is derived only from an authenticated proxy chain.
+# ==============================================================================
+
+(common_headers) {
+	header_up Host {host}
+	header_up X-Real-IP {client_ip}
+	header_up X-Forwarded-For {client_ip}
+	# Clear all country aliases and provider IP headers supplied by the client.
+	header_up -X-Country-Code
+	header_up -CF-IPCountry
+	header_up -CF-Connecting-IP
+	header_up -X-GeoIP-Country
+	header_up -X-GeoIP-Country-Code
+}
+
+lunastore.app {
+	# Static files mapping
+	handle_path /staticfiles/* {
+		root * /opt/lunastore/static
+		file_server
+	}
+
+	handle_path /media/* {
+		root * /opt/lunastore/media
+		file_server
+	}
+
+	# Dedicated API routing
+	handle /method/* {
+		reverse_proxy 127.0.0.1:7088 {
+			import common_headers
+		}
+	}
+
+	handle /v2/* {
+		reverse_proxy 127.0.0.1:7088 {
+			import common_headers
+		}
+	}
+
+	# Main Web service
+	handle {
+		reverse_proxy 127.0.0.1:9088 {
+			import common_headers
+		}
+	}
+}
+
+# Regional mirror for RU
+ru.lunastore.app {
+	handle_path /staticfiles/* {
+		root * /opt/lunastore/static
+		file_server
+	}
+
+	handle_path /media/* {
+		root * /opt/lunastore/media
+		file_server
+	}
+
+	handle /method/* {
+		reverse_proxy 127.0.0.1:7088 {
+			import common_headers
+		}
+	}
+
+	handle /v2/* {
+		reverse_proxy 127.0.0.1:7088 {
+			import common_headers
+		}
+	}
+
+	handle {
+		reverse_proxy 127.0.0.1:9088 {
+			import common_headers
+		}
+	}
+}

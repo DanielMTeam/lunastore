@@ -55,6 +55,9 @@ class CDNTokenValidationMixin:
             algorithm="HS256")
         from apps.core.local import get_geo_spire_url
         spire_url = get_geo_spire_url(settings.LUNASPIRE_URL).rstrip('/')
+        # Browsers support protocol-relative URLs; server requests require a scheme.
+        if spire_url.startswith('//'):
+            spire_url = 'https:' + spire_url
         url = f"{spire_url}/cdn/info"
 
         try:

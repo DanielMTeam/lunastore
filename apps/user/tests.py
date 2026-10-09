@@ -1,4 +1,5 @@
-from django.test import TestCase, override_settings
+from django.test import RequestFactory, TestCase, override_settings
+from django.core.cache import cache
 from django.urls import reverse
 from django.contrib.auth.models import Permission
 from apps.user.models import NoSpamRule, User, UserActivityLog, UserBan
@@ -9,6 +10,7 @@ import logging
 import os
 import tempfile
 from unittest import mock
+from types import SimpleNamespace
 
 logger = logging.getLogger('user')
 
@@ -202,6 +204,64 @@ class JwtNoSpamIntegrationTest(TestCase):
 
         self.assertEqual(response.status_code, 403)
         self.assertFalse(self.user.is_active)
+
+
+@override_settings(TRUSTED_PROXIES=["127.0.0.1/32"])
+class NoSpamProxyCountryTest(TestCase):
+    def setUp(self):
+        super().setUp()
+        cache.clear()
+        self.addCleanup(cache.clear)
+        self.factory = RequestFactory()
+        config_patcher = mock.patch("apps.user.services.antispam.config", SimpleNamespace(
+            NOSPAM_ENABLED=True, NOSPAM_CACHE_TTL=1, NOSPAM_SHIELD_ENABLED=False,
+        ))
+        config_patcher.start()
+        self.addCleanup(config_patcher.stop)
+        geoip_patcher = mock.patch("apps.core.utils.get_country_code", return_value="Unknown")
+        geoip_patcher.start()
+        self.addCleanup(geoip_patcher.stop)
+        self.rule = NoSpamRule.objects.create(
+            name="proxy-country-rule",
+            entrypoints="login,register,jwt_token",
+            action=NoSpamRule.RuleAction.LOG,
+            match_type=NoSpamRule.MatchType.COUNTRY_CODE,
+            pattern="RU",
+        )
+
+    def test_web_and_passport_guards_match_proxy_country(self):
+        from apps.user.views import _run_nospam as web_guard
+        from apps.user.views_passport import _run_nospam as passport_guard
+
+        for guard in (web_guard, passport_guard):
+            for entrypoint in ("login", "register"):
+                with self.subTest(guard=guard.__module__, entrypoint=entrypoint):
+                    request = self.factory.post("/login.php", HTTP_X_COUNTRY_CODE="RU")
+                    with mock.patch("apps.user.services.antispam.get_country_code") as mmdb_lookup:
+                        decision = guard(request, entrypoint)
+                        self.assertIn(self.rule, decision.matched_rules)
+                        mmdb_lookup.assert_not_called()
+
+    def test_web_guard_ignores_untrusted_country_header(self):
+        from apps.user.views import _run_nospam
+
+        request = self.factory.post("/login.php", HTTP_X_COUNTRY_CODE="RU", REMOTE_ADDR="93.184.216.34")
+        decision = _run_nospam(request, "login")
+        self.assertEqual(decision.matched_rules, [])
+
+    def test_jwt_guard_blocks_proxy_country(self):
+        self.rule.action = NoSpamRule.RuleAction.BAN
+        self.rule.save(update_fields=["action"])
+        user = User.objects.create_user(username="proxy_jwt_user", password="StrongPassword123!")
+        response = APIClient().post(
+            "/method/v2/auth/token/",
+            {"username": user.username, "password": "StrongPassword123!"},
+            format="json",
+            HTTP_X_COUNTRY_CODE="RU",
+        )
+        self.assertEqual(response.status_code, 403)
+        user.refresh_from_db()
+        self.assertFalse(user.is_active)
 
 
 class NoSpamSecurityTest(TestCase):

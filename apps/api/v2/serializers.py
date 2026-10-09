@@ -7,7 +7,7 @@ import logging
 
 
 from rest_framework import serializers
-from apps.core.utils import get_client_ip
+from apps.core.utils import get_client_ip, get_country_from_request
 from apps.user.services.antispam import AntiSpamService, NoSpamContext
 
 logger = logging.getLogger("user")
@@ -52,7 +52,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
                 username=self.user.username,
                 user_agent=request.META.get("HTTP_USER_AGENT", ""),
                 user=self.user,
-                extra={"path": request.path},
+                extra={"path": request.path, "country_code": get_country_from_request(request)},
             )
             try:
                 decision = AntiSpamService.evaluate_and_apply(

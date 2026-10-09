@@ -1,10 +1,15 @@
 import ipaddress
+import json
 import logging
+import re
 from typing import Iterable, Optional
+from urllib.parse import urlsplit
 
+from constance import config
 from django.conf import settings
 from django.contrib.sessions.models import Session
 from django.contrib.gis.geoip2 import GeoIP2
+from django.core.cache import cache
 from django.utils.http import url_has_allowed_host_and_scheme
 
 logger = logging.getLogger(__name__)
@@ -122,3 +127,146 @@ def get_country_code(ip: str) -> str:
     except Exception as exc:
         logger.debug("geoip country lookup failed for %s: %s", ip, exc)
         return "Unknown"
+
+
+def get_country_from_request(request) -> str:
+    # resolve country from reverse proxy headers (nginx/cloudflare/caddy) or cached geoip
+    if not request:
+        return "Unknown"
+
+    remote_addr = (request.META.get("REMOTE_ADDR") or "").strip()
+    networks = _parse_proxy_networks()
+    trust_headers = bool(networks and remote_addr) and _ip_in_networks(remote_addr, networks)
+
+    if trust_headers:
+        for header in (
+            "HTTP_X_COUNTRY_CODE",
+            "HTTP_CF_IPCOUNTRY",
+            "HTTP_X_GEOIP_COUNTRY",
+            "HTTP_X_GEOIP_COUNTRY_CODE",
+        ):
+            raw_val = (request.META.get(header) or "").strip().upper()
+            if len(raw_val) == 2 and raw_val.isalpha() and raw_val != "XX":
+                return raw_val
+
+    # fallback for standalone / dev without reverse proxy
+    client_ip = get_client_ip(request)
+    if client_ip:
+        cache_key = f"geoip_cc_{client_ip}"
+        try:
+            cached = cache.get(cache_key)
+            if cached:
+                return cached
+        except Exception:
+            cached = None
+
+        code = get_country_code(client_ip)
+        res = "Unknown"
+        if code and code != "Unknown":
+            res = str(code).strip()[:8].upper()
+        try:
+            cache.set(cache_key, res, timeout=86400 if res != "Unknown" else 3600)
+        except Exception:
+            pass
+        return res
+
+    return "Unknown"
+
+
+# in-memory cache of parsed overrides to avoid json.loads on every request
+_parsed_geo_overrides: tuple[str, dict] = ("", {})
+
+
+def get_geo_domains(request=None, *, allow_country_fallback=False) -> dict[str, str]:
+    # Mirror selection uses the hostname; country fallback is only for opt-in redirects.
+    global _parsed_geo_overrides
+
+    geo_domains = {
+        "API_URL": settings.API_URL,
+        "SPIRE_URL": settings.LUNASPIRE_URL,
+    }
+
+    if not request:
+        return geo_domains
+
+    if not allow_country_fallback and hasattr(request, "geo_domains") and isinstance(request.geo_domains, dict):
+        return request.geo_domains
+
+    if getattr(config, "GEO_DOMAIN_PROXY_ENABLED", True):
+        raw_overrides = getattr(config, "GEO_DOMAIN_OVERRIDES", "{}")
+        if _parsed_geo_overrides[0] != raw_overrides:
+            try:
+                parsed = json.loads(raw_overrides)
+            except (TypeError, ValueError):
+                parsed = {}
+            validated = {}
+            if isinstance(parsed, dict):
+                for code, values in parsed.items():
+                    if not isinstance(values, dict):
+                        continue
+                    valid_values = {}
+                    for key in ("BASE_URL", "API_URL", "SPIRE_URL"):
+                        value = values.get(key)
+                        if isinstance(value, str) and value.strip():
+                            valid_values[key] = value.strip()
+                    if valid_values:
+                        validated[code] = valid_values
+            _parsed_geo_overrides = (raw_overrides, validated)
+
+        overrides = _parsed_geo_overrides[1]
+        if overrides and isinstance(overrides, dict):
+            try:
+                current_host = urlsplit("//" + request.get_host()).hostname or ""
+            except Exception:
+                current_host = ""
+
+            # Match web, API and CDN mirror hostnames independently of the visitor's country.
+            matched_code = None
+            for code, override_data in overrides.items():
+                if isinstance(override_data, dict):
+                    for value in override_data.values():
+                        try:
+                            url = value if "://" in value or value.startswith("//") else "//" + value
+                            mirror_host = urlsplit(url).hostname
+                        except ValueError:
+                            continue
+                        if mirror_host and mirror_host.lower() == current_host.lower():
+                            matched_code = code
+                            break
+                    if matched_code is not None:
+                        break
+
+            target_code = matched_code
+            if not target_code and allow_country_fallback:
+                country_code = get_country_from_request(request)
+                if country_code in overrides:
+                    target_code = country_code
+                elif country_code.lower() in overrides:
+                    target_code = country_code.lower()
+
+            if target_code and target_code in overrides:
+                country_overrides = overrides[target_code]
+                if isinstance(country_overrides, dict):
+                    if "BASE_URL" in country_overrides:
+                        raw_base = country_overrides["BASE_URL"]
+                        geo_domains["BASE_URL"] = re.sub(
+                            r"^(?:https?:)?//", "", raw_base, flags=re.IGNORECASE
+                        ).rstrip("/")
+                    if "API_URL" in country_overrides:
+                        api_val = country_overrides["API_URL"]
+                        geo_domains["API_URL"] = (
+                            api_val
+                            if api_val.startswith(("http://", "https://", "//"))
+                            else f"https://{api_val}"
+                        )
+                    if "SPIRE_URL" in country_overrides:
+                        spire_val = country_overrides["SPIRE_URL"]
+                        geo_domains["SPIRE_URL"] = (
+                            spire_val
+                            if spire_val.startswith(("http://", "https://", "//"))
+                            else f"https://{spire_val}"
+                        )
+
+    if not allow_country_fallback:
+        request.geo_domains = geo_domains
+    return geo_domains

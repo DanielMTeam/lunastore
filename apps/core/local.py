@@ -13,6 +13,7 @@ def get_current_request():
 
 def get_geo_spire_url(default):
     req = get_current_request()
-    if req and hasattr(req, 'geo_domains'):
-        return req.geo_domains.get('SPIRE_URL', default)
+    if req:
+        from apps.core.utils import get_geo_domains
+        return get_geo_domains(req).get('SPIRE_URL', default)
     return default
