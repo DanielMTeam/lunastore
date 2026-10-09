@@ -3,6 +3,7 @@ import json
 import logging
 import re
 from typing import Iterable, Optional
+from urllib.parse import urlsplit
 
 from constance import config
 from django.conf import settings
@@ -176,8 +177,8 @@ def get_country_from_request(request) -> str:
 _parsed_geo_overrides: tuple[str, dict] = ("", {})
 
 
-def get_geo_domains(request=None) -> dict[str, str]:
-    # resolve regional domains from host or country code using cached overrides
+def get_geo_domains(request=None, *, allow_country_fallback=False) -> dict[str, str]:
+    # Mirror selection uses the hostname; country fallback is only for opt-in redirects.
     global _parsed_geo_overrides
 
     geo_domains = {
@@ -188,7 +189,7 @@ def get_geo_domains(request=None) -> dict[str, str]:
     if not request:
         return geo_domains
 
-    if hasattr(request, "geo_domains") and isinstance(request.geo_domains, dict):
+    if not allow_country_fallback and hasattr(request, "geo_domains") and isinstance(request.geo_domains, dict):
         return request.geo_domains
 
     if getattr(config, "GEO_DOMAIN_PROXY_ENABLED", True):
@@ -215,24 +216,29 @@ def get_geo_domains(request=None) -> dict[str, str]:
         overrides = _parsed_geo_overrides[1]
         if overrides and isinstance(overrides, dict):
             try:
-                current_host = request.get_host().split(":")[0]
+                current_host = urlsplit("//" + request.get_host()).hostname or ""
             except Exception:
                 current_host = ""
 
-            country_code = get_country_from_request(request)
-
-            # check if current host is already on a regional mirror
+            # Match web, API and CDN mirror hostnames independently of the visitor's country.
             matched_code = None
             for code, override_data in overrides.items():
                 if isinstance(override_data, dict):
-                    raw_base = override_data.get("BASE_URL") or ""
-                    clean_base = re.sub(r"^https?://", "", raw_base, flags=re.IGNORECASE).rstrip("/")
-                    if clean_base and clean_base.lower() == current_host.lower():
-                        matched_code = code
+                    for value in override_data.values():
+                        try:
+                            url = value if "://" in value or value.startswith("//") else "//" + value
+                            mirror_host = urlsplit(url).hostname
+                        except ValueError:
+                            continue
+                        if mirror_host and mirror_host.lower() == current_host.lower():
+                            matched_code = code
+                            break
+                    if matched_code is not None:
                         break
 
             target_code = matched_code
-            if not target_code:
+            if not target_code and allow_country_fallback:
+                country_code = get_country_from_request(request)
                 if country_code in overrides:
                     target_code = country_code
                 elif country_code.lower() in overrides:
@@ -244,7 +250,7 @@ def get_geo_domains(request=None) -> dict[str, str]:
                     if "BASE_URL" in country_overrides:
                         raw_base = country_overrides["BASE_URL"]
                         geo_domains["BASE_URL"] = re.sub(
-                            r"^https?://", "", raw_base, flags=re.IGNORECASE
+                            r"^(?:https?:)?//", "", raw_base, flags=re.IGNORECASE
                         ).rstrip("/")
                     if "API_URL" in country_overrides:
                         api_val = country_overrides["API_URL"]
@@ -261,5 +267,6 @@ def get_geo_domains(request=None) -> dict[str, str]:
                             else f"https://{spire_val}"
                         )
 
-    request.geo_domains = geo_domains
+    if not allow_country_fallback:
+        request.geo_domains = geo_domains
     return geo_domains

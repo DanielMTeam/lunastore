@@ -83,7 +83,7 @@ class FallbackGeoRedirectMiddleware:
                 ('/media/', '/staticfiles/', '/static/', '/method/', '/v2/')
             ):
                 from apps.core.utils import get_geo_domains
-                geo_domains = get_geo_domains(request)
+                geo_domains = get_geo_domains(request, allow_country_fallback=True)
                 base_url = geo_domains.get('BASE_URL')
                 if base_url:
                     current_host = request.get_host().split(':')[0].lower()
