@@ -34,7 +34,7 @@ def user_is_indexable(user: User) -> bool:
 
 
 def application_to_document(app: Application) -> dict:
-    category_ids = list(app.categories.values_list("id", flat=True))
+    category_ids = [category.pk for category in app.categories.all()]
     doc = {
         "id": app.pk,
         "user_id": app.user_id,

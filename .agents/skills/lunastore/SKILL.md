@@ -30,6 +30,10 @@ graph TD
     Web --> Redis[(Redis 7)]
     Admin --> Redis
     API --> Redis
+    Web --> Meilisearch[Meilisearch primary search]
+    API --> Meilisearch
+    Worker[Redis task worker] --> Meilisearch
+    Worker --> DB
     LunaSpire --> Redis
     LunaSpire --> DB
 ```
@@ -37,6 +41,10 @@ graph TD
 Optional analytics: ClickHouse via compose profile `analytics` (`make dev-analytics-up`), consumed by `apps/analytics` when `ANALYTICS_ENABLED` is true.
 
 For full system architecture and service boundaries, read [architecture.md](./references/architecture.md).
+
+Search lives in `apps/core/search/`: Meilisearch is primary, ORM `icontains` is the outage fallback. Application GIN trigram indexes were removed by migration `0040_remove_application_trigram_indexes`.
+
+Indexing signals enqueue ID-based tasks after `transaction.on_commit`; the Redis worker reads current records and retries indexing failures up to three times. Run `python manage.py run_tasks_worker --continuous`. Full rebuilds use `python manage.py reindex_search` with temporary indexes and atomic swaps. Incremental tasks use nonblocking PostgreSQL advisory locks: a busy index reschedules the task after 5 seconds without blocking the worker. Database saves and searches continue. Suggestions hydrate Meilisearch IDs from the database to enforce current visibility and localized display fields. API v1 search returns at most 100 entries; API v2 preserves limit/offset pagination.
 
 ---
 

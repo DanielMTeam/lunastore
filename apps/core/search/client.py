@@ -22,6 +22,7 @@ def get_meili_client():
         _client = meilisearch.Client(
             settings.MEILISEARCH_URL,
             settings.MEILISEARCH_MASTER_KEY or None,
+            timeout=getattr(settings, "MEILISEARCH_TIMEOUT", 5),
         )
     return _client
 

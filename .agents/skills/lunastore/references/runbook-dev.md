@@ -148,6 +148,14 @@ pycodestyle . --exclude=.venv,venv,migrations,.git --max-line-length=120
 
 ## Troubleshooting
 
+### Search indexing and recovery
+- Run `python manage.py run_tasks_worker --continuous` to consume search sync tasks from Redis. Restart workers when deploying new task functions. Production uses the Redis backend; the immediate backend executes synchronously and is for tests.
+- Rebuild with `python manage.py reindex_search`, optionally `--applications`, `--users`, or `--batch-size 500` (must be positive). Each index is built separately and atomically swapped; searches keep using the live index. Incremental index tasks use nonblocking PostgreSQL advisory locks and reschedule after 5 seconds when busy instead of holding up other queued jobs. The Redis backend supports this deferred scheduling; the immediate backend is not suitable for concurrent reindexing.
+- `MEILISEARCH_TIMEOUT` bounds HTTP requests (default 5 seconds); `MEILISEARCH_TASK_TIMEOUT_MS` bounds each asynchronous operation (default 300000 ms).
+- Inspect failed worker tasks/logs and Meilisearch task statuses. Indexing retries three times with 1/2-second delays. Queue enqueue failures do not undo database saves; rerun full reindexing to reconcile missed updates.
+- If a swap times out, inspect its Meilisearch task before retrying. A pending swap blocks another rebuild and defers incremental tasks by 5 seconds, even after the database lock is released. This check conservatively covers all pending index swaps; failure to retrieve their status fails indexing rather than risking lost updates. Retained `<index>_rebuild_<uuid>` indexes must only be removed after resolving the swap outcome; after a successful swap that UID contains the old index.
+- With Meilisearch disabled/unavailable, search uses ORM `icontains`. Results preserve filters and paging but omit typo tolerance. New trigram indexes are not required.
+
 ### 1. Database connection errors on startup
 - **Symptom:** `psycopg.OperationalError: could not connect to server`.
 - **Cause:** PostgreSQL still initializing when Django starts.

@@ -19,6 +19,10 @@ LunaStore exposes two API modes:
 
 Primary mount: API container on port `7088` (`lunastore.urls_api`). `/method/` is also included on web and admin URLConfs.
 
+Search uses Meilisearch with automatic database `icontains` fallback when disabled/unavailable. Fallback preserves visibility and category/author/free filters, but does not provide typo tolerance. V1 application/user search returns the existing enumerated map with a maximum of 100 entries. V2 retains `{count, next, previous, results}` limit/offset pagination. Suggestions retain `{apps, users}` and return empty lists for queries shorter than two characters.
+
+Suggestions check Meilisearch IDs against current database visibility and use current localized titles/usernames and media URLs. Stale private, DMCA, deleted or inactive records are omitted. Database fallback returns an empty result page with the real count when offset is beyond the result set, including very large positive offsets.
+
 ---
 
 ## Authentication and API security
