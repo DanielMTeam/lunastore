@@ -18,6 +18,9 @@ RUN pip install --no-cache-dir --upgrade pip \
 
 COPY . .
 
+# Fail the build if Git LFS left a pointer instead of the GeoIP database.
+RUN python -c "import maxminddb; reader = maxminddb.open_database('apps/core/geolocation/geo.mmdb'); reader.close()"
+
 ENV DJANGO_SETTINGS_MODULE=lunastore.settings
 
 EXPOSE 8000
