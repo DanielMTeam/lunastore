@@ -39,14 +39,6 @@ def _ip_in_networks(ip_str: str, networks: Iterable) -> bool:
     return any(addr in network for network in networks)
 
 
-def _is_loopback_or_private(ip_str: str) -> bool:
-    try:
-        addr = ipaddress.ip_address(ip_str)
-        return addr.is_loopback or addr.is_private
-    except ValueError:
-        return False
-
-
 def get_client_ip(request) -> Optional[str]:
     # return client ip. proxy headers are trusted only when REMOTE_ADDR
     # belongs to TRUSTED_PROXIES (cidr/ip list from settings/env)
@@ -143,10 +135,7 @@ def get_country_from_request(request) -> str:
 
     remote_addr = (request.META.get("REMOTE_ADDR") or "").strip()
     networks = _parse_proxy_networks()
-    if networks:
-        trust_headers = bool(remote_addr) and _ip_in_networks(remote_addr, networks)
-    else:
-        trust_headers = bool(remote_addr) and _is_loopback_or_private(remote_addr)
+    trust_headers = bool(networks and remote_addr) and _ip_in_networks(remote_addr, networks)
 
     if trust_headers:
         for header in (

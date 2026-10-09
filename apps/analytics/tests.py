@@ -170,6 +170,7 @@ class AnalyticsModelsTests(SimpleTestCase):
 
 
 class RequestMetadataExtractorTests(SimpleTestCase):
+    @override_settings(TRUSTED_PROXIES=["192.168.1.100/32"])
     def test_extract_with_request(self) -> None:
         request = HttpRequest()
         request.META["REMOTE_ADDR"] = "192.168.1.100"
@@ -182,6 +183,17 @@ class RequestMetadataExtractorTests(SimpleTestCase):
         self.assertEqual(meta.country, "KZ")
         self.assertEqual(meta.referer, "http://lunastore.app/catalog")
         self.assertTrue("Windows" in meta.os_name or meta.os_name != "")
+
+    @override_settings(TRUSTED_PROXIES=[])
+    @patch("apps.core.utils.get_country_code", return_value="Unknown")
+    def test_extract_ignores_country_headers_without_trusted_proxy(self, mock_lookup) -> None:
+        request = HttpRequest()
+        request.META["REMOTE_ADDR"] = "192.168.1.101"
+        request.META["HTTP_CF_IPCOUNTRY"] = "KZ"
+        request.META["HTTP_X_COUNTRY_CODE"] = "RU"
+        meta = extract_request_meta(request)
+        self.assertEqual(meta.country, "")
+        mock_lookup.assert_called_once_with("192.168.1.101")
 
     def test_extract_authenticated_user(self) -> None:
         request = HttpRequest()

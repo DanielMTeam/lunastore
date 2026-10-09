@@ -575,6 +575,25 @@ class GeoIPDetectionAndRoutingTest(TestCase):
         request = self.factory.get("/", HTTP_X_COUNTRY_CODE="  RU  ")
         self.assertEqual(get_country_from_request(request), "RU")
 
+    @override_settings(TRUSTED_PROXIES=[])
+    def test_country_headers_require_explicit_proxy_trust(self):
+        from apps.core.utils import get_country_from_request
+
+        for peer in ("127.0.0.1", "10.0.0.2", "93.184.216.34"):
+            with self.subTest(peer=peer):
+                request = self.factory.get(
+                    "/", REMOTE_ADDR=peer, HTTP_X_COUNTRY_CODE="RU", HTTP_CF_IPCOUNTRY="RU",
+                    HTTP_X_GEOIP_COUNTRY="RU", HTTP_X_GEOIP_COUNTRY_CODE="RU",
+                )
+                self.assertEqual(get_country_from_request(request), "Unknown")
+
+    def test_mirror_host_does_not_override_client_country(self):
+        from apps.core.utils import get_country_from_request, get_geo_domains
+
+        request = self.factory.get("/", HTTP_HOST="ru.lunastore.app", HTTP_X_COUNTRY_CODE="DE")
+        self.assertEqual(get_geo_domains(request)["BASE_URL"], "ru.lunastore.app")
+        self.assertEqual(get_country_from_request(request), "DE")
+
     def test_fallback_redirect_skips_current_mirror(self):
         from apps.core.middleware import FallbackGeoRedirectMiddleware
 
@@ -630,6 +649,27 @@ class GeoIPDetectionAndRoutingTest(TestCase):
             self.assertEqual(domains["BASE_URL"], "ru.lunastore.app")
             self.assertEqual(domains["API_URL"], "//api.ru.lunastore.app")
             self.assertEqual(domains["SPIRE_URL"], "//spire.ru.lunastore.app")
+
+
+class CDNFileInfoURLTest(SimpleTestCase):
+    @override_settings(LUNASPIRE_SECRET_KEY="test-cdn-secret-at-least-32-characters")
+    @mock.patch("apps.core.mixins.requests.get")
+    def test_server_requests_use_absolute_urls(self, mock_get):
+        import requests
+        from apps.core.mixins import CDNTokenValidationMixin
+
+        mock_get.return_value.status_code = 200
+        mock_get.return_value.json.return_value = {"status": 200, "info": [{"path": "icons/test.png"}]}
+        for base_url, expected in (
+            ("//spire.ru.lunastore.app/", "https://spire.ru.lunastore.app/cdn/info"),
+            ("https://spire.ru.lunastore.app", "https://spire.ru.lunastore.app/cdn/info"),
+            ("http://127.0.0.1:6080/", "http://127.0.0.1:6080/cdn/info"),
+        ):
+            with self.subTest(base_url=base_url), mock.patch("apps.core.local.get_geo_spire_url", return_value=base_url):
+                self.assertEqual(CDNTokenValidationMixin().get_cdn_file_info(1, fields="path"), {"path": "icons/test.png"})
+                actual_url = mock_get.call_args.args[0]
+                self.assertEqual(actual_url, expected)
+                self.assertEqual(requests.Request("GET", actual_url).prepare().url, expected)
 
 
 class TaskPatchesTestCase(SimpleTestCase):

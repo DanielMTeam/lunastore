@@ -128,19 +128,20 @@ flowchart TD
 
 ## Domain routing and GeoIP (Reverse Proxy & Edge Ingress)
 
-LunaStore offloads GeoIP country detection and regional domain redirects to the reverse proxy layer (Nginx `ngx_http_geoip2_module`, Cloudflare `CF-IPCountry`, or Caddy) to ensure sub-millisecond TTFB and zero overhead on Python workers:
+LunaStore can offload GeoIP country detection and regional domain redirects to Nginx using `ngx_http_geoip2_module`. The standard Caddy example uses Django's cached GeoIP fallback:
 
 1. **Reverse Proxy / Edge:**
-   - Reverse proxy evaluates client IP using MaxMind GeoIP2 or Cloudflare country header.
-   - For regional users (e.g. `RU`), Nginx/Cloudflare issues an immediate 302 redirect from `lunastore.app` to `ru.lunastore.app` at the edge (bypassing Django, and skipping static/media/api endpoints).
-   - Upstream proxy headers forwarded to Django:
-     - `X-Country-Code: RU` (Nginx, Caddy, Traefik)
-     - `CF-IPCountry: RU` (Cloudflare)
+   - Nginx evaluates the client IP using MaxMind GeoIP2. Incoming country headers are cleared, and only the computed `X-Country-Code` is forwarded.
+   - Regional redirects apply only to GET/HEAD requests, skipping static/media/api endpoints. POST requests retain their body and reach Django.
+   - Caddy clears all country headers and forwards the client IP for Django's cached GeoIP lookup. The regional hostname never substitutes for the visitor's country.
+   - Set Django `TRUSTED_PROXIES` to the exact upstream proxy peer IPs/CIDRs. An empty list trusts no forwarded IP or country headers, including from private/loopback addresses.
+   - Behind a CDN, configure the ingress to restore the client IP only from verified provider CIDRs (Nginx real-IP settings or Caddy global `trusted_proxies`). Do not accept arbitrary `CF-IPCountry` or `CF-Connecting-IP` values from public clients.
 2. **Django Backend:**
-   - Country code is retrieved via [`apps.core.utils.get_country_from_request`](../../../apps/core/utils.py) without MMDB disk reads.
+   - [`apps.core.utils.get_country_from_request`](../../../apps/core/utils.py) uses country headers from explicitly trusted proxies, or falls back to cached MMDB lookups.
    - Regional domain overrides (API/Spire URLs) are resolved in-memory via `get_geo_domains(request)`.
-   - `GeoDomainMiddleware` is removed from global `MIDDLEWARE`.
+   - `FallbackGeoRedirectMiddleware` is registered globally and redirects only when `GEO_DOMAIN_PYTHON_FALLBACK_REDIRECTS` is enabled; it remains disabled by default.
    - **Zero-config fallback:** When running in local development or standalone setups without an edge proxy, Django seamlessly falls back to reading `apps/core/geolocation/geo.mmdb` and caches the IP country in Redis for 24 hours. Python redirects can be optionally enabled via `GEO_DOMAIN_PYTHON_FALLBACK_REDIRECTS`.
+   - Browser CDN links may be protocol-relative. Server-side CDN info requests normalize these URLs to absolute HTTPS URLs before calling Requests.
 
 
 ---
