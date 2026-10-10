@@ -67,6 +67,8 @@ MEILISEARCH_URL = os.getenv(
 )
 MEILISEARCH_MASTER_KEY = os.getenv("MEILI_MASTER_KEY", "")
 MEILISEARCH_ENABLED = os.getenv("MEILISEARCH_ENABLED", "True") == "True"
+MEILISEARCH_TIMEOUT = int(os.getenv("MEILISEARCH_TIMEOUT", "5"))
+MEILISEARCH_TASK_TIMEOUT_MS = int(os.getenv("MEILISEARCH_TASK_TIMEOUT_MS", "300000"))
 
 if SENTRY_ENABLED and SENTRY_DSN:
     _sentry_logging = LoggingIntegration(

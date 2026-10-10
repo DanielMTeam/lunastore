@@ -31,7 +31,9 @@ flowchart TD
     end
 
     subgraph Storage["Data layer"]
-        PG[("PostgreSQL 18<br/>- Relational data<br/>- GIN pg_trgm search<br/>- Soft delete where enabled")]
+        PG[("PostgreSQL 18<br/>- Relational data<br/>- ORM search fallback<br/>- Soft delete where enabled")]
+        Meili[("Meilisearch<br/>- Primary catalog and user search")]
+        Worker["Redis task worker<br/>- Index synchronization after commit"]
         Redis[("Redis 7<br/>- Cache and sessions<br/>- Constance settings<br/>- Smart ratelimit<br/>- Banned IPs and noSpam")]
         CH[("ClickHouse optional<br/>- Analytics profile<br/>- apps/analytics")]
     end
@@ -52,6 +54,11 @@ flowchart TD
     WebSvc --> Redis
     AdminSvc --> Redis
     ApiSvc --> Redis
+    WebSvc --> Meili
+    ApiSvc --> Meili
+    Redis --> Worker
+    Worker --> PG
+    Worker --> Meili
 
     WebSvc -.JWT signature.-> LunaSpire
     LunaSpire --> PG
@@ -107,7 +114,7 @@ flowchart TD
 ### 5. `db` (PostgreSQL 18)
 - **Port:** `5432`
 - **Notes:**
-  - `pg_trgm` for fuzzy full-text search (`GinIndex` with `gin_trgm_ops`).
+  - ORM `icontains` is the fallback when Meilisearch is disabled/unavailable. Catalog trigram indexes were removed in migration `0040_remove_application_trigram_indexes`; PostgreSQL is not the primary search engine.
   - Soft delete via `django-safedelete` on many (not all) models.
 
 ### 6. `redis` (Redis 7)
@@ -123,6 +130,13 @@ flowchart TD
 - **App:** `apps/analytics`
 - **Gate:** Constance / env `ANALYTICS_ENABLED`
 - **Commands:** `make dev-analytics-up`, `make dev-analytics-migrate`, `make dev-analytics-ping`
+
+### 8. Meilisearch and the Redis task worker
+- Search applications and users through `apps/core/search/`; outage fallback uses searchable text fields, including all catalog translations, with the same visibility filters and pagination.
+- Signals enqueue object IDs after database commit. The worker reads current state, adds eligible documents or deletes missing/ineligible ones, and retries failures up to three times. Index visibility is eventually consistent.
+- Full reindexing builds a unique temporary index, verifies every Meilisearch task, and atomically swaps it with the live index. Shared PostgreSQL advisory locks serialize index writes. Worker updates attempt nonblocking acquisition and reschedule after 5 seconds when busy, so the worker can process other tasks. HTTP database saves and search requests continue.
+- Suggestions use Meilisearch only for candidate IDs and ranking, then hydrate currently visible records from PostgreSQL. Stale index metadata cannot expose hidden/deleted applications or inactive/deleted users.
+- A failed or uncertain swap retains the temporary index for inspection. Never remove it until the task status is known. Queue enqueue failures are logged; `reindex_search` recovers missed updates. There is no transactional outbox.
 
 ---
 

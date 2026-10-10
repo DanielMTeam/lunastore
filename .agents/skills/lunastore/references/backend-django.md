@@ -41,7 +41,7 @@ erDiagram
 - **`Application`**: Main app entity.
   - Inherits `BaseApplicationInfo` and `SafeDeleteModel`.
   - Fields: `title`, `slogan`, `description`, `requirements`, `original_author`, `price`, `screenshots` (JSON path list), `developer_site`, `is_demo`, `is_private`, `allow_reviews`, `is_under_dmca`.
-  - Search: `GinIndex` with `gin_trgm_ops` on `['title', 'description', 'slogan']`.
+  - Search: Meilisearch with ORM `icontains` fallback across searchable fields and translations. GIN trigram indexes were removed in migration `0040_remove_application_trigram_indexes`.
   - Properties `icon_url` and `screenshot_urls` return protocol-relative LunaSpire CDN URLs.
 - **`Distribution`**: A concrete release/installer.
   - Fields: `app`, `version`, `cdn_file_id`, `url` (external link), `changelog`.
@@ -126,6 +126,8 @@ Statuses: `pending`, `approved`, `rejected`. Creating a request fires a Telegram
    - Login success/failure audit to `LogEntry` and Telegram.
 3. **`apps/core/constance_sync.py`**:
    - Listens to Constance `config_updated` and syncs keys into `.env`.
+4. **`apps/core/search/signals.py`**:
+   - Application/User saves and deletes, plus forward/reverse category M2M changes, enqueue ID-based tasks only after commit. The worker reads the latest record, including deletion/visibility state; rolled-back changes never reach Meilisearch.
 
 ---
 

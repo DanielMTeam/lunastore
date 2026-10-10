@@ -161,7 +161,7 @@ class SearchAPITest(APITestCase):
         self.assertIn('1', response.data)
         self.assertEqual(response.data['1']['title'], 'SearchableCleaner')
         mock_search.assert_called_once()
-        self.assertEqual(mock_search.call_args.kwargs.get('limit'), 1000)
+        self.assertEqual(mock_search.call_args.kwargs.get('limit'), 100)
 
     @patch('apps.api.views.SearchService.search_user_ids')
     def test_v1_user_search_enumerated(self, mock_search):
@@ -170,6 +170,7 @@ class SearchAPITest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn('1', response.data)
         self.assertEqual(response.data['1']['username'], 'SearchApiUser')
+        self.assertEqual(mock_search.call_args.kwargs.get('limit'), 100)
 
     def test_v1_marketplace_search_missing_query(self):
         response = self.client.get('/method/marketplace/search/')
@@ -229,6 +230,70 @@ class SearchAPITest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data['apps']), 1)
         self.assertEqual(response.data['users'], [])
+
+    @override_settings(MEILISEARCH_ENABLED=False)
+    def test_v1_database_fallback_caps_applications_at_100(self):
+        Application.objects.bulk_create([
+            Application(user=self.user, title=f'CapSearch {i}') for i in range(105)
+        ])
+        response = self.client.get('/method/marketplace/search/', {'query': 'CapSearch'})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 100)
+        self.assertEqual(list(response.data), [str(i) for i in range(1, 101)])
+
+    @override_settings(MEILISEARCH_ENABLED=False)
+    def test_v1_database_fallback_caps_users_at_100(self):
+        User.objects.bulk_create([
+            User(username=f'CapSearch{i}', email=f'cap{i}@example.com', is_active=True) for i in range(105)
+        ])
+        response = self.client.get('/method/user/search/', {'query': 'CapSearch'})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 100)
+
+    @override_settings(MEILISEARCH_ENABLED=False)
+    def test_v2_database_fallback_pagination_and_filters(self):
+        Application.objects.create(user=self.user, title='SearchableSecond', price=10)
+        response = self.client.get('/v2/marketplace/search/', {
+            'query': 'Searchable', 'limit': 1, 'offset': 1,
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['count'], 2)
+        self.assertEqual(response.data['results'][0]['title'], 'SearchableSecond')
+        self.assertIsNone(response.data['next'])
+        self.assertIsNotNone(response.data['previous'])
+        response = self.client.get('/v2/marketplace/search/', {'query': 'Searchable', 'is_free': 'true'})
+        self.assertEqual(response.data['count'], 1)
+
+    @override_settings(MEILISEARCH_ENABLED=False)
+    def test_v2_user_and_suggest_database_fallback(self):
+        response = self.client.get('/v2/user/search/', {'query': 'SearchApi'})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['count'], 1)
+        response = self.client.get('/v2/search/suggest/', {'query': 'Searchable'})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['apps'][0]['id'], self.app.pk)
+
+    @override_settings(MEILISEARCH_ENABLED=False)
+    def test_v2_huge_search_offset_returns_empty_page(self):
+        for url, query in (('/v2/user/search/', 'SearchApi'), ('/v2/marketplace/search/', 'Searchable')):
+            with self.subTest(url=url):
+                response = self.client.get(url, {'query': query, 'offset': str(10 ** 100)})
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(response.data['count'], 1)
+                self.assertEqual(response.data['results'], [])
+                self.assertIsNone(response.data['next'])
+
+    @patch('apps.core.search.service.get_meili_client')
+    def test_v2_suggest_excludes_stale_private_app_and_inactive_user(self, get_client):
+        get_client.return_value.multi_search.return_value = {'results': [
+            {'indexUid': 'applications', 'hits': [{'id': self.app.pk, 'title': 'Previously public'}]},
+            {'indexUid': 'users', 'hits': [{'id': self.user.pk, 'username': 'Previously active'}]},
+        ]}
+        Application.objects.filter(pk=self.app.pk).update(is_private=True)
+        User.objects.filter(pk=self.user.pk).update(is_active=False)
+        response = self.client.get('/v2/search/suggest/', {'query': 'Search'})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, {'apps': [], 'users': []})
 
 
 @override_settings(ROOT_URLCONF='lunastore.urls_api')

@@ -186,11 +186,11 @@ class SearchServiceTest(TestCase):
             "results": [
                 {
                     "indexUid": "applications",
-                    "hits": [{"id": 1, "title": "App", "icon_url": "//cdn/icon.png"}],
+                    "hits": [{"id": self.app.pk, "title": "Stale title", "icon_url": "//cdn/stale.png"}],
                 },
                 {
                     "indexUid": "users",
-                    "hits": [{"id": 2, "username": "dev", "avatar_url": "//cdn/avatar.png"}],
+                    "hits": [{"id": self.user.pk, "username": "stale_dev", "avatar_url": "//cdn/stale.png"}],
                 },
             ]
         }
@@ -198,8 +198,11 @@ class SearchServiceTest(TestCase):
 
         data = SearchService.suggest("app", limit=4, search_type="all")
         self.assertEqual(len(data["apps"]), 1)
-        self.assertEqual(data["apps"][0]["url"], "/app.php?id=1")
-        self.assertEqual(data["users"][0]["url"], "/profile.php?id=2")
+        self.assertEqual(data["apps"][0]["url"], f"/app.php?id={self.app.pk}")
+        self.assertEqual(data["apps"][0]["title"], self.app.title)
+        self.assertEqual(data["apps"][0]["icon_url"], self.app.icon_url)
+        self.assertEqual(data["users"][0]["url"], f"/profile.php?id={self.user.pk}")
+        self.assertEqual(data["users"][0]["username"], self.user.username)
 
     @patch("apps.core.search.service.get_meili_client")
     def test_search_view_uses_meilisearch(self, mock_get_client):

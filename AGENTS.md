@@ -11,7 +11,8 @@
 | Component | Technologies / Stack | Details |
 | :--- | :--- | :--- |
 | **Backend** | Python 3.13 / Django 6.1.1, DRF 3.18.1 | Clean architecture under `apps/` (`core`, `user`, `marketplace`, `api`, `terms`, `analytics`) |
-| **Database** | PostgreSQL 18 | `pg_trgm` (GIN trigram search), `django-safedelete` |
+| **Database** | PostgreSQL 18 | Relational data, ORM search fallback, `django-safedelete` |
+| **Search** | Meilisearch | Primary search; Redis tasks after commit; atomic index swap |
 | **Cache & Throttling** | Redis 7 | `django-redis`, `django-smart-ratelimit`, `django-constance[redis]` |
 | **Tasks & Queues** | Redis 7 / `django.tasks` | `django-tasks-redis`, `python manage.py run_tasks_worker` |
 | **Analytics (optional)** | ClickHouse | Compose profile `analytics`; `apps/analytics`; gated by `ANALYTICS_ENABLED` |
@@ -64,6 +65,15 @@ Note: `/method/` is also mounted on the web and admin URLConfs; the dedicated AP
 - Follow `pycodestyle` with max line length **120**:
   `pycodestyle . --exclude=.venv,venv,migrations,.git --max-line-length=120`
 - Ignored codes: `E501`, `W503`, `W504` (see `setup.cfg`).
+
+### 8. Search and indexing
+- `apps/core/search/` uses Meilisearch as the primary engine. Disabled/unavailable Meilisearch falls back to ORM `icontains` across searchable fields and translations, without typo tolerance.
+- Application trigram indexes were removed in migration `0040_remove_application_trigram_indexes`; do not describe `pg_trgm` as the current catalog search engine.
+- Signals enqueue ID-based `django.tasks` jobs only after `transaction.on_commit`. The Redis worker reads the current database record and retries failed indexing up to three times.
+- Run `python manage.py run_tasks_worker --continuous` for normal asynchronous indexing; the immediate backend is intended for tests.
+- `python manage.py reindex_search` builds temporary indexes and swaps them only after successful Meilisearch tasks. Incremental tasks use nonblocking PostgreSQL advisory locks and reschedule after 5 seconds when busy, freeing the worker for other tasks. Database saves and searches continue.
+- Meilisearch suggestion IDs are checked against current database visibility; displayed titles/usernames and media URLs come from the database, not stale index documents.
+- API v1 search retains its enumerated map and returns at most 100 results. API v2 retains limit/offset pagination.
 
 ---
 

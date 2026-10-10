@@ -101,7 +101,7 @@ _SEARCH_ERROR_503 = OpenApiResponse(
         name="SearchUnavailable",
         fields={"error": serializers.CharField()},
     ),
-    description="meilisearch unavailable",
+    description="search unavailable after database fallback",
 )
 
 
@@ -202,7 +202,7 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
 
     @extend_schema(
         summary="search users",
-        description="paginated user search via meilisearch ({count, next, previous, results})",
+        description="paginated user search with database fallback ({count, next, previous, results})",
         parameters=[
             OpenApiParameter(
                 name="query",
@@ -285,7 +285,7 @@ class MarketplaceViewSet(viewsets.ReadOnlyModelViewSet):
 
     @extend_schema(
         summary="search applications",
-        description="paginated app search via meilisearch; optional category/author/is_free",
+        description="paginated app search with database fallback; optional category/author/is_free",
         parameters=[
             OpenApiParameter(
                 name="query",
@@ -369,7 +369,7 @@ class MarketplaceViewSet(viewsets.ReadOnlyModelViewSet):
 class SearchSuggestView(APIView):
     @extend_schema(
         summary="search suggest",
-        description="typeahead suggestions ({apps, users}); query shorter than 2 chars returns empty lists",
+        description="typeahead suggestions with database fallback ({apps, users}); minimum query length 2 chars",
         parameters=[
             OpenApiParameter(
                 name="query",

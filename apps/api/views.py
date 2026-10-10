@@ -33,8 +33,8 @@ from .constants import ErrorCodes, PUB_UPLOAD_POLICIES, ALLOWED_MIMES
 from .exceptions import LunaException
 from django.core.cache import cache
 
-# v1 returns enumerated map of all matches; cap at meili maxTotalHits default
-V1_SEARCH_MAX_RESULTS = 1000
+# v1 returns an enumerated map without pagination; bound its response size.
+V1_SEARCH_MAX_RESULTS = 100
 
 
 class UserViewSet(viewsets.GenericViewSet):
@@ -79,7 +79,7 @@ class UserViewSet(viewsets.GenericViewSet):
 
     @extend_schema(
         summary="search users by query",
-        description='enumerated map {"1": {...}, "2": {...}} via meilisearch, up to 1000',
+        description='enumerated map {"1": {...}, "2": {...}}; Meilisearch with database fallback; up to 100',
         parameters=[
             OpenApiParameter(
                 name="query",
@@ -275,7 +275,7 @@ class MarketplaceViewSet(viewsets.GenericViewSet):
 
     @extend_schema(
         summary="search apps by query",
-        description='enumerated map {"1": {...}, "2": {...}} via meilisearch, up to 1000',
+        description='enumerated map {"1": {...}, "2": {...}}; Meilisearch with database fallback; up to 100',
         parameters=[
             OpenApiParameter(
                 name="query",

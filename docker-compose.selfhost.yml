@@ -151,6 +151,27 @@ services:
             retries: 3
             start_period: 60s
 
+    lunastore-worker:
+        build: .
+        image: lunastore:selfhost
+        container_name: lunastore_worker
+        env_file:
+            - .env
+        restart: unless-stopped
+        networks:
+            - storenetwork
+        depends_on:
+            lunastore:
+                condition: service_healthy
+            db:
+                condition: service_healthy
+            redis:
+                condition: service_healthy
+        volumes:
+            - ./media:/app/media
+            - ./certs:/app/certs:ro
+        command: python manage.py run_tasks_worker --continuous --interval 1.0
+
 networks:
     storenetwork:
         name: lunastore_network
