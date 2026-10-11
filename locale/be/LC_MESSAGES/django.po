@@ -2568,7 +2568,6 @@ msgstr "Калекцыю захавана."
 msgid "PAGE_COLLECTION_MSG_UNFAVORITED"
 msgstr "Калекцыю прыбрана з абранага."
 
-
 msgid "%(counter)s PAGE_COLLECTION_SAVES_ONE"
 msgid_plural "%(counter)s PAGE_COLLECTION_SAVES_MANY"
 msgstr[0] "%(counter)s захаванне"
@@ -2663,3 +2662,593 @@ msgstr "У мэтах бяспекі"
 msgid "PAGE_SECURITY_WARN_NEW_SESSION_DESC"
 msgstr "змена пароля і прывязанай пошты недаступная для новых прылад (менш за 24 гадзіны)."
 
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_REVIEW_NO_TEXT"
+msgstr "(без тэксту)"
+
+#: templates/unfold/helpers/theme_switch.html templates/unfold/helpers/theme_switch_dropdown.html
+msgid "PAGE_ADMIN_PANEL_THEME_DARK"
+msgstr "Цёмная"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_ICON_ID"
+msgstr "ID значка"
+
+#: templates/unfold/helpers/theme_switch.html templates/unfold/helpers/theme_switch_dropdown.html
+msgid "PAGE_ADMIN_PANEL_THEME_LIGHT"
+msgstr "Светлая"
+
+#: templates/unfold/helpers/search.html
+msgid "PAGE_ADMIN_PANEL_SEARCH_SECTIONS_PLACEHOLDER"
+msgstr "Пошук раздзелаў..."
+
+#: templates/unfold/helpers/theme_switch.html templates/unfold/helpers/theme_switch_dropdown.html
+msgid "PAGE_ADMIN_PANEL_THEME_SYSTEM"
+msgstr "Сістэмная"
+
+#: templates/admin/search_form.html
+msgid "PAGE_ADMIN_PANEL_SEARCH_PLACEHOLDER"
+msgstr "Увядзіце запыт"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_AUTHOR"
+msgstr "Аўтар"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_APPLICATION_AUTHOR"
+msgstr "Аўтар праграмы"
+
+#: lunastore/settings.py
+msgid "PAGE_ADMIN_PANEL_SITE_SUBHEADER"
+msgstr "Адмін-панэль"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_BANNERS"
+msgstr "Банеры"
+
+#: apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_NO_TEXT"
+msgstr "Без тэксту"
+
+#: lunastore/admin_navigation.py apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_SECURITY"
+msgstr "Бяспека"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_HOMEPAGE_SECTIONS"
+msgstr "Блокі галоўнай"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_BANS"
+msgstr "Блакіроўкі"
+
+#: templates/admin/index.html
+msgid "PAGE_ADMIN_PANEL_QUEUES_EMPTY_DESCRIPTION"
+msgstr "У даступных вам чэргах няма заявак, якія чакаюць праверкі."
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_VERSION"
+msgstr "Версія"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_AI_PROMPT_INJECTION"
+msgstr "Умяшанне ў інструкцыі ШІ"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_POTENTIAL_PIRACY"
+msgstr "Магчымае пірацтва"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_MALICIOUS_CONTENT"
+msgstr "Шкодны змест"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_TIMESTAMPS"
+msgstr "Часавыя пазнакі"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_ALL"
+msgstr "Усе"
+
+#: templates/admin/index.html
+msgid "PAGE_ADMIN_PANEL_ALL_REQUESTS_PROCESSED"
+msgstr "Усе заяўкі апрацаваныя"
+
+#: templates/admin/marketplace/review/list_tools.html
+msgid "PAGE_ADMIN_PANEL_ALL_REVIEWS"
+msgstr "Усе водгукі"
+
+#: apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_TOTAL_USERS"
+msgstr "Усяго карыстальнікаў"
+
+#: apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_TOTAL_APPLICATIONS"
+msgstr "Усяго праграм"
+
+#: templates/admin/index.html
+msgid "PAGE_ADMIN_PANEL_CHOOSE_SECTION"
+msgstr "Выберыце даступны раздзел у бакавым меню."
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_HIGH"
+msgstr "Высокі"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_GROUPS"
+msgstr "Групы"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_YES"
+msgstr "Так"
+
+#: templates/admin/index.html
+msgid "PAGE_ADMIN_PANEL_NO_DATE_PROVIDED"
+msgstr "Дата не пазначана"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_DEMO_VERSION"
+msgstr "Дэма-версія"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_DISTRIBUTIONS"
+msgstr "Дыстрыбутывы"
+
+#: lunastore/admin_navigation.py apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_APPLICATION_REPORTS"
+msgstr "Скаргі на праграмы"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_ACTIVITY_LOG"
+msgstr "Журнал дзеянняў"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_BANNED_PHRASE"
+msgstr "Забароненая фраза"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_PROHIBITED_CONTENT"
+msgstr "Забаронены змест"
+
+#: apps/marketplace/admin.py
+#, python-format
+msgid "PAGE_ADMIN_PANEL_REVIEWS_AI_RECHECK_MESSAGE %(count)s"
+msgstr "Запушчана пераправерка ШІ для %(count)s водгукаў"
+
+#: templates/admin/decline_forms/comparison.html
+msgid "PAGE_ADMIN_PANEL_COMPARISON_PROCESSED_HELP"
+msgstr "Заяўка ўжо разгледжана. Параўнанне паказана з бягучай версіяй аб'екта."
+
+#: lunastore/admin_navigation.py apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_DEVELOPER_REQUESTS"
+msgstr "Заяўкі распрацоўшчыкаў"
+
+#: lunastore/admin_navigation.py apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_BADGES"
+msgstr "Значкі"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_AI_MODERATION_OPENROUTER"
+msgstr "ШІ-мадэрацыя (OpenRouter)"
+
+#: lunastore/admin_navigation.py apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_DISTRIBUTION_CHANGES"
+msgstr "Змены дыстрыбутываў"
+
+#: lunastore/admin_navigation.py apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_APPLICATION_CHANGES"
+msgstr "Змены праграм"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_ICON"
+msgstr "Значок"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_REVIEW_DETAILS"
+msgstr "Звесткі пра водгук"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_CATALOG"
+msgstr "Каталог"
+
+#: lunastore/admin_navigation.py apps/marketplace/admin.py apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_CATEGORIES"
+msgstr "Катэгорыі"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_LUNABOX_MANIFEST"
+msgstr "Маніфест LunaBox"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_BULK_SCAN"
+msgstr "Масавая праверка"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_MODERATION"
+msgstr "Мадэрацыя"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_STATUS_PENDING"
+msgstr "На праверцы"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_TITLE"
+msgstr "Назва"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_SETTINGS"
+msgstr "Налады"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_SITE_SETTINGS"
+msgstr "Налады сайта"
+
+#: templates/admin/index.html
+msgid "PAGE_ADMIN_PANEL_START_WITH_THE_OLDEST_REQUESTS"
+msgstr "Пачніце з найстарэйшых заявак"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_NOT_PROVIDED"
+msgstr "Не пазначана"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_PROFANITY"
+msgstr "Ненарматыўная лексіка"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_NO"
+msgstr "Не"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_NOT_SCORED"
+msgstr "Няма ацэнкі"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_NO_FLAGS"
+msgstr "Няма пазнак"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_LOW"
+msgstr "Нізкі"
+
+#: lunastore/admin_navigation.py apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_NEW_DISTRIBUTIONS"
+msgstr "Новыя дыстрыбутывы"
+
+#: lunastore/admin_navigation.py apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_NEW_APPLICATIONS"
+msgstr "Новыя праграмы"
+
+#: apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_NEW_TODAY"
+msgstr "Новых за сёння"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_OVERVIEW"
+msgstr "Агляд"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_STATUS_APPROVED"
+msgstr "Ухвалены"
+
+#: apps/marketplace/admin.py
+#, python-format
+msgid "PAGE_ADMIN_PANEL_REVIEWS_APPROVED_MESSAGE %(count)s"
+msgstr "Ухвалена водгукаў: %(count)s"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_FILTER_APPROVED"
+msgstr "Ухваленыя"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_APPROVE_SELECTED_REVIEWS"
+msgstr "Ухваліць выбраныя водгукі"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_APPROVE_REVIEW"
+msgstr "Ухваліць водгук"
+
+#: apps/marketplace/admin.py templates/admin/index.html templates/admin/marketplace/review/list_tools.html
+msgid "PAGE_ADMIN_PANEL_AWAITING_REVIEW"
+msgstr "Чакаюць праверкі"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_DESCRIPTION"
+msgstr "Апісанне"
+
+#: templates/admin/action_modal.html
+msgid "PAGE_ADMIN_PANEL_REJECTION_REASON_PLACEHOLDER"
+msgstr "Апішыце, што трэба выправіць"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_DEVELOPER_REPLY"
+msgstr "Адказ распрацоўшчыка"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_REVIEW_NOT_FOUND"
+msgstr "Водгук не знойдзены"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_REVIEW_REJECTED_AND_DELETED"
+msgstr "Водгук адхілены і выдалены"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_REVIEW_IS_ALREADY_APPROVED"
+msgstr "Водгук ужо ўхвалены"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_REVIEW_APPROVED"
+msgstr "Водгук ухвалены"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_REVIEWS"
+msgstr "Водгукі"
+
+#: lunastore/admin_navigation.py apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_REVIEWS_AWAITING_MODERATION"
+msgstr "Водгукі на мадэрацыі"
+
+#: templates/admin/marketplace/review/list_tools.html
+msgid "PAGE_ADMIN_PANEL_REVIEW_REJECTION_HELP"
+msgstr "Адхіленне выдаляе водгук. Адкрыйце тэкст, каб прачытаць яго цалкам."
+
+#: apps/marketplace/admin.py
+#, python-format
+msgid "PAGE_ADMIN_PANEL_REVIEWS_REJECTED_MESSAGE %(count)s"
+msgstr "Адхілена і выдалена водгукаў: %(count)s"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_FILTER_REJECTED"
+msgstr "Адхіленыя"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_REJECT_SELECTED_REVIEWS"
+msgstr "Адхіліць выбраныя водгукі"
+
+#: apps/marketplace/admin.py templates/admin/decline_forms/reject_modal.html
+msgid "PAGE_ADMIN_PANEL_REJECT_REQUEST"
+msgstr "Адхіліць заяўку"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_REJECT_REVIEW"
+msgstr "Адхіліць водгук"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_STATUS_REJECTED"
+msgstr "Адхілены"
+
+#: templates/admin/index.html
+msgid "PAGE_ADMIN_PANEL_OPEN_QUEUE"
+msgstr "Адкрыць чаргу"
+
+#: templates/admin/decline_forms/comparison.html
+msgid "PAGE_ADMIN_PANEL_COMPARISON_NO_CHANGES"
+msgstr "Адрозненняў ад бягучых значэнняў няма."
+
+#: templates/admin/action_modal.html
+msgid "PAGE_ADMIN_PANEL_CANCEL"
+msgstr "Скасаваць"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_RATING"
+msgstr "Ацэнка"
+
+#: apps/marketplace/admin.py templates/admin/marketplace/review/list_tools.html
+msgid "PAGE_ADMIN_PANEL_AI_SCORE_HELP"
+msgstr "Ацэнка ШІ ад 0 да 1: чым вышэй, тым большая рызыка парушэння."
+
+#: templates/admin/index.html
+msgid "PAGE_ADMIN_PANEL_DASHBOARD_DESCRIPTION"
+msgstr "Чэргі і інструменты, даступныя вашаму акаўнту."
+
+#: lunastore/settings.py lunastore/urls_private.py
+msgid "PAGE_ADMIN_PANEL_SITE_TITLE"
+msgstr "Панэль LunaStore"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_RECHECK_WITH_AI"
+msgstr "Пераправерыць праз ШІ"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_SUSPICIOUS_LINK"
+msgstr "Падазроная спасылка"
+
+#: templates/unfold/helpers/search.html
+msgid "PAGE_ADMIN_PANEL_SEARCH_SECTIONS"
+msgstr "Пошук раздзелаў"
+
+#: templates/admin/decline_forms/comparison.html
+msgid "PAGE_ADMIN_PANEL_FIELD"
+msgstr "Поле"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_POLITICAL_AGITATION"
+msgstr "Палітычная агітацыя"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_USERS"
+msgstr "Карыстальнікі"
+
+#: templates/admin/decline_forms/comparison.html
+msgid "PAGE_ADMIN_PANEL_AFTER_APPROVAL"
+msgstr "Пасля ўхвалення"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_NOSPAM_RULES"
+msgstr "Правілы noSpam"
+
+#: templates/admin/decline_forms/comparison.html
+msgid "PAGE_ADMIN_PANEL_PROPOSED_CHANGES"
+msgstr "Прапанаваныя змены"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_PRIVATE_APPLICATION"
+msgstr "Прыватная праграма"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_INVITATIONS"
+msgstr "Запрашэнні"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_APPLICATION"
+msgstr "Праграма"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_APPLICATIONS"
+msgstr "Праграмы"
+
+#: templates/admin/decline_forms/reject_modal.html
+msgid "PAGE_ADMIN_PANEL_REASON_FOR_REJECTION"
+msgstr "Прычына адхілення заяўкі"
+
+#: lunastore/admin_navigation.py lunastore/urls_private.py
+msgid "PAGE_ADMIN_PANEL_DASHBOARD"
+msgstr "Працоўны стол"
+
+#: templates/admin/index.html
+msgid "PAGE_ADMIN_PANEL_MODERATOR_DASHBOARD"
+msgstr "Працоўны стол мадэратара"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_HATE_SPEECH"
+msgstr "Распальванне нянавісці"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_NOTIFICATION_BROADCAST"
+msgstr "Рассылка апавяшчэнняў"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_VIOLATION_RISK"
+msgstr "Рызыка парушэння"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_MANUAL_MODERATION"
+msgstr "Ручная мадэрацыя"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_DEVELOPER_WEBSITE"
+msgstr "Сайт распрацоўшчыка"
+
+#: templates/admin/index.html
+msgid "PAGE_ADMIN_PANEL_OLDEST_REQUEST"
+msgstr "Найстарэйшая заяўка:"
+
+#: templates/admin/marketplace/review/list_tools.html
+msgid "PAGE_ADMIN_PANEL_RESET_SEARCH_AND_FILTERS"
+msgstr "Скінуць пошук і фільтры"
+
+#: templates/admin/decline_forms/comparison.html
+msgid "PAGE_ADMIN_PANEL_CURRENT"
+msgstr "Цяпер"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_RISK_SIGNALS"
+msgstr "Прыкметы рызыкі"
+
+#: apps/marketplace/admin.py apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_SCREENSHOTS"
+msgstr "Здымкі экрана"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_SLOGAN"
+msgstr "Слоган"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_NOSPAM_EVENTS"
+msgstr "Падзеі noSpam"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_CREATED"
+msgstr "Створаны"
+
+#: lunastore/admin_navigation.py apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_PROBLEM_REPORTS"
+msgstr "Паведамленні пра праблемы"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_SPAM"
+msgstr "Спам"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_CHANGELOG"
+msgstr "Спіс змен"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_MEDIUM"
+msgstr "Сярэдні"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_DOWNLOAD_LINK"
+msgstr "Спасылка для спампоўвання"
+
+#: templates/admin/index.html
+msgid "PAGE_ADMIN_PANEL_STATISTICS"
+msgstr "Статыстыка"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_STATUS"
+msgstr "Статус"
+
+#: templates/admin/marketplace/review/list_tools.html
+msgid "PAGE_ADMIN_PANEL_REVIEW_STATUS"
+msgstr "Статус водгуку"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_TEXT"
+msgstr "Тэкст"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_TEXT_AUTHOR_OR_APPLICATION"
+msgstr "Тэкст, аўтар або праграма"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_TOXICITY"
+msgstr "Таксічнасць"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_REQUIREMENTS"
+msgstr "Патрабаванні"
+
+#: templates/admin/action_modal.html
+msgid "PAGE_ADMIN_PANEL_REJECTION_REASON_REQUIRED"
+msgstr "Пазначце прычыну адхілення."
+
+#: templates/admin/decline_forms/reject_modal.html
+msgid "PAGE_ADMIN_PANEL_REJECTION_REASON_HELP"
+msgstr "Пазначце прычыну, яна будзе адпраўлена карыстальніку ў апавяшчэнні."
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_CDN_FILE"
+msgstr "Файл CDN"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_PRICE"
+msgstr "Кошт"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_BLOCKED_USERNAMES"
+msgstr "Заблакіраваныя імёны"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_EXTREMISM"
+msgstr "Экстрэмізм"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_LEGAL_DOCUMENTS"
+msgstr "Юрыдычныя дакументы"
+
+#: templates/admin/search_form.html
+msgid "PAGE_ADMIN_PANEL_SEARCH"
+msgstr "Пошук"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_REPLY_AUTHOR"
+msgstr "Аўтар адказу"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_MODERATOR"
+msgstr "Мадэратар"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_MODERATOR_NOTE"
+msgstr "Нататка мадэратара"

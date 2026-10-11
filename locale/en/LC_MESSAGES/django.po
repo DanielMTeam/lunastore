@@ -2721,7 +2721,6 @@ msgstr "Collection saved."
 msgid "PAGE_COLLECTION_MSG_UNFAVORITED"
 msgstr "Collection removed from favorites."
 
-
 msgid "%(counter)s PAGE_COLLECTION_SAVES_ONE"
 msgid_plural "%(counter)s PAGE_COLLECTION_SAVES_MANY"
 msgstr[0] "%(counter)s save"
@@ -2881,7 +2880,6 @@ msgstr "Total favorites"
 msgid "PAGE_COLLECTION_STATS_TOTAL_ITEM_ADDS"
 msgstr "App additions"
 
-
 msgid "PAGE_SETTINGS_DEV_STATUS_GET"
 msgstr "Get"
 
@@ -2906,3 +2904,593 @@ msgstr "For security reasons"
 msgid "PAGE_SECURITY_WARN_NEW_SESSION_DESC"
 msgstr "changing password and linked email is unavailable on new devices (less than 24 hours)."
 
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_REVIEW_NO_TEXT"
+msgstr "(no text)"
+
+#: templates/unfold/helpers/theme_switch.html templates/unfold/helpers/theme_switch_dropdown.html
+msgid "PAGE_ADMIN_PANEL_THEME_DARK"
+msgstr "Dark"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_ICON_ID"
+msgstr "Icon ID"
+
+#: templates/unfold/helpers/theme_switch.html templates/unfold/helpers/theme_switch_dropdown.html
+msgid "PAGE_ADMIN_PANEL_THEME_LIGHT"
+msgstr "Light"
+
+#: templates/unfold/helpers/search.html
+msgid "PAGE_ADMIN_PANEL_SEARCH_SECTIONS_PLACEHOLDER"
+msgstr "Search sections..."
+
+#: templates/unfold/helpers/theme_switch.html templates/unfold/helpers/theme_switch_dropdown.html
+msgid "PAGE_ADMIN_PANEL_THEME_SYSTEM"
+msgstr "System"
+
+#: templates/admin/search_form.html
+msgid "PAGE_ADMIN_PANEL_SEARCH_PLACEHOLDER"
+msgstr "Type to search"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_AUTHOR"
+msgstr "Author"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_APPLICATION_AUTHOR"
+msgstr "Application author"
+
+#: lunastore/settings.py
+msgid "PAGE_ADMIN_PANEL_SITE_SUBHEADER"
+msgstr "Administration"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_BANNERS"
+msgstr "Banners"
+
+#: apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_NO_TEXT"
+msgstr "No text"
+
+#: lunastore/admin_navigation.py apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_SECURITY"
+msgstr "Security"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_HOMEPAGE_SECTIONS"
+msgstr "Homepage sections"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_BANS"
+msgstr "Bans"
+
+#: templates/admin/index.html
+msgid "PAGE_ADMIN_PANEL_QUEUES_EMPTY_DESCRIPTION"
+msgstr "There are no pending requests in your queues."
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_VERSION"
+msgstr "Version"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_AI_PROMPT_INJECTION"
+msgstr "AI prompt injection"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_POTENTIAL_PIRACY"
+msgstr "Potential piracy"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_MALICIOUS_CONTENT"
+msgstr "Malicious content"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_TIMESTAMPS"
+msgstr "Timestamps"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_ALL"
+msgstr "All"
+
+#: templates/admin/index.html
+msgid "PAGE_ADMIN_PANEL_ALL_REQUESTS_PROCESSED"
+msgstr "All requests processed"
+
+#: templates/admin/marketplace/review/list_tools.html
+msgid "PAGE_ADMIN_PANEL_ALL_REVIEWS"
+msgstr "All reviews"
+
+#: apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_TOTAL_USERS"
+msgstr "Total users"
+
+#: apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_TOTAL_APPLICATIONS"
+msgstr "Total applications"
+
+#: templates/admin/index.html
+msgid "PAGE_ADMIN_PANEL_CHOOSE_SECTION"
+msgstr "Choose an available section in the sidebar."
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_HIGH"
+msgstr "High"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_GROUPS"
+msgstr "Groups"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_YES"
+msgstr "Yes"
+
+#: templates/admin/index.html
+msgid "PAGE_ADMIN_PANEL_NO_DATE_PROVIDED"
+msgstr "No date provided"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_DEMO_VERSION"
+msgstr "Demo version"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_DISTRIBUTIONS"
+msgstr "Distributions"
+
+#: lunastore/admin_navigation.py apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_APPLICATION_REPORTS"
+msgstr "Application reports"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_ACTIVITY_LOG"
+msgstr "Activity log"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_BANNED_PHRASE"
+msgstr "Banned phrase"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_PROHIBITED_CONTENT"
+msgstr "Prohibited content"
+
+#: apps/marketplace/admin.py
+#, python-format
+msgid "PAGE_ADMIN_PANEL_REVIEWS_AI_RECHECK_MESSAGE %(count)s"
+msgstr "AI recheck queued for %(count)s reviews"
+
+#: templates/admin/decline_forms/comparison.html
+msgid "PAGE_ADMIN_PANEL_COMPARISON_PROCESSED_HELP"
+msgstr "This request has been processed. The comparison uses the current object version."
+
+#: lunastore/admin_navigation.py apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_DEVELOPER_REQUESTS"
+msgstr "Developer requests"
+
+#: lunastore/admin_navigation.py apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_BADGES"
+msgstr "Badges"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_AI_MODERATION_OPENROUTER"
+msgstr "AI moderation (OpenRouter)"
+
+#: lunastore/admin_navigation.py apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_DISTRIBUTION_CHANGES"
+msgstr "Distribution changes"
+
+#: lunastore/admin_navigation.py apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_APPLICATION_CHANGES"
+msgstr "Application changes"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_ICON"
+msgstr "Icon"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_REVIEW_DETAILS"
+msgstr "Review details"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_CATALOG"
+msgstr "Catalog"
+
+#: lunastore/admin_navigation.py apps/marketplace/admin.py apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_CATEGORIES"
+msgstr "Categories"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_LUNABOX_MANIFEST"
+msgstr "LunaBox manifest"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_BULK_SCAN"
+msgstr "Bulk scan"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_MODERATION"
+msgstr "Moderation"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_STATUS_PENDING"
+msgstr "Awaiting review"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_TITLE"
+msgstr "Title"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_SETTINGS"
+msgstr "Settings"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_SITE_SETTINGS"
+msgstr "Site settings"
+
+#: templates/admin/index.html
+msgid "PAGE_ADMIN_PANEL_START_WITH_THE_OLDEST_REQUESTS"
+msgstr "Start with the oldest requests"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_NOT_PROVIDED"
+msgstr "Not provided"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_PROFANITY"
+msgstr "Profanity"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_NO"
+msgstr "No"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_NOT_SCORED"
+msgstr "Not scored"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_NO_FLAGS"
+msgstr "No flags"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_LOW"
+msgstr "Low"
+
+#: lunastore/admin_navigation.py apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_NEW_DISTRIBUTIONS"
+msgstr "New distributions"
+
+#: lunastore/admin_navigation.py apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_NEW_APPLICATIONS"
+msgstr "New applications"
+
+#: apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_NEW_TODAY"
+msgstr "New today"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_OVERVIEW"
+msgstr "Overview"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_STATUS_APPROVED"
+msgstr "Approved"
+
+#: apps/marketplace/admin.py
+#, python-format
+msgid "PAGE_ADMIN_PANEL_REVIEWS_APPROVED_MESSAGE %(count)s"
+msgstr "Reviews approved: %(count)s"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_FILTER_APPROVED"
+msgstr "Approved"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_APPROVE_SELECTED_REVIEWS"
+msgstr "Approve selected reviews"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_APPROVE_REVIEW"
+msgstr "Approve review"
+
+#: apps/marketplace/admin.py templates/admin/index.html templates/admin/marketplace/review/list_tools.html
+msgid "PAGE_ADMIN_PANEL_AWAITING_REVIEW"
+msgstr "Awaiting review"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_DESCRIPTION"
+msgstr "Description"
+
+#: templates/admin/action_modal.html
+msgid "PAGE_ADMIN_PANEL_REJECTION_REASON_PLACEHOLDER"
+msgstr "Describe what needs to be fixed"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_DEVELOPER_REPLY"
+msgstr "Developer reply"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_REVIEW_NOT_FOUND"
+msgstr "Review not found"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_REVIEW_REJECTED_AND_DELETED"
+msgstr "Review rejected and deleted"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_REVIEW_IS_ALREADY_APPROVED"
+msgstr "Review is already approved"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_REVIEW_APPROVED"
+msgstr "Review approved"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_REVIEWS"
+msgstr "Reviews"
+
+#: lunastore/admin_navigation.py apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_REVIEWS_AWAITING_MODERATION"
+msgstr "Reviews awaiting moderation"
+
+#: templates/admin/marketplace/review/list_tools.html
+msgid "PAGE_ADMIN_PANEL_REVIEW_REJECTION_HELP"
+msgstr "Rejecting deletes the review. Open the text to read it in full."
+
+#: apps/marketplace/admin.py
+#, python-format
+msgid "PAGE_ADMIN_PANEL_REVIEWS_REJECTED_MESSAGE %(count)s"
+msgstr "Reviews rejected and deleted: %(count)s"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_FILTER_REJECTED"
+msgstr "Rejected"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_REJECT_SELECTED_REVIEWS"
+msgstr "Reject selected reviews"
+
+#: apps/marketplace/admin.py templates/admin/decline_forms/reject_modal.html
+msgid "PAGE_ADMIN_PANEL_REJECT_REQUEST"
+msgstr "Reject request"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_REJECT_REVIEW"
+msgstr "Reject review"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_STATUS_REJECTED"
+msgstr "Rejected"
+
+#: templates/admin/index.html
+msgid "PAGE_ADMIN_PANEL_OPEN_QUEUE"
+msgstr "Open queue"
+
+#: templates/admin/decline_forms/comparison.html
+msgid "PAGE_ADMIN_PANEL_COMPARISON_NO_CHANGES"
+msgstr "No differences from the current values."
+
+#: templates/admin/action_modal.html
+msgid "PAGE_ADMIN_PANEL_CANCEL"
+msgstr "Cancel"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_RATING"
+msgstr "Rating"
+
+#: apps/marketplace/admin.py templates/admin/marketplace/review/list_tools.html
+msgid "PAGE_ADMIN_PANEL_AI_SCORE_HELP"
+msgstr "AI score from 0 to 1: higher values indicate greater violation risk."
+
+#: templates/admin/index.html
+msgid "PAGE_ADMIN_PANEL_DASHBOARD_DESCRIPTION"
+msgstr "Queues and tools available to your account."
+
+#: lunastore/settings.py lunastore/urls_private.py
+msgid "PAGE_ADMIN_PANEL_SITE_TITLE"
+msgstr "LunaStore administration"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_RECHECK_WITH_AI"
+msgstr "Recheck with AI"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_SUSPICIOUS_LINK"
+msgstr "Suspicious link"
+
+#: templates/unfold/helpers/search.html
+msgid "PAGE_ADMIN_PANEL_SEARCH_SECTIONS"
+msgstr "Search sections"
+
+#: templates/admin/decline_forms/comparison.html
+msgid "PAGE_ADMIN_PANEL_FIELD"
+msgstr "Field"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_POLITICAL_AGITATION"
+msgstr "Political agitation"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_USERS"
+msgstr "Users"
+
+#: templates/admin/decline_forms/comparison.html
+msgid "PAGE_ADMIN_PANEL_AFTER_APPROVAL"
+msgstr "After approval"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_NOSPAM_RULES"
+msgstr "noSpam rules"
+
+#: templates/admin/decline_forms/comparison.html
+msgid "PAGE_ADMIN_PANEL_PROPOSED_CHANGES"
+msgstr "Proposed changes"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_PRIVATE_APPLICATION"
+msgstr "Private application"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_INVITATIONS"
+msgstr "Invitations"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_APPLICATION"
+msgstr "Application"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_APPLICATIONS"
+msgstr "Applications"
+
+#: templates/admin/decline_forms/reject_modal.html
+msgid "PAGE_ADMIN_PANEL_REASON_FOR_REJECTION"
+msgstr "Reason for rejection"
+
+#: lunastore/admin_navigation.py lunastore/urls_private.py
+msgid "PAGE_ADMIN_PANEL_DASHBOARD"
+msgstr "Dashboard"
+
+#: templates/admin/index.html
+msgid "PAGE_ADMIN_PANEL_MODERATOR_DASHBOARD"
+msgstr "Moderator dashboard"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_HATE_SPEECH"
+msgstr "Hate speech"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_NOTIFICATION_BROADCAST"
+msgstr "Notification broadcast"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_VIOLATION_RISK"
+msgstr "Violation risk"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_MANUAL_MODERATION"
+msgstr "Manual moderation"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_DEVELOPER_WEBSITE"
+msgstr "Developer website"
+
+#: templates/admin/index.html
+msgid "PAGE_ADMIN_PANEL_OLDEST_REQUEST"
+msgstr "Oldest request:"
+
+#: templates/admin/marketplace/review/list_tools.html
+msgid "PAGE_ADMIN_PANEL_RESET_SEARCH_AND_FILTERS"
+msgstr "Reset search and filters"
+
+#: templates/admin/decline_forms/comparison.html
+msgid "PAGE_ADMIN_PANEL_CURRENT"
+msgstr "Current"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_RISK_SIGNALS"
+msgstr "Risk signals"
+
+#: apps/marketplace/admin.py apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_SCREENSHOTS"
+msgstr "Screenshots"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_SLOGAN"
+msgstr "Slogan"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_NOSPAM_EVENTS"
+msgstr "noSpam events"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_CREATED"
+msgstr "Created"
+
+#: lunastore/admin_navigation.py apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_PROBLEM_REPORTS"
+msgstr "Problem reports"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_SPAM"
+msgstr "Spam"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_CHANGELOG"
+msgstr "Changelog"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_MEDIUM"
+msgstr "Medium"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_DOWNLOAD_LINK"
+msgstr "Download link"
+
+#: templates/admin/index.html
+msgid "PAGE_ADMIN_PANEL_STATISTICS"
+msgstr "Statistics"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_STATUS"
+msgstr "Status"
+
+#: templates/admin/marketplace/review/list_tools.html
+msgid "PAGE_ADMIN_PANEL_REVIEW_STATUS"
+msgstr "Review status"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_TEXT"
+msgstr "Text"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_TEXT_AUTHOR_OR_APPLICATION"
+msgstr "Text, author or application"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_TOXICITY"
+msgstr "Toxicity"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_REQUIREMENTS"
+msgstr "Requirements"
+
+#: templates/admin/action_modal.html
+msgid "PAGE_ADMIN_PANEL_REJECTION_REASON_REQUIRED"
+msgstr "Provide a reason for rejection."
+
+#: templates/admin/decline_forms/reject_modal.html
+msgid "PAGE_ADMIN_PANEL_REJECTION_REASON_HELP"
+msgstr "Provide a reason. It will be sent to the user in a notification."
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_CDN_FILE"
+msgstr "CDN file"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_PRICE"
+msgstr "Price"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_BLOCKED_USERNAMES"
+msgstr "Blocked usernames"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_EXTREMISM"
+msgstr "Extremism"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_LEGAL_DOCUMENTS"
+msgstr "Legal documents"
+
+#: templates/admin/search_form.html
+msgid "PAGE_ADMIN_PANEL_SEARCH"
+msgstr "Search"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_REPLY_AUTHOR"
+msgstr "Reply author"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_MODERATOR"
+msgstr "Moderator"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_MODERATOR_NOTE"
+msgstr "Moderator note"

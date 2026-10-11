@@ -3,6 +3,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth.models import AnonymousUser
 from django.urls import include, path
+from django.utils.translation import gettext_lazy as _
 from django.views.defaults import page_not_found, server_error
 from django.views.generic import RedirectView
 from dotenv import load_dotenv
@@ -13,9 +14,9 @@ dotenv_path = settings.BASE_DIR / ".env"
 load_dotenv(dotenv_path)
 
 # configure admin panel
-admin.site.site_header = "Панель LunaStore"
+admin.site.site_header = _("PAGE_ADMIN_PANEL_SITE_TITLE")
 admin.site.site_title = "LunaStore Admin"
-admin.site.index_title = "Модерация сайта"
+admin.site.index_title = _("PAGE_ADMIN_PANEL_DASHBOARD")
 
 admin_url_path = getattr(settings, "ADMIN_URL", "admin").strip("/")
 
@@ -36,6 +37,7 @@ handler404 = "lunastore.urls_private.admin_handler404"
 handler500 = "lunastore.urls_private.admin_handler500"
 
 urlpatterns = [
+    path("i18n/", include("django.conf.urls.i18n")),
     path("", RedirectView.as_view(url=f"/{admin_url_path}/", permanent=False)),
     path(
         "favicon.ico",

@@ -2552,7 +2552,6 @@ msgstr "Жинақ сақталды."
 msgid "PAGE_COLLECTION_MSG_UNFAVORITED"
 msgstr "Жинақ таңдаулыдан алынды."
 
-
 msgid "%(counter)s PAGE_COLLECTION_SAVES_ONE"
 msgid_plural "%(counter)s PAGE_COLLECTION_SAVES_MANY"
 msgstr[0] "%(counter)s сақтау"
@@ -2645,3 +2644,593 @@ msgstr "Қауіпсіздік мақсатында"
 msgid "PAGE_SECURITY_WARN_NEW_SESSION_DESC"
 msgstr "құпия сөз бен байланыстырылған поштаны өзгерту жаңа құрылғылар үшін қолжетімсіз (24 сағаттан аз)."
 
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_REVIEW_NO_TEXT"
+msgstr "(мәтін жоқ)"
+
+#: templates/unfold/helpers/theme_switch.html templates/unfold/helpers/theme_switch_dropdown.html
+msgid "PAGE_ADMIN_PANEL_THEME_DARK"
+msgstr "Қараңғы"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_ICON_ID"
+msgstr "Таңбаша ID"
+
+#: templates/unfold/helpers/theme_switch.html templates/unfold/helpers/theme_switch_dropdown.html
+msgid "PAGE_ADMIN_PANEL_THEME_LIGHT"
+msgstr "Ашық"
+
+#: templates/unfold/helpers/search.html
+msgid "PAGE_ADMIN_PANEL_SEARCH_SECTIONS_PLACEHOLDER"
+msgstr "Бөлімдерді іздеу..."
+
+#: templates/unfold/helpers/theme_switch.html templates/unfold/helpers/theme_switch_dropdown.html
+msgid "PAGE_ADMIN_PANEL_THEME_SYSTEM"
+msgstr "Жүйелік"
+
+#: templates/admin/search_form.html
+msgid "PAGE_ADMIN_PANEL_SEARCH_PLACEHOLDER"
+msgstr "Іздеу сұрауын енгізіңіз"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_AUTHOR"
+msgstr "Автор"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_APPLICATION_AUTHOR"
+msgstr "Қолданба авторы"
+
+#: lunastore/settings.py
+msgid "PAGE_ADMIN_PANEL_SITE_SUBHEADER"
+msgstr "Әкімшілік панель"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_BANNERS"
+msgstr "Баннерлер"
+
+#: apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_NO_TEXT"
+msgstr "Мәтін жоқ"
+
+#: lunastore/admin_navigation.py apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_SECURITY"
+msgstr "Қауіпсіздік"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_HOMEPAGE_SECTIONS"
+msgstr "Басты бет бөлімдері"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_BANS"
+msgstr "Бұғаттаулар"
+
+#: templates/admin/index.html
+msgid "PAGE_ADMIN_PANEL_QUEUES_EMPTY_DESCRIPTION"
+msgstr "Қолжетімді кезектерде тексеруді күтетін өтінімдер жоқ."
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_VERSION"
+msgstr "Нұсқа"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_AI_PROMPT_INJECTION"
+msgstr "ЖИ нұсқауларына араласу"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_POTENTIAL_PIRACY"
+msgstr "Ықтимал қарақшылық"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_MALICIOUS_CONTENT"
+msgstr "Зиянды мазмұн"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_TIMESTAMPS"
+msgstr "Уақыт белгілері"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_ALL"
+msgstr "Барлығы"
+
+#: templates/admin/index.html
+msgid "PAGE_ADMIN_PANEL_ALL_REQUESTS_PROCESSED"
+msgstr "Барлық өтінімдер өңделді"
+
+#: templates/admin/marketplace/review/list_tools.html
+msgid "PAGE_ADMIN_PANEL_ALL_REVIEWS"
+msgstr "Барлық пікірлер"
+
+#: apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_TOTAL_USERS"
+msgstr "Пайдаланушылар саны"
+
+#: apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_TOTAL_APPLICATIONS"
+msgstr "Қолданбалар саны"
+
+#: templates/admin/index.html
+msgid "PAGE_ADMIN_PANEL_CHOOSE_SECTION"
+msgstr "Бүйірлік мәзірден қолжетімді бөлімді таңдаңыз."
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_HIGH"
+msgstr "Жоғары"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_GROUPS"
+msgstr "Топтар"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_YES"
+msgstr "Иә"
+
+#: templates/admin/index.html
+msgid "PAGE_ADMIN_PANEL_NO_DATE_PROVIDED"
+msgstr "Күні көрсетілмеген"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_DEMO_VERSION"
+msgstr "Демо нұсқа"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_DISTRIBUTIONS"
+msgstr "Дистрибутивтер"
+
+#: lunastore/admin_navigation.py apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_APPLICATION_REPORTS"
+msgstr "Қолданбаларға шағымдар"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_ACTIVITY_LOG"
+msgstr "Әрекеттер журналы"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_BANNED_PHRASE"
+msgstr "Тыйым салынған сөз тіркесі"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_PROHIBITED_CONTENT"
+msgstr "Тыйым салынған мазмұн"
+
+#: apps/marketplace/admin.py
+#, python-format
+msgid "PAGE_ADMIN_PANEL_REVIEWS_AI_RECHECK_MESSAGE %(count)s"
+msgstr "%(count)s пікір үшін ЖИ қайта тексеруі іске қосылды"
+
+#: templates/admin/decline_forms/comparison.html
+msgid "PAGE_ADMIN_PANEL_COMPARISON_PROCESSED_HELP"
+msgstr "Өтінім қаралған. Салыстыру нысанның ағымдағы нұсқасымен көрсетілген."
+
+#: lunastore/admin_navigation.py apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_DEVELOPER_REQUESTS"
+msgstr "Әзірлеуші өтінімдері"
+
+#: lunastore/admin_navigation.py apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_BADGES"
+msgstr "Белгілер"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_AI_MODERATION_OPENROUTER"
+msgstr "ЖИ модерациясы (OpenRouter)"
+
+#: lunastore/admin_navigation.py apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_DISTRIBUTION_CHANGES"
+msgstr "Дистрибутив өзгерістері"
+
+#: lunastore/admin_navigation.py apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_APPLICATION_CHANGES"
+msgstr "Қолданба өзгерістері"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_ICON"
+msgstr "Таңбаша"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_REVIEW_DETAILS"
+msgstr "Пікір туралы ақпарат"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_CATALOG"
+msgstr "Каталог"
+
+#: lunastore/admin_navigation.py apps/marketplace/admin.py apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_CATEGORIES"
+msgstr "Санаттар"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_LUNABOX_MANIFEST"
+msgstr "LunaBox манифесті"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_BULK_SCAN"
+msgstr "Жаппай тексеру"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_MODERATION"
+msgstr "Модерация"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_STATUS_PENDING"
+msgstr "Тексерілуде"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_TITLE"
+msgstr "Атауы"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_SETTINGS"
+msgstr "Баптаулар"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_SITE_SETTINGS"
+msgstr "Сайт баптаулары"
+
+#: templates/admin/index.html
+msgid "PAGE_ADMIN_PANEL_START_WITH_THE_OLDEST_REQUESTS"
+msgstr "Ең ескі өтінімдерден бастаңыз"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_NOT_PROVIDED"
+msgstr "Көрсетілмеген"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_PROFANITY"
+msgstr "Балағат сөздер"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_NO"
+msgstr "Жоқ"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_NOT_SCORED"
+msgstr "Баға жоқ"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_NO_FLAGS"
+msgstr "Белгілер жоқ"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_LOW"
+msgstr "Төмен"
+
+#: lunastore/admin_navigation.py apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_NEW_DISTRIBUTIONS"
+msgstr "Жаңа дистрибутивтер"
+
+#: lunastore/admin_navigation.py apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_NEW_APPLICATIONS"
+msgstr "Жаңа қолданбалар"
+
+#: apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_NEW_TODAY"
+msgstr "Бүгінгі жаңалар"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_OVERVIEW"
+msgstr "Шолу"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_STATUS_APPROVED"
+msgstr "Мақұлданған"
+
+#: apps/marketplace/admin.py
+#, python-format
+msgid "PAGE_ADMIN_PANEL_REVIEWS_APPROVED_MESSAGE %(count)s"
+msgstr "Мақұлданған пікірлер: %(count)s"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_FILTER_APPROVED"
+msgstr "Мақұлданған"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_APPROVE_SELECTED_REVIEWS"
+msgstr "Таңдалған пікірлерді мақұлдау"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_APPROVE_REVIEW"
+msgstr "Пікірді мақұлдау"
+
+#: apps/marketplace/admin.py templates/admin/index.html templates/admin/marketplace/review/list_tools.html
+msgid "PAGE_ADMIN_PANEL_AWAITING_REVIEW"
+msgstr "Тексеруді күтуде"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_DESCRIPTION"
+msgstr "Сипаттамасы"
+
+#: templates/admin/action_modal.html
+msgid "PAGE_ADMIN_PANEL_REJECTION_REASON_PLACEHOLDER"
+msgstr "Нені түзету керектігін сипаттаңыз"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_DEVELOPER_REPLY"
+msgstr "Әзірлеушінің жауабы"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_REVIEW_NOT_FOUND"
+msgstr "Пікір табылмады"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_REVIEW_REJECTED_AND_DELETED"
+msgstr "Пікір қабылданбады және жойылды"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_REVIEW_IS_ALREADY_APPROVED"
+msgstr "Пікір мақұлданған"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_REVIEW_APPROVED"
+msgstr "Пікір мақұлданды"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_REVIEWS"
+msgstr "Пікірлер"
+
+#: lunastore/admin_navigation.py apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_REVIEWS_AWAITING_MODERATION"
+msgstr "Модерациядағы пікірлер"
+
+#: templates/admin/marketplace/review/list_tools.html
+msgid "PAGE_ADMIN_PANEL_REVIEW_REJECTION_HELP"
+msgstr "Қабылдамау пікірді жояды. Толық тексеру үшін мәтінді ашыңыз."
+
+#: apps/marketplace/admin.py
+#, python-format
+msgid "PAGE_ADMIN_PANEL_REVIEWS_REJECTED_MESSAGE %(count)s"
+msgstr "Қабылданбаған және жойылған пікірлер: %(count)s"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_FILTER_REJECTED"
+msgstr "Қабылданбаған"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_REJECT_SELECTED_REVIEWS"
+msgstr "Таңдалған пікірлерді қабылдамау"
+
+#: apps/marketplace/admin.py templates/admin/decline_forms/reject_modal.html
+msgid "PAGE_ADMIN_PANEL_REJECT_REQUEST"
+msgstr "Өтінімді қабылдамау"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_REJECT_REVIEW"
+msgstr "Пікірді қабылдамау"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_STATUS_REJECTED"
+msgstr "Қабылданбаған"
+
+#: templates/admin/index.html
+msgid "PAGE_ADMIN_PANEL_OPEN_QUEUE"
+msgstr "Кезекті ашу"
+
+#: templates/admin/decline_forms/comparison.html
+msgid "PAGE_ADMIN_PANEL_COMPARISON_NO_CHANGES"
+msgstr "Ағымдағы мәндерден айырмашылық жоқ."
+
+#: templates/admin/action_modal.html
+msgid "PAGE_ADMIN_PANEL_CANCEL"
+msgstr "Бас тарту"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_RATING"
+msgstr "Баға"
+
+#: apps/marketplace/admin.py templates/admin/marketplace/review/list_tools.html
+msgid "PAGE_ADMIN_PANEL_AI_SCORE_HELP"
+msgstr "ЖИ бағасы 0-ден 1-ге дейін: жоғары баға ереже бұзу қаупінің жоғары екенін білдіреді."
+
+#: templates/admin/index.html
+msgid "PAGE_ADMIN_PANEL_DASHBOARD_DESCRIPTION"
+msgstr "Тіркелгіңізге қолжетімді кезектер мен құралдар."
+
+#: lunastore/settings.py lunastore/urls_private.py
+msgid "PAGE_ADMIN_PANEL_SITE_TITLE"
+msgstr "LunaStore панелі"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_RECHECK_WITH_AI"
+msgstr "ЖИ арқылы қайта тексеру"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_SUSPICIOUS_LINK"
+msgstr "Күдікті сілтеме"
+
+#: templates/unfold/helpers/search.html
+msgid "PAGE_ADMIN_PANEL_SEARCH_SECTIONS"
+msgstr "Бөлімдерді іздеу"
+
+#: templates/admin/decline_forms/comparison.html
+msgid "PAGE_ADMIN_PANEL_FIELD"
+msgstr "Өріс"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_POLITICAL_AGITATION"
+msgstr "Саяси үгіт"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_USERS"
+msgstr "Пайдаланушылар"
+
+#: templates/admin/decline_forms/comparison.html
+msgid "PAGE_ADMIN_PANEL_AFTER_APPROVAL"
+msgstr "Мақұлдағаннан кейін"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_NOSPAM_RULES"
+msgstr "noSpam ережелері"
+
+#: templates/admin/decline_forms/comparison.html
+msgid "PAGE_ADMIN_PANEL_PROPOSED_CHANGES"
+msgstr "Ұсынылған өзгерістер"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_PRIVATE_APPLICATION"
+msgstr "Жеке қолданба"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_INVITATIONS"
+msgstr "Шақырулар"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_APPLICATION"
+msgstr "Қолданба"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_APPLICATIONS"
+msgstr "Қолданбалар"
+
+#: templates/admin/decline_forms/reject_modal.html
+msgid "PAGE_ADMIN_PANEL_REASON_FOR_REJECTION"
+msgstr "Өтінімді қабылдамау себебі"
+
+#: lunastore/admin_navigation.py lunastore/urls_private.py
+msgid "PAGE_ADMIN_PANEL_DASHBOARD"
+msgstr "Жұмыс үстелі"
+
+#: templates/admin/index.html
+msgid "PAGE_ADMIN_PANEL_MODERATOR_DASHBOARD"
+msgstr "Модератордың жұмыс үстелі"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_HATE_SPEECH"
+msgstr "Өшпенділік тудыру"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_NOTIFICATION_BROADCAST"
+msgstr "Хабарландыру тарату"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_VIOLATION_RISK"
+msgstr "Ереже бұзу қаупі"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_MANUAL_MODERATION"
+msgstr "Қолмен модерациялау"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_DEVELOPER_WEBSITE"
+msgstr "Әзірлеуші сайты"
+
+#: templates/admin/index.html
+msgid "PAGE_ADMIN_PANEL_OLDEST_REQUEST"
+msgstr "Ең ескі өтінім:"
+
+#: templates/admin/marketplace/review/list_tools.html
+msgid "PAGE_ADMIN_PANEL_RESET_SEARCH_AND_FILTERS"
+msgstr "Іздеу мен сүзгілерді қалпына келтіру"
+
+#: templates/admin/decline_forms/comparison.html
+msgid "PAGE_ADMIN_PANEL_CURRENT"
+msgstr "Қазір"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_RISK_SIGNALS"
+msgstr "Қауіп белгілері"
+
+#: apps/marketplace/admin.py apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_SCREENSHOTS"
+msgstr "Скриншоттар"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_SLOGAN"
+msgstr "Ұран"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_NOSPAM_EVENTS"
+msgstr "noSpam оқиғалары"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_CREATED"
+msgstr "Жасалған"
+
+#: lunastore/admin_navigation.py apps/core/dashboard.py
+msgid "PAGE_ADMIN_PANEL_PROBLEM_REPORTS"
+msgstr "Мәселе туралы хабарламалар"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_SPAM"
+msgstr "Спам"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_CHANGELOG"
+msgstr "Өзгерістер тізімі"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_MEDIUM"
+msgstr "Орташа"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_DOWNLOAD_LINK"
+msgstr "Жүктеу сілтемесі"
+
+#: templates/admin/index.html
+msgid "PAGE_ADMIN_PANEL_STATISTICS"
+msgstr "Статистика"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_STATUS"
+msgstr "Мәртебе"
+
+#: templates/admin/marketplace/review/list_tools.html
+msgid "PAGE_ADMIN_PANEL_REVIEW_STATUS"
+msgstr "Пікір мәртебесі"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_TEXT"
+msgstr "Мәтін"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_TEXT_AUTHOR_OR_APPLICATION"
+msgstr "Мәтін, автор немесе қолданба"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_TOXICITY"
+msgstr "Уытты мазмұн"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_REQUIREMENTS"
+msgstr "Талаптар"
+
+#: templates/admin/action_modal.html
+msgid "PAGE_ADMIN_PANEL_REJECTION_REASON_REQUIRED"
+msgstr "Қабылдамау себебін көрсетіңіз."
+
+#: templates/admin/decline_forms/reject_modal.html
+msgid "PAGE_ADMIN_PANEL_REJECTION_REASON_HELP"
+msgstr "Себебін көрсетіңіз, ол пайдаланушыға хабарландыруда жіберіледі."
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_CDN_FILE"
+msgstr "CDN файлы"
+
+#: apps/marketplace/admin_comparison.py
+msgid "PAGE_ADMIN_PANEL_PRICE"
+msgstr "Бағасы"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_BLOCKED_USERNAMES"
+msgstr "Бұғатталған есімдер"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_EXTREMISM"
+msgstr "Экстремизм"
+
+#: lunastore/admin_navigation.py
+msgid "PAGE_ADMIN_PANEL_LEGAL_DOCUMENTS"
+msgstr "Құқықтық құжаттар"
+
+#: templates/admin/search_form.html
+msgid "PAGE_ADMIN_PANEL_SEARCH"
+msgstr "Іздеу"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_REPLY_AUTHOR"
+msgstr "Жауап авторы"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_MODERATOR"
+msgstr "Модератор"
+
+#: apps/marketplace/admin.py
+msgid "PAGE_ADMIN_PANEL_MODERATOR_NOTE"
+msgstr "Модератор жазбасы"

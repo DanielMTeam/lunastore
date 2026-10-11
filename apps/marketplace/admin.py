@@ -7,7 +7,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.urls import path, reverse
-from django.utils.html import format_html
+from django.utils.html import format_html, format_html_join
 from urllib.parse import unquote
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
@@ -17,6 +17,7 @@ from apps.core.tasks import send_notification
 from safedelete.models import HARD_DELETE
 from lunastore.mixins import SafeDeleteAdmin
 from . import translation
+from .admin_comparison import RequestComparisonMixin
 from .forms import (
     ApplicationAdminForm,
     DistributionAdminForm,
@@ -585,6 +586,7 @@ class DistributionCreateAdmin(
 
 @admin.register(DistributionEditRequests)
 class DistributionEditRequestAdmin(
+        RequestComparisonMixin,
         DistributionRequestSecurityMixin,
         SafeDeleteAdmin,
         TabbedTranslationAdmin):
@@ -999,7 +1001,7 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
 
 
 @admin.register(AppEditRequests)
-class AppEditRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
+class AppEditRequestsAdmin(RequestComparisonMixin, SafeDeleteAdmin, TabbedTranslationAdmin):
     change_list_template = "admin/decline_forms/change_list_custom.html"
     change_form_template = "admin/decline_forms/change_form_custom.html"
 
@@ -1214,7 +1216,7 @@ class AppReportRequestsAdmin(SafeDeleteAdmin):
             args=[
                 obj.app.id])
         return format_html(
-            '<a href="{}" style="font-weight:bold; color: #3b82f6;">{}</a>',
+            '<a href="{}" class="luna-object-link">{}</a>',
             url,
             obj.app.title,
         )
@@ -1433,16 +1435,19 @@ class CollectionFavoriteAdmin(unfold_admin.ModelAdmin):
 
 @admin.register(Review)
 class ReviewAdmin(unfold_admin.ModelAdmin):
+    list_before_template = "admin/marketplace/review/list_tools.html"
+    search_help_text = _("PAGE_ADMIN_PANEL_TEXT_AUTHOR_OR_APPLICATION")
+    list_select_related = ("application", "user")
+    list_display_links = ("text_preview",)
+    list_filter_submit = True
     list_display = (
-        "id",
         "app_link",
         "user_link",
         "rating_stars",
         "text_preview",
         "status_badge",
-        "ai_score_badge",
-        "ai_flags_display",
-        "created_at",
+        "risk_summary",
+        "created_date",
     )
     list_filter = (
         "status",
@@ -1466,7 +1471,7 @@ class ReviewAdmin(unfold_admin.ModelAdmin):
         "ai_raw_response",
     )
     fieldsets = (
-        ("Информация об отзыве", {
+        (_("PAGE_ADMIN_PANEL_REVIEW_DETAILS"), {
             "fields": (
                 "application",
                 "user",
@@ -1475,14 +1480,14 @@ class ReviewAdmin(unfold_admin.ModelAdmin):
                 "status",
             ),
         }),
-        ("Ответ разработчика", {
+        (_("PAGE_ADMIN_PANEL_DEVELOPER_REPLY"), {
             "fields": (
                 "developer_reply",
                 "developer_reply_by",
                 "developer_reply_at",
             ),
         }),
-        ("ИИ-модерация (OpenRouter)", {
+        (_("PAGE_ADMIN_PANEL_AI_MODERATION_OPENROUTER"), {
             "fields": (
                 "ai_score",
                 "ai_flags",
@@ -1491,14 +1496,14 @@ class ReviewAdmin(unfold_admin.ModelAdmin):
             ),
             "classes": ("collapse",),
         }),
-        ("Ручная модерация", {
+        (_("PAGE_ADMIN_PANEL_MANUAL_MODERATION"), {
             "fields": (
                 "moderated_by",
                 "moderated_at",
                 "moderation_note",
             ),
         }),
-        ("Временные метки", {
+        (_("PAGE_ADMIN_PANEL_TIMESTAMPS"), {
             "fields": (
                 "created_at",
                 "updated_at",
@@ -1509,6 +1514,21 @@ class ReviewAdmin(unfold_admin.ModelAdmin):
     list_per_page = 25
     actions = ["approve_reviews", "reject_reviews", "recheck_ai_action"]
     actions_detail = ["approve_detail", "reject_detail"]
+
+    def changelist_view(self, request, extra_context=None):
+        selected = request.GET.get("status__exact", "")
+        links = []
+        for value, title in (("", _("PAGE_ADMIN_PANEL_ALL")), (Review.STATUS_PENDING, _("PAGE_ADMIN_PANEL_AWAITING_REVIEW")),
+                             (Review.STATUS_APPROVED, _("PAGE_ADMIN_PANEL_FILTER_APPROVED")), (Review.STATUS_REJECTED, _("PAGE_ADMIN_PANEL_FILTER_REJECTED"))):
+            params = request.GET.copy()
+            params.pop("p", None)
+            params.pop("status__exact", None)
+            if value:
+                params["status__exact"] = value
+            links.append({"title": title, "url": "?" + params.urlencode(), "active": selected == value})
+        context = {**(extra_context or {}), "review_status_links": links,
+                   "review_pending_only": self.model is PendingReview, "review_has_filters": bool(request.GET)}
+        return super().changelist_view(request, extra_context=context)
 
     def get_actions_detail(self, request, object_id):
         actions = super().get_actions_detail(request, object_id)
@@ -1561,120 +1581,157 @@ class ReviewAdmin(unfold_admin.ModelAdmin):
         except Exception:
             return "/admin/marketplace/review/"
 
-    @action(description="Одобрить выбранные отзывы", icon="check_circle")
+    @action(description=_("PAGE_ADMIN_PANEL_APPROVE_SELECTED_REVIEWS"), icon="check_circle")
     def approve_reviews(self, request, queryset):
         count = self._apply_review_status(queryset, Review.STATUS_APPROVED, request.user)
-        self.message_user(request, f"Одобрено отзывов: {count}", messages.SUCCESS)
+        self.message_user(request, _("PAGE_ADMIN_PANEL_REVIEWS_APPROVED_MESSAGE %(count)s") % {"count": count}, messages.SUCCESS)
 
-    @action(description="Отклонить выбранные отзывы", icon="cancel")
+    @action(description=_("PAGE_ADMIN_PANEL_REJECT_SELECTED_REVIEWS"), icon="cancel")
     def reject_reviews(self, request, queryset):
         count = self._delete_reviews(queryset)
-        self.message_user(request, f"Отклонено и удалено отзывов: {count}", messages.WARNING)
+        self.message_user(request, _("PAGE_ADMIN_PANEL_REVIEWS_REJECTED_MESSAGE %(count)s") % {"count": count}, messages.WARNING)
 
-    @action(description="Перепроверить через ИИ", icon="refresh")
+    @action(description=_("PAGE_ADMIN_PANEL_RECHECK_WITH_AI"), icon="refresh")
     def recheck_ai_action(self, request, queryset):
         from .tasks import moderate_review_task
         for review in queryset:
             moderate_review_task.enqueue(review.id)
-        self.message_user(request, f"Запущена фоновая перепроверка ИИ для {queryset.count()} отзывов", messages.INFO)
+        self.message_user(request, _("PAGE_ADMIN_PANEL_REVIEWS_AI_RECHECK_MESSAGE %(count)s") % {"count": queryset.count()}, messages.INFO)
 
-    @action(description="Одобрить отзыв", icon="check")
+    @action(description=_("PAGE_ADMIN_PANEL_APPROVE_REVIEW"), icon="check")
     def approve_detail(self, request, object_id):
         rev = Review.objects.filter(id=object_id).first()
         changelist_url = self.get_changelist_url()
         if rev and rev.status == Review.STATUS_APPROVED:
-            self.message_user(request, "Отзыв уже одобрен", messages.INFO)
+            self.message_user(request, _("PAGE_ADMIN_PANEL_REVIEW_IS_ALREADY_APPROVED"), messages.INFO)
             return redirect(changelist_url)
         self._apply_review_status([object_id], Review.STATUS_APPROVED, request.user)
-        self.message_user(request, "Отзыв успешно одобрен", messages.SUCCESS)
+        self.message_user(request, _("PAGE_ADMIN_PANEL_REVIEW_APPROVED"), messages.SUCCESS)
         return redirect(changelist_url)
 
-    @action(description="Отклонить отзыв", icon="close")
+    @action(description=_("PAGE_ADMIN_PANEL_REJECT_REVIEW"), icon="close")
     def reject_detail(self, request, object_id):
         rev = Review.objects.filter(id=object_id).first()
         changelist_url = self.get_changelist_url()
         if not rev:
-            self.message_user(request, "Отзыв не найден", messages.INFO)
+            self.message_user(request, _("PAGE_ADMIN_PANEL_REVIEW_NOT_FOUND"), messages.INFO)
             return redirect(changelist_url)
         self._delete_reviews([object_id])
-        self.message_user(request, "Отзыв отклонён и удалён", messages.WARNING)
+        self.message_user(request, _("PAGE_ADMIN_PANEL_REVIEW_REJECTED_AND_DELETED"), messages.WARNING)
         return redirect(changelist_url)
+
+    def created_date(self, obj):
+        return obj.created_at
+    created_date.short_description = _("PAGE_ADMIN_PANEL_CREATED")
+    created_date.admin_order_field = "created_at"
+
+    def formfield_for_dbfield(self, db_field, request, **kwargs):
+        field = super().formfield_for_dbfield(db_field, request, **kwargs)
+        labels = {
+            "application": _("PAGE_ADMIN_PANEL_APPLICATION"),
+            "user": _("PAGE_ADMIN_PANEL_AUTHOR"),
+            "rating": _("PAGE_ADMIN_PANEL_RATING"),
+            "text": _("PAGE_ADMIN_PANEL_TEXT"),
+            "status": _("PAGE_ADMIN_PANEL_STATUS"),
+            "developer_reply": _("PAGE_ADMIN_PANEL_DEVELOPER_REPLY"),
+            "developer_reply_by": _("PAGE_ADMIN_PANEL_REPLY_AUTHOR"),
+            "moderated_by": _("PAGE_ADMIN_PANEL_MODERATOR"),
+            "moderation_note": _("PAGE_ADMIN_PANEL_MODERATOR_NOTE"),
+        }
+        if field and db_field.name in labels:
+            field.label = labels[db_field.name]
+        return field
 
     def app_link(self, obj):
         if not obj.application:
             return "---"
         url = reverse("admin:marketplace_application_change", args=[obj.application.id])
         return format_html(
-            '<a href="{}" style="font-weight:bold; color: #3b82f6;">{}</a>',
+            '<a href="{}" class="luna-object-link">{}</a>',
             url,
             obj.application.title,
         )
-    app_link.short_description = "Приложение"
+    app_link.short_description = _("PAGE_ADMIN_PANEL_APPLICATION")
 
     def user_link(self, obj):
         if not obj.user:
             return "---"
         url = reverse("admin:user_user_change", args=[obj.user.id])
         return format_html('<a href="{}">{}</a>', url, obj.user.username)
-    user_link.short_description = "Пользователь"
+    user_link.short_description = _("PAGE_ADMIN_PANEL_AUTHOR")
 
     def rating_stars(self, obj):
         return f"{obj.rating} ★"
-    rating_stars.short_description = "Оценка"
+    rating_stars.short_description = _("PAGE_ADMIN_PANEL_RATING")
+    rating_stars.admin_order_field = "rating"
 
     def text_preview(self, obj):
         if not obj.text:
-            return mark_safe('<span style="color: #9ca3af;">(без текста)</span>')
-        preview = obj.text[:60] + ("..." if len(obj.text) > 60 else "")
-        return preview
-    text_preview.short_description = "Текст"
+            return format_html('<span class="luna-muted">{}</span>', _("PAGE_ADMIN_PANEL_REVIEW_NO_TEXT"))
+        return format_html('<span class="luna-review-preview" title="{}">{}</span>', obj.text, obj.text)
+    text_preview.short_description = _("PAGE_ADMIN_PANEL_TEXT")
 
     def status_badge(self, obj):
-        colors = {
-            Review.STATUS_APPROVED: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300",
-            Review.STATUS_PENDING: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300",
-            Review.STATUS_REJECTED: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300",
+        statuses = {
+            Review.STATUS_APPROVED: ("approved", _("PAGE_ADMIN_PANEL_STATUS_APPROVED")),
+            Review.STATUS_PENDING: ("pending", _("PAGE_ADMIN_PANEL_STATUS_PENDING")),
+            Review.STATUS_REJECTED: ("rejected", _("PAGE_ADMIN_PANEL_STATUS_REJECTED")),
         }
-        color_class = colors.get(obj.status, "bg-gray-100 text-gray-800")
+        variant, label = statuses.get(obj.status, ("neutral", obj.get_status_display()))
         return format_html(
-            '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {}">{}</span>',
-            color_class,
-            obj.get_status_display(),
+            '<span class="luna-badge luna-badge-{}">{}</span>', variant, label,
         )
-    status_badge.short_description = "Статус"
+    status_badge.short_description = _("PAGE_ADMIN_PANEL_STATUS")
 
     def ai_score_badge(self, obj):
         if obj.ai_score is None:
-            return "---"
+            return format_html('<span class="luna-muted">{}</span>', _("PAGE_ADMIN_PANEL_NOT_SCORED"))
         score = obj.ai_score
         if score <= 0.30:
-            badge_color = "color: #16a34a; font-weight: bold;"
+            variant, label = "approved", _("PAGE_ADMIN_PANEL_LOW")
         elif score >= 0.80:
-            badge_color = "color: #dc2626; font-weight: bold;"
+            variant, label = "rejected", _("PAGE_ADMIN_PANEL_HIGH")
         else:
-            badge_color = "color: #d97706; font-weight: bold;"
+            variant, label = "pending", _("PAGE_ADMIN_PANEL_MEDIUM")
         score_text = f"{score:.2f}"
-        return format_html('<span style="{}">{}</span>', badge_color, score_text)
-    ai_score_badge.short_description = "AI Скор"
+        return format_html('<span class="luna-badge luna-badge-{}" title="{}">{} · {}</span>',
+                           variant, _("PAGE_ADMIN_PANEL_AI_SCORE_HELP"), label, score_text)
+    ai_score_badge.short_description = _("PAGE_ADMIN_PANEL_VIOLATION_RISK")
 
     def ai_flags_display(self, obj):
         if not obj.ai_flags:
-            return "---"
-        return ", ".join(obj.ai_flags)
-    ai_flags_display.short_description = "Флаги"
+            label = _("PAGE_ADMIN_PANEL_NOT_SCORED") if obj.ai_score is None else _("PAGE_ADMIN_PANEL_NO_FLAGS")
+            return format_html('<span class="luna-muted">{}</span>', label)
+        labels = {
+            "suspicious_link": _("PAGE_ADMIN_PANEL_SUSPICIOUS_LINK"), "potential_piracy": _("PAGE_ADMIN_PANEL_POTENTIAL_PIRACY"),
+            "spam": _("PAGE_ADMIN_PANEL_SPAM"), "toxicity": _("PAGE_ADMIN_PANEL_TOXICITY"), "profanity": _("PAGE_ADMIN_PANEL_PROFANITY"),
+            "hate_speech": _("PAGE_ADMIN_PANEL_HATE_SPEECH"), "politics": _("PAGE_ADMIN_PANEL_POLITICAL_AGITATION"),
+            "extremism": _("PAGE_ADMIN_PANEL_EXTREMISM"), "prompt_injection": _("PAGE_ADMIN_PANEL_AI_PROMPT_INJECTION"),
+            "malicious": _("PAGE_ADMIN_PANEL_MALICIOUS_CONTENT"), "banned_phrase": _("PAGE_ADMIN_PANEL_BANNED_PHRASE"),
+            "prohibited_content": _("PAGE_ADMIN_PANEL_PROHIBITED_CONTENT"),
+        }
+        return format_html_join(" ", '<span class="luna-flag" title="{}">{}</span>',
+                                ((str(flag), labels.get(str(flag), str(flag))) for flag in obj.ai_flags))
+    ai_flags_display.short_description = _("PAGE_ADMIN_PANEL_RISK_SIGNALS")
+
+    def risk_summary(self, obj):
+        if obj.ai_flags:
+            return format_html('<div class="luna-risk-summary">{}<div>{}</div></div>',
+                               self.ai_score_badge(obj), self.ai_flags_display(obj))
+        return self.ai_score_badge(obj)
+    risk_summary.short_description = _("PAGE_ADMIN_PANEL_VIOLATION_RISK")
+    risk_summary.admin_order_field = "ai_score"
 
 
 @admin.register(PendingReview)
 class PendingReviewAdmin(ReviewAdmin):
     list_display = (
-        "id",
         "app_link",
         "user_link",
         "rating_stars",
         "text_preview",
-        "ai_score_badge",
-        "ai_flags_display",
-        "created_at",
+        "risk_summary",
+        "created_date",
     )
     list_filter = (
         "rating",

@@ -1,0 +1,21 @@
+{% load i18n %}
+
+{% if not theme %}
+    <div class="luna-theme-switch border-b border-base-200 dark:border-base-700">
+        <button type="button" class="luna-theme-option" x-on:click="switchTheme('light')"
+                x-bind:aria-pressed="adminTheme == 'light'">
+            <span class="material-symbols-outlined" aria-hidden="true">light_mode</span>
+            <span>{% trans "PAGE_ADMIN_PANEL_THEME_LIGHT" %}</span>
+        </button>
+        <button type="button" class="luna-theme-option" x-on:click="switchTheme('dark')"
+                x-bind:aria-pressed="adminTheme == 'dark'">
+            <span class="material-symbols-outlined" aria-hidden="true">dark_mode</span>
+            <span>{% trans "PAGE_ADMIN_PANEL_THEME_DARK" %}</span>
+        </button>
+        <button type="button" class="luna-theme-option" x-on:click="switchTheme('auto')"
+                x-bind:aria-pressed="adminTheme == 'auto'">
+            <span class="material-symbols-outlined" aria-hidden="true">computer</span>
+            <span>{% trans "PAGE_ADMIN_PANEL_THEME_SYSTEM" %}</span>
+        </button>
+    </div>
+{% endif %}

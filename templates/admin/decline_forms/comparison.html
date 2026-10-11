@@ -1,0 +1,13 @@
+{% load i18n %}
+{% if request_comparison != None %}
+<section class="luna-comparison" aria-labelledby="comparison-heading">
+    <h2 id="comparison-heading">{% trans "PAGE_ADMIN_PANEL_PROPOSED_CHANGES" %}</h2>
+    {% if original.status != 'pending' %}<p class="luna-muted">{% trans "PAGE_ADMIN_PANEL_COMPARISON_PROCESSED_HELP" %}</p>{% endif %}
+    {% if request_comparison %}
+    <table>
+        <thead><tr><th scope="col">{% trans "PAGE_ADMIN_PANEL_FIELD" %}</th><th scope="col">{% trans "PAGE_ADMIN_PANEL_CURRENT" %}</th><th scope="col">{% trans "PAGE_ADMIN_PANEL_AFTER_APPROVAL" %}</th></tr></thead>
+        <tbody>{% for row in request_comparison %}<tr><th scope="row">{{ row.label }}</th><td>{{ row.current }}</td><td>{{ row.proposed }}</td></tr>{% endfor %}</tbody>
+    </table>
+    {% else %}<p class="luna-muted">{% trans "PAGE_ADMIN_PANEL_COMPARISON_NO_CHANGES" %}</p>{% endif %}
+</section>
+{% endif %}

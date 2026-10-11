@@ -1,0 +1,15 @@
+{% load i18n %}
+<div class="luna-list-tools">
+    {% if not review_pending_only %}
+    <nav class="luna-filter-links" aria-label="{% trans 'PAGE_ADMIN_PANEL_REVIEW_STATUS' %}">
+        {% for item in review_status_links %}<a href="{{ item.url }}"{% if item.active %} aria-current="page"{% endif %}>{{ item.title }}</a>{% endfor %}
+    </nav>
+    {% else %}
+    <nav class="luna-filter-links" aria-label="{% trans 'PAGE_ADMIN_PANEL_REVIEW_STATUS' %}">
+        <a href="{% url 'admin:marketplace_review_changelist' %}">{% trans "PAGE_ADMIN_PANEL_ALL_REVIEWS" %}</a>
+        <a href="{{ request.path }}" aria-current="page">{% trans "PAGE_ADMIN_PANEL_AWAITING_REVIEW" %}</a>
+    </nav>
+    {% endif %}
+    {% if review_has_filters %}<a class="luna-reset-filters" href="{{ request.path }}">{% trans "PAGE_ADMIN_PANEL_RESET_SEARCH_AND_FILTERS" %}</a>{% endif %}
+    <p class="luna-muted">{% trans "PAGE_ADMIN_PANEL_AI_SCORE_HELP" %} {% trans "PAGE_ADMIN_PANEL_REVIEW_REJECTION_HELP" %}</p>
+</div>
