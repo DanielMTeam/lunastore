@@ -599,7 +599,7 @@ class EnglishUsernameValidationTest(TestCase):
         with self.assertRaises(ValidationError):
             user.clean()
 
-    @mock.patch("apps.user.validators.validate_email_mx")
+    @mock.patch("apps.user.validators.dns.resolver.Resolver.resolve")
     def test_profile_update_form_rejects_russian_username(self, mock_mx):
         from apps.user.forms import ProfileUpdateForm
         user = User.objects.create_user(username="english_user", password="password123", email="en@gmail.com")
@@ -610,7 +610,7 @@ class EnglishUsernameValidationTest(TestCase):
         self.assertFalse(form.is_valid())
         self.assertIn("username", form.errors)
 
-    @mock.patch("apps.user.validators.validate_email_mx")
+    @mock.patch("apps.user.validators.dns.resolver.Resolver.resolve")
     def test_profile_update_form_accepts_valid_english_username(self, mock_mx):
         from apps.user.forms import ProfileUpdateForm
         user = User.objects.create_user(username="english_user2", password="password123", email="en2@gmail.com")

@@ -15,6 +15,7 @@ urlpatterns = [
         "edit_app_info.php/<int:pk>/", views.application_edit_info, name="edit_app_info"
     ),
     path("app_stats.php/<int:pk>/", views.application_stats, name="app_stats"),
+    path("community_access.php/<int:pk>/", views.community_access, name="community_access"),
     path("search.php", views.search, name="search"),
     path("report_app.php", views.report_app, name="report_app"),
     path("report_problem.php", views.report_problem, name="report_problem"),
@@ -29,6 +30,11 @@ urlpatterns = [
         "distribution_delete.php/<int:dist_pk>/",
         views.distribution_delete,
         name="distribution_delete",
+    ),
+    path(
+        "distribution_create.php/<int:app_id>/",
+        views.distribution_create,
+        name="distribution_create",
     ),
     path("get_dist_file/<int:dist_pk>/", views.get_file_action, name="download_action"),
     path("rate_app.php", views.rate_app, name="rate_app"),

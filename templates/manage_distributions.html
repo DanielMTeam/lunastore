@@ -53,20 +53,7 @@
     </style>
 
     <div class="tabs">
-        <div class="tab-bar">
-            <a href="{% url 'edit_app_info' pk=app.pk%}" class="tab" style="text-decoration: none; color: inherit;">
-                <img src="{% static './img/tabs/main.png'%}" class="tab-icon" alt="">
-                {% trans "PAGE_ADMIN_APP_FIRST_BLOCK" %}
-            </a>
-            <div class="tab active">
-                <img src="{% static './img/tabs/programs.png'%}" class="tab-icon" alt="">
-                {% trans "PAGE_ADMIN_APP_TAB_DISTRIBUTIONS" %}
-            </div>
-            <a href="{% url 'app_stats' pk=app.pk %}" class="tab" style="text-decoration: none; color: inherit;">
-                <img src="{% static './img/tabs/stats.png'%}" class="tab-icon" alt="">
-                {% trans "PAGE_ADMIN_APP_TAB_STATS" %}
-            </a>
-        </div>
+        {% include "includes/app_management_tabs.html" with app=app active_tab="files" only %}
 
         <div class="tab-content" id="tab-view">
             <div class="section" style="border: none; padding: 0;">
@@ -80,6 +67,8 @@
                             <li>
                                 {% trans "PAGE_ADMIN_APP_DIST_VERSION_LABEL" %} <strong>{{ req.version }}</strong>
                                 {% trans "PAGE_ADMIN_APP_DIST_PENDING_CREATE" %}
+                                <br>
+                                <i>{% trans "PAGE_ADDAPP_CHECKINFO_AUTHOR_1" %} <a href="{% url 'profile' %}?id={{ req.user.id }}">{{ req.user }}</a></i>
                             </li>
                         {% endfor %}
                         {% for edit in pending_edits %}

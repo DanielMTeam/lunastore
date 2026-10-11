@@ -183,7 +183,7 @@ document.addEventListener("DOMContentLoaded", function () {
               djangoJson = _context.v;
               uploadToken = djangoJson.upload_token;
               file = fileInput.files[0];
-              uploadUrl = new URL(config.cdnUploadUrl);
+              uploadUrl = new URL(config.cdnUploadUrl, window.location.origin);
               uploadUrl.searchParams.append("token", uploadToken);
               fd = new FormData();
               fd.append("file", file);

@@ -67,20 +67,7 @@
   <![endif]-->
 
   <div class="tabs">
-    <div class="tab-bar">
-      <a href="{% url 'edit_app_info' pk=obj.pk %}" class="tab" style="text-decoration: none; color: inherit;">
-        <img src="{% static './img/tabs/main.png' %}" class="tab-icon" alt="">
-        {% trans "PAGE_ADMIN_APP_FIRST_BLOCK" %}
-      </a>
-      <a href="{% url 'manage_distributions' %}?id={{ obj.pk }}" class="tab" style="text-decoration: none; color: inherit;">
-        <img src="{% static './img/tabs/programs.png' %}" class="tab-icon" alt="">
-        {% trans "PAGE_ADMIN_APP_TAB_DISTRIBUTIONS" %}
-      </a>
-      <div class="tab active">
-        <img src="{% static './img/tabs/stats.png' %}" class="tab-icon" alt="">
-        {% trans "PAGE_ADMIN_APP_TAB_STATS" %}
-      </div>
-    </div>
+    {% include "includes/app_management_tabs.html" with app=obj active_tab="stats" only %}
 
     <div class="tab-content" id="tab-view">
       <div class="brief_admin">

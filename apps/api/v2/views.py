@@ -25,6 +25,7 @@ from drf_spectacular.utils import (
     inline_serializer,
 )
 from apps.marketplace.models import Application, Category, Collection, CollectionItem, Distribution
+from apps.marketplace.services.distributions import can_submit_community_distribution
 from apps.marketplace.serializers import ApplicationSerializer, CategorySerializer, CollectionSerializer, DistributionSerializer, annotate_app_last_version
 from apps.user.models import User
 from apps.user.serializers import UserSerializer
@@ -129,7 +130,7 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
             return Response({"error": "Invalid target"}, status=400)
 
         policy = PUB_UPLOAD_POLICIES[target]
-        guard_phrase = str(uuid.uuid4().hex)[:8]
+        guard_phrase = uuid.uuid4().hex
 
         cache_key = f"cdn_guard_{request.user.id}_{guard_phrase}"
         cache.set(cache_key, True, timeout=3600)
@@ -168,13 +169,17 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
             return Response({"error": "app_id is required and must be an integer"}, status=400)
 
         app_obj = get_object_or_404(Application, id=app_id)
-        if app_obj.user != request.user and not request.user.is_staff:
+        if (
+            app_obj.user != request.user
+            and not request.user.is_staff
+            and not can_submit_community_distribution(app_obj, request.user)
+        ):
             return Response({"error": "Not your app"}, status=403)
 
-        guard_phrase = str(uuid.uuid4().hex)[:8]
+        guard_phrase = uuid.uuid4().hex
 
         cache_key = f"cdn_guard_{request.user.id}_{guard_phrase}"
-        cache.set(cache_key, True, timeout=3600)
+        cache.set(cache_key, {"object": str(app_obj.pk), "mode": "private"}, timeout=3600)
 
         current_time = int(time.time())
 

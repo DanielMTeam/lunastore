@@ -48,9 +48,7 @@ msgstr[2] "%(counter)s водгукаў (паказаны на гэтай ста
 
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_RECENT"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_RECENT"
-msgstr[0] ""
-"%(counter)s водгук (паказаны апошнія 5)\n"
-""
+msgstr[0] "%(counter)s водгук (паказаны апошнія 5)"
 msgstr[1] "%(counter)s водгукі (паказаны апошнія 5)"
 msgstr[2] "%(counter)s водгукаў (паказаны апошнія 5)"
 
@@ -1694,9 +1692,7 @@ msgstr "Платнае:"
 
 msgid "PAGE_APP_RATING_BASED_ON_COUNT %(counter)s"
 msgid_plural "PAGE_APP_RATING_BASED_ON_COUNT_PLURAL %(counter)s"
-msgstr[0] ""
-"Агульны рэйтынг складзены на аснове водгукаў ад <b>%(counter)s чалавека</b>\n"
-""
+msgstr[0] "Агульны рэйтынг складзены на аснове водгукаў ад <b>%(counter)s чалавека</b>"
 msgstr[1] "Агульны рэйтынг складзены на аснове водгукаў ад <b>%(counter)s чалавек</b>"
 msgstr[2] "Агульны рэйтынг складзены на аснове водгукаў ад <b>%(counter)s чалавек</b>"
 
@@ -2742,9 +2738,7 @@ msgid "PAGE_PASSWORD_RESET_DONE_TEXT_1"
 msgstr "Мы адправілі інструкцыі па скідзе пароля на пазначаны вамі адрас электроннай пошты (калі ён існуе ў нашай сістэме)"
 
 msgid "PAGE_PASSWORD_RESET_DONE_TEXT_2"
-msgstr ""
-"Калі ласка, праверце пошту і перайдзіце па спасылцы для сканчэння працэдуры. Калі ліст не прыйшоў, праверце папку \"Спам\".\n"
-""
+msgstr "Калі ласка, праверце пошту і перайдзіце па спасылцы для сканчэння працэдуры. Калі ліст не прыйшоў, праверце папку \"Спам\"."
 
 msgid "PAGE_PASSWORD_RESET_EMAIL_FOOTER"
 msgstr "Гэты ліст быў адпраўлены аўтаматычна. Калі ласка, не адказвайце на яго."
@@ -2765,15 +2759,10 @@ msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_3"
 msgstr "Калі вы не запытвалі скід пароля, проста праігнаруйце гэты ліст."
 
 msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_4"
-msgstr ""
-"З павагай,\n"
-"Каманда LunaStore\n"
-""
+msgstr "З павагай,\nКаманда LunaStore"
 
 msgid "PAGE_PASSWORD_RESET_EMAIL_REGARDS"
-msgstr ""
-"З павагай, Каманда LunaStore\n"
-""
+msgstr "З павагай, Каманда LunaStore"
 
 msgid "PAGE_PASSWORD_RESET_EMAIL_TEXT_1"
 msgstr "Вы запыталі скід пароля для акаўнта LunaStore. Калі ласка, перайдзіце па спасылцы ніжэй, каб усталяваць новы пароль:"
@@ -3368,3 +3357,58 @@ msgstr "LunaPassport адвязаны."
 
 msgid "VIEW_PASSPORT_UNLINK_NEED_PASSWORD"
 msgstr "Нельга адвязаць LunaPassport, пакуль у ўліковага запіса няма пароля. Спачатку задайце пароль."
+
+msgid "SET_APP_ALLOW_COMMUNITY_DISTRIBUTIONS"
+msgstr "Дазволіць староннія дыстрыбуцыі?"
+
+msgid "SET_APP_ALLOW_COMMUNITY_DISTRIBUTIONS_TOOLTIP"
+msgstr "Карыстальнікі са статусам распрацоўшчыка змогуць дадаваць дыстрыбуцыі для гэтай праграмы."
+
+msgid "COMMUNITY_DISTRIBUTIONS_ARE_NOT_ALLOWED"
+msgstr "Староннія дыстрыбуцыі для гэтай праграмы не дазволеныя."
+
+msgid "COMMUNITY_ENABLE"
+msgstr "Уключыць прапановы"
+
+msgid "COMMUNITY_DISABLE"
+msgstr "Адключыць прапановы"
+
+msgid "COMMUNITY_ACCESS_TITLE"
+msgstr "Удзел супольнасці"
+
+msgid "COMMUNITY_AUTHOR"
+msgstr "Супольнасць"
+
+msgid "COMMUNITY_PENDING_PROPOSAL"
+msgstr "Прапанова ўжо чакае мадэрацыі. Дачакайцеся рашэння."
+
+msgid "COMMUNITY_PUBLIC_APP_REQUIRED"
+msgstr "Удзел супольнасці даступны толькі для публічнай праграмы без абмежаванняў DMCA."
+
+msgid "COMMUNITY_ACCESS_SAVED"
+msgstr "Налады ўдзелу супольнасці захаваны."
+
+msgid "COMMUNITY_ACCESS_EXPLANATION"
+msgstr "Распрацоўшчыкі змогуць прапаноўваць змены інфармацыі і дыстрыбутываў. Мадэратары правяраюць усе прапановы. Вы захоўваеце кіраванне праграмай. Для змены рэжыму пацвердзіце пароль і код 2FA, калі яна ўключана."
+
+msgid "COMMUNITY_RETENTION_WARNING"
+msgstr "Пасля ўключэння праграму нельга выдаліць або зрабіць прыватнай, нават пасля адключэння прапаноў. Пры выдаленні ўліковага запісу праграма і дыстрыбутывы застануцца ў каталогу без уладальніка."
+
+msgid "COMMUNITY_PROPOSAL_EXPLANATION"
+msgstr "Вы прапануеце змены. Яны з’явяцца ў каталогу толькі пасля ўхвалення мадэратарам."
+
+msgid "COMMUNITY_PROPOSE_EDIT"
+msgstr "Прапанаваць змену"
+
+#: templates/del_acc.html
+#, python-format
+msgid "COMMUNITY_ACCOUNT_RETENTION_WARNING %(count)s"
+msgstr "Праграм супольнасці: %(count)s"
+
+#: templates/admin_app.html
+msgid "COMMUNITY_PROTECTED_APP_NOTICE"
+msgstr "Для гэтай праграмы ўжо ўключаўся ўдзел супольнасці. Вы захоўваеце кіраванне, але выдаліць праграму або зрабіць яе прыватнай нельга, нават калі прапановы адключаныя. Пасля выдалення ўліковага запісу праграма і яе дыстрыбутывы застануцца ў каталогу без уладальніка."
+
+#: templates/del_acc.html
+msgid "COMMUNITY_ACCOUNT_RETENTION_DESCRIPTION"
+msgstr "Застануцца ў каталогу без уладальніка разам з дыстрыбутывамі. Вы страціце кіраванне імі."

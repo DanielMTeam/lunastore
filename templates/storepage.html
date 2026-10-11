@@ -87,7 +87,7 @@
             <div class="st_card_title st_app_title" title="{{ title|escapejs }}">{{ title }}</div>
             <div class="st_card_desc" style="font-size: 13px; margin-bottom: 2px;">{{ slogan|render_markdown }}</div>
             <div class="st_card_author" style="font-size: 11px;">
-                {% trans "PAGE_APP_LABEL_AUTHOR" %} <a href="/profile.php?id={{ developer_id }}">{{ developer_name }}</a><br>
+                {% trans "PAGE_APP_LABEL_AUTHOR" %} {% if developer_id %}<a href="{% url 'profile' %}?id={{ developer_id }}">{{ developer_name }}</a>{% else %}{{ developer_name }}{% endif %}<br>
                 {% trans "PAGE_APP_LABEL_ORIGINAL_AUTHOR" %} {{ original_author }}
             </div>
         </div>
@@ -404,11 +404,14 @@
         <h2>{% trans "PAGE_APP_SECTION_ACTIONS" %}</h2>
         <div class="separator_store"></div>
         <div class="actionsm">
+            {% if can_propose_changes %}
+            <li class="editapp"><a href="{% url 'edit_app_info' pk=app_id %}">{% trans "COMMUNITY_PROPOSE_EDIT" %}</a></li>
+            {% endif %}
             {% if developer_site %}
                 <li class="offsite"><a href="{{ developer_site }}">{% trans "PAGE_APP_ACTION_SITE" %}</a></li>
             {% endif %}
             <li class="alert"><a href="/report_app.php?id={{ app_id }}">{% trans "PAGE_APP_ACTION_REPORT" %}</a></li>
-            <li class="otherapps"><a href="/search.php?page=apps&author={{ developer_id|default:1 }}">{% trans "PAGE_APP_ACTION_MORE_APPS" %}</a></li>
+            {% if developer_id %}<li class="otherapps"><a href="/search.php?page=apps&author={{ developer_id }}">{% trans "PAGE_APP_ACTION_MORE_APPS" %}</a></li>{% endif %}
         </div>
     </div>
     </div>

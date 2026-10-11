@@ -671,6 +671,8 @@ class TrustedAuthorAutoApprovalTest(TestCase):
         )
 
     def _app_edit_request(self, user):
+        self.app.user = user
+        self.app.save(update_fields=["user"])
         return AppEditRequests.objects.create(
             user=user,
             target_application=self.app,
@@ -681,6 +683,8 @@ class TrustedAuthorAutoApprovalTest(TestCase):
         )
 
     def _dist_create_request(self, user):
+        self.app.user = user
+        self.app.save(update_fields=["user"])
         return DistributionCreateRequests.objects.create(
             user=user,
             app=self.app,
@@ -690,6 +694,8 @@ class TrustedAuthorAutoApprovalTest(TestCase):
         )
 
     def _dist_edit_request(self, user):
+        self.app.user = user
+        self.app.save(update_fields=["user"])
         distribution = Distribution.objects.create(
             app=self.app, version="1.0", changelog="Initial")
         return DistributionEditRequests.objects.create(

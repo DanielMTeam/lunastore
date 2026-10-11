@@ -2,7 +2,14 @@
 {% load i18n %}
 {% load static %}
 
-{% block title %}{% trans "PAGE_DIST_EDIT_HEADER" %} - LunaStore{% endblock %}
+{% block title %}
+{% if is_edit_page %}
+{% trans "PAGE_DIST_EDIT_HEADER" %}
+{% else %}
+{% trans "PAGE_ADMIN_APP_DIST_ADD_NEW" %} — {{ app.title }}
+{% endif %}
+- LunaStore
+{% endblock %}
 
 {% block content %}
 <div class="content">
@@ -45,9 +52,14 @@
 
     <div class="section" style="border: none; padding: 0;">
         <div class="profile_block">
+            {% if is_edit_page %}
             {% trans "PAGE_DIST_EDIT_HEADER" %} — {{ distribution.version }}
+            {% else %}
+            {% trans "PAGE_ADMIN_APP_DIST_ADD_NEW" %} — {{ app.title }}
+            {% endif %}
         </div>
         <div class="profile_block_content">
+            {% if is_community_proposal %}<p>{% trans "COMMUNITY_PROPOSAL_EXPLANATION" %}</p>{% endif %}
             <form method="post" id="distribution-form" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form.cdn_confirm_token }}
@@ -167,10 +179,17 @@
                 {% endwith %}
 
                 <div class="pref_pad" style="padding-top: 10px; border-top: 1px dashed #cfe1ff;">
+                    {% if is_edit_page %}
                     <input type="submit" class="action_button" value="{% trans 'PAGE_DIST_FORM_SAVE' %}">
                     <a href="{{ download_list_url }}" class="action_button" style="background: #e0edff; color: #294b76; border-color: #bfd2e4; margin-left: 10px;">
                         {% trans "PAGE_DIST_FORM_CANCEL" %}
                     </a>
+                    {% else %}
+                    <input type="submit" class="action_button" value="{% trans 'PAGE_ADDAPP_SENDAPPBTN' %}">
+                    <a href="{{ download_list_url }}" class="action_button" style="background: #e0edff; color: #294b76; border-color: #bfd2e4; margin-left: 10px;">
+                        {% trans "PAGE_DIST_FORM_CANCEL" %}
+                    </a>
+                    {% endif %}
                 </div>
             </form>
         </div>

@@ -715,12 +715,15 @@ def delete_account(request):
             return redirect("home")
     else:
         form = PasswordConfirmationForm(request.user)
-    apps_loaded_count = Application.objects.filter(user=request.user).count()
+    form.fields["password"].widget.attrs.update({"class": "input-text", "autocomplete": "current-password"})
+    applications = Application.objects.filter(user=request.user)
+    apps_loaded_count = applications.count()
+    retained_apps_count = applications.filter(community_protected=True).count()
     invites = User.objects.filter(invited_by=request.user)
     return render(
         request,
         "del_acc.html",
-        {"apps_count": apps_loaded_count, "form": form, "invites": invites},
+        {"apps_count": apps_loaded_count, "retained_apps_count": retained_apps_count, "form": form, "invites": invites},
     )
 
 
