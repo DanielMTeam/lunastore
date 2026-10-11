@@ -715,6 +715,7 @@ def delete_account(request):
             return redirect("home")
     else:
         form = PasswordConfirmationForm(request.user)
+    form.fields["password"].widget.attrs.update({"class": "input-text", "autocomplete": "current-password"})
     applications = Application.objects.filter(user=request.user)
     apps_loaded_count = applications.count()
     retained_apps_count = applications.filter(community_protected=True).count()

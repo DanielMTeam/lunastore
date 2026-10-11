@@ -70,8 +70,8 @@
             {% csrf_token %}
 
             <div class="pref_pad">
-                <div class="pref_item_title"></div>
-                <input type="password" name="password" class="input-text" required>
+                <div class="pref_item_title">{{ form.password.label_tag }}</div>
+                {{ form.password }}
 
                 {% if form.password.errors %}
                     <div style="color: red; font-size: 0.9em; margin-top: 5px;">
