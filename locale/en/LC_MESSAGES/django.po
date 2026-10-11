@@ -2964,3 +2964,8 @@ msgstr "Propose a change"
 #, python-format
 msgid "COMMUNITY_ACCOUNT_RETENTION_WARNING %(count)s"
 msgstr "Community applications: %(count)s. After deleting your account, these applications and their distributions will remain in the catalog without an owner. You will no longer be able to manage them."
+
+
+#: templates/admin_app.html
+msgid "COMMUNITY_PROTECTED_APP_NOTICE"
+msgstr "Community contributions have been enabled for this application. You retain management access, but cannot delete the application or make it private, even if proposals are disabled. If you delete your account, the application and its distributions will remain in the catalog without an owner."
