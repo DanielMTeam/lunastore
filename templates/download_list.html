@@ -52,7 +52,7 @@
                 <a href="{{ manage_url }}"><b>[{% trans "PAGE_DOWNLOAD_MANAGE_DISTS" %}]</b></a>
             </div>
             {% else %}
-            {% if app.allow_community_distributions %}
+            {% if can_submit_distribution %}
             <div style="margin-bottom: 15px;">
                 <br>
                 <a href="{% url 'distribution_create' app_id=app.id %}"><b>[{% trans "PAGE_ADMIN_APP_DIST_ADD_NEW" %}]</b></a>
@@ -98,6 +98,9 @@
                                     {% endif %}
                                 {% else %}
                                     —
+                                {% endif %}
+                                {% if can_submit_distribution %}
+                                <br><a href="{% url 'distribution_edit' dist_pk=dist.id %}">{% trans "COMMUNITY_PROPOSE_EDIT" %}</a>
                                 {% endif %}
                             </td>
                         </tr>

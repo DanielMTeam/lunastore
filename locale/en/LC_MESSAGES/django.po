@@ -2906,3 +2906,55 @@ msgstr "For security reasons"
 msgid "PAGE_SECURITY_WARN_NEW_SESSION_DESC"
 msgstr "changing password and linked email is unavailable on new devices (less than 24 hours)."
 
+msgid "SET_APP_ALLOW_COMMUNITY_DISTRIBUTIONS"
+msgstr "Allow community distributions?"
+
+msgid "SET_APP_ALLOW_COMMUNITY_DISTRIBUTIONS_TOOLTIP"
+msgstr "Users with developer status can add distributions for this application."
+
+msgid "COMMUNITY_DISTRIBUTIONS_ARE_NOT_ALLOWED"
+msgstr "Community distributions are not allowed for this application."
+
+
+msgid "COMMUNITY_ENABLE"
+msgstr "Enable proposals"
+
+
+msgid "COMMUNITY_DISABLE"
+msgstr "Disable proposals"
+
+
+msgid "COMMUNITY_ACCESS_TITLE"
+msgstr "Community contributions"
+
+
+msgid "COMMUNITY_AUTHOR"
+msgstr "Community"
+
+
+msgid "COMMUNITY_PENDING_PROPOSAL"
+msgstr "A proposal is already awaiting moderation. Please wait for a decision."
+
+
+msgid "COMMUNITY_PUBLIC_APP_REQUIRED"
+msgstr "Community contributions require a public application without DMCA restrictions."
+
+
+msgid "COMMUNITY_ACCESS_SAVED"
+msgstr "Community contribution settings saved."
+
+
+msgid "COMMUNITY_ACCESS_EXPLANATION"
+msgstr "Developers can propose changes to application information and distributions. Moderators review every proposal. You retain control of the application. Confirm your password and 2FA code, if enabled, to change this mode."
+
+
+msgid "COMMUNITY_RETENTION_WARNING"
+msgstr "Once enabled, the application cannot be deleted or made private, even after proposals are disabled. Deleting your account leaves the application and distributions in the catalog without an owner."
+
+
+msgid "COMMUNITY_PROPOSAL_EXPLANATION"
+msgstr "You are proposing changes. They appear in the catalog only after moderator approval."
+
+
+msgid "COMMUNITY_PROPOSE_EDIT"
+msgstr "Propose a change"

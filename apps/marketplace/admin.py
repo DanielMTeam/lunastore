@@ -1100,7 +1100,7 @@ class AppEditRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
         if app is None:
             self.message_user(
                 request,
-                "Ошибка: Целевое приложение не найдено (возможно, удалено)",
+                "Заявка устарела, доступ сообщества отключён или приложение недоступно",
                 messages.ERROR,
             )
             return redirect(

@@ -2663,3 +2663,55 @@ msgstr "У мэтах бяспекі"
 msgid "PAGE_SECURITY_WARN_NEW_SESSION_DESC"
 msgstr "змена пароля і прывязанай пошты недаступная для новых прылад (менш за 24 гадзіны)."
 
+msgid "SET_APP_ALLOW_COMMUNITY_DISTRIBUTIONS"
+msgstr "Дазволіць староннія дыстрыбуцыі?"
+
+msgid "SET_APP_ALLOW_COMMUNITY_DISTRIBUTIONS_TOOLTIP"
+msgstr "Карыстальнікі са статусам распрацоўшчыка змогуць дадаваць дыстрыбуцыі для гэтай праграмы."
+
+msgid "COMMUNITY_DISTRIBUTIONS_ARE_NOT_ALLOWED"
+msgstr "Староннія дыстрыбуцыі для гэтай праграмы не дазволеныя."
+
+
+msgid "COMMUNITY_ENABLE"
+msgstr "Уключыць прапановы"
+
+
+msgid "COMMUNITY_DISABLE"
+msgstr "Адключыць прапановы"
+
+
+msgid "COMMUNITY_ACCESS_TITLE"
+msgstr "Удзел супольнасці"
+
+
+msgid "COMMUNITY_AUTHOR"
+msgstr "Супольнасць"
+
+
+msgid "COMMUNITY_PENDING_PROPOSAL"
+msgstr "Прапанова ўжо чакае мадэрацыі. Дачакайцеся рашэння."
+
+
+msgid "COMMUNITY_PUBLIC_APP_REQUIRED"
+msgstr "Удзел супольнасці даступны толькі для публічнай праграмы без абмежаванняў DMCA."
+
+
+msgid "COMMUNITY_ACCESS_SAVED"
+msgstr "Налады ўдзелу супольнасці захаваны."
+
+
+msgid "COMMUNITY_ACCESS_EXPLANATION"
+msgstr "Распрацоўшчыкі змогуць прапаноўваць змены інфармацыі і дыстрыбутываў. Мадэратары правяраюць усе прапановы. Вы захоўваеце кіраванне праграмай. Для змены рэжыму пацвердзіце пароль і код 2FA, калі яна ўключана."
+
+
+msgid "COMMUNITY_RETENTION_WARNING"
+msgstr "Пасля ўключэння праграму нельга выдаліць або зрабіць прыватнай, нават пасля адключэння прапаноў. Пры выдаленні ўліковага запісу праграма і дыстрыбутывы застануцца ў каталогу без уладальніка."
+
+
+msgid "COMMUNITY_PROPOSAL_EXPLANATION"
+msgstr "Вы прапануеце змены. Яны з’явяцца ў каталогу толькі пасля ўхвалення мадэратарам."
+
+
+msgid "COMMUNITY_PROPOSE_EDIT"
+msgstr "Прапанаваць змену"

@@ -59,6 +59,7 @@
             {% endif %}
         </div>
         <div class="profile_block_content">
+            {% if is_community_proposal %}<p>{% trans "COMMUNITY_PROPOSAL_EXPLANATION" %}</p>{% endif %}
             <form method="post" id="distribution-form" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form.cdn_confirm_token }}
@@ -185,7 +186,7 @@
                     </a>
                     {% else %}
                     <input type="submit" class="action_button" value="{% trans 'PAGE_ADDAPP_SENDAPPBTN' %}">
-                    <a href="/download.php?id={{ app_id }}" class="action_button" style="background: #e0edff; color: #294b76; border-color: #bfd2e4; margin-left: 10px;">
+                    <a href="{{ download_list_url }}" class="action_button" style="background: #e0edff; color: #294b76; border-color: #bfd2e4; margin-left: 10px;">
                         {% trans "PAGE_DIST_FORM_CANCEL" %}
                     </a>
                     {% endif %}

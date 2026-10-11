@@ -4,13 +4,14 @@ import uuid
 
 from django.conf import settings
 from django.core.validators import MinValueValidator, MaxValueValidator
-from django.db import models
+from django.db import models, transaction
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from safedelete.models import SOFT_DELETE, SOFT_DELETE_CASCADE, SafeDeleteModel
 from safedelete.queryset import SafeDeleteQueryset
 from safedelete.managers import SafeDeleteManager
 from django.utils.translation import get_language
+from .deletion import preserve_community_applications
 
 
 def get_icon_path(instance, filename):
@@ -194,6 +195,14 @@ class BaseApplicationInfo(SafeDeleteModel):
 
 
 class ApplicationQuerySet(SafeDeleteQueryset):
+    @transaction.atomic
+    def delete(self, force_policy=None):
+        list(self.select_for_update().values_list("pk", flat=True))
+        protected = self.filter(community_protected=True)
+        if protected.exists():
+            raise models.ProtectedError("Community applications cannot be deleted", set(protected))
+        return super().delete(force_policy=force_policy)
+
     def with_rating(self):
         from django.db.models import Avg
         return self.annotate(cached_avg_rating=Avg("reviews__rating"))
@@ -211,9 +220,36 @@ class Application(BaseApplicationInfo):
 
     objects = ApplicationManager()
 
+    community_protected = models.BooleanField(default=False, db_default=False, editable=False)
+
+    @transaction.atomic
+    def save(self, *args, **kwargs):
+        if self.pk and not self.community_protected:
+            # Retention is permanent, including saves made from a stale instance.
+            self.community_protected = bool(
+                type(self).objects.all_with_deleted().select_for_update().filter(pk=self.pk)
+                .values_list("community_protected", flat=True).first()
+            )
+        if self.allow_community_distributions:
+            self.community_protected = True
+            if kwargs.get("update_fields") is not None:
+                kwargs["update_fields"] = set(kwargs["update_fields"]) | {"community_protected"}
+        return super().save(*args, **kwargs)
+
+    @transaction.atomic
+    def delete(self, *args, **kwargs):
+        protected = type(self).objects.all_with_deleted().select_for_update().filter(
+            pk=self.pk,
+        ).values_list("community_protected", flat=True).first()
+        if protected:
+            raise models.ProtectedError("Community applications cannot be deleted", {self})
+        return super().delete(*args, **kwargs)
+
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
+        on_delete=preserve_community_applications,
+        null=True,
+        blank=True,
         related_name="applications",
         verbose_name="Автор",
     )

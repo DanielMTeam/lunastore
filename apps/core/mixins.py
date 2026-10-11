@@ -7,7 +7,7 @@ import requests
 
 
 class CDNTokenValidationMixin:
-    def validate_cdn_token(self, token, expected_type="cdn-confirm"):
+    def validate_cdn_token(self, token, expected_type="cdn-confirm", expected_object=None, expected_mode=None):
         if not token:
             raise ValidationError(_("ERROR_CDN_TOKEN_MISSING"))
 
@@ -23,9 +23,22 @@ class CDNTokenValidationMixin:
 
             # check guard via cache (protection against reuse)
             token_guard = decoded.get("guard")
+            if expected_object is not None and not (getattr(self, 'user', None) and token_guard):
+                raise ValidationError(_("ERROR_CDN_TOKEN_INVALID"))
             if hasattr(self, 'user') and self.user and token_guard:
                 cache_key = f"cdn_guard_{self.user.id}_{token_guard}"
-                if not cache.get(cache_key):
+                upload_context = cache.get(cache_key)
+                if not upload_context:
+                    raise ValidationError(_("ERROR_CDN_TOKEN_EXPIRED_OR_USED"))
+
+                if expected_object is not None and (
+                    not isinstance(upload_context, dict)
+                    or upload_context.get("object") != str(expected_object)
+                    or upload_context.get("mode") != expected_mode
+                ):
+                    raise ValidationError(_("ERROR_CDN_TOKEN_INVALID"))
+
+                if not cache.add(f"{cache_key}_used", True, timeout=3600):
                     raise ValidationError(_("ERROR_CDN_TOKEN_EXPIRED_OR_USED"))
 
                 # delete from cache

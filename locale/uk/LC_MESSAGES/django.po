@@ -2666,3 +2666,55 @@ msgstr "З міркувань безпеки"
 msgid "PAGE_SECURITY_WARN_NEW_SESSION_DESC"
 msgstr "зміна пароля та прив'язаної пошти недоступна для нових пристроїв (менше 24 годин)."
 
+msgid "SET_APP_ALLOW_COMMUNITY_DISTRIBUTIONS"
+msgstr "Дозволити сторонні дистрибуції?"
+
+msgid "SET_APP_ALLOW_COMMUNITY_DISTRIBUTIONS_TOOLTIP"
+msgstr "Користувачі зі статусом розробника зможуть додавати дистрибуції для цього застосунку."
+
+msgid "COMMUNITY_DISTRIBUTIONS_ARE_NOT_ALLOWED"
+msgstr "Сторонні дистрибуції для цього застосунку не дозволені."
+
+
+msgid "COMMUNITY_ENABLE"
+msgstr "Увімкнути пропозиції"
+
+
+msgid "COMMUNITY_DISABLE"
+msgstr "Вимкнути пропозиції"
+
+
+msgid "COMMUNITY_ACCESS_TITLE"
+msgstr "Участь спільноти"
+
+
+msgid "COMMUNITY_AUTHOR"
+msgstr "Спільнота"
+
+
+msgid "COMMUNITY_PENDING_PROPOSAL"
+msgstr "Пропозиція вже очікує на модерацію. Дочекайтеся рішення."
+
+
+msgid "COMMUNITY_PUBLIC_APP_REQUIRED"
+msgstr "Участь спільноти доступна лише для публічного застосунку без обмежень DMCA."
+
+
+msgid "COMMUNITY_ACCESS_SAVED"
+msgstr "Налаштування участі спільноти збережено."
+
+
+msgid "COMMUNITY_ACCESS_EXPLANATION"
+msgstr "Розробники зможуть пропонувати зміни інформації та дистрибутивів. Модератори перевіряють усі пропозиції. Ви зберігаєте керування застосунком. Для зміни режиму підтвердьте пароль і код 2FA, якщо її увімкнено."
+
+
+msgid "COMMUNITY_RETENTION_WARNING"
+msgstr "Після ввімкнення застосунок не можна видалити або зробити приватним, навіть після вимкнення пропозицій. Після видалення облікового запису застосунок і дистрибутиви залишаться в каталозі без власника."
+
+
+msgid "COMMUNITY_PROPOSAL_EXPLANATION"
+msgstr "Ви пропонуєте зміни. Вони з’являться в каталозі лише після схвалення модератором."
+
+
+msgid "COMMUNITY_PROPOSE_EDIT"
+msgstr "Запропонувати зміну"

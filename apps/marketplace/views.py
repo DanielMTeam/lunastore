@@ -39,12 +39,15 @@ from .decorators import guard_private_app, user_is_owner
 from .forms import (
     AppCreateForm,
     AppEditForm,
+    CommunityAccessConfirmationForm,
+    CommunityAppEditForm,
     AppReportForm,
     DistributionCreateForm,
     DistributionEditForm,
     ProblemReportForm,
 )
 from .services.lunabox import notify_unfilled_lunabox_manifests
+from .services.distributions import can_submit_community_distribution, distribution_upload_context
 from .services.moderation import auto_approve_request
 from django.db import transaction
 from django.db.models import Avg, Count
@@ -245,7 +248,7 @@ def app(request):
         "original_author": obj.original_author,
         "developer_site": obj.developer_site,
         "allow_reviews": obj.allow_reviews,
-        "developer_id": obj.user.id,
+        "developer_id": obj.user_id,
         "download_page_url": download_page_url,
         "is_translated_to_current_lang": obj.is_translated_to_current_lang,
         "latest_distribution": obj_dist,
@@ -255,7 +258,8 @@ def app(request):
         "slogan": obj.slogan,
         "description": obj.description,
         "screenshot_urls": obj.screenshot_urls,
-        "developer_name": obj.user.username,
+        "developer_name": obj.user.username if obj.user else _("COMMUNITY_AUTHOR"),
+        "can_propose_changes": can_submit_community_distribution(obj, request.user),
         "icon_path": obj.icon_path,
         "requirements": obj.requirements,
         "review_count": review_count,
@@ -356,7 +360,7 @@ def download_list(request):
     context = {
         "app": app_obj,
         "app_id": app_obj.id,
-        "developer_id": app_obj.user.id,
+        "developer_id": app_obj.user_id,
         "is_download_page": True,
         # pass proxy flag to template
         "is_proxy_enabled": getattr(config, 'ENABLE_DISTRIBUTION_PROXY', False),
@@ -375,6 +379,7 @@ def download_list(request):
         "sort_links": sort_links,
         "owner_can_manage": request.user.is_authenticated
         and request.user == app_obj.user,
+        "can_submit_distribution": can_submit_community_distribution(app_obj, request.user),
         "app_link": f"/app.php?id={app_obj.id}",
     }
     return render(request, "download_list.html", context)
@@ -448,7 +453,6 @@ def settings_apps(request):
 
 @login_required
 @require_modern_browser
-@user_is_owner(Application)
 @ratelimit(key='ip', rate='20/3m', block=True)
 def application_edit_info(request, pk):
     if getattr(request, 'limited', False):
@@ -456,44 +460,68 @@ def application_edit_info(request, pk):
         return redirect(request.META.get('HTTP_REFERER', '/'))
 
     obj = get_object_or_404(Application, pk=pk)
+    is_proposal = obj.user_id != request.user.pk
+    if is_proposal and not can_submit_community_distribution(obj, request.user):
+        raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
+    form_class = CommunityAppEditForm if is_proposal else AppEditForm
+    if is_proposal and AppEditRequests.objects.filter(target_application=obj, status="pending").exists():
+        messages.info(request, _("COMMUNITY_PENDING_PROPOSAL"))
+        return redirect(reverse("app") + "?id=" + str(obj.pk))
 
     if request.method == "POST":
-        form = AppEditForm(
+        form = form_class(
             target_app=obj,
+            user=request.user,
             data=request.POST,
             files=request.FILES)
 
         if form.is_valid():
-            # Apply allow_reviews immediately
-            if 'allow_reviews' in form.cleaned_data:
-                obj.allow_reviews = form.cleaned_data['allow_reviews']
-                obj.save(update_fields=['allow_reviews'])
+            # CDN validation above must finish before acquiring database locks.
+            with transaction.atomic():
+                current = get_object_or_404(Application.objects.select_for_update(), pk=pk)
+                if is_proposal:
+                    if not can_submit_community_distribution(current, request.user):
+                        raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
+                    if AppEditRequests.objects.filter(target_application=current, status="pending").exists():
+                        messages.info(request, _("COMMUNITY_PENDING_PROPOSAL"))
+                        return redirect(reverse("app") + "?id=" + str(current.pk))
+                elif current.user_id != request.user.pk:
+                    raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
+                if current.published != obj.published:
+                    return HttpResponse(_("PAGE_ADMIN_APP_MSG_SAVE_ERROR"), status=409)
+                obj = current
+                form.target_app = current
+                if not is_proposal and 'allow_reviews' in form.cleaned_data:
+                    obj.allow_reviews = form.cleaned_data['allow_reviews']
+                    obj.save(update_fields=['allow_reviews'])
 
-            edit_request = form.save(commit=False)
-            edit_request.user = request.user
-            edit_request.save()
-            form.save_m2m()
+                edit_request = form.save(commit=False)
+                edit_request.user = request.user
+                edit_request.save()
+                form.save_m2m()
 
-            if auto_approve_request(edit_request):
-                messages.success(
-                    request, _("MSG_TRUSTED_AUTO_APPROVED_APP_EDIT"))
-            else:
-                messages.success(request, _("PAGE_ADMIN_APP_MSG_SAVE_SUCCESS"))
+                if auto_approve_request(edit_request):
+                    messages.success(request, _("MSG_TRUSTED_AUTO_APPROVED_APP_EDIT"))
+                else:
+                    messages.success(request, _("PAGE_ADMIN_APP_MSG_SAVE_SUCCESS"))
             request.session.save()
+            if is_proposal:
+                return redirect(reverse("app") + "?id=" + str(obj.pk))
             return redirect("edit_app_info", pk=obj.pk)
         else:
             messages.error(request, _("PAGE_ADMIN_APP_MSG_SAVE_ERROR"))
             request.session.save()
     else:
-        form = AppEditForm(target_app=obj)
+        form = form_class(target_app=obj, user=request.user)
 
     return render(request,
                   "admin_app.html",
                   {"obj": obj,
                    "form": form,
                    "is_edit_page": True,
+                   "is_community_proposal": is_proposal,
                    "app_id": obj.pk,
-                   "developer_id": obj.user.pk,
+                   "developer_id": obj.user_id,
                    "developer_site": obj.developer_site,
                    "cdn_upload_url": f"{getattr(request,
                                                 'geo_domains',
@@ -529,6 +557,35 @@ def application_stats(request, pk):
             "developer_site": obj.developer_site,
         },
     )
+
+
+@login_required
+@require_modern_browser
+@ratelimit(key='user', rate='5/5m', block=True)
+@transaction.atomic
+def community_access(request, pk):
+    user_queryset = User.objects.select_for_update() if request.method == "POST" else User.objects
+    confirmation_user = get_object_or_404(user_queryset, pk=request.user.pk, is_active=True)
+    app_queryset = Application.objects.select_for_update() if request.method == "POST" else Application.objects
+    obj = get_object_or_404(app_queryset, pk=pk)
+    if obj.user_id != request.user.pk:
+        raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
+    form = CommunityAccessConfirmationForm(
+        confirmation_user,
+        request.POST if request.method == "POST" else None,
+        initial={"enabled": "1" if obj.allow_community_distributions else "0"},
+    )
+    if request.method == "POST" and form.is_valid():
+        enabled = form.cleaned_data["enabled"] == "1"
+        if enabled and (obj.is_private or obj.is_under_dmca):
+            form.add_error(None, _("COMMUNITY_PUBLIC_APP_REQUIRED"))
+        else:
+            obj.allow_community_distributions = enabled
+            obj.community_protected = obj.community_protected or enabled
+            obj.save(update_fields=["allow_community_distributions", "community_protected"])
+            messages.success(request, _("COMMUNITY_ACCESS_SAVED"))
+            return redirect("edit_app_info", pk=obj.pk)
+    return render(request, "community_access.html", {"app": obj, "form": form})
 
 
 def _search_suggest_response(request):
@@ -692,7 +749,7 @@ def report_app(request):
         "app_id": id,
         "name": obj.title,
         "developer_site": obj.developer_site,
-        "developer_id": obj.user.id,
+        "developer_id": obj.user_id,
         "is_report_page": True,
         "slogan": obj.slogan,
         "icon": obj.icon_url,
@@ -726,21 +783,34 @@ def report_problem(request):
 def distribution_create(request, app_id):
     app_obj = get_object_or_404(Application, id=app_id)
 
-    if app_obj.user != request.user:
-        if not app_obj.allow_community_distributions:
-            raise PermissionDenied("COMMUNITY_DISTRIBUTIONS_ARE_NOT_ALLOWED")
-    else:
+    if app_obj.user == request.user:
         return redirect(reverse("manage_distributions") +
                         "?id=" + str(app_obj.id))
 
-    form = DistributionCreateForm(request.POST or None, request.FILES or None)
+    if app_obj.is_private:
+        raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
+    if not can_submit_community_distribution(app_obj, request.user):
+        raise PermissionDenied(_("COMMUNITY_DISTRIBUTIONS_ARE_NOT_ALLOWED"))
+
+    if DistributionCreateRequests.objects.filter(app=app_obj, user=request.user, status="pending").exists():
+        messages.info(request, _("COMMUNITY_PENDING_PROPOSAL"))
+        return redirect(reverse("download") + "?id=" + str(app_obj.pk))
+
+    form = DistributionCreateForm(request.POST or None, request.FILES or None, user=request.user, app=app_obj)
 
     if request.method == "POST" and form.is_valid():
-        distribution_request = form.save(commit=False)
-        distribution_request.app = app_obj
-        distribution_request.user = request.user
-        distribution_request.status = "pending"
-        distribution_request.save()
+        with transaction.atomic():
+            app_obj = get_object_or_404(Application.objects.select_for_update(), id=app_id)
+            if not can_submit_community_distribution(app_obj, request.user):
+                raise PermissionDenied(_("COMMUNITY_DISTRIBUTIONS_ARE_NOT_ALLOWED"))
+            if DistributionCreateRequests.objects.filter(app=app_obj, user=request.user, status="pending").exists():
+                messages.info(request, _("COMMUNITY_PENDING_PROPOSAL"))
+                return redirect(reverse("download") + "?id=" + str(app_obj.pk))
+            distribution_request = form.save(commit=False)
+            distribution_request.app = app_obj
+            distribution_request.user = request.user
+            distribution_request.status = "pending"
+            distribution_request.save()
 
         messages.success(request, _("PAGE_MANAGEDIST_CREATE_SUCCESS"))
         return redirect(reverse("download") +
@@ -759,6 +829,8 @@ def distribution_create(request, app_id):
             "app": app_obj,
             "app_id": app_obj.id,
             "is_edit_page": False,
+            "download_list_url": reverse("download") + "?id=" + str(app_obj.id),
+            **distribution_upload_context(request),
         },
     )
 
@@ -782,7 +854,7 @@ def manage_distributions(request):
         target_distribution__app=app_obj,
         status="pending").order_by("-created_at")
 
-    form = DistributionCreateForm(request.POST or None, request.FILES or None)
+    form = DistributionCreateForm(request.POST or None, request.FILES or None, user=request.user, app=app_obj)
 
     if request.method == "POST" and form.is_valid():
         distribution = form.save(commit=False)
@@ -832,18 +904,14 @@ def manage_distributions(request):
                "form": form,
                "distributions": page_obj,
                "developer_site": app_obj.developer_site,
-               "developer_id": app_obj.user.id,
+               "developer_id": app_obj.user_id,
                "app_id": app_obj.id,
                "page_obj": page_obj,
                "is_edit_page": True,
                "page_range": page_range,
                "pending_requests": pending_requests,
                "pending_edits": pending_edits,
-               "get_token_url": "/method/user/getPrivateUploadToken/",
-               "cdn_upload_url": f"{getattr(request,
-                                            'geo_domains',
-                                            {}).get('SPIRE_URL',
-                                                    settings.LUNASPIRE_URL)}/cdn/upload",
+               **distribution_upload_context(request),
                "download_list_url": reverse("download") + "?id=" + str(app_obj.id),
                }
     return render(request, "manage_distributions.html", context)
@@ -854,8 +922,13 @@ def manage_distributions(request):
 @ratelimit(key='ip', rate='20/1m', block=True)
 def distribution_edit(request, dist_pk):
     distribution = get_object_or_404(Distribution, pk=dist_pk)
-    if distribution.app.user != request.user:
+    is_proposal = distribution.app.user_id != request.user.pk
+    if is_proposal and not can_submit_community_distribution(distribution.app, request.user):
         raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
+    if is_proposal and DistributionEditRequests.objects.filter(
+            target_distribution=distribution, status="pending").exists():
+        messages.info(request, _("COMMUNITY_PENDING_PROPOSAL"))
+        return redirect(reverse("download") + "?id=" + str(distribution.app_id))
 
     # collect initial data (including changelog translations)
     initial_data = {
@@ -885,16 +958,31 @@ def distribution_edit(request, dist_pk):
     )
 
     if request.method == "POST" and form.is_valid():
-        edit_req = form.save(commit=False)
-        edit_req.app = distribution.app
-        edit_req.save()
+        with transaction.atomic():
+            app_obj = get_object_or_404(Application.objects.select_for_update(), pk=distribution.app_id)
+            current = get_object_or_404(Distribution.objects.select_for_update(), pk=dist_pk, app=app_obj)
+            if is_proposal:
+                if not can_submit_community_distribution(app_obj, request.user):
+                    raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
+                if DistributionEditRequests.objects.filter(target_distribution=current, status="pending").exists():
+                    messages.info(request, _("COMMUNITY_PENDING_PROPOSAL"))
+                    return redirect(reverse("download") + "?id=" + str(app_obj.pk))
+            elif app_obj.user_id != request.user.pk:
+                raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
+            if current.published != distribution.published:
+                return HttpResponse(_("PAGE_ADMIN_APP_MSG_SAVE_ERROR"), status=409)
+            distribution = current
+            form.target_dist = current
+            edit_req = form.save(commit=False)
+            edit_req.app = app_obj
+            edit_req.save()
 
-        if auto_approve_request(edit_req):
-            messages.success(request, _("MSG_TRUSTED_AUTO_APPROVED_DIST_EDIT"))
-        else:
-            messages.success(request, _("MSG_DIST_EDIT_REQ_SENT"))
+            if auto_approve_request(edit_req):
+                messages.success(request, _("MSG_TRUSTED_AUTO_APPROVED_DIST_EDIT"))
+            else:
+                messages.success(request, _("MSG_DIST_EDIT_REQ_SENT"))
         return redirect(
-            reverse("manage_distributions") + "?id=" + str(distribution.app.id)
+            reverse("download" if is_proposal else "manage_distributions") + "?id=" + str(distribution.app.id)
         )
     elif request.method == "POST" and not form.is_valid():
         for field, errors in form.errors.items():
@@ -906,17 +994,11 @@ def distribution_edit(request, dist_pk):
         "app": distribution.app,
         "distribution": distribution,
         "developer_site": distribution.app.developer_site,
-        "developer_id": distribution.app.user.id,
+        "developer_id": distribution.app.user_id,
+        "is_community_proposal": is_proposal,
         "app_id": distribution.app.id,
         "is_edit_page": True,
-        "get_token_url": "/method/user/getPrivateUploadToken/",
-        "cdn_upload_url": f"{
-            getattr(
-                request,
-                'geo_domains',
-                {}).get(
-                'SPIRE_URL',
-                settings.LUNASPIRE_URL)}/cdn/upload",
+        **distribution_upload_context(request),
         "download_list_url": reverse("download") +
         "?id=" +
         str(

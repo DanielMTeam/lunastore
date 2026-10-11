@@ -18,6 +18,7 @@ from django.conf import settings
 from django.contrib.admin.models import CHANGE, LogEntry
 from django.contrib.contenttypes.models import ContentType
 from django.urls import reverse
+from django.db import transaction
 from django.utils.html import escape
 from safedelete.models import HARD_DELETE
 
@@ -25,6 +26,7 @@ import logging
 
 from apps.core.logger.services import AUTO_APPROVAL_MARKER
 from apps.core.tasks import send_notification, send_telegram_notification
+from .distributions import community_request_is_current
 
 from ..models import (
     Application,
@@ -176,7 +178,6 @@ def approve_app_create_request(req, actor=None, auto=False):
         original_author=req.original_author,
         is_demo=req.is_demo,
         is_private=req.is_private,
-        allow_community_distributions=req.allow_community_distributions
     )
     _copy_app_translations(req, app)
 
@@ -204,27 +205,30 @@ def approve_app_create_request(req, actor=None, auto=False):
     return app
 
 
+@transaction.atomic
 def approve_app_edit_request(req, actor=None, auto=False):
     """Apply an ``AppEditRequests`` to its target application.
 
     Returns the updated ``Application``, or ``None`` when the request was
     already approved or the target application is gone.
     """
-    if req.status == STATUS_APPROVED:
+    req = AppEditRequests.objects.select_for_update().filter(pk=req.pk, status=STATUS_PENDING).first()
+    if req is None:
         return None
 
-    app = req.target_application
-    if app is None:
+    app = Application.objects.select_for_update().filter(pk=req.target_application_id).first()
+    if app is None or not community_request_is_current(req, app, target=app):
         return None
 
     app.categories.set(req.categories.all())
-    app.badges.set(req.badges.all())
+    if req.user_id == app.user_id:
+        app.badges.set(req.badges.all())
     app.original_author = req.original_author
     app.price = req.price
     app.is_demo = req.is_demo
     app.developer_site = req.developer_site
-    app.is_private = req.is_private
-    app.allow_community_distributions = req.allow_community_distributions
+    if req.user_id == app.user_id and not app.community_protected:
+        app.is_private = req.is_private
 
     if req.icon_path:
         app.icon_id = req.icon_id
@@ -255,13 +259,19 @@ def approve_app_edit_request(req, actor=None, auto=False):
     return app
 
 
+@transaction.atomic
 def approve_dist_create_request(req, actor=None, auto=False):
     """Materialize a ``Distribution`` out of a ``DistributionCreateRequests``.
 
     Returns the created ``Distribution``, or ``None`` when the request was
     already approved.
     """
-    if req.status == STATUS_APPROVED:
+    req = DistributionCreateRequests.objects.select_for_update().filter(pk=req.pk, status=STATUS_PENDING).first()
+    if req is None:
+        return None
+
+    app = Application.objects.select_for_update().filter(pk=req.app_id).first()
+    if app is None or not community_request_is_current(req, app):
         return None
 
     dist = Distribution(
@@ -297,17 +307,20 @@ def approve_dist_create_request(req, actor=None, auto=False):
     return dist
 
 
+@transaction.atomic
 def approve_dist_edit_request(req, actor=None, auto=False):
     """Apply a ``DistributionEditRequests`` to its target distribution.
 
     Returns the updated ``Distribution``, or ``None`` when the request was
     already approved or the target distribution is gone.
     """
-    if req.status == STATUS_APPROVED:
+    req = DistributionEditRequests.objects.select_for_update().filter(pk=req.pk, status=STATUS_PENDING).first()
+    if req is None:
         return None
 
-    dist = req.target_distribution
-    if dist is None:
+    app = Application.objects.select_for_update().filter(pk=req.app_id).first()
+    dist = Distribution.objects.select_for_update().filter(pk=req.target_distribution_id, app_id=req.app_id).first()
+    if app is None or dist is None or not community_request_is_current(req, app, target=dist):
         return None
 
     dist.version = req.version
@@ -358,6 +371,11 @@ def auto_approve_request(req):
     a failure to auto-approve must not break the submit form.
     """
     if getattr(req, "status", None) != STATUS_PENDING:
+        return None
+
+    if isinstance(req, AppEditRequests) and req.user_id != req.target_application.user_id:
+        return None
+    if isinstance(req, (DistributionCreateRequests, DistributionEditRequests)) and req.user_id != req.app.user_id:
         return None
 
     if not is_trusted_user(getattr(req, "user", None)):

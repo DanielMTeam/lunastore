@@ -57,6 +57,10 @@
         </table>
         <hr>
 
+        {% if retained_apps_count %}
+        <p>{{ retained_apps_count }}: {% trans "COMMUNITY_RETENTION_WARNING" %}</p>
+        {% endif %}
+
         {% trans "PAGE_DELACC_LASTPASS_TITLE" %}<br>
 
         <form method="post" id="delete_confirm_form">

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "COMMUNITY_ACCESS_TITLE" %} — {{ app.title }}{% endblock %}
+{% block content %}
+<div class="content">
+    <div class="section">
+        <div class="profile_block">{% trans "COMMUNITY_ACCESS_TITLE" %} — {{ app.title }}</div>
+        <div class="profile_block_content">
+            <p>{% trans "COMMUNITY_ACCESS_EXPLANATION" %}</p>
+            <p><strong>{% trans "COMMUNITY_RETENTION_WARNING" %}</strong></p>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                {% for field in form %}
+                <div class="pref_pad">
+                    {{ field.label_tag }}<br>{{ field }}{{ field.errors }}
+                </div>
+                {% endfor %}
+                <input type="submit" class="action_button" value="{% trans 'PAGE_DIST_FORM_SAVE' %}">
+                <a href="{% url 'edit_app_info' pk=app.pk %}">{% trans "PAGE_DIST_FORM_CANCEL" %}</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

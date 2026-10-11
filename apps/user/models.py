@@ -4,23 +4,38 @@ import re
 
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser, UserManager
-from django.db import models
+from django.db import models, transaction
 from django.utils import timezone
 from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
 from safedelete.managers import SafeDeleteManager
 from safedelete.models import SOFT_DELETE_CASCADE, SafeDeleteModel
+from safedelete.queryset import SafeDeleteQueryset
 from .validators import validate_email_mx, validate_english_username
 
 
+class UserQuerySet(SafeDeleteQueryset):
+    @transaction.atomic
+    def delete(self, force_policy=None):
+        # Serialize bulk account removal with confirmation of community access.
+        list(self.select_for_update().values_list("pk", flat=True))
+        return super().delete(force_policy=force_policy)
+
+
 class SafeDeleteUserManager(SafeDeleteManager, UserManager):
-    pass
+    _queryset_class = UserQuerySet
 
 
 class User(AbstractUser, SafeDeleteModel):
     _safedelete_policy = SOFT_DELETE_CASCADE
 
     objects = SafeDeleteUserManager()
+
+    @transaction.atomic
+    def delete(self, *args, **kwargs):
+        if self.pk is not None:
+            type(self).objects.all_with_deleted().select_for_update().get(pk=self.pk)
+        return super().delete(*args, **kwargs)
 
     class Meta:
         verbose_name = "Пользователь"

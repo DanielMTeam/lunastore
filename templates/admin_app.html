@@ -67,6 +67,7 @@
   </style>
   <div class="tabs">
       <div class="tab-bar">
+        {% if not is_community_proposal %}
         <div class="tab active">
           <img src="{% static './img/tabs/main.png'%}" class="tab-icon" alt="">
           {% trans "PAGE_ADMIN_APP_FIRST_BLOCK" %}
@@ -79,9 +80,16 @@
             <img src="{% static './img/tabs/stats.png'%}" class="tab-icon" alt="">
           {% trans "PAGE_ADMIN_APP_TAB_STATS" %}
         </a>
+        {% endif %}
       </div>
 
       <div class="tab-content" id="tab-view">
+          {% if is_community_proposal %}
+          <p class="info_splash">{% trans "COMMUNITY_PROPOSAL_EXPLANATION" %}</p>
+          {% else %}
+          <p><a href="{% url 'community_access' pk=obj.pk %}">{% trans "COMMUNITY_ACCESS_TITLE" %}</a></p>
+          {% if obj.community_protected %}<p>{% trans "COMMUNITY_RETENTION_WARNING" %}</p>{% endif %}
+          {% endif %}
           <div class="info_splash">
               <div class="info_icon_small"></div>
               <div class="splash_text">{% trans "PAGE_ADMIN_APP_TRANSLATIONINFO" %}</div>
@@ -273,6 +281,8 @@
                       <div id="info-scr" style="display: none;"></div>
                   </div>
               </div> <br>
+                {% if not is_community_proposal %}
+                {% if form.is_private %}
                 <div style="margin-bottom: 8px;max-width: fit-content;">
                     <label>
                         {{ form.is_private }}
@@ -285,6 +295,7 @@
                         </span>
                     </label>
                 </div>
+                {% endif %}
                 <div style="margin-bottom: 8px;max-width: fit-content;">
                     <label>
                         {{ form.allow_reviews }}
@@ -296,17 +307,7 @@
                         </span>
                     </label>
                 </div>
-                <div style="margin-bottom: 8px;max-width: fit-content;">
-                    <label>
-                        {{ form.allow_community_distributions }}
-                        <span class="checkbox-element__label">
-                            <span>{% trans "SET_APP_ALLOW_COMMUNITY_DISTRIBUTIONS" %}</span>                      
-                            <img src="{% static './img/info_micro.png' %}"
-                                    class="checkbox-element__info-icon"
-                                    title="{% trans 'SET_APP_ALLOW_COMMUNITY_DISTRIBUTIONS_TOOLTIP' %}" />
-                        </span>
-                    </label>
-                </div>
+                {% endif %}
               <input type="submit" class="action_button" value="{% trans 'PAGE_ADMIN_APP_DIST_SAVE' %}">
           </form>
       </div>
