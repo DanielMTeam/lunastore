@@ -2718,3 +2718,9 @@ msgstr "Ви пропонуєте зміни. Вони з’являться в 
 
 msgid "COMMUNITY_PROPOSE_EDIT"
 msgstr "Запропонувати зміну"
+
+
+#: templates/del_acc.html
+#, python-format
+msgid "COMMUNITY_ACCOUNT_RETENTION_WARNING %(count)s"
+msgstr "Застосунків спільноти: %(count)s. Після видалення облікового запису ці застосунки та їхні дистрибуції залишаться в каталозі без власника. Ви втратите можливість керувати ними."

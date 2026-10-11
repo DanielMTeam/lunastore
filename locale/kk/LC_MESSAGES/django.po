@@ -2697,3 +2697,9 @@ msgstr "Сіз өзгерістер ұсынасыз. Олар каталогт�
 
 msgid "COMMUNITY_PROPOSE_EDIT"
 msgstr "Өзгеріс ұсыну"
+
+
+#: templates/del_acc.html
+#, python-format
+msgid "COMMUNITY_ACCOUNT_RETENTION_WARNING %(count)s"
+msgstr "Қауымдастық қолданбалары: %(count)s. Тіркелгі жойылғаннан кейін бұл қолданбалар мен олардың дистрибутивтері каталогта иесіз қалады. Сіз оларды басқара алмайсыз."

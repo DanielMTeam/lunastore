@@ -58,7 +58,7 @@
         <hr>
 
         {% if retained_apps_count %}
-        <p>{{ retained_apps_count }}: {% trans "COMMUNITY_RETENTION_WARNING" %}</p>
+        <p>{% blocktranslate with count=retained_apps_count %}COMMUNITY_ACCOUNT_RETENTION_WARNING {{ count }}{% endblocktranslate %}</p>
         {% endif %}
 
         {% trans "PAGE_DELACC_LASTPASS_TITLE" %}<br>

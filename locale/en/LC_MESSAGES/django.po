@@ -2958,3 +2958,9 @@ msgstr "You are proposing changes. They appear in the catalog only after moderat
 
 msgid "COMMUNITY_PROPOSE_EDIT"
 msgstr "Propose a change"
+
+
+#: templates/del_acc.html
+#, python-format
+msgid "COMMUNITY_ACCOUNT_RETENTION_WARNING %(count)s"
+msgstr "Community applications: %(count)s. After deleting your account, these applications and their distributions will remain in the catalog without an owner. You will no longer be able to manage them."

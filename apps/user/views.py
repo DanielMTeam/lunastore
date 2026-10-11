@@ -716,7 +716,7 @@ def delete_account(request):
     else:
         form = PasswordConfirmationForm(request.user)
     applications = Application.objects.filter(user=request.user)
-    apps_loaded_count = applications.filter(community_protected=False).count()
+    apps_loaded_count = applications.count()
     retained_apps_count = applications.filter(community_protected=True).count()
     invites = User.objects.filter(invited_by=request.user)
     return render(
