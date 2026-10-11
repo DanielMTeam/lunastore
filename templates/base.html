@@ -157,6 +157,8 @@
                         <li><a class="alert" {% if is_report_page %}id="active" {% endif %} href="/report_app.php?id={{ app_id }}">{% trans "BASE_SIDEBAR_APP_REPORT" %}</a></li>
                         {% if user.is_authenticated and user.id == developer_id and is_modern_browser %}
                         <li><a class="editapp" {% if is_edit_page %}id="active" {% endif %} href="/edit_app_info.php/{{ app_id }}/">{% trans "BASE_SIDEBAR_APP_EDIT" %}</a></li>
+                        {% elif can_propose_changes and is_modern_browser %}
+                        <li><a class="editapp" href="{% url 'edit_app_info' pk=app_id %}">{% trans "COMMUNITY_PROPOSE_EDIT" %}</a></li>
                         {% endif %}
                     </ul>
                 </div>
