@@ -752,7 +752,7 @@ msgid "PAGE_2FA_ENABLED_INFO"
 msgstr "На даному обліковому записі включений додатковий метод входу через ввід тимчасового коду доступу поверх стандартного логіна та пароля"
 
 msgid "PAGE_2FA_ENTER_CODE"
-msgstr "введіть отриманий код"
+msgstr "Введіть код 2FA:"
 
 msgid "PAGE_2FA_ENTER_CODE_HEADER"
 msgstr "Ввід коду"

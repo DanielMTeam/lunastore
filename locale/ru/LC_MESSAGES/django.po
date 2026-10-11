@@ -749,7 +749,7 @@ msgid "PAGE_2FA_ENABLED_INFO"
 msgstr "На данном аккаунте включен дополнительный метод входа через ввод временного кода доступа поверх стандартного логина и пароля"
 
 msgid "PAGE_2FA_ENTER_CODE"
-msgstr "введите полученный код"
+msgstr "Введите код 2FA:"
 
 msgid "PAGE_2FA_ENTER_CODE_HEADER"
 msgstr "Ввод кода"
