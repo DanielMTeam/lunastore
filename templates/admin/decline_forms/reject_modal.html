@@ -1,0 +1,5 @@
+{% load i18n %}
+{% trans "PAGE_ADMIN_PANEL_REASON_FOR_REJECTION" as reject_title %}
+{% trans "PAGE_ADMIN_PANEL_REJECTION_REASON_HELP" as reject_text %}
+{% trans "PAGE_ADMIN_PANEL_REJECT_REQUEST" as reject_confirm %}
+{% include "admin/action_modal.html" with target_action="reject_request" modal_title=reject_title modal_text=reject_text input_name="reject_reason" confirm_text=reject_confirm %}

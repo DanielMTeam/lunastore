@@ -10,6 +10,24 @@ msgstr ""
 msgid " SITE_DESCRIPTION"
 msgstr "LunaStore. Справочник приложений для твоего старого ПК. Скачивайте приложения, оставляйте отзывы и станьте частью сообщества любителей старых ПК."
 
+msgid "%(counter)s PAGE_COLLECTION_APPS_ONE"
+msgid_plural "%(counter)s PAGE_COLLECTION_APPS_MANY"
+msgstr[0] "%(counter)s приложение"
+msgstr[1] "%(counter)s приложения"
+msgstr[2] "%(counter)s приложений"
+
+msgid "%(counter)s PAGE_COLLECTION_COUNT_ONE"
+msgid_plural "%(counter)s PAGE_COLLECTION_COUNT_MANY"
+msgstr[0] "Всего %(counter)s коллекция"
+msgstr[1] "Всего %(counter)s коллекции"
+msgstr[2] "Всего %(counter)s коллекций"
+
+msgid "%(counter)s PAGE_COLLECTION_SAVES_ONE"
+msgid_plural "%(counter)s PAGE_COLLECTION_SAVES_MANY"
+msgstr[0] "%(counter)s сохранение"
+msgstr[1] "%(counter)s сохранения"
+msgstr[2] "%(counter)s сохранений"
+
 msgid "%(counter)s PAGE_PROFILE_STATS_APP"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
 msgstr[0] "%(counter)s приложений,"
@@ -163,6 +181,12 @@ msgstr "регистрация"
 msgid "BASE_SEARCHBTN"
 msgstr "поиск"
 
+msgid "BASE_SIDEBAR_ACCOUNT_ADMINBTN"
+msgstr "Админ-панель"
+
+msgid "BASE_SIDEBAR_ACCOUNT_COLLECTIONS"
+msgstr "Коллекции"
+
 msgid "BASE_SIDEBAR_ACCOUNT_INVITEBTN"
 msgstr "Пригласить"
 
@@ -175,9 +199,6 @@ msgstr "Настройки"
 msgid "BASE_SIDEBAR_ACCOUNT_TITLE"
 msgstr "Аккаунт"
 
-msgid "BASE_SIDEBAR_ACCOUNT_ADMINBTN"
-msgstr "Админ-панель"
-
 msgid "BASE_SIDEBAR_APP_DEV_SITE"
 msgstr "Сайт разработчика"
 
@@ -186,6 +207,9 @@ msgstr "Редактировать страницу"
 
 msgid "BASE_SIDEBAR_APP_INSTALL"
 msgstr "Установить"
+
+msgid "BASE_SIDEBAR_APP_PAGE"
+msgstr "Приложение"
 
 msgid "BASE_SIDEBAR_APP_REPORT"
 msgstr "Пожаловаться"
@@ -198,6 +222,12 @@ msgstr "Главная страница"
 
 msgid "BASE_SIDEBAR_CATEGORIES_TITLE"
 msgstr "Категории"
+
+msgid "BASE_THEME_DISABLE"
+msgstr "Выключить тёмную тему"
+
+msgid "BASE_THEME_ENABLE"
+msgstr "Включить тёмную тему"
 
 msgid "CARD_USER_NO_DESC"
 msgstr "Описание профиля отсутствует"
@@ -277,26 +307,8 @@ msgstr "Новый e-mail совпадает с текущим."
 msgid "ERROR_EMAIL_NO_ALIASES"
 msgstr "Использование почтовых алиасов со знаком \"+\" запрещено."
 
-msgid "ERROR_USERNAME_ALREADY_IN_USE"
-msgstr "Этот юзернейм уже занят."
-
-msgid "ERROR_USERNAME_BLACKLISTED"
-msgstr "Этот юзернейм запрещен."
-
-msgid "ERROR_USERNAME_CHANGE_COOLDOWN"
-msgstr "Юзернейм можно менять только 1 раз в год."
-
-msgid "ERROR_USERNAME_EMPTY"
-msgstr "Имя пользователя не может быть пустым."
-
-msgid "ERROR_USERNAME_INVALID_CHARS"
-msgstr "Имя пользователя может содержать только английские буквы, цифры и символы . _ -"
-
-msgid "ERROR_USERNAME_INVALID_DOTS"
-msgstr "Имя пользователя не может начинаться или заканчиваться точкой, а также содержать две точки подряд."
-
-msgid "ERROR_USERNAME_NO_LETTERS"
-msgstr "Имя пользователя должно содержать хотя бы одну английскую букву."
+msgid "ERROR_HOME_LAYOUT_INVALID"
+msgstr "Некорректный вид главной страницы"
 
 msgid "ERROR_INVALID_FILE_FORMAT"
 msgstr "Ошибка: Недопустимый формат файла!"
@@ -357,6 +369,27 @@ msgstr "Неверный формат имени пользователя Telegr
 
 msgid "ERROR_RATE_LIMIT_EXCEEDED"
 msgstr "Вы отправляете запросы слишком часто. Пожалуйста, подождите некоторое время, чтобы продолжить."
+
+msgid "ERROR_USERNAME_ALREADY_IN_USE"
+msgstr "Этот юзернейм уже занят."
+
+msgid "ERROR_USERNAME_BLACKLISTED"
+msgstr "Этот юзернейм запрещен."
+
+msgid "ERROR_USERNAME_CHANGE_COOLDOWN"
+msgstr "Юзернейм можно менять только 1 раз в год."
+
+msgid "ERROR_USERNAME_EMPTY"
+msgstr "Имя пользователя не может быть пустым."
+
+msgid "ERROR_USERNAME_INVALID_CHARS"
+msgstr "Имя пользователя может содержать только английские буквы, цифры и символы . _ -"
+
+msgid "ERROR_USERNAME_INVALID_DOTS"
+msgstr "Имя пользователя не может начинаться или заканчиваться точкой, а также содержать две точки подряд."
+
+msgid "ERROR_USERNAME_NO_LETTERS"
+msgstr "Имя пользователя должно содержать хотя бы одну английскую букву."
 
 msgid "ERROR_YOURE_NOT_OWNER_OF_APP"
 msgstr "Вы не являетесь администратором данного приложения."
@@ -430,8 +463,29 @@ msgstr "Скриншоты"
 msgid "File extension “%(extension)s” is not allowed. Allowed extensions are: “%(allowed_extensions)s”."
 msgstr "Расширение “%(extension)s” не разрешено. Допустимые расширения: “%(allowed_extensions)s”."
 
+msgid "INDEX_APP_OF_THE_DAY"
+msgstr "Приложение дня"
+
 msgid "INDEX_CATEGORY_PROMPT"
 msgstr "Или выберите нужную категорию:"
+
+msgid "INDEX_CONFIGURE_HOME"
+msgstr "Настроить главную страницу"
+
+msgid "INDEX_EDITOR_CHOICE"
+msgstr "Выбор редакции"
+
+msgid "INDEX_FOR_YOU"
+msgstr "Для вас"
+
+msgid "INDEX_MONTHLY_TOP_DESC"
+msgstr "Востребованные за последний месяц, по скачиваниям"
+
+msgid "INDEX_MONTHLY_TOP_TITLE"
+msgstr "Приложения месяца"
+
+msgid "INDEX_NO_APPS"
+msgstr "Приложения не найдены"
 
 msgid "INDEX_NO_CATEGORIES"
 msgstr "Категории пока не добавлены"
@@ -445,41 +499,20 @@ msgstr "Например: Total Commander"
 msgid "INDEX_SEARCH_SECTION_TITLE"
 msgstr "Поиск по каталогу"
 
-msgid "INDEX_WELCOME_TEXT"
-msgstr "Приветствуем в магазине Windows!<br>Огромный сборник приложений и дополнений для комфортной работы с данной ОС"
-
-msgid "INDEX_WELCOME_TITLE"
-msgstr "Добро пожаловать"
-
-msgid "INDEX_CONFIGURE_HOME"
-msgstr "Настроить главную страницу"
-
-msgid "INDEX_APP_OF_THE_DAY"
-msgstr "Приложение дня"
-
-msgid "INDEX_FOR_YOU"
-msgstr "Для вас"
-
-msgid "INDEX_EDITOR_CHOICE"
-msgstr "Выбор редакции"
-
 msgid "INDEX_SEE_ALL"
 msgstr "все"
 
 msgid "INDEX_SEE_MORE"
 msgstr "Ещё..."
 
-msgid "INDEX_MONTHLY_TOP_TITLE"
-msgstr "Приложения месяца"
-
-msgid "INDEX_MONTHLY_TOP_DESC"
-msgstr "Востребованные за последний месяц, по скачиваниям"
-
 msgid "INDEX_STORE_LISTING_TITLE"
 msgstr "Каталог"
 
-msgid "INDEX_NO_APPS"
-msgstr "Приложения не найдены"
+msgid "INDEX_WELCOME_TEXT"
+msgstr "Приветствуем в LunaStore!<br>Сборник приложений и дополнений для комфортной работы с данной ОС"
+
+msgid "INDEX_WELCOME_TITLE"
+msgstr "Добро пожаловать"
 
 msgid "INFO_2FA_DISABLED"
 msgstr "Двухфакторная аутентификация успешно отключена."
@@ -525,6 +558,9 @@ msgstr "пустаааа...."
 
 msgid "INFO_EMAIL_WAS_CHANGED"
 msgstr "Ваш e-mail был успешно изменён."
+
+msgid "INFO_HOME_LAYOUT_UPDATED"
+msgstr "Вид главной страницы сохранён"
 
 msgid "INFO_MAXIMUM_AVATAR_SIZE"
 msgstr "Максимальный размер файла: 2 Мб."
@@ -757,6 +793,30 @@ msgstr "Управление входом по одноразовому коду
 msgid "PAGE_2FA_TITLE"
 msgstr "Двухфакторная аутентификация"
 
+msgid "PAGE_400_BROWSER_TITLE"
+msgstr "Неверный запрос"
+
+msgid "PAGE_400_DEFAULT_MESSAGE"
+msgstr "Запрос не удалось обработать. Проверьте данные и попробуйте снова."
+
+msgid "PAGE_403_BROWSER_TITLE"
+msgstr "Доступ запрещён"
+
+msgid "PAGE_403_DEFAULT_MESSAGE"
+msgstr "У вас нет доступа к этой странице."
+
+msgid "PAGE_404_BROWSER_TITLE"
+msgstr "Страница не найдена"
+
+msgid "PAGE_500_BROWSER_TITLE"
+msgstr "Внутренняя ошибка"
+
+msgid "PAGE_500_DEFAULT_MESSAGE"
+msgstr "Произошла внутренняя ошибка сервера. Попробуйте повторить попытку позже."
+
+msgid "PAGE_502_BROWSER_TITLE"
+msgstr "Что-то пошло не так..."
+
 msgid "PAGE_ADDAPP_BACKBTN"
 msgstr "Назад"
 
@@ -895,6 +955,9 @@ msgstr "публикацией"
 msgid "PAGE_ADDAPP_SUCCESS"
 msgstr "Ваша заявка на добавление приложения успешно отправлена."
 
+msgid "PAGE_ADMIN_APP_BACKTOAPP"
+msgstr "Вернуться к странице"
+
 msgid "PAGE_ADMIN_APP_CATEGORY"
 msgstr "Категория:"
 
@@ -1021,8 +1084,74 @@ msgstr "Слоган будет отображаться на самой стр�
 msgid "PAGE_ADMIN_APP_SLOGANDESC_2"
 msgstr "Краткость - сестра таланта :)"
 
+msgid "PAGE_ADMIN_APP_STATS_30_DAYS"
+msgstr "Визуальная статистика за 14 дней"
+
+msgid "PAGE_ADMIN_APP_STATS_COUNT"
+msgstr "Количество"
+
+msgid "PAGE_ADMIN_APP_STATS_COUNTRY"
+msgstr "Страна"
+
+msgid "PAGE_ADMIN_APP_STATS_DETAILED"
+msgstr "Детальная статистика"
+
+msgid "PAGE_ADMIN_APP_STATS_DISTRIBUTIONS"
+msgstr "Скачивания по дистрибуциям (версиям)"
+
+msgid "PAGE_ADMIN_APP_STATS_DIST_GENERAL"
+msgstr "Основная"
+
+msgid "PAGE_ADMIN_APP_STATS_DOWNLOADS"
+msgstr "Скачивания"
+
+msgid "PAGE_ADMIN_APP_STATS_DOWNLOADS_HINT"
+msgstr "Статистика записывается после нажатия на кнопку \"Установить\" на странице приложения"
+
+msgid "PAGE_ADMIN_APP_STATS_ENGAGEMENT"
+msgstr "Активность"
+
+msgid "PAGE_ADMIN_APP_STATS_NO_DATA"
+msgstr "Нет данных"
+
+msgid "PAGE_ADMIN_APP_STATS_OS"
+msgstr "Операционная система"
+
+msgid "PAGE_ADMIN_APP_STATS_SHARE"
+msgstr "Доля"
+
+msgid "PAGE_ADMIN_APP_STATS_TOP_COUNTRIES"
+msgstr "Топ-10 по странам за 30 дней"
+
+msgid "PAGE_ADMIN_APP_STATS_TOP_OS"
+msgstr "Топ-10 по операционным системам за 30 дней"
+
+msgid "PAGE_ADMIN_APP_STATS_TOTAL_DOWNLOADS"
+msgstr "Количество скачиваний"
+
+msgid "PAGE_ADMIN_APP_STATS_TOTAL_LIKES"
+msgstr "Количество лайков"
+
+msgid "PAGE_ADMIN_APP_STATS_TOTAL_RATES"
+msgstr "Количество оценок"
+
+msgid "PAGE_ADMIN_APP_STATS_TOTAL_VIEWS"
+msgstr "Всего просмотров"
+
+msgid "PAGE_ADMIN_APP_STATS_UNIQUE_DOWNLOADERS"
+msgstr "Уникальных пользователей, скачавших приложение"
+
+msgid "PAGE_ADMIN_APP_STATS_UNIQUE_VIEWERS"
+msgstr "Уникальных просмотров"
+
+msgid "PAGE_ADMIN_APP_STATS_VIEWS"
+msgstr "Просмотры"
+
 msgid "PAGE_ADMIN_APP_TAB_DISTRIBUTIONS"
 msgstr "Файлы"
+
+msgid "PAGE_ADMIN_APP_TAB_STATS"
+msgstr "Статистика"
 
 msgid "PAGE_ADMIN_APP_TITLE"
 msgstr "Название приложения:"
@@ -1035,6 +1164,447 @@ msgstr "Перевод информации о Вашем приложении �
 
 msgid "PAGE_ADMIN_APP_WARN_SCRN"
 msgstr "Внимание: Загрузка новых файлов удалит все текущие скриншоты!"
+
+msgid "PAGE_ADMIN_PANEL_ACTIVITY_LOG"
+msgstr "Журнал действий"
+
+msgid "PAGE_ADMIN_PANEL_AFTER_APPROVAL"
+msgstr "После одобрения"
+
+msgid "PAGE_ADMIN_PANEL_AI_MODERATION_OPENROUTER"
+msgstr "ИИ-модерация (OpenRouter)"
+
+msgid "PAGE_ADMIN_PANEL_AI_PROMPT_INJECTION"
+msgstr "Вмешательство в инструкции ИИ"
+
+msgid "PAGE_ADMIN_PANEL_AI_SCORE_HELP"
+msgstr "Оценка ИИ от 0 до 1: чем выше, тем больше риск нарушения."
+
+msgid "PAGE_ADMIN_PANEL_ALL"
+msgstr "Все"
+
+msgid "PAGE_ADMIN_PANEL_ALL_REQUESTS_PROCESSED"
+msgstr "Все заявки обработаны"
+
+msgid "PAGE_ADMIN_PANEL_ALL_REVIEWS"
+msgstr "Все отзывы"
+
+msgid "PAGE_ADMIN_PANEL_APPLICATION"
+msgstr "Приложение"
+
+msgid "PAGE_ADMIN_PANEL_APPLICATIONS"
+msgstr "Приложения"
+
+msgid "PAGE_ADMIN_PANEL_APPLICATION_AUTHOR"
+msgstr "Автор приложения"
+
+msgid "PAGE_ADMIN_PANEL_APPLICATION_CHANGES"
+msgstr "Изменения приложений"
+
+msgid "PAGE_ADMIN_PANEL_APPLICATION_REPORTS"
+msgstr "Жалобы на приложения"
+
+msgid "PAGE_ADMIN_PANEL_APPROVE_REVIEW"
+msgstr "Одобрить отзыв"
+
+msgid "PAGE_ADMIN_PANEL_APPROVE_SELECTED_REVIEWS"
+msgstr "Одобрить выбранные отзывы"
+
+msgid "PAGE_ADMIN_PANEL_AUTHOR"
+msgstr "Автор"
+
+msgid "PAGE_ADMIN_PANEL_AWAITING_REVIEW"
+msgstr "Ожидают проверки"
+
+msgid "PAGE_ADMIN_PANEL_BADGES"
+msgstr "Значки"
+
+msgid "PAGE_ADMIN_PANEL_BANNED_PHRASE"
+msgstr "Запрещённая фраза"
+
+msgid "PAGE_ADMIN_PANEL_BANNERS"
+msgstr "Баннеры"
+
+msgid "PAGE_ADMIN_PANEL_BANS"
+msgstr "Блокировки"
+
+msgid "PAGE_ADMIN_PANEL_BLOCKED_USERNAMES"
+msgstr "Чёрный список имён"
+
+msgid "PAGE_ADMIN_PANEL_BULK_SCAN"
+msgstr "Массовая проверка"
+
+msgid "PAGE_ADMIN_PANEL_CANCEL"
+msgstr "Отмена"
+
+msgid "PAGE_ADMIN_PANEL_CATALOG"
+msgstr "Каталог"
+
+msgid "PAGE_ADMIN_PANEL_CATEGORIES"
+msgstr "Категории"
+
+msgid "PAGE_ADMIN_PANEL_CDN_FILE"
+msgstr "Файл CDN"
+
+msgid "PAGE_ADMIN_PANEL_CHANGELOG"
+msgstr "Список изменений"
+
+msgid "PAGE_ADMIN_PANEL_CHOOSE_SECTION"
+msgstr "Выберите доступный раздел в боковом меню."
+
+msgid "PAGE_ADMIN_PANEL_COMPARISON_NO_CHANGES"
+msgstr "Отличий от текущих значений нет."
+
+msgid "PAGE_ADMIN_PANEL_COMPARISON_PROCESSED_HELP"
+msgstr "Заявка уже рассмотрена. Сравнение показано с текущей версией объекта."
+
+msgid "PAGE_ADMIN_PANEL_CREATED"
+msgstr "Создан"
+
+msgid "PAGE_ADMIN_PANEL_CURRENT"
+msgstr "Сейчас"
+
+msgid "PAGE_ADMIN_PANEL_DASHBOARD"
+msgstr "Рабочий стол"
+
+msgid "PAGE_ADMIN_PANEL_DASHBOARD_DESCRIPTION"
+msgstr "Очереди и инструменты, доступные вашему аккаунту."
+
+msgid "PAGE_ADMIN_PANEL_DEMO_VERSION"
+msgstr "Демо-версия"
+
+msgid "PAGE_ADMIN_PANEL_DESCRIPTION"
+msgstr "Описание"
+
+msgid "PAGE_ADMIN_PANEL_DEVELOPER_REPLY"
+msgstr "Ответ разработчика"
+
+msgid "PAGE_ADMIN_PANEL_DEVELOPER_REQUESTS"
+msgstr "Заявки разработчиков"
+
+msgid "PAGE_ADMIN_PANEL_DEVELOPER_WEBSITE"
+msgstr "Сайт разработчика"
+
+msgid "PAGE_ADMIN_PANEL_DISTRIBUTIONS"
+msgstr "Дистрибуции"
+
+msgid "PAGE_ADMIN_PANEL_DISTRIBUTION_CHANGES"
+msgstr "Изменения дистрибуций"
+
+msgid "PAGE_ADMIN_PANEL_DOWNLOAD_LINK"
+msgstr "Ссылка на скачивание"
+
+msgid "PAGE_ADMIN_PANEL_EXTREMISM"
+msgstr "Экстремизм"
+
+msgid "PAGE_ADMIN_PANEL_FIELD"
+msgstr "Поле"
+
+msgid "PAGE_ADMIN_PANEL_FILTER_APPROVED"
+msgstr "Одобрены"
+
+msgid "PAGE_ADMIN_PANEL_FILTER_REJECTED"
+msgstr "Отклонены"
+
+msgid "PAGE_ADMIN_PANEL_GROUPS"
+msgstr "Группы"
+
+msgid "PAGE_ADMIN_PANEL_HATE_SPEECH"
+msgstr "Разжигание ненависти"
+
+msgid "PAGE_ADMIN_PANEL_HIGH"
+msgstr "Высокий"
+
+msgid "PAGE_ADMIN_PANEL_HOMEPAGE_SECTIONS"
+msgstr "Блоки главной"
+
+msgid "PAGE_ADMIN_PANEL_ICON"
+msgstr "Иконка"
+
+msgid "PAGE_ADMIN_PANEL_ICON_ID"
+msgstr "ID иконки"
+
+msgid "PAGE_ADMIN_PANEL_INVITATIONS"
+msgstr "Приглашения"
+
+msgid "PAGE_ADMIN_PANEL_LEGAL_DOCUMENTS"
+msgstr "Юридические документы"
+
+msgid "PAGE_ADMIN_PANEL_LOW"
+msgstr "Низкий"
+
+msgid "PAGE_ADMIN_PANEL_LUNABOX_MANIFEST"
+msgstr "Манифест LunaBox"
+
+msgid "PAGE_ADMIN_PANEL_MALICIOUS_CONTENT"
+msgstr "Вредоносное содержание"
+
+msgid "PAGE_ADMIN_PANEL_MANUAL_MODERATION"
+msgstr "Ручная модерация"
+
+msgid "PAGE_ADMIN_PANEL_MEDIUM"
+msgstr "Средний"
+
+msgid "PAGE_ADMIN_PANEL_MODERATION"
+msgstr "Модерация"
+
+msgid "PAGE_ADMIN_PANEL_MODERATOR"
+msgstr "Модератор"
+
+msgid "PAGE_ADMIN_PANEL_MODERATOR_DASHBOARD"
+msgstr "Рабочий стол модератора"
+
+msgid "PAGE_ADMIN_PANEL_MODERATOR_NOTE"
+msgstr "Заметка модератора"
+
+msgid "PAGE_ADMIN_PANEL_NEW_APPLICATIONS"
+msgstr "Новые приложения"
+
+msgid "PAGE_ADMIN_PANEL_NEW_DISTRIBUTIONS"
+msgstr "Новые дистрибуции"
+
+msgid "PAGE_ADMIN_PANEL_NEW_TODAY"
+msgstr "Новых за сегодня"
+
+msgid "PAGE_ADMIN_PANEL_NO"
+msgstr "Нет"
+
+msgid "PAGE_ADMIN_PANEL_NOSPAM_EVENTS"
+msgstr "События noSpam"
+
+msgid "PAGE_ADMIN_PANEL_NOSPAM_RULES"
+msgstr "Правила noSpam"
+
+msgid "PAGE_ADMIN_PANEL_NOTIFICATION_BROADCAST"
+msgstr "Рассылка уведомлений"
+
+msgid "PAGE_ADMIN_PANEL_NOT_PROVIDED"
+msgstr "Не указано"
+
+msgid "PAGE_ADMIN_PANEL_NOT_SCORED"
+msgstr "Нет оценки"
+
+msgid "PAGE_ADMIN_PANEL_NO_DATE_PROVIDED"
+msgstr "Дата не указана"
+
+msgid "PAGE_ADMIN_PANEL_NO_FLAGS"
+msgstr "Нет флагов"
+
+msgid "PAGE_ADMIN_PANEL_NO_TEXT"
+msgstr "Без текста"
+
+msgid "PAGE_ADMIN_PANEL_OLDEST_REQUEST"
+msgstr "Самая старая заявка:"
+
+msgid "PAGE_ADMIN_PANEL_OPEN_QUEUE"
+msgstr "Открыть очередь"
+
+msgid "PAGE_ADMIN_PANEL_OVERVIEW"
+msgstr "Обзор"
+
+msgid "PAGE_ADMIN_PANEL_POLITICAL_AGITATION"
+msgstr "Политическая агитация"
+
+msgid "PAGE_ADMIN_PANEL_POTENTIAL_PIRACY"
+msgstr "Возможное пиратство"
+
+msgid "PAGE_ADMIN_PANEL_PRICE"
+msgstr "Цена"
+
+msgid "PAGE_ADMIN_PANEL_PRIVATE_APPLICATION"
+msgstr "Приватное приложение"
+
+msgid "PAGE_ADMIN_PANEL_PROBLEM_REPORTS"
+msgstr "Сообщения о проблемах"
+
+msgid "PAGE_ADMIN_PANEL_PROFANITY"
+msgstr "Ненормативная лексика"
+
+msgid "PAGE_ADMIN_PANEL_PROHIBITED_CONTENT"
+msgstr "Запрещённое содержание"
+
+msgid "PAGE_ADMIN_PANEL_PROPOSED_CHANGES"
+msgstr "Предлагаемые изменения"
+
+msgid "PAGE_ADMIN_PANEL_QUEUES_EMPTY_DESCRIPTION"
+msgstr "В доступных вам очередях нет заявок, ожидающих проверки."
+
+msgid "PAGE_ADMIN_PANEL_RATING"
+msgstr "Оценка"
+
+msgid "PAGE_ADMIN_PANEL_REASON_FOR_REJECTION"
+msgstr "Причина отклонения заявки"
+
+msgid "PAGE_ADMIN_PANEL_RECHECK_WITH_AI"
+msgstr "Перепроверить через ИИ"
+
+msgid "PAGE_ADMIN_PANEL_REJECTION_REASON_HELP"
+msgstr "Укажите причину, она будет отправлена пользователю в уведомлении."
+
+msgid "PAGE_ADMIN_PANEL_REJECTION_REASON_PLACEHOLDER"
+msgstr "Опишите, что нужно исправить"
+
+msgid "PAGE_ADMIN_PANEL_REJECTION_REASON_REQUIRED"
+msgstr "Укажите причину отклонения."
+
+msgid "PAGE_ADMIN_PANEL_REJECT_REQUEST"
+msgstr "Отклонить заявку"
+
+msgid "PAGE_ADMIN_PANEL_REJECT_REVIEW"
+msgstr "Отклонить отзыв"
+
+msgid "PAGE_ADMIN_PANEL_REJECT_SELECTED_REVIEWS"
+msgstr "Отклонить выбранные отзывы"
+
+msgid "PAGE_ADMIN_PANEL_REPLY_AUTHOR"
+msgstr "Автор ответа"
+
+msgid "PAGE_ADMIN_PANEL_REQUIREMENTS"
+msgstr "Требования"
+
+msgid "PAGE_ADMIN_PANEL_RESET_SEARCH_AND_FILTERS"
+msgstr "Сбросить поиск и фильтры"
+
+msgid "PAGE_ADMIN_PANEL_REVIEWS"
+msgstr "Отзывы"
+
+msgid "PAGE_ADMIN_PANEL_REVIEWS_AI_RECHECK_MESSAGE %(count)s"
+msgstr "Запущена перепроверка ИИ для %(count)s отзывов"
+
+msgid "PAGE_ADMIN_PANEL_REVIEWS_APPROVED_MESSAGE %(count)s"
+msgstr "Одобрено отзывов: %(count)s"
+
+msgid "PAGE_ADMIN_PANEL_REVIEWS_AWAITING_MODERATION"
+msgstr "Отзывы на модерации"
+
+msgid "PAGE_ADMIN_PANEL_REVIEWS_REJECTED_MESSAGE %(count)s"
+msgstr "Отклонено и удалено отзывов: %(count)s"
+
+msgid "PAGE_ADMIN_PANEL_REVIEW_APPROVED"
+msgstr "Отзыв успешно одобрен"
+
+msgid "PAGE_ADMIN_PANEL_REVIEW_DETAILS"
+msgstr "Информация об отзыве"
+
+msgid "PAGE_ADMIN_PANEL_REVIEW_IS_ALREADY_APPROVED"
+msgstr "Отзыв уже одобрен"
+
+msgid "PAGE_ADMIN_PANEL_REVIEW_NOT_FOUND"
+msgstr "Отзыв не найден"
+
+msgid "PAGE_ADMIN_PANEL_REVIEW_NO_TEXT"
+msgstr "(без текста)"
+
+msgid "PAGE_ADMIN_PANEL_REVIEW_REJECTED_AND_DELETED"
+msgstr "Отзыв отклонён и удалён"
+
+msgid "PAGE_ADMIN_PANEL_REVIEW_REJECTION_HELP"
+msgstr "Отклонение удаляет отзыв. Откройте текст, чтобы проверить его целиком."
+
+msgid "PAGE_ADMIN_PANEL_REVIEW_STATUS"
+msgstr "Статус отзыва"
+
+msgid "PAGE_ADMIN_PANEL_RISK_SIGNALS"
+msgstr "Сигналы риска"
+
+msgid "PAGE_ADMIN_PANEL_SCREENSHOTS"
+msgstr "Скриншоты"
+
+msgid "PAGE_ADMIN_PANEL_SEARCH"
+msgstr "Поиск"
+
+msgid "PAGE_ADMIN_PANEL_SEARCH_PLACEHOLDER"
+msgstr "Введите запрос"
+
+msgid "PAGE_ADMIN_PANEL_SEARCH_SECTIONS"
+msgstr "Поиск разделов"
+
+msgid "PAGE_ADMIN_PANEL_SEARCH_SECTIONS_PLACEHOLDER"
+msgstr "Поиск разделов..."
+
+msgid "PAGE_ADMIN_PANEL_SECURITY"
+msgstr "Безопасность"
+
+msgid "PAGE_ADMIN_PANEL_SETTINGS"
+msgstr "Настройки"
+
+msgid "PAGE_ADMIN_PANEL_SITE_SETTINGS"
+msgstr "Настройки сайта"
+
+msgid "PAGE_ADMIN_PANEL_SITE_SUBHEADER"
+msgstr "Админ-панель"
+
+msgid "PAGE_ADMIN_PANEL_SITE_TITLE"
+msgstr "Панель LunaStore"
+
+msgid "PAGE_ADMIN_PANEL_SLOGAN"
+msgstr "Слоган"
+
+msgid "PAGE_ADMIN_PANEL_SPAM"
+msgstr "Спам"
+
+msgid "PAGE_ADMIN_PANEL_START_WITH_THE_OLDEST_REQUESTS"
+msgstr "Начните с самых старых заявок"
+
+msgid "PAGE_ADMIN_PANEL_STATISTICS"
+msgstr "Статистика"
+
+msgid "PAGE_ADMIN_PANEL_STATUS"
+msgstr "Статус"
+
+msgid "PAGE_ADMIN_PANEL_STATUS_APPROVED"
+msgstr "Одобрен"
+
+msgid "PAGE_ADMIN_PANEL_STATUS_PENDING"
+msgstr "На проверке"
+
+msgid "PAGE_ADMIN_PANEL_STATUS_REJECTED"
+msgstr "Отклонён"
+
+msgid "PAGE_ADMIN_PANEL_SUSPICIOUS_LINK"
+msgstr "Подозрительная ссылка"
+
+msgid "PAGE_ADMIN_PANEL_TEXT"
+msgstr "Текст"
+
+msgid "PAGE_ADMIN_PANEL_TEXT_AUTHOR_OR_APPLICATION"
+msgstr "Текст, автор или приложение"
+
+msgid "PAGE_ADMIN_PANEL_THEME_DARK"
+msgstr "Тёмная"
+
+msgid "PAGE_ADMIN_PANEL_THEME_LIGHT"
+msgstr "Светлая"
+
+msgid "PAGE_ADMIN_PANEL_THEME_SYSTEM"
+msgstr "Системная"
+
+msgid "PAGE_ADMIN_PANEL_TIMESTAMPS"
+msgstr "Временные метки"
+
+msgid "PAGE_ADMIN_PANEL_TITLE"
+msgstr "Название"
+
+msgid "PAGE_ADMIN_PANEL_TOTAL_APPLICATIONS"
+msgstr "Всего приложений"
+
+msgid "PAGE_ADMIN_PANEL_TOTAL_USERS"
+msgstr "Всего пользователей"
+
+msgid "PAGE_ADMIN_PANEL_TOXICITY"
+msgstr "Токсичность"
+
+msgid "PAGE_ADMIN_PANEL_USERS"
+msgstr "Пользователи"
+
+msgid "PAGE_ADMIN_PANEL_VERSION"
+msgstr "Версия"
+
+msgid "PAGE_ADMIN_PANEL_VIOLATION_RISK"
+msgstr "Риск нарушения"
+
+msgid "PAGE_ADMIN_PANEL_YES"
+msgstr "Да"
 
 msgid "PAGE_API_EXPIRES"
 msgstr "Истекает:"
@@ -1065,6 +1635,9 @@ msgstr "Пожаловаться на приложение"
 
 msgid "PAGE_APP_ACTION_SITE"
 msgstr "Перейти на официальный сайт разработчика"
+
+msgid "PAGE_APP_ADD_TO_COLLECTION"
+msgstr "добавить"
 
 msgid "PAGE_APP_BTN_BACK"
 msgstr "Назад"
@@ -1121,10 +1694,10 @@ msgstr[1] "Общий рейтинг составлен на основе отз
 msgstr[2] "Общий рейтинг составлен на основе отзывов от <b>%(counter)s человек</b>"
 
 msgid "PAGE_APP_RATING_DELETE_DENIED"
-msgstr "У вас нет прав для удаления этого отзыва."
+msgstr "Отзывы для этого приложения отключены автором"
 
 msgid "PAGE_APP_RATING_DELETE_SUCCESS"
-msgstr "Ваш отзыв успешно удалён."
+msgstr "Оценки пользователей"
 
 msgid "PAGE_APP_RATING_DISABLED"
 msgstr "Отзывы для этого приложения отключены автором"
@@ -1138,26 +1711,62 @@ msgstr "Войдите, чтобы оставить оценку..."
 msgid "PAGE_APP_RATING_NO_REVIEWS"
 msgstr "Нет оценок"
 
+msgid "PAGE_APP_RATING_SELECT_REQUIRED"
+msgstr "Пожалуйста, поставьте оценку (1-5 звезд)"
+
+msgid "PAGE_APP_RATING_SUCCESS"
+msgstr "Ваша оценка сохранена."
+
 msgid "PAGE_APP_RATING_USERS"
-msgstr "Отзывы"
+msgstr "Оценки пользователей"
 
 msgid "PAGE_APP_RATING_YOUR"
 msgstr "Ваша оценка:"
 
 msgid "PAGE_APP_RATING_YOUR_REVIEW"
-msgstr "(ваш отзыв)"
-
-msgid "PAGE_APP_REVIEW_ACTION_EDIT"
-msgstr "редактировать"
+msgstr "(ваша оценка)"
 
 msgid "PAGE_APP_REVIEW_ACTION_DELETE"
 msgstr "удалить"
 
+msgid "PAGE_APP_REVIEW_ACTION_EDIT"
+msgstr "редактировать"
+
 msgid "PAGE_APP_REVIEW_ACTION_REPLY"
 msgstr "ответить на отзыв"
 
+msgid "PAGE_APP_REVIEW_APPROVED"
+msgstr "Ваш отзыв успешно опубликован."
+
+msgid "PAGE_APP_REVIEW_CONFIRM_DELETE"
+msgstr "Вы уверены, что хотите удалить этот отзыв?"
+
+msgid "PAGE_APP_REVIEW_CONFIRM_DELETE_REPLY"
+msgstr "Вы уверены, что хотите удалить ответ разработчика?"
+
 msgid "PAGE_APP_REVIEW_DEV_REPLY"
 msgstr "Ответ разработчика"
+
+msgid "PAGE_APP_REVIEW_PENDING"
+msgstr "Ваш отзыв отправлен на проверку модераторам."
+
+msgid "PAGE_APP_REVIEW_PLACEHOLDER"
+msgstr "Напишите ваш отзыв (необязательно, до 2000 символов)..."
+
+msgid "PAGE_APP_REVIEW_REJECTED_GENERIC"
+msgstr "Ваш отзыв отклонён автоматической модерацией из-за наличия недопустимой лексики или спама."
+
+msgid "PAGE_APP_REVIEW_REPLY_DELETED"
+msgstr "Ответ разработчика удалён."
+
+msgid "PAGE_APP_REVIEW_REPLY_DELETE_DENIED"
+msgstr "У вас нет прав удалять этот ответ."
+
+msgid "PAGE_APP_REVIEW_REPLY_DENIED"
+msgstr "У вас нет прав отвечать на этот отзыв."
+
+msgid "PAGE_APP_REVIEW_REPLY_EMPTY"
+msgstr "Текст ответа не может быть пустым."
 
 msgid "PAGE_APP_REVIEW_REPLY_PLACEHOLDER"
 msgstr "Напишите официальный ответ разработчика (до 2000 символов)..."
@@ -1165,41 +1774,11 @@ msgstr "Напишите официальный ответ разработчи�
 msgid "PAGE_APP_REVIEW_REPLY_SUBMIT"
 msgstr "Отправить ответ"
 
-msgid "PAGE_APP_REVIEW_REPLY_UPDATE"
-msgstr "Сохранить ответ"
-
 msgid "PAGE_APP_REVIEW_REPLY_SUCCESS"
 msgstr "Ответ разработчика успешно опубликован."
 
-msgid "PAGE_APP_REVIEW_REPLY_DELETED"
-msgstr "Ответ разработчика удалён."
-
-msgid "PAGE_APP_REVIEW_REPLY_EMPTY"
-msgstr "Текст ответа не может быть пустым."
-
-msgid "PAGE_APP_REVIEW_REPLY_DENIED"
-msgstr "У вас нет прав отвечать на этот отзыв."
-
-msgid "PAGE_APP_REVIEW_REPLY_DELETE_DENIED"
-msgstr "У вас нет прав удалять этот ответ."
-
-msgid "PAGE_APP_REVIEW_PLACEHOLDER"
-msgstr "Напишите ваш отзыв (необязательно, до 2000 символов)..."
-
-msgid "PAGE_APP_REVIEW_SUBMIT_BTN"
-msgstr "Оставить отзыв"
-
-msgid "PAGE_APP_REVIEW_UPDATE_BTN"
-msgstr "Обновить отзыв"
-
-msgid "PAGE_APP_REVIEW_APPROVED"
-msgstr "Ваш отзыв успешно опубликован."
-
-msgid "PAGE_APP_REVIEW_REJECTED_GENERIC"
-msgstr "Ваш отзыв отклонён автоматической модерацией из-за наличия недопустимой лексики или спама."
-
-msgid "PAGE_APP_REVIEW_PENDING"
-msgstr "Ваш отзыв отправлен на проверку модераторам."
+msgid "PAGE_APP_REVIEW_REPLY_UPDATE"
+msgstr "Сохранить ответ"
 
 msgid "PAGE_APP_REVIEW_STATUS_APPROVED"
 msgstr "Отзыв одобрен"
@@ -1210,17 +1789,11 @@ msgstr "Отзыв на модерации"
 msgid "PAGE_APP_REVIEW_STATUS_REJECTED"
 msgstr "Отзыв отклонён"
 
-msgid "PAGE_APP_RATING_SELECT_REQUIRED"
-msgstr "Пожалуйста, поставьте оценку (1-5 звезд)"
+msgid "PAGE_APP_REVIEW_SUBMIT_BTN"
+msgstr "Оставить отзыв"
 
-msgid "PAGE_APP_REVIEW_CONFIRM_DELETE"
-msgstr "Вы уверены, что хотите удалить этот отзыв?"
-
-msgid "PAGE_APP_REVIEW_CONFIRM_DELETE_REPLY"
-msgstr "Вы уверены, что хотите удалить ответ разработчика?"
-
-msgid "PAGE_APP_RATING_SUCCESS"
-msgstr "Ваша оценка сохранена."
+msgid "PAGE_APP_REVIEW_UPDATE_BTN"
+msgstr "Обновить отзыв"
 
 msgid "PAGE_APP_SECTION_ACTIONS"
 msgstr "Действия"
@@ -1236,6 +1809,9 @@ msgstr "Системные требования"
 
 msgid "PAGE_APP_SECTION_SCREENSHOTS"
 msgstr "Скриншоты"
+
+msgid "PAGE_APP_TO_COLLECTION"
+msgstr "в коллекцию"
 
 msgid "PAGE_BADBROSER_DESC_3"
 msgstr "Спасибо за понимание."
@@ -1296,6 +1872,177 @@ msgstr "Показывать содержимое списком"
 
 msgid "PAGE_CATEGORY_SHOWCONTENTASTILES"
 msgstr "Показывать содержимое плитками"
+
+msgid "PAGE_COLLECTION_ACTION_DELETE"
+msgstr "удалить"
+
+msgid "PAGE_COLLECTION_ACTION_EDIT"
+msgstr "редактировать"
+
+msgid "PAGE_COLLECTION_ACTION_FAVORITE"
+msgstr "в избранное"
+
+msgid "PAGE_COLLECTION_ACTION_REMOVE_APP"
+msgstr "убрать"
+
+msgid "PAGE_COLLECTION_ACTION_STATS"
+msgstr "статистика"
+
+msgid "PAGE_COLLECTION_ACTION_UNFAVORITE"
+msgstr "убрать из избранного"
+
+msgid "PAGE_COLLECTION_ACTION_VIEW"
+msgstr "просмотр"
+
+msgid "PAGE_COLLECTION_ADD_NO_CUSTOM"
+msgstr "Нет пользовательских коллекций. Создайте новую:"
+
+msgid "PAGE_COLLECTION_ADD_TITLE"
+msgstr "Добавление в коллекцию"
+
+msgid "PAGE_COLLECTION_APPS_EMPTY"
+msgstr "В этой коллекции пока нет приложений."
+
+msgid "PAGE_COLLECTION_BACK_TO_VIEW"
+msgstr "Вернуться к просмотру коллекции"
+
+msgid "PAGE_COLLECTION_BTN_ADD_APP"
+msgstr "Добавить"
+
+msgid "PAGE_COLLECTION_BTN_CANCEL"
+msgstr "Отмена"
+
+msgid "PAGE_COLLECTION_BTN_CREATE"
+msgstr "Создать новую коллекцию"
+
+msgid "PAGE_COLLECTION_BTN_DELETE"
+msgstr "Удалить"
+
+msgid "PAGE_COLLECTION_BTN_SAVE"
+msgstr "Сохранить"
+
+msgid "PAGE_COLLECTION_DATE_CREATED"
+msgstr "Дата создания:"
+
+msgid "PAGE_COLLECTION_DATE_UPDATED"
+msgstr "Обновлено"
+
+msgid "PAGE_COLLECTION_DELETE_CONFIRM_TEXT %(title)s"
+msgstr "Вы уверены, что хотите удалить коллекцию «%(title)s»?"
+
+msgid "PAGE_COLLECTION_DELETE_CONFIRM_TITLE"
+msgstr "Удаление коллекции"
+
+msgid "PAGE_COLLECTION_EDIT_TITLE"
+msgstr "Редактирование коллекции"
+
+msgid "PAGE_COLLECTION_EMPTY"
+msgstr "Коллекций пока нет."
+
+msgid "PAGE_COLLECTION_ERROR_ADD_APP"
+msgstr "Не удалось добавить приложение в коллекцию."
+
+msgid "PAGE_COLLECTION_ERROR_DELETE"
+msgstr "Не удалось удалить коллекцию."
+
+msgid "PAGE_COLLECTION_ERROR_DELETE_SYSTEM"
+msgstr "Системную коллекцию нельзя удалить."
+
+msgid "PAGE_COLLECTION_ERROR_EDIT_SYSTEM"
+msgstr "Системную коллекцию нельзя редактировать."
+
+msgid "PAGE_COLLECTION_ERROR_FAVORITE"
+msgstr "Не удалось изменить избранное."
+
+msgid "PAGE_COLLECTION_ERROR_FAVORITE_OWN"
+msgstr "Нельзя добавить свою коллекцию в избранное."
+
+msgid "PAGE_COLLECTION_ERROR_PRIVATE"
+msgstr "Эта коллекция скрыта."
+
+msgid "PAGE_COLLECTION_ERROR_REMOVE_APP"
+msgstr "Не удалось убрать приложение из коллекции."
+
+msgid "PAGE_COLLECTION_ERROR_SAVE"
+msgstr "Не удалось сохранить коллекцию."
+
+msgid "PAGE_COLLECTION_FIELD_DESC"
+msgstr "Описание"
+
+msgid "PAGE_COLLECTION_FIELD_DESC_HINT"
+msgstr "Кратко опишите, что входит в коллекцию"
+
+msgid "PAGE_COLLECTION_FIELD_PUBLIC"
+msgstr "Публичная коллекция"
+
+msgid "PAGE_COLLECTION_FIELD_TITLE"
+msgstr "Название"
+
+msgid "PAGE_COLLECTION_FIELD_TITLE_HINT"
+msgstr "Укажите название коллекции на нужных языках"
+
+msgid "PAGE_COLLECTION_LIKES_DESC"
+msgstr "Ставьте отметки «Добавить в коллекцию» на странице приложений, чтобы сохранять их себе для быстрого доступа"
+
+msgid "PAGE_COLLECTION_LIKES_TITLE"
+msgstr "Понравившиеся программы"
+
+msgid "PAGE_COLLECTION_MSG_APP_ADDED"
+msgstr "Приложение добавлено в коллекцию."
+
+msgid "PAGE_COLLECTION_MSG_APP_ALREADY"
+msgstr "Приложение уже есть в этой коллекции."
+
+msgid "PAGE_COLLECTION_MSG_APP_NOT_IN"
+msgstr "Приложения нет в этой коллекции."
+
+msgid "PAGE_COLLECTION_MSG_APP_REMOVED"
+msgstr "Приложение убрано из коллекции."
+
+msgid "PAGE_COLLECTION_MSG_DELETED"
+msgstr "Коллекция удалена."
+
+msgid "PAGE_COLLECTION_MSG_FAVORITED"
+msgstr "Коллекция добавлена в избранное."
+
+msgid "PAGE_COLLECTION_MSG_SAVED"
+msgstr "Коллекция сохранена."
+
+msgid "PAGE_COLLECTION_MSG_UNFAVORITED"
+msgstr "Коллекция убрана из избранного."
+
+msgid "PAGE_COLLECTION_STATS_30_DAYS"
+msgstr "Статистика активности за 14 дней"
+
+msgid "PAGE_COLLECTION_STATS_FAVORITES"
+msgstr "Сохранения в избранное"
+
+msgid "PAGE_COLLECTION_STATS_TOTAL_FAVORITES"
+msgstr "Всего сохранений"
+
+msgid "PAGE_COLLECTION_STATS_TOTAL_ITEM_ADDS"
+msgstr "Добавлений приложений"
+
+msgid "PAGE_COLLECTION_STATS_VIEWS"
+msgstr "Просмотры"
+
+msgid "PAGE_COLLECTION_SYSTEM_BADGE"
+msgstr "системная"
+
+msgid "PAGE_COLLECTION_TAB_LIKED"
+msgstr "Избранные коллекции"
+
+msgid "PAGE_COLLECTION_TAB_MINE"
+msgstr "Мои коллекции"
+
+msgid "PAGE_COLLECTION_TAB_STATS"
+msgstr "Статистика"
+
+msgid "PAGE_COLLECTION_TAB_VIEW"
+msgstr "Просмотр"
+
+msgid "PAGE_COLLECTION_TITLE"
+msgstr "Коллекции"
 
 msgid "PAGE_DEBUG_DESC"
 msgstr "Данная страница используется ИСКЛЮЧИТЕЛЬНО для тестирования и сбора информации для более грамотной подачи bug report'а. Если Вы видите эту страницу, это значит, что в вашем settings.py константа DEBUG = True."
@@ -1585,6 +2332,12 @@ msgstr "Загруженные версии"
 msgid "PAGE_DOWNLOAD_VERSION_LIST"
 msgstr "Список версий"
 
+msgid "PAGE_ERROR_BROWSER_TITLE"
+msgstr "Ошибка"
+
+msgid "PAGE_ERROR_HEADING"
+msgstr "Ошибка"
+
 msgid "PAGE_FAQ_A_ACC_BENEFITS"
 msgstr "С помощью аккаунта Вы сможете оставлять свои отзывы к приложениям, красиво заявить о себе в этом зарождающемся сообществе и загружать свои приложения в общий каталог после строгой модерации"
 
@@ -1720,6 +2473,9 @@ msgstr "Справочный центр"
 msgid "PAGE_FAQ_TOOLTIP_EASTEREGG"
 msgstr "КОСТЫЛИ ВЕЛОСИПЕДЫ ЙОООУ"
 
+msgid "PAGE_HOME_BROWSER_TITLE"
+msgstr "Главная"
+
 msgid "PAGE_INVITE_ADMINSTATUS"
 msgstr "Модератор"
 
@@ -1810,6 +2566,15 @@ msgstr "У Вас нет аккаунта?"
 msgid "PAGE_LOGIN_MAIN_TITLE"
 msgstr "Вход"
 
+msgid "PAGE_LOGIN_OR_DIVIDER"
+msgstr "или"
+
+msgid "PAGE_LOGIN_PASSPORT_BTN"
+msgstr "Войти через LunaPassport"
+
+msgid "PAGE_LOGIN_PASSPORT_PENDING_HINT"
+msgstr "Чтобы привязать LunaPassport, войдите в аккаунт LunaStore с этой почтой:"
+
 msgid "PAGE_LOGIN_PASSWORD_LABEL"
 msgstr "Пароль:"
 
@@ -1821,15 +2586,6 @@ msgstr "Чтобы продолжить данное действие, нужн�
 
 msgid "PAGE_LOGIN_SUBMIT_BTN"
 msgstr "Войти"
-
-msgid "PAGE_LOGIN_OR_DIVIDER"
-msgstr "или"
-
-msgid "PAGE_LOGIN_PASSPORT_BTN"
-msgstr "Войти через LunaPassport"
-
-msgid "PAGE_LOGIN_PASSPORT_PENDING_HINT"
-msgstr "Чтобы привязать LunaPassport, войдите в аккаунт LunaStore с этой почтой:"
 
 msgid "PAGE_LOGIN_USERNAME_LABEL"
 msgstr "Логин:"
@@ -2052,6 +2808,12 @@ msgstr "Поскольку данный пользователь был забл
 msgid "PAGE_PROFILE_BANNED_INTRO"
 msgstr "Данный пользователь был заблокирован."
 
+msgid "PAGE_PROFILE_COLLECTIONS_EMPTY"
+msgstr "У пользователя пока нет публичных коллекций."
+
+msgid "PAGE_PROFILE_COLLECTIONS_TITLE"
+msgstr "Коллекции пользователя"
+
 msgid "PAGE_PROFILE_CONTACT_INFO"
 msgstr "Контактная информация"
 
@@ -2097,6 +2859,9 @@ msgstr "участник с"
 msgid "PAGE_PROFILE_TAB_APPS"
 msgstr "Приложения"
 
+msgid "PAGE_PROFILE_TAB_COLLECTIONS"
+msgstr "Коллекции"
+
 msgid "PAGE_PROFILE_TAB_MAIN"
 msgstr "Основное"
 
@@ -2124,6 +2889,9 @@ msgstr "Есть код приглашения? Нажмите"
 msgid "PAGE_REGISTER_HAVE_INVITE_TITLE"
 msgstr "У Вас есть приглашение?"
 
+msgid "PAGE_REGISTER_HELP_CODE"
+msgstr "Оставьте поле пустым, если не имеете его"
+
 msgid "PAGE_REGISTER_HELP_EMAIL"
 msgstr "Будет использоваться для входа в аккаунт и для восстановления пароля"
 
@@ -2136,11 +2904,11 @@ msgstr "Повторение - мать учения :D"
 msgid "PAGE_REGISTER_HELP_USERNAME"
 msgstr "Минимум 2 символа. По имени пользователя вас можно будет найти. После регистрации изменить его не получится."
 
-msgid "PAGE_REGISTER_HELP_CODE"
-msgstr "Оставьте поле пустым, если не имеете его"
-
 msgid "PAGE_REGISTER_INFO_SPLASH"
 msgstr "Создав аккаунт, вы сможете выкладывать свои приложения, оставлять отзывы к уже загруженным программам и вести собственную библиотеку избранных элементов. Регистрация открытая и бесплатная."
+
+msgid "PAGE_REGISTER_LABEL_CODE"
+msgstr "Код приглашения:"
 
 msgid "PAGE_REGISTER_LABEL_EMAIL"
 msgstr "E-mail:"
@@ -2153,9 +2921,6 @@ msgstr "Повторите пароль:"
 
 msgid "PAGE_REGISTER_LABEL_USERNAME"
 msgstr "Имя пользователя:"
-
-msgid "PAGE_REGISTER_LABEL_CODE"
-msgstr "Код приглашения:"
 
 msgid "PAGE_REGISTER_SECTION_CONFIRM"
 msgstr "Подтверждение регистрации"
@@ -2271,6 +3036,15 @@ msgstr "Поиск не дал результатов по запросу \"%(q)
 msgid "PAGE_SEARCH_MSG_NO_RESULTS_EMPTY"
 msgstr "По вашему запросу ничего не найдено"
 
+msgid "PAGE_SEARCH_MSG_NO_USERS"
+msgstr "Пользователи по запросу «%(q)s» не найдены"
+
+msgid "PAGE_SEARCH_MSG_NO_USERS %(q)s"
+msgstr "Пользователи по запросу «%(q)s» не найдены"
+
+msgid "PAGE_SEARCH_MSG_UNAVAILABLE"
+msgstr "Поиск временно недоступен. Попробуйте позже."
+
 msgid "PAGE_SEARCH_SORT_LIST"
 msgstr "Показывать содержимое списком"
 
@@ -2280,8 +3054,11 @@ msgstr "Показывать содержимое..."
 msgid "PAGE_SEARCH_SORT_TILES"
 msgstr "Показывать содержимое плитками"
 
-msgid "PAGE_SEARCH_TITLE"
-msgstr "Поиск"
+msgid "PAGE_SEARCH_SUGGEST_APPS"
+msgstr "Приложения"
+
+msgid "PAGE_SEARCH_SUGGEST_USERS"
+msgstr "Пользователи"
 
 msgid "PAGE_SEARCH_TAB_APPS"
 msgstr "Приложения"
@@ -2289,20 +3066,23 @@ msgstr "Приложения"
 msgid "PAGE_SEARCH_TAB_USERS"
 msgstr "Пользователи"
 
-msgid "PAGE_SEARCH_MSG_NO_USERS %(q)s"
-msgstr "Пользователи по запросу «%(q)s» не найдены"
-
-msgid "PAGE_SEARCH_MSG_UNAVAILABLE"
-msgstr "Поиск временно недоступен. Попробуйте позже."
-
-msgid "PAGE_SEARCH_SUGGEST_APPS"
-msgstr "Приложения"
-
-msgid "PAGE_SEARCH_SUGGEST_USERS"
-msgstr "Пользователи"
+msgid "PAGE_SEARCH_TITLE"
+msgstr "Поиск"
 
 msgid "PAGE_SEARCH_USERS_COUNT"
 msgstr "Найдено"
+
+msgid "PAGE_SECURITY_WARN_NEW_SESSION_DESC"
+msgstr "смена пароля и привязанной почты недоступна для новых устройств (менее 24 часов)."
+
+msgid "PAGE_SECURITY_WARN_TITLE"
+msgstr "В целях безопасности"
+
+msgid "PAGE_SETTINGS_ACTIVE_SESSIONS_DESC"
+msgstr "Устройства, с которых выполнен вход в ваш аккаунт."
+
+msgid "PAGE_SETTINGS_ACTIVITY"
+msgstr "Активность"
 
 msgid "PAGE_SETTINGS_BTN_DELETE"
 msgstr "Удалить аккаунт"
@@ -2313,11 +3093,29 @@ msgstr "Сохранить"
 msgid "PAGE_SETTINGS_BTN_UPLOAD"
 msgstr "Загрузить"
 
+msgid "PAGE_SETTINGS_CURRENT_SESSION"
+msgstr "Текущий сеанс"
+
 msgid "PAGE_SETTINGS_DELETE_WARNING"
 msgstr "Если Вы не хотите пользоваться сайтом, то имеете полное право удалить свой аккаунт. <br><br>Однако стоит понимать, что данное действие повлечёт за собой уничтожение данных профиля <b>БЕЗ возможности восстановления</b>. Доступ к управляемым страницам приложений будет потерян, а отправленные отзывы будут обезличены.<br><br>"
 
+msgid "PAGE_SETTINGS_DEV_STATUS_GET"
+msgstr "Получить"
+
 msgid "PAGE_SETTINGS_DEV_STATUS_HAS"
 msgstr "имеется"
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_COMPACT"
+msgstr "Сокращённая"
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_INFO"
+msgstr "Вы можете настроить внешний вид главной страницы между содержательной и сокращённой."
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_RICH"
+msgstr "Содержательная"
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_TITLE"
+msgstr "Вид главной страницы"
 
 msgid "PAGE_SETTINGS_HTML_TITLE"
 msgstr "Настройки аккаунта"
@@ -2382,6 +3180,33 @@ msgstr "Имя пользователя:"
 msgid "PAGE_SETTINGS_LABEL_WEBSITE"
 msgstr "Веб-сайт:"
 
+msgid "PAGE_SETTINGS_PASSPORT_CONFIRM"
+msgstr "Подтвердить привязку"
+
+msgid "PAGE_SETTINGS_PASSPORT_DESC"
+msgstr "Привяжите аккаунт LunaPassport, чтобы входить на LunaStore без пароля (через OAuth)."
+
+msgid "PAGE_SETTINGS_PASSPORT_LINK"
+msgstr "Привязать LunaPassport"
+
+msgid "PAGE_SETTINGS_PASSPORT_LINKED_AS"
+msgstr "Привязан как:"
+
+msgid "PAGE_SETTINGS_PASSPORT_PENDING"
+msgstr "Ожидает подтверждения привязки для:"
+
+msgid "PAGE_SETTINGS_PASSPORT_TITLE"
+msgstr "LunaPassport"
+
+msgid "PAGE_SETTINGS_PASSPORT_UNLINK"
+msgstr "Отвязать"
+
+msgid "PAGE_SETTINGS_PASSPORT_UNLINK_NEED_PASSWORD"
+msgstr "Сначала задайте пароль аккаунта, затем можно отвязать LunaPassport."
+
+msgid "PAGE_SETTINGS_SECTION_ACTIVE_SESSIONS"
+msgstr "Активные сеансы"
+
 msgid "PAGE_SETTINGS_SECTION_AVATAR"
 msgstr "Изменить аватар"
 
@@ -2397,30 +3222,6 @@ msgstr "Удаление аккаунта"
 msgid "PAGE_SETTINGS_SECTION_PASSWORD"
 msgstr "Изменить пароль"
 
-msgid "PAGE_SETTINGS_PASSPORT_TITLE"
-msgstr "LunaPassport"
-
-msgid "PAGE_SETTINGS_PASSPORT_DESC"
-msgstr "Привяжите аккаунт LunaPassport, чтобы входить на LunaStore без пароля (через OAuth)."
-
-msgid "PAGE_SETTINGS_PASSPORT_LINKED_AS"
-msgstr "Привязан как:"
-
-msgid "PAGE_SETTINGS_PASSPORT_LINK"
-msgstr "Привязать LunaPassport"
-
-msgid "PAGE_SETTINGS_PASSPORT_UNLINK"
-msgstr "Отвязать"
-
-msgid "PAGE_SETTINGS_PASSPORT_UNLINK_NEED_PASSWORD"
-msgstr "Сначала задайте пароль аккаунта, затем можно отвязать LunaPassport."
-
-msgid "PAGE_SETTINGS_PASSPORT_PENDING"
-msgstr "Ожидает подтверждения привязки для:"
-
-msgid "PAGE_SETTINGS_PASSPORT_CONFIRM"
-msgstr "Подтвердить привязку"
-
 msgid "PAGE_SETTINGS_SECTION_PRIVACY"
 msgstr "Приватность"
 
@@ -2431,28 +3232,10 @@ msgid "PAGE_SETTINGS_TAB_APPS"
 msgstr "Приложения"
 
 msgid "PAGE_SETTINGS_TAB_SECURITY"
-msgstr "Защита"
+msgstr "Безопасность"
 
 msgid "PAGE_SETTINGS_TAB_UI"
 msgstr "Вид"
-
-msgid "PAGE_SETTINGS_HOME_LAYOUT_TITLE"
-msgstr "Вид главной страницы"
-
-msgid "PAGE_SETTINGS_HOME_LAYOUT_INFO"
-msgstr "Вы можете настроить внешний вид главной страницы между содержательной и сокращённой."
-
-msgid "PAGE_SETTINGS_HOME_LAYOUT_RICH"
-msgstr "Содержательная"
-
-msgid "PAGE_SETTINGS_HOME_LAYOUT_COMPACT"
-msgstr "Сокращённая"
-
-msgid "INFO_HOME_LAYOUT_UPDATED"
-msgstr "Вид главной страницы сохранён"
-
-msgid "ERROR_HOME_LAYOUT_INVALID"
-msgstr "Некорректный вид главной страницы"
 
 msgid "PAGE_SETTINGS_TERMINATE_SESSION"
 msgstr "Завершить сеанс"
@@ -2460,8 +3243,11 @@ msgstr "Завершить сеанс"
 msgid "PAGE_SETTINGS_TITLE"
 msgstr "Настройки"
 
+msgid "PAGE_SETTINGS_UNKNOWN_DEVICE"
+msgstr "Неизвестное устройство"
+
 msgid "PAGE_SETTINGS_WARN_USERNAME_FROZEN"
-msgstr "Имя пользователя после регистрации можно менять 1 раз в год"
+msgstr "Имя пользователя после регистрации изменить нельзя"
 
 msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_1"
 msgstr "Файлы прошли проверку: "
@@ -2520,38 +3306,26 @@ msgstr "Неверный логин или пароль."
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "Вход выполнен успешно! Привет, %(username)s!"
 
-msgid "VIEW_PASSPORT_OAUTH_DENIED"
-msgstr "LunaPassport отклонил вход: %(detail)s"
-
-msgid "VIEW_PASSPORT_STATE_MISMATCH"
-msgstr "Ошибка безопасности OAuth (state). Попробуйте снова."
-
-msgid "VIEW_PASSPORT_TOKEN_FAILED"
-msgstr "Не удалось завершить вход через LunaPassport. Попробуйте позже."
-
-msgid "VIEW_PASSPORT_LINK_LOGIN_REQUIRED"
-msgstr "Чтобы привязать LunaPassport, сначала войдите в аккаунт."
-
-msgid "VIEW_PASSPORT_SUB_TAKEN"
-msgstr "Этот LunaPassport уже привязан к другому аккаунту LunaStore."
-
 msgid "VIEW_PASSPORT_ALREADY_LINKED_OTHER"
 msgstr "К вашему аккаунту уже привязан другой LunaPassport."
-
-msgid "VIEW_PASSPORT_LINKED_OK"
-msgstr "LunaPassport успешно привязан."
-
-msgid "VIEW_PASSPORT_EMAIL_EXISTS_LOGIN"
-msgstr "Аккаунт с этой почтой уже есть. Войдите в него, чтобы подтвердить привязку LunaPassport."
 
 msgid "VIEW_PASSPORT_EMAIL_ALREADY_EXISTS"
 msgstr "Аккаунт с таким email уже есть. Регистрация через LunaPassport недоступна."
 
+msgid "VIEW_PASSPORT_EMAIL_EXISTS_LOGIN"
+msgstr "Аккаунт с этой почтой уже есть. Войдите в него, чтобы подтвердить привязку LunaPassport."
+
+msgid "VIEW_PASSPORT_EMAIL_MISMATCH"
+msgstr "Почта LunaPassport не совпадает с почтой аккаунта LunaStore. Привязка отменена."
+
 msgid "VIEW_PASSPORT_INVITES_REQUIRED"
 msgstr "Регистрация только по приглашениям. Войдите в существующий аккаунт и привяжите LunaPassport в настройках."
 
-msgid "VIEW_PASSPORT_REGISTER_BLOCKED"
-msgstr "Не удалось создать аккаунт через LunaPassport."
+msgid "VIEW_PASSPORT_LINKED_OK"
+msgstr "LunaPassport успешно привязан."
+
+msgid "VIEW_PASSPORT_LINK_LOGIN_REQUIRED"
+msgstr "Чтобы привязать LunaPassport, сначала войдите в аккаунт."
 
 msgid "VIEW_PASSPORT_NEED_ACCOUNT"
 msgstr "Войдите или зарегистрируйтесь, затем привяжите LunaPassport в настройках безопасности."
@@ -2559,358 +3333,26 @@ msgstr "Войдите или зарегистрируйтесь, затем п�
 msgid "VIEW_PASSPORT_NOT_LINKED"
 msgstr "LunaPassport не привязан."
 
-msgid "VIEW_PASSPORT_UNLINK_NEED_PASSWORD"
-msgstr "Нельзя отвязать LunaPassport, пока у аккаунта нет пароля. Сначала задайте пароль."
+msgid "VIEW_PASSPORT_NO_PENDING"
+msgstr "Нет ожидающей привязки LunaPassport."
+
+msgid "VIEW_PASSPORT_OAUTH_DENIED"
+msgstr "LunaPassport отклонил вход: %(detail)s"
+
+msgid "VIEW_PASSPORT_REGISTER_BLOCKED"
+msgstr "Не удалось создать аккаунт через LunaPassport."
+
+msgid "VIEW_PASSPORT_STATE_MISMATCH"
+msgstr "Ошибка безопасности OAuth (state). Попробуйте снова."
+
+msgid "VIEW_PASSPORT_SUB_TAKEN"
+msgstr "Этот LunaPassport уже привязан к другому аккаунту LunaStore."
+
+msgid "VIEW_PASSPORT_TOKEN_FAILED"
+msgstr "Не удалось завершить вход через LunaPassport. Попробуйте позже."
 
 msgid "VIEW_PASSPORT_UNLINKED_OK"
 msgstr "LunaPassport отвязан."
 
-msgid "VIEW_PASSPORT_NO_PENDING"
-msgstr "Нет ожидающей привязки LunaPassport."
-
-msgid "VIEW_PASSPORT_EMAIL_MISMATCH"
-msgstr "Почта LunaPassport не совпадает с почтой аккаунта LunaStore. Привязка отменена."
-
-msgid "%(counter)s PAGE_COLLECTION_APPS_ONE"
-msgid_plural "%(counter)s PAGE_COLLECTION_APPS_MANY"
-msgstr[0] "%(counter)s приложение"
-msgstr[1] "%(counter)s приложения"
-msgstr[2] "%(counter)s приложений"
-
-msgid "%(counter)s PAGE_COLLECTION_COUNT_ONE"
-msgid_plural "%(counter)s PAGE_COLLECTION_COUNT_MANY"
-msgstr[0] "Всего %(counter)s коллекция"
-msgstr[1] "Всего %(counter)s коллекции"
-msgstr[2] "Всего %(counter)s коллекций"
-
-msgid "BASE_SIDEBAR_ACCOUNT_COLLECTIONS"
-msgstr "Коллекции"
-
-msgid "PAGE_APP_TO_COLLECTION"
-msgstr "в коллекцию"
-
-msgid "PAGE_APP_ADD_TO_COLLECTION"
-msgstr "добавить"
-
-msgid "PAGE_COLLECTION_ACTION_DELETE"
-msgstr "удалить"
-
-msgid "PAGE_COLLECTION_ACTION_EDIT"
-msgstr "редактировать"
-
-msgid "PAGE_COLLECTION_ACTION_FAVORITE"
-msgstr "в избранное"
-
-msgid "PAGE_COLLECTION_ACTION_REMOVE_APP"
-msgstr "убрать"
-
-msgid "PAGE_COLLECTION_ACTION_UNFAVORITE"
-msgstr "убрать из избранного"
-
-msgid "PAGE_COLLECTION_ACTION_VIEW"
-msgstr "просмотр"
-
-msgid "PAGE_COLLECTION_ACTION_STATS"
-msgstr "статистика"
-
-msgid "PAGE_COLLECTION_APPS_EMPTY"
-msgstr "В этой коллекции пока нет приложений."
-
-msgid "PAGE_COLLECTION_ADD_NO_CUSTOM"
-msgstr "Нет пользовательских коллекций. Создайте новую:"
-
-msgid "PAGE_COLLECTION_ADD_TITLE"
-msgstr "Добавление в коллекцию"
-
-msgid "PAGE_COLLECTION_BTN_ADD_APP"
-msgstr "Добавить"
-
-msgid "PAGE_COLLECTION_BTN_DELETE"
-msgstr "Удалить"
-
-msgid "PAGE_COLLECTION_BTN_CANCEL"
-msgstr "Отмена"
-
-msgid "PAGE_COLLECTION_EDIT_TITLE"
-msgstr "Редактирование коллекции"
-
-msgid "PAGE_COLLECTION_BTN_CREATE"
-msgstr "Создать новую коллекцию"
-
-msgid "PAGE_COLLECTION_BTN_SAVE"
-msgstr "Сохранить"
-
-msgid "PAGE_COLLECTION_DATE_CREATED"
-msgstr "Дата создания:"
-
-msgid "PAGE_COLLECTION_DATE_UPDATED"
-msgstr "Обновлено"
-
-msgid "PAGE_COLLECTION_DELETE_CONFIRM_TEXT %(title)s"
-msgstr "Вы уверены, что хотите удалить коллекцию «%(title)s»?"
-
-msgid "PAGE_COLLECTION_DELETE_CONFIRM_TITLE"
-msgstr "Удаление коллекции"
-
-msgid "PAGE_COLLECTION_EMPTY"
-msgstr "Коллекций пока нет."
-
-msgid "PAGE_COLLECTION_ERROR_ADD_APP"
-msgstr "Не удалось добавить приложение в коллекцию."
-
-msgid "PAGE_COLLECTION_ERROR_DELETE"
-msgstr "Не удалось удалить коллекцию."
-
-msgid "PAGE_COLLECTION_ERROR_DELETE_SYSTEM"
-msgstr "Системную коллекцию нельзя удалить."
-
-msgid "PAGE_COLLECTION_ERROR_EDIT_SYSTEM"
-msgstr "Системную коллекцию нельзя редактировать."
-
-msgid "PAGE_COLLECTION_ERROR_FAVORITE"
-msgstr "Не удалось изменить избранное."
-
-msgid "PAGE_COLLECTION_ERROR_FAVORITE_OWN"
-msgstr "Нельзя добавить свою коллекцию в избранное."
-
-msgid "PAGE_COLLECTION_ERROR_PRIVATE"
-msgstr "Эта коллекция скрыта."
-
-msgid "PAGE_COLLECTION_ERROR_REMOVE_APP"
-msgstr "Не удалось убрать приложение из коллекции."
-
-msgid "PAGE_COLLECTION_ERROR_SAVE"
-msgstr "Не удалось сохранить коллекцию."
-
-msgid "PAGE_COLLECTION_FIELD_TITLE"
-msgstr "Название"
-
-msgid "PAGE_COLLECTION_FIELD_TITLE_HINT"
-msgstr "Укажите название коллекции на нужных языках"
-
-msgid "PAGE_COLLECTION_FIELD_DESC"
-msgstr "Описание"
-
-msgid "PAGE_COLLECTION_FIELD_DESC_HINT"
-msgstr "Кратко опишите, что входит в коллекцию"
-
-msgid "PAGE_COLLECTION_FIELD_PUBLIC"
-msgstr "Публичная коллекция"
-
-msgid "PAGE_COLLECTION_LIKES_DESC"
-msgstr "Ставьте отметки «Добавить в коллекцию» на странице приложений, чтобы сохранять их себе для быстрого доступа"
-
-msgid "PAGE_COLLECTION_LIKES_TITLE"
-msgstr "Понравившиеся программы"
-
-msgid "PAGE_COLLECTION_MSG_APP_ADDED"
-msgstr "Приложение добавлено в коллекцию."
-
-msgid "PAGE_COLLECTION_MSG_APP_ALREADY"
-msgstr "Приложение уже есть в этой коллекции."
-
-msgid "PAGE_COLLECTION_MSG_APP_NOT_IN"
-msgstr "Приложения нет в этой коллекции."
-
-msgid "PAGE_COLLECTION_MSG_APP_REMOVED"
-msgstr "Приложение убрано из коллекции."
-
-msgid "PAGE_COLLECTION_MSG_DELETED"
-msgstr "Коллекция удалена."
-
-msgid "PAGE_COLLECTION_MSG_FAVORITED"
-msgstr "Коллекция добавлена в избранное."
-
-msgid "PAGE_COLLECTION_MSG_SAVED"
-msgstr "Коллекция сохранена."
-
-msgid "PAGE_COLLECTION_MSG_UNFAVORITED"
-msgstr "Коллекция убрана из избранного."
-
-
-msgid "%(counter)s PAGE_COLLECTION_SAVES_ONE"
-msgid_plural "%(counter)s PAGE_COLLECTION_SAVES_MANY"
-msgstr[0] "%(counter)s сохранение"
-msgstr[1] "%(counter)s сохранения"
-msgstr[2] "%(counter)s сохранений"
-
-msgid "PAGE_COLLECTION_SYSTEM_BADGE"
-msgstr "системная"
-
-msgid "PAGE_COLLECTION_TAB_LIKED"
-msgstr "Избранные коллекции"
-
-msgid "PAGE_COLLECTION_TAB_MINE"
-msgstr "Мои коллекции"
-
-msgid "PAGE_COLLECTION_TAB_VIEW"
-msgstr "Просмотр"
-
-msgid "PAGE_COLLECTION_TITLE"
-msgstr "Коллекции"
-
-msgid "PAGE_PROFILE_TAB_COLLECTIONS"
-msgstr "Коллекции"
-
-msgid "PAGE_PROFILE_COLLECTIONS_TITLE"
-msgstr "Коллекции пользователя"
-
-msgid "PAGE_PROFILE_COLLECTIONS_EMPTY"
-msgstr "У пользователя пока нет публичных коллекций."
-
-msgid "PAGE_HOME_BROWSER_TITLE"
-msgstr "Главная"
-
-msgid "PAGE_404_BROWSER_TITLE"
-msgstr "Страница не найдена"
-
-msgid "PAGE_502_BROWSER_TITLE"
-msgstr "Что-то пошло не так..."
-msgid "PAGE_ERROR_BROWSER_TITLE"
-msgstr "Ошибка"
-
-msgid "PAGE_ERROR_HEADING"
-msgstr "Ошибка"
-
-msgid "PAGE_400_BROWSER_TITLE"
-msgstr "Неверный запрос"
-
-msgid "PAGE_400_DEFAULT_MESSAGE"
-msgstr "Запрос не удалось обработать. Проверьте данные и попробуйте снова."
-
-msgid "PAGE_403_BROWSER_TITLE"
-msgstr "Доступ запрещён"
-
-msgid "PAGE_403_DEFAULT_MESSAGE"
-msgstr "У вас нет доступа к этой странице."
-
-msgid "PAGE_500_BROWSER_TITLE"
-msgstr "Внутренняя ошибка"
-
-msgid "PAGE_500_DEFAULT_MESSAGE"
-msgstr "Произошла внутренняя ошибка сервера. Попробуйте повторить попытку позже."
-
-msgid "BASE_THEME_ENABLE"
-msgstr "Включить тёмную тему"
-
-msgid "BASE_THEME_DISABLE"
-msgstr "Выключить тёмную тему"
-
-msgid "BASE_SIDEBAR_APP_PAGE"
-msgstr "Приложение"
-
-msgid "PAGE_ADMIN_APP_TAB_STATS"
-msgstr "Статистика"
-
-msgid "PAGE_ADMIN_APP_BACKTOAPP"
-msgstr "Вернуться к странице"
-
-msgid "PAGE_ADMIN_APP_STATS_30_DAYS"
-msgstr "Визуальная статистика за 14 дней"
-
-msgid "PAGE_ADMIN_APP_STATS_DETAILED"
-msgstr "Детальная статистика"
-
-msgid "PAGE_ADMIN_APP_STATS_DOWNLOADS"
-msgstr "Скачивания"
-
-msgid "PAGE_ADMIN_APP_STATS_TOTAL_DOWNLOADS"
-msgstr "Количество скачиваний"
-
-msgid "PAGE_ADMIN_APP_STATS_UNIQUE_DOWNLOADERS"
-msgstr "Уникальных пользователей, скачавших приложение"
-
-msgid "PAGE_ADMIN_APP_STATS_DOWNLOADS_HINT"
-msgstr "Статистика записывается после нажатия на кнопку \"Установить\" на странице приложения"
-
-msgid "PAGE_ADMIN_APP_STATS_VIEWS"
-msgstr "Просмотры"
-
-msgid "PAGE_ADMIN_APP_STATS_TOTAL_VIEWS"
-msgstr "Всего просмотров"
-
-msgid "PAGE_ADMIN_APP_STATS_UNIQUE_VIEWERS"
-msgstr "Уникальных просмотров"
-
-msgid "PAGE_ADMIN_APP_STATS_ENGAGEMENT"
-msgstr "Активность"
-
-msgid "PAGE_ADMIN_APP_STATS_TOTAL_LIKES"
-msgstr "Количество лайков"
-
-msgid "PAGE_ADMIN_APP_STATS_TOTAL_RATES"
-msgstr "Количество оценок"
-
-msgid "PAGE_ADMIN_APP_STATS_TOP_COUNTRIES"
-msgstr "Топ-10 по странам за 30 дней"
-
-msgid "PAGE_ADMIN_APP_STATS_COUNTRY"
-msgstr "Страна"
-
-msgid "PAGE_ADMIN_APP_STATS_COUNT"
-msgstr "Количество"
-
-msgid "PAGE_ADMIN_APP_STATS_SHARE"
-msgstr "Доля"
-
-msgid "PAGE_ADMIN_APP_STATS_TOP_OS"
-msgstr "Топ-10 по операционным системам за 30 дней"
-
-msgid "PAGE_ADMIN_APP_STATS_OS"
-msgstr "Операционная система"
-
-msgid "PAGE_ADMIN_APP_STATS_DISTRIBUTIONS"
-msgstr "Скачивания по дистрибуциям (версиям)"
-
-msgid "PAGE_ADMIN_APP_STATS_DIST_GENERAL"
-msgstr "Основная"
-
-msgid "PAGE_ADMIN_APP_STATS_NO_DATA"
-msgstr "Нет данных"
-
-msgid "PAGE_COLLECTION_TAB_STATS"
-msgstr "Статистика"
-
-msgid "PAGE_COLLECTION_BACK_TO_VIEW"
-msgstr "Вернуться к просмотру коллекции"
-
-msgid "PAGE_COLLECTION_STATS_30_DAYS"
-msgstr "Статистика активности за 14 дней"
-
-msgid "PAGE_COLLECTION_STATS_VIEWS"
-msgstr "Просмотры"
-
-msgid "PAGE_COLLECTION_STATS_FAVORITES"
-msgstr "Сохранения в избранное"
-
-msgid "PAGE_COLLECTION_STATS_TOTAL_FAVORITES"
-msgstr "Всего сохранений"
-
-msgid "PAGE_COLLECTION_STATS_TOTAL_ITEM_ADDS"
-msgstr "Добавлений приложений"
-
-
-msgid "PAGE_SETTINGS_DEV_STATUS_GET"
-msgstr "Получить"
-
-msgid "PAGE_SETTINGS_SECTION_ACTIVE_SESSIONS"
-msgstr "Активные сеансы"
-
-msgid "PAGE_SETTINGS_ACTIVE_SESSIONS_DESC"
-msgstr "Устройства, с которых выполнен вход в ваш аккаунт."
-
-msgid "PAGE_SETTINGS_UNKNOWN_DEVICE"
-msgstr "Неизвестное устройство"
-
-msgid "PAGE_SETTINGS_ACTIVITY"
-msgstr "Активность"
-
-msgid "PAGE_SETTINGS_CURRENT_SESSION"
-msgstr "Текущий сеанс"
-
-msgid "PAGE_SECURITY_WARN_TITLE"
-msgstr "В целях безопасности"
-
-msgid "PAGE_SECURITY_WARN_NEW_SESSION_DESC"
-msgstr "смена пароля и привязанной почты недоступна для новых устройств (менее 24 часов)."
-
+msgid "VIEW_PASSPORT_UNLINK_NEED_PASSWORD"
+msgstr "Нельзя отвязать LunaPassport, пока у аккаунта нет пароля. Сначала задайте пароль."

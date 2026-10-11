@@ -10,6 +10,24 @@ msgstr ""
 msgid " SITE_DESCRIPTION"
 msgstr "LunaStore. Довідник програм для твого старого ПК. Завантажуйте програми, залишайте відгуки і станьте частиною спільноти любителів старих ПК."
 
+msgid "%(counter)s PAGE_COLLECTION_APPS_ONE"
+msgid_plural "%(counter)s PAGE_COLLECTION_APPS_MANY"
+msgstr[0] "%(counter)s програма"
+msgstr[1] "%(counter)s програми"
+msgstr[2] "%(counter)s програми"
+
+msgid "%(counter)s PAGE_COLLECTION_COUNT_ONE"
+msgid_plural "%(counter)s PAGE_COLLECTION_COUNT_MANY"
+msgstr[0] "Усього %(counter)s колекція"
+msgstr[1] "Усього %(counter)s колекції"
+msgstr[2] "Усього %(counter)s колекцій"
+
+msgid "%(counter)s PAGE_COLLECTION_SAVES_ONE"
+msgid_plural "%(counter)s PAGE_COLLECTION_SAVES_MANY"
+msgstr[0] "%(counter)s збереження"
+msgstr[1] "%(counter)s збереження"
+msgstr[2] "%(counter)s збережень"
+
 msgid "%(counter)s PAGE_PROFILE_STATS_APP"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
 msgstr[0] "\"%(counter)s програм,\""
@@ -163,6 +181,12 @@ msgstr "реєстрація"
 msgid "BASE_SEARCHBTN"
 msgstr "пошук"
 
+msgid "BASE_SIDEBAR_ACCOUNT_ADMINBTN"
+msgstr "Адмін-панель"
+
+msgid "BASE_SIDEBAR_ACCOUNT_COLLECTIONS"
+msgstr "Колекції"
+
 msgid "BASE_SIDEBAR_ACCOUNT_INVITEBTN"
 msgstr "Запросити"
 
@@ -175,9 +199,6 @@ msgstr "Налаштування"
 msgid "BASE_SIDEBAR_ACCOUNT_TITLE"
 msgstr "Обліковий запис"
 
-msgid "BASE_SIDEBAR_ACCOUNT_ADMINBTN"
-msgstr "Адмін-панель"
-
 msgid "BASE_SIDEBAR_APP_DEV_SITE"
 msgstr "Сайт розробника"
 
@@ -186,6 +207,9 @@ msgstr "Редагувати сторінку"
 
 msgid "BASE_SIDEBAR_APP_INSTALL"
 msgstr "Встановити"
+
+msgid "BASE_SIDEBAR_APP_PAGE"
+msgstr "Програма"
 
 msgid "BASE_SIDEBAR_APP_REPORT"
 msgstr "Поскаржитися"
@@ -198,6 +222,12 @@ msgstr "Головна сторінка"
 
 msgid "BASE_SIDEBAR_CATEGORIES_TITLE"
 msgstr "Категорії"
+
+msgid "BASE_THEME_DISABLE"
+msgstr "Вимкнути темну тему"
+
+msgid "BASE_THEME_ENABLE"
+msgstr "Увімкнути темну тему"
 
 msgid "CARD_USER_NO_DESC"
 msgstr "Опис профілю відсутній"
@@ -277,26 +307,8 @@ msgstr "Новий e-mail збігається з поточним."
 msgid "ERROR_EMAIL_NO_ALIASES"
 msgstr "Використання адрес електронної пошти зі знаком \"+\" заборонено."
 
-msgid "ERROR_USERNAME_ALREADY_IN_USE"
-msgstr "Це ім'я користувача вже зайняте."
-
-msgid "ERROR_USERNAME_BLACKLISTED"
-msgstr "Це ім'я користувача заборонене."
-
-msgid "ERROR_USERNAME_CHANGE_COOLDOWN"
-msgstr "Ім'я користувача можна змінювати лише 1 раз на рік."
-
-msgid "ERROR_USERNAME_EMPTY"
-msgstr "Ім'я користувача не може бути порожнім."
-
-msgid "ERROR_USERNAME_INVALID_CHARS"
-msgstr "Ім'я користувача може містити лише англійські літери, цифри та символи . _ -"
-
-msgid "ERROR_USERNAME_INVALID_DOTS"
-msgstr "Ім'я користувача не може починатися або закінчуватися крапкою, а також містити дві крапки поспіль."
-
-msgid "ERROR_USERNAME_NO_LETTERS"
-msgstr "Ім'я користувача повинно містити щонайменше одну англійську літеру."
+msgid "ERROR_HOME_LAYOUT_INVALID"
+msgstr "Некоректний вигляд головної сторінки"
 
 msgid "ERROR_INVALID_FILE_FORMAT"
 msgstr "Помилка: Некоректний формат файлу!"
@@ -357,6 +369,27 @@ msgstr "Невірний формат імені користувача Telegram
 
 msgid "ERROR_RATE_LIMIT_EXCEEDED"
 msgstr "Ви надсилаєте запити занадто часто. Будь ласка, зачекайте деякий час, щоб продовжити."
+
+msgid "ERROR_USERNAME_ALREADY_IN_USE"
+msgstr "Це ім'я користувача вже зайняте."
+
+msgid "ERROR_USERNAME_BLACKLISTED"
+msgstr "Це ім'я користувача заборонене."
+
+msgid "ERROR_USERNAME_CHANGE_COOLDOWN"
+msgstr "Ім'я користувача можна змінювати лише 1 раз на рік."
+
+msgid "ERROR_USERNAME_EMPTY"
+msgstr "Ім'я користувача не може бути порожнім."
+
+msgid "ERROR_USERNAME_INVALID_CHARS"
+msgstr "Ім'я користувача може містити лише англійські літери, цифри та символи . _ -"
+
+msgid "ERROR_USERNAME_INVALID_DOTS"
+msgstr "Ім'я користувача не може починатися або закінчуватися крапкою, а також містити дві крапки поспіль."
+
+msgid "ERROR_USERNAME_NO_LETTERS"
+msgstr "Ім'я користувача повинно містити щонайменше одну англійську літеру."
 
 msgid "ERROR_YOURE_NOT_OWNER_OF_APP"
 msgstr "Ви не є адміністратором цієї програми."
@@ -427,11 +460,35 @@ msgstr "Неправильний пароль, Будь ласка, спробу
 msgid "FORM_SCREENSHOTS"
 msgstr "Скриншоти"
 
+msgid "File extension \"%(extension)s\" is not allowed"
+msgstr "Не дозволяється розширення файлу \"%(extension)s\""
+
 msgid "File extension “%(extension)s” is not allowed. Allowed extensions are: “%(allowed_extensions)s”."
 msgstr "Розширення \"%(extension)s\" не дозволено. Допустимі розширення: \"%(allowed_extension)s\"."
 
+msgid "INDEX_APP_OF_THE_DAY"
+msgstr "Програма дня"
+
 msgid "INDEX_CATEGORY_PROMPT"
 msgstr "Або виберіть потрібну категорію: "
+
+msgid "INDEX_CONFIGURE_HOME"
+msgstr "Налаштувати головну сторінку"
+
+msgid "INDEX_EDITOR_CHOICE"
+msgstr "Вибір редакції"
+
+msgid "INDEX_FOR_YOU"
+msgstr "Для вас"
+
+msgid "INDEX_MONTHLY_TOP_DESC"
+msgstr "Найпопулярніші за останній місяць, за кількістю завантажень"
+
+msgid "INDEX_MONTHLY_TOP_TITLE"
+msgstr "Програми місяця"
+
+msgid "INDEX_NO_APPS"
+msgstr "Програми не знайдено"
 
 msgid "INDEX_NO_CATEGORIES"
 msgstr "Категорії поки не додані"
@@ -445,47 +502,26 @@ msgstr "Наприклад: Total Commander"
 msgid "INDEX_SEARCH_SECTION_TITLE"
 msgstr "Пошук за каталогом"
 
-msgid "INDEX_WELCOME_TEXT"
-msgstr "Ласкаво просимо до LunaStore!<br>Збірник програм та доповнень для комфортної роботи з цією ОС"
-
-msgid "INDEX_WELCOME_TITLE"
-msgstr "Ласкаво просимо"
-
-msgid "INDEX_CONFIGURE_HOME"
-msgstr "Налаштувати головну сторінку"
-
-msgid "INDEX_APP_OF_THE_DAY"
-msgstr "Застосунок дня"
-
-msgid "INDEX_FOR_YOU"
-msgstr "Для вас"
-
-msgid "INDEX_EDITOR_CHOICE"
-msgstr "Вибір редакції"
-
 msgid "INDEX_SEE_ALL"
 msgstr "усі"
 
 msgid "INDEX_SEE_MORE"
 msgstr "Ще..."
 
-msgid "INDEX_MONTHLY_TOP_TITLE"
-msgstr "Застосунки місяця"
-
-msgid "INDEX_MONTHLY_TOP_DESC"
-msgstr "Найпопулярніші за останній місяць за завантаженнями"
-
 msgid "INDEX_STORE_LISTING_TITLE"
 msgstr "Каталог"
 
-msgid "INDEX_NO_APPS"
-msgstr "Застосунки не знайдено"
+msgid "INDEX_WELCOME_TEXT"
+msgstr "Ласкаво просимо до LunaStore!<br>Збірник програм та доповнень для комфортної роботи з цією ОС"
+
+msgid "INDEX_WELCOME_TITLE"
+msgstr "Ласкаво просимо"
 
 msgid "INFO_2FA_DISABLED"
 msgstr "Двофакторна автентифікація успішно відключена."
 
 msgid "INFO_2FA_ENABLED"
-msgstr "Двофакторна автентифікація успішно включена."
+msgstr "Двофакторна автентифікація успішно активована."
 
 msgid "INFO_ACCEPTED_AVATAR_FORMATS"
 msgstr "Допустимі формати: .JPG, .PNG, .WEBP, .GIF"
@@ -525,6 +561,9 @@ msgstr "порожньооо..."
 
 msgid "INFO_EMAIL_WAS_CHANGED"
 msgstr "Ваш e-mail було успішно змінено."
+
+msgid "INFO_HOME_LAYOUT_UPDATED"
+msgstr "Вигляд головної сторінки збережено"
 
 msgid "INFO_MAXIMUM_AVATAR_SIZE"
 msgstr "Максимальний розмір файла: 2 Мб."
@@ -644,16 +683,16 @@ msgid "NOTIF_DEVSTATUS_SEND_TITLE"
 msgstr "Статус розробника"
 
 msgid "NOTIF_DISTEDITREQ_ACCEPTED_DESCRIPTION"
-msgstr "Ваша заявка на зміну версії %(version)s для програми \"%(app_name)s\" була схвалена модератором."
+msgstr "Ваша заява на зміну версії %(version)s для програми \"%(app_name)s\" була схвалена модераторам."
 
 msgid "NOTIF_DISTEDITREQ_ACCEPTED_TITLE"
 msgstr "Зміну версії схвалено!"
 
 msgid "NOTIF_DISTEDITREQ_DECLINED_DESCRIPTION"
-msgstr "На жаль, вашу заявку на зміну версії %(version)s для \"%(app_name)s\" було відхилено. Причина: %(reason)s"
+msgstr "На жаль, ваша заява на зміну версії %(version)s для \"%(app_name)s\" була відхилена. Причина: %(reason)s"
 
 msgid "NOTIF_DISTEDITREQ_DECLINED_TITLE"
-msgstr "Заявку на зміну версії відхилено"
+msgstr "Заява на зміну версії відхилена"
 
 msgid "NOTIF_DISTREQ_ACCEPTED_DESCRIPTION"
 msgstr "Ваша заявка на публікацію версії %(version)s для програми \"%(app_name)s\" була схвалена модератором."
@@ -674,7 +713,7 @@ msgid "NOTIF_LOGIN_TITLE"
 msgstr "Новий вхід в обліковий запис"
 
 msgid "NOTIF_LUNABOX_MANIFEST_DESCRIPTION"
-msgstr "У застосунку \"%(app_name)s\" є дистрибуції без зазначеного типу. Вкажіть тип і шлях в архіві, щоб LunaBox міг встановити застосунок. Не заповнено: %(count)s."
+msgstr "У програмі \"%(app_name)s\" є дистрибуція без вказаного типу. Вкажіть тип та шлях всередині архіву, щоби LunaBox міг встановити програми. Не заповнено: %(count)s."
 
 msgid "NOTIF_LUNABOX_MANIFEST_TITLE"
 msgstr "Заповніть інформацію про дистрибуцію"
@@ -725,10 +764,10 @@ msgid "PAGE_2FA_INFO_2"
 msgstr "Для початку налаштування вам знадобиться генератор кодів (наприклад: <b>Google Authenticator</b> або <b>Aegis</b>)"
 
 msgid "PAGE_2FA_INFO_3"
-msgstr "Генерація кодів працює без стільникового зв'язку чи якого-небуть підключення до мережі. Відскануйте додатком даний QR-код на екрані, введіть отримані 6 цифр та натисніть \"Підключити\""
+msgstr "Генерація кодів працює без стільникового зв'язку чи будь-якого підключення до мережі. Відскануйте застосунком цей QR-код на екрані, введіть отримані 6 цифр та натисніть \"Підключити\""
 
 msgid "PAGE_2FA_INITIAL_SETUP"
-msgstr "Початкові налаштування"
+msgstr "Початкове налаштування"
 
 msgid "PAGE_2FA_MANAGE"
 msgstr "Керування"
@@ -756,6 +795,30 @@ msgstr "Керування входом за одноразовим кодом"
 
 msgid "PAGE_2FA_TITLE"
 msgstr "Двофакторна автентифікація"
+
+msgid "PAGE_400_BROWSER_TITLE"
+msgstr "Невірний запит"
+
+msgid "PAGE_400_DEFAULT_MESSAGE"
+msgstr "Запит не вдалося опрацювати. Перевірте дані й спробуйте знову."
+
+msgid "PAGE_403_BROWSER_TITLE"
+msgstr "Доступ заборонено"
+
+msgid "PAGE_403_DEFAULT_MESSAGE"
+msgstr "У вас немає доступу до цієї сторінки."
+
+msgid "PAGE_404_BROWSER_TITLE"
+msgstr "Сторінка не знайдена"
+
+msgid "PAGE_500_BROWSER_TITLE"
+msgstr "Внутрішня помилка"
+
+msgid "PAGE_500_DEFAULT_MESSAGE"
+msgstr "Сталася внутрішня помилка сервера. Спробуйте повторити спробу пізніше."
+
+msgid "PAGE_502_BROWSER_TITLE"
+msgstr "Щось пішло не так..."
 
 msgid "PAGE_ADDAPP_BACKBTN"
 msgstr "Назад"
@@ -895,6 +958,9 @@ msgstr "публікацією"
 msgid "PAGE_ADDAPP_SUCCESS"
 msgstr "Ваша заявка на додавання програми успішно надіслана."
 
+msgid "PAGE_ADMIN_APP_BACKTOAPP"
+msgstr "Повернутися до сторінки"
+
 msgid "PAGE_ADMIN_APP_CATEGORY"
 msgstr "Категорія:"
 
@@ -1021,8 +1087,74 @@ msgstr "Гасло буде відображатись на самій стор�
 msgid "PAGE_ADMIN_APP_SLOGANDESC_2"
 msgstr "Краще коротко, але влучно :D"
 
+msgid "PAGE_ADMIN_APP_STATS_30_DAYS"
+msgstr "Візуальна статистика за 14 днів"
+
+msgid "PAGE_ADMIN_APP_STATS_COUNT"
+msgstr "Кількість"
+
+msgid "PAGE_ADMIN_APP_STATS_COUNTRY"
+msgstr "Країна"
+
+msgid "PAGE_ADMIN_APP_STATS_DETAILED"
+msgstr "Детальна статистика"
+
+msgid "PAGE_ADMIN_APP_STATS_DISTRIBUTIONS"
+msgstr "Завантаження за дистрибуціями (версіями)"
+
+msgid "PAGE_ADMIN_APP_STATS_DIST_GENERAL"
+msgstr "Основна"
+
+msgid "PAGE_ADMIN_APP_STATS_DOWNLOADS"
+msgstr "Завантаження"
+
+msgid "PAGE_ADMIN_APP_STATS_DOWNLOADS_HINT"
+msgstr "Статистика записується після натиску на кнопку \"Встановити\" на сторінці програми"
+
+msgid "PAGE_ADMIN_APP_STATS_ENGAGEMENT"
+msgstr "Активність"
+
+msgid "PAGE_ADMIN_APP_STATS_NO_DATA"
+msgstr "Немає даних"
+
+msgid "PAGE_ADMIN_APP_STATS_OS"
+msgstr "Операційна система"
+
+msgid "PAGE_ADMIN_APP_STATS_SHARE"
+msgstr "Частка"
+
+msgid "PAGE_ADMIN_APP_STATS_TOP_COUNTRIES"
+msgstr "Топ-10 за країнами за 30 днів"
+
+msgid "PAGE_ADMIN_APP_STATS_TOP_OS"
+msgstr "Топ-10 по операційним системам за 30 днів"
+
+msgid "PAGE_ADMIN_APP_STATS_TOTAL_DOWNLOADS"
+msgstr "Кількість завантажень"
+
+msgid "PAGE_ADMIN_APP_STATS_TOTAL_LIKES"
+msgstr "Кількість уподобань"
+
+msgid "PAGE_ADMIN_APP_STATS_TOTAL_RATES"
+msgstr "Кількість оцінок"
+
+msgid "PAGE_ADMIN_APP_STATS_TOTAL_VIEWS"
+msgstr "Всього переглядів"
+
+msgid "PAGE_ADMIN_APP_STATS_UNIQUE_DOWNLOADERS"
+msgstr "Унікальних користувачів, які завантажили програму"
+
+msgid "PAGE_ADMIN_APP_STATS_UNIQUE_VIEWERS"
+msgstr "Унікальні перегляди"
+
+msgid "PAGE_ADMIN_APP_STATS_VIEWS"
+msgstr "Перегляди"
+
 msgid "PAGE_ADMIN_APP_TAB_DISTRIBUTIONS"
 msgstr "Файли"
+
+msgid "PAGE_ADMIN_APP_TAB_STATS"
+msgstr "Статистика"
 
 msgid "PAGE_ADMIN_APP_TITLE"
 msgstr "Назва програми:"
@@ -1036,14 +1168,455 @@ msgstr "Переклад інформації про Вашу програму �
 msgid "PAGE_ADMIN_APP_WARN_SCRN"
 msgstr "Увага: Завантаження нових файлів видалить всі поточні скриншоти!"
 
+msgid "PAGE_ADMIN_PANEL_ACTIVITY_LOG"
+msgstr "Журнал дій"
+
+msgid "PAGE_ADMIN_PANEL_AFTER_APPROVAL"
+msgstr "Після схвалення"
+
+msgid "PAGE_ADMIN_PANEL_AI_MODERATION_OPENROUTER"
+msgstr "ШІ-модерація (OpenRouter)"
+
+msgid "PAGE_ADMIN_PANEL_AI_PROMPT_INJECTION"
+msgstr "Втручання в інструкції ШІ"
+
+msgid "PAGE_ADMIN_PANEL_AI_SCORE_HELP"
+msgstr "Оцінка ШІ від 0 до 1: що вища, то більший ризик порушення."
+
+msgid "PAGE_ADMIN_PANEL_ALL"
+msgstr "Усі"
+
+msgid "PAGE_ADMIN_PANEL_ALL_REQUESTS_PROCESSED"
+msgstr "Усі заявки опрацьовано"
+
+msgid "PAGE_ADMIN_PANEL_ALL_REVIEWS"
+msgstr "Усі відгуки"
+
+msgid "PAGE_ADMIN_PANEL_APPLICATION"
+msgstr "Застосунок"
+
+msgid "PAGE_ADMIN_PANEL_APPLICATIONS"
+msgstr "Застосунки"
+
+msgid "PAGE_ADMIN_PANEL_APPLICATION_AUTHOR"
+msgstr "Автор застосунку"
+
+msgid "PAGE_ADMIN_PANEL_APPLICATION_CHANGES"
+msgstr "Зміни застосунків"
+
+msgid "PAGE_ADMIN_PANEL_APPLICATION_REPORTS"
+msgstr "Скарги на застосунки"
+
+msgid "PAGE_ADMIN_PANEL_APPROVE_REVIEW"
+msgstr "Схвалити відгук"
+
+msgid "PAGE_ADMIN_PANEL_APPROVE_SELECTED_REVIEWS"
+msgstr "Схвалити вибрані відгуки"
+
+msgid "PAGE_ADMIN_PANEL_AUTHOR"
+msgstr "Автор"
+
+msgid "PAGE_ADMIN_PANEL_AWAITING_REVIEW"
+msgstr "Очікують перевірки"
+
+msgid "PAGE_ADMIN_PANEL_BADGES"
+msgstr "Значки"
+
+msgid "PAGE_ADMIN_PANEL_BANNED_PHRASE"
+msgstr "Заборонена фраза"
+
+msgid "PAGE_ADMIN_PANEL_BANNERS"
+msgstr "Банери"
+
+msgid "PAGE_ADMIN_PANEL_BANS"
+msgstr "Блокування"
+
+msgid "PAGE_ADMIN_PANEL_BLOCKED_USERNAMES"
+msgstr "Заблоковані імена"
+
+msgid "PAGE_ADMIN_PANEL_BULK_SCAN"
+msgstr "Масова перевірка"
+
+msgid "PAGE_ADMIN_PANEL_CANCEL"
+msgstr "Скасувати"
+
+msgid "PAGE_ADMIN_PANEL_CATALOG"
+msgstr "Каталог"
+
+msgid "PAGE_ADMIN_PANEL_CATEGORIES"
+msgstr "Категорії"
+
+msgid "PAGE_ADMIN_PANEL_CDN_FILE"
+msgstr "Файл CDN"
+
+msgid "PAGE_ADMIN_PANEL_CHANGELOG"
+msgstr "Список змін"
+
+msgid "PAGE_ADMIN_PANEL_CHOOSE_SECTION"
+msgstr "Виберіть доступний розділ у бічному меню."
+
+msgid "PAGE_ADMIN_PANEL_COMPARISON_NO_CHANGES"
+msgstr "Відмінностей від поточних значень немає."
+
+msgid "PAGE_ADMIN_PANEL_COMPARISON_PROCESSED_HELP"
+msgstr "Заявку вже розглянуто. Порівняння показано з поточною версією об'єкта."
+
+msgid "PAGE_ADMIN_PANEL_CREATED"
+msgstr "Створено"
+
+msgid "PAGE_ADMIN_PANEL_CURRENT"
+msgstr "Зараз"
+
+msgid "PAGE_ADMIN_PANEL_DASHBOARD"
+msgstr "Робочий стіл"
+
+msgid "PAGE_ADMIN_PANEL_DASHBOARD_DESCRIPTION"
+msgstr "Черги та інструменти, доступні вашому обліковому запису."
+
+msgid "PAGE_ADMIN_PANEL_DEMO_VERSION"
+msgstr "Демо-версія"
+
+msgid "PAGE_ADMIN_PANEL_DESCRIPTION"
+msgstr "Опис"
+
+msgid "PAGE_ADMIN_PANEL_DEVELOPER_REPLY"
+msgstr "Відповідь розробника"
+
+msgid "PAGE_ADMIN_PANEL_DEVELOPER_REQUESTS"
+msgstr "Заявки розробників"
+
+msgid "PAGE_ADMIN_PANEL_DEVELOPER_WEBSITE"
+msgstr "Сайт розробника"
+
+msgid "PAGE_ADMIN_PANEL_DISTRIBUTIONS"
+msgstr "Дистрибутиви"
+
+msgid "PAGE_ADMIN_PANEL_DISTRIBUTION_CHANGES"
+msgstr "Зміни дистрибутивів"
+
+msgid "PAGE_ADMIN_PANEL_DOWNLOAD_LINK"
+msgstr "Посилання для завантаження"
+
+msgid "PAGE_ADMIN_PANEL_EXTREMISM"
+msgstr "Екстремізм"
+
+msgid "PAGE_ADMIN_PANEL_FIELD"
+msgstr "Поле"
+
+msgid "PAGE_ADMIN_PANEL_FILTER_APPROVED"
+msgstr "Схвалені"
+
+msgid "PAGE_ADMIN_PANEL_FILTER_REJECTED"
+msgstr "Відхилені"
+
+msgid "PAGE_ADMIN_PANEL_GROUPS"
+msgstr "Групи"
+
+msgid "PAGE_ADMIN_PANEL_HATE_SPEECH"
+msgstr "Розпалювання ненависті"
+
+msgid "PAGE_ADMIN_PANEL_HIGH"
+msgstr "Високий"
+
+msgid "PAGE_ADMIN_PANEL_HOMEPAGE_SECTIONS"
+msgstr "Блоки головної"
+
+msgid "PAGE_ADMIN_PANEL_ICON"
+msgstr "Піктограма"
+
+msgid "PAGE_ADMIN_PANEL_ICON_ID"
+msgstr "ID піктограми"
+
+msgid "PAGE_ADMIN_PANEL_INVITATIONS"
+msgstr "Запрошення"
+
+msgid "PAGE_ADMIN_PANEL_LEGAL_DOCUMENTS"
+msgstr "Юридичні документи"
+
+msgid "PAGE_ADMIN_PANEL_LOW"
+msgstr "Низький"
+
+msgid "PAGE_ADMIN_PANEL_LUNABOX_MANIFEST"
+msgstr "Маніфест LunaBox"
+
+msgid "PAGE_ADMIN_PANEL_MALICIOUS_CONTENT"
+msgstr "Шкідливий вміст"
+
+msgid "PAGE_ADMIN_PANEL_MANUAL_MODERATION"
+msgstr "Ручна модерація"
+
+msgid "PAGE_ADMIN_PANEL_MEDIUM"
+msgstr "Середній"
+
+msgid "PAGE_ADMIN_PANEL_MODERATION"
+msgstr "Модерація"
+
+msgid "PAGE_ADMIN_PANEL_MODERATOR"
+msgstr "Модератор"
+
+msgid "PAGE_ADMIN_PANEL_MODERATOR_DASHBOARD"
+msgstr "Робочий стіл модератора"
+
+msgid "PAGE_ADMIN_PANEL_MODERATOR_NOTE"
+msgstr "Нотатка модератора"
+
+msgid "PAGE_ADMIN_PANEL_NEW_APPLICATIONS"
+msgstr "Нові застосунки"
+
+msgid "PAGE_ADMIN_PANEL_NEW_DISTRIBUTIONS"
+msgstr "Нові дистрибутиви"
+
+msgid "PAGE_ADMIN_PANEL_NEW_TODAY"
+msgstr "Нових за сьогодні"
+
+msgid "PAGE_ADMIN_PANEL_NO"
+msgstr "Ні"
+
+msgid "PAGE_ADMIN_PANEL_NOSPAM_EVENTS"
+msgstr "Події noSpam"
+
+msgid "PAGE_ADMIN_PANEL_NOSPAM_RULES"
+msgstr "Правила noSpam"
+
+msgid "PAGE_ADMIN_PANEL_NOTIFICATION_BROADCAST"
+msgstr "Розсилка сповіщень"
+
+msgid "PAGE_ADMIN_PANEL_NOT_PROVIDED"
+msgstr "Не вказано"
+
+msgid "PAGE_ADMIN_PANEL_NOT_SCORED"
+msgstr "Немає оцінки"
+
+msgid "PAGE_ADMIN_PANEL_NO_DATE_PROVIDED"
+msgstr "Дату не вказано"
+
+msgid "PAGE_ADMIN_PANEL_NO_FLAGS"
+msgstr "Немає позначок"
+
+msgid "PAGE_ADMIN_PANEL_NO_TEXT"
+msgstr "Без тексту"
+
+msgid "PAGE_ADMIN_PANEL_OLDEST_REQUEST"
+msgstr "Найстаріша заявка:"
+
+msgid "PAGE_ADMIN_PANEL_OPEN_QUEUE"
+msgstr "Відкрити чергу"
+
+msgid "PAGE_ADMIN_PANEL_OVERVIEW"
+msgstr "Огляд"
+
+msgid "PAGE_ADMIN_PANEL_POLITICAL_AGITATION"
+msgstr "Політична агітація"
+
+msgid "PAGE_ADMIN_PANEL_POTENTIAL_PIRACY"
+msgstr "Можливе піратство"
+
+msgid "PAGE_ADMIN_PANEL_PRICE"
+msgstr "Ціна"
+
+msgid "PAGE_ADMIN_PANEL_PRIVATE_APPLICATION"
+msgstr "Приватний застосунок"
+
+msgid "PAGE_ADMIN_PANEL_PROBLEM_REPORTS"
+msgstr "Повідомлення про проблеми"
+
+msgid "PAGE_ADMIN_PANEL_PROFANITY"
+msgstr "Ненормативна лексика"
+
+msgid "PAGE_ADMIN_PANEL_PROHIBITED_CONTENT"
+msgstr "Заборонений вміст"
+
+msgid "PAGE_ADMIN_PANEL_PROPOSED_CHANGES"
+msgstr "Запропоновані зміни"
+
+msgid "PAGE_ADMIN_PANEL_QUEUES_EMPTY_DESCRIPTION"
+msgstr "У доступних вам чергах немає заявок, що очікують перевірки."
+
+msgid "PAGE_ADMIN_PANEL_RATING"
+msgstr "Оцінка"
+
+msgid "PAGE_ADMIN_PANEL_REASON_FOR_REJECTION"
+msgstr "Причина відхилення заявки"
+
+msgid "PAGE_ADMIN_PANEL_RECHECK_WITH_AI"
+msgstr "Перевірити повторно через ШІ"
+
+msgid "PAGE_ADMIN_PANEL_REJECTION_REASON_HELP"
+msgstr "Укажіть причину, її буде надіслано користувачу в сповіщенні."
+
+msgid "PAGE_ADMIN_PANEL_REJECTION_REASON_PLACEHOLDER"
+msgstr "Опишіть, що потрібно виправити"
+
+msgid "PAGE_ADMIN_PANEL_REJECTION_REASON_REQUIRED"
+msgstr "Укажіть причину відхилення."
+
+msgid "PAGE_ADMIN_PANEL_REJECT_REQUEST"
+msgstr "Відхилити заявку"
+
+msgid "PAGE_ADMIN_PANEL_REJECT_REVIEW"
+msgstr "Відхилити відгук"
+
+msgid "PAGE_ADMIN_PANEL_REJECT_SELECTED_REVIEWS"
+msgstr "Відхилити вибрані відгуки"
+
+msgid "PAGE_ADMIN_PANEL_REPLY_AUTHOR"
+msgstr "Автор відповіді"
+
+msgid "PAGE_ADMIN_PANEL_REQUIREMENTS"
+msgstr "Вимоги"
+
+msgid "PAGE_ADMIN_PANEL_RESET_SEARCH_AND_FILTERS"
+msgstr "Скинути пошук і фільтри"
+
+msgid "PAGE_ADMIN_PANEL_REVIEWS"
+msgstr "Відгуки"
+
+msgid "PAGE_ADMIN_PANEL_REVIEWS_AI_RECHECK_MESSAGE %(count)s"
+msgstr "Запущено повторну перевірку ШІ для %(count)s відгуків"
+
+msgid "PAGE_ADMIN_PANEL_REVIEWS_APPROVED_MESSAGE %(count)s"
+msgstr "Схвалено відгуків: %(count)s"
+
+msgid "PAGE_ADMIN_PANEL_REVIEWS_AWAITING_MODERATION"
+msgstr "Відгуки на модерації"
+
+msgid "PAGE_ADMIN_PANEL_REVIEWS_REJECTED_MESSAGE %(count)s"
+msgstr "Відхилено та видалено відгуків: %(count)s"
+
+msgid "PAGE_ADMIN_PANEL_REVIEW_APPROVED"
+msgstr "Відгук схвалено"
+
+msgid "PAGE_ADMIN_PANEL_REVIEW_DETAILS"
+msgstr "Інформація про відгук"
+
+msgid "PAGE_ADMIN_PANEL_REVIEW_IS_ALREADY_APPROVED"
+msgstr "Відгук уже схвалено"
+
+msgid "PAGE_ADMIN_PANEL_REVIEW_NOT_FOUND"
+msgstr "Відгук не знайдено"
+
+msgid "PAGE_ADMIN_PANEL_REVIEW_NO_TEXT"
+msgstr "(без тексту)"
+
+msgid "PAGE_ADMIN_PANEL_REVIEW_REJECTED_AND_DELETED"
+msgstr "Відгук відхилено та видалено"
+
+msgid "PAGE_ADMIN_PANEL_REVIEW_REJECTION_HELP"
+msgstr "Відхилення видаляє відгук. Відкрийте текст, щоб прочитати його повністю."
+
+msgid "PAGE_ADMIN_PANEL_REVIEW_STATUS"
+msgstr "Статус відгуку"
+
+msgid "PAGE_ADMIN_PANEL_RISK_SIGNALS"
+msgstr "Ознаки ризику"
+
+msgid "PAGE_ADMIN_PANEL_SCREENSHOTS"
+msgstr "Знімки екрана"
+
+msgid "PAGE_ADMIN_PANEL_SEARCH"
+msgstr "Пошук"
+
+msgid "PAGE_ADMIN_PANEL_SEARCH_PLACEHOLDER"
+msgstr "Введіть запит"
+
+msgid "PAGE_ADMIN_PANEL_SEARCH_SECTIONS"
+msgstr "Пошук розділів"
+
+msgid "PAGE_ADMIN_PANEL_SEARCH_SECTIONS_PLACEHOLDER"
+msgstr "Пошук розділів..."
+
+msgid "PAGE_ADMIN_PANEL_SECURITY"
+msgstr "Безпека"
+
+msgid "PAGE_ADMIN_PANEL_SETTINGS"
+msgstr "Налаштування"
+
+msgid "PAGE_ADMIN_PANEL_SITE_SETTINGS"
+msgstr "Налаштування сайту"
+
+msgid "PAGE_ADMIN_PANEL_SITE_SUBHEADER"
+msgstr "Адмін-панель"
+
+msgid "PAGE_ADMIN_PANEL_SITE_TITLE"
+msgstr "Панель LunaStore"
+
+msgid "PAGE_ADMIN_PANEL_SLOGAN"
+msgstr "Слоган"
+
+msgid "PAGE_ADMIN_PANEL_SPAM"
+msgstr "Спам"
+
+msgid "PAGE_ADMIN_PANEL_START_WITH_THE_OLDEST_REQUESTS"
+msgstr "Почніть із найстаріших заявок"
+
+msgid "PAGE_ADMIN_PANEL_STATISTICS"
+msgstr "Статистика"
+
+msgid "PAGE_ADMIN_PANEL_STATUS"
+msgstr "Статус"
+
+msgid "PAGE_ADMIN_PANEL_STATUS_APPROVED"
+msgstr "Схвалено"
+
+msgid "PAGE_ADMIN_PANEL_STATUS_PENDING"
+msgstr "На перевірці"
+
+msgid "PAGE_ADMIN_PANEL_STATUS_REJECTED"
+msgstr "Відхилено"
+
+msgid "PAGE_ADMIN_PANEL_SUSPICIOUS_LINK"
+msgstr "Підозріле посилання"
+
+msgid "PAGE_ADMIN_PANEL_TEXT"
+msgstr "Текст"
+
+msgid "PAGE_ADMIN_PANEL_TEXT_AUTHOR_OR_APPLICATION"
+msgstr "Текст, автор або застосунок"
+
+msgid "PAGE_ADMIN_PANEL_THEME_DARK"
+msgstr "Темна"
+
+msgid "PAGE_ADMIN_PANEL_THEME_LIGHT"
+msgstr "Світла"
+
+msgid "PAGE_ADMIN_PANEL_THEME_SYSTEM"
+msgstr "Системна"
+
+msgid "PAGE_ADMIN_PANEL_TIMESTAMPS"
+msgstr "Часові позначки"
+
+msgid "PAGE_ADMIN_PANEL_TITLE"
+msgstr "Назва"
+
+msgid "PAGE_ADMIN_PANEL_TOTAL_APPLICATIONS"
+msgstr "Усього застосунків"
+
+msgid "PAGE_ADMIN_PANEL_TOTAL_USERS"
+msgstr "Усього користувачів"
+
+msgid "PAGE_ADMIN_PANEL_TOXICITY"
+msgstr "Токсичність"
+
+msgid "PAGE_ADMIN_PANEL_USERS"
+msgstr "Користувачі"
+
+msgid "PAGE_ADMIN_PANEL_VERSION"
+msgstr "Версія"
+
+msgid "PAGE_ADMIN_PANEL_VIOLATION_RISK"
+msgstr "Ризик порушення"
+
+msgid "PAGE_ADMIN_PANEL_YES"
+msgstr "Так"
+
 msgid "PAGE_API_EXPIRES"
-msgstr "Закінчується:"
+msgstr "Спливає:"
 
 msgid "PAGE_API_ISSUED"
 msgstr "Виданий: "
 
 msgid "PAGE_API_NO_SESSIONS"
-msgstr "У вас немає активних ключей доступу до API"
+msgstr "У вас немає активних ключів доступу до API"
 
 msgid "PAGE_API_REVOKE"
 msgstr "Відкликати"
@@ -1065,6 +1638,9 @@ msgstr "Поскаржитися на програму"
 
 msgid "PAGE_APP_ACTION_SITE"
 msgstr "Перейти на офіційний сайт розробника"
+
+msgid "PAGE_APP_ADD_TO_COLLECTION"
+msgstr "додати"
 
 msgid "PAGE_APP_BTN_BACK"
 msgstr "Назад"
@@ -1121,13 +1697,13 @@ msgstr[1] "Загальний рейтинг складений на основ�
 msgstr[2] "Загальний рейтинг складений на основі відгуків від <b>%(counter)s людей</b>"
 
 msgid "PAGE_APP_RATING_DELETE_DENIED"
-msgstr "У вас немає прав для видалення цього відгуку."
+msgstr "Відгуки для цієї програми відключені автором"
 
 msgid "PAGE_APP_RATING_DELETE_SUCCESS"
-msgstr "Ваш відгук успішно видалено."
+msgstr "Відгук успішно видалено"
 
 msgid "PAGE_APP_RATING_DISABLED"
-msgstr "Відгуки для цього додатка вимкнені автором"
+msgstr "Відгуки для цієї програми вимкнені автором"
 
 msgid "PAGE_APP_RATING_EVALUATE"
 msgstr "Оцінити..."
@@ -1138,6 +1714,12 @@ msgstr "Увійдіть, щоби залишити оцінку..."
 msgid "PAGE_APP_RATING_NO_REVIEWS"
 msgstr "Немає оцінок"
 
+msgid "PAGE_APP_RATING_SELECT_REQUIRED"
+msgstr "Будь ласка, поставте оцінку (1-5 зірок)"
+
+msgid "PAGE_APP_RATING_SUCCESS"
+msgstr "Вашу оцінку збережено."
+
 msgid "PAGE_APP_RATING_USERS"
 msgstr "Оцінки користувачів"
 
@@ -1146,6 +1728,75 @@ msgstr "Ваша оцінка:"
 
 msgid "PAGE_APP_RATING_YOUR_REVIEW"
 msgstr "(ваша оцінка)"
+
+msgid "PAGE_APP_REVIEW_ACTION_DELETE"
+msgstr "видалити"
+
+msgid "PAGE_APP_REVIEW_ACTION_EDIT"
+msgstr "редагувати"
+
+msgid "PAGE_APP_REVIEW_ACTION_REPLY"
+msgstr "відповісти на відгук"
+
+msgid "PAGE_APP_REVIEW_APPROVED"
+msgstr "Ваш відгук успішно опубліковано."
+
+msgid "PAGE_APP_REVIEW_CONFIRM_DELETE"
+msgstr "Ви впевнені, що хочете видалити цей відгук?"
+
+msgid "PAGE_APP_REVIEW_CONFIRM_DELETE_REPLY"
+msgstr "Ви впевнені, що хочете видалити відповідь розробника?"
+
+msgid "PAGE_APP_REVIEW_DEV_REPLY"
+msgstr "Відповідь розробника"
+
+msgid "PAGE_APP_REVIEW_PENDING"
+msgstr "Ваш відгук надіслано на перевірку модераторам."
+
+msgid "PAGE_APP_REVIEW_PLACEHOLDER"
+msgstr "Напишіть ваш відгук (необов'язково, до 2000 символів)..."
+
+msgid "PAGE_APP_REVIEW_REJECTED_GENERIC"
+msgstr "Ваш відгук відхилено автоматичною модерацією через наявність недопустимої лексики або спаму."
+
+msgid "PAGE_APP_REVIEW_REPLY_DELETED"
+msgstr "Відповідь розробника видалено."
+
+msgid "PAGE_APP_REVIEW_REPLY_DELETE_DENIED"
+msgstr "Ви не маєте прав видаляти цю відповідь."
+
+msgid "PAGE_APP_REVIEW_REPLY_DENIED"
+msgstr "Ви не маєте прав відповідати на цей відгук."
+
+msgid "PAGE_APP_REVIEW_REPLY_EMPTY"
+msgstr "Текст відповіді не може бути порожнім."
+
+msgid "PAGE_APP_REVIEW_REPLY_PLACEHOLDER"
+msgstr "Напишіть офіційну відповідь розробника (до 2000 символів)..."
+
+msgid "PAGE_APP_REVIEW_REPLY_SUBMIT"
+msgstr "Надіслати відповідь"
+
+msgid "PAGE_APP_REVIEW_REPLY_SUCCESS"
+msgstr "Відповідь розробника успішно опубліковано."
+
+msgid "PAGE_APP_REVIEW_REPLY_UPDATE"
+msgstr "Зберегти відповідь"
+
+msgid "PAGE_APP_REVIEW_STATUS_APPROVED"
+msgstr "Відгук схвалено"
+
+msgid "PAGE_APP_REVIEW_STATUS_PENDING"
+msgstr "Відгук на модерації"
+
+msgid "PAGE_APP_REVIEW_STATUS_REJECTED"
+msgstr "Відгук відхилено"
+
+msgid "PAGE_APP_REVIEW_SUBMIT_BTN"
+msgstr "Залишити відгук"
+
+msgid "PAGE_APP_REVIEW_UPDATE_BTN"
+msgstr "Оновити відгук"
 
 msgid "PAGE_APP_SECTION_ACTIONS"
 msgstr "Дії"
@@ -1161,6 +1812,9 @@ msgstr "Системні вимоги"
 
 msgid "PAGE_APP_SECTION_SCREENSHOTS"
 msgstr "Скриншоти"
+
+msgid "PAGE_APP_TO_COLLECTION"
+msgstr "у колекцію"
 
 msgid "PAGE_BADBROSER_DESC_3"
 msgstr "Дякуємо за розуміння."
@@ -1221,6 +1875,177 @@ msgstr "Відображати вміст списком"
 
 msgid "PAGE_CATEGORY_SHOWCONTENTASTILES"
 msgstr "Відображати вміст плитками"
+
+msgid "PAGE_COLLECTION_ACTION_DELETE"
+msgstr "видалити"
+
+msgid "PAGE_COLLECTION_ACTION_EDIT"
+msgstr "редагувати"
+
+msgid "PAGE_COLLECTION_ACTION_FAVORITE"
+msgstr "у вибране"
+
+msgid "PAGE_COLLECTION_ACTION_REMOVE_APP"
+msgstr "прибрати"
+
+msgid "PAGE_COLLECTION_ACTION_STATS"
+msgstr "статистика"
+
+msgid "PAGE_COLLECTION_ACTION_UNFAVORITE"
+msgstr "прибрати з вибраного"
+
+msgid "PAGE_COLLECTION_ACTION_VIEW"
+msgstr "перегляд"
+
+msgid "PAGE_COLLECTION_ADD_NO_CUSTOM"
+msgstr "Немає користувацьких колекцій. Створіть нову:"
+
+msgid "PAGE_COLLECTION_ADD_TITLE"
+msgstr "Додавання до колекції"
+
+msgid "PAGE_COLLECTION_APPS_EMPTY"
+msgstr "У цій колекції поки що немає програм."
+
+msgid "PAGE_COLLECTION_BACK_TO_VIEW"
+msgstr "Повернутися до перегляду колекції"
+
+msgid "PAGE_COLLECTION_BTN_ADD_APP"
+msgstr "Додати"
+
+msgid "PAGE_COLLECTION_BTN_CANCEL"
+msgstr "Скасувати"
+
+msgid "PAGE_COLLECTION_BTN_CREATE"
+msgstr "Створити нову колекцію"
+
+msgid "PAGE_COLLECTION_BTN_DELETE"
+msgstr "Видалити"
+
+msgid "PAGE_COLLECTION_BTN_SAVE"
+msgstr "Зберегти"
+
+msgid "PAGE_COLLECTION_DATE_CREATED"
+msgstr "Дата створення:"
+
+msgid "PAGE_COLLECTION_DATE_UPDATED"
+msgstr "Оновлено"
+
+msgid "PAGE_COLLECTION_DELETE_CONFIRM_TEXT %(title)s"
+msgstr "Ви впевнені, що хочете видалити колекцію «%(title)s»?"
+
+msgid "PAGE_COLLECTION_DELETE_CONFIRM_TITLE"
+msgstr "Видалення колекції"
+
+msgid "PAGE_COLLECTION_EDIT_TITLE"
+msgstr "Редагування колекції"
+
+msgid "PAGE_COLLECTION_EMPTY"
+msgstr "Колекцій поки немає."
+
+msgid "PAGE_COLLECTION_ERROR_ADD_APP"
+msgstr "Не вдалося додати програму до колекції."
+
+msgid "PAGE_COLLECTION_ERROR_DELETE"
+msgstr "Не вдалося видалити колекцію."
+
+msgid "PAGE_COLLECTION_ERROR_DELETE_SYSTEM"
+msgstr "Системну колекцію не можна видалити."
+
+msgid "PAGE_COLLECTION_ERROR_EDIT_SYSTEM"
+msgstr "Системну колекцію не можна редагувати."
+
+msgid "PAGE_COLLECTION_ERROR_FAVORITE"
+msgstr "Не вдалося змінити вибране."
+
+msgid "PAGE_COLLECTION_ERROR_FAVORITE_OWN"
+msgstr "Не можна додати власну колекцію до вибраного."
+
+msgid "PAGE_COLLECTION_ERROR_PRIVATE"
+msgstr "Ця колекція прихована."
+
+msgid "PAGE_COLLECTION_ERROR_REMOVE_APP"
+msgstr "Не вдалося прибрати програму з колекції."
+
+msgid "PAGE_COLLECTION_ERROR_SAVE"
+msgstr "Не вдалося зберегти колекцію."
+
+msgid "PAGE_COLLECTION_FIELD_DESC"
+msgstr "Опис"
+
+msgid "PAGE_COLLECTION_FIELD_DESC_HINT"
+msgstr "Коротко опишіть, що входить до колекції"
+
+msgid "PAGE_COLLECTION_FIELD_PUBLIC"
+msgstr "Публічна колекція"
+
+msgid "PAGE_COLLECTION_FIELD_TITLE"
+msgstr "Назва"
+
+msgid "PAGE_COLLECTION_FIELD_TITLE_HINT"
+msgstr "Вкажіть назви колекції потрібними мовами"
+
+msgid "PAGE_COLLECTION_LIKES_DESC"
+msgstr "Ставте відмітки «Додати в колекцію» на сторінці програм, щоб зберегти їх для себе для швидкого доступу"
+
+msgid "PAGE_COLLECTION_LIKES_TITLE"
+msgstr "Вподобані програми"
+
+msgid "PAGE_COLLECTION_MSG_APP_ADDED"
+msgstr "Програму додано до колекції."
+
+msgid "PAGE_COLLECTION_MSG_APP_ALREADY"
+msgstr "Програма вже є в цій колекції."
+
+msgid "PAGE_COLLECTION_MSG_APP_NOT_IN"
+msgstr "Програми немає у цій колекції."
+
+msgid "PAGE_COLLECTION_MSG_APP_REMOVED"
+msgstr "Програму прибрано з колекції."
+
+msgid "PAGE_COLLECTION_MSG_DELETED"
+msgstr "Колекцію видалено."
+
+msgid "PAGE_COLLECTION_MSG_FAVORITED"
+msgstr "Колекцію додано у вибране."
+
+msgid "PAGE_COLLECTION_MSG_SAVED"
+msgstr "Колекцію збережено"
+
+msgid "PAGE_COLLECTION_MSG_UNFAVORITED"
+msgstr "Колекцію прибрано з вибраного."
+
+msgid "PAGE_COLLECTION_STATS_30_DAYS"
+msgstr "Статистика активності за 14 днів"
+
+msgid "PAGE_COLLECTION_STATS_FAVORITES"
+msgstr "Збереження у вибрані"
+
+msgid "PAGE_COLLECTION_STATS_TOTAL_FAVORITES"
+msgstr "Усього збережень"
+
+msgid "PAGE_COLLECTION_STATS_TOTAL_ITEM_ADDS"
+msgstr "Доданих програм"
+
+msgid "PAGE_COLLECTION_STATS_VIEWS"
+msgstr "Перегляди"
+
+msgid "PAGE_COLLECTION_SYSTEM_BADGE"
+msgstr "системна"
+
+msgid "PAGE_COLLECTION_TAB_LIKED"
+msgstr "Вибрані колекції"
+
+msgid "PAGE_COLLECTION_TAB_MINE"
+msgstr "Мої колекції"
+
+msgid "PAGE_COLLECTION_TAB_STATS"
+msgstr "Статистика"
+
+msgid "PAGE_COLLECTION_TAB_VIEW"
+msgstr "Перегляд"
+
+msgid "PAGE_COLLECTION_TITLE"
+msgstr "Колекції"
 
 msgid "PAGE_DEBUG_DESC"
 msgstr "Дана сторінка використовується ВИКЛЮЧНО для тестування та збору інформації для більш грамотної подачі bug-report'а. Якщо Ви бачите цю сторінку - це означає, що у вашому settings.py константа DEBUG = True."
@@ -1301,7 +2126,7 @@ msgid "PAGE_DEVADD_DESC_1"
 msgstr "Ви є представником або розробником свого софта?"
 
 msgid "PAGE_DEVADD_DESC_2"
-msgstr "Покращте свій профіль до акаунта розробника та викладайте програмне забеспечення офіційно на LunaStore. Офіційні завантаження будуть позначені відповідним знаком."
+msgstr "Покращуйте свій профіль до статусу розробника та викладайте програмне забеспечення офіційно на LunaStore. Офіційні завантаження будуть позначені відповідним знаком."
 
 msgid "PAGE_DEVADD_DISABLED_1"
 msgstr "Реєстрація розробників тимчасово вимкнена"
@@ -1400,22 +2225,22 @@ msgid "PAGE_DIST_FORM_FILE_UPLOADING"
 msgstr "Завантаження..."
 
 msgid "PAGE_DIST_FORM_LUNABOX_PATH_DESC"
-msgstr "Наприклад: folder1/inst.exe. Шлях вказується відносно вмісту zip-архіву. Відноситься до типів «Застосунок у zip-архіві» та «Інсталятор у zip-архіві»."
+msgstr "Наприклад: folder1/inst.exe. Шлях вказується відносно вмісту zip-архіву. Стосується типів «Програма в zip-архіві» та «Інсталятор у zip-архіві»."
 
 msgid "PAGE_DIST_FORM_LUNABOX_PATH_REQUIRED"
-msgstr "Для типів «Застосунок у zip-архіві» та «Інсталятор у zip-архіві» необхідно вказати шлях усередині архіву."
+msgstr "Для типів «Програма в zip-архіві» та «Інсталятор у zip-архіві» необхідно вказати шлях всередині архіву."
 
 msgid "PAGE_DIST_FORM_LUNABOX_PATH_TITLE"
 msgstr "Шлях відносно архіву:"
 
 msgid "PAGE_DIST_FORM_LUNABOX_TYPE_APP_ZIP"
-msgstr "Застосунок у zip-архіві"
+msgstr "Програма в zip-архіві"
 
 msgid "PAGE_DIST_FORM_LUNABOX_TYPE_DESC"
 msgstr "Визначає, що LunaBox має робити з файлом."
 
 msgid "PAGE_DIST_FORM_LUNABOX_TYPE_FILE"
-msgstr "Інший файл (просто завантажити, нічого не робити)"
+msgstr "Інший файл (лише завантажити, нічого не робити)"
 
 msgid "PAGE_DIST_FORM_LUNABOX_TYPE_INSTALLER"
 msgstr "Інсталятор (потрібно запустити для встановлення)"
@@ -1424,10 +2249,10 @@ msgid "PAGE_DIST_FORM_LUNABOX_TYPE_INSTALLER_ZIP"
 msgstr "Інсталятор у zip-архіві"
 
 msgid "PAGE_DIST_FORM_LUNABOX_TYPE_PROGRAM"
-msgstr "Автономний застосунок (вже встановлено, запускати напряму)"
+msgstr "Автономна програма (вже встановлено, запускати напряму)"
 
 msgid "PAGE_DIST_FORM_LUNABOX_TYPE_TITLE"
-msgstr "Тип поширення:"
+msgstr "Тип розповсюдження:"
 
 msgid "PAGE_DIST_FORM_SAVE"
 msgstr "Зберегти зміни"
@@ -1509,6 +2334,12 @@ msgstr "Завантажені версії"
 
 msgid "PAGE_DOWNLOAD_VERSION_LIST"
 msgstr "Перелік версій"
+
+msgid "PAGE_ERROR_BROWSER_TITLE"
+msgstr "Помилка"
+
+msgid "PAGE_ERROR_HEADING"
+msgstr "Помилка"
 
 msgid "PAGE_FAQ_A_ACC_BENEFITS"
 msgstr "За допомогою облікового запису Ви зможете залишати свої відгуки до програм, красиво заявити про себе у цій спільноті, що зароджується, та завантажувати власні програми до загального каталогу після суворої модерації."
@@ -1645,6 +2476,9 @@ msgstr "Довідковий центр"
 msgid "PAGE_FAQ_TOOLTIP_EASTEREGG"
 msgstr "КОСТИЛІ ВИЛОСИПЕДИ ЙОООУ"
 
+msgid "PAGE_HOME_BROWSER_TITLE"
+msgstr "Головна"
+
 msgid "PAGE_INVITE_ADMINSTATUS"
 msgstr "Модератор"
 
@@ -1735,6 +2569,15 @@ msgstr "У Вас немає облікового запису?"
 msgid "PAGE_LOGIN_MAIN_TITLE"
 msgstr "Вхід"
 
+msgid "PAGE_LOGIN_OR_DIVIDER"
+msgstr "або"
+
+msgid "PAGE_LOGIN_PASSPORT_BTN"
+msgstr "Увійти через LunaPassport"
+
+msgid "PAGE_LOGIN_PASSPORT_PENDING_HINT"
+msgstr "Щоби прив'язати LunaPassport, увійдіть в обліковий запис LunaStore з цієї пошти:"
+
 msgid "PAGE_LOGIN_PASSWORD_LABEL"
 msgstr "Пароль:"
 
@@ -1790,7 +2633,7 @@ msgid "PAGE_NOTIFICATIONS_EARLY"
 msgstr "Попередні сповіщення"
 
 msgid "PAGE_NOTIFICATIONS_NEW_COUNT"
-msgstr "тільки-що"
+msgstr "щойно"
 
 msgid "PAGE_NOTIFICATIONS_NOW"
 msgstr "щойно"
@@ -1859,7 +2702,7 @@ msgid "PAGE_PASSWORD_RESET_COMPLETE_LOGIN_BTN"
 msgstr "Увійти в обліковий запис"
 
 msgid "PAGE_PASSWORD_RESET_COMPLETE_TEXT_1"
-msgstr "Ваш пароль був успішно змінений. Тепер ви можете увійти в свій обліковий запис, з використанням нового пароля."
+msgstr "Ваш пароль було успішно змінено. Тепер ви можете увійти у свій обліковий запис, використовуючи новий пароль."
 
 msgid "PAGE_PASSWORD_RESET_COMPLETE_TITLE"
 msgstr "Пароль змінено"
@@ -1874,7 +2717,7 @@ msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TITLE"
 msgstr "Надійний пароль"
 
 msgid "PAGE_PASSWORD_RESET_CONFIRM_INVALID_LINK"
-msgstr "Посилання для скидання пароля недійсне. Можливо, вона вже була використана, або її термін дії закінчився. Будь ласка, надішліть запит на скидання пароля ще раз."
+msgstr "Посилання для скидання пароля недійсне. Можливо, вона вже була використана, або її термін дії закінчився. Будь ласка, надішліть запит на скидання пароля знову."
 
 msgid "PAGE_PASSWORD_RESET_CONFIRM_SUBMIT_BTN"
 msgstr "Встановити пароль"
@@ -1886,13 +2729,13 @@ msgid "PAGE_PASSWORD_RESET_DONE_HEADER"
 msgstr "Лист надіслано"
 
 msgid "PAGE_PASSWORD_RESET_DONE_INFO_TEXT"
-msgstr "Звичайний лист доставляється у межах декількох хвилин. Якщо у вас проблеми, ви можете звернутися у службу підтримки. "
+msgstr "Зазвичай лист доставляється протягом кількох хвилин. Якщо у вас виникли труднощі, ви можете звернутися до служби підтримки. "
 
 msgid "PAGE_PASSWORD_RESET_DONE_INFO_TITLE"
 msgstr "Що далі?"
 
 msgid "PAGE_PASSWORD_RESET_DONE_TEXT_1"
-msgstr "Ми відправили інструкцію щодо скидання пароля на вказану вами адресу електронної пошти (якщо він існує у нашій системі)"
+msgstr "Ми відправили інструкції щодо скидання пароля на вказану вами адресу електронної пошти (якщо він існує у нашій системі)"
 
 msgid "PAGE_PASSWORD_RESET_DONE_TEXT_2"
 msgstr "Будь ласка, перевірте пошту та перейдіть за посиланням для завершення процедури. Якщо лист не прийшов, перевірте папку \"Спам\"."
@@ -1910,7 +2753,7 @@ msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_1"
 msgstr "Ви отримали цей лист, оскільки був отриманий запит на скидання пароля для вашого облікового запису на сайті LunaStore."
 
 msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_2"
-msgstr "Будь ласка, перейдіть за наступним посиланням, щоби задати новий пароль:"
+msgstr "Будь ласка, перейдіть за наступним посиланням, щоби встановити новий пароль:"
 
 msgid "PAGE_PASSWORD_RESET_EMAIL_PLAIN_3"
 msgstr "Якщо ви не надсилали запит на скидання пароля, просто проігноруйте цей лист."
@@ -1936,7 +2779,7 @@ msgid "PAGE_PASSWORD_RESET_HEADER"
 msgstr "Скидання пароля"
 
 msgid "PAGE_PASSWORD_RESET_INFO_TEXT"
-msgstr "Введіть свою адресу електронної пошти, прив'язаний до вашого облікового запису LunaStore. Ми відправимо вам інструкцію для скидання пароля."
+msgstr "Введіть свою адресу електронної пошти, який прив'язаний до вашого облікового запису LunaStore. Ми відправимо вам інструкцію для скидання пароля."
 
 msgid "PAGE_PASSWORD_RESET_INFO_TITLE"
 msgstr "Забули пароль?"
@@ -1967,6 +2810,12 @@ msgstr "Оскільки цей користувач був заблокован
 
 msgid "PAGE_PROFILE_BANNED_INTRO"
 msgstr "Цей користувач заблокований."
+
+msgid "PAGE_PROFILE_COLLECTIONS_EMPTY"
+msgstr "У користувача поки немає публічних колекцій."
+
+msgid "PAGE_PROFILE_COLLECTIONS_TITLE"
+msgstr "Колекції користувача"
 
 msgid "PAGE_PROFILE_CONTACT_INFO"
 msgstr "Контактна інформація"
@@ -2013,6 +2862,9 @@ msgstr "учасник з"
 msgid "PAGE_PROFILE_TAB_APPS"
 msgstr "Програми"
 
+msgid "PAGE_PROFILE_TAB_COLLECTIONS"
+msgstr "Колекції"
+
 msgid "PAGE_PROFILE_TAB_MAIN"
 msgstr "Основне"
 
@@ -2040,6 +2892,9 @@ msgstr "Маєте код запрошення? Натисніть"
 msgid "PAGE_REGISTER_HAVE_INVITE_TITLE"
 msgstr "У Вас є запрошення?"
 
+msgid "PAGE_REGISTER_HELP_CODE"
+msgstr "Залиште поле порожнім, якщо не маєте його"
+
 msgid "PAGE_REGISTER_HELP_EMAIL"
 msgstr "Буде використовуватись для входу в обліковий запис та відновлення пароля"
 
@@ -2052,11 +2907,11 @@ msgstr "Повторення - мати навчання :D"
 msgid "PAGE_REGISTER_HELP_USERNAME"
 msgstr "Мінімум 2 символа. За іменем користувача вас можна буде знайти. Після реєстрації змінити його не вийде. "
 
-msgid "PAGE_REGISTER_HELP_CODE"
-msgstr "Залиште поле порожнім, якщо не маєте його"
-
 msgid "PAGE_REGISTER_INFO_SPLASH"
 msgstr "Створивши обліковий запис, ви зможете викладати свої застосунки, залишати відгуки до вже завантажених програм та вести власну бібліотеку обраних елементів. Реєстрація відкрита та безкоштовна."
+
+msgid "PAGE_REGISTER_LABEL_CODE"
+msgstr "Код запрошення:"
 
 msgid "PAGE_REGISTER_LABEL_EMAIL"
 msgstr "E-mail:"
@@ -2069,9 +2924,6 @@ msgstr "Повторіть пароль:"
 
 msgid "PAGE_REGISTER_LABEL_USERNAME"
 msgstr "Ім'я користувача:"
-
-msgid "PAGE_REGISTER_LABEL_CODE"
-msgstr "Код запрошення:"
 
 msgid "PAGE_REGISTER_SECTION_CONFIRM"
 msgstr "Підтвердження реєстрації "
@@ -2187,6 +3039,15 @@ msgstr "Пошук не дав результатів за запитом \"%(q)
 msgid "PAGE_SEARCH_MSG_NO_RESULTS_EMPTY"
 msgstr "За вашим запитом нічого не знайдено"
 
+msgid "PAGE_SEARCH_MSG_NO_USERS"
+msgstr "Користувачі за запитом «%(q)s» не знайдені"
+
+msgid "PAGE_SEARCH_MSG_NO_USERS %(q)s"
+msgstr "Користувачі за запитом «%(q)s» не знайдені"
+
+msgid "PAGE_SEARCH_MSG_UNAVAILABLE"
+msgstr "Пошук тимчасово недоступний. Спробуйте пізніше."
+
 msgid "PAGE_SEARCH_SORT_LIST"
 msgstr "Відображати вміст списком"
 
@@ -2196,8 +3057,11 @@ msgstr "Відображати вміст..."
 msgid "PAGE_SEARCH_SORT_TILES"
 msgstr "Відображати вміст плитками"
 
-msgid "PAGE_SEARCH_TITLE"
-msgstr "Пошук"
+msgid "PAGE_SEARCH_SUGGEST_APPS"
+msgstr "Програми"
+
+msgid "PAGE_SEARCH_SUGGEST_USERS"
+msgstr "Користувачі"
 
 msgid "PAGE_SEARCH_TAB_APPS"
 msgstr "Програми"
@@ -2205,20 +3069,23 @@ msgstr "Програми"
 msgid "PAGE_SEARCH_TAB_USERS"
 msgstr "Користувачі"
 
-msgid "PAGE_SEARCH_MSG_NO_USERS %(q)s"
-msgstr "Користувачів за запитом «%(q)s» не знайдено"
-
-msgid "PAGE_SEARCH_MSG_UNAVAILABLE"
-msgstr "Пошук тимчасово недоступний. Спробуйте пізніше."
-
-msgid "PAGE_SEARCH_SUGGEST_APPS"
-msgstr "Програми"
-
-msgid "PAGE_SEARCH_SUGGEST_USERS"
-msgstr "Користувачі"
+msgid "PAGE_SEARCH_TITLE"
+msgstr "Пошук"
 
 msgid "PAGE_SEARCH_USERS_COUNT"
 msgstr "Знайдено"
+
+msgid "PAGE_SECURITY_WARN_NEW_SESSION_DESC"
+msgstr "зміна паролю та прив'язаної пошти недоступна для нових пристроїв (менше 24 годин)"
+
+msgid "PAGE_SECURITY_WARN_TITLE"
+msgstr "У цілях безпеки"
+
+msgid "PAGE_SETTINGS_ACTIVE_SESSIONS_DESC"
+msgstr "Пристрої, з яких виконано вхід у ваш обліковий запис."
+
+msgid "PAGE_SETTINGS_ACTIVITY"
+msgstr "Активність"
 
 msgid "PAGE_SETTINGS_BTN_DELETE"
 msgstr "Видалити обліковий запис"
@@ -2229,11 +3096,29 @@ msgstr "Зберегти"
 msgid "PAGE_SETTINGS_BTN_UPLOAD"
 msgstr "Завантажити"
 
+msgid "PAGE_SETTINGS_CURRENT_SESSION"
+msgstr "Поточний сеанс"
+
 msgid "PAGE_SETTINGS_DELETE_WARNING"
 msgstr "Якщо Ви не хочете користуватися сайтом, то маєте повне право видалити свій обліковий запис. <br><br>Однак варто розуміти, що дана дія призведе до знищення даних профілю <b>БЕЗ можливості відновлення</b>. Доступ до керованих сторінок програм буде втрачений, а залишені відгуки будуть знеособленні.<br><br>"
 
+msgid "PAGE_SETTINGS_DEV_STATUS_GET"
+msgstr "Отримати"
+
 msgid "PAGE_SETTINGS_DEV_STATUS_HAS"
 msgstr "має"
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_COMPACT"
+msgstr "Скорочена"
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_INFO"
+msgstr "Ви можете налаштувати зовнішній вигляд головної сторінки між змістовним та скороченим."
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_RICH"
+msgstr "Змістовний"
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_TITLE"
+msgstr "Вигляд головної сторінки"
 
 msgid "PAGE_SETTINGS_HTML_TITLE"
 msgstr "Налаштування облікового запису"
@@ -2301,6 +3186,33 @@ msgstr "Ім'я користувача:"
 msgid "PAGE_SETTINGS_LABEL_WEBSITE"
 msgstr "Вебсайт:"
 
+msgid "PAGE_SETTINGS_PASSPORT_CONFIRM"
+msgstr "Підтвердити прив'язку"
+
+msgid "PAGE_SETTINGS_PASSPORT_DESC"
+msgstr "Прив'яжіть обліковий запис LunaPassport, щоб входити на LunaStore без пароля (через OAuth)."
+
+msgid "PAGE_SETTINGS_PASSPORT_LINK"
+msgstr "Прив'яжіть LunaPassport"
+
+msgid "PAGE_SETTINGS_PASSPORT_LINKED_AS"
+msgstr "Прив'язано як:"
+
+msgid "PAGE_SETTINGS_PASSPORT_PENDING"
+msgstr "Очікує підтвердження прив'язки для:"
+
+msgid "PAGE_SETTINGS_PASSPORT_TITLE"
+msgstr "LunaPassport"
+
+msgid "PAGE_SETTINGS_PASSPORT_UNLINK"
+msgstr "Відв'язати"
+
+msgid "PAGE_SETTINGS_PASSPORT_UNLINK_NEED_PASSWORD"
+msgstr "Спочатку задайте пароль облікового запису, потім можна відв'язати LunaPassport."
+
+msgid "PAGE_SETTINGS_SECTION_ACTIVE_SESSIONS"
+msgstr "Активні сеанси"
+
 msgid "PAGE_SETTINGS_SECTION_AVATAR"
 msgstr "Змінити аватар"
 
@@ -2320,34 +3232,16 @@ msgid "PAGE_SETTINGS_SECTION_PRIVACY"
 msgstr "Приватність"
 
 msgid "PAGE_SETTINGS_TAB_ACCOUNT"
-msgstr "Акаунт"
+msgstr "Обліковий запис"
 
 msgid "PAGE_SETTINGS_TAB_APPS"
 msgstr "Програми"
 
 msgid "PAGE_SETTINGS_TAB_SECURITY"
-msgstr "Захист"
+msgstr "Безпека"
 
 msgid "PAGE_SETTINGS_TAB_UI"
 msgstr "Вигляд"
-
-msgid "PAGE_SETTINGS_HOME_LAYOUT_TITLE"
-msgstr "Вигляд головної сторінки"
-
-msgid "PAGE_SETTINGS_HOME_LAYOUT_INFO"
-msgstr "Ви можете налаштувати зовнішній вигляд головної сторінки між змістовною та скороченою."
-
-msgid "PAGE_SETTINGS_HOME_LAYOUT_RICH"
-msgstr "Змістовна"
-
-msgid "PAGE_SETTINGS_HOME_LAYOUT_COMPACT"
-msgstr "Скорочена"
-
-msgid "INFO_HOME_LAYOUT_UPDATED"
-msgstr "Вигляд головної сторінки збережено"
-
-msgid "ERROR_HOME_LAYOUT_INVALID"
-msgstr "Некоректний вигляд головної сторінки"
 
 msgid "PAGE_SETTINGS_TERMINATE_SESSION"
 msgstr "Завершити сеанс"
@@ -2355,8 +3249,11 @@ msgstr "Завершити сеанс"
 msgid "PAGE_SETTINGS_TITLE"
 msgstr "Налаштування"
 
+msgid "PAGE_SETTINGS_UNKNOWN_DEVICE"
+msgstr "Невідомий пристрій"
+
 msgid "PAGE_SETTINGS_WARN_USERNAME_FROZEN"
-msgstr "Ім'я користувача після реєстрації можна змінювати 1 раз на рік"
+msgstr "Ім'я користувача після реєстрації змінити не можна"
 
 msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_1"
 msgstr "Файли пройшли перевірку:"
@@ -2415,254 +3312,53 @@ msgstr "Неправильний логін або пароль."
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "Вхід виконано успішно! Привіт, %(username)s!"
 
-msgid "%(counter)s PAGE_COLLECTION_APPS_ONE"
-msgid_plural "%(counter)s PAGE_COLLECTION_APPS_MANY"
-msgstr[0] "%(counter)s програма"
-msgstr[1] "%(counter)s програми"
-msgstr[2] "%(counter)s програм"
+msgid "VIEW_PASSPORT_ALREADY_LINKED_OTHER"
+msgstr "До вашого облікового запису вже прив'язаний інший LunaPassport."
 
-msgid "%(counter)s PAGE_COLLECTION_COUNT_ONE"
-msgid_plural "%(counter)s PAGE_COLLECTION_COUNT_MANY"
-msgstr[0] "Усього %(counter)s колекція"
-msgstr[1] "Усього %(counter)s колекції"
-msgstr[2] "Усього %(counter)s колекцій"
+msgid "VIEW_PASSPORT_EMAIL_ALREADY_EXISTS"
+msgstr "Обліковий запис з такою е-поштою вже є. Реєстрація через LunaPassport недоступна."
 
-msgid "BASE_SIDEBAR_ACCOUNT_COLLECTIONS"
-msgstr "Колекції"
+msgid "VIEW_PASSPORT_EMAIL_EXISTS_LOGIN"
+msgstr "Обліковий запис з цієї поштою вже існує. Увійдіть у нього, щоби підтвердити прив'язку LunaPassport."
 
-msgid "PAGE_APP_TO_COLLECTION"
-msgstr "до колекції"
+msgid "VIEW_PASSPORT_EMAIL_MISMATCH"
+msgstr "Пошта LunaPassport не збігається з поштою облікового запису LunaStore. Прив'язка скасована."
 
-msgid "PAGE_APP_ADD_TO_COLLECTION"
-msgstr "додати"
+msgid "VIEW_PASSPORT_INVITES_REQUIRED"
+msgstr "Реєстрація лише за запрошенням. Увійдіть в зареєстрований обліковий запис та прив'яжіть LunaPassport у налаштуваннях."
 
-msgid "PAGE_COLLECTION_ACTION_DELETE"
-msgstr "видалити"
+msgid "VIEW_PASSPORT_LINKED_OK"
+msgstr "LunaPassport успішно прив'язаний."
 
-msgid "PAGE_COLLECTION_ACTION_EDIT"
-msgstr "редагувати"
+msgid "VIEW_PASSPORT_LINK_LOGIN_REQUIRED"
+msgstr "Щоби прив'язати LunaPassport, спочатку увійдіть в обліковий запис."
 
-msgid "PAGE_COLLECTION_ACTION_FAVORITE"
-msgstr "в обране"
+msgid "VIEW_PASSPORT_NEED_ACCOUNT"
+msgstr "Увійдіть або зареєструйтеся, далі прив'яжіть LunaPassport у налаштуваннях безпеки."
 
-msgid "PAGE_COLLECTION_ACTION_REMOVE_APP"
-msgstr "прибрати"
+msgid "VIEW_PASSPORT_NOT_LINKED"
+msgstr "LunaPassport не прив'язаний."
 
-msgid "PAGE_COLLECTION_ACTION_UNFAVORITE"
-msgstr "прибрати з обраного"
+msgid "VIEW_PASSPORT_NO_PENDING"
+msgstr "Немає в очікуванні прив'язки LunaPassport."
 
-msgid "PAGE_COLLECTION_ACTION_VIEW"
-msgstr "перегляд"
+msgid "VIEW_PASSPORT_OAUTH_DENIED"
+msgstr "LunaPassport відхилив вхід: %(detail)s"
 
-msgid "PAGE_COLLECTION_ACTION_STATS"
-msgstr "статистика"
+msgid "VIEW_PASSPORT_REGISTER_BLOCKED"
+msgstr "Не вдалося створити обліковий запис через LunaPassport."
 
-msgid "PAGE_COLLECTION_APPS_EMPTY"
-msgstr "У цій колекції ще немає програм."
+msgid "VIEW_PASSPORT_STATE_MISMATCH"
+msgstr "Помилка безпеки OAuth (state). Спробуйте пізніше."
 
-msgid "PAGE_COLLECTION_ADD_NO_CUSTOM"
-msgstr "Немає користувацьких колекцій. Створіть нову:"
+msgid "VIEW_PASSPORT_SUB_TAKEN"
+msgstr "Цей LunaPassport вже прив'язаний до іншого облікового запису LunaStore."
 
-msgid "PAGE_COLLECTION_ADD_TITLE"
-msgstr "Додавання до колекції"
+msgid "VIEW_PASSPORT_TOKEN_FAILED"
+msgstr "Не вдалося завершити вхід через LunaPassport. Спробуйте пізніше."
 
-msgid "PAGE_COLLECTION_BTN_ADD_APP"
-msgstr "Додати"
+msgid "VIEW_PASSPORT_UNLINKED_OK"
+msgstr "LunaPassport відв'язаний."
 
-msgid "PAGE_COLLECTION_BTN_DELETE"
-msgstr "Видалити"
-
-msgid "PAGE_COLLECTION_BTN_CANCEL"
-msgstr "Скасувати"
-
-msgid "PAGE_COLLECTION_EDIT_TITLE"
-msgstr "Редагування колекції"
-
-msgid "PAGE_COLLECTION_BTN_CREATE"
-msgstr "Створити нову колекцію"
-
-msgid "PAGE_COLLECTION_BTN_SAVE"
-msgstr "Зберегти"
-
-msgid "PAGE_COLLECTION_DATE_CREATED"
-msgstr "Дата створення:"
-
-msgid "PAGE_COLLECTION_DATE_UPDATED"
-msgstr "Оновлено"
-
-msgid "PAGE_COLLECTION_DELETE_CONFIRM_TEXT %(title)s"
-msgstr "Ви впевнені, що хочете видалити колекцію «%(title)s»?"
-
-msgid "PAGE_COLLECTION_DELETE_CONFIRM_TITLE"
-msgstr "Видалення колекції"
-
-msgid "PAGE_COLLECTION_EMPTY"
-msgstr "Колекцій поки немає."
-
-msgid "PAGE_COLLECTION_ERROR_ADD_APP"
-msgstr "Не вдалося додати програму до колекції."
-
-msgid "PAGE_COLLECTION_ERROR_DELETE"
-msgstr "Не вдалося видалити колекцію."
-
-msgid "PAGE_COLLECTION_ERROR_DELETE_SYSTEM"
-msgstr "Системну колекцію не можна видалити."
-
-msgid "PAGE_COLLECTION_ERROR_EDIT_SYSTEM"
-msgstr "Системну колекцію не можна редагувати."
-
-msgid "PAGE_COLLECTION_ERROR_FAVORITE"
-msgstr "Не вдалося змінити обране."
-
-msgid "PAGE_COLLECTION_ERROR_FAVORITE_OWN"
-msgstr "Не можна додати власну колекцію в обране."
-
-msgid "PAGE_COLLECTION_ERROR_PRIVATE"
-msgstr "Ця колекція прихована."
-
-msgid "PAGE_COLLECTION_ERROR_REMOVE_APP"
-msgstr "Не вдалося прибрати програму з колекції."
-
-msgid "PAGE_COLLECTION_ERROR_SAVE"
-msgstr "Не вдалося зберегти колекцію."
-
-msgid "PAGE_COLLECTION_FIELD_TITLE"
-msgstr "Назва"
-
-msgid "PAGE_COLLECTION_FIELD_TITLE_HINT"
-msgstr "Вкажіть назву колекції потрібними мовами"
-
-msgid "PAGE_COLLECTION_FIELD_DESC"
-msgstr "Опис"
-
-msgid "PAGE_COLLECTION_FIELD_DESC_HINT"
-msgstr "Коротко опишіть, що входить до колекції"
-
-msgid "PAGE_COLLECTION_FIELD_PUBLIC"
-msgstr "Публічна колекція"
-
-msgid "PAGE_COLLECTION_LIKES_DESC"
-msgstr "Ставте позначки «Додати до колекції» на сторінці програм, щоб зберігати їх для швидкого доступу"
-
-msgid "PAGE_COLLECTION_LIKES_TITLE"
-msgstr "Улюблені програми"
-
-msgid "PAGE_COLLECTION_MSG_APP_ADDED"
-msgstr "Програму додано до колекції."
-
-msgid "PAGE_COLLECTION_MSG_APP_ALREADY"
-msgstr "Програма вже є в цій колекції."
-
-msgid "PAGE_COLLECTION_MSG_APP_NOT_IN"
-msgstr "Програми немає в цій колекції."
-
-msgid "PAGE_COLLECTION_MSG_APP_REMOVED"
-msgstr "Програму прибрано з колекції."
-
-msgid "PAGE_COLLECTION_MSG_DELETED"
-msgstr "Колекцію видалено."
-
-msgid "PAGE_COLLECTION_MSG_FAVORITED"
-msgstr "Колекцію додано в обране."
-
-msgid "PAGE_COLLECTION_MSG_SAVED"
-msgstr "Колекцію збережено."
-
-msgid "PAGE_COLLECTION_MSG_UNFAVORITED"
-msgstr "Колекцію прибрано з обраного."
-
-
-msgid "%(counter)s PAGE_COLLECTION_SAVES_ONE"
-msgid_plural "%(counter)s PAGE_COLLECTION_SAVES_MANY"
-msgstr[0] "%(counter)s збереження"
-msgstr[1] "%(counter)s збереження"
-msgstr[2] "%(counter)s збережень"
-
-msgid "PAGE_COLLECTION_SYSTEM_BADGE"
-msgstr "системна"
-
-msgid "PAGE_COLLECTION_TAB_LIKED"
-msgstr "Обрані колекції"
-
-msgid "PAGE_COLLECTION_TAB_MINE"
-msgstr "Мої колекції"
-
-msgid "PAGE_COLLECTION_TAB_VIEW"
-msgstr "Перегляд"
-
-msgid "PAGE_COLLECTION_TITLE"
-msgstr "Колекції"
-
-msgid "PAGE_PROFILE_TAB_COLLECTIONS"
-msgstr "Колекції"
-
-msgid "PAGE_PROFILE_COLLECTIONS_TITLE"
-msgstr "Колекції користувача"
-
-msgid "PAGE_PROFILE_COLLECTIONS_EMPTY"
-msgstr "У користувача ще немає публічних колекцій."
-msgid "PAGE_HOME_BROWSER_TITLE"
-msgstr "Головна"
-
-msgid "PAGE_404_BROWSER_TITLE"
-msgstr "Сторінку не знайдено"
-
-msgid "PAGE_502_BROWSER_TITLE"
-msgstr "Щось пішло не так..."
-msgid "PAGE_ERROR_BROWSER_TITLE"
-msgstr "Помилка"
-
-msgid "PAGE_ERROR_HEADING"
-msgstr "Помилка"
-
-msgid "PAGE_400_BROWSER_TITLE"
-msgstr "Невірний запит"
-
-msgid "PAGE_400_DEFAULT_MESSAGE"
-msgstr "Запит не вдалося обробити. Перевірте дані та спробуйте знову."
-
-msgid "PAGE_403_BROWSER_TITLE"
-msgstr "Доступ заборонено"
-
-msgid "PAGE_403_DEFAULT_MESSAGE"
-msgstr "У вас немає доступу до цієї сторінки."
-
-msgid "PAGE_500_BROWSER_TITLE"
-msgstr "Внутрішня помилка"
-
-msgid "PAGE_500_DEFAULT_MESSAGE"
-msgstr "Сталася внутрішня помилка сервера. Спробуйте повторити спробу пізніше."
-
-msgid "BASE_THEME_ENABLE"
-msgstr "Увімкнути темну тему"
-
-msgid "BASE_THEME_DISABLE"
-msgstr "Вимкнути темну тему"
-
-msgid "BASE_SIDEBAR_APP_PAGE"
-msgstr "Програми"
-
-msgid "PAGE_SETTINGS_DEV_STATUS_GET"
-msgstr "Отримати"
-
-msgid "PAGE_SETTINGS_SECTION_ACTIVE_SESSIONS"
-msgstr "Активні сеанси"
-
-msgid "PAGE_SETTINGS_ACTIVE_SESSIONS_DESC"
-msgstr "Пристрої, з яких здійснено вхід до вашого облікового запису."
-
-msgid "PAGE_SETTINGS_UNKNOWN_DEVICE"
-msgstr "Невідомий пристрій"
-
-msgid "PAGE_SETTINGS_ACTIVITY"
-msgstr "Активність"
-
-msgid "PAGE_SETTINGS_CURRENT_SESSION"
-msgstr "Поточний сеанс"
-
-msgid "PAGE_SECURITY_WARN_TITLE"
-msgstr "З міркувань безпеки"
-
-msgid "PAGE_SECURITY_WARN_NEW_SESSION_DESC"
-msgstr "зміна пароля та прив'язаної пошти недоступна для нових пристроїв (менше 24 годин)."
-
+msgid "VIEW_PASSPORT_UNLINK_NEED_PASSWORD"
+msgstr "Не можна відв'язати LunaPassport, поки в облікового запису немає паролю. Спочатку задайте пароль."
