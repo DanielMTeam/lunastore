@@ -405,7 +405,7 @@
         <div class="separator_store"></div>
         <div class="actionsm">
             {% if can_propose_changes %}
-            <li><a href="{% url 'edit_app_info' pk=app_id %}">{% trans "COMMUNITY_PROPOSE_EDIT" %}</a></li>
+            <li class="editapp"><a href="{% url 'edit_app_info' pk=app_id %}">{% trans "COMMUNITY_PROPOSE_EDIT" %}</a></li>
             {% endif %}
             {% if developer_site %}
                 <li class="offsite"><a href="{{ developer_site }}">{% trans "PAGE_APP_ACTION_SITE" %}</a></li>
