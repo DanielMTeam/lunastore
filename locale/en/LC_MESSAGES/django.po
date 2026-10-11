@@ -3349,3 +3349,58 @@ msgstr "LunaPassport unlinked."
 
 msgid "VIEW_PASSPORT_UNLINK_NEED_PASSWORD"
 msgstr "Cannot unlink LunaPassport until the account has a password. Set a password first."
+
+msgid "SET_APP_ALLOW_COMMUNITY_DISTRIBUTIONS"
+msgstr "Allow community distributions?"
+
+msgid "SET_APP_ALLOW_COMMUNITY_DISTRIBUTIONS_TOOLTIP"
+msgstr "Users with developer status can add distributions for this application."
+
+msgid "COMMUNITY_DISTRIBUTIONS_ARE_NOT_ALLOWED"
+msgstr "Community distributions are not allowed for this application."
+
+msgid "COMMUNITY_ENABLE"
+msgstr "Enable proposals"
+
+msgid "COMMUNITY_DISABLE"
+msgstr "Disable proposals"
+
+msgid "COMMUNITY_ACCESS_TITLE"
+msgstr "Community contributions"
+
+msgid "COMMUNITY_AUTHOR"
+msgstr "Community"
+
+msgid "COMMUNITY_PENDING_PROPOSAL"
+msgstr "A proposal is already awaiting moderation. Please wait for a decision."
+
+msgid "COMMUNITY_PUBLIC_APP_REQUIRED"
+msgstr "Community contributions require a public application without DMCA restrictions."
+
+msgid "COMMUNITY_ACCESS_SAVED"
+msgstr "Community contribution settings saved."
+
+msgid "COMMUNITY_ACCESS_EXPLANATION"
+msgstr "Developers can propose changes to application information and distributions. Moderators review every proposal. You retain control of the application. Confirm your password and 2FA code, if enabled, to change this mode."
+
+msgid "COMMUNITY_RETENTION_WARNING"
+msgstr "Once enabled, the application cannot be deleted or made private, even after proposals are disabled. Deleting your account leaves the application and distributions in the catalog without an owner."
+
+msgid "COMMUNITY_PROPOSAL_EXPLANATION"
+msgstr "You are proposing changes. They appear in the catalog only after moderator approval."
+
+msgid "COMMUNITY_PROPOSE_EDIT"
+msgstr "Propose a change"
+
+#: templates/del_acc.html
+#, python-format
+msgid "COMMUNITY_ACCOUNT_RETENTION_WARNING %(count)s"
+msgstr "Community applications: %(count)s"
+
+#: templates/admin_app.html
+msgid "COMMUNITY_PROTECTED_APP_NOTICE"
+msgstr "Community contributions have been enabled for this application. You retain management access, but cannot delete the application or make it private, even if proposals are disabled. If you delete your account, the application and its distributions will remain in the catalog without an owner."
+
+#: templates/del_acc.html
+msgid "COMMUNITY_ACCOUNT_RETENTION_DESCRIPTION"
+msgstr "Will remain in the catalog without an owner, along with their distributions. You will lose management access."

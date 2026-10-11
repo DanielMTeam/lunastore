@@ -1,0 +1,19 @@
+{% load i18n static %}
+<div class="tab-bar tab-bar-compact">
+    <a href="{% url 'edit_app_info' pk=app.pk %}" class="tab{% if active_tab == 'info' %} active{% endif %}"{% if active_tab == 'info' %} aria-current="page"{% endif %}>
+        <img src="{% static 'img/tabs/main.png' %}" class="tab-icon" alt="">
+        {% trans "PAGE_ADMIN_APP_FIRST_BLOCK" %}
+    </a>
+    <a href="{% url 'manage_distributions' %}?id={{ app.pk }}" class="tab{% if active_tab == 'files' %} active{% endif %}"{% if active_tab == 'files' %} aria-current="page"{% endif %}>
+        <img src="{% static 'img/tabs/programs.png' %}" class="tab-icon" alt="">
+        {% trans "PAGE_ADMIN_APP_TAB_DISTRIBUTIONS" %}
+    </a>
+    <a href="{% url 'app_stats' pk=app.pk %}" class="tab{% if active_tab == 'stats' %} active{% endif %}"{% if active_tab == 'stats' %} aria-current="page"{% endif %}>
+        <img src="{% static 'img/tabs/stats.png' %}" class="tab-icon" alt="">
+        {% trans "PAGE_ADMIN_APP_TAB_STATS" %}
+    </a>
+    <a href="{% url 'community_access' pk=app.pk %}" class="tab{% if active_tab == 'community' %} active{% endif %}"{% if active_tab == 'community' %} aria-current="page"{% endif %}>
+        <img src="{% static 'img/tabs/account.png' %}" class="tab-icon" alt="">
+        {% trans "COMMUNITY_ACCESS_TITLE" %}
+    </a>
+</div>

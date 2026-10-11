@@ -4,6 +4,7 @@ import uuid
 from urllib.parse import urlparse
 
 import jwt
+import pyotp
 from captcha.fields import CaptchaField
 from constance import config
 from django import forms
@@ -27,8 +28,35 @@ from .models import (
 )
 from apps.core.mixins import CDNTokenValidationMixin
 from apps.marketplace.widgets import UnfoldMarkdownTextareaWidget
+from apps.user.forms import PasswordConfirmationForm
 
 _TRANS_FIELDS = ["title", "slogan", "description", "requirements", "changelog"]
+
+
+class CommunityAccessConfirmationForm(PasswordConfirmationForm):
+    enabled = forms.ChoiceField(
+        choices=(("1", _("COMMUNITY_ENABLE")), ("0", _("COMMUNITY_DISABLE"))),
+        label=_("COMMUNITY_ACCESS_TITLE"),
+        widget=forms.Select(attrs={"class": "input-text"}),
+    )
+    totp_code = forms.RegexField(
+        regex=r"^[0-9]{6}$",
+        max_length=6,
+        label=_("PAGE_2FA_ENTER_CODE"),
+        widget=forms.TextInput(attrs={"class": "input-text", "autocomplete": "one-time-code"}),
+    )
+
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(user, *args, **kwargs)
+        self.fields["password"].widget.attrs["class"] = "input-text"
+        if not user.totp_enabled:
+            self.fields.pop("totp_code")
+
+    def clean_totp_code(self):
+        code = self.cleaned_data["totp_code"]
+        if not self.user.totp_secret or not pyotp.TOTP(self.user.totp_secret).verify(code):
+            raise ValidationError(_("ERROR_2FA_INVALID_CODE"))
+        return code
 
 
 def get_translated_fields_list(base_fields):
@@ -336,6 +364,8 @@ class AppCreateForm(forms.ModelForm, CDNTokenValidationMixin):
         if scr_tokens_json:
             try:
                 token_list = json.loads(scr_tokens_json)
+                if not isinstance(token_list, list) or len(token_list) > config.SCREENSHOT_COUNT:
+                    raise ValidationError(_("ERROR_CDN_CHECKSUM_MISMATCH_SCREENSHOTS"))
                 safe_paths = []
                 for token in token_list:
                     decoded = self.validate_cdn_token(token)
@@ -446,21 +476,20 @@ class AppEditForm(AppCreateForm):
 
         self.fields.pop("captcha", None)
         self.fields.pop("agree_with_site_rules", None)
+        if target_app and target_app.community_protected:
+            self.fields.pop("is_private", None)
 
     def clean(self):
         # read the raw submitted value before the parent overwrites it
         original_json = self.data.get("cdn_screenshots_data")
-        print(
-            "DEBUG: cdn_screenshots_data is:",
-            repr(original_json),
-            "all data:",
-            self.data.keys())
 
         cleaned_data = super().clean()
 
         if original_json and hasattr(self, "target_app"):
             try:
                 original_paths = json.loads(original_json)
+                if not isinstance(original_paths, list) or len(original_paths) > config.SCREENSHOT_COUNT:
+                    raise ValidationError(_("ERROR_CDN_CHECKSUM_MISMATCH_SCREENSHOTS"))
 
                 safe_new_paths = cleaned_data.get("cdn_screenshots_data", [])
                 if not isinstance(safe_new_paths, list):
@@ -504,6 +533,24 @@ class AppEditForm(AppCreateForm):
         if commit:
             submission.save()
 
+        return submission
+
+
+class CommunityAppEditForm(AppEditForm):
+    """Proposals may change content, but never application access settings."""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in ("is_private", "allow_reviews", "allow_community_distributions"):
+            self.fields.pop(field, None)
+
+    def save(self, commit=True):
+        submission = super().save(commit=False)
+        submission.is_private = self.target_app.is_private
+        submission.allow_reviews = self.target_app.allow_reviews
+        submission.allow_community_distributions = self.target_app.allow_community_distributions
+        if commit:
+            submission.save()
         return submission
 
 
@@ -757,6 +804,7 @@ class BaseDistributionForm(forms.ModelForm, CDNTokenValidationMixin):
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
+        self.app = kwargs.pop('app', None)
         # the target distribution for edit mode
         self.target_dist = kwargs.pop('target_dist', None)
         super().__init__(*args, **kwargs)
@@ -792,16 +840,19 @@ class BaseDistributionForm(forms.ModelForm, CDNTokenValidationMixin):
             if not cleaned_data.get("virustotal_url"):
                 raise ValidationError(_("ERROR_DIST_FORM_NO_VT_LINK"))
 
-            decoded = self.validate_cdn_token(cdn_token)
+            app_id = self.target_dist.app_id if self.target_dist else getattr(self.app, "pk", None)
+            if app_id is None:
+                raise ValidationError(_("ERROR_CDN_TOKEN_INVALID"))
+            decoded = self.validate_cdn_token(cdn_token, expected_object=app_id, expected_mode="private")
             file_id = decoded.get("file_id")
+            if not isinstance(file_id, int) or isinstance(file_id, bool) or file_id <= 0:
+                raise ValidationError(_("ERROR_CDN_TOKEN_INVALID"))
 
             cleaned_data["cdn_file_id"] = file_id
 
             # go to CDN and get hash
             info = self.get_cdn_file_info(file_id, fields="hash")
-            print(f"info: {info}")
             extracted_hash = info.get("hash")
-            print(f"extracted_hash: {extracted_hash}")
             if not extracted_hash:
                 raise ValidationError(_("ERROR_DIST_FORM_CDN_INFO_FAIL"))
 
@@ -810,7 +861,6 @@ class BaseDistributionForm(forms.ModelForm, CDNTokenValidationMixin):
             if self.target_dist:
                 cleaned_data["cdn_file_id"] = self.target_dist.cdn_file_id
                 cleaned_data["url"] = url or self.target_dist.url
-        print(f"cleaned_data: {cleaned_data}")
         return cleaned_data
 
     def get_trans_fields(self):

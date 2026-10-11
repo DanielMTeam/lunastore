@@ -3356,3 +3356,58 @@ msgstr "LunaPassport отвязан."
 
 msgid "VIEW_PASSPORT_UNLINK_NEED_PASSWORD"
 msgstr "Нельзя отвязать LunaPassport, пока у аккаунта нет пароля. Сначала задайте пароль."
+
+msgid "SET_APP_ALLOW_COMMUNITY_DISTRIBUTIONS"
+msgstr "Разрешить сторонние дистрибуции?"
+
+msgid "SET_APP_ALLOW_COMMUNITY_DISTRIBUTIONS_TOOLTIP"
+msgstr "Пользователи со статусом разработчика смогут добавлять дистрибуции для этого приложения."
+
+msgid "COMMUNITY_DISTRIBUTIONS_ARE_NOT_ALLOWED"
+msgstr "Сторонние дистрибуции для этого приложения не разрешены."
+
+msgid "COMMUNITY_ENABLE"
+msgstr "Включить предложения"
+
+msgid "COMMUNITY_DISABLE"
+msgstr "Отключить предложения"
+
+msgid "COMMUNITY_ACCESS_TITLE"
+msgstr "Участие сообщества"
+
+msgid "COMMUNITY_AUTHOR"
+msgstr "Сообщество"
+
+msgid "COMMUNITY_PENDING_PROPOSAL"
+msgstr "Предложение уже ожидает модерации. Дождитесь решения."
+
+msgid "COMMUNITY_PUBLIC_APP_REQUIRED"
+msgstr "Включить участие сообщества можно только для публичного приложения без ограничений DMCA."
+
+msgid "COMMUNITY_ACCESS_SAVED"
+msgstr "Настройки участия сообщества сохранены."
+
+msgid "COMMUNITY_ACCESS_EXPLANATION"
+msgstr "Разработчики смогут предлагать изменения описания и дистрибуций. Все предложения проверяют модераторы. Вы сохраняете управление приложением. Для изменения режима подтвердите пароль и код 2FA, если она включена."
+
+msgid "COMMUNITY_RETENTION_WARNING"
+msgstr "После включения приложение нельзя удалить или сделать приватным, даже после отключения предложений. При удалении аккаунта приложение и дистрибуции останутся в каталоге без владельца."
+
+msgid "COMMUNITY_PROPOSAL_EXPLANATION"
+msgstr "Вы предлагаете изменения. Они появятся в каталоге только после одобрения модератором."
+
+msgid "COMMUNITY_PROPOSE_EDIT"
+msgstr "Предложить изменение"
+
+#: templates/del_acc.html
+#, python-format
+msgid "COMMUNITY_ACCOUNT_RETENTION_WARNING %(count)s"
+msgstr "Приложений сообщества: %(count)s"
+
+#: templates/admin_app.html
+msgid "COMMUNITY_PROTECTED_APP_NOTICE"
+msgstr "Для этого приложения уже включалась поддержка сообщества. Вы сохраняете управление, но удалить приложение или сделать его приватным нельзя, даже если предложения отключены. При удалении аккаунта приложение и его дистрибуции останутся в каталоге без владельца."
+
+#: templates/del_acc.html
+msgid "COMMUNITY_ACCOUNT_RETENTION_DESCRIPTION"
+msgstr "Останутся в каталоге без владельца вместе с дистрибуциями. Вы потеряете управление ими."

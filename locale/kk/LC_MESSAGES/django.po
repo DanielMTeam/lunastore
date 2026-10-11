@@ -3338,3 +3338,58 @@ msgstr "LunaPassport ажыратылды."
 
 msgid "VIEW_PASSPORT_UNLINK_NEED_PASSWORD"
 msgstr "Тіркелгіде құпиясөз болмаса, LunaPassport қызметін ажырату мүмкін емес. Алдымен құпиясөзді орнатыңыз."
+
+msgid "SET_APP_ALLOW_COMMUNITY_DISTRIBUTIONS"
+msgstr "Үшінші тарап дистрибутивтеріне рұқсат беру керек пе?"
+
+msgid "SET_APP_ALLOW_COMMUNITY_DISTRIBUTIONS_TOOLTIP"
+msgstr "Әзірлеуші мәртебесі бар пайдаланушылар осы қолданбаға дистрибутивтер қоса алады."
+
+msgid "COMMUNITY_DISTRIBUTIONS_ARE_NOT_ALLOWED"
+msgstr "Осы қолданбаға үшінші тарап дистрибутивтерін қосуға рұқсат етілмейді."
+
+msgid "COMMUNITY_ENABLE"
+msgstr "Ұсыныстарды қосу"
+
+msgid "COMMUNITY_DISABLE"
+msgstr "Ұсыныстарды өшіру"
+
+msgid "COMMUNITY_ACCESS_TITLE"
+msgstr "Қауымдастықтың қатысуы"
+
+msgid "COMMUNITY_AUTHOR"
+msgstr "Қауымдастық"
+
+msgid "COMMUNITY_PENDING_PROPOSAL"
+msgstr "Ұсыныс модерацияны күтуде. Шешімді күтіңіз."
+
+msgid "COMMUNITY_PUBLIC_APP_REQUIRED"
+msgstr "Қауымдастықтың қатысуы DMCA шектеулері жоқ жалпыға қолжетімді қолданба үшін ғана қосылады."
+
+msgid "COMMUNITY_ACCESS_SAVED"
+msgstr "Қауымдастықтың қатысу параметрлері сақталды."
+
+msgid "COMMUNITY_ACCESS_EXPLANATION"
+msgstr "Әзірлеушілер қолданба ақпараты мен дистрибутивтерге өзгерістер ұсына алады. Модераторлар барлық ұсыныстарды тексереді. Қолданбаны басқару сізде қалады. Режимді өзгерту үшін құпиясөзді және қосылған болса, 2FA кодын растаңыз."
+
+msgid "COMMUNITY_RETENTION_WARNING"
+msgstr "Қосылғаннан кейін қолданбаны жоюға немесе жеке етуге болмайды, ұсыныстар өшірілсе де. Тіркелгіні жойғанда қолданба мен дистрибутивтер каталогта иесіз қалады."
+
+msgid "COMMUNITY_PROPOSAL_EXPLANATION"
+msgstr "Сіз өзгерістер ұсынасыз. Олар каталогта модератор мақұлдағаннан кейін ғана пайда болады."
+
+msgid "COMMUNITY_PROPOSE_EDIT"
+msgstr "Өзгеріс ұсыну"
+
+#: templates/del_acc.html
+#, python-format
+msgid "COMMUNITY_ACCOUNT_RETENTION_WARNING %(count)s"
+msgstr "Қауымдастық қолданбалары: %(count)s"
+
+#: templates/admin_app.html
+msgid "COMMUNITY_PROTECTED_APP_NOTICE"
+msgstr "Бұл қолданба үшін қауымдастықтың қатысуы бұрын қосылған. Сіз басқару құқығын сақтайсыз, бірақ ұсыныстар өшірілсе де, қолданбаны жоюға немесе оны жеке етуге болмайды. Тіркелгі жойылғанда, қолданба мен оның дистрибутивтері каталогта иесіз қалады."
+
+#: templates/del_acc.html
+msgid "COMMUNITY_ACCOUNT_RETENTION_DESCRIPTION"
+msgstr "Дистрибутивтерімен бірге каталогта иесіз қалады. Сіз оларды басқару құқығынан айырыласыз."

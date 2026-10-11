@@ -3362,3 +3362,58 @@ msgstr "LunaPassport відв'язаний."
 
 msgid "VIEW_PASSPORT_UNLINK_NEED_PASSWORD"
 msgstr "Не можна відв'язати LunaPassport, поки в облікового запису немає паролю. Спочатку задайте пароль."
+
+msgid "SET_APP_ALLOW_COMMUNITY_DISTRIBUTIONS"
+msgstr "Дозволити сторонні дистрибуції?"
+
+msgid "SET_APP_ALLOW_COMMUNITY_DISTRIBUTIONS_TOOLTIP"
+msgstr "Користувачі зі статусом розробника зможуть додавати дистрибуції для цього застосунку."
+
+msgid "COMMUNITY_DISTRIBUTIONS_ARE_NOT_ALLOWED"
+msgstr "Сторонні дистрибуції для цього застосунку не дозволені."
+
+msgid "COMMUNITY_ENABLE"
+msgstr "Увімкнути пропозиції"
+
+msgid "COMMUNITY_DISABLE"
+msgstr "Вимкнути пропозиції"
+
+msgid "COMMUNITY_ACCESS_TITLE"
+msgstr "Участь спільноти"
+
+msgid "COMMUNITY_AUTHOR"
+msgstr "Спільнота"
+
+msgid "COMMUNITY_PENDING_PROPOSAL"
+msgstr "Пропозиція вже очікує на модерацію. Дочекайтеся рішення."
+
+msgid "COMMUNITY_PUBLIC_APP_REQUIRED"
+msgstr "Участь спільноти доступна лише для публічного застосунку без обмежень DMCA."
+
+msgid "COMMUNITY_ACCESS_SAVED"
+msgstr "Налаштування участі спільноти збережено."
+
+msgid "COMMUNITY_ACCESS_EXPLANATION"
+msgstr "Розробники зможуть пропонувати зміни інформації та дистрибутивів. Модератори перевіряють усі пропозиції. Ви зберігаєте керування застосунком. Для зміни режиму підтвердьте пароль і код 2FA, якщо її увімкнено."
+
+msgid "COMMUNITY_RETENTION_WARNING"
+msgstr "Після ввімкнення застосунок не можна видалити або зробити приватним, навіть після вимкнення пропозицій. Після видалення облікового запису застосунок і дистрибутиви залишаться в каталозі без власника."
+
+msgid "COMMUNITY_PROPOSAL_EXPLANATION"
+msgstr "Ви пропонуєте зміни. Вони з’являться в каталозі лише після схвалення модератором."
+
+msgid "COMMUNITY_PROPOSE_EDIT"
+msgstr "Запропонувати зміну"
+
+#: templates/del_acc.html
+#, python-format
+msgid "COMMUNITY_ACCOUNT_RETENTION_WARNING %(count)s"
+msgstr "Застосунків спільноти: %(count)s"
+
+#: templates/admin_app.html
+msgid "COMMUNITY_PROTECTED_APP_NOTICE"
+msgstr "Для цього застосунку вже вмикалася участь спільноти. Ви зберігаєте керування, але видалити застосунок або зробити його приватним не можна, навіть якщо пропозиції вимкнені. Після видалення облікового запису застосунок та його дистрибуції залишаться в каталозі без власника."
+
+#: templates/del_acc.html
+msgid "COMMUNITY_ACCOUNT_RETENTION_DESCRIPTION"
+msgstr "Залишаться в каталозі без власника разом із дистрибуціями. Ви втратите керування ними."

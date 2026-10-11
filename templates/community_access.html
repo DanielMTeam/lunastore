@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+{% block title %}{% trans "COMMUNITY_ACCESS_TITLE" %} — {{ app.title }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
+{% block content %}
+<div class="content">
+    <link rel="stylesheet" href="{% static 'css/settings.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tabs.css' %}">
+    <link rel="stylesheet" href="{% static 'css/collections.css' %}">
+    <div class="preferences">
+        {% trans "COMMUNITY_ACCESS_TITLE" %} — {{ app.title }}
+    </div>
+    <div class="tabs">
+        {% include "includes/app_management_tabs.html" with app=app active_tab="community" only %}
+
+        <div class="tab-content">
+            <div class="info_splash">
+                <div class="info_icon_small"></div>
+                <div class="splash_text">{% trans "COMMUNITY_ACCESS_EXPLANATION" %}</div>
+            </div>
+            <div class="alert_splash">
+                <div class="warning_icon_small"></div>
+                <div class="splash_text">{% trans "COMMUNITY_RETENTION_WARNING" %}</div>
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                <div class="profile_block">{% trans "COMMUNITY_ACCESS_TITLE" %}</div>
+                <div class="profile_block_content">
+                {% for field in form %}
+                    <div class="pref_pad">
+                        <div class="pref_item_title">{{ field.label_tag }}</div>
+                        {{ field }}
+                    </div>
+                {% endfor %}
+                    <div class="pref_pad collection-form-actions">
+                        <input type="submit" class="action_button" value="{% trans 'PAGE_DIST_FORM_SAVE' %}">
+                        <a href="{% url 'edit_app_info' pk=app.pk %}" class="action_button action_button_secondary">
+                            {% trans "PAGE_DIST_FORM_CANCEL" %}
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

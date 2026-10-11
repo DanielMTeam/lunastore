@@ -763,7 +763,8 @@ class ApplicationAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
                     "price",
                     "is_demo",
                     "is_under_dmca",
-                    "is_private"
+                    "is_private",
+                    "allow_community_distributions"
                 )
             },
         ),
@@ -878,6 +879,7 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
         "price",
         "is_demo",
         "is_private",
+        "allow_community_distributions",
         "screenshots",
         "developer_site",
     )
@@ -984,6 +986,7 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
                               "price",
                               "is_demo",
                               "is_private",
+                              "allow_community_distributions",
                               "icon_path",
                               "screenshots",
                               "developer_site",
@@ -1031,6 +1034,7 @@ class AppEditRequestsAdmin(RequestComparisonMixin, SafeDeleteAdmin, TabbedTransl
         "price",
         "is_demo",
         "is_private",
+        "allow_community_distributions",
         "display_screenshots",
         "developer_site",
     )
@@ -1098,7 +1102,7 @@ class AppEditRequestsAdmin(RequestComparisonMixin, SafeDeleteAdmin, TabbedTransl
         if app is None:
             self.message_user(
                 request,
-                "Ошибка: Целевое приложение не найдено (возможно, удалено)",
+                "Заявка устарела, доступ сообщества отключён или приложение недоступно",
                 messages.ERROR,
             )
             return redirect(
@@ -1149,6 +1153,7 @@ class AppEditRequestsAdmin(RequestComparisonMixin, SafeDeleteAdmin, TabbedTransl
                               "price",
                               "is_demo",
                               "is_private",
+                              "allow_community_distributions",
                               "icon_path",
                               "screenshots",
                               "developer_site",

@@ -2,8 +2,9 @@ import logging
 
 from django.conf import settings
 from django.db import DEFAULT_DB_ALIAS, transaction
-from django.db.models.signals import m2m_changed, post_delete, post_save
+from django.db.models.signals import m2m_changed, post_delete, post_save, pre_delete
 from django.dispatch import receiver
+from safedelete.signals import pre_softdelete
 
 from apps.marketplace.models import Application
 from apps.user.models import User
@@ -11,6 +12,16 @@ from apps.user.models import User
 from .tasks import sync_application_task, sync_user_task
 
 logger = logging.getLogger(__name__)
+
+
+@receiver(pre_delete, sender=User)
+@receiver(pre_softdelete, sender=User)
+def sync_retained_applications(sender, instance, using=DEFAULT_DB_ALIAS, **kwargs):
+    if settings.MEILISEARCH_ENABLED:
+        for application_id in Application.objects.using(using).filter(
+            user_id=instance.pk, community_protected=True,
+        ).values_list("pk", flat=True):
+            _enqueue_on_commit(sync_application_task, application_id, using)
 
 
 def _enqueue_on_commit(task, object_id, using):
