@@ -7,10 +7,60 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 "X-Generator: Tolgee\n"
 
+msgid "%(counter)s PAGE_PROFILE_STATS_APP"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
+msgstr[0] "{value, plural, other {%(counter)s 個のアプリケーション,}}"
+
+msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW"
+msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS"
+msgstr[0] "{value, plural, other {%(counter)s 件のレビュー -}}"
+
+msgid "404_ELEMENT_NOT_FOUND"
+msgstr "要求された要素またはアクセスしようとしたリンクは、当サイトに見つかりません。"
+
+msgid "404_ELEMENT_NOT_FOUND_2"
+msgstr "申し訳ありません。一生懸命探しましたが見つかりませんでした。"
+
 msgid "404_ELEMENT_NOT_FOUND_3"
 msgstr ""
 "ページは管理者によって移動または削除された可能性があります。\n"
 "しばらくしてから再度お試しください。"
+
+msgid "404_GO_TO_HOME"
+msgstr "ホームに戻る"
+
+msgid "404_TITLE"
+msgstr "エラーが発生しました"
+
+msgid "ACTION_CHOOSE_FILE"
+msgstr "ファイルを選択"
+
+msgid "ACTION_CHOOSE_ICON"
+msgstr "アイコンを選択"
+
+msgid "ARE_YOU_SURE"
+msgstr "本当によろしいですか？"
+
+msgid "BANNED_IP_BACK_BUTTON"
+msgstr "戻る"
+
+msgid "BANNED_IP_CONTACT_SUPPORT"
+msgstr "テクニカルサポートに連絡する:"
+
+msgid "BANNED_IP_H2"
+msgstr "アクセスが拒否されました"
+
+msgid "BANNED_IP_HEADER"
+msgstr "アクセス制限"
+
+msgid "BANNED_IP_HOME_LINK"
+msgstr "ホームへ"
+
+msgid "BANNED_IP_INTRO"
+msgstr "このIPアドレスからのサイトアクセスは一時停止されています。"
+
+msgid "BANNED_IP_PAGE_TITLE"
+msgstr "アクセスが禁止されています"
 
 msgid "BANNED_IP_REASON"
 msgstr ""
@@ -19,6 +69,18 @@ msgstr ""
 
 msgid "BANNED_IP_RESOLUTION"
 msgstr "もし制限が誤って適用されたと思われる場合、または過去に違反行為を行ったユーザーに割り当てられていた動的IPアドレスをご利用の場合は、管理者までお問い合わせください。"
+
+msgid "BANNED_IP_SUBTITLE"
+msgstr "あなたのIPアドレスはブロックされています"
+
+msgid "BASE_AUTHLIKE"
+msgstr "ログイン中: "
+
+msgid "BASE_COOKIE_ACCEPT"
+msgstr "了解しました、受け入れます"
+
+msgid "BASE_COOKIE_DECLINE"
+msgstr "いいえ、結構です"
 
 msgid "BASE_COOKIE_MESSAGE"
 msgstr ""
@@ -29,11 +91,1067 @@ msgstr ""
 msgid "BASE_COOKIE_PRIVACYPOLICY"
 msgstr "プライバシーポリシー"
 
+msgid "BASE_FOOTER_REPORT_PROBLEM"
+msgstr "問題を報告する"
+
+msgid "BASE_FOOTER_TELEGRAM"
+msgstr "当社のTelegramチャンネル"
+
+msgid "BASE_FOOTER_TEXT_1"
+msgstr "心を込めてDMチームが製作しました、"
+
+msgid "BASE_FOOTER_TEXT_2"
+msgstr "すべての著作権は元の権利者に属します"
+
+msgid "BASE_LOGINBTN"
+msgstr "ログイン"
+
+msgid "BASE_LOGINPOPUP_DESC"
+msgstr "既にアカウントをお持ちですか?ログインしてください。"
+
+msgid "BASE_LOGINPOPUP_LOGINBTN"
+msgstr "ログイン"
+
+msgid "BASE_LOGINPOPUP_LOGINFIELD"
+msgstr "ユーザー名:"
+
+msgid "BASE_LOGINPOPUP_PASSWORDFIELD"
+msgstr "パスワード:"
+
+msgid "BASE_LOGINPOPUP_TITLE"
+msgstr "ログイン"
+
+msgid "BASE_LOGOUTBTN"
+msgstr "ログアウト"
+
+msgid "BASE_OPRJ_GAMESBTN"
+msgstr "ゲーム"
+
+msgid "BASE_OPRJ_OTHERPROJECTSBTN"
+msgstr "すべてのプロジェクト »"
+
+msgid "BASE_OPRJ_TITLE"
+msgstr "その他のプロジェクト"
+
+msgid "BASE_PRIVACYPOLICYBTN"
+msgstr "プライバシーポリシー"
+
+msgid "BASE_REGISTERBTN"
+msgstr "登録"
+
+msgid "BASE_SEARCHBTN"
+msgstr "検索"
+
+msgid "BASE_SIDEBAR_ACCOUNT_INVITEBTN"
+msgstr "招待"
+
+msgid "BASE_SIDEBAR_ACCOUNT_PROFILEBTN"
+msgstr "マイプロフィール"
+
+msgid "BASE_SIDEBAR_ACCOUNT_SETTINGSBTN"
+msgstr "設定"
+
+msgid "BASE_SIDEBAR_ACCOUNT_TITLE"
+msgstr "アカウント"
+
+msgid "BASE_SIDEBAR_APP_DEV_SITE"
+msgstr "開発者サイト"
+
+msgid "BASE_SIDEBAR_APP_EDIT"
+msgstr "ページを編集"
+
+msgid "BASE_SIDEBAR_APP_INSTALL"
+msgstr "インストール"
+
+msgid "BASE_SIDEBAR_APP_REPORT"
+msgstr "報告"
+
+msgid "BASE_SIDEBAR_APP_TITLE"
+msgstr "アプリケーション"
+
+msgid "BASE_SIDEBAR_CATEGORIES_HOME"
+msgstr "ホームページ"
+
+msgid "BASE_SIDEBAR_CATEGORIES_TITLE"
+msgstr "カテゴリ"
+
+msgid "CARD_USER_NO_DESC"
+msgstr "プロフィール説明はありません"
+
+msgid "ERROR_ACCESS_DENIED_PROFILE"
+msgstr "アクセスが拒否されました。プロフィール設定から始めてください。"
+
+msgid "ERROR_CDNSECURITY"
+msgstr "ファイル読み込み時にLunaSpireエンジンセキュリティエラーが発生しました。初めてこのエラーが表示される場合は、サイト管理者に報告してください。"
+
+msgid "ERROR_CDN_CHECKSUM_MISMATCH_SCREENSHOTS"
+msgstr "スクリーンショットトークン検証エラー。"
+
+msgid "ERROR_CDN_INVALID_FORMAT"
+msgstr "CDNストレージサーバーのファイル形式が無効です。管理者にお問い合わせください。"
+
+msgid "ERROR_CDN_SESSION_EXPIRED"
+msgstr "アップロードセッションの有効期限が切れました。もう一度お試しください。"
+
+msgid "ERROR_CDN_TOKEN_EXPIRED_OR_USED"
+msgstr "アップロードトークンは期限切れまたはすでに使用されています。"
+
+msgid "ERROR_CDN_TOKEN_INVALID"
+msgstr "無効なCDNセキュリティトークン。"
+
+msgid "ERROR_CDN_TOKEN_INVALID_TYPE"
+msgstr "CDNからの無効なトークンタイプ。"
+
+msgid "ERROR_CDN_TOKEN_MISSING"
+msgstr "CDNトークンが提供されていません。"
+
+msgid "ERROR_CHECK_FORM"
+msgstr "フォームを確認してください。いくつかのフィールドにエラーがあります。"
+
+msgid "ERROR_CURRENT_PASSWORD_IS_WRONG"
+msgstr "現在のパスワードが間違っています"
+
+msgid "ERROR_DIST_FORM_CDN_INFO_FAIL"
+msgstr "ストレージサーバーからファイル情報を取得できません。後でもう一度試してください。"
+
+msgid "ERROR_DIST_FORM_NO_FILE_OR_URL"
+msgstr "ファイルをアップロードするか、ダウンロードリンクを指定する必要があります"
+
+msgid "ERROR_DIST_FORM_NO_VT_LINK"
+msgstr "ファイルアップロード時はVirusTotalリンクが必須です。"
+
+msgid "ERROR_DIST_SOURCE_REQUIRED"
+msgstr "ファイルまたはダウンロードリンクを指定する必要があります。"
+
+msgid "ERROR_EMAIL_ALREADY_EXISTS"
+msgstr "このメールアドレスを持つユーザーはすでに存在します。"
+
+msgid "ERROR_EMAIL_ALREADY_IN_USE"
+msgstr "このメールアドレスは既に使用されています。"
+
+msgid "ERROR_EMAIL_DISPOSABLE_DOMAIN"
+msgstr "一時メールサービスを使用した登録は禁止されています。"
+
+msgid "ERROR_EMAIL_DOMAIN_NO_MX %(domain)s"
+msgstr "ドメイン %(domain)s はメールを受け入れません。有効なアドレスを指定してください。"
+
+msgid "ERROR_EMAIL_INVALID_FORMAT"
+msgstr "無効なメールアドレスが入力されました。"
+
+msgid "ERROR_EMAIL_IS_SAME"
+msgstr "新しいメールアドレスは現在のものと同じです。"
+
+msgid "ERROR_EMAIL_NO_ALIASES"
+msgstr "\"+\"記号を含むメールエイリアスの使用は禁止されています。"
+
+msgid "ERROR_INVALID_FILE_FORMAT"
+msgstr "エラー: 無効なファイル形式です!"
+
+msgid "ERROR_INVALID_IMAGE_FILE"
+msgstr "画像を処理できませんでした。ファイルが破損している可能性があります。"
+
+msgid "ERROR_INVALID_LUNASPIRE_TOKEN"
+msgstr "LunaSpireエンジンから無効なトークンタイプが受け取られました。初めてこのエラーが表示される場合は、サイト管理者に報告してください。"
+
+msgid "ERROR_INVALID_SIZE_ICON"
+msgstr "エラー: ファイルサイズが2MBを超えています!"
+
+msgid "ERROR_MAX_AVATAR_DIMENSIONS"
+msgstr "画像の最大サイズは64x64ピクセルです。"
+
+msgid "ERROR_NEW_PASSWORDS_DONT_MATCH"
+msgstr "新しいパスワードが一致しません"
+
+msgid "ERROR_NEW_PASSWORD_SAME_AS_OLD"
+msgstr "新しいパスワードが古いパスワードと同じです。別のパスワードを入力してください。"
+
+msgid "ERROR_NO_AGREERULES"
+msgstr "利用規約に同意する必要があります!"
+
+msgid "ERROR_NO_APPNAME"
+msgstr "アプリケーション名を入力してください!"
+
+msgid "ERROR_PREVIEWSCRNS_1_BIGSIZE"
+msgstr "エラー: ファイル "
+
+msgid "ERROR_PREVIEWSCRNS_1_COUNT"
+msgstr "エラー: 選択 "
+
+msgid "ERROR_PREVIEWSCRNS_1_INVALIDFORMAT"
+msgstr "エラー: ファイル "
+
+msgid "ERROR_PREVIEWSCRNS_2_BIGSIZE"
+msgstr " ファイルが大きすぎます(最大2MB)。"
+
+msgid "ERROR_PREVIEWSCRNS_2_COUNT"
+msgstr " ファイル。最大3個です。"
+
+msgid "ERROR_PREVIEWSCRNS_2_INVALIDFORMAT"
+msgstr " 無効な形式です。"
+
+msgid "ERROR_PREVIEWSCRNS_3_COUNT"
+msgstr "最大3ファイル!"
+
+msgid "ERROR_PROFILE_OPENVK_INVALID"
+msgstr "OpenVKユーザー名の形式が無効です。正しいユーザー名を指定してください。"
+
+msgid "ERROR_PROFILE_TELEGRAM_INVALID"
+msgstr "Telegramユーザー名の形式が無効です。リンクとプロトコルなしでユーザー名を指定してください。"
+
+msgid "ERROR_RATE_LIMIT_EXCEEDED"
+msgstr "リクエストを送信しすぎています。しばらく待ってから続けてください。"
+
+msgid "ERROR_USERNAME_ALREADY_IN_USE"
+msgstr "このユーザー名は既に使用されています。"
+
+msgid "ERROR_USERNAME_BLACKLISTED"
+msgstr "このユーザー名は禁止されています。"
+
+msgid "ERROR_USERNAME_CHANGE_COOLDOWN"
+msgstr "ユーザー名は年に1回しか変更できません。"
+
+msgid "ERROR_USERNAME_EMPTY"
+msgstr "ユーザー名を空にすることはできません。"
+
+msgid "ERROR_USERNAME_INVALID_CHARS"
+msgstr "ユーザー名には英字、数字、および . _ - 記号のみを使用できます。"
+
+msgid "ERROR_USERNAME_INVALID_DOTS"
+msgstr "ユーザー名の先頭または末尾にドットを使用したり、連続したドットを含めることはできません。"
+
+msgid "ERROR_USERNAME_NO_LETTERS"
+msgstr "ユーザー名には少なくとも1つの英字を含める必要があります。"
+
+msgid "ERROR_YOURE_NOT_OWNER_OF_APP"
+msgstr "このアプリケーションの管理者ではありません。"
+
+msgid "ERROR_YOU_DONT_HAVE_DEVSTATUS"
+msgstr "このページを表示するための開発者ステータスがありません。プロフィール設定から取得できます。"
+
+msgid "FORM_AGREE_POLICY"
+msgstr "プライバシーポリシーの条件に同意します"
+
+msgid "FORM_AGREE_RULES"
+msgstr "サイトの利用規約に同意し、その違反の結果を理解しています"
+
+msgid "FORM_APPCREATE_MAXIMUM_SCREENSHOTS"
+msgstr "最大3つのスクリーンショット。"
+
+msgid "FORM_APPCREATE_TITLE_EXAMPLE"
+msgstr "例: Total Commander"
+
+msgid "FORM_CAPTCHA"
+msgstr "画像の文字を入力してください"
+
+msgid "FORM_DEVSTATUS_ABOUT_YOU"
+msgstr "自己紹介をしてください(最大1000文字)"
+
+msgid "FORM_DEVSTATUS_GITHUB"
+msgstr "あなたのGitHubリンク"
+
+msgid "FORM_DEVSTATUS_GITHUB_HELP"
+msgstr "なぜダメなのですか?あなたの素晴らしい開発作業を見たいです :3"
+
+msgid "FORM_DEVSTATUS_WE_WILL_CONTACT"
+msgstr "必ずご連絡いたします。少なくともそう努力します。"
+
+msgid "FORM_DEVSTATUS_WHY_YOU_CHOOSE"
+msgstr "なぜ私たちを選ぶことにしたのですか?(最大250文字)"
+
+msgid "FORM_DEVSTATUS_YOUR_EMAIL"
+msgstr "あなたのメールアドレス"
+
+msgid "FORM_DEVSTATUS_YOUR_USERNAME"
+msgstr "ユーザー名"
+
+msgid "FORM_INVITECODE_CODELIMITISNTOK_ERROR"
+msgstr "このコードの招待制限に達しました。所有者が最近招待しすぎました。"
+
+msgid "FORM_INVITECODE_DOESNOTEXIST_ERROR"
+msgstr "このような招待コードは見つかりません。"
+
+msgid "FORM_INVITECODE_ENTER"
+msgstr "コードを入力してください"
+
+msgid "FORM_INVITECODE_EXPIRED_ERROR"
+msgstr "コードの有効期限が切れました(24時間)。新しいコードをリクエストしてください。"
+
+msgid "FORM_INVITECODE_TITLE"
+msgstr "コード"
+
+msgid "FORM_PASSWORDCONFIRM_CONFIRM"
+msgstr "パスワードを確認する"
+
+msgid "FORM_PASSWORDCONFIRM_ENTER"
+msgstr "現在のパスワードを入力してください"
+
+msgid "FORM_PASSWORDCONFIRM_WRONGPASS"
+msgstr "パスワードが正しくありません。もう一度お試しください。"
+
+msgid "FORM_SCREENSHOTS"
+msgstr "スクリーンショット"
+
+msgid "File extension \"%(extension)s\" is not allowed"
+msgstr "ファイル拡張子 \"%(extension)s\" は許可されていません。許可されている拡張子: \"%(allowed_extensions)s\"。"
+
+msgid "INDEX_CATEGORY_PROMPT"
+msgstr "または必要なカテゴリを選択してください:"
+
+msgid "INDEX_NO_CATEGORIES"
+msgstr "カテゴリはまだ追加されていません"
+
+msgid "INDEX_SEARCH_BTN"
+msgstr "検索"
+
+msgid "INDEX_SEARCH_PLACEHOLDER"
+msgstr "例: Total Commander"
+
+msgid "INDEX_SEARCH_SECTION_TITLE"
+msgstr "カタログ内を検索"
+
+msgid "INDEX_WELCOME_TEXT"
+msgstr "LunaStoreへようこそ!<br>快適に作業するためのアプリケーションとアドオンのコレクション"
+
+msgid "INDEX_WELCOME_TITLE"
+msgstr "お疲れ様です、ようこそ"
+
+msgid "INFO_ACCEPTED_AVATAR_FORMATS"
+msgstr "許可されている形式: .JPG, .PNG, .WEBP, .GIF"
+
+msgid "INFO_ACCEPTED_ICON_FORMATS"
+msgstr "のみ許可: .JPG, .JPEG, .PNG"
+
+msgid "INFO_ACCOUNT_WAS_DELETED"
+msgstr "アカウントは正常に削除されました。戻ってきたい場合は、いつでもサイトで待っています!"
+
+msgid "INFO_APP_CREATE_REQUEST_WAS_SENT"
+msgstr "申請書は確認のため送信されました"
+
+msgid "INFO_APP_DEMO"
+msgstr "デモ"
+
+msgid "INFO_APP_DEMOWITHPRICE"
+msgstr "デモ、その後"
+
+msgid "INFO_APP_FREE"
+msgstr "無料"
+
+msgid "INFO_APP_WITHPRICE"
+msgstr "有料:"
+
+msgid "INFO_AVATAR_WAS_CHANGED"
+msgstr "アバターが更新されました"
+
+msgid "INFO_AVATAR_WAS_UPLOADED"
+msgstr "アバターが正常にアップロードされました!"
+
+msgid "INFO_CATEGORY_LIST_EMPTY"
+msgstr "空のままです...."
+
+msgid "INFO_EMAIL_WAS_CHANGED"
+msgstr "メールアドレスは正常に変更されました。"
+
+msgid "INFO_MAXIMUM_AVATAR_SIZE"
+msgstr "最大ファイルサイズ: 2MB。"
+
+msgid "INFO_NO_SCREENSHOTS"
+msgstr "スクリーンショットなし"
+
+msgid "INFO_PASSWORD_WAS_CHANGED"
+msgstr "パスワードが正常に変更されました"
+
+msgid "INFO_PROFILE_IS_UPDATED"
+msgstr "プロフィールが更新されました"
+
+msgid "INFO_RECOMENDATIONS_FOR_UPLOAD_AVATAR"
+msgstr "推奨サイズ: 64x64。形式: .PNG, .JPG。最大: 2MB。"
+
+msgid "INFO_SELECTED_FILES"
+msgstr "ファイルが選択されました: "
+
+msgid "INFO_YOUR_IP_WAS_BANNED"
+msgstr "あなたのIPアドレスはブロックされています。エラーでブロックされたと思われる場合は、当社にメールを送信してください: daniel@myslivets.com"
+
+msgid "JS_MARKETPLACE_ERROR"
+msgstr "LunaSpireエラー: "
+
+msgid "JS_MARKETPLACE_FILE_ERROR"
+msgstr "ファイル転送エラー "
+
+msgid "JS_MARKETPLACE_RETRY"
+msgstr "もう一度試してください"
+
+msgid "JS_MARKETPLACE_TOKEN_ERROR"
+msgstr "アップロードトークンを取得できませんでした"
+
+msgid "JS_MARKETPLACE_UPLOADING"
+msgstr "アップロード中..."
+
+msgid "MSG_DIST_CREATE_REQ_SENT"
+msgstr "新しいバージョン追加のリクエストがモデレーションのために送信されました。"
+
+msgid "MSG_DIST_EDIT_REQ_SENT"
+msgstr "バージョン変更のリクエストがモデレーションのために送信されました。"
+
+msgid "NOTIFICATIONS_LOADING"
+msgstr "通知を読み込み中..."
+
+msgid "NOTIF_APPEDITREQ_ACCEPTED_DESCRIPTION"
+msgstr "アプリケーション %(app_name)s の編集リクエストが承認されました。"
+
+msgid "NOTIF_APPEDITREQ_ACCEPTED_TITLE"
+msgstr "アプリケーション編集リクエストステータス"
+
+msgid "NOTIF_APPEDITREQ_DECLINED_DESCRIPTION"
+msgstr "アプリケーション %(app_name)s の編集リクエストが拒否されました。理由: %(reason)s"
+
+msgid "NOTIF_APPEDITREQ_DECLINED_TITLE"
+msgstr "アプリケーション編集リクエストステータス"
+
+msgid "NOTIF_APPREQ_ACCEPTED_DESCRIPTION"
+msgstr "おめでとうございます!アプリケーション %(app_name)s の作成リクエストが承認され、LunaStoreに公開されました。"
+
+msgid "NOTIF_APPREQ_ACCEPTED_TITLE"
+msgstr "リクエストステータス"
+
+msgid "NOTIF_APPREQ_DECLINED_DESCRIPTION"
+msgstr "アプリケーション %(app_name)s の作成リクエストが拒否されました。理由: %(reason)s"
+
+msgid "NOTIF_APPREQ_DECLINED_TITLE"
+msgstr "リクエストステータス"
+
+msgid "NOTIF_DEVSTATUS_ACCEPTED_DESCRIPTION"
+msgstr "おめでとうございます!申請書が承認されました。開発者/パブリッシャーとしての機能を利用できるようになりました。"
+
+msgid "NOTIF_DEVSTATUS_ACCEPTED_TITLE"
+msgstr "開発者ステータス"
+
+msgid "NOTIF_DEVSTATUS_DECLINED_DESCRIPTION"
+msgstr "申請書が拒否されました。開発者/パブリッシャー機能を取得できません。理由: %(reason)s"
+
+msgid "NOTIF_DEVSTATUS_DECLINED_TITLE"
+msgstr "開発者ステータス"
+
+msgid "NOTIF_DEVSTATUS_SEND_DESCRIPTION"
+msgstr "申請書が正常に送信されました。応答は「通知」セクションに表示されます。何もする必要はありません。"
+
+msgid "NOTIF_DEVSTATUS_SEND_TITLE"
+msgstr "開発者ステータス"
+
+msgid "NOTIF_DISTREQ_ACCEPTED_DESCRIPTION"
+msgstr "アプリケーション \"%(app_name)s\" のバージョン %(version)s 公開リクエストがモデレータに承認されました。"
+
+msgid "NOTIF_DISTREQ_ACCEPTED_TITLE"
+msgstr "新しいバージョンが公開されました!"
+
+msgid "NOTIF_DISTREQ_DECLINED_DESCRIPTION"
+msgstr "申し訳ありませんが、\"%(app_name)s\" のバージョン %(version)s 公開リクエストが拒否されました。理由: %(reason)s"
+
+msgid "NOTIF_DISTREQ_DECLINED_TITLE"
+msgstr "公開リクエストが拒否されました"
+
+msgid "NOTIF_LOGIN_DESCRIPTION"
+msgstr "あなたのアカウントにログインされました • デバイス: %(browser)s (%(os)s) • IPアドレス: %(ip)s • 場所: %(location)s • これがあなたではない場合は、すぐにパスワードを変更してください。"
+
+msgid "NOTIF_LOGIN_TITLE"
+msgstr "新しいアカウントログイン"
+
 msgid "NOTIF_LUNABOX_MANIFEST_DESCRIPTION"
 msgstr "アプリ「%(app_name)s」にタイプが未設定の配布があります。LunaBox がインストールできるよう、タイプとパスを設定してください。未設定: %(count)s"
 
 msgid "NOTIF_LUNABOX_MANIFEST_TITLE"
 msgstr "配布情報を入力してください"
+
+msgid "NOTIF_WELCOME_DESCRIPTION"
+msgstr "登録ありがとうございます!アプリケーションハンドブックに関心を持ってくださったことを嬉しく思います。楽しんでいただけることを期待しています!"
+
+msgid "NOTIF_WELCOME_TITLE"
+msgstr "LunaStoreへようこそ"
+
+msgid "PAGE_2FA_TITLE"
+msgstr "２段階認証"
+
+msgid "PAGE_ADDAPP_BACKBTN"
+msgstr "戻る"
+
+msgid "PAGE_ADDAPP_CHECKINFO_ACTIONS"
+msgstr "アクション"
+
+msgid "PAGE_ADDAPP_CHECKINFO_AUTHOR_1"
+msgstr "著者:"
+
+msgid "PAGE_ADDAPP_CHECKINFO_AUTHOR_2"
+msgstr "あなた"
+
+msgid "PAGE_ADDAPP_CHECKINFO_GOTODEVSITE"
+msgstr "開発者の公式サイトにアクセス"
+
+msgid "PAGE_ADDAPP_CHECKINFO_NAME"
+msgstr "タイトル"
+
+msgid "PAGE_ADDAPP_CHECKINFO_NOTIFY"
+msgstr "発行前に全ての情報を確認してください。モデレーション後、ページは自動的に公開され、新しいファイルをアップロードできるようになります。"
+
+msgid "PAGE_ADDAPP_CHECKINFO_OTHERINFO"
+msgstr "追加情報"
+
+msgid "PAGE_ADDAPP_CHECKINFO_SCREENSHOTS"
+msgstr "スクリーンショット"
+
+msgid "PAGE_ADDAPP_CHECKINFO_SLOGAN"
+msgstr "スローガン..."
+
+msgid "PAGE_ADDAPP_EDITAPPBTN"
+msgstr "編集"
+
+msgid "PAGE_ADDAPP_NEXTBTN"
+msgstr "次へ"
+
+msgid "PAGE_ADDAPP_PAGETITLE"
+msgstr "アプリケーションの追加"
+
+msgid "PAGE_ADDAPP_SENDAPPBTN"
+msgstr "確認のため送信"
+
+msgid "PAGE_ADDAPP_STEP1"
+msgstr "ステップ1"
+
+msgid "PAGE_ADDAPP_STEP1_AGREE_RULES"
+msgstr "サイトの利用規約に同意し、違反の結果を理解しています"
+
+msgid "PAGE_ADDAPP_STEP1_DESC"
+msgstr "スタート"
+
+msgid "PAGE_ADDAPP_STEP1_ICON"
+msgstr "アプリケーションアイコン:"
+
+msgid "PAGE_ADDAPP_STEP1_ICONDESC_1"
+msgstr "推奨アバターサイズ: 64x64。"
+
+msgid "PAGE_ADDAPP_STEP1_ICONDESC_2"
+msgstr "許可されている形式: .PNG, .JPG"
+
+msgid "PAGE_ADDAPP_STEP1_ICONDESC_3"
+msgstr "最大サイズ: 2MB"
+
+msgid "PAGE_ADDAPP_STEP1_NAME"
+msgstr "基本情報"
+
+msgid "PAGE_ADDAPP_STEP1_SLOGAN"
+msgstr "スローガン(140文字):"
+
+msgid "PAGE_ADDAPP_STEP1_SLOGANDESC_1"
+msgstr "スローガンはアプリケーションページ、ホームページ、および検索に表示されます"
+
+msgid "PAGE_ADDAPP_STEP1_SLOGANDESC_2"
+msgstr "短いほど粋である :)"
+
+msgid "PAGE_ADDAPP_STEP1_TITLE"
+msgstr "名前:"
+
+msgid "PAGE_ADDAPP_STEP1_TITLEDESC"
+msgstr "素晴らしく記憶に残るタイトルは、ユーザーの間でアプリケーションの認識力を高めます"
+
+msgid "PAGE_ADDAPP_STEP2"
+msgstr "ステップ2"
+
+msgid "PAGE_ADDAPP_STEP2_CATEGORY"
+msgstr "カテゴリ:"
+
+msgid "PAGE_ADDAPP_STEP2_CATEGORYDESC"
+msgstr "これは適切な検索と関連ブロックでのアプリケーション表示にとって非常に重要です。管理者の判断によってカテゴリを変更する権利があります"
+
+msgid "PAGE_ADDAPP_STEP2_DESC"
+msgstr "説明(1400文字):"
+
+msgid "PAGE_ADDAPP_STEP2_DESCDESC"
+msgstr "説明はアプリケーションページの「追加情報」ブロックに表示されます"
+
+msgid "PAGE_ADDAPP_STEP2_DESC_1"
+msgstr "追加"
+
+msgid "PAGE_ADDAPP_STEP2_DESC_2"
+msgstr "情報"
+
+msgid "PAGE_ADDAPP_STEP2_DEVSITE"
+msgstr "開発者の公式サイト:"
+
+msgid "PAGE_ADDAPP_STEP2_NAME"
+msgstr "追加情報"
+
+msgid "PAGE_ADDAPP_STEP2_REQ"
+msgstr "システム要件(1400文字):"
+
+msgid "PAGE_ADDAPP_STEP2_REQDESC"
+msgstr "システム要件はアプリケーションページの「追加情報」ブロックに表示されます"
+
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTS"
+msgstr "スクリーンショット:"
+
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_1"
+msgstr "最大スクリーンショット数: 3"
+
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_2"
+msgstr "許可されている形式: .PNG, .JPG"
+
+msgid "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_3"
+msgstr "最大サイズ: 2MB"
+
+msgid "PAGE_ADDAPP_STEP3"
+msgstr "ステップ3"
+
+msgid "PAGE_ADDAPP_STEP3_DESC_1"
+msgstr "公開前の"
+
+msgid "PAGE_ADDAPP_STEP3_DESC_2"
+msgstr "プレビュー"
+
+msgid "PAGE_ADDAPP_SUCCESS"
+msgstr "アプリケーション追加リクエストが正常に送信されました。"
+
+msgid "PAGE_ADMIN_APP_CATEGORY"
+msgstr "カテゴリ:"
+
+msgid "PAGE_ADMIN_APP_CATEGORYDESC"
+msgstr "これは正しい検索にとって非常に重要です..."
+
+msgid "PAGE_ADMIN_APP_CURRENTSCRN"
+msgstr "現在のスクリーンショット"
+
+msgid "PAGE_ADMIN_APP_DESC"
+msgstr "説明(1000文字):"
+
+msgid "PAGE_ADMIN_APP_DESCDESC"
+msgstr "説明はアプリケーションページの「追加情報」ブロックに表示されます"
+
+msgid "PAGE_ADMIN_APP_DEVSITE"
+msgstr "開発者の公式サイト:"
+
+msgid "PAGE_ADMIN_APP_DIST_ACTIONS"
+msgstr "アクション"
+
+msgid "PAGE_ADMIN_APP_DIST_ACTION_DELETE"
+msgstr "削除"
+
+msgid "PAGE_ADMIN_APP_DIST_ACTION_EDIT"
+msgstr "編集"
+
+msgid "PAGE_ADMIN_APP_DIST_ADD_NEW"
+msgstr "新しいバージョンを追加"
+
+msgid "PAGE_ADMIN_APP_DIST_DATE"
+msgstr "日付"
+
+msgid "PAGE_ADMIN_APP_DIST_DL_LINK_BLOCK"
+msgstr "ダウンロードページへのリンク"
+
+msgid "PAGE_ADMIN_APP_DIST_DL_LINK_TEXT"
+msgstr "バージョンリストを開く"
+
+msgid "PAGE_ADMIN_APP_DIST_EMPTY"
+msgstr "アップロードされたバージョンはまだありません。"
+
+msgid "PAGE_ADMIN_APP_DIST_HEADER"
+msgstr "ディストリビューション管理 — "
+
+msgid "PAGE_ADMIN_APP_DIST_NO_NOTES"
+msgstr "メモなし"
+
+msgid "PAGE_ADMIN_APP_DIST_PENDING_CREATE"
+msgstr "(新規作成) — レビュー待ち"
+
+msgid "PAGE_ADMIN_APP_DIST_PENDING_EDIT"
+msgstr "(編集) — レビュー待ち"
+
+msgid "PAGE_ADMIN_APP_DIST_PENDING_TITLE"
+msgstr "モデレーション待ちリクエスト:"
+
+msgid "PAGE_ADMIN_APP_DIST_SAVE"
+msgstr "保存"
+
+msgid "PAGE_ADMIN_APP_DIST_VERSION"
+msgstr "バージョン"
+
+msgid "PAGE_ADMIN_APP_DIST_VERSION_LABEL"
+msgstr "バージョン"
+
+msgid "PAGE_ADMIN_APP_FIRST_BLOCK"
+msgstr "情報"
+
+msgid "PAGE_ADMIN_APP_ICON"
+msgstr "アプリケーションアイコン"
+
+msgid "PAGE_ADMIN_APP_ICON_REQ1"
+msgstr "推奨アイコンサイズ: 64x64。"
+
+msgid "PAGE_ADMIN_APP_ICON_REQ2"
+msgstr "許可されている形式: .PNG, .JPG"
+
+msgid "PAGE_ADMIN_APP_ICON_REQ3"
+msgstr "最大サイズ: 2MB"
+
+msgid "PAGE_ADMIN_APP_ID"
+msgstr "アプリケーションID:"
+
+msgid "PAGE_ADMIN_APP_IDDESC"
+msgstr "この情報は変更できません"
+
+msgid "PAGE_ADMIN_APP_LOAD_ICON"
+msgstr "アイコンをロード"
+
+msgid "PAGE_ADMIN_APP_LOAD_SCRN"
+msgstr "新しいスクリーンショットをロード(最大3個)"
+
+msgid "PAGE_ADMIN_APP_MSG_SAVE_ERROR"
+msgstr "フォーム保存時にエラーが発生しました。入力したデータを確認してください。"
+
+msgid "PAGE_ADMIN_APP_MSG_SAVE_SUCCESS"
+msgstr "データ更新リクエストがモデレーションのために正常に送信されました。"
+
+msgid "PAGE_ADMIN_APP_NOICON"
+msgstr "アイコンなし"
+
+msgid "PAGE_ADMIN_APP_PAGETITLE"
+msgstr "アプリケーションの編集"
+
+msgid "PAGE_ADMIN_APP_PROFILE_BLOCK"
+msgstr "基本情報"
+
+msgid "PAGE_ADMIN_APP_REQ"
+msgstr "システム要件(1400文字):"
+
+msgid "PAGE_ADMIN_APP_REQDESC"
+msgstr "システム要件はアプリケーションページの「追加情報」ブロックに表示されます"
+
+msgid "PAGE_ADMIN_APP_SCRNS_TITLE"
+msgstr "スクリーンショット"
+
+msgid "PAGE_ADMIN_APP_SLOGAN"
+msgstr "スローガン(140文字):"
+
+msgid "PAGE_ADMIN_APP_SLOGANDESC"
+msgstr "スローガンはアプリケーションページ、ホームページ、および検索に表示されます"
+
+msgid "PAGE_ADMIN_APP_SLOGANDESC_2"
+msgstr "簡潔さは才能の姉妹です :)"
+
+msgid "PAGE_ADMIN_APP_TAB_DISTRIBUTIONS"
+msgstr "ファイル"
+
+msgid "PAGE_ADMIN_APP_TITLE"
+msgstr "アプリケーション名:"
+
+msgid "PAGE_ADMIN_APP_TITLEDESC"
+msgstr "素晴らしく記憶に残るタイトルは、ユーザーの間でアプリケーションの認識力を高めます"
+
+msgid "PAGE_ADMIN_APP_TRANSLATIONINFO"
+msgstr "アプリケーション情報の翻訳は、外国の視聴者にとっての認識度を高めることができ、また検索エンジンでの表示を改善することができます。いずれにしても、著者にはさまざまな言語への翻訳を行うことをお勧めします。"
+
+msgid "PAGE_ADMIN_APP_WARN_SCRN"
+msgstr "警告: 新しいファイルをアップロードすると、現在のスクリーンショットがすべて削除されます!"
+
+msgid "PAGE_APP_ACTION_MORE_APPS"
+msgstr "著者の他のプログラムを見る"
+
+msgid "PAGE_APP_ACTION_REPORT"
+msgstr "アプリケーションを報告"
+
+msgid "PAGE_APP_ACTION_SITE"
+msgstr "開発者の公式サイトにアクセス"
+
+msgid "PAGE_APP_BTN_BACK"
+msgstr "戻る"
+
+msgid "PAGE_APP_BTN_BUY"
+msgstr "購入"
+
+msgid "PAGE_APP_BTN_INSTALL"
+msgstr "インストール"
+
+msgid "PAGE_APP_IMG_ALT_SCREENSHOT"
+msgstr "スクリーンショット"
+
+msgid "PAGE_APP_LABEL_AUTHOR"
+msgstr "発行者:"
+
+msgid "PAGE_APP_LABEL_DOWNLOADS"
+msgstr "ダウンロード数"
+
+msgid "PAGE_APP_LABEL_NOT_TRANSLATED"
+msgstr "申し訳ありませんが、アプリケーションをアップロードした人はあなたの言語に翻訳していません。そのため、オリジナルが表示されています。"
+
+msgid "PAGE_APP_LABEL_ORIGINAL_AUTHOR"
+msgstr "オリジナル作成者:"
+
+msgid "PAGE_APP_MSG_DEMO_WARNING"
+msgstr "プログラムはデモバージョンとして配布されており、完全なバージョンは著者に支払う必要があります。ファイルは開発者の公式サイトから提供されています。"
+
+msgid "PAGE_APP_MSG_DMCA_ERROR"
+msgstr "元の権利者のリクエストに従い、現在ファイルをダウンロードすることはできません。申し訳ございません。"
+
+msgid "PAGE_APP_MSG_NO_SCREENSHOTS"
+msgstr "スクリーンショットはありません。"
+
+msgid "PAGE_APP_PRICE_DEMO_FREE"
+msgstr "デモ"
+
+msgid "PAGE_APP_PRICE_DEMO_WITH_COST"
+msgstr "デモ、その後"
+
+msgid "PAGE_APP_PRICE_FREE"
+msgstr "無料"
+
+msgid "PAGE_APP_PRICE_PAID"
+msgstr "有料:"
+
+msgid "PAGE_APP_SECTION_ACTIONS"
+msgstr "アクション"
+
+msgid "PAGE_APP_SECTION_DESC"
+msgstr "追加情報"
+
+msgid "PAGE_APP_SECTION_REQ"
+msgstr "システム要件"
+
+msgid "PAGE_APP_SECTION_SCREENSHOTS"
+msgstr "スクリーンショット"
+
+msgid "PAGE_BADBROSER_DESC_3"
+msgstr "ご理解いただきありがとうございます。"
+
+msgid "PAGE_BADBROWSER_DESC_1"
+msgstr "このウェブサービスを完全に利用するには、Internet Explorer 6以降またはRetroZillaがインストールされていることをお勧めします。"
+
+msgid "PAGE_BADBROWSER_DESC_2"
+msgstr "Internet Explorer 6は直接またはサービスを通じてダウンロードできます"
+
+msgid "PAGE_BADBROWSER_TITLE"
+msgstr "Windowsストアへのご関心ありがとうございます!"
+
+msgid "PAGE_BADBROWSER_WARN_DESC_1"
+msgstr "何も心配しないでください。これは非常にクールです。特にサイトのデザイン全体がこのウェブブラウザを最小限のサポートで適応されています。"
+
+msgid "PAGE_BADBROWSER_WARN_DESC_2"
+msgstr "ただし、サーバーの現代的なセキュリティの側面とそのユーザーのデータの保存を考慮すると、このブラウザからサイトにアクセスするユーザーのためにいくつかの修正を導入する必要がありました。"
+
+msgid "PAGE_BADBROWSER_WARN_DESC_3"
+msgstr "ダウンロード機能、カタログの表示、検索には制限は影響しません。"
+
+msgid "PAGE_BADBROWSER_WARN_FOOTER"
+msgstr "より快適な使用体験については、RetroZillaとSupermiumブラウザをお勧めします"
+
+msgid "PAGE_BADBROWSER_WARN_RESTRICT_1"
+msgstr "<b>利用不可</b> アカウントシステム(ログイン、登録)"
+
+msgid "PAGE_BADBROWSER_WARN_RESTRICT_2"
+msgstr "アプリケーションページの管理が<b>制限されています</b>"
+
+msgid "PAGE_BADBROWSER_WARN_SUBTITLE"
+msgstr "非常に古いブラウザを通じてサイトにアクセスしていることに気付きました。"
+
+msgid "PAGE_BADBROWSER_WARN_TITLE"
+msgstr "重要なお知らせ"
+
+msgid "PAGE_CATEGORY_BUYBTN"
+msgstr "購入"
+
+msgid "PAGE_CATEGORY_COUNTOFRESULTS"
+msgstr "結果の数:"
+
+msgid "PAGE_CATEGORY_DEMOBTN"
+msgstr "デモ"
+
+msgid "PAGE_CATEGORY_INSTALLBTN"
+msgstr "インストール"
+
+msgid "PAGE_CATEGORY_SEARCHOFCATEGORY"
+msgstr "カテゴリ内を検索"
+
+msgid "PAGE_CATEGORY_SHOWCONTENTAS"
+msgstr "コンテンツを表示..."
+
+msgid "PAGE_CATEGORY_SHOWCONTENTASLIST"
+msgstr "リスト形式でコンテンツを表示"
+
+msgid "PAGE_CATEGORY_SHOWCONTENTASTILES"
+msgstr "タイル形式でコンテンツを表示"
+
+msgid "PAGE_DEBUG_DESC"
+msgstr "このページはテストおよび情報収集を目的として使用されます。このページが表示されている場合、settings.pyの定数DEBUG = Trueです。"
+
+msgid "PAGE_DEBUG_MAININFO_TITLE"
+msgstr "基本情報"
+
+msgid "PAGE_DEBUG_TITLE"
+msgstr "テスト情報(デバッグ)"
+
+msgid "PAGE_DELACC_BLOCK_TITLE"
+msgstr "設定"
+
+msgid "PAGE_DELACC_LASTPASS_TITLE"
+msgstr "最終的に確実に削除を決定した場合は、最後のパスワード確認を入力してください"
+
+msgid "PAGE_DELACC_TITLE"
+msgstr "アカウント削除"
+
+msgid "PAGE_DELACC_WARNDESC_1"
+msgstr "プロフィール設定で既にアカウント削除ボタンをクリックされましたね。ご決断をお察しします。 "
+
+msgid "PAGE_DELACC_WARNDESC_2"
+msgstr "ただし、もう一度申し上げたいのは、このアクションはプロフィールデータの破壊を引き起こすということです"
+
+msgid "PAGE_DELACC_WARNDESC_3"
+msgstr "復旧の可能性なく"
+
+msgid "PAGE_DELACC_WARNDESC_4"
+msgstr "管理されたアプリケーションページへのアクセスは失われ、送信されたレビューは匿名化されます。"
+
+msgid "PAGE_DELACC_WARNDESC_5"
+msgstr "プロフィール統計を記載する最適な時期です:"
+
+msgid "PAGE_DELACC_WARNTITLE"
+msgstr "ご注意ください!"
+
+msgid "PAGE_DELACC_YOULEFTHERE_1"
+msgstr "考え直す理由"
+
+msgid "PAGE_DELACC_YOULEFTHERE_APP_1"
+msgstr "あなたがアップロードしたアプリケーション数:"
+
+msgid "PAGE_DELACC_YOULEFTHERE_APP_2"
+msgstr "アカウント削除後はそれらを管理できなくなります"
+
+msgid "PAGE_DELACC_YOULEFTHERE_AVATAR_1"
+msgstr "あなたの美しいアバター"
+
+msgid "PAGE_DELACC_YOULEFTHERE_AVATAR_2"
+msgstr "自分自身をそのまま受け入れてください"
+
+msgid "PAGE_DELACC_YOULEFTHERE_HISTORY_1"
+msgstr "アップロードされたアプリケーションの履歴"
+
+msgid "PAGE_DELACC_YOULEFTHERE_HISTORY_2"
+msgstr "さて、一度そこを見たことがありますか?"
+
+msgid "PAGE_DELACC_YOULEFTHERE_INVITES_1"
+msgstr "あなたが招待した人数:"
+
+msgid "PAGE_DELACC_YOULEFTHERE_INVITES_2"
+msgstr "彼らはあなたなしで残り、がっかりするでしょう"
+
+msgid "PAGE_DELACC_YOULEFTHERE_TITLE"
+msgstr "ここに残したもの..."
+
+msgid "PAGE_DELAPP_DELACCOUNTBTN"
+msgstr "アカウントを削除"
+
+msgid "PAGE_DEVADD_ALREADYDEV_1"
+msgstr "あなたは既に開発者です!"
+
+msgid "PAGE_DEVADD_ALREADYDEV_2"
+msgstr "既に開発者ステータスを持っています。LunaStoreにアプリケーションをアップロードするための追加オプションはすべて利用可能です。"
+
+msgid "PAGE_DEVADD_DESC_1"
+msgstr "あなたは自分のソフトウェアの代表者または開発者ですか?"
+
+msgid "PAGE_DEVADD_DESC_2"
+msgstr "開発者アカウントにアップグレードして、公式にLunaStoreでソフトウェアをアップロードしてください。公式アップロードは対応するバッジでマークされます。"
+
+msgid "PAGE_DEVADD_DISABLED_1"
+msgstr "開発者登録は一時的に無効化されています"
+
+msgid "PAGE_DEVADD_DISABLED_2"
+msgstr "現在、開発者ステータスの新しい申請は受け付けていません。後でもう一度お試しください。"
+
+msgid "PAGE_DEVADD_ENTERINFO_ABOUTYOU"
+msgstr "自己紹介をしてください(1000文字):"
+
+msgid "PAGE_DEVADD_ENTERINFO_CONFIRM"
+msgstr "登録確認"
+
+msgid "PAGE_DEVADD_ENTERINFO_EMAIL"
+msgstr "連絡先メールアドレス:"
+
+msgid "PAGE_DEVADD_ENTERINFO_EMAILDESC"
+msgstr "必ずご連絡いたします。少なくともそう努力します。"
+
+msgid "PAGE_DEVADD_ENTERINFO_GITHUBDESC"
+msgstr "なぜダメなのですか?あなたの素晴らしい開発作業を見たいです :3"
+
+msgid "PAGE_DEVADD_ENTERINFO_TITLE"
+msgstr "基本情報"
+
+msgid "PAGE_DEVADD_ENTERINFO_USERNAME"
+msgstr "ユーザー名:"
+
+msgid "PAGE_DEVADD_ENTERINFO_USERNAMEDESC"
+msgstr "ユーザー名は変更できません。別のアカウントの場合は、再ログインしてください。"
+
+msgid "PAGE_DEVADD_ENTERINFO_WHYCHOOSEUS"
+msgstr "なぜ私たちを選ぶことにしたのですか?(250文字):"
+
+msgid "PAGE_DEVADD_NOWCHECKING_1"
+msgstr "既に申請書を提出しました。管理者が間もなく審査します。"
+
+msgid "PAGE_DEVADD_NOWCHECKING_2"
+msgstr "承認された場合、通知を受け取り、ステータスが付与されます。"
+
+msgid "PAGE_DEVADD_NOWCHECKING_3"
+msgstr "拒否された場合は、もう一度申請書を提出できます。"
+
+msgid "PAGE_DEVADD_NOWCHECKING_TITLE"
+msgstr "申請レビュー中"
+
+msgid "PAGE_DEVADD_SENDALLBTN"
+msgstr "申請書を提出"
+
+msgid "PAGE_DEVADD_TITLE"
+msgstr "開発者ステータス申請書提出"
+
+msgid "PAGE_DIST_EDIT_CHANGE_FILE"
+msgstr "ファイルを置き換える:"
+
+msgid "PAGE_DIST_EDIT_CURRENT_FILE"
+msgstr "現在のファイル:"
+
+msgid "PAGE_DIST_EDIT_HEADER"
+msgstr "ディストリビューションの編集"
+
+msgid "PAGE_DIST_FORM_CANCEL"
+msgstr "キャンセル"
+
+msgid "PAGE_DIST_FORM_CHANGELOG"
+msgstr "変更ログ(Changelog):"
+
+msgid "PAGE_DIST_FORM_CHANGELOG_DESC"
+msgstr "このバージョンの新機能を説明してください"
+
+msgid "PAGE_DIST_FORM_ERR_CDN_REJECT"
+msgstr "LunaSpireエンジンがファイルアップロードを拒否しました。この問題を管理者に報告してください。"
+
+msgid "PAGE_DIST_FORM_ERR_GET_TOKEN"
+msgstr "LunaSpireエンジンからアップロードトークンを取得するエラー。この問題を管理者に報告してください。"
+
+msgid "PAGE_DIST_FORM_ERR_NO_CONFIRM"
+msgstr "LunaSpireエンジンが確認トークンを返しませんでした。この問題を管理者に報告してください。"
+
+msgid "PAGE_DIST_FORM_FILE"
+msgstr "ファイル:"
+
+msgid "PAGE_DIST_FORM_FILE_ALREADY_UPLOADED"
+msgstr "ファイルは既にアップロードされています(保存待ち)"
+
+msgid "PAGE_DIST_FORM_FILE_BUTTON"
+msgstr "参照..."
+
+msgid "PAGE_DIST_FORM_FILE_DESC"
+msgstr "許可されている形式: .exe, .zip, .rar, .7zおよび他のアーカイブ。"
+
+msgid "PAGE_DIST_FORM_FILE_NO_FILE"
+msgstr "ファイルが選択されていません。"
+
+msgid "PAGE_DIST_FORM_FILE_UPLOADING"
+msgstr "アップロード中..."
 
 msgid "PAGE_DIST_FORM_LUNABOX_PATH_DESC"
 msgstr "例: folder1/inst.exe。zipアーカイブの内容を基準にします。「zipアーカイブ内のアプリ」と「zipアーカイブ内のインストーラー」に適用されます。"
@@ -65,30 +1183,804 @@ msgstr "自己完結型アプリ（インストール済み、直接実行）"
 msgid "PAGE_DIST_FORM_LUNABOX_TYPE_TITLE"
 msgstr "配布タイプ:"
 
+msgid "PAGE_DIST_FORM_SAVE"
+msgstr "変更を保存"
+
+msgid "PAGE_DIST_FORM_SAVED"
+msgstr "ディストリビューション変更が正常に保存されました。"
+
+msgid "PAGE_DIST_FORM_URL"
+msgstr "外部リンク(URL):"
+
+msgid "PAGE_DIST_FORM_URL_DESC"
+msgstr "ファイルが別のリソースに保存されている場合は指定してください"
+
+msgid "PAGE_DIST_FORM_VERSION"
+msgstr "アプリケーションバージョン:"
+
+msgid "PAGE_DIST_FORM_VERSION_DESC"
+msgstr "例: 1.0.0 または 2.1.4-beta"
+
+msgid "PAGE_DIST_FORM_VT_DESC"
+msgstr "virustotal.comサイトでアップロードされたファイルをスキャンした結果へのリンクを指定してください"
+
+msgid "PAGE_DIST_FORM_VT_TITLE"
+msgstr "VirusTotalリンク(ファイルをアップロードする場合は必須):"
+
+msgid "PAGE_DOWNLOAD_BACK"
+msgstr "戻る"
+
+msgid "PAGE_DOWNLOAD_DEMO_WARNING"
+msgstr "プログラムはデモバージョンとして配布されており、完全なバージョンは著者に支払う必要があります。ファイルは開発者の公式サイトから提供されています。"
+
+msgid "PAGE_DOWNLOAD_DL_ACTION"
+msgstr "ダウンロード"
+
+msgid "PAGE_DOWNLOAD_DMCA_WARNING"
+msgstr "権利者からの申し立てのため、プログラムのダウンロード機能は閉じられています。ご理解いただきありがとうございます。"
+
+msgid "PAGE_DOWNLOAD_GO_OFFICIAL"
+msgstr "公式サイトにアクセス"
+
+msgid "PAGE_DOWNLOAD_LATEST_VERSION_NOTE"
+msgstr "最新アップロードバージョンは太字でマークされています"
+
+msgid "PAGE_DOWNLOAD_LOCAL_SOURCE"
+msgstr "当サイトからのダウンロード"
+
+msgid "PAGE_DOWNLOAD_MANAGE_DISTS"
+msgstr "ディストリビューション管理"
+
+msgid "PAGE_DOWNLOAD_NO_DISTRIBUTIONS"
+msgstr "ディストリビューションはまだ追加されていません。"
+
+msgid "PAGE_DOWNLOAD_NO_NOTES"
+msgstr "メモなし"
+
+msgid "PAGE_DOWNLOAD_OFFICIAL_SOURCE"
+msgstr "公式ソースからのダウンロード"
+
+msgid "PAGE_DOWNLOAD_TABLE_ACTION"
+msgstr "アクション"
+
+msgid "PAGE_DOWNLOAD_TABLE_DATE"
+msgstr "公開日"
+
+msgid "PAGE_DOWNLOAD_TABLE_LINK"
+msgstr "リンク"
+
+msgid "PAGE_DOWNLOAD_TABLE_UPLOAD_DATE"
+msgstr "アップロード日"
+
+msgid "PAGE_DOWNLOAD_TABLE_VERSION"
+msgstr "バージョン"
+
+msgid "PAGE_DOWNLOAD_TITLE"
+msgstr "ダウンロード"
+
+msgid "PAGE_DOWNLOAD_UPLOADED_VERSIONS"
+msgstr "アップロードされたバージョン"
+
+msgid "PAGE_DOWNLOAD_VERSION_LIST"
+msgstr "バージョンリスト"
+
+msgid "PAGE_FAQ_A_ACC_BENEFITS"
+msgstr "アカウントを使用すると、アプリケーションにレビューを残すことができ、コミュニティで自分自身を上手に宣伝できます。また、厳しいモデレーション後に独自のアプリケーションをカタログにアップロードできます"
+
+msgid "PAGE_FAQ_A_ADD_APP"
+msgstr "まだできません。わたしたちは始めたばかりなので、自分のリストからソフトウェアを取得しています。このページの更新をご確認ください。"
+
+msgid "PAGE_FAQ_A_CREATE_ACC"
+msgstr "サイトのトップバーで「登録」ボタンをクリックしてください"
+
+msgid "PAGE_FAQ_A_LEGAL"
+msgstr "通常、このような質問はソフトウェア開発者が尋ねます。ただし、古いバージョンのプログラムがこのサイトに存在することがあなたを非常に心配させている場合は、メールで当社に連絡できます。ただし、当社はプロジェクトの目的を理解していただくことを強く願っています。"
+
+msgid "PAGE_FAQ_A_WHY_EXIST_PART1"
+msgstr "素晴らしい質問です。すべてはプロジェクトの参加者の一人が古いソフトウェアで3D Windows XPスクリーンセーバーをアップロードしたいという願いから始まりました。これはほぼ誰も見たことがなく、ウェブアーカイブではほぼ保存されていません。"
+
+msgid "PAGE_FAQ_A_WHY_EXIST_PART2"
+msgstr "アップロードの数日後、スクリーンセーバーは「サイトのテーマに合致しない」という理由でサイトから削除されました。そして「なぜあなたはXPイメージを保存しているのですか?」という質問に対して、管理者は明確な答えを与えていません。"
+
+msgid "PAGE_FAQ_A_WHY_EXIST_PART3"
+msgstr "大丈夫です。私たちはまったく気にしていません。競争したくありません。ただ独自の小さなカタログを作成することにしました :3"
+
+msgid "PAGE_FAQ_CARD_TEAM"
+msgstr "'共通の趣味'という意味ですか?"
+
+msgid "PAGE_FAQ_CARD_TEAMDESC_1"
+msgstr "信じられないでしょう。このプロジェクトにはさまざまな情熱的な人々が関わっています。"
+
+msgid "PAGE_FAQ_CARD_TEAMDESC_2"
+msgstr "彼らのリストを次に示します:"
+
+msgid "PAGE_FAQ_CARD_TEAM_AUTHOR"
+msgstr "- アイデアの著者、デザイン、"
+
+msgid "PAGE_FAQ_CARD_TEAM_BACKEND"
+msgstr "- バックエンド開発、アドバイス、インスピレーション"
+
+msgid "PAGE_FAQ_CARD_TEAM_CDNANDGIT"
+msgstr "- 水面下の作業、CDN、内部Git"
+
+msgid "PAGE_FAQ_CARD_TEAM_DEV"
+msgstr "- 開発者"
+
+msgid "PAGE_FAQ_CARD_TEAM_FRONTEND"
+msgstr "フロントエンドインターフェース"
+
+msgid "PAGE_FAQ_CARD_WHATISIT"
+msgstr "ここはどこに来ましたか?これは何ですか?"
+
+msgid "PAGE_FAQ_CARD_WHATISITDESC"
+msgstr "ある種の代替の「ストア」アプリケーションとゲーム。現在、Windows XPの時代に焦点を当てています。"
+
+msgid "PAGE_FAQ_CARD_WHYWESHOP"
+msgstr "なぜ「ストア」は引用符で囲まれていますか?"
+
+msgid "PAGE_FAQ_CARD_WHYWESHOPDESC"
+msgstr "私たちはファンサイトであり、巨大なストアに成長することはないと思います。しかし誰が知っています。ただし、左側のメニューの広告はまったく真剣に受け取られるべきではなく、プロジェクト自体は共通の趣味のようなものです。"
+
+msgid "PAGE_FAQ_DESC"
+msgstr "ご質問がありますか?このページには、LunaStoreに関するすべての情報が記載されています"
+
+msgid "PAGE_FAQ_DONATETAB"
+msgstr "寄付する"
+
+msgid "PAGE_FAQ_DONATE_TITLE"
+msgstr "私たちをサポートする方法は?"
+
+msgid "PAGE_FAQ_LAST_UPDATE"
+msgstr "最終更新"
+
+msgid "PAGE_FAQ_PRIVACYTAB"
+msgstr "プライバシー"
+
+msgid "PAGE_FAQ_PRIVACY_EMPTY"
+msgstr "ドキュメントはまだ記入されていません..."
+
+msgid "PAGE_FAQ_PRIVACY_TITLE"
+msgstr "プライバシーポリシー"
+
+msgid "PAGE_FAQ_Q_ACC_BENEFITS"
+msgstr "LunaStoreのアカウントを持つことの利点は何ですか?"
+
+msgid "PAGE_FAQ_Q_ADD_APP"
+msgstr "では、どのようにしてアプリケーションを追加しますか?"
+
+msgid "PAGE_FAQ_Q_CREATE_ACC"
+msgstr "ここでアカウントを作成するにはどうすればよいですか?"
+
+msgid "PAGE_FAQ_Q_LEGAL"
+msgstr "\"ふむ、これはすべて合法ですか?\""
+
+msgid "PAGE_FAQ_Q_WHY_EXIST"
+msgstr "このサイトはなぜ存在するのですか?"
+
+msgid "PAGE_FAQ_RULESTAB"
+msgstr "ルール"
+
+msgid "PAGE_FAQ_TEAM_HEADER_OTHER"
+msgstr "また、他の開発者に感謝します:"
+
+msgid "PAGE_FAQ_TEAM_HEADER_TESTERS"
+msgstr "テスターについても忘れません:"
+
+msgid "PAGE_FAQ_TEAM_HEADER_TRANSLATORS"
+msgstr "また翻訳者について:"
+
+msgid "PAGE_FAQ_TEAM_ROLE_CHELKA0"
+msgstr "サイトの背後にある装飾"
+
+msgid "PAGE_FAQ_TEAM_ROLE_COOKIE"
+msgstr "第2のバックエンド開発者、lunaパッケージマネージャーのメイン開発者、および日本語への翻訳"
+
+msgid "PAGE_FAQ_TEAM_ROLE_FAYZETWIN"
+msgstr "主要なバックエンド開発者、API"
+
+msgid "PAGE_FAQ_TEAM_ROLE_MONDY"
+msgstr "ロゴ"
+
+msgid "PAGE_FAQ_TEAM_ROLE_NOCHA3"
+msgstr "Windows XPのネイティブクライアント"
+
+msgid "PAGE_FAQ_TEAM_ROLE_ZAZIOS"
+msgstr "バックエンド開発者(Go)"
+
+msgid "PAGE_FAQ_TEAM_TESTERS_LIST"
+msgstr "[テスターのニックネームをコンマで区切って]"
+
+msgid "PAGE_FAQ_TITLE"
+msgstr "ヘルプ"
+
+msgid "PAGE_FAQ_TITLE_2"
+msgstr "ヘルプセンター"
+
+msgid "PAGE_FAQ_TOOLTIP_EASTEREGG"
+msgstr "ハック 自転車 ヨーーおお"
+
+msgid "PAGE_INVITE_ADMINSTATUS"
+msgstr "モデレーター"
+
+msgid "PAGE_INVITE_BROWSER_TITLE"
+msgstr "招待"
+
+msgid "PAGE_INVITE_CODE_ROTATION_WARN"
+msgstr "<b>重要:</b> 現在、新しいユーザーの招待コードは24時間ごとに変更されます"
+
+msgid "PAGE_INVITE_COPY_CODE"
+msgstr "下のコードをコピーして、必要な人に送信してください"
+
+msgid "PAGE_INVITE_DESCRIPTION"
+msgstr "LunaStoreにレトロテーマに関心を持つ友人や知人を招待できます。"
+
+msgid "PAGE_INVITE_HOW_TO_SEND"
+msgstr "メール、電話、チャット、個人的に送信できます。何でもいいです。招待されたユーザーは登録時にコードを必ず入力する必要があります。"
+
+msgid "PAGE_INVITE_INPUT_BTN"
+msgstr "登録を開始"
+
+msgid "PAGE_INVITE_INPUT_DESC_1"
+msgstr "既に<b>登録された参加者</b>から受け取った招待コードを入力できます"
+
+msgid "PAGE_INVITE_INPUT_DESC_2"
+msgstr "この方法により、<b>閉鎖された公開登録を迂回して</b>アカウントを作成する独自の機会が得られます"
+
+msgid "PAGE_INVITE_INPUT_HEADER"
+msgstr "招待コード入力"
+
+msgid "PAGE_INVITE_INPUT_LABEL"
+msgstr "コード"
+
+msgid "PAGE_INVITE_INPUT_TITLE"
+msgstr "招待コード入力"
+
+msgid "PAGE_INVITE_LIMIT_INFO"
+msgstr "現在、<b>1</b>人を招待できます。ユーザーが招待を受け入れた後、次のコードは1週間後に作成できます"
+
+msgid "PAGE_INVITE_LIST_EMPTY"
+msgstr "まだ誰も招待していません"
+
+msgid "PAGE_INVITE_LIST_HEADER"
+msgstr "招待されたユーザー"
+
+msgid "PAGE_INVITE_MAIN_TITLE"
+msgstr "人を招待"
+
+msgid "PAGE_INVITE_REGDATE"
+msgstr "登録"
+
+msgid "PAGE_INVITE_USERSTATUS"
+msgstr "ユーザー"
+
+msgid "PAGE_LOGIN_BROWSER_TITLE"
+msgstr "ログイン"
+
+msgid "PAGE_LOGIN_GREETING"
+msgstr "ご紹介します..."
+
+msgid "PAGE_LOGIN_INFO_BULLET_1"
+msgstr "ソフトウェアにレビューを投稿"
+
+msgid "PAGE_LOGIN_INFO_BULLET_2"
+msgstr "コミュニティを征服"
+
+msgid "PAGE_LOGIN_INFO_BULLET_3"
+msgstr "ソフトウェアをアップロード"
+
+msgid "PAGE_LOGIN_INFO_DESC_2"
+msgstr "作成してください。それは無料です。"
+
+msgid "PAGE_LOGIN_INFO_TITLE_1"
+msgstr "アカウントが必要な理由は何ですか?"
+
+msgid "PAGE_LOGIN_INFO_TITLE_2"
+msgstr "アカウントをお持ちでないですか?"
+
+msgid "PAGE_LOGIN_MAIN_TITLE"
+msgstr "ログイン"
+
+msgid "PAGE_LOGIN_PASSWORD_LABEL"
+msgstr "パスワード:"
+
+msgid "PAGE_LOGIN_REGISTER_BTN"
+msgstr "登録"
+
+msgid "PAGE_LOGIN_REQUIRED_WARNING"
+msgstr "この操作を続行するには、サイトにログインする必要があります"
+
+msgid "PAGE_LOGIN_SUBMIT_BTN"
+msgstr "ログイン"
+
+msgid "PAGE_LOGIN_USERNAME_LABEL"
+msgstr "ログイン:"
+
+msgid "PAGE_MANAGEDIST_CREATE_SUCCESS"
+msgstr "新しいディストリビューションが作成されました"
+
+msgid "PAGE_MANAGE_APPS_BTN_EDIT"
+msgstr "編集"
+
+msgid "PAGE_MANAGE_APPS_COUNT"
+msgstr "管理されたアプリケーション"
+
+msgid "PAGE_MANAGE_APPS_CREATE"
+msgstr "アプリケーション作成"
+
+msgid "PAGE_MANAGE_APPS_EMPTY_DESC"
+msgstr "まだアプリケーションを管理していません。"
+
+msgid "PAGE_MANAGE_APPS_EMPTY_TITLE"
+msgstr "アプリケーションなし ＞︿＜"
+
+msgid "PAGE_MANAGE_APPS_HEADER"
+msgstr "管理されたアプリケーションページ"
+
+msgid "PAGE_MANAGE_APPS_MY_APPS"
+msgstr "マイアプリ"
+
+msgid "PAGE_MANAGE_APPS_ROLE_OWNER"
+msgstr "所有者"
+
+msgid "PAGE_MANAGE_APPS_TITLE"
+msgstr "管理されたアプリケーション"
+
+msgid "PAGE_NOTIFICATIONS_COUNT_SINGLE"
+msgid_plural "PAGE_NOTIFICATIONS_COUNT_PLURAL"
+msgstr[0] "{value, plural, one {You have <b>%(counter)s</b> new notification} few {You have <b>%(counter)s</b> new notifications} many {You have <b>%(counter)s</b> new notifications} other {}}"
+
+msgid "PAGE_NOTIFICATIONS_EARLY"
+msgstr "初期通知"
+
+msgid "PAGE_NOTIFICATIONS_NOW"
+msgstr "今しがた"
+
+msgid "PAGE_NOTIFICATIONS_NO_NEW"
+msgstr "新しい通知はありません"
+
+msgid "PAGE_NOTIFICATIONS_TAB"
+msgstr "通知"
+
+msgid "PAGE_NOTIFICATIONS_TITLE"
+msgstr "通知"
+
+msgid "PAGE_NOTIFY_TOAST_CLOSE"
+msgstr "閉じる"
+
+msgid "PAGE_NOTIFY_TOAST_NEW"
+msgstr "新しい通知"
+
+msgid "PAGE_NOTIFY_TOAST_VIEW"
+msgstr "表示 »"
+
+msgid "PAGE_OTHER_PROJECTS_BROWSER_TITLE"
+msgstr "その他のプロジェクト"
+
+msgid "PAGE_OTHER_PROJECTS_BTN_GO"
+msgstr "移動 »"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_DM"
+msgstr "Daniel Myslivet(古いコンピューターとブラウザー向けバージョン)のサイトカード"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_FOXCORP"
+msgstr "Milya Foxの個人サイト。プロジェクトを支援したネットワークエンジニア"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_GAMES"
+msgstr "Windows XP / 7インターネットゲームのカスタムサードパーティサーバーへの再編成"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_KICQ"
+msgstr "ICQ機能を復元する非公式プロジェクト"
+
+msgid "PAGE_OTHER_PROJECTS_DESC_RENAISSANCE"
+msgstr "Agent@Mail.ru機能を復元する非公式プロジェクト"
+
+msgid "PAGE_OTHER_PROJECTS_SECTION_FRIENDS"
+msgstr "友人サイト"
+
+msgid "PAGE_OTHER_PROJECTS_SECTION_MAIN"
+msgstr "メイン"
+
+msgid "PAGE_OTHER_PROJECTS_SUBTITLE"
+msgstr "友人サイトと私たちの他のプロジェクト"
+
+msgid "PAGE_OTHER_PROJECTS_TITLE"
+msgstr "その他のプロジェクト"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_HEADER"
+msgstr "成功しました！"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_INFO_TEXT"
+msgstr "あなたのアカウントは安全になりました。おかえりなさい！"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_LOGIN_BTN"
+msgstr "アカウントにログインする"
+
+msgid "PAGE_PASSWORD_RESET_COMPLETE_TITLE"
+msgstr "パスワードを変更しました"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TEXT"
+msgstr "新しいパスワードは大文字・小文字、数字や特殊記号などを組み合わせた独特なものにしてください。"
+
+msgid "PAGE_PASSWORD_RESET_CONFIRM_INFO_TITLE"
+msgstr "強力なパスワード"
+
+msgid "PAGE_PASSWORD_RESET_HEADER"
+msgstr "パスワードのリセット"
+
+msgid "PAGE_PASSWORD_RESET_INFO_TEXT"
+msgstr "あなたの LunaStore のアカウントに登録されていたメールアドレスを入力してください。パスワードをリセットする方法をメールで送信します。"
+
+msgid "PAGE_PASSWORD_RESET_INFO_TITLE"
+msgstr "パスワードを忘れた？"
+
+msgid "PAGE_PASSWORD_RESET_SUBJECT"
+msgstr "LunaStoreのパスワードをリセットする"
+
+msgid "PAGE_PASSWORD_RESET_SUBMIT_BTN"
+msgstr "メールを送信"
+
+msgid "PAGE_PASSWORD_RESET_TITLE"
+msgstr "パスワードをリセット"
+
+msgid "PAGE_PROFILE_APPS_EMPTY_DESC"
+msgstr "ユーザーはまだアプリケーションを公開していません。"
+
+msgid "PAGE_PROFILE_APPS_TITLE"
+msgstr "公開されたアプリケーション"
+
+msgid "PAGE_PROFILE_BANNED_DESC"
+msgstr "これはサイトの規則違反、疑わしい活動、またはセキュリティシステムのトリガーが原因である可能性があります。私たちはすべてのユーザーの快適さを大切にしているため、そのようなユーザーへのアクセスを制限することを余儀なくされています。"
+
+msgid "PAGE_PROFILE_BANNED_DESC_2"
+msgstr "このユーザーはブロックされているため、特にお金を要求された場合は、さらなる対話を行うことをお勧めしません。"
+
+msgid "PAGE_PROFILE_BANNED_INTRO"
+msgstr "このユーザーはブロックされています。"
+
+msgid "PAGE_PROFILE_CONTACT_INFO"
+msgstr "連絡先"
+
+msgid "PAGE_PROFILE_INVITES_EMPTY_DESC"
+msgstr "このユーザーの招待状でまだ誰も登録していません。"
+
+msgid "PAGE_PROFILE_INVITES_EMPTY_TITLE"
+msgstr "招待なし ＞︿＜"
+
+msgid "PAGE_PROFILE_INVITES_PEOPLE"
+msgstr "人(最初の5人を表示)"
+
+msgid "PAGE_PROFILE_INVITES_TEXT"
+msgstr "招待した"
+
+msgid "PAGE_PROFILE_LABEL_EMAIL"
+msgstr "メール:"
+
+msgid "PAGE_PROFILE_LABEL_TELEGRAM"
+msgstr "Telegram:"
+
+msgid "PAGE_PROFILE_LABEL_WEBSITE"
+msgstr "ウェブサイト:"
+
+msgid "PAGE_PROFILE_LINK_ADDAPP"
+msgstr "追加"
+
+msgid "PAGE_PROFILE_LINK_ALL"
+msgstr "すべてを表示"
+
+msgid "PAGE_PROFILE_STAFF_ALT"
+msgstr "LunaStoreチーム"
+
+msgid "PAGE_PROFILE_STATS_MEMBER_SINCE"
+msgstr "メンバーシップ開始"
+
+msgid "PAGE_PROFILE_TAB_APPS"
+msgstr "アプリケーション"
+
+msgid "PAGE_PROFILE_TAB_MAIN"
+msgstr "メイン"
+
+msgid "PAGE_PROFILE_TAB_REVIEWS"
+msgstr "レビュー"
+
+msgid "PAGE_PROFILE_TITLE"
+msgstr "ユーザープロフィール"
+
+msgid "PAGE_REGISTER_BTN_SUBMIT"
+msgstr "登録"
+
+msgid "PAGE_REGISTER_CAPTCHA_INSTRUCTION"
+msgstr "画像の文字を入力してください:"
+
+msgid "PAGE_REGISTER_CLICK_HERE"
+msgstr "ここ"
+
+msgid "PAGE_REGISTER_CLOSED_MSG"
+msgstr "現在の自由登録は終了しており、既に参加しているメンバーからの招待によってのみ実施されています。"
+
+msgid "PAGE_REGISTER_HAVE_INVITE_TEXT"
+msgstr "招待コードがありますか?クリック"
+
+msgid "PAGE_REGISTER_HAVE_INVITE_TITLE"
+msgstr "招待がありますか?"
+
 msgid "PAGE_REGISTER_HELP_CODE"
 msgstr "お持ちでない場合は空欄のままにしてください"
+
+msgid "PAGE_REGISTER_HELP_EMAIL"
+msgstr "アカウントにログインするため、パスワードを復元するために使用されます"
+
+msgid "PAGE_REGISTER_HELP_PASS1"
+msgstr "強力なパスワードを作成してください。これは重要です、まじで!"
+
+msgid "PAGE_REGISTER_HELP_PASS2"
+msgstr "反復は教育の母 :D"
+
+msgid "PAGE_REGISTER_HELP_USERNAME"
+msgstr "最小2文字。ユーザー名で検索できます。登録後は変更できません。"
+
+msgid "PAGE_REGISTER_INFO_SPLASH"
+msgstr "アカウントを作成することで、アプリケーションをアップロードしたり、すでにアップロードされたプログラムにレビューを残したり、お気に入りの項目の独自のライブラリを管理したりできます。登録は無料です。"
 
 msgid "PAGE_REGISTER_LABEL_CODE"
 msgstr "招待コード:"
 
-msgid "ERROR_USERNAME_ALREADY_IN_USE"
-msgstr "このユーザー名は既に使用されています。"
+msgid "PAGE_REGISTER_LABEL_EMAIL"
+msgstr "メール:"
 
-msgid "ERROR_USERNAME_BLACKLISTED"
-msgstr "このユーザー名は禁止されています。"
+msgid "PAGE_REGISTER_LABEL_PASS1"
+msgstr "パスワード:"
 
-msgid "ERROR_USERNAME_CHANGE_COOLDOWN"
-msgstr "ユーザー名は年に1回しか変更できません。"
+msgid "PAGE_REGISTER_LABEL_PASS2"
+msgstr "パスワードを再度入力:"
 
-msgid "ERROR_USERNAME_EMPTY"
-msgstr "ユーザー名を空にすることはできません。"
+msgid "PAGE_REGISTER_LABEL_USERNAME"
+msgstr "ユーザー名:"
 
-msgid "ERROR_USERNAME_INVALID_CHARS"
-msgstr "ユーザー名には英字、数字、および . _ - 記号のみを使用できます。"
+msgid "PAGE_REGISTER_SECTION_CONFIRM"
+msgstr "登録確認"
 
-msgid "ERROR_USERNAME_INVALID_DOTS"
-msgstr "ユーザー名の先頭または末尾にドットを使用したり、連続したドットを含めることはできません。"
+msgid "PAGE_REGISTER_SECTION_MAIN"
+msgstr "基本情報"
 
-msgid "ERROR_USERNAME_NO_LETTERS"
-msgstr "ユーザー名には少なくとも1つの英字を含める必要があります。"
+msgid "PAGE_REGISTER_TITLE"
+msgstr "登録"
 
+msgid "PAGE_REPORTAPP_EXPLAIN_LABEL"
+msgstr "追加情報(必須):"
+
+msgid "PAGE_REPORTAPP_INFO_1"
+msgstr "アプリケーションに対して苦情を送信しようとしています"
+
+msgid "PAGE_REPORTAPP_INFO_2"
+msgstr "理由を選択して、問題について詳しく説明してください:"
+
+msgid "PAGE_REPORTAPP_PAGE_TITLE"
+msgstr "アプリケーション報告"
+
+msgid "PAGE_REPORTAPP_REASON_INCORRECT"
+msgstr "不正確なデータまたは説明"
+
+msgid "PAGE_REPORTAPP_REASON_MALWARE"
+msgstr "助けて、ウイルスが居ます!"
+
+msgid "PAGE_REPORTAPP_REASON_OTHER"
+msgstr "その他の理由"
+
+msgid "PAGE_REPORTAPP_SUBMIT_BTN"
+msgstr "苦情を送信"
+
+msgid "PAGE_REPORTAPP_SUCCESS_MSG"
+msgstr "あなたの苦情が送信されました。"
+
+msgid "PAGE_REPORTAPP_TITLE"
+msgstr "アプリケーション報告"
+
+msgid "PAGE_REPORTAPP_TITLE_PATH"
+msgstr "アプリケーションレポート"
+
+msgid "PAGE_REPORTPROBLEM_SUBMIT_BTN"
+msgstr "問題を報告する"
+
+msgid "PAGE_REPORTPROBLEM_SUCCESS_MSG"
+msgstr "報告に成功しました"
+
+msgid "PAGE_REPORTPROBLEM_TITLE"
+msgstr "問題を報告する"
+
+msgid "PAGE_SEARCH_BADGE_DEMO"
+msgstr "デモ"
+
+msgid "PAGE_SEARCH_BADGE_DEMO_PRICE"
+msgstr "デモ、その後 $%(price)s"
+
+msgid "PAGE_SEARCH_BADGE_FREE"
+msgstr "無料"
+
+msgid "PAGE_SEARCH_BADGE_NOT_FOUND"
+msgstr "「%(q)s」のクエリの検索結果が見つかりません"
+
+msgid "PAGE_SEARCH_BTN_DETAILS"
+msgstr "詳細"
+
+msgid "PAGE_SEARCH_BTN_RESET"
+msgstr "フィルターをリセット"
+
+msgid "PAGE_SEARCH_BTN_SUBMIT"
+msgstr "検索"
+
+msgid "PAGE_SEARCH_FILTER_AUTHOR_ID"
+msgstr "著者ID"
+
+msgid "PAGE_SEARCH_FILTER_CATEGORY"
+msgstr "カテゴリ"
+
+msgid "PAGE_SEARCH_FILTER_CATEGORY_ALL"
+msgstr "すべてのカテゴリ"
+
+msgid "PAGE_SEARCH_FILTER_FREE"
+msgstr "無料のみ"
+
+msgid "PAGE_SEARCH_HEADING"
+msgstr "クエリを入力"
+
+msgid "PAGE_SEARCH_IMG_ALT_NONE"
+msgstr "アイコンなし"
+
+msgid "PAGE_SEARCH_INPUT_PLACEHOLDER"
+msgstr "例: Total Commander"
+
+msgid "PAGE_SEARCH_LINK_ADVANCED"
+msgstr "検索パラメータを絞り込む"
+
+msgid "PAGE_SEARCH_MSG_NO_RESULTS %(q)s"
+msgstr "「%(q)s」のクエリの検索結果が見つかりません"
+
+msgid "PAGE_SEARCH_MSG_NO_RESULTS_EMPTY"
+msgstr "検索結果が見つかりません"
+
+msgid "PAGE_SEARCH_SORT_LIST"
+msgstr "リスト形式でコンテンツを表示"
+
+msgid "PAGE_SEARCH_SORT_PLACEHOLDER"
+msgstr "コンテンツを表示..."
+
+msgid "PAGE_SEARCH_SORT_TILES"
+msgstr "タイル形式でコンテンツを表示"
+
+msgid "PAGE_SEARCH_TITLE"
+msgstr "検索"
+
+msgid "PAGE_SETTINGS_BTN_DELETE"
+msgstr "アカウントを削除"
+
+msgid "PAGE_SETTINGS_BTN_SAVE"
+msgstr "保存"
+
+msgid "PAGE_SETTINGS_BTN_UPLOAD"
+msgstr "アップロード"
+
+msgid "PAGE_SETTINGS_DELETE_WARNING"
+msgstr "サイトを使用したくない場合は、アカウントを削除する完全な権利があります。 <br><br>ただし、このアクションはプロフィールデータの破壊を引き起こすことを理解すべきです <b>復旧の可能性なく</b>。管理されたアプリケーションページへのアクセスは失われ、送信されたレビューは匿名化されます。<br><br>"
+
+msgid "PAGE_SETTINGS_DEV_STATUS_HAS"
+msgstr "存在する"
+
+msgid "PAGE_SETTINGS_HTML_TITLE"
+msgstr "アカウント設定"
+
+msgid "PAGE_SETTINGS_INFO_AVATAR_RULES"
+msgstr "推奨アバターサイズ: 64x64。<br>許可された形式: .PNG, .JPG<br>最大サイズ: 2MB"
+
+msgid "PAGE_SETTINGS_INFO_EMAIL_CHANGE"
+msgstr "メール変更にはパスワード確認が必要です。"
+
+msgid "PAGE_SETTINGS_JS_ERR_CDN"
+msgstr "LunaSpireサーバーへのファイル保存時にエラーが発生しました。この問題を管理者に報告してください。"
+
+msgid "PAGE_SETTINGS_JS_ERR_PREFIX"
+msgstr "エラーが発生しました:"
+
+msgid "PAGE_SETTINGS_JS_ERR_TOKEN"
+msgstr "アップロード用のセキュアなLunaSpireトークンを取得できませんでした。この問題を管理者に報告してください。"
+
+msgid "PAGE_SETTINGS_JS_SELECT_FILE"
+msgstr "アップロードするファイルを選択してください!"
+
+msgid "PAGE_SETTINGS_JS_UPLOADING"
+msgstr "アップロード中..."
+
+msgid "PAGE_SETTINGS_LABEL_BIO"
+msgstr "プロフィール説明:"
+
+msgid "PAGE_SETTINGS_LABEL_CHOOSE_FILE"
+msgstr "ファイルを選択:"
+
+msgid "PAGE_SETTINGS_LABEL_CONFIRM_PASS"
+msgstr "パスワードを確認する:"
+
+msgid "PAGE_SETTINGS_LABEL_CUR_EMAIL"
+msgstr "現在のメール:"
+
+msgid "PAGE_SETTINGS_LABEL_CUR_PASS"
+msgstr "現在のパスワード:"
+
+msgid "PAGE_SETTINGS_LABEL_DEV_STATUS"
+msgstr "開発者ステータス: "
+
+msgid "PAGE_SETTINGS_LABEL_EMAIL"
+msgstr "連絡先メールアドレス:"
+
+msgid "PAGE_SETTINGS_LABEL_HIDE_REVIEWS"
+msgstr "他のユーザーによる私のレビューへのアクセスを制限"
+
+msgid "PAGE_SETTINGS_LABEL_NEW_EMAIL"
+msgstr "新しいメール:"
+
+msgid "PAGE_SETTINGS_LABEL_NEW_PASS"
+msgstr "新しいパスワード:"
+
+msgid "PAGE_SETTINGS_LABEL_TELEGRAM"
+msgstr "Telegram:"
+
+msgid "PAGE_SETTINGS_LABEL_USERNAME"
+msgstr "ユーザー名:"
+
+msgid "PAGE_SETTINGS_LABEL_WEBSITE"
+msgstr "ウェブサイト:"
+
+msgid "PAGE_SETTINGS_SECTION_AVATAR"
+msgstr "アバターを変更"
+
+msgid "PAGE_SETTINGS_SECTION_BASIC"
+msgstr "基本情報"
+
+msgid "PAGE_SETTINGS_SECTION_CHANGE_EMAIL"
+msgstr "メールを変更"
+
+msgid "PAGE_SETTINGS_SECTION_DELETE"
+msgstr "アカウント削除"
+
+msgid "PAGE_SETTINGS_SECTION_PASSWORD"
+msgstr "パスワード変更"
+
+msgid "PAGE_SETTINGS_SECTION_PRIVACY"
+msgstr "プライバシー"
+
+msgid "PAGE_SETTINGS_TAB_ACCOUNT"
+msgstr "アカウント"
+
+msgid "PAGE_SETTINGS_TAB_APPS"
+msgstr "アプリケーション"
+
+msgid "PAGE_SETTINGS_TITLE"
+msgstr "設定"
+
+msgid "PAGE_SETTINGS_WARN_USERNAME_FROZEN"
+msgstr "登録後はユーザー名を変更できません"
+
+msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_1"
+msgstr "ファイルが確認されました: "
+
+msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_2"
+msgstr "個。アップロードの準備ができました。"
+
+msgid "SITE_DESCRIPTION"
+msgstr "LunaStore。古いPCのアプリケーションハンドブック。アプリケーションをダウンロードして、レビューを残し、古いPCの愛好家のコミュニティの一部になりましょう。"
+
+msgid "TEXT_APP_NO_DESC"
+msgstr "説明がない"
+
+msgid "TEXT_APP_NO_NAME"
+msgstr "無名"
+
+msgid "TEXT_APP_NO_SLOGAN"
+msgstr "スローガンなし"
+
+msgid "VIEW_LOGIN_BANNED_REASON"
+msgstr "あなたのアカウントはブロックされています。理由: %(reason)s"
+
+msgid "VIEW_LOGIN_INVALID_CREDENTIALS"
+msgstr "不正なログインまたはパスワード。"
+
+msgid "VIEW_LOGIN_SUCCESS"
+msgstr "ログインが正常に完了しました!こんにちは、%(username)s!"

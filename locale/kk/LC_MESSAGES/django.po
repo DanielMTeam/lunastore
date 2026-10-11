@@ -10,6 +10,18 @@ msgstr ""
 msgid " SITE_DESCRIPTION"
 msgstr "LunaStore. Ескі компьютерлерге арналған қосымшалар анықтамасы. Қосымшаларды жүктеп алыңыз, пікір қалдырыңыз және ескі компьютерлер әуесқойлары қауымдастығының бір бөлігі болыңыз."
 
+msgid "%(counter)s PAGE_COLLECTION_APPS_ONE"
+msgid_plural "%(counter)s PAGE_COLLECTION_APPS_MANY"
+msgstr[0] "%(counter)s қосымша"
+
+msgid "%(counter)s PAGE_COLLECTION_COUNT_ONE"
+msgid_plural "%(counter)s PAGE_COLLECTION_COUNT_MANY"
+msgstr[0] "Барлығы %(counter)s коллекция"
+
+msgid "%(counter)s PAGE_COLLECTION_SAVES_ONE"
+msgid_plural "%(counter)s PAGE_COLLECTION_SAVES_MANY"
+msgstr[0] "%(counter)s сақтау"
+
 msgid "%(counter)s PAGE_PROFILE_STATS_APP"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
 msgstr[0] "%(counter)s қосымша,"
@@ -20,11 +32,11 @@ msgstr[0] "%(counter)s пікір,"
 
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_ALL"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_ALL"
-msgstr[0] "%(counter)s пікір (осы бетте көрсетілген)"
+msgstr[0] "%d пікір (осы бетте көрсетілген)"
 
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_RECENT"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_RECENT"
-msgstr[0] "%(counter)s пікір (соңғы 5-і көрсетілген)"
+msgstr[0] "%d пікір (соңғы 5-і көрсетілген)"
 
 msgid "404_ELEMENT_NOT_FOUND"
 msgstr "Сұратылған элемент немесе сіз өткіңіз келетін сілтеме біздің сайттан табылмады."
@@ -155,6 +167,12 @@ msgstr "тіркелу"
 msgid "BASE_SEARCHBTN"
 msgstr "іздеу"
 
+msgid "BASE_SIDEBAR_ACCOUNT_ADMINBTN"
+msgstr "Әкімші тақтасы"
+
+msgid "BASE_SIDEBAR_ACCOUNT_COLLECTIONS"
+msgstr "Жиындар"
+
 msgid "BASE_SIDEBAR_ACCOUNT_INVITEBTN"
 msgstr "Шақыру"
 
@@ -167,9 +185,6 @@ msgstr "Баптаулар"
 msgid "BASE_SIDEBAR_ACCOUNT_TITLE"
 msgstr "Аккаунт"
 
-msgid "BASE_SIDEBAR_ACCOUNT_ADMINBTN"
-msgstr "Әкімші тақтасы"
-
 msgid "BASE_SIDEBAR_APP_DEV_SITE"
 msgstr "Әзірлеуші сайты"
 
@@ -178,6 +193,9 @@ msgstr "Бетті өңдеу"
 
 msgid "BASE_SIDEBAR_APP_INSTALL"
 msgstr "Орнату"
+
+msgid "BASE_SIDEBAR_APP_PAGE"
+msgstr "Қосымша"
 
 msgid "BASE_SIDEBAR_APP_REPORT"
 msgstr "Шағымдану"
@@ -190,6 +208,12 @@ msgstr "Басты бет"
 
 msgid "BASE_SIDEBAR_CATEGORIES_TITLE"
 msgstr "Санаттар"
+
+msgid "BASE_THEME_DISABLE"
+msgstr "Қараңғы режимді өшіру"
+
+msgid "BASE_THEME_ENABLE"
+msgstr "Қараңғы режимді қосу"
 
 msgid "CARD_USER_NO_DESC"
 msgstr "Профиль сипаттамасы жоқ"
@@ -269,26 +293,8 @@ msgstr "Жаңа E-mail ағымдағысымен сәйкес келеді."
 msgid "ERROR_EMAIL_NO_ALIASES"
 msgstr "\"+\" белгісі бар пошталық бүркеншік аттарды пайдалануға тыйым салынады."
 
-msgid "ERROR_USERNAME_ALREADY_IN_USE"
-msgstr "Бұл пайдаланушы аты бос емес."
-
-msgid "ERROR_USERNAME_BLACKLISTED"
-msgstr "Бұл пайдаланушы атына тыйым салынған."
-
-msgid "ERROR_USERNAME_CHANGE_COOLDOWN"
-msgstr "Пайдаланушы атын жылына 1 рет қана өзгертуге болады."
-
-msgid "ERROR_USERNAME_EMPTY"
-msgstr "Пайдаланушы аты бос болмауы керек."
-
-msgid "ERROR_USERNAME_INVALID_CHARS"
-msgstr "Пайдаланушы аты тек ағылшын әріптерінен, сандардан және . _ - таңбаларынан тұруы мүмкін."
-
-msgid "ERROR_USERNAME_INVALID_DOTS"
-msgstr "Пайдаланушы аты нүктеден басталмауы немесе аяқталмауы, сондай-ақ қатар екі нүктеден тұрмауы керек."
-
-msgid "ERROR_USERNAME_NO_LETTERS"
-msgstr "Пайдаланушы атында кем дегенде бір ағылшын әрпі болуы керек."
+msgid "ERROR_HOME_LAYOUT_INVALID"
+msgstr "Негізгі бет дұрыс көрінбейді"
 
 msgid "ERROR_INVALID_FILE_FORMAT"
 msgstr "Қате: Файл пішімі жарамсыз!"
@@ -349,6 +355,27 @@ msgstr "Telegram пайдаланушы атының форматы қате. П
 
 msgid "ERROR_RATE_LIMIT_EXCEEDED"
 msgstr "Сұраныстарды тым жиі жіберудесіз. Жалғастыру үшін біраз уақыт күте тұрыңыз."
+
+msgid "ERROR_USERNAME_ALREADY_IN_USE"
+msgstr "Бұл пайдаланушы аты бос емес."
+
+msgid "ERROR_USERNAME_BLACKLISTED"
+msgstr "Бұл пайдаланушы атына тыйым салынған."
+
+msgid "ERROR_USERNAME_CHANGE_COOLDOWN"
+msgstr "Пайдаланушы атын жылына 1 рет қана өзгертуге болады."
+
+msgid "ERROR_USERNAME_EMPTY"
+msgstr "Пайдаланушы аты бос болмауы керек."
+
+msgid "ERROR_USERNAME_INVALID_CHARS"
+msgstr "Пайдаланушы аты тек ағылшын әріптерінен, сандардан және . _ - таңбаларынан тұруы мүмкін."
+
+msgid "ERROR_USERNAME_INVALID_DOTS"
+msgstr "Пайдаланушы аты нүктеден басталмауы немесе аяқталмауы, сондай-ақ қатар екі нүктеден тұрмауы керек."
+
+msgid "ERROR_USERNAME_NO_LETTERS"
+msgstr "Пайдаланушы атында кем дегенде бір ағылшын әрпі болуы керек."
 
 msgid "ERROR_YOURE_NOT_OWNER_OF_APP"
 msgstr "Сіз бұл қолданбаның әкімшісі емессіз."
@@ -422,8 +449,29 @@ msgstr "Скриншоттар"
 msgid "File extension “%(extension)s” is not allowed. Allowed extensions are: “%(allowed_extensions)s”."
 msgstr "“%(extension)s” файл кеңейтіліміне рұқсат жоқ. Рұқсат етілген кеңейтілімдер: “%(allowed_extensions)s”."
 
+msgid "INDEX_APP_OF_THE_DAY"
+msgstr "Күннің қолданбасы"
+
 msgid "INDEX_CATEGORY_PROMPT"
 msgstr "Немесе қажетті санатты таңдаңыз:"
+
+msgid "INDEX_CONFIGURE_HOME"
+msgstr "Басты бетті теңшеу"
+
+msgid "INDEX_EDITOR_CHOICE"
+msgstr "Редакцияның таңдауы"
+
+msgid "INDEX_FOR_YOU"
+msgstr "Сіз үшін"
+
+msgid "INDEX_MONTHLY_TOP_DESC"
+msgstr "Соңғы айдағы жүктеп алулар бойынша ең танымал тақырыптар"
+
+msgid "INDEX_MONTHLY_TOP_TITLE"
+msgstr "Айдың қолданбасы"
+
+msgid "INDEX_NO_APPS"
+msgstr "Қолданбалар табылмады"
 
 msgid "INDEX_NO_CATEGORIES"
 msgstr "Санаттар әлі қосылған жоқ"
@@ -437,41 +485,20 @@ msgstr "Мысалы: Total Commander"
 msgid "INDEX_SEARCH_SECTION_TITLE"
 msgstr "Каталог бойынша іздеу"
 
+msgid "INDEX_SEE_ALL"
+msgstr "барлығы"
+
+msgid "INDEX_SEE_MORE"
+msgstr "Көбірек..."
+
+msgid "INDEX_STORE_LISTING_TITLE"
+msgstr "Каталог"
+
 msgid "INDEX_WELCOME_TEXT"
 msgstr "LunaStore-ға қош келдіңіз!<br>Осы операциялық жүйемен ыңғайлы жұмыс істеуге арналған қолданбалар мен толықтырулар жинағы"
 
 msgid "INDEX_WELCOME_TITLE"
 msgstr "Қош келдіңіз"
-
-msgid "INDEX_CONFIGURE_HOME"
-msgstr "Басты бетті баптау"
-
-msgid "INDEX_APP_OF_THE_DAY"
-msgstr "Күннің қосымшасы"
-
-msgid "INDEX_FOR_YOU"
-msgstr "Сізге"
-
-msgid "INDEX_EDITOR_CHOICE"
-msgstr "Редакция таңдауы"
-
-msgid "INDEX_SEE_ALL"
-msgstr "барлығы"
-
-msgid "INDEX_SEE_MORE"
-msgstr "Тағы..."
-
-msgid "INDEX_MONTHLY_TOP_TITLE"
-msgstr "Айдың қосымшалары"
-
-msgid "INDEX_MONTHLY_TOP_DESC"
-msgstr "Соңғы айдағы ең көп жүктелгендер"
-
-msgid "INDEX_STORE_LISTING_TITLE"
-msgstr "Каталог"
-
-msgid "INDEX_NO_APPS"
-msgstr "Қосымшалар табылмады"
 
 msgid "INFO_2FA_DISABLED"
 msgstr "Екі факторлық аутентификация сәтті өшірілді."
@@ -517,6 +544,9 @@ msgstr "ойбай... бұл орын бооооос..."
 
 msgid "INFO_EMAIL_WAS_CHANGED"
 msgstr "E-mail сәтті өзгертілді."
+
+msgid "INFO_HOME_LAYOUT_UPDATED"
+msgstr "Басты беттің түрі сақталды"
 
 msgid "INFO_MAXIMUM_AVATAR_SIZE"
 msgstr "Файлдың максималды өлшемі: 2 МБ."
@@ -636,16 +666,16 @@ msgid "NOTIF_DEVSTATUS_SEND_TITLE"
 msgstr "Әзірлеуші мәртебесі"
 
 msgid "NOTIF_DISTEDITREQ_ACCEPTED_DESCRIPTION"
-msgstr "%(app_name)s қолданбасының %(version)s нұсқасын өзгертуге берген өтінішіңіз модератормен мақұлданды."
+msgstr "\"%(app_name)s\" қолданбасы үшін %(version)s нұсқасын өзгерту туралы өтінішіңізді модератор мақұлдады."
 
 msgid "NOTIF_DISTEDITREQ_ACCEPTED_TITLE"
-msgstr "Нұсқа өзгерісі мақұлданды!"
+msgstr "Нұсқаны өзгерту мақұлданды!"
 
 msgid "NOTIF_DISTEDITREQ_DECLINED_DESCRIPTION"
-msgstr "Өкінішке орай, %(app_name)s қосымшасының %(version)s нұсқасын өзгертуге берген өтінішіңіз қабылданбады. Себебі: %(reason)s"
+msgstr "Өкінішке орай, \"%(app_name)s\" нұсқасының %(version)s нұсқасын өзгерту туралы өтінішіңіз қабылданбады. Себебі: %(reason)s"
 
 msgid "NOTIF_DISTEDITREQ_DECLINED_TITLE"
-msgstr "Нұсқаны өзгерту өтініші қабылданбады"
+msgstr "Нұсқаны өзгерту туралы өтініш қабылданбады"
 
 msgid "NOTIF_DISTREQ_ACCEPTED_DESCRIPTION"
 msgstr "%(app_name)s қолданбасының %(version)s нұсқасын жариялауға берген өтінішіңіз модератормен мақұлданды."
@@ -748,6 +778,30 @@ msgstr "Бір реттік код арқылы кіруді басқару"
 
 msgid "PAGE_2FA_TITLE"
 msgstr "Екі факторлық аутентификация"
+
+msgid "PAGE_400_BROWSER_TITLE"
+msgstr "Қате сұраныс"
+
+msgid "PAGE_400_DEFAULT_MESSAGE"
+msgstr "Сұранысты өңдеу мүмкін болмады. Деректерді тексеріп, қайтадан көріңіз."
+
+msgid "PAGE_403_BROWSER_TITLE"
+msgstr "Қолжетімділікке тыйым салынған"
+
+msgid "PAGE_403_DEFAULT_MESSAGE"
+msgstr "Бұл бетке кіруге рұқсатыңыз жоқ."
+
+msgid "PAGE_404_BROWSER_TITLE"
+msgstr "Бет табылмады"
+
+msgid "PAGE_500_BROWSER_TITLE"
+msgstr "Ішкі қате"
+
+msgid "PAGE_500_DEFAULT_MESSAGE"
+msgstr "Серверде ішкі қате орын алды. Кейінірек қайталап көріңіз."
+
+msgid "PAGE_502_BROWSER_TITLE"
+msgstr "Бірдеңе дұрыс болмады..."
 
 msgid "PAGE_ADDAPP_BACKBTN"
 msgstr "Артқа"
@@ -887,6 +941,9 @@ msgstr "жариялаумен"
 msgid "PAGE_ADDAPP_SUCCESS"
 msgstr "Қосымша қосу туралы өтінішіңіз сәтті жіберілді."
 
+msgid "PAGE_ADMIN_APP_BACKTOAPP"
+msgstr "Бетке оралу"
+
 msgid "PAGE_ADMIN_APP_CATEGORY"
 msgstr "Санаты:"
 
@@ -1013,8 +1070,74 @@ msgstr "Ұран қолданбаның өз бетінде, басты бетт
 msgid "PAGE_ADMIN_APP_SLOGANDESC_2"
 msgstr "Қысқалық — таланттың әпкесі :)"
 
+msgid "PAGE_ADMIN_APP_STATS_30_DAYS"
+msgstr "14 күндік визуалды статистика"
+
+msgid "PAGE_ADMIN_APP_STATS_COUNT"
+msgstr "Саны"
+
+msgid "PAGE_ADMIN_APP_STATS_COUNTRY"
+msgstr "Ел"
+
+msgid "PAGE_ADMIN_APP_STATS_DETAILED"
+msgstr "Толық статистика"
+
+msgid "PAGE_ADMIN_APP_STATS_DISTRIBUTIONS"
+msgstr "Дистрибуция (нұсқалар) арқылы жүктеу"
+
+msgid "PAGE_ADMIN_APP_STATS_DIST_GENERAL"
+msgstr "Негізгі"
+
+msgid "PAGE_ADMIN_APP_STATS_DOWNLOADS"
+msgstr "Жүктелер"
+
+msgid "PAGE_ADMIN_APP_STATS_DOWNLOADS_HINT"
+msgstr "Статистика қолданба бетіндегі \"Орнату\" түймесін басқаннан кейін жазылады"
+
+msgid "PAGE_ADMIN_APP_STATS_ENGAGEMENT"
+msgstr "Белсенділік"
+
+msgid "PAGE_ADMIN_APP_STATS_NO_DATA"
+msgstr "Деректер жоқ"
+
+msgid "PAGE_ADMIN_APP_STATS_OS"
+msgstr "Операциялық жүйе"
+
+msgid "PAGE_ADMIN_APP_STATS_SHARE"
+msgstr "Бөлісу"
+
+msgid "PAGE_ADMIN_APP_STATS_TOP_COUNTRIES"
+msgstr "30 күндегі елдер бойынша ең Үздік-10"
+
+msgid "PAGE_ADMIN_APP_STATS_TOP_OS"
+msgstr "Соңғы 30 күндегі операциялық жүйелер бойынша топ-10"
+
+msgid "PAGE_ADMIN_APP_STATS_TOTAL_DOWNLOADS"
+msgstr "Жүктеулер саны"
+
+msgid "PAGE_ADMIN_APP_STATS_TOTAL_LIKES"
+msgstr "Лайктар саны"
+
+msgid "PAGE_ADMIN_APP_STATS_TOTAL_RATES"
+msgstr "Бағалау саны"
+
+msgid "PAGE_ADMIN_APP_STATS_TOTAL_VIEWS"
+msgstr "Барлық қаралымдар"
+
+msgid "PAGE_ADMIN_APP_STATS_UNIQUE_DOWNLOADERS"
+msgstr "Қолданбаны жүктеп алған бірегей пайдаланушылар"
+
+msgid "PAGE_ADMIN_APP_STATS_UNIQUE_VIEWERS"
+msgstr "Бірегей көрілімдер"
+
+msgid "PAGE_ADMIN_APP_STATS_VIEWS"
+msgstr "Көрілімдер"
+
 msgid "PAGE_ADMIN_APP_TAB_DISTRIBUTIONS"
 msgstr "Файлдар"
+
+msgid "PAGE_ADMIN_APP_TAB_STATS"
+msgstr "Статистика"
 
 msgid "PAGE_ADMIN_APP_TITLE"
 msgstr "Қосымшаның атауы:"
@@ -1027,6 +1150,447 @@ msgstr "Қолданбаңыз туралы ақпаратты аудару он
 
 msgid "PAGE_ADMIN_APP_WARN_SCRN"
 msgstr "Назар аударыңыз: Жаңа файлдарды жүктеу ағымдағы барлық скриншоттарды жояды!"
+
+msgid "PAGE_ADMIN_PANEL_ACTIVITY_LOG"
+msgstr "Әрекеттер журналы"
+
+msgid "PAGE_ADMIN_PANEL_AFTER_APPROVAL"
+msgstr "Мақұлдағаннан кейін"
+
+msgid "PAGE_ADMIN_PANEL_AI_MODERATION_OPENROUTER"
+msgstr "ЖИ модерациясы (OpenRouter)"
+
+msgid "PAGE_ADMIN_PANEL_AI_PROMPT_INJECTION"
+msgstr "ЖИ нұсқауларына араласу"
+
+msgid "PAGE_ADMIN_PANEL_AI_SCORE_HELP"
+msgstr "ЖИ бағасы 0-ден 1-ге дейін: жоғары баға ереже бұзу қаупінің жоғары екенін білдіреді."
+
+msgid "PAGE_ADMIN_PANEL_ALL"
+msgstr "Барлығы"
+
+msgid "PAGE_ADMIN_PANEL_ALL_REQUESTS_PROCESSED"
+msgstr "Барлық өтінімдер өңделді"
+
+msgid "PAGE_ADMIN_PANEL_ALL_REVIEWS"
+msgstr "Барлық пікірлер"
+
+msgid "PAGE_ADMIN_PANEL_APPLICATION"
+msgstr "Қолданба"
+
+msgid "PAGE_ADMIN_PANEL_APPLICATIONS"
+msgstr "Қолданбалар"
+
+msgid "PAGE_ADMIN_PANEL_APPLICATION_AUTHOR"
+msgstr "Қолданба авторы"
+
+msgid "PAGE_ADMIN_PANEL_APPLICATION_CHANGES"
+msgstr "Қолданба өзгерістері"
+
+msgid "PAGE_ADMIN_PANEL_APPLICATION_REPORTS"
+msgstr "Қолданбаларға шағымдар"
+
+msgid "PAGE_ADMIN_PANEL_APPROVE_REVIEW"
+msgstr "Пікірді мақұлдау"
+
+msgid "PAGE_ADMIN_PANEL_APPROVE_SELECTED_REVIEWS"
+msgstr "Таңдалған пікірлерді мақұлдау"
+
+msgid "PAGE_ADMIN_PANEL_AUTHOR"
+msgstr "Автор"
+
+msgid "PAGE_ADMIN_PANEL_AWAITING_REVIEW"
+msgstr "Тексеруді күтуде"
+
+msgid "PAGE_ADMIN_PANEL_BADGES"
+msgstr "Белгілер"
+
+msgid "PAGE_ADMIN_PANEL_BANNED_PHRASE"
+msgstr "Тыйым салынған сөз тіркесі"
+
+msgid "PAGE_ADMIN_PANEL_BANNERS"
+msgstr "Баннерлер"
+
+msgid "PAGE_ADMIN_PANEL_BANS"
+msgstr "Бұғаттаулар"
+
+msgid "PAGE_ADMIN_PANEL_BLOCKED_USERNAMES"
+msgstr "Бұғатталған есімдер"
+
+msgid "PAGE_ADMIN_PANEL_BULK_SCAN"
+msgstr "Жаппай тексеру"
+
+msgid "PAGE_ADMIN_PANEL_CANCEL"
+msgstr "Бас тарту"
+
+msgid "PAGE_ADMIN_PANEL_CATALOG"
+msgstr "Каталог"
+
+msgid "PAGE_ADMIN_PANEL_CATEGORIES"
+msgstr "Санаттар"
+
+msgid "PAGE_ADMIN_PANEL_CDN_FILE"
+msgstr "CDN файлы"
+
+msgid "PAGE_ADMIN_PANEL_CHANGELOG"
+msgstr "Өзгерістер тізімі"
+
+msgid "PAGE_ADMIN_PANEL_CHOOSE_SECTION"
+msgstr "Бүйірлік мәзірден қолжетімді бөлімді таңдаңыз."
+
+msgid "PAGE_ADMIN_PANEL_COMPARISON_NO_CHANGES"
+msgstr "Ағымдағы мәндерден айырмашылық жоқ."
+
+msgid "PAGE_ADMIN_PANEL_COMPARISON_PROCESSED_HELP"
+msgstr "Өтінім қаралған. Салыстыру нысанның ағымдағы нұсқасымен көрсетілген."
+
+msgid "PAGE_ADMIN_PANEL_CREATED"
+msgstr "Жасалған"
+
+msgid "PAGE_ADMIN_PANEL_CURRENT"
+msgstr "Қазір"
+
+msgid "PAGE_ADMIN_PANEL_DASHBOARD"
+msgstr "Жұмыс үстелі"
+
+msgid "PAGE_ADMIN_PANEL_DASHBOARD_DESCRIPTION"
+msgstr "Тіркелгіңізге қолжетімді кезектер мен құралдар."
+
+msgid "PAGE_ADMIN_PANEL_DEMO_VERSION"
+msgstr "Демо нұсқа"
+
+msgid "PAGE_ADMIN_PANEL_DESCRIPTION"
+msgstr "Сипаттамасы"
+
+msgid "PAGE_ADMIN_PANEL_DEVELOPER_REPLY"
+msgstr "Әзірлеушінің жауабы"
+
+msgid "PAGE_ADMIN_PANEL_DEVELOPER_REQUESTS"
+msgstr "Әзірлеуші өтінімдері"
+
+msgid "PAGE_ADMIN_PANEL_DEVELOPER_WEBSITE"
+msgstr "Әзірлеуші сайты"
+
+msgid "PAGE_ADMIN_PANEL_DISTRIBUTIONS"
+msgstr "Дистрибутивтер"
+
+msgid "PAGE_ADMIN_PANEL_DISTRIBUTION_CHANGES"
+msgstr "Дистрибутив өзгерістері"
+
+msgid "PAGE_ADMIN_PANEL_DOWNLOAD_LINK"
+msgstr "Жүктеу сілтемесі"
+
+msgid "PAGE_ADMIN_PANEL_EXTREMISM"
+msgstr "Экстремизм"
+
+msgid "PAGE_ADMIN_PANEL_FIELD"
+msgstr "Өріс"
+
+msgid "PAGE_ADMIN_PANEL_FILTER_APPROVED"
+msgstr "Мақұлданған"
+
+msgid "PAGE_ADMIN_PANEL_FILTER_REJECTED"
+msgstr "Қабылданбаған"
+
+msgid "PAGE_ADMIN_PANEL_GROUPS"
+msgstr "Топтар"
+
+msgid "PAGE_ADMIN_PANEL_HATE_SPEECH"
+msgstr "Өшпенділік тудыру"
+
+msgid "PAGE_ADMIN_PANEL_HIGH"
+msgstr "Жоғары"
+
+msgid "PAGE_ADMIN_PANEL_HOMEPAGE_SECTIONS"
+msgstr "Басты бет бөлімдері"
+
+msgid "PAGE_ADMIN_PANEL_ICON"
+msgstr "Таңбаша"
+
+msgid "PAGE_ADMIN_PANEL_ICON_ID"
+msgstr "Таңбаша ID"
+
+msgid "PAGE_ADMIN_PANEL_INVITATIONS"
+msgstr "Шақырулар"
+
+msgid "PAGE_ADMIN_PANEL_LEGAL_DOCUMENTS"
+msgstr "Құқықтық құжаттар"
+
+msgid "PAGE_ADMIN_PANEL_LOW"
+msgstr "Төмен"
+
+msgid "PAGE_ADMIN_PANEL_LUNABOX_MANIFEST"
+msgstr "LunaBox манифесті"
+
+msgid "PAGE_ADMIN_PANEL_MALICIOUS_CONTENT"
+msgstr "Зиянды мазмұн"
+
+msgid "PAGE_ADMIN_PANEL_MANUAL_MODERATION"
+msgstr "Қолмен модерациялау"
+
+msgid "PAGE_ADMIN_PANEL_MEDIUM"
+msgstr "Орташа"
+
+msgid "PAGE_ADMIN_PANEL_MODERATION"
+msgstr "Модерация"
+
+msgid "PAGE_ADMIN_PANEL_MODERATOR"
+msgstr "Модератор"
+
+msgid "PAGE_ADMIN_PANEL_MODERATOR_DASHBOARD"
+msgstr "Модератордың жұмыс үстелі"
+
+msgid "PAGE_ADMIN_PANEL_MODERATOR_NOTE"
+msgstr "Модератор жазбасы"
+
+msgid "PAGE_ADMIN_PANEL_NEW_APPLICATIONS"
+msgstr "Жаңа қолданбалар"
+
+msgid "PAGE_ADMIN_PANEL_NEW_DISTRIBUTIONS"
+msgstr "Жаңа дистрибутивтер"
+
+msgid "PAGE_ADMIN_PANEL_NEW_TODAY"
+msgstr "Бүгінгі жаңалар"
+
+msgid "PAGE_ADMIN_PANEL_NO"
+msgstr "Жоқ"
+
+msgid "PAGE_ADMIN_PANEL_NOSPAM_EVENTS"
+msgstr "noSpam оқиғалары"
+
+msgid "PAGE_ADMIN_PANEL_NOSPAM_RULES"
+msgstr "noSpam ережелері"
+
+msgid "PAGE_ADMIN_PANEL_NOTIFICATION_BROADCAST"
+msgstr "Хабарландыру тарату"
+
+msgid "PAGE_ADMIN_PANEL_NOT_PROVIDED"
+msgstr "Көрсетілмеген"
+
+msgid "PAGE_ADMIN_PANEL_NOT_SCORED"
+msgstr "Баға жоқ"
+
+msgid "PAGE_ADMIN_PANEL_NO_DATE_PROVIDED"
+msgstr "Күні көрсетілмеген"
+
+msgid "PAGE_ADMIN_PANEL_NO_FLAGS"
+msgstr "Белгілер жоқ"
+
+msgid "PAGE_ADMIN_PANEL_NO_TEXT"
+msgstr "Мәтін жоқ"
+
+msgid "PAGE_ADMIN_PANEL_OLDEST_REQUEST"
+msgstr "Ең ескі өтінім:"
+
+msgid "PAGE_ADMIN_PANEL_OPEN_QUEUE"
+msgstr "Кезекті ашу"
+
+msgid "PAGE_ADMIN_PANEL_OVERVIEW"
+msgstr "Шолу"
+
+msgid "PAGE_ADMIN_PANEL_POLITICAL_AGITATION"
+msgstr "Саяси үгіт"
+
+msgid "PAGE_ADMIN_PANEL_POTENTIAL_PIRACY"
+msgstr "Ықтимал қарақшылық"
+
+msgid "PAGE_ADMIN_PANEL_PRICE"
+msgstr "Бағасы"
+
+msgid "PAGE_ADMIN_PANEL_PRIVATE_APPLICATION"
+msgstr "Жеке қолданба"
+
+msgid "PAGE_ADMIN_PANEL_PROBLEM_REPORTS"
+msgstr "Мәселе туралы хабарламалар"
+
+msgid "PAGE_ADMIN_PANEL_PROFANITY"
+msgstr "Балағат сөздер"
+
+msgid "PAGE_ADMIN_PANEL_PROHIBITED_CONTENT"
+msgstr "Тыйым салынған мазмұн"
+
+msgid "PAGE_ADMIN_PANEL_PROPOSED_CHANGES"
+msgstr "Ұсынылған өзгерістер"
+
+msgid "PAGE_ADMIN_PANEL_QUEUES_EMPTY_DESCRIPTION"
+msgstr "Қолжетімді кезектерде тексеруді күтетін өтінімдер жоқ."
+
+msgid "PAGE_ADMIN_PANEL_RATING"
+msgstr "Баға"
+
+msgid "PAGE_ADMIN_PANEL_REASON_FOR_REJECTION"
+msgstr "Өтінімді қабылдамау себебі"
+
+msgid "PAGE_ADMIN_PANEL_RECHECK_WITH_AI"
+msgstr "ЖИ арқылы қайта тексеру"
+
+msgid "PAGE_ADMIN_PANEL_REJECTION_REASON_HELP"
+msgstr "Себебін көрсетіңіз, ол пайдаланушыға хабарландыруда жіберіледі."
+
+msgid "PAGE_ADMIN_PANEL_REJECTION_REASON_PLACEHOLDER"
+msgstr "Нені түзету керектігін сипаттаңыз"
+
+msgid "PAGE_ADMIN_PANEL_REJECTION_REASON_REQUIRED"
+msgstr "Қабылдамау себебін көрсетіңіз."
+
+msgid "PAGE_ADMIN_PANEL_REJECT_REQUEST"
+msgstr "Өтінімді қабылдамау"
+
+msgid "PAGE_ADMIN_PANEL_REJECT_REVIEW"
+msgstr "Пікірді қабылдамау"
+
+msgid "PAGE_ADMIN_PANEL_REJECT_SELECTED_REVIEWS"
+msgstr "Таңдалған пікірлерді қабылдамау"
+
+msgid "PAGE_ADMIN_PANEL_REPLY_AUTHOR"
+msgstr "Жауап авторы"
+
+msgid "PAGE_ADMIN_PANEL_REQUIREMENTS"
+msgstr "Талаптар"
+
+msgid "PAGE_ADMIN_PANEL_RESET_SEARCH_AND_FILTERS"
+msgstr "Іздеу мен сүзгілерді қалпына келтіру"
+
+msgid "PAGE_ADMIN_PANEL_REVIEWS"
+msgstr "Пікірлер"
+
+msgid "PAGE_ADMIN_PANEL_REVIEWS_AI_RECHECK_MESSAGE %(count)s"
+msgstr "%(count)s пікір үшін ЖИ қайта тексеруі іске қосылды"
+
+msgid "PAGE_ADMIN_PANEL_REVIEWS_APPROVED_MESSAGE %(count)s"
+msgstr "Мақұлданған пікірлер: %(count)s"
+
+msgid "PAGE_ADMIN_PANEL_REVIEWS_AWAITING_MODERATION"
+msgstr "Модерациядағы пікірлер"
+
+msgid "PAGE_ADMIN_PANEL_REVIEWS_REJECTED_MESSAGE %(count)s"
+msgstr "Қабылданбаған және жойылған пікірлер: %(count)s"
+
+msgid "PAGE_ADMIN_PANEL_REVIEW_APPROVED"
+msgstr "Пікір мақұлданды"
+
+msgid "PAGE_ADMIN_PANEL_REVIEW_DETAILS"
+msgstr "Пікір туралы ақпарат"
+
+msgid "PAGE_ADMIN_PANEL_REVIEW_IS_ALREADY_APPROVED"
+msgstr "Пікір мақұлданған"
+
+msgid "PAGE_ADMIN_PANEL_REVIEW_NOT_FOUND"
+msgstr "Пікір табылмады"
+
+msgid "PAGE_ADMIN_PANEL_REVIEW_NO_TEXT"
+msgstr "(мәтін жоқ)"
+
+msgid "PAGE_ADMIN_PANEL_REVIEW_REJECTED_AND_DELETED"
+msgstr "Пікір қабылданбады және жойылды"
+
+msgid "PAGE_ADMIN_PANEL_REVIEW_REJECTION_HELP"
+msgstr "Қабылдамау пікірді жояды. Толық тексеру үшін мәтінді ашыңыз."
+
+msgid "PAGE_ADMIN_PANEL_REVIEW_STATUS"
+msgstr "Пікір мәртебесі"
+
+msgid "PAGE_ADMIN_PANEL_RISK_SIGNALS"
+msgstr "Қауіп белгілері"
+
+msgid "PAGE_ADMIN_PANEL_SCREENSHOTS"
+msgstr "Скриншоттар"
+
+msgid "PAGE_ADMIN_PANEL_SEARCH"
+msgstr "Іздеу"
+
+msgid "PAGE_ADMIN_PANEL_SEARCH_PLACEHOLDER"
+msgstr "Іздеу сұрауын енгізіңіз"
+
+msgid "PAGE_ADMIN_PANEL_SEARCH_SECTIONS"
+msgstr "Бөлімдерді іздеу"
+
+msgid "PAGE_ADMIN_PANEL_SEARCH_SECTIONS_PLACEHOLDER"
+msgstr "Бөлімдерді іздеу..."
+
+msgid "PAGE_ADMIN_PANEL_SECURITY"
+msgstr "Қауіпсіздік"
+
+msgid "PAGE_ADMIN_PANEL_SETTINGS"
+msgstr "Баптаулар"
+
+msgid "PAGE_ADMIN_PANEL_SITE_SETTINGS"
+msgstr "Сайт баптаулары"
+
+msgid "PAGE_ADMIN_PANEL_SITE_SUBHEADER"
+msgstr "Әкімшілік панель"
+
+msgid "PAGE_ADMIN_PANEL_SITE_TITLE"
+msgstr "LunaStore панелі"
+
+msgid "PAGE_ADMIN_PANEL_SLOGAN"
+msgstr "Ұран"
+
+msgid "PAGE_ADMIN_PANEL_SPAM"
+msgstr "Спам"
+
+msgid "PAGE_ADMIN_PANEL_START_WITH_THE_OLDEST_REQUESTS"
+msgstr "Ең ескі өтінімдерден бастаңыз"
+
+msgid "PAGE_ADMIN_PANEL_STATISTICS"
+msgstr "Статистика"
+
+msgid "PAGE_ADMIN_PANEL_STATUS"
+msgstr "Мәртебе"
+
+msgid "PAGE_ADMIN_PANEL_STATUS_APPROVED"
+msgstr "Мақұлданған"
+
+msgid "PAGE_ADMIN_PANEL_STATUS_PENDING"
+msgstr "Тексерілуде"
+
+msgid "PAGE_ADMIN_PANEL_STATUS_REJECTED"
+msgstr "Қабылданбаған"
+
+msgid "PAGE_ADMIN_PANEL_SUSPICIOUS_LINK"
+msgstr "Күдікті сілтеме"
+
+msgid "PAGE_ADMIN_PANEL_TEXT"
+msgstr "Мәтін"
+
+msgid "PAGE_ADMIN_PANEL_TEXT_AUTHOR_OR_APPLICATION"
+msgstr "Мәтін, автор немесе қолданба"
+
+msgid "PAGE_ADMIN_PANEL_THEME_DARK"
+msgstr "Қараңғы"
+
+msgid "PAGE_ADMIN_PANEL_THEME_LIGHT"
+msgstr "Ашық"
+
+msgid "PAGE_ADMIN_PANEL_THEME_SYSTEM"
+msgstr "Жүйелік"
+
+msgid "PAGE_ADMIN_PANEL_TIMESTAMPS"
+msgstr "Уақыт белгілері"
+
+msgid "PAGE_ADMIN_PANEL_TITLE"
+msgstr "Атауы"
+
+msgid "PAGE_ADMIN_PANEL_TOTAL_APPLICATIONS"
+msgstr "Қолданбалар саны"
+
+msgid "PAGE_ADMIN_PANEL_TOTAL_USERS"
+msgstr "Пайдаланушылар саны"
+
+msgid "PAGE_ADMIN_PANEL_TOXICITY"
+msgstr "Уытты мазмұн"
+
+msgid "PAGE_ADMIN_PANEL_USERS"
+msgstr "Пайдаланушылар"
+
+msgid "PAGE_ADMIN_PANEL_VERSION"
+msgstr "Нұсқа"
+
+msgid "PAGE_ADMIN_PANEL_VIOLATION_RISK"
+msgstr "Ереже бұзу қаупі"
+
+msgid "PAGE_ADMIN_PANEL_YES"
+msgstr "Иә"
 
 msgid "PAGE_API_EXPIRES"
 msgstr "Аяқталады:"
@@ -1057,6 +1621,9 @@ msgstr "Қолданбаға шағымдану"
 
 msgid "PAGE_APP_ACTION_SITE"
 msgstr "Әзірлеушінің ресми сайтына өту"
+
+msgid "PAGE_APP_ADD_TO_COLLECTION"
+msgstr "қосу"
 
 msgid "PAGE_APP_BTN_BACK"
 msgstr "Артқа"
@@ -1111,10 +1678,10 @@ msgid_plural "PAGE_APP_RATING_BASED_ON_COUNT_PLURAL %(counter)s"
 msgstr[0] "Жалпы рейтинг <b>%(counter)s адамның</b> пікірі негізінде жасалған"
 
 msgid "PAGE_APP_RATING_DELETE_DENIED"
-msgstr "Бұл пікірді өшіруге құқығыңыз жоқ."
+msgstr "Бұл қолданбаға арналған пікірлер автор тарапынан өшірілген"
 
 msgid "PAGE_APP_RATING_DELETE_SUCCESS"
-msgstr "Пікіріңіз сәтті өшірілді."
+msgstr "Пайдаланушылар бағалауы"
 
 msgid "PAGE_APP_RATING_DISABLED"
 msgstr "Бұл қолданбаға арналған пікірлер автор тарапынан өшірілген"
@@ -1128,6 +1695,12 @@ msgstr "Бағалау үшін кіріңіз..."
 msgid "PAGE_APP_RATING_NO_REVIEWS"
 msgstr "Пікірлер жоқ"
 
+msgid "PAGE_APP_RATING_SELECT_REQUIRED"
+msgstr "Өтінеміз, баға беріңіз (1-5 жұлдыз)"
+
+msgid "PAGE_APP_RATING_SUCCESS"
+msgstr "Сіздің бағаңыз сақталды."
+
 msgid "PAGE_APP_RATING_USERS"
 msgstr "Пайдаланушылар бағалауы"
 
@@ -1136,6 +1709,75 @@ msgstr "Сіздің бағаңыз:"
 
 msgid "PAGE_APP_RATING_YOUR_REVIEW"
 msgstr "(сіздің бағаңыз)"
+
+msgid "PAGE_APP_REVIEW_ACTION_DELETE"
+msgstr "жою"
+
+msgid "PAGE_APP_REVIEW_ACTION_EDIT"
+msgstr "өңдеу"
+
+msgid "PAGE_APP_REVIEW_ACTION_REPLY"
+msgstr "пікірге жауап беру"
+
+msgid "PAGE_APP_REVIEW_APPROVED"
+msgstr "Пікіріңіз сәтті жарияланды."
+
+msgid "PAGE_APP_REVIEW_CONFIRM_DELETE"
+msgstr "Бұл пікірді жойғыңыз келетініне сенімдісіз бе?"
+
+msgid "PAGE_APP_REVIEW_CONFIRM_DELETE_REPLY"
+msgstr "Әзірлеушінің жауабын жойғыңыз келетініне сенімдісіз бе?"
+
+msgid "PAGE_APP_REVIEW_DEV_REPLY"
+msgstr "Әзірлеушінің жауабы"
+
+msgid "PAGE_APP_REVIEW_PENDING"
+msgstr "Пікіріңіз модераторлардың тексеруіне жіберілді."
+
+msgid "PAGE_APP_REVIEW_PLACEHOLDER"
+msgstr "Пікіріңізді жазыңыз (міндетті емес, 2000 таңбаға дейін)..."
+
+msgid "PAGE_APP_REVIEW_REJECTED_GENERIC"
+msgstr "Пікіріңіз орынсыз лексиканың немесе спамның болуына байланысты автоматты модерациямен қабылданбады."
+
+msgid "PAGE_APP_REVIEW_REPLY_DELETED"
+msgstr "Әзірлеушінің жауабы жойылды."
+
+msgid "PAGE_APP_REVIEW_REPLY_DELETE_DENIED"
+msgstr "Бұл жауапты жоюға құқығыңыз жоқ."
+
+msgid "PAGE_APP_REVIEW_REPLY_DENIED"
+msgstr "Бұл пікірге жауап беруге құқығыңыз жоқ."
+
+msgid "PAGE_APP_REVIEW_REPLY_EMPTY"
+msgstr "Жауап мәтіні бос бола алмайды."
+
+msgid "PAGE_APP_REVIEW_REPLY_PLACEHOLDER"
+msgstr "Ресми әзірлеуші жауабын жазыңыз (2000 таңбаға дейін)..."
+
+msgid "PAGE_APP_REVIEW_REPLY_SUBMIT"
+msgstr "Жауапты жіберу"
+
+msgid "PAGE_APP_REVIEW_REPLY_SUCCESS"
+msgstr "Әзірлеушінің жауабы сәтті жарияланды."
+
+msgid "PAGE_APP_REVIEW_REPLY_UPDATE"
+msgstr "Жауапты сақтау"
+
+msgid "PAGE_APP_REVIEW_STATUS_APPROVED"
+msgstr "Пікір мақұлданды"
+
+msgid "PAGE_APP_REVIEW_STATUS_PENDING"
+msgstr "Модерациядағы пікір"
+
+msgid "PAGE_APP_REVIEW_STATUS_REJECTED"
+msgstr "Пікір қабылданбады"
+
+msgid "PAGE_APP_REVIEW_SUBMIT_BTN"
+msgstr "Пікір қалдыру"
+
+msgid "PAGE_APP_REVIEW_UPDATE_BTN"
+msgstr "Пікірді жаңарту"
 
 msgid "PAGE_APP_SECTION_ACTIONS"
 msgstr "Әрекеттер"
@@ -1151,6 +1793,9 @@ msgstr "Жүйелік талаптар"
 
 msgid "PAGE_APP_SECTION_SCREENSHOTS"
 msgstr "Скриншоттар"
+
+msgid "PAGE_APP_TO_COLLECTION"
+msgstr "жинаққа"
 
 msgid "PAGE_BADBROSER_DESC_3"
 msgstr "Түсінгеніңізге рақмет."
@@ -1211,6 +1856,177 @@ msgstr "Мазмұнды тізім ретінде көрсету"
 
 msgid "PAGE_CATEGORY_SHOWCONTENTASTILES"
 msgstr "Мазмұнды плиткалар ретінде көрсету"
+
+msgid "PAGE_COLLECTION_ACTION_DELETE"
+msgstr "жою"
+
+msgid "PAGE_COLLECTION_ACTION_EDIT"
+msgstr "өңдеу"
+
+msgid "PAGE_COLLECTION_ACTION_FAVORITE"
+msgstr "таңдаулыларға қосу"
+
+msgid "PAGE_COLLECTION_ACTION_REMOVE_APP"
+msgstr "алып тастау"
+
+msgid "PAGE_COLLECTION_ACTION_STATS"
+msgstr "статистика"
+
+msgid "PAGE_COLLECTION_ACTION_UNFAVORITE"
+msgstr "таңдаулылардан алып тастау"
+
+msgid "PAGE_COLLECTION_ACTION_VIEW"
+msgstr "көру"
+
+msgid "PAGE_COLLECTION_ADD_NO_CUSTOM"
+msgstr "Пайдаланушылық топтамалар жоқ. Жаңасын жасаңыз:"
+
+msgid "PAGE_COLLECTION_ADD_TITLE"
+msgstr "Жинаққа қосу"
+
+msgid "PAGE_COLLECTION_APPS_EMPTY"
+msgstr "Бұл топтамада әзірге қолданбалар жоқ."
+
+msgid "PAGE_COLLECTION_BACK_TO_VIEW"
+msgstr "Топтаманы көруге оралу"
+
+msgid "PAGE_COLLECTION_BTN_ADD_APP"
+msgstr "Қосу"
+
+msgid "PAGE_COLLECTION_BTN_CANCEL"
+msgstr "Болдырмау"
+
+msgid "PAGE_COLLECTION_BTN_CREATE"
+msgstr "Жаңа топтама жасау"
+
+msgid "PAGE_COLLECTION_BTN_DELETE"
+msgstr "Жою"
+
+msgid "PAGE_COLLECTION_BTN_SAVE"
+msgstr "Сақтау"
+
+msgid "PAGE_COLLECTION_DATE_CREATED"
+msgstr "Жасалған күні:"
+
+msgid "PAGE_COLLECTION_DATE_UPDATED"
+msgstr "Жаңартылды"
+
+msgid "PAGE_COLLECTION_DELETE_CONFIRM_TEXT %(title)s"
+msgstr "«%(title)s» топтамасын жойғыңыз келетініне сенімдісіз бе?"
+
+msgid "PAGE_COLLECTION_DELETE_CONFIRM_TITLE"
+msgstr "Жиынды жою"
+
+msgid "PAGE_COLLECTION_EDIT_TITLE"
+msgstr "Коллекцияны өңдеу"
+
+msgid "PAGE_COLLECTION_EMPTY"
+msgstr "Әзірге топтамалар жоқ."
+
+msgid "PAGE_COLLECTION_ERROR_ADD_APP"
+msgstr "Қолданбаны топтамаға қосу мүмкін болмады."
+
+msgid "PAGE_COLLECTION_ERROR_DELETE"
+msgstr "Топтаманы жою мүмкін болмады."
+
+msgid "PAGE_COLLECTION_ERROR_DELETE_SYSTEM"
+msgstr "Жүйелік топтаманы жоюға болмайды."
+
+msgid "PAGE_COLLECTION_ERROR_EDIT_SYSTEM"
+msgstr "Жүйелік топтаманы өңдеуге болмайды."
+
+msgid "PAGE_COLLECTION_ERROR_FAVORITE"
+msgstr "Таңдаулыларды өзгерту мүмкін болмады."
+
+msgid "PAGE_COLLECTION_ERROR_FAVORITE_OWN"
+msgstr "Өз коллекцияңызды таңдаулыларға қоса алмайсыз."
+
+msgid "PAGE_COLLECTION_ERROR_PRIVATE"
+msgstr "Бұл коллекция жасырылған."
+
+msgid "PAGE_COLLECTION_ERROR_REMOVE_APP"
+msgstr "Қолданбаны топтамадан алып тастау мүмкін болмады."
+
+msgid "PAGE_COLLECTION_ERROR_SAVE"
+msgstr "Топтаманы сақтау мүмкін болмады."
+
+msgid "PAGE_COLLECTION_FIELD_DESC"
+msgstr "Сипаттама"
+
+msgid "PAGE_COLLECTION_FIELD_DESC_HINT"
+msgstr "Коллекцияға не кіретінін қысқаша сипаттаңыз"
+
+msgid "PAGE_COLLECTION_FIELD_PUBLIC"
+msgstr "Жария жинақ"
+
+msgid "PAGE_COLLECTION_FIELD_TITLE"
+msgstr "Атауы"
+
+msgid "PAGE_COLLECTION_FIELD_TITLE_HINT"
+msgstr "Коллекция атауын қажетті тілдерде көрсетіңіз"
+
+msgid "PAGE_COLLECTION_LIKES_DESC"
+msgstr "Қолданбалар бетінде «Жинаққа қосу» белгісін басып, оларды жылдам қол жеткізу үшін сақтап қойыңыз"
+
+msgid "PAGE_COLLECTION_LIKES_TITLE"
+msgstr "Ұнаған бағдарламалар"
+
+msgid "PAGE_COLLECTION_MSG_APP_ADDED"
+msgstr "Қолданба топтамаға қосылды."
+
+msgid "PAGE_COLLECTION_MSG_APP_ALREADY"
+msgstr "Қолданба бұл топтамада қазірдің өзінде бар."
+
+msgid "PAGE_COLLECTION_MSG_APP_NOT_IN"
+msgstr "Қолданба бұл топтамада жоқ."
+
+msgid "PAGE_COLLECTION_MSG_APP_REMOVED"
+msgstr "Қолданба топтамадан алып тасталды."
+
+msgid "PAGE_COLLECTION_MSG_DELETED"
+msgstr "Жиын жойылды."
+
+msgid "PAGE_COLLECTION_MSG_FAVORITED"
+msgstr "Коллекция таңдаулыларға қосылды."
+
+msgid "PAGE_COLLECTION_MSG_SAVED"
+msgstr "Жиынтақ сақталды."
+
+msgid "PAGE_COLLECTION_MSG_UNFAVORITED"
+msgstr "Топтама таңдаулылардан алынып тасталды."
+
+msgid "PAGE_COLLECTION_STATS_30_DAYS"
+msgstr "14 күндік белсенділік статистикасы"
+
+msgid "PAGE_COLLECTION_STATS_FAVORITES"
+msgstr "Таңдаулыларға сақтау"
+
+msgid "PAGE_COLLECTION_STATS_TOTAL_FAVORITES"
+msgstr "Барлық сақталғандар"
+
+msgid "PAGE_COLLECTION_STATS_TOTAL_ITEM_ADDS"
+msgstr "Қосымшалардың қосылу саны"
+
+msgid "PAGE_COLLECTION_STATS_VIEWS"
+msgstr "Көрілімдер"
+
+msgid "PAGE_COLLECTION_SYSTEM_BADGE"
+msgstr "жүйелік"
+
+msgid "PAGE_COLLECTION_TAB_LIKED"
+msgstr "Ұнатылған жиындар"
+
+msgid "PAGE_COLLECTION_TAB_MINE"
+msgstr "Менің жиындарым"
+
+msgid "PAGE_COLLECTION_TAB_STATS"
+msgstr "Статистика"
+
+msgid "PAGE_COLLECTION_TAB_VIEW"
+msgstr "Көру"
+
+msgid "PAGE_COLLECTION_TITLE"
+msgstr "Жиындар"
 
 msgid "PAGE_DEBUG_DESC"
 msgstr "Бұл бет ТЕК қана тестілеуге және қате туралы есепті (bug report) сауаттырақ жіберу үшін ақпарат жинауға арналған. Егер сіз осы бетті көріп тұрсаңыз, онда settings.py файлыңызда DEBUG = True константасы орнатылған деген сөз."
@@ -1500,6 +2316,12 @@ msgstr "Жүктелген нұсқалар"
 msgid "PAGE_DOWNLOAD_VERSION_LIST"
 msgstr "Нұсқалар тізімі"
 
+msgid "PAGE_ERROR_BROWSER_TITLE"
+msgstr "Қате"
+
+msgid "PAGE_ERROR_HEADING"
+msgstr "Қате"
+
 msgid "PAGE_FAQ_A_ACC_BENEFITS"
 msgstr "Аккаунт арқылы сіз қолданбаларға өз пікіріңізді қалдыра аласыз, осы дамып келе жатқан қауымдастықта өзіңізді таныта аласыз және қатаң модерациядан кейін өз қолданбаларыңызды жалпы каталогқа жүктей аласыз"
 
@@ -1635,6 +2457,9 @@ msgstr "Анықтама орталығы"
 msgid "PAGE_FAQ_TOOLTIP_EASTEREGG"
 msgstr "ЕМАААА ТІРЕКТЕР ВЕЛОСИПЕДТЕР"
 
+msgid "PAGE_HOME_BROWSER_TITLE"
+msgstr "Басты бет"
+
 msgid "PAGE_INVITE_ADMINSTATUS"
 msgstr "Модератор"
 
@@ -1724,6 +2549,15 @@ msgstr "Тіркелгіңіз жоқ па?"
 
 msgid "PAGE_LOGIN_MAIN_TITLE"
 msgstr "Кіру"
+
+msgid "PAGE_LOGIN_OR_DIVIDER"
+msgstr "немесе"
+
+msgid "PAGE_LOGIN_PASSPORT_BTN"
+msgstr "LunaPassport арқылы кіру"
+
+msgid "PAGE_LOGIN_PASSPORT_PENDING_HINT"
+msgstr "LunaPassport байланыстыру үшін осы поштамен LunaStore аккаунтына кіріңіз:"
 
 msgid "PAGE_LOGIN_PASSWORD_LABEL"
 msgstr "Құпия сөз:"
@@ -1956,6 +2790,12 @@ msgstr "Бұл пайдаланушы бұғатталғандықтан, біз
 msgid "PAGE_PROFILE_BANNED_INTRO"
 msgstr "Бұл пайдаланушы бұғатталды."
 
+msgid "PAGE_PROFILE_COLLECTIONS_EMPTY"
+msgstr "Пайдаланушыда әзірге жария коллекциялар жоқ."
+
+msgid "PAGE_PROFILE_COLLECTIONS_TITLE"
+msgstr "Пайдаланушы коллекциялары"
+
 msgid "PAGE_PROFILE_CONTACT_INFO"
 msgstr "Байланыс ақпараты"
 
@@ -2001,6 +2841,9 @@ msgstr "мүше болған уақыты:"
 msgid "PAGE_PROFILE_TAB_APPS"
 msgstr "Қосымшалар"
 
+msgid "PAGE_PROFILE_TAB_COLLECTIONS"
+msgstr "Жиындар"
+
 msgid "PAGE_PROFILE_TAB_MAIN"
 msgstr "Негізгі"
 
@@ -2028,6 +2871,9 @@ msgstr "Шақыру коды бар ма? Басыңыз"
 msgid "PAGE_REGISTER_HAVE_INVITE_TITLE"
 msgstr "Шақыруыңыз бар ма?"
 
+msgid "PAGE_REGISTER_HELP_CODE"
+msgstr "Егер жоқ болса, өрісті бос қалдырыңыз"
+
 msgid "PAGE_REGISTER_HELP_EMAIL"
 msgstr "Аккаунтқа кіру және парольді қалпына келтіру үшін пайдаланылады"
 
@@ -2040,11 +2886,11 @@ msgstr "Қайталау - білім анасы :D"
 msgid "PAGE_REGISTER_HELP_USERNAME"
 msgstr "Кемінде 2 таңба. Пайдаланушы аты арқылы сізді іздеп табуға болады. Тіркелгеннен кейін оны өзгерту мүмкін болмайды."
 
-msgid "PAGE_REGISTER_HELP_CODE"
-msgstr "Егер жоқ болса, өрісті бос қалдырыңыз"
-
 msgid "PAGE_REGISTER_INFO_SPLASH"
 msgstr "Тіркелгі жасау арқылы сіз өз қосымшаларыңызды жариялай аласыз, жүктелген бағдарламаларға пікір қалдыра аласыз және таңдаулы элементтердің жеке кітапханасын жүргізе аласыз. Тіркелу ашық әрі тегін."
+
+msgid "PAGE_REGISTER_LABEL_CODE"
+msgstr "Шақыру коды:"
 
 msgid "PAGE_REGISTER_LABEL_EMAIL"
 msgstr "E-mail:"
@@ -2057,9 +2903,6 @@ msgstr "Құпия сөзді қайталаңыз:"
 
 msgid "PAGE_REGISTER_LABEL_USERNAME"
 msgstr "Пайдаланушы аты:"
-
-msgid "PAGE_REGISTER_LABEL_CODE"
-msgstr "Шақыру коды:"
 
 msgid "PAGE_REGISTER_SECTION_CONFIRM"
 msgstr "Тіркелуді растау"
@@ -2175,6 +3018,15 @@ msgstr "\"%(q)s\" сұранысы бойынша нәтиже табылмад�
 msgid "PAGE_SEARCH_MSG_NO_RESULTS_EMPTY"
 msgstr "Сұрауыңыз бойынша ештеңе табылмады"
 
+msgid "PAGE_SEARCH_MSG_NO_USERS"
+msgstr "«%(q)s» сұранысы бойынша пайдаланушылар табылмады"
+
+msgid "PAGE_SEARCH_MSG_NO_USERS %(q)s"
+msgstr "«%(q)s» сұранысы бойынша пайдаланушылар табылмады"
+
+msgid "PAGE_SEARCH_MSG_UNAVAILABLE"
+msgstr "Іздеу уақытша қолжетімсіз. Кейінірек көріңіз."
+
 msgid "PAGE_SEARCH_SORT_LIST"
 msgstr "Мазмұнды тізім ретінде көрсету"
 
@@ -2184,8 +3036,11 @@ msgstr "Мазмұнды көрсету..."
 msgid "PAGE_SEARCH_SORT_TILES"
 msgstr "Мазмұнды плиткалар ретінде көрсету"
 
-msgid "PAGE_SEARCH_TITLE"
-msgstr "Іздеу"
+msgid "PAGE_SEARCH_SUGGEST_APPS"
+msgstr "Қолданбалар"
+
+msgid "PAGE_SEARCH_SUGGEST_USERS"
+msgstr "Пайдаланушылар"
 
 msgid "PAGE_SEARCH_TAB_APPS"
 msgstr "Қолданбалар"
@@ -2193,20 +3048,23 @@ msgstr "Қолданбалар"
 msgid "PAGE_SEARCH_TAB_USERS"
 msgstr "Пайдаланушылар"
 
-msgid "PAGE_SEARCH_MSG_NO_USERS %(q)s"
-msgstr "«%(q)s» сұранысы бойынша пайдаланушылар табылмады"
-
-msgid "PAGE_SEARCH_MSG_UNAVAILABLE"
-msgstr "Іздеу уақытша қолжетімсіз. Кейінірек көріңіз."
-
-msgid "PAGE_SEARCH_SUGGEST_APPS"
-msgstr "Қолданбалар"
-
-msgid "PAGE_SEARCH_SUGGEST_USERS"
-msgstr "Пайдаланушылар"
+msgid "PAGE_SEARCH_TITLE"
+msgstr "Іздеу"
 
 msgid "PAGE_SEARCH_USERS_COUNT"
 msgstr "Табылды"
+
+msgid "PAGE_SECURITY_WARN_NEW_SESSION_DESC"
+msgstr "құпия сөз бен байланыстырылған поштаны өзгерту жаңа құрылғылар үшін қолжетімсіз (24 сағаттан аз)."
+
+msgid "PAGE_SECURITY_WARN_TITLE"
+msgstr "Қауіпсіздік мақсатында"
+
+msgid "PAGE_SETTINGS_ACTIVE_SESSIONS_DESC"
+msgstr "Тіркелгіңізге кірген құрылғылар."
+
+msgid "PAGE_SETTINGS_ACTIVITY"
+msgstr "Белсенділік"
 
 msgid "PAGE_SETTINGS_BTN_DELETE"
 msgstr "Тіркелгіні жою"
@@ -2217,11 +3075,29 @@ msgstr "Сақтау"
 msgid "PAGE_SETTINGS_BTN_UPLOAD"
 msgstr "Жүктеу"
 
+msgid "PAGE_SETTINGS_CURRENT_SESSION"
+msgstr "Ағымдағы сессия"
+
 msgid "PAGE_SETTINGS_DELETE_WARNING"
 msgstr "Егер сіз сайтты қолданғыңыз келмесе, өз аккаунтыңызды жоюға толық құқығыңыз бар. <br><br>Алайда, бұл әрекет профиль деректерін <b>қалпына келтіру мүмкіндігінсіз</b> жоятынын түсінуіңіз керек. Басқарылатын қолданбалар беттеріне қолжетімділік жоғалады, ал жіберілген пікірлер жеке деректерден ажыратылады.<br><br>"
 
+msgid "PAGE_SETTINGS_DEV_STATUS_GET"
+msgstr "Алу"
+
 msgid "PAGE_SETTINGS_DEV_STATUS_HAS"
 msgstr "бар"
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_COMPACT"
+msgstr "Қысқартылған"
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_INFO"
+msgstr "Басты беттің сыртқы түрін толық немесе қысқартылған нұсқа арасында өзгертуге болады."
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_RICH"
+msgstr "Толық"
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_TITLE"
+msgstr "Басты беттің түрі"
 
 msgid "PAGE_SETTINGS_HTML_TITLE"
 msgstr "Аккаунт баптаулары"
@@ -2286,6 +3162,33 @@ msgstr "Пайдаланушы аты:"
 msgid "PAGE_SETTINGS_LABEL_WEBSITE"
 msgstr "Веб-сайт:"
 
+msgid "PAGE_SETTINGS_PASSPORT_CONFIRM"
+msgstr "Тіркеуді растау"
+
+msgid "PAGE_SETTINGS_PASSPORT_DESC"
+msgstr "LunaPassport аккаунтын байланыстырыңыз, сонда LunaStore-ға құпиясөзсіз (OAuth арқылы) кіре аласыз."
+
+msgid "PAGE_SETTINGS_PASSPORT_LINK"
+msgstr "LunaPassport байланыстыру"
+
+msgid "PAGE_SETTINGS_PASSPORT_LINKED_AS"
+msgstr "Мынадай түрде байланыстырылған:"
+
+msgid "PAGE_SETTINGS_PASSPORT_PENDING"
+msgstr "Төмендегі үшін байланыстыру растауын күтуде:"
+
+msgid "PAGE_SETTINGS_PASSPORT_TITLE"
+msgstr "LunaPassport параметрлері"
+
+msgid "PAGE_SETTINGS_PASSPORT_UNLINK"
+msgstr "Ажырату"
+
+msgid "PAGE_SETTINGS_PASSPORT_UNLINK_NEED_PASSWORD"
+msgstr "Алдымен тіркелгі құпиясөзін орнатыңыз, содан кейін LunaPassport қызметін ажыратуға болады."
+
+msgid "PAGE_SETTINGS_SECTION_ACTIVE_SESSIONS"
+msgstr "Белсенді сессиялар"
+
 msgid "PAGE_SETTINGS_SECTION_AVATAR"
 msgstr "Аватарды өзгерту"
 
@@ -2308,31 +3211,13 @@ msgid "PAGE_SETTINGS_TAB_ACCOUNT"
 msgstr "Аккаунт"
 
 msgid "PAGE_SETTINGS_TAB_APPS"
-msgstr "Қосымша"
+msgstr "Қосымшалар"
 
 msgid "PAGE_SETTINGS_TAB_SECURITY"
-msgstr "Қорғау"
+msgstr "Қауіпсіздік"
 
 msgid "PAGE_SETTINGS_TAB_UI"
 msgstr "Көрініс"
-
-msgid "PAGE_SETTINGS_HOME_LAYOUT_TITLE"
-msgstr "Басты беттің түрі"
-
-msgid "PAGE_SETTINGS_HOME_LAYOUT_INFO"
-msgstr "Басты беттің сыртқы түрін толық немесе қысқартылған нұсқа арасында өзгертуге болады."
-
-msgid "PAGE_SETTINGS_HOME_LAYOUT_RICH"
-msgstr "Толық"
-
-msgid "PAGE_SETTINGS_HOME_LAYOUT_COMPACT"
-msgstr "Қысқартылған"
-
-msgid "INFO_HOME_LAYOUT_UPDATED"
-msgstr "Басты беттің түрі сақталды"
-
-msgid "ERROR_HOME_LAYOUT_INVALID"
-msgstr "Басты беттің түрі дұрыс емес"
 
 msgid "PAGE_SETTINGS_TERMINATE_SESSION"
 msgstr "Сеансты аяқтау"
@@ -2340,8 +3225,11 @@ msgstr "Сеансты аяқтау"
 msgid "PAGE_SETTINGS_TITLE"
 msgstr "Баптаулар"
 
+msgid "PAGE_SETTINGS_UNKNOWN_DEVICE"
+msgstr "Белгісіз құрылғы"
+
 msgid "PAGE_SETTINGS_WARN_USERNAME_FROZEN"
-msgstr "Пайдаланушы атын тіркелуден кейін жылына 1 рет қана өзгертуге болады"
+msgstr "Пайдаланушы атын тіркелуден кейін өзгерту мүмкін емес"
 
 msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_1"
 msgstr "Файлдар тексеруден өтті: "
@@ -2400,837 +3288,53 @@ msgstr "Логин немесе құпия сөз дұрыс емес."
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "Сіз сәтті кірдіңіз! Сәлем, %(username)s!"
 
-msgid "%(counter)s PAGE_COLLECTION_APPS_ONE"
-msgid_plural "%(counter)s PAGE_COLLECTION_APPS_MANY"
-msgstr[0] "%(counter)s қосымша"
+msgid "VIEW_PASSPORT_ALREADY_LINKED_OTHER"
+msgstr "Сіздің аккаунтыңызға басқа LunaPassport тіркелген."
 
-msgid "%(counter)s PAGE_COLLECTION_COUNT_ONE"
-msgid_plural "%(counter)s PAGE_COLLECTION_COUNT_MANY"
-msgstr[0] "Барлығы %(counter)s жинақ"
+msgid "VIEW_PASSPORT_EMAIL_ALREADY_EXISTS"
+msgstr "Бұл электрондық поштасы бар тіркелгі бұрыннан бар. LunaPassport арқылы тіркелу қолжетімсіз."
 
-msgid "BASE_SIDEBAR_ACCOUNT_COLLECTIONS"
-msgstr "Жинақтар"
+msgid "VIEW_PASSPORT_EMAIL_EXISTS_LOGIN"
+msgstr "Бұл поштамен тіркелген аккаунт бұрыннан бар. LunaPassport байланысын растау үшін оған кіріңіз."
 
-msgid "PAGE_APP_TO_COLLECTION"
-msgstr "жинаққа"
+msgid "VIEW_PASSPORT_EMAIL_MISMATCH"
+msgstr "LunaPassport поштасы LunaStore аккаунтының поштасына сәйкес келмейді. Байланыстыру тоқтатылды."
 
-msgid "PAGE_APP_ADD_TO_COLLECTION"
-msgstr "қосу"
+msgid "VIEW_PASSPORT_INVITES_REQUIRED"
+msgstr "Тіркелу тек шақырту арқылы. Бар аккаунтқа кіріп, баптаулардан LunaPassport-ты байланыстырыңыз."
 
-msgid "PAGE_COLLECTION_ACTION_DELETE"
-msgstr "жою"
+msgid "VIEW_PASSPORT_LINKED_OK"
+msgstr "LunaPassport сәтті байланыстырылды."
 
-msgid "PAGE_COLLECTION_ACTION_EDIT"
-msgstr "өңдеу"
+msgid "VIEW_PASSPORT_LINK_LOGIN_REQUIRED"
+msgstr "LunaPassport байланыстыру үшін алдымен аккаунтқа кіріңіз."
 
-msgid "PAGE_COLLECTION_ACTION_FAVORITE"
-msgstr "таңдаулыға"
+msgid "VIEW_PASSPORT_NEED_ACCOUNT"
+msgstr "Кіріңіз немесе тіркеліңіз, содан кейін қауіпсіздік параметрлерінде LunaPassport-ты байланыстырыңыз."
 
-msgid "PAGE_COLLECTION_ACTION_REMOVE_APP"
-msgstr "алып тастау"
+msgid "VIEW_PASSPORT_NOT_LINKED"
+msgstr "LunaPassport байланыстырылмаған."
 
-msgid "PAGE_COLLECTION_ACTION_UNFAVORITE"
-msgstr "таңдаулыдан алу"
+msgid "VIEW_PASSPORT_NO_PENDING"
+msgstr "Күтудегі LunaPassport байланысы жоқ."
 
-msgid "PAGE_COLLECTION_ACTION_VIEW"
-msgstr "қарау"
+msgid "VIEW_PASSPORT_OAUTH_DENIED"
+msgstr "LunaPassport кіруден бас тартты: %(detail)s"
 
-msgid "PAGE_COLLECTION_ACTION_STATS"
-msgstr "статистика"
+msgid "VIEW_PASSPORT_REGISTER_BLOCKED"
+msgstr "LunaPassport арқылы тіркелгіні жасау мүмкін болмады."
 
-msgid "PAGE_COLLECTION_APPS_EMPTY"
-msgstr "Бұл жинақта әзірге қосымшалар жоқ."
+msgid "VIEW_PASSPORT_STATE_MISMATCH"
+msgstr "OAuth қауіпсіздік қатесі (state). Қайталап көріңіз."
 
-msgid "PAGE_COLLECTION_ADD_NO_CUSTOM"
-msgstr "Пайдаланушы жинақтары жоқ. Жаңасын жасаңыз:"
+msgid "VIEW_PASSPORT_SUB_TAKEN"
+msgstr "Бұл LunaPassport басқа LunaStore аккаунтына тіркелген."
 
-msgid "PAGE_COLLECTION_ADD_TITLE"
-msgstr "Жинаққа қосу"
+msgid "VIEW_PASSPORT_TOKEN_FAILED"
+msgstr "LunaPassport арқылы кіруді аяқтау мүмкін болмады. Кейінірек көріңіз."
 
-msgid "PAGE_COLLECTION_BTN_ADD_APP"
-msgstr "Қосу"
+msgid "VIEW_PASSPORT_UNLINKED_OK"
+msgstr "LunaPassport ажыратылды."
 
-msgid "PAGE_COLLECTION_BTN_DELETE"
-msgstr "Жою"
-
-msgid "PAGE_COLLECTION_BTN_CANCEL"
-msgstr "Болдырмау"
-
-msgid "PAGE_COLLECTION_EDIT_TITLE"
-msgstr "Жинақты өңдеу"
-
-msgid "PAGE_COLLECTION_BTN_CREATE"
-msgstr "Жаңа жинақ жасау"
-
-msgid "PAGE_COLLECTION_BTN_SAVE"
-msgstr "Сақтау"
-
-msgid "PAGE_COLLECTION_DATE_CREATED"
-msgstr "Жасалған күні:"
-
-msgid "PAGE_COLLECTION_DATE_UPDATED"
-msgstr "Жаңартылған"
-
-msgid "PAGE_COLLECTION_DELETE_CONFIRM_TEXT %(title)s"
-msgstr "«%(title)s» жинағын жойғыңыз келетініне сенімдісіз бе?"
-
-msgid "PAGE_COLLECTION_DELETE_CONFIRM_TITLE"
-msgstr "Жинақты жою"
-
-msgid "PAGE_COLLECTION_EMPTY"
-msgstr "Әзірге жинақтар жоқ."
-
-msgid "PAGE_COLLECTION_ERROR_ADD_APP"
-msgstr "Қосымшаны жинаққа қосу мүмкін болмады."
-
-msgid "PAGE_COLLECTION_ERROR_DELETE"
-msgstr "Жинақты жою мүмкін болмады."
-
-msgid "PAGE_COLLECTION_ERROR_DELETE_SYSTEM"
-msgstr "Жүйелік жинақты жоюға болмайды."
-
-msgid "PAGE_COLLECTION_ERROR_EDIT_SYSTEM"
-msgstr "Жүйелік жинақты өңдеуге болмайды."
-
-msgid "PAGE_COLLECTION_ERROR_FAVORITE"
-msgstr "Таңдаулыны өзгерту мүмкін болмады."
-
-msgid "PAGE_COLLECTION_ERROR_FAVORITE_OWN"
-msgstr "Өз жинағыңызды таңдаулыға қосуға болмайды."
-
-msgid "PAGE_COLLECTION_ERROR_PRIVATE"
-msgstr "Бұл жинақ жасырын."
-
-msgid "PAGE_COLLECTION_ERROR_REMOVE_APP"
-msgstr "Қосымшаны жинақтан алып тастау мүмкін болмады."
-
-msgid "PAGE_COLLECTION_ERROR_SAVE"
-msgstr "Жинақты сақтау мүмкін болмады."
-
-msgid "PAGE_COLLECTION_FIELD_TITLE"
-msgstr "Атауы"
-
-msgid "PAGE_COLLECTION_FIELD_TITLE_HINT"
-msgstr "Жинақ атауын қажетті тілдерде көрсетіңіз"
-
-msgid "PAGE_COLLECTION_FIELD_DESC"
-msgstr "Сипаттама"
-
-msgid "PAGE_COLLECTION_FIELD_DESC_HINT"
-msgstr "Жинақта не бар екенін қысқаша сипаттаңыз"
-
-msgid "PAGE_COLLECTION_FIELD_PUBLIC"
-msgstr "Ашық жинақ"
-
-msgid "PAGE_COLLECTION_LIKES_DESC"
-msgstr "Қосымшалар бетінде «Жинаққа қосу» белгісін қойып, оларды жылдам қолжетімділік үшін сақтаңыз"
-
-msgid "PAGE_COLLECTION_LIKES_TITLE"
-msgstr "Ұнаған қосымшалар"
-
-msgid "PAGE_COLLECTION_MSG_APP_ADDED"
-msgstr "Қосымша жинаққа қосылды."
-
-msgid "PAGE_COLLECTION_MSG_APP_ALREADY"
-msgstr "Қосымша осы жинақта бар."
-
-msgid "PAGE_COLLECTION_MSG_APP_NOT_IN"
-msgstr "Қосымша бұл жинақта жоқ."
-
-msgid "PAGE_COLLECTION_MSG_APP_REMOVED"
-msgstr "Қосымша жинақтан алынды."
-
-msgid "PAGE_COLLECTION_MSG_DELETED"
-msgstr "Жинақ жойылды."
-
-msgid "PAGE_COLLECTION_MSG_FAVORITED"
-msgstr "Жинақ таңдаулыға қосылды."
-
-msgid "PAGE_COLLECTION_MSG_SAVED"
-msgstr "Жинақ сақталды."
-
-msgid "PAGE_COLLECTION_MSG_UNFAVORITED"
-msgstr "Жинақ таңдаулыдан алынды."
-
-msgid "%(counter)s PAGE_COLLECTION_SAVES_ONE"
-msgid_plural "%(counter)s PAGE_COLLECTION_SAVES_MANY"
-msgstr[0] "%(counter)s сақтау"
-
-msgid "PAGE_COLLECTION_SYSTEM_BADGE"
-msgstr "жүйелік"
-
-msgid "PAGE_COLLECTION_TAB_LIKED"
-msgstr "Таңдаулы жинақтар"
-
-msgid "PAGE_COLLECTION_TAB_MINE"
-msgstr "Менің жинақтарым"
-
-msgid "PAGE_COLLECTION_TAB_VIEW"
-msgstr "Қарау"
-
-msgid "PAGE_COLLECTION_TITLE"
-msgstr "Жинақтар"
-
-msgid "PAGE_PROFILE_TAB_COLLECTIONS"
-msgstr "Жинақтар"
-
-msgid "PAGE_PROFILE_COLLECTIONS_TITLE"
-msgstr "Пайдаланушы жинақтары"
-
-msgid "PAGE_PROFILE_COLLECTIONS_EMPTY"
-msgstr "Пайдаланушының әзірге ашық жинақтары жоқ."
-msgid "PAGE_HOME_BROWSER_TITLE"
-msgstr "Басты бет"
-
-msgid "PAGE_404_BROWSER_TITLE"
-msgstr "Бет табылмады"
-
-msgid "PAGE_502_BROWSER_TITLE"
-msgstr "Бірдеңе дұрыс болмады..."
-msgid "PAGE_ERROR_BROWSER_TITLE"
-msgstr "Қате"
-
-msgid "PAGE_ERROR_HEADING"
-msgstr "Қате"
-
-msgid "PAGE_400_BROWSER_TITLE"
-msgstr "Қате сұрау"
-
-msgid "PAGE_400_DEFAULT_MESSAGE"
-msgstr "Сұрауды өңдеу мүмкін болмады. Деректерді тексеріп, қайталап көріңіз."
-
-msgid "PAGE_403_BROWSER_TITLE"
-msgstr "Қол жеткізуге тыйым салынған"
-
-msgid "PAGE_403_DEFAULT_MESSAGE"
-msgstr "Бұл бетке кіруге рұқсатыңыз жоқ."
-
-msgid "PAGE_500_BROWSER_TITLE"
-msgstr "Ішкі қате"
-
-msgid "PAGE_500_DEFAULT_MESSAGE"
-msgstr "Сервердің ішкі қатесі орын алды. Кейінірек қайталап көріңіз."
-
-msgid "BASE_THEME_ENABLE"
-msgstr "Қараңғы теманы қосу"
-
-msgid "BASE_THEME_DISABLE"
-msgstr "Қараңғы теманы өшіру"
-
-msgid "BASE_SIDEBAR_APP_PAGE"
-msgstr "Қосымша"
-
-msgid "PAGE_SETTINGS_DEV_STATUS_GET"
-msgstr "Алу"
-
-msgid "PAGE_SETTINGS_SECTION_ACTIVE_SESSIONS"
-msgstr "Белсенді сессиялар"
-
-msgid "PAGE_SETTINGS_ACTIVE_SESSIONS_DESC"
-msgstr "Тіркелгіңізге кірген құрылғылар."
-
-msgid "PAGE_SETTINGS_UNKNOWN_DEVICE"
-msgstr "Белгісіз құрылғы"
-
-msgid "PAGE_SETTINGS_ACTIVITY"
-msgstr "Белсенділік"
-
-msgid "PAGE_SETTINGS_CURRENT_SESSION"
-msgstr "Ағымдағы сессия"
-
-msgid "PAGE_SECURITY_WARN_TITLE"
-msgstr "Қауіпсіздік мақсатында"
-
-msgid "PAGE_SECURITY_WARN_NEW_SESSION_DESC"
-msgstr "құпия сөз бен байланыстырылған поштаны өзгерту жаңа құрылғылар үшін қолжетімсіз (24 сағаттан аз)."
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_REVIEW_NO_TEXT"
-msgstr "(мәтін жоқ)"
-
-#: templates/unfold/helpers/theme_switch.html templates/unfold/helpers/theme_switch_dropdown.html
-msgid "PAGE_ADMIN_PANEL_THEME_DARK"
-msgstr "Қараңғы"
-
-#: apps/marketplace/admin_comparison.py
-msgid "PAGE_ADMIN_PANEL_ICON_ID"
-msgstr "Таңбаша ID"
-
-#: templates/unfold/helpers/theme_switch.html templates/unfold/helpers/theme_switch_dropdown.html
-msgid "PAGE_ADMIN_PANEL_THEME_LIGHT"
-msgstr "Ашық"
-
-#: templates/unfold/helpers/search.html
-msgid "PAGE_ADMIN_PANEL_SEARCH_SECTIONS_PLACEHOLDER"
-msgstr "Бөлімдерді іздеу..."
-
-#: templates/unfold/helpers/theme_switch.html templates/unfold/helpers/theme_switch_dropdown.html
-msgid "PAGE_ADMIN_PANEL_THEME_SYSTEM"
-msgstr "Жүйелік"
-
-#: templates/admin/search_form.html
-msgid "PAGE_ADMIN_PANEL_SEARCH_PLACEHOLDER"
-msgstr "Іздеу сұрауын енгізіңіз"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_AUTHOR"
-msgstr "Автор"
-
-#: apps/marketplace/admin_comparison.py
-msgid "PAGE_ADMIN_PANEL_APPLICATION_AUTHOR"
-msgstr "Қолданба авторы"
-
-#: lunastore/settings.py
-msgid "PAGE_ADMIN_PANEL_SITE_SUBHEADER"
-msgstr "Әкімшілік панель"
-
-#: lunastore/admin_navigation.py
-msgid "PAGE_ADMIN_PANEL_BANNERS"
-msgstr "Баннерлер"
-
-#: apps/core/dashboard.py
-msgid "PAGE_ADMIN_PANEL_NO_TEXT"
-msgstr "Мәтін жоқ"
-
-#: lunastore/admin_navigation.py apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_SECURITY"
-msgstr "Қауіпсіздік"
-
-#: lunastore/admin_navigation.py
-msgid "PAGE_ADMIN_PANEL_HOMEPAGE_SECTIONS"
-msgstr "Басты бет бөлімдері"
-
-#: lunastore/admin_navigation.py
-msgid "PAGE_ADMIN_PANEL_BANS"
-msgstr "Бұғаттаулар"
-
-#: templates/admin/index.html
-msgid "PAGE_ADMIN_PANEL_QUEUES_EMPTY_DESCRIPTION"
-msgstr "Қолжетімді кезектерде тексеруді күтетін өтінімдер жоқ."
-
-#: apps/marketplace/admin_comparison.py
-msgid "PAGE_ADMIN_PANEL_VERSION"
-msgstr "Нұсқа"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_AI_PROMPT_INJECTION"
-msgstr "ЖИ нұсқауларына араласу"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_POTENTIAL_PIRACY"
-msgstr "Ықтимал қарақшылық"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_MALICIOUS_CONTENT"
-msgstr "Зиянды мазмұн"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_TIMESTAMPS"
-msgstr "Уақыт белгілері"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_ALL"
-msgstr "Барлығы"
-
-#: templates/admin/index.html
-msgid "PAGE_ADMIN_PANEL_ALL_REQUESTS_PROCESSED"
-msgstr "Барлық өтінімдер өңделді"
-
-#: templates/admin/marketplace/review/list_tools.html
-msgid "PAGE_ADMIN_PANEL_ALL_REVIEWS"
-msgstr "Барлық пікірлер"
-
-#: apps/core/dashboard.py
-msgid "PAGE_ADMIN_PANEL_TOTAL_USERS"
-msgstr "Пайдаланушылар саны"
-
-#: apps/core/dashboard.py
-msgid "PAGE_ADMIN_PANEL_TOTAL_APPLICATIONS"
-msgstr "Қолданбалар саны"
-
-#: templates/admin/index.html
-msgid "PAGE_ADMIN_PANEL_CHOOSE_SECTION"
-msgstr "Бүйірлік мәзірден қолжетімді бөлімді таңдаңыз."
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_HIGH"
-msgstr "Жоғары"
-
-#: lunastore/admin_navigation.py
-msgid "PAGE_ADMIN_PANEL_GROUPS"
-msgstr "Топтар"
-
-#: apps/marketplace/admin_comparison.py
-msgid "PAGE_ADMIN_PANEL_YES"
-msgstr "Иә"
-
-#: templates/admin/index.html
-msgid "PAGE_ADMIN_PANEL_NO_DATE_PROVIDED"
-msgstr "Күні көрсетілмеген"
-
-#: apps/marketplace/admin_comparison.py
-msgid "PAGE_ADMIN_PANEL_DEMO_VERSION"
-msgstr "Демо нұсқа"
-
-#: lunastore/admin_navigation.py
-msgid "PAGE_ADMIN_PANEL_DISTRIBUTIONS"
-msgstr "Дистрибутивтер"
-
-#: lunastore/admin_navigation.py apps/core/dashboard.py
-msgid "PAGE_ADMIN_PANEL_APPLICATION_REPORTS"
-msgstr "Қолданбаларға шағымдар"
-
-#: lunastore/admin_navigation.py
-msgid "PAGE_ADMIN_PANEL_ACTIVITY_LOG"
-msgstr "Әрекеттер журналы"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_BANNED_PHRASE"
-msgstr "Тыйым салынған сөз тіркесі"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_PROHIBITED_CONTENT"
-msgstr "Тыйым салынған мазмұн"
-
-#: apps/marketplace/admin.py
-#, python-format
-msgid "PAGE_ADMIN_PANEL_REVIEWS_AI_RECHECK_MESSAGE %(count)s"
-msgstr "%(count)s пікір үшін ЖИ қайта тексеруі іске қосылды"
-
-#: templates/admin/decline_forms/comparison.html
-msgid "PAGE_ADMIN_PANEL_COMPARISON_PROCESSED_HELP"
-msgstr "Өтінім қаралған. Салыстыру нысанның ағымдағы нұсқасымен көрсетілген."
-
-#: lunastore/admin_navigation.py apps/core/dashboard.py
-msgid "PAGE_ADMIN_PANEL_DEVELOPER_REQUESTS"
-msgstr "Әзірлеуші өтінімдері"
-
-#: lunastore/admin_navigation.py apps/marketplace/admin_comparison.py
-msgid "PAGE_ADMIN_PANEL_BADGES"
-msgstr "Белгілер"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_AI_MODERATION_OPENROUTER"
-msgstr "ЖИ модерациясы (OpenRouter)"
-
-#: lunastore/admin_navigation.py apps/core/dashboard.py
-msgid "PAGE_ADMIN_PANEL_DISTRIBUTION_CHANGES"
-msgstr "Дистрибутив өзгерістері"
-
-#: lunastore/admin_navigation.py apps/core/dashboard.py
-msgid "PAGE_ADMIN_PANEL_APPLICATION_CHANGES"
-msgstr "Қолданба өзгерістері"
-
-#: apps/marketplace/admin_comparison.py
-msgid "PAGE_ADMIN_PANEL_ICON"
-msgstr "Таңбаша"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_REVIEW_DETAILS"
-msgstr "Пікір туралы ақпарат"
-
-#: lunastore/admin_navigation.py
-msgid "PAGE_ADMIN_PANEL_CATALOG"
-msgstr "Каталог"
-
-#: lunastore/admin_navigation.py apps/marketplace/admin.py apps/marketplace/admin_comparison.py
-msgid "PAGE_ADMIN_PANEL_CATEGORIES"
-msgstr "Санаттар"
-
-#: apps/marketplace/admin_comparison.py
-msgid "PAGE_ADMIN_PANEL_LUNABOX_MANIFEST"
-msgstr "LunaBox манифесті"
-
-#: lunastore/admin_navigation.py
-msgid "PAGE_ADMIN_PANEL_BULK_SCAN"
-msgstr "Жаппай тексеру"
-
-#: lunastore/admin_navigation.py
-msgid "PAGE_ADMIN_PANEL_MODERATION"
-msgstr "Модерация"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_STATUS_PENDING"
-msgstr "Тексерілуде"
-
-#: apps/marketplace/admin_comparison.py
-msgid "PAGE_ADMIN_PANEL_TITLE"
-msgstr "Атауы"
-
-#: lunastore/admin_navigation.py
-msgid "PAGE_ADMIN_PANEL_SETTINGS"
-msgstr "Баптаулар"
-
-#: lunastore/admin_navigation.py
-msgid "PAGE_ADMIN_PANEL_SITE_SETTINGS"
-msgstr "Сайт баптаулары"
-
-#: templates/admin/index.html
-msgid "PAGE_ADMIN_PANEL_START_WITH_THE_OLDEST_REQUESTS"
-msgstr "Ең ескі өтінімдерден бастаңыз"
-
-#: apps/marketplace/admin_comparison.py
-msgid "PAGE_ADMIN_PANEL_NOT_PROVIDED"
-msgstr "Көрсетілмеген"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_PROFANITY"
-msgstr "Балағат сөздер"
-
-#: apps/marketplace/admin_comparison.py
-msgid "PAGE_ADMIN_PANEL_NO"
-msgstr "Жоқ"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_NOT_SCORED"
-msgstr "Баға жоқ"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_NO_FLAGS"
-msgstr "Белгілер жоқ"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_LOW"
-msgstr "Төмен"
-
-#: lunastore/admin_navigation.py apps/core/dashboard.py
-msgid "PAGE_ADMIN_PANEL_NEW_DISTRIBUTIONS"
-msgstr "Жаңа дистрибутивтер"
-
-#: lunastore/admin_navigation.py apps/core/dashboard.py
-msgid "PAGE_ADMIN_PANEL_NEW_APPLICATIONS"
-msgstr "Жаңа қолданбалар"
-
-#: apps/core/dashboard.py
-msgid "PAGE_ADMIN_PANEL_NEW_TODAY"
-msgstr "Бүгінгі жаңалар"
-
-#: lunastore/admin_navigation.py
-msgid "PAGE_ADMIN_PANEL_OVERVIEW"
-msgstr "Шолу"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_STATUS_APPROVED"
-msgstr "Мақұлданған"
-
-#: apps/marketplace/admin.py
-#, python-format
-msgid "PAGE_ADMIN_PANEL_REVIEWS_APPROVED_MESSAGE %(count)s"
-msgstr "Мақұлданған пікірлер: %(count)s"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_FILTER_APPROVED"
-msgstr "Мақұлданған"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_APPROVE_SELECTED_REVIEWS"
-msgstr "Таңдалған пікірлерді мақұлдау"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_APPROVE_REVIEW"
-msgstr "Пікірді мақұлдау"
-
-#: apps/marketplace/admin.py templates/admin/index.html templates/admin/marketplace/review/list_tools.html
-msgid "PAGE_ADMIN_PANEL_AWAITING_REVIEW"
-msgstr "Тексеруді күтуде"
-
-#: apps/marketplace/admin_comparison.py
-msgid "PAGE_ADMIN_PANEL_DESCRIPTION"
-msgstr "Сипаттамасы"
-
-#: templates/admin/action_modal.html
-msgid "PAGE_ADMIN_PANEL_REJECTION_REASON_PLACEHOLDER"
-msgstr "Нені түзету керектігін сипаттаңыз"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_DEVELOPER_REPLY"
-msgstr "Әзірлеушінің жауабы"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_REVIEW_NOT_FOUND"
-msgstr "Пікір табылмады"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_REVIEW_REJECTED_AND_DELETED"
-msgstr "Пікір қабылданбады және жойылды"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_REVIEW_IS_ALREADY_APPROVED"
-msgstr "Пікір мақұлданған"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_REVIEW_APPROVED"
-msgstr "Пікір мақұлданды"
-
-#: lunastore/admin_navigation.py
-msgid "PAGE_ADMIN_PANEL_REVIEWS"
-msgstr "Пікірлер"
-
-#: lunastore/admin_navigation.py apps/core/dashboard.py
-msgid "PAGE_ADMIN_PANEL_REVIEWS_AWAITING_MODERATION"
-msgstr "Модерациядағы пікірлер"
-
-#: templates/admin/marketplace/review/list_tools.html
-msgid "PAGE_ADMIN_PANEL_REVIEW_REJECTION_HELP"
-msgstr "Қабылдамау пікірді жояды. Толық тексеру үшін мәтінді ашыңыз."
-
-#: apps/marketplace/admin.py
-#, python-format
-msgid "PAGE_ADMIN_PANEL_REVIEWS_REJECTED_MESSAGE %(count)s"
-msgstr "Қабылданбаған және жойылған пікірлер: %(count)s"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_FILTER_REJECTED"
-msgstr "Қабылданбаған"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_REJECT_SELECTED_REVIEWS"
-msgstr "Таңдалған пікірлерді қабылдамау"
-
-#: apps/marketplace/admin.py templates/admin/decline_forms/reject_modal.html
-msgid "PAGE_ADMIN_PANEL_REJECT_REQUEST"
-msgstr "Өтінімді қабылдамау"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_REJECT_REVIEW"
-msgstr "Пікірді қабылдамау"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_STATUS_REJECTED"
-msgstr "Қабылданбаған"
-
-#: templates/admin/index.html
-msgid "PAGE_ADMIN_PANEL_OPEN_QUEUE"
-msgstr "Кезекті ашу"
-
-#: templates/admin/decline_forms/comparison.html
-msgid "PAGE_ADMIN_PANEL_COMPARISON_NO_CHANGES"
-msgstr "Ағымдағы мәндерден айырмашылық жоқ."
-
-#: templates/admin/action_modal.html
-msgid "PAGE_ADMIN_PANEL_CANCEL"
-msgstr "Бас тарту"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_RATING"
-msgstr "Баға"
-
-#: apps/marketplace/admin.py templates/admin/marketplace/review/list_tools.html
-msgid "PAGE_ADMIN_PANEL_AI_SCORE_HELP"
-msgstr "ЖИ бағасы 0-ден 1-ге дейін: жоғары баға ереже бұзу қаупінің жоғары екенін білдіреді."
-
-#: templates/admin/index.html
-msgid "PAGE_ADMIN_PANEL_DASHBOARD_DESCRIPTION"
-msgstr "Тіркелгіңізге қолжетімді кезектер мен құралдар."
-
-#: lunastore/settings.py lunastore/urls_private.py
-msgid "PAGE_ADMIN_PANEL_SITE_TITLE"
-msgstr "LunaStore панелі"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_RECHECK_WITH_AI"
-msgstr "ЖИ арқылы қайта тексеру"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_SUSPICIOUS_LINK"
-msgstr "Күдікті сілтеме"
-
-#: templates/unfold/helpers/search.html
-msgid "PAGE_ADMIN_PANEL_SEARCH_SECTIONS"
-msgstr "Бөлімдерді іздеу"
-
-#: templates/admin/decline_forms/comparison.html
-msgid "PAGE_ADMIN_PANEL_FIELD"
-msgstr "Өріс"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_POLITICAL_AGITATION"
-msgstr "Саяси үгіт"
-
-#: lunastore/admin_navigation.py
-msgid "PAGE_ADMIN_PANEL_USERS"
-msgstr "Пайдаланушылар"
-
-#: templates/admin/decline_forms/comparison.html
-msgid "PAGE_ADMIN_PANEL_AFTER_APPROVAL"
-msgstr "Мақұлдағаннан кейін"
-
-#: lunastore/admin_navigation.py
-msgid "PAGE_ADMIN_PANEL_NOSPAM_RULES"
-msgstr "noSpam ережелері"
-
-#: templates/admin/decline_forms/comparison.html
-msgid "PAGE_ADMIN_PANEL_PROPOSED_CHANGES"
-msgstr "Ұсынылған өзгерістер"
-
-#: apps/marketplace/admin_comparison.py
-msgid "PAGE_ADMIN_PANEL_PRIVATE_APPLICATION"
-msgstr "Жеке қолданба"
-
-#: lunastore/admin_navigation.py
-msgid "PAGE_ADMIN_PANEL_INVITATIONS"
-msgstr "Шақырулар"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_APPLICATION"
-msgstr "Қолданба"
-
-#: lunastore/admin_navigation.py
-msgid "PAGE_ADMIN_PANEL_APPLICATIONS"
-msgstr "Қолданбалар"
-
-#: templates/admin/decline_forms/reject_modal.html
-msgid "PAGE_ADMIN_PANEL_REASON_FOR_REJECTION"
-msgstr "Өтінімді қабылдамау себебі"
-
-#: lunastore/admin_navigation.py lunastore/urls_private.py
-msgid "PAGE_ADMIN_PANEL_DASHBOARD"
-msgstr "Жұмыс үстелі"
-
-#: templates/admin/index.html
-msgid "PAGE_ADMIN_PANEL_MODERATOR_DASHBOARD"
-msgstr "Модератордың жұмыс үстелі"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_HATE_SPEECH"
-msgstr "Өшпенділік тудыру"
-
-#: lunastore/admin_navigation.py
-msgid "PAGE_ADMIN_PANEL_NOTIFICATION_BROADCAST"
-msgstr "Хабарландыру тарату"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_VIOLATION_RISK"
-msgstr "Ереже бұзу қаупі"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_MANUAL_MODERATION"
-msgstr "Қолмен модерациялау"
-
-#: apps/marketplace/admin_comparison.py
-msgid "PAGE_ADMIN_PANEL_DEVELOPER_WEBSITE"
-msgstr "Әзірлеуші сайты"
-
-#: templates/admin/index.html
-msgid "PAGE_ADMIN_PANEL_OLDEST_REQUEST"
-msgstr "Ең ескі өтінім:"
-
-#: templates/admin/marketplace/review/list_tools.html
-msgid "PAGE_ADMIN_PANEL_RESET_SEARCH_AND_FILTERS"
-msgstr "Іздеу мен сүзгілерді қалпына келтіру"
-
-#: templates/admin/decline_forms/comparison.html
-msgid "PAGE_ADMIN_PANEL_CURRENT"
-msgstr "Қазір"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_RISK_SIGNALS"
-msgstr "Қауіп белгілері"
-
-#: apps/marketplace/admin.py apps/marketplace/admin_comparison.py
-msgid "PAGE_ADMIN_PANEL_SCREENSHOTS"
-msgstr "Скриншоттар"
-
-#: apps/marketplace/admin_comparison.py
-msgid "PAGE_ADMIN_PANEL_SLOGAN"
-msgstr "Ұран"
-
-#: lunastore/admin_navigation.py
-msgid "PAGE_ADMIN_PANEL_NOSPAM_EVENTS"
-msgstr "noSpam оқиғалары"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_CREATED"
-msgstr "Жасалған"
-
-#: lunastore/admin_navigation.py apps/core/dashboard.py
-msgid "PAGE_ADMIN_PANEL_PROBLEM_REPORTS"
-msgstr "Мәселе туралы хабарламалар"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_SPAM"
-msgstr "Спам"
-
-#: apps/marketplace/admin_comparison.py
-msgid "PAGE_ADMIN_PANEL_CHANGELOG"
-msgstr "Өзгерістер тізімі"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_MEDIUM"
-msgstr "Орташа"
-
-#: apps/marketplace/admin_comparison.py
-msgid "PAGE_ADMIN_PANEL_DOWNLOAD_LINK"
-msgstr "Жүктеу сілтемесі"
-
-#: templates/admin/index.html
-msgid "PAGE_ADMIN_PANEL_STATISTICS"
-msgstr "Статистика"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_STATUS"
-msgstr "Мәртебе"
-
-#: templates/admin/marketplace/review/list_tools.html
-msgid "PAGE_ADMIN_PANEL_REVIEW_STATUS"
-msgstr "Пікір мәртебесі"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_TEXT"
-msgstr "Мәтін"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_TEXT_AUTHOR_OR_APPLICATION"
-msgstr "Мәтін, автор немесе қолданба"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_TOXICITY"
-msgstr "Уытты мазмұн"
-
-#: apps/marketplace/admin_comparison.py
-msgid "PAGE_ADMIN_PANEL_REQUIREMENTS"
-msgstr "Талаптар"
-
-#: templates/admin/action_modal.html
-msgid "PAGE_ADMIN_PANEL_REJECTION_REASON_REQUIRED"
-msgstr "Қабылдамау себебін көрсетіңіз."
-
-#: templates/admin/decline_forms/reject_modal.html
-msgid "PAGE_ADMIN_PANEL_REJECTION_REASON_HELP"
-msgstr "Себебін көрсетіңіз, ол пайдаланушыға хабарландыруда жіберіледі."
-
-#: apps/marketplace/admin_comparison.py
-msgid "PAGE_ADMIN_PANEL_CDN_FILE"
-msgstr "CDN файлы"
-
-#: apps/marketplace/admin_comparison.py
-msgid "PAGE_ADMIN_PANEL_PRICE"
-msgstr "Бағасы"
-
-#: lunastore/admin_navigation.py
-msgid "PAGE_ADMIN_PANEL_BLOCKED_USERNAMES"
-msgstr "Бұғатталған есімдер"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_EXTREMISM"
-msgstr "Экстремизм"
-
-#: lunastore/admin_navigation.py
-msgid "PAGE_ADMIN_PANEL_LEGAL_DOCUMENTS"
-msgstr "Құқықтық құжаттар"
-
-#: templates/admin/search_form.html
-msgid "PAGE_ADMIN_PANEL_SEARCH"
-msgstr "Іздеу"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_REPLY_AUTHOR"
-msgstr "Жауап авторы"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_MODERATOR"
-msgstr "Модератор"
-
-#: apps/marketplace/admin.py
-msgid "PAGE_ADMIN_PANEL_MODERATOR_NOTE"
-msgstr "Модератор жазбасы"
+msgid "VIEW_PASSPORT_UNLINK_NEED_PASSWORD"
+msgstr "Тіркелгіде құпиясөз болмаса, LunaPassport қызметін ажырату мүмкін емес. Алдымен құпиясөзді орнатыңыз."

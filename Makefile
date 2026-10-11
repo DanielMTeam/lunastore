@@ -127,6 +127,9 @@ i18n-make:
 i18n-compile:
 	$(PYTHON) manage.py compilemessages
 
+i18n-fix-percents:
+	$(PYTHON) manage.py fix_translation_percents
+
 test:
 	docker compose -f $(PROD_COMPOSE) exec lunastore python manage.py test
 
@@ -159,6 +162,7 @@ tolgee-push:
 
 tolgee-pull:
 	tolgee pull
+	$(PYTHON) manage.py fix_translation_percents
 
 i18n-sync: i18n-make tolgee-push tolgee-pull i18n-compile
 
