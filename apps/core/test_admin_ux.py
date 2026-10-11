@@ -44,13 +44,25 @@ class AdminUXTest(SimpleTestCase):
                       for item in group["items"] if item["active"]]
             self.assertEqual(len(active), 1)
 
+    def test_language_form_posts_inside_admin_prefix(self):
+        endpoint = reverse("set_language")
+        self.assertEqual(endpoint, reverse("admin:index") + "i18n/setlang/")
+        self.assertIs(resolve(endpoint).func, set_language)
+        html = render_to_string("unfold/helpers/language_form.html", {
+            "language": {"code": "en", "name_local": "English"},
+            "redirect_to": reverse("admin:index"),
+        })
+        self.assertIn(f'action="{endpoint}"', html)
+        self.assertIn('method="post"', html)
+
+    @override_settings(MIDDLEWARE=[])
     def test_language_switch_keeps_admin_url_and_localizes_components(self):
         expected = {"ru": "Рабочий стол", "en": "Dashboard", "uk": "Робочий стіл",
                     "be": "Працоўны стол", "kk": "Жұмыс үстелі"}
         url = reverse("admin:marketplace_review_changelist") + "?rating__exact=5"
         for language, label in expected.items():
-            request = self.factory.post(reverse("set_language"), {"language": language, "next": url})
-            response = set_language(request)
+            response = self.client.post(reverse("set_language"), {"language": language, "next": url})
+            self.assertEqual(response.status_code, 302)
             self.assertEqual(response.cookies[settings.LANGUAGE_COOKIE_NAME].value, language)
             self.assertEqual(response.url, url)
             with override(language):

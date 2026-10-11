@@ -37,7 +37,8 @@ handler404 = "lunastore.urls_private.admin_handler404"
 handler500 = "lunastore.urls_private.admin_handler500"
 
 urlpatterns = [
-    path("i18n/", include("django.conf.urls.i18n")),
+    # Keep language POSTs inside the path routed to the admin service by the proxy.
+    path(f"{admin_url_path}/i18n/", include("django.conf.urls.i18n")),
     path("", RedirectView.as_view(url=f"/{admin_url_path}/", permanent=False)),
     path(
         "favicon.ico",
