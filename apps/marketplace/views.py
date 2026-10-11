@@ -561,7 +561,7 @@ def application_stats(request, pk):
 
 @login_required
 @require_modern_browser
-@ratelimit(key='user', rate='5/5m', block=True)
+@ratelimit(key='user', rate='5/5m', skip_if=lambda request: request.method != 'POST', block=False)
 @transaction.atomic
 def community_access(request, pk):
     user_queryset = User.objects.select_for_update() if request.method == "POST" else User.objects
@@ -570,11 +570,15 @@ def community_access(request, pk):
     obj = get_object_or_404(app_queryset, pk=pk)
     if obj.user_id != request.user.pk:
         raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
+    rate_limited = request.method == "POST" and getattr(request, "rate_limit_exceeded", False)
     form = CommunityAccessConfirmationForm(
         confirmation_user,
-        request.POST if request.method == "POST" else None,
+        request.POST if request.method == "POST" and not rate_limited else None,
         initial={"enabled": "1" if obj.allow_community_distributions else "0"},
     )
+    if rate_limited:
+        messages.error(request, _("ERROR_RATE_LIMIT_EXCEEDED"))
+        return render(request, "community_access.html", {"app": obj, "form": form}, status=429)
     if request.method == "POST" and form.is_valid():
         enabled = form.cleaned_data["enabled"] == "1"
         if enabled and (obj.is_private or obj.is_under_dmca):
@@ -585,6 +589,10 @@ def community_access(request, pk):
             obj.save(update_fields=["allow_community_distributions", "community_protected"])
             messages.success(request, _("COMMUNITY_ACCESS_SAVED"))
             return redirect("edit_app_info", pk=obj.pk)
+    if request.method == "POST":
+        for errors in form.errors.values():
+            for error in errors:
+                messages.error(request, error)
     return render(request, "community_access.html", {"app": obj, "form": form})
 
 

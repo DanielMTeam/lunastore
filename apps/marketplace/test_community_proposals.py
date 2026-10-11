@@ -1,10 +1,12 @@
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 import pyotp
 from django.contrib.auth.models import Group
+from django.contrib.messages import get_messages
 from django.contrib.messages.storage.fallback import FallbackStorage
 from django.core.cache import cache
 from django.db.models import ProtectedError
+from django.http import HttpResponse
 from django.test import RequestFactory, SimpleTestCase, TestCase, override_settings
 from django.urls import reverse
 from django_smart_ratelimit.backends.memory import MemoryBackend
@@ -59,6 +61,76 @@ class CommunityAccessConfirmationTests(SimpleTestCase):
     def test_account_without_local_password_cannot_bypass_confirmation(self):
         self.user.set_unusable_password()
         self.assertFalse(CommunityAccessConfirmationForm(self.user, {"enabled": "1", "password": "anything"}).is_valid())
+
+
+@override_settings(PASSWORD_HASHERS=["django.contrib.auth.hashers.MD5PasswordHasher"], LANGUAGE_CODE="ru")
+class CommunityAccessFeedbackTests(SimpleTestCase):
+    def setUp(self):
+        self.user = User(pk=1, username="owner")
+        self.user.set_password("test-password")
+        self.app = Mock(pk=1, user_id=1, allow_community_distributions=False, is_private=False, is_under_dmca=False)
+        backend = MemoryBackend()
+        self.addCleanup(backend.shutdown)
+
+        def get_confirmation_object(queryset, **kwargs):
+            return self.user if "is_active" in kwargs else self.app
+
+        for target, options in (
+            ("django_smart_ratelimit.decorator.get_backend", {"return_value": backend}),
+            ("django.db.transaction.Atomic.__enter__", {"return_value": None}),
+            ("django.db.transaction.Atomic.__exit__", {"return_value": False}),
+            ("apps.marketplace.views.get_object_or_404", {"side_effect": get_confirmation_object}),
+        ):
+            patcher = patch(target, **options)
+            patcher.start()
+            self.addCleanup(patcher.stop)
+        patcher = patch("apps.marketplace.views.render", side_effect=lambda request, template, context, **kw:
+                        HttpResponse(status=kw.get("status", 200)))
+        self.render = patcher.start()
+        self.addCleanup(patcher.stop)
+
+    def request(self, method="post", data=None):
+        request = getattr(RequestFactory(), method)("/community_access.php/1/", data or {})
+        request.user = self.user
+        request.session = {}
+        request._messages = FallbackStorage(request)
+        return request
+
+    def test_password_and_2fa_errors_are_sent_to_messages(self):
+        self.user.totp_enabled = True
+        self.user.totp_secret = pyotp.random_base32()
+        request = self.request(data={"password": "wrong", "enabled": "1", "totp_code": "invalid"})
+        response = community_access(request, pk=1)
+        self.assertEqual(response.status_code, 200)
+        form = self.render.call_args.args[2]["form"]
+        expected = [str(error) for errors in form.errors.values() for error in errors]
+        actual = list(get_messages(request))
+        self.assertEqual([str(message) for message in actual], expected)
+        self.assertTrue(all(message.tags == "error" for message in actual))
+        self.app.save.assert_not_called()
+
+    def test_public_app_requirement_is_sent_to_messages(self):
+        self.app.is_private = True
+        request = self.request(data={"password": "test-password", "enabled": "1"})
+        self.assertEqual(community_access(request, pk=1).status_code, 200)
+        self.assertEqual(len(list(get_messages(request))), 1)
+        self.app.save.assert_not_called()
+
+    def test_gets_do_not_consume_confirmation_limit_and_blocked_posts_do_not_validate(self):
+        for _ in range(10):
+            self.assertEqual(community_access(self.request("get"), pk=1).status_code, 200)
+        for _ in range(5):
+            request = self.request(data={"password": "wrong", "enabled": "1"})
+            self.assertEqual(community_access(request, pk=1).status_code, 200)
+        request = self.request(data={"password": "test-password", "enabled": "1"})
+        with patch.object(CommunityAccessConfirmationForm, "is_valid") as validate:
+            response = community_access(request, pk=1)
+        self.assertEqual(response.status_code, 429)
+        validate.assert_not_called()
+        self.assertEqual(len(list(get_messages(request))), 1)
+        self.assertIn("Retry-After", response)
+        self.app.save.assert_not_called()
+        self.assertEqual(community_access(self.request("get"), pk=1).status_code, 200)
 
 
 @override_settings(

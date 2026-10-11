@@ -80,8 +80,9 @@
             <img src="{% static './img/tabs/stats.png'%}" class="tab-icon" alt="">
           {% trans "PAGE_ADMIN_APP_TAB_STATS" %}
         </a>
-        <a href="{% url 'community_access' pk=obj.pk %}" class="tab">
-          {% trans "COMMUNITY_ACCESS_TITLE" %}
+        <a href="{% url 'community_access' pk=obj.pk %}" class="tab" style="text-decoration: none; color: inherit;">
+            <img src="{% static './img/tabs/account.png'%}" class="tab-icon" alt="">
+            {% trans "COMMUNITY_ACCESS_TITLE" %}
         </a>
         {% endif %}
       </div>
@@ -361,7 +362,7 @@
     function previewScreenshots(input) {
         // Disabled, using ScreenshotManager instead
     }
-    
+
     $(document).ready(function() {
         var screenshotsArray = [];
         {% if obj.screenshots %}
@@ -370,7 +371,7 @@
                 screenshotsArray = savedScr;
             }
         {% endif %}
-        
+
         var fileInputId = 'id_upload_screenshots'; // default django form id
         var fileInput = document.getElementsByName('upload_screenshots')[0];
         if (fileInput) {

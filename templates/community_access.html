@@ -24,7 +24,10 @@
                 <img src="{% static 'img/tabs/stats.png' %}" class="tab-icon" alt="">
                 {% trans "PAGE_ADMIN_APP_TAB_STATS" %}
             </a>
-            <div class="tab active">{% trans "COMMUNITY_ACCESS_TITLE" %}</div>
+            <a class="tab active" style="text-decoration: none; color: inherit;">
+                <img src="{% static './img/tabs/account.png'%}" class="tab-icon" alt="">
+                {% trans "COMMUNITY_ACCESS_TITLE" %}
+            </a>
         </div>
         <div class="tab-content">
             <div class="info_splash">
@@ -37,28 +40,12 @@
             </div>
             <form method="post">
                 {% csrf_token %}
-                {% if form.non_field_errors %}
-                <div class="error_splash">
-                    <div class="error_icon_small"></div>
-                    <div class="splash_text">
-                        {% for error in form.non_field_errors %}<div>{{ error }}</div>{% endfor %}
-                    </div>
-                </div>
-                {% endif %}
                 <div class="profile_block">{% trans "COMMUNITY_ACCESS_TITLE" %}</div>
                 <div class="profile_block_content">
                 {% for field in form %}
                     <div class="pref_pad">
                         <div class="pref_item_title">{{ field.label_tag }}</div>
                         {{ field }}
-                        {% if field.errors %}
-                        <div class="error_splash">
-                            <div class="error_icon_small"></div>
-                            <div class="splash_text">
-                                {% for error in field.errors %}<div>{{ error }}</div>{% endfor %}
-                            </div>
-                        </div>
-                        {% endif %}
                     </div>
                 {% endfor %}
                     <div class="pref_pad">
