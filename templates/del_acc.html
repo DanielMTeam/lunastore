@@ -69,7 +69,7 @@
         <form method="post" id="delete_confirm_form">
             {% csrf_token %}
 
-            <div class="pref_pad">
+            <div>
                 <div class="pref_item_title">{{ form.password.label_tag }}</div>
                 {{ form.password }}
 
