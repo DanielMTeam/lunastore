@@ -54,12 +54,15 @@
                 <td>{% trans "PAGE_DELACC_YOULEFTHERE_INVITES_1" %} {{ invites.count }}</td>
                 <td>{% trans "PAGE_DELACC_YOULEFTHERE_INVITES_2" %}</td>
             </tr>
+
+            {% if retained_apps_count %}
+            <tr>
+                <td>{% blocktranslate with count=retained_apps_count %}COMMUNITY_ACCOUNT_RETENTION_WARNING {{ count }}{% endblocktranslate %}</td>
+                <td>{% trans "COMMUNITY_ACCOUNT_RETENTION_DESCRIPTION" %}</td>
+            </tr>
+            {% endif %}
         </table>
         <hr>
-
-        {% if retained_apps_count %}
-        <p>{% blocktranslate with count=retained_apps_count %}COMMUNITY_ACCOUNT_RETENTION_WARNING {{ count }}{% endblocktranslate %}</p>
-        {% endif %}
 
         {% trans "PAGE_DELACC_LASTPASS_TITLE" %}<br>
 
