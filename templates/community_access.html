@@ -11,24 +11,8 @@
         {% trans "COMMUNITY_ACCESS_TITLE" %} — {{ app.title }}
     </div>
     <div class="tabs">
-        <div class="tab-bar tab-bar-compact">
-            <a href="{% url 'edit_app_info' pk=app.pk %}" class="tab">
-                <img src="{% static 'img/tabs/main.png' %}" class="tab-icon" alt="">
-                {% trans "PAGE_ADMIN_APP_FIRST_BLOCK" %}
-            </a>
-            <a href="{% url 'manage_distributions' %}?id={{ app.pk }}" class="tab">
-                <img src="{% static 'img/tabs/programs.png' %}" class="tab-icon" alt="">
-                {% trans "PAGE_ADMIN_APP_TAB_DISTRIBUTIONS" %}
-            </a>
-            <a href="{% url 'app_stats' pk=app.pk %}" class="tab">
-                <img src="{% static 'img/tabs/stats.png' %}" class="tab-icon" alt="">
-                {% trans "PAGE_ADMIN_APP_TAB_STATS" %}
-            </a>
-            <a class="tab active" style="text-decoration: none; color: inherit;">
-                <img src="{% static './img/tabs/account.png'%}" class="tab-icon" alt="">
-                {% trans "COMMUNITY_ACCESS_TITLE" %}
-            </a>
-        </div>
+        {% include "includes/app_management_tabs.html" with app=app active_tab="community" only %}
+
         <div class="tab-content">
             <div class="info_splash">
                 <div class="info_icon_small"></div>
