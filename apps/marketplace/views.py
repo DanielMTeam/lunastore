@@ -520,6 +520,7 @@ def application_edit_info(request, pk):
                    "form": form,
                    "is_edit_page": True,
                    "is_community_proposal": is_proposal,
+                   "can_propose_changes": is_proposal,
                    "app_id": obj.pk,
                    "developer_id": obj.user_id,
                    "developer_site": obj.developer_site,
