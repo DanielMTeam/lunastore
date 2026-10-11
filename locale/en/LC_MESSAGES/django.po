@@ -10,6 +10,21 @@ msgstr ""
 msgid " SITE_DESCRIPTION"
 msgstr "LunaStore. Apps catalog for your old PC. Download apps, leave reviews and join the community of old PC fans."
 
+msgid "%(counter)s PAGE_COLLECTION_APPS_ONE"
+msgid_plural "%(counter)s PAGE_COLLECTION_APPS_MANY"
+msgstr[0] "%(counter)s app"
+msgstr[1] "%(counter)s apps"
+
+msgid "%(counter)s PAGE_COLLECTION_COUNT_ONE"
+msgid_plural "%(counter)s PAGE_COLLECTION_COUNT_MANY"
+msgstr[0] "Total of %(counter)s collection"
+msgstr[1] "Total of %(counter)s collections"
+
+msgid "%(counter)s PAGE_COLLECTION_SAVES_ONE"
+msgid_plural "%(counter)s PAGE_COLLECTION_SAVES_MANY"
+msgstr[0] "%(counter)s save"
+msgstr[1] "%(counter)s saves"
+
 msgid "%(counter)s PAGE_PROFILE_STATS_APP"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_APPS"
 msgstr[0] "%(counter)s apps,"
@@ -22,13 +37,13 @@ msgstr[1] "%(counter)s reviews -"
 
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_ALL"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_ALL"
-msgstr[0] "%(counter)s review (shown on this page)"
-msgstr[1] "%(counter)s reviews (shown on this page)"
+msgstr[0] "%d review (shown on this page)"
+msgstr[1] "%d reviews (shown on this page)"
 
 msgid "%(counter)s PAGE_PROFILE_STATS_REVIEW_RECENT"
 msgid_plural "%(counter)s PAGE_PROFILE_STATS_REVIEWS_RECENT"
-msgstr[0] "%(counter)s review (last 5 shown)"
-msgstr[1] "%(counter)s reviews (last 5 shown)"
+msgstr[0] "%d review (last 5 shown)"
+msgstr[1] "%d reviews (last 5 shown)"
 
 msgid "404_ELEMENT_NOT_FOUND"
 msgstr "The requested item or link you are trying to visit was not found on our site."
@@ -159,6 +174,12 @@ msgstr "sign up"
 msgid "BASE_SEARCHBTN"
 msgstr "search"
 
+msgid "BASE_SIDEBAR_ACCOUNT_ADMINBTN"
+msgstr "Admin panel"
+
+msgid "BASE_SIDEBAR_ACCOUNT_COLLECTIONS"
+msgstr "Collections"
+
 msgid "BASE_SIDEBAR_ACCOUNT_INVITEBTN"
 msgstr "Invite"
 
@@ -171,9 +192,6 @@ msgstr "Settings"
 msgid "BASE_SIDEBAR_ACCOUNT_TITLE"
 msgstr "Account"
 
-msgid "BASE_SIDEBAR_ACCOUNT_ADMINBTN"
-msgstr "Admin panel"
-
 msgid "BASE_SIDEBAR_APP_DEV_SITE"
 msgstr "Developer's website"
 
@@ -182,6 +200,9 @@ msgstr "Edit page"
 
 msgid "BASE_SIDEBAR_APP_INSTALL"
 msgstr "Install"
+
+msgid "BASE_SIDEBAR_APP_PAGE"
+msgstr "Application"
 
 msgid "BASE_SIDEBAR_APP_REPORT"
 msgstr "Report"
@@ -194,6 +215,12 @@ msgstr "Home page"
 
 msgid "BASE_SIDEBAR_CATEGORIES_TITLE"
 msgstr "Categories"
+
+msgid "BASE_THEME_DISABLE"
+msgstr "Disable dark theme"
+
+msgid "BASE_THEME_ENABLE"
+msgstr "Enable dark theme"
 
 msgid "CARD_USER_NO_DESC"
 msgstr "Profile bio missing"
@@ -273,26 +300,8 @@ msgstr "The new email is the same as the current one."
 msgid "ERROR_EMAIL_NO_ALIASES"
 msgstr "Email aliases with the \"+\" sign are prohibited."
 
-msgid "ERROR_USERNAME_ALREADY_IN_USE"
-msgstr "This username is already taken."
-
-msgid "ERROR_USERNAME_BLACKLISTED"
-msgstr "This username is not allowed."
-
-msgid "ERROR_USERNAME_CHANGE_COOLDOWN"
-msgstr "Username can only be changed once a year."
-
-msgid "ERROR_USERNAME_EMPTY"
-msgstr "Username cannot be empty."
-
-msgid "ERROR_USERNAME_INVALID_CHARS"
-msgstr "Username may contain only English letters, numbers, and . _ - characters."
-
-msgid "ERROR_USERNAME_INVALID_DOTS"
-msgstr "Username cannot start or end with a dot, or contain consecutive dots."
-
-msgid "ERROR_USERNAME_NO_LETTERS"
-msgstr "Username must contain at least one English letter."
+msgid "ERROR_HOME_LAYOUT_INVALID"
+msgstr "Invalid homepage layout"
 
 msgid "ERROR_INVALID_FILE_FORMAT"
 msgstr "Error: Invalid file format!"
@@ -353,6 +362,27 @@ msgstr "Invalid Telegram username format. Please provide a username without link
 
 msgid "ERROR_RATE_LIMIT_EXCEEDED"
 msgstr "You are sending requests too frequently. Please wait a while before continuing."
+
+msgid "ERROR_USERNAME_ALREADY_IN_USE"
+msgstr "This username is already taken."
+
+msgid "ERROR_USERNAME_BLACKLISTED"
+msgstr "This username is not allowed."
+
+msgid "ERROR_USERNAME_CHANGE_COOLDOWN"
+msgstr "Username can only be changed once a year."
+
+msgid "ERROR_USERNAME_EMPTY"
+msgstr "Username cannot be empty."
+
+msgid "ERROR_USERNAME_INVALID_CHARS"
+msgstr "Username may contain only English letters, numbers, and . _ - characters."
+
+msgid "ERROR_USERNAME_INVALID_DOTS"
+msgstr "Username cannot start or end with a dot, or contain consecutive dots."
+
+msgid "ERROR_USERNAME_NO_LETTERS"
+msgstr "Username must contain at least one English letter."
 
 msgid "ERROR_YOURE_NOT_OWNER_OF_APP"
 msgstr "You're not an administrator of this application."
@@ -426,8 +456,29 @@ msgstr "Screenshots"
 msgid "File extension “%(extension)s” is not allowed. Allowed extensions are: “%(allowed_extensions)s”."
 msgstr "Extension “%(extension)s” is not allowed. Allowed extensions: “%(allowed_extensions)s”."
 
+msgid "INDEX_APP_OF_THE_DAY"
+msgstr "App of the day"
+
 msgid "INDEX_CATEGORY_PROMPT"
 msgstr "Or select a category:"
+
+msgid "INDEX_CONFIGURE_HOME"
+msgstr "Customize homepage"
+
+msgid "INDEX_EDITOR_CHOICE"
+msgstr "Editor's choice"
+
+msgid "INDEX_FOR_YOU"
+msgstr "For you"
+
+msgid "INDEX_MONTHLY_TOP_DESC"
+msgstr "Most downloaded over the last month"
+
+msgid "INDEX_MONTHLY_TOP_TITLE"
+msgstr "Apps of the month"
+
+msgid "INDEX_NO_APPS"
+msgstr "No apps found"
 
 msgid "INDEX_NO_CATEGORIES"
 msgstr "No categories added yet"
@@ -441,41 +492,20 @@ msgstr "Example: Total Commander"
 msgid "INDEX_SEARCH_SECTION_TITLE"
 msgstr "Search catalog"
 
-msgid "INDEX_WELCOME_TEXT"
-msgstr "Welcome to LunaStore!<br>A collection of apps and extensions for a comfortable experience with this OS"
-
-msgid "INDEX_WELCOME_TITLE"
-msgstr "Welcome"
-
-msgid "INDEX_CONFIGURE_HOME"
-msgstr "Customize homepage"
-
-msgid "INDEX_APP_OF_THE_DAY"
-msgstr "App of the day"
-
-msgid "INDEX_FOR_YOU"
-msgstr "For you"
-
-msgid "INDEX_EDITOR_CHOICE"
-msgstr "Editor's choice"
-
 msgid "INDEX_SEE_ALL"
 msgstr "all"
 
 msgid "INDEX_SEE_MORE"
 msgstr "More..."
 
-msgid "INDEX_MONTHLY_TOP_TITLE"
-msgstr "Apps of the month"
-
-msgid "INDEX_MONTHLY_TOP_DESC"
-msgstr "Most downloaded over the last month"
-
 msgid "INDEX_STORE_LISTING_TITLE"
 msgstr "Catalog"
 
-msgid "INDEX_NO_APPS"
-msgstr "No apps found"
+msgid "INDEX_WELCOME_TEXT"
+msgstr "Welcome to LunaStore!<br>A collection of apps and extensions for a comfortable experience with this OS"
+
+msgid "INDEX_WELCOME_TITLE"
+msgstr "Welcome"
 
 msgid "INFO_2FA_DISABLED"
 msgstr "Two-factor authentication has been successfully disabled."
@@ -521,6 +551,9 @@ msgstr "'s all empty..."
 
 msgid "INFO_EMAIL_WAS_CHANGED"
 msgstr "Your email has been successfully changed."
+
+msgid "INFO_HOME_LAYOUT_UPDATED"
+msgstr "Homepage layout saved"
 
 msgid "INFO_MAXIMUM_AVATAR_SIZE"
 msgstr "Maximum file size: 2 MB."
@@ -640,16 +673,16 @@ msgid "NOTIF_DEVSTATUS_SEND_TITLE"
 msgstr "Developer status"
 
 msgid "NOTIF_DISTEDITREQ_ACCEPTED_DESCRIPTION"
-msgstr "Your request to update version %(version)s for application \"%(app_name)s\" has been approved by a moderator."
+msgstr "Your request to edit version %(version)s for application \"%(app_name)s\" has been approved by a moderator."
 
 msgid "NOTIF_DISTEDITREQ_ACCEPTED_TITLE"
-msgstr "Version update approved!"
+msgstr "Version change approved!"
 
 msgid "NOTIF_DISTEDITREQ_DECLINED_DESCRIPTION"
-msgstr "Unfortunately, your request to update version %(version)s for \"%(app_name)s\" has been declined. Reason: %(reason)s"
+msgstr "Unfortunately, your request to edit version %(version)s for \"%(app_name)s\" has been declined. Reason: %(reason)s"
 
 msgid "NOTIF_DISTEDITREQ_DECLINED_TITLE"
-msgstr "Version update request declined"
+msgstr "Version edit request declined"
 
 msgid "NOTIF_DISTREQ_ACCEPTED_DESCRIPTION"
 msgstr "Your request to publish version %(version)s for application \"%(app_name)s\" has been approved by a moderator."
@@ -752,6 +785,30 @@ msgstr "Manage 2FA code login"
 
 msgid "PAGE_2FA_TITLE"
 msgstr "Two-factor authentication"
+
+msgid "PAGE_400_BROWSER_TITLE"
+msgstr "Bad Request"
+
+msgid "PAGE_400_DEFAULT_MESSAGE"
+msgstr "The request could not be processed. Please check the data and try again."
+
+msgid "PAGE_403_BROWSER_TITLE"
+msgstr "Access denied"
+
+msgid "PAGE_403_DEFAULT_MESSAGE"
+msgstr "You do not have access to this page"
+
+msgid "PAGE_404_BROWSER_TITLE"
+msgstr "Page not found"
+
+msgid "PAGE_500_BROWSER_TITLE"
+msgstr "Internal server error"
+
+msgid "PAGE_500_DEFAULT_MESSAGE"
+msgstr "An internal error has occurred. Please try your request again later. "
+
+msgid "PAGE_502_BROWSER_TITLE"
+msgstr "Something went wrong..."
 
 msgid "PAGE_ADDAPP_BACKBTN"
 msgstr "Back"
@@ -891,6 +948,9 @@ msgstr "publication"
 msgid "PAGE_ADDAPP_SUCCESS"
 msgstr "Your application submission has been sent successfully."
 
+msgid "PAGE_ADMIN_APP_BACKTOAPP"
+msgstr "Back to page"
+
 msgid "PAGE_ADMIN_APP_CATEGORY"
 msgstr "Category:"
 
@@ -1017,8 +1077,74 @@ msgstr "The slogan will be displayed on the app page, on the homepage, and in se
 msgid "PAGE_ADMIN_APP_SLOGANDESC_2"
 msgstr "Brevity is the soul of wit :)"
 
+msgid "PAGE_ADMIN_APP_STATS_30_DAYS"
+msgstr "Visual statistics for 14 days"
+
+msgid "PAGE_ADMIN_APP_STATS_COUNT"
+msgstr "Count"
+
+msgid "PAGE_ADMIN_APP_STATS_COUNTRY"
+msgstr "Country"
+
+msgid "PAGE_ADMIN_APP_STATS_DETAILED"
+msgstr "Detailed stats"
+
+msgid "PAGE_ADMIN_APP_STATS_DISTRIBUTIONS"
+msgstr "Downloads by distribution (versions)"
+
+msgid "PAGE_ADMIN_APP_STATS_DIST_GENERAL"
+msgstr "Main"
+
+msgid "PAGE_ADMIN_APP_STATS_DOWNLOADS"
+msgstr "Downloads"
+
+msgid "PAGE_ADMIN_APP_STATS_DOWNLOADS_HINT"
+msgstr "Statistics are recorded after clicking the \"Install\" button on the app page"
+
+msgid "PAGE_ADMIN_APP_STATS_ENGAGEMENT"
+msgstr "Activity"
+
+msgid "PAGE_ADMIN_APP_STATS_NO_DATA"
+msgstr "No data"
+
+msgid "PAGE_ADMIN_APP_STATS_OS"
+msgstr "Operating system"
+
+msgid "PAGE_ADMIN_APP_STATS_SHARE"
+msgstr "Share"
+
+msgid "PAGE_ADMIN_APP_STATS_TOP_COUNTRIES"
+msgstr "Top 10 countries over 30 days"
+
+msgid "PAGE_ADMIN_APP_STATS_TOP_OS"
+msgstr "Top 10 OS over the last 30 days"
+
+msgid "PAGE_ADMIN_APP_STATS_TOTAL_DOWNLOADS"
+msgstr "Number of downloads"
+
+msgid "PAGE_ADMIN_APP_STATS_TOTAL_LIKES"
+msgstr "Total likes"
+
+msgid "PAGE_ADMIN_APP_STATS_TOTAL_RATES"
+msgstr "Total ratings"
+
+msgid "PAGE_ADMIN_APP_STATS_TOTAL_VIEWS"
+msgstr "Total views"
+
+msgid "PAGE_ADMIN_APP_STATS_UNIQUE_DOWNLOADERS"
+msgstr "Unique app downloaders"
+
+msgid "PAGE_ADMIN_APP_STATS_UNIQUE_VIEWERS"
+msgstr "Unique views"
+
+msgid "PAGE_ADMIN_APP_STATS_VIEWS"
+msgstr "Views"
+
 msgid "PAGE_ADMIN_APP_TAB_DISTRIBUTIONS"
 msgstr "Files"
+
+msgid "PAGE_ADMIN_APP_TAB_STATS"
+msgstr "Stats"
 
 msgid "PAGE_ADMIN_APP_TITLE"
 msgstr "Application name:"
@@ -1031,6 +1157,447 @@ msgstr "Translating information about your app can increase its recognition amon
 
 msgid "PAGE_ADMIN_APP_WARN_SCRN"
 msgstr "Warning: Uploading new files will remove current screenshots!"
+
+msgid "PAGE_ADMIN_PANEL_ACTIVITY_LOG"
+msgstr "Activity log"
+
+msgid "PAGE_ADMIN_PANEL_AFTER_APPROVAL"
+msgstr "After approval"
+
+msgid "PAGE_ADMIN_PANEL_AI_MODERATION_OPENROUTER"
+msgstr "AI moderation (OpenRouter)"
+
+msgid "PAGE_ADMIN_PANEL_AI_PROMPT_INJECTION"
+msgstr "AI prompt injection"
+
+msgid "PAGE_ADMIN_PANEL_AI_SCORE_HELP"
+msgstr "AI score from 0 to 1: higher values indicate greater violation risk."
+
+msgid "PAGE_ADMIN_PANEL_ALL"
+msgstr "All"
+
+msgid "PAGE_ADMIN_PANEL_ALL_REQUESTS_PROCESSED"
+msgstr "All requests processed"
+
+msgid "PAGE_ADMIN_PANEL_ALL_REVIEWS"
+msgstr "All reviews"
+
+msgid "PAGE_ADMIN_PANEL_APPLICATION"
+msgstr "Application"
+
+msgid "PAGE_ADMIN_PANEL_APPLICATIONS"
+msgstr "Applications"
+
+msgid "PAGE_ADMIN_PANEL_APPLICATION_AUTHOR"
+msgstr "Application author"
+
+msgid "PAGE_ADMIN_PANEL_APPLICATION_CHANGES"
+msgstr "Application changes"
+
+msgid "PAGE_ADMIN_PANEL_APPLICATION_REPORTS"
+msgstr "Application reports"
+
+msgid "PAGE_ADMIN_PANEL_APPROVE_REVIEW"
+msgstr "Approve review"
+
+msgid "PAGE_ADMIN_PANEL_APPROVE_SELECTED_REVIEWS"
+msgstr "Approve selected reviews"
+
+msgid "PAGE_ADMIN_PANEL_AUTHOR"
+msgstr "Author"
+
+msgid "PAGE_ADMIN_PANEL_AWAITING_REVIEW"
+msgstr "Awaiting review"
+
+msgid "PAGE_ADMIN_PANEL_BADGES"
+msgstr "Badges"
+
+msgid "PAGE_ADMIN_PANEL_BANNED_PHRASE"
+msgstr "Banned phrase"
+
+msgid "PAGE_ADMIN_PANEL_BANNERS"
+msgstr "Banners"
+
+msgid "PAGE_ADMIN_PANEL_BANS"
+msgstr "Bans"
+
+msgid "PAGE_ADMIN_PANEL_BLOCKED_USERNAMES"
+msgstr "Blocked usernames"
+
+msgid "PAGE_ADMIN_PANEL_BULK_SCAN"
+msgstr "Bulk scan"
+
+msgid "PAGE_ADMIN_PANEL_CANCEL"
+msgstr "Cancel"
+
+msgid "PAGE_ADMIN_PANEL_CATALOG"
+msgstr "Catalog"
+
+msgid "PAGE_ADMIN_PANEL_CATEGORIES"
+msgstr "Categories"
+
+msgid "PAGE_ADMIN_PANEL_CDN_FILE"
+msgstr "CDN file"
+
+msgid "PAGE_ADMIN_PANEL_CHANGELOG"
+msgstr "Changelog"
+
+msgid "PAGE_ADMIN_PANEL_CHOOSE_SECTION"
+msgstr "Choose an available section in the sidebar."
+
+msgid "PAGE_ADMIN_PANEL_COMPARISON_NO_CHANGES"
+msgstr "No differences from the current values."
+
+msgid "PAGE_ADMIN_PANEL_COMPARISON_PROCESSED_HELP"
+msgstr "This request has been processed. The comparison uses the current object version."
+
+msgid "PAGE_ADMIN_PANEL_CREATED"
+msgstr "Created"
+
+msgid "PAGE_ADMIN_PANEL_CURRENT"
+msgstr "Current"
+
+msgid "PAGE_ADMIN_PANEL_DASHBOARD"
+msgstr "Dashboard"
+
+msgid "PAGE_ADMIN_PANEL_DASHBOARD_DESCRIPTION"
+msgstr "Queues and tools available to your account."
+
+msgid "PAGE_ADMIN_PANEL_DEMO_VERSION"
+msgstr "Demo version"
+
+msgid "PAGE_ADMIN_PANEL_DESCRIPTION"
+msgstr "Description"
+
+msgid "PAGE_ADMIN_PANEL_DEVELOPER_REPLY"
+msgstr "Developer reply"
+
+msgid "PAGE_ADMIN_PANEL_DEVELOPER_REQUESTS"
+msgstr "Developer requests"
+
+msgid "PAGE_ADMIN_PANEL_DEVELOPER_WEBSITE"
+msgstr "Developer website"
+
+msgid "PAGE_ADMIN_PANEL_DISTRIBUTIONS"
+msgstr "Distributions"
+
+msgid "PAGE_ADMIN_PANEL_DISTRIBUTION_CHANGES"
+msgstr "Distribution changes"
+
+msgid "PAGE_ADMIN_PANEL_DOWNLOAD_LINK"
+msgstr "Download link"
+
+msgid "PAGE_ADMIN_PANEL_EXTREMISM"
+msgstr "Extremism"
+
+msgid "PAGE_ADMIN_PANEL_FIELD"
+msgstr "Field"
+
+msgid "PAGE_ADMIN_PANEL_FILTER_APPROVED"
+msgstr "Approved"
+
+msgid "PAGE_ADMIN_PANEL_FILTER_REJECTED"
+msgstr "Rejected"
+
+msgid "PAGE_ADMIN_PANEL_GROUPS"
+msgstr "Groups"
+
+msgid "PAGE_ADMIN_PANEL_HATE_SPEECH"
+msgstr "Hate speech"
+
+msgid "PAGE_ADMIN_PANEL_HIGH"
+msgstr "High"
+
+msgid "PAGE_ADMIN_PANEL_HOMEPAGE_SECTIONS"
+msgstr "Homepage sections"
+
+msgid "PAGE_ADMIN_PANEL_ICON"
+msgstr "Icon"
+
+msgid "PAGE_ADMIN_PANEL_ICON_ID"
+msgstr "Icon ID"
+
+msgid "PAGE_ADMIN_PANEL_INVITATIONS"
+msgstr "Invitations"
+
+msgid "PAGE_ADMIN_PANEL_LEGAL_DOCUMENTS"
+msgstr "Legal documents"
+
+msgid "PAGE_ADMIN_PANEL_LOW"
+msgstr "Low"
+
+msgid "PAGE_ADMIN_PANEL_LUNABOX_MANIFEST"
+msgstr "LunaBox manifest"
+
+msgid "PAGE_ADMIN_PANEL_MALICIOUS_CONTENT"
+msgstr "Malicious content"
+
+msgid "PAGE_ADMIN_PANEL_MANUAL_MODERATION"
+msgstr "Manual moderation"
+
+msgid "PAGE_ADMIN_PANEL_MEDIUM"
+msgstr "Medium"
+
+msgid "PAGE_ADMIN_PANEL_MODERATION"
+msgstr "Moderation"
+
+msgid "PAGE_ADMIN_PANEL_MODERATOR"
+msgstr "Moderator"
+
+msgid "PAGE_ADMIN_PANEL_MODERATOR_DASHBOARD"
+msgstr "Moderator dashboard"
+
+msgid "PAGE_ADMIN_PANEL_MODERATOR_NOTE"
+msgstr "Moderator note"
+
+msgid "PAGE_ADMIN_PANEL_NEW_APPLICATIONS"
+msgstr "New applications"
+
+msgid "PAGE_ADMIN_PANEL_NEW_DISTRIBUTIONS"
+msgstr "New distributions"
+
+msgid "PAGE_ADMIN_PANEL_NEW_TODAY"
+msgstr "New today"
+
+msgid "PAGE_ADMIN_PANEL_NO"
+msgstr "No"
+
+msgid "PAGE_ADMIN_PANEL_NOSPAM_EVENTS"
+msgstr "noSpam events"
+
+msgid "PAGE_ADMIN_PANEL_NOSPAM_RULES"
+msgstr "noSpam rules"
+
+msgid "PAGE_ADMIN_PANEL_NOTIFICATION_BROADCAST"
+msgstr "Notification broadcast"
+
+msgid "PAGE_ADMIN_PANEL_NOT_PROVIDED"
+msgstr "Not provided"
+
+msgid "PAGE_ADMIN_PANEL_NOT_SCORED"
+msgstr "Not scored"
+
+msgid "PAGE_ADMIN_PANEL_NO_DATE_PROVIDED"
+msgstr "No date provided"
+
+msgid "PAGE_ADMIN_PANEL_NO_FLAGS"
+msgstr "No flags"
+
+msgid "PAGE_ADMIN_PANEL_NO_TEXT"
+msgstr "No text"
+
+msgid "PAGE_ADMIN_PANEL_OLDEST_REQUEST"
+msgstr "Oldest request:"
+
+msgid "PAGE_ADMIN_PANEL_OPEN_QUEUE"
+msgstr "Open queue"
+
+msgid "PAGE_ADMIN_PANEL_OVERVIEW"
+msgstr "Overview"
+
+msgid "PAGE_ADMIN_PANEL_POLITICAL_AGITATION"
+msgstr "Political agitation"
+
+msgid "PAGE_ADMIN_PANEL_POTENTIAL_PIRACY"
+msgstr "Potential piracy"
+
+msgid "PAGE_ADMIN_PANEL_PRICE"
+msgstr "Price"
+
+msgid "PAGE_ADMIN_PANEL_PRIVATE_APPLICATION"
+msgstr "Private application"
+
+msgid "PAGE_ADMIN_PANEL_PROBLEM_REPORTS"
+msgstr "Problem reports"
+
+msgid "PAGE_ADMIN_PANEL_PROFANITY"
+msgstr "Profanity"
+
+msgid "PAGE_ADMIN_PANEL_PROHIBITED_CONTENT"
+msgstr "Prohibited content"
+
+msgid "PAGE_ADMIN_PANEL_PROPOSED_CHANGES"
+msgstr "Proposed changes"
+
+msgid "PAGE_ADMIN_PANEL_QUEUES_EMPTY_DESCRIPTION"
+msgstr "There are no pending requests in your queues."
+
+msgid "PAGE_ADMIN_PANEL_RATING"
+msgstr "Rating"
+
+msgid "PAGE_ADMIN_PANEL_REASON_FOR_REJECTION"
+msgstr "Reason for rejection"
+
+msgid "PAGE_ADMIN_PANEL_RECHECK_WITH_AI"
+msgstr "Recheck with AI"
+
+msgid "PAGE_ADMIN_PANEL_REJECTION_REASON_HELP"
+msgstr "Provide a reason. It will be sent to the user in a notification."
+
+msgid "PAGE_ADMIN_PANEL_REJECTION_REASON_PLACEHOLDER"
+msgstr "Describe what needs to be fixed"
+
+msgid "PAGE_ADMIN_PANEL_REJECTION_REASON_REQUIRED"
+msgstr "Provide a reason for rejection."
+
+msgid "PAGE_ADMIN_PANEL_REJECT_REQUEST"
+msgstr "Reject request"
+
+msgid "PAGE_ADMIN_PANEL_REJECT_REVIEW"
+msgstr "Reject review"
+
+msgid "PAGE_ADMIN_PANEL_REJECT_SELECTED_REVIEWS"
+msgstr "Reject selected reviews"
+
+msgid "PAGE_ADMIN_PANEL_REPLY_AUTHOR"
+msgstr "Reply author"
+
+msgid "PAGE_ADMIN_PANEL_REQUIREMENTS"
+msgstr "Requirements"
+
+msgid "PAGE_ADMIN_PANEL_RESET_SEARCH_AND_FILTERS"
+msgstr "Reset search and filters"
+
+msgid "PAGE_ADMIN_PANEL_REVIEWS"
+msgstr "Reviews"
+
+msgid "PAGE_ADMIN_PANEL_REVIEWS_AI_RECHECK_MESSAGE %(count)s"
+msgstr "AI recheck queued for %(count)s reviews"
+
+msgid "PAGE_ADMIN_PANEL_REVIEWS_APPROVED_MESSAGE %(count)s"
+msgstr "Reviews approved: %(count)s"
+
+msgid "PAGE_ADMIN_PANEL_REVIEWS_AWAITING_MODERATION"
+msgstr "Reviews awaiting moderation"
+
+msgid "PAGE_ADMIN_PANEL_REVIEWS_REJECTED_MESSAGE %(count)s"
+msgstr "Reviews rejected and deleted: %(count)s"
+
+msgid "PAGE_ADMIN_PANEL_REVIEW_APPROVED"
+msgstr "Review approved"
+
+msgid "PAGE_ADMIN_PANEL_REVIEW_DETAILS"
+msgstr "Review details"
+
+msgid "PAGE_ADMIN_PANEL_REVIEW_IS_ALREADY_APPROVED"
+msgstr "Review is already approved"
+
+msgid "PAGE_ADMIN_PANEL_REVIEW_NOT_FOUND"
+msgstr "Review not found"
+
+msgid "PAGE_ADMIN_PANEL_REVIEW_NO_TEXT"
+msgstr "(no text)"
+
+msgid "PAGE_ADMIN_PANEL_REVIEW_REJECTED_AND_DELETED"
+msgstr "Review rejected and deleted"
+
+msgid "PAGE_ADMIN_PANEL_REVIEW_REJECTION_HELP"
+msgstr "Rejecting deletes the review. Open the text to read it in full."
+
+msgid "PAGE_ADMIN_PANEL_REVIEW_STATUS"
+msgstr "Review status"
+
+msgid "PAGE_ADMIN_PANEL_RISK_SIGNALS"
+msgstr "Risk signals"
+
+msgid "PAGE_ADMIN_PANEL_SCREENSHOTS"
+msgstr "Screenshots"
+
+msgid "PAGE_ADMIN_PANEL_SEARCH"
+msgstr "Search"
+
+msgid "PAGE_ADMIN_PANEL_SEARCH_PLACEHOLDER"
+msgstr "Type to search"
+
+msgid "PAGE_ADMIN_PANEL_SEARCH_SECTIONS"
+msgstr "Search sections"
+
+msgid "PAGE_ADMIN_PANEL_SEARCH_SECTIONS_PLACEHOLDER"
+msgstr "Search sections..."
+
+msgid "PAGE_ADMIN_PANEL_SECURITY"
+msgstr "Security"
+
+msgid "PAGE_ADMIN_PANEL_SETTINGS"
+msgstr "Settings"
+
+msgid "PAGE_ADMIN_PANEL_SITE_SETTINGS"
+msgstr "Site settings"
+
+msgid "PAGE_ADMIN_PANEL_SITE_SUBHEADER"
+msgstr "Administration"
+
+msgid "PAGE_ADMIN_PANEL_SITE_TITLE"
+msgstr "LunaStore administration"
+
+msgid "PAGE_ADMIN_PANEL_SLOGAN"
+msgstr "Slogan"
+
+msgid "PAGE_ADMIN_PANEL_SPAM"
+msgstr "Spam"
+
+msgid "PAGE_ADMIN_PANEL_START_WITH_THE_OLDEST_REQUESTS"
+msgstr "Start with the oldest requests"
+
+msgid "PAGE_ADMIN_PANEL_STATISTICS"
+msgstr "Statistics"
+
+msgid "PAGE_ADMIN_PANEL_STATUS"
+msgstr "Status"
+
+msgid "PAGE_ADMIN_PANEL_STATUS_APPROVED"
+msgstr "Approved"
+
+msgid "PAGE_ADMIN_PANEL_STATUS_PENDING"
+msgstr "Awaiting review"
+
+msgid "PAGE_ADMIN_PANEL_STATUS_REJECTED"
+msgstr "Rejected"
+
+msgid "PAGE_ADMIN_PANEL_SUSPICIOUS_LINK"
+msgstr "Suspicious link"
+
+msgid "PAGE_ADMIN_PANEL_TEXT"
+msgstr "Text"
+
+msgid "PAGE_ADMIN_PANEL_TEXT_AUTHOR_OR_APPLICATION"
+msgstr "Text, author or application"
+
+msgid "PAGE_ADMIN_PANEL_THEME_DARK"
+msgstr "Dark"
+
+msgid "PAGE_ADMIN_PANEL_THEME_LIGHT"
+msgstr "Light"
+
+msgid "PAGE_ADMIN_PANEL_THEME_SYSTEM"
+msgstr "System"
+
+msgid "PAGE_ADMIN_PANEL_TIMESTAMPS"
+msgstr "Timestamps"
+
+msgid "PAGE_ADMIN_PANEL_TITLE"
+msgstr "Title"
+
+msgid "PAGE_ADMIN_PANEL_TOTAL_APPLICATIONS"
+msgstr "Total applications"
+
+msgid "PAGE_ADMIN_PANEL_TOTAL_USERS"
+msgstr "Total users"
+
+msgid "PAGE_ADMIN_PANEL_TOXICITY"
+msgstr "Toxicity"
+
+msgid "PAGE_ADMIN_PANEL_USERS"
+msgstr "Users"
+
+msgid "PAGE_ADMIN_PANEL_VERSION"
+msgstr "Version"
+
+msgid "PAGE_ADMIN_PANEL_VIOLATION_RISK"
+msgstr "Violation risk"
+
+msgid "PAGE_ADMIN_PANEL_YES"
+msgstr "Yes"
 
 msgid "PAGE_API_EXPIRES"
 msgstr "Expires:"
@@ -1061,6 +1628,9 @@ msgstr "Report application"
 
 msgid "PAGE_APP_ACTION_SITE"
 msgstr "Go to the developer's official website"
+
+msgid "PAGE_APP_ADD_TO_COLLECTION"
+msgstr "add"
 
 msgid "PAGE_APP_BTN_BACK"
 msgstr "Back"
@@ -1116,10 +1686,10 @@ msgstr[0] "Overall rating based on <b>%(counter)s review</b>"
 msgstr[1] "Overall rating based on <b>%(counter)s reviews</b>"
 
 msgid "PAGE_APP_RATING_DELETE_DENIED"
-msgstr "You do not have permission to delete this review."
+msgstr "Reviews for this app have been disabled by the author"
 
 msgid "PAGE_APP_RATING_DELETE_SUCCESS"
-msgstr "Your review has been successfully deleted."
+msgstr "User ratings"
 
 msgid "PAGE_APP_RATING_DISABLED"
 msgstr "Reviews for this app have been disabled by the author"
@@ -1133,26 +1703,62 @@ msgstr "Sign in to leave a rating..."
 msgid "PAGE_APP_RATING_NO_REVIEWS"
 msgstr "No ratings"
 
+msgid "PAGE_APP_RATING_SELECT_REQUIRED"
+msgstr "Please select a rating (1-5 stars)"
+
+msgid "PAGE_APP_RATING_SUCCESS"
+msgstr "Your rating has been saved."
+
 msgid "PAGE_APP_RATING_USERS"
-msgstr "Reviews"
+msgstr "User ratings"
 
 msgid "PAGE_APP_RATING_YOUR"
 msgstr "Your rating:"
 
 msgid "PAGE_APP_RATING_YOUR_REVIEW"
-msgstr "(your review)"
-
-msgid "PAGE_APP_REVIEW_ACTION_EDIT"
-msgstr "edit"
+msgstr "(your rating)"
 
 msgid "PAGE_APP_REVIEW_ACTION_DELETE"
 msgstr "delete"
 
+msgid "PAGE_APP_REVIEW_ACTION_EDIT"
+msgstr "edit"
+
 msgid "PAGE_APP_REVIEW_ACTION_REPLY"
 msgstr "reply to review"
 
+msgid "PAGE_APP_REVIEW_APPROVED"
+msgstr "Your review has been successfully published."
+
+msgid "PAGE_APP_REVIEW_CONFIRM_DELETE"
+msgstr "Are you sure you want to delete this review?"
+
+msgid "PAGE_APP_REVIEW_CONFIRM_DELETE_REPLY"
+msgstr "Are you sure you want to delete the developer reply?"
+
 msgid "PAGE_APP_REVIEW_DEV_REPLY"
 msgstr "Developer response"
+
+msgid "PAGE_APP_REVIEW_PENDING"
+msgstr "Your review has been sent to moderators for review."
+
+msgid "PAGE_APP_REVIEW_PLACEHOLDER"
+msgstr "Write your review (optional, up to 2000 characters)..."
+
+msgid "PAGE_APP_REVIEW_REJECTED_GENERIC"
+msgstr "Your review was automatically rejected due to disallowed language or spam."
+
+msgid "PAGE_APP_REVIEW_REPLY_DELETED"
+msgstr "Developer response removed."
+
+msgid "PAGE_APP_REVIEW_REPLY_DELETE_DENIED"
+msgstr "You do not have permission to delete this response."
+
+msgid "PAGE_APP_REVIEW_REPLY_DENIED"
+msgstr "You do not have permission to reply to this review."
+
+msgid "PAGE_APP_REVIEW_REPLY_EMPTY"
+msgstr "Response text cannot be empty."
 
 msgid "PAGE_APP_REVIEW_REPLY_PLACEHOLDER"
 msgstr "Write an official developer response (up to 2000 chars)..."
@@ -1160,41 +1766,11 @@ msgstr "Write an official developer response (up to 2000 chars)..."
 msgid "PAGE_APP_REVIEW_REPLY_SUBMIT"
 msgstr "Post response"
 
-msgid "PAGE_APP_REVIEW_REPLY_UPDATE"
-msgstr "Update response"
-
 msgid "PAGE_APP_REVIEW_REPLY_SUCCESS"
 msgstr "Developer response published successfully."
 
-msgid "PAGE_APP_REVIEW_REPLY_DELETED"
-msgstr "Developer response removed."
-
-msgid "PAGE_APP_REVIEW_REPLY_EMPTY"
-msgstr "Response text cannot be empty."
-
-msgid "PAGE_APP_REVIEW_REPLY_DENIED"
-msgstr "You do not have permission to reply to this review."
-
-msgid "PAGE_APP_REVIEW_REPLY_DELETE_DENIED"
-msgstr "You do not have permission to delete this response."
-
-msgid "PAGE_APP_REVIEW_PLACEHOLDER"
-msgstr "Write your review (optional, up to 2000 characters)..."
-
-msgid "PAGE_APP_REVIEW_SUBMIT_BTN"
-msgstr "Submit review"
-
-msgid "PAGE_APP_REVIEW_UPDATE_BTN"
-msgstr "Update review"
-
-msgid "PAGE_APP_REVIEW_APPROVED"
-msgstr "Your review has been successfully published."
-
-msgid "PAGE_APP_REVIEW_REJECTED_GENERIC"
-msgstr "Your review was automatically rejected due to disallowed language or spam."
-
-msgid "PAGE_APP_REVIEW_PENDING"
-msgstr "Your review has been sent to moderators for review."
+msgid "PAGE_APP_REVIEW_REPLY_UPDATE"
+msgstr "Update response"
 
 msgid "PAGE_APP_REVIEW_STATUS_APPROVED"
 msgstr "Review approved"
@@ -1205,17 +1781,11 @@ msgstr "Review pending moderation"
 msgid "PAGE_APP_REVIEW_STATUS_REJECTED"
 msgstr "Review rejected"
 
-msgid "PAGE_APP_RATING_SELECT_REQUIRED"
-msgstr "Please select a rating (1-5 stars)"
+msgid "PAGE_APP_REVIEW_SUBMIT_BTN"
+msgstr "Submit review"
 
-msgid "PAGE_APP_REVIEW_CONFIRM_DELETE"
-msgstr "Are you sure you want to delete this review?"
-
-msgid "PAGE_APP_REVIEW_CONFIRM_DELETE_REPLY"
-msgstr "Are you sure you want to delete the developer reply?"
-
-msgid "PAGE_APP_RATING_SUCCESS"
-msgstr "Your rating has been saved."
+msgid "PAGE_APP_REVIEW_UPDATE_BTN"
+msgstr "Update review"
 
 msgid "PAGE_APP_SECTION_ACTIONS"
 msgstr "Actions"
@@ -1231,6 +1801,9 @@ msgstr "System requirements "
 
 msgid "PAGE_APP_SECTION_SCREENSHOTS"
 msgstr "Screenshots"
+
+msgid "PAGE_APP_TO_COLLECTION"
+msgstr "to collection"
 
 msgid "PAGE_BADBROSER_DESC_3"
 msgstr "Thank you for your understanding."
@@ -1291,6 +1864,177 @@ msgstr "Show content as list"
 
 msgid "PAGE_CATEGORY_SHOWCONTENTASTILES"
 msgstr "Show content as tiles"
+
+msgid "PAGE_COLLECTION_ACTION_DELETE"
+msgstr "delete"
+
+msgid "PAGE_COLLECTION_ACTION_EDIT"
+msgstr "edit"
+
+msgid "PAGE_COLLECTION_ACTION_FAVORITE"
+msgstr "add to favourites"
+
+msgid "PAGE_COLLECTION_ACTION_REMOVE_APP"
+msgstr "remove"
+
+msgid "PAGE_COLLECTION_ACTION_STATS"
+msgstr "stats"
+
+msgid "PAGE_COLLECTION_ACTION_UNFAVORITE"
+msgstr "remove from favorites"
+
+msgid "PAGE_COLLECTION_ACTION_VIEW"
+msgstr "view"
+
+msgid "PAGE_COLLECTION_ADD_NO_CUSTOM"
+msgstr "No custom collections. Create a new one:"
+
+msgid "PAGE_COLLECTION_ADD_TITLE"
+msgstr "Add to collection"
+
+msgid "PAGE_COLLECTION_APPS_EMPTY"
+msgstr "There are currently no apps in this collection."
+
+msgid "PAGE_COLLECTION_BACK_TO_VIEW"
+msgstr "Back to collection view"
+
+msgid "PAGE_COLLECTION_BTN_ADD_APP"
+msgstr "Add"
+
+msgid "PAGE_COLLECTION_BTN_CANCEL"
+msgstr "Cancel"
+
+msgid "PAGE_COLLECTION_BTN_CREATE"
+msgstr "Create new collection"
+
+msgid "PAGE_COLLECTION_BTN_DELETE"
+msgstr "Delete"
+
+msgid "PAGE_COLLECTION_BTN_SAVE"
+msgstr "Save"
+
+msgid "PAGE_COLLECTION_DATE_CREATED"
+msgstr "Date created:"
+
+msgid "PAGE_COLLECTION_DATE_UPDATED"
+msgstr "Date updated"
+
+msgid "PAGE_COLLECTION_DELETE_CONFIRM_TEXT %(title)s"
+msgstr "Are you sure you want to delete the collection «%(title)s»?"
+
+msgid "PAGE_COLLECTION_DELETE_CONFIRM_TITLE"
+msgstr "Delete collection"
+
+msgid "PAGE_COLLECTION_EDIT_TITLE"
+msgstr "Editing a collection"
+
+msgid "PAGE_COLLECTION_EMPTY"
+msgstr "There are currently no collections."
+
+msgid "PAGE_COLLECTION_ERROR_ADD_APP"
+msgstr "Failed to add app to collection."
+
+msgid "PAGE_COLLECTION_ERROR_DELETE"
+msgstr "Failed to delete collection."
+
+msgid "PAGE_COLLECTION_ERROR_DELETE_SYSTEM"
+msgstr "You cannot delete a system collection."
+
+msgid "PAGE_COLLECTION_ERROR_EDIT_SYSTEM"
+msgstr "You cannot edit a system collection."
+
+msgid "PAGE_COLLECTION_ERROR_FAVORITE"
+msgstr "Failed to update favorites."
+
+msgid "PAGE_COLLECTION_ERROR_FAVORITE_OWN"
+msgstr "You cannot add your own collection to favorites."
+
+msgid "PAGE_COLLECTION_ERROR_PRIVATE"
+msgstr "This collection is private."
+
+msgid "PAGE_COLLECTION_ERROR_REMOVE_APP"
+msgstr "Failed to remove app from collection."
+
+msgid "PAGE_COLLECTION_ERROR_SAVE"
+msgstr "Failed to save collection."
+
+msgid "PAGE_COLLECTION_FIELD_DESC"
+msgstr "Description"
+
+msgid "PAGE_COLLECTION_FIELD_DESC_HINT"
+msgstr "Briefly describe what is included in the collection"
+
+msgid "PAGE_COLLECTION_FIELD_PUBLIC"
+msgstr "Public collection"
+
+msgid "PAGE_COLLECTION_FIELD_TITLE"
+msgstr "Title"
+
+msgid "PAGE_COLLECTION_FIELD_TITLE_HINT"
+msgstr "Enter the collection name in the required languages"
+
+msgid "PAGE_COLLECTION_LIKES_DESC"
+msgstr "Use \"Add to collection\" on app pages to save them for quick access"
+
+msgid "PAGE_COLLECTION_LIKES_TITLE"
+msgstr "Liked applications"
+
+msgid "PAGE_COLLECTION_MSG_APP_ADDED"
+msgstr "App added to collection."
+
+msgid "PAGE_COLLECTION_MSG_APP_ALREADY"
+msgstr "The app is already in this collection."
+
+msgid "PAGE_COLLECTION_MSG_APP_NOT_IN"
+msgstr "The app is not in this collection."
+
+msgid "PAGE_COLLECTION_MSG_APP_REMOVED"
+msgstr "App removed from collection."
+
+msgid "PAGE_COLLECTION_MSG_DELETED"
+msgstr "Collection removed."
+
+msgid "PAGE_COLLECTION_MSG_FAVORITED"
+msgstr "Collection added to favorites."
+
+msgid "PAGE_COLLECTION_MSG_SAVED"
+msgstr "Collection saved."
+
+msgid "PAGE_COLLECTION_MSG_UNFAVORITED"
+msgstr "Collection removed from favorites."
+
+msgid "PAGE_COLLECTION_STATS_30_DAYS"
+msgstr "Activity statistics for 14 days"
+
+msgid "PAGE_COLLECTION_STATS_FAVORITES"
+msgstr "Favorites saves"
+
+msgid "PAGE_COLLECTION_STATS_TOTAL_FAVORITES"
+msgstr "Total saves"
+
+msgid "PAGE_COLLECTION_STATS_TOTAL_ITEM_ADDS"
+msgstr "Applications added"
+
+msgid "PAGE_COLLECTION_STATS_VIEWS"
+msgstr "Views"
+
+msgid "PAGE_COLLECTION_SYSTEM_BADGE"
+msgstr "system"
+
+msgid "PAGE_COLLECTION_TAB_LIKED"
+msgstr "Favorite collections"
+
+msgid "PAGE_COLLECTION_TAB_MINE"
+msgstr "My collections"
+
+msgid "PAGE_COLLECTION_TAB_STATS"
+msgstr "Stats"
+
+msgid "PAGE_COLLECTION_TAB_VIEW"
+msgstr "View"
+
+msgid "PAGE_COLLECTION_TITLE"
+msgstr "Collections"
 
 msgid "PAGE_DEBUG_DESC"
 msgstr "This page is used EXCLUSIVELY for testing and gathering information for a more accurate bug report. If you see this page, it means that the DEBUG variable in your settings.py is set to True."
@@ -1580,6 +2324,12 @@ msgstr "Uploaded versions"
 msgid "PAGE_DOWNLOAD_VERSION_LIST"
 msgstr "Version list"
 
+msgid "PAGE_ERROR_BROWSER_TITLE"
+msgstr "Error"
+
+msgid "PAGE_ERROR_HEADING"
+msgstr "Error"
+
 msgid "PAGE_FAQ_A_ACC_BENEFITS"
 msgstr "With an account, you will be able to leave reviews for applications, present yourself well in this emerging community, and upload your own applications to the public catalog after strict moderation."
 
@@ -1671,7 +2421,7 @@ msgid "PAGE_FAQ_Q_LEGAL"
 msgstr "\"Hmm, and is this legal?\""
 
 msgid "PAGE_FAQ_Q_WHY_EXIST"
-msgstr "Why does this website exist/"
+msgstr "Why does this website exist?"
 
 msgid "PAGE_FAQ_RULESTAB"
 msgstr "Rules"
@@ -1714,6 +2464,9 @@ msgstr "Support center"
 
 msgid "PAGE_FAQ_TOOLTIP_EASTEREGG"
 msgstr "WORKAROUNDS BICYCLES YOOO"
+
+msgid "PAGE_HOME_BROWSER_TITLE"
+msgstr "Home"
 
 msgid "PAGE_INVITE_ADMINSTATUS"
 msgstr "Moderator"
@@ -1805,6 +2558,15 @@ msgstr "You don't have an account?"
 msgid "PAGE_LOGIN_MAIN_TITLE"
 msgstr "Sign in"
 
+msgid "PAGE_LOGIN_OR_DIVIDER"
+msgstr "or"
+
+msgid "PAGE_LOGIN_PASSPORT_BTN"
+msgstr "Sign in with LunaPassport"
+
+msgid "PAGE_LOGIN_PASSPORT_PENDING_HINT"
+msgstr "To link LunaPassport, sign in to the LunaStore account for:"
+
 msgid "PAGE_LOGIN_PASSWORD_LABEL"
 msgstr "Password:"
 
@@ -1816,15 +2578,6 @@ msgstr "You need to sign in to continue this action"
 
 msgid "PAGE_LOGIN_SUBMIT_BTN"
 msgstr "Sign in"
-
-msgid "PAGE_LOGIN_OR_DIVIDER"
-msgstr "or"
-
-msgid "PAGE_LOGIN_PASSPORT_BTN"
-msgstr "Sign in with LunaPassport"
-
-msgid "PAGE_LOGIN_PASSPORT_PENDING_HINT"
-msgstr "To link LunaPassport, sign in to the LunaStore account for:"
 
 msgid "PAGE_LOGIN_USERNAME_LABEL"
 msgstr "Username:"
@@ -2048,6 +2801,12 @@ msgstr "Since this user is banned, we recommend not to communicate with them, es
 msgid "PAGE_PROFILE_BANNED_INTRO"
 msgstr "This user has been banned."
 
+msgid "PAGE_PROFILE_COLLECTIONS_EMPTY"
+msgstr "This user currently does not public collections."
+
+msgid "PAGE_PROFILE_COLLECTIONS_TITLE"
+msgstr "User's collections"
+
 msgid "PAGE_PROFILE_CONTACT_INFO"
 msgstr "Contact information"
 
@@ -2093,6 +2852,9 @@ msgstr "member since"
 msgid "PAGE_PROFILE_TAB_APPS"
 msgstr "Apps"
 
+msgid "PAGE_PROFILE_TAB_COLLECTIONS"
+msgstr "Collections"
+
 msgid "PAGE_PROFILE_TAB_MAIN"
 msgstr "Main"
 
@@ -2120,6 +2882,9 @@ msgstr "Have an invite code? Click"
 msgid "PAGE_REGISTER_HAVE_INVITE_TITLE"
 msgstr "Do you have an invitation?"
 
+msgid "PAGE_REGISTER_HELP_CODE"
+msgstr "Leave blank if you don't have one"
+
 msgid "PAGE_REGISTER_HELP_EMAIL"
 msgstr "Will be used to log in to the account and to recover the password"
 
@@ -2132,11 +2897,11 @@ msgstr "Practice makes perfect :D"
 msgid "PAGE_REGISTER_HELP_USERNAME"
 msgstr "Minimum 2 characters. This username will be how others find you. It cannot be changed after registration."
 
-msgid "PAGE_REGISTER_HELP_CODE"
-msgstr "Leave blank if you don't have one"
-
 msgid "PAGE_REGISTER_INFO_SPLASH"
 msgstr "By creating an account, you can publish your own apps, leave reviews for existing software, and maintain your personal library of favorites. Registration is open and free."
+
+msgid "PAGE_REGISTER_LABEL_CODE"
+msgstr "Invite code:"
 
 msgid "PAGE_REGISTER_LABEL_EMAIL"
 msgstr "E-mail:"
@@ -2149,9 +2914,6 @@ msgstr "Repeat password:"
 
 msgid "PAGE_REGISTER_LABEL_USERNAME"
 msgstr "Username:"
-
-msgid "PAGE_REGISTER_LABEL_CODE"
-msgstr "Invite code:"
 
 msgid "PAGE_REGISTER_SECTION_CONFIRM"
 msgstr "Registration confirmation"
@@ -2267,6 +3029,15 @@ msgstr "No results found for \"%(q)s\""
 msgid "PAGE_SEARCH_MSG_NO_RESULTS_EMPTY"
 msgstr "No results found for your search"
 
+msgid "PAGE_SEARCH_MSG_NO_USERS"
+msgstr "No users found for \"%(q)s\""
+
+msgid "PAGE_SEARCH_MSG_NO_USERS %(q)s"
+msgstr "No users found for \"%(q)s\""
+
+msgid "PAGE_SEARCH_MSG_UNAVAILABLE"
+msgstr "Search is temporarily unavailable. Please try again later."
+
 msgid "PAGE_SEARCH_SORT_LIST"
 msgstr "Show content as list"
 
@@ -2276,29 +3047,35 @@ msgstr "Show content as..."
 msgid "PAGE_SEARCH_SORT_TILES"
 msgstr "Show content as tiles"
 
-msgid "PAGE_SEARCH_TITLE"
-msgstr "Search"
-
-msgid "PAGE_SEARCH_TAB_APPS"
-msgstr "Applications"
-
-msgid "PAGE_SEARCH_TAB_USERS"
-msgstr "Users"
-
-msgid "PAGE_SEARCH_MSG_NO_USERS %(q)s"
-msgstr "No users found for \"%(q)s\""
-
-msgid "PAGE_SEARCH_MSG_UNAVAILABLE"
-msgstr "Search is temporarily unavailable. Please try again later."
-
 msgid "PAGE_SEARCH_SUGGEST_APPS"
-msgstr "Applications"
+msgstr "Apps"
 
 msgid "PAGE_SEARCH_SUGGEST_USERS"
 msgstr "Users"
 
+msgid "PAGE_SEARCH_TAB_APPS"
+msgstr "Apps"
+
+msgid "PAGE_SEARCH_TAB_USERS"
+msgstr "Users"
+
+msgid "PAGE_SEARCH_TITLE"
+msgstr "Search"
+
 msgid "PAGE_SEARCH_USERS_COUNT"
 msgstr "Found"
+
+msgid "PAGE_SECURITY_WARN_NEW_SESSION_DESC"
+msgstr "password and email changes are unavailable for new devices (less than 24 hours)."
+
+msgid "PAGE_SECURITY_WARN_TITLE"
+msgstr "For security reasons"
+
+msgid "PAGE_SETTINGS_ACTIVE_SESSIONS_DESC"
+msgstr "Devices where you are currently logged into your account."
+
+msgid "PAGE_SETTINGS_ACTIVITY"
+msgstr "Activity"
 
 msgid "PAGE_SETTINGS_BTN_DELETE"
 msgstr "Delete account"
@@ -2309,11 +3086,29 @@ msgstr "Save"
 msgid "PAGE_SETTINGS_BTN_UPLOAD"
 msgstr "Upload"
 
+msgid "PAGE_SETTINGS_CURRENT_SESSION"
+msgstr "Current session"
+
 msgid "PAGE_SETTINGS_DELETE_WARNING"
 msgstr "If you do not wish to use the site, you have the right to delete your account. <br><br>However, please be aware that this action will result in the deletion of your profile data <b>WITHOUT the possibility of recovery</b>. Access to managed app pages will be lost, and sent feedback will be anonymized.<br><br>"
 
+msgid "PAGE_SETTINGS_DEV_STATUS_GET"
+msgstr "Get"
+
 msgid "PAGE_SETTINGS_DEV_STATUS_HAS"
 msgstr "present"
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_COMPACT"
+msgstr "Compact"
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_INFO"
+msgstr "You can switch the homepage between the rich and compact layouts."
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_RICH"
+msgstr "Rich"
+
+msgid "PAGE_SETTINGS_HOME_LAYOUT_TITLE"
+msgstr "Homepage layout"
 
 msgid "PAGE_SETTINGS_HTML_TITLE"
 msgstr "Account Settings"
@@ -2378,6 +3173,33 @@ msgstr "Username:"
 msgid "PAGE_SETTINGS_LABEL_WEBSITE"
 msgstr "Website:"
 
+msgid "PAGE_SETTINGS_PASSPORT_CONFIRM"
+msgstr "Confirm link"
+
+msgid "PAGE_SETTINGS_PASSPORT_DESC"
+msgstr "Link your LunaPassport account to sign in to LunaStore via OAuth."
+
+msgid "PAGE_SETTINGS_PASSPORT_LINK"
+msgstr "Link LunaPassport"
+
+msgid "PAGE_SETTINGS_PASSPORT_LINKED_AS"
+msgstr "Linked as:"
+
+msgid "PAGE_SETTINGS_PASSPORT_PENDING"
+msgstr "Pending link confirmation for:"
+
+msgid "PAGE_SETTINGS_PASSPORT_TITLE"
+msgstr "LunaPassport"
+
+msgid "PAGE_SETTINGS_PASSPORT_UNLINK"
+msgstr "Unlink"
+
+msgid "PAGE_SETTINGS_PASSPORT_UNLINK_NEED_PASSWORD"
+msgstr "Set an account password before unlinking LunaPassport."
+
+msgid "PAGE_SETTINGS_SECTION_ACTIVE_SESSIONS"
+msgstr "Active sessions"
+
 msgid "PAGE_SETTINGS_SECTION_AVATAR"
 msgstr "Edit avatar"
 
@@ -2392,30 +3214,6 @@ msgstr "Delete account"
 
 msgid "PAGE_SETTINGS_SECTION_PASSWORD"
 msgstr "Change password"
-
-msgid "PAGE_SETTINGS_PASSPORT_TITLE"
-msgstr "LunaPassport"
-
-msgid "PAGE_SETTINGS_PASSPORT_DESC"
-msgstr "Link your LunaPassport account to sign in to LunaStore via OAuth."
-
-msgid "PAGE_SETTINGS_PASSPORT_LINKED_AS"
-msgstr "Linked as:"
-
-msgid "PAGE_SETTINGS_PASSPORT_LINK"
-msgstr "Link LunaPassport"
-
-msgid "PAGE_SETTINGS_PASSPORT_UNLINK"
-msgstr "Unlink"
-
-msgid "PAGE_SETTINGS_PASSPORT_UNLINK_NEED_PASSWORD"
-msgstr "Set an account password before unlinking LunaPassport."
-
-msgid "PAGE_SETTINGS_PASSPORT_PENDING"
-msgstr "Pending link confirmation for:"
-
-msgid "PAGE_SETTINGS_PASSPORT_CONFIRM"
-msgstr "Confirm link"
 
 msgid "PAGE_SETTINGS_SECTION_PRIVACY"
 msgstr "Privacy"
@@ -2432,32 +3230,17 @@ msgstr "Security"
 msgid "PAGE_SETTINGS_TAB_UI"
 msgstr "Look"
 
-msgid "PAGE_SETTINGS_HOME_LAYOUT_TITLE"
-msgstr "Homepage layout"
-
-msgid "PAGE_SETTINGS_HOME_LAYOUT_INFO"
-msgstr "You can switch the homepage between the rich and compact layouts."
-
-msgid "PAGE_SETTINGS_HOME_LAYOUT_RICH"
-msgstr "Rich"
-
-msgid "PAGE_SETTINGS_HOME_LAYOUT_COMPACT"
-msgstr "Compact"
-
-msgid "INFO_HOME_LAYOUT_UPDATED"
-msgstr "Homepage layout saved"
-
-msgid "ERROR_HOME_LAYOUT_INVALID"
-msgstr "Invalid homepage layout"
-
 msgid "PAGE_SETTINGS_TERMINATE_SESSION"
-msgstr "Terminate session"
+msgstr "End session"
 
 msgid "PAGE_SETTINGS_TITLE"
 msgstr "Settings"
 
+msgid "PAGE_SETTINGS_UNKNOWN_DEVICE"
+msgstr "Unknown device"
+
 msgid "PAGE_SETTINGS_WARN_USERNAME_FROZEN"
-msgstr "Username can only be changed once a year after registration"
+msgstr "Username cannot be changed after registration"
 
 msgid "SCRIPT_PREVIEWSCRNS_ARE_COOL_1"
 msgstr "Files passed validation: "
@@ -2516,38 +3299,26 @@ msgstr "Incorrect username or password."
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "Login successful! Welcome, %(username)s!"
 
-msgid "VIEW_PASSPORT_OAUTH_DENIED"
-msgstr "LunaPassport denied sign-in: %(detail)s"
-
-msgid "VIEW_PASSPORT_STATE_MISMATCH"
-msgstr "OAuth security check failed (state). Please try again."
-
-msgid "VIEW_PASSPORT_TOKEN_FAILED"
-msgstr "Could not complete LunaPassport sign-in. Try again later."
-
-msgid "VIEW_PASSPORT_LINK_LOGIN_REQUIRED"
-msgstr "Sign in first to link LunaPassport."
-
-msgid "VIEW_PASSPORT_SUB_TAKEN"
-msgstr "This LunaPassport is already linked to another LunaStore account."
-
 msgid "VIEW_PASSPORT_ALREADY_LINKED_OTHER"
 msgstr "Your account already has a different LunaPassport linked."
-
-msgid "VIEW_PASSPORT_LINKED_OK"
-msgstr "LunaPassport linked successfully."
-
-msgid "VIEW_PASSPORT_EMAIL_EXISTS_LOGIN"
-msgstr "An account with this email already exists. Sign in to confirm linking LunaPassport."
 
 msgid "VIEW_PASSPORT_EMAIL_ALREADY_EXISTS"
 msgstr "An account with this email already exists. Registration via LunaPassport is not available."
 
+msgid "VIEW_PASSPORT_EMAIL_EXISTS_LOGIN"
+msgstr "An account with this email already exists. Sign in to confirm linking LunaPassport."
+
+msgid "VIEW_PASSPORT_EMAIL_MISMATCH"
+msgstr "LunaPassport email does not match this LunaStore account. Link cancelled."
+
 msgid "VIEW_PASSPORT_INVITES_REQUIRED"
 msgstr "Registration requires an invite. Sign in to an existing account and link LunaPassport in settings."
 
-msgid "VIEW_PASSPORT_REGISTER_BLOCKED"
-msgstr "Could not create an account via LunaPassport."
+msgid "VIEW_PASSPORT_LINKED_OK"
+msgstr "LunaPassport linked successfully."
+
+msgid "VIEW_PASSPORT_LINK_LOGIN_REQUIRED"
+msgstr "Sign in first to link LunaPassport."
 
 msgid "VIEW_PASSPORT_NEED_ACCOUNT"
 msgstr "Sign in or register, then link LunaPassport in security settings."
@@ -2555,356 +3326,29 @@ msgstr "Sign in or register, then link LunaPassport in security settings."
 msgid "VIEW_PASSPORT_NOT_LINKED"
 msgstr "LunaPassport is not linked."
 
-msgid "VIEW_PASSPORT_UNLINK_NEED_PASSWORD"
-msgstr "Cannot unlink LunaPassport until the account has a password. Set a password first."
+msgid "VIEW_PASSPORT_NO_PENDING"
+msgstr "No pending LunaPassport link."
+
+msgid "VIEW_PASSPORT_OAUTH_DENIED"
+msgstr "LunaPassport denied sign-in: %(detail)s"
+
+msgid "VIEW_PASSPORT_REGISTER_BLOCKED"
+msgstr "Could not create an account via LunaPassport."
+
+msgid "VIEW_PASSPORT_STATE_MISMATCH"
+msgstr "OAuth security check failed (state). Please try again."
+
+msgid "VIEW_PASSPORT_SUB_TAKEN"
+msgstr "This LunaPassport is already linked to another LunaStore account."
+
+msgid "VIEW_PASSPORT_TOKEN_FAILED"
+msgstr "Could not complete LunaPassport sign-in. Try again later."
 
 msgid "VIEW_PASSPORT_UNLINKED_OK"
 msgstr "LunaPassport unlinked."
 
-msgid "VIEW_PASSPORT_NO_PENDING"
-msgstr "No pending LunaPassport link."
-
-msgid "VIEW_PASSPORT_EMAIL_MISMATCH"
-msgstr "LunaPassport email does not match this LunaStore account. Link cancelled."
-
-msgid "%(counter)s PAGE_COLLECTION_APPS_ONE"
-msgid_plural "%(counter)s PAGE_COLLECTION_APPS_MANY"
-msgstr[0] "%(counter)s app"
-msgstr[1] "%(counter)s apps"
-
-msgid "%(counter)s PAGE_COLLECTION_COUNT_ONE"
-msgid_plural "%(counter)s PAGE_COLLECTION_COUNT_MANY"
-msgstr[0] "Total %(counter)s collection"
-msgstr[1] "Total %(counter)s collections"
-
-msgid "BASE_SIDEBAR_ACCOUNT_COLLECTIONS"
-msgstr "Collections"
-
-msgid "PAGE_APP_TO_COLLECTION"
-msgstr "to collection"
-
-msgid "PAGE_APP_ADD_TO_COLLECTION"
-msgstr "add"
-
-msgid "PAGE_COLLECTION_ACTION_DELETE"
-msgstr "delete"
-
-msgid "PAGE_COLLECTION_ACTION_EDIT"
-msgstr "edit"
-
-msgid "PAGE_COLLECTION_ACTION_FAVORITE"
-msgstr "add to favorites"
-
-msgid "PAGE_COLLECTION_ACTION_REMOVE_APP"
-msgstr "remove"
-
-msgid "PAGE_COLLECTION_ACTION_UNFAVORITE"
-msgstr "remove from favorites"
-
-msgid "PAGE_COLLECTION_ACTION_VIEW"
-msgstr "view"
-
-msgid "PAGE_COLLECTION_ACTION_STATS"
-msgstr "stats"
-
-msgid "PAGE_COLLECTION_APPS_EMPTY"
-msgstr "This collection has no apps yet."
-
-msgid "PAGE_COLLECTION_ADD_NO_CUSTOM"
-msgstr "No custom collections yet. Create one:"
-
-msgid "PAGE_COLLECTION_ADD_TITLE"
-msgstr "Add to collection"
-
-msgid "PAGE_COLLECTION_BTN_ADD_APP"
-msgstr "Add"
-
-msgid "PAGE_COLLECTION_BTN_DELETE"
-msgstr "Delete"
-
-msgid "PAGE_COLLECTION_BTN_CANCEL"
-msgstr "Cancel"
-
-msgid "PAGE_COLLECTION_EDIT_TITLE"
-msgstr "Edit collection"
-
-msgid "PAGE_COLLECTION_BTN_CREATE"
-msgstr "Create new collection"
-
-msgid "PAGE_COLLECTION_BTN_SAVE"
-msgstr "Save"
-
-msgid "PAGE_COLLECTION_DATE_CREATED"
-msgstr "Created:"
-
-msgid "PAGE_COLLECTION_DATE_UPDATED"
-msgstr "Updated"
-
-msgid "PAGE_COLLECTION_DELETE_CONFIRM_TEXT %(title)s"
-msgstr "Are you sure you want to delete the collection \"%(title)s\"?"
-
-msgid "PAGE_COLLECTION_DELETE_CONFIRM_TITLE"
-msgstr "Delete collection"
-
-msgid "PAGE_COLLECTION_EMPTY"
-msgstr "No collections yet."
-
-msgid "PAGE_COLLECTION_ERROR_ADD_APP"
-msgstr "Could not add the app to the collection."
-
-msgid "PAGE_COLLECTION_ERROR_DELETE"
-msgstr "Could not delete the collection."
-
-msgid "PAGE_COLLECTION_ERROR_DELETE_SYSTEM"
-msgstr "The system collection cannot be deleted."
-
-msgid "PAGE_COLLECTION_ERROR_EDIT_SYSTEM"
-msgstr "The system collection cannot be edited."
-
-msgid "PAGE_COLLECTION_ERROR_FAVORITE"
-msgstr "Could not update favorites."
-
-msgid "PAGE_COLLECTION_ERROR_FAVORITE_OWN"
-msgstr "You cannot favorite your own collection."
-
-msgid "PAGE_COLLECTION_ERROR_PRIVATE"
-msgstr "This collection is private."
-
-msgid "PAGE_COLLECTION_ERROR_REMOVE_APP"
-msgstr "Could not remove the app from the collection."
-
-msgid "PAGE_COLLECTION_ERROR_SAVE"
-msgstr "Could not save the collection."
-
-msgid "PAGE_COLLECTION_FIELD_TITLE"
-msgstr "Title"
-
-msgid "PAGE_COLLECTION_FIELD_TITLE_HINT"
-msgstr "Enter the collection title in the languages you need"
-
-msgid "PAGE_COLLECTION_FIELD_DESC"
-msgstr "Description"
-
-msgid "PAGE_COLLECTION_FIELD_DESC_HINT"
-msgstr "Briefly describe what is in the collection"
-
-msgid "PAGE_COLLECTION_FIELD_PUBLIC"
-msgstr "Public collection"
-
-msgid "PAGE_COLLECTION_LIKES_DESC"
-msgstr "Use \"Add to collection\" on app pages to save apps for quick access"
-
-msgid "PAGE_COLLECTION_LIKES_TITLE"
-msgstr "Liked apps"
-
-msgid "PAGE_COLLECTION_MSG_APP_ADDED"
-msgstr "App added to the collection."
-
-msgid "PAGE_COLLECTION_MSG_APP_ALREADY"
-msgstr "The app is already in this collection."
-
-msgid "PAGE_COLLECTION_MSG_APP_NOT_IN"
-msgstr "The app is not in this collection."
-
-msgid "PAGE_COLLECTION_MSG_APP_REMOVED"
-msgstr "App removed from the collection."
-
-msgid "PAGE_COLLECTION_MSG_DELETED"
-msgstr "Collection deleted."
-
-msgid "PAGE_COLLECTION_MSG_FAVORITED"
-msgstr "Collection added to favorites."
-
-msgid "PAGE_COLLECTION_MSG_SAVED"
-msgstr "Collection saved."
-
-msgid "PAGE_COLLECTION_MSG_UNFAVORITED"
-msgstr "Collection removed from favorites."
-
-
-msgid "%(counter)s PAGE_COLLECTION_SAVES_ONE"
-msgid_plural "%(counter)s PAGE_COLLECTION_SAVES_MANY"
-msgstr[0] "%(counter)s save"
-msgstr[1] "%(counter)s saves"
-
-msgid "PAGE_COLLECTION_SYSTEM_BADGE"
-msgstr "system"
-
-msgid "PAGE_COLLECTION_TAB_LIKED"
-msgstr "Favorite collections"
-
-msgid "PAGE_COLLECTION_TAB_MINE"
-msgstr "My collections"
-
-msgid "PAGE_COLLECTION_TAB_VIEW"
-msgstr "View"
-
-msgid "PAGE_COLLECTION_TITLE"
-msgstr "Collections"
-
-msgid "PAGE_PROFILE_TAB_COLLECTIONS"
-msgstr "Collections"
-
-msgid "PAGE_PROFILE_COLLECTIONS_TITLE"
-msgstr "Collections by"
-
-msgid "PAGE_PROFILE_COLLECTIONS_EMPTY"
-msgstr "This user has no public collections yet."
-msgid "PAGE_HOME_BROWSER_TITLE"
-msgstr "Home"
-
-msgid "PAGE_404_BROWSER_TITLE"
-msgstr "Page not found"
-
-msgid "PAGE_502_BROWSER_TITLE"
-msgstr "Something went wrong..."
-msgid "PAGE_ERROR_BROWSER_TITLE"
-msgstr "Error"
-
-msgid "PAGE_ERROR_HEADING"
-msgstr "Error"
-
-msgid "PAGE_400_BROWSER_TITLE"
-msgstr "Bad request"
-
-msgid "PAGE_400_DEFAULT_MESSAGE"
-msgstr "The request could not be processed. Check the data and try again."
-
-msgid "PAGE_403_BROWSER_TITLE"
-msgstr "Access denied"
-
-msgid "PAGE_403_DEFAULT_MESSAGE"
-msgstr "You do not have access to this page."
-
-msgid "PAGE_500_BROWSER_TITLE"
-msgstr "Internal error"
-
-msgid "PAGE_500_DEFAULT_MESSAGE"
-msgstr "An internal server error occurred. Please try again later."
-
-msgid "BASE_THEME_ENABLE"
-msgstr "Enable dark theme"
-
-msgid "BASE_THEME_DISABLE"
-msgstr "Disable dark theme"
-
-msgid "BASE_SIDEBAR_APP_PAGE"
-msgstr "Application"
-
-msgid "PAGE_ADMIN_APP_TAB_STATS"
-msgstr "Statistics"
-
-msgid "PAGE_ADMIN_APP_BACKTOAPP"
-msgstr "Back to page"
-
-msgid "PAGE_ADMIN_APP_STATS_30_DAYS"
-msgstr "Visual statistics for 14 days"
-
-msgid "PAGE_ADMIN_APP_STATS_DETAILED"
-msgstr "Detailed statistics"
-
-msgid "PAGE_ADMIN_APP_STATS_DOWNLOADS"
-msgstr "Downloads"
-
-msgid "PAGE_ADMIN_APP_STATS_TOTAL_DOWNLOADS"
-msgstr "Total downloads"
-
-msgid "PAGE_ADMIN_APP_STATS_UNIQUE_DOWNLOADERS"
-msgstr "Unique downloaders"
-
-msgid "PAGE_ADMIN_APP_STATS_DOWNLOADS_HINT"
-msgstr "Statistics are recorded when the \"Install\" button is clicked on the application page"
-
-msgid "PAGE_ADMIN_APP_STATS_VIEWS"
-msgstr "Views"
-
-msgid "PAGE_ADMIN_APP_STATS_TOTAL_VIEWS"
-msgstr "Total views"
-
-msgid "PAGE_ADMIN_APP_STATS_UNIQUE_VIEWERS"
-msgstr "Unique viewers"
-
-msgid "PAGE_ADMIN_APP_STATS_ENGAGEMENT"
-msgstr "Engagement"
-
-msgid "PAGE_ADMIN_APP_STATS_TOTAL_LIKES"
-msgstr "Total likes"
-
-msgid "PAGE_ADMIN_APP_STATS_TOTAL_RATES"
-msgstr "Total ratings"
-
-msgid "PAGE_ADMIN_APP_STATS_TOP_COUNTRIES"
-msgstr "Top 10 countries for 30 days"
-
-msgid "PAGE_ADMIN_APP_STATS_COUNTRY"
-msgstr "Country"
-
-msgid "PAGE_ADMIN_APP_STATS_COUNT"
-msgstr "Count"
-
-msgid "PAGE_ADMIN_APP_STATS_SHARE"
-msgstr "Share"
-
-msgid "PAGE_ADMIN_APP_STATS_TOP_OS"
-msgstr "Top 10 operating systems for 30 days"
-
-msgid "PAGE_ADMIN_APP_STATS_OS"
-msgstr "Operating system"
-
-msgid "PAGE_ADMIN_APP_STATS_DISTRIBUTIONS"
-msgstr "Downloads by distributions (versions)"
-
-msgid "PAGE_ADMIN_APP_STATS_DIST_GENERAL"
-msgstr "Main"
-
-msgid "PAGE_ADMIN_APP_STATS_NO_DATA"
-msgstr "No data available"
-
-msgid "PAGE_COLLECTION_TAB_STATS"
-msgstr "Statistics"
-
-msgid "PAGE_COLLECTION_BACK_TO_VIEW"
-msgstr "Back to collection view"
-
-msgid "PAGE_COLLECTION_STATS_30_DAYS"
-msgstr "Activity statistics for 14 days"
-
-msgid "PAGE_COLLECTION_STATS_VIEWS"
-msgstr "Views"
-
-msgid "PAGE_COLLECTION_STATS_FAVORITES"
-msgstr "Favorites (saves)"
-
-msgid "PAGE_COLLECTION_STATS_TOTAL_FAVORITES"
-msgstr "Total favorites"
-
-msgid "PAGE_COLLECTION_STATS_TOTAL_ITEM_ADDS"
-msgstr "App additions"
-
-
-msgid "PAGE_SETTINGS_DEV_STATUS_GET"
-msgstr "Get"
-
-msgid "PAGE_SETTINGS_SECTION_ACTIVE_SESSIONS"
-msgstr "Active sessions"
-
-msgid "PAGE_SETTINGS_ACTIVE_SESSIONS_DESC"
-msgstr "Devices from which you are logged into your account."
-
-msgid "PAGE_SETTINGS_UNKNOWN_DEVICE"
-msgstr "Unknown device"
-
-msgid "PAGE_SETTINGS_ACTIVITY"
-msgstr "Activity"
-
-msgid "PAGE_SETTINGS_CURRENT_SESSION"
-msgstr "Current session"
-
-msgid "PAGE_SECURITY_WARN_TITLE"
-msgstr "For security reasons"
-
-msgid "PAGE_SECURITY_WARN_NEW_SESSION_DESC"
-msgstr "changing password and linked email is unavailable on new devices (less than 24 hours)."
+msgid "VIEW_PASSPORT_UNLINK_NEED_PASSWORD"
+msgstr "Cannot unlink LunaPassport until the account has a password. Set a password first."
 
 msgid "SET_APP_ALLOW_COMMUNITY_DISTRIBUTIONS"
 msgstr "Allow community distributions?"
@@ -2915,61 +3359,47 @@ msgstr "Users with developer status can add distributions for this application."
 msgid "COMMUNITY_DISTRIBUTIONS_ARE_NOT_ALLOWED"
 msgstr "Community distributions are not allowed for this application."
 
-
 msgid "COMMUNITY_ENABLE"
 msgstr "Enable proposals"
-
 
 msgid "COMMUNITY_DISABLE"
 msgstr "Disable proposals"
 
-
 msgid "COMMUNITY_ACCESS_TITLE"
 msgstr "Community contributions"
-
 
 msgid "COMMUNITY_AUTHOR"
 msgstr "Community"
 
-
 msgid "COMMUNITY_PENDING_PROPOSAL"
 msgstr "A proposal is already awaiting moderation. Please wait for a decision."
-
 
 msgid "COMMUNITY_PUBLIC_APP_REQUIRED"
 msgstr "Community contributions require a public application without DMCA restrictions."
 
-
 msgid "COMMUNITY_ACCESS_SAVED"
 msgstr "Community contribution settings saved."
-
 
 msgid "COMMUNITY_ACCESS_EXPLANATION"
 msgstr "Developers can propose changes to application information and distributions. Moderators review every proposal. You retain control of the application. Confirm your password and 2FA code, if enabled, to change this mode."
 
-
 msgid "COMMUNITY_RETENTION_WARNING"
 msgstr "Once enabled, the application cannot be deleted or made private, even after proposals are disabled. Deleting your account leaves the application and distributions in the catalog without an owner."
-
 
 msgid "COMMUNITY_PROPOSAL_EXPLANATION"
 msgstr "You are proposing changes. They appear in the catalog only after moderator approval."
 
-
 msgid "COMMUNITY_PROPOSE_EDIT"
 msgstr "Propose a change"
-
 
 #: templates/del_acc.html
 #, python-format
 msgid "COMMUNITY_ACCOUNT_RETENTION_WARNING %(count)s"
 msgstr "Community applications: %(count)s"
 
-
 #: templates/admin_app.html
 msgid "COMMUNITY_PROTECTED_APP_NOTICE"
 msgstr "Community contributions have been enabled for this application. You retain management access, but cannot delete the application or make it private, even if proposals are disabled. If you delete your account, the application and its distributions will remain in the catalog without an owner."
-
 
 #: templates/del_acc.html
 msgid "COMMUNITY_ACCOUNT_RETENTION_DESCRIPTION"

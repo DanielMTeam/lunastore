@@ -8,35 +8,159 @@ body {
     font-family: var(--font-sans) !important;
 }
 
-
-/* Sidebar logo smooth glow animation */
-aside img[src*="logo"],
-#nav-sidebar img,
-header img[src*="logo"] {
-    animation: glowing-logo 4s ease-in-out infinite;
-    filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.3));
-    will-change: filter;
-    /* optimized for performance */
+/* Shared admin surfaces; explicit CSS also covers classes absent from Unfold's build. */
+:root {
+    --luna-surface: #ffffff;
+    --luna-border: #e2e8f0;
+    --luna-text: #0f172a;
+    --luna-muted: #475569;
+    --luna-hover: #f1f5f9;
+    --luna-link: #4338ca;
 }
 
-@keyframes glowing-logo {
-    0% {
-        filter: drop-shadow(0 0 6px rgba(99, 102, 241, 0.2));
-    }
-
-    50% {
-        filter: drop-shadow(0 0 14px rgba(99, 102, 241, 0.7));
-    }
-
-    100% {
-        filter: drop-shadow(0 0 6px rgba(99, 102, 241, 0.2));
-    }
+html.dark {
+    --luna-surface: #0f172a;
+    --luna-border: #334155;
+    --luna-text: #f1f5f9;
+    --luna-muted: #cbd5e1;
+    --luna-hover: #1e293b;
+    --luna-link: #a5b4fc;
 }
+
+/* Keep the brand and account controls inside the sidebar in every language. */
+.luna-sidebar-header {
+    height: 65px;
+    flex-shrink: 0;
+    padding-inline: 1rem;
+}
+.luna-sidebar-header > div:first-child {
+    width: 100%;
+    min-width: 0;
+    padding-inline: 0;
+    gap: .75rem;
+}
+.luna-sidebar-header img {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+.luna-account-menu {
+    min-width: 0;
+    max-height: calc(100vh - 9rem);
+    max-height: calc(100dvh - 9rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+.luna-theme-switch {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: .25rem;
+    padding: .25rem .5rem .5rem;
+}
+.luna-theme-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .35rem;
+    min-width: 0;
+    padding: .5rem .15rem;
+    border-radius: .375rem;
+    color: var(--luna-muted);
+    font: inherit;
+    font-size: .75rem;
+    line-height: 1.3;
+    text-align: center;
+    overflow-wrap: anywhere;
+    cursor: pointer;
+}
+.luna-theme-option .material-symbols-outlined { flex-shrink: 0; font-size: 20px; }
+.luna-theme-option:hover { background: var(--luna-hover); }
+.luna-theme-option[aria-pressed="true"] { color: var(--luna-link); background: var(--luna-hover); }
+
+.luna-dashboard { display: flex; flex-direction: column; gap: 2rem; color: var(--luna-text); }
+.luna-page-heading h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: .5rem; }
+.luna-page-heading p, .luna-muted { color: var(--luna-muted); }
+.luna-dashboard h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; }
+.luna-card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 1rem; }
+.luna-card {
+    display: flex;
+    flex-direction: column;
+    gap: .65rem;
+    background: var(--luna-surface);
+    border: 1px solid var(--luna-border);
+    border-radius: .75rem;
+    padding: 1.25rem;
+    min-width: 0;
+}
+.luna-card-label { display: flex; align-items: center; gap: .5rem; font-weight: 600; }
+.luna-card-value { font-size: 2rem; line-height: 1.2; font-weight: 700; }
+a.luna-queue { color: var(--luna-text); text-decoration: none; }
+a.luna-queue:hover { background: var(--luna-hover); border-color: var(--luna-link); }
+.luna-request-list { padding: 0; gap: 0; }
+.luna-request-row { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem 1.25rem; color: var(--luna-text); }
+.luna-request-row + .luna-request-row { border-top: 1px solid var(--luna-border); }
+.luna-request-row:hover { background: var(--luna-hover); }
+.luna-request-preview { display: block; color: var(--luna-muted); margin-top: .25rem; overflow-wrap: anywhere; }
+.luna-request-row time { flex-shrink: 0; }
+.luna-empty { padding: 2rem; }
+.luna-badge, .luna-flag {
+    display: inline-block;
+    border-radius: 999px;
+    padding: .2rem .6rem;
+    font-size: .75rem;
+    line-height: 1.5;
+    font-weight: 600;
+    white-space: nowrap;
+}
+.luna-badge-approved { background: #dcfce7; color: #166534; }
+.luna-badge-pending { background: #fef3c7; color: #92400e; }
+.luna-badge-rejected { background: #fee2e2; color: #991b1b; }
+.luna-badge-neutral, .luna-flag { background: #f1f5f9; color: #334155; }
+html.dark .luna-badge-approved { background: #14532d; color: #bbf7d0; }
+html.dark .luna-badge-pending { background: #78350f; color: #fde68a; }
+html.dark .luna-badge-rejected { background: #7f1d1d; color: #fecaca; }
+html.dark .luna-badge-neutral, html.dark .luna-flag { background: #334155; color: #f1f5f9; }
+.luna-flag { border-radius: .35rem; white-space: normal; margin: .15rem 0; }
+.luna-list-tools { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; margin-bottom: 1rem; }
+.luna-list-tools p { flex-basis: 100%; font-size: .8rem; }
+.luna-filter-links { display: flex; flex-wrap: wrap; gap: .35rem; }
+.luna-filter-links a { padding: .45rem .75rem; border: 1px solid var(--luna-border); border-radius: .5rem; color: var(--luna-text); }
+.luna-filter-links a:hover { background: var(--luna-hover); }
+.luna-filter-links a[aria-current="page"] { background: var(--luna-link); color: var(--luna-surface); border-color: var(--luna-link); }
+.luna-reset-filters { color: var(--luna-link); text-decoration: underline; }
+.luna-review-preview { display: block; min-width: 9rem; max-width: 26rem; max-height: 4.5em; overflow: hidden; overflow-wrap: anywhere; }
+.luna-risk-summary { max-width: 12rem; min-width: 6.5rem; }
+.luna-risk-summary > div { margin-top: .25rem; }
+.luna-object-link { color: var(--luna-link); font-weight: 600; }
+.luna-object-link:hover { text-decoration: underline; }
+.model-review .column-id, .model-pendingreview .column-id { width: 3rem; }
+.model-review .field-app_link, .model-pendingreview .field-app_link { min-width: 8rem; max-width: 18rem; overflow-wrap: anywhere; }
+.luna-comparison { overflow-x: auto; margin-bottom: 1.5rem; }
+.luna-comparison table { width: 100%; border-collapse: collapse; }
+.luna-comparison th, .luna-comparison td { border: 1px solid var(--luna-border); padding: .75rem; text-align: left; vertical-align: top; }
+.luna-comparison td { white-space: pre-wrap; overflow-wrap: anywhere; min-width: 12rem; max-width: 30rem; }
+.luna-comparison th { color: var(--luna-text); background: var(--luna-hover); }
+body a:focus-visible, body button:focus-visible, body summary:focus-visible {
+    outline: 2px solid var(--luna-link);
+    outline-offset: 3px;
+}
+@media (max-width: 640px) {
+    .luna-request-row { flex-direction: column; gap: .5rem; }
+    .luna-card { padding: 1rem; }
+    .luna-review-preview { min-width: 10rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+    body *, body *::before, body *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
 
 /* Fix Constance page layout for inputs and textareas */
 form table td textarea {
     width: 100% !important;
-    min-width: 450px !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
     min-height: 160px !important;
     font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace !important;
     white-space: pre-wrap !important;
@@ -50,7 +174,7 @@ form table td input[type="text"],
 form table td input[type="number"],
 form table td input[type="password"] {
     width: 100% !important;
-    min-width: 350px !important;
+    min-width: 0 !important;
     max-width: 600px !important;
     padding: 10px !important;
     border-radius: 6px !important;
@@ -273,3 +397,35 @@ html.dark .md-alert-caution {
     background: #7f1d1d;
     border-color: #ef4444;
 }
+
+/* Action dialogs */
+
+    /* white theme */
+    .unfold-modal-panel { background-color: #ffffff !important; border-color: #e5e7eb !important; }
+    .unfold-modal-header { background-color: #ffffff !important; border-color: #e5e7eb !important; }
+    .unfold-modal-footer { background-color: #f9fafb !important; border-color: #e5e7eb !important; }
+    .unfold-modal-input { background-color: #ffffff !important; border-color: #d1d5db !important; color: #111827 !important; }
+    .unfold-modal-input::placeholder { color: #9ca3af !important; }
+    .unfold-modal-title { color: #111827 !important; }
+    .unfold-modal-text { color: #6b7280 !important; }
+    .unfold-modal-cancel { background-color: #ffffff !important; border-color: #d1d5db !important; color: #374151 !important; }
+    .unfold-modal-cancel:hover { background-color: #f3f4f6 !important; }
+
+    /* dark theme */
+    html.dark .unfold-modal-panel { background-color: #1f2937 !important; border-color: #374151 !important; }
+    html.dark .unfold-modal-header { background-color: #1f2937 !important; border-color: #374151 !important; }
+    html.dark .unfold-modal-footer { background-color: #111827 !important; border-color: #374151 !important; }
+    html.dark .unfold-modal-input { background-color: #111827 !important; border-color: #4b5563 !important; color: #f3f4f6 !important; }
+    html.dark .unfold-modal-input::placeholder { color: #6b7280 !important; }
+    html.dark .unfold-modal-title { color: #f9fafb !important; }
+    html.dark .unfold-modal-text { color: #9ca3af !important; }
+    html.dark .unfold-modal-cancel { background-color: #374151 !important; border-color: #4b5563 !important; color: #f3f4f6 !important; }
+    html.dark .unfold-modal-cancel:hover { background-color: #4b5563 !important; }
+
+    .unfold-modal-input:focus { outline: none !important; border-color: #4f46e5 !important; box-shadow: 0 0 0 1px #4f46e5 !important; }
+
+.luna-modal-backdrop { background: rgba(15, 23, 42, .65); }
+.luna-modal-confirm { background: #b91c1c; color: #fff; }
+.luna-modal-confirm:hover { background: #991b1b; }
+.luna-modal-confirm:disabled { opacity: .6; cursor: wait; }
+html.dark .luna-modal-error { color: #fca5a5; }

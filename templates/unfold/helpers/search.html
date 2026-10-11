@@ -1,0 +1,15 @@
+{% load i18n %}
+{% if sidebar_show_search %}
+<div class="mb-2.5 mx-3">
+    <button type="button" x-on:click="$dispatch('opencommand')" aria-label="{% trans 'PAGE_ADMIN_PANEL_SEARCH_SECTIONS' %}"
+            class="bg-white border border-base-200 cursor-pointer flex flex-row items-center px-3 rounded-default shadow-xs w-full dark:bg-base-900 dark:border-base-700">
+        <span class="material-symbols-outlined md-18 text-base-400" aria-hidden="true">manage_search</span>
+        <span class="grow font-medium min-w-0 overflow-hidden p-2 text-left text-font-subtle-light truncate dark:text-font-subtle-dark">{% trans "PAGE_ADMIN_PANEL_SEARCH_SECTIONS_PLACEHOLDER" %}</span>
+        {% if 'Macintosh' in request.META.HTTP_USER_AGENT %}
+            {% include "unfold/helpers/shortcut.html" with icon="keyboard_command_key" shortcut="k" %}
+        {% else %}
+            {% include "unfold/helpers/shortcut.html" with icon="keyboard_control_key" shortcut="k" %}
+        {% endif %}
+    </button>
+</div>
+{% endif %}
