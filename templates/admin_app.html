@@ -66,7 +66,7 @@
     }
   </style>
   <div class="tabs">
-      <div class="tab-bar">
+      <div class="tab-bar tab-bar-compact">
         {% if not is_community_proposal %}
         <div class="tab active">
           <img src="{% static './img/tabs/main.png'%}" class="tab-icon" alt="">
@@ -80,15 +80,23 @@
             <img src="{% static './img/tabs/stats.png'%}" class="tab-icon" alt="">
           {% trans "PAGE_ADMIN_APP_TAB_STATS" %}
         </a>
+        <a href="{% url 'community_access' pk=obj.pk %}" class="tab">
+          {% trans "COMMUNITY_ACCESS_TITLE" %}
+        </a>
         {% endif %}
       </div>
 
       <div class="tab-content" id="tab-view">
           {% if is_community_proposal %}
-          <p class="info_splash">{% trans "COMMUNITY_PROPOSAL_EXPLANATION" %}</p>
-          {% else %}
-          <p><a href="{% url 'community_access' pk=obj.pk %}">{% trans "COMMUNITY_ACCESS_TITLE" %}</a></p>
-          {% if obj.community_protected %}<p>{% trans "COMMUNITY_RETENTION_WARNING" %}</p>{% endif %}
+          <div class="info_splash">
+              <div class="info_icon_small"></div>
+              <div class="splash_text">{% trans "COMMUNITY_PROPOSAL_EXPLANATION" %}</div>
+          </div>
+          {% elif obj.community_protected %}
+          <div class="alert_splash">
+              <div class="warning_icon_small"></div>
+              <div class="splash_text">{% trans "COMMUNITY_RETENTION_WARNING" %}</div>
+          </div>
           {% endif %}
           <div class="info_splash">
               <div class="info_icon_small"></div>

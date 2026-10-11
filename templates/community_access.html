@@ -1,23 +1,73 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load i18n static %}
 {% block title %}{% trans "COMMUNITY_ACCESS_TITLE" %} — {{ app.title }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
 {% block content %}
 <div class="content">
-    <div class="section">
-        <div class="profile_block">{% trans "COMMUNITY_ACCESS_TITLE" %} — {{ app.title }}</div>
-        <div class="profile_block_content">
-            <p>{% trans "COMMUNITY_ACCESS_EXPLANATION" %}</p>
-            <p><strong>{% trans "COMMUNITY_RETENTION_WARNING" %}</strong></p>
+    <link rel="stylesheet" href="{% static 'css/settings.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tabs.css' %}">
+    <div class="preferences">
+        {% trans "COMMUNITY_ACCESS_TITLE" %} — {{ app.title }}
+    </div>
+    <div class="tabs">
+        <div class="tab-bar tab-bar-compact">
+            <a href="{% url 'edit_app_info' pk=app.pk %}" class="tab">
+                <img src="{% static 'img/tabs/main.png' %}" class="tab-icon" alt="">
+                {% trans "PAGE_ADMIN_APP_FIRST_BLOCK" %}
+            </a>
+            <a href="{% url 'manage_distributions' %}?id={{ app.pk }}" class="tab">
+                <img src="{% static 'img/tabs/programs.png' %}" class="tab-icon" alt="">
+                {% trans "PAGE_ADMIN_APP_TAB_DISTRIBUTIONS" %}
+            </a>
+            <a href="{% url 'app_stats' pk=app.pk %}" class="tab">
+                <img src="{% static 'img/tabs/stats.png' %}" class="tab-icon" alt="">
+                {% trans "PAGE_ADMIN_APP_TAB_STATS" %}
+            </a>
+            <div class="tab active">{% trans "COMMUNITY_ACCESS_TITLE" %}</div>
+        </div>
+        <div class="tab-content">
+            <div class="info_splash">
+                <div class="info_icon_small"></div>
+                <div class="splash_text">{% trans "COMMUNITY_ACCESS_EXPLANATION" %}</div>
+            </div>
+            <div class="alert_splash">
+                <div class="warning_icon_small"></div>
+                <div class="splash_text">{% trans "COMMUNITY_RETENTION_WARNING" %}</div>
+            </div>
             <form method="post">
                 {% csrf_token %}
-                {{ form.non_field_errors }}
-                {% for field in form %}
-                <div class="pref_pad">
-                    {{ field.label_tag }}<br>{{ field }}{{ field.errors }}
+                {% if form.non_field_errors %}
+                <div class="error_splash">
+                    <div class="error_icon_small"></div>
+                    <div class="splash_text">
+                        {% for error in form.non_field_errors %}<div>{{ error }}</div>{% endfor %}
+                    </div>
                 </div>
+                {% endif %}
+                <div class="profile_block">{% trans "COMMUNITY_ACCESS_TITLE" %}</div>
+                <div class="profile_block_content">
+                {% for field in form %}
+                    <div class="pref_pad">
+                        <div class="pref_item_title">{{ field.label_tag }}</div>
+                        {{ field }}
+                        {% if field.errors %}
+                        <div class="error_splash">
+                            <div class="error_icon_small"></div>
+                            <div class="splash_text">
+                                {% for error in field.errors %}<div>{{ error }}</div>{% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
                 {% endfor %}
-                <input type="submit" class="action_button" value="{% trans 'PAGE_DIST_FORM_SAVE' %}">
-                <a href="{% url 'edit_app_info' pk=app.pk %}">{% trans "PAGE_DIST_FORM_CANCEL" %}</a>
+                    <div class="pref_pad">
+                        <input type="submit" class="action_button" value="{% trans 'PAGE_DIST_FORM_SAVE' %}">
+                        <a href="{% url 'edit_app_info' pk=app.pk %}" class="action_button action_button_secondary">
+                            {% trans "PAGE_DIST_FORM_CANCEL" %}
+                        </a>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
