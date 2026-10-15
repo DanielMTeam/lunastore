@@ -10,7 +10,7 @@
 
 | Component | Technologies / Stack | Details |
 | :--- | :--- | :--- |
-| **Backend** | Python 3.13 / Django 6.1.1, DRF 3.18.1 | Clean architecture under `apps/` (`core`, `user`, `marketplace`, `api`, `terms`, `analytics`) |
+| **Backend** | Python 3.13 / Django 6.1.2, DRF 3.18.1 | Clean architecture under `apps/` (`core`, `user`, `marketplace`, `api`, `terms`, `analytics`) |
 | **Database** | PostgreSQL 18 | Relational data, ORM search fallback, `django-safedelete` |
 | **Search** | Meilisearch | Primary search; Redis tasks after commit; atomic index swap |
 | **Cache & Throttling** | Redis 7 | `django-redis`, `django-smart-ratelimit`, `django-constance[redis]` |

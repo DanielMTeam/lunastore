@@ -1,6 +1,6 @@
-Django==6.1.1
+Django==6.1.2
 pillow==12.3.0
-django[bcrypt]==6.1.1
+django[bcrypt]==6.1.2
 django-simple-captcha==0.7.0
 pycodestyle==2.14.0
 django-unfold==0.105.0
