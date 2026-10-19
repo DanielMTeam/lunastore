@@ -23,7 +23,7 @@ jobs:
   # stage 1: linter
   lint:
     name: Code Quality & Lint
-    runs-on: [self-hosted, linux, x64]
+    runs-on: ubuntu-latest
 
     steps:
       - name: Check out repository
@@ -48,7 +48,7 @@ jobs:
   test:
     name: Run Django Tests
     needs: lint
-    runs-on: [self-hosted, linux, x64]
+    runs-on: ubuntu-latest
 
     services:
       postgres:
@@ -179,7 +179,7 @@ jobs:
     name: Build & Push Docker Image
     needs: test
     if: (github.ref == 'refs/heads/main' && github.event_name == 'push') || github.event_name == 'workflow_dispatch'
-    runs-on: [self-hosted, linux, x64]
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
