@@ -178,6 +178,9 @@
                         </a></li>
                         {% endif %}
                         <li><a class="collections" {% if route == 'collections' %}id="active" {% endif %} href="{% url 'collections' %}">{% trans "BASE_SIDEBAR_ACCOUNT_COLLECTIONS" %}</a></li>
+                        {% if support_enabled %}
+                        <li><a class="notify" {% if request.resolver_match.namespace == 'support' %}id="active" {% endif %}href="{% url 'support:list' %}">{% trans 'PAGE_SUPPORT_TITLE' %}{% if support_unread_count %} ({{ support_unread_count }}){% endif %}</a></li>
+                        {% endif %}
                         {% if user.is_staff %}
                         <li><a class="admin" href="{% url 'admin_redirect' %}">{% trans "BASE_SIDEBAR_ACCOUNT_ADMINBTN" %}</a></li>
                         {% endif %}

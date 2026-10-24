@@ -20,7 +20,7 @@ The script checks Docker, creates `.env` from `.env.example`, starts containers,
 
 ---
 
-### Option 2: Local Windows without Docker (`run-dev.ps1`)
+### Option 2: Local Windows & macOS without Docker (`run-dev.ps1` / `run-dev.sh`)
 ```powershell
 # Instant start (no checks, installs, or migrations):
 .\run-dev.ps1 fast
@@ -40,7 +40,7 @@ The script checks Docker, creates `.env` from `.env.example`, starts containers,
 .\run-dev.ps1 test
 .\run-dev.ps1 superuser
 ```
-Creates `.venv` if needed, installs from `requirements.txt` when required, checks PostgreSQL (`5432`) and Redis (`6379`), compiles JS, and opens titled consoles for web (`9088`), admin (`8088`), API (`7088`), Babel watcher, and LunaSpire (`8080` locally).
+Creates `.venv` if needed, installs from `requirements.txt` when required, checks PostgreSQL (`5432`) and Redis (`6379`), compiles JS, and opens titled consoles for web (`9088`), admin (`8088`), API (`7088`), Babel watcher, and LunaSpire (`8080` locally). On macOS use `./run-dev.sh` with identical commands and options (including `--separate-windows` / `--tabs` via Terminal.app).
 
 ---
 

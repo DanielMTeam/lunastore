@@ -1322,38 +1322,28 @@ class AppReportRequestsAdmin(SafeDeleteAdmin):
 
 @admin.register(ProblemReportRequests)
 class ProblemReportRequestsAdmin(SafeDeleteAdmin):
+    # Legacy records remain visible during migration; support tickets own all new conversations.
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def get_actions(self, request):
+        return {}
+
     list_display = ("id", "user_link", "created_at", "description")
     list_filter = SafeDeleteAdmin.list_filter + ["id", "created_at"]
-    actions_detail = ["resolve_report_detail", "dismiss_report_detail"]
+    actions_detail = []
     readonly_fields = (
         "user_info_link",
         "user",
         "description",
         "created_at",
     )
-
-    @action(description="Пометить как решенное и удалить", icon="done_all")
-    def resolve_report_detail(self, request, object_id):
-        self._delete_report(request, object_id, "Жалоба обработана и удалена")
-        return redirect(
-            reverse("admin:marketplace_problemreportrequests_changelist"))
-
-    @action(description="Ложная жалоба (удалить)", icon="close")
-    def dismiss_report_detail(self, request, object_id):
-        self._delete_report(request, object_id, "Запись удалена")
-        return redirect(
-            reverse("admin:marketplace_problemreportrequests_changelist"))
-
-    def _delete_report(self, request, object_id, message):
-        obj = ProblemReportRequests.objects.filter(id=object_id).first()
-        if obj:
-            obj.delete(force_policy=HARD_DELETE)
-            self.message_user(request, message, messages.SUCCESS)
-
-    def _set_status(self, object_id, status_value):
-        ProblemReportRequests.objects.filter(
-            id=object_id).update(
-            status=status_value)
 
     def user_link(self, obj):
         if not obj.user:

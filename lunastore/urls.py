@@ -37,6 +37,7 @@ urlpatterns = [
         name="django.contrib.sitemaps.views.sitemap",
     ),
     path("robots.txt", robots_txt, name="robots_txt"),
+    path("", include("apps.support.urls")),
     path("", include("apps.marketplace.urls")),
     path("", include("apps.user.urls")),
     path("", include("apps.core.urls")),

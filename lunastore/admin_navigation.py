@@ -42,8 +42,10 @@ def model_link(title, icon, model, permission=None):
     }
     if name in ("appcreaterequests", "appeditrequests", "distributioncreaterequests",
                 "distributioneditrequests", "pendingreview", "appreportrequests",
-                "problemreportrequests", "devrequestsmodel"):
+                "devrequestsmodel"):
         item["badge"] = f"apps.core.dashboard.count_{name}"
+    if model == "support_ticket":
+        item["badge"] = "apps.core.dashboard.count_support_tickets"
     return item
 
 
@@ -64,7 +66,11 @@ SIDEBAR = {
             model_link(_("PAGE_ADMIN_PANEL_REVIEWS_AWAITING_MODERATION"), "pending_actions", "marketplace_pendingreview",
                        "marketplace.view_review"),
             model_link(_("PAGE_ADMIN_PANEL_APPLICATION_REPORTS"), "report", "marketplace_appreportrequests"),
-            model_link(_("PAGE_ADMIN_PANEL_PROBLEM_REPORTS"), "flag", "marketplace_problemreportrequests"),
+            model_link(_("PAGE_ADMIN_SUPPORT_LEGACY_REPORTS"), "flag", "marketplace_problemreportrequests"),
+        ]},
+        {"title": _("PAGE_SUPPORT_TITLE"), "separator": True, "collapsible": True, "items": [
+            model_link(_("MODEL_SUPPORT_TICKETS"), "support_agent", "support_ticket"),
+            model_link(_("MODEL_SUPPORT_DELIVERIES"), "notifications", "support_delivery", "support.view_ticket"),
         ]},
         {"title": _("PAGE_ADMIN_PANEL_CATALOG"), "separator": True, "collapsible": True, "items": [
             model_link(_("PAGE_ADMIN_PANEL_APPLICATIONS"), "apps", "marketplace_application"),

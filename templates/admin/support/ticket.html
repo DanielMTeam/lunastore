@@ -1,0 +1,29 @@
+{% extends 'admin/base_site.html' %}{% load i18n static %}
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static 'css/support.css' %}">{% endblock %}
+{% block content %}
+<div class="support-workspace support-admin">
+<p><a href="{% url 'admin:support_ticket_changelist' %}">{% trans 'PAGE_ADMIN_SUPPORT_INBOX' %}</a></p>
+<h1>#{{ ticket.pk }} — {{ ticket.subject }}</h1>
+{% include 'support/summary.html' with support_staff=True %}
+{% if can_reply %}<form method="post" class="support-form support-settings">{% csrf_token %}<input type="hidden" name="action" value="settings">
+{{ settings_form.as_p }}<button type="submit">{% trans 'ADMIN_SUPPORT_SAVE_SETTINGS' %}</button></form>{% endif %}
+{% include 'support/poll.html' %}
+<div id="support-thread">{% include 'support/messages.html' with support_staff=True %}</div>
+{% if can_reply %}
+<h2>{% trans 'ADMIN_SUPPORT_REPLY_OR_NOTE' %}</h2>
+<form method="post" enctype="multipart/form-data" class="support-form">{% csrf_token %}
+{% include 'support/form_fields.html' %}
+<p><button type="submit" name="action" value="reply">{% trans 'ADMIN_SUPPORT_SEND_REPLY' %}</button> &nbsp;
+<button type="submit" name="action" value="resolve">{% trans 'ADMIN_SUPPORT_REPLY_AND_RESOLVE' %}</button> &nbsp;
+<button type="submit" name="action" value="note">{% trans 'ADMIN_SUPPORT_ADD_INTERNAL_NOTE' %}</button></p>
+<p>{% trans 'ADMIN_SUPPORT_INTERNAL_NOTE_HELP' %}</p>
+</form>{% endif %}
+<h2>{% trans 'ADMIN_SUPPORT_ACTIVITY_HISTORY' %}</h2>
+{% for event in events %}<p>{{ event.created_at|date:'d.m.Y H:i' }} · {{ event.actor.username|default:'—' }} · {{ event.label }}{% if event.summary %} · {{ event.summary }}{% endif %}</p>{% endfor %}
+{% if event_page.has_other_pages %}<p>
+{% if event_page.has_previous %}<a href="?page={{ page_obj.number }}&amp;event_page={{ event_page.previous_page_number }}">{% trans 'ADMIN_SUPPORT_NEWER_EVENTS' %}</a>{% endif %}
+{{ event_page.number }} / {{ event_page.paginator.num_pages }}
+{% if event_page.has_next %}<a href="?page={{ page_obj.number }}&amp;event_page={{ event_page.next_page_number }}">{% trans 'ADMIN_SUPPORT_OLDER_EVENTS' %}</a>{% endif %}
+</p>{% endif %}
+</div>
+{% endblock %}

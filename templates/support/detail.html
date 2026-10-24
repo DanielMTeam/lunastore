@@ -1,0 +1,17 @@
+{% extends 'support/base.html' %}{% load i18n %}
+{% block support_content %}
+<h1>#{{ ticket.pk }} — {{ ticket.subject }}</h1>
+{% include 'support/summary.html' %}
+{% include 'support/poll.html' %}
+<div id="support-thread">{% include 'support/messages.html' %}</div>
+{% if can_reply %}
+<h2>{% if ticket.status == 'resolved' %}{% trans 'PAGE_SUPPORT_REOPEN' %}{% else %}{% trans 'PAGE_SUPPORT_REPLY' %}{% endif %}</h2>
+<form method="post" action="{% url 'support:reply' %}?id={{ ticket.pk }}" enctype="multipart/form-data" class="support-form">{% csrf_token %}
+{% include 'support/form_fields.html' %}
+<input type="submit" class="action_button" value="{% trans 'PAGE_SUPPORT_SEND_MESSAGE' %}">
+</form>
+{% if ticket.status != 'resolved' %}
+<form method="post" action="{% url 'support:close' %}?id={{ ticket.pk }}" class="support-close">{% csrf_token %}<input type="submit" value="{% trans 'PAGE_SUPPORT_CLOSE_RESOLVED' %}"></form>
+{% endif %}
+{% else %}<p>{% trans 'PAGE_SUPPORT_READ_ONLY' %}</p>{% endif %}
+{% endblock %}

@@ -31,8 +31,17 @@ def admin_handler500(request):
     return server_error(request, template_name="admin/500.html")
 
 
+def admin_handler403(request, exception=None):
+    from django.shortcuts import render
+    if not hasattr(request, "user"):
+        request.user = AnonymousUser()
+    return render(request, "admin/403.html", {
+        **admin.site.each_context(request), "title": _("PAGE_ADMIN_ACCESS_DENIED"),
+    }, status=403)
+
+
 handler400 = "django.views.defaults.bad_request"
-handler403 = "django.views.defaults.permission_denied"
+handler403 = "lunastore.urls_private.admin_handler403"
 handler404 = "lunastore.urls_private.admin_handler404"
 handler500 = "lunastore.urls_private.admin_handler500"
 

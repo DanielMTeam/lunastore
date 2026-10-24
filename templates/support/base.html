@@ -1,0 +1,14 @@
+{% extends 'base.html' %}{% load i18n static %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
+{% block title %}{% trans 'PAGE_SUPPORT_TITLE' %} - LunaStore{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/stpage.css' %}">
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+<link rel="stylesheet" href="{% static 'css/support.css' %}">
+<div class="content"><div class="separator_store"></div><div class="section support-workspace">
+<div class="st_other_card"><div class="profile_block">{% trans 'PAGE_SUPPORT_HEADING' %}</div>
+<div class="profile_block_content">
+<p class="support-navigation"><a href="{% url 'support:list' %}">{% trans 'PAGE_SUPPORT_MY_TICKETS' %}</a> &nbsp; | &nbsp; <a href="{% url 'support:create' %}">{% trans 'PAGE_SUPPORT_CREATE_TITLE' %}</a></p>
+{% block support_content %}{% endblock %}
+</div></div><div class="st_clearb"></div></div></div>
+{% endblock %}

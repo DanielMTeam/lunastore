@@ -1,0 +1,13 @@
+{% extends 'support/base.html' %}{% load i18n %}
+{% block support_content %}
+<h1>{% trans 'PAGE_SUPPORT_MY_TICKETS' %}</h1>
+<p class="support-filters"><a href="?">{% trans 'PAGE_SUPPORT_FILTER_ALL' %}</a> &nbsp; <a href="?view=open">{% trans 'PAGE_SUPPORT_FILTER_OPEN' %}</a> &nbsp; <a href="?view=unread">{% trans 'PAGE_SUPPORT_FILTER_UNREAD' %}</a></p>
+{% for ticket in page_obj %}
+<div class="support-ticket-row">
+<p><a href="{% url 'support:detail' %}?id={{ ticket.pk }}"><strong>#{{ ticket.pk }} — {{ ticket.subject }}</strong></a>
+{% if ticket.last_staff_message_id > ticket.owner_read_message_id %}<strong class="support-unread">{% trans 'PAGE_SUPPORT_NEW_REPLY' %}</strong>{% endif %}</p>
+<p class="support-meta">{{ ticket.get_status_display }} · {{ ticket.get_category_display }} · {{ ticket.public_updated_at|date:'d.m.Y H:i' }}{% if ticket.archived_at %} · {% trans 'PAGE_SUPPORT_ARCHIVE' %}{% endif %}</p>
+</div>
+{% empty %}<p class="support-empty">{% trans 'PAGE_SUPPORT_EMPTY' %} <a href="{% url 'support:create' %}">{% trans 'PAGE_SUPPORT_CONTACT' %}</a></p>{% endfor %}
+{% include 'support/pagination.html' %}
+{% endblock %}

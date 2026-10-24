@@ -1,0 +1,6 @@
+{% load i18n %}
+{% if page_obj.has_other_pages %}<p class="support-pagination">
+{% if page_obj.has_previous %}<a href="?{% if ticket %}id={{ ticket.pk }}&amp;{% endif %}{% if filter_view %}view={{ filter_view|urlencode }}&amp;{% endif %}page={{ page_obj.previous_page_number }}">{% trans 'PAGE_SUPPORT_PREVIOUS' %}</a> &nbsp;{% endif %}
+{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+{% if page_obj.has_next %}&nbsp; <a href="?{% if ticket %}id={{ ticket.pk }}&amp;{% endif %}{% if filter_view %}view={{ filter_view|urlencode }}&amp;{% endif %}page={{ page_obj.next_page_number }}">{% trans 'PAGE_SUPPORT_NEXT' %}</a>{% endif %}
+</p>{% endif %}

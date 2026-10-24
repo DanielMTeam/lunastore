@@ -9,6 +9,7 @@ from apps.marketplace.models import (
     DistributionCreateRequests, DistributionEditRequests, PendingReview, ProblemReportRequests,
 )
 from apps.user.models import DevRequestsModel, User
+from apps.support.models import Ticket
 
 
 QUEUES = (
@@ -18,7 +19,7 @@ QUEUES = (
     (DistributionEditRequests, _("PAGE_ADMIN_PANEL_DISTRIBUTION_CHANGES"), "edit", "version"),
     (PendingReview, _("PAGE_ADMIN_PANEL_REVIEWS_AWAITING_MODERATION"), "rate_review", "text"),
     (AppReportRequests, _("PAGE_ADMIN_PANEL_APPLICATION_REPORTS"), "report", "description"),
-    (ProblemReportRequests, _("PAGE_ADMIN_PANEL_PROBLEM_REPORTS"), "flag", "description"),
+    (Ticket, _("PAGE_SUPPORT_TITLE"), "support_agent", "subject"),
     (DevRequestsModel, _("PAGE_ADMIN_PANEL_DEVELOPER_REQUESTS"), "code", "github"),
 )
 
@@ -30,7 +31,9 @@ def queue_badge(request, model):
     counts = getattr(request, "_luna_queue_counts", {})
     if model not in counts:
         queryset = model_admin.get_queryset(request)
-        if hasattr(model, "status"):
+        if model is Ticket:
+            queryset = queryset.filter(status__in=[Ticket.Status.NEW, Ticket.Status.IN_PROGRESS], archived_at__isnull=True)
+        elif hasattr(model, "status"):
             queryset = queryset.filter(status="pending")
         if hasattr(model, "deleted"):
             queryset = queryset.filter(deleted__isnull=True)
@@ -63,6 +66,10 @@ def count_appreportrequests(request):
     return queue_badge(request, AppReportRequests)
 
 
+def count_support_tickets(request):
+    return queue_badge(request, Ticket)
+
+
 def count_problemreportrequests(request):
     return queue_badge(request, ProblemReportRequests)
 
@@ -81,7 +88,9 @@ def callback(request, context):
         queryset = model_admin.get_queryset(request)
         has_status = any(field.name == "status" for field in model._meta.fields)
         has_date = any(field.name == "created_at" for field in model._meta.fields)
-        if has_status:
+        if model is Ticket:
+            queryset = queryset.filter(status__in=[Ticket.Status.NEW, Ticket.Status.IN_PROGRESS], archived_at__isnull=True)
+        elif has_status:
             queryset = queryset.filter(status="pending")
         if hasattr(model, "deleted"):
             queryset = queryset.filter(deleted__isnull=True)
@@ -91,7 +100,9 @@ def callback(request, context):
         request._luna_queue_counts[model] = stats["total"]
         model_name = f"{model._meta.app_label}_{model._meta.model_name}"
         url = reverse(f"admin:{model_name}_changelist")
-        if has_status and model is not PendingReview:
+        if model is Ticket:
+            url += "?queue=team"
+        elif has_status and model is not PendingReview:
             url += "?status__exact=pending"
         queues.append({"title": title, "icon": icon, "count": stats["total"], "url": url,
                        "oldest": stats.get("oldest")})

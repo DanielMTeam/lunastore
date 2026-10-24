@@ -1,0 +1,8 @@
+{% load i18n static %}
+<div id="support-poll" data-url="{{ poll_url }}" data-revision="{{ revision }}" data-refresh-url="{{ refresh_url }}">
+<p id="support-updates" style="display:none" role="status">{% trans 'PAGE_SUPPORT_UPDATES_AVAILABLE' %}</p>
+<p id="support-poll-error" style="display:none" role="status">{% trans 'PAGE_SUPPORT_POLL_FAILED' %}</p>
+<p><button type="button" id="support-refresh">{% trans 'PAGE_SUPPORT_REFRESH_THREAD' %}</button></p>
+</div>
+<noscript><p>{% trans 'PAGE_SUPPORT_REFRESH_WITHOUT_JS' %}</p></noscript>
+<script src="{% static 'js/support.js' %}"></script>

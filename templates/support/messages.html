@@ -1,0 +1,11 @@
+{% load i18n %}
+{% for message in page_obj %}
+<div class="support-message{% if message.internal %} support-note{% elif message.from_staff %} support-staff{% endif %}">
+<p class="support-message-heading"><strong>{% if message.internal %}{% trans 'SUPPORT_INTERNAL_NOTE' %}{% elif message.from_staff %}{% trans 'PAGE_SUPPORT_TEAM' %}{% else %}{% trans 'PAGE_SUPPORT_CUSTOMER' %}{% endif %}</strong> · {{ message.author.username|default:'—' }} · {{ message.created_at|date:'d.m.Y H:i' }}</p>
+<div class="support-message-body">{{ message.body|linebreaksbr }}</div>
+{% for attachment in message.attachments.all %}
+<p class="support-attachment"><a href="{% if support_staff %}{% url 'admin:support_attachment_download' attachment.pk %}{% else %}{% url 'support:attachment' attachment.pk %}{% endif %}">{{ attachment.original_name }}</a> ({{ attachment.size|filesizeformat }})</p>
+{% endfor %}
+</div>
+{% endfor %}
+{% include 'support/pagination.html' %}

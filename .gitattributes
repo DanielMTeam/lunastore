@@ -1,1 +1,3 @@
+# Keep text line endings consistent across Windows and macOS.
+* text=auto eol=lf
 *.mmdb filter=lfs diff=lfs merge=lfs -text
