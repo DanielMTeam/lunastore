@@ -94,11 +94,24 @@ class Command(BaseCommand):
 
         tasks_processed = 0
         last_claim_time = time.time()
+        last_support_sweep_time = 0
+        last_support_cleanup_time = 0
         last_analytics_flush_time = time.time()
         flush_analytics_interval_arg = options.get("flush_analytics_interval")
 
         while not self.should_stop:
             current_time = time.time()
+            if (backend_name == "default" and queue_name in (None, "default")
+                    and current_time - last_support_sweep_time >= 60):
+                try:
+                    from apps.support.tasks import sweep_deliveries, cleanup_uploads
+                    sweep_deliveries()
+                    if current_time - last_support_cleanup_time >= 3600:
+                        cleanup_uploads.enqueue()
+                        last_support_cleanup_time = current_time
+                except Exception as exc:
+                    logger.warning("Support maintenance failed: %s", type(exc).__name__)
+                last_support_sweep_time = current_time
             if current_time - last_claim_time >= claim_interval:
                 try:
                     claimed = executor.claim_stale_tasks(backend_name=backend_name)

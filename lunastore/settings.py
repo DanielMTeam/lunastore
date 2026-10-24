@@ -224,6 +224,7 @@ INSTALLED_APPS = [
     "apps.marketplace.apps.MarketplaceConfig",
     "apps.user.apps.UserConfig",
     "apps.core.apps.CoreConfig",
+    "apps.support.apps.SupportConfig",
     "apps.terms.apps.TermsConfig",
     "apps.analytics.apps.AnalyticsConfig",
     "captcha",
@@ -644,6 +645,19 @@ CONSTANCE_CONFIG = {
         "Хранение лога активности (дней, 0 = бессрочно)",
         int,
     ),
+    # -- support --
+    "SUPPORT_ENABLED": (os.getenv("SUPPORT_ENABLED", "True") == "True", "Включить поддержку", bool),
+    "SUPPORT_TELEGRAM_ENABLED": (
+        os.getenv("SUPPORT_TELEGRAM_ENABLED", "False") == "True", "Уведомлять команду поддержки в Telegram", bool,
+    ),
+    "SUPPORT_SITE_NOTIFICATIONS_ENABLED": (
+        os.getenv("SUPPORT_SITE_NOTIFICATIONS_ENABLED", "True") == "True", "Уведомлять пользователя на сайте", bool,
+    ),
+    "SUPPORT_TELEGRAM_CHAT_ID": (os.getenv("SUPPORT_TELEGRAM_CHAT_ID", ""), "Chat ID поддержки (пусто: общий)", str),
+    "SUPPORT_TELEGRAM_TOPIC_ID": (os.getenv("SUPPORT_TELEGRAM_TOPIC_ID", ""), "Topic ID поддержки (пусто: общий)", str),
+    "SUPPORT_ADMIN_BASE_URL": (
+        os.getenv("SUPPORT_ADMIN_BASE_URL", "http://127.0.0.1:8088"), "Адрес сервиса админки для ссылок поддержки", str,
+    ),
     # -- telegram logger --
     "TELEGRAM_LOGGER_ENABLED": (
         os.getenv("TELEGRAM_LOGGER_ENABLED", "False") == "True",
@@ -1018,6 +1032,10 @@ CONSTANCE_CONFIG_FIELDSETS = {
         ],
         "collapse": True,
     },
+    "Поддержка": {
+        "fields": ["SUPPORT_ENABLED", "SUPPORT_TELEGRAM_ENABLED", "SUPPORT_SITE_NOTIFICATIONS_ENABLED",
+                   "SUPPORT_TELEGRAM_CHAT_ID", "SUPPORT_TELEGRAM_TOPIC_ID", "SUPPORT_ADMIN_BASE_URL"],
+    },
     "Telegram-логгер (требует перезагрузки)": {
         "fields": [
             "TELEGRAM_LOGGER_ENABLED",
@@ -1238,6 +1256,7 @@ TEMPLATES = [
                 "apps.core.context_processors.lunapassport_settings",
                 "apps.core.context_processors.geo_domains_processor",
                 "apps.core.context_processors.notification_context",
+                "apps.support.context_processors.support_context",
             ],
         },
     },

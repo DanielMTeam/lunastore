@@ -1,0 +1,3 @@
+<div id="support-poll" data-revision="{{ revision }}"></div>
+{% if support_staff %}{% include 'admin/support/summary.html' %}{% else %}{% include 'support/summary.html' %}{% endif %}
+<div id="support-thread">{% include 'support/messages.html' %}</div>

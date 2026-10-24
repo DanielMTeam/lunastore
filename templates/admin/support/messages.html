@@ -1,0 +1,22 @@
+{% load i18n static unfold %}
+{% for message in page_obj %}
+<div class="admin-support-message{% if message.internal %} admin-support-message--note{% elif message.from_staff %} admin-support-message--staff{% endif %}">
+    {% if not message.internal %}
+    <img class="admin-support-avatar" src="{% if message.from_staff %}{% static 'img/logo.png' %}{% elif message.author %}{{ message.author.avatar_url }}{% else %}{% static 'img/noavatar_64.jpg' %}{% endif %}" width="32" height="32" alt="">
+    {% endif %}
+    <div class="admin-support-message-bubble">
+        <div class="admin-support-message-author text-xs text-font-subtle-light dark:text-font-subtle-dark">
+            {% if message.internal %}{% trans 'SUPPORT_INTERNAL_NOTE' as note_label %}{% component 'unfold/helpers/label.html' with text=note_label variant='warning' icon='lock' %}{% endcomponent %}
+            {% elif message.from_staff %}<strong class="text-font-important-light dark:text-font-important-dark">{% trans 'PAGE_SUPPORT_TEAM' %}</strong>
+            {% else %}<strong class="text-font-important-light dark:text-font-important-dark">{% trans 'PAGE_SUPPORT_CUSTOMER' %}</strong>{% endif %}
+            <span>{{ message.author.username|default:'—' }}</span>
+        </div>
+        <div class="admin-support-message-text text-sm text-font-important-light dark:text-font-important-dark">{{ message.body|linebreaksbr }}</div>
+        {% for attachment in message.attachments.all %}
+        <p class="admin-support-file text-xs"><span class="material-symbols-outlined">attach_file</span><a class="text-primary-600 dark:text-primary-400" href="{% url 'admin:support_attachment_download' attachment.pk %}">{{ attachment.original_name }}</a><span>({{ attachment.size|filesizeformat }})</span></p>
+        {% endfor %}
+        <time class="admin-support-message-time text-xs text-font-subtle-light dark:text-font-subtle-dark">{{ message.created_at|date:'d.m.Y H:i' }}</time>
+    </div>
+</div>
+{% endfor %}
+{% include 'support/pagination.html' %}

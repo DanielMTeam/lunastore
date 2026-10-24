@@ -769,21 +769,7 @@ def report_app(request):
 @ratelimit(key='ip', rate='20/1m', block=True)
 @login_required
 def report_problem(request):
-    if request.method == "POST":
-        form = ProblemReportForm(request.POST)
-        if form.is_valid():
-            report = form.save(commit=False)
-            report.user = request.user
-            report.save()
-            messages.success(request, _("PAGE_REPORTPROBLEM_SUCCESS_MSG"))
-            return redirect("home")
-    else:
-        form = ProblemReportForm()
-    context = {
-        "form": form,
-        "is_report_page": True,
-    }
-    return render(request, "report_problem.html", context)
+    return redirect("support:create")
 
 
 @developer_required

@@ -3393,3 +3393,489 @@ msgstr "Бұл қолданба үшін қауымдастықтың қатыс
 #: templates/del_acc.html
 msgid "COMMUNITY_ACCOUNT_RETENTION_DESCRIPTION"
 msgstr "Дистрибутивтерімен бірге каталогта иесіз қалады. Сіз оларды басқару құқығынан айырыласыз."
+
+# Support tickets
+
+#: apps/support/models.py:34 apps/support/tasks.py:50
+msgid "FORM_SUPPORT_AUTHOR"
+msgstr "Автор"
+
+#: apps/support/models.py:19
+msgid "MODEL_SUPPORT_CATEGORY_ACCOUNT"
+msgstr "Аккаунт"
+
+#: apps/support/tasks.py:50
+msgid "SUPPORT_ACCOUNT_DELETED"
+msgstr "Аккаунт жойылған"
+
+#: templates/support/list.html:9
+msgid "PAGE_SUPPORT_ARCHIVE"
+msgstr "Мұрағат"
+
+#: lunastore/admin_navigation.py:69
+msgid "PAGE_ADMIN_SUPPORT_LEGACY_REPORTS"
+msgstr "Мәселе хабарларының мұрағаты"
+
+#: apps/support/admin.py:128 apps/support/services.py:31
+msgid "ERROR_SUPPORT_ARCHIVED_READ_ONLY"
+msgstr "Мұрағаттағы өтінішті тек оқуға болады."
+
+#: apps/support/admin.py:26
+msgid "ADMIN_SUPPORT_QUEUE_UNASSIGNED"
+msgstr "Жауапты адамсыз"
+
+#: templates/support/poll.html:3
+msgid "PAGE_SUPPORT_UPDATES_AVAILABLE"
+msgstr "Өтініште өзгерістер бар."
+
+#: apps/support/models.py:12
+msgid "MODEL_SUPPORT_STATUS_IN_PROGRESS"
+msgstr "Өңделуде"
+
+#: templates/admin/support/ticket.html:19
+msgid "ADMIN_SUPPORT_INTERNAL_NOTE_HELP"
+msgstr "Ішкі жазбалар мен олардың тіркемелерін тек қолдау қызметкерлері көреді."
+
+#: apps/support/models.py:109 templates/support/messages.html:4
+msgid "SUPPORT_INTERNAL_NOTE"
+msgstr "Ішкі жазба"
+
+#: templates/support/detail.html:14
+msgid "PAGE_SUPPORT_CLOSE_RESOLVED"
+msgstr "Мәселе шешілді — өтінішті жабу"
+
+#: templates/support/list.html:4
+msgid "PAGE_SUPPORT_FILTER_ALL"
+msgstr "Барлығы"
+
+#: apps/support/models.py:25
+msgid "MODEL_SUPPORT_URGENCY_HIGH"
+msgstr "Жоғары"
+
+#: apps/support/models.py:30
+msgid "MODEL_SUPPORT_PRIORITY_HIGH"
+msgstr "Жоғары"
+
+#: templates/support/pagination.html:5
+msgid "PAGE_SUPPORT_NEXT"
+msgstr "Келесі"
+
+#: templates/support/poll.html:7
+msgid "PAGE_SUPPORT_REFRESH_WITHOUT_JS"
+msgstr "Жаңа жауаптарды көру үшін бетті жаңартыңыз."
+
+#: templates/support/form_fields.html:6
+msgid "FORM_SUPPORT_ATTACHMENTS_HELP"
+msgstr "Әрқайсысы 5 МБ болатын үш файлға дейін: PNG, JPEG, TXT немесе LOG. Тіркемелерді тек сіз және қолдау тобы көреді."
+
+#: templates/admin/support/ticket.html:18
+msgid "ADMIN_SUPPORT_ADD_INTERNAL_NOTE"
+msgstr "Ішкі жазба қосу"
+
+#: apps/support/storage.py:45
+msgid "ERROR_SUPPORT_PLAIN_TEXT_ONLY"
+msgstr "Тек қарапайым мәтіндік журналдарға рұқсат етіледі."
+
+#: apps/support/storage.py:48
+msgid "ERROR_SUPPORT_ATTACHMENT_FORMAT"
+msgstr "Рұқсат етілген пішімдер: PNG, JPEG, TXT, LOG."
+
+#: apps/support/models.py:157
+msgid "MODEL_SUPPORT_DELIVERY"
+msgstr "Хабарландыруды жеткізу"
+
+#: apps/support/admin.py:195
+msgid "ADMIN_SUPPORT_DELIVERIES_QUEUED"
+msgstr "Жеткізулер кезекке қойылды."
+
+#: apps/support/models.py:158 lunastore/admin_navigation.py:73
+msgid "MODEL_SUPPORT_DELIVERIES"
+msgstr "Хабарландыруларды жеткізу"
+
+#: apps/support/models.py:143
+msgid "MODEL_SUPPORT_DELIVERY_SENT"
+msgstr "Жеткізілді"
+
+#: lunastore/urls_private.py:39 templates/admin/403.html:2
+msgid "PAGE_ADMIN_ACCESS_DENIED"
+msgstr "Кіруге тыйым салынған"
+
+#: apps/support/models.py:21
+msgid "MODEL_SUPPORT_CATEGORY_OTHER"
+msgstr "Басқа"
+
+#: apps/support/admin.py:27
+msgid "ADMIN_SUPPORT_QUEUE_WAITING_TEAM"
+msgstr "Топтың жауабын күтуде"
+
+#: apps/support/models.py:13
+msgid "MODEL_SUPPORT_STATUS_WAITING"
+msgstr "Пайдаланушыны күтудеміз"
+
+#: templates/support/list.html:11
+msgid "PAGE_SUPPORT_EMPTY"
+msgstr "Мұнда өтініштеріңіз бен қолдау тобының жауаптары көрсетіледі."
+
+#: templates/admin/support/ticket.html:21
+msgid "ADMIN_SUPPORT_ACTIVITY_HISTORY"
+msgstr "Әрекеттер тарихы"
+
+#: apps/support/forms.py:58 apps/support/models.py:36
+msgid "FORM_SUPPORT_CATEGORY"
+msgstr "Санат"
+
+#: templates/support/messages.html:4
+msgid "PAGE_SUPPORT_TEAM"
+msgstr "Қолдау тобы"
+
+#: apps/support/models.py:31
+msgid "MODEL_SUPPORT_PRIORITY_CRITICAL"
+msgstr "Өте жоғары"
+
+#: apps/support/admin.py:26
+msgid "ADMIN_SUPPORT_QUEUE_MINE"
+msgstr "Менің өтініштерім"
+
+#: templates/support/base.html:11 templates/support/list.html:3
+msgid "PAGE_SUPPORT_MY_TICKETS"
+msgstr "Менің өтініштерім"
+
+#: templates/support/pagination.html:3
+msgid "PAGE_SUPPORT_PREVIOUS"
+msgstr "Артқа"
+
+#: templates/support/list.html:11
+msgid "PAGE_SUPPORT_CONTACT"
+msgstr "Қолдау қызметіне жазу"
+
+#: apps/support/forms.py:39 apps/support/services.py:53
+msgid "ERROR_SUPPORT_ATTACHMENT_COUNT"
+msgstr "Бір хабарламаға үш файлдан артық тіркеуге болмайды."
+
+#: apps/support/forms.py:66
+msgid "FORM_SUPPORT_UNASSIGNED"
+msgstr "Тағайындалмаған"
+
+#: apps/support/storage.py:102
+msgid "ERROR_SUPPORT_UPLOAD_FAILED"
+msgstr "Тіркемелерді жүктеу мүмкін болмады. Мәтін пішінде сақталды; файлдарды қайта таңдаңыз."
+
+#: templates/support/poll.html:4
+msgid "PAGE_SUPPORT_POLL_FAILED"
+msgstr "Жаңа хабарламаларды тексеру мүмкін болмады. Тексеру автоматты түрде қайталанады."
+
+#: apps/support/services.py:144
+msgid "ERROR_SUPPORT_ASSIGNEE_UNAVAILABLE"
+msgstr "Жауапты адам қолжетімсіз."
+
+#: apps/support/storage.py:37
+msgid "ERROR_SUPPORT_INVALID_IMAGE"
+msgstr "PNG немесе JPEG суреті жарамсыз."
+
+#: apps/support/forms.py:42
+msgid "ERROR_SUPPORT_INVALID_ATTACHMENTS"
+msgstr "Тіркемелер жиыны жарамсыз."
+
+#: apps/support/services.py:140
+msgid "ERROR_SUPPORT_INVALID_STATUS_OR_PRIORITY"
+msgstr "Мәртебе немесе басымдық жарамсыз."
+
+#: apps/support/admin.py:27
+msgid "ADMIN_SUPPORT_QUEUE_UNREAD"
+msgstr "Мен оқымаған"
+
+#: apps/support/admin.py:69
+msgid "ADMIN_SUPPORT_UNREAD"
+msgstr "Оқылмаған"
+
+#: apps/support/models.py:28
+msgid "MODEL_SUPPORT_PRIORITY_LOW"
+msgstr "Төмен"
+
+#: apps/support/tasks.py:44
+msgid "NOTIF_SUPPORT_NEW_TICKET"
+msgstr "Жаңа өтініш"
+
+#: apps/support/admin.py:26
+msgid "ADMIN_SUPPORT_QUEUE_NEW"
+msgstr "Жаңа"
+
+#: templates/support/list.html:4
+msgid "PAGE_SUPPORT_FILTER_UNREAD"
+msgstr "Жаңа жауаптар"
+
+#: templates/admin/support/ticket.html:24
+msgid "ADMIN_SUPPORT_NEWER_EVENTS"
+msgstr "Жаңарақ оқиғалар"
+
+#: apps/support/models.py:11
+msgid "MODEL_SUPPORT_STATUS_NEW"
+msgstr "Жаңа"
+
+#: templates/support/list.html:8
+msgid "PAGE_SUPPORT_NEW_REPLY"
+msgstr "Жаңа жауап"
+
+#: templates/support/poll.html:5
+msgid "PAGE_SUPPORT_REFRESH_THREAD"
+msgstr "Хат алмасуды жаңарту"
+
+#: apps/support/tasks.py:49
+msgid "SUPPORT_TICKET"
+msgstr "Өтініш"
+
+#: templates/support/detail.html:16
+msgid "PAGE_SUPPORT_READ_ONLY"
+msgstr "Өтінішті тек оқуға болады."
+
+#: apps/support/models.py:110 apps/support/tasks.py:45
+msgid "EVENT_SUPPORT_TICKET_REOPENED"
+msgstr "Өтініш қайта ашылды"
+
+#: apps/support/models.py:108
+msgid "EVENT_SUPPORT_TICKET_CREATED"
+msgstr "Өтініш жасалды"
+
+#: apps/support/models.py:24
+msgid "MODEL_SUPPORT_URGENCY_NORMAL"
+msgstr "Қалыпты"
+
+#: apps/support/models.py:29
+msgid "MODEL_SUPPORT_PRIORITY_NORMAL"
+msgstr "Қалыпты"
+
+#: apps/support/models.py:141
+msgid "MODEL_SUPPORT_DELIVERY_PENDING"
+msgstr "Күтуде"
+
+#: templates/support/create.html:4
+msgid "PAGE_SUPPORT_CREATE_HELP"
+msgstr "Не болғанын және қандай нәтиже күткеніңізді сипаттаңыз. Құпиясөздер мен кіру кодтарын көрсетпеңіз."
+
+#: templates/admin/support/ticket.html:13
+msgid "ADMIN_SUPPORT_REPLY_OR_NOTE"
+msgstr "Жауап немесе ішкі жазба"
+
+#: apps/support/models.py:109
+msgid "EVENT_SUPPORT_STAFF_REPLY"
+msgstr "Қолдау жауабы"
+
+#: templates/support/detail.html:8
+msgid "PAGE_SUPPORT_REPLY"
+msgstr "Жауап беру"
+
+#: templates/admin/support/ticket.html:17
+msgid "ADMIN_SUPPORT_REPLY_AND_RESOLVE"
+msgstr "Жауап беріп, шешілді деп белгілеу"
+
+#: apps/support/forms.py:66 apps/support/models.py:41
+msgid "FORM_SUPPORT_ASSIGNEE"
+msgstr "Жауапты адам"
+
+#: apps/support/models.py:123
+msgid "EVENT_SUPPORT_ASSIGNEE_CHANGED"
+msgstr "Жауапты адам өзгертілді"
+
+#: apps/support/models.py:145
+msgid "MODEL_SUPPORT_DELIVERY_SKIPPED"
+msgstr "Өшірілген"
+
+#: templates/support/list.html:4
+msgid "PAGE_SUPPORT_FILTER_OPEN"
+msgstr "Ашық"
+
+#: apps/support/tasks.py:52
+msgid "NOTIF_SUPPORT_OPEN_ADMIN"
+msgstr "Әкімшілік панельде ашу"
+
+#: apps/support/tasks.py:86
+msgid "NOTIF_SUPPORT_OPEN_TICKET"
+msgstr "Өтінішті ашу"
+
+#: templates/support/detail.html:8
+msgid "PAGE_SUPPORT_REOPEN"
+msgstr "Өтінішті қайта ашу"
+
+#: templates/support/create.html:7
+msgid "PAGE_SUPPORT_SUBMIT_TICKET"
+msgstr "Өтініш жіберу"
+
+#: templates/admin/support/ticket.html:16
+msgid "ADMIN_SUPPORT_SEND_REPLY"
+msgstr "Пайдаланушыға жіберу"
+
+#: templates/support/detail.html:11
+msgid "PAGE_SUPPORT_SEND_MESSAGE"
+msgstr "Хабарлама жіберу"
+
+#: apps/support/models.py:142
+msgid "MODEL_SUPPORT_DELIVERY_SENDING"
+msgstr "Жіберілуде"
+
+#: apps/support/admin.py:22
+msgid "ADMIN_SUPPORT_QUEUE"
+msgstr "Кезек"
+
+#: templates/admin/support/ticket.html:5
+msgid "PAGE_ADMIN_SUPPORT_INBOX"
+msgstr "Қолдау кезегі"
+
+#: apps/support/models.py:144
+msgid "MODEL_SUPPORT_DELIVERY_FAILED"
+msgstr "Қате"
+
+#: apps/support/models.py:110
+msgid "EVENT_SUPPORT_SETTINGS_UPDATED"
+msgstr "Параметрлер өзгертілді"
+
+#: apps/support/models.py:111
+msgid "EVENT_SUPPORT_LEGACY_IMPORTED"
+msgstr "Ескі пішіннен көшірілді"
+
+#: apps/support/admin.py:179
+msgid "ADMIN_SUPPORT_RETRY_DELIVERIES"
+msgstr "Сәтсіз жеткізулерді қайталау"
+
+#: apps/core/dashboard.py:22 apps/support/apps.py:8 lunastore/admin_navigation.py:71 templates/base.html:182 templates/support/base.html:3
+msgid "PAGE_SUPPORT_TITLE"
+msgstr "Қолдау"
+
+#: apps/support/tasks.py:80 templates/support/base.html:9
+msgid "PAGE_SUPPORT_HEADING"
+msgstr "LunaStore қолдауы"
+
+#: apps/support/tasks.py:81
+msgid "NOTIF_SUPPORT_REPLY_DESCRIPTION"
+msgstr "Қолдау қызметі өтінішіңізге жауап берді."
+
+#: templates/support/messages.html:4
+msgid "PAGE_SUPPORT_CUSTOMER"
+msgstr "Пайдаланушы"
+
+#: templates/admin/support/ticket.html:26
+msgid "ADMIN_SUPPORT_OLDER_EVENTS"
+msgstr "Алдыңғы оқиғалар"
+
+#: apps/support/models.py:20
+msgid "MODEL_SUPPORT_CATEGORY_DOWNLOADS"
+msgstr "Қолданбалар мен жүктеулер"
+
+#: apps/support/forms.py:65 apps/support/models.py:121 apps/support/models.py:38 apps/support/tasks.py:51
+msgid "FORM_SUPPORT_PRIORITY"
+msgstr "Басымдық"
+
+#: apps/support/storage.py:21
+msgid "ERROR_SUPPORT_ATTACHMENT_SIZE"
+msgstr "Файл өлшемі 1 байттан 5 МБ-қа дейін болуы керек."
+
+#: apps/support/models.py:14
+msgid "MODEL_SUPPORT_STATUS_RESOLVED"
+msgstr "Шешілді"
+
+#: apps/support/models.py:148 apps/support/models.py:18
+msgid "SUPPORT_SITE"
+msgstr "Сайт"
+
+#: apps/support/models.py:112
+msgid "EVENT_SUPPORT_GENERIC"
+msgstr "Оқиға"
+
+#: templates/support/base.html:11 templates/support/create.html:3
+msgid "PAGE_SUPPORT_CREATE_TITLE"
+msgstr "Өтініш жасау"
+
+#: apps/support/forms.py:26
+msgid "FORM_SUPPORT_MESSAGE"
+msgstr "Хабарлама"
+
+#: apps/support/services.py:65
+msgid "ERROR_SUPPORT_MESSAGE_LENGTH"
+msgstr "Хабарламада 1-ден 10 000-ға дейін таңба болуы керек."
+
+#: apps/support/models.py:108 apps/support/tasks.py:44
+msgid "EVENT_SUPPORT_CUSTOMER_REPLY"
+msgstr "Пайдаланушы хабарламасы"
+
+#: apps/support/models.py:149
+msgid "MODEL_SUPPORT_DELIVERY_STATE"
+msgstr "Күй"
+
+#: templates/admin/support/ticket.html:9
+msgid "ADMIN_SUPPORT_SAVE_SETTINGS"
+msgstr "Параметрлерді сақтау"
+
+#: apps/support/models.py:15
+msgid "MODEL_SUPPORT_STATUS_SPAM"
+msgstr "Спам"
+
+#: apps/support/forms.py:59 apps/support/models.py:37 templates/support/summary.html:2
+msgid "FORM_SUPPORT_URGENCY"
+msgstr "Жеделдік"
+
+msgid "ADMIN_SUPPORT_CUSTOMER_URGENCY"
+msgstr "Пайдаланушы көрсеткен жеделдік"
+
+#: apps/support/forms.py:64 apps/support/models.py:119 apps/support/models.py:39
+msgid "FORM_SUPPORT_STATUS"
+msgstr "Мәртебе"
+
+#: apps/support/tasks.py:82
+msgid "NOTIF_SUPPORT_STATUS_DESCRIPTION"
+msgstr "Өтінішіңіздің мәртебесі өзгерді."
+
+#: apps/support/forms.py:57 apps/support/models.py:35
+msgid "FORM_SUPPORT_SUBJECT"
+msgstr "Тақырып"
+
+#: apps/support/models.py:55
+msgid "MODEL_SUPPORT_TICKET"
+msgstr "Тикет"
+
+#: apps/support/models.py:56 lunastore/admin_navigation.py:72
+msgid "MODEL_SUPPORT_TICKETS"
+msgstr "Тикеттер"
+
+#: templates/admin/403.html:2
+msgid "PAGE_ADMIN_ACTION_FORBIDDEN"
+msgstr "Бұл әрекетке рұқсатыңыз жоқ."
+
+#: apps/support/forms.py:29
+msgid "FORM_SUPPORT_ATTACHMENT_1"
+msgstr "1-файл"
+
+#: apps/support/forms.py:30
+msgid "FORM_SUPPORT_ATTACHMENT_2"
+msgstr "2-файл"
+
+#: apps/support/forms.py:31
+msgid "FORM_SUPPORT_ATTACHMENT_3"
+msgstr "3-файл"
+
+#: apps/support/storage.py:26
+msgid "ERROR_SUPPORT_ATTACHMENT_TOO_LARGE"
+msgstr "Файл 5 МБ-тан үлкен."
+
+#: apps/support/services.py:116 apps/support/views.py:154
+msgid "ERROR_SUPPORT_TICKET_CLOSED"
+msgstr "Бұл өтініш жаңа хабарламалар үшін жабық."
+
+msgid "PAGE_SUPPORT_CHAT_TITLE"
+msgstr "Қолдау чаты"
+
+msgid "PAGE_SUPPORT_CHAT_DESCRIPTION"
+msgstr "Мәселені жазыңыз. Қолдау тобы осында жауап береді."
+
+msgid "PAGE_SUPPORT_YOU"
+msgstr "Сіз"
+
+msgid "FORM_SUPPORT_ATTACHMENTS_TITLE"
+msgstr "Файлдарды тіркеу"
+
+msgid "PAGE_SUPPORT_CONVERSATION"
+msgstr "Хат алмасу"
+
+msgid "ADMIN_SUPPORT_TICKET_DETAILS"
+msgstr "Өтініш параметрлері"
+
+msgid "FORM_SUPPORT_CHOOSE_FILE"
+msgstr "Файлды таңдау"

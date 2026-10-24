@@ -1,0 +1,40 @@
+{% extends 'support/base.html' %}{% load i18n %}
+{% block support_content %}
+<h1 class="support-ticket-title">#{{ ticket.pk }} — {{ ticket.subject }}</h1>
+{% include 'support/summary.html' %}
+<div id="ls-support-chat">
+    <div class="ls_chat_banner">
+        <div class="ls_chat_banner_title">{% trans 'PAGE_SUPPORT_CHAT_TITLE' %}</div>
+        <p class="ls_chat_banner_description">{% trans 'PAGE_SUPPORT_CHAT_DESCRIPTION' %}</p>
+    </div>
+    {% include 'support/poll.html' %}
+    <div id="support-thread" class="ls_chat_body" data-scroll-latest="{% if page_obj.has_next %}0{% else %}1{% endif %}">
+        {% include 'support/messages.html' %}
+    </div>
+    {% if can_reply %}
+    <form method="post" action="{% url 'support:reply' %}?id={{ ticket.pk }}" enctype="multipart/form-data" class="ls_chat_form">
+        {% csrf_token %}{{ form.request_key }}
+        <div class="ls_chat_errors">{{ form.non_field_errors }}{{ form.body.errors }}{{ form.request_key.errors }}</div>
+        <div class="ls_chat_footer">
+            <label class="ls_chat_composer_label" for="{{ form.body.id_for_label }}">{% if ticket.status == 'resolved' %}{% trans 'PAGE_SUPPORT_REOPEN' %}{% else %}{% trans 'FORM_SUPPORT_MESSAGE' %}{% endif %}</label>
+            <table class="ls_chat_composer" cellpadding="0" cellspacing="0" border="0"><tr>
+                <td>{{ form.body }}</td>
+                <td class="ls_chat_send_cell"><input type="submit" class="ls_chat_send" value="{% trans 'PAGE_SUPPORT_SEND_MESSAGE' %}"></td>
+            </tr></table>
+            <button type="button" id="support-attachments-toggle" class="ls_chat_attach_toggle" aria-controls="support-attachments" aria-expanded="true" style="display:none">{% trans 'FORM_SUPPORT_ATTACHMENTS_TITLE' %}</button>
+            <div id="support-attachments" class="ls_chat_attachments" data-has-errors="{% if form.file1.errors or form.file2.errors or form.file3.errors %}1{% else %}0{% endif %}">
+                <p class="ls_chat_hint">{% trans 'FORM_SUPPORT_ATTACHMENTS_HELP' %}</p>
+                <div class="support-field">{{ form.file1.label_tag }}{{ form.file1 }}{{ form.file1.errors }}</div>
+                <div class="support-field">{{ form.file2.label_tag }}{{ form.file2 }}{{ form.file2.errors }}</div>
+                <div class="support-field">{{ form.file3.label_tag }}{{ form.file3 }}{{ form.file3.errors }}</div>
+            </div>
+        </div>
+    </form>
+    {% else %}<p class="ls_chat_hint">{% trans 'PAGE_SUPPORT_READ_ONLY' %}</p>{% endif %}
+</div>
+{% if can_reply and ticket.status != 'resolved' %}
+<form method="post" action="{% url 'support:close' %}?id={{ ticket.pk }}" class="support-close">{% csrf_token %}
+    <input type="submit" class="support-close-button" value="{% trans 'PAGE_SUPPORT_CLOSE_RESOLVED' %}">
+</form>
+{% endif %}
+{% endblock %}

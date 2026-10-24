@@ -51,6 +51,7 @@ Note: `/method/` is also mounted on the web and admin URLConfs; the dedicated AP
 - Uses `django-modeltranslation`. Language fields use codes **`ru`, `en`, `uk`, `be`, `kk`** (e.g. `title_ru`, `title_en`, …, `title_kk`). Category uses `name_*` rather than `title_*`.
 - When changing translatable model fields, update the matching `translation.py`.
 - Template/message localization uses `{% trans %}` / `gettext_lazy` and syncs with Tolgee (`make i18n-sync`).
+- Use stable uppercase identifiers as `msgid` (e.g. `VIEW_PASSPORT_LINKED_OK`, `PAGE_SUPPORT_CREATE_TITLE`). Human-readable text belongs in `msgstr`; do not use literal Russian or English sentences as new message IDs.
 
 ### 5. Dynamic configuration (Constance & .env)
 - Site settings are managed via `django-constance` (`from constance import config`).
@@ -74,6 +75,10 @@ Note: `/method/` is also mounted on the web and admin URLConfs; the dedicated AP
 - `python manage.py reindex_search` builds temporary indexes and swaps them only after successful Meilisearch tasks. Incremental tasks use nonblocking PostgreSQL advisory locks and reschedule after 5 seconds when busy, freeing the worker for other tasks. Database saves and searches continue.
 - Meilisearch suggestion IDs are checked against current database visibility; displayed titles/usernames and media URLs come from the database, not stale index documents.
 - API v1 search retains its enumerated map and returns at most 100 results. API v2 retains limit/offset pagination.
+
+### 9. Git commits
+- Use Conventional Commits: `feat(support): add ticket conversations`, `fix(storage): isolate private attachments`, etc.
+- Preserve an explicitly requested branch name and commit submodule changes in their own repository before updating its reference.
 
 ---
 
@@ -111,6 +116,19 @@ make dev-analytics-ping
 .\run-dev.ps1 watch-js    # Babel watch mode
 .\run-dev.ps1 test        # Run tests
 .\run-dev.ps1 superuser   # Create superuser
+
+# === Local macOS run (WITHOUT Docker) ===
+./run-dev.sh fast         # Instant start (no checks, installs, or migrations)
+./run-dev.sh start        # Full start with checks, Babel, and migrations
+./run-dev.sh stop         # Stop all services
+./run-dev.sh restart      # Restart all services
+./run-dev.sh status       # Check ports and services
+./run-dev.sh install      # Install/update requirements.txt and npm deps
+./run-dev.sh migrate      # Apply migrations
+./run-dev.sh build-js     # Babel build for IE6
+./run-dev.sh watch-js     # Babel watch mode
+./run-dev.sh test         # Run tests
+./run-dev.sh superuser    # Create superuser
 
 # === JavaScript & Babel ===
 npm run babel:build       # Compile staticfiles/js/ -> static/js/ for IE6

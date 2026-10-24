@@ -1,0 +1,21 @@
+{% load i18n static %}
+{% for message in page_obj %}
+<table width="100%" cellpadding="0" cellspacing="0" border="0" class="ls_chat_msg"><tr>
+    {% if message.from_staff %}
+    <td class="ls_chat_avatar_cell"><img class="ls_chat_avatar png-fix" src="{% static 'img/logo.png' %}" width="30" height="30" alt="{% trans 'PAGE_SUPPORT_TEAM' %}"></td>
+    {% endif %}
+    <td{% if not message.from_staff %} class="ls_chat_right"{% endif %}>
+        <div class="ls_chat_bubble{% if not message.from_staff %} ls_chat_bubble_user{% endif %}">
+            <div class="ls_chat_name{% if not message.from_staff %} ls_chat_name_user{% endif %}">{% if message.from_staff %}{% trans 'PAGE_SUPPORT_TEAM' %}{% else %}{% trans 'PAGE_SUPPORT_YOU' %}{% endif %}</div>
+            <div class="ls_chat_message_text">{{ message.body|linebreaksbr }}</div>
+            {% for attachment in message.attachments.all %}<p class="ls_chat_attachment"><a href="{% url 'support:attachment' attachment.pk %}">{{ attachment.original_name }}</a> <span>({{ attachment.size|filesizeformat }})</span></p>{% endfor %}
+            <div class="ls_chat_time">{{ message.created_at|date:'d.m.Y H:i' }}</div>
+        </div>
+        <div class="ls_chat_clear"></div>
+    </td>
+    {% if not message.from_staff %}
+    <td class="ls_chat_avatar_cell ls_chat_avatar_cell_user"><img class="ls_chat_avatar" src="{% if message.author %}{{ message.author.avatar_url }}{% else %}{% static 'img/noavatar_64.jpg' %}{% endif %}" width="30" height="30" alt="{% trans 'PAGE_SUPPORT_YOU' %}"></td>
+    {% endif %}
+</tr></table>
+{% endfor %}
+{% include 'support/pagination.html' %}

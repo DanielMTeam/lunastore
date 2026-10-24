@@ -3412,3 +3412,489 @@ msgstr "Для гэтай праграмы ўжо ўключаўся ўдзел 
 #: templates/del_acc.html
 msgid "COMMUNITY_ACCOUNT_RETENTION_DESCRIPTION"
 msgstr "Застануцца ў каталогу без уладальніка разам з дыстрыбутывамі. Вы страціце кіраванне імі."
+
+# Support tickets
+
+#: apps/support/models.py:34 apps/support/tasks.py:50
+msgid "FORM_SUPPORT_AUTHOR"
+msgstr "Аўтар"
+
+#: apps/support/models.py:19
+msgid "MODEL_SUPPORT_CATEGORY_ACCOUNT"
+msgstr "Акаўнт"
+
+#: apps/support/tasks.py:50
+msgid "SUPPORT_ACCOUNT_DELETED"
+msgstr "Акаўнт выдалены"
+
+#: templates/support/list.html:9
+msgid "PAGE_SUPPORT_ARCHIVE"
+msgstr "Архіў"
+
+#: lunastore/admin_navigation.py:69
+msgid "PAGE_ADMIN_SUPPORT_LEGACY_REPORTS"
+msgstr "Архіў паведамленняў пра праблемы"
+
+#: apps/support/admin.py:128 apps/support/services.py:31
+msgid "ERROR_SUPPORT_ARCHIVED_READ_ONLY"
+msgstr "Архіўны зварот даступны толькі для чытання."
+
+#: apps/support/admin.py:26
+msgid "ADMIN_SUPPORT_QUEUE_UNASSIGNED"
+msgstr "Без адказнага"
+
+#: templates/support/poll.html:3
+msgid "PAGE_SUPPORT_UPDATES_AVAILABLE"
+msgstr "У звароце ёсць змены."
+
+#: apps/support/models.py:12
+msgid "MODEL_SUPPORT_STATUS_IN_PROGRESS"
+msgstr "У працы"
+
+#: templates/admin/support/ticket.html:19
+msgid "ADMIN_SUPPORT_INTERNAL_NOTE_HELP"
+msgstr "Унутраныя нататкі і іх укладанні бачаць толькі супрацоўнікі падтрымкі."
+
+#: apps/support/models.py:109 templates/support/messages.html:4
+msgid "SUPPORT_INTERNAL_NOTE"
+msgstr "Унутраная нататка"
+
+#: templates/support/detail.html:14
+msgid "PAGE_SUPPORT_CLOSE_RESOLVED"
+msgstr "Пытанне вырашана — закрыць зварот"
+
+#: templates/support/list.html:4
+msgid "PAGE_SUPPORT_FILTER_ALL"
+msgstr "Усе"
+
+#: apps/support/models.py:25
+msgid "MODEL_SUPPORT_URGENCY_HIGH"
+msgstr "Высокая"
+
+#: apps/support/models.py:30
+msgid "MODEL_SUPPORT_PRIORITY_HIGH"
+msgstr "Высокі"
+
+#: templates/support/pagination.html:5
+msgid "PAGE_SUPPORT_NEXT"
+msgstr "Далей"
+
+#: templates/support/poll.html:7
+msgid "PAGE_SUPPORT_REFRESH_WITHOUT_JS"
+msgstr "Абнавіце старонку, каб убачыць новыя адказы."
+
+#: templates/support/form_fields.html:6
+msgid "FORM_SUPPORT_ATTACHMENTS_HELP"
+msgstr "Да трох файлаў па 5 МБ: PNG, JPEG, TXT або LOG. Укладанні бачыце толькі вы і каманда падтрымкі."
+
+#: templates/admin/support/ticket.html:18
+msgid "ADMIN_SUPPORT_ADD_INTERNAL_NOTE"
+msgstr "Дадаць унутраную нататку"
+
+#: apps/support/storage.py:45
+msgid "ERROR_SUPPORT_PLAIN_TEXT_ONLY"
+msgstr "Дазволены толькі звычайныя тэкставыя журналы."
+
+#: apps/support/storage.py:48
+msgid "ERROR_SUPPORT_ATTACHMENT_FORMAT"
+msgstr "Дазволеныя фарматы: PNG, JPEG, TXT, LOG."
+
+#: apps/support/models.py:157
+msgid "MODEL_SUPPORT_DELIVERY"
+msgstr "Дастаўка апавяшчэння"
+
+#: apps/support/admin.py:195
+msgid "ADMIN_SUPPORT_DELIVERIES_QUEUED"
+msgstr "Дастаўкі пастаўлены ў чаргу."
+
+#: apps/support/models.py:158 lunastore/admin_navigation.py:73
+msgid "MODEL_SUPPORT_DELIVERIES"
+msgstr "Дастаўкі апавяшчэнняў"
+
+#: apps/support/models.py:143
+msgid "MODEL_SUPPORT_DELIVERY_SENT"
+msgstr "Дастаўлена"
+
+#: lunastore/urls_private.py:39 templates/admin/403.html:2
+msgid "PAGE_ADMIN_ACCESS_DENIED"
+msgstr "Доступ забаронены"
+
+#: apps/support/models.py:21
+msgid "MODEL_SUPPORT_CATEGORY_OTHER"
+msgstr "Іншае"
+
+#: apps/support/admin.py:27
+msgid "ADMIN_SUPPORT_QUEUE_WAITING_TEAM"
+msgstr "Чакаюць каманду"
+
+#: apps/support/models.py:13
+msgid "MODEL_SUPPORT_STATUS_WAITING"
+msgstr "Чакаем карыстальніка"
+
+#: templates/support/list.html:11
+msgid "PAGE_SUPPORT_EMPTY"
+msgstr "Тут з’явяцца вашы звароты і адказы каманды падтрымкі."
+
+#: templates/admin/support/ticket.html:21
+msgid "ADMIN_SUPPORT_ACTIVITY_HISTORY"
+msgstr "Гісторыя дзеянняў"
+
+#: apps/support/forms.py:58 apps/support/models.py:36
+msgid "FORM_SUPPORT_CATEGORY"
+msgstr "Катэгорыя"
+
+#: templates/support/messages.html:4
+msgid "PAGE_SUPPORT_TEAM"
+msgstr "Каманда падтрымкі"
+
+#: apps/support/models.py:31
+msgid "MODEL_SUPPORT_PRIORITY_CRITICAL"
+msgstr "Крытычны"
+
+#: apps/support/admin.py:26
+msgid "ADMIN_SUPPORT_QUEUE_MINE"
+msgstr "Мае"
+
+#: templates/support/base.html:11 templates/support/list.html:3
+msgid "PAGE_SUPPORT_MY_TICKETS"
+msgstr "Мае звароты"
+
+#: templates/support/pagination.html:3
+msgid "PAGE_SUPPORT_PREVIOUS"
+msgstr "Назад"
+
+#: templates/support/list.html:11
+msgid "PAGE_SUPPORT_CONTACT"
+msgstr "Напісаць у падтрымку"
+
+#: apps/support/forms.py:39 apps/support/services.py:53
+msgid "ERROR_SUPPORT_ATTACHMENT_COUNT"
+msgstr "Не больш за тры файлы на паведамленне."
+
+#: apps/support/forms.py:66
+msgid "FORM_SUPPORT_UNASSIGNED"
+msgstr "Не прызначаны"
+
+#: apps/support/storage.py:102
+msgid "ERROR_SUPPORT_UPLOAD_FAILED"
+msgstr "Не ўдалося загрузіць укладанні. Тэкст захаваны ў форме; выберыце файлы яшчэ раз."
+
+#: templates/support/poll.html:4
+msgid "PAGE_SUPPORT_POLL_FAILED"
+msgstr "Не ўдалося праверыць новыя паведамленні. Праверка паўторыцца аўтаматычна."
+
+#: apps/support/services.py:144
+msgid "ERROR_SUPPORT_ASSIGNEE_UNAVAILABLE"
+msgstr "Адказны недаступны."
+
+#: apps/support/storage.py:37
+msgid "ERROR_SUPPORT_INVALID_IMAGE"
+msgstr "Некарэктны відарыс PNG або JPEG."
+
+#: apps/support/forms.py:42
+msgid "ERROR_SUPPORT_INVALID_ATTACHMENTS"
+msgstr "Некарэктны набор укладанняў."
+
+#: apps/support/services.py:140
+msgid "ERROR_SUPPORT_INVALID_STATUS_OR_PRIORITY"
+msgstr "Некарэктны статус або прыярытэт."
+
+#: apps/support/admin.py:27
+msgid "ADMIN_SUPPORT_QUEUE_UNREAD"
+msgstr "Непрачытаныя мной"
+
+#: apps/support/admin.py:69
+msgid "ADMIN_SUPPORT_UNREAD"
+msgstr "Непрачытана"
+
+#: apps/support/models.py:28
+msgid "MODEL_SUPPORT_PRIORITY_LOW"
+msgstr "Нізкі"
+
+#: apps/support/tasks.py:44
+msgid "NOTIF_SUPPORT_NEW_TICKET"
+msgstr "Новы зварот"
+
+#: apps/support/admin.py:26
+msgid "ADMIN_SUPPORT_QUEUE_NEW"
+msgstr "Новыя"
+
+#: templates/support/list.html:4
+msgid "PAGE_SUPPORT_FILTER_UNREAD"
+msgstr "Новыя адказы"
+
+#: templates/admin/support/ticket.html:24
+msgid "ADMIN_SUPPORT_NEWER_EVENTS"
+msgstr "Навейшыя падзеі"
+
+#: apps/support/models.py:11
+msgid "MODEL_SUPPORT_STATUS_NEW"
+msgstr "Новы"
+
+#: templates/support/list.html:8
+msgid "PAGE_SUPPORT_NEW_REPLY"
+msgstr "Новы адказ"
+
+#: templates/support/poll.html:5
+msgid "PAGE_SUPPORT_REFRESH_THREAD"
+msgstr "Абнавіць перапіску"
+
+#: apps/support/tasks.py:49
+msgid "SUPPORT_TICKET"
+msgstr "Зварот"
+
+#: templates/support/detail.html:16
+msgid "PAGE_SUPPORT_READ_ONLY"
+msgstr "Зварот даступны толькі для чытання."
+
+#: apps/support/models.py:110 apps/support/tasks.py:45
+msgid "EVENT_SUPPORT_TICKET_REOPENED"
+msgstr "Зварот адкрыты паўторна"
+
+#: apps/support/models.py:108
+msgid "EVENT_SUPPORT_TICKET_CREATED"
+msgstr "Зварот створаны"
+
+#: apps/support/models.py:24
+msgid "MODEL_SUPPORT_URGENCY_NORMAL"
+msgstr "Звычайная"
+
+#: apps/support/models.py:29
+msgid "MODEL_SUPPORT_PRIORITY_NORMAL"
+msgstr "Звычайны"
+
+#: apps/support/models.py:141
+msgid "MODEL_SUPPORT_DELIVERY_PENDING"
+msgstr "Чакае"
+
+#: templates/support/create.html:4
+msgid "PAGE_SUPPORT_CREATE_HELP"
+msgstr "Апішыце, што здарылася і якога выніку вы чакалі. Не пазначайце паролі і коды ўваходу."
+
+#: templates/admin/support/ticket.html:13
+msgid "ADMIN_SUPPORT_REPLY_OR_NOTE"
+msgstr "Адказ або ўнутраная нататка"
+
+#: apps/support/models.py:109
+msgid "EVENT_SUPPORT_STAFF_REPLY"
+msgstr "Адказ падтрымкі"
+
+#: templates/support/detail.html:8
+msgid "PAGE_SUPPORT_REPLY"
+msgstr "Адказаць"
+
+#: templates/admin/support/ticket.html:17
+msgid "ADMIN_SUPPORT_REPLY_AND_RESOLVE"
+msgstr "Адказаць і вырашыць"
+
+#: apps/support/forms.py:66 apps/support/models.py:41
+msgid "FORM_SUPPORT_ASSIGNEE"
+msgstr "Адказны"
+
+#: apps/support/models.py:123
+msgid "EVENT_SUPPORT_ASSIGNEE_CHANGED"
+msgstr "Адказны зменены"
+
+#: apps/support/models.py:145
+msgid "MODEL_SUPPORT_DELIVERY_SKIPPED"
+msgstr "Адключана"
+
+#: templates/support/list.html:4
+msgid "PAGE_SUPPORT_FILTER_OPEN"
+msgstr "Адкрытыя"
+
+#: apps/support/tasks.py:52
+msgid "NOTIF_SUPPORT_OPEN_ADMIN"
+msgstr "Адкрыць у панэлі адміністратара"
+
+#: apps/support/tasks.py:86
+msgid "NOTIF_SUPPORT_OPEN_TICKET"
+msgstr "Адкрыць зварот"
+
+#: templates/support/detail.html:8
+msgid "PAGE_SUPPORT_REOPEN"
+msgstr "Адкрыць зварот паўторна"
+
+#: templates/support/create.html:7
+msgid "PAGE_SUPPORT_SUBMIT_TICKET"
+msgstr "Адправіць зварот"
+
+#: templates/admin/support/ticket.html:16
+msgid "ADMIN_SUPPORT_SEND_REPLY"
+msgstr "Адправіць карыстальніку"
+
+#: templates/support/detail.html:11
+msgid "PAGE_SUPPORT_SEND_MESSAGE"
+msgstr "Адправіць паведамленне"
+
+#: apps/support/models.py:142
+msgid "MODEL_SUPPORT_DELIVERY_SENDING"
+msgstr "Адпраўляецца"
+
+#: apps/support/admin.py:22
+msgid "ADMIN_SUPPORT_QUEUE"
+msgstr "Чарга"
+
+#: templates/admin/support/ticket.html:5
+msgid "PAGE_ADMIN_SUPPORT_INBOX"
+msgstr "Чарга падтрымкі"
+
+#: apps/support/models.py:144
+msgid "MODEL_SUPPORT_DELIVERY_FAILED"
+msgstr "Памылка"
+
+#: apps/support/models.py:110
+msgid "EVENT_SUPPORT_SETTINGS_UPDATED"
+msgstr "Параметры зменены"
+
+#: apps/support/models.py:111
+msgid "EVENT_SUPPORT_LEGACY_IMPORTED"
+msgstr "Перанесена са старой формы"
+
+#: apps/support/admin.py:179
+msgid "ADMIN_SUPPORT_RETRY_DELIVERIES"
+msgstr "Паўтарыць няўдалыя дастаўкі"
+
+#: apps/core/dashboard.py:22 apps/support/apps.py:8 lunastore/admin_navigation.py:71 templates/base.html:182 templates/support/base.html:3
+msgid "PAGE_SUPPORT_TITLE"
+msgstr "Падтрымка"
+
+#: apps/support/tasks.py:80 templates/support/base.html:9
+msgid "PAGE_SUPPORT_HEADING"
+msgstr "Падтрымка LunaStore"
+
+#: apps/support/tasks.py:81
+msgid "NOTIF_SUPPORT_REPLY_DESCRIPTION"
+msgstr "Падтрымка адказала на ваш зварот."
+
+#: templates/support/messages.html:4
+msgid "PAGE_SUPPORT_CUSTOMER"
+msgstr "Карыстальнік"
+
+#: templates/admin/support/ticket.html:26
+msgid "ADMIN_SUPPORT_OLDER_EVENTS"
+msgstr "Папярэднія падзеі"
+
+#: apps/support/models.py:20
+msgid "MODEL_SUPPORT_CATEGORY_DOWNLOADS"
+msgstr "Праграмы і спампоўкі"
+
+#: apps/support/forms.py:65 apps/support/models.py:121 apps/support/models.py:38 apps/support/tasks.py:51
+msgid "FORM_SUPPORT_PRIORITY"
+msgstr "Прыярытэт"
+
+#: apps/support/storage.py:21
+msgid "ERROR_SUPPORT_ATTACHMENT_SIZE"
+msgstr "Памер файла павінен быць ад 1 байта да 5 МБ."
+
+#: apps/support/models.py:14
+msgid "MODEL_SUPPORT_STATUS_RESOLVED"
+msgstr "Вырашаны"
+
+#: apps/support/models.py:148 apps/support/models.py:18
+msgid "SUPPORT_SITE"
+msgstr "Сайт"
+
+#: apps/support/models.py:112
+msgid "EVENT_SUPPORT_GENERIC"
+msgstr "Падзея"
+
+#: templates/support/base.html:11 templates/support/create.html:3
+msgid "PAGE_SUPPORT_CREATE_TITLE"
+msgstr "Стварыць зварот"
+
+#: apps/support/forms.py:26
+msgid "FORM_SUPPORT_MESSAGE"
+msgstr "Паведамленне"
+
+#: apps/support/services.py:65
+msgid "ERROR_SUPPORT_MESSAGE_LENGTH"
+msgstr "Паведамленне павінна змяшчаць ад 1 да 10 000 сімвалаў."
+
+#: apps/support/models.py:108 apps/support/tasks.py:44
+msgid "EVENT_SUPPORT_CUSTOMER_REPLY"
+msgstr "Паведамленне карыстальніка"
+
+#: apps/support/models.py:149
+msgid "MODEL_SUPPORT_DELIVERY_STATE"
+msgstr "Стан"
+
+#: templates/admin/support/ticket.html:9
+msgid "ADMIN_SUPPORT_SAVE_SETTINGS"
+msgstr "Захаваць параметры"
+
+#: apps/support/models.py:15
+msgid "MODEL_SUPPORT_STATUS_SPAM"
+msgstr "Спам"
+
+#: apps/support/forms.py:59 apps/support/models.py:37 templates/support/summary.html:2
+msgid "FORM_SUPPORT_URGENCY"
+msgstr "Тэрміновасць"
+
+msgid "ADMIN_SUPPORT_CUSTOMER_URGENCY"
+msgstr "Тэрміновасць карыстальніка"
+
+#: apps/support/forms.py:64 apps/support/models.py:119 apps/support/models.py:39
+msgid "FORM_SUPPORT_STATUS"
+msgstr "Статус"
+
+#: apps/support/tasks.py:82
+msgid "NOTIF_SUPPORT_STATUS_DESCRIPTION"
+msgstr "Статус вашага звароту зменены."
+
+#: apps/support/forms.py:57 apps/support/models.py:35
+msgid "FORM_SUPPORT_SUBJECT"
+msgstr "Тэма"
+
+#: apps/support/models.py:55
+msgid "MODEL_SUPPORT_TICKET"
+msgstr "Тыкет"
+
+#: apps/support/models.py:56 lunastore/admin_navigation.py:72
+msgid "MODEL_SUPPORT_TICKETS"
+msgstr "Тыкеты"
+
+#: templates/admin/403.html:2
+msgid "PAGE_ADMIN_ACTION_FORBIDDEN"
+msgstr "У вас няма дазволу на гэтае дзеянне."
+
+#: apps/support/forms.py:29
+msgid "FORM_SUPPORT_ATTACHMENT_1"
+msgstr "Файл 1"
+
+#: apps/support/forms.py:30
+msgid "FORM_SUPPORT_ATTACHMENT_2"
+msgstr "Файл 2"
+
+#: apps/support/forms.py:31
+msgid "FORM_SUPPORT_ATTACHMENT_3"
+msgstr "Файл 3"
+
+#: apps/support/storage.py:26
+msgid "ERROR_SUPPORT_ATTACHMENT_TOO_LARGE"
+msgstr "Файл большы за 5 МБ."
+
+#: apps/support/services.py:116 apps/support/views.py:154
+msgid "ERROR_SUPPORT_TICKET_CLOSED"
+msgstr "Гэты зварот закрыты для новых паведамленняў."
+
+msgid "PAGE_SUPPORT_CHAT_TITLE"
+msgstr "Чат з падтрымкай"
+
+msgid "PAGE_SUPPORT_CHAT_DESCRIPTION"
+msgstr "Раскажыце пра праблему. Тут з’явяцца адказы каманды падтрымкі."
+
+msgid "PAGE_SUPPORT_YOU"
+msgstr "Вы"
+
+msgid "FORM_SUPPORT_ATTACHMENTS_TITLE"
+msgstr "Прымацаваць файлы"
+
+msgid "PAGE_SUPPORT_CONVERSATION"
+msgstr "Перапіска"
+
+msgid "ADMIN_SUPPORT_TICKET_DETAILS"
+msgstr "Параметры звароту"
+
+msgid "FORM_SUPPORT_CHOOSE_FILE"
+msgstr "Выбраць файл"

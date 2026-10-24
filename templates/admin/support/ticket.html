@@ -1,0 +1,84 @@
+{% extends 'admin/base_site.html' %}{% load i18n static unfold %}
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static 'css/admin_support.css' %}">{% endblock %}
+{% block content %}
+{% trans 'PAGE_SUPPORT_CONVERSATION' as conversation_title %}
+{% trans 'ADMIN_SUPPORT_REPLY_OR_NOTE' as reply_title %}
+{% trans 'ADMIN_SUPPORT_TICKET_DETAILS' as details_title %}
+{% trans 'ADMIN_SUPPORT_ACTIVITY_HISTORY' as history_title %}
+<div class="admin-support-workspace">
+    <div class="admin-support-heading">
+        <div class="min-w-0">
+            <h1 class="text-2xl font-semibold text-font-important-light dark:text-font-important-dark">#{{ ticket.pk }} — {{ ticket.subject }}</h1>
+            {% include 'admin/support/summary.html' %}
+        </div>
+        {% url 'admin:support_ticket_changelist' as inbox_url %}
+        {% component 'unfold/components/button.html' with href=inbox_url variant='default' icon='arrow_back' %}{% trans 'PAGE_ADMIN_SUPPORT_INBOX' %}{% endcomponent %}
+    </div>
+    <div class="admin-support-layout">
+        <div class="admin-support-main">
+            {% component 'unfold/components/card.html' with title=conversation_title size='md' %}
+                {% include 'admin/support/poll.html' %}
+                <div id="support-thread" class="admin-support-thread" data-scroll-latest="{% if page_obj.has_next %}0{% else %}1{% endif %}">
+                    {% include 'admin/support/messages.html' %}
+                </div>
+            {% endcomponent %}
+            {% if can_reply %}
+            {% component 'unfold/components/card.html' with title=reply_title size='md' %}
+                <form method="post" enctype="multipart/form-data" class="admin-support-reply">
+                    {% csrf_token %}{{ form.request_key }}
+                    {% include 'unfold/helpers/form_errors.html' with errors=form.non_field_errors %}
+                    {% include 'unfold/helpers/form_errors.html' with errors=form.request_key.errors %}
+                    {% include 'unfold/helpers/field.html' with field=form.body %}
+                    <details class="admin-support-attachments"{% if form.file1.errors or form.file2.errors or form.file3.errors %} open{% endif %}>
+                        <summary class="text-sm font-medium text-font-important-light dark:text-font-important-dark"><span class="material-symbols-outlined">attach_file</span>{% trans 'FORM_SUPPORT_ATTACHMENTS_TITLE' %}</summary>
+                        <p class="text-xs text-font-subtle-light dark:text-font-subtle-dark my-3">{% trans 'FORM_SUPPORT_ATTACHMENTS_HELP' %}</p>
+                        {% include 'unfold/helpers/field.html' with field=form.file1 %}
+                        {% include 'unfold/helpers/field.html' with field=form.file2 %}
+                        {% include 'unfold/helpers/field.html' with field=form.file3 %}
+                    </details>
+                    <div class="admin-support-actions border-t border-base-200 dark:border-base-800">
+                        {% component 'unfold/components/button.html' with submit=1 name='action' value='reply' icon='send' %}{% trans 'ADMIN_SUPPORT_SEND_REPLY' %}{% endcomponent %}
+                        {% component 'unfold/components/button.html' with submit=1 name='action' value='resolve' variant='default' icon='done_all' %}{% trans 'ADMIN_SUPPORT_REPLY_AND_RESOLVE' %}{% endcomponent %}
+                        {% component 'unfold/components/button.html' with submit=1 name='action' value='note' variant='secondary' icon='lock' %}{% trans 'ADMIN_SUPPORT_ADD_INTERNAL_NOTE' %}{% endcomponent %}
+                    </div>
+                    <p class="text-xs text-font-subtle-light dark:text-font-subtle-dark mt-3">{% trans 'ADMIN_SUPPORT_INTERNAL_NOTE_HELP' %}</p>
+                </form>
+            {% endcomponent %}
+            {% endif %}
+        </div>
+        <aside class="admin-support-sidebar">
+            {% component 'unfold/components/card.html' with title=details_title size='md' %}
+                <dl class="admin-support-details text-sm">
+                    <dt class="text-font-subtle-light dark:text-font-subtle-dark">{% trans 'FORM_SUPPORT_AUTHOR' %}</dt><dd class="font-medium text-font-important-light dark:text-font-important-dark">{{ ticket.owner.username|default:'—' }}</dd>
+                    <dt class="text-font-subtle-light dark:text-font-subtle-dark">{% trans 'FORM_SUPPORT_CATEGORY' %}</dt><dd>{{ ticket.get_category_display }}</dd>
+                    <dt class="text-font-subtle-light dark:text-font-subtle-dark">{% trans 'FORM_SUPPORT_URGENCY' %}</dt><dd>{{ ticket.get_urgency_display }}</dd>
+                </dl>
+                {% if can_reply %}
+                <form method="post" class="mt-4 border-t border-base-200 dark:border-base-800 pt-4">
+                    {% csrf_token %}<input type="hidden" name="action" value="settings">
+                    {% include 'unfold/helpers/form_errors.html' with errors=settings_form.non_field_errors %}
+                    {% for field in settings_form %}{% include 'unfold/helpers/field.html' with field=field %}{% endfor %}
+                    {% component 'unfold/components/button.html' with submit=1 variant='default' class='w-full' icon='save' %}{% trans 'ADMIN_SUPPORT_SAVE_SETTINGS' %}{% endcomponent %}
+                </form>
+                {% endif %}
+            {% endcomponent %}
+            {% component 'unfold/components/card.html' with title=history_title size='md' %}
+                <ol class="admin-support-history">
+                    {% for event in events %}
+                    <li>
+                        <div class="text-sm font-medium text-font-important-light dark:text-font-important-dark">{{ event.label }}</div>
+                        {% if event.summary %}<p class="text-xs mt-1">{{ event.summary }}</p>{% endif %}
+                        <p class="text-xs text-font-subtle-light dark:text-font-subtle-dark mt-1">{{ event.actor.username|default:'—' }} · {{ event.created_at|date:'d.m H:i' }}</p>
+                    </li>
+                    {% endfor %}
+                </ol>
+                {% if event_page.has_other_pages %}<div class="flex flex-wrap items-center gap-3 text-xs mt-4">
+                    {% if event_page.has_previous %}<a href="?page={{ page_obj.number }}&amp;event_page={{ event_page.previous_page_number }}">{% trans 'ADMIN_SUPPORT_NEWER_EVENTS' %}</a>{% endif %}
+                    <span>{{ event_page.number }} / {{ event_page.paginator.num_pages }}</span>
+                    {% if event_page.has_next %}<a href="?page={{ page_obj.number }}&amp;event_page={{ event_page.next_page_number }}">{% trans 'ADMIN_SUPPORT_OLDER_EVENTS' %}</a>{% endif %}
+                </div>{% endif %}
+            {% endcomponent %}
+        </aside>
+    </div>
+</div>
+{% endblock %}

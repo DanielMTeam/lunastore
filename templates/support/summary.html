@@ -1,0 +1,2 @@
+{% load i18n %}
+<p class="support-meta" id="support-ticket-summary">{% if support_staff %}{{ ticket.owner.username|default:'—' }} · {% endif %}{{ ticket.get_status_display }} · {{ ticket.get_category_display }} · {% trans 'FORM_SUPPORT_URGENCY' %}: {{ ticket.get_urgency_display }}</p>
