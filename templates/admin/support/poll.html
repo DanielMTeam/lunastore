@@ -1,0 +1,7 @@
+{% load i18n static unfold %}
+<div id="support-poll" class="admin-support-poll" data-url="{{ poll_url }}" data-revision="{{ revision }}" data-refresh-url="{{ refresh_url }}">
+    {% component 'unfold/components/button.html' with type='button' variant='ghost' size='sm' icon='refresh' extra_attrs='id="support-refresh"' %}{% trans 'PAGE_SUPPORT_REFRESH_THREAD' %}{% endcomponent %}
+    <p id="support-updates" class="text-sm text-primary-600 dark:text-primary-400" style="display:none" role="status">{% trans 'PAGE_SUPPORT_UPDATES_AVAILABLE' %}</p>
+    <p id="support-poll-error" class="text-sm text-red-600 dark:text-red-400" style="display:none" role="status">{% trans 'PAGE_SUPPORT_POLL_FAILED' %}</p>
+</div>
+<script src="{% static 'js/support.js' %}"></script>

@@ -6,8 +6,11 @@ from django.contrib.auth.models import Permission
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 
+from unfold.widgets import UnfoldAdminSelectWidget, UnfoldAdminTextareaWidget
+
 from .models import Ticket
 from .storage import validate_upload
+from .widgets import SupportAdminFileWidget
 
 
 def eligible_staff():
@@ -24,7 +27,7 @@ def eligible_staff():
 
 class MessageForm(forms.Form):
     body = forms.CharField(label=_('FORM_SUPPORT_MESSAGE'), max_length=10000,
-                           widget=forms.Textarea(attrs={'rows': 7, 'cols': 60}))
+                           widget=forms.Textarea(attrs={'rows': 7, 'cols': 60, 'class': 'no-md'}))
     request_key = forms.UUIDField(widget=forms.HiddenInput, initial=uuid.uuid4)
     file1 = forms.FileField(label=_('FORM_SUPPORT_ATTACHMENT_1'), required=False)
     file2 = forms.FileField(label=_('FORM_SUPPORT_ATTACHMENT_2'), required=False)
@@ -53,6 +56,22 @@ class MessageForm(forms.Form):
         return [self.cleaned_data[name] for name in ('file1', 'file2', 'file3') if self.cleaned_data.get(name)]
 
 
+class ChatMessageForm(MessageForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['body'].widget = forms.Textarea(attrs={
+            'rows': 2, 'cols': 35, 'class': 'ls_chat_input no-md',
+        })
+
+
+class StaffMessageForm(MessageForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['body'].widget = UnfoldAdminTextareaWidget(attrs={'rows': 4, 'class': 'w-full'})
+        for name in ('file1', 'file2', 'file3'):
+            self.fields[name].widget = SupportAdminFileWidget(attrs={'accept': '.png,.jpg,.jpeg,.txt,.log'})
+
+
 class TicketForm(MessageForm):
     subject = forms.CharField(label=_('FORM_SUPPORT_SUBJECT'), max_length=200)
     category = forms.ChoiceField(label=_('FORM_SUPPORT_CATEGORY'), choices=Ticket.Category)
@@ -61,9 +80,11 @@ class TicketForm(MessageForm):
 
 
 class StaffTicketForm(forms.Form):
-    status = forms.ChoiceField(label=_('FORM_SUPPORT_STATUS'), choices=Ticket.Status)
-    priority = forms.TypedChoiceField(label=_('FORM_SUPPORT_PRIORITY'), choices=Ticket.Priority, coerce=int)
-    assignee = forms.ModelChoiceField(label=_('FORM_SUPPORT_ASSIGNEE'), queryset=None, required=False, empty_label=_('FORM_SUPPORT_UNASSIGNED'))
+    status = forms.ChoiceField(label=_('FORM_SUPPORT_STATUS'), choices=Ticket.Status, widget=UnfoldAdminSelectWidget)
+    priority = forms.TypedChoiceField(label=_('FORM_SUPPORT_PRIORITY'), choices=Ticket.Priority, coerce=int,
+                                      widget=UnfoldAdminSelectWidget)
+    assignee = forms.ModelChoiceField(label=_('FORM_SUPPORT_ASSIGNEE'), queryset=None, required=False,
+                                      empty_label=_('FORM_SUPPORT_UNASSIGNED'), widget=UnfoldAdminSelectWidget)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

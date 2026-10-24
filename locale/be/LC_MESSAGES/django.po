@@ -3877,3 +3877,24 @@ msgstr "Файл большы за 5 МБ."
 #: apps/support/services.py:116 apps/support/views.py:154
 msgid "ERROR_SUPPORT_TICKET_CLOSED"
 msgstr "Гэты зварот закрыты для новых паведамленняў."
+
+msgid "PAGE_SUPPORT_CHAT_TITLE"
+msgstr "Чат з падтрымкай"
+
+msgid "PAGE_SUPPORT_CHAT_DESCRIPTION"
+msgstr "Раскажыце пра праблему. Тут з’явяцца адказы каманды падтрымкі."
+
+msgid "PAGE_SUPPORT_YOU"
+msgstr "Вы"
+
+msgid "FORM_SUPPORT_ATTACHMENTS_TITLE"
+msgstr "Прымацаваць файлы"
+
+msgid "PAGE_SUPPORT_CONVERSATION"
+msgstr "Перапіска"
+
+msgid "ADMIN_SUPPORT_TICKET_DETAILS"
+msgstr "Параметры звароту"
+
+msgid "FORM_SUPPORT_CHOOSE_FILE"
+msgstr "Выбраць файл"

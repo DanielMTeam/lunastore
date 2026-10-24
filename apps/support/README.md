@@ -43,6 +43,18 @@ Conversation ordering and duplicate POST handling are serialized per ticket (cre
 Internal notes never advance public revisions or appear in public queries/download routes. Read cursors
 advance only to messages included in the rendered page and never backwards. Staff cursors are personal.
 
+## Chat interfaces
+
+The public conversation uses the supplied frontend chat layout and original banner asset. The `ls_chat_*`
+classes keep its table/float layout compatible with IE6, with a scrollable history, author avatars and a
+compact plain-text composer. Attachment fields work without JavaScript and collapse progressively when
+JavaScript is available. A refresh replaces only the conversation and preserves the draft and file inputs.
+
+The moderator workspace uses Unfold cards, buttons, labels, select/textarea/file widgets and standard field
+error rendering. Conversation and reply occupy the main column; ticket parameters and the audit history
+sit in the sidebar, stacking on small screens. Internal notes have a separate visual treatment. Public
+and moderator chat styles live in separate CSS files.
+
 ## Private attachments
 
 Three PNG/JPEG/TXT/LOG files, up to 5 MiB each. Three separate file controls work in IE6. Django validates

@@ -1,0 +1,12 @@
+{% load i18n %}
+<div class="flex flex-row">
+    <div class="{{ widget.file_wrapper_class }}">
+        <label for="{{ widget.attrs.id }}" class="flex grow relative min-w-0">
+            <input type="text" aria-label="{% trans 'FORM_SUPPORT_CHOOSE_FILE' %}" value="{% trans 'FORM_SUPPORT_CHOOSE_FILE' %}" disabled class="grow font-medium min-w-0 px-3 py-2 text-ellipsis">
+            <span class="absolute opacity-0 inset-0 z-10 cursor-pointer *:cursor-pointer *:h-[36px] *:w-full">
+                <input type="{{ widget.type }}" name="{{ widget.name }}" {% include 'django/forms/widgets/attrs.html' %}>
+            </span>
+        </label>
+        <label for="{{ widget.attrs.id }}" class="flex items-center cursor-pointer text-base-400 px-3 hover:text-base-700 dark:text-base-500 dark:hover:text-base-200"><span class="material-symbols-outlined">file_upload</span></label>
+    </div>
+</div>

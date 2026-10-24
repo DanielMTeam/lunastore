@@ -3858,3 +3858,24 @@ msgstr "Файл 5 МБ-тан үлкен."
 #: apps/support/services.py:116 apps/support/views.py:154
 msgid "ERROR_SUPPORT_TICKET_CLOSED"
 msgstr "Бұл өтініш жаңа хабарламалар үшін жабық."
+
+msgid "PAGE_SUPPORT_CHAT_TITLE"
+msgstr "Қолдау чаты"
+
+msgid "PAGE_SUPPORT_CHAT_DESCRIPTION"
+msgstr "Мәселені жазыңыз. Қолдау тобы осында жауап береді."
+
+msgid "PAGE_SUPPORT_YOU"
+msgstr "Сіз"
+
+msgid "FORM_SUPPORT_ATTACHMENTS_TITLE"
+msgstr "Файлдарды тіркеу"
+
+msgid "PAGE_SUPPORT_CONVERSATION"
+msgstr "Хат алмасу"
+
+msgid "ADMIN_SUPPORT_TICKET_DETAILS"
+msgstr "Өтініш параметрлері"
+
+msgid "FORM_SUPPORT_CHOOSE_FILE"
+msgstr "Файлды таңдау"

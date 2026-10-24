@@ -1,41 +1,56 @@
-/* LunaStore's existing XP shell and typography remain the design system. */
+/* LunaStore XP shell; chat adapted from the supplied frontend block.html. */
 .support-workspace h1 { font-size: 20px; line-height: 1.3; margin: 12px 0; word-wrap: break-word; }
+.support-workspace h1.support-ticket-title { font-size: 16px; }
 .support-workspace h2 { font-size: 16px; margin: 20px 0 12px; }
 .support-navigation { margin: 0 0 18px; }
-.support-meta { font-size: 12px; line-height: 1.5; margin: 6px 0; }
+.support-meta { font-size: 12px; line-height: 1.5; margin: 6px 0 12px; }
 .support-ticket-row { padding: 12px 0; border-bottom: 1px solid #b9c9df; }
 .support-ticket-row p { margin: 4px 0; }
 .support-empty { padding: 20px 0; line-height: 1.6; }
 .support-unread { margin-left: 8px; }
-.support-message { margin: 12px 0; padding: 12px; border: 1px solid #b9c9df; }
-.support-staff { border-left: 4px solid #3776b9; }
-.support-note { border: 2px dashed #89734b; }
-.support-message-heading { margin: 0 0 10px; font-size: 12px; }
-.support-message-body { line-height: 1.6; word-wrap: break-word; overflow-wrap: anywhere; }
-.support-attachment { margin: 8px 0 0; word-wrap: break-word; }
-.support-field { margin: 14px 0; }
-.support-field label { display: block; margin-bottom: 6px; font-weight: bold; }
+.support-field { margin: 12px 0; }
+.support-field label { display: block; margin-bottom: 5px; font-weight: bold; }
 .support-field textarea { width: 95%; height: 140px; }
 .support-field input[type=text] { width: 95%; }
-.support-field select { max-width: 95%; }
-.support-field input[type=file] { max-width: 95%; }
-.support-pagination { margin: 16px 0; }
-.support-close { margin: 18px 0 0; }
+.support-field select, .support-field input[type=file] { max-width: 95%; }
+.support-pagination { margin: 12px 0; }
+.support-close { margin: 14px 0 0; }
 .support-workspace .errorlist { color: #a40000; background: #fff0f0; padding: 8px; }
-#support-updates { padding: 10px; border: 1px solid #3776b9; }
-#support-poll-error { padding: 8px 0; }
-/* Unfold resets native controls. Keep the support workspace legible in either admin theme. */
-.support-admin .support-form { padding: 16px 0; }
-.support-admin .support-form p { margin: 10px 0; }
-.support-admin .support-form label { display: block; margin-bottom: 6px; }
-.support-admin input[type=text], .support-admin textarea, .support-admin select {
-  padding: 8px; border: 1px solid #8495ac; background: transparent; color: inherit;
-}
-.support-admin button { padding: 8px 12px; border: 1px solid #8495ac; margin: 4px 0; cursor: pointer; }
-.support-admin button:hover { border-color: #3776b9; }
-.support-admin h1 { font-size: 24px; }
-.support-admin input:focus, .support-admin textarea:focus, .support-admin select:focus,
-.support-admin button:focus { outline: 2px solid #3776b9; outline-offset: 2px; }
-.support-admin .support-settings { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 16px; }
-.support-admin .support-settings p { margin: 0; }
-.support-admin .support-settings select { min-width: 160px; }
+.support-close-button { padding: 5px 8px; border: 1px solid #7aa0e6; background: #e0edff; color: #163b6f; cursor: pointer; }
+#ls-support-chat { margin: 12px 0; padding: 0; width: 100%; background: #fff; color: #000; font: 12px Tahoma, Arial, sans-serif; zoom: 1; }
+#ls-support-chat .ls_chat_banner { height: 100px; background: #5b9fe2 url('../img/support/chat-banner.png') no-repeat right top; }
+#ls-support-chat .ls_chat_banner_title { padding: 10px 10px 6px; font-size: 24px; font-weight: bold; color: #fff; line-height: 1.15; }
+#ls-support-chat .ls_chat_banner_description { margin: 0 10px; width: 55%; color: #fff; font-size: 11px; line-height: 14px; }
+#ls-support-chat .ls_chat_toolbar { padding: 6px 8px; background: #f2f6fd; border: 1px solid #cfe1ff; }
+#ls-support-chat .ls_chat_refresh { border: 0; padding: 2px 0; background: transparent; color: #215dc6; text-decoration: underline; cursor: pointer; font: 11px Tahoma, Arial, sans-serif; }
+#ls-support-chat .ls_chat_toolbar p { margin: 5px 0 0; }
+#ls-support-chat .ls_chat_body { height: 320px; overflow: auto; padding: 8px; border: 1px solid #cfe1ff; border-top: 0; zoom: 1; }
+#ls-support-chat .ls_chat_msg { width: 100%; margin: 0 0 10px; border-collapse: collapse; table-layout: fixed; }
+#ls-support-chat .ls_chat_msg td { padding: 0; vertical-align: top; font: 12px Tahoma, Arial, sans-serif; color: #000; }
+#ls-support-chat td.ls_chat_avatar_cell { width: 38px; }
+#ls-support-chat td.ls_chat_avatar_cell_user { text-align: right; }
+#ls-support-chat .ls_chat_avatar { width: 30px; height: 30px; border: 0; }
+#ls-support-chat .ls_chat_bubble { width: 76%; padding: 7px 8px; background: #fff; border: 1px solid #7aa0e6; color: #000; line-height: 16px; word-wrap: break-word; }
+#ls-support-chat .ls_chat_bubble_user { float: right; margin-right: 8px; background: #e0edff; }
+#ls-support-chat .ls_chat_name { margin-bottom: 4px; font-size: 11px; font-weight: bold; color: #215dc6; }
+#ls-support-chat .ls_chat_name_user { text-align: right; }
+#ls-support-chat .ls_chat_message_text { word-wrap: break-word; overflow-wrap: anywhere; text-align: left; }
+#ls-support-chat .ls_chat_time { margin-top: 5px; font-size: 10px; line-height: 12px; color: #666; text-align: right; }
+#ls-support-chat .ls_chat_right { text-align: right; }
+#ls-support-chat .ls_chat_clear { clear: both; height: 0; overflow: hidden; font-size: 0; line-height: 0; }
+#ls-support-chat .ls_chat_attachment { margin: 7px 0 0; word-wrap: break-word; }
+#ls-support-chat .ls_chat_attachment a { color: #215dc6; text-decoration: underline; }
+#ls-support-chat .ls_chat_form { margin: 0; }
+#ls-support-chat .ls_chat_errors .errorlist { margin: 0; }
+#ls-support-chat .ls_chat_footer { padding: 8px; background: #d6dff7; zoom: 1; }
+#ls-support-chat .ls_chat_composer_label { display: block; margin-bottom: 5px; color: #163b6f; font-weight: bold; }
+#ls-support-chat .ls_chat_composer { width: 100%; border-collapse: collapse; table-layout: fixed; }
+#ls-support-chat .ls_chat_composer td { padding: 0; vertical-align: bottom; }
+#ls-support-chat .ls_chat_composer td.ls_chat_send_cell { width: 115px; padding-left: 8px; }
+#ls-support-chat .ls_chat_input { width: 96%; margin: 0; padding: 4px 3px; border: 1px solid #7aa0e6; background: #fff; color: #000; font: 12px Tahoma, Arial, sans-serif; height: 40px; resize: vertical; }
+#ls-support-chat .ls_chat_send { width: 100%; padding: 6px 3px; margin: 0; border: 1px solid #006000; background: #5fa359; color: #fff; font: bold 11px Tahoma, Arial, sans-serif; cursor: pointer; white-space: normal; }
+#ls-support-chat .ls_chat_send:active { background: #006000; }
+#ls-support-chat .ls_chat_attach_toggle { border: 0; padding: 7px 0 0; background: transparent; color: #215dc6; text-decoration: underline; cursor: pointer; font: 11px Tahoma, Arial, sans-serif; }
+#ls-support-chat .ls_chat_hint { margin: 0; padding: 6px 0; font-size: 11px; color: #3c4d67; line-height: 15px; }
+#ls-support-chat .ls_chat_attachments .support-field { margin: 7px 0; }
+#ls-support-chat .ls_chat_attachments input { color: #000; font: 11px Tahoma, Arial, sans-serif; max-width: 100%; }

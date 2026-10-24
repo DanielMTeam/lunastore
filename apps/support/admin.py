@@ -12,7 +12,7 @@ from django.utils.translation import gettext_lazy as _
 from unfold.admin import ModelAdmin
 
 from . import services
-from .forms import MessageForm, StaffTicketForm
+from .forms import StaffMessageForm, StaffTicketForm
 from .models import Attachment, Delivery, Message, ReadReceipt, Ticket
 from .storage import download_url, stage_uploads
 from .views import message_page
@@ -105,8 +105,9 @@ class TicketAdmin(ModelAdmin):
             return HttpResponseNotAllowed(['GET', 'POST'])
         ticket = get_object_or_404(Ticket.objects.select_related('owner', 'assignee'), pk=object_id if str(object_id).isdigit() else 0)
         action = request.POST.get('action')
-        reply_form = MessageForm(request.POST if request.method == 'POST' and action != 'settings' else None,
-                                 request.FILES or None)
+        reply_form = StaffMessageForm(
+            request.POST if request.method == 'POST' and action != 'settings' else None, request.FILES or None,
+        )
         settings_form = StaffTicketForm(request.POST if request.method == 'POST' and action == 'settings' else None,
                                         initial={'status': ticket.status, 'priority': ticket.priority,
                                                  'assignee': ticket.assignee_id})

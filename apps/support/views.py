@@ -19,7 +19,7 @@ from apps.user.middleware import BlockBannedIP
 from apps.user.models import UserBan
 from apps.user.services.antispam import AntiSpamService, NoSpamContext
 from . import services
-from .forms import MessageForm, TicketForm
+from .forms import ChatMessageForm, TicketForm
 from .models import Attachment, Message, Ticket
 from .storage import download_url, stage_uploads
 
@@ -123,7 +123,7 @@ def render_ticket(request, ticket, form=None, status=200):
     template = ('support/thread_fragment.html' if request.method == 'GET' and request.GET.get('fragment') == '1'
                 else 'support/detail.html')
     return render(request, template, {
-        'ticket': ticket, 'page_obj': page, 'form': form if form is not None else MessageForm(),
+        'ticket': ticket, 'page_obj': page, 'form': form if form is not None else ChatMessageForm(),
         'can_reply': ticket.archived_at is None and ticket.status != Ticket.Status.SPAM,
         'poll_url': reverse('support:updates') + f'?id={ticket.pk}', 'revision': ticket.public_revision,
         'refresh_url': ticket_url(ticket.pk) + '&fragment=1',
@@ -143,7 +143,7 @@ def ticket_detail(request):
 def ticket_reply(request):
     ticket = owner_ticket(request)
     guard_write(request, 'support_reply')
-    form = MessageForm(request.POST, request.FILES)
+    form = ChatMessageForm(request.POST, request.FILES)
     if form.is_valid():
         existing = Message.objects.filter(ticket=ticket, author=request.user,
                                           request_key=form.cleaned_data['request_key']).first()
@@ -170,7 +170,7 @@ def ticket_close(request):
     try:
         services.update_ticket(ticket.pk, request.user, status=Ticket.Status.RESOLVED)
     except ValidationError as exc:
-        form = MessageForm()
+        form = ChatMessageForm()
         form.add_error(None, exc)
         return render_ticket(request, ticket, form, status=400)
     return redirect(ticket_url(ticket.pk))

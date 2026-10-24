@@ -3869,3 +3869,24 @@ msgstr "The file exceeds 5 MB."
 #: apps/support/services.py:116 apps/support/views.py:154
 msgid "ERROR_SUPPORT_TICKET_CLOSED"
 msgstr "This ticket is closed to new messages."
+
+msgid "PAGE_SUPPORT_CHAT_TITLE"
+msgstr "Chat with support"
+
+msgid "PAGE_SUPPORT_CHAT_DESCRIPTION"
+msgstr "Tell us about the issue. Replies from our support team will appear here."
+
+msgid "PAGE_SUPPORT_YOU"
+msgstr "You"
+
+msgid "FORM_SUPPORT_ATTACHMENTS_TITLE"
+msgstr "Attach files"
+
+msgid "PAGE_SUPPORT_CONVERSATION"
+msgstr "Conversation"
+
+msgid "ADMIN_SUPPORT_TICKET_DETAILS"
+msgstr "Ticket details"
+
+msgid "FORM_SUPPORT_CHOOSE_FILE"
+msgstr "Choose a file"

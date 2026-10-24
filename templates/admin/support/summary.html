@@ -1,0 +1,6 @@
+{% load i18n unfold %}
+<p id="support-ticket-summary" class="admin-support-summary text-sm text-font-subtle-light dark:text-font-subtle-dark">
+    {% component 'unfold/helpers/label.html' with text=ticket.get_status_display variant='info' %}{% endcomponent %}
+    <span>{{ ticket.owner.username|default:'—' }} · {{ ticket.get_category_display }}</span>
+    {% if ticket.archived_at %}<span>{% trans 'PAGE_SUPPORT_ARCHIVE' %}</span>{% endif %}
+</p>

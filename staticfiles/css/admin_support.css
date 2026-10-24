@@ -1,0 +1,38 @@
+/* Unfold owns controls, colors and cards. These rules only arrange the support workspace. */
+.admin-support-workspace { width: 100%; max-width: 1440px; margin: 0 auto; min-width: 0; }
+.admin-support-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
+.admin-support-heading h1 { overflow-wrap: anywhere; line-height: 1.3; }
+.admin-support-summary { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 10px; }
+/* The canvas closes as (remaining width - 24px gap - 288px sidebar) + 24 + 288. */
+.admin-support-layout { display: grid; grid-template-columns: minmax(0, 1fr) 288px; gap: 24px; align-items: start; }
+.admin-support-main, .admin-support-sidebar { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.admin-support-thread { height: 320px; overflow-y: auto; overflow-x: hidden; padding: 6px 2px; }
+.admin-support-poll { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: -4px 0 12px; }
+.admin-support-message { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 16px; }
+.admin-support-message--staff { flex-direction: row-reverse; }
+.admin-support-avatar { width: 32px; height: 32px; flex: 0 0 32px; border-radius: 50%; object-fit: cover; }
+.admin-support-message-bubble { max-width: 88%; min-width: 0; padding: 12px 14px; border: 1px solid var(--color-base-200, #e5e7eb); border-radius: var(--border-radius, 6px); }
+.admin-support-message--staff .admin-support-message-bubble { background: var(--color-base-50, #f9fafb); }
+.admin-support-message-author { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; margin-bottom: 7px; }
+.admin-support-message-text { line-height: 1.6; overflow-wrap: anywhere; }
+.admin-support-message-time { display: block; text-align: right; margin-top: 8px; }
+.admin-support-message--note .admin-support-message-bubble { width: 100%; max-width: none; background: #fffaf0; border-color: #eedbb2; }
+.admin-support-file { display: flex; align-items: center; flex-wrap: wrap; gap: 5px; margin-top: 10px; overflow-wrap: anywhere; }
+.admin-support-file .material-symbols-outlined { font-size: 16px; }
+.admin-support-actions { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 16px; margin-top: 16px; }
+.admin-support-reply textarea { min-height: 100px; max-width: 100%; }
+.admin-support-attachments summary { display: flex; align-items: center; gap: 6px; cursor: pointer; padding: 4px 0; }
+.admin-support-attachments summary .material-symbols-outlined { font-size: 18px; }
+.admin-support-attachments { min-width: 0; }
+.admin-support-details { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px 12px; }
+.admin-support-details dd { text-align: right; overflow-wrap: anywhere; }
+.admin-support-history { margin: 0; padding: 0; list-style: none; }
+.admin-support-history li { position: relative; padding: 0 0 18px 15px; border-left: 1px solid var(--color-base-200, #e5e7eb); }
+.admin-support-history li:last-child { padding-bottom: 0; }
+.admin-support-history li:before { content: ''; position: absolute; left: -4px; top: 5px; width: 7px; height: 7px; border-radius: 50%; background: var(--color-base-400, #9ca3af); }
+.dark .admin-support-message-bubble, .dark .admin-support-history li { border-color: var(--color-base-700, #374151); }
+.dark .admin-support-message--staff .admin-support-message-bubble { background: var(--color-base-800, #1f2937); }
+.dark .admin-support-message--note .admin-support-message-bubble { background: #2a241a; border-color: #5f4b29; }
+@media (max-width: 1199px) { .admin-support-layout { grid-template-columns: minmax(0, 1fr); } .admin-support-sidebar { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; } }
+@media (max-width: 640px) { .admin-support-heading { flex-direction: column; } .admin-support-sidebar { display: flex; } .admin-support-thread { height: 320px; } .admin-support-message-bubble { max-width: calc(100% - 42px); } .admin-support-message--note .admin-support-message-bubble { max-width: 100%; } }
+.dark .admin-support-thread { color-scheme: dark; scrollbar-color: var(--color-base-600, #4b5563) var(--color-base-900, #111827); }

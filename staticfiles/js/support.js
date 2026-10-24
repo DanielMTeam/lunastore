@@ -13,6 +13,41 @@
     var notice = document.getElementById('support-updates');
     var error = document.getElementById('support-poll-error');
     var refresh = document.getElementById('support-refresh');
+    var currentThread = document.getElementById('support-thread');
+    if (currentThread && currentThread.getAttribute('data-scroll-latest') === '1') {
+      currentThread.scrollTop = currentThread.scrollHeight;
+    }
+    var attachmentToggle = document.getElementById('support-attachments-toggle');
+    var attachments = document.getElementById('support-attachments');
+    if (attachmentToggle && attachments) {
+      attachmentToggle.style.display = 'inline';
+      var expanded = attachments.getAttribute('data-has-errors') === '1';
+      var fileInputs = attachments.getElementsByTagName('input');
+      for (var f = 0; f < fileInputs.length; f++) {
+        if (fileInputs[f].type === 'file' && fileInputs[f].value) expanded = true;
+      }
+      attachments.style.display = expanded ? 'block' : 'none';
+      attachmentToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      attachmentToggle.onclick = function () {
+        var show = attachments.style.display === 'none';
+        attachments.style.display = show ? 'block' : 'none';
+        attachmentToggle.setAttribute('aria-expanded', show ? 'true' : 'false');
+      };
+      var attachmentLabel = attachmentToggle.firstChild ? attachmentToggle.firstChild.nodeValue : '';
+      function updateAttachmentCount() {
+        var count = 0;
+        for (var n = 0; n < fileInputs.length; n++) {
+          if (fileInputs[n].type === 'file' && fileInputs[n].value) count++;
+        }
+        if (attachmentToggle.firstChild) {
+          attachmentToggle.firstChild.nodeValue = attachmentLabel + (count ? ' (' + count + ')' : '');
+        }
+      }
+      for (var a = 0; a < fileInputs.length; a++) {
+        if (fileInputs[a].type === 'file') fileInputs[a].onchange = updateAttachmentCount;
+      }
+      updateAttachmentCount();
+    }
     function updateThread() {
       var request = xhr();
       if (!request) return;
@@ -38,7 +73,11 @@
           if (divs[i].id === 'support-poll') newRevision = divs[i].getAttribute('data-revision');
         }
         if (thread) {
-          document.getElementById('support-thread').innerHTML = thread.innerHTML;
+          var target = document.getElementById('support-thread');
+          var followLatest = target.scrollHeight - target.scrollTop - target.clientHeight < 60;
+          var oldScroll = target.scrollTop;
+          target.innerHTML = thread.innerHTML;
+          target.scrollTop = followLatest ? target.scrollHeight : oldScroll;
           revision = newRevision;
           if (summary && document.getElementById('support-ticket-summary')) {
             document.getElementById('support-ticket-summary').innerHTML = summary.innerHTML;
