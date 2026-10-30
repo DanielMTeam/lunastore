@@ -212,12 +212,14 @@ def approve_app_edit_request(req, actor=None, auto=False):
     Returns the updated ``Application``, or ``None`` when the request was
     already approved or the target application is gone.
     """
+    app = Application.objects.select_for_update().filter(pk=req.target_application_id).first()
+    if app is None:
+        return None
     req = AppEditRequests.objects.select_for_update().filter(pk=req.pk, status=STATUS_PENDING).first()
     if req is None:
         return None
 
-    app = Application.objects.select_for_update().filter(pk=req.target_application_id).first()
-    if app is None or not community_request_is_current(req, app, target=app):
+    if req.target_application_id != app.pk or not community_request_is_current(req, app, target=app):
         return None
 
     app.categories.set(req.categories.all())
@@ -227,15 +229,17 @@ def approve_app_edit_request(req, actor=None, auto=False):
     app.price = req.price
     app.is_demo = req.is_demo
     app.developer_site = req.developer_site
-    if req.user_id == app.user_id and not app.community_protected:
+    if (req.user_id == app.user_id or req.request_origin == "admin") and not app.community_protected:
         app.is_private = req.is_private
 
     if req.icon_path:
         app.icon_id = req.icon_id
         app.icon_path = req.icon_path
-    if req.screenshots is not None:
+    if req.request_origin != "editor" and req.screenshots is not None:
         app.screenshots = req.screenshots
 
+    if req.request_origin == "admin":
+        app.allow_reviews = req.allow_reviews
     _copy_app_translations(req, app)
     app.save()
 
@@ -266,12 +270,14 @@ def approve_dist_create_request(req, actor=None, auto=False):
     Returns the created ``Distribution``, or ``None`` when the request was
     already approved.
     """
+    app = Application.objects.select_for_update().filter(pk=req.app_id).first()
+    if app is None:
+        return None
     req = DistributionCreateRequests.objects.select_for_update().filter(pk=req.pk, status=STATUS_PENDING).first()
     if req is None:
         return None
 
-    app = Application.objects.select_for_update().filter(pk=req.app_id).first()
-    if app is None or not community_request_is_current(req, app):
+    if req.app_id != app.pk or not community_request_is_current(req, app):
         return None
 
     dist = Distribution(
@@ -314,13 +320,15 @@ def approve_dist_edit_request(req, actor=None, auto=False):
     Returns the updated ``Distribution``, or ``None`` when the request was
     already approved or the target distribution is gone.
     """
+    app = Application.objects.select_for_update().filter(pk=req.app_id).first()
+    if app is None:
+        return None
     req = DistributionEditRequests.objects.select_for_update().filter(pk=req.pk, status=STATUS_PENDING).first()
     if req is None:
         return None
 
-    app = Application.objects.select_for_update().filter(pk=req.app_id).first()
     dist = Distribution.objects.select_for_update().filter(pk=req.target_distribution_id, app_id=req.app_id).first()
-    if app is None or dist is None or not community_request_is_current(req, app, target=dist):
+    if req.app_id != app.pk or dist is None or not community_request_is_current(req, app, target=dist):
         return None
 
     dist.version = req.version
@@ -373,9 +381,9 @@ def auto_approve_request(req):
     if getattr(req, "status", None) != STATUS_PENDING:
         return None
 
-    if isinstance(req, AppEditRequests) and req.user_id != req.target_application.user_id:
+    if isinstance(req, AppEditRequests) and req.user_id != req.target_application.user_id and req.request_origin not in ("admin", "editor"):
         return None
-    if isinstance(req, (DistributionCreateRequests, DistributionEditRequests)) and req.user_id != req.app.user_id:
+    if isinstance(req, (DistributionCreateRequests, DistributionEditRequests)) and req.user_id != req.app.user_id and req.request_origin != "admin":
         return None
 
     if not is_trusted_user(getattr(req, "user", None)):

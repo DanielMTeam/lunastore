@@ -53,7 +53,7 @@
     </style>
 
     <div class="tabs">
-        {% include "includes/app_management_tabs.html" with app=app active_tab="files" only %}
+        {% include "includes/app_management_tabs.html" with app=app active_tab="files" user=request.user only %}
 
         <div class="tab-content" id="tab-view">
             <div class="section" style="border: none; padding: 0;">

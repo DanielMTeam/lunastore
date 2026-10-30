@@ -12,7 +12,7 @@
         {% trans "COMMUNITY_ACCESS_TITLE" %} — {{ app.title }}
     </div>
     <div class="tabs">
-        {% include "includes/app_management_tabs.html" with app=app active_tab="community" only %}
+        {% include "includes/app_management_tabs.html" with app=app active_tab="community" user=request.user only %}
 
         <div class="tab-content">
             <div class="info_splash">

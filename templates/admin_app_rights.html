@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+{% block title %}{% trans "PAGE_ADMIN_APP_TAB_RIGHTS" %} - {{ app.title }} - LunaStore{% endblock %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
+{% block content %}
+<div class="content app-rights">
+  <div class="preferences"><div class="preferences_info">
+    <div class="preferences_title">{% trans "PAGE_ADMIN_APP_PAGETITLE" %}</div>
+    <div style="clear: both"></div>
+  </div></div>
+  <link rel="stylesheet" href="{% static 'css/settings.css' %}">
+  <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+  <link rel="stylesheet" href="{% static 'css/tabs.css' %}">
+  <div class="tabs">
+    {% include "includes/app_management_tabs.html" with app=app active_tab="rights" user=request.user only %}
+    <div class="tab-content">
+      {% block rights_content %}
+      <div class="profile_block">{% trans "PAGE_ADMIN_APP_RIGHTS_TITLE" %}</div>
+      <div class="profile_block_content">
+        <div class="counter_list">
+          <b>{% blocktrans count count=participant_count %}PAGE_ADMIN_APP_RIGHTS_COUNT_ONE {{ count }}{% plural %}PAGE_ADMIN_APP_RIGHTS_COUNT_MANY {{ count }}{% endblocktrans %}</b>
+          | <a href="{% url 'app_rights_add' pk=app.pk %}">{% trans "PAGE_ADMIN_APP_RIGHTS_ADD" %}</a>
+        </div>
+        <div class="separator_store"></div>
+        {% if app.user %}
+        <div class="list-app-tile">
+          <img src="{{ app.user.avatar_url }}" alt="">
+          <h3><a href="{% url 'profile' %}?id={{ app.user_id }}">{{ app.user.username }}</a></h3>
+          <p><b>{% trans "PAGE_ADMIN_APP_RIGHTS_ROLE_OWNER" %}</b></p>
+        </div>
+        {% endif %}
+        {% for entry in entries %}
+        <div class="list-app-tile">
+          <img src="{{ entry.user.avatar_url }}" alt="">
+          <h3><a href="{% url 'profile' %}?id={{ entry.user_id }}">{{ entry.user.username }}</a></h3>
+          <p><b>{{ entry.get_role_display }}</b></p>
+          <a href="{% url 'app_rights_edit' pk=app.pk user_id=entry.user_id %}">{% trans "PAGE_ADMIN_APP_RIGHTS_EDIT" %}</a>
+        </div>
+        {% endfor %}
+      </div>
+      {% endblock %}
+    </div>
+  </div>
+</div>
+{% endblock %}

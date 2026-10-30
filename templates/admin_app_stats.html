@@ -67,7 +67,7 @@
   <![endif]-->
 
   <div class="tabs">
-    {% include "includes/app_management_tabs.html" with app=obj active_tab="stats" only %}
+    {% include "includes/app_management_tabs.html" with app=obj active_tab="stats" user=request.user only %}
 
     <div class="tab-content" id="tab-view">
       <div class="brief_admin">

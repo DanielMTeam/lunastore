@@ -67,7 +67,7 @@
   </style>
   <div class="tabs">
       {% if not is_community_proposal %}
-      {% include "includes/app_management_tabs.html" with app=obj active_tab="info" only %}
+      {% include "includes/app_management_tabs.html" with app=obj active_tab="info" user=request.user only %}
       {% endif %}
 
       <div class="tab-content" id="tab-view">
@@ -259,6 +259,7 @@
                   </table>
               </div> <br>
 
+              {% if form.upload_screenshots %}
               <div class="profile_block">{% trans "PAGE_ADMIN_APP_SCRNS_TITLE" %}</div>
               <div class="profile_block_content">
 
@@ -273,6 +274,7 @@
                       <div id="info-scr" style="display: none;"></div>
                   </div>
               </div> <br>
+              {% endif %}
                 {% if not is_community_proposal %}
                 {% if form.is_private %}
                 <div style="margin-bottom: 8px;max-width: fit-content;">
@@ -288,6 +290,7 @@
                     </label>
                 </div>
                 {% endif %}
+                {% if form.allow_reviews %}
                 <div style="margin-bottom: 8px;max-width: fit-content;">
                     <label>
                         {{ form.allow_reviews }}
@@ -299,6 +302,7 @@
                         </span>
                     </label>
                 </div>
+                {% endif %}
                 {% endif %}
               <input type="submit" class="action_button" value="{% trans 'PAGE_ADMIN_APP_DIST_SAVE' %}">
           </form>
@@ -346,6 +350,7 @@
         // Disabled, using ScreenshotManager instead
     }
 
+    {% if form.upload_screenshots %}
     $(document).ready(function() {
         var screenshotsArray = [];
         {% if obj.screenshots %}
@@ -370,6 +375,7 @@
         }
         new ScreenshotManager('screenshots-interactive-container', fileInputId, 3, screenshotsArray, cdnPrefix);
     });
+    {% endif %}
 </script>
 <script type="text/javascript">
     window.CDN_CONFIG = {

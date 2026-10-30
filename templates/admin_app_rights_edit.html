@@ -1,0 +1,55 @@
+{% extends 'admin_app_rights.html' %}
+{% load i18n %}
+{% block title %}{% if target_user %}{% trans "PAGE_ADMIN_APP_RIGHTS_EDIT_TITLE" %}{% else %}{% trans "PAGE_ADMIN_APP_RIGHTS_ADD_TITLE" %}{% endif %} - {{ app.title }} - LunaStore{% endblock %}
+{% block rights_content %}
+<div class="profile_block">{% if target_user %}{% trans "PAGE_ADMIN_APP_RIGHTS_EDIT_TITLE" %}{% else %}{% trans "PAGE_ADMIN_APP_RIGHTS_ADD_TITLE" %}{% endif %}</div>
+<div class="profile_block_content">
+  <div class="brief_admin">
+    <img src="{{ app.icon_url }}" alt="" width="48" height="48" class="png-fix">
+    <h3><a href="{% url 'app' %}?id={{ app.pk }}">{{ app.title }}</a></h3>
+    {% if app.slogan %}<p>{{ app.slogan }}</p>{% endif %}
+    <div style="clear: both"></div>
+  </div>
+  {% if target_user %}
+  <div class="brief_admin">
+    <img src="{{ target_user.avatar_url }}" alt="" width="48" height="48">
+    <h3><a href="{% url 'profile' %}?id={{ target_user.pk }}">{{ target_user.username }}</a></h3>
+    <p>{% trans "PAGE_ADMIN_APP_RIGHTS_EDIT_CURRENT" %}: <b>{% if current_entry %}{{ current_entry.get_role_display }}{% else %}{% trans "PAGE_ADMIN_APP_RIGHTS_ROLE_NONE" %}{% endif %}</b></p>
+    <div style="clear: both"></div>
+  </div>
+  {% endif %}
+  <form method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% if form.username %}
+    <div class="app-rights-user-field">
+      {{ form.username.label_tag }}
+      <div class="search_suggest_wrap app-rights-user-search">
+        {{ form.username }}
+        <div class="search_suggest_dropdown" style="display: none;"></div>
+      </div>
+      {{ form.username.errors }}
+    </div>
+    {% endif %}
+    <h4>{% trans "PAGE_ADMIN_APP_RIGHTS_EDIT_CHOOSE_ROLE" %}</h4>
+    <div class="separator_store"></div>
+    {{ form.role.errors }}
+    <div class="radio_group">
+      {% for radio in form.role %}
+      <div class="radio_item">
+        {{ radio.tag }} <label for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
+        <div class="pref_warn_label adm_editapp_warn_label">
+          {% if radio.data.value == 'admin' %}{% trans "PAGE_ADMIN_APP_RIGHTS_ADMIN_DESCRIPTION" %}
+          {% elif radio.data.value == 'editor' %}{% trans "PAGE_ADMIN_APP_RIGHTS_EDITOR_DESCRIPTION" %}
+          {% else %}{% trans "PAGE_ADMIN_APP_RIGHTS_NONE_DESCRIPTION" %}{% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="app-rights-actions">
+      <button type="submit" class="action_button">{% trans "PAGE_ADMIN_APP_RIGHTS_SAVE" %}</button>
+      <a href="{% url 'app_rights' pk=app.pk %}" class="action_button action_button_secondary">{% trans "PAGE_ADMIN_APP_RIGHTS_CANCEL" %}</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -3393,3 +3393,141 @@ msgstr "Бұл қолданба үшін қауымдастықтың қатыс
 #: templates/del_acc.html
 msgid "COMMUNITY_ACCOUNT_RETENTION_DESCRIPTION"
 msgstr "Дистрибутивтерімен бірге каталогта иесіз қалады. Сіз оларды басқару құқығынан айырыласыз."
+
+
+msgid "PAGE_ADMIN_APP_TAB_RIGHTS"
+msgstr "Құқықтар"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_TITLE"
+msgstr "Қол жеткізу құқықтары"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ADD"
+msgstr "адам қосу"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_EDIT"
+msgstr "өңдеу"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ROLE_OWNER"
+msgstr "Иесі"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ROLE_ADMIN"
+msgstr "Әкімші"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ROLE_EDITOR"
+msgstr "Редактор"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ROLE_NONE"
+msgstr "Ешкім"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_EDIT_TITLE"
+msgstr "Қол жеткізу құқықтарын өңдеу"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_EDIT_CURRENT"
+msgstr "Ағымдағы рөл"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_SAVE"
+msgstr "Сақтау"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_BACK"
+msgstr "Артқа"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_SAVED"
+msgstr "Қол жеткізу құқықтары сақталды."
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ADMIN_DESCRIPTION"
+msgstr "Қолданба мәліметтерін, белгішесін және скриншоттарын өңдеп, нұсқаларды басқарып, статистиканы көре алады. Құпиялық пен пікірлер рұқсатын өзгерте алады. Қатысушылар мен қауымдастық режимін басқара алмайды."
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_EDITOR_DESCRIPTION"
+msgstr "Қолданба мәліметтері мен белгішесін өңдеп, статистиканы көре алады. Нұсқаларды, скриншоттарды, қатысушыларды және қол жеткізу параметрлерін басқара алмайды."
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_NONE_DESCRIPTION"
+msgstr "Осы қолданбаны басқарудың барлық құқықтарын қайтарып алады."
+
+
+msgid "FORM_APP_RIGHTS_USERNAME"
+msgstr "Пайдаланушы аты"
+
+
+msgid "FORM_APP_RIGHTS_ROLE"
+msgstr "Рөл"
+
+
+msgid "ERROR_APP_RIGHTS_OWNER"
+msgstr "Қолданба иесінің құқықтарын өзгерту мүмкін емес."
+
+
+msgid "ERROR_APP_RIGHTS_ROLE"
+msgstr "Жарамсыз рөл."
+
+
+msgid "ERROR_APP_RIGHTS_USER"
+msgstr "Белсенді, бұғатталмаған пайдаланушы табылмады."
+
+
+#, python-format
+msgid "PAGE_ADMIN_APP_RIGHTS_COUNT_ONE %(count)s"
+msgid_plural "PAGE_ADMIN_APP_RIGHTS_COUNT_MANY %(count)s"
+msgstr[0] "%(count)s пайдаланушы"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ADD_TITLE"
+msgstr "Қатысушы қосу"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_CANCEL"
+msgstr "Бас тарту"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_EDIT_CHOOSE_ROLE"
+msgstr "Рөлді таңдаңыз"
+
+
+msgid "NOTIF_APP_ACCESS_GRANTED_TITLE"
+msgstr "Қолданбаға қол жеткізу берілді"
+
+
+msgid "NOTIF_APP_ACCESS_GRANTED_ADMIN_DESCRIPTION"
+msgstr "Сізге «%(app_name)s» қолданбасына әкімші рөлімен қол жеткізу берілді."
+
+
+msgid "NOTIF_APP_ACCESS_GRANTED_EDITOR_DESCRIPTION"
+msgstr "Сізге «%(app_name)s» қолданбасына редактор рөлімен қол жеткізу берілді."
+
+
+msgid "NOTIF_APP_ACCESS_PROMOTED_TITLE"
+msgstr "Қолданбадағы рөліңіз жоғарылатылды"
+
+
+msgid "NOTIF_APP_ACCESS_PROMOTED_DESCRIPTION"
+msgstr "«%(app_name)s» қолданбасындағы рөліңіз әкімшіге дейін жоғарылатылды."
+
+
+msgid "NOTIF_APP_ACCESS_DEMOTED_TITLE"
+msgstr "Қолданбадағы рөліңіз төмендетілді"
+
+
+msgid "NOTIF_APP_ACCESS_DEMOTED_DESCRIPTION"
+msgstr "«%(app_name)s» қолданбасындағы рөліңіз редакторға дейін төмендетілді."
+
+
+msgid "NOTIF_APP_ACCESS_REVOKED_TITLE"
+msgstr "Қолданбаға қол жеткізу қайтарылды"
+
+
+msgid "NOTIF_APP_ACCESS_REVOKED_DESCRIPTION"
+msgstr "«%(app_name)s» қолданбасын басқару құқығыңыз қайтарып алынды."
