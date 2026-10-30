@@ -238,8 +238,7 @@ def approve_app_edit_request(req, actor=None, auto=False):
     if req.request_origin != "editor" and req.screenshots is not None:
         app.screenshots = req.screenshots
 
-    if req.request_origin == "admin":
-        app.allow_reviews = req.allow_reviews
+    # Review settings are saved on submission; an older request must not replay them.
     _copy_app_translations(req, app)
     app.save()
 

@@ -51,10 +51,11 @@ from .services.distributions import can_submit_community_distribution, distribut
 from .services.moderation import auto_approve_request
 from .services.access import can_manage_app, application_role, request_origin, accessible_app_ids
 from django.db import transaction
-from django.db.models import Avg, Count
+from django.db.models import Avg, Case, Count, OuterRef, Subquery, Value, When
 from .models import (
     AppCreateRequests,
     Application,
+    ApplicationAccess,
     Category,
     Collection,
     CollectionItem,
@@ -438,11 +439,13 @@ def settings_apps(request):
         messages.error(request, _("ERROR_RATE_LIMIT_EXCEEDED"))
         return redirect(request.META.get('HTTP_REFERER', '/'))
 
-    managed_apps = Application.objects.filter(pk__in=accessible_app_ids(request.user)).prefetch_related("access_entries")
-    for managed in managed_apps:
-        managed.management_role = "owner" if managed.user_id == request.user.pk else next(
-            entry.role for entry in managed.access_entries.all() if entry.user_id == request.user.pk
-        )
+    membership = ApplicationAccess.objects.filter(application_id=OuterRef("pk"), user=request.user)
+    managed_apps = Application.objects.filter(pk__in=accessible_app_ids(request.user)).annotate(
+        management_role=Case(
+            When(user=request.user, then=Value("owner")),
+            default=Subquery(membership.values("role")[:1]),
+        ),
+    )
     app_requests = AppCreateRequests.objects.filter(user=request.user)
     total_app_requests = app_requests.count() + managed_apps.count()
     return render(

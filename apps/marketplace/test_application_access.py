@@ -143,6 +143,25 @@ class ApplicationAccessTests(TestCase):
         self.assertContains(response, "Редактор")
         self.assertNotContains(response, "Second app")
 
+    def test_settings_survives_revocation_after_app_query(self):
+        self.client.force_login(self.editor)
+        revoked = False
+
+        def revoke_after_app_query(execute, sql, params, many, context):
+            nonlocal revoked
+            result = execute(sql, params, many, context)
+            if not revoked and sql.startswith("SELECT") and 'FROM "marketplace_application"' in sql:
+                revoked = True
+                set_application_access(self.app.pk, self.owner, self.editor, "none")
+            return result
+
+        with connections["default"].execute_wrapper(revoke_after_app_query):
+            response = self.client.get(reverse("settings_apps"))
+        self.assertTrue(revoked)
+        self.assertEqual(response.status_code, 200)
+        response = self.client.get(reverse("settings_apps"))
+        self.assertEqual(list(response.context["managed_apps"]), [])
+
     def test_editor_form_hides_files_screenshots_settings_and_rights(self):
         self.client.force_login(self.editor)
         response = self.client.get(reverse("edit_app_info", kwargs={"pk": self.app.pk}))
@@ -315,6 +334,23 @@ class ApplicationAccessTests(TestCase):
         self.assertFalse(self.app.allow_reviews)
         self.assertFalse(self.app.allow_community_distributions)
         self.assertEqual(self.client.get(reverse("community_access", kwargs={"pk": self.app.pk})).status_code, 403)
+
+    def test_admin_approval_preserves_newer_review_setting(self):
+        url = reverse("edit_app_info", kwargs={"pk": self.app.pk})
+        self.client.force_login(self.admin)
+        self.assertEqual(self.client.post(url, self.edit_data(allow_reviews="")).status_code, 302)
+        req = AppEditRequests.objects.get(target_application=self.app)
+        self.app.refresh_from_db()
+        self.assertFalse(self.app.allow_reviews)
+
+        self.client.force_login(self.owner)
+        self.assertEqual(self.client.post(url, self.edit_data(allow_reviews="on")).status_code, 302)
+        self.app.refresh_from_db()
+        self.assertTrue(self.app.allow_reviews)
+        with patch("apps.marketplace.services.moderation.send_notification"):
+            self.assertIsNotNone(approve_app_edit_request(req, actor=self.owner))
+        self.app.refresh_from_db()
+        self.assertTrue(self.app.allow_reviews)
 
     def test_revocation_during_form_validation_prevents_save(self):
         from apps.marketplace.forms import DelegatedAppEditForm
