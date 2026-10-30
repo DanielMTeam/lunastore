@@ -536,6 +536,63 @@ class AppEditForm(AppCreateForm):
         return submission
 
 
+class DelegatedAppEditForm(AppEditForm):
+    """Restrict fields before validation; never trust submitted capabilities."""
+
+    def __init__(self, *args, **kwargs):
+        from .services.access import application_role
+        super().__init__(*args, **kwargs)
+        self.access_role = application_role(self.target_app, self.user)
+        self.fields.pop("allow_community_distributions", None)
+        if self.access_role == "editor":
+            for name in ("is_private", "allow_reviews", "upload_screenshots", "cdn_screenshots_tokens",
+                         "cdn_screenshots_data", "screenshots_data", "screenshots"):
+                self.fields.pop(name, None)
+
+    def save(self, commit=True):
+        submission = super().save(commit=False)
+        if self.access_role == "editor":
+            submission.screenshots = self.target_app.screenshots
+            submission.is_private = self.target_app.is_private
+            submission.allow_reviews = self.target_app.allow_reviews
+        submission.allow_community_distributions = self.target_app.allow_community_distributions
+        if commit:
+            submission.save()
+        return submission
+
+
+class ApplicationAccessForm(forms.Form):
+    username = forms.CharField(
+        max_length=150, label=_("FORM_APP_RIGHTS_USERNAME"),
+        widget=forms.TextInput(attrs={
+            "class": "input-text search_suggest_input", "autocomplete": "off",
+            "data-suggest-type": "users", "data-suggest-select": "username",
+        }),
+    )
+    role = forms.ChoiceField(
+        label=_("FORM_APP_RIGHTS_ROLE"), widget=forms.RadioSelect,
+        choices=(("admin", _("PAGE_ADMIN_APP_RIGHTS_ROLE_ADMIN")),
+                 ("editor", _("PAGE_ADMIN_APP_RIGHTS_ROLE_EDITOR")),
+                 ("none", _("PAGE_ADMIN_APP_RIGHTS_ROLE_NONE"))),
+    )
+
+    def __init__(self, *args, target_user=None, **kwargs):
+        self.target_user = target_user
+        super().__init__(*args, **kwargs)
+        if target_user is not None:
+            self.fields.pop("username")
+
+    def clean(self):
+        from apps.user.models import User
+        from .services.access import user_can_access
+        data = super().clean()
+        if self.target_user is None and data.get("username"):
+            self.target_user = User.objects.filter(username=data["username"]).first()
+        if self.target_user is None or (data.get("role") != "none" and not user_can_access(self.target_user)):
+            raise ValidationError(_("ERROR_APP_RIGHTS_USER"))
+        return data
+
+
 class CommunityAppEditForm(AppEditForm):
     """Proposals may change content, but never application access settings."""
 

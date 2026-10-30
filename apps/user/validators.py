@@ -1,3 +1,4 @@
+import logging
 import re
 from datetime import timedelta
 
@@ -13,6 +14,7 @@ from django.core.cache import cache
 from django.utils.translation import gettext_lazy as _
 
 ENGLISH_USERNAME_REGEX = r"^[a-zA-Z0-9_.-]+$"
+logger = logging.getLogger(__name__)
 
 
 def validate_english_username(value):
@@ -83,7 +85,8 @@ def validate_email_mx(value):
         raise ValidationError(_('ERROR_EMAIL_DISPOSABLE_DOMAIN'))
 
     # check MX records (using cache)
-    cache_key = f'mx_record_{domain}'
+    # Previous entries also cached DNS outages as permanent validation failures.
+    cache_key = f'mx_record_v2_{domain}'
     has_mx = cache.get(cache_key)
 
     if has_mx is None:
@@ -94,11 +97,13 @@ def validate_email_mx(value):
             resolver.lifetime = 2.0
             resolver.resolve(domain, 'MX')
             has_mx = True
-        except (dns.resolver.NoAnswer, dns.resolver.NXDOMAIN, dns.resolver.NoNameservers, dns.exception.Timeout):
+        except (dns.resolver.NoAnswer, dns.resolver.NXDOMAIN):
             has_mx = False
-        except Exception:
-            # if DNS server is down, skip to avoid breaking registration
-            has_mx = True
+        except (dns.exception.DNSException, OSError) as exc:
+            # A resolver outage says nothing about whether the domain accepts mail.
+            # Keep syntax/disposable checks, but retry DNS on the next validation.
+            logger.warning("Email MX lookup unavailable for %s: %s", domain, type(exc).__name__)
+            return
 
         # cache: valid domains for 24 hours, invalid for 1 hour
         cache_timeout = 86400 if has_mx else 3600

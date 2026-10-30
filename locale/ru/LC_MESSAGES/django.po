@@ -3411,3 +3411,143 @@ msgstr "Для этого приложения уже включалась по�
 #: templates/del_acc.html
 msgid "COMMUNITY_ACCOUNT_RETENTION_DESCRIPTION"
 msgstr "Останутся в каталоге без владельца вместе с дистрибуциями. Вы потеряете управление ими."
+
+
+msgid "PAGE_ADMIN_APP_TAB_RIGHTS"
+msgstr "Права"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_TITLE"
+msgstr "Права доступа"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ADD"
+msgstr "добавить человека"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_EDIT"
+msgstr "редактировать"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ROLE_OWNER"
+msgstr "Владелец"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ROLE_ADMIN"
+msgstr "Администратор"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ROLE_EDITOR"
+msgstr "Редактор"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ROLE_NONE"
+msgstr "Никто"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_EDIT_TITLE"
+msgstr "Редактирование прав доступа"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_EDIT_CURRENT"
+msgstr "Текущая роль"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_SAVE"
+msgstr "Сохранить"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_BACK"
+msgstr "Назад"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_SAVED"
+msgstr "Права доступа сохранены."
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ADMIN_DESCRIPTION"
+msgstr "Может редактировать карточку, иконку, скриншоты, управлять версиями и смотреть статистику. Может менять приватность и разрешение отзывов. Не может управлять участниками и режимом сообщества."
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_EDITOR_DESCRIPTION"
+msgstr "Может редактировать поля карточки и иконку, смотреть статистику. Не может управлять версиями, скриншотами, участниками и настройками доступа."
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_NONE_DESCRIPTION"
+msgstr "Отзывает все права управления этим приложением."
+
+
+msgid "FORM_APP_RIGHTS_USERNAME"
+msgstr "Имя пользователя"
+
+
+msgid "FORM_APP_RIGHTS_ROLE"
+msgstr "Роль"
+
+
+msgid "ERROR_APP_RIGHTS_OWNER"
+msgstr "Нельзя изменить права владельца приложения."
+
+
+msgid "ERROR_APP_RIGHTS_ROLE"
+msgstr "Недопустимая роль."
+
+
+msgid "ERROR_APP_RIGHTS_USER"
+msgstr "Активный незаблокированный пользователь не найден."
+
+
+#, python-format
+msgid "PAGE_ADMIN_APP_RIGHTS_COUNT_ONE %(count)s"
+msgid_plural "PAGE_ADMIN_APP_RIGHTS_COUNT_MANY %(count)s"
+msgstr[0] "%(count)s пользователь"
+msgstr[1] "%(count)s пользователя"
+msgstr[2] "%(count)s пользователей"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ADD_TITLE"
+msgstr "Добавление участника"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_CANCEL"
+msgstr "Отмена"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_EDIT_CHOOSE_ROLE"
+msgstr "Выберите должность"
+
+
+msgid "NOTIF_APP_ACCESS_GRANTED_TITLE"
+msgstr "Вам предоставлен доступ к приложению"
+
+
+msgid "NOTIF_APP_ACCESS_GRANTED_ADMIN_DESCRIPTION"
+msgstr "Вам предоставлен доступ к приложению «%(app_name)s» с ролью администратора."
+
+
+msgid "NOTIF_APP_ACCESS_GRANTED_EDITOR_DESCRIPTION"
+msgstr "Вам предоставлен доступ к приложению «%(app_name)s» с ролью редактора."
+
+
+msgid "NOTIF_APP_ACCESS_PROMOTED_TITLE"
+msgstr "Ваша роль в приложении повышена"
+
+
+msgid "NOTIF_APP_ACCESS_PROMOTED_DESCRIPTION"
+msgstr "Ваша роль в приложении «%(app_name)s» повышена до администратора."
+
+
+msgid "NOTIF_APP_ACCESS_DEMOTED_TITLE"
+msgstr "Ваша роль в приложении понижена"
+
+
+msgid "NOTIF_APP_ACCESS_DEMOTED_DESCRIPTION"
+msgstr "Ваша роль в приложении «%(app_name)s» понижена до редактора."
+
+
+msgid "NOTIF_APP_ACCESS_REVOKED_TITLE"
+msgstr "Доступ к приложению отозван"
+
+
+msgid "NOTIF_APP_ACCESS_REVOKED_DESCRIPTION"
+msgstr "Ваш доступ к управлению приложением «%(app_name)s» отозван."

@@ -404,7 +404,10 @@
         <h2>{% trans "PAGE_APP_SECTION_ACTIONS" %}</h2>
         <div class="separator_store"></div>
         <div class="actionsm">
-            {% if can_propose_changes %}
+            {% load app_access %}{% app_capabilities app_id user as app_caps %}
+            {% if app_caps.info %}
+            <li class="editapp"><a href="{% url 'edit_app_info' pk=app_id %}">{% trans "BASE_SIDEBAR_APP_EDIT" %}</a></li>
+            {% elif can_propose_changes %}
             <li class="editapp"><a href="{% url 'edit_app_info' pk=app_id %}">{% trans "COMMUNITY_PROPOSE_EDIT" %}</a></li>
             {% endif %}
             {% if developer_site %}

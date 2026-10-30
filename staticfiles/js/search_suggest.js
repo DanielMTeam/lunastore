@@ -8,8 +8,6 @@
     };
   }
 
-  var debounceTimer = null;
-  var activeRequest = null;
   var MIN_QUERY_LENGTH = 2;
   var DEBOUNCE_MS = 300;
   var hiddenSelects = [];
@@ -267,6 +265,10 @@
     return renderSuggestItem(item.url, item.icon_url, item.title);
   }
 
+  function getSearchType(input) {
+    return input.getAttribute("data-suggest-type") || window.SEARCH_SUGGEST_TYPE || "all";
+  }
+
   function renderUserItem(item) {
     return renderSuggestItem(item.url, item.avatar_url, item.username);
   }
@@ -277,7 +279,7 @@
       return;
     }
 
-    var searchType = window.SEARCH_SUGGEST_TYPE || "all";
+    var searchType = getSearchType(input);
     var appsLabel = window.SEARCH_SUGGEST_LABEL_APPS || "Applications";
     var usersLabel = window.SEARCH_SUGGEST_LABEL_USERS || "Users";
     var html = "";
@@ -301,12 +303,27 @@
     hidePageSelects();
     syncIframeShim(dropdown);
 
+    if (input.getAttribute("data-suggest-select") === "username") {
+      var links = dropdown.getElementsByTagName("a");
+      var users = data.users || [];
+      for (var i = 0; i < links.length; i++) {
+        links[i].setAttribute("data-suggest-value", users[i].username);
+        links[i].onclick = function () {
+          input.value = this.getAttribute("data-suggest-value");
+          cancelSuggestions(input);
+          hideDropdown(input);
+          input.focus();
+          return false;
+        };
+      }
+    }
+
     if (window.DD_belatedPNG) {
       DD_belatedPNG.fix(".search_suggest_icon");
     }
   }
 
-  function fetchSuggestions(input) {
+  function fetchSuggestions(input, generation) {
     var query = input.value.replace(/^\s+|\s+$/g, "");
     if (query.length < MIN_QUERY_LENGTH) {
       hideDropdown(input);
@@ -314,7 +331,7 @@
     }
 
     var suggestUrl = window.SEARCH_SUGGEST_URL || "/search.php?mode=suggest";
-    var searchType = window.SEARCH_SUGGEST_TYPE || "all";
+    var searchType = getSearchType(input);
     var sep = suggestUrl.indexOf("?") === -1 ? "?" : "&";
     var url =
       suggestUrl +
@@ -325,25 +342,18 @@
       encodeURIComponent(searchType) +
       "&limit=8";
 
-    if (activeRequest) {
-      try {
-        activeRequest.onreadystatechange = null;
-        activeRequest.abort();
-      } catch (ignore) {}
-    }
-
     var xhr = createXHR();
     if (!xhr) {
       return;
     }
-    activeRequest = xhr;
+    input._suggestRequest = xhr;
 
     xhr.open("GET", url, true);
     xhr.onreadystatechange = function () {
-      if (xhr.readyState !== 4) {
+      if (xhr.readyState !== 4 || input._suggestGeneration !== generation) {
         return;
       }
-      activeRequest = null;
+      input._suggestRequest = null;
       if (xhr.status !== 200) {
         hideDropdown(input);
         return;
@@ -358,12 +368,28 @@
     xhr.send(null);
   }
 
-  function scheduleFetch(input) {
-    if (debounceTimer) {
-      clearTimeout(debounceTimer);
+  function cancelSuggestions(input) {
+    input._suggestGeneration = (input._suggestGeneration || 0) + 1;
+    if (input._suggestTimer) {
+      clearTimeout(input._suggestTimer);
+      input._suggestTimer = null;
     }
-    debounceTimer = setTimeout(function () {
-      fetchSuggestions(input);
+    if (input._suggestRequest) {
+      try {
+        input._suggestRequest.onreadystatechange = null;
+        input._suggestRequest.abort();
+      } catch (ignore) {}
+      input._suggestRequest = null;
+    }
+  }
+
+  function scheduleFetch(input) {
+    cancelSuggestions(input);
+    hideDropdown(input);
+    var generation = input._suggestGeneration;
+    input._suggestTimer = setTimeout(function () {
+      input._suggestTimer = null;
+      fetchSuggestions(input, generation);
     }, DEBOUNCE_MS);
   }
 
@@ -374,30 +400,37 @@
     input.setAttribute("data-suggest-bound", "1");
 
     if (input.attachEvent) {
-      input.attachEvent("onkeyup", function () {
-        scheduleFetch(input);
+      input.attachEvent("onkeyup", function (evt) {
+        evt = evt || window.event;
+        if (evt.keyCode !== 27) {
+          scheduleFetch(input);
+        }
       });
       input.attachEvent("onkeydown", function (evt) {
         evt = evt || window.event;
         if (evt.keyCode === 27) {
+          cancelSuggestions(input);
           hideDropdown(input);
         }
       });
       input.attachEvent("onblur", function () {
+        cancelSuggestions(input);
         setTimeout(function () {
           hideDropdown(input);
         }, 200);
       });
     } else {
-      input.addEventListener("keyup", function () {
+      input.addEventListener("input", function () {
         scheduleFetch(input);
       });
       input.addEventListener("keydown", function (evt) {
         if (evt.keyCode === 27) {
+          cancelSuggestions(input);
           hideDropdown(input);
         }
       });
       input.addEventListener("blur", function () {
+        cancelSuggestions(input);
         setTimeout(function () {
           hideDropdown(input);
         }, 200);

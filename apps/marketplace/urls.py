@@ -2,8 +2,12 @@
 from django.urls import path
 
 from . import views
+from .views_rights import application_rights
 
 urlpatterns = [
+    path("app_rights.php/<int:pk>/", application_rights, name="app_rights"),
+    path("app_rights_add.php/<int:pk>/", application_rights, {"add": True}, name="app_rights_add"),
+    path("app_rights_edit.php/<int:pk>/<int:user_id>/", application_rights, name="app_rights_edit"),
     path("", views.home_redirect, name="home"),
     path("index.php", views.marketplace, name="index"),
     path("store.php", views.store_listing, name="store_listing"),

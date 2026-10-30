@@ -3404,3 +3404,142 @@ msgstr "Community contributions have been enabled for this application. You reta
 #: templates/del_acc.html
 msgid "COMMUNITY_ACCOUNT_RETENTION_DESCRIPTION"
 msgstr "Will remain in the catalog without an owner, along with their distributions. You will lose management access."
+
+
+msgid "PAGE_ADMIN_APP_TAB_RIGHTS"
+msgstr "Permissions"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_TITLE"
+msgstr "Access permissions"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ADD"
+msgstr "add person"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_EDIT"
+msgstr "edit"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ROLE_OWNER"
+msgstr "Owner"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ROLE_ADMIN"
+msgstr "Administrator"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ROLE_EDITOR"
+msgstr "Editor"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ROLE_NONE"
+msgstr "Nobody"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_EDIT_TITLE"
+msgstr "Edit access permissions"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_EDIT_CURRENT"
+msgstr "Current role"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_SAVE"
+msgstr "Save"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_BACK"
+msgstr "Back"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_SAVED"
+msgstr "Access permissions saved."
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ADMIN_DESCRIPTION"
+msgstr "Can edit the application, icon and screenshots, manage releases and view statistics. Can change privacy and review settings. Cannot manage members or community access."
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_EDITOR_DESCRIPTION"
+msgstr "Can edit application details and the icon, and view statistics. Cannot manage releases, screenshots, members or access settings."
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_NONE_DESCRIPTION"
+msgstr "Revokes all management permissions for this application."
+
+
+msgid "FORM_APP_RIGHTS_USERNAME"
+msgstr "Username"
+
+
+msgid "FORM_APP_RIGHTS_ROLE"
+msgstr "Role"
+
+
+msgid "ERROR_APP_RIGHTS_OWNER"
+msgstr "The application owner’s permissions cannot be changed."
+
+
+msgid "ERROR_APP_RIGHTS_ROLE"
+msgstr "Invalid role."
+
+
+msgid "ERROR_APP_RIGHTS_USER"
+msgstr "No active, unblocked user found."
+
+
+#, python-format
+msgid "PAGE_ADMIN_APP_RIGHTS_COUNT_ONE %(count)s"
+msgid_plural "PAGE_ADMIN_APP_RIGHTS_COUNT_MANY %(count)s"
+msgstr[0] "%(count)s user"
+msgstr[1] "%(count)s users"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ADD_TITLE"
+msgstr "Add a member"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_CANCEL"
+msgstr "Cancel"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_EDIT_CHOOSE_ROLE"
+msgstr "Choose a role"
+
+
+msgid "NOTIF_APP_ACCESS_GRANTED_TITLE"
+msgstr "Application access granted"
+
+
+msgid "NOTIF_APP_ACCESS_GRANTED_ADMIN_DESCRIPTION"
+msgstr "You have been granted access to “%(app_name)s” as an administrator."
+
+
+msgid "NOTIF_APP_ACCESS_GRANTED_EDITOR_DESCRIPTION"
+msgstr "You have been granted access to “%(app_name)s” as an editor."
+
+
+msgid "NOTIF_APP_ACCESS_PROMOTED_TITLE"
+msgstr "Application role promoted"
+
+
+msgid "NOTIF_APP_ACCESS_PROMOTED_DESCRIPTION"
+msgstr "Your role in “%(app_name)s” has been promoted to administrator."
+
+
+msgid "NOTIF_APP_ACCESS_DEMOTED_TITLE"
+msgstr "Application role demoted"
+
+
+msgid "NOTIF_APP_ACCESS_DEMOTED_DESCRIPTION"
+msgstr "Your role in “%(app_name)s” has been demoted to editor."
+
+
+msgid "NOTIF_APP_ACCESS_REVOKED_TITLE"
+msgstr "Application access revoked"
+
+
+msgid "NOTIF_APP_ACCESS_REVOKED_DESCRIPTION"
+msgstr "Your access to manage “%(app_name)s” has been revoked."

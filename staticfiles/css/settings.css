@@ -160,3 +160,34 @@
     background: #4a8a44;
     color: #fff;
 }
+
+.app-rights-user-field {
+    margin: 12px 0;
+}
+
+.app-rights-user-search {
+    width: 100%;
+    margin-top: 4px;
+}
+
+.app-rights-user-search input,
+.app-rights-user-search .search_suggest_dropdown {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.app-rights-user-search .input-text {
+    max-width: 100% !important;
+}
+
+.app-rights-actions .action_button {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.app-rights-actions .action_button_secondary {
+    margin-left: 6px;
+    background: #e0edff;
+    color: #294b76;
+    border-color: #bfd2e4;
+}
