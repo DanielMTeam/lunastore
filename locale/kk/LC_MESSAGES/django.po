@@ -3393,3 +3393,31 @@ msgstr "Бұл қолданба үшін қауымдастықтың қатыс
 #: templates/del_acc.html
 msgid "COMMUNITY_ACCOUNT_RETENTION_DESCRIPTION"
 msgstr "Дистрибутивтерімен бірге каталогта иесіз қалады. Сіз оларды басқару құқығынан айырыласыз."
+
+
+msgid "THEME_CLASSIC_LIGHT"
+msgstr "Классикалық ашық"
+
+
+msgid "THEME_CLASSIC_DARK"
+msgstr "Классикалық қараңғы"
+
+
+msgid "THEME_WINDOWS7"
+msgstr "Windows 7"
+
+
+msgid "PAGE_SETTINGS_THEME_TITLE"
+msgstr "Безендіру тақырыбы"
+
+
+msgid "ERROR_THEME_UNSUPPORTED"
+msgstr "Windows 7 тақырыбы үшін border-image және background-size: cover қолдайтын браузер және қосылған JavaScript қажет."
+
+
+msgid "INFO_THEME_FALLBACK"
+msgstr "Бұл браузерде классикалық ашық тақырып қолданылады. Windows 7 таңдауы тіркелгіңізде сақталған."
+
+
+msgid "INFO_THEME_UPDATED"
+msgstr "Безендіру тақырыбы сақталды."

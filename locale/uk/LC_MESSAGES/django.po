@@ -3417,3 +3417,31 @@ msgstr "Для цього застосунку вже вмикалася уча�
 #: templates/del_acc.html
 msgid "COMMUNITY_ACCOUNT_RETENTION_DESCRIPTION"
 msgstr "Залишаться в каталозі без власника разом із дистрибуціями. Ви втратите керування ними."
+
+
+msgid "THEME_CLASSIC_LIGHT"
+msgstr "Класична світла"
+
+
+msgid "THEME_CLASSIC_DARK"
+msgstr "Класична темна"
+
+
+msgid "THEME_WINDOWS7"
+msgstr "Windows 7"
+
+
+msgid "PAGE_SETTINGS_THEME_TITLE"
+msgstr "Тема оформлення"
+
+
+msgid "ERROR_THEME_UNSUPPORTED"
+msgstr "Для теми Windows 7 потрібен браузер із підтримкою border-image та background-size: cover, а також увімкнений JavaScript."
+
+
+msgid "INFO_THEME_FALLBACK"
+msgstr "У цьому браузері використовується світла класична тема. Вибір Windows 7 збережено в обліковому записі."
+
+
+msgid "INFO_THEME_UPDATED"
+msgstr "Тему оформлення збережено."

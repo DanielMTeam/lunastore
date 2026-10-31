@@ -18,6 +18,7 @@ from django.core.files.base import ContentFile
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from PIL import Image
+from apps.core.themes import THEME_CHOICES
 from apps.core.utils import force_logout, get_client_ip
 
 from .middleware import BlockBannedIP
@@ -810,3 +811,19 @@ class NoSpamMassScanForm(forms.Form):
                 self.add_error("pattern", str(exc))
 
         return cleaned_data
+
+
+class ThemePreferenceForm(forms.Form):
+    theme = forms.ChoiceField(choices=THEME_CHOICES)
+    windows7_supported = forms.BooleanField(required=False)
+
+    def __init__(self, *args, current_theme=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.current_theme = current_theme
+
+    def clean(self):
+        cleaned = super().clean()
+        if (cleaned.get("theme") == "windows7" and self.current_theme != "windows7"
+                and not cleaned.get("windows7_supported")):
+            raise forms.ValidationError(_("ERROR_THEME_UNSUPPORTED"))
+        return cleaned

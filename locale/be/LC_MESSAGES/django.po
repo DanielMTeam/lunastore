@@ -3412,3 +3412,31 @@ msgstr "Для гэтай праграмы ўжо ўключаўся ўдзел 
 #: templates/del_acc.html
 msgid "COMMUNITY_ACCOUNT_RETENTION_DESCRIPTION"
 msgstr "Застануцца ў каталогу без уладальніка разам з дыстрыбутывамі. Вы страціце кіраванне імі."
+
+
+msgid "THEME_CLASSIC_LIGHT"
+msgstr "Класічная светлая"
+
+
+msgid "THEME_CLASSIC_DARK"
+msgstr "Класічная цёмная"
+
+
+msgid "THEME_WINDOWS7"
+msgstr "Windows 7"
+
+
+msgid "PAGE_SETTINGS_THEME_TITLE"
+msgstr "Тэма афармлення"
+
+
+msgid "ERROR_THEME_UNSUPPORTED"
+msgstr "Для тэмы Windows 7 патрэбны браўзер з падтрымкай border-image і background-size: cover, а таксама ўключаны JavaScript."
+
+
+msgid "INFO_THEME_FALLBACK"
+msgstr "У гэтым браўзеры выкарыстоўваецца светлая класічная тэма. Выбар Windows 7 захаваны ва ўліковым запісе."
+
+
+msgid "INFO_THEME_UPDATED"
+msgstr "Тэма афармлення захавана."

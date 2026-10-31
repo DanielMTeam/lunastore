@@ -4,7 +4,7 @@
 {% get_available_languages as AVAILABLE_LANGUAGES %}
 {% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
-<html>
+<html{% if selected_theme == "classic_dark" %} class="theme-classic-dark"{% endif %}>
 
 <head>
     <title>{% block title %}LunaStore{% endblock %}</title>
@@ -14,11 +14,11 @@
     <link rel="stylesheet" href="{% static './css/main.css'%}">
     <link rel="stylesheet" href="{% static './css/notifications.css'%}">
     <link rel="stylesheet" href="{% static './css/reviews.css'%}">
-    {% if request.COOKIES.dark_theme == 'on' %}
-    <link rel="stylesheet" id="darkthm-css" href="{% static 'css/darkthm.css'%}">
+    {% if selected_theme == 'classic_dark' %}
+    <link rel="stylesheet" id="darkthm-css" href="{% static selected_theme_css %}">
     {% endif %}
-    <link rel="shortcut icon" href="{% static './favicon.ico'%}">
-    <script>window.DARK_THEME_CSS_URL = "{% static 'css/darkthm.css' %}";</script>
+    <link rel="shortcut icon" href="{% static './favicon.ico' %}">
+    <script id="site-theme-config" type="text/javascript" data-theme="{{ selected_theme }}" data-theme-css="{% if selected_theme_css %}{% static selected_theme_css %}{% endif %}" src="{% static 'js/themes.js' %}"></script>
     <script src="{% static './js/cookie.js' %}"></script>
     {% if is_modern_browser %}
     {# real IE < 9 never executes these even if UA lies to the server :D #}
@@ -240,13 +240,6 @@
 
                 <div style="clear: both;"></div>
                 <div style="margin-top: 4px; overflow: hidden; zoom: 1;">
-                    <div style="float: left;">
-                        {% if request.COOKIES.dark_theme == 'on' %}
-                        <a href="{% url 'theme_switch' %}?payload=off&next={{ request.get_full_path|urlencode }}" alt="{% trans "BASE_THEME_DISABLE" %}" title="{% trans "BASE_THEME_DISABLE" %}"><div class="thmsw" id="dark" style="float: none;"></div></a>
-                        {% else %}
-                        <a href="{% url 'theme_switch' %}?payload=on&next={{ request.get_full_path|urlencode }}" alt="{% trans "BASE_THEME_ENABLE" %}" title="{% trans "BASE_THEME_ENABLE" %}"><div class="thmsw" id="light" style="float: none;"></div></a>
-                        {% endif %}
-                    </div>
                     <div style="text-align: right; font-size: 11px;">
                         {% trans "BASE_FOOTER_TEXT_1" %} {% now "Y" %}<br>{% trans "BASE_FOOTER_TEXT_2" %}
                     </div>

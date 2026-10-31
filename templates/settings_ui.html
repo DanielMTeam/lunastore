@@ -21,6 +21,29 @@
         {% include "includes/settings_tabs.html" with active_tab="ui" %}
 
         <div class="tab-content" id="tab-view">
+            <form method="post" id="theme-settings">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="theme">
+                <input type="hidden" id="windows7-supported" name="windows7_supported" value="">
+                {% if selected_theme == 'windows7' %}
+                <input type="hidden" name="theme" value="windows7">
+                {% endif %}
+                <div class="profile_block">{% trans "PAGE_SETTINGS_THEME_TITLE" %}</div>
+                <div class="profile_block_content">
+                    {% for theme in site_themes %}
+                    <p><label>
+                        <input type="radio" name="theme" value="{{ theme.id }}"{% if selected_theme == theme.id %} checked{% endif %}{% if theme.requires_capabilities %} id="theme-windows7" disabled{% endif %}>
+                        {{ theme.label }}
+                    </label></p>
+                    {% endfor %}
+                    <p id="theme-unsupported" role="status">{% trans "ERROR_THEME_UNSUPPORTED" %}</p>
+                    {% if selected_theme == 'windows7' %}
+                    <p id="theme-fallback" role="status">{% trans "INFO_THEME_FALLBACK" %}</p>
+                    {% endif %}
+                    <input type="submit" class="action_button" value="{% trans 'PAGE_SETTINGS_BTN_SAVE' %}">
+                </div>
+            </form>
+            <br>
             <form method="POST">
                 {% csrf_token %}
                 <div class="profile_block">{% trans "PAGE_SETTINGS_HOME_LAYOUT_TITLE" %}</div>

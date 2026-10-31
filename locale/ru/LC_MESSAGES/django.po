@@ -3411,3 +3411,31 @@ msgstr "Для этого приложения уже включалась по�
 #: templates/del_acc.html
 msgid "COMMUNITY_ACCOUNT_RETENTION_DESCRIPTION"
 msgstr "Останутся в каталоге без владельца вместе с дистрибуциями. Вы потеряете управление ими."
+
+
+msgid "THEME_CLASSIC_LIGHT"
+msgstr "Классическая светлая"
+
+
+msgid "THEME_CLASSIC_DARK"
+msgstr "Классическая тёмная"
+
+
+msgid "THEME_WINDOWS7"
+msgstr "Windows 7"
+
+
+msgid "PAGE_SETTINGS_THEME_TITLE"
+msgstr "Тема оформления"
+
+
+msgid "ERROR_THEME_UNSUPPORTED"
+msgstr "Для темы Windows 7 нужен браузер с поддержкой border-image и background-size: cover, а также включённый JavaScript."
+
+
+msgid "INFO_THEME_FALLBACK"
+msgstr "В этом браузере используется светлая классическая тема. Выбор Windows 7 сохранён в аккаунте."
+
+
+msgid "INFO_THEME_UPDATED"
+msgstr "Тема оформления сохранена."

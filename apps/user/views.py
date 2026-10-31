@@ -609,7 +609,21 @@ def settings_ui(request):
         VALID_HOME_LAYOUTS,
     )
 
+    from apps.user.forms import ThemePreferenceForm
+
     user = request.user
+    if request.method == "POST" and request.POST.get("action") == "theme":
+        form = ThemePreferenceForm(request.POST, current_theme=user.theme)
+        if form.is_valid():
+            user.theme = form.cleaned_data["theme"]
+            user.save(update_fields=["theme"])
+            messages.success(request, _("INFO_THEME_UPDATED"))
+        else:
+            for errors in form.errors.values():
+                for error in errors:
+                    messages.error(request, error)
+        return redirect("settings_ui")
+
     if request.method == "POST":
         layout = request.POST.get("home_view", "")
         if layout in VALID_HOME_LAYOUTS:

@@ -11,6 +11,7 @@ from django.utils.translation import gettext_lazy as _
 from safedelete.managers import SafeDeleteManager
 from safedelete.models import SOFT_DELETE_CASCADE, SafeDeleteModel
 from safedelete.queryset import SafeDeleteQueryset
+from apps.core.themes import THEME_CHOICES
 from .validators import validate_email_mx, validate_english_username
 
 
@@ -92,6 +93,8 @@ class User(AbstractUser, SafeDeleteModel):
     totp_secret = models.CharField(max_length=32, null=True, blank=True)
     totp_enabled = models.BooleanField(default=False)
     last_username_change = models.DateTimeField(null=True, blank=True)
+    theme = models.CharField(max_length=16, choices=THEME_CHOICES, null=True, blank=True)
+
     HOME_LAYOUT_RICH = "rich"
     HOME_LAYOUT_COMPACT = "compact"
     HOME_LAYOUT_CHOICES = (

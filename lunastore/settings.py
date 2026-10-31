@@ -1238,6 +1238,7 @@ TEMPLATES = [
                 "apps.core.context_processors.lunapassport_settings",
                 "apps.core.context_processors.geo_domains_processor",
                 "apps.core.context_processors.notification_context",
+                "apps.core.themes.theme_context",
             ],
         },
     },

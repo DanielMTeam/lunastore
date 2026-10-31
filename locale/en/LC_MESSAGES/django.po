@@ -3404,3 +3404,31 @@ msgstr "Community contributions have been enabled for this application. You reta
 #: templates/del_acc.html
 msgid "COMMUNITY_ACCOUNT_RETENTION_DESCRIPTION"
 msgstr "Will remain in the catalog without an owner, along with their distributions. You will lose management access."
+
+
+msgid "THEME_CLASSIC_LIGHT"
+msgstr "Classic light"
+
+
+msgid "THEME_CLASSIC_DARK"
+msgstr "Classic dark"
+
+
+msgid "THEME_WINDOWS7"
+msgstr "Windows 7"
+
+
+msgid "PAGE_SETTINGS_THEME_TITLE"
+msgstr "Appearance theme"
+
+
+msgid "ERROR_THEME_UNSUPPORTED"
+msgstr "The Windows 7 theme requires a browser supporting border-image and background-size: cover, with JavaScript enabled."
+
+
+msgid "INFO_THEME_FALLBACK"
+msgstr "This browser uses the classic light theme. Your Windows 7 preference is still saved in your account."
+
+
+msgid "INFO_THEME_UPDATED"
+msgstr "Theme saved."
