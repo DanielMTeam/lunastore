@@ -38,6 +38,7 @@ class UserAdmin(BaseUserAdmin, unfold_admin.ModelAdmin):
                               "avatar_path",
                               "avatar_id",
                               "badges",
+                              "is_supporter",
                               "profile_splash",
                               "is_staff",
                               "is_superuser",
@@ -64,8 +65,9 @@ class UserAdmin(BaseUserAdmin, unfold_admin.ModelAdmin):
                   ),
                  )
     list_display = ["pk", "display_username", "email", "invited_by",
-                    "is_trusted"]
+                    "is_trusted", "is_supporter"]
     list_filter = [
+        "is_supporter",
         "is_trusted",
         "is_staff",
         "is_superuser",

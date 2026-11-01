@@ -28,7 +28,11 @@
                 {% with user_badges=badges %}
                 {% if user_badges %}
                 {% for badge in user_badges %}
+                {% if badge == 'supporter' %}
+                <img src="{% static 'img/badges/donates.png' %}" class="png-fix" alt="supporter" title="supporter" style="vertical-align: middle;">
+                {% else %}
                 <img src="{% static './img/badges/' %}{{ badge }}.png" style="vertical-align: middle;">
+                {% endif %}
                 {% endfor %}
                 {% endif %}
                 {% endwith %}

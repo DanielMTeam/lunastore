@@ -74,6 +74,12 @@ class User(AbstractUser, SafeDeleteModel):
     discord = models.CharField(max_length=32, null=True, blank=True)
     openvk = models.CharField(max_length=45, null=True, blank=True)
     badges = models.CharField(max_length=255, null=True, blank=True)
+    is_supporter = models.BooleanField(
+        default=False,
+        db_default=False,
+        verbose_name="Поддерживает проект",
+        help_text="Автоматически отображать бейдж supporter в профиле.",
+    )
     website = models.URLField(max_length=45, null=True, blank=True)
     description = models.CharField(
         max_length=255,
@@ -134,9 +140,10 @@ class User(AbstractUser, SafeDeleteModel):
 
     @property
     def badge_list(self):
-        if not self.badges:
-            return []
-        return [tag.strip() for tag in self.badges.split(";")]
+        badges = [tag.strip() for tag in self.badges.split(";")] if self.badges else []
+        if self.is_supporter and "supporter" not in badges:
+            badges.append("supporter")
+        return badges
 
 
 class UserBan(SafeDeleteModel):

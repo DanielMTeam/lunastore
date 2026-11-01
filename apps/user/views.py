@@ -411,8 +411,7 @@ def profile(request):
             )
         obj = get_object_or_404(User, id=request.user.id)
     apps_count = Application.objects.filter(user=obj).count()
-    badges = [tag.strip()
-              for tag in obj.badges.split(";")] if obj.badges else []
+    badges = obj.badge_list
     active_ban = None
     ban_record = UserBan.objects.filter(user=obj).first()
     if ban_record:
