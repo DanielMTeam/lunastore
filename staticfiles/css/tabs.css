@@ -81,3 +81,22 @@
   margin-right: 2px;
   top: 0;
 }
+
+/* Fill the management bar with whichever tabs the current role can use. */
+.app-management-tabs {
+  width: 100%;
+  border: 0;
+  border-collapse: separate;
+}
+
+.app-management-tabs td {
+  padding: 0 1px 0 0;
+  vertical-align: bottom;
+}
+
+.app-management-tabs .tab {
+  display: block;
+  float: none;
+  margin-right: 0;
+  text-align: center;
+}

@@ -415,6 +415,11 @@ class Distribution(BaseDistributionInfo):
 
 
 class DistributionCreateRequests(BaseDistributionInfo):
+
+    request_origin = models.CharField(
+        max_length=12, default="legacy", db_default="legacy", editable=False,
+        choices=[(value, value) for value in ("legacy", "owner", "admin", "editor", "community")],
+    )
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -481,6 +486,11 @@ class AppCreateRequests(BaseApplicationInfo, SafeDeleteModel):
 
 
 class DistributionEditRequests(BaseDistributionInfo):
+
+    request_origin = models.CharField(
+        max_length=12, default="legacy", db_default="legacy", editable=False,
+        choices=[(value, value) for value in ("legacy", "owner", "admin", "editor", "community")],
+    )
     target_distribution = models.ForeignKey(
         'Distribution',
         on_delete=models.CASCADE,
@@ -528,6 +538,11 @@ class DistributionEditRequests(BaseDistributionInfo):
 
 
 class AppEditRequests(BaseApplicationInfo, SafeDeleteModel):
+
+    request_origin = models.CharField(
+        max_length=12, default="legacy", db_default="legacy", editable=False,
+        choices=[(value, value) for value in ("legacy", "owner", "admin", "editor", "community")],
+    )
     _safedelete_policy = SOFT_DELETE
 
     target_application = models.ForeignKey(
@@ -1005,3 +1020,27 @@ class HomeCategoryBlock(models.Model):
 
     def __str__(self) -> str:
         return f"{self.category} (#{self.sort_order})"
+
+
+class ApplicationAccess(models.Model):
+    class Role(models.TextChoices):
+        ADMIN = "admin", _("PAGE_ADMIN_APP_RIGHTS_ROLE_ADMIN")
+        EDITOR = "editor", _("PAGE_ADMIN_APP_RIGHTS_ROLE_EDITOR")
+
+    application = models.ForeignKey(Application, on_delete=models.CASCADE, related_name="access_entries")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="application_access")
+    role = models.CharField(max_length=12, choices=Role.choices)
+    granted_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name="granted_application_access",
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["application", "user"], name="unique_application_access_user"),
+            models.CheckConstraint(condition=models.Q(role__in=["admin", "editor"]), name="valid_application_access_role"),
+        ]
+
+    def __str__(self):
+        return f"{self.application_id}:{self.user_id}:{self.role}"

@@ -48,7 +48,7 @@
                             {% endif %}
 
                             <a href="/app.php?id={{ app.pk }}"><h3>{{ app.title }}</h3></a>
-                            <p><b>{% trans "PAGE_MANAGE_APPS_ROLE_OWNER" %}</b></p>
+                            <p><b>{% if app.management_role == "owner" %}{% trans "PAGE_ADMIN_APP_RIGHTS_ROLE_OWNER" %}{% elif app.management_role == "admin" %}{% trans "PAGE_ADMIN_APP_RIGHTS_ROLE_ADMIN" %}{% else %}{% trans "PAGE_ADMIN_APP_RIGHTS_ROLE_EDITOR" %}{% endif %}</b></p>
                             {% if is_modern_browser %}
                             <a href="{% url 'edit_app_info' pk=app.pk %}">{% trans "PAGE_MANAGE_APPS_BTN_EDIT" %}</a>
                             {% endif %}

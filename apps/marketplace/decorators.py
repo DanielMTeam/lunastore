@@ -37,9 +37,9 @@ def guard_private_app(view_func=None):
             if not app_instance.is_private:
                 return view_func(request, *args, **kwargs)
 
-            owner = app_instance.user
+            from .services.access import can_manage_app
 
-            if owner != request.user:
+            if not can_manage_app(app_instance, request.user, "view"):
                 raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
             return view_func(request, *args, **kwargs)
 

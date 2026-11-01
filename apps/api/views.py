@@ -17,6 +17,7 @@ from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
+from apps.marketplace.services.access import can_manage_app, application_role
 from apps.marketplace.models import Application, Category, Distribution
 from apps.marketplace.services.distributions import can_submit_community_distribution
 from apps.marketplace.serializers import (
@@ -189,9 +190,9 @@ class UserViewSet(viewsets.GenericViewSet):
         # check permissions
         app_obj = get_object_or_404(Application, id=app_id)
         if (
-            app_obj.user != request.user
+            not can_manage_app(app_obj, request.user, "files")
             and not request.user.is_staff
-            and not can_submit_community_distribution(app_obj, request.user)
+            and not (application_role(app_obj, request.user) is None and can_submit_community_distribution(app_obj, request.user))
         ):
             return Response({"error": "Not your app"}, status=403)
 
@@ -269,7 +270,7 @@ class MarketplaceViewSet(viewsets.GenericViewSet):
                 message=f"Application (id: {id}) unavailable because his creators/uploaders received a DMCA strike",
                 status_code=403,
             )
-        if app.is_private:
+        if app.is_private and not can_manage_app(app, request.user, "view"):
             raise LunaException(
                 code=ErrorCodes.APPLICATION_PRIVATE,
                 message=f"Application (id: {id}) unavailable because it is private",
@@ -462,9 +463,8 @@ class DistributionViewSet(viewsets.GenericViewSet):
                 status_code=400,
             )
 
-        if not Application.objects.filter(
-                id=app_id).exclude(
-                is_private=True).exists():
+        app = Application.objects.filter(pk=app_id).first()
+        if app is None or (app.is_private and not can_manage_app(app, request.user, "view")):
             raise LunaException(
                 code=ErrorCodes.APPLICATION_NOT_FOUND,
                 message=f"Application with id {app_id} was not found",

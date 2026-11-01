@@ -24,6 +24,7 @@ from drf_spectacular.utils import (
     extend_schema_view,
     inline_serializer,
 )
+from apps.marketplace.services.access import can_manage_app, application_role, accessible_app_ids
 from apps.marketplace.models import Application, Category, Collection, CollectionItem, Distribution
 from apps.marketplace.services.distributions import can_submit_community_distribution
 from apps.marketplace.serializers import ApplicationSerializer, CategorySerializer, CollectionSerializer, DistributionSerializer, annotate_app_last_version
@@ -170,9 +171,9 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
 
         app_obj = get_object_or_404(Application, id=app_id)
         if (
-            app_obj.user != request.user
+            not can_manage_app(app_obj, request.user, "files")
             and not request.user.is_staff
-            and not can_submit_community_distribution(app_obj, request.user)
+            and not (application_role(app_obj, request.user) is None and can_submit_community_distribution(app_obj, request.user))
         ):
             return Response({"error": "Not your app"}, status=403)
 
@@ -266,9 +267,12 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
 )
 class MarketplaceViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
-        return annotate_app_last_version(
-            Application.objects.filter(is_private=False, is_under_dmca=False)
-        )
+        qs = Application.objects.filter(is_under_dmca=False)
+        if self.action == "retrieve":
+            qs = qs.filter(Q(is_private=False) | Q(pk__in=accessible_app_ids(self.request.user)))
+        else:
+            qs = qs.filter(is_private=False)
+        return annotate_app_last_version(qs)
     serializer_class = ApplicationSerializer
     pagination_class = V2Pagination
 
@@ -280,7 +284,7 @@ class MarketplaceViewSet(viewsets.ReadOnlyModelViewSet):
                 message=f"Application (id: {obj.id}) unavailable because his creators/uploaders received a DMCA strike",
                 status_code=403,
             )
-        if obj.is_private:
+        if obj.is_private and not can_manage_app(obj, self.request.user, "view"):
             raise LunaException(
                 code=ErrorCodes.APPLICATION_PRIVATE,
                 message=f"Application (id: {obj.id}) unavailable because it is private",
@@ -483,11 +487,11 @@ class DistributionViewSet(viewsets.ReadOnlyModelViewSet):
     pagination_class = V2Pagination
 
     def get_queryset(self):
-        # hide private app distributions unless requester is the owner
+        # Private distributions are visible to the owner and current team members.
         qs = Distribution.objects.select_related("app", "app__user")
         user = self.request.user
         if user.is_authenticated:
-            return qs.filter(Q(app__is_private=False) | Q(app__user=user))
+            return qs.filter(Q(app__is_private=False) | Q(app_id__in=accessible_app_ids(user)))
         return qs.filter(app__is_private=False)
 
     @extend_schema(
@@ -504,7 +508,7 @@ class DistributionViewSet(viewsets.ReadOnlyModelViewSet):
 
         app = get_object_or_404(Application, pk=app_id)
         if app.is_private and (
-                not request.user.is_authenticated or app.user_id != request.user.id):
+                not can_manage_app(app, request.user, "view")):
             raise LunaException(
                 code=ErrorCodes.APPLICATION_PRIVATE,
                 message=f"Application (id: {app.id}) unavailable because it is private",

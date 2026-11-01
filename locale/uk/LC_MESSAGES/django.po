@@ -3417,3 +3417,143 @@ msgstr "Для цього застосунку вже вмикалася уча�
 #: templates/del_acc.html
 msgid "COMMUNITY_ACCOUNT_RETENTION_DESCRIPTION"
 msgstr "Залишаться в каталозі без власника разом із дистрибуціями. Ви втратите керування ними."
+
+
+msgid "PAGE_ADMIN_APP_TAB_RIGHTS"
+msgstr "Права"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_TITLE"
+msgstr "Права доступу"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ADD"
+msgstr "додати людину"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_EDIT"
+msgstr "редагувати"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ROLE_OWNER"
+msgstr "Власник"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ROLE_ADMIN"
+msgstr "Адміністратор"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ROLE_EDITOR"
+msgstr "Редактор"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ROLE_NONE"
+msgstr "Ніхто"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_EDIT_TITLE"
+msgstr "Редагування прав доступу"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_EDIT_CURRENT"
+msgstr "Поточна роль"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_SAVE"
+msgstr "Зберегти"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_BACK"
+msgstr "Назад"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_SAVED"
+msgstr "Права доступу збережено."
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ADMIN_DESCRIPTION"
+msgstr "Може редагувати картку, іконку й знімки екрана, керувати версіями та переглядати статистику. Може змінювати приватність і дозвіл відгуків. Не може керувати учасниками та режимом спільноти."
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_EDITOR_DESCRIPTION"
+msgstr "Може редагувати поля картки й іконку та переглядати статистику. Не може керувати версіями, знімками екрана, учасниками й налаштуваннями доступу."
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_NONE_DESCRIPTION"
+msgstr "Відкликає всі права керування цим застосунком."
+
+
+msgid "FORM_APP_RIGHTS_USERNAME"
+msgstr "Ім’я користувача"
+
+
+msgid "FORM_APP_RIGHTS_ROLE"
+msgstr "Роль"
+
+
+msgid "ERROR_APP_RIGHTS_OWNER"
+msgstr "Неможливо змінити права власника застосунку."
+
+
+msgid "ERROR_APP_RIGHTS_ROLE"
+msgstr "Неприпустима роль."
+
+
+msgid "ERROR_APP_RIGHTS_USER"
+msgstr "Активного незаблокованого користувача не знайдено."
+
+
+#, python-format
+msgid "PAGE_ADMIN_APP_RIGHTS_COUNT_ONE %(count)s"
+msgid_plural "PAGE_ADMIN_APP_RIGHTS_COUNT_MANY %(count)s"
+msgstr[0] "%(count)s користувач"
+msgstr[1] "%(count)s користувачі"
+msgstr[2] "%(count)s користувачів"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ADD_TITLE"
+msgstr "Додавання учасника"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_CANCEL"
+msgstr "Скасувати"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_EDIT_CHOOSE_ROLE"
+msgstr "Виберіть посаду"
+
+
+msgid "NOTIF_APP_ACCESS_GRANTED_TITLE"
+msgstr "Вам надано доступ до застосунку"
+
+
+msgid "NOTIF_APP_ACCESS_GRANTED_ADMIN_DESCRIPTION"
+msgstr "Вам надано доступ до застосунку «%(app_name)s» із роллю адміністратора."
+
+
+msgid "NOTIF_APP_ACCESS_GRANTED_EDITOR_DESCRIPTION"
+msgstr "Вам надано доступ до застосунку «%(app_name)s» із роллю редактора."
+
+
+msgid "NOTIF_APP_ACCESS_PROMOTED_TITLE"
+msgstr "Вашу роль у застосунку підвищено"
+
+
+msgid "NOTIF_APP_ACCESS_PROMOTED_DESCRIPTION"
+msgstr "Вашу роль у застосунку «%(app_name)s» підвищено до адміністратора."
+
+
+msgid "NOTIF_APP_ACCESS_DEMOTED_TITLE"
+msgstr "Вашу роль у застосунку понижено"
+
+
+msgid "NOTIF_APP_ACCESS_DEMOTED_DESCRIPTION"
+msgstr "Вашу роль у застосунку «%(app_name)s» понижено до редактора."
+
+
+msgid "NOTIF_APP_ACCESS_REVOKED_TITLE"
+msgstr "Доступ до застосунку відкликано"
+
+
+msgid "NOTIF_APP_ACCESS_REVOKED_DESCRIPTION"
+msgstr "Ваш доступ до керування застосунком «%(app_name)s» відкликано."
