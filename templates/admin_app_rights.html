@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="{% static 'css/profile.css' %}">
   <link rel="stylesheet" href="{% static 'css/tabs.css' %}">
   <div class="tabs">
-    {% include "includes/app_management_tabs.html" with app=app active_tab="rights" user=request.user only %}
+    {% include "includes/app_management_tabs.html" with app=app active_tab="rights" user=request.user request=request only %}
     <div class="tab-content">
       {% block rights_content %}
       <div class="profile_block">{% trans "PAGE_ADMIN_APP_RIGHTS_TITLE" %}</div>

@@ -156,7 +156,7 @@
                         {% endif %}
 
                         <li><a class="alert" {% if is_report_page %}id="active" {% endif %} href="/report_app.php?id={{ app_id }}">{% trans "BASE_SIDEBAR_APP_REPORT" %}</a></li>
-                        {% app_capabilities app_id user as app_caps %}
+                        {% app_capabilities app|default:app_id user as app_caps %}
                         {% if app_caps.info and is_modern_browser %}
                         <li><a class="editapp" {% if is_edit_page %}id="active" {% endif %} href="/edit_app_info.php/{{ app_id }}/">{% trans "BASE_SIDEBAR_APP_EDIT" %}</a></li>
                         {% elif can_propose_changes and is_modern_browser %}

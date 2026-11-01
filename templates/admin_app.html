@@ -67,7 +67,7 @@
   </style>
   <div class="tabs">
       {% if not is_community_proposal %}
-      {% include "includes/app_management_tabs.html" with app=obj active_tab="info" user=request.user only %}
+      {% include "includes/app_management_tabs.html" with app=obj active_tab="info" user=request.user request=request only %}
       {% endif %}
 
       <div class="tab-content" id="tab-view">

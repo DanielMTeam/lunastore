@@ -5,12 +5,13 @@ from django.urls import reverse
 
 
 def can_submit_community_distribution(app, user):
-    from .access import user_can_access
+    from .access import application_role, user_can_access
     return (
         user_can_access(user)
         and not app.is_private
         and not app.is_under_dmca
         and app.allow_community_distributions
+        and application_role(app, user) != "editor"
         and (user.is_superuser or user.groups.filter(name="Разработчики").exists())
     )
 

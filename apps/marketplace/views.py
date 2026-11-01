@@ -243,6 +243,7 @@ def app(request):
 
     context = {
         "app_id": obj.id,
+        "app": obj,
         "is_demo": obj.is_demo,
         "is_dmca": obj.is_under_dmca,
         "is_under_dmca": obj.is_under_dmca,
@@ -526,6 +527,7 @@ def application_edit_info(request, pk):
     return render(request,
                   "admin_app.html",
                   {"obj": obj,
+                   "app": obj,
                    "form": form,
                    "is_edit_page": True,
                    "is_community_proposal": is_proposal,

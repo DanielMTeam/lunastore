@@ -35,13 +35,16 @@ def application_role(app, user):
     return ApplicationAccess.objects.filter(application=app, user=user).values_list("role", flat=True).first()
 
 
-def can_manage_app(app, user, capability="info"):
-    role = application_role(app, user)
+def role_has_capability(role, capability):
     if capability in ("rights", "community"):
         return role == "owner"
     if capability in ("files", "screenshots", "settings"):
         return role in ("owner", "admin")
     return capability in ("info", "stats", "view") and role in ("owner", "admin", "editor")
+
+
+def can_manage_app(app, user, capability="info"):
+    return role_has_capability(application_role(app, user), capability)
 
 
 def accessible_app_ids(user):

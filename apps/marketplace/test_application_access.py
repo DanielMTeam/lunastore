@@ -3,10 +3,11 @@ from datetime import timedelta
 from unittest.mock import patch
 
 from django.contrib.admin.models import LogEntry
-from django.contrib.auth.models import AnonymousUser
+from django.contrib.auth.models import AnonymousUser, Group
 from django.core.cache import cache
 from django.db import IntegrityError, transaction, connections
-from django.test import Client, TestCase, TransactionTestCase, override_settings
+from django.template import Context, Template
+from django.test import Client, RequestFactory, TestCase, TransactionTestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import override
@@ -197,6 +198,9 @@ class ApplicationAccessTests(TestCase):
         self.assertFalse(self.app.allow_community_distributions)
 
     def test_editor_cannot_manage_distributions_even_with_developer_status(self):
+        self.editor.groups.add(Group.objects.get_or_create(name="Разработчики")[0])
+        self.app.allow_community_distributions = True
+        self.app.save()
         self.client.force_login(self.editor)
         for url in (
             reverse("manage_distributions") + f"?id={self.app.pk}",
@@ -205,6 +209,81 @@ class ApplicationAccessTests(TestCase):
         ):
             self.assertEqual(self.client.get(url).status_code, 403)
         self.assertEqual(self.client.post(reverse("distribution_delete", kwargs={"dist_pk": self.dist.pk})).status_code, 403)
+
+    def test_editor_does_not_see_community_release_actions(self):
+        self.editor.groups.add(Group.objects.get_or_create(name="Разработчики")[0])
+        self.app.allow_community_distributions = True
+        self.app.save()
+        self.client.force_login(self.editor)
+        response = self.client.get(reverse("download") + f"?id={self.app.pk}")
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, reverse("distribution_create", kwargs={"app_id": self.app.pk}))
+        self.assertNotContains(response, reverse("distribution_edit", kwargs={"dist_pk": self.dist.pk}))
+
+    def test_editor_grant_during_community_release_validation_prevents_save(self):
+        from apps.marketplace.forms import BaseDistributionForm
+
+        self.other.groups.add(Group.objects.get_or_create(name="Разработчики")[0])
+        self.app.allow_community_distributions = True
+        self.app.save()
+        self.client.force_login(self.other)
+        original_clean = BaseDistributionForm.clean
+
+        def grant_editor_during_validation(form):
+            result = original_clean(form)
+            set_application_access(self.app.pk, self.owner, self.other, "editor")
+            return result
+
+        for route, kwargs, model in (
+            ("distribution_create", {"app_id": self.app.pk}, DistributionCreateRequests),
+            ("distribution_edit", {"dist_pk": self.dist.pk}, DistributionEditRequests),
+        ):
+            with self.subTest(route=route):
+                set_application_access(self.app.pk, self.owner, self.other, "none")
+                with patch.object(BaseDistributionForm, "clean", grant_editor_during_validation):
+                    response = self.client.post(reverse(route, kwargs=kwargs), {
+                        "version": "2.0", "url": "https://example.test/new.zip", "lunabox_type": "file",
+                    })
+                self.assertEqual(response.status_code, 403)
+                self.assertFalse(model.objects.filter(app=self.app, user=self.other).exists())
+
+    def test_editor_cannot_approve_earlier_community_release_requests(self):
+        self.other.groups.add(Group.objects.get_or_create(name="Разработчики")[0])
+        self.app.allow_community_distributions = True
+        self.app.save()
+        create = DistributionCreateRequests.objects.create(
+            app=self.app, user=self.other, version="2", request_origin="community",
+        )
+        edit = DistributionEditRequests.objects.create(
+            app=self.app, target_distribution=self.dist, user=self.other, version="3", request_origin="community",
+        )
+        set_application_access(self.app.pk, self.owner, self.other, "editor")
+        self.assertIsNone(approve_dist_create_request(create, actor=self.owner))
+        self.assertIsNone(approve_dist_edit_request(edit, actor=self.owner))
+        self.dist.refresh_from_db()
+        self.assertEqual(self.dist.version, "1.0")
+        self.assertEqual(Distribution.objects.filter(app=self.app).count(), 1)
+
+    def test_capabilities_reuse_loaded_app_and_queries_across_included_templates(self):
+        template = Template(
+            '{% load app_access %}{% app_capabilities app user as first %}'
+            '{% include "includes/app_management_tabs.html" with app=app user=user request=request only %}'
+            '{% app_capabilities app.pk user as second %}{{ first.role }}:{{ second.role }}'
+        )
+        context = Context({"request": RequestFactory().get("/"), "app": self.app, "user": self.editor})
+        with self.assertNumQueries(3):
+            rendered = template.render(context)
+        self.assertIn("editor:editor", rendered)
+
+    def test_presentation_cache_does_not_cache_authorization_or_other_requests(self):
+        from apps.marketplace.templatetags.app_access import app_capabilities
+
+        context = Context({"request": RequestFactory().get("/")})
+        self.assertTrue(app_capabilities(context, self.app, self.admin)["files"])
+        set_application_access(self.app.pk, self.owner, self.admin, "editor")
+        self.assertFalse(can_manage_app(self.app, self.admin, "files"))
+        next_context = Context({"request": RequestFactory().get("/")})
+        self.assertFalse(app_capabilities(next_context, self.app, self.admin)["files"])
 
     def test_admin_without_developer_status_can_submit_release(self):
         self.client.force_login(self.admin)
