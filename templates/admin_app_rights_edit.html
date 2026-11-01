@@ -4,17 +4,19 @@
 {% block rights_content %}
 <div class="profile_block">{% if target_user %}{% trans "PAGE_ADMIN_APP_RIGHTS_EDIT_TITLE" %}{% else %}{% trans "PAGE_ADMIN_APP_RIGHTS_ADD_TITLE" %}{% endif %}</div>
 <div class="profile_block_content">
+  {% if target_user %}
+  <div class="brief_admin">
+    <img src="{{ target_user.avatar_url }}" alt="" width="48" height="48">
+    <h3>{% trans "PAGE_ADMIN_APP_RIGHTS_EDIT_FOR" %} <a href="{% url 'profile' %}?id={{ target_user.pk }}">{{ target_user.username }}</a></h3>
+    <p>{% trans "PAGE_ADMIN_APP_RIGHTS_EDIT_CURRENT" %}: <b>{% if current_entry %}{{ current_entry.get_role_display|lower }}{% else %}{% trans "PAGE_ADMIN_APP_RIGHTS_ROLE_NONE" %}{% endif %}</b></p>
+    <p>{% trans "PAGE_ADMIN_APP_RIGHTS_APPLICATION" %}: <a href="{% url 'app' %}?id={{ app.pk }}">{{ app.title }}</a></p>
+    <div style="clear: both"></div>
+  </div>
+  {% else %}
   <div class="brief_admin">
     <img src="{{ app.icon_url }}" alt="" width="48" height="48" class="png-fix">
     <h3><a href="{% url 'app' %}?id={{ app.pk }}">{{ app.title }}</a></h3>
     {% if app.slogan %}<p>{{ app.slogan }}</p>{% endif %}
-    <div style="clear: both"></div>
-  </div>
-  {% if target_user %}
-  <div class="brief_admin">
-    <img src="{{ target_user.avatar_url }}" alt="" width="48" height="48">
-    <h3><a href="{% url 'profile' %}?id={{ target_user.pk }}">{{ target_user.username }}</a></h3>
-    <p>{% trans "PAGE_ADMIN_APP_RIGHTS_EDIT_CURRENT" %}: <b>{% if current_entry %}{{ current_entry.get_role_display }}{% else %}{% trans "PAGE_ADMIN_APP_RIGHTS_ROLE_NONE" %}{% endif %}</b></p>
     <div style="clear: both"></div>
   </div>
   {% endif %}
@@ -48,7 +50,7 @@
     </div>
     <div class="app-rights-actions">
       <button type="submit" class="action_button">{% trans "PAGE_ADMIN_APP_RIGHTS_SAVE" %}</button>
-      <a href="{% url 'app_rights' pk=app.pk %}" class="action_button action_button_secondary">{% trans "PAGE_ADMIN_APP_RIGHTS_CANCEL" %}</a>
+      {% if not target_user %}<a href="{% url 'app_rights' pk=app.pk %}" class="action_button action_button_secondary">{% trans "PAGE_ADMIN_APP_RIGHTS_CANCEL" %}</a>{% endif %}
     </div>
   </form>
 </div>

@@ -165,6 +165,16 @@
     margin: 12px 0;
 }
 
+.app-rights .brief_admin {
+    zoom: 1;
+}
+
+.app-rights .brief_admin h3 {
+    padding-top: 3px;
+    font-size: 11px;
+    color: #000;
+}
+
 .app-rights-user-search {
     width: 100%;
     margin-top: 4px;

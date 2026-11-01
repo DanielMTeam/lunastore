@@ -3366,7 +3366,7 @@ msgid "COMMUNITY_DISABLE"
 msgstr "Disable proposals"
 
 msgid "COMMUNITY_ACCESS_TITLE"
-msgstr "Community contributions"
+msgstr "Community"
 
 msgid "COMMUNITY_AUTHOR"
 msgstr "Community"

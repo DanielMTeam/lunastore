@@ -12,15 +12,17 @@
         {% trans "PAGE_ADMIN_APP_TAB_DISTRIBUTIONS" %}
     </a></td>
     {% endif %}
+    {% if caps.rights %}
+    <td><a href="{% url 'app_rights' pk=app.pk %}" class="tab{% if active_tab == 'rights' %} active{% endif %}"{% if active_tab == 'rights' %} aria-current="page"{% endif %}>
+        <img src="{% static 'img/tabs/rights.png' %}" class="tab-icon" alt="">
+        {% trans "PAGE_ADMIN_APP_TAB_RIGHTS" %}
+    </a></td>
+    {% endif %}
     <td><a href="{% url 'app_stats' pk=app.pk %}" class="tab{% if active_tab == 'stats' %} active{% endif %}"{% if active_tab == 'stats' %} aria-current="page"{% endif %}>
         <img src="{% static 'img/tabs/stats.png' %}" class="tab-icon" alt="">
         {% trans "PAGE_ADMIN_APP_TAB_STATS" %}
     </a></td>
     {% if caps.rights %}
-    <td><a href="{% url 'app_rights' pk=app.pk %}" class="tab{% if active_tab == 'rights' %} active{% endif %}">
-        <img src="{% static 'img/tabs/rights.png' %}" class="tab-icon" alt="">
-        {% trans "PAGE_ADMIN_APP_TAB_RIGHTS" %}
-    </a></td>
     <td><a href="{% url 'community_access' pk=app.pk %}" class="tab{% if active_tab == 'community' %} active{% endif %}"{% if active_tab == 'community' %} aria-current="page"{% endif %}>
         <img src="{% static 'img/tabs/account.png' %}" class="tab-icon" alt="">
         {% trans "COMMUNITY_ACCESS_TITLE" %}

@@ -3373,7 +3373,7 @@ msgid "COMMUNITY_DISABLE"
 msgstr "Отключить предложения"
 
 msgid "COMMUNITY_ACCESS_TITLE"
-msgstr "Участие сообщества"
+msgstr "Сообщество"
 
 msgid "COMMUNITY_AUTHOR"
 msgstr "Сообщество"
