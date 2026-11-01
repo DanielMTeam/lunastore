@@ -3557,3 +3557,11 @@ msgstr "Доступ до застосунку відкликано"
 
 msgid "NOTIF_APP_ACCESS_REVOKED_DESCRIPTION"
 msgstr "Ваш доступ до керування застосунком «%(app_name)s» відкликано."
+
+#: templates/admin_app_rights_edit.html
+msgid "PAGE_ADMIN_APP_RIGHTS_EDIT_FOR"
+msgstr "Редагування прав доступу для"
+
+#: templates/admin_app_rights_edit.html
+msgid "PAGE_ADMIN_APP_RIGHTS_APPLICATION"
+msgstr "Застосунок"

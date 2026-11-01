@@ -3552,3 +3552,11 @@ msgstr "Доступ да дадатка адкліканы"
 
 msgid "NOTIF_APP_ACCESS_REVOKED_DESCRIPTION"
 msgstr "Ваш доступ да кіравання дадаткам «%(app_name)s» адкліканы."
+
+#: templates/admin_app_rights_edit.html
+msgid "PAGE_ADMIN_APP_RIGHTS_EDIT_FOR"
+msgstr "Рэдагаванне правоў доступу для"
+
+#: templates/admin_app_rights_edit.html
+msgid "PAGE_ADMIN_APP_RIGHTS_APPLICATION"
+msgstr "Праграма"

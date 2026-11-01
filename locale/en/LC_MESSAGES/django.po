@@ -3543,3 +3543,11 @@ msgstr "Application access revoked"
 
 msgid "NOTIF_APP_ACCESS_REVOKED_DESCRIPTION"
 msgstr "Your access to manage “%(app_name)s” has been revoked."
+
+#: templates/admin_app_rights_edit.html
+msgid "PAGE_ADMIN_APP_RIGHTS_EDIT_FOR"
+msgstr "Edit access rights for"
+
+#: templates/admin_app_rights_edit.html
+msgid "PAGE_ADMIN_APP_RIGHTS_APPLICATION"
+msgstr "Application"

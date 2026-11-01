@@ -3531,3 +3531,11 @@ msgstr "Қолданбаға қол жеткізу қайтарылды"
 
 msgid "NOTIF_APP_ACCESS_REVOKED_DESCRIPTION"
 msgstr "«%(app_name)s» қолданбасын басқару құқығыңыз қайтарып алынды."
+
+#: templates/admin_app_rights_edit.html
+msgid "PAGE_ADMIN_APP_RIGHTS_EDIT_FOR"
+msgstr "Қол жеткізу құқықтарын өңдеу:"
+
+#: templates/admin_app_rights_edit.html
+msgid "PAGE_ADMIN_APP_RIGHTS_APPLICATION"
+msgstr "Қолданба"

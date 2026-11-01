@@ -3551,3 +3551,11 @@ msgstr "Доступ к приложению отозван"
 
 msgid "NOTIF_APP_ACCESS_REVOKED_DESCRIPTION"
 msgstr "Ваш доступ к управлению приложением «%(app_name)s» отозван."
+
+#: templates/admin_app_rights_edit.html
+msgid "PAGE_ADMIN_APP_RIGHTS_EDIT_FOR"
+msgstr "Редактирование прав доступа для"
+
+#: templates/admin_app_rights_edit.html
+msgid "PAGE_ADMIN_APP_RIGHTS_APPLICATION"
+msgstr "Приложение"
