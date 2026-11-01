@@ -116,6 +116,16 @@ class ApplicationAccessTests(TestCase):
             self.assertTrue(response.context["form"].errors)
         self.assertFalse(ApplicationAccess.objects.filter(user=self.owner).exists())
 
+    def test_none_role_is_only_available_when_editing(self):
+        add_url = reverse("app_rights_add", kwargs={"pk": self.app.pk})
+        edit_url = reverse("app_rights_edit", kwargs={"pk": self.app.pk, "user_id": self.editor.pk})
+        self.assertNotContains(self.client.get(add_url), 'value="none"')
+        self.assertContains(self.client.get(edit_url), 'value="none"')
+        response = self.client.post(add_url, {"username": self.editor.username, "role": "none"})
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.context["form"].errors)
+        self.assertTrue(ApplicationAccess.objects.filter(application=self.app, user=self.editor).exists())
+
     def test_only_owner_can_manage_members(self):
         for user in (self.admin, self.editor, self.other):
             self.client.force_login(user)

@@ -581,6 +581,10 @@ class ApplicationAccessForm(forms.Form):
         super().__init__(*args, **kwargs)
         if target_user is not None:
             self.fields.pop("username")
+        else:
+            self.fields["role"].choices = [
+                (value, label) for value, label in self.fields["role"].choices if value != "none"
+            ]
 
     def clean(self):
         from apps.user.models import User
