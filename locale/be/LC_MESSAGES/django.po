@@ -3560,3 +3560,24 @@ msgstr "Рэдагаванне правоў доступу для"
 #: templates/admin_app_rights_edit.html
 msgid "PAGE_ADMIN_APP_RIGHTS_APPLICATION"
 msgstr "Праграма"
+
+msgid "PAGE_FAQ_DONATE_STAR_TITLE"
+msgstr "Станьце нашай зорачкай!"
+
+msgid "PAGE_FAQ_DONATE_STAR_SUBTITLE"
+msgstr "Падтрымайце развіццё нашага праекта"
+
+msgid "PAGE_FAQ_DONATE_INTRO"
+msgstr "LunaStore найперш з’яўляецца платформай, створанай энтузіястамі, таму мы заўсёды ўдзячныя за фінансавую падтрымку. На LunaStore наўрад ці з’явіцца манетызаваная рэклама, бо тэматыка сайта вельмі спецыфічная. Але мы не засмучаемся :3"
+
+msgid "PAGE_FAQ_DONATE_METHODS"
+msgstr "Ніжэй пазначаны спосабы фінансава падтрымаць нас"
+
+msgid "PAGE_FAQ_DONATE_BOOSTY"
+msgstr "Падтрымаць нас праз"
+
+msgid "PAGE_FAQ_DONATE_NEW_TAB"
+msgstr "націсканне кнопкі данату адкрые новую ўкладку"
+
+msgid "PAGE_FAQ_DONATE_USAGE"
+msgstr "Уся фінансавая падтрымка LunaStore пойдзе непасрэдна на развіццё праекта (аплату хостынгу, каву для распрацоўшчыкаў і многае іншае); прыхільнікі атрымаюць адпаведны значок у профілі."

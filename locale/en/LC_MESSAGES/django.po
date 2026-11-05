@@ -3551,3 +3551,24 @@ msgstr "Edit access rights for"
 #: templates/admin_app_rights_edit.html
 msgid "PAGE_ADMIN_APP_RIGHTS_APPLICATION"
 msgstr "Application"
+
+msgid "PAGE_FAQ_DONATE_STAR_TITLE"
+msgstr "Become our little star!"
+
+msgid "PAGE_FAQ_DONATE_STAR_SUBTITLE"
+msgstr "Support the development of our project"
+
+msgid "PAGE_FAQ_DONATE_INTRO"
+msgstr "LunaStore is first and foremost a platform created by enthusiasts, so we are always grateful for financial support. LunaStore is unlikely to feature monetized advertising because the subject of this site is very specific. But we are not upset :3"
+
+msgid "PAGE_FAQ_DONATE_METHODS"
+msgstr "Below are the ways you can support us financially"
+
+msgid "PAGE_FAQ_DONATE_BOOSTY"
+msgstr "Support us via"
+
+msgid "PAGE_FAQ_DONATE_NEW_TAB"
+msgstr "clicking the donation button will open a new tab"
+
+msgid "PAGE_FAQ_DONATE_USAGE"
+msgstr "All financial support received by LunaStore goes directly towards developing the project (hosting, coffee for developers, and much more); supporters receive a corresponding badge on their profile."
