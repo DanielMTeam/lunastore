@@ -3539,3 +3539,24 @@ msgstr "Қол жеткізу құқықтарын өңдеу:"
 #: templates/admin_app_rights_edit.html
 msgid "PAGE_ADMIN_APP_RIGHTS_APPLICATION"
 msgstr "Қолданба"
+
+msgid "PAGE_FAQ_DONATE_STAR_TITLE"
+msgstr "Біздің жұлдызшамыз болыңыз!"
+
+msgid "PAGE_FAQ_DONATE_STAR_SUBTITLE"
+msgstr "Жобамыздың дамуына қолдау көрсетіңіз"
+
+msgid "PAGE_FAQ_DONATE_INTRO"
+msgstr "LunaStore ең алдымен энтузиастар жасаған платформа, сондықтан жобамызға көрсетілген қаржылық қолдауға әрқашан ризамыз. Сайттың тақырыбы өте ерекше болғандықтан, LunaStore сайтында табыс әкелетін жарнама болуы екіталай. Бірақ біз ренжімейміз :3"
+
+msgid "PAGE_FAQ_DONATE_METHODS"
+msgstr "Төменде бізге қаржылай қолдау көрсету жолдары берілген"
+
+msgid "PAGE_FAQ_DONATE_BOOSTY"
+msgstr "Бізді мына жерден қолдаңыз:"
+
+msgid "PAGE_FAQ_DONATE_NEW_TAB"
+msgstr "донат түймесін басқанда жаңа қойынды ашылады"
+
+msgid "PAGE_FAQ_DONATE_USAGE"
+msgstr "LunaStore-ға берілген барлық қаржылық қолдау жобаның дамуына (хостингке, әзірлеушілерге кофе алуға және тағы басқаларға) жұмсалады; қолдаушылар профилінде тиісті белгі алады."

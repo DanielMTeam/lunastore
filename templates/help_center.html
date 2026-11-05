@@ -140,12 +140,26 @@
                 {% endif %}
 
             {% elif current_page == 'donate' %}
-                <h3>{% trans "PAGE_FAQ_DONATE_TITLE" %}</h3>
-                {% if donate_doc %}
-                    <div id="faq_content"><p>{{ donate_doc.content|safe }}</p></div>
-                {% else %}
-                    <p>{% trans "PAGE_FAQ_PRIVACY_EMPTY" %}</p>
-                {% endif %}
+                <table class="donstar" width="100%">
+                    <tr>
+                        <td>
+                            <div class="donstar_text_one">{% trans "PAGE_FAQ_DONATE_STAR_TITLE" %}</div>
+                            <div class="donstar_text_two">{% trans "PAGE_FAQ_DONATE_STAR_SUBTITLE" %}</div>
+                        </td>
+                        <td class="donstar_icon_cell">
+                            <img src="{% static 'img/don_ic.png' %}" class="png-fix" width="64" height="64" alt="" />
+                        </td>
+                    </tr>
+                </table>
+                <div class="donpagemain">
+                    <p>{% trans "PAGE_FAQ_DONATE_INTRO" %}</p>
+                    <p>{% trans "PAGE_FAQ_DONATE_METHODS" %}</p>
+                    <div class="donbtnwrap">
+                        <a class="donbtn" id="boosty" href="https://boosty.to/lunastore" target="_blank" rel="noopener noreferrer">{% trans "PAGE_FAQ_DONATE_BOOSTY" %} <b>Boosty</b></a>
+                        <div class="dontip"><small><i>{% trans "PAGE_FAQ_DONATE_NEW_TAB" %}</i></small></div>
+                    </div>
+                    <p>{% trans "PAGE_FAQ_DONATE_USAGE" %}</p>
+                </div>
 
             {% elif current_page == 'rules' %}
                 <h3>{% trans "PAGE_FAQ_RULESTAB" %}</h3>

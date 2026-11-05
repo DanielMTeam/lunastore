@@ -1984,3 +1984,24 @@ msgstr "不正なログインまたはパスワード。"
 
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "ログインが正常に完了しました!こんにちは、%(username)s!"
+
+msgid "PAGE_FAQ_DONATE_STAR_TITLE"
+msgstr "私たちの星になってください！"
+
+msgid "PAGE_FAQ_DONATE_STAR_SUBTITLE"
+msgstr "プロジェクトの発展を応援してください"
+
+msgid "PAGE_FAQ_DONATE_INTRO"
+msgstr "LunaStoreは何よりも愛好家が作ったプラットフォームです。そのため、プロジェクトへの金銭的なご支援にいつも感謝しています。このサイトのテーマは非常に特殊なので、収益化された広告が掲載されることはほとんどないでしょう。でも、気にしていません :3"
+
+msgid "PAGE_FAQ_DONATE_METHODS"
+msgstr "以下の方法で金銭的に支援できます"
+
+msgid "PAGE_FAQ_DONATE_BOOSTY"
+msgstr "こちらから支援する："
+
+msgid "PAGE_FAQ_DONATE_NEW_TAB"
+msgstr "寄付ボタンを押すと新しいタブが開きます"
+
+msgid "PAGE_FAQ_DONATE_USAGE"
+msgstr "LunaStoreへの金銭的な支援はすべて、プロジェクトの発展（ホスティング費用、開発者のコーヒーなど）に直接使われます。支援者にはプロフィールに対応するバッジが付与されます。"
