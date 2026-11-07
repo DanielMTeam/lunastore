@@ -363,11 +363,6 @@ CONSTANCE_CONFIG = {
         "Режим отладки (требует перезагрузки)",
         bool,
     ),
-    "SECRET_KEY": (
-        os.getenv("SECRET_KEY", ""),
-        "Django SECRET_KEY (требует перезагрузки)",
-        str,
-    ),
     "ADMIN_URL": (
         os.getenv("ADMIN_URL", "admin"),
         "URL-префикс админ-панели (требует перезагрузки)",
@@ -415,11 +410,6 @@ CONSTANCE_CONFIG = {
         "Пользователь БД (требует перезагрузки)",
         str,
     ),
-    "DB_PASSWORD": (
-        os.getenv("DB_PASSWORD", ""),
-        "Пароль БД (требует перезагрузки)",
-        str,
-    ),
     "DB_HOST": (
         os.getenv("DB_HOST", "db"),
         "Хост БД (требует перезагрузки)",
@@ -434,11 +424,6 @@ CONSTANCE_CONFIG = {
     "OIDC_CLIENT_ID": (
         os.getenv("OIDC_CLIENT_ID", ""),
         "OpenID Client ID (требует перезагрузки)",
-        str,
-    ),
-    "OIDC_CLIENT_SECRET": (
-        os.getenv("OIDC_CLIENT_SECRET", ""),
-        "OpenID Client Secret (требует перезагрузки)",
         str,
     ),
     "OIDC_ENDPOINT": (
@@ -488,11 +473,6 @@ CONSTANCE_CONFIG = {
         str,
     ),
     # -- lunaspire --
-    "LUNASPIRE_SECRET_KEY": (
-        os.getenv("LUNASPIRE_SECRET_KEY", ""),
-        "Секретный ключ LunaSpire (требует перезагрузки)",
-        str,
-    ),
     "LUNASPIRE_URL": (
         os.getenv("LUNASPIRE_URL", "spire.lunastore.app"),
         "URL LunaSpire (требует перезагрузки)",
@@ -650,11 +630,6 @@ CONSTANCE_CONFIG = {
         "Включить Telegram-логгер (требует перезагрузки)",
         bool,
     ),
-    "TELEGRAM_BOT_TOKEN": (
-        os.getenv("TELEGRAM_BOT_TOKEN", ""),
-        "Токен Telegram-бота (требует перезагрузки)",
-        str,
-    ),
     "TELEGRAM_LOG_CHAT_ID": (
         os.getenv("TELEGRAM_LOG_CHAT_ID", ""),
         "Chat ID для логов (требует перезагрузки)",
@@ -680,11 +655,6 @@ CONSTANCE_CONFIG = {
         os.getenv("SENTRY_ENABLED", "False") == "True",
         "Включить Sentry/GlitchTip (требует перезагрузки)",
         bool,
-    ),
-    "SENTRY_DSN": (
-        os.getenv("SENTRY_DSN", ""),
-        "Sentry DSN (требует перезагрузки)",
-        str,
     ),
     "SENTRY_CA_BUNDLE": (
         os.getenv("SENTRY_CA_BUNDLE", ""),
@@ -763,11 +733,6 @@ CONSTANCE_CONFIG = {
         "SMTP пользователь (требует перезагрузки)",
         str,
     ),
-    "EMAIL_HOST_PASSWORD": (
-        os.getenv("EMAIL_HOST_PASSWORD", ""),
-        "SMTP пароль (требует перезагрузки)",
-        str,
-    ),
     "DEFAULT_FROM_EMAIL": (
         os.getenv("DEFAULT_FROM_EMAIL", ""),
         "Email отправителя по умолчанию (требует перезагрузки)",
@@ -814,11 +779,6 @@ CONSTANCE_CONFIG = {
         "OAuth client_id приложения LunaPassport (env перекрывает Constance)",
         str,
     ),
-    "LUNAPASSPORT_CLIENT_SECRET": (
-        os.getenv("LUNAPASSPORT_CLIENT_SECRET", ""),
-        "OAuth client_secret (лучше держать в .env; env перекрывает Constance)",
-        str,
-    ),
     "LUNAPASSPORT_REDIRECT_URI": (
         os.getenv("LUNAPASSPORT_REDIRECT_URI", ""),
         "Точный redirect_uri (байт в байт), зарегистрированный в /partners",
@@ -849,11 +809,6 @@ CONSTANCE_CONFIG = {
         os.getenv("AI_MODERATION_ENABLED", "True") == "True",
         "Включить автоматическую ИИ-модерацию отзывов",
         bool,
-    ),
-    "OPENROUTER_API_KEY": (
-        os.getenv("OPENROUTER_API_KEY", ""),
-        "API-ключ OpenRouter для ИИ-модерации",
-        str,
     ),
     "AI_MODERATION_MODEL": (
         os.getenv("AI_MODERATION_MODEL", "typesafe/jev-router"),
@@ -910,7 +865,6 @@ CONSTANCE_CONFIG_FIELDSETS = {
             "LUNAPASSPORT_ENABLED",
             "LUNAPASSPORT_BASE_URL",
             "LUNAPASSPORT_CLIENT_ID",
-            "LUNAPASSPORT_CLIENT_SECRET",
             "LUNAPASSPORT_REDIRECT_URI",
             "LUNAPASSPORT_AUTO_REGISTER",
             "LUNAPASSPORT_VERIFY_SSL",
@@ -969,7 +923,6 @@ CONSTANCE_CONFIG_FIELDSETS = {
         "fields": [
             "VERSION",
             "DEBUG",
-            "SECRET_KEY",
             "ADMIN_URL",
             "ADMIN_EMAIL",
             "STATIC_HASHING",
@@ -987,13 +940,12 @@ CONSTANCE_CONFIG_FIELDSETS = {
         "collapse": True,
     },
     "База данных (требует перезагрузки)": {
-        "fields": ["DB_NAME", "DB_USER", "DB_PASSWORD", "DB_HOST", "DB_PORT"],
+        "fields": ["DB_NAME", "DB_USER", "DB_HOST", "DB_PORT"],
         "collapse": True,
     },
     "OpenID (требует перезагрузки)": {
         "fields": [
             "OIDC_CLIENT_ID",
-            "OIDC_CLIENT_SECRET",
             "OIDC_ENDPOINT",
             "OIDC_TOKEN_ENDPOINT",
             "OIDC_USER_ENDPOINT",
@@ -1011,7 +963,6 @@ CONSTANCE_CONFIG_FIELDSETS = {
     },
     "LunaSpire (требует перезагрузки)": {
         "fields": [
-            "LUNASPIRE_SECRET_KEY",
             "LUNASPIRE_URL",
             "LUNASPIRE_URL_WITHOUT_PROTO",
             "API_URL",
@@ -1021,7 +972,6 @@ CONSTANCE_CONFIG_FIELDSETS = {
     "Telegram-логгер (требует перезагрузки)": {
         "fields": [
             "TELEGRAM_LOGGER_ENABLED",
-            "TELEGRAM_BOT_TOKEN",
             "TELEGRAM_LOG_CHAT_ID",
             "TELEGRAM_LOG_TOPIC_ID",
             "LOG_MODERATOR_LOGINS",
@@ -1032,7 +982,6 @@ CONSTANCE_CONFIG_FIELDSETS = {
     "Sentry / GlitchTip (требует перезагрузки)": {
         "fields": [
             "SENTRY_ENABLED",
-            "SENTRY_DSN",
             "SENTRY_CA_BUNDLE",
             "SENTRY_TRACES_SAMPLE_RATE",
             "SENTRY_PROFILES_SAMPLE_RATE",
@@ -1058,7 +1007,6 @@ CONSTANCE_CONFIG_FIELDSETS = {
             "EMAIL_USE_TLS",
             "EMAIL_USE_SSL",
             "EMAIL_HOST_USER",
-            "EMAIL_HOST_PASSWORD",
             "DEFAULT_FROM_EMAIL",
         ],
         "collapse": True,
@@ -1074,7 +1022,6 @@ CONSTANCE_CONFIG_FIELDSETS = {
     "ИИ-модерация отзывов (OpenRouter)": {
         "fields": [
             "AI_MODERATION_ENABLED",
-            "OPENROUTER_API_KEY",
             "AI_MODERATION_MODEL",
             "AI_MODERATION_FALLBACK_MODEL",
             "AI_MODERATION_REJECT_THRESHOLD",

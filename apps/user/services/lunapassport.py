@@ -135,7 +135,7 @@ def get_client_id() -> str:
 
 
 def get_client_secret() -> str:
-    return _secret_cfg("LUNAPASSPORT_CLIENT_SECRET")
+    return str(os.getenv("LUNAPASSPORT_CLIENT_SECRET", "") or "").strip()
 
 
 def get_ca_bundle() -> str:
