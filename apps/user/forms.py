@@ -671,7 +671,7 @@ def send_mail_in_background(subject, body, from_email, to_email, html_email):
             host=config.EMAIL_HOST,
             port=config.EMAIL_PORT,
             username=config.EMAIL_HOST_USER,
-            password=config.EMAIL_HOST_PASSWORD,
+            password=settings.EMAIL_HOST_PASSWORD,
             use_tls=use_tls,
             use_ssl=use_ssl,
             fail_silently=False,

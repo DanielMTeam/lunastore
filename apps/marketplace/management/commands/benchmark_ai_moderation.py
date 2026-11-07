@@ -7,7 +7,6 @@ import statistics
 import time
 from typing import Any
 
-from constance import config
 from django.conf import settings
 from django.core.management.base import BaseCommand
 
@@ -234,7 +233,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         primary_model = options["model"]
         compare_mode = options["compare"]
-        api_key = options["api_key"] or getattr(config, "OPENROUTER_API_KEY", "") or getattr(settings, "OPENROUTER_API_KEY", "")
+        api_key = options["api_key"] or getattr(settings, "OPENROUTER_API_KEY", "")
         is_mock = options["mock"]
         output_file = options["output"]
         verbose = options["verbose"]
@@ -333,9 +332,9 @@ class Command(BaseCommand):
                 score, decision, flags, reason, latency, tokens = self._simulate_mock_response(model, case)
                 valid_json = True
             else:
-                from constance.test import override_config
+                from django.test import override_settings
                 try:
-                    with override_config(OPENROUTER_API_KEY=api_key):
+                    with override_settings(OPENROUTER_API_KEY=api_key):
                         res = moderate_review_text(
                             text=case["text"],
                             app_title=case["app_title"],
