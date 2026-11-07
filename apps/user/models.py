@@ -80,6 +80,12 @@ class User(AbstractUser, SafeDeleteModel):
         verbose_name="Поддерживает проект",
         help_text="Автоматически отображать бейдж supporter в профиле.",
     )
+    supporter_level = models.PositiveSmallIntegerField(
+        choices=((1, "1 — синяя звезда"), (2, "2 — жёлтая звезда"), (3, "3 — красная звезда")),
+        default=1,
+        db_default=1,
+        verbose_name="Уровень поддержки",
+    )
     website = models.URLField(max_length=45, null=True, blank=True)
     description = models.CharField(
         max_length=255,

@@ -39,6 +39,7 @@ class UserAdmin(BaseUserAdmin, unfold_admin.ModelAdmin):
                               "avatar_id",
                               "badges",
                               "is_supporter",
+                              "supporter_level",
                               "profile_splash",
                               "is_staff",
                               "is_superuser",
