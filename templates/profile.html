@@ -29,7 +29,7 @@
                 {% if user_badges %}
                 {% for badge in user_badges %}
                 {% if badge == 'supporter' %}
-                <span title="supporter" style="display: inline-block; width: 16px; height: 16px; overflow: hidden; vertical-align: middle;"><img src="{% static 'img/badges/donates.png' %}" class="png-fix" alt="supporter" style="position: relative; top: 0; left: {% if obj.supporter_level == 2 %}-16px{% elif obj.supporter_level == 3 %}-32px{% else %}0{% endif %};"></span>
+                <span title="supporter" style="display: inline-block; width: 16px; height: 16px; overflow: hidden; vertical-align: middle;"><img src="{% static 'img/badges/donates.png' %}" class="png-fix" alt="supporter" style="display: block; position: relative; top: 0; left: {% if obj.supporter_level == 2 %}-16px{% elif obj.supporter_level == 3 %}-32px{% else %}0{% endif %};"></span>
                 {% else %}
                 <img src="{% static './img/badges/' %}{{ badge }}.png" style="vertical-align: middle;">
                 {% endif %}
