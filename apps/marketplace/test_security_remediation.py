@@ -42,6 +42,20 @@ class CDNConfirmationTests(SimpleTestCase):
         self.assertIn("&quot;", preview)
 
 
+@override_settings(ROOT_URLCONF="lunastore.urls_private")
+class ApplicationAdminPageTests(TestCase):
+    def test_private_application_change_page_renders(self):
+        staff = User.objects.create_superuser(username="catalogstaff", email="staff@example.test")
+        app = Application.objects.create(
+            user=staff, title="Private app", is_private=True,
+            screenshots=["public/screenshot.png"],
+        )
+        Distribution.objects.create(app=app, version="1")
+        self.client.force_login(staff)
+        response = self.client.get(reverse("admin:marketplace_application_change", args=[app.pk]))
+        self.assertContains(response, "public/screenshot.png")
+
+
 @override_settings(RATELIMIT_BACKEND="memory")
 class CatalogVisibilityTests(TestCase):
     @classmethod
