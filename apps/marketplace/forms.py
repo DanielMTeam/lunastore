@@ -349,10 +349,15 @@ class AppCreateForm(forms.ModelForm, CDNTokenValidationMixin):
     def clean(self):
         cleaned_data = super().clean()
 
+        cleaned_data["cdn_icon_path"] = None
+        cleaned_data["cdn_screenshots_data"] = []
+        if self.errors:
+            return cleaned_data
+
         # validate icon token
         icon_token = cleaned_data.get("cdn_icon_confirm_token")
         if icon_token:
-            decoded = self.validate_cdn_token(icon_token)
+            decoded = self.validate_cdn_token(icon_token, expected_object="icon", expected_mode="public")
             # request path (path) because it's an image
             info = self.get_cdn_file_info(
                 decoded.get("file_id"), fields="path")
@@ -368,7 +373,7 @@ class AppCreateForm(forms.ModelForm, CDNTokenValidationMixin):
                     raise ValidationError(_("ERROR_CDN_CHECKSUM_MISMATCH_SCREENSHOTS"))
                 safe_paths = []
                 for token in token_list:
-                    decoded = self.validate_cdn_token(token)
+                    decoded = self.validate_cdn_token(token, expected_object="screenshot", expected_mode="public")
                     info = self.get_cdn_file_info(
                         decoded.get("file_id"), fields="path")
                     if info.get("path"):
@@ -701,10 +706,15 @@ class ApplicationAdminForm(forms.ModelForm, CDNTokenValidationMixin):
     def clean(self):
         cleaned_data = super().clean()
 
+        cleaned_data["cdn_icon_path"] = None
+        cleaned_data["cdn_screenshots_data"] = []
+        if self.errors:
+            return cleaned_data
+
         # validate icon token
         icon_token = cleaned_data.get("cdn_icon_confirm_token")
         if icon_token:
-            decoded = self.validate_cdn_token(icon_token)
+            decoded = self.validate_cdn_token(icon_token, expected_object="icon", expected_mode="public")
             info = self.get_cdn_file_info(
                 decoded.get("file_id"), fields="path")
             cleaned_data["cdn_icon_path"] = info.get("path")
@@ -714,17 +724,19 @@ class ApplicationAdminForm(forms.ModelForm, CDNTokenValidationMixin):
         if scr_tokens_json:
             try:
                 token_list = json.loads(scr_tokens_json)
+                if not isinstance(token_list, list) or len(token_list) > config.SCREENSHOT_COUNT:
+                    raise ValidationError(_("ERROR_CDN_CHECKSUM_MISMATCH_SCREENSHOTS"))
                 safe_paths = []
                 for token in token_list:
-                    decoded = self.validate_cdn_token(token)
+                    decoded = self.validate_cdn_token(token, expected_object="screenshot", expected_mode="public")
                     info = self.get_cdn_file_info(
                         decoded.get("file_id"), fields="path")
                     if info.get("path"):
                         safe_paths.append(info.get("path"))
 
                 cleaned_data["cdn_screenshots_data"] = safe_paths
-            except (json.JSONDecodeError, ValidationError):
-                pass
+            except (json.JSONDecodeError, ValidationError) as exc:
+                raise ValidationError(_("ERROR_CDN_CHECKSUM_MISMATCH_SCREENSHOTS")) from exc
 
         return cleaned_data
 

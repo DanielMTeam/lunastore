@@ -1,3 +1,4 @@
+from django.contrib.admin.forms import AdminAuthenticationForm
 import os
 import re
 from io import BytesIO
@@ -18,9 +19,9 @@ from django.core.files.base import ContentFile
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from PIL import Image
-from apps.core.utils import force_logout, get_client_ip
+from apps.core.utils import get_client_ip
 
-from .middleware import BlockBannedIP
+from .services.bans import active_bans, is_ip_banned
 from .models import BlacklistedUsername, InviteToken, NoSpamRule, User, UserActivityLog, UserBan
 from .utils import get_cached_blacklist
 from .tasks import CACHE_KEY
@@ -65,9 +66,6 @@ class UserBanForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
 
-        if self.instance and self.instance.pk:
-            return cleaned_data
-
         username = cleaned_data.get("username")
         ban_by_ip = cleaned_data.get("ban_by_ip")
         is_permanent = cleaned_data.get("is_permanent")
@@ -84,6 +82,11 @@ class UserBanForm(forms.ModelForm):
                     "expires_at",
                     "Дата окончания блокировки не может быть в прошлом")
 
+        if self.instance.pk:
+            if ban_by_ip and not self.instance.ip:
+                self.add_error("ban_by_ip", _("This ban has no IP address."))
+            return cleaned_data
+
         if username:
             try:
                 user = get_user_model().objects.get(username=username)
@@ -92,7 +95,7 @@ class UserBanForm(forms.ModelForm):
                                "Пользователь с таким юзернеймом не найден")
                 return cleaned_data
 
-            if UserBan.objects.filter(user=user).exists():
+            if active_bans().filter(user=user).exists():
                 self.add_error("username", "Этот пользователь уже забанен")
                 return cleaned_data
 
@@ -123,7 +126,6 @@ class UserBanForm(forms.ModelForm):
             self.instance.user = user_to_ban
             if self.cleaned_data.get("ban_by_ip"):
                 self.instance.ip = self.found_ip
-            force_logout(user_to_ban)
         ban_instance = super().save(commit=commit)
         cache.delete(CACHE_KEY)
         return ban_instance
@@ -143,7 +145,7 @@ class UserRegistrationForm(UserCreationForm):
         cleaned_data = super().clean()
         if self.request:
             ip = get_client_ip(self.request)
-            if ip in BlockBannedIP.get_banned_set():
+            if is_ip_banned(ip):
                 raise forms.ValidationError(_("INFO_YOUR_IP_WAS_BANNED"))
         return cleaned_data
 
@@ -213,7 +215,6 @@ class ProfileUpdateForm(forms.ModelForm):
         model = User
         fields = [
             "username",
-            "email",
             "telegram",
             "website",
             "description",
@@ -423,7 +424,7 @@ class AvatarUpdateForm(forms.ModelForm, CDNTokenValidationMixin):
         if token:
             # validate token (protect from tampering and reuse)
             decoded = self.validate_cdn_token(
-                token, expected_type="cdn-confirm")
+                token, expected_object="avatar", expected_mode="public")
 
             # get file info from CDN
             file_id = decoded.get("file_id")
@@ -810,3 +811,28 @@ class NoSpamMassScanForm(forms.Form):
                 self.add_error("pattern", str(exc))
 
         return cleaned_data
+
+
+class StaffAuthenticationForm(AdminAuthenticationForm):
+    totp_code = forms.CharField(required=False, label=_("Two-factor authentication code"), max_length=6)
+
+    def clean(self):
+        from .services.login_security import allow_password_attempt
+
+        username = self.cleaned_data.get("username")
+        if self.cleaned_data.get("password") and (
+            is_ip_banned(get_client_ip(self.request)) or not allow_password_attempt(self.request, username)
+        ):
+            raise self.get_invalid_login_error()
+        return super().clean()
+
+    def confirm_login_allowed(self, user):
+        from .services.login_security import allow_totp_attempt, verify_totp
+
+        super().confirm_login_allowed(user)
+        if active_bans().filter(user=user).exists():
+            raise self.get_invalid_login_error()
+        if user.totp_enabled and (
+            not allow_totp_attempt(user) or not verify_totp(user, self.cleaned_data.get("totp_code"))
+        ):
+            raise ValidationError(_("ERROR_2FA_INVALID_CODE"))

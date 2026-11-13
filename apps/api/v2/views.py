@@ -1,3 +1,4 @@
+from apps.marketplace.services.visibility import public_app_filter
 import time
 import uuid
 import json
@@ -5,7 +6,7 @@ import json
 import jwt
 from django.conf import settings
 from django.db.models import Count, Prefetch, Q
-from django.shortcuts import get_object_or_404
+from apps.core.objects import get_integer_object_or_404
 from django.core.cache import cache
 from django.utils import timezone
 from rest_framework import serializers, viewsets, mixins
@@ -43,7 +44,7 @@ from apps.api.constants import ErrorCodes, PUB_UPLOAD_POLICIES, ALLOWED_MIMES
 from apps.api.exceptions import LunaException
 
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from .serializers import CustomTokenObtainPairSerializer
+from .serializers import CustomTokenObtainPairSerializer, CustomTokenRefreshSerializer
 
 
 @extend_schema_view(
@@ -57,7 +58,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
     post=extend_schema(summary="refresh JWT access token"),
 )
 class CustomTokenRefreshView(TokenRefreshView):
-    pass
+    serializer_class = CustomTokenRefreshSerializer
 
 
 class V2Pagination(LimitOffsetPagination):
@@ -134,7 +135,7 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
         guard_phrase = uuid.uuid4().hex
 
         cache_key = f"cdn_guard_{request.user.id}_{guard_phrase}"
-        cache.set(cache_key, True, timeout=3600)
+        cache.set(cache_key, {"object": policy["obj"], "mode": "public"}, timeout=3600)
 
         current_time = int(time.time())
 
@@ -169,7 +170,7 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
         if not app_id or not app_id.isdigit():
             return Response({"error": "app_id is required and must be an integer"}, status=400)
 
-        app_obj = get_object_or_404(Application, id=app_id)
+        app_obj = get_integer_object_or_404(Application, id=app_id)
         if (
             not can_manage_app(app_obj, request.user, "files")
             and not request.user.is_staff
@@ -467,7 +468,7 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
     def apps(self, request, pk=None):
         category = self.get_object()
         apps = annotate_app_last_version(
-            Application.objects.filter(categories=category).exclude(is_private=True)
+            Application.objects.filter(public_app_filter(), categories=category)
         ).order_by("-published")
         page = self.paginate_queryset(apps)
         if page is not None:
@@ -488,7 +489,9 @@ class DistributionViewSet(viewsets.ReadOnlyModelViewSet):
 
     def get_queryset(self):
         # Private distributions are visible to the owner and current team members.
-        qs = Distribution.objects.select_related("app", "app__user")
+        qs = Distribution.objects.select_related("app", "app__user").filter(
+            app__deleted__isnull=True, app__is_under_dmca=False,
+        )
         user = self.request.user
         if user.is_authenticated:
             return qs.filter(Q(app__is_private=False) | Q(app_id__in=accessible_app_ids(user)))
@@ -506,7 +509,7 @@ class DistributionViewSet(viewsets.ReadOnlyModelViewSet):
         if not app_id:
             return Response({"error": "app_id is required"}, status=400)
 
-        app = get_object_or_404(Application, pk=app_id)
+        app = get_integer_object_or_404(Application.objects.filter(is_under_dmca=False), pk=app_id)
         if app.is_private and (
                 not can_manage_app(app, request.user, "view")):
             raise LunaException(
@@ -566,11 +569,12 @@ class CollectionViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         qs = (
             Collection.objects.select_related("owner")
-            .annotate(items_count=Count("items", distinct=True))
+            .annotate(items_count=Count("items", filter=public_app_filter("items__application__"), distinct=True))
             .prefetch_related(
                 Prefetch(
                     "items",
-                    queryset=CollectionItem.objects.select_related("application").order_by("-added_at"),
+                    queryset=CollectionItem.objects.filter(public_app_filter("application__"))
+                    .select_related("application").order_by("-added_at"),
                 )
             )
             .order_by("-updated_at")
@@ -605,7 +609,7 @@ class CollectionViewSet(viewsets.ReadOnlyModelViewSet):
             "application_id", flat=True
         )
         apps = annotate_app_last_version(
-            Application.objects.filter(id__in=app_ids).exclude(is_private=True)
+            Application.objects.filter(public_app_filter(), id__in=app_ids)
         )
         # preserve collection order
         app_map = {app.id: app for app in apps}
@@ -679,6 +683,8 @@ class ExecuteView(APIView):
         """
     )
     def post(self, request):
+        if not isinstance(request.data, dict):
+            return Response({"error": "Request body must be an object"}, status=400)
         code = request.data.get("code", [])
         if not isinstance(code, list):
             return Response({"error": "Invalid format, 'code' must be a list of calls"}, status=400)
@@ -686,17 +692,21 @@ class ExecuteView(APIView):
         if len(code) > 25:
             return Response({"error": "Batch size limit exceeded. Maximum 25 calls per request."}, status=400)
 
-        from django.urls import resolve
-        from rest_framework.request import Request
         import copy
 
         responses = []
 
         for call in code:
+            if not isinstance(call, dict) or not isinstance(call.get("params", {}), dict):
+                responses.append({
+                    "status": "error", "message": "Call and params must be objects",
+                    "error_code": ErrorCodes.VALIDATION_ERROR,
+                })
+                continue
             method_name = call.get("method")
             params = call.get("params", {})
 
-            if not method_name:
+            if not isinstance(method_name, str) or not method_name:
                 responses.append({
                     "status": "error",
                     "message": "method missing in call",

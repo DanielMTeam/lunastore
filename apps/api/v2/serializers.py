@@ -1,5 +1,7 @@
-import pyotp
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.serializers import TokenObtainSerializer, TokenRefreshSerializer
+from apps.api.token_sessions import issue_tokens, rotate_tokens, validate_account
+from apps.user.services.bans import is_ip_banned
+from apps.user.services.login_security import allow_password_attempt, allow_totp_attempt, verify_totp
 from apps.api.constants import ErrorCodes
 from apps.api.exceptions import LunaException
 from constance import config
@@ -13,21 +15,19 @@ from apps.user.services.antispam import AntiSpamService, NoSpamContext
 logger = logging.getLogger("user")
 
 
-class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+class CustomTokenObtainPairSerializer(TokenObtainSerializer):
     totp_code = serializers.CharField(required=False, allow_blank=True, write_only=True)
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
     def validate(self, attrs):
-        # We need to extract totp_code manually as it's not a standard field
-        totp_code = self.initial_data.get('totp_code')
-
-        # Standard validation (checks username and password)
-        data = super().validate(attrs)
-
-        # If credentials are correct, self.user is populated
-        if self.user and self.user.totp_secret:
+        request = self.context.get("request")
+        if request and is_ip_banned(get_client_ip(request)):
+            raise LunaException(code=ErrorCodes.USER_IS_BLOCKED, message="Authentication unavailable.", status_code=403)
+        if not allow_password_attempt(request, attrs[self.username_field]):
+            raise LunaException(code=ErrorCodes.VALIDATION_ERROR, message="Too many attempts.", status_code=429)
+        super().validate(attrs)
+        validate_account(self.user)
+        totp_code = attrs.get("totp_code")
+        if self.user.totp_enabled:
             if not totp_code:
                 raise LunaException(
                     code=ErrorCodes.TWO_FACTOR_REQUIRED,
@@ -35,15 +35,13 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
                     status_code=401
                 )
 
-            totp = pyotp.TOTP(self.user.totp_secret)
-            if not totp.verify(totp_code):
+            if not allow_totp_attempt(self.user) or not verify_totp(self.user, totp_code):
                 raise LunaException(
                     code=ErrorCodes.TWO_FACTOR_INVALID,
                     message="Invalid two-factor authentication code.",
                     status_code=401
                 )
 
-        request = self.context.get("request")
         if request is not None and self.user is not None:
             context = NoSpamContext(
                 entrypoint="jwt_token",
@@ -75,12 +73,12 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
                     status_code=403,
                 )
 
-        # Manually generate tokens to inject refresh_jti into access token
-        refresh = self.get_token(self.user)
-        access = refresh.access_token
-        access['refresh_jti'] = refresh['jti']
+        return issue_tokens(self.user)
 
-        data['refresh'] = str(refresh)
-        data['access'] = str(access)
 
-        return data
+class CustomTokenRefreshSerializer(TokenRefreshSerializer):
+    def validate(self, attrs):
+        request = self.context.get("request")
+        if request and is_ip_banned(get_client_ip(request)):
+            raise LunaException(code=ErrorCodes.USER_IS_BLOCKED, message="Authentication unavailable.", status_code=403)
+        return rotate_tokens(attrs["refresh"])

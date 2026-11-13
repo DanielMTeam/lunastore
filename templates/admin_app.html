@@ -310,6 +310,7 @@
   </div>
 </div>
 </div>
+{{ obj.screenshots|json_script:"saved-screenshots" }}
 <script>
     const allowedExtensions = ['jpg', 'jpeg', 'png'];
 
@@ -354,7 +355,7 @@
     $(document).ready(function() {
         var screenshotsArray = [];
         {% if obj.screenshots %}
-            var savedScr = {{ obj.screenshots|safe }};
+            var savedScr = JSON.parse(document.getElementById("saved-screenshots").textContent);
             if (savedScr && savedScr.length) {
                 screenshotsArray = savedScr;
             }

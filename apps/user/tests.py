@@ -137,7 +137,7 @@ class NoSpamServiceTest(TestCase):
 
         self.assertTrue(decision.should_block)
         self.assertEqual(decision.action, NoSpamRule.RuleAction.BAN)
-        self.assertFalse(self.user.is_active)
+        self.assertTrue(self.user.is_active)
         self.assertTrue(UserBan.objects.filter(user=self.user).exists())
 
     def test_request_rate_signal_blocks(self):
@@ -203,7 +203,7 @@ class JwtNoSpamIntegrationTest(TestCase):
         self.user.refresh_from_db()
 
         self.assertEqual(response.status_code, 403)
-        self.assertFalse(self.user.is_active)
+        self.assertTrue(self.user.is_active)
 
 
 @override_settings(TRUSTED_PROXIES=["127.0.0.1/32"])
@@ -261,7 +261,7 @@ class NoSpamProxyCountryTest(TestCase):
         )
         self.assertEqual(response.status_code, 403)
         user.refresh_from_db()
-        self.assertFalse(user.is_active)
+        self.assertTrue(user.is_active)
 
 
 class NoSpamSecurityTest(TestCase):

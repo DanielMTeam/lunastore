@@ -128,9 +128,9 @@ services:
             - ./media:/app/media
             - ./certs:/app/certs:ro
         ports:
-            - "7088:7088" # API
-            - "8088:8088" # Admin
-            - "9088:9088" # Web
+            - "127.0.0.1:7088:7088" # API
+            - "127.0.0.1:8088:8088" # Admin
+            - "127.0.0.1:9088:9088" # Web
         command: >
             sh -c "python manage.py collectstatic --noinput &&
                    python manage.py migrate --noinput &&

@@ -111,6 +111,7 @@
 
         {% include "unfold/helpers/field.html" with field=form.username %}
         {% include "unfold/helpers/field.html" with field=form.password %}
+        {% if form.totp_code %}{% include "unfold/helpers/field.html" with field=form.totp_code %}{% endif %}
 
         <div class="flex flex-col gap-3 mt-6">
             {% component "unfold/components/button.html" with submit=1 variant="primary" class="submit-row w-full" %}

@@ -845,18 +845,20 @@ class Collection(SafeDeleteModel):
 
     # return up to 'limit' application icon urls for the 2x2 mosaic
     def mosaic_icons(self, limit: int = 4) -> list[str]:
+        from .services.visibility import public_app_filter
+
         icons: list[str] = []
         try:
             if hasattr(self, '_prefetched_objects_cache') and 'items' in self._prefetched_objects_cache:
                 for item in self.items.all():
                     app = getattr(item, "application", None)
-                    if app and not getattr(app, "deleted", None):
+                    if app and not (app.deleted or app.is_private or app.is_under_dmca):
                         icons.append(app.icon_url)
                         if len(icons) >= limit:
                             break
             else:
                 items = (
-                    self.items.filter(application__deleted__isnull=True)
+                    self.items.filter(public_app_filter("application__"))
                     .select_related("application")
                     .order_by("-added_at")[:limit]
                 )

@@ -1,3 +1,4 @@
+from apps.marketplace.services.visibility import public_app_filter
 # views for collections management, discovery and statistics
 import logging
 
@@ -5,7 +6,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.db.models import Count
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import redirect, render
+from apps.core.objects import get_integer_object_or_404
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
@@ -87,7 +89,7 @@ def _collections_list(request, liked: bool = False):
         # do not auto-create system likes here; hide empty system collection
         collections_qs = list(
             Collection.objects.filter(owner=request.user)
-            .annotate(items_count=Count("items"))
+            .annotate(items_count=Count("items", filter=public_app_filter("items__application__")))
             .order_by("-is_system", "-updated_at")
         )
         collections_qs = [
@@ -101,7 +103,7 @@ def _collections_list(request, liked: bool = False):
     for col in collections_qs:
         apps_count = getattr(col, "items_count", None)
         if apps_count is None:
-            apps_count = col.items.count()
+            apps_count = col.items.filter(public_app_filter("application__")).count()
         items.append(
             {
                 "collection": col,
@@ -129,7 +131,7 @@ def _collections_my_likes(request):
 
 def _collections_view(request):
     collection_id = request.GET.get("id")
-    collection = get_object_or_404(
+    collection = get_integer_object_or_404(
         Collection.objects.select_related("owner"), id=collection_id
     )
     if not _user_can_view_collection(request.user, collection):
@@ -140,7 +142,8 @@ def _collections_view(request):
 
     apps = [
         item.application
-        for item in collection.items.select_related("application", "application__user").order_by("-added_at")
+        for item in collection.items.filter(public_app_filter("application__"))
+        .select_related("application", "application__user").order_by("-added_at")
     ]
     is_owner = request.user.is_authenticated and request.user.id == collection.owner_id
     is_favorited = False
@@ -171,7 +174,7 @@ def _collections_view(request):
 @login_required
 def _collections_stats(request):
     collection_id = request.GET.get("id")
-    collection = get_object_or_404(
+    collection = get_integer_object_or_404(
         Collection.objects.select_related("owner"), id=collection_id
     )
     if not _user_can_view_collection(request.user, collection):
@@ -204,7 +207,7 @@ def _collections_edit(request):
     collection_id = request.GET.get("id")
     collection = None
     if collection_id:
-        collection = get_object_or_404(Collection, id=collection_id, owner=request.user)
+        collection = get_integer_object_or_404(Collection, id=collection_id, owner=request.user)
         if collection.is_system:
             messages.error(request, _("PAGE_COLLECTION_ERROR_EDIT_SYSTEM"))
             return redirect(f"{reverse('collections')}?page=view&id={collection.id}")
@@ -238,7 +241,7 @@ def _collections_edit(request):
 @login_required
 def _collections_delete(request):
     collection_id = request.GET.get("id")
-    collection = get_object_or_404(Collection, id=collection_id, owner=request.user)
+    collection = get_integer_object_or_404(Collection, id=collection_id, owner=request.user)
     if collection.is_system:
         messages.error(request, _("PAGE_COLLECTION_ERROR_DELETE_SYSTEM"))
         return redirect("collections")
@@ -260,7 +263,7 @@ def _collections_delete(request):
 def _collections_add(request):
     # sync app membership in custom collections (likes toggled separately)
     app_id = request.GET.get("appid") or request.POST.get("appid")
-    application = get_object_or_404(Application, id=app_id)
+    application = get_integer_object_or_404(Application.objects.filter(public_app_filter()), id=app_id)
     user_collections = list(
         Collection.objects.filter(owner=request.user, is_system=False).order_by("title")
     )
@@ -341,7 +344,7 @@ def _collections_add(request):
 @login_required
 def _collections_favorite(request):
     collection_id = request.GET.get("id") or request.POST.get("id")
-    collection = get_object_or_404(Collection, id=collection_id)
+    collection = get_integer_object_or_404(Collection, id=collection_id)
     if collection.owner_id == request.user.id:
         messages.error(request, _("PAGE_COLLECTION_ERROR_FAVORITE_OWN"))
         return redirect(f"{reverse('collections')}?page=view&id={collection.id}")
@@ -371,7 +374,7 @@ def _collections_favorite(request):
 def _collections_remove_item(request):
     collection_id = request.POST.get("collection_id")
     app_id = request.POST.get("appid")
-    collection = get_object_or_404(Collection, id=collection_id, owner=request.user)
+    collection = get_integer_object_or_404(Collection, id=collection_id, owner=request.user)
     try:
         deleted_count, _deleted_by_model = CollectionItem.objects.filter(
             collection=collection, application_id=app_id
@@ -406,7 +409,7 @@ def _collections_remove_item(request):
 def _collections_toggle_like(request):
     # toggle app in the system likes collection only (csrf-protected post)
     app_id = request.POST.get("appid") or request.GET.get("appid")
-    application = get_object_or_404(Application, id=app_id)
+    application = get_integer_object_or_404(Application.objects.filter(public_app_filter()), id=app_id)
     try:
         likes = get_or_create_likes_collection(request.user)
         existing = CollectionItem.objects.filter(
