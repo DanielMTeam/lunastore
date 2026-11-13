@@ -754,7 +754,7 @@ CONSTANCE_CONFIG = {
         bool,
     ),
     "ENABLE_DISTRIBUTION_PROXY": (
-        os.getenv("ENABLE_DISTRIBUTION_PROXY", "True") == "True",
+        os.getenv("ENABLE_DISTRIBUTION_PROXY", "False") == "True",
         "Проксировать внешние ссылки скачивания (дистрибуции) через Nginx (X-Accel-Redirect)",
         bool,
     ),
@@ -1047,6 +1047,9 @@ AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
 ]
 
+OIDC_CALLBACK_CLASS = "apps.user.auth.BoundOIDCCallbackView"
+OIDC_EXPECTED_ISSUER = os.getenv("OIDC_EXPECTED_ISSUER", "")
+OIDC_REQUIRED_ROLE = os.getenv("OIDC_REQUIRED_ROLE", "")
 OIDC_RP_CLIENT_ID = os.getenv("OIDC_CLIENT_ID", "")
 OIDC_RP_CLIENT_SECRET = os.getenv("OIDC_CLIENT_SECRET", "")
 OIDC_OP_AUTHORIZATION_ENDPOINT = os.getenv("OIDC_ENDPOINT", "")

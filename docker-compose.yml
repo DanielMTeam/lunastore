@@ -147,17 +147,17 @@ services:
         <<: *lunastore_base
         container_name: lunastore_blue
         ports:
-            - "7081:7088" # API
-            - "8081:8088" # Admin
-            - "9081:9088" # Web
+            - "127.0.0.1:7081:7088" # API
+            - "127.0.0.1:8081:8088" # Admin
+            - "127.0.0.1:9081:9088" # Web
 
     lunastore-green:
         <<: *lunastore_base
         container_name: lunastore_green
         ports:
-            - "7082:7088"
-            - "8082:8088"
-            - "9082:9088"
+            - "127.0.0.1:7082:7088"
+            - "127.0.0.1:8082:8088"
+            - "127.0.0.1:9082:9088"
 
     lunastore-worker:
         build: .

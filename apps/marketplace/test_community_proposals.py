@@ -80,7 +80,7 @@ class CommunityAccessFeedbackTests(SimpleTestCase):
             ("django_smart_ratelimit.decorator.get_backend", {"return_value": backend}),
             ("django.db.transaction.Atomic.__enter__", {"return_value": None}),
             ("django.db.transaction.Atomic.__exit__", {"return_value": False}),
-            ("apps.marketplace.views.get_object_or_404", {"side_effect": get_confirmation_object}),
+            ("apps.marketplace.views.get_integer_object_or_404", {"side_effect": get_confirmation_object}),
         ):
             patcher = patch(target, **options)
             patcher.start()

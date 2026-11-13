@@ -10,7 +10,8 @@ from django.utils import timezone
 from django.utils.html import escape
 from django.utils.translation import gettext_lazy as _, gettext_noop
 
-from apps.user.models import User, UserBan
+from apps.user.models import User
+from apps.user.services.bans import active_bans
 from apps.core.tasks import send_notification
 from ..models import (
     Application, ApplicationAccess, AppEditRequests, DistributionCreateRequests, DistributionEditRequests,
@@ -21,9 +22,7 @@ def user_can_access(user):
     return bool(
         user.is_authenticated and user.is_active and not getattr(user, "deleted", None)
         and User.objects.filter(pk=user.pk, is_active=True).exists()
-        and not UserBan.objects.filter(user_id=user.pk).filter(
-            Q(is_permanent=True) | Q(expires_at__gt=timezone.now())
-        ).exists()
+        and not active_bans().filter(user_id=user.pk).exists()
     )
 
 

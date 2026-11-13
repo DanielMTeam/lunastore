@@ -1,8 +1,6 @@
 import logging
 
 from django.conf import settings
-from django.core.cache import cache
-from django.db.models import Q
 from django.shortcuts import render
 from django.utils import timezone
 from django.utils.deprecation import MiddlewareMixin
@@ -10,7 +8,7 @@ from django.utils.translation import gettext_lazy as _
 
 from apps.core.utils import get_client_ip
 
-from .tasks import CACHE_KEY, refresh_banned_ips_cache
+from .services.bans import is_ip_banned
 
 logger = logging.getLogger("user")
 
@@ -18,43 +16,13 @@ logger = logging.getLogger("user")
 class BlockBannedIP(MiddlewareMixin):
     def process_request(self, request):
         ip = get_client_ip(request)
-        banned_ips = self.get_banned_set()
-
-        if ip in banned_ips:
+        if is_ip_banned(ip):
             context = {
                 "admin_email": getattr(
                     settings,
                     "ADMIN_EMAIL",
                     "support@example.com")}
             return render(request, "banned_ip.html", context, status=403)
-
-    @classmethod
-    def get_banned_set(cls):
-        banned_ips = cache.get(CACHE_KEY)
-
-        if banned_ips is None:
-            logging.info(
-                "[BlockBannedIP] Cache miss. Fetching from DB directly...")
-            from .models import UserBan
-
-            now = timezone.now()
-
-            active_bans = UserBan.objects.filter(
-                Q(ban_by_ip=True),
-                ~Q(ip__isnull=True),
-                Q(is_permanent=True) | Q(expires_at__gt=now),
-            ).values_list("ip", flat=True)
-
-            banned_ips = set(active_bans)
-
-            cache.set(CACHE_KEY, banned_ips, timeout=300)
-
-            try:
-                refresh_banned_ips_cache.enqueue()
-            except Exception as e:
-                logging.error(f"Task enqueue failed: {e}")
-
-        return banned_ips
 
 
 class UserSessionMiddleware:
@@ -66,6 +34,18 @@ class UserSessionMiddleware:
         from apps.core.utils import get_geo_domains
         set_current_request(request)
         get_geo_domains(request)
+
+        if request.user.is_authenticated:
+            from django.contrib.auth import BACKEND_SESSION_KEY, logout
+            from .services.bans import active_bans
+
+            legacy_oidc = (
+                request.session.get(BACKEND_SESSION_KEY) == "apps.user.auth.OIDCModel"
+                and "oidc_id_token_expiration" in request.session
+                and not request.session.get("oidc_identity_bound")
+            )
+            if legacy_oidc or active_bans().filter(user=request.user).exists():
+                logout(request)
 
         if request.user.is_authenticated and request.session.session_key:
             session_key = request.session.session_key

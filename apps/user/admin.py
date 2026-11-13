@@ -1,3 +1,4 @@
+from .services.bans import active_bans
 from django.contrib import admin, messages
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
@@ -8,6 +9,7 @@ from unfold import admin as unfold_admin
 from unfold.contrib.forms.widgets import WysiwygWidget
 from unfold.decorators import action
 from django.http import HttpResponseRedirect
+from django.core.exceptions import PermissionDenied
 from django.urls import reverse
 from apps.core.tasks import send_notification
 
@@ -21,6 +23,7 @@ from .models import (
     LunaPassportLink,
     NoSpamEvent,
     NoSpamRule,
+    OIDCIdentity,
     User,
     UserActivityLog,
     UserBan,
@@ -91,9 +94,11 @@ class UserAdmin(BaseUserAdmin, unfold_admin.ModelAdmin):
             request,
             f"2FA успешно отключен для {count} пользователей.")
 
-    @action(description="Войти от имени пользователя", icon="login",
+    @action(description="Войти от имени пользователя", icon="login", dialog={"title": "Войти от имени пользователя"},
             attrs={"class": "bg-primary-600 text-white"})
-    def login_as_user(self, request, object_id):
+    def login_as_user(self, request, form, object_id):
+        if request.method != "POST" or request.session.get("impersonated_by"):
+            raise PermissionDenied
         from constance import config
         is_moderator = request.user.groups.filter(name='Модераторы').exists()
 
@@ -109,7 +114,15 @@ class UserAdmin(BaseUserAdmin, unfold_admin.ModelAdmin):
                         args=[object_id]))
 
         user_to_impersonate = self.get_object(request, object_id)
+        if not user_to_impersonate or not user_to_impersonate.is_active or (
+            user_to_impersonate.is_staff or user_to_impersonate.is_superuser
+            or active_bans().filter(user=user_to_impersonate).exists()
+        ):
+            raise PermissionDenied
         original_admin_id = request.user.id
+        original_auth_hash = request.user.get_session_auth_hash()
+        original_backend = request.session.get("_auth_user_backend")
+        self.log_change(request, user_to_impersonate, "Начата имперсонация")
 
         from django.contrib.auth import login
         login(
@@ -118,6 +131,8 @@ class UserAdmin(BaseUserAdmin, unfold_admin.ModelAdmin):
             backend="django.contrib.auth.backends.ModelBackend")
 
         request.session["impersonated_by"] = original_admin_id
+        request.session["impersonator_auth_hash"] = original_auth_hash
+        request.session["impersonator_backend"] = original_backend
 
         host = request.get_host()
         if ":8088" in host:
@@ -171,10 +186,6 @@ class UserBanAdmin(SafeDeleteAdmin):
     def unban_selected_users(self, request, queryset):
         users_unbanned_count = 0
         for ban_entry in queryset:
-            user = ban_entry.user
-            if not user.is_active:
-                user.is_active = True
-                user.save(update_fields=["is_active"])
             ban_entry.delete()
             users_unbanned_count += 1
         if users_unbanned_count > 0:
@@ -566,3 +577,17 @@ class LunaPassportLinkAdmin(SafeDeleteAdmin):
     list_filter = SafeDeleteAdmin.list_filter + ["linked_at"]
     readonly_fields = ("linked_at",)
     raw_id_fields = ("user",)
+
+
+@admin.register(OIDCIdentity)
+class OIDCIdentityAdmin(unfold_admin.ModelAdmin):
+    list_display = ("user", "issuer", "subject")
+    autocomplete_fields = ("user",)
+
+    def has_module_permission(self, request):
+        return request.user.is_superuser
+
+    def has_view_permission(self, request, obj=None):
+        return request.user.is_superuser
+
+    has_add_permission = has_change_permission = has_delete_permission = has_view_permission

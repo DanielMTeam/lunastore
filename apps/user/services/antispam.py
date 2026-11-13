@@ -557,8 +557,6 @@ class AntiSpamService:
 
         reason_text = rule.reason_template if rule else "noSpam auto-ban"
         with transaction.atomic():
-            target_user.is_active = False
-            target_user.save(update_fields=["is_active"])
             ban_values = {
                 "reason": reason_text,
                 "is_permanent": is_permanent,

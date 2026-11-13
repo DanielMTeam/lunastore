@@ -1,6 +1,7 @@
 import datetime
 import hashlib
 import re
+import uuid
 
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser, UserManager
@@ -450,3 +451,23 @@ class LunaPassportLink(SafeDeleteModel):
 
     def __str__(self) -> str:
         return f"{self.user_id}: {self.sign_in}"
+
+
+class APISession(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    refresh_jti = models.CharField(max_length=32)
+    created_at = models.DateTimeField(auto_now_add=True)
+    expires_at = models.DateTimeField()
+    revoked_at = models.DateTimeField(null=True, blank=True)
+
+
+class OIDCIdentity(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    issuer = models.URLField(max_length=255)
+    subject = models.CharField(max_length=255)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["issuer", "subject"], name="unique_oidc_identity"),
+        ]

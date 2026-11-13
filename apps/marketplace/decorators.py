@@ -1,5 +1,5 @@
 from functools import wraps
-from django.shortcuts import get_object_or_404
+from apps.core.objects import get_integer_object_or_404
 from django.core.exceptions import PermissionDenied
 from django.utils.translation import gettext_lazy as _
 
@@ -12,7 +12,7 @@ def user_is_owner(model, url_param='pk', owner_field='user'):
     def decorator(view_func):
         @wraps(view_func)
         def _wrapped_view(request, *args, **kwargs):
-            obj = get_object_or_404(model, pk=kwargs.get(url_param))
+            obj = get_integer_object_or_404(model, pk=kwargs.get(url_param))
             owner = getattr(obj, owner_field)
 
             # my pussy tastes like pepsi cola
@@ -31,7 +31,7 @@ def guard_private_app(view_func=None):
     def decorator(view_func):
         @wraps(view_func)
         def _wrapped_view(request, *args, **kwargs):
-            app_instance = get_object_or_404(
+            app_instance = get_integer_object_or_404(
                 Application, pk=request.GET.get("id"))
 
             if not app_instance.is_private:

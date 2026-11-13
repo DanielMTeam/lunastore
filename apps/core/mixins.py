@@ -8,7 +8,7 @@ import requests
 
 class CDNTokenValidationMixin:
     def validate_cdn_token(self, token, expected_type="cdn-confirm", expected_object=None, expected_mode=None):
-        if not token:
+        if not isinstance(token, str) or not token:
             raise ValidationError(_("ERROR_CDN_TOKEN_MISSING"))
 
         try:
@@ -23,7 +23,8 @@ class CDNTokenValidationMixin:
 
             # check guard via cache (protection against reuse)
             token_guard = decoded.get("guard")
-            if expected_object is not None and not (getattr(self, 'user', None) and token_guard):
+            has_guard = isinstance(token_guard, str) and bool(token_guard)
+            if expected_object is not None and not (getattr(self, 'user', None) and has_guard):
                 raise ValidationError(_("ERROR_CDN_TOKEN_INVALID"))
             if hasattr(self, 'user') and self.user and token_guard:
                 cache_key = f"cdn_guard_{self.user.id}_{token_guard}"

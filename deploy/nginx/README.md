@@ -57,3 +57,29 @@ account for this topology. Requests to direct RU mirrors retain their real IP.
 
 Validate with `nginx -t` before reloading Nginx. These files are deployment
 examples; updating the PR does not update `/etc/nginx` on the server.
+
+
+If Nginx also serves the LunaSpire hostname, use
+`access_log /var/log/nginx/lunaspire-access.log lunastore_safe;` on that host.
+The format above omits the entire query string for notification requests. The
+bundled Caddy configuration leaves access logging off. If enabling Caddy access
+logs on a LunaSpire host, filter the `token` query parameter before logging.
+
+
+### Security release with OIDC and API session changes
+
+1. Apply the additive `user.0042_api_session_and_oidc_identity` migration before
+   switching application instances. Verify the SQL with
+   `python manage.py sqlmigrate user 0042` on staging.
+2. Set `OIDC_EXPECTED_ISSUER` to the exact Authentik issuer and
+   `OIDC_REQUIRED_ROLE` to the required value in the UserInfo `groups` array.
+   Configure the Authentik scope mapping to emit this array. Using a superuser,
+   create an OIDC identity binding for each approved staff account with the
+   verified issuer and subject. Review staff and moderator memberships before
+   switching and verify local admin login on staging.
+3. Switch web, admin and API instances together. Clients with existing JWTs
+   must authenticate again. Existing OIDC sessions are logged out on their next
+   request. Verify staff login and JWT issue, refresh and revocation after cutover.
+4. Verify the host proxy can still reach Django on loopback, then verify direct
+   remote connections to the published backend ports fail. Previously issued
+   download URLs may work until their signatures expire.

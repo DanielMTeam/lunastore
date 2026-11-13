@@ -1,3 +1,4 @@
+from urllib.parse import urlsplit
 import jwt
 import time
 import requests
@@ -35,6 +36,15 @@ class NotificationService:
         }
         return cls.generate_token(payload)
 
+    @staticmethod
+    def _server_url():
+        url = settings.LUNASPIRE_URL.strip().rstrip("/")
+        if url.startswith("//"):
+            return f"https:{url}"
+        if not urlsplit(url).netloc:
+            return f"https://{url}"
+        return url
+
     @classmethod
     def send_notification(
             cls,
@@ -64,27 +74,23 @@ class NotificationService:
         try:
             # send PUT request to lunaspire
             response = requests.put(
-                f"{settings.LUNASPIRE_URL}/notifications/send",
+                f"{cls._server_url()}/notifications/send",
                 params={"token": token},
                 timeout=5
             )
             response.raise_for_status()
             return True
         except requests.RequestException as e:
-            logger.info(f"Failed to send notification: {e}")
+            logger.warning("Failed to send notification (%s)", type(e).__name__)
             return False
 
     @classmethod
     def get_notifications_meta(cls, user_id: int):
         token = cls.get_receive_token(user_id)
-        api_url = getattr(settings, 'LUNASPIRE_URL', '127.0.0.1:8080')
-        if not api_url.startswith('http'):
-            api_url = f'http://{api_url}'
-
         try:
             # request 1 record to get 'total' field
             response = requests.get(
-                f"{api_url}/notifications/list",
+                f"{cls._server_url()}/notifications/list",
                 params={
                     "token": token,
                     "limit": 1,
@@ -96,6 +102,6 @@ class NotificationService:
                     'total': data.get('total', 0),
                     'total_unread': data.get('total_unread', 0)
                 }
-        except BaseException:
-            pass
+        except (requests.RequestException, ValueError) as exc:
+            logger.warning("Failed to read notification metadata (%s)", type(exc).__name__)
         return {'total': 0, 'total_unread': 0}

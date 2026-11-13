@@ -789,6 +789,16 @@ class ApplicationAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
             "js/marketplace_cdn.js",
         )
 
+    def get_form(self, request, obj=None, change=False, **kwargs):
+        form_class = super().get_form(request, obj, change, **kwargs)
+
+        class RequestForm(form_class):
+            def __init__(self, *args, **form_kwargs):
+                super().__init__(*args, **form_kwargs)
+                self.user = request.user
+
+        return RequestForm
+
     def render_change_form(
             self,
             request,
@@ -822,12 +832,10 @@ class ApplicationAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
         super().save_model(request, obj, form, change)
 
     def display_screenshots(self, obj):
-        html = ""
-        if obj.screenshots:
-            for url in obj.screenshot_urls:
-                html += f'<img src="{url}" height="90" style="margin-right: 10px; border-radius: 4px; border: 1px solid #ccc; object-fit: cover;" />'
-
-        return mark_safe(html or "Нет скриншотов")
+        if not obj.screenshots:
+            return "Нет скриншотов"
+        return format_html_join("", "<img src=\"{}\" height=\"90\" style=\"margin-right: 10px; border-radius: 4px; border: 1px solid #ccc; object-fit: cover;\" />",
+                                ((url,) for url in obj.screenshot_urls))
 
     display_screenshots.short_description = "Предпросмотр"
 
@@ -1040,11 +1048,14 @@ class AppEditRequestsAdmin(RequestComparisonMixin, SafeDeleteAdmin, TabbedTransl
     )
 
     def display_screenshots(self, obj):
-        html = ""
-        if obj.screenshots:
-            for url in obj.screenshot_urls:
-                html += f'<a href="{url}" target="_blank"><img src="{url}" height="90" style="margin-right: 10px; border-radius: 4px; border: 1px solid #ccc; object-fit: cover;" /></a>'
-        return mark_safe(html or "Нет скриншотов")
+        if not obj.screenshots:
+            return "Нет скриншотов"
+        return format_html_join(
+            "",
+            '<a href="{}" target="_blank" rel="noopener"><img src="{}" height="90" '
+            'style="margin-right: 10px; border-radius: 4px; border: 1px solid #ccc; object-fit: cover;" /></a>',
+            ((url, url) for url in obj.screenshot_urls),
+        )
 
     display_screenshots.short_description = "Скриншоты"
 

@@ -63,7 +63,10 @@
     {% if request.session.impersonated_by %}
     <div class="announcement" style="background-color: #ffcc00; color: #000; text-align: center; border-bottom: 1px solid #ccaa00; padding: 10px;">
         <b>{% trans "BASE_IMPERSONATE_ATTENTION" %}</b> {% trans "BASE_IMPERSONATE_WARNING" %}
-        <a href="{% url 'revert_impersonation' %}" style="margin-left: 10px; font-weight: bold; text-decoration: underline; color: #000;">{% trans "BASE_IMPERSONATE_RETURN" %}</a>
+        <form method="post" action="{% url 'revert_impersonation' %}" style="display:inline;">
+            {% csrf_token %}
+            <input type="submit" value="{% trans 'BASE_IMPERSONATE_RETURN' %}">
+        </form>
     </div>
     {% endif %}
 
