@@ -42,6 +42,7 @@ class CDNConfirmationTests(SimpleTestCase):
         self.assertIn("&quot;", preview)
 
 
+@override_settings(RATELIMIT_BACKEND="memory")
 class CatalogVisibilityTests(TestCase):
     @classmethod
     def setUpTestData(cls):
@@ -80,7 +81,6 @@ class CatalogVisibilityTests(TestCase):
         self.assertEqual([item["status"] for item in results[:3]], ["error"] * 3)
         self.assertIn("results", results[3])
 
-    @override_settings(RATELIMIT_BACKEND="memory")
     def test_review_limit_runs_before_moderation(self):
         app = Application.objects.create(user=self.owner, title="Public app")
         self.client.force_login(self.owner)
