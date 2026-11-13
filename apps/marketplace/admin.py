@@ -790,7 +790,7 @@ class ApplicationAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
         )
 
     def get_form(self, request, obj=None, change=False, **kwargs):
-        form_class = super().get_form(request, obj, change, **kwargs)
+        form_class = super().get_form(request, obj, change=change, **kwargs)
 
         class RequestForm(form_class):
             def __init__(self, *args, **form_kwargs):
