@@ -270,7 +270,7 @@
 
                   <div class="pref_pad">
                       <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_LOAD_SCRN" %}:</div>
-                      <div class="info_splash">{% trans "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_1" %}</div>
+                      <div class="info_splash">{% trans "FORM_SCREENSHOTS" %}: {{ form.screenshot_limit }}</div>
                       <div style="margin: 5px 0;">
                           {{ form.upload_screenshots }}
                       </div>
@@ -374,7 +374,7 @@
                 cdnPrefix = parts[0] + "//" + parts[2] + "/";
             }
         }
-        new ScreenshotManager('screenshots-interactive-container', fileInputId, 3, screenshotsArray, cdnPrefix);
+        new ScreenshotManager('screenshots-interactive-container', fileInputId, {{ form.screenshot_limit }}, screenshotsArray, cdnPrefix);
     });
 </script>
 <script type="text/javascript">
