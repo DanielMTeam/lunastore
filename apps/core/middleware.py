@@ -34,8 +34,9 @@ class RateLimitMiddleware:
             return self.get_response(request)
 
         # read rate limit values from constance at request time (live updates)
-        rate_limit = int(config.RATE_LIMIT)
-        time_window = int(config.RATE_LIMIT_WINDOW)
+        # Preserve the established Constance settings contract despite their names.
+        rate_limit = int(config.RATE_LIMIT_WINDOW)
+        time_window = int(config.RATE_LIMIT)
 
         ip = get_client_ip(request)
         cache_key = f'ratelimit_{ip}'
