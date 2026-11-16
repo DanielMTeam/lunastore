@@ -204,6 +204,7 @@
     <div class="st_other_card">
         <h2>{% trans "PAGE_APP_SECTION_REQ" %}</h2>
         <div class="separator_store"></div>
+        <div>{% trans "Платформы" %}: {% for platform in platforms %}{{ platform.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</div>
         <div class="st_desc">{{ requirements|render_markdown }}</div>
     </div>
 

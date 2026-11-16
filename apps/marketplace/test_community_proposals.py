@@ -14,7 +14,7 @@ from safedelete.models import HARD_DELETE
 
 from apps.marketplace.forms import CommunityAccessConfirmationForm
 from apps.marketplace.models import (
-    Application, AppEditRequests, Category, Distribution, DistributionCreateRequests, DistributionEditRequests,
+    Application, AppEditRequests, Category, Distribution, DistributionCreateRequests, DistributionEditRequests, Platform,
 )
 from apps.marketplace.services.moderation import (
     auto_approve_request, approve_app_edit_request, approve_dist_edit_request,
@@ -156,7 +156,9 @@ class CommunityProposalTests(TestCase):
         self.owner.groups.add(group)
         self.contributor.groups.add(group)
         self.app = Application.objects.create(user=self.owner, title="Original", description="Description")
-        self.dist = Distribution.objects.create(app=self.app, version="1.0", url="https://example.test/app.zip")
+        self.platform, _ = Platform.objects.get_or_create(code="windows_xp", defaults={"name": "Windows XP"})
+        self.app.platforms.add(self.platform)
+        self.dist = Distribution.objects.create(app=self.app, platform=self.platform, version="1.0", url="https://example.test/app.zip")
         self.access_url = reverse("community_access", kwargs={"pk": self.app.pk})
         self.edit_url = reverse("edit_app_info", kwargs={"pk": self.app.pk})
         self.client.force_login(self.owner)
@@ -167,10 +169,12 @@ class CommunityProposalTests(TestCase):
         self.app.refresh_from_db()
 
     def proposal(self):
-        return AppEditRequests.objects.create(
+        req = AppEditRequests.objects.create(
             user=self.contributor, target_application=self.app, title="Proposed", description="New description",
             is_private=True, allow_reviews=False, allow_community_distributions=False,
         )
+        req.platforms.add(self.platform)
+        return req
 
     def test_activation_requires_password_and_cannot_be_used_by_other_users(self):
         self.assertEqual(self.client.post(self.access_url, {"enabled": "1", "password": "wrong"}).status_code, 200)
@@ -325,6 +329,7 @@ class CommunityProposalTests(TestCase):
         url = reverse("distribution_edit", kwargs={"dist_pk": self.dist.pk})
         self.assertEqual(self.client.post(url, {
             "version": "2.0", "url": "https://example.test/new.zip", "lunabox_type": "file",
+            "platform": self.platform.pk,
         }).status_code, 302)
         req = DistributionEditRequests.objects.get(target_distribution=self.dist)
         self.assertEqual(req.status, "pending")
@@ -346,6 +351,7 @@ class CommunityProposalTests(TestCase):
         return {
             "title_ru": "Proposed", "description_ru": "New description", "slogan_ru": "New slogan",
             "price": "0", "categories": [category.pk], "allow_community_distributions": "on",
+            "platforms": [self.platform.pk],
             "is_private": "on", "allow_reviews": "", "community_protected": "",
         }
 
@@ -379,7 +385,8 @@ class CommunityProposalTests(TestCase):
         self.enable()
         self.client.force_login(self.contributor)
         url = reverse("distribution_create", kwargs={"app_id": self.app.pk})
-        data = {"version": "2.0", "url": "https://example.test/new.zip", "lunabox_type": "file"}
+        data = {"version": "2.0", "url": "https://example.test/new.zip", "lunabox_type": "file",
+                "platform": self.platform.pk}
         self.assertEqual(self.client.post(url, data).status_code, 302)
         self.assertEqual(self.client.post(url, data).status_code, 302)
         self.assertEqual(DistributionCreateRequests.objects.filter(app=self.app, user=self.contributor).count(), 1)

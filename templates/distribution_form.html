@@ -67,6 +67,8 @@
                 <div class="pref_pad">
                     <div class="pref_item_title">{% trans "PAGE_DIST_FORM_VERSION" %}</div>
                     {{ form.version }}
+                    <div class="pref_item_title">{% trans "Платформа" %}</div>
+                    {{ form.platform }} {{ form.platform.errors }}
                     <div class="pref_warn_label">{% trans "PAGE_DIST_FORM_VERSION_DESC" %}</div>
                 </div>
 

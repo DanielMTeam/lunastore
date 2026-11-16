@@ -24,9 +24,9 @@ from drf_spectacular.utils import (
     extend_schema_view,
     inline_serializer,
 )
-from apps.marketplace.models import Application, Category, Collection, CollectionItem, Distribution
+from apps.marketplace.models import Application, Category, Collection, CollectionItem, Distribution, Platform
 from apps.marketplace.services.distributions import can_submit_community_distribution
-from apps.marketplace.serializers import ApplicationSerializer, CategorySerializer, CollectionSerializer, DistributionSerializer, annotate_app_last_version
+from apps.marketplace.serializers import ApplicationSerializer as LegacyApplicationSerializer, CategorySerializer, CollectionSerializer, DistributionSerializer as LegacyDistributionSerializer, annotate_app_last_version
 from apps.user.models import User
 from apps.user.serializers import UserSerializer
 from apps.core.notifications.services import NotificationService
@@ -43,6 +43,34 @@ from apps.api.exceptions import LunaException
 
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .serializers import CustomTokenObtainPairSerializer
+
+
+class PlatformSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Platform
+        fields = ("code", "name")
+
+
+class ApplicationSerializer(LegacyApplicationSerializer):
+    platforms = PlatformSerializer(many=True, read_only=True)
+
+    class Meta(LegacyApplicationSerializer.Meta):
+        fields = LegacyApplicationSerializer.Meta.fields + ["platforms"]
+        ref_name = "V2Application"
+
+
+class DistributionSerializer(LegacyDistributionSerializer):
+    platform = PlatformSerializer(read_only=True)
+
+    class Meta(LegacyDistributionSerializer.Meta):
+        fields = LegacyDistributionSerializer.Meta.fields + ["platform"]
+        ref_name = "V2Distribution"
+
+
+class PlatformViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Platform.objects.all()
+    serializer_class = PlatformSerializer
+    lookup_field = "code"
 
 
 @extend_schema_view(
@@ -267,7 +295,7 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
 class MarketplaceViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         return annotate_app_last_version(
-            Application.objects.filter(is_private=False, is_under_dmca=False)
+            Application.objects.filter(is_private=False, is_under_dmca=False).prefetch_related("platforms")
         )
     serializer_class = ApplicationSerializer
     pagination_class = V2Pagination
@@ -299,6 +327,7 @@ class MarketplaceViewSet(viewsets.ReadOnlyModelViewSet):
                 type=OpenApiTypes.STR,
                 location=OpenApiParameter.QUERY,
             ),
+            OpenApiParameter(name="platform", description="Platform code", required=False, type=OpenApiTypes.STR),
             OpenApiParameter(
                 name="category",
                 description="category id filter",
@@ -349,6 +378,8 @@ class MarketplaceViewSet(viewsets.ReadOnlyModelViewSet):
         if not query:
             return Response({"error": "Query parameter is required"}, status=400)
 
+        platform_code = request.query_params.get("platform")
+        platform = get_object_or_404(Platform, code=platform_code) if platform_code else None
         category_id = request.query_params.get("category")
         author_id = request.query_params.get("author")
         is_free = parse_is_free(request.query_params.get("is_free"))
@@ -359,6 +390,7 @@ class MarketplaceViewSet(viewsets.ReadOnlyModelViewSet):
                 limit=limit,
                 offset=offset,
                 category_id=category_id,
+                platform_id=platform.pk if platform else None,
                 author_id=author_id,
                 is_free=is_free,
             )
@@ -458,13 +490,19 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
     @extend_schema(
         summary="get apps by category",
         description="Returns paginated apps in a given category",
+        parameters=[OpenApiParameter(name="platform", description="Platform code", required=False,
+                                     type=OpenApiTypes.STR)],
     )
     @action(detail=True, methods=["get"], url_path="apps")
     def apps(self, request, pk=None):
         category = self.get_object()
         apps = annotate_app_last_version(
-            Application.objects.filter(categories=category).exclude(is_private=True)
+            Application.objects.filter(categories=category).exclude(is_private=True).prefetch_related("platforms")
         ).order_by("-published")
+        platform_code = request.query_params.get("platform")
+        if platform_code:
+            platform = get_object_or_404(Platform, code=platform_code)
+            apps = apps.filter(platforms=platform)
         page = self.paginate_queryset(apps)
         if page is not None:
             serializer = ApplicationSerializer(page, many=True)
@@ -484,7 +522,7 @@ class DistributionViewSet(viewsets.ReadOnlyModelViewSet):
 
     def get_queryset(self):
         # hide private app distributions unless requester is the owner
-        qs = Distribution.objects.select_related("app", "app__user")
+        qs = Distribution.objects.select_related("app", "app__user", "platform")
         user = self.request.user
         if user.is_authenticated:
             return qs.filter(Q(app__is_private=False) | Q(app__user=user))

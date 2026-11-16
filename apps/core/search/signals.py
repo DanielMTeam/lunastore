@@ -45,13 +45,16 @@ def sync_application_index(sender, instance, using=DEFAULT_DB_ALIAS, raw=False, 
 
 
 @receiver(m2m_changed, sender=Application.categories.through)
+@receiver(m2m_changed, sender=Application.platforms.through)
 def sync_application_categories(sender, instance, action, reverse, pk_set, using=DEFAULT_DB_ALIAS, **kwargs):
     if not settings.MEILISEARCH_ENABLED:
         return
     if reverse and action == "pre_clear":
         # post_clear has no pk_set and the relation is already empty by then.
         instance._search_application_ids = list(
-            sender.objects.using(using).filter(category_id=instance.pk).values_list("application_id", flat=True)
+            sender.objects.using(using).filter(**{
+                "platform_id" if sender == Application.platforms.through else "category_id": instance.pk
+            }).values_list("application_id", flat=True)
         )
         return
     if action not in ("post_add", "post_remove", "post_clear"):

@@ -290,6 +290,7 @@ class AppCreateForm(forms.ModelForm, CDNTokenValidationMixin):
         model = AppCreateRequests
         _base_names = [
             "categories",
+            "platforms",
             "title",
             "slogan",
             "original_author",
@@ -427,6 +428,10 @@ class AppCreateForm(forms.ModelForm, CDNTokenValidationMixin):
         self.user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
 
+        if not self.is_bound and not self.initial.get("platforms"):
+            from .models import Platform
+            self.initial["platforms"] = list(Platform.objects.filter(code="windows_xp").values_list("pk", flat=True))
+
         if 'categories' in self.fields:
             from .models import Category
             self.fields['categories'].queryset = Category.objects.filter(
@@ -484,6 +489,11 @@ class AppEditForm(AppCreateForm):
         original_json = self.data.get("cdn_screenshots_data")
 
         cleaned_data = super().clean()
+
+        platforms = cleaned_data.get("platforms")
+        if platforms is not None and hasattr(self, "target_app"):
+            if self.target_app.distributions.exclude(platform__in=platforms).exists():
+                self.add_error("platforms", _("Нельзя удалить платформу используемого дистрибутива."))
 
         if original_json and hasattr(self, "target_app"):
             try:
@@ -609,6 +619,12 @@ class ApplicationAdminForm(forms.ModelForm, CDNTokenValidationMixin):
             "slogan": UnfoldMarkdownTextareaWidget(attrs={"rows": 3}),
         })
 
+    def clean_platforms(self):
+        platforms = self.cleaned_data["platforms"]
+        if self.instance.pk and self.instance.distributions.exclude(platform__in=platforms).exists():
+            raise ValidationError(_("Нельзя удалить платформу используемого дистрибутива."))
+        return platforms
+
     def save(self, commit=True):
         app_instance = super().save(commit=False)
         new_icon = self.cleaned_data.get("cdn_icon_path")
@@ -731,6 +747,7 @@ class DistributionAdminForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields["platform"].required = True
         if self.instance and self.instance.pk:
             self.fields["lunabox_type"].initial = self.instance.lunabox_type
             self.fields["lunabox_path"].initial = self.instance.lunabox_path
@@ -808,6 +825,12 @@ class BaseDistributionForm(forms.ModelForm, CDNTokenValidationMixin):
         # the target distribution for edit mode
         self.target_dist = kwargs.pop('target_dist', None)
         super().__init__(*args, **kwargs)
+        app = self.app or (self.target_dist.app if self.target_dist else None)
+        if app:
+            self.fields["platform"].queryset = app.platforms.all()
+        self.fields["platform"].required = True
+        if self.target_dist and not self.is_bound:
+            self.initial["platform"] = self.target_dist.platform_id
 
     def clean(self):
         cleaned_data = super().clean()
@@ -899,7 +922,7 @@ class DistributionCreateForm(BaseDistributionForm):
     class Meta:
         model = DistributionCreateRequests
         fields = get_translated_fields_list(
-            ["version", "url", "changelog"]) + [
+            ["version", "url", "changelog", "platform"]) + [
             "virustotal_url", "lunabox_type", "lunabox_path"]
         widgets = get_translated_widgets_dict(
             {
@@ -931,7 +954,7 @@ class DistributionEditForm(BaseDistributionForm):
     class Meta:
         model = DistributionEditRequests
         fields = get_translated_fields_list(
-            ["version", "url", "changelog"]) + [
+            ["version", "url", "changelog", "platform"]) + [
             "virustotal_url", "lunabox_type", "lunabox_path"]
         widgets = get_translated_widgets_dict(
             {

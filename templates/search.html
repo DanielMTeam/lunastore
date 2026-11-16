@@ -73,6 +73,10 @@
                 </div>
 
                 <table cellpadding="0" cellspacing="0" border="0" class="search_filter_table">
+                    <tr><td colspan="2"><label>{% trans "Платформа" %}:
+                        <select name="platform"><option value="">{% trans "Все платформы" %}</option>
+                        {% for platform in platforms %}<option value="{{ platform.code }}"{% if selected_platform == platform.code %} selected{% endif %}>{{ platform.name }}</option>{% endfor %}
+                        </select></label></td></tr>
                     <tr>
                         <td class="search_filter_td_top search_filter_td_left" width="50%" valign="middle">
                             <table cellpadding="0" cellspacing="0" border="0" class="search_filter_inner">

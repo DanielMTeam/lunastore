@@ -21,6 +21,7 @@ from apps.marketplace.models import (
     DistributionCreateRequests,
     DistributionEditRequests,
     Review,
+    Platform,
     get_or_create_likes_collection,
 )
 from apps.marketplace.services.moderation import (
@@ -339,8 +340,11 @@ class ProxyDownloadTest(TestCase):
             title="Test App Name",
             description="Proxy testing",
         )
+        xp, _ = Platform.objects.get_or_create(code="windows_xp", defaults={"name": "Windows XP"})
+        cls.application.platforms.add(xp)
         cls.distribution = Distribution.objects.create(
             app=cls.application,
+            platform=xp,
             version="1.0.4",
             url="https://cloud.example.com/v1/files/download?id=123&token=abc#file.zip",
             changelog="Test proxy")
@@ -660,20 +664,24 @@ class TrustedAuthorAutoApprovalTest(TestCase):
             slogan="TestSlogan",
             price=0,
         )
+        cls.platform, _ = Platform.objects.get_or_create(code="windows_xp", defaults={"name": "Windows XP"})
+        cls.app.platforms.add(cls.platform)
 
     def _app_create_request(self, user):
-        return AppCreateRequests.objects.create(
+        req = AppCreateRequests.objects.create(
             user=user,
             title="AutoApp",
             description="TestDescription",
             slogan="TestSlogan",
             price=0,
         )
+        req.platforms.add(self.platform)
+        return req
 
     def _app_edit_request(self, user):
         self.app.user = user
         self.app.save(update_fields=["user"])
-        return AppEditRequests.objects.create(
+        req = AppEditRequests.objects.create(
             user=user,
             target_application=self.app,
             title="RenamedApp",
@@ -681,6 +689,8 @@ class TrustedAuthorAutoApprovalTest(TestCase):
             slogan="TestSlogan",
             price=0,
         )
+        req.platforms.add(self.platform)
+        return req
 
     def _dist_create_request(self, user):
         self.app.user = user
@@ -688,6 +698,7 @@ class TrustedAuthorAutoApprovalTest(TestCase):
         return DistributionCreateRequests.objects.create(
             user=user,
             app=self.app,
+            platform=self.platform,
             version="1.0",
             changelog="Initial",
             virustotal_url="https://www.virustotal.com/gui/example",
@@ -697,11 +708,12 @@ class TrustedAuthorAutoApprovalTest(TestCase):
         self.app.user = user
         self.app.save(update_fields=["user"])
         distribution = Distribution.objects.create(
-            app=self.app, version="1.0", changelog="Initial")
+            app=self.app, platform=self.platform, version="1.0", changelog="Initial")
         return DistributionEditRequests.objects.create(
             user=user,
             target_distribution=distribution,
             app=self.app,
+            platform=self.platform,
             version="2.0",
             changelog="Updated",
         )

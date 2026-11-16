@@ -93,7 +93,7 @@
                         <tbody>
                             {% for dist in distributions %}
                             <tr>
-                                <td>{{ dist.version }}</td>
+                                <td>{{ dist.version }} — {{ dist.platform }}</td>
                                 <td>{{ dist.published }}</td>
                                 <td>
                                     <a class="action_button" href="{{ dist.edit_url }}">{% trans "PAGE_ADMIN_APP_DIST_ACTION_EDIT" %}</a>
@@ -156,6 +156,8 @@
                         <div class="pref_pad">
                             <div class="pref_item_title">{% trans "PAGE_DIST_FORM_VERSION" %}</div>
                             {{ form.version }}
+                            <div class="pref_item_title">{% trans "Платформа" %}</div>
+                            {{ form.platform }} {{ form.platform.errors }}
                             <div class="pref_warn_label">{% trans "PAGE_DIST_FORM_VERSION_DESC" %}</div>
                         </div>
 

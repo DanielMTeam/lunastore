@@ -15,7 +15,7 @@
 </div>
 <div class="list_settings">
     <div class="selector">
-        <select onchange="window.location.href = '?id={{ active_category.id }}&view=' + this.value;">
+        <select onchange="window.location.href = '?id={{ active_category.id }}&platform={{ selected_platform|urlencode }}&view=' + this.value;">
                 <option value="" disabled {% if not view_mode %}selected{% endif %}>{% trans "PAGE_SEARCH_SORT_PLACEHOLDER" %}</option>
                 <option value="tiles" {% if view_mode == 'tiles' %}selected{% endif %}>{% trans "PAGE_SEARCH_SORT_TILES" %}</option>
                 <option value="list" {% if view_mode == 'list' %}selected{% endif %}>{% trans "PAGE_SEARCH_SORT_LIST" %}</option>
@@ -23,6 +23,10 @@
     </div>
 </div>
     <div class="section">
+    <form method="get"><input type="hidden" name="id" value="{{ active_category.id }}"><input type="hidden" name="view" value="{{ view_mode }}">
+      <label>{% trans "Платформа" %}: <select name="platform"><option value="">{% trans "Все платформы" %}</option>
+      {% for platform in platforms %}<option value="{{ platform.code }}"{% if selected_platform == platform.code %} selected{% endif %}>{{ platform.name }}</option>{% endfor %}
+      </select></label><button type="submit">{% trans "Применить" %}</button></form>
     <h2>{% trans "PAGE_CATEGORY_COUNTOFRESULTS" %} {{ count }}</h2>
     </div>
   <div class="section">
@@ -42,6 +46,7 @@
                  style="vertical-align: middle;">
 
           <input type="hidden" name="category" value="{{ active_category.id }}">
+          <input type="hidden" name="platform" value="{{ selected_platform }}">
 
           <button type="submit" style="vertical-align: middle;">
             {% trans "BASE_SEARCHBTN" %}
@@ -114,9 +119,9 @@
       {% if page_num == page_obj.paginator.ELLIPSIS %}
         <span>{{ page_num }}</span>
       {% elif page_num == page_obj.number %}
-      <a class="active" href="/category.php?id={{ active_category.id }}&page={{ page_num }}{% if view_mode %}&view={{ view_mode }}{% endif %}">{{ page_num }}</a>
+      <a class="active" href="/category.php?id={{ active_category.id }}&page={{ page_num }}&platform={{ selected_platform|urlencode }}{% if view_mode %}&view={{ view_mode }}{% endif %}">{{ page_num }}</a>
       {% else %}
-      <a href="/category.php?id={{ active_category.id }}&page={{ page_num }}{% if view_mode %}&view={{ view_mode }}{% endif %}">{{ page_num }}</a>
+      <a href="/category.php?id={{ active_category.id }}&page={{ page_num }}&platform={{ selected_platform|urlencode }}{% if view_mode %}&view={{ view_mode }}{% endif %}">{{ page_num }}</a>
       {% endif %}
     {% endfor %}
   </div>
