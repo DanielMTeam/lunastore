@@ -118,8 +118,8 @@ class Platform(models.Model):
 
     class Meta:
         ordering = ["name"]
-        verbose_name = "Платформа"
-        verbose_name_plural = "Платформы"
+        verbose_name = _("FORM_PLATFORM")
+        verbose_name_plural = _("FORM_PLATFORMS")
 
     def __str__(self):
         return self.name
@@ -134,7 +134,7 @@ class BaseApplicationInfo(SafeDeleteModel):
         blank=True,
         related_name="%(class)s_categories")
     platforms = models.ManyToManyField(
-        Platform, verbose_name="Платформы", related_name="%(class)s_platforms")
+        Platform, verbose_name=_("FORM_PLATFORMS"), related_name="%(class)s_platforms")
     badges = models.ManyToManyField(
         "Badge",
         verbose_name="Бейджики",
@@ -334,13 +334,13 @@ class Application(BaseApplicationInfo):
 class BaseDistributionInfo(SafeDeleteModel):
     _safedelete_policy = SOFT_DELETE
 
-    platform = models.ForeignKey(Platform, on_delete=models.PROTECT, verbose_name="Платформа")
+    platform = models.ForeignKey(Platform, on_delete=models.PROTECT, verbose_name=_("FORM_PLATFORM"))
 
     def clean(self):
         from django.core.exceptions import ValidationError
         super().clean()
         if self.app_id and self.platform_id and not self.app.platforms.filter(pk=self.platform_id).exists():
-            raise ValidationError({"platform": "Платформа должна поддерживаться приложением."})
+            raise ValidationError({"platform": _("ERROR_DIST_PLATFORM_UNSUPPORTED")})
 
     app = models.ForeignKey(
         'Application',

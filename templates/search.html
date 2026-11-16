@@ -102,9 +102,9 @@
                 <table cellpadding="0" cellspacing="0" border="0" class="search_filter_table">
                     <tr>
                         <td class="search_filter_field">
-                            <label for="search-platform">{% trans "Платформа" %}</label>
+                            <label for="search-platform">{% trans "FORM_PLATFORM" %}</label>
                             <select name="platform" id="search-platform" class="search_filter_select">
-                                <option value="">{% trans "Все платформы" %}</option>
+                                <option value="">{% trans "PAGE_SEARCH_FILTER_PLATFORM_ALL" %}</option>
                                 {% for platform in platforms %}
                                     <option value="{{ platform.code }}"{% if selected_platform == platform.code %} selected{% endif %}>{{ platform.name }}</option>
                                 {% endfor %}

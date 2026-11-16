@@ -3439,3 +3439,37 @@ msgstr "В этом браузере используется светлая к�
 
 msgid "INFO_THEME_UPDATED"
 msgstr "Тема оформления сохранена."
+
+msgid "ACTION_APPLY"
+msgstr "Применить"
+
+msgid "ERROR_APP_PLATFORM_IN_USE"
+msgstr "Нельзя убрать платформу, которую использует один из дистрибутивов приложения."
+
+msgid "ERROR_DIST_PLATFORM_UNSUPPORTED"
+msgstr "Выберите платформу, которую поддерживает приложение."
+
+msgid "FORM_PLATFORM"
+msgstr "Платформа"
+
+msgid "FORM_PLATFORMS"
+msgstr "Платформы"
+
+msgid "FORM_PLATFORMS_HELP"
+msgstr "Удерживайте Shift, чтобы выбрать несколько платформ подряд, или Ctrl, чтобы выбрать их по отдельности."
+
+#, python-format
+msgid "PAGE_DIST_EDIT_FILE_UPLOADED %(file_id)s"
+msgstr "Файл загружен (ID: %(file_id)s)"
+
+msgid "PAGE_DIST_FORM_PLATFORM_EDIT_APP"
+msgstr "Изменить платформы приложения"
+
+msgid "PAGE_DIST_FORM_PLATFORM_PENDING_DESC"
+msgstr "Новая платформа появится здесь после одобрения изменений."
+
+msgid "PAGE_DIST_FORM_PLATFORM_PLACEHOLDER"
+msgstr "Выберите платформу…"
+
+msgid "PAGE_SEARCH_FILTER_PLATFORM_ALL"
+msgstr "Все платформы"

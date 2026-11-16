@@ -49,13 +49,13 @@
             {% if owner_can_manage %}
             <div style="margin-bottom: 15px;">
                 <br>
-                <a href="{{ manage_url }}"><b>[{% trans "PAGE_DOWNLOAD_MANAGE_DISTS" %}]</b></a>
+                <a class="distribution_nav_link" href="{{ manage_url }}"><b>[{% trans "PAGE_DOWNLOAD_MANAGE_DISTS" %}]</b></a>
             </div>
             {% else %}
             {% if can_submit_distribution %}
             <div style="margin-bottom: 15px;">
                 <br>
-                <a href="{% url 'distribution_create' app_id=app.id %}"><b>[{% trans "PAGE_ADMIN_APP_DIST_ADD_NEW" %}]</b></a>
+                <a class="distribution_nav_link" href="{% url 'distribution_create' app_id=app.id %}"><b>[{% trans "PAGE_ADMIN_APP_DIST_ADD_NEW" %}]</b></a>
             </div>
             {% endif %}
             {% endif %}

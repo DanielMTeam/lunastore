@@ -493,7 +493,7 @@ class AppEditForm(AppCreateForm):
         platforms = cleaned_data.get("platforms")
         if platforms is not None and hasattr(self, "target_app"):
             if self.target_app.distributions.exclude(platform__in=platforms).exists():
-                self.add_error("platforms", _("Нельзя удалить платформу используемого дистрибутива."))
+                self.add_error("platforms", _("ERROR_APP_PLATFORM_IN_USE"))
 
         if original_json and hasattr(self, "target_app"):
             try:
@@ -622,7 +622,7 @@ class ApplicationAdminForm(forms.ModelForm, CDNTokenValidationMixin):
     def clean_platforms(self):
         platforms = self.cleaned_data["platforms"]
         if self.instance.pk and self.instance.distributions.exclude(platform__in=platforms).exists():
-            raise ValidationError(_("Нельзя удалить платформу используемого дистрибутива."))
+            raise ValidationError(_("ERROR_APP_PLATFORM_IN_USE"))
         return platforms
 
     def save(self, commit=True):
@@ -826,9 +826,12 @@ class BaseDistributionForm(forms.ModelForm, CDNTokenValidationMixin):
         self.target_dist = kwargs.pop('target_dist', None)
         super().__init__(*args, **kwargs)
         app = self.app or (self.target_dist.app if self.target_dist else None)
+        platform_field = self.fields["platform"]
         if app:
-            self.fields["platform"].queryset = app.platforms.all()
-        self.fields["platform"].required = True
+            platform_field.queryset = app.platforms.all()
+        platform_field.empty_label = _("PAGE_DIST_FORM_PLATFORM_PLACEHOLDER")
+        platform_field.widget.attrs["class"] = "input-text"
+        platform_field.required = True
         if self.target_dist and not self.is_bound:
             self.initial["platform"] = self.target_dist.platform_id
 

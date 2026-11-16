@@ -358,9 +358,10 @@
                             <div class="add_app_pad">
                                 <div class="add_app_title">{% trans "PAGE_ADDAPP_STEP2_CATEGORY" %}</div>
                                 {{ form.categories }}
-                                <div class="add_app_title">{% trans "Платформы" %}</div>
-                                {{ form.platforms }} {{ form.platforms.errors }}
                                 <div class="add_app_form_label">{% trans "PAGE_ADDAPP_STEP2_CATEGORYDESC" %}</div>
+                                <div class="add_app_title">{% trans "FORM_PLATFORMS" %}</div>
+                                {{ form.platforms }} {{ form.platforms.errors }}
+                                <div class="add_app_form_label">{% trans "FORM_PLATFORMS_HELP" %}</div>
                                 {% if form.categories.errors %}
                                     <div class="field-error">
                                         {{ form.categories.errors }}

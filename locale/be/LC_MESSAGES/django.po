@@ -3440,3 +3440,37 @@ msgstr "У гэтым браўзеры выкарыстоўваецца свет
 
 msgid "INFO_THEME_UPDATED"
 msgstr "Тэма афармлення захавана."
+
+msgid "ACTION_APPLY"
+msgstr "Ужыць"
+
+msgid "ERROR_APP_PLATFORM_IN_USE"
+msgstr "Нельга прыбраць платформу, якую выкарыстоўвае адзін з дыстрыбутываў праграмы."
+
+msgid "ERROR_DIST_PLATFORM_UNSUPPORTED"
+msgstr "Выберыце платформу, якую падтрымлівае праграма."
+
+msgid "FORM_PLATFORM"
+msgstr "Платформа"
+
+msgid "FORM_PLATFORMS"
+msgstr "Платформы"
+
+msgid "FORM_PLATFORMS_HELP"
+msgstr "Утрымлівайце Shift, каб выбраць некалькі платформ запар, або Ctrl, каб выбіраць іх паасобку."
+
+#, python-format
+msgid "PAGE_DIST_EDIT_FILE_UPLOADED %(file_id)s"
+msgstr "Файл запампаваны (ID: %(file_id)s)"
+
+msgid "PAGE_DIST_FORM_PLATFORM_EDIT_APP"
+msgstr "Змяніць платформы праграмы"
+
+msgid "PAGE_DIST_FORM_PLATFORM_PENDING_DESC"
+msgstr "Новая платформа з’явіцца тут пасля ўхвалення змен."
+
+msgid "PAGE_DIST_FORM_PLATFORM_PLACEHOLDER"
+msgstr "Выберыце платформу…"
+
+msgid "PAGE_SEARCH_FILTER_PLATFORM_ALL"
+msgstr "Усе платформы"

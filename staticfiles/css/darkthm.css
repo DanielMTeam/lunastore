@@ -187,6 +187,11 @@ body {
     color: #fff !important;
 }
 
+a.distribution_nav_link {
+    color: #a9ceff;
+    text-decoration: underline;
+}
+
 .input-text {
     background: #5a5a5a !important;
     color: #fff !important;
@@ -449,8 +454,10 @@ body {
 }
 
 .appcat select {
-    background: none !important;
+    background: #323232 !important;
     border: 1px solid #000 !important;
+    color: #fff !important;
+    color-scheme: dark;
 }
 
 input[type="submit"] {
@@ -602,8 +609,10 @@ input[type="submit"] {
 }
 
 .add_app_form select {
-    background: none !important;
+    background: #323232 !important;
     border: 1px solid #000 !important;
+    color: #fff !important;
+    color-scheme: dark;
 }
 
 .preview-container-box {

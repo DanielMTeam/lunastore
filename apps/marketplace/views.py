@@ -259,7 +259,6 @@ def app(request):
         "is_translated_to_current_lang": obj.is_translated_to_current_lang,
         "latest_distribution": obj_dist,
         "badges": obj.badges.all(),
-        "platforms": obj.platforms.all(),
         "icon_url": obj.icon_url,
         "title": obj.title,
         "slogan": obj.slogan,
@@ -585,9 +584,17 @@ def community_access(request, pk):
         request.POST if request.method == "POST" and not rate_limited else None,
         initial={"enabled": "1" if obj.allow_community_distributions else "0"},
     )
+    context = {
+        "app": obj,
+        "form": form,
+        "app_id": obj.pk,
+        "developer_id": obj.user_id,
+        "developer_site": obj.developer_site,
+        "is_edit_page": True,
+    }
     if rate_limited:
         messages.error(request, _("ERROR_RATE_LIMIT_EXCEEDED"))
-        return render(request, "community_access.html", {"app": obj, "form": form}, status=429)
+        return render(request, "community_access.html", context, status=429)
     if request.method == "POST" and form.is_valid():
         enabled = form.cleaned_data["enabled"] == "1"
         if enabled and (obj.is_private or obj.is_under_dmca):
@@ -602,7 +609,7 @@ def community_access(request, pk):
         for errors in form.errors.values():
             for error in errors:
                 messages.error(request, error)
-    return render(request, "community_access.html", {"app": obj, "form": form})
+    return render(request, "community_access.html", context)
 
 
 def _search_suggest_response(request):

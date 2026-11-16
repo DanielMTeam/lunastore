@@ -18,6 +18,27 @@
     <link rel="stylesheet" href="{% static 'css/tabs.css' %}">
     <script src="{% static './js/field_locale_tabs.js' %}"></script>
     <style>
+            .distribution_editor .profile_block,
+            .distribution_editor .profile_block_content {
+                width: auto !important;
+            }
+
+            #distribution-form .input-text,
+            #distribution-form .brief_intro {
+                width: 100% !important;
+                max-width: 100% !important;
+                box-sizing: border-box;
+            }
+
+            .theme-classic-dark #distribution-form select {
+                color-scheme: dark;
+            }
+
+            #distribution-form #file-name-display,
+            #distribution-form #progress-text {
+                color: inherit;
+            }
+
             .lang-field-wrapper { display: none; }
             .lang-field-wrapper.active { display: block; }
 
@@ -50,7 +71,7 @@
             }
         </style>
 
-    <div class="section" style="border: none; padding: 0;">
+    <div class="distribution_editor">
         <div class="profile_block">
             {% if is_edit_page %}
             {% trans "PAGE_DIST_EDIT_HEADER" %} — {{ distribution.version }}
@@ -65,20 +86,22 @@
                 {{ form.cdn_confirm_token }}
 
                 <div class="pref_pad">
-                    <div class="pref_item_title">{% trans "PAGE_DIST_FORM_VERSION" %}</div>
+                    <div class="pref_item_title"><label for="{{ form.version.id_for_label }}">{% trans "PAGE_DIST_FORM_VERSION" %}</label></div>
                     {{ form.version }}
-                    <div class="pref_item_title">{% trans "Платформа" %}</div>
-                    {{ form.platform }} {{ form.platform.errors }}
                     <div class="pref_warn_label">{% trans "PAGE_DIST_FORM_VERSION_DESC" %}</div>
+                </div>
+
+                <div class="pref_pad">
+                    <div class="pref_item_title"><label for="{{ form.platform.id_for_label }}">{% trans "FORM_PLATFORM" %}</label></div>
+                    {{ form.platform }} {{ form.platform.errors }}
                 </div>
 
                 {% if distribution.cdn_file_id %}
                 <div class="pref_pad">
                     <div class="pref_item_title">{% trans "PAGE_DIST_EDIT_CURRENT_FILE" %}</div>
-                    <div style="background: #f4f7fa; border: 1px solid #bfd2e4; padding: 5px; font-size: 11px;">
-                        <li class="top" style="vertical-align: middle; margin-right: 5px; list-style: none; display: inline-block; width: 20px; height: 20px; padding: 0; background: url({% static 'img/icons.png' %}) no-repeat 0px -218px; *display: inline; *zoom: 1;"></li>
-                        <a href="{% url 'download_action' dist_pk=distribution.pk %}" target="_blank" style="color: #2b67b3; text-decoration: underline; vertical-align: middle;">
-                            Файл загружен (ID: {{ distribution.cdn_file_id }})
+                    <div class="info_splash_noicon">
+                        <a class="distribution_nav_link" href="{% url 'download_action' dist_pk=distribution.pk %}" target="_blank" rel="noopener">
+                            {% blocktrans with file_id=distribution.cdn_file_id %}PAGE_DIST_EDIT_FILE_UPLOADED {{ file_id }}{% endblocktrans %}
                         </a>
                     </div>
                 </div>
@@ -86,7 +109,7 @@
 
                 <div class="pref_pad">
                     <div class="pref_item_title">
-                        {% if distribution.file %}{% trans "PAGE_DIST_EDIT_CHANGE_FILE" %}{% else %}{% trans "PAGE_DIST_FORM_FILE" %}{% endif %}
+                        {% if distribution.cdn_file_id %}{% trans "PAGE_DIST_EDIT_CHANGE_FILE" %}{% else %}{% trans "PAGE_DIST_FORM_FILE" %}{% endif %}
                     </div>
 
                     <table cellpadding="0" cellspacing="0" border="0" style="margin-top: 5px;">
@@ -117,11 +140,11 @@
                                                 </div>
                                             </td>
                                             <td valign="middle" style="height: 20px;">
-                                                <div id="file-name-display" style="font-size: 13px; color: #000; line-height: 20px; position: relative; top: -1px;"></div>
+                                                <div id="file-name-display" style="font-size: 13px; line-height: 20px;"></div>
                                             </td>
                                         </tr>
                                     </table>
-                                    <div id="progress-text" style="margin-top: 5px; font-size: 11px; color: #555;">0%</div>
+                                    <div id="progress-text" style="margin-top: 5px; font-size: 11px;">0%</div>
                                 </div>
 
                             </td>
@@ -157,6 +180,8 @@
 
                 {% with trans=form.get_trans_fields %}
                     {% if trans.changelog %}
+                      <div class="pref_pad">
+                        <div class="pref_item_title">{% trans "PAGE_DIST_FORM_CHANGELOG" %}</div>
                         <div class="tabs field-tabs">
                             <div class="tab-bar">
                                 {% for item in trans.changelog %}
@@ -175,23 +200,20 @@
                                 {% endfor %}
                             </div>
                         </div>
-                    {% else %}
-                        <div style="color: red;">Ошибка: Поля Changelog не найдены в методе get_trans_fields!</div>
+                        <div class="pref_warn_label">{% trans "PAGE_DIST_FORM_CHANGELOG_DESC" %}</div>
+                      </div>
                     {% endif %}
                 {% endwith %}
 
-                <div class="pref_pad" style="padding-top: 10px; border-top: 1px dashed #cfe1ff;">
+                <div class="pref_pad" style="padding-top: 10px;">
                     {% if is_edit_page %}
                     <input type="submit" class="action_button" value="{% trans 'PAGE_DIST_FORM_SAVE' %}">
-                    <a href="{{ download_list_url }}" class="action_button" style="background: #e0edff; color: #294b76; border-color: #bfd2e4; margin-left: 10px;">
-                        {% trans "PAGE_DIST_FORM_CANCEL" %}
-                    </a>
                     {% else %}
                     <input type="submit" class="action_button" value="{% trans 'PAGE_ADDAPP_SENDAPPBTN' %}">
-                    <a href="{{ download_list_url }}" class="action_button" style="background: #e0edff; color: #294b76; border-color: #bfd2e4; margin-left: 10px;">
+                    {% endif %}
+                    <a href="{{ download_list_url }}" class="action_button action_button_secondary" style="margin-left: 10px;">
                         {% trans "PAGE_DIST_FORM_CANCEL" %}
                     </a>
-                    {% endif %}
                 </div>
             </form>
         </div>
@@ -223,8 +245,7 @@
             var fileName = this.value.split(/(\\|\/)/g).pop();
             var displaySpan = document.getElementById('file-chosen');
             if (displaySpan) {
-                displaySpan.innerHTML = fileName ? fileName : '{% trans "PAGE_DIST_FORM_FILE_NO_FILE" %}';
-                displaySpan.style.color = "#000";
+                displaySpan.textContent = fileName || window.DIST_CDN_I18N.noFile;
             }
         };
     }
@@ -232,7 +253,6 @@
 <script type="text/javascript">
     var lunaboxTypeSelect = document.getElementById('id_lunabox_type');
     var lunaboxPathPad = document.getElementById('lunabox-path-pad');
-    var lunaboxPathInput = document.getElementById('id_lunabox_path');
 
     function toggleLunaboxPathField() {
         if (!lunaboxTypeSelect) {
@@ -242,9 +262,6 @@
         var showPath = (value === 'app_zip' || value === 'installer_zip');
         if (lunaboxPathPad) {
             lunaboxPathPad.style.display = showPath ? '' : 'none';
-        }
-        if (lunaboxPathInput && !showPath) {
-            lunaboxPathInput.value = '';
         }
     }
 

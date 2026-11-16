@@ -1984,3 +1984,37 @@ msgstr "不正なログインまたはパスワード。"
 
 msgid "VIEW_LOGIN_SUCCESS"
 msgstr "ログインが正常に完了しました!こんにちは、%(username)s!"
+
+msgid "ACTION_APPLY"
+msgstr "適用"
+
+msgid "ERROR_APP_PLATFORM_IN_USE"
+msgstr "アプリの配布ファイルで使用中のプラットフォームは削除できません。"
+
+msgid "ERROR_DIST_PLATFORM_UNSUPPORTED"
+msgstr "アプリが対応しているプラットフォームを選択してください。"
+
+msgid "FORM_PLATFORM"
+msgstr "プラットフォーム"
+
+msgid "FORM_PLATFORMS"
+msgstr "プラットフォーム"
+
+msgid "FORM_PLATFORMS_HELP"
+msgstr "Shift キーを押しながら連続する項目を選択できます。個別に選択するには Ctrl キーを押しながらクリックしてください。"
+
+#, python-format
+msgid "PAGE_DIST_EDIT_FILE_UPLOADED %(file_id)s"
+msgstr "ファイルをアップロード済み（ID: %(file_id)s）"
+
+msgid "PAGE_DIST_FORM_PLATFORM_EDIT_APP"
+msgstr "アプリの対応プラットフォームを変更"
+
+msgid "PAGE_DIST_FORM_PLATFORM_PENDING_DESC"
+msgstr "変更が承認されると、新しいプラットフォームがここに表示されます。"
+
+msgid "PAGE_DIST_FORM_PLATFORM_PLACEHOLDER"
+msgstr "プラットフォームを選択…"
+
+msgid "PAGE_SEARCH_FILTER_PLATFORM_ALL"
+msgstr "すべてのプラットフォーム"
