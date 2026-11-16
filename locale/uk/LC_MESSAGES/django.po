@@ -3445,3 +3445,37 @@ msgstr "У цьому браузері використовується світ
 
 msgid "INFO_THEME_UPDATED"
 msgstr "Тему оформлення збережено."
+
+msgid "ACTION_APPLY"
+msgstr "Застосувати"
+
+msgid "ERROR_APP_PLATFORM_IN_USE"
+msgstr "Не можна прибрати платформу, яку використовує один із дистрибутивів застосунку."
+
+msgid "ERROR_DIST_PLATFORM_UNSUPPORTED"
+msgstr "Виберіть платформу, яку підтримує застосунок."
+
+msgid "FORM_PLATFORM"
+msgstr "Платформа"
+
+msgid "FORM_PLATFORMS"
+msgstr "Платформи"
+
+msgid "FORM_PLATFORMS_HELP"
+msgstr "Утримуйте Shift, щоб вибрати кілька платформ поспіль, або Ctrl, щоб вибирати їх окремо."
+
+#, python-format
+msgid "PAGE_DIST_EDIT_FILE_UPLOADED %(file_id)s"
+msgstr "Файл завантажено (ID: %(file_id)s)"
+
+msgid "PAGE_DIST_FORM_PLATFORM_EDIT_APP"
+msgstr "Змінити платформи застосунку"
+
+msgid "PAGE_DIST_FORM_PLATFORM_PENDING_DESC"
+msgstr "Нова платформа з’явиться тут після схвалення змін."
+
+msgid "PAGE_DIST_FORM_PLATFORM_PLACEHOLDER"
+msgstr "Виберіть платформу…"
+
+msgid "PAGE_SEARCH_FILTER_PLATFORM_ALL"
+msgstr "Усі платформи"

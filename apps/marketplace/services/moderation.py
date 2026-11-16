@@ -165,7 +165,7 @@ def approve_app_create_request(req, actor=None, auto=False):
     Returns the created ``Application``, or ``None`` when the request was
     already approved (or is otherwise not processable).
     """
-    if req.status == STATUS_APPROVED:
+    if req.status == STATUS_APPROVED or not req.platforms.exists():
         return None
 
     app = Application(
@@ -183,6 +183,7 @@ def approve_app_create_request(req, actor=None, auto=False):
 
     app.save()
     app.categories.set(req.categories.all())
+    app.platforms.set(req.platforms.all())
     app.badges.set(req.badges.all())
 
     _mark_approved(req)
@@ -220,7 +221,11 @@ def approve_app_edit_request(req, actor=None, auto=False):
     if app is None or not community_request_is_current(req, app, target=app):
         return None
 
+    if not req.platforms.exists() or app.distributions.exclude(platform__in=req.platforms.all()).exists():
+        return None
+
     app.categories.set(req.categories.all())
+    app.platforms.set(req.platforms.all())
     if req.user_id == app.user_id:
         app.badges.set(req.badges.all())
     app.original_author = req.original_author
@@ -273,9 +278,12 @@ def approve_dist_create_request(req, actor=None, auto=False):
     app = Application.objects.select_for_update().filter(pk=req.app_id).first()
     if app is None or not community_request_is_current(req, app):
         return None
+    if not app.platforms.filter(pk=req.platform_id).exists():
+        return None
 
     dist = Distribution(
         app=req.app,
+        platform=req.platform,
         version=req.version,
         cdn_file_id=req.cdn_file_id,
         url=req.url,
@@ -322,7 +330,10 @@ def approve_dist_edit_request(req, actor=None, auto=False):
     dist = Distribution.objects.select_for_update().filter(pk=req.target_distribution_id, app_id=req.app_id).first()
     if app is None or dist is None or not community_request_is_current(req, app, target=dist):
         return None
+    if not app.platforms.filter(pk=req.platform_id).exists():
+        return None
 
+    dist.platform = req.platform
     dist.version = req.version
     dist.url = req.url
     dist.lunabox_manifest = req.lunabox_manifest

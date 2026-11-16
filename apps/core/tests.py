@@ -18,6 +18,7 @@ from apps.marketplace.models import (
     Collection,
     CollectionItem,
     Distribution,
+    Platform,
 )
 
 logger = logging.getLogger("core")
@@ -69,8 +70,12 @@ class SitemapAndRobotsTest(TestCase):
             is_under_dmca=True,
         )
 
+        xp, _ = Platform.objects.get_or_create(code="windows_xp", defaults={"name": "Windows XP"})
+        cls.public_app.platforms.add(xp)
+        cls.dmca_app.platforms.add(xp)
         cls.distribution = Distribution.objects.create(
             app=cls.public_app,
+            platform=xp,
             version="1.0.0",
             url="https://example.com/dist.zip",
             changelog="Initial release",
@@ -78,6 +83,7 @@ class SitemapAndRobotsTest(TestCase):
 
         cls.dmca_distribution = Distribution.objects.create(
             app=cls.dmca_app,
+            platform=xp,
             version="1.0.0",
             url="https://example.com/dmca.zip",
             changelog="DMCA release",

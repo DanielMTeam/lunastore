@@ -20,6 +20,11 @@
     <link rel="stylesheet" href="{% static 'css/tabs.css' %}">
     <script src="{% static './js/field_locale_tabs.js' %}"></script>
     <style>
+        .theme-classic-dark .distribution_pending a {
+            color: #fff;
+            text-decoration: underline;
+        }
+
         .lang-field-wrapper { display: none; }
         .lang-field-wrapper.active { display: block; }
 
@@ -60,9 +65,9 @@
                 <div class="profile_block">{% trans "PAGE_ADMIN_APP_DIST_HEADER" %}{{ app.title }}</div>
                 <div class="profile_block_content">
                     {% if pending_requests or pending_edits %}
-                    <div class="info_splash" style="margin-bottom: 15px;">
-                        <strong style="color: #0b3a72;">{% trans "PAGE_ADMIN_APP_DIST_PENDING_TITLE" %}</strong>
-                        <ul style="margin-top: 5px; margin-bottom: 0; padding-left: 25px; color: #333;">
+                    <div class="info_splash distribution_pending" style="margin-bottom: 15px;">
+                        <strong>{% trans "PAGE_ADMIN_APP_DIST_PENDING_TITLE" %}</strong>
+                        <ul style="margin-top: 5px; margin-bottom: 0; padding-left: 25px;">
                         {% for req in pending_requests %}
                             <li>
                                 {% trans "PAGE_ADMIN_APP_DIST_VERSION_LABEL" %} <strong>{{ req.version }}</strong>
@@ -93,7 +98,7 @@
                         <tbody>
                             {% for dist in distributions %}
                             <tr>
-                                <td>{{ dist.version }}</td>
+                                <td>{{ dist.version }} — {{ dist.platform }}</td>
                                 <td>{{ dist.published }}</td>
                                 <td>
                                     <a class="action_button" href="{{ dist.edit_url }}">{% trans "PAGE_ADMIN_APP_DIST_ACTION_EDIT" %}</a>
@@ -157,6 +162,15 @@
                             <div class="pref_item_title">{% trans "PAGE_DIST_FORM_VERSION" %}</div>
                             {{ form.version }}
                             <div class="pref_warn_label">{% trans "PAGE_DIST_FORM_VERSION_DESC" %}</div>
+                        </div>
+
+                        <div class="pref_pad">
+                            <div class="pref_item_title"><label for="{{ form.platform.id_for_label }}">{% trans "FORM_PLATFORM" %}</label></div>
+                            {{ form.platform }} {{ form.platform.errors }}
+                            <div class="pref_warn_label">
+                                <a class="distribution_nav_link" href="{% url 'edit_app_info' pk=app.pk %}#app-platforms">{% trans "PAGE_DIST_FORM_PLATFORM_EDIT_APP" %}</a>.
+                                {% trans "PAGE_DIST_FORM_PLATFORM_PENDING_DESC" %}
+                            </div>
                         </div>
 
                         <div class="pref_pad">
@@ -265,7 +279,7 @@
             <div class="section" style="border: none; padding: 0;">
                 <div class="profile_block">{% trans "PAGE_ADMIN_APP_DIST_DL_LINK_BLOCK" %}</div>
                 <div class="profile_block_content">
-                    <a href="{{ download_list_url }}">{% trans "PAGE_ADMIN_APP_DIST_DL_LINK_TEXT" %}</a>
+                    <a class="distribution_nav_link" href="{{ download_list_url }}">{% trans "PAGE_ADMIN_APP_DIST_DL_LINK_TEXT" %}</a>
                 </div>
             </div>
         </div>

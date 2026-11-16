@@ -34,7 +34,7 @@ def _sync_record(index_uid, object_id, using):
                     return False
                 queryset = model.objects.using(using)
                 if model is Application:
-                    queryset = queryset.prefetch_related("categories")
+                    queryset = queryset.prefetch_related("categories", "platforms")
                 instance = queryset.filter(pk=object_id).first()
                 if model is Application:
                     if instance is None:

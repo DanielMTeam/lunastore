@@ -44,6 +44,19 @@ from uuid import uuid4
 logger = logging.getLogger(__name__)
 
 
+@admin.register(Platform)
+class PlatformAdmin(admin.ModelAdmin):
+    list_display = ("name", "code")
+    search_fields = ("name", "code")
+    readonly_fields = ("code",)
+
+    def get_readonly_fields(self, request, obj=None):
+        return self.readonly_fields if obj else ()
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
 def _build_direct_cdn_download_url(obj) -> str | None:
     if not obj.cdn_file_id:
         return None
@@ -356,6 +369,7 @@ class DistributionInlineForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields["platform"].required = True
         if self.instance and self.instance.pk:
             self.fields["lunabox_type"].initial = self.instance.lunabox_type
             self.fields["lunabox_path"].initial = self.instance.lunabox_path
@@ -396,6 +410,7 @@ class DistributionInline(TranslationStackedInline):
     form = DistributionInlineForm
     fields = (
         "version",
+        "platform",
         "dist_file",
         "cdn_confirm_token",
         "cdn_file_id",
@@ -425,6 +440,7 @@ class DistributionAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
             {
                 "fields": (
                     "app",
+                    "platform",
                     "version",
                     "dist_file",
                     "cdn_confirm_token",
@@ -512,7 +528,7 @@ class DistributionCreateAdmin(
         "app",
         "user",
         "status",
-        "version",
+        "version", "platform",
         "cdn_file_id",
         "url",
         "changelog",
@@ -521,7 +537,7 @@ class DistributionCreateAdmin(
 
     fieldsets = (
         ("Информация о дистрибуции", {
-            "fields": ("app", "version", "changelog", "url", "cdn_file_id", "lunabox_manifest_display")
+            "fields": ("app", "platform", "version", "changelog", "url", "cdn_file_id", "lunabox_manifest_display")
         }),
         ("Безопасность", {
             "fields": ("security_check",),
@@ -613,6 +629,7 @@ class DistributionEditRequestAdmin(
         "user",
         "status",
         "version",
+        "platform",
         "cdn_file_id",
         "url",
         "changelog",
@@ -621,7 +638,7 @@ class DistributionEditRequestAdmin(
 
     fieldsets = (
         ("Информация об изменениях", {
-            "fields": ("target_distribution", "version", "changelog", "url", "cdn_file_id", "lunabox_manifest_display")
+            "fields": ("target_distribution", "platform", "version", "changelog", "url", "cdn_file_id", "lunabox_manifest_display")
         }),
         ("Безопасность", {
             "fields": ("security_check",),
@@ -751,6 +768,7 @@ class ApplicationAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
                     "title",
                     "user",
                     "categories",
+                    "platforms",
                     "badges",
                     "description",
                     "original_author",
@@ -870,6 +888,7 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
         "user",
         "status",
         "categories",
+        "platforms",
         "badges",
         "title",
         "description",
@@ -979,6 +998,7 @@ class AppCreateRequestsAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
     fieldsets = (("Основная информация по заявке",
                   {"fields": ("user",
                               "categories",
+                              "platforms",
                               "badges",
                               "title",
                               "slogan",
@@ -1024,6 +1044,7 @@ class AppEditRequestsAdmin(RequestComparisonMixin, SafeDeleteAdmin, TabbedTransl
         "user",
         "status",
         "categories",
+        "platforms",
         "badges",
         "title",
         "original_author",
@@ -1146,6 +1167,7 @@ class AppEditRequestsAdmin(RequestComparisonMixin, SafeDeleteAdmin, TabbedTransl
     fieldsets = (("Основная информация по заявке",
                   {"fields": ("user",
                               "categories",
+                              "platforms",
                               "title",
                               "slogan",
                               "description",

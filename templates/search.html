@@ -5,6 +5,33 @@
 
 {% block title %}{% trans "PAGE_SEARCH_TITLE" %} - LunaStore{% endblock %}
 
+{% block page_styles %}
+<style type="text/css">
+    .search_page_tabs .search_filter_field {
+        width: 50%;
+        padding: 0 6px 8px;
+        vertical-align: top;
+    }
+    .search_page_tabs .search_filter_field label { display: block; margin-bottom: 4px; }
+    .search_page_tabs .search_filter_field select,
+    .search_page_tabs .search_filter_field input {
+        display: block;
+        width: 100%;
+        height: 24px;
+        box-sizing: border-box;
+        margin: 0;
+        font: 11px Tahoma, sans-serif;
+    }
+    .search_page_tabs .search_filter_free { vertical-align: bottom; padding: 0 6px 8px; }
+    .search_filter_free .search_filter_label { display: block; line-height: 24px; }
+    .search_page_tabs .search_filter_actions { padding: 0 6px 2px; text-align: right; }
+    .theme-classic-dark .search_filter_field select,
+    .theme-classic-dark .search_filter_field input {
+        background: #5a5a5a; color: #fff; border-color: #777;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="content">
 <link rel="stylesheet" href="{% static './css/tabs.css' %}">
@@ -74,46 +101,40 @@
 
                 <table cellpadding="0" cellspacing="0" border="0" class="search_filter_table">
                     <tr>
-                        <td class="search_filter_td_top search_filter_td_left" width="50%" valign="middle">
-                            <table cellpadding="0" cellspacing="0" border="0" class="search_filter_inner">
-                                <tr>
-                                    <td class="search_filter_label_cell" nowrap="nowrap">{% trans "PAGE_SEARCH_FILTER_AUTHOR_ID" %}:</td>
-                                    <td>
-                                        <input type="text" name="author" value="{{ f_author|default:'' }}"
-                                               oninput="this.value = this.value.replace(/[^0-9]/g, '');"
-                                               class="search_filter_input">
-                                    </td>
-                                </tr>
-                            </table>
+                        <td class="search_filter_field">
+                            <label for="search-platform">{% trans "FORM_PLATFORM" %}</label>
+                            <select name="platform" id="search-platform" class="search_filter_select">
+                                <option value="">{% trans "PAGE_SEARCH_FILTER_PLATFORM_ALL" %}</option>
+                                {% for platform in platforms %}
+                                    <option value="{{ platform.code }}"{% if selected_platform == platform.code %} selected{% endif %}>{{ platform.name }}</option>
+                                {% endfor %}
+                            </select>
                         </td>
-                        <td class="search_filter_td_top search_filter_td_right" width="50%" valign="middle" align="right">
-                            <table cellpadding="0" cellspacing="0" border="0" class="search_filter_inner" align="right">
-                                <tr>
-                                    <td class="search_filter_label_cell" nowrap="nowrap">{% trans "PAGE_SEARCH_FILTER_CATEGORY" %}:</td>
-                                    <td>
-                                        <select name="category" class="search_filter_select">
-                                            <option value="">{% trans "PAGE_SEARCH_FILTER_CATEGORY_ALL" %}</option>
-                                            {% for cat in categories %}
-                                                <option value="{{ cat.id }}" {% if request.GET.category == cat.id|stringformat:"s" %}selected{% endif %}>
-                                                    {{ cat.name }}
-                                                </option>
-                                            {% endfor %}
-                                        </select>
-                                    </td>
-                                </tr>
-                            </table>
+                        <td class="search_filter_field">
+                            <label for="search-category">{% trans "PAGE_SEARCH_FILTER_CATEGORY" %}</label>
+                            <select name="category" id="search-category" class="search_filter_select">
+                                <option value="">{% trans "PAGE_SEARCH_FILTER_CATEGORY_ALL" %}</option>
+                                {% for cat in categories %}
+                                    <option value="{{ cat.id }}"{% if request.GET.category == cat.id|stringformat:"s" %} selected{% endif %}>{{ cat.name }}</option>
+                                {% endfor %}
+                            </select>
                         </td>
                     </tr>
-
                     <tr>
-                        <td valign="middle" class="search_filter_td_bottom search_filter_td_left">
+                        <td class="search_filter_field">
+                            <label for="search-author">{% trans "PAGE_SEARCH_FILTER_AUTHOR_ID" %}</label>
+                            <input type="text" name="author" id="search-author" value="{{ f_author|default:'' }}"
+                                   oninput="this.value = this.value.replace(/[^0-9]/g, '');" class="search_filter_input">
+                        </td>
+                        <td class="search_filter_free">
                             <label class="search_filter_label">
                                 <input type="checkbox" name="is_free" class="search_filter_checkbox" {% if request.GET.is_free == 'on' %}checked{% endif %}>
                                 <span class="search_filter_checkbox_text">{% trans "PAGE_SEARCH_FILTER_FREE" %}</span>
                             </label>
                         </td>
-
-                        <td align="right" valign="middle" class="search_filter_td_bottom search_filter_td_right">
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="search_filter_actions">
                             <a href="{% url 'search' %}?view={{ view_mode }}"
                                class="search_filter_reset_btn">
                                 {% trans "PAGE_SEARCH_BTN_RESET" %}

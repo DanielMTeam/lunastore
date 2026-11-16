@@ -112,6 +112,19 @@ class Badge(models.Model):
         return f"<Badge {self.name}>"
 
 
+class Platform(models.Model):
+    code = models.SlugField(max_length=64, unique=True)
+    name = models.CharField(max_length=100)
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name = _("FORM_PLATFORM")
+        verbose_name_plural = _("FORM_PLATFORMS")
+
+    def __str__(self):
+        return self.name
+
+
 class BaseApplicationInfo(SafeDeleteModel):
     _safedelete_policy = SOFT_DELETE_CASCADE
 
@@ -120,6 +133,8 @@ class BaseApplicationInfo(SafeDeleteModel):
         verbose_name="Категории",
         blank=True,
         related_name="%(class)s_categories")
+    platforms = models.ManyToManyField(
+        Platform, verbose_name=_("FORM_PLATFORMS"), related_name="%(class)s_platforms")
     badges = models.ManyToManyField(
         "Badge",
         verbose_name="Бейджики",
@@ -318,6 +333,14 @@ class Application(BaseApplicationInfo):
 
 class BaseDistributionInfo(SafeDeleteModel):
     _safedelete_policy = SOFT_DELETE
+
+    platform = models.ForeignKey(Platform, on_delete=models.PROTECT, verbose_name=_("FORM_PLATFORM"))
+
+    def clean(self):
+        from django.core.exceptions import ValidationError
+        super().clean()
+        if self.app_id and self.platform_id and not self.app.platforms.filter(pk=self.platform_id).exists():
+            raise ValidationError({"platform": _("ERROR_DIST_PLATFORM_UNSUPPORTED")})
 
     app = models.ForeignKey(
         'Application',

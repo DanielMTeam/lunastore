@@ -3,7 +3,7 @@ from rest_framework import status
 from django.test import override_settings
 from unittest.mock import patch
 from apps.user.models import User
-from apps.marketplace.models import Application, Category, Collection, CollectionItem, Distribution
+from apps.marketplace.models import Application, Category, Collection, CollectionItem, Distribution, Platform
 from apps.core.search import SearchUnavailableError
 import logging
 
@@ -36,14 +36,18 @@ class APIViewsTest(APITestCase):
         )
         cls.app.categories.add(cls.category)
 
+        xp, _ = Platform.objects.get_or_create(code="windows_xp", defaults={"name": "Windows XP"})
+        cls.app.platforms.add(xp)
         Distribution.objects.create(
             app=cls.app,
+            platform=xp,
             version="1.0.0",
             url="https://example.com/cleaner-legacy.zip",
             changelog="Initial release",
         )
         Distribution.objects.create(
             app=cls.app,
+            platform=xp,
             version="2.1.0",
             url="https://example.com/cleaner.zip",
             changelog="Faster cleaning",

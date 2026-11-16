@@ -148,6 +148,8 @@ def store_listing(request):
 
 
 def category(request):
+    from .models import Platform
+    platform_code = request.GET.get("platform", "")
     valid_views = frozenset({"tiles", "list"})
     id = request.GET.get("id")
     page = request.GET.get("page")
@@ -161,6 +163,8 @@ def category(request):
         "categories", "badges").annotate(
         cached_avg_rating=Avg('reviews__rating')).filter(
             categories=obj_category, is_private=False).order_by("-published")
+    if platform_code:
+        obj_apps = obj_apps.filter(platforms__code=platform_code)
 
     # paginator logic
     paginator = Paginator(obj_apps, 10)
@@ -177,6 +181,8 @@ def category(request):
         "view_mode": view_mode,
         "description": obj_category.description,
         "count": obj_apps.count,
+        "platforms": Platform.objects.all(),
+        "selected_platform": platform_code,
     }
     return render(request, "category.html", context)
 
@@ -296,7 +302,7 @@ def download_list(request):
 
     sort_prefix = "-" if order == "desc" else ""
 
-    distributions = Distribution.objects.filter(app=app_obj).order_by(
+    distributions = Distribution.objects.filter(app=app_obj).select_related("platform").order_by(
         f"{sort_prefix}{db_sort_field}"
     )
 
@@ -313,6 +319,7 @@ def download_list(request):
             {
                 "id": dist.id,
                 "version": dist.version,
+                "platform": dist.platform,
                 "changelog": dist.changelog,
                 "published": _format_legacy_date(dist.published),
                 "is_latest": dist.id == latest_id,
@@ -577,9 +584,17 @@ def community_access(request, pk):
         request.POST if request.method == "POST" and not rate_limited else None,
         initial={"enabled": "1" if obj.allow_community_distributions else "0"},
     )
+    context = {
+        "app": obj,
+        "form": form,
+        "app_id": obj.pk,
+        "developer_id": obj.user_id,
+        "developer_site": obj.developer_site,
+        "is_edit_page": True,
+    }
     if rate_limited:
         messages.error(request, _("ERROR_RATE_LIMIT_EXCEEDED"))
-        return render(request, "community_access.html", {"app": obj, "form": form}, status=429)
+        return render(request, "community_access.html", context, status=429)
     if request.method == "POST" and form.is_valid():
         enabled = form.cleaned_data["enabled"] == "1"
         if enabled and (obj.is_private or obj.is_under_dmca):
@@ -594,7 +609,7 @@ def community_access(request, pk):
         for errors in form.errors.values():
             for error in errors:
                 messages.error(request, error)
-    return render(request, "community_access.html", {"app": obj, "form": form})
+    return render(request, "community_access.html", context)
 
 
 def _search_suggest_response(request):
@@ -622,6 +637,7 @@ def _search_suggest_response(request):
 
 @ratelimit(key='ip', rate='30/1m', block=True)
 def search(request):
+    from .models import Platform
     if request.GET.get("mode") == "suggest":
         return _search_suggest_response(request)
 
@@ -637,6 +653,8 @@ def search(request):
     f_author = parse_optional_int(request.GET.get("author"))
     is_free = parse_is_free(request.GET.get("is_free"))
     f_category = parse_optional_int(request.GET.get("category"))
+    platform_code = request.GET.get("platform", "")
+    platform = Platform.objects.filter(code=platform_code).first() if platform_code else None
 
     categories = Category.objects.all()
     search_unavailable = False
@@ -676,6 +694,8 @@ def search(request):
 
         if f_category is not None:
             results_qs = results_qs.filter(categories__id=f_category)
+        if platform_code:
+            results_qs = results_qs.filter(platforms__code=platform_code)
 
         meili_total = None
         if query:
@@ -685,6 +705,7 @@ def search(request):
                     limit=SEARCH_PAGE_SIZE,
                     offset=offset,
                     category_id=f_category,
+                    platform_id=platform.pk if platform else (-1 if platform_code else None),
                     author_id=f_author,
                     is_free=is_free,
                 )
@@ -732,6 +753,8 @@ def search(request):
         "url_params_no_view": url_params_no_view,
         "url_params_tabs": url_params_tabs,
         "categories": categories,
+        "platforms": Platform.objects.all(),
+        "selected_platform": platform_code,
     }
     return render(request, "search.html", context)
 
@@ -855,7 +878,7 @@ def manage_distributions(request):
         raise PermissionDenied("ERROR_YOURE_NOT_OWNER_OF_APP")
 
     distributions = Distribution.objects.filter(
-        app=app_obj).order_by("-published")
+        app=app_obj).select_related("platform").order_by("-published")
 
     pending_requests = DistributionCreateRequests.objects.filter(
         app=app_obj, status="pending").order_by("-created_at")
@@ -889,6 +912,7 @@ def manage_distributions(request):
     for dist in distributions:
         dist_rows.append({"id": dist.id,
                           "version": dist.version,
+                          "platform": dist.platform,
                           "published": _format_legacy_date(dist.published),
                           "changelog": dist.changelog,
                           "edit_url": reverse("distribution_edit",

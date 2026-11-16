@@ -39,6 +39,7 @@ def application_to_document(app: Application) -> dict:
         "id": app.pk,
         "user_id": app.user_id,
         "category_ids": category_ids,
+        "platform_ids": [platform.pk for platform in app.platforms.all()],
         "price": app.price,
         "is_private": app.is_private,
         "is_under_dmca": app.is_under_dmca,

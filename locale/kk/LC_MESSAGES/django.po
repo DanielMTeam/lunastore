@@ -3421,3 +3421,37 @@ msgstr "Бұл браузерде классикалық ашық тақырып
 
 msgid "INFO_THEME_UPDATED"
 msgstr "Безендіру тақырыбы сақталды."
+
+msgid "ACTION_APPLY"
+msgstr "Қолдану"
+
+msgid "ERROR_APP_PLATFORM_IN_USE"
+msgstr "Қолданбаның дистрибутиві пайдаланатын платформаны алып тастауға болмайды."
+
+msgid "ERROR_DIST_PLATFORM_UNSUPPORTED"
+msgstr "Қолданба қолдайтын платформаны таңдаңыз."
+
+msgid "FORM_PLATFORM"
+msgstr "Платформа"
+
+msgid "FORM_PLATFORMS"
+msgstr "Платформалар"
+
+msgid "FORM_PLATFORMS_HELP"
+msgstr "Қатар тұрған бірнеше платформаны таңдау үшін Shift пернесін, ал оларды жеке-жеке таңдау үшін Ctrl пернесін басып тұрыңыз."
+
+#, python-format
+msgid "PAGE_DIST_EDIT_FILE_UPLOADED %(file_id)s"
+msgstr "Файл жүктеп салынды (ID: %(file_id)s)"
+
+msgid "PAGE_DIST_FORM_PLATFORM_EDIT_APP"
+msgstr "Қолданба платформаларын өзгерту"
+
+msgid "PAGE_DIST_FORM_PLATFORM_PENDING_DESC"
+msgstr "Өзгерістер мақұлданғаннан кейін жаңа платформа осы жерде пайда болады."
+
+msgid "PAGE_DIST_FORM_PLATFORM_PLACEHOLDER"
+msgstr "Платформаны таңдаңыз…"
+
+msgid "PAGE_SEARCH_FILTER_PLATFORM_ALL"
+msgstr "Барлық платформалар"

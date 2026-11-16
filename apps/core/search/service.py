@@ -149,14 +149,18 @@ def _ensure_indexes_once() -> None:
 def _build_app_filters(
     *,
     category_id=None,
+    platform_id=None,
     author_id=None,
     is_free: bool = False,
 ) -> list[str]:
     filters = ["is_private = false", "is_under_dmca = false"]
     category_id = parse_optional_int(category_id)
+    platform_id = parse_optional_int(platform_id)
     author_id = parse_optional_int(author_id)
     if category_id is not None:
         filters.append(f"category_ids = {category_id}")
+    if platform_id is not None:
+        filters.append(f"platform_ids = {platform_id}")
     if author_id is not None:
         filters.append(f"user_id = {author_id}")
     if is_free:
@@ -246,6 +250,7 @@ class SearchService:
         limit: int = SEARCH_PAGE_SIZE,
         offset: int = 0,
         category_id=None,
+        platform_id=None,
         author_id=None,
         is_free: bool = False,
     ) -> tuple[list[int], int]:
@@ -255,6 +260,7 @@ class SearchService:
 
         filters = _build_app_filters(
             category_id=category_id,
+            platform_id=platform_id,
             author_id=author_id,
             is_free=is_free,
         )
@@ -274,6 +280,7 @@ class SearchService:
                 fallback.application_matches(
                     query, category_id=parse_optional_int(category_id),
                     author_id=parse_optional_int(author_id), is_free=is_free,
+                    platform_id=parse_optional_int(platform_id),
                 ),
                 limit=limit, offset=offset,
             )
@@ -385,7 +392,7 @@ class SearchService:
             queryset = Application.objects.filter(
                 is_private=False,
                 is_under_dmca=False,
-            ).prefetch_related("categories")
+            ).prefetch_related("categories", "platforms")
 
         return rebuild_index(
             APPLICATIONS_INDEX, APPLICATION_INDEX_SETTINGS, queryset,
