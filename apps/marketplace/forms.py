@@ -134,6 +134,10 @@ class AppScreenshotForm(TranslationModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+        for i in range(1, config.SCREENSHOT_COUNT + 1):
+            self.fields[f"screenshot_{i}"] = forms.ImageField(required=False, label=f"Скриншот {i}")
+            self.fields[f"clear_screenshot_{i}"] = forms.BooleanField(required=False, label="Удалить")
+
         if 'categories' in self.fields:
             from .models import Category
             self.fields['categories'].queryset = Category.objects.filter(
@@ -231,18 +235,11 @@ class AppScreenshotForm(TranslationModelForm):
         return app_instance
 
 
-# module-level field registration: use os.getenv() because constance
-# backend may not be available yet during import
-_SCREENSHOT_COUNT_DEFAULT = int(os.getenv("SCREENSHOT_COUNT", "3"))
-for i in range(1, _SCREENSHOT_COUNT_DEFAULT + 1):
-    AppScreenshotForm.declared_fields[f"screenshot_{i}"] = forms.ImageField(
-        required=False, label=f"Скриншот {i}"
-    )
-    AppScreenshotForm.declared_fields[f"clear_screenshot_{i}"] = forms.BooleanField(
-        required=False, label="Удалить")
-
-
 class AppCreateForm(forms.ModelForm, CDNTokenValidationMixin):
+    @property
+    def screenshot_limit(self):
+        return config.SCREENSHOT_COUNT
+
     upload_screenshots = MultipleFileField(
         widget=MultipleFileInput(
             attrs={

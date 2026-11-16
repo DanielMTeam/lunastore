@@ -370,7 +370,7 @@
                         <label>
                             <div class="add_app_pad">
                                 <div class="add_app_title">{% trans "PAGE_ADDAPP_STEP2_SCREENSHOTS" %}</div>
-                                <div class="info_splash">{% trans "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_1" %}<br>{% trans "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_2" %}<br>{% trans "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_3" %}</div>
+                                <div class="info_splash">{% trans "FORM_SCREENSHOTS" %}: {{ form.screenshot_limit }}<br>{% trans "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_2" %}<br>{% trans "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_3" %}</div>
 
                                 <input type="file"
                                     name="upload_screenshots"
@@ -512,7 +512,7 @@
         }
         
         // Initialize ScreenshotManager
-        new ScreenshotManager('screenshots-interactive-container', 'inp_scr', 3, screenshotsArray, cdnPrefix);
+        new ScreenshotManager('screenshots-interactive-container', 'inp_scr', {{ form.screenshot_limit }}, screenshotsArray, cdnPrefix);
     });
 
     const allowedExtensions = ['jpg', 'jpeg', 'png'];
