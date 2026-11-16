@@ -4,6 +4,42 @@
 {% load category %}
 {% load markdown_tags %}
 {% block title %}{{ name }} - LunaStore{% endblock %}
+{% block page_styles %}
+<style type="text/css">
+    .category_platform_filter { margin: 8px 0 0; padding: 0; }
+    .category_search_form { margin: 0; padding: 0; }
+    .category_controls { width: 100%; table-layout: fixed; }
+    .category_controls td { vertical-align: middle; }
+    .category_controls .category_platform_label { width: 7em; padding-right: 6px; text-align: center; }
+    .category_controls #category-query,
+    .category_controls .search_filter_select {
+        display: block;
+        width: 100%;
+        height: 24px;
+        box-sizing: border-box;
+        margin: 0;
+    }
+    .category_controls #category-query {
+        width: 90%;
+        width: calc(100%);
+        padding-left: 25px;
+    }
+    .category_controls .category_control_action { width: 8em; padding-left: 8px; }
+    .category_control_action button,
+    .category_control_action .action_button {
+        width: 100%;
+        height: 24px;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        cursor: pointer;
+    }
+    html.theme-windows7 .content .category_control_action.search_full button { width: 100%; }
+    .theme-classic-dark .category_platform_filter select {
+        background: #5a5a5a; color: #fff; border-color: #777;
+    }
+</style>
+{% endblock %}
 
 {% block content %}
 <div class="content">
@@ -15,45 +51,56 @@
 </div>
 <div class="list_settings">
     <div class="selector">
-        <select onchange="window.location.href = '?id={{ active_category.id }}&platform={{ selected_platform|urlencode }}&view=' + this.value;">
-                <option value="" disabled {% if not view_mode %}selected{% endif %}>{% trans "PAGE_SEARCH_SORT_PLACEHOLDER" %}</option>
-                <option value="tiles" {% if view_mode == 'tiles' %}selected{% endif %}>{% trans "PAGE_SEARCH_SORT_TILES" %}</option>
-                <option value="list" {% if view_mode == 'list' %}selected{% endif %}>{% trans "PAGE_SEARCH_SORT_LIST" %}</option>
-            </select>
+        <select onchange="window.location.href = '?id={{ active_category.id }}&amp;platform={{ selected_platform|urlencode }}&amp;view=' + this.value;">
+            <option value="" disabled {% if not view_mode %}selected{% endif %}>{% trans "PAGE_SEARCH_SORT_PLACEHOLDER" %}</option>
+            <option value="tiles" {% if view_mode == 'tiles' %}selected{% endif %}>{% trans "PAGE_SEARCH_SORT_TILES" %}</option>
+            <option value="list" {% if view_mode == 'list' %}selected{% endif %}>{% trans "PAGE_SEARCH_SORT_LIST" %}</option>
+        </select>
     </div>
 </div>
-    <div class="section">
-    <form method="get"><input type="hidden" name="id" value="{{ active_category.id }}"><input type="hidden" name="view" value="{{ view_mode }}">
-      <label>{% trans "Платформа" %}: <select name="platform"><option value="">{% trans "Все платформы" %}</option>
-      {% for platform in platforms %}<option value="{{ platform.code }}"{% if selected_platform == platform.code %} selected{% endif %}>{{ platform.name }}</option>{% endfor %}
-      </select></label><button type="submit">{% trans "Применить" %}</button></form>
-    <h2>{% trans "PAGE_CATEGORY_COUNTOFRESULTS" %} {{ count }}</h2>
-    </div>
-  <div class="section">
-
-
 <div class="section">
-
-  <div class="search_full">
-      <form action="{% url 'search' %}" method="get" class="search_full" style="margin: 0; padding: 0;">
-
-          {% if view_mode == 'list' %}
-              <input type="hidden" name="view" value="list">
-          {% endif %}
-
-          <input type="text" name="q" id="q" class="search_icon"
-                 placeholder="{% trans 'PAGE_CATEGORY_SEARCHOFCATEGORY' %} &quot;{{ name }}&quot;"
-                 style="vertical-align: middle;">
-
-          <input type="hidden" name="category" value="{{ active_category.id }}">
-          <input type="hidden" name="platform" value="{{ selected_platform }}">
-
-          <button type="submit" style="vertical-align: middle;">
-            {% trans "BASE_SEARCHBTN" %}
-          </button>
-        </form>
-  </div>
- </div>
+    <h2>{% trans "PAGE_CATEGORY_COUNTOFRESULTS" %} {{ count }}</h2>
+</div>
+<div class="section">
+<div class="section">
+    <form action="{% url 'search' %}" method="get" class="category_search_form">
+        {% if view_mode == 'list' %}<input type="hidden" name="view" value="list">{% endif %}
+        <input type="hidden" name="category" value="{{ active_category.id }}">
+        <input type="hidden" name="platform" value="{{ selected_platform }}">
+        <table class="category_controls" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <td>
+                    <input type="text" name="q" id="category-query" class="search_icon search_filter_input"
+                           placeholder="{% trans 'PAGE_CATEGORY_SEARCHOFCATEGORY' %} &quot;{{ name }}&quot;"
+                           aria-label="{% trans 'PAGE_CATEGORY_SEARCHOFCATEGORY' %}">
+                </td>
+                <td class="category_control_action search_full">
+                    <button type="submit">{% trans "BASE_SEARCHBTN" %}</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <form method="get" class="category_platform_filter">
+      <input type="hidden" name="id" value="{{ active_category.id }}">
+      <input type="hidden" name="view" value="{{ view_mode }}">
+      <table class="category_controls" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="category_platform_label"><label for="category-platform">{% trans "Платформа" %}:</label></td>
+          <td>
+              <select name="platform" id="category-platform" class="search_filter_select">
+                <option value="">{% trans "Все платформы" %}</option>
+                {% for platform in platforms %}
+                  <option value="{{ platform.code }}"{% if selected_platform == platform.code %} selected{% endif %}>{{ platform.name }}</option>
+                {% endfor %}
+              </select>
+          </td>
+          <td class="category_control_action">
+              <input type="submit" class="action_button" value="{% trans 'Применить' %}">
+          </td>
+        </tr>
+      </table>
+    </form>
+</div>
     {% for app in page_obj %}
     <div class="card {% if view_mode == 'list' %}listview{% endif %}">
       {% if app.is_demo %}
