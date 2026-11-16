@@ -56,10 +56,18 @@ def get_client_ip(request) -> Optional[str]:
             if not value:
                 continue
             candidate = value.split(",")[0].strip()
-            if candidate:
-                return candidate
+            try:
+                return str(ipaddress.ip_address(candidate))
+            except ValueError:
+                continue
 
     return remote_addr or None
+
+
+def get_ip_limit_key(request, *args, **kwargs):
+    route = getattr(request, "resolver_match", None)
+    scope = route.view_name if route else "unresolved"
+    return f"{scope}:ip:{get_client_ip(request) or 'unknown'}"
 
 
 def get_safe_redirect_url(request, candidate: Optional[str], fallback: str = "/") -> str:

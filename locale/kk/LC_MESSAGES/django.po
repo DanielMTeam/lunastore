@@ -3455,3 +3455,169 @@ msgstr "Платформаны таңдаңыз…"
 
 msgid "PAGE_SEARCH_FILTER_PLATFORM_ALL"
 msgstr "Барлық платформалар"
+
+msgid "PAGE_ADMIN_APP_TAB_RIGHTS"
+msgstr "Құқықтар"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_TITLE"
+msgstr "Қол жеткізу құқықтары"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ADD"
+msgstr "адам қосу"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_EDIT"
+msgstr "өңдеу"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ROLE_OWNER"
+msgstr "Иесі"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ROLE_ADMIN"
+msgstr "Әкімші"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ROLE_EDITOR"
+msgstr "Редактор"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ROLE_NONE"
+msgstr "Ешкім"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_EDIT_TITLE"
+msgstr "Қол жеткізу құқықтарын өңдеу"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_EDIT_CURRENT"
+msgstr "Ағымдағы рөл"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_SAVE"
+msgstr "Сақтау"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_BACK"
+msgstr "Артқа"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_SAVED"
+msgstr "Қол жеткізу құқықтары сақталды."
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ADMIN_DESCRIPTION"
+msgstr "Қолданба мәліметтерін, белгішесін және скриншоттарын өңдеп, нұсқаларды басқарып, статистиканы көре алады. Құпиялық пен пікірлер рұқсатын өзгерте алады. Қатысушылар мен қауымдастық режимін басқара алмайды."
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_EDITOR_DESCRIPTION"
+msgstr "Қолданба мәліметтері мен белгішесін өңдеп, статистиканы көре алады. Нұсқаларды, скриншоттарды, қатысушыларды және қол жеткізу параметрлерін басқара алмайды."
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_NONE_DESCRIPTION"
+msgstr "Осы қолданбаны басқарудың барлық құқықтарын қайтарып алады."
+
+
+msgid "FORM_APP_RIGHTS_USERNAME"
+msgstr "Пайдаланушы аты"
+
+
+msgid "FORM_APP_RIGHTS_ROLE"
+msgstr "Рөл"
+
+
+msgid "ERROR_APP_RIGHTS_OWNER"
+msgstr "Қолданба иесінің құқықтарын өзгерту мүмкін емес."
+
+
+msgid "ERROR_APP_RIGHTS_ROLE"
+msgstr "Жарамсыз рөл."
+
+
+msgid "ERROR_APP_RIGHTS_USER"
+msgstr "Белсенді, бұғатталмаған пайдаланушы табылмады."
+
+
+#, python-format
+msgid "PAGE_ADMIN_APP_RIGHTS_COUNT_ONE %(count)s"
+msgid_plural "PAGE_ADMIN_APP_RIGHTS_COUNT_MANY %(count)s"
+msgstr[0] "%(count)s пайдаланушы"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_ADD_TITLE"
+msgstr "Қатысушы қосу"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_CANCEL"
+msgstr "Бас тарту"
+
+
+msgid "PAGE_ADMIN_APP_RIGHTS_EDIT_CHOOSE_ROLE"
+msgstr "Рөлді таңдаңыз"
+
+
+msgid "NOTIF_APP_ACCESS_GRANTED_TITLE"
+msgstr "Қолданбаға қол жеткізу берілді"
+
+
+msgid "NOTIF_APP_ACCESS_GRANTED_ADMIN_DESCRIPTION"
+msgstr "Сізге «%(app_name)s» қолданбасына әкімші рөлімен қол жеткізу берілді."
+
+
+msgid "NOTIF_APP_ACCESS_GRANTED_EDITOR_DESCRIPTION"
+msgstr "Сізге «%(app_name)s» қолданбасына редактор рөлімен қол жеткізу берілді."
+
+
+msgid "NOTIF_APP_ACCESS_PROMOTED_TITLE"
+msgstr "Қолданбадағы рөліңіз жоғарылатылды"
+
+
+msgid "NOTIF_APP_ACCESS_PROMOTED_DESCRIPTION"
+msgstr "«%(app_name)s» қолданбасындағы рөліңіз әкімшіге дейін жоғарылатылды."
+
+
+msgid "NOTIF_APP_ACCESS_DEMOTED_TITLE"
+msgstr "Қолданбадағы рөліңіз төмендетілді"
+
+
+msgid "NOTIF_APP_ACCESS_DEMOTED_DESCRIPTION"
+msgstr "«%(app_name)s» қолданбасындағы рөліңіз редакторға дейін төмендетілді."
+
+
+msgid "NOTIF_APP_ACCESS_REVOKED_TITLE"
+msgstr "Қолданбаға қол жеткізу қайтарылды"
+
+
+msgid "NOTIF_APP_ACCESS_REVOKED_DESCRIPTION"
+msgstr "«%(app_name)s» қолданбасын басқару құқығыңыз қайтарып алынды."
+
+#: templates/admin_app_rights_edit.html
+msgid "PAGE_ADMIN_APP_RIGHTS_EDIT_FOR"
+msgstr "Қол жеткізу құқықтарын өңдеу:"
+
+#: templates/admin_app_rights_edit.html
+msgid "PAGE_ADMIN_APP_RIGHTS_APPLICATION"
+msgstr "Қолданба"
+
+msgid "PAGE_FAQ_DONATE_STAR_TITLE"
+msgstr "Біздің жұлдызшамыз болыңыз!"
+
+msgid "PAGE_FAQ_DONATE_STAR_SUBTITLE"
+msgstr "Жобамыздың дамуына қолдау көрсетіңіз"
+
+msgid "PAGE_FAQ_DONATE_INTRO"
+msgstr "LunaStore ең алдымен энтузиастар жасаған платформа, сондықтан жобамызға көрсетілген қаржылық қолдауға әрқашан ризамыз. Сайттың тақырыбы өте ерекше болғандықтан, LunaStore сайтында табыс әкелетін жарнама болуы екіталай. Бірақ біз ренжімейміз :3"
+
+msgid "PAGE_FAQ_DONATE_METHODS"
+msgstr "Төменде бізге қаржылай қолдау көрсету жолдары берілген"
+
+msgid "PAGE_FAQ_DONATE_BOOSTY"
+msgstr "Бізді мына жерден қолдаңыз:"
+
+msgid "PAGE_FAQ_DONATE_NEW_TAB"
+msgstr "донат түймесін басқанда жаңа қойынды ашылады"
+
+msgid "PAGE_FAQ_DONATE_USAGE"
+msgstr "LunaStore-ға берілген барлық қаржылық қолдау жобаның дамуына (хостингке, әзірлеушілерге кофе алуға және тағы басқаларға) жұмсалады; қолдаушылар профилінде тиісті белгі алады."

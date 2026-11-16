@@ -347,10 +347,15 @@ class AppCreateForm(forms.ModelForm, CDNTokenValidationMixin):
     def clean(self):
         cleaned_data = super().clean()
 
+        cleaned_data["cdn_icon_path"] = None
+        cleaned_data["cdn_screenshots_data"] = []
+        if self.errors:
+            return cleaned_data
+
         # validate icon token
         icon_token = cleaned_data.get("cdn_icon_confirm_token")
         if icon_token:
-            decoded = self.validate_cdn_token(icon_token)
+            decoded = self.validate_cdn_token(icon_token, expected_object="icon", expected_mode="public")
             # request path (path) because it's an image
             info = self.get_cdn_file_info(
                 decoded.get("file_id"), fields="path")
@@ -366,7 +371,7 @@ class AppCreateForm(forms.ModelForm, CDNTokenValidationMixin):
                     raise ValidationError(_("ERROR_CDN_CHECKSUM_MISMATCH_SCREENSHOTS"))
                 safe_paths = []
                 for token in token_list:
-                    decoded = self.validate_cdn_token(token)
+                    decoded = self.validate_cdn_token(token, expected_object="screenshot", expected_mode="public")
                     info = self.get_cdn_file_info(
                         decoded.get("file_id"), fields="path")
                     if info.get("path"):
@@ -543,6 +548,67 @@ class AppEditForm(AppCreateForm):
         return submission
 
 
+class DelegatedAppEditForm(AppEditForm):
+    """Restrict fields before validation; never trust submitted capabilities."""
+
+    def __init__(self, *args, **kwargs):
+        from .services.access import application_role
+        super().__init__(*args, **kwargs)
+        self.access_role = application_role(self.target_app, self.user)
+        self.fields.pop("allow_community_distributions", None)
+        if self.access_role == "editor":
+            for name in ("is_private", "allow_reviews", "upload_screenshots", "cdn_screenshots_tokens",
+                         "cdn_screenshots_data", "screenshots_data", "screenshots"):
+                self.fields.pop(name, None)
+
+    def save(self, commit=True):
+        submission = super().save(commit=False)
+        if self.access_role == "editor":
+            submission.screenshots = self.target_app.screenshots
+            submission.is_private = self.target_app.is_private
+            submission.allow_reviews = self.target_app.allow_reviews
+        submission.allow_community_distributions = self.target_app.allow_community_distributions
+        if commit:
+            submission.save()
+        return submission
+
+
+class ApplicationAccessForm(forms.Form):
+    username = forms.CharField(
+        max_length=150, label=_("FORM_APP_RIGHTS_USERNAME"),
+        widget=forms.TextInput(attrs={
+            "class": "input-text search_suggest_input", "autocomplete": "off",
+            "data-suggest-type": "users", "data-suggest-select": "username",
+        }),
+    )
+    role = forms.ChoiceField(
+        label=_("FORM_APP_RIGHTS_ROLE"), widget=forms.RadioSelect,
+        choices=(("admin", _("PAGE_ADMIN_APP_RIGHTS_ROLE_ADMIN")),
+                 ("editor", _("PAGE_ADMIN_APP_RIGHTS_ROLE_EDITOR")),
+                 ("none", _("PAGE_ADMIN_APP_RIGHTS_ROLE_NONE"))),
+    )
+
+    def __init__(self, *args, target_user=None, **kwargs):
+        self.target_user = target_user
+        super().__init__(*args, **kwargs)
+        if target_user is not None:
+            self.fields.pop("username")
+        else:
+            self.fields["role"].choices = [
+                (value, label) for value, label in self.fields["role"].choices if value != "none"
+            ]
+
+    def clean(self):
+        from apps.user.models import User
+        from .services.access import user_can_access
+        data = super().clean()
+        if self.target_user is None and data.get("username"):
+            self.target_user = User.objects.filter(username=data["username"]).first()
+        if self.target_user is None or (data.get("role") != "none" and not user_can_access(self.target_user)):
+            raise ValidationError(_("ERROR_APP_RIGHTS_USER"))
+        return data
+
+
 class CommunityAppEditForm(AppEditForm):
     """Proposals may change content, but never application access settings."""
 
@@ -653,10 +719,15 @@ class ApplicationAdminForm(forms.ModelForm, CDNTokenValidationMixin):
     def clean(self):
         cleaned_data = super().clean()
 
+        cleaned_data["cdn_icon_path"] = None
+        cleaned_data["cdn_screenshots_data"] = []
+        if self.errors:
+            return cleaned_data
+
         # validate icon token
         icon_token = cleaned_data.get("cdn_icon_confirm_token")
         if icon_token:
-            decoded = self.validate_cdn_token(icon_token)
+            decoded = self.validate_cdn_token(icon_token, expected_object="icon", expected_mode="public")
             info = self.get_cdn_file_info(
                 decoded.get("file_id"), fields="path")
             cleaned_data["cdn_icon_path"] = info.get("path")
@@ -666,17 +737,19 @@ class ApplicationAdminForm(forms.ModelForm, CDNTokenValidationMixin):
         if scr_tokens_json:
             try:
                 token_list = json.loads(scr_tokens_json)
+                if not isinstance(token_list, list) or len(token_list) > config.SCREENSHOT_COUNT:
+                    raise ValidationError(_("ERROR_CDN_CHECKSUM_MISMATCH_SCREENSHOTS"))
                 safe_paths = []
                 for token in token_list:
-                    decoded = self.validate_cdn_token(token)
+                    decoded = self.validate_cdn_token(token, expected_object="screenshot", expected_mode="public")
                     info = self.get_cdn_file_info(
                         decoded.get("file_id"), fields="path")
                     if info.get("path"):
                         safe_paths.append(info.get("path"))
 
                 cleaned_data["cdn_screenshots_data"] = safe_paths
-            except (json.JSONDecodeError, ValidationError):
-                pass
+            except (json.JSONDecodeError, ValidationError) as exc:
+                raise ValidationError(_("ERROR_CDN_CHECKSUM_MISMATCH_SCREENSHOTS")) from exc
 
         return cleaned_data
 

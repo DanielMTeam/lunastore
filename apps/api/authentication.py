@@ -1,23 +1,22 @@
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework_simplejwt.exceptions import AuthenticationFailed
-from django.core.cache import cache
+
+from rest_framework_simplejwt.exceptions import InvalidToken
+
+from apps.core.utils import get_client_ip
+from apps.user.services.bans import is_ip_banned
+
+from .token_sessions import get_api_session, validate_account
 
 
 class CustomJWTAuthentication(JWTAuthentication):
-    """
-    Custom JWT Authentication that checks if the access token's JTI is in the cache blacklist.
-    """
-    def get_validated_token(self, raw_token):
-        validated_token = super().get_validated_token(raw_token)
+    def authenticate(self, request):
+        result = super().authenticate(request)
+        if result is not None and is_ip_banned(get_client_ip(request)):
+            raise InvalidToken("Authentication unavailable for this address.")
+        return result
 
-        jti = validated_token.get('refresh_jti')
-        if jti:
-            # Check if this JTI is in the cache blacklist
-            cache_key = f"token_blacklist_{jti}"
-            if cache.get(cache_key):
-                raise AuthenticationFailed(
-                    "Token is blacklisted",
-                    code="token_not_valid",
-                )
-
-        return validated_token
+    def get_user(self, validated_token):
+        user = super().get_user(validated_token)
+        get_api_session(validated_token)
+        validate_account(user, validated_token)
+        return user

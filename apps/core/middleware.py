@@ -1,5 +1,5 @@
+from apps.user.services.login_security import increment_window
 from constance import config
-from django.core.cache import cache
 from django.http import JsonResponse
 from django.conf import settings
 import json
@@ -34,40 +34,24 @@ class RateLimitMiddleware:
             return self.get_response(request)
 
         # read rate limit values from constance at request time (live updates)
-        rate_limit = int(config.RATE_LIMIT_WINDOW)
-        time_window = int(config.RATE_LIMIT)
+        rate_limit = int(config.RATE_LIMIT)
+        time_window = int(config.RATE_LIMIT_WINDOW)
 
         ip = get_client_ip(request)
         cache_key = f'ratelimit_{ip}'
 
-        requests = cache.get(cache_key, 0)
-
-        if requests >= rate_limit:
-            # if we exceed the rate limit, return a 429 response
-            return JsonResponse(
-                {'error': 'Too many requests. Please try again later.'},
-                status=429
-            )
-
-        # if this is the first request, set the cache key with TTL
-        if requests == 0:
-            cache.set(cache_key, 1, time_window)
-        else:
-            # increment the request count atomically
-            try:
-                new_requests = cache.incr(cache_key)
-
-                if new_requests == 1:
-                    cache.touch(cache_key, time_window)
-            except ValueError:
-                # On cache miss (key expired between get and incr), reset to 1
-                cache.set(cache_key, 1, time_window)
+        try:
+            requests = increment_window(cache_key, time_window)
+        except Exception:
+            return JsonResponse({"error": "Rate limiter unavailable."}, status=503)
+        if requests > rate_limit:
+            return JsonResponse({"error": "Too many requests. Please try again later."}, status=429)
 
         response = self.get_response(request)
 
         # optionally: add rate limit headers to the response
         response['X-RateLimit-Limit'] = rate_limit
-        response['X-RateLimit-Remaining'] = max(0, rate_limit - (requests + 1))
+        response['X-RateLimit-Remaining'] = max(0, rate_limit - requests)
 
         return response
 

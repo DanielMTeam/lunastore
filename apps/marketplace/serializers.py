@@ -1,3 +1,4 @@
+from apps.marketplace.services.visibility import public_app_filter
 from django.db.models import OuterRef, Subquery
 
 from rest_framework import serializers
@@ -90,7 +91,7 @@ class CollectionSerializer(serializers.ModelSerializer):
     def get_items_count(self, obj: Collection) -> int:
         if hasattr(obj, "items_count"):
             return obj.items_count
-        return obj.items.count()
+        return obj.items.filter(public_app_filter("application__")).count()
 
     def get_mosaic_icons(self, obj: Collection) -> list:
         return obj.mosaic_icons(4)

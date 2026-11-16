@@ -1,6 +1,7 @@
 import datetime
 import hashlib
 import re
+import uuid
 
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser, UserManager
@@ -75,6 +76,18 @@ class User(AbstractUser, SafeDeleteModel):
     discord = models.CharField(max_length=32, null=True, blank=True)
     openvk = models.CharField(max_length=45, null=True, blank=True)
     badges = models.CharField(max_length=255, null=True, blank=True)
+    is_supporter = models.BooleanField(
+        default=False,
+        db_default=False,
+        verbose_name="Поддерживает проект",
+        help_text="Автоматически отображать бейдж supporter в профиле.",
+    )
+    supporter_level = models.PositiveSmallIntegerField(
+        choices=((1, "1 — синяя звезда"), (2, "2 — жёлтая звезда"), (3, "3 — красная звезда")),
+        default=1,
+        db_default=1,
+        verbose_name="Уровень поддержки",
+    )
     website = models.URLField(max_length=45, null=True, blank=True)
     description = models.CharField(
         max_length=255,
@@ -137,9 +150,10 @@ class User(AbstractUser, SafeDeleteModel):
 
     @property
     def badge_list(self):
-        if not self.badges:
-            return []
-        return [tag.strip() for tag in self.badges.split(";")]
+        badges = [tag.strip() for tag in self.badges.split(";")] if self.badges else []
+        if self.is_supporter and "supporter" not in badges:
+            badges.append("supporter")
+        return badges
 
 
 class UserBan(SafeDeleteModel):
@@ -440,3 +454,23 @@ class LunaPassportLink(SafeDeleteModel):
 
     def __str__(self) -> str:
         return f"{self.user_id}: {self.sign_in}"
+
+
+class APISession(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    refresh_jti = models.CharField(max_length=32)
+    created_at = models.DateTimeField(auto_now_add=True)
+    expires_at = models.DateTimeField()
+    revoked_at = models.DateTimeField(null=True, blank=True)
+
+
+class OIDCIdentity(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    issuer = models.URLField(max_length=255)
+    subject = models.CharField(max_length=255)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["issuer", "subject"], name="unique_oidc_identity"),
+        ]

@@ -13,6 +13,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import transaction
 from django.db.models.signals import post_delete, post_save
 from django.dispatch import receiver
+from django.utils import timezone
 
 from apps.marketplace.models import (
     Application, Category, Distribution,
@@ -35,9 +36,19 @@ log = logging.getLogger("user")
 
 @receiver([post_save, post_delete], sender=UserBan)
 def update_ipban_cache(sender: type, **kwargs: Any) -> None:
-    # update ip ban cache on save or delete of userban
+    # Keep revocation ordered with API-session issuance for this account.
     log.info(
         "[signal apps.user] 'UserBanForm' model changed, refreshing banned IPs cache...")
+    from .models import APISession, User as UserModel
+    from .services.bans import active_bans
+    from apps.core.utils import force_logout
+
+    ban = kwargs["instance"]
+    if active_bans().filter(pk=ban.pk).exists():
+        with transaction.atomic():
+            UserModel.objects.all_with_deleted().select_for_update().get(pk=ban.user_id)
+            APISession.objects.filter(user_id=ban.user_id, revoked_at__isnull=True).update(revoked_at=timezone.now())
+        transaction.on_commit(lambda: force_logout(ban.user))
     transaction.on_commit(lambda: refresh_banned_ips_cache.enqueue())
 
 

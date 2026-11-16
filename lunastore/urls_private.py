@@ -9,6 +9,9 @@ from django.views.generic import RedirectView
 from dotenv import load_dotenv
 from apps.core.admin_views import admin_broadcast_notification
 from apps.user.admin_views import admin_nospam_mass_scan
+from apps.user.forms import StaffAuthenticationForm
+
+admin.site.login_form = StaffAuthenticationForm
 
 dotenv_path = settings.BASE_DIR / ".env"
 load_dotenv(dotenv_path)

@@ -23,19 +23,17 @@ from django_smart_ratelimit import ratelimit
 from safedelete import HARD_DELETE
 
 from apps.core.tasks import send_notification
-from apps.core.utils import get_client_ip, get_country_from_request
-from apps.user.models import LunaPassportLink, User, UserActivityLog, UserBan
+from apps.core.utils import get_client_ip, get_country_from_request, get_ip_limit_key
+from apps.user.models import LunaPassportLink, User, UserActivityLog
 from apps.user.services import lunapassport as passport
 from apps.user.services.antispam import AntiSpamService, NoSpamContext
+from apps.user.services.bans import active_bans, is_ip_banned
+from apps.user.services.login_security import start_totp_challenge
 from apps.user.tasks import process_login_notification
 from apps.user.utils import get_cached_blacklist
 from apps.user.validators import validate_email_mx
 
 logger = logging.getLogger(__name__)
-
-
-def get_real_ip(group, request):
-    return get_client_ip(request)
 
 
 def _should_deny_on_nospam_error() -> bool:
@@ -103,17 +101,8 @@ def _emails_match(user_email: str, passport_sign_in: str) -> bool:
 
 
 def _check_user_ban(user: User) -> str | None:
-    ban = UserBan.objects.filter(user=user).first()
+    ban = active_bans().filter(user=user).first()
     if not ban:
-        return None
-    if (
-        not ban.is_permanent
-        and ban.expires_at
-        and ban.expires_at <= timezone.now()
-    ):
-        ban.delete()
-        user.is_active = True
-        user.save(update_fields=["is_active"])
         return None
     reason = ban.reason
     if not ban.is_permanent and ban.expires_at:
@@ -125,7 +114,7 @@ def _login_existing_user(request, user: User, next_url: str | None):
     ip = get_client_ip(request)
     user_agent = request.META.get("HTTP_USER_AGENT", "")
 
-    if not user.is_active:
+    if not user.is_active or is_ip_banned(ip):
         messages.error(request, _("VIEW_LOGIN_INVALID_CREDENTIALS"))
         return redirect("login")
 
@@ -153,8 +142,7 @@ def _login_existing_user(request, user: User, next_url: str | None):
         return redirect("login")
 
     if user.totp_enabled:
-        request.session["2fa_user_id"] = user.id
-        request.session["2fa_next_url"] = next_url
+        start_totp_challenge(request, user, next_url)
         return redirect("two_factor_attempt")
 
     dj_login(request, user, backend="django.contrib.auth.backends.ModelBackend")
@@ -357,7 +345,7 @@ def passport_login(request):
     return _passport_login_start(request)
 
 
-@ratelimit(key=get_real_ip, rate="20/10m", block=True)
+@ratelimit(key=get_ip_limit_key, rate="20/10m", block=True)
 def _passport_login_start(request):
     return _start_oauth(request, passport.INTENT_LOGIN)
 
@@ -369,7 +357,7 @@ def passport_link(request):
     return _passport_link_start(request)
 
 
-@ratelimit(key=get_real_ip, rate="20/10m", block=True)
+@ratelimit(key=get_ip_limit_key, rate="20/10m", block=True)
 def _passport_link_start(request):
     return _start_oauth(request, passport.INTENT_LINK)
 
@@ -380,7 +368,7 @@ def passport_callback(request):
     return _passport_callback_inner(request)
 
 
-@ratelimit(key=get_real_ip, rate="30/10m", block=True)
+@ratelimit(key=get_ip_limit_key, rate="30/10m", block=True)
 def _passport_callback_inner(request):
     returned_state = request.GET.get("state") or ""
     error = request.GET.get("error")

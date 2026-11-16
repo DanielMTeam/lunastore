@@ -1,3 +1,4 @@
+from apps.marketplace.services.visibility import public_app_filter
 import time
 import uuid
 import json
@@ -5,7 +6,7 @@ import json
 import jwt
 from django.conf import settings
 from django.db.models import Count, Prefetch, Q
-from django.shortcuts import get_object_or_404
+from apps.core.objects import get_integer_object_or_404
 from django.core.cache import cache
 from django.utils import timezone
 from rest_framework import serializers, viewsets, mixins
@@ -15,6 +16,7 @@ from rest_framework.response import Response
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.views import APIView
 from rest_framework.exceptions import NotFound
+from django.shortcuts import get_object_or_404
 
 from drf_spectacular.utils import (
     OpenApiParameter,
@@ -25,6 +27,7 @@ from drf_spectacular.utils import (
     inline_serializer,
 )
 from apps.marketplace.models import Application, Category, Collection, CollectionItem, Distribution, Platform
+from apps.marketplace.services.access import can_manage_app, application_role, accessible_app_ids
 from apps.marketplace.services.distributions import can_submit_community_distribution
 from apps.marketplace.serializers import ApplicationSerializer as LegacyApplicationSerializer, CategorySerializer, CollectionSerializer, DistributionSerializer as LegacyDistributionSerializer, annotate_app_last_version
 from apps.user.models import User
@@ -42,7 +45,7 @@ from apps.api.constants import ErrorCodes, PUB_UPLOAD_POLICIES, ALLOWED_MIMES
 from apps.api.exceptions import LunaException
 
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from .serializers import CustomTokenObtainPairSerializer
+from .serializers import CustomTokenObtainPairSerializer, CustomTokenRefreshSerializer
 
 
 class PlatformSerializer(serializers.ModelSerializer):
@@ -84,7 +87,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
     post=extend_schema(summary="refresh JWT access token"),
 )
 class CustomTokenRefreshView(TokenRefreshView):
-    pass
+    serializer_class = CustomTokenRefreshSerializer
 
 
 class V2Pagination(LimitOffsetPagination):
@@ -161,7 +164,7 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
         guard_phrase = uuid.uuid4().hex
 
         cache_key = f"cdn_guard_{request.user.id}_{guard_phrase}"
-        cache.set(cache_key, True, timeout=3600)
+        cache.set(cache_key, {"object": policy["obj"], "mode": "public"}, timeout=3600)
 
         current_time = int(time.time())
 
@@ -196,11 +199,11 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
         if not app_id or not app_id.isdigit():
             return Response({"error": "app_id is required and must be an integer"}, status=400)
 
-        app_obj = get_object_or_404(Application, id=app_id)
+        app_obj = get_integer_object_or_404(Application, id=app_id)
         if (
-            app_obj.user != request.user
+            not can_manage_app(app_obj, request.user, "files")
             and not request.user.is_staff
-            and not can_submit_community_distribution(app_obj, request.user)
+            and not (application_role(app_obj, request.user) is None and can_submit_community_distribution(app_obj, request.user))
         ):
             return Response({"error": "Not your app"}, status=403)
 
@@ -294,9 +297,12 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
 )
 class MarketplaceViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
-        return annotate_app_last_version(
-            Application.objects.filter(is_private=False, is_under_dmca=False).prefetch_related("platforms")
-        )
+        qs = Application.objects.filter(is_under_dmca=False)
+        if self.action == "retrieve":
+            qs = qs.filter(Q(is_private=False) | Q(pk__in=accessible_app_ids(self.request.user)))
+        else:
+            qs = qs.filter(is_private=False)
+        return annotate_app_last_version(qs.prefetch_related("platforms"))
     serializer_class = ApplicationSerializer
     pagination_class = V2Pagination
 
@@ -308,7 +314,7 @@ class MarketplaceViewSet(viewsets.ReadOnlyModelViewSet):
                 message=f"Application (id: {obj.id}) unavailable because his creators/uploaders received a DMCA strike",
                 status_code=403,
             )
-        if obj.is_private:
+        if obj.is_private and not can_manage_app(obj, self.request.user, "view"):
             raise LunaException(
                 code=ErrorCodes.APPLICATION_PRIVATE,
                 message=f"Application (id: {obj.id}) unavailable because it is private",
@@ -497,7 +503,7 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
     def apps(self, request, pk=None):
         category = self.get_object()
         apps = annotate_app_last_version(
-            Application.objects.filter(categories=category).exclude(is_private=True).prefetch_related("platforms")
+            Application.objects.filter(public_app_filter(), categories=category).prefetch_related("platforms")
         ).order_by("-published")
         platform_code = request.query_params.get("platform")
         if platform_code:
@@ -521,11 +527,13 @@ class DistributionViewSet(viewsets.ReadOnlyModelViewSet):
     pagination_class = V2Pagination
 
     def get_queryset(self):
-        # hide private app distributions unless requester is the owner
-        qs = Distribution.objects.select_related("app", "app__user", "platform")
+        # Private distributions are visible to the owner and current team members.
+        qs = Distribution.objects.select_related("app", "app__user", "platform").filter(
+            app__deleted__isnull=True, app__is_under_dmca=False,
+        )
         user = self.request.user
         if user.is_authenticated:
-            return qs.filter(Q(app__is_private=False) | Q(app__user=user))
+            return qs.filter(Q(app__is_private=False) | Q(app_id__in=accessible_app_ids(user)))
         return qs.filter(app__is_private=False)
 
     @extend_schema(
@@ -540,9 +548,9 @@ class DistributionViewSet(viewsets.ReadOnlyModelViewSet):
         if not app_id:
             return Response({"error": "app_id is required"}, status=400)
 
-        app = get_object_or_404(Application, pk=app_id)
+        app = get_integer_object_or_404(Application.objects.filter(is_under_dmca=False), pk=app_id)
         if app.is_private and (
-                not request.user.is_authenticated or app.user_id != request.user.id):
+                not can_manage_app(app, request.user, "view")):
             raise LunaException(
                 code=ErrorCodes.APPLICATION_PRIVATE,
                 message=f"Application (id: {app.id}) unavailable because it is private",
@@ -600,11 +608,12 @@ class CollectionViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         qs = (
             Collection.objects.select_related("owner")
-            .annotate(items_count=Count("items", distinct=True))
+            .annotate(items_count=Count("items", filter=public_app_filter("items__application__"), distinct=True))
             .prefetch_related(
                 Prefetch(
                     "items",
-                    queryset=CollectionItem.objects.select_related("application").order_by("-added_at"),
+                    queryset=CollectionItem.objects.filter(public_app_filter("application__"))
+                    .select_related("application").order_by("-added_at"),
                 )
             )
             .order_by("-updated_at")
@@ -639,7 +648,7 @@ class CollectionViewSet(viewsets.ReadOnlyModelViewSet):
             "application_id", flat=True
         )
         apps = annotate_app_last_version(
-            Application.objects.filter(id__in=app_ids).exclude(is_private=True)
+            Application.objects.filter(public_app_filter(), id__in=app_ids)
         )
         # preserve collection order
         app_map = {app.id: app for app in apps}
@@ -713,6 +722,8 @@ class ExecuteView(APIView):
         """
     )
     def post(self, request):
+        if not isinstance(request.data, dict):
+            return Response({"error": "Request body must be an object"}, status=400)
         code = request.data.get("code", [])
         if not isinstance(code, list):
             return Response({"error": "Invalid format, 'code' must be a list of calls"}, status=400)
@@ -720,17 +731,21 @@ class ExecuteView(APIView):
         if len(code) > 25:
             return Response({"error": "Batch size limit exceeded. Maximum 25 calls per request."}, status=400)
 
-        from django.urls import resolve
-        from rest_framework.request import Request
         import copy
 
         responses = []
 
         for call in code:
+            if not isinstance(call, dict) or not isinstance(call.get("params", {}), dict):
+                responses.append({
+                    "status": "error", "message": "Call and params must be objects",
+                    "error_code": ErrorCodes.VALIDATION_ERROR,
+                })
+                continue
             method_name = call.get("method")
             params = call.get("params", {})
 
-            if not method_name:
+            if not isinstance(method_name, str) or not method_name:
                 responses.append({
                     "status": "error",
                     "message": "method missing in call",

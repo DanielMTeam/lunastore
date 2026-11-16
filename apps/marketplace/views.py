@@ -1,3 +1,5 @@
+from django.utils.http import content_disposition_header
+from apps.marketplace.services.visibility import can_view_app, public_app_filter
 import jwt
 import logging
 import os
@@ -10,7 +12,8 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.http import Http404, HttpResponse, HttpResponseForbidden, JsonResponse
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import redirect, render
+from apps.core.objects import get_integer_object_or_404
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext as _
@@ -22,7 +25,7 @@ from apps.analytics.services import (
     track_app_rate,
     track_app_view,
 )
-from apps.core.utils import get_safe_redirect_url, get_client_ip
+from apps.core.utils import get_ip_limit_key, get_safe_redirect_url
 from apps.core.search import (
     SearchService,
     SearchUnavailableError,
@@ -35,10 +38,10 @@ from apps.core.search.pagination import MeilisearchPaginator
 from apps.core.search.service import SEARCH_PAGE_SIZE
 from apps.user.decorators import developer_required, require_modern_browser
 from apps.user.models import User
-from .decorators import guard_private_app, user_is_owner
+from .decorators import guard_private_app
 from .forms import (
     AppCreateForm,
-    AppEditForm,
+    DelegatedAppEditForm,
     CommunityAccessConfirmationForm,
     CommunityAppEditForm,
     AppReportForm,
@@ -49,11 +52,13 @@ from .forms import (
 from .services.lunabox import notify_unfilled_lunabox_manifests
 from .services.distributions import can_submit_community_distribution, distribution_upload_context
 from .services.moderation import auto_approve_request
+from .services.access import can_manage_app, application_role, request_origin, accessible_app_ids
 from django.db import transaction
-from django.db.models import Avg, Count
+from django.db.models import Avg, Case, Count, OuterRef, Subquery, Value, When
 from .models import (
     AppCreateRequests,
     Application,
+    ApplicationAccess,
     Category,
     Collection,
     CollectionItem,
@@ -158,11 +163,11 @@ def category(request):
         view_mode = "tiles"
 
     # get model objects
-    obj_category = get_object_or_404(Category, id=id)
+    obj_category = get_integer_object_or_404(Category, id=id)
     obj_apps = Application.objects.select_related("user").prefetch_related(
         "categories", "badges").annotate(
         cached_avg_rating=Avg('reviews__rating')).filter(
-            categories=obj_category, is_private=False).order_by("-published")
+            public_app_filter(), categories=obj_category).order_by("-published")
     if platform_code:
         obj_apps = obj_apps.filter(platforms__code=platform_code)
 
@@ -190,11 +195,11 @@ def category(request):
 @guard_private_app
 def app(request):
     id = request.GET.get("id")
-    obj = get_object_or_404(Application.objects.select_related("user"), id=id)
+    obj = get_integer_object_or_404(Application.objects.select_related("user"), id=id)
     first_cat_id = obj.categories.values_list("id", flat=True).first()
     track_app_view(request, app_id=obj.pk, category_id=first_cat_id)
     obj_dist = Distribution.objects.filter(
-        app__id=id).order_by("-published").first()
+        app=obj, app__is_under_dmca=False).order_by("-published").first()
     download_page_url = f"{reverse('download')}?id={obj.id}"
 
     # get all approved reviews for this app
@@ -247,6 +252,7 @@ def app(request):
 
     context = {
         "app_id": obj.id,
+        "app": obj,
         "is_demo": obj.is_demo,
         "is_dmca": obj.is_under_dmca,
         "is_under_dmca": obj.is_under_dmca,
@@ -293,7 +299,7 @@ def download_list(request):
     if not app_id:
         return redirect("home")
 
-    app_obj = get_object_or_404(Application, id=app_id)
+    app_obj = get_integer_object_or_404(Application, id=app_id)
     sort_field = request.GET.get("sort", "version")
     order = request.GET.get("order", "asc")
 
@@ -302,13 +308,13 @@ def download_list(request):
 
     sort_prefix = "-" if order == "desc" else ""
 
-    distributions = Distribution.objects.filter(app=app_obj).select_related("platform").order_by(
+    distributions = Distribution.objects.filter(app=app_obj, app__is_under_dmca=False).select_related("platform").order_by(
         f"{sort_prefix}{db_sort_field}"
     )
 
     latest_dist = (
         Distribution.objects.filter(
-            app=app_obj).order_by(
+            app=app_obj, app__is_under_dmca=False).order_by(
             "-published",
             "-id").first())
     latest_id = latest_dist.id if latest_dist else None
@@ -385,7 +391,7 @@ def download_list(request):
         "current_order": order,
         "sort_links": sort_links,
         "owner_can_manage": request.user.is_authenticated
-        and request.user == app_obj.user,
+        and can_manage_app(app_obj, request.user, "files"),
         "can_submit_distribution": can_submit_community_distribution(app_obj, request.user),
         "app_link": f"/app.php?id={app_obj.id}",
     }
@@ -394,10 +400,10 @@ def download_list(request):
 
 @developer_required
 @require_modern_browser
-@ratelimit(key='ip', rate='10/5m', block=True)
+@ratelimit(key=get_ip_limit_key, rate='10/5m', block=True)
 def app_add(request):
     if request.method == "POST":
-        form = AppCreateForm(request.POST, request.FILES)
+        form = AppCreateForm(request.POST, request.FILES, user=request.user)
         if form.is_valid():
             app_request = form.save(commit=False)
             app_request.user = request.user
@@ -440,11 +446,17 @@ def app_add(request):
 
 @login_required
 def settings_apps(request):
-    if getattr(request, 'limited', False):
+    if getattr(request, 'rate_limit_exceeded', False):
         messages.error(request, _("ERROR_RATE_LIMIT_EXCEEDED"))
         return redirect(request.META.get('HTTP_REFERER', '/'))
 
-    managed_apps = Application.objects.filter(user=request.user)
+    membership = ApplicationAccess.objects.filter(application_id=OuterRef("pk"), user=request.user)
+    managed_apps = Application.objects.filter(pk__in=accessible_app_ids(request.user)).annotate(
+        management_role=Case(
+            When(user=request.user, then=Value("owner")),
+            default=Subquery(membership.values("role")[:1]),
+        ),
+    )
     app_requests = AppCreateRequests.objects.filter(user=request.user)
     total_app_requests = app_requests.count() + managed_apps.count()
     return render(
@@ -460,17 +472,17 @@ def settings_apps(request):
 
 @login_required
 @require_modern_browser
-@ratelimit(key='ip', rate='20/3m', block=True)
+@ratelimit(key=get_ip_limit_key, rate='20/3m', block=True)
 def application_edit_info(request, pk):
-    if getattr(request, 'limited', False):
+    if getattr(request, 'rate_limit_exceeded', False):
         messages.error(request, _("ERROR_RATE_LIMIT_EXCEEDED"))
         return redirect(request.META.get('HTTP_REFERER', '/'))
 
-    obj = get_object_or_404(Application, pk=pk)
-    is_proposal = obj.user_id != request.user.pk
+    obj = get_integer_object_or_404(Application, pk=pk)
+    is_proposal = not can_manage_app(obj, request.user)
     if is_proposal and not can_submit_community_distribution(obj, request.user):
         raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
-    form_class = CommunityAppEditForm if is_proposal else AppEditForm
+    form_class = CommunityAppEditForm if is_proposal else DelegatedAppEditForm
     if is_proposal and AppEditRequests.objects.filter(target_application=obj, status="pending").exists():
         messages.info(request, _("COMMUNITY_PENDING_PROPOSAL"))
         return redirect(reverse("app") + "?id=" + str(obj.pk))
@@ -485,14 +497,14 @@ def application_edit_info(request, pk):
         if form.is_valid():
             # CDN validation above must finish before acquiring database locks.
             with transaction.atomic():
-                current = get_object_or_404(Application.objects.select_for_update(), pk=pk)
+                current = get_integer_object_or_404(Application.objects.select_for_update(), pk=pk)
                 if is_proposal:
                     if not can_submit_community_distribution(current, request.user):
                         raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
                     if AppEditRequests.objects.filter(target_application=current, status="pending").exists():
                         messages.info(request, _("COMMUNITY_PENDING_PROPOSAL"))
                         return redirect(reverse("app") + "?id=" + str(current.pk))
-                elif current.user_id != request.user.pk:
+                elif not can_manage_app(current, request.user) or application_role(current, request.user) != form.access_role:
                     raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
                 if current.published != obj.published:
                     return HttpResponse(_("PAGE_ADMIN_APP_MSG_SAVE_ERROR"), status=409)
@@ -504,6 +516,7 @@ def application_edit_info(request, pk):
 
                 edit_request = form.save(commit=False)
                 edit_request.user = request.user
+                edit_request.request_origin = request_origin(current, request.user) if not is_proposal else "community"
                 edit_request.save()
                 form.save_m2m()
 
@@ -524,6 +537,7 @@ def application_edit_info(request, pk):
     return render(request,
                   "admin_app.html",
                   {"obj": obj,
+                   "app": obj,
                    "form": form,
                    "is_edit_page": True,
                    "is_community_proposal": is_proposal,
@@ -542,14 +556,15 @@ def application_edit_info(request, pk):
 
 @login_required
 @require_modern_browser
-@user_is_owner(Application)
-@ratelimit(key='ip', rate='30/1m', block=True)
+@ratelimit(key=get_ip_limit_key, rate='30/1m', block=True)
 def application_stats(request, pk):
-    if getattr(request, 'limited', False):
+    if getattr(request, 'rate_limit_exceeded', False):
         messages.error(request, _("ERROR_RATE_LIMIT_EXCEEDED"))
         return redirect(request.META.get('HTTP_REFERER', '/'))
 
-    obj = get_object_or_404(Application, pk=pk)
+    obj = get_integer_object_or_404(Application, pk=pk)
+    if not can_manage_app(obj, request.user, "stats"):
+        raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
     stats = get_app_analytics(app_id=obj.pk, days=30, chart_days=14)
 
     return render(
@@ -561,7 +576,7 @@ def application_stats(request, pk):
             "stats": stats,
             "is_stats_page": True,
             "app_id": obj.pk,
-            "developer_id": obj.user.pk,
+            "developer_id": obj.user_id,
             "developer_site": obj.developer_site,
         },
     )
@@ -573,10 +588,10 @@ def application_stats(request, pk):
 @transaction.atomic
 def community_access(request, pk):
     user_queryset = User.objects.select_for_update() if request.method == "POST" else User.objects
-    confirmation_user = get_object_or_404(user_queryset, pk=request.user.pk, is_active=True)
+    confirmation_user = get_integer_object_or_404(user_queryset, pk=request.user.pk, is_active=True)
     app_queryset = Application.objects.select_for_update() if request.method == "POST" else Application.objects
-    obj = get_object_or_404(app_queryset, pk=pk)
-    if obj.user_id != request.user.pk:
+    obj = get_integer_object_or_404(app_queryset, pk=pk)
+    if not can_manage_app(obj, request.user, "community"):
         raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
     rate_limited = request.method == "POST" and getattr(request, "rate_limit_exceeded", False)
     form = CommunityAccessConfirmationForm(
@@ -635,7 +650,7 @@ def _search_suggest_response(request):
     return JsonResponse(data)
 
 
-@ratelimit(key='ip', rate='30/1m', block=True)
+@ratelimit(key=get_ip_limit_key, rate='30/1m', block=True)
 def search(request):
     from .models import Platform
     if request.GET.get("mode") == "suggest":
@@ -759,11 +774,11 @@ def search(request):
     return render(request, "search.html", context)
 
 
-@ratelimit(key='ip', rate='20/1m', block=True)
+@ratelimit(key=get_ip_limit_key, rate='20/1m', block=True)
 @login_required
 def report_app(request):
     id = request.GET.get("id")
-    obj = get_object_or_404(Application, id=id)
+    obj = get_integer_object_or_404(Application, id=id)
 
     if request.method == "POST":
         form = AppReportForm(request.POST)
@@ -789,7 +804,7 @@ def report_app(request):
     return render(request, "report_app.html", context)
 
 
-@ratelimit(key='ip', rate='20/1m', block=True)
+@ratelimit(key=get_ip_limit_key, rate='20/1m', block=True)
 @login_required
 def report_problem(request):
     if request.method == "POST":
@@ -809,18 +824,23 @@ def report_problem(request):
     return render(request, "report_problem.html", context)
 
 
-@developer_required
+@login_required
 @require_modern_browser
-@ratelimit(key='ip', rate='20/1m', block=True)
+@ratelimit(key=get_ip_limit_key, rate='20/1m', block=True)
 def distribution_create(request, app_id):
-    app_obj = get_object_or_404(Application, id=app_id)
+    app_obj = get_integer_object_or_404(Application, id=app_id)
 
-    if app_obj.user == request.user:
+    if can_manage_app(app_obj, request.user, "files"):
         return redirect(reverse("manage_distributions") +
                         "?id=" + str(app_obj.id))
 
+    if application_role(app_obj, request.user) == "editor":
+        raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
     if app_obj.is_private:
         raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
+    if not (request.user.is_superuser or request.user.groups.filter(name="Разработчики").exists()):
+        messages.error(request, _("ERROR_YOU_DONT_HAVE_DEVSTATUS"))
+        return redirect("index")
     if not can_submit_community_distribution(app_obj, request.user):
         raise PermissionDenied(_("COMMUNITY_DISTRIBUTIONS_ARE_NOT_ALLOWED"))
 
@@ -832,7 +852,7 @@ def distribution_create(request, app_id):
 
     if request.method == "POST" and form.is_valid():
         with transaction.atomic():
-            app_obj = get_object_or_404(Application.objects.select_for_update(), id=app_id)
+            app_obj = get_integer_object_or_404(Application.objects.select_for_update(), id=app_id)
             if not can_submit_community_distribution(app_obj, request.user):
                 raise PermissionDenied(_("COMMUNITY_DISTRIBUTIONS_ARE_NOT_ALLOWED"))
             if DistributionCreateRequests.objects.filter(app=app_obj, user=request.user, status="pending").exists():
@@ -841,6 +861,7 @@ def distribution_create(request, app_id):
             distribution_request = form.save(commit=False)
             distribution_request.app = app_obj
             distribution_request.user = request.user
+            distribution_request.request_origin = "community"
             distribution_request.status = "pending"
             distribution_request.save()
 
@@ -869,12 +890,12 @@ def distribution_create(request, app_id):
 
 @login_required
 @require_modern_browser
-@ratelimit(key='ip', rate='20/1m', block=True)
+@ratelimit(key=get_ip_limit_key, rate='20/1m', block=True)
 def manage_distributions(request):
     app_id = request.GET.get("id")
-    app_obj = get_object_or_404(Application, id=app_id)
+    app_obj = get_integer_object_or_404(Application, id=app_id)
 
-    if app_obj.user != request.user:
+    if not can_manage_app(app_obj, request.user, "files"):
         raise PermissionDenied("ERROR_YOURE_NOT_OWNER_OF_APP")
 
     distributions = Distribution.objects.filter(
@@ -889,15 +910,19 @@ def manage_distributions(request):
     form = DistributionCreateForm(request.POST or None, request.FILES or None, user=request.user, app=app_obj)
 
     if request.method == "POST" and form.is_valid():
-        distribution = form.save(commit=False)
-        distribution.app = app_obj
-        distribution.user = request.user
-        distribution.save()
-
-        if auto_approve_request(distribution):
-            messages.success(request, _("MSG_TRUSTED_AUTO_APPROVED_DIST"))
-        else:
-            messages.success(request, _("PAGE_MANAGEDIST_CREATE_SUCCESS"))
+        with transaction.atomic():
+            app_obj = get_integer_object_or_404(Application.objects.select_for_update(), pk=app_obj.pk)
+            if not can_manage_app(app_obj, request.user, "files"):
+                raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
+            distribution = form.save(commit=False)
+            distribution.app = app_obj
+            distribution.user = request.user
+            distribution.request_origin = request_origin(app_obj, request.user)
+            distribution.save()
+            if auto_approve_request(distribution):
+                messages.success(request, _("MSG_TRUSTED_AUTO_APPROVED_DIST"))
+            else:
+                messages.success(request, _("PAGE_MANAGEDIST_CREATE_SUCCESS"))
         return redirect(reverse("manage_distributions") +
                         "?id=" + str(app_obj.id))
     elif request.method == "POST" and not form.is_valid():
@@ -952,10 +977,12 @@ def manage_distributions(request):
 
 @login_required
 @require_modern_browser
-@ratelimit(key='ip', rate='20/1m', block=True)
+@ratelimit(key=get_ip_limit_key, rate='20/1m', block=True)
 def distribution_edit(request, dist_pk):
-    distribution = get_object_or_404(Distribution, pk=dist_pk)
-    is_proposal = distribution.app.user_id != request.user.pk
+    distribution = get_integer_object_or_404(Distribution, pk=dist_pk)
+    if application_role(distribution.app, request.user) == "editor":
+        raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
+    is_proposal = not can_manage_app(distribution.app, request.user, "files")
     if is_proposal and not can_submit_community_distribution(distribution.app, request.user):
         raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
     if is_proposal and DistributionEditRequests.objects.filter(
@@ -992,15 +1019,15 @@ def distribution_edit(request, dist_pk):
 
     if request.method == "POST" and form.is_valid():
         with transaction.atomic():
-            app_obj = get_object_or_404(Application.objects.select_for_update(), pk=distribution.app_id)
-            current = get_object_or_404(Distribution.objects.select_for_update(), pk=dist_pk, app=app_obj)
+            app_obj = get_integer_object_or_404(Application.objects.select_for_update(), pk=distribution.app_id)
+            current = get_integer_object_or_404(Distribution.objects.select_for_update(), pk=dist_pk, app=app_obj)
             if is_proposal:
                 if not can_submit_community_distribution(app_obj, request.user):
                     raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
                 if DistributionEditRequests.objects.filter(target_distribution=current, status="pending").exists():
                     messages.info(request, _("COMMUNITY_PENDING_PROPOSAL"))
                     return redirect(reverse("download") + "?id=" + str(app_obj.pk))
-            elif app_obj.user_id != request.user.pk:
+            elif not can_manage_app(app_obj, request.user, "files"):
                 raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
             if current.published != distribution.published:
                 return HttpResponse(_("PAGE_ADMIN_APP_MSG_SAVE_ERROR"), status=409)
@@ -1008,6 +1035,7 @@ def distribution_edit(request, dist_pk):
             form.target_dist = current
             edit_req = form.save(commit=False)
             edit_req.app = app_obj
+            edit_req.request_origin = "community" if is_proposal else request_origin(app_obj, request.user)
             edit_req.save()
 
             if auto_approve_request(edit_req):
@@ -1040,15 +1068,15 @@ def distribution_edit(request, dist_pk):
     return render(request, "distribution_form.html", context)
 
 
-def get_real_ip(group, request):
-    return get_client_ip(request)
+def review_user_limit_key(request, *args, **kwargs):
+    return f"{request.resolver_match.view_name}:user:{request.user.pk}"
 
 
 @login_required
-@ratelimit(key='user', rate='60/1h', block=False)
-@ratelimit(key=get_real_ip, rate='120/1h', block=False)
+@ratelimit(key=review_user_limit_key, rate='60/1h', skip_if=lambda request: request.method != 'POST', block=False)
+@ratelimit(key=get_ip_limit_key, rate='120/1h', skip_if=lambda request: request.method != 'POST', block=False)
 def rate_app(request):
-    if getattr(request, 'limited', False):
+    if getattr(request, 'rate_limit_exceeded', False):
         app_id = request.GET.get("id") or request.POST.get("id")
         messages.error(request, _("ERROR_RATE_LIMIT_EXCEEDED"))
         if app_id:
@@ -1072,7 +1100,10 @@ def rate_app(request):
             return redirect(f"{reverse('app')}?id={app_id}")
 
         # get the app object
-        obj = get_object_or_404(Application, id=app_id)
+        obj = get_integer_object_or_404(Application, id=app_id)
+
+        if not can_view_app(obj, request.user):
+            raise Http404
 
         if not obj.allow_reviews:
             messages.error(request, _("PAGE_APP_RATING_DISABLED"))
@@ -1176,9 +1207,9 @@ def rate_app(request):
 
 @login_required
 @require_POST
-@ratelimit(key='user', rate='60/1h', block=False)
+@ratelimit(key=review_user_limit_key, rate='60/1h', block=False)
 def delete_review(request):
-    if getattr(request, 'limited', False):
+    if getattr(request, 'rate_limit_exceeded', False):
         review_id = request.POST.get("id")
         messages.error(request, _("ERROR_RATE_LIMIT_EXCEEDED"))
         if review_id:
@@ -1191,7 +1222,7 @@ def delete_review(request):
     if not review_id:
         return redirect("home")
 
-    review = get_object_or_404(Review, id=review_id)
+    review = get_integer_object_or_404(Review, id=review_id)
     if review.user != request.user and not request.user.has_perm(
             "marketplace.delete_review"):
         messages.error(request, _("PAGE_APP_RATING_DELETE_DENIED"))
@@ -1213,9 +1244,9 @@ def delete_review(request):
 
 @login_required
 @require_POST
-@ratelimit(key='user', rate='30/1h', block=False)
+@ratelimit(key=review_user_limit_key, rate='30/1h', block=False)
 def reply_review(request):
-    if getattr(request, 'limited', False):
+    if getattr(request, 'rate_limit_exceeded', False):
         messages.error(request, _("ERROR_RATE_LIMIT_EXCEEDED"))
         review_id = request.POST.get("review_id") or request.GET.get("id")
         if review_id:
@@ -1228,7 +1259,7 @@ def reply_review(request):
     if not review_id:
         return redirect("home")
 
-    review = get_object_or_404(
+    review = get_integer_object_or_404(
         Review.objects.select_related("application", "application__user"),
         id=review_id,
     )
@@ -1267,9 +1298,9 @@ def reply_review(request):
 
 @login_required
 @require_POST
-@ratelimit(key='user', rate='30/1h', block=False)
+@ratelimit(key=review_user_limit_key, rate='30/1h', block=False)
 def delete_review_reply(request):
-    if getattr(request, 'limited', False):
+    if getattr(request, 'rate_limit_exceeded', False):
         messages.error(request, _("ERROR_RATE_LIMIT_EXCEEDED"))
         review_id = request.POST.get("review_id") or request.GET.get("id")
         if review_id:
@@ -1282,7 +1313,7 @@ def delete_review_reply(request):
     if not review_id:
         return redirect("home")
 
-    review = get_object_or_404(
+    review = get_integer_object_or_404(
         Review.objects.select_related("application", "application__user"),
         id=review_id,
     )
@@ -1307,9 +1338,12 @@ def delete_review_reply(request):
 
 @login_required
 @require_modern_browser
+@require_POST
+@transaction.atomic
 def distribution_delete(request, dist_pk):
-    distribution = get_object_or_404(Distribution, pk=dist_pk)
-    if distribution.app.user != request.user:
+    distribution = get_integer_object_or_404(Distribution, pk=dist_pk)
+    app_obj = get_integer_object_or_404(Application.objects.select_for_update(), pk=distribution.app_id)
+    if not can_manage_app(app_obj, request.user, "files"):
         raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
 
     if request.method == "POST":
@@ -1323,7 +1357,9 @@ def distribution_delete(request, dist_pk):
 
 
 def distribution_list_page(request, app_id):
-    app_obj = get_object_or_404(Application, id=app_id)
+    app_obj = get_integer_object_or_404(Application, id=app_id)
+    if not can_view_app(app_obj, request.user):
+        raise Http404
     distributions = app_obj.distributions.filter(
         deleted__isnull=True).order_by("-published")
     return render(
@@ -1334,12 +1370,15 @@ def distribution_list_page(request, app_id):
 
 
 def get_file_action(request, dist_pk):
-    dist = get_object_or_404(Distribution.objects.select_related("app"), pk=dist_pk)
+    dist = get_integer_object_or_404(Distribution.objects.select_related("app"), pk=dist_pk)
     app = dist.app
 
-    # block private app downloads for non-owners
+    if app.deleted or app.is_under_dmca:
+        raise Http404
+
+    # Private downloads require a current application-scoped grant.
     if app.is_private:
-        if not request.user.is_authenticated or app.user_id != request.user.id:
+        if not can_manage_app(app, request.user, "view"):
             raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
 
     # track download analytics (first category for CH category filters)
@@ -1392,9 +1431,9 @@ def get_file_action(request, dist_pk):
                 config, 'ENABLE_DISTRIBUTION_PROXY', False):
             parsed_url = urllib.parse.urlparse(dist.url)
             path = parsed_url.path
-            _, ext = os.path.splitext(path)
+            filename_root, ext = os.path.splitext(path)
             if not ext and parsed_url.fragment:
-                _, ext = os.path.splitext(parsed_url.fragment)
+                filename_root, ext = os.path.splitext(parsed_url.fragment)
 
             # sanitize names
             app_name = "".join([c for c in dist.app.title if c.isalnum() or c in (
@@ -1416,7 +1455,7 @@ def get_file_action(request, dist_pk):
             # set proxy headers
             response = HttpResponse()
             response['X-Accel-Redirect'] = f'/_px/{dist.url}'
-            response['Content-Disposition'] = f'attachment; filename="{filename}"'
+            response['Content-Disposition'] = content_disposition_header(True, filename)
             return response
 
         # fallback to direct download

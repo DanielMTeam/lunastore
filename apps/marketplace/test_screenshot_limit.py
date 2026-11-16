@@ -4,6 +4,7 @@ from unittest.mock import patch
 from constance.test import override_config
 from django.core.exceptions import ValidationError
 from django.test import SimpleTestCase
+from django.forms.utils import ErrorDict
 
 from apps.marketplace.forms import AppCreateForm, AppScreenshotForm
 
@@ -12,7 +13,8 @@ from apps.marketplace.forms import AppCreateForm, AppScreenshotForm
 class ScreenshotLimitTests(SimpleTestCase):
     def test_upload_accepts_five_and_rejects_six(self):
         form = AppCreateForm(data={})
-        with patch.object(form, "validate_cdn_token", side_effect=lambda token: {"file_id": token}), patch.object(
+        form._errors = ErrorDict()
+        with patch.object(form, "validate_cdn_token", side_effect=lambda token, **kwargs: {"file_id": token}), patch.object(
             form, "get_cdn_file_info", side_effect=lambda file_id, fields: {"path": file_id}
         ):
             form.cleaned_data = {"cdn_screenshots_tokens": json.dumps([str(i) for i in range(5)])}

@@ -1,3 +1,4 @@
+from apps.marketplace.services.visibility import can_view_app, public_app_filter
 import time
 import uuid
 from datetime import datetime
@@ -5,7 +6,7 @@ from django.utils import timezone
 
 import jwt
 from django.conf import settings
-from django.shortcuts import get_object_or_404
+from apps.core.objects import get_integer_object_or_404
 from drf_spectacular.utils import (
     OpenApiParameter,
     OpenApiTypes,
@@ -17,6 +18,7 @@ from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
+from apps.marketplace.services.access import can_manage_app, application_role
 from apps.marketplace.models import Application, Category, Distribution
 from apps.marketplace.services.distributions import can_submit_community_distribution
 from apps.marketplace.serializers import (
@@ -68,7 +70,7 @@ class UserViewSet(viewsets.GenericViewSet):
 
         try:
             user = self.get_queryset().get(pk=id)
-        except User.DoesNotExist:
+        except (User.DoesNotExist, TypeError, ValueError, OverflowError):
             raise LunaException(
                 code=ErrorCodes.USER_NOT_FOUND,
                 message=f"User with id {id} was not found",
@@ -146,7 +148,7 @@ class UserViewSet(viewsets.GenericViewSet):
         guard_phrase = uuid.uuid4().hex
 
         cache_key = f"cdn_guard_{request.user.id}_{guard_phrase}"
-        cache.set(cache_key, True, timeout=3600)
+        cache.set(cache_key, {"object": policy["obj"], "mode": "public"}, timeout=3600)
 
         current_time = int(time.time())
 
@@ -187,11 +189,11 @@ class UserViewSet(viewsets.GenericViewSet):
                 {"error": "app_id must be a valid integer"}, status=400)
 
         # check permissions
-        app_obj = get_object_or_404(Application, id=app_id)
+        app_obj = get_integer_object_or_404(Application, id=app_id)
         if (
-            app_obj.user != request.user
+            not can_manage_app(app_obj, request.user, "files")
             and not request.user.is_staff
-            and not can_submit_community_distribution(app_obj, request.user)
+            and not (application_role(app_obj, request.user) is None and can_submit_community_distribution(app_obj, request.user))
         ):
             return Response({"error": "Not your app"}, status=403)
 
@@ -257,7 +259,7 @@ class MarketplaceViewSet(viewsets.GenericViewSet):
             )
         try:
             app = self.get_queryset().get(pk=id)
-        except Application.DoesNotExist:
+        except (Application.DoesNotExist, TypeError, ValueError, OverflowError):
             raise LunaException(
                 code=ErrorCodes.APPLICATION_NOT_FOUND,
                 message=f"Application with id {id} was not found",
@@ -269,7 +271,7 @@ class MarketplaceViewSet(viewsets.GenericViewSet):
                 message=f"Application (id: {id}) unavailable because his creators/uploaders received a DMCA strike",
                 status_code=403,
             )
-        if app.is_private:
+        if app.is_private and not can_manage_app(app, request.user, "view"):
             raise LunaException(
                 code=ErrorCodes.APPLICATION_PRIVATE,
                 message=f"Application (id: {id}) unavailable because it is private",
@@ -365,11 +367,9 @@ class CategoryViewSet(viewsets.GenericViewSet):
         try:
             category = self.get_queryset().get(pk=id)
             apps = annotate_app_last_version(
-                Application.objects.filter(
-                    categories=category).exclude(
-                    is_private=True).order_by("-published")
+                Application.objects.filter(public_app_filter(), categories=category).order_by("-published")
             )
-        except Category.DoesNotExist:
+        except (Category.DoesNotExist, TypeError, ValueError, OverflowError):
             raise LunaException(
                 code=ErrorCodes.CATEGORY_NOT_FOUND,
                 message=f"Category with id {id} was not found",
@@ -462,9 +462,11 @@ class DistributionViewSet(viewsets.GenericViewSet):
                 status_code=400,
             )
 
-        if not Application.objects.filter(
-                id=app_id).exclude(
-                is_private=True).exists():
+        try:
+            app = Application.objects.filter(pk=app_id).first()
+        except (TypeError, ValueError, OverflowError):
+            app = None
+        if app is None or not can_view_app(app, request.user):
             raise LunaException(
                 code=ErrorCodes.APPLICATION_NOT_FOUND,
                 message=f"Application with id {app_id} was not found",

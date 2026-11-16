@@ -28,14 +28,6 @@
 * 🛠 **[Installation Guide](https://docs.lunastore.app/getting-started/installation/)** — detailed deployment instructions. You can quickly deploy your own instance by running `./setup.sh` and following the interactive wizard.
 * ⚙️ **[API Documentation](https://docs.lunastore.app/api/)** — description of API methods for developers
 
-## Platform deployment
-
-Apply marketplace migrations through `0054` before deploying the new code. Once every old
-application process and worker has stopped, apply migrations `0055`–`0058` to catch records
-created during rollout, build indexes concurrently and validate the constraints. Then run
-`python manage.py reindex_search --applications` before exposing platform-filtered search;
-the old Meilisearch index does not contain platform identifiers.
-
 ---
 
 <div align="center">

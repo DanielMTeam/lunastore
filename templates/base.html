@@ -1,3 +1,4 @@
+{% load app_access %}
 {% load i18n %}
 {% load static %}
 {% load category %}
@@ -49,7 +50,7 @@
     <!--[if IE 6]>
     <script src="{% static './js/dd_belatedpng.min.js' %}"></script>
     <script>
-    /* EXAMPLE */
+    DD_belatedPNG.fix('.png-fix');
     DD_belatedPNG.fix('.ls_dm_logo, .error_icon_small, .good_icon_small, .info_icon_small, .sidebar_menu a, .category_icon, .balloon_img, .dm_menu, .actionsm li, .rating, .home_rating, .r5, .r4_5, .r4, .r3_5, .r3, .r2_5, .r2, .r1_5, .r1, .r0_5, .reply_adm_arrow');
   </script>
   <![endif]-->
@@ -63,7 +64,10 @@
     {% if request.session.impersonated_by %}
     <div class="announcement" style="background-color: #ffcc00; color: #000; text-align: center; border-bottom: 1px solid #ccaa00; padding: 10px;">
         <b>{% trans "BASE_IMPERSONATE_ATTENTION" %}</b> {% trans "BASE_IMPERSONATE_WARNING" %}
-        <a href="{% url 'revert_impersonation' %}" style="margin-left: 10px; font-weight: bold; text-decoration: underline; color: #000;">{% trans "BASE_IMPERSONATE_RETURN" %}</a>
+        <form method="post" action="{% url 'revert_impersonation' %}" style="display:inline;">
+            {% csrf_token %}
+            <input type="submit" value="{% trans 'BASE_IMPERSONATE_RETURN' %}">
+        </form>
     </div>
     {% endif %}
 
@@ -156,7 +160,8 @@
                         {% endif %}
 
                         <li><a class="alert" {% if is_report_page %}id="active" {% endif %} href="/report_app.php?id={{ app_id }}">{% trans "BASE_SIDEBAR_APP_REPORT" %}</a></li>
-                        {% if user.is_authenticated and user.id == developer_id and is_modern_browser %}
+                        {% app_capabilities app|default:app_id user as app_caps %}
+                        {% if app_caps.info and is_modern_browser %}
                         <li><a class="editapp" {% if is_edit_page %}id="active" {% endif %} href="/edit_app_info.php/{{ app_id }}/">{% trans "BASE_SIDEBAR_APP_EDIT" %}</a></li>
                         {% elif can_propose_changes and is_modern_browser %}
                         <li><a class="editapp" {% if is_edit_page %}id="active" {% endif %} href="{% url 'edit_app_info' pk=app_id %}">{% trans "COMMUNITY_PROPOSE_EDIT" %}</a></li>

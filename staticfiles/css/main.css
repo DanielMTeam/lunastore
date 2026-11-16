@@ -2469,3 +2469,58 @@ a.report_problem {
 .xp_color_series2 {
     background: #5fa359;
 }
+.donstar {
+  border: 0;
+  margin-bottom: 16px;
+}
+
+.donstar_text_one {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.donstar_text_two {
+  font-size: 16px;
+}
+
+.donstar_icon_cell {
+  width: 64px;
+}
+
+.donpagemain {
+  padding: 5px;
+  font-size: 14px;
+}
+
+.donbtnwrap {
+  text-align: center;
+}
+
+.donbtn {
+  display: block;
+  width: 300px;
+  padding: 5px;
+  text-align: center;
+  margin: 0 auto;
+  text-decoration: none;
+  color: #fff;
+}
+
+.donbtn#boosty {
+  background: #ff5f2e;
+  border: 1px solid #a73d00;
+}
+
+.donbtn#boosty:hover {
+  background: #e95601;
+  border: 1px solid #a73d00;
+}
+
+.donbtn#boosty:active {
+  background: #a73d00;
+  border: 1px solid #ff5f2e;
+}
+
+.dontip {
+  color: #999;
+}

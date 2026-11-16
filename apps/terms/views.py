@@ -33,18 +33,6 @@ def help_center(request):
             ).first()
 
         context["rules_doc"] = doc
-    if current_page == "donate":
-        current_lang = translation.get_language()
-        doc = LegalDocument.objects.filter(
-            doc_type="donate", language=current_lang
-        ).first()
-        if not doc:
-            doc = LegalDocument.objects.filter(
-                doc_type="donate", language="en"
-            ).first()
-
-        context["donate_doc"] = doc
-
     return render(request, "help_center.html", context)
 
 

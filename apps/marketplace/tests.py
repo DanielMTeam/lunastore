@@ -964,7 +964,7 @@ class ReviewAndModerationTest(TestCase):
             120.0,
         )
 
-        with override_config(OPENROUTER_API_KEY="dummy_key"):
+        with override_settings(OPENROUTER_API_KEY="dummy_key"):
             result = moderate_review_text("Great retro player!", app_title="RetroPlayer")
 
         self.assertEqual(result.decision, "approved")
@@ -987,7 +987,7 @@ class ReviewAndModerationTest(TestCase):
             150.0,
         )
 
-        with override_config(OPENROUTER_API_KEY="dummy_key"):
+        with override_settings(OPENROUTER_API_KEY="dummy_key"):
             result = moderate_review_text("Abusive text...", app_title="RetroPlayer")
 
         self.assertEqual(result.decision, "rejected")
@@ -1010,7 +1010,7 @@ class ReviewAndModerationTest(TestCase):
             200.0,
         )
 
-        with override_config(OPENROUTER_API_KEY="dummy_key"):
+        with override_settings(OPENROUTER_API_KEY="dummy_key"):
             result = moderate_review_text("Suspicious review...", app_title="RetroPlayer")
 
         self.assertEqual(result.decision, "pending")
@@ -1033,7 +1033,7 @@ class ReviewAndModerationTest(TestCase):
         mock_resp.raise_for_status.side_effect = requests.exceptions.HTTPError(response=mock_resp)
         mock_post.return_value = mock_resp
 
-        with override_config(OPENROUTER_API_KEY="dummy_key"):
+        with override_settings(OPENROUTER_API_KEY="dummy_key"):
             result = moderate_review_text("Normal review text", app_title="RetroPlayer")
 
         self.assertEqual(result.decision, "pending")
@@ -1041,7 +1041,7 @@ class ReviewAndModerationTest(TestCase):
         self.assertIn("Сбой OpenRouter", mock_send_tg.call_args[0][0])
 
         # Second call within cooldown should not resend Telegram alert
-        with override_config(OPENROUTER_API_KEY="dummy_key"):
+        with override_settings(OPENROUTER_API_KEY="dummy_key"):
             moderate_review_text("Another review", app_title="RetroPlayer")
         self.assertEqual(mock_send_tg.call_count, 1)
 
@@ -1215,8 +1215,7 @@ class ReviewAndModerationTest(TestCase):
         }
         mock_post.return_value = mock_resp
 
-        with override_config(
-            OPENROUTER_API_KEY="dummy_key",
+        with override_settings(OPENROUTER_API_KEY="dummy_key"), override_config(
             AI_MODERATION_CUSTOM_INSTRUCTIONS=custom,
         ):
             moderate_review_text("Nice retro music player", app_title="Winamp")
@@ -1280,7 +1279,7 @@ class ReviewAndModerationTest(TestCase):
         }
         mock_post.return_value = mock_resp
 
-        with override_config(OPENROUTER_API_KEY="dummy_key"):
+        with override_settings(OPENROUTER_API_KEY="dummy_key"):
             moderate_review_text("Normal retro review", app_title="Notepad++")
 
         self.assertEqual(mock_post.call_count, 1)
