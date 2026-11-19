@@ -5,7 +5,10 @@
 
     function supportsWindows7() {
         try {
-            // documentMode catches IE compatibility modes, regardless of user agent.
+            // IE8 has dedicated CSS fallbacks; compatibility modes below IE8 remain unsupported.
+            if (document.documentMode === 8) {
+                return true;
+            }
             if (document.documentMode && document.documentMode < 11) {
                 return false;
             }
@@ -34,7 +37,8 @@
         var url = config.getAttribute('data-theme-css');
         var escapedUrl = url.replace(/&/g, '&amp;').replace(/"/g, '&quot;')
             .replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        root.className = previousClassName + (previousClassName ? ' ' : '') + 'theme-windows7';
+        root.className = previousClassName + (previousClassName ? ' ' : '') + 'theme-windows7' +
+            (document.documentMode === 8 ? ' theme-windows7-ie8' : '');
         try {
             // This synchronous head script inserts a parser-created stylesheet so
             // older browsers also wait for its CSS before painting the page.
@@ -52,7 +56,48 @@
         }
     }
 
+    function setupIE8Banners() {
+        if (document.documentMode !== 8 || !supported || !config ||
+                config.getAttribute('data-theme') !== 'windows7') {
+            return;
+        }
+        var divs = document.getElementsByTagName('div');
+        var scriptUrl = config.getAttribute('src');
+        var imageRoot = scriptUrl.replace(/js\/themes\.js(?:\?.*)?$/, 'img/');
+        var i, banner, background, match, picture;
+        for (i = 0; i < divs.length; i++) {
+            banner = divs[i];
+            if (!banner.parentNode || !/(^|\s)banner_image(\s|$)/.test(banner.parentNode.className)) {
+                continue;
+            }
+            background = banner.currentStyle && banner.currentStyle.backgroundImage;
+            match = background && /^url\(["']?(.*?)["']?\)$/i.exec(background);
+            if (!match) {
+                continue;
+            }
+            picture = document.createElement('img');
+            picture.className = 'theme-ie8-banner-background';
+            picture.alt = '';
+            picture.onload = function () {
+                var width = this.width;
+                var height = this.height;
+                var scale;
+                if (!width || !height) {
+                    return;
+                }
+                scale = Math.max(this.parentNode.clientWidth / width, this.parentNode.clientHeight / height);
+                this.style.width = Math.ceil(width * scale) + 'px';
+                this.style.height = Math.ceil(height * scale) + 'px';
+                this.parentNode.style.backgroundImage = 'none';
+                this.style.visibility = 'visible';
+            };
+            banner.insertBefore(picture, banner.firstChild);
+            picture.src = match[1].replace(/^\.\.\/img\//, imageRoot);
+        }
+    }
+
     function setupSettings() {
+        setupIE8Banners();
         var radio = document.getElementById('theme-windows7');
         if (!radio || !supported) {
             return;

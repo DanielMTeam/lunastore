@@ -201,3 +201,22 @@
     color: #294b76;
     border-color: #bfd2e4;
 }
+
+.theme_switch td {
+    width: 33%;
+}
+
+.theme_switch .design_switch_pic,
+.theme_switch .design_switch_select {
+    width: 90%;
+    max-width: 180px;
+}
+
+.theme_switch .design_switch_pic {
+    height: auto;
+}
+
+.theme_switch .design_switch_pic img {
+    width: 100%;
+    height: auto;
+}

@@ -47,6 +47,16 @@
     <!--<![endif]-->
     {% endif %}
 
+    <!--[if lte IE 6]>
+    <style type="text/css">
+        .home_rich_content { overflow: hidden; }
+        .home_rich_content .section,
+        .home_rich_content .section h2 { position: relative; zoom: 1; }
+        .app_day_block { table-layout: fixed; }
+        .app_day_block td { word-wrap: break-word; }
+        .app_day_block_desc { overflow: hidden; }
+    </style>
+    <![endif]-->
     <!--[if IE 6]>
     <script src="{% static './js/dd_belatedpng.min.js' %}"></script>
     <script>

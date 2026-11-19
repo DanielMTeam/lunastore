@@ -4,10 +4,10 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 const source = fs.readFileSync('staticfiles/js/themes.js', 'utf8');
 
-function browser({ supports = true, documentMode, legacy = false, style = {}, theme = 'windows7', className = '', writeFails = false, url = '/windows7.css' } = {}) {
+function browser({ supports = true, documentMode, legacy = false, style = {}, theme = 'windows7', className = '', writeFails = false, url = '/windows7.css', banners = [] } = {}) {
     const links = [];
     const elements = {
-        'site-theme-config': { getAttribute: name => ({ 'data-theme': theme, 'data-theme-css': url })[name] },
+        'site-theme-config': { getAttribute: name => ({ 'data-theme': theme, 'data-theme-css': url, src: '/staticfiles/js/themes.js' })[name] },
         'theme-windows7': { disabled: true },
         'windows7-supported': { value: '' },
         'theme-unsupported': { style: {} },
@@ -17,15 +17,21 @@ function browser({ supports = true, documentMode, legacy = false, style = {}, th
         documentMode,
         documentElement: { className },
         getElementById: id => elements[id],
-        createElement: tag => tag === 'div' ? { style } : {},
+        createElement: tag => tag === 'div' ? { style } : { style: {}, width: 460, height: 150 },
         write: markup => {
             if (writeFails) throw Error('Insertion failed');
             const link = { markup, classAtInsertion: document.documentElement.className };
             elements['windows7-css'] = link;
             links.push(link);
         },
-        addEventListener: (name, callback) => callback()
+        getElementsByTagName: () => banners,
+        readyState: 'complete'
     };
+    if (documentMode === 8) {
+        document.attachEvent = (name, callback) => callback();
+    } else {
+        document.addEventListener = (name, callback) => callback();
+    }
     const window = legacy ? {} : { CSS: { supports: () => supports } };
     vm.runInNewContext(source, { window, document });
     return { links, elements, document };
@@ -54,8 +60,39 @@ test('IE6 without CSS.supports stays on the base theme', () => {
     assert.equal(result.elements['theme-windows7'].disabled, true);
 });
 
+test('IE8 uses the compatible Windows 7 theme and enables selection', () => {
+    const result = browser({ legacy: true, documentMode: 8, className: 'existing-class' });
+    assert.equal(result.links.length, 1);
+    assert.equal(result.document.documentElement.className, 'existing-class theme-windows7 theme-windows7-ie8');
+    assert.equal(result.elements['theme-windows7'].disabled, false);
+    assert.equal(result.elements['windows7-supported'].value, '1');
+    result.links[0].onerror();
+    assert.equal(result.document.documentElement.className, 'existing-class');
+});
+
+test('IE8 stretches banner images and retains the original until loaded', () => {
+    const banner = {
+        parentNode: { className: 'banner_image' },
+        currentStyle: { backgroundImage: 'url("../img/categorybanner/homepage2.png")' },
+        style: {},
+        clientWidth: 666,
+        clientHeight: 150,
+        insertBefore(image) { this.image = image; image.parentNode = this; }
+    };
+    browser({ legacy: true, documentMode: 8, banners: [banner] });
+    assert.equal(banner.image.src, '/staticfiles/img/categorybanner/homepage2.png');
+    assert.equal(banner.style.backgroundImage, undefined);
+    banner.image.onload();
+    assert.equal(banner.style.backgroundImage, 'none');
+    assert.equal(banner.image.style.visibility, 'visible');
+    assert.equal(banner.image.style.width, '666px');
+    assert.equal(banner.image.style.height, '218px');
+});
+
 test('IE compatibility mode is blocked even if feature detection claims support', () => {
-    assert.equal(browser({ documentMode: 7 }).links.length, 0);
+    for (const documentMode of [5, 7, 9, 10]) {
+        assert.equal(browser({ documentMode }).links.length, 0);
+    }
 });
 
 test('IE11 style assignment fallback can enable Windows 7', () => {

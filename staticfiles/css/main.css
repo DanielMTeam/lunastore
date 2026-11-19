@@ -1812,7 +1812,7 @@ a.report_problem {
 }
 
 .home_block_other {
-    display: inline-block;
+    display: inline;
     font-weight: normal;
 }
 
