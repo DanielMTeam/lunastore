@@ -308,7 +308,7 @@ def download_list(request):
 
     sort_prefix = "-" if order == "desc" else ""
 
-    distributions = Distribution.objects.filter(app=app_obj, app__is_under_dmca=False).select_related("platform").order_by(
+    distributions = Distribution.objects.filter(app=app_obj, app__is_under_dmca=False).select_related("platform").prefetch_related("platforms").order_by(
         f"{sort_prefix}{db_sort_field}"
     )
 
@@ -325,7 +325,7 @@ def download_list(request):
             {
                 "id": dist.id,
                 "version": dist.version,
-                "platform": dist.platform,
+                "platforms": dist.display_platforms,
                 "changelog": dist.changelog,
                 "published": _format_legacy_date(dist.published),
                 "is_latest": dist.id == latest_id,
@@ -855,6 +855,8 @@ def distribution_create(request, app_id):
             app_obj = get_integer_object_or_404(Application.objects.select_for_update(), id=app_id)
             if not can_submit_community_distribution(app_obj, request.user):
                 raise PermissionDenied(_("COMMUNITY_DISTRIBUTIONS_ARE_NOT_ALLOWED"))
+            if form.cleaned_data["platforms"].exclude(pk__in=app_obj.platforms.values("pk")).exists():
+                return HttpResponse(_("ERROR_DIST_PLATFORM_UNSUPPORTED"), status=409)
             if DistributionCreateRequests.objects.filter(app=app_obj, user=request.user, status="pending").exists():
                 messages.info(request, _("COMMUNITY_PENDING_PROPOSAL"))
                 return redirect(reverse("download") + "?id=" + str(app_obj.pk))
@@ -864,6 +866,7 @@ def distribution_create(request, app_id):
             distribution_request.request_origin = "community"
             distribution_request.status = "pending"
             distribution_request.save()
+            form.save_m2m()
 
         messages.success(request, _("PAGE_MANAGEDIST_CREATE_SUCCESS"))
         return redirect(reverse("download") +
@@ -899,7 +902,7 @@ def manage_distributions(request):
         raise PermissionDenied("ERROR_YOURE_NOT_OWNER_OF_APP")
 
     distributions = Distribution.objects.filter(
-        app=app_obj).select_related("platform").order_by("-published")
+        app=app_obj).select_related("platform").prefetch_related("platforms").order_by("-published")
 
     pending_requests = DistributionCreateRequests.objects.filter(
         app=app_obj, status="pending").order_by("-created_at")
@@ -914,11 +917,14 @@ def manage_distributions(request):
             app_obj = get_integer_object_or_404(Application.objects.select_for_update(), pk=app_obj.pk)
             if not can_manage_app(app_obj, request.user, "files"):
                 raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
+            if form.cleaned_data["platforms"].exclude(pk__in=app_obj.platforms.values("pk")).exists():
+                return HttpResponse(_("ERROR_DIST_PLATFORM_UNSUPPORTED"), status=409)
             distribution = form.save(commit=False)
             distribution.app = app_obj
             distribution.user = request.user
             distribution.request_origin = request_origin(app_obj, request.user)
             distribution.save()
+            form.save_m2m()
             if auto_approve_request(distribution):
                 messages.success(request, _("MSG_TRUSTED_AUTO_APPROVED_DIST"))
             else:
@@ -937,7 +943,7 @@ def manage_distributions(request):
     for dist in distributions:
         dist_rows.append({"id": dist.id,
                           "version": dist.version,
-                          "platform": dist.platform,
+                          "platforms": dist.display_platforms,
                           "published": _format_legacy_date(dist.published),
                           "changelog": dist.changelog,
                           "edit_url": reverse("distribution_edit",
@@ -1031,12 +1037,15 @@ def distribution_edit(request, dist_pk):
                 raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
             if current.published != distribution.published:
                 return HttpResponse(_("PAGE_ADMIN_APP_MSG_SAVE_ERROR"), status=409)
+            if form.cleaned_data["platforms"].exclude(pk__in=app_obj.platforms.values("pk")).exists():
+                return HttpResponse(_("ERROR_DIST_PLATFORM_UNSUPPORTED"), status=409)
             distribution = current
             form.target_dist = current
             edit_req = form.save(commit=False)
             edit_req.app = app_obj
             edit_req.request_origin = "community" if is_proposal else request_origin(app_obj, request.user)
             edit_req.save()
+            form.save_m2m()
 
             if auto_approve_request(edit_req):
                 messages.success(request, _("MSG_TRUSTED_AUTO_APPROVED_DIST_EDIT"))

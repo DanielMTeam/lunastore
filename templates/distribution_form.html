@@ -92,8 +92,9 @@
                 </div>
 
                 <div class="pref_pad appcat">
-                    <div class="pref_item_title"><label for="{{ form.platform.id_for_label }}">{% trans "FORM_PLATFORM" %}</label></div>
-                    {{ form.platform }} {{ form.platform.errors }}
+                    <div class="pref_item_title"><label for="{{ form.platforms.id_for_label }}">{% trans "FORM_PLATFORMS" %}</label></div>
+                    {{ form.platforms }} {{ form.platforms.errors }}
+                    <div class="pref_warn_label">{% trans "FORM_PLATFORMS_HELP" %}</div>
                 </div>
 
                 {% if distribution.cdn_file_id %}

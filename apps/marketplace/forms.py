@@ -494,7 +494,9 @@ class AppEditForm(AppCreateForm):
 
         platforms = cleaned_data.get("platforms")
         if platforms is not None and hasattr(self, "target_app"):
-            if self.target_app.distributions.exclude(platform__in=platforms).exists():
+            selected = set(platforms.values_list("pk", flat=True))
+            used = self.target_app.distributions.values_list("platform_id", "platforms__pk")
+            if any(pk not in selected for pair in used for pk in pair if pk is not None):
                 self.add_error("platforms", _("ERROR_APP_PLATFORM_IN_USE"))
 
         if original_json and hasattr(self, "target_app"):
@@ -684,8 +686,11 @@ class ApplicationAdminForm(forms.ModelForm, CDNTokenValidationMixin):
 
     def clean_platforms(self):
         platforms = self.cleaned_data["platforms"]
-        if self.instance.pk and self.instance.distributions.exclude(platform__in=platforms).exists():
-            raise ValidationError(_("ERROR_APP_PLATFORM_IN_USE"))
+        if self.instance.pk:
+            selected = set(platforms.values_list("pk", flat=True))
+            used = self.instance.distributions.values_list("platform_id", "platforms__pk")
+            if any(pk not in selected for pair in used for pk in pair if pk is not None):
+                raise ValidationError(_("ERROR_APP_PLATFORM_IN_USE"))
         return platforms
 
     def save(self, commit=True):
@@ -817,7 +822,7 @@ class DistributionAdminForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["platform"].required = True
+        self.fields["platforms"].required = True
         if self.instance and self.instance.pk:
             self.fields["lunabox_type"].initial = self.instance.lunabox_type
             self.fields["lunabox_path"].initial = self.instance.lunabox_path
@@ -826,6 +831,12 @@ class DistributionAdminForm(forms.ModelForm):
         from apps.core.mixins import CDNTokenValidationMixin
         mixin = CDNTokenValidationMixin()
         cleaned_data = super().clean()
+        platforms = cleaned_data.get("platforms")
+        if platforms:
+            self.instance.platform = platforms[0]
+            app = cleaned_data.get("app")
+            if app and app.pk and platforms.exclude(pk__in=app.platforms.values("pk")).exists():
+                self.add_error("platforms", _("ERROR_DIST_PLATFORM_UNSUPPORTED"))
         cdn_token = cleaned_data.get("cdn_confirm_token")
         if cdn_token:
             decoded = mixin.validate_cdn_token(cdn_token)
@@ -852,6 +863,7 @@ class DistributionAdminForm(forms.ModelForm):
             instance.cdn_file_id = self.cleaned_data["cdn_file_id"]
         if commit:
             instance.save()
+            self.save_m2m()
         return instance
 
 
@@ -894,20 +906,33 @@ class BaseDistributionForm(forms.ModelForm, CDNTokenValidationMixin):
         self.app = kwargs.pop('app', None)
         # the target distribution for edit mode
         self.target_dist = kwargs.pop('target_dist', None)
+        data = args[0] if args else kwargs.get("data")
+        if data is not None and "platforms" not in data and data.get("platform"):
+            data = data.copy()
+            if hasattr(data, "setlist"):
+                data.setlist("platforms", [data.get("platform")])
+            else:
+                data["platforms"] = [data["platform"]]
+            if args:
+                args = (data,) + args[1:]
+            else:
+                kwargs["data"] = data
         super().__init__(*args, **kwargs)
         app = self.app or (self.target_dist.app if self.target_dist else None)
-        platform_field = self.fields["platform"]
+        platform_field = self.fields["platforms"]
         if app:
             platform_field.queryset = app.platforms.all()
-        platform_field.empty_label = _("PAGE_DIST_FORM_PLATFORM_PLACEHOLDER")
         platform_field.widget.attrs["class"] = "input-text"
-        platform_field.widget.attrs["size"] = 4
         platform_field.required = True
         if self.target_dist and not self.is_bound:
-            self.initial["platform"] = self.target_dist.platform_id
+            self.initial["platforms"] = [platform.pk for platform in self.target_dist.display_platforms]
 
     def clean(self):
         cleaned_data = super().clean()
+
+        platforms = cleaned_data.get("platforms")
+        if platforms:
+            self.instance.platform = platforms[0]
 
         lunabox_type = cleaned_data.get("lunabox_type")
         lunabox_path = cleaned_data.get("lunabox_path") or ""
@@ -996,7 +1021,7 @@ class DistributionCreateForm(BaseDistributionForm):
     class Meta:
         model = DistributionCreateRequests
         fields = get_translated_fields_list(
-            ["version", "url", "changelog", "platform"]) + [
+            ["version", "url", "changelog", "platforms"]) + [
             "virustotal_url", "lunabox_type", "lunabox_path"]
         widgets = get_translated_widgets_dict(
             {
@@ -1021,6 +1046,7 @@ class DistributionCreateForm(BaseDistributionForm):
 
         if commit:
             instance.save()
+            self.save_m2m()
         return instance
 
 
@@ -1028,7 +1054,7 @@ class DistributionEditForm(BaseDistributionForm):
     class Meta:
         model = DistributionEditRequests
         fields = get_translated_fields_list(
-            ["version", "url", "changelog", "platform"]) + [
+            ["version", "url", "changelog", "platforms"]) + [
             "virustotal_url", "lunabox_type", "lunabox_path"]
         widgets = get_translated_widgets_dict(
             {
@@ -1056,6 +1082,7 @@ class DistributionEditForm(BaseDistributionForm):
 
         if commit:
             instance.save()
+            self.save_m2m()
         return instance
 
 

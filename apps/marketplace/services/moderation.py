@@ -223,7 +223,9 @@ def approve_app_edit_request(req, actor=None, auto=False):
     if req.target_application_id != app.pk or not community_request_is_current(req, app, target=app):
         return None
 
-    if not req.platforms.exists() or app.distributions.exclude(platform__in=req.platforms.all()).exists():
+    selected = set(req.platforms.values_list("pk", flat=True))
+    used = app.distributions.values_list("platform_id", "platforms__pk")
+    if not selected or any(pk not in selected for pair in used for pk in pair if pk is not None):
         return None
 
     app.categories.set(req.categories.all())
@@ -283,7 +285,8 @@ def approve_dist_create_request(req, actor=None, auto=False):
 
     if req.app_id != app.pk or not community_request_is_current(req, app):
         return None
-    if not app.platforms.filter(pk=req.platform_id).exists():
+    platforms = req.display_platforms
+    if not platforms or app.platforms.filter(pk__in=[p.pk for p in platforms]).count() != len(platforms):
         return None
 
     dist = Distribution(
@@ -297,6 +300,7 @@ def approve_dist_create_request(req, actor=None, auto=False):
     _copy_changelog_translations(req, dist)
 
     dist.save()
+    dist.platforms.set(platforms)
 
     _mark_approved(req)
     _push_user_notification(
@@ -337,7 +341,8 @@ def approve_dist_edit_request(req, actor=None, auto=False):
     dist = Distribution.objects.select_for_update().filter(pk=req.target_distribution_id, app_id=req.app_id).first()
     if req.app_id != app.pk or dist is None or not community_request_is_current(req, app, target=dist):
         return None
-    if not app.platforms.filter(pk=req.platform_id).exists():
+    platforms = req.display_platforms
+    if not platforms or app.platforms.filter(pk__in=[p.pk for p in platforms]).count() != len(platforms):
         return None
 
     dist.platform = req.platform
@@ -350,6 +355,7 @@ def approve_dist_edit_request(req, actor=None, auto=False):
 
     _copy_changelog_translations(req, dist, only_if_present=True)
     dist.save()
+    dist.platforms.set(platforms)
 
     _mark_approved(req)
     _push_user_notification(

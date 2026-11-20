@@ -335,6 +335,14 @@ class BaseDistributionInfo(SafeDeleteModel):
     _safedelete_policy = SOFT_DELETE
 
     platform = models.ForeignKey(Platform, on_delete=models.PROTECT, verbose_name=_("FORM_PLATFORM"))
+    platforms = models.ManyToManyField(
+        Platform, related_name="%(class)s_supported_platforms", verbose_name=_("FORM_PLATFORMS"), blank=True,
+    )
+
+    @property
+    def display_platforms(self):
+        platforms = list(self.platforms.all())
+        return platforms or ([self.platform] if self.platform_id else [])
 
     def clean(self):
         from django.core.exceptions import ValidationError

@@ -265,6 +265,10 @@ def _render_distribution_security_check(obj, refresh_url: str | None = None) -> 
 class DistributionRequestSecurityMixin:
     """Shared admin helpers for distribution request security checks."""
 
+    @admin.display(description=_("FORM_PLATFORMS"))
+    def platforms_display(self, obj):
+        return ", ".join(str(platform) for platform in obj.display_platforms)
+
     def get_urls(self):
         urls = super().get_urls()
         info = self.model._meta.app_label, self.model._meta.model_name
@@ -369,7 +373,7 @@ class DistributionInlineForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["platform"].required = True
+        self.fields["platforms"].required = True
         if self.instance and self.instance.pk:
             self.fields["lunabox_type"].initial = self.instance.lunabox_type
             self.fields["lunabox_path"].initial = self.instance.lunabox_path
@@ -378,6 +382,11 @@ class DistributionInlineForm(forms.ModelForm):
         from apps.core.mixins import CDNTokenValidationMixin
         mixin = CDNTokenValidationMixin()
         cleaned_data = super().clean()
+        platforms = cleaned_data.get("platforms")
+        if platforms:
+            self.instance.platform = platforms[0]
+            if self.instance.app_id and platforms.exclude(pk__in=self.instance.app.platforms.values("pk")).exists():
+                self.add_error("platforms", _("ERROR_DIST_PLATFORM_UNSUPPORTED"))
         cdn_token = cleaned_data.get("cdn_confirm_token")
         if cdn_token:
             decoded = mixin.validate_cdn_token(cdn_token)
@@ -402,6 +411,7 @@ class DistributionInlineForm(forms.ModelForm):
             instance.cdn_file_id = self.cleaned_data["cdn_file_id"]
         if commit:
             instance.save()
+            self.save_m2m()
         return instance
 
 
@@ -410,7 +420,7 @@ class DistributionInline(TranslationStackedInline):
     form = DistributionInlineForm
     fields = (
         "version",
-        "platform",
+        "platforms",
         "dist_file",
         "cdn_confirm_token",
         "cdn_file_id",
@@ -440,7 +450,7 @@ class DistributionAdmin(SafeDeleteAdmin, TabbedTranslationAdmin):
             {
                 "fields": (
                     "app",
-                    "platform",
+                    "platforms",
                     "version",
                     "dist_file",
                     "cdn_confirm_token",
@@ -528,7 +538,7 @@ class DistributionCreateAdmin(
         "app",
         "user",
         "status",
-        "version", "platform",
+        "version", "platforms_display",
         "cdn_file_id",
         "url",
         "changelog",
@@ -537,7 +547,7 @@ class DistributionCreateAdmin(
 
     fieldsets = (
         ("Информация о дистрибуции", {
-            "fields": ("app", "platform", "version", "changelog", "url", "cdn_file_id", "lunabox_manifest_display")
+            "fields": ("app", "platforms_display", "version", "changelog", "url", "cdn_file_id", "lunabox_manifest_display")
         }),
         ("Безопасность", {
             "fields": ("security_check",),
@@ -629,7 +639,7 @@ class DistributionEditRequestAdmin(
         "user",
         "status",
         "version",
-        "platform",
+        "platforms_display",
         "cdn_file_id",
         "url",
         "changelog",
@@ -638,7 +648,7 @@ class DistributionEditRequestAdmin(
 
     fieldsets = (
         ("Информация об изменениях", {
-            "fields": ("target_distribution", "platform", "version", "changelog", "url", "cdn_file_id", "lunabox_manifest_display")
+            "fields": ("target_distribution", "platforms_display", "version", "changelog", "url", "cdn_file_id", "lunabox_manifest_display")
         }),
         ("Безопасность", {
             "fields": ("security_check",),

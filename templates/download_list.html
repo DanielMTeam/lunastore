@@ -86,7 +86,7 @@
                     <tbody>
                         {% for dist in distributions %}
                         <tr>
-                            <td>{% if dist.is_latest %}<b>{{ dist.version }}</b>{% else %}{{ dist.version }}{% endif %} — {{ dist.platform }}</td>
+                            <td>{% if dist.is_latest %}<b>{{ dist.version }}</b>{% else %}{{ dist.version }}{% endif %} — {% for platform in dist.platforms %}{{ platform }}{% if not forloop.last %}, {% endif %}{% endfor %}</td>
                             <td>{{ dist.published }}</td>
                             <td>
                                 {% if dist.has_download %}

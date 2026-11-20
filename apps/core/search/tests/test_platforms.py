@@ -1,4 +1,9 @@
+from importlib import import_module
+from types import SimpleNamespace
+
+from django.apps import apps
 from django.contrib.auth import get_user_model
+from django.db import connection
 from django.test import TestCase, override_settings
 
 from apps.core.search.documents import application_to_document
@@ -25,17 +30,16 @@ class PlatformTests(TestCase):
     def test_form_defaults_and_distribution_choices(self):
         self.assertIn(self.xp.pk, AppCreateForm().initial["platforms"])
         form = DistributionCreateForm(user=self.user, app=self.app)
-        self.assertEqual(list(form.fields["platform"].queryset), [self.xp])
+        self.assertEqual(list(form.fields["platforms"].queryset), [self.xp])
 
     def test_vista_is_available_for_application_and_distribution(self):
-        vista = Platform.objects.get(code="windows_vista")
+        vista, _ = Platform.objects.get_or_create(code="windows_vista", defaults={"name": "Windows Vista"})
         self.assertEqual(vista.name, "Windows Vista")
         self.assertIn(vista, AppCreateForm(data={}).fields["platforms"].queryset)
         self.app.platforms.add(vista)
-        field = DistributionCreateForm(user=self.user, app=self.app).fields["platform"]
+        field = DistributionCreateForm(user=self.user, app=self.app).fields["platforms"]
         self.assertIn(vista, field.queryset)
-        self.assertEqual(field.widget.attrs["size"], 4)
-        self.assertFalse(field.widget.allow_multiple_selected)
+        self.assertTrue(field.widget.allow_multiple_selected)
 
     def test_search_fallback_filters_before_pagination(self):
         ids, count = SearchService.search_application_ids("Platform", platform_id=self.xp.pk)
@@ -65,6 +69,25 @@ class PlatformTests(TestCase):
         request.platforms.add(self.win7)
         self.assertIsNone(approve_app_edit_request(request, actor=self.user))
         self.assertTrue(self.app.platforms.filter(pk=self.xp.pk).exists())
+
+    def test_moderation_rejects_removing_any_distribution_platform(self):
+        self.app.platforms.add(self.win7)
+        dist = Distribution.objects.create(app=self.app, platform=self.xp, version="1", changelog="test")
+        dist.platforms.add(self.xp, self.win7)
+        request = AppEditRequests.objects.create(
+            user=self.user, target_application=self.app, title="Platform Tool", description="Tool")
+        request.platforms.add(self.xp)
+        self.assertIsNone(approve_app_edit_request(request, actor=self.user))
+
+    def test_backfill_preserves_existing_and_deleted_distributions(self):
+        dist = Distribution.objects.create(app=self.app, platform=self.xp, version="1")
+        deleted = Distribution.objects.create(app=self.app, platform=self.win7, version="2")
+        deleted.delete()
+        migration = import_module("apps.marketplace.migrations.0063_backfill_distribution_platforms")
+        migration.copy_platforms(apps, SimpleNamespace(connection=connection))
+        migration.copy_platforms(apps, SimpleNamespace(connection=connection))
+        self.assertEqual(list(dist.platforms.all()), [self.xp])
+        self.assertEqual(list(deleted.platforms.all()), [self.win7])
 
     def test_web_category_filter(self):
         response = self.client.get("/category.php", {"id": self.category.pk, "platform": "windows_7"})

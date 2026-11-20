@@ -98,7 +98,7 @@
                         <tbody>
                             {% for dist in distributions %}
                             <tr>
-                                <td>{{ dist.version }} — {{ dist.platform }}</td>
+                                <td>{{ dist.version }} — {% for platform in dist.platforms %}{{ platform }}{% if not forloop.last %}, {% endif %}{% endfor %}</td>
                                 <td>{{ dist.published }}</td>
                                 <td>
                                     <a class="action_button" href="{{ dist.edit_url }}">{% trans "PAGE_ADMIN_APP_DIST_ACTION_EDIT" %}</a>
@@ -165,8 +165,9 @@
                         </div>
 
                         <div class="pref_pad">
-                            <div class="pref_item_title"><label for="{{ form.platform.id_for_label }}">{% trans "FORM_PLATFORM" %}</label></div>
-                            {{ form.platform }} {{ form.platform.errors }}
+                            <div class="pref_item_title"><label for="{{ form.platforms.id_for_label }}">{% trans "FORM_PLATFORMS" %}</label></div>
+                            {{ form.platforms }} {{ form.platforms.errors }}
+                            <div class="pref_warn_label">{% trans "FORM_PLATFORMS_HELP" %}</div>
                             <div class="pref_warn_label">
                                 <a class="distribution_nav_link" href="{% url 'edit_app_info' pk=app.pk %}#app-platforms">{% trans "PAGE_DIST_FORM_PLATFORM_EDIT_APP" %}</a>.
                                 {% trans "PAGE_DIST_FORM_PLATFORM_PENDING_DESC" %}

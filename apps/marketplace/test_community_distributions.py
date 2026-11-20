@@ -13,6 +13,7 @@ from django_smart_ratelimit.backends.memory import MemoryBackend
 from rest_framework.test import APIRequestFactory, force_authenticate
 
 from apps.marketplace.models import Application, Distribution, DistributionCreateRequests, Platform
+from apps.marketplace.services.moderation import approve_dist_create_request, approve_dist_edit_request
 from apps.user.models import User
 
 
@@ -93,6 +94,33 @@ class CommunityDistributionTests(TestCase):
         self.assertEqual(req.user, self.developer)
         self.assertEqual(req.status, "pending")
         self.assertFalse(Distribution.objects.filter(app=self.app).exists())
+
+    def test_multiple_platforms_survive_submission_and_approval(self):
+        vista, _ = Platform.objects.get_or_create(code="windows_vista", defaults={"name": "Windows Vista"})
+        self.app.platforms.add(vista)
+        data = {**self.data, "platforms": [self.platform.pk, vista.pk]}
+        self.assertRedirects(self.client.post(self.create_url, data), self.download_url)
+        req = DistributionCreateRequests.objects.get(app=self.app)
+        self.assertEqual(set(req.platforms.values_list("pk", flat=True)), {self.platform.pk, vista.pk})
+        with patch("apps.marketplace.services.moderation.send_notification"):
+            distribution = approve_dist_create_request(req, actor=self.owner)
+        self.assertIsNotNone(distribution)
+        self.assertEqual(set(distribution.platforms.values_list("pk", flat=True)), {self.platform.pk, vista.pk})
+        response = self.client.get(self.download_url)
+        self.assertContains(response, "Windows XP")
+        self.assertContains(response, "Windows Vista")
+
+        self.client.force_login(self.owner)
+        edit_url = reverse("distribution_edit", kwargs={"dist_pk": distribution.pk})
+        response = self.client.get(edit_url)
+        self.assertEqual(set(response.context["form"].initial["platforms"]), {self.platform.pk, vista.pk})
+        self.assertEqual(self.client.post(edit_url, {**data, "version": "2.0"}).status_code, 302)
+        from apps.marketplace.models import DistributionEditRequests
+        edit = DistributionEditRequests.objects.get(target_distribution=distribution)
+        with patch("apps.marketplace.services.moderation.send_notification"):
+            updated = approve_dist_edit_request(edit, actor=self.owner)
+        self.assertIsNotNone(updated)
+        self.assertEqual(set(updated.platforms.values_list("pk", flat=True)), {self.platform.pk, vista.pk})
 
     def test_private_app_rejects_get_post_and_upload_token(self):
         self.app.is_private = True

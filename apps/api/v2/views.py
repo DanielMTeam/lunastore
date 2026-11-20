@@ -64,9 +64,13 @@ class ApplicationSerializer(LegacyApplicationSerializer):
 
 class DistributionSerializer(LegacyDistributionSerializer):
     platform = PlatformSerializer(read_only=True)
+    platforms = serializers.SerializerMethodField()
+
+    def get_platforms(self, obj):
+        return PlatformSerializer(obj.display_platforms, many=True).data
 
     class Meta(LegacyDistributionSerializer.Meta):
-        fields = LegacyDistributionSerializer.Meta.fields + ["platform"]
+        fields = LegacyDistributionSerializer.Meta.fields + ["platform", "platforms"]
         ref_name = "V2Distribution"
 
 
@@ -528,7 +532,7 @@ class DistributionViewSet(viewsets.ReadOnlyModelViewSet):
 
     def get_queryset(self):
         # Private distributions are visible to the owner and current team members.
-        qs = Distribution.objects.select_related("app", "app__user", "platform").filter(
+        qs = Distribution.objects.select_related("app", "app__user", "platform").prefetch_related("platforms").filter(
             app__deleted__isnull=True, app__is_under_dmca=False,
         )
         user = self.request.user
