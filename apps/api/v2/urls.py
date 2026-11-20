@@ -11,6 +11,7 @@ from .views import (
     CollectionViewSet,
     ExecuteView,
     SearchSuggestView,
+    PlatformViewSet,
 )
 
 router = DefaultRouter()
@@ -20,6 +21,7 @@ router.register(r'category', CategoryViewSet, basename='v2-category')
 router.register(r'service', ServiceViewSet, basename='v2-service')
 router.register(r'distribution', DistributionViewSet, basename='v2-distribution')
 router.register(r'collection', CollectionViewSet, basename='v2-collection')
+router.register(r'platform', PlatformViewSet, basename='v2-platform')
 
 
 urlpatterns = [

@@ -533,7 +533,7 @@ CONSTANCE_CONFIG = {
         "textarea",
     ),
     "SCREENSHOT_COUNT": (
-        int(os.getenv("SCREENSHOT_COUNT", "3")),
+        int(os.getenv("SCREENSHOT_COUNT", "5")),
         "Кол-во скриншотов на приложение",
         int,
     ),
@@ -1188,6 +1188,7 @@ TEMPLATES = [
                 "apps.core.context_processors.lunapassport_settings",
                 "apps.core.context_processors.geo_domains_processor",
                 "apps.core.context_processors.notification_context",
+                "apps.core.themes.theme_context",
             ],
         },
     },

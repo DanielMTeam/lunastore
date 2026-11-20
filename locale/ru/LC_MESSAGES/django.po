@@ -3413,6 +3413,67 @@ msgid "COMMUNITY_ACCOUNT_RETENTION_DESCRIPTION"
 msgstr "Останутся в каталоге без владельца вместе с дистрибуциями. Вы потеряете управление ими."
 
 
+msgid "THEME_CLASSIC_LIGHT"
+msgstr "Классическая светлая"
+
+
+msgid "THEME_CLASSIC_DARK"
+msgstr "Классическая тёмная"
+
+
+msgid "THEME_WINDOWS7"
+msgstr "Windows 7"
+
+
+msgid "PAGE_SETTINGS_THEME_TITLE"
+msgstr "Тема оформления"
+
+
+msgid "ERROR_THEME_UNSUPPORTED"
+msgstr "Для темы Windows 7 нужен браузер с поддержкой border-image и background-size: cover, а также включённый JavaScript."
+
+
+msgid "INFO_THEME_FALLBACK"
+msgstr "В этом браузере используется светлая классическая тема. Выбор Windows 7 сохранён в аккаунте."
+
+
+msgid "INFO_THEME_UPDATED"
+msgstr "Тема оформления сохранена."
+
+msgid "ACTION_APPLY"
+msgstr "Применить"
+
+msgid "ERROR_APP_PLATFORM_IN_USE"
+msgstr "Нельзя убрать платформу, которую использует один из дистрибутивов приложения."
+
+msgid "ERROR_DIST_PLATFORM_UNSUPPORTED"
+msgstr "Выберите платформу, которую поддерживает приложение."
+
+msgid "FORM_PLATFORM"
+msgstr "Платформа"
+
+msgid "FORM_PLATFORMS"
+msgstr "Платформы"
+
+msgid "FORM_PLATFORMS_HELP"
+msgstr "Удерживайте Shift, чтобы выбрать несколько платформ подряд, или Ctrl, чтобы выбрать их по отдельности."
+
+#, python-format
+msgid "PAGE_DIST_EDIT_FILE_UPLOADED %(file_id)s"
+msgstr "Файл загружен (ID: %(file_id)s)"
+
+msgid "PAGE_DIST_FORM_PLATFORM_EDIT_APP"
+msgstr "Изменить платформы приложения"
+
+msgid "PAGE_DIST_FORM_PLATFORM_PENDING_DESC"
+msgstr "Новая платформа появится здесь после одобрения изменений."
+
+msgid "PAGE_DIST_FORM_PLATFORM_PLACEHOLDER"
+msgstr "Выберите платформу…"
+
+msgid "PAGE_SEARCH_FILTER_PLATFORM_ALL"
+msgstr "Все платформы"
+
 msgid "PAGE_ADMIN_APP_TAB_RIGHTS"
 msgstr "Права"
 

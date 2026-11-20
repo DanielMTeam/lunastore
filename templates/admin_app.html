@@ -219,6 +219,12 @@
                       <div class="pref_warn_label">{% trans "PAGE_ADMIN_APP_CATEGORYDESC" %}</div>
                   </div>
 
+                  <div class="pref_pad appcat" id="app-platforms">
+                      <div class="pref_item_title"><label for="{{ form.platforms.id_for_label }}">{% trans "FORM_PLATFORMS" %}</label></div>
+                      {{ form.platforms }} {{ form.platforms.errors }}
+                      <div class="pref_warn_label">{% trans "FORM_PLATFORMS_HELP" %}</div>
+                  </div>
+
                   <div class="pref_pad">
                       <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_DEVSITE" %}</div>
                       {{ form.developer_site }}
@@ -265,7 +271,7 @@
 
                   <div class="pref_pad">
                       <div class="pref_item_title">{% trans "PAGE_ADMIN_APP_LOAD_SCRN" %}:</div>
-                      <div class="info_splash">{% trans "PAGE_ADDAPP_STEP2_SCREENSHOTSDESC_1" %}</div>
+                      <div class="info_splash">{% trans "FORM_SCREENSHOTS" %}: {{ form.screenshot_limit }}</div>
                       <div style="margin: 5px 0;">
                           {{ form.upload_screenshots }}
                       </div>
@@ -374,7 +380,7 @@
                 cdnPrefix = parts[0] + "//" + parts[2] + "/";
             }
         }
-        new ScreenshotManager('screenshots-interactive-container', fileInputId, 3, screenshotsArray, cdnPrefix);
+        new ScreenshotManager('screenshots-interactive-container', fileInputId, {{ form.screenshot_limit }}, screenshotsArray, cdnPrefix);
     });
     {% endif %}
 </script>

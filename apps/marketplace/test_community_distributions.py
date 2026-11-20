@@ -12,7 +12,7 @@ from django.utils.translation import override
 from django_smart_ratelimit.backends.memory import MemoryBackend
 from rest_framework.test import APIRequestFactory, force_authenticate
 
-from apps.marketplace.models import Application, Distribution, DistributionCreateRequests
+from apps.marketplace.models import Application, Distribution, DistributionCreateRequests, Platform
 from apps.user.models import User
 
 
@@ -46,6 +46,8 @@ class CommunityDistributionTests(TestCase):
             description="Test application",
             allow_community_distributions=True,
         )
+        cls.platform, _ = Platform.objects.get_or_create(code="windows_xp", defaults={"name": "Windows XP"})
+        cls.app.platforms.add(cls.platform)
 
     def setUp(self):
         cache.clear()
@@ -59,7 +61,8 @@ class CommunityDistributionTests(TestCase):
         self.create_url = reverse("distribution_create", kwargs={"app_id": self.app.pk})
         self.token_url = reverse("user-get-private-upload-token")
         self.download_url = reverse("download") + f"?id={self.app.pk}"
-        self.data = {"version": "1.0", "url": "https://example.test/app.zip", "lunabox_type": "file"}
+        self.data = {"version": "1.0", "url": "https://example.test/app.zip", "lunabox_type": "file",
+                     "platform": self.platform.pk}
 
     def test_create_form_has_upload_configuration(self):
         response = self.client.get(self.create_url)
@@ -77,7 +80,7 @@ class CommunityDistributionTests(TestCase):
         )
 
     def test_owner_distribution_editor_keeps_upload_configuration(self):
-        distribution = Distribution.objects.create(app=self.app, version="1.0", url=self.data["url"])
+        distribution = Distribution.objects.create(app=self.app, platform=self.platform, version="1.0", url=self.data["url"])
         self.client.force_login(self.owner)
         response = self.client.get(reverse("distribution_edit", kwargs={"dist_pk": distribution.pk}))
         self.assertEqual(response.status_code, 200)
@@ -249,6 +252,7 @@ class CommunityDistributionTests(TestCase):
 
     def test_pending_request_author_remains_visible_when_community_uploads_are_disabled(self):
         DistributionCreateRequests.objects.create(
+            platform=self.platform,
             app=self.app, user=self.developer, version="1.0", url=self.data["url"],
         )
         self.app.allow_community_distributions = False

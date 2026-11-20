@@ -3406,6 +3406,67 @@ msgid "COMMUNITY_ACCOUNT_RETENTION_DESCRIPTION"
 msgstr "Will remain in the catalog without an owner, along with their distributions. You will lose management access."
 
 
+msgid "THEME_CLASSIC_LIGHT"
+msgstr "Classic light"
+
+
+msgid "THEME_CLASSIC_DARK"
+msgstr "Classic dark"
+
+
+msgid "THEME_WINDOWS7"
+msgstr "Windows 7"
+
+
+msgid "PAGE_SETTINGS_THEME_TITLE"
+msgstr "Appearance theme"
+
+
+msgid "ERROR_THEME_UNSUPPORTED"
+msgstr "The Windows 7 theme requires a browser supporting border-image and background-size: cover, with JavaScript enabled."
+
+
+msgid "INFO_THEME_FALLBACK"
+msgstr "This browser uses the classic light theme. Your Windows 7 preference is still saved in your account."
+
+
+msgid "INFO_THEME_UPDATED"
+msgstr "Theme saved."
+
+msgid "ACTION_APPLY"
+msgstr "Apply"
+
+msgid "ERROR_APP_PLATFORM_IN_USE"
+msgstr "Keep the platforms used by this app’s distributions."
+
+msgid "ERROR_DIST_PLATFORM_UNSUPPORTED"
+msgstr "Choose a platform that this app supports."
+
+msgid "FORM_PLATFORM"
+msgstr "Platform"
+
+msgid "FORM_PLATFORMS"
+msgstr "Platforms"
+
+msgid "FORM_PLATFORMS_HELP"
+msgstr "Hold Shift to select a range, or Ctrl to select individual platforms."
+
+#, python-format
+msgid "PAGE_DIST_EDIT_FILE_UPLOADED %(file_id)s"
+msgstr "File uploaded (ID: %(file_id)s)"
+
+msgid "PAGE_DIST_FORM_PLATFORM_EDIT_APP"
+msgstr "Edit app platforms"
+
+msgid "PAGE_DIST_FORM_PLATFORM_PENDING_DESC"
+msgstr "The new platform will appear here once your changes are approved."
+
+msgid "PAGE_DIST_FORM_PLATFORM_PLACEHOLDER"
+msgstr "Select a platform…"
+
+msgid "PAGE_SEARCH_FILTER_PLATFORM_ALL"
+msgstr "All platforms"
+
 msgid "PAGE_ADMIN_APP_TAB_RIGHTS"
 msgstr "Permissions"
 

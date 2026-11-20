@@ -21,6 +21,47 @@
         {% include "includes/settings_tabs.html" with active_tab="ui" %}
 
         <div class="tab-content" id="tab-view">
+            <form method="post" id="theme-settings">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="theme">
+                <input type="hidden" id="windows7-supported" name="windows7_supported" value="">
+                {% if selected_theme == 'windows7' %}
+                <input type="hidden" name="theme" value="windows7">
+                {% endif %}
+                <div class="profile_block">{% trans "PAGE_SETTINGS_THEME_TITLE" %}</div>
+                <div class="profile_block_content">
+                    <table class="design_main_switch theme_switch" border="0" width="100%" cellpadding="0" cellspacing="0">
+                        <tr>
+                            {% for theme in site_themes %}
+                            <td align="center">
+                                <div class="design_switch_pic">
+                                    <label for="theme-{{ theme.id }}">
+                                        {% if theme.id == 'windows7' %}
+                                        <img src="{% static 'img/thm7.png' %}" alt="" width="180" height="135">
+                                        {% elif theme.id == 'classic_dark' %}
+                                        <img src="{% static 'img/uihomeexb.png' %}" alt="" width="180" height="135">
+                                        {% else %}
+                                        <img src="{% static 'img/thmdef.png' %}" alt="" width="180" height="135">
+                                        {% endif %}
+                                    </label>
+                                </div>
+                                <label class="design_switch_select" for="theme-{{ theme.id }}">
+                                    <input type="radio" name="theme" value="{{ theme.id }}"{% if selected_theme == theme.id %} checked{% endif %} id="theme-{{ theme.id }}"{% if theme.requires_capabilities %} disabled{% endif %}>
+                                    {{ theme.label }}
+                                </label>
+                            </td>
+                            {% endfor %}
+                        </tr>
+                    </table>
+                    <p id="theme-unsupported" role="status">{% trans "ERROR_THEME_UNSUPPORTED" %}</p>
+                    {% if selected_theme == 'windows7' %}
+                    <p id="theme-fallback" role="status">{% trans "INFO_THEME_FALLBACK" %}</p>
+                    {% endif %}
+                    <br><br>
+                    <input type="submit" class="action_button" value="{% trans 'PAGE_SETTINGS_BTN_SAVE' %}">
+                </div>
+            </form>
+            <br>
             <form method="POST">
                 {% csrf_token %}
                 <div class="profile_block">{% trans "PAGE_SETTINGS_HOME_LAYOUT_TITLE" %}</div>

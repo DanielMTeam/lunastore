@@ -6,7 +6,7 @@
 {% block title %}{% trans "PAGE_HOME_BROWSER_TITLE" %} - LunaStore{% endblock %}
 
 {% block content %}
-<div class="content">
+<div class="content home_rich_content">
   <div class="banner_image">
     <div id="welcome_home">
       <div class="banner_text">{% trans "INDEX_WELCOME_TITLE" %}</div>
@@ -101,7 +101,7 @@
     {% if editor_choice %}
       <div class="home_block">
         {% trans "INDEX_EDITOR_CHOICE" %}
-        | <div class="home_block_other"><a href="{% url 'category' %}?id={{ editor_choice.category.id }}">{% trans "INDEX_SEE_ALL" %}</a></div>
+        | <span class="home_block_other"><a href="{% url 'category' %}?id={{ editor_choice.category.id }}">{% trans "INDEX_SEE_ALL" %}</a></span>
       </div>
       <div class="home_block_content">
         {% for app in editor_choice.apps %}

@@ -16,7 +16,7 @@ from rest_framework.test import APIRequestFactory, force_authenticate
 
 from apps.marketplace.models import (
     Application, ApplicationAccess, AppEditRequests, Category, Distribution,
-    DistributionCreateRequests, DistributionEditRequests,
+    DistributionCreateRequests, DistributionEditRequests, Platform,
 )
 from apps.marketplace.services.access import application_role, can_manage_app, set_application_access
 from apps.marketplace.services.moderation import (
@@ -44,7 +44,10 @@ class ApplicationAccessTests(TestCase):
         cls.other = User.objects.create_user("other", "other@example.test", "password")
         cls.app = Application.objects.create(user=cls.owner, title="Test app", description="Description")
         cls.second = Application.objects.create(user=cls.owner, title="Second app")
-        cls.dist = Distribution.objects.create(app=cls.app, version="1.0", url="https://example.test/app.zip")
+        cls.platform, _ = Platform.objects.get_or_create(code="windows_xp", defaults={"name": "Windows XP"})
+        cls.app.platforms.add(cls.platform)
+        cls.dist = Distribution.objects.create(
+            app=cls.app, platform=cls.platform, version="1.0", url="https://example.test/app.zip")
         cls.category = Category.objects.create(name="Tools")
         for user, role in ((cls.admin, "admin"), (cls.editor, "editor")):
             ApplicationAccess.objects.create(application=cls.app, user=user, role=role, granted_by=cls.owner)
@@ -61,14 +64,16 @@ class ApplicationAccessTests(TestCase):
     def edit_data(self, **extra):
         return {
             "title_ru": "Updated", "description_ru": "New description", "price": "0",
-            "categories": [self.category.pk], **extra,
+            "categories": [self.category.pk], "platforms": [self.platform.pk], **extra,
         }
 
     def app_request(self, user=None, origin="admin", **extra):
-        return AppEditRequests.objects.create(
+        req = AppEditRequests.objects.create(
             target_application=self.app, user=user or self.admin, request_origin=origin,
             title="Updated", description="New description", **extra,
         )
+        req.platforms.add(self.platform)
+        return req
 
     def test_capability_matrix_and_application_isolation(self):
         for user, expected in (
@@ -253,6 +258,7 @@ class ApplicationAccessTests(TestCase):
                 with patch.object(BaseDistributionForm, "clean", grant_editor_during_validation):
                     response = self.client.post(reverse(route, kwargs=kwargs), {
                         "version": "2.0", "url": "https://example.test/new.zip", "lunabox_type": "file",
+                        "platform": self.platform.pk,
                     })
                 self.assertEqual(response.status_code, 403)
                 self.assertFalse(model.objects.filter(app=self.app, user=self.other).exists())
@@ -262,10 +268,11 @@ class ApplicationAccessTests(TestCase):
         self.app.allow_community_distributions = True
         self.app.save()
         create = DistributionCreateRequests.objects.create(
-            app=self.app, user=self.other, version="2", request_origin="community",
+            app=self.app, user=self.other, platform=self.platform, version="2", request_origin="community",
         )
         edit = DistributionEditRequests.objects.create(
-            app=self.app, target_distribution=self.dist, user=self.other, version="3", request_origin="community",
+            app=self.app, target_distribution=self.dist, user=self.other, platform=self.platform,
+            version="3", request_origin="community",
         )
         set_application_access(self.app.pk, self.owner, self.other, "editor")
         self.assertIsNone(approve_dist_create_request(create, actor=self.owner))
@@ -299,7 +306,8 @@ class ApplicationAccessTests(TestCase):
         self.client.force_login(self.admin)
         url = reverse("manage_distributions") + f"?id={self.app.pk}"
         self.assertEqual(self.client.get(url).status_code, 200)
-        response = self.client.post(url, {"version": "2.0", "url": "https://example.test/new.zip", "lunabox_type": "file"})
+        response = self.client.post(url, {"version": "2.0", "url": "https://example.test/new.zip",
+                                          "lunabox_type": "file", "platform": self.platform.pk})
         self.assertEqual(response.status_code, 302)
         self.assertEqual(DistributionCreateRequests.objects.get(app=self.app).request_origin, "admin")
 
@@ -319,8 +327,10 @@ class ApplicationAccessTests(TestCase):
 
     def test_revoke_rejects_all_delegated_requests_and_regrant_does_not_restore(self):
         app_req = self.app_request()
-        create = DistributionCreateRequests.objects.create(app=self.app, user=self.admin, version="2", request_origin="admin")
-        edit = DistributionEditRequests.objects.create(app=self.app, target_distribution=self.dist, user=self.admin, version="3", request_origin="admin")
+        create = DistributionCreateRequests.objects.create(app=self.app, user=self.admin, platform=self.platform,
+                                                           version="2", request_origin="admin")
+        edit = DistributionEditRequests.objects.create(app=self.app, target_distribution=self.dist, user=self.admin,
+                                                       platform=self.platform, version="3", request_origin="admin")
         set_application_access(self.app.pk, self.owner, self.admin, "none")
         set_application_access(self.app.pk, self.owner, self.admin, "admin")
         for req, approve in ((app_req, approve_app_edit_request), (create, approve_dist_create_request), (edit, approve_dist_edit_request)):
@@ -489,6 +499,7 @@ class ApplicationAccessTests(TestCase):
         with patch("apps.core.mixins.CDNTokenValidationMixin.get_cdn_file_info", side_effect=revoke_during_cdn_validation):
             response = self.client.post(reverse("manage_distributions") + f"?id={self.app.pk}", {
                 "version": "2.0", "lunabox_type": "file", "cdn_confirm_token": confirmation,
+                "platform": self.platform.pk,
                 "virustotal_url": "https://www.virustotal.com/gui/file/test-hash",
             })
         self.assertEqual(response.status_code, 403)

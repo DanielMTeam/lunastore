@@ -177,6 +177,7 @@
             {% endif %}
         {% endfor %}
 
+    <div class="st_details_row">
     <div class="st_other_card">
         <h2>{% trans "PAGE_APP_SECTION_SCREENSHOTS" %}</h2>
         <div class="separator_store"></div>
@@ -195,16 +196,18 @@
         </div>
     </div>
 
+    <div class="st_details_column">
     <div class="st_other_card">
         <h2>{% trans "PAGE_APP_SECTION_DESC" %}</h2>
         <div class="separator_store"></div>
         <div class="st_desc">{{ description|render_markdown }}</div>
     </div>
-
     <div class="st_other_card">
         <h2>{% trans "PAGE_APP_SECTION_REQ" %}</h2>
         <div class="separator_store"></div>
         <div class="st_desc">{{ requirements|render_markdown }}</div>
+    </div>
+    </div>
     </div>
 
     <div class="st_other_card">

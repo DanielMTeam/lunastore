@@ -18,23 +18,8 @@ logger = logging.getLogger(__name__)
 
 # Create your views here.
 def theme_switch(request):
-    """toggle dark theme cookie and return to the same page."""
-    payload = request.GET.get("payload")
-    try:
-        next_url = get_safe_redirect_url(
-            request,
-            request.GET.get("next") or request.META.get("HTTP_REFERER"),
-            fallback="/",
-        )
-        response = redirect(next_url)
-        if payload == "on":
-            response.set_cookie("dark_theme", "on", max_age=31536000)
-        else:
-            response.delete_cookie("dark_theme")
-        return response
-    except Exception:
-        logger.exception("theme_switch failed for payload=%s", payload)
-        return redirect("/")
+    """Retired cookie switch: all theme changes now require the settings POST form."""
+    return redirect("settings_ui")
 
 
 def debug_info(request):

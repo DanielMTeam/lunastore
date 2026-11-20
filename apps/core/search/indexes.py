@@ -20,6 +20,7 @@ for _suffix in APP_LANG_SUFFIXES:
 APPLICATION_FILTERABLE = [
     "user_id",
     "category_ids",
+    "platform_ids",
     "price",
     "is_private",
     "is_under_dmca",

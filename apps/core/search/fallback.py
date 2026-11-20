@@ -12,7 +12,7 @@ def _text_matches(fields, query):
     return condition
 
 
-def application_matches(query, *, category_id=None, author_id=None, is_free=False):
+def application_matches(query, *, category_id=None, author_id=None, is_free=False, platform_id=None):
     from apps.marketplace.models import Application
 
     # Preserve the original columns as well as every explicit translation.
@@ -21,6 +21,8 @@ def application_matches(query, *, category_id=None, author_id=None, is_free=Fals
     ).filter(_text_matches(APPLICATION_SEARCHABLE, query))
     if category_id is not None:
         queryset = queryset.filter(categories__id=category_id)
+    if platform_id is not None:
+        queryset = queryset.filter(platforms__id=platform_id)
     if author_id is not None:
         queryset = queryset.filter(user_id=author_id)
     if is_free:

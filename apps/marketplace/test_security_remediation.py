@@ -11,7 +11,7 @@ from rest_framework.test import APIClient
 
 from apps.core.mixins import CDNTokenValidationMixin
 from apps.marketplace.admin import ApplicationAdmin
-from apps.marketplace.models import Application, Collection, CollectionItem, Distribution
+from apps.marketplace.models import Application, Collection, CollectionItem, Distribution, Platform
 from apps.user.models import User
 
 
@@ -50,7 +50,8 @@ class ApplicationAdminPageTests(TestCase):
             user=staff, title="Private app", is_private=True,
             screenshots=["public/screenshot.png"],
         )
-        Distribution.objects.create(app=app, version="1")
+        platform, _ = Platform.objects.get_or_create(code="windows_xp", defaults={"name": "Windows XP"})
+        Distribution.objects.create(app=app, platform=platform, version="1")
         self.client.force_login(staff)
         response = self.client.get(reverse("admin:marketplace_application_change", args=[app.pk]))
         self.assertContains(response, "public/screenshot.png")
@@ -63,8 +64,9 @@ class CatalogVisibilityTests(TestCase):
         cls.owner = User.objects.create_user(username="catalogowner", email="catalog@example.test")
         cls.private = Application.objects.create(user=cls.owner, title="Private", icon_path="private.png", is_private=True)
         cls.dmca = Application.objects.create(user=cls.owner, title="DMCA", icon_path="dmca.png", is_under_dmca=True)
-        cls.private_file = Distribution.objects.create(app=cls.private, version="1", url="https://example.test/private")
-        cls.dmca_file = Distribution.objects.create(app=cls.dmca, version="1", url="https://example.test/dmca")
+        platform, _ = Platform.objects.get_or_create(code="windows_xp", defaults={"name": "Windows XP"})
+        cls.private_file = Distribution.objects.create(app=cls.private, platform=platform, version="1", url="https://example.test/private")
+        cls.dmca_file = Distribution.objects.create(app=cls.dmca, platform=platform, version="1", url="https://example.test/dmca")
         cls.collection = Collection.objects.create(owner=cls.owner, title="Public", is_public=True)
         for app in (cls.private, cls.dmca):
             CollectionItem.objects.create(collection=cls.collection, application=app)
