@@ -1816,6 +1816,10 @@ a.report_problem {
     font-weight: normal;
 }
 
+.home_item_placeholder {
+    display: none;
+}
+
 .home_item {
     float: left;
     width: 125px;

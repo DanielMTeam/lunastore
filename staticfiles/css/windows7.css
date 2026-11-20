@@ -353,11 +353,26 @@ html.theme-windows7 .content .search_full button {
     width: 64px;
 }
 
-html.theme-windows7 .content .home_item {
-    box-sizing: border-box;
-    width: 31%;
-    margin-right: 2%;
+html.theme-windows7 .content .home_tiles { padding: 2px 0; }
+
+html.theme-windows7 .content .home_item_row {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    border-spacing: 8px 5px;
 }
+
+html.theme-windows7 .content .home_item_row .home_item {
+    display: table-cell;
+    float: none;
+    box-sizing: border-box;
+    width: 33.333%;
+    height: 170px;
+    vertical-align: top;
+}
+
+html.theme-windows7 .content .home_item_placeholder { display: table-cell; }
+html.theme-windows7 .content .home_item_clear { display: none; }
 
 /* IE8 does not support border-image, background-size or flexbox. */
 html.theme-windows7-ie8 body {

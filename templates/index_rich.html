@@ -90,9 +90,12 @@
 
     {% if for_you_apps %}
       <div class="home_block">{% trans "INDEX_FOR_YOU" %}</div>
-      <div class="home_block_content">
+      <div class="home_block_content home_tiles">
         {% for app in for_you_apps %}
+          {% if forloop.first or forloop.counter0|divisibleby:3 %}<div class="home_item_row">{% endif %}
           {% include "includes/home_item.html" with app=app %}
+          {% if forloop.last %}{% if not forloop.counter|divisibleby:3 %}<div class="home_item_placeholder"></div>{% if forloop.counter|add:1|divisibleby:3 %}<div class="home_item_placeholder"></div>{% endif %}{% endif %}{% endif %}
+          {% if forloop.counter|divisibleby:3 or forloop.last %}<div class="home_item_clear" style="clear:both"></div></div>{% endif %}
         {% endfor %}
         <div style="clear:both"></div>
       </div>
@@ -103,9 +106,12 @@
         {% trans "INDEX_EDITOR_CHOICE" %}
         | <span class="home_block_other"><a href="{% url 'category' %}?id={{ editor_choice.category.id }}">{% trans "INDEX_SEE_ALL" %}</a></span>
       </div>
-      <div class="home_block_content">
+      <div class="home_block_content home_tiles">
         {% for app in editor_choice.apps %}
+          {% if forloop.first or forloop.counter0|divisibleby:3 %}<div class="home_item_row">{% endif %}
           {% include "includes/home_item.html" with app=app %}
+          {% if forloop.last %}{% if not forloop.counter|divisibleby:3 %}<div class="home_item_placeholder"></div>{% if forloop.counter|add:1|divisibleby:3 %}<div class="home_item_placeholder"></div>{% endif %}{% endif %}{% endif %}
+          {% if forloop.counter|divisibleby:3 or forloop.last %}<div class="home_item_clear" style="clear:both"></div></div>{% endif %}
         {% endfor %}
         <div style="clear:both"></div>
       </div>
