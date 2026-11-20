@@ -901,6 +901,7 @@ class BaseDistributionForm(forms.ModelForm, CDNTokenValidationMixin):
             platform_field.queryset = app.platforms.all()
         platform_field.empty_label = _("PAGE_DIST_FORM_PLATFORM_PLACEHOLDER")
         platform_field.widget.attrs["class"] = "input-text"
+        platform_field.widget.attrs["size"] = 4
         platform_field.required = True
         if self.target_dist and not self.is_bound:
             self.initial["platform"] = self.target_dist.platform_id

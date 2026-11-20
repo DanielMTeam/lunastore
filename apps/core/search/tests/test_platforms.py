@@ -27,6 +27,16 @@ class PlatformTests(TestCase):
         form = DistributionCreateForm(user=self.user, app=self.app)
         self.assertEqual(list(form.fields["platform"].queryset), [self.xp])
 
+    def test_vista_is_available_for_application_and_distribution(self):
+        vista = Platform.objects.get(code="windows_vista")
+        self.assertEqual(vista.name, "Windows Vista")
+        self.assertIn(vista, AppCreateForm(data={}).fields["platforms"].queryset)
+        self.app.platforms.add(vista)
+        field = DistributionCreateForm(user=self.user, app=self.app).fields["platform"]
+        self.assertIn(vista, field.queryset)
+        self.assertEqual(field.widget.attrs["size"], 4)
+        self.assertFalse(field.widget.allow_multiple_selected)
+
     def test_search_fallback_filters_before_pagination(self):
         ids, count = SearchService.search_application_ids("Platform", platform_id=self.xp.pk)
         self.assertEqual((ids, count), ([self.app.pk], 1))
