@@ -256,6 +256,14 @@ html.theme-windows7 .profile_card_notify_desc {
     width: auto;
 }
 
+/* Fill the wider notification row while leaving room for the 32px icon and its 15px gap. */
+html.theme-windows7 .notify_body {
+    display: block;
+    width: auto;
+    margin-left: 47px;
+    word-wrap: break-word;
+}
+
 html.theme-windows7 .preferences {
     background: #e6e6e6;
     border: 1px solid #c0c0c0;
