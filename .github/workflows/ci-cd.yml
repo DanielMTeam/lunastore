@@ -167,6 +167,7 @@ jobs:
           LUNAPASSPORT_REDIRECT_URI: ""
           LUNAPASSPORT_AUTO_REGISTER: "False"
         run: |
+          python manage.py spectacular --urlconf apps.api.v3.openapi_urls --validate --fail-on-warn --file api-v3.yaml
           python manage.py test --noinput --keepdb
 
       - name: Clean up .env
