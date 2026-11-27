@@ -45,6 +45,8 @@ def v3_exception_handler(exc, context):
     detail = response.data.get("detail") if isinstance(response.data, dict) else None
     codes = exc.get_codes() if isinstance(exc, exceptions.APIException) else None
     code = codes if isinstance(codes, str) else None
+    if isinstance(response.data, dict) and isinstance(response.data.get("code"), str):
+        code = str(response.data["code"])
     if isinstance(exc, LunaException):
         code = f"luna_{exc.code}"
     if isinstance(exc, exceptions.ValidationError):

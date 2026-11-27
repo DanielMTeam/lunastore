@@ -16,6 +16,10 @@ ICON_MAPPING = {
 }
 
 
+class NotificationsUnavailable(Exception):
+    pass
+
+
 class NotificationService:
 
     # sign token method
@@ -85,23 +89,37 @@ class NotificationService:
             return False
 
     @classmethod
-    def get_notifications_meta(cls, user_id: int):
-        token = cls.get_receive_token(user_id)
+    def _receive_request(cls, method, path, user_id, **params):
         try:
-            # request 1 record to get 'total' field
-            response = requests.get(
-                f"{cls._server_url()}/notifications/list",
-                params={
-                    "token": token,
-                    "limit": 1,
-                    "page": 1},
-                timeout=3)
+            response = requests.request(
+                method,
+                f"{cls._server_url()}/notifications/{path}",
+                params={"token": cls.get_receive_token(user_id), **params},
+                timeout=3,
+                allow_redirects=False,
+            )
             if response.status_code == 200:
                 data = response.json()
-                return {
-                    'total': data.get('total', 0),
-                    'total_unread': data.get('total_unread', 0)
-                }
+                if isinstance(data, dict) and data.get("status") == "ok":
+                    return data
         except (requests.RequestException, ValueError) as exc:
-            logger.warning("Failed to read notification metadata (%s)", type(exc).__name__)
-        return {'total': 0, 'total_unread': 0}
+            logger.warning("LunaSpire notification request failed (%s)", type(exc).__name__)
+            raise NotificationsUnavailable from exc
+        logger.warning("LunaSpire notification request failed (HTTP %s)", response.status_code)
+        raise NotificationsUnavailable
+
+    @classmethod
+    def list_notifications(cls, user_id: int, *, page: int, limit: int):
+        return cls._receive_request("GET", "list", user_id, page=page, limit=limit)
+
+    @classmethod
+    def mark_all_read(cls, user_id: int):
+        cls._receive_request("POST", "read-mark", user_id)
+
+    @classmethod
+    def get_notifications_meta(cls, user_id: int):
+        try:
+            data = cls.list_notifications(user_id, page=1, limit=1)
+        except NotificationsUnavailable:
+            return {'total': 0, 'total_unread': 0}
+        return {'total': data.get('total', 0), 'total_unread': data.get('total_unread', 0)}

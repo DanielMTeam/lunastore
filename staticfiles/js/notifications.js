@@ -76,16 +76,19 @@ function renderNotification(data, isHistory) {
     container.insertBefore(card, container.firstChild);
   }
 }
-function markAllAsRead(ids, token, apiUrl) {
+function markAllAsRead(token, apiUrl) {
   var url = apiUrl.replace(/\/$/, "") + "/notifications/read-mark?token=" + encodeURIComponent(token);
-  ids.forEach(function (id) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.send(JSON.stringify({
-      id: id
-    }));
-  });
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      updateCountText(0);
+      if (typeof window.updateGlobalCountUI === "function") {
+        window.updateGlobalCountUI(0);
+      }
+    }
+  };
+  xhr.send(null);
 }
 
 // load initial notifications
@@ -98,30 +101,13 @@ function loadInitialNotifications(token, apiUrl) {
       try {
         var response = JSON.parse(xhr.responseText);
         var notifications = response.data || [];
-        var newIds = [];
         for (var i = 0; i < notifications.length; i++) {
-          var item = notifications[i];
-          renderNotification(item, true);
-
-          // if ViewedAt is null or undefined or 0, mark as new
-          if (item.ViewedAt === null || item.ViewedAt === undefined || item.ViewedAt === 0) {
-            newIds.push(item.ID);
-          }
+          renderNotification(notifications[i], true);
         }
 
-        // send signal to mark all as read
-        if (newIds.length > 0) {
-          markAllAsRead(newIds, token, apiUrl);
-
-          // immediately reset counters, as the list is before the eyes
-          setTimeout(function () {
-            updateCountText(0);
-            if (typeof window.updateGlobalCountUI === "function") {
-              window.updateGlobalCountUI(0);
-            }
-          }, 500);
-        } else {
-          updateCountText(response.total_unread || 0);
+        updateCountText(response.total_unread || 0);
+        if (response.total_unread > 0) {
+          markAllAsRead(token, apiUrl);
         }
       } catch (e) {
         console.error("Ошибка парсинга:", e);
