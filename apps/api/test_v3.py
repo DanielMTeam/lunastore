@@ -7,6 +7,7 @@ from rest_framework.test import APITestCase
 
 from apps.api.authentication import CustomJWTAuthentication
 from apps.api.token_sessions import issue_tokens
+from apps.api.v3.batch import MAX_BATCH_BYTES
 from apps.marketplace.models import Application, Category, Collection, CollectionItem, Distribution, Platform
 from apps.user.models import User
 
@@ -123,6 +124,78 @@ class CatalogContractTests(APITestCase):
                 self.assertEqual(response.status_code, 400)
                 self.assertEqual(response["Content-Type"], "application/problem+json")
 
+    def test_batch_rejects_oversized_body_before_json_parsing(self):
+        response = self.client.generic("POST", "/v3/batch/", b" " * (MAX_BATCH_BYTES + 1), "application/json")
+        self.assertEqual(response.status_code, 413, response.data)
+        self.assertEqual(response.data["code"], "batch_too_large")
+
+    @patch("apps.core.search.SearchService.search_application_ids", return_value=([], 0))
+    def test_batch_limits_distinct_searches_without_blocking_browse(self, search):
+        operations = [
+            {"id": str(i), "operation": "v3_apps_list", "params": {"q": query}}
+            for i, query in enumerate(("first", "second", "third"))
+        ]
+        operations.append({"id": "platforms", "operation": "v3_platforms_list"})
+        response = self.client.post("/v3/batch/", {"requests": operations}, format="json")
+        self.assertEqual([item["status"] for item in response.data["results"]], [200, 200, 400, 200])
+        self.assertEqual(response.data["results"][2]["body"]["code"], "batch_search_limit")
+        self.assertEqual(search.call_count, 2)
+
+    @patch("apps.api.v3.batch.monotonic")
+    def test_batch_stops_new_reads_after_deadline(self, monotonic):
+        current_time = 0
+        monotonic.side_effect = lambda: current_time
+
+        def search(*args, **kwargs):
+            nonlocal current_time
+            current_time = 20
+            return [], 0
+
+        with patch("apps.core.search.SearchService.search_application_ids", side_effect=search):
+            response = self.client.post("/v3/batch/", {"requests": [
+                {"id": "search", "operation": "v3_apps_list", "params": {"q": "Cleaner"}},
+                {"id": "platforms", "operation": "v3_platforms_list"},
+            ]}, format="json")
+        self.assertEqual([item["status"] for item in response.data["results"]], [503, 503])
+        self.assertEqual({item["body"]["code"] for item in response.data["results"]}, {"batch_timeout"})
+
+    @patch("apps.api.v3.batch.STATEMENT_TIMEOUT_MS", 20)
+    def test_batch_sql_timeout_rolls_back_and_keeps_connection_usable(self):
+        def search(*args, **kwargs):
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT pg_sleep(0.1)")
+            return [], 0
+
+        with patch("apps.core.search.SearchService.search_application_ids", side_effect=search):
+            response = self.client.post("/v3/batch/", {"requests": [
+                {"id": "search", "operation": "v3_apps_list", "params": {"q": "Cleaner"}},
+            ]}, format="json")
+        item = response.data["results"][0]
+        self.assertEqual(item["status"], 503)
+        self.assertEqual(item["body"]["code"], "batch_timeout")
+        self.assertEqual(self.client.get("/v3/apps/").status_code, 200)
+
+    @override_settings(LUNASPIRE_URL="spire.example.test", API_MEDIA_BASE_URL="https://store.example.test/")
+    def test_uploaded_media_stays_on_spire_host(self):
+        Application.objects.filter(pk=self.app.pk).update(icon_path="cdn/icon.png", screenshots=["cdn/shot.png"])
+        User.objects.filter(pk=self.owner.pk).update(avatar_path="cdn/avatar.png")
+        response = self.client.get(f"/v3/apps/{self.app.pk}/")
+        self.assertEqual(response.data["icon_url"], "https://spire.example.test/cdn/icon.png")
+        self.assertEqual(response.data["screenshot_urls"], ["https://spire.example.test/cdn/shot.png"])
+        self.assertEqual(response.data["user"]["avatar_url"], "https://spire.example.test/cdn/avatar.png")
+
+    @patch("apps.core.search.SearchService.search_application_ids")
+    def test_catalog_pagination_uses_validated_numbers(self, search):
+        params = {"limit": "1.0", "offset": "1.0"}
+        browse = self.client.get("/v3/apps/", params)
+        self.assertEqual(browse.data["count"], 1)
+        self.assertEqual(browse.data["results"], [])
+        search.return_value = ([], 1)
+        response = self.client.get("/v3/apps/", {"q": "Cleaner", **params})
+        self.assertEqual(response.status_code, 200, response.data)
+        self.assertEqual(search.call_args.kwargs["limit"], 1)
+        self.assertEqual(search.call_args.kwargs["offset"], 1)
+
     @override_settings(API_PUBLIC_SCHEME="https")
     def test_paginated_links_use_configured_public_scheme(self):
         Category.objects.create(name="Games", icon="entertainment")
@@ -143,5 +216,14 @@ class CatalogContractTests(APITestCase):
             }, format="json")
         self.assertEqual(response.status_code, 200, response.data)
         self.assertEqual([item["body"] for item in response.data["results"]], [item.data for item in responses])
-        self.assertLess(len(bundled), len(direct))
+
+        def catalog_reads(queries):
+            return sum(
+                query["sql"].startswith("SELECT")
+                and "pg_settings" not in query["sql"]
+                and "set_config" not in query["sql"]
+                for query in queries
+            )
+
+        self.assertLess(catalog_reads(bundled), catalog_reads(direct))
         self.assertLess(len(response.content), sum(len(item.content) for item in responses) + 100 * len(operations))

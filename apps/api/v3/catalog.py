@@ -35,14 +35,29 @@ def validated_query(serializer, request):
     return params.validated_data
 
 
+class CatalogPagination(APILimitOffsetPagination):
+    params = None
+
+    def get_limit(self, request):
+        return (self.params or {}).get("limit", self.default_limit)
+
+    def get_offset(self, request):
+        return (self.params or {}).get("offset", 0)
+
+
 @extend_schema_view(list=extend_schema(parameters=[PageParams]))
 class CatalogViewSet(V3ContractMixin, viewsets.ReadOnlyModelViewSet):
-    pagination_class = APILimitOffsetPagination
+    pagination_class = CatalogPagination
     lookup_value_regex = r"[0-9]{1,19}"
     query_serializer = PageParams
 
+    def validate_query(self, request, serializer=None):
+        self.params = validated_query(serializer or self.query_serializer, request)
+        self.paginator.params = self.params
+        return self.params
+
     def list(self, request, *args, **kwargs):
-        self.params = validated_query(self.query_serializer, request)
+        self.validate_query(request)
         return super().list(request, *args, **kwargs)
 
     def serialize_page(self, queryset, serializer):
@@ -70,7 +85,7 @@ class ApplicationViewSet(CatalogViewSet):
         return with_application_cards(queryset).order_by("-published", "-pk")
 
     def list(self, request, *args, **kwargs):
-        params = validated_query(self.query_serializer, request)
+        params = self.validate_query(request)
         platform = get_object_or_404(Platform, code=params["platform"]) if "platform" in params else None
         filters = {
             "category_id": params.get("category"),
@@ -99,7 +114,7 @@ class ApplicationViewSet(CatalogViewSet):
     )
     @action(detail=True)
     def distributions(self, request, pk=None):
-        validated_query(PageParams, request)
+        self.validate_query(request, PageParams)
         app = get_object_or_404(application_queryset(request.user, include_private=True), pk=pk)
         distributions = distribution_queryset(request.user).filter(app=app).order_by("-published", "-pk")
         return self.serialize_page(distributions, DistributionSerializer)
@@ -115,7 +130,7 @@ class UserViewSet(CatalogViewSet):
     query_serializer = UserParams
 
     def list(self, request, *args, **kwargs):
-        params = validated_query(self.query_serializer, request)
+        params = self.validate_query(request)
         if "q" in params:
             return self.search_page(self.get_queryset(), partial(SearchService.search_user_ids, params["q"]))
         return self.serialize_page(self.get_queryset(), self.get_serializer_class())
@@ -140,7 +155,7 @@ class CategoryViewSet(CatalogViewSet):
     )
     @action(detail=True)
     def apps(self, request, pk=None):
-        params = validated_query(CategoryAppsParams, request)
+        params = self.validate_query(request, CategoryAppsParams)
         apps = application_queryset(request.user).filter(categories=self.get_object())
         if "platform" in params:
             apps = apps.filter(platforms=get_object_or_404(Platform, code=params["platform"]))
@@ -210,7 +225,7 @@ class CollectionViewSet(CatalogViewSet):
     )
     @action(detail=True)
     def apps(self, request, pk=None):
-        validated_query(PageParams, request)
+        self.validate_query(request, PageParams)
         apps = application_queryset(request.user).filter(collection_items__collection=self.get_object())
         apps = with_application_cards(apps).order_by("-collection_items__added_at", "-pk")
         return self.serialize_page(apps, ApplicationSerializer)

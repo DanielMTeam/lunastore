@@ -51,4 +51,10 @@ def document_v3_problems(result, **kwargs):
             header = {401: "WWW-Authenticate", 429: "Retry-After"}.get(status)
             if header:
                 response.setdefault("headers", {})[header] = {"schema": {"type": "string"}}
+    batch = paths.get("/v3/batch/", {}).get("post")
+    if batch:
+        batch["responses"]["413"] = {
+            "description": HTTPStatus(413).phrase,
+            "content": {PROBLEM_JSON: {"schema": {"$ref": "#/components/schemas/V3Problem"}}},
+        }
     return result
