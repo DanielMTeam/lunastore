@@ -1,5 +1,9 @@
 from django.test import SimpleTestCase
 from django.urls import resolve
+from django.test import override_settings
+
+from apps.marketplace.models import Category
+from apps.marketplace.serializers import CategorySerializer
 
 
 class V2RoutingContractTests(SimpleTestCase):
@@ -22,3 +26,18 @@ class V2RoutingContractTests(SimpleTestCase):
                     alias = resolve(f"/method/v2/{route}", urlconf=urlconf)
                     self.assertEqual(alias.url_name, name)
                     self.assertIs(alias.func.cls, canonical.func.cls)
+
+
+class CategoryIconContractTests(SimpleTestCase):
+    @override_settings(API_MEDIA_BASE_URL="https://assets.example.test/")
+    def test_v2_keeps_legacy_icon_and_adds_absolute_url(self):
+        for icon, expected in (
+            ("util", "https://assets.example.test/staticfiles/img/category-icons/util.png"),
+            ("", None),
+            (None, None),
+            ("missing", None),
+        ):
+            with self.subTest(icon=icon):
+                result = CategorySerializer(Category(icon=icon)).data
+                self.assertEqual(result["icon"], icon)
+                self.assertEqual(result["icon_url"], expected)
