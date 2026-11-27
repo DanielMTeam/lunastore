@@ -1326,6 +1326,7 @@ USE_TZ = True
 
 STATIC_URL = "/staticfiles/"
 API_MEDIA_BASE_URL = os.getenv("API_MEDIA_BASE_URL", "https://lunastore.app").rstrip("/") + "/"
+API_PUBLIC_SCHEME = os.getenv("API_PUBLIC_SCHEME", "")
 STATICFILES_DIRS = [BASE_DIR / "staticfiles"]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

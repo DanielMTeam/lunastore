@@ -8,11 +8,14 @@ from apps.api.v3.contract import PROBLEM_JSON
 class LunaJWTScheme(SimpleJWTScheme):
     target_class = "apps.api.authentication.CustomJWTAuthentication"
 
+    def get_security_definition(self, auto_schema):
+        return {"type": "http", "scheme": "bearer", "bearerFormat": "JWT"}
+
 
 def document_v3_problems(result, **kwargs):
     paths = result.get("paths", {})
     operations = [
-        (path, operation)
+        operation
         for path, methods in paths.items()
         if path.startswith("/v3/") and path != "/v3/health/"
         for operation in methods.values()
@@ -40,11 +43,9 @@ def document_v3_problems(result, **kwargs):
             },
         },
     }
-    for path, operation in operations:
+    for operation in operations:
         responses = operation["responses"]
-        for status in (400, 401, 403, 404, 429, 500, 503):
-            if status == 503 and not path.startswith(("/v3/apps/", "/v3/users/", "/v3/search/", "/v3/me/notifications/", "/v3/auth/", "/v3/batch/")):
-                continue
+        for status in (400, 401, 403, 404, 405, 406, 415, 429, 500, 503):
             response = responses.setdefault(str(status), {"description": HTTPStatus(status).phrase})
             response.setdefault("content", {})[PROBLEM_JSON] = {"schema": {"$ref": "#/components/schemas/V3Problem"}}
             header = {401: "WWW-Authenticate", 429: "Retry-After"}.get(status)

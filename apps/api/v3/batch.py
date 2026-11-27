@@ -1,5 +1,5 @@
-from copy import copy
 import logging
+from copy import copy
 from urllib.parse import urlsplit
 
 from django.http import Http404, QueryDict

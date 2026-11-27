@@ -1,6 +1,5 @@
-from django.test import SimpleTestCase
+from django.test import SimpleTestCase, override_settings
 from django.urls import resolve
-from django.test import override_settings
 
 from apps.marketplace.models import Category
 from apps.marketplace.serializers import CategorySerializer
@@ -33,6 +32,7 @@ class CategoryIconContractTests(SimpleTestCase):
     def test_v2_keeps_legacy_icon_and_adds_absolute_url(self):
         for icon, expected in (
             ("util", "https://assets.example.test/staticfiles/img/category-icons/util.png"),
+            ("emuvm", "https://assets.example.test/staticfiles/img/category-icons/emuvm.png"),
             ("", None),
             (None, None),
             ("missing", None),

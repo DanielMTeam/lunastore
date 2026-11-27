@@ -110,6 +110,8 @@ services:
         image: lunastore:local
         env_file:
             - .env
+        environment:
+            API_PUBLIC_SCHEME: ${API_PUBLIC_SCHEME:-https}
         restart: unless-stopped
         networks:
             - storenetwork

@@ -56,7 +56,7 @@ class CategorySerializer(serializers.ModelSerializer):
     ICONS = frozenset((
         "myhome", "top", "updates", "entertainment", "util", "media", "office",
         "internet", "other", "themes", "setup", "alert", "newbie", "notify",
-        "settings", "web", "mypc", "paint",
+        "settings", "web", "mypc", "paint", "emuvm",
     ))
 
     class Meta:

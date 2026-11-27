@@ -2,7 +2,6 @@ from http import HTTPStatus
 
 from django.http import JsonResponse
 from rest_framework import exceptions
-from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.views import exception_handler
 
 from apps.api.exceptions import LunaException
@@ -61,11 +60,6 @@ def v3_exception_handler(exc, context):
 class V3ContractMixin:
     def get_exception_handler(self):
         return v3_exception_handler
-
-
-class CatalogPagination(LimitOffsetPagination):
-    default_limit = 20
-    max_limit = 100
 
 
 class SearchUnavailable(exceptions.APIException):

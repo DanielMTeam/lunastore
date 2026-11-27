@@ -1390,6 +1390,11 @@ def get_file_action(request, dist_pk):
         if not can_manage_app(app, request.user, "view"):
             raise PermissionDenied(_("ERROR_YOURE_NOT_OWNER_OF_APP"))
 
+    return serve_distribution_download(request, dist)
+
+
+def serve_distribution_download(request, dist, *, legacy_transport=True):
+    app = dist.app
     # track download analytics (first category for CH category filters)
     first_cat_id = app.categories.values_list("id", flat=True).first()
     track_app_download(
@@ -1417,7 +1422,7 @@ def get_file_action(request, dist_pk):
             raise Http404("File not found")
 
         user_agent = request.META.get("HTTP_USER_AGENT", "")
-        is_retro = any(
+        is_retro = legacy_transport and any(
             sig in user_agent for sig in [
                 "MSIE 5",
                 "MSIE 6",
@@ -1429,14 +1434,14 @@ def get_file_action(request, dist_pk):
         spire_url = getattr(
             request, 'geo_domains', {}).get(
             'SPIRE_URL', settings.LUNASPIRE_URL)
-        domain = spire_url.replace('https://', '').replace('http://', '')
+        domain = spire_url.replace('https://', '').replace('http://', '').lstrip('/').rstrip('/')
         cdn_url = f"{protocol}://{domain}/cdn/download?token={download_token}"
         return redirect(cdn_url)
 
     if dist.url:
         is_proxy_requested = request.GET.get('proxy') == '1'
         # proxy through nginx if enabled
-        if is_proxy_requested and getattr(
+        if legacy_transport and is_proxy_requested and getattr(
                 config, 'ENABLE_DISTRIBUTION_PROXY', False):
             parsed_url = urllib.parse.urlparse(dist.url)
             path = parsed_url.path

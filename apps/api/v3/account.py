@@ -1,7 +1,7 @@
 from datetime import UTC, datetime
 
 from django.utils.cache import add_never_cache_headers
-from drf_spectacular.utils import extend_schema
+from drf_spectacular.utils import extend_schema, extend_schema_serializer
 from rest_framework import exceptions, serializers
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -10,8 +10,9 @@ from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from apps.api.authentication import CustomJWTAuthentication
+from apps.api.media import public_api_url
 from apps.api.token_sessions import revoke_tokens
-from apps.api.v2.serializers import CustomTokenObtainPairSerializer, CustomTokenRefreshSerializer
+from apps.api.v2.serializers import CustomTokenObtainPairSerializer, CustomTokenRefreshSerializer, TokenPairSerializer
 from apps.core.notifications.services import NotificationService, NotificationsUnavailable
 
 from .catalog import validated_query
@@ -31,6 +32,7 @@ class AccountView(PrivateResponseMixin, V3ContractMixin, APIView):
     permission_classes = (IsAuthenticated,)
 
 
+@extend_schema_serializer(component_name="V3Me")
 class MeSerializer(UserSerializer):
     is_developer = serializers.SerializerMethodField()
 
@@ -101,7 +103,7 @@ class NotificationsView(AccountView):
             raise NotificationServiceUnavailable() from exc
 
         def link(number):
-            return request.build_absolute_uri(f"?page={number}&limit={limit}")
+            return public_api_url(request.build_absolute_uri(f"?page={number}&limit={limit}"))
 
         return Response(NotificationPageSerializer({
             "count": total,
@@ -120,11 +122,6 @@ class MarkNotificationsReadView(AccountView):
         except NotificationsUnavailable as exc:
             raise NotificationServiceUnavailable() from exc
         return Response(status=204)
-
-
-class TokenPairSerializer(serializers.Serializer):
-    access = serializers.CharField()
-    refresh = serializers.CharField()
 
 
 class TokenObtainView(PrivateResponseMixin, V3ContractMixin, TokenObtainPairView):

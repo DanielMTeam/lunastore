@@ -4,7 +4,7 @@ from drf_spectacular.utils import extend_schema_field, extend_schema_serializer
 from rest_framework import serializers
 from rest_framework.reverse import reverse
 
-from apps.api.media import absolute_media_url
+from apps.api.media import absolute_media_url, public_api_url
 from apps.marketplace.models import Application, Platform
 from apps.marketplace.serializers import (
     ApplicationSerializer as BaseApplicationSerializer,
@@ -80,7 +80,9 @@ class DistributionSerializer(BaseDistributionSerializer):
     @extend_schema_field(serializers.URLField(allow_null=True))
     def get_download_url(self, obj):
         if obj.has_download:
-            return reverse("v3-distribution-download", kwargs={"pk": obj.pk}, request=self.context["request"])
+            return public_api_url(reverse(
+                "v3-distribution-download", kwargs={"pk": obj.pk}, request=self.context["request"],
+            ))
         return None
 
 

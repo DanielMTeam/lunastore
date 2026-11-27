@@ -1,9 +1,23 @@
 from django.db.models import Q
+from rest_framework.pagination import LimitOffsetPagination
+
+from apps.api.media import public_api_url
 
 from apps.core.search import SearchService
 from apps.marketplace.models import Application, Distribution
 from apps.marketplace.serializers import annotate_app_last_version
 from apps.marketplace.services.access import accessible_app_ids
+
+
+class APILimitOffsetPagination(LimitOffsetPagination):
+    default_limit = 20
+    max_limit = 100
+
+    def get_next_link(self):
+        return public_api_url(super().get_next_link())
+
+    def get_previous_link(self):
+        return public_api_url(super().get_previous_link())
 
 
 def application_queryset(user, *, include_private=False):
@@ -14,7 +28,7 @@ def application_queryset(user, *, include_private=False):
 
 
 def distribution_queryset(user):
-    queryset = Distribution.objects.select_related("platform").prefetch_related("platforms").filter(
+    queryset = Distribution.objects.select_related("app", "platform").prefetch_related("platforms").filter(
         app__deleted__isnull=True, app__is_under_dmca=False,
     )
     if user.is_authenticated:

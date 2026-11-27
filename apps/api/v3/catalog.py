@@ -3,22 +3,25 @@ from functools import partial
 from django.db.models import Count, Prefetch, Q
 from django.http import Http404
 from django.shortcuts import get_object_or_404
+from django.utils.cache import add_never_cache_headers
 from drf_spectacular.utils import extend_schema, extend_schema_view
 from rest_framework import serializers, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from apps.api.catalog import application_queryset, distribution_queryset, paginated_search, with_application_cards
+from apps.api.catalog import (
+    APILimitOffsetPagination, application_queryset, distribution_queryset, paginated_search, with_application_cards,
+)
 from apps.api.media import absolute_media_url
 from apps.core.search import SearchService, SearchUnavailableError
 from apps.core.search.service import is_query_too_short
 from apps.marketplace.models import Category, Collection, CollectionItem, Platform
 from apps.marketplace.services.visibility import public_app_filter
-from apps.marketplace.views import get_file_action
+from apps.marketplace.views import serve_distribution_download
 from apps.user.models import User
 
-from .contract import CatalogPagination, SearchUnavailable, V3ContractMixin
+from .contract import SearchUnavailable, V3ContractMixin
 from .serializers import (
     ApplicationParams, ApplicationSerializer, CategorySerializer, CollectionParams, CollectionSerializer,
     DistributionSerializer, HealthSerializer, PageParams, PlatformSerializer, SuggestionParams,
@@ -34,7 +37,7 @@ def validated_query(serializer, request):
 
 @extend_schema_view(list=extend_schema(parameters=[PageParams]))
 class CatalogViewSet(V3ContractMixin, viewsets.ReadOnlyModelViewSet):
-    pagination_class = CatalogPagination
+    pagination_class = APILimitOffsetPagination
     lookup_value_regex = r"[0-9]{1,19}"
     query_serializer = PageParams
 
@@ -54,7 +57,10 @@ class CatalogViewSet(V3ContractMixin, viewsets.ReadOnlyModelViewSet):
             raise SearchUnavailable() from exc
 
 
-@extend_schema_view(list=extend_schema(parameters=[ApplicationParams]))
+@extend_schema_view(
+    list=extend_schema(operation_id="v3_apps_list", parameters=[ApplicationParams]),
+    retrieve=extend_schema(operation_id="v3_apps_retrieve"),
+)
 class ApplicationViewSet(CatalogViewSet):
     serializer_class = ApplicationSerializer
     query_serializer = ApplicationParams
@@ -86,7 +92,11 @@ class ApplicationViewSet(CatalogViewSet):
             return self.search_page(queryset, search)
         return self.serialize_page(queryset, self.get_serializer_class())
 
-    @extend_schema(parameters=[PageParams], responses=DistributionSerializer(many=True))
+    @extend_schema(
+        operation_id="v3_apps_distributions_list",
+        parameters=[PageParams],
+        responses=DistributionSerializer(many=True),
+    )
     @action(detail=True)
     def distributions(self, request, pk=None):
         validated_query(PageParams, request)
@@ -95,7 +105,10 @@ class ApplicationViewSet(CatalogViewSet):
         return self.serialize_page(distributions, DistributionSerializer)
 
 
-@extend_schema_view(list=extend_schema(parameters=[UserParams]))
+@extend_schema_view(
+    list=extend_schema(operation_id="v3_users_list", parameters=[UserParams]),
+    retrieve=extend_schema(operation_id="v3_users_retrieve"),
+)
 class UserViewSet(CatalogViewSet):
     queryset = User.objects.filter(is_active=True).order_by("pk")
     serializer_class = UserSerializer
@@ -112,11 +125,19 @@ class CategoryAppsParams(PageParams):
     platform = serializers.SlugField(required=False, max_length=64)
 
 
+@extend_schema_view(
+    list=extend_schema(operation_id="v3_categories_list"),
+    retrieve=extend_schema(operation_id="v3_categories_retrieve"),
+)
 class CategoryViewSet(CatalogViewSet):
     queryset = Category.objects.order_by("name", "pk")
     serializer_class = CategorySerializer
 
-    @extend_schema(parameters=[CategoryAppsParams], responses=ApplicationSerializer(many=True))
+    @extend_schema(
+        operation_id="v3_categories_apps_list",
+        parameters=[CategoryAppsParams],
+        responses=ApplicationSerializer(many=True),
+    )
     @action(detail=True)
     def apps(self, request, pk=None):
         params = validated_query(CategoryAppsParams, request)
@@ -126,6 +147,10 @@ class CategoryViewSet(CatalogViewSet):
         return self.serialize_page(with_application_cards(apps).order_by("-published", "-pk"), ApplicationSerializer)
 
 
+@extend_schema_view(
+    list=extend_schema(operation_id="v3_distributions_list"),
+    retrieve=extend_schema(operation_id="v3_distributions_retrieve"),
+)
 class DistributionViewSet(CatalogViewSet):
     serializer_class = DistributionSerializer
 
@@ -138,15 +163,24 @@ class DistributionViewSet(CatalogViewSet):
         distribution = self.get_object()
         if not distribution.has_download:
             raise Http404
-        return get_file_action(request, distribution.pk)
+        response = serve_distribution_download(request, distribution, legacy_transport=False)
+        add_never_cache_headers(response)
+        return response
 
 
+@extend_schema_view(
+    list=extend_schema(operation_id="v3_platforms_list"),
+    retrieve=extend_schema(operation_id="v3_platforms_retrieve"),
+)
 class PlatformViewSet(CatalogViewSet):
     queryset = Platform.objects.order_by("name", "pk")
     serializer_class = PlatformSerializer
 
 
-@extend_schema_view(list=extend_schema(parameters=[CollectionParams]))
+@extend_schema_view(
+    list=extend_schema(operation_id="v3_collections_list", parameters=[CollectionParams]),
+    retrieve=extend_schema(operation_id="v3_collections_retrieve"),
+)
 class CollectionViewSet(CatalogViewSet):
     serializer_class = CollectionSerializer
     query_serializer = CollectionParams
@@ -169,7 +203,11 @@ class CollectionViewSet(CatalogViewSet):
             queryset = queryset.filter(owner_id=user_id)
         return queryset
 
-    @extend_schema(parameters=[PageParams], responses=ApplicationSerializer(many=True))
+    @extend_schema(
+        operation_id="v3_collections_apps_list",
+        parameters=[PageParams],
+        responses=ApplicationSerializer(many=True),
+    )
     @action(detail=True)
     def apps(self, request, pk=None):
         validated_query(PageParams, request)
@@ -179,7 +217,11 @@ class CollectionViewSet(CatalogViewSet):
 
 
 class SuggestionView(V3ContractMixin, APIView):
-    @extend_schema(parameters=[SuggestionParams], responses=SuggestionSerializer)
+    @extend_schema(
+        operation_id="v3_search_suggestions_retrieve",
+        parameters=[SuggestionParams],
+        responses=SuggestionSerializer,
+    )
     def get(self, request):
         params = validated_query(SuggestionParams, request)
         if is_query_too_short(params["q"]):

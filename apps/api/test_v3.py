@@ -1,8 +1,12 @@
 from unittest.mock import patch
 
+from django.db import connection
 from django.test import override_settings
+from django.test.utils import CaptureQueriesContext
 from rest_framework.test import APITestCase
 
+from apps.api.authentication import CustomJWTAuthentication
+from apps.api.token_sessions import issue_tokens
 from apps.marketplace.models import Application, Category, Collection, CollectionItem, Distribution, Platform
 from apps.user.models import User
 
@@ -82,6 +86,35 @@ class CatalogContractTests(APITestCase):
         self.assertEqual(response.status_code, 200, response.data)
         self.assertEqual(throttle.call_count, 3)
 
+    def test_batch_authenticates_once_and_preserves_private_access(self):
+        tokens = issue_tokens(self.owner)
+        self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {tokens['access']}")
+        direct = self.client.get(f"/v3/apps/{self.private.pk}/")
+        params = {"pk": self.private.pk}
+        with patch.object(
+            CustomJWTAuthentication, "authenticate", autospec=True,
+            side_effect=CustomJWTAuthentication.authenticate,
+        ) as authenticate:
+            response = self.client.post("/v3/batch/", {"requests": [
+                {"id": "one", "operation": "v3_apps_retrieve", "params": params},
+                {"id": "two", "operation": "v3_apps_retrieve", "params": params},
+            ]}, format="json")
+        self.assertEqual(direct.status_code, 200)
+        self.assertEqual(response.status_code, 200, response.data)
+        self.assertEqual([item["body"] for item in response.data["results"]], [direct.data, direct.data])
+        authenticate.assert_called_once()
+
+    @override_settings(LUNASPIRE_URL="//spire.example.test", LUNASPIRE_SECRET_KEY="test-signing-key-for-downloads-32")
+    def test_v3_cdn_download_uses_https_and_disables_caching(self):
+        self.distribution.cdn_file_id = "42"
+        self.distribution.save(update_fields=["cdn_file_id"])
+        response = self.client.get(
+            f"/v3/distributions/{self.distribution.pk}/download/", HTTP_USER_AGENT="MSIE 6",
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(response["Location"].startswith("https://spire.example.test/cdn/download?token="))
+        self.assertIn("no-store", response["Cache-Control"])
+
     def test_batch_rejects_empty_oversized_and_duplicate_ids(self):
         valid = {"id": "same", "operation": "v3_platforms_list"}
         for calls in ([], [valid, valid], [{**valid, "id": str(index)} for index in range(26)]):
@@ -89,3 +122,26 @@ class CatalogContractTests(APITestCase):
                 response = self.client.post("/v3/batch/", {"requests": calls}, format="json")
                 self.assertEqual(response.status_code, 400)
                 self.assertEqual(response["Content-Type"], "application/problem+json")
+
+    @override_settings(API_PUBLIC_SCHEME="https")
+    def test_paginated_links_use_configured_public_scheme(self):
+        Category.objects.create(name="Games", icon="entertainment")
+        for endpoint in ("/v2/category/", "/v3/categories/"):
+            with self.subTest(endpoint=endpoint):
+                response = self.client.get(endpoint, {"limit": 1})
+                self.assertEqual(response.status_code, 200, response.data)
+                self.assertTrue(response.data["next"].startswith(f"https://testserver{endpoint}"))
+
+    def test_batch_reduces_catalog_queries_for_shared_sections(self):
+        paths = ("/v3/categories/", "/v3/platforms/", "/v3/categories/")
+        operations = ("v3_categories_list", "v3_platforms_list", "v3_categories_list")
+        with CaptureQueriesContext(connection) as direct:
+            responses = [self.client.get(path) for path in paths]
+        with CaptureQueriesContext(connection) as bundled:
+            response = self.client.post("/v3/batch/", {
+                "requests": [{"id": str(index), "operation": operation} for index, operation in enumerate(operations)],
+            }, format="json")
+        self.assertEqual(response.status_code, 200, response.data)
+        self.assertEqual([item["body"] for item in response.data["results"]], [item.data for item in responses])
+        self.assertLess(len(bundled), len(direct))
+        self.assertLess(len(response.content), sum(len(item.content) for item in responses) + 100 * len(operations))

@@ -5,11 +5,10 @@ from django.conf import settings
 from django.db.models import Count, Prefetch, Q
 from apps.core.objects import get_integer_object_or_404
 from django.utils import timezone
-from rest_framework import serializers, viewsets, mixins
-from rest_framework.decorators import action, api_view, permission_classes
+from rest_framework import serializers, viewsets
+from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.views import APIView
 from rest_framework.exceptions import NotFound
 from django.shortcuts import get_object_or_404
@@ -19,13 +18,14 @@ from drf_spectacular.utils import (
     OpenApiResponse,
     OpenApiTypes,
     extend_schema,
+    extend_schema_field,
     extend_schema_view,
     inline_serializer,
 )
 from apps.marketplace.models import Application, Category, Collection, CollectionItem, Distribution, Platform
 from apps.marketplace.services.access import can_manage_app
 from apps.api.upload_tokens import can_upload_distribution, issue_private_upload_token, issue_public_upload_token
-from apps.api.catalog import application_queryset, distribution_queryset, paginated_search
+from apps.api.catalog import APILimitOffsetPagination, application_queryset, distribution_queryset, paginated_search
 from apps.marketplace.serializers import ApplicationSerializer as LegacyApplicationSerializer, CategorySerializer, CollectionSerializer, DistributionSerializer as LegacyDistributionSerializer, annotate_app_last_version
 from apps.user.models import User
 from apps.user.serializers import UserSerializer
@@ -42,7 +42,7 @@ from apps.api.constants import ErrorCodes, PUB_UPLOAD_POLICIES
 from apps.api.exceptions import LunaException
 
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from .serializers import CustomTokenObtainPairSerializer, CustomTokenRefreshSerializer
+from .serializers import CustomTokenObtainPairSerializer, CustomTokenRefreshSerializer, TokenPairSerializer
 
 
 class PlatformSerializer(serializers.ModelSerializer):
@@ -63,6 +63,7 @@ class DistributionSerializer(LegacyDistributionSerializer):
     platform = PlatformSerializer(read_only=True)
     platforms = serializers.SerializerMethodField()
 
+    @extend_schema_field(PlatformSerializer(many=True))
     def get_platforms(self, obj):
         return PlatformSerializer(obj.display_platforms, many=True).data
 
@@ -78,22 +79,20 @@ class PlatformViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 @extend_schema_view(
-    post=extend_schema(summary="get JWT access and refresh tokens (supports 2FA)"),
+    post=extend_schema(summary="get JWT access and refresh tokens (supports 2FA)", responses=TokenPairSerializer),
 )
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
 
 
 @extend_schema_view(
-    post=extend_schema(summary="refresh JWT access token"),
+    post=extend_schema(summary="rotate JWT refresh token", responses=TokenPairSerializer),
 )
 class CustomTokenRefreshView(TokenRefreshView):
     serializer_class = CustomTokenRefreshSerializer
 
 
-class V2Pagination(LimitOffsetPagination):
-    default_limit = 20
-    max_limit = 100
+V2Pagination = APILimitOffsetPagination
 
 
 def _paginated_search_response_schema(item_serializer, name):
@@ -124,6 +123,16 @@ _SEARCH_ERROR_503 = OpenApiResponse(
 )
 
 
+class UploadTokenSerializer(serializers.Serializer):
+    upload_token = serializers.CharField()
+    guard = serializers.CharField()
+
+
+class NotificationTokenSerializer(serializers.Serializer):
+    token = serializers.CharField()
+    ws_url = serializers.CharField()
+
+
 @extend_schema_view(
     list=extend_schema(summary="get paginated list of users"),
     retrieve=extend_schema(summary="get detailed user profile"),
@@ -136,6 +145,7 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     @extend_schema(
         summary="get public upload token",
         description="Returns public upload token",
+        responses=UploadTokenSerializer,
         parameters=[
             OpenApiParameter(name="target", description="Target object (avatar, icon, screenshot)", required=True, type=str, location=OpenApiParameter.QUERY)
         ],
@@ -152,6 +162,7 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     @extend_schema(
         summary="get private upload token",
         description="Returns private upload token",
+        responses=UploadTokenSerializer,
         parameters=[
             OpenApiParameter(name="target", description="Target", required=False, type=str, location=OpenApiParameter.QUERY),
             OpenApiParameter(name="app_id", description="Application ID", required=True, type=int, location=OpenApiParameter.QUERY)
@@ -169,6 +180,7 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
             return Response({"error": "Not your app"}, status=403)
         return Response(issue_private_upload_token(request.user, app_obj))
 
+    @extend_schema(responses=NotificationTokenSerializer)
     @action(detail=False, methods=["get"], url_path="getNotificationToken", permission_classes=[IsAuthenticated])
     def get_notification_token(self, request):
         token = NotificationService.get_receive_token(request.user.id)
@@ -245,12 +257,6 @@ class MarketplaceViewSet(viewsets.ReadOnlyModelViewSet):
 
     def get_object(self):
         obj = super().get_object()
-        if obj.is_under_dmca:
-            raise LunaException(
-                code=ErrorCodes.APPLICATION_IS_UNDER_DMCA,
-                message=f"Application (id: {obj.id}) unavailable because his creators/uploaders received a DMCA strike",
-                status_code=403,
-            )
         if obj.is_private and not can_manage_app(obj, self.request.user, "view"):
             raise LunaException(
                 code=ErrorCodes.APPLICATION_PRIVATE,
@@ -433,6 +439,7 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
     @extend_schema(
         summary="get apps by category",
         description="Returns paginated apps in a given category",
+        responses=ApplicationSerializer(many=True),
         parameters=[OpenApiParameter(name="platform", description="Platform code", required=False,
                                      type=OpenApiTypes.STR)],
     )
@@ -468,6 +475,7 @@ class DistributionViewSet(viewsets.ReadOnlyModelViewSet):
 
     @extend_schema(
         summary="get distributions by application",
+        responses=DistributionSerializer(many=True),
         parameters=[
             OpenApiParameter(name="app_id", description="Application ID", required=True, type=int, location=OpenApiParameter.QUERY)
         ],
@@ -504,12 +512,16 @@ class ServiceViewSet(viewsets.ViewSet):
             return []
         return super().get_throttles()
 
-    @extend_schema(summary="check API status")
+    @extend_schema(summary="check API status", responses=inline_serializer(
+        name="V2Heartbeat",
+        fields={"status": serializers.CharField(), "timestamp": serializers.DateTimeField(),
+                "version": serializers.CharField()},
+    ))
     @action(detail=False, methods=["get"], url_path="heartbeat")
     def heartbeat(self, request):
         return Response({"status": "ok", "timestamp": timezone.now(), "version": settings.VERSION})
 
-    @extend_schema(summary="returns list of LunaStore developers")
+    @extend_schema(summary="returns list of LunaStore developers", responses=OpenApiTypes.OBJECT)
     @action(detail=False, methods=["get"], url_path="developersList")
     def developers(self, request):
         return Response({
@@ -521,7 +533,9 @@ class ServiceViewSet(viewsets.ViewSet):
             "special_thanks": "MondySpartan (logo), nocha3 (native client of LunaStore for Windows XP)",
         })
 
-    @extend_schema(summary="returns one cool thing")
+    @extend_schema(summary="returns one cool thing", responses=inline_serializer(
+        name="V2ServiceAnswer", fields={"answer": serializers.CharField()},
+    ))
     @action(detail=False, methods=["get"], url_path="kunyakin")
     def kunyakin(self, request):
         return Response({"answer": "влад кунякин пробудил шаринган"})
@@ -570,6 +584,7 @@ class CollectionViewSet(viewsets.ReadOnlyModelViewSet):
     @extend_schema(
         summary="get apps in collection",
         description="Returns paginated apps in a given collection",
+        responses=ApplicationSerializer(many=True),
     )
     @action(detail=True, methods=["get"], url_path="apps")
     def apps(self, request, pk=None):
@@ -593,6 +608,7 @@ class CollectionViewSet(viewsets.ReadOnlyModelViewSet):
     @extend_schema(
         summary="get collections by user",
         description="Returns public collections owned by user_id",
+        responses=CollectionSerializer(many=True),
         parameters=[
             OpenApiParameter(
                 name="user_id",
