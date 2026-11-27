@@ -106,6 +106,16 @@
     zoom: 1;
 }
 
+.download_version_table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.download_version_table th,
+.download_version_table td {
+    word-wrap: break-word;
+}
+
 .st_scr {
     width: 120px;
     height: 90px;
