@@ -188,6 +188,22 @@ class ApplicationAccessTests(TestCase):
             self.assertNotContains(response, reverse(route, kwargs={"pk": self.app.pk}))
         self.assertNotContains(response, 'id="screenshots-interactive-container"')
 
+    def test_application_forms_include_upload_confirmation_fields(self):
+        group, _ = Group.objects.get_or_create(name="Разработчики")
+        self.owner.groups.add(group)
+        for url in (reverse("app_add"), reverse("edit_app_info", kwargs={"pk": self.app.pk})):
+            response = self.client.get(url)
+            self.assertEqual(response.status_code, 200)
+            for field in ("cdn_icon_confirm_token", "cdn_screenshots_tokens"):
+                self.assertContains(response, f'name="{field}"')
+
+    def test_edit_without_screenshot_data_preserves_existing_screenshots(self):
+        self.app.screenshots = ["screenshots/original.png"]
+        self.app.save()
+        response = self.client.post(reverse("edit_app_info", kwargs={"pk": self.app.pk}), self.edit_data())
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(AppEditRequests.objects.get(target_application=self.app).screenshots, self.app.screenshots)
+
     def test_editor_forged_fields_cannot_change_screenshots_or_settings(self):
         self.app.screenshots = ["screenshots/original.png"]
         self.app.save()

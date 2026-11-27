@@ -492,6 +492,9 @@ class AppEditForm(AppCreateForm):
 
         cleaned_data = super().clean()
 
+        if not original_json and hasattr(self, "target_app"):
+            cleaned_data["cdn_screenshots_data"] = self.target_app.screenshots
+
         platforms = cleaned_data.get("platforms")
         if platforms is not None and hasattr(self, "target_app"):
             selected = set(platforms.values_list("pk", flat=True))
