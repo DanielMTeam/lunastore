@@ -287,6 +287,10 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": "API Documentation for LunaStore",
     "VERSION": VERSION,
     "SERVE_INCLUDE_SCHEMA": False,
+    "POSTPROCESSING_HOOKS": [
+        "drf_spectacular.hooks.postprocess_schema_enums",
+        "apps.api.schema.document_v3_problems",
+    ],
 }
 
 

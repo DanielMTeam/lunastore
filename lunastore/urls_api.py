@@ -3,21 +3,30 @@ from django.conf.urls.static import static
 from django.http import HttpResponse, JsonResponse
 from django.urls import include, path
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+from apps.api.v3.contract import problem_response
 
 
 def api_handler404(request, exception=None):
+    if request.path_info.startswith("/v3/"):
+        return problem_response(404)
     return JsonResponse({"detail": "Not found."}, status=404)
 
 
 def api_handler500(request):
+    if request.path_info.startswith("/v3/"):
+        return problem_response(500)
     return JsonResponse({"detail": "Internal server error."}, status=500)
 
 
 def api_handler400(request, exception=None):
+    if request.path_info.startswith("/v3/"):
+        return problem_response(400)
     return JsonResponse({"detail": "Bad request."}, status=400)
 
 
 def api_handler403(request, exception=None):
+    if request.path_info.startswith("/v3/"):
+        return problem_response(403)
     return JsonResponse({"detail": "Permission denied."}, status=403)
 
 
@@ -25,6 +34,8 @@ handler400 = "lunastore.urls_api.api_handler400"
 handler403 = "lunastore.urls_api.api_handler403"
 handler404 = "lunastore.urls_api.api_handler404"
 handler500 = "lunastore.urls_api.api_handler500"
+
+v3_patterns = [path("v3/", include("apps.api.v3.urls"))]
 
 urlpatterns = [
     path(
@@ -43,6 +54,8 @@ urlpatterns = [
         "v2/",
         include("apps.api.v2.urls"),
     ),
+    *v3_patterns,
+    path("schema/v3/", SpectacularAPIView.as_view(patterns=v3_patterns), name="schema-v3"),
     path(
         "schema/",
         SpectacularAPIView.as_view(),

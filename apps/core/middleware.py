@@ -65,7 +65,7 @@ class FallbackGeoRedirectMiddleware:
     def __call__(self, request):
         if getattr(config, 'GEO_DOMAIN_PYTHON_FALLBACK_REDIRECTS', False):
             if request.method in ('GET', 'HEAD') and not request.path.startswith(
-                ('/media/', '/staticfiles/', '/static/', '/method/', '/v2/')
+                ('/media/', '/staticfiles/', '/static/', '/method/', '/v2/', '/v3/')
             ):
                 from apps.core.utils import get_geo_domains
                 geo_domains = get_geo_domains(request, allow_country_fallback=True)

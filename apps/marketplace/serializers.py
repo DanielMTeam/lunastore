@@ -43,7 +43,7 @@ class ApplicationSerializer(serializers.ModelSerializer):
             "version",
         ]
 
-    def get_version(self, obj):
+    def get_version(self, obj) -> str | None:
         if hasattr(obj, "last_dist_version"):
             return obj.last_dist_version
         last_dist = obj.distributions.order_by("-published").first()

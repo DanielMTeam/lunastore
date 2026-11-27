@@ -27,7 +27,8 @@ from drf_spectacular.utils import (
     inline_serializer,
 )
 from apps.marketplace.models import Application, Category, Collection, CollectionItem, Distribution, Platform
-from apps.marketplace.services.access import can_manage_app, application_role, accessible_app_ids
+from apps.marketplace.services.access import can_manage_app, application_role
+from apps.api.catalog import application_queryset, distribution_queryset, paginated_search
 from apps.marketplace.services.distributions import can_submit_community_distribution
 from apps.marketplace.serializers import ApplicationSerializer as LegacyApplicationSerializer, CategorySerializer, CollectionSerializer, DistributionSerializer as LegacyDistributionSerializer, annotate_app_last_version
 from apps.user.models import User
@@ -97,20 +98,6 @@ class CustomTokenRefreshView(TokenRefreshView):
 class V2Pagination(LimitOffsetPagination):
     default_limit = 20
     max_limit = 100
-
-
-def _meili_limit_offset_response(view, request, queryset, search_callable):
-    # meili ids -> orm hydrate -> limit/offset envelope
-    # set limit/offset explicitly: get_limit/get_offset alone do not assign them
-    paginator = V2Pagination()
-    paginator.limit = paginator.get_limit(request)
-    paginator.offset = paginator.get_offset(request)
-    ids, total = search_callable(limit=paginator.limit, offset=paginator.offset)
-    results = SearchService.order_queryset_by_ids(queryset, ids)
-    serializer = view.get_serializer(results, many=True)
-    paginator.request = request
-    paginator.count = total
-    return paginator.get_paginated_response(serializer.data)
 
 
 def _paginated_search_response_schema(item_serializer, name):
@@ -288,7 +275,7 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
             )
 
         try:
-            return _meili_limit_offset_response(
+            return paginated_search(
                 self, request, self.get_queryset(), _search
             )
         except SearchUnavailableError:
@@ -301,11 +288,7 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
 )
 class MarketplaceViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
-        qs = Application.objects.filter(is_under_dmca=False)
-        if self.action == "retrieve":
-            qs = qs.filter(Q(is_private=False) | Q(pk__in=accessible_app_ids(self.request.user)))
-        else:
-            qs = qs.filter(is_private=False)
+        qs = application_queryset(self.request.user, include_private=self.action == "retrieve")
         return annotate_app_last_version(qs.prefetch_related("platforms"))
     serializer_class = ApplicationSerializer
     pagination_class = V2Pagination
@@ -406,7 +389,7 @@ class MarketplaceViewSet(viewsets.ReadOnlyModelViewSet):
             )
 
         try:
-            return _meili_limit_offset_response(
+            return paginated_search(
                 self, request, self.get_queryset(), _search
             )
         except SearchUnavailableError:
@@ -531,14 +514,7 @@ class DistributionViewSet(viewsets.ReadOnlyModelViewSet):
     pagination_class = V2Pagination
 
     def get_queryset(self):
-        # Private distributions are visible to the owner and current team members.
-        qs = Distribution.objects.select_related("app", "app__user", "platform").prefetch_related("platforms").filter(
-            app__deleted__isnull=True, app__is_under_dmca=False,
-        )
-        user = self.request.user
-        if user.is_authenticated:
-            return qs.filter(Q(app__is_private=False) | Q(app_id__in=accessible_app_ids(user)))
-        return qs.filter(app__is_private=False)
+        return distribution_queryset(self.request.user)
 
     @extend_schema(
         summary="get distributions by application",
