@@ -15,12 +15,12 @@ Lists return `count`, `next`, `previous`, and `results`. The default limit is 20
 
 1. Post `{"username":"user","password":"…"}` to `/v3/auth/token/`. If the account requires TOTP, repeat with `totp_code`.
 2. Set `Authorization: Bearer ACCESS` and call `GET /v3/me/` to read the signed-in user's profile.
-3. Poll `GET /v3/me/notifications/?page=1&limit=20` for the inbox and `unread_count`. A notification with `read_at: null` is unread. Send `POST /v3/me/notifications/mark-all-read/` to mark the inbox read. Success returns HTTP 204. HTTP 503 means LunaSpire is temporarily unavailable.
+3. Poll `GET /v3/me/notifications/?page=1&limit=20` for the inbox and `unread_count`. A notification with `read_at: null` is unread. Send `POST /v3/me/notifications/mark-all-read/` to mark the inbox read. Success returns HTTP 204. On HTTP 429, wait for the duration in `Retry-After`. HTTP 503 means LunaSpire is temporarily unavailable.
 4. Post `{"refresh":"…"}` to `/v3/auth/token/refresh/` and replace both saved tokens on success. Post the current refresh token to `/v3/auth/token/revoke/` to end the session.
 
 ## Batch catalog requests
 
-Post to `/v3/batch/` with 1–25 read operations. Each has a unique client-supplied `id`, an OpenAPI `operationId` in `operation`, and optional scalar `params`. Detail operations take `pk`.
+Post a JSON body of up to 64 KiB to `/v3/batch/` with 1–25 read operations and at most two distinct searches. Each has a unique client-supplied `id`, an OpenAPI `operationId` in `operation`, and optional scalar `params`. Detail operations take `pk`.
 
 ```json
 {
@@ -31,7 +31,7 @@ Post to `/v3/batch/` with 1–25 read operations. Each has a unique client-suppl
 }
 ```
 
-A valid batch returns HTTP 200 with a `results` array. Each result has `id`, `status`, and `body`. Inspect each status even when the outer request succeeds. Each item counts towards the request limit. Account, token, download, and write operations use their direct routes.
+A valid batch returns HTTP 200 with a `results` array. Each result has `id`, `status`, and `body`. Inspect each status even when the outer request succeeds. Each item counts towards the request limit. Operations that reach the execution deadline report `503` with code `batch_timeout`. Account, token, download, and write operations use their direct routes.
 
 ## Migrate from V1
 
@@ -50,7 +50,7 @@ A valid batch returns HTTP 200 with a `results` array. Each result has `id`, `st
 
 Read fields directly from a V3 detail response and read list items from `results`. Both `/v2/` and `/method/v2/` expose the existing V2 contract. V2 Execute uses the `code` request key and `responses` result key.
 
-This release removes V1 RPC. Update clients using the table above and point monitoring at the V3 health endpoint. Deploy LunaSpire and Django from the matching release. Roll back the application and proxy configuration together if clients need to return to V1.
+This release removes V1 RPC. Update clients using the table above and point monitoring at the V3 health endpoint. Deploy the matching LunaSpire version first so it accepts the new service token before Django starts sending it. Roll back the application and proxy configuration together if clients need to return to V1.
 
 ## V2 compatibility fixes
 

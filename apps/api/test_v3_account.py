@@ -1,7 +1,9 @@
 from unittest.mock import patch
 
+import jwt
 import pyotp
 import requests
+from django.conf import settings
 from django.test import override_settings
 from rest_framework.test import APITestCase
 
@@ -92,3 +94,25 @@ class AccountContractTests(APITestCase):
         self.assertEqual(result.status_code, 503, result.data)
         self.assertEqual(result.data["code"], "notifications_unavailable")
         self.assertEqual(result["Content-Type"], "application/problem+json")
+
+    @override_settings(LUNASPIRE_SECRET_KEY="notifications-service-dummy-key-32")
+    @patch("apps.core.notifications.services.requests.request")
+    def test_upstream_rate_limit_preserves_retry_after_and_uses_service_token(self, upstream):
+        self.authenticate_as(self.user)
+        upstream.return_value.status_code = 429
+        upstream.return_value.headers = {"Retry-After": "42"}
+        for method, path in (
+            (self.client.get, "/v3/me/notifications/"),
+            (self.client.post, "/v3/me/notifications/mark-all-read/"),
+        ):
+            with self.subTest(path=path):
+                result = method(path)
+                self.assertEqual(result.status_code, 429)
+                self.assertEqual(result["Retry-After"], "42")
+                self.assertEqual(result.data["code"], "throttled")
+                kwargs = upstream.call_args.kwargs
+                self.assertNotIn("token", kwargs["params"])
+                token = kwargs["headers"]["Authorization"].removeprefix("Bearer ")
+                claims = jwt.decode(token, settings.LUNASPIRE_SECRET_KEY, algorithms=["HS256"])
+                self.assertEqual(claims["type"], "notify-service")
+                self.assertEqual(claims["user_id"], self.user.pk)

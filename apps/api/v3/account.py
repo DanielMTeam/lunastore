@@ -13,7 +13,7 @@ from apps.api.authentication import CustomJWTAuthentication
 from apps.api.media import public_api_url
 from apps.api.token_sessions import revoke_tokens
 from apps.api.v2.serializers import CustomTokenObtainPairSerializer, CustomTokenRefreshSerializer, TokenPairSerializer
-from apps.core.notifications.services import NotificationService, NotificationsUnavailable
+from apps.core.notifications.services import NotificationService, NotificationsThrottled, NotificationsUnavailable
 
 from .catalog import validated_query
 from .contract import V3ContractMixin
@@ -77,6 +77,12 @@ class NotificationServiceUnavailable(exceptions.APIException):
     default_code = "notifications_unavailable"
 
 
+def notification_error(exc):
+    if isinstance(exc, NotificationsThrottled):
+        return exceptions.Throttled(wait=exc.retry_after)
+    return NotificationServiceUnavailable()
+
+
 class NotificationsView(AccountView):
     @extend_schema(parameters=[NotificationParams], responses=NotificationPageSerializer)
     def get(self, request):
@@ -84,6 +90,9 @@ class NotificationsView(AccountView):
         page, limit = params["page"], params["limit"]
         try:
             data = NotificationService.list_notifications(request.user.pk, page=page, limit=limit)
+        except NotificationsUnavailable as exc:
+            raise notification_error(exc) from exc
+        try:
             total = data["total"]
             unread = data["total_unread"]
             if type(total) is not int or type(unread) is not int or not 0 <= unread <= total:
@@ -99,7 +108,7 @@ class NotificationsView(AccountView):
                 }
                 for item in (data["data"] if data["data"] is not None else [])
             ]
-        except (NotificationsUnavailable, AttributeError, KeyError, TypeError, ValueError, OverflowError, OSError) as exc:
+        except (AttributeError, KeyError, TypeError, ValueError, OverflowError, OSError) as exc:
             raise NotificationServiceUnavailable() from exc
 
         def link(number):
@@ -120,7 +129,7 @@ class MarkNotificationsReadView(AccountView):
         try:
             NotificationService.mark_all_read(request.user.pk)
         except NotificationsUnavailable as exc:
-            raise NotificationServiceUnavailable() from exc
+            raise notification_error(exc) from exc
         return Response(status=204)
 
 

@@ -20,12 +20,17 @@ class NotificationsUnavailable(Exception):
     pass
 
 
+class NotificationsThrottled(NotificationsUnavailable):
+    def __init__(self, retry_after):
+        self.retry_after = retry_after
+
+
 class NotificationService:
 
     # sign token method
     @staticmethod
-    def generate_token(payload: dict) -> str:
-        payload['exp'] = int(time.time()) + 3600  # 1 hour expiration
+    def generate_token(payload: dict, *, lifetime=3600) -> str:
+        payload['exp'] = int(time.time()) + lifetime
         return jwt.encode(
             payload,
             settings.LUNASPIRE_SECRET_KEY,
@@ -91,10 +96,12 @@ class NotificationService:
     @classmethod
     def _receive_request(cls, method, path, user_id, **params):
         try:
+            token = cls.generate_token({"type": "notify-service", "user_id": user_id}, lifetime=60)
             response = requests.request(
                 method,
                 f"{cls._server_url()}/notifications/{path}",
-                params={"token": cls.get_receive_token(user_id), **params},
+                headers={"Authorization": f"Bearer {token}"},
+                params=params,
                 timeout=3,
                 allow_redirects=False,
             )
@@ -105,6 +112,11 @@ class NotificationService:
         except (requests.RequestException, ValueError) as exc:
             logger.warning("LunaSpire notification request failed (%s)", type(exc).__name__)
             raise NotificationsUnavailable from exc
+        if response.status_code == 429:
+            retry_after = response.headers.get("Retry-After", "")
+            valid_delay = len(retry_after) <= 4 and retry_after.isascii() and retry_after.isdecimal()
+            seconds = int(retry_after) if valid_delay else 60
+            raise NotificationsThrottled(max(1, seconds))
         logger.warning("LunaSpire notification request failed (HTTP %s)", response.status_code)
         raise NotificationsUnavailable
 
