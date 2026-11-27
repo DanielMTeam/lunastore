@@ -49,8 +49,8 @@ urlpatterns = [
         lambda r: HttpResponse("User-agent: *\nDisallow: /\n", content_type="text/plain"),
     ),
     path(
-        "method/",
-        include("apps.api.urls"),
+        "method/v2/",
+        include("apps.api.v2.urls"),
     ),
     *v2_patterns,
     *v3_patterns,

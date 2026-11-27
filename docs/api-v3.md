@@ -50,7 +50,7 @@ A valid batch returns HTTP 200 with a `results` array. Each result has `id`, `st
 
 Read fields directly from a V3 detail response and read list items from `results`. Both `/v2/` and `/method/v2/` expose the existing V2 contract. V2 Execute uses the `code` request key and `responses` result key.
 
-Before removing V1, confirm web and admin uploads, switch monitoring to the V3 health endpoint, and check catalog access and downloads in supported native clients on their target systems. Deploy LunaSpire and Django from the matching release. Roll back the application and proxy configuration together if clients need to return to V1.
+This release removes V1 RPC. Update clients using the table above and point monitoring at the V3 health endpoint. Deploy LunaSpire and Django from the matching release. Roll back the application and proxy configuration together if clients need to return to V1.
 
 ## V2 compatibility fixes
 

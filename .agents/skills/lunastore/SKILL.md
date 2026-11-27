@@ -44,7 +44,7 @@ For full system architecture and service boundaries, read [architecture.md](./re
 
 Search lives in `apps/core/search/`: Meilisearch is primary, ORM `icontains` is the outage fallback. Application GIN trigram indexes were removed by migration `0040_remove_application_trigram_indexes`.
 
-Indexing signals enqueue ID-based tasks after `transaction.on_commit`; the Redis worker reads current records and retries indexing failures up to three times. Run `python manage.py run_tasks_worker --continuous`. Full rebuilds use `python manage.py reindex_search` with temporary indexes and atomic swaps. Incremental tasks use nonblocking PostgreSQL advisory locks: a busy index reschedules the task after 5 seconds without blocking the worker. Database saves and searches continue. Suggestions hydrate Meilisearch IDs from the database to enforce current visibility and localized display fields. API v1 search returns at most 100 entries; API v2 preserves limit/offset pagination.
+Indexing signals enqueue ID-based tasks after `transaction.on_commit`; the Redis worker reads current records and retries indexing failures up to three times. Run `python manage.py run_tasks_worker --continuous`. Full rebuilds use `python manage.py reindex_search` with temporary indexes and atomic swaps. Incremental tasks use nonblocking PostgreSQL advisory locks: a busy index reschedules the task after 5 seconds without blocking the worker. Database saves and searches continue. Suggestions hydrate Meilisearch IDs from the database to enforce current visibility and localized display fields. V2 and V3 catalog search use limit/offset pagination.
 
 ---
 
@@ -83,16 +83,10 @@ Indexing signals enqueue ID-based tasks after `transaction.on_commit`; the Redis
 ---
 
 ### 3. Creating & Updating API Endpoints
-LunaStore provides two API flavors in `apps/api/`:
-- **V1 Legacy RPC API (`/method/`)**:
-  - Located in `apps/api/views.py`.
-  - Slash-separated `@action` paths (e.g. `/method/user/getProfileInfo/`, `/method/marketplace/getAppInfo/`).
-  - JSON envelope `{ "response": ... }` or LunaException error shape.
-- **V2 Modern REST API (`/v2/`)**:
-  - Located in `apps/api/v2/views.py`.
-  - JWT auth (`/v2/auth/token/`), `ExecuteView` at `/v2/execute/` (body key `code`, max 25 calls), OpenAPI via `drf-spectacular`.
-  - Resources: `user`, `marketplace`, `category`, `service`, `distribution`, `collection` (collections are read-only).
-- Read the deep dive: [api-reference.md](./references/api-reference.md).
+LunaStore exposes two REST versions:
+- **V2** uses `apps/api/v2/views.py`, with `/v2/` as the canonical mount and `/method/v2/` as a compatibility alias.
+- **V3** uses `apps/api/v3/` for catalog, account, notifications and batch endpoints.
+- Read [the API reference](./references/api-reference.md). The V3 guide includes the replacements for retired V1 RPC methods.
 
 ---
 
@@ -145,7 +139,7 @@ LunaStore provides two API flavors in `apps/api/`:
 | :--- | :--- | :--- |
 | **System Architecture** | [architecture.md](./references/architecture.md) | Multi-container setup, LunaSpire CDN, GeoIP, optional ClickHouse analytics |
 | **Django Backend** | [backend-django.md](./references/backend-django.md) | Apps breakdown, models, soft-delete exceptions, signals, Constance |
-| **API Endpoints** | [api-reference.md](./references/api-reference.md) | V1 RPC (`/method/`), V2 REST (`/v2/`), JWT Auth, Execute batching |
+| **API Endpoints** | [api-reference.md](./references/api-reference.md) | V2 and V3 REST, JWT and batch requests |
 | **Frontend & IE6** | [frontend-ie6.md](./references/frontend-ie6.md) | IE6/XP compatibility, Babel pipeline, CSS structure, DD_belatedPNG |
 | **Security & noSpam** | [security-nospam.md](./references/security-nospam.md) | AntiSpamService, NoSpamRule, IP bans, 2FA, session tracking |
 | **Dev Runbook** | [runbook-dev.md](./references/runbook-dev.md) | Docker commands, Makefile, `run-dev.ps1`, troubleshooting |

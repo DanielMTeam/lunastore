@@ -3,131 +3,11 @@ from rest_framework import status
 from django.test import override_settings
 from unittest.mock import patch
 from apps.user.models import User
-from apps.marketplace.models import Application, Category, Collection, CollectionItem, Distribution, Platform
+from apps.marketplace.models import Application, Collection, CollectionItem
 from apps.core.search import SearchUnavailableError
 import logging
 
 logger = logging.getLogger('api_tests')
-
-
-@override_settings(ROOT_URLCONF='lunastore.urls_api')
-class APIViewsTest(APITestCase):
-    @classmethod
-    def setUpTestData(cls):
-        logger.info('[API] Creating test data for API endpoints...')
-        cls.user = User.objects.create(
-            username='ApiUser',
-            password='ApiPassword123!',
-            is_active=True
-        )
-
-        cls.category = Category.objects.create(
-            name='Utilities',
-            description='System utilities'
-        )
-
-        cls.app = Application.objects.create(
-            user=cls.user,
-            title='SuperCleaner',
-            description='Cleans your system beautifully.',
-            slogan='Clean fast',
-            price=0,
-            is_under_dmca=False
-        )
-        cls.app.categories.add(cls.category)
-
-        xp, _ = Platform.objects.get_or_create(code="windows_xp", defaults={"name": "Windows XP"})
-        cls.app.platforms.add(xp)
-        Distribution.objects.create(
-            app=cls.app,
-            platform=xp,
-            version="1.0.0",
-            url="https://example.com/cleaner-legacy.zip",
-            changelog="Initial release",
-        )
-        Distribution.objects.create(
-            app=cls.app,
-            platform=xp,
-            version="2.1.0",
-            url="https://example.com/cleaner.zip",
-            changelog="Faster cleaning",
-        )
-
-        cls.dmca_app = Application.objects.create(
-            user=cls.user,
-            title='PirateApp',
-            description='This app is under DMCA',
-            is_under_dmca=True
-        )
-        cls.dmca_app.categories.add(cls.category)
-
-    def test_get_profile_info_success(self):
-        url = '/method/user/getProfileInfo/'
-        response = self.client.get(url, {'id': self.user.id})
-
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['username'], 'ApiUser')
-
-    def test_get_profile_info_missing_id(self):
-        url = '/method/user/getProfileInfo/'
-        response = self.client.get(url)
-
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(response.data['status'], 'error')
-        self.assertEqual(response.data['error_code'], 2)
-
-    def test_get_profile_info_not_found(self):
-        url = '/method/user/getProfileInfo/'
-        response = self.client.get(url, {'id': 9999})
-
-        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-
-    def test_get_app_info_success(self):
-        url = '/method/marketplace/getAppInfo/'
-        response = self.client.get(url, {'id': self.app.id})
-
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['title'], 'SuperCleaner')
-        self.assertEqual(response.data['version'], '2.1.0')
-
-    def test_get_app_info_version_none_without_distribution(self):
-        no_dist_app = Application.objects.create(
-            user=self.user,
-            title='NoDistApp',
-            description='Just an app',
-            price=0,
-            is_under_dmca=False,
-        )
-        url = '/method/marketplace/getAppInfo/'
-        response = self.client.get(url, {'id': no_dist_app.id})
-
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertIsNone(response.data['version'])
-
-    def test_get_app_info_dmca(self):
-        url = '/method/marketplace/getAppInfo/'
-        response = self.client.get(url, {'id': self.dmca_app.id})
-
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-        self.assertEqual(response.data['status'], 'error')
-        self.assertEqual(response.data['error_code'], 2001)
-
-    def test_heartbeat(self):
-        url = '/method/service/heartbeat/'
-        response = self.client.get(url)
-
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['status'], 'ok')
-        self.assertIn('version', response.data)
-
-    def test_kunyakin_easter_egg(self):
-        url = '/method/service/kunyakin/'
-        response = self.client.get(url)
-
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(
-            response.data['answer'],
-            'влад кунякин пробудил шаринган')
 
 
 @override_settings(
@@ -154,41 +34,6 @@ class SearchAPITest(APITestCase):
                 is_private=False,
                 is_under_dmca=False,
             )
-
-    @patch('apps.api.views.SearchService.search_application_ids')
-    def test_v1_marketplace_search_enumerated(self, mock_search):
-        mock_search.return_value = ([self.app.id], 1)
-        response = self.client.get(
-            '/method/marketplace/search/', {'query': 'Searchable'}
-        )
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertIn('1', response.data)
-        self.assertEqual(response.data['1']['title'], 'SearchableCleaner')
-        mock_search.assert_called_once()
-        self.assertEqual(mock_search.call_args.kwargs.get('limit'), 100)
-
-    @patch('apps.api.views.SearchService.search_user_ids')
-    def test_v1_user_search_enumerated(self, mock_search):
-        mock_search.return_value = ([self.user.id], 1)
-        response = self.client.get('/method/user/search/', {'query': 'SearchApi'})
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertIn('1', response.data)
-        self.assertEqual(response.data['1']['username'], 'SearchApiUser')
-        self.assertEqual(mock_search.call_args.kwargs.get('limit'), 100)
-
-    def test_v1_marketplace_search_missing_query(self):
-        response = self.client.get('/method/marketplace/search/')
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(response.data['error_code'], 2)
-
-    @patch('apps.api.views.SearchService.search_application_ids')
-    def test_v1_marketplace_search_unavailable(self, mock_search):
-        mock_search.side_effect = SearchUnavailableError('down')
-        response = self.client.get(
-            '/method/marketplace/search/', {'query': 'Searchable'}
-        )
-        self.assertEqual(response.status_code, status.HTTP_503_SERVICE_UNAVAILABLE)
-        self.assertEqual(response.data['error_code'], 1)
 
     @patch('apps.api.v2.views.SearchService.search_user_ids')
     def test_v2_user_search_paginated(self, mock_search):
@@ -234,25 +79,6 @@ class SearchAPITest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data['apps']), 1)
         self.assertEqual(response.data['users'], [])
-
-    @override_settings(MEILISEARCH_ENABLED=False)
-    def test_v1_database_fallback_caps_applications_at_100(self):
-        Application.objects.bulk_create([
-            Application(user=self.user, title=f'CapSearch {i}') for i in range(105)
-        ])
-        response = self.client.get('/method/marketplace/search/', {'query': 'CapSearch'})
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data), 100)
-        self.assertEqual(list(response.data), [str(i) for i in range(1, 101)])
-
-    @override_settings(MEILISEARCH_ENABLED=False)
-    def test_v1_database_fallback_caps_users_at_100(self):
-        User.objects.bulk_create([
-            User(username=f'CapSearch{i}', email=f'cap{i}@example.com', is_active=True) for i in range(105)
-        ])
-        response = self.client.get('/method/user/search/', {'query': 'CapSearch'})
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data), 100)
 
     @override_settings(MEILISEARCH_ENABLED=False)
     def test_v2_database_fallback_pagination_and_filters(self):

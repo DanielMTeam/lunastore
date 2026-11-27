@@ -19,7 +19,7 @@
 | **Storage & CDN** | **LunaSpire** (Go engine) | Host `6080` → container `8080`. File storage, CDN, push notifications, JWT tokens |
 | **Admin Panel** | `django-unfold` | Port `8088` (`urls_private.py`). Moderation, Constance, noSpam under `/${ADMIN_URL}/` |
 | **Frontend** | HTML5/HTML4 + Vanilla CSS + ES5 (Babel) | Windows XP / Luna retro design. **Internet Explorer 6** support |
-| **API** | REST (DRF) + RPC v1 | `/method/` (v1 legacy RPC) and `/v2/` (JWT, OpenAPI Swagger, Execute batching) |
+| **API** | REST (DRF) | `/v2/` and `/v3/` (JWT, OpenAPI, batch requests) |
 | **Auth & Security** | OIDC (Authentik) + Native + TOTP 2FA | noSpam engine, MX/disposable email validation, IP/User bans, sessions |
 | **Error Tracking** | Sentry / GlitchTip | Configured via `.env` and Constance |
 
@@ -38,9 +38,9 @@
 In the dev environment (`docker-compose.dev.yml`) the app runs as three Django containers with different `ROOT_URLCONF` values:
 1. `web` (port `9088`): `lunastore.urls` — main user-facing UI (`.php`-style routes such as `index.php`, `app.php`).
 2. `admin` (port `8088`): `lunastore.urls_private` — admin/moderator panel (`/${ADMIN_URL}/`, `/${ADMIN_URL}/broadcast/`, `/${ADMIN_URL}/nospam/mass-scan/`).
-3. `api` (port `7088`): `lunastore.urls_api` — `/method/`, `/v2/`, `/schema/`, Swagger UI.
+3. `api` (port `7088`): `lunastore.urls_api` — `/v2/`, `/v3/`, OpenAPI, and Swagger UI.
 
-Note: `/method/` is also mounted on the web and admin URLConfs; the dedicated API service on `:7088` is the primary API surface.
+The compatibility alias `/method/v2/` is mounted on all three services. The dedicated API service on `:7088` is the primary API surface.
 
 ### 3. Models and deletion (Soft Delete)
 - Many marketplace and user models inherit from `SafeDeleteModel` (`_safedelete_policy = SOFT_DELETE` or `SOFT_DELETE_CASCADE`).
@@ -73,7 +73,7 @@ Note: `/method/` is also mounted on the web and admin URLConfs; the dedicated AP
 - Run `python manage.py run_tasks_worker --continuous` for normal asynchronous indexing; the immediate backend is intended for tests.
 - `python manage.py reindex_search` builds temporary indexes and swaps them only after successful Meilisearch tasks. Incremental tasks use nonblocking PostgreSQL advisory locks and reschedule after 5 seconds when busy, freeing the worker for other tasks. Database saves and searches continue.
 - Meilisearch suggestion IDs are checked against current database visibility; displayed titles/usernames and media URLs come from the database, not stale index documents.
-- API v1 search retains its enumerated map and returns at most 100 results. API v2 retains limit/offset pagination.
+- API V2 and V3 catalog searches use limit/offset pagination.
 
 ---
 
@@ -134,7 +134,7 @@ The detailed agent guide is structured as a built-in skill:
 - **Main skill**: [`.agents/skills/lunastore/SKILL.md`](.agents/skills/lunastore/SKILL.md)
 - **Architecture & services**: [`.agents/skills/lunastore/references/architecture.md`](.agents/skills/lunastore/references/architecture.md)
 - **Django backend & apps**: [`.agents/skills/lunastore/references/backend-django.md`](.agents/skills/lunastore/references/backend-django.md)
-- **API v1 (`/method/`) and API v2**: [`.agents/skills/lunastore/references/api-reference.md`](.agents/skills/lunastore/references/api-reference.md)
+- **API V2 reference and V3 guide**: [API reference](.agents/skills/lunastore/references/api-reference.md) and [API V3 guide](docs/api-v3.md)
 - **Frontend & IE6 compatibility**: [`.agents/skills/lunastore/references/frontend-ie6.md`](.agents/skills/lunastore/references/frontend-ie6.md)
 - **Security, noSpam & sessions**: [`.agents/skills/lunastore/references/security-nospam.md`](.agents/skills/lunastore/references/security-nospam.md)
 - **Run & debug instructions**: [`.agents/skills/lunastore/references/runbook-dev.md`](.agents/skills/lunastore/references/runbook-dev.md)

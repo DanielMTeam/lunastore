@@ -32,13 +32,8 @@ lunastore.app {
 	}
 
 	# Dedicated API routing
-	handle /method/* {
-		reverse_proxy 127.0.0.1:7088 {
-			import common_headers
-		}
-	}
-
-	handle /v2/* {
+	@api path /method/v2/* /v2/* /v3/* /schema/v2/ /schema/v3/ /docs/v2/ /docs/v3/
+	handle @api {
 		reverse_proxy 127.0.0.1:7088 {
 			import common_headers
 		}
@@ -64,13 +59,8 @@ ru.lunastore.app {
 		file_server
 	}
 
-	handle /method/* {
-		reverse_proxy 127.0.0.1:7088 {
-			import common_headers
-		}
-	}
-
-	handle /v2/* {
+	@api path /method/v2/* /v2/* /v3/* /schema/v2/ /schema/v3/ /docs/v2/ /docs/v3/
+	handle @api {
 		reverse_proxy 127.0.0.1:7088 {
 			import common_headers
 		}

@@ -44,7 +44,7 @@ flowchart TD
 
     Nginx -->|Frontend pages| WebSvc
     Nginx -->|Admin URL| AdminSvc
-    Nginx -->|/method/, /v2/| ApiSvc
+    Nginx -->|/method/v2/, /v2/, /v3/| ApiSvc
     Nginx -->|/storage/, /notifications/| LunaSpire
 
     WebSvc --> PG
@@ -80,7 +80,7 @@ flowchart TD
   - Developer forms for app and distribution publish/edit requests.
   - User collections.
   - Server-rendered HTML with strict Internet Explorer 6 compatibility.
-  - Also mounts `/method/` for legacy clients hitting the main site.
+  - Also mounts the V2 compatibility alias at `/method/v2/`.
 
 ### 2. `admin` (moderation and management)
 - **Container:** `lunastore_admin`
@@ -99,8 +99,8 @@ flowchart TD
 - **Port:** `7088`
 - **Root URLConf:** `lunastore.urls_api`
 - **Responsibilities:**
-  - **V1 Legacy RPC (`/method/`)**: response format suited to desktop apps and older libraries.
-  - **V2 REST (`/v2/`)**: JWT auth, `ExecuteView` batching, Swagger UI / OpenAPI (`/schema/`).
+  - **V2 REST (`/v2/`)**: JWT auth and Execute batching.
+  - **V3 REST (`/v3/`)**: catalog, account, notifications and read-only batch.
 
 ### 4. `lunaspire` (CDN, storage, push)
 - **Repository:** `https://github.com/DanielMTeam/lunaspire` (submodule at `./lunaspire`)

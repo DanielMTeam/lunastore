@@ -1,11 +1,21 @@
 from django.test import SimpleTestCase, override_settings
-from django.urls import resolve
+from django.urls import Resolver404, resolve
 
 from apps.marketplace.models import Category
 from apps.marketplace.serializers import CategorySerializer
 
 
 class V2RoutingContractTests(SimpleTestCase):
+    def test_v1_rpc_routes_are_gone_from_all_services(self):
+        for urlconf in ("lunastore.urls_api", "lunastore.urls", "lunastore.urls_private"):
+            for route in (
+                "/method/", "/method/user/getProfileInfo/", "/method/user/getPublicUploadToken/",
+                "/method/marketplace/search/", "/method/category/getAppList/",
+                "/method/distribution/getDistributionsList/", "/method/service/heartbeat/",
+            ):
+                with self.subTest(urlconf=urlconf, route=route), self.assertRaises(Resolver404):
+                    resolve(route, urlconf=urlconf)
+
     def test_v2_legacy_aliases_resolve_to_the_same_operations(self):
         routes = (
             ("user/", "v2-user-list"),

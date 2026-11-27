@@ -68,8 +68,8 @@ urlpatterns = [
         include("mozilla_django_oidc.urls"),
     ),
     path(
-        "method/",
-        include("apps.api.urls"),
+        "method/v2/",
+        include("apps.api.v2.urls"),
     ),
 ]
 

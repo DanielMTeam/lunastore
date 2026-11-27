@@ -60,7 +60,7 @@ class CommunityDistributionTests(TestCase):
         self.addCleanup(backend_patch.stop)
         self.client.force_login(self.developer)
         self.create_url = reverse("distribution_create", kwargs={"app_id": self.app.pk})
-        self.token_url = reverse("user-get-private-upload-token")
+        self.token_url = reverse("web-private-upload-token")
         self.download_url = reverse("download") + f"?id={self.app.pk}"
         self.data = {"version": "1.0", "url": "https://example.test/app.zip", "lunabox_type": "file",
                      "platform": self.platform.pk}

@@ -9,6 +9,13 @@ from apps.api.v3.openapi_urls import urlpatterns
 
 @override_settings(ROOT_URLCONF="lunastore.urls_api")
 class V3SchemaContractTests(SimpleTestCase):
+    def test_combined_schema_excludes_v1_rpc(self):
+        schema = SchemaGenerator(urlconf="lunastore.urls_api").get_schema(public=True)
+        self.assertIn("/method/v2/user/", schema["paths"])
+        self.assertFalse(any(
+            path.startswith("/method/") and not path.startswith("/method/v2/") for path in schema["paths"]
+        ))
+
     def test_versioned_schema_and_batch_operations(self):
         schema = SchemaGenerator(patterns=urlpatterns).get_schema(public=True)
         validate_schema(schema)
