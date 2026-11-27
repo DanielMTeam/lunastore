@@ -22,8 +22,8 @@ def problem(status, *, code=None, detail=None):
     }
 
 
-def problem_response(status):
-    return JsonResponse(problem(status), status=status, content_type=PROBLEM_JSON)
+def problem_response(status, **kwargs):
+    return JsonResponse(problem(status, **kwargs), status=status, content_type=PROBLEM_JSON)
 
 
 def field_errors(errors, path=()):

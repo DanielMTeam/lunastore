@@ -24,6 +24,7 @@ from apps.core.sitemaps import sitemaps
 from apps.core.views import robots_txt
 
 urlpatterns = [
+    path("uploads/token/", include("apps.api.web_uploads")),
     path(
         "sitemap.xml",
         sitemap,

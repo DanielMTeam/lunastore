@@ -122,7 +122,7 @@
 
     window.CDN_CONFIG = {
         cdnUploadUrl: "{{ cdn_base_url|escapejs }}/cdn/upload",
-        apiTokenUrl: "{{ api_base_url|escapejs }}/method/user/getPublicUploadToken/",
+        apiTokenUrl: "{% url 'web-public-upload-token' %}",
         i18n: {
             selectFile: "{{ js_select_file|escapejs }}",
             uploading: "{{ js_uploading|escapejs }}",

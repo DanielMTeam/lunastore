@@ -137,7 +137,7 @@ services:
             test:
                 [
                     "CMD-SHELL",
-                    "curl -fs http://127.0.0.1:7088/method/service/heartbeat/ && curl -fs http://127.0.0.1:8088/${ADMIN_URL:-admin}/login/ && curl -fs http://127.0.0.1:9088/ || exit 1",
+                    "curl -fs http://127.0.0.1:7088/v3/health/ && curl -fs http://127.0.0.1:8088/${ADMIN_URL:-admin}/login/ && curl -fs http://127.0.0.1:9088/ || exit 1",
                 ]
             interval: 10s
             retries: 3

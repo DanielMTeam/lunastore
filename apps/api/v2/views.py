@@ -1,13 +1,9 @@
 from apps.marketplace.services.visibility import public_app_filter
-import time
-import uuid
 import json
 
-import jwt
 from django.conf import settings
 from django.db.models import Count, Prefetch, Q
 from apps.core.objects import get_integer_object_or_404
-from django.core.cache import cache
 from django.utils import timezone
 from rest_framework import serializers, viewsets, mixins
 from rest_framework.decorators import action, api_view, permission_classes
@@ -27,9 +23,9 @@ from drf_spectacular.utils import (
     inline_serializer,
 )
 from apps.marketplace.models import Application, Category, Collection, CollectionItem, Distribution, Platform
-from apps.marketplace.services.access import can_manage_app, application_role
+from apps.marketplace.services.access import can_manage_app
+from apps.api.upload_tokens import can_upload_distribution, issue_private_upload_token, issue_public_upload_token
 from apps.api.catalog import application_queryset, distribution_queryset, paginated_search
-from apps.marketplace.services.distributions import can_submit_community_distribution
 from apps.marketplace.serializers import ApplicationSerializer as LegacyApplicationSerializer, CategorySerializer, CollectionSerializer, DistributionSerializer as LegacyDistributionSerializer, annotate_app_last_version
 from apps.user.models import User
 from apps.user.serializers import UserSerializer
@@ -42,7 +38,7 @@ from apps.core.search import (
     parse_is_free,
 )
 
-from apps.api.constants import ErrorCodes, PUB_UPLOAD_POLICIES, ALLOWED_MIMES
+from apps.api.constants import ErrorCodes, PUB_UPLOAD_POLICIES
 from apps.api.exceptions import LunaException
 
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
@@ -151,28 +147,7 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
         if not target or target not in PUB_UPLOAD_POLICIES:
             return Response({"error": "Invalid target"}, status=400)
 
-        policy = PUB_UPLOAD_POLICIES[target]
-        guard_phrase = uuid.uuid4().hex
-
-        cache_key = f"cdn_guard_{request.user.id}_{guard_phrase}"
-        cache.set(cache_key, {"object": policy["obj"], "mode": "public"}, timeout=3600)
-
-        current_time = int(time.time())
-
-        payload = {
-            "type": "cdn-upload",
-            "object": policy["obj"],
-            "user": str(request.user.id),
-            "guard": guard_phrase,
-            "mode": "public",
-            "accept": policy["mimes"],
-            "iat": current_time,
-            "exp": current_time + 3600,
-            "img_opts": {"mw": policy["mw"], "mh": policy["mh"]},
-        }
-
-        upload_token = jwt.encode(payload, settings.LUNASPIRE_SECRET_KEY, algorithm="HS256")
-        return Response({"upload_token": upload_token, "guard": guard_phrase})
+        return Response(issue_public_upload_token(request.user, target))
 
     @extend_schema(
         summary="get private upload token",
@@ -184,40 +159,15 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     )
     @action(detail=False, methods=["get"], url_path="getPrivateUploadToken", permission_classes=[IsAuthenticated])
     def get_private_upload_token(self, request):
-        target = request.query_params.get("target", "distribution")
         app_id = request.query_params.get("app_id")
 
         if not app_id or not app_id.isdigit():
             return Response({"error": "app_id is required and must be an integer"}, status=400)
 
         app_obj = get_integer_object_or_404(Application, id=app_id)
-        if (
-            not can_manage_app(app_obj, request.user, "files")
-            and not request.user.is_staff
-            and not (application_role(app_obj, request.user) is None and can_submit_community_distribution(app_obj, request.user))
-        ):
+        if not can_upload_distribution(request.user, app_obj):
             return Response({"error": "Not your app"}, status=403)
-
-        guard_phrase = uuid.uuid4().hex
-
-        cache_key = f"cdn_guard_{request.user.id}_{guard_phrase}"
-        cache.set(cache_key, {"object": str(app_obj.pk), "mode": "private"}, timeout=3600)
-
-        current_time = int(time.time())
-
-        payload = {
-            "type": "cdn-upload",
-            "object": str(app_obj.id),
-            "user": str(request.user.id),
-            "guard": guard_phrase,
-            "mode": "private",
-            "accept": ALLOWED_MIMES,
-            "iat": current_time,
-            "exp": current_time + 3600,
-        }
-
-        upload_token = jwt.encode(payload, settings.LUNASPIRE_SECRET_KEY, algorithm="HS256")
-        return Response({"upload_token": upload_token, "guard": guard_phrase})
+        return Response(issue_private_upload_token(request.user, app_obj))
 
     @action(detail=False, methods=["get"], url_path="getNotificationToken", permission_classes=[IsAuthenticated])
     def get_notification_token(self, request):

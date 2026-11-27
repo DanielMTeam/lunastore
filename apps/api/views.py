@@ -1,10 +1,7 @@
 from apps.marketplace.services.visibility import can_view_app, public_app_filter
-import time
-import uuid
 from datetime import datetime
 from django.utils import timezone
 
-import jwt
 from django.conf import settings
 from apps.core.objects import get_integer_object_or_404
 from drf_spectacular.utils import (
@@ -18,9 +15,9 @@ from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from apps.marketplace.services.access import can_manage_app, application_role
+from apps.marketplace.services.access import can_manage_app
+from apps.api.upload_tokens import can_upload_distribution, issue_private_upload_token, issue_public_upload_token
 from apps.marketplace.models import Application, Category, Distribution
-from apps.marketplace.services.distributions import can_submit_community_distribution
 from apps.marketplace.serializers import (
     ApplicationSerializer,
     CategorySerializer,
@@ -32,9 +29,8 @@ from apps.user.serializers import UserSerializer
 from apps.core.notifications.services import NotificationService
 from apps.core.search import SearchService, SearchUnavailableError
 
-from .constants import ErrorCodes, PUB_UPLOAD_POLICIES, ALLOWED_MIMES
+from .constants import ErrorCodes, PUB_UPLOAD_POLICIES
 from .exceptions import LunaException
-from django.core.cache import cache
 
 # v1 returns an enumerated map without pagination; bound its response size.
 V1_SEARCH_MAX_RESULTS = 100
@@ -144,30 +140,7 @@ class UserViewSet(viewsets.GenericViewSet):
         if not target or target not in PUB_UPLOAD_POLICIES:
             return Response({"error": "Invalid target"}, status=400)
 
-        policy = PUB_UPLOAD_POLICIES[target]
-        guard_phrase = uuid.uuid4().hex
-
-        cache_key = f"cdn_guard_{request.user.id}_{guard_phrase}"
-        cache.set(cache_key, {"object": policy["obj"], "mode": "public"}, timeout=3600)
-
-        current_time = int(time.time())
-
-        payload = {
-            "type": "cdn-upload",
-            "object": policy["obj"],
-            "user": str(request.user.id),
-            "guard": guard_phrase,
-            "mode": "public",
-            "accept": policy["mimes"],
-            "iat": current_time,
-            "exp": current_time + 3600,
-            "img_opts": {"mw": policy["mw"], "mh": policy["mh"]},
-        }
-
-        upload_token = jwt.encode(
-            payload, settings.LUNASPIRE_SECRET_KEY, algorithm="HS256"
-        )
-        return Response({"upload_token": upload_token, "guard": guard_phrase})
+        return Response(issue_public_upload_token(request.user, target))
 
     @action(
         detail=False,
@@ -176,9 +149,6 @@ class UserViewSet(viewsets.GenericViewSet):
         permission_classes=[IsAuthenticated],
     )
     def get_private_upload_token(self, request):
-        target = request.query_params.get(
-            "target", "distribution"
-        )  # for future updates
         app_id = request.query_params.get("app_id")
 
         if not app_id:
@@ -190,35 +160,9 @@ class UserViewSet(viewsets.GenericViewSet):
 
         # check permissions
         app_obj = get_integer_object_or_404(Application, id=app_id)
-        if (
-            not can_manage_app(app_obj, request.user, "files")
-            and not request.user.is_staff
-            and not (application_role(app_obj, request.user) is None and can_submit_community_distribution(app_obj, request.user))
-        ):
+        if not can_upload_distribution(request.user, app_obj):
             return Response({"error": "Not your app"}, status=403)
-
-        guard_phrase = uuid.uuid4().hex
-
-        cache_key = f"cdn_guard_{request.user.id}_{guard_phrase}"
-        cache.set(cache_key, {"object": str(app_obj.pk), "mode": "private"}, timeout=3600)
-
-        current_time = int(time.time())
-
-        payload = {
-            "type": "cdn-upload",
-            "object": str(app_obj.id),  # object this is a id of the app
-            "user": str(request.user.id),
-            "guard": guard_phrase,
-            "mode": "private",  # private only
-            "accept": ALLOWED_MIMES,
-            "iat": current_time,
-            "exp": current_time + 3600,
-        }
-
-        upload_token = jwt.encode(
-            payload, settings.LUNASPIRE_SECRET_KEY, algorithm="HS256"
-        )
-        return Response({"upload_token": upload_token, "guard": guard_phrase})
+        return Response(issue_private_upload_token(request.user, app_obj))
 
     @action(detail=False,
             methods=["get"],
