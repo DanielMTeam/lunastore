@@ -676,9 +676,43 @@ class CollectionViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(serializer.data)
 
 
+class ExecuteCallSerializer(serializers.Serializer):
+    method = serializers.CharField()
+    params = serializers.DictField(required=False)
+
+
+class ExecuteRequestSerializer(serializers.Serializer):
+    code = ExecuteCallSerializer(many=True, max_length=25, required=False)
+
+
+class ExecuteResponseSerializer(serializers.Serializer):
+    responses = serializers.ListField(child=serializers.JSONField())
+
+
 class ExecuteView(APIView):
+    view_mapping = {
+        "user.list": (UserViewSet, "list"),
+        "user.retrieve": (UserViewSet, "retrieve"),
+        "user.search": (UserViewSet, "search"),
+        "marketplace.list": (MarketplaceViewSet, "list"),
+        "marketplace.retrieve": (MarketplaceViewSet, "retrieve"),
+        "marketplace.search": (MarketplaceViewSet, "search"),
+        "category.list": (CategoryViewSet, "list"),
+        "category.retrieve": (CategoryViewSet, "retrieve"),
+        "category.apps": (CategoryViewSet, "apps"),
+        "distribution.list": (DistributionViewSet, "list"),
+        "distribution.retrieve": (DistributionViewSet, "retrieve"),
+        "distribution.by_app": (DistributionViewSet, "by_app"),
+        "collection.list": (CollectionViewSet, "list"),
+        "collection.retrieve": (CollectionViewSet, "retrieve"),
+        "collection.apps": (CollectionViewSet, "apps"),
+        "collection.by_user": (CollectionViewSet, "by_user"),
+    }
+
     @extend_schema(
         summary="Batch API execution",
+        request=ExecuteRequestSerializer,
+        responses=ExecuteResponseSerializer,
         description="""
         VK-like execute method for batch API requests (～￣▽￣)～
 
@@ -733,31 +767,7 @@ class ExecuteView(APIView):
                 })
                 continue
 
-            # Internal mapping for V2 execute routing
-            # For simplicity in this implementation, we will explicitly route allowed methods
-            # user.retrieve, marketplace.retrieve, marketplace.search, category.apps, etc.
-
-            # Map method string to ViewSet and action
-            view_mapping = {
-                "user.list": (UserViewSet, "list"),
-                "user.retrieve": (UserViewSet, "retrieve"),
-                "user.search": (UserViewSet, "search"),
-                "marketplace.list": (MarketplaceViewSet, "list"),
-                "marketplace.retrieve": (MarketplaceViewSet, "retrieve"),
-                "marketplace.search": (MarketplaceViewSet, "search"),
-                "category.list": (CategoryViewSet, "list"),
-                "category.retrieve": (CategoryViewSet, "retrieve"),
-                "category.apps": (CategoryViewSet, "apps"),
-                "distribution.list": (DistributionViewSet, "list"),
-                "distribution.retrieve": (DistributionViewSet, "retrieve"),
-                "distribution.by_app": (DistributionViewSet, "by_app"),
-                "collection.list": (CollectionViewSet, "list"),
-                "collection.retrieve": (CollectionViewSet, "retrieve"),
-                "collection.apps": (CollectionViewSet, "apps"),
-                "collection.by_user": (CollectionViewSet, "by_user"),
-            }
-
-            if method_name not in view_mapping:
+            if method_name not in self.view_mapping:
                 responses.append({
                     "status": "error",
                     "message": f"Method {method_name} not allowed or unknown",
@@ -765,7 +775,7 @@ class ExecuteView(APIView):
                 })
                 continue
 
-            viewset_class, action_name = view_mapping[method_name]
+            viewset_class, action_name = self.view_mapping[method_name]
 
             # Create a mock request for the viewset
             mock_request = copy.copy(request._request)

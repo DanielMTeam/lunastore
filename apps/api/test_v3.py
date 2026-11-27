@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 from django.test import override_settings
 from rest_framework.test import APITestCase
 
@@ -51,3 +53,39 @@ class CatalogContractTests(APITestCase):
         response = self.client.get(f"/v3/apps/{self.private.pk}/")
         self.assertEqual(response.status_code, 404)
         self.assertEqual(response["Content-Type"], "application/problem+json")
+
+    @patch("apps.core.search.SearchService.search_application_ids")
+    def test_batch_reuses_results_and_preserves_per_call_status(self, search):
+        search.return_value = ([self.app.pk], 2)
+        params = {"q": "Cleaner", "platform": "mobile", "limit": 1}
+        direct = self.client.get("/v3/apps/", params)
+        search.reset_mock()
+        calls = [
+            {"id": "first", "operation": "v3_apps_list", "params": params},
+            {"id": "missing", "operation": "v3_apps_retrieve", "params": {"pk": self.private.pk}},
+            {"id": "same", "operation": "v3_apps_list", "params": params},
+            {"id": "private", "operation": "v3_me_retrieve"},
+        ]
+        response = self.client.post("/v3/batch/", {"requests": calls}, format="json")
+        self.assertEqual(response.status_code, 200, response.data)
+        results = response.data["results"]
+        self.assertEqual([item["id"] for item in results], ["first", "missing", "same", "private"])
+        self.assertEqual([item["status"] for item in results], [200, 404, 200, 400])
+        self.assertEqual(results[0]["body"], direct.data)
+        self.assertEqual(results[0]["body"], results[2]["body"])
+        search.assert_called_once()
+
+    @patch("apps.api.throttling.RealIPAnonRateThrottle.allow_request", return_value=True)
+    def test_batch_charges_every_element_to_quota(self, throttle):
+        calls = [{"id": str(index), "operation": "v3_platforms_list"} for index in range(3)]
+        response = self.client.post("/v3/batch/", {"requests": calls}, format="json")
+        self.assertEqual(response.status_code, 200, response.data)
+        self.assertEqual(throttle.call_count, 3)
+
+    def test_batch_rejects_empty_oversized_and_duplicate_ids(self):
+        valid = {"id": "same", "operation": "v3_platforms_list"}
+        for calls in ([], [valid, valid], [{**valid, "id": str(index)} for index in range(26)]):
+            with self.subTest(length=len(calls)):
+                response = self.client.post("/v3/batch/", {"requests": calls}, format="json")
+                self.assertEqual(response.status_code, 400)
+                self.assertEqual(response["Content-Type"], "application/problem+json")

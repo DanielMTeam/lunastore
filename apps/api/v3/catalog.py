@@ -47,9 +47,9 @@ class CatalogViewSet(V3ContractMixin, viewsets.ReadOnlyModelViewSet):
         data = serializer(page, many=True, context=self.get_serializer_context()).data
         return self.get_paginated_response(data)
 
-    def search_page(self, search):
+    def search_page(self, queryset, search):
         try:
-            return paginated_search(self, self.request, self.get_queryset(), search)
+            return paginated_search(self, self.request, queryset, search)
         except SearchUnavailableError as exc:
             raise SearchUnavailable() from exc
 
@@ -72,8 +72,6 @@ class ApplicationViewSet(CatalogViewSet):
             "platform_id": platform.pk if platform else None,
             "is_free": params["is_free"],
         }
-        if "q" in params:
-            return self.search_page(partial(SearchService.search_application_ids, params["q"], **filters))
         queryset = self.get_queryset()
         if filters["category_id"]:
             queryset = queryset.filter(categories=filters["category_id"])
@@ -83,6 +81,9 @@ class ApplicationViewSet(CatalogViewSet):
             queryset = queryset.filter(platforms=platform)
         if filters["is_free"]:
             queryset = queryset.filter(price=0)
+        if "q" in params:
+            search = partial(SearchService.search_application_ids, params["q"], **filters)
+            return self.search_page(queryset, search)
         return self.serialize_page(queryset, self.get_serializer_class())
 
     @extend_schema(parameters=[PageParams], responses=DistributionSerializer(many=True))
@@ -103,7 +104,7 @@ class UserViewSet(CatalogViewSet):
     def list(self, request, *args, **kwargs):
         params = validated_query(self.query_serializer, request)
         if "q" in params:
-            return self.search_page(partial(SearchService.search_user_ids, params["q"]))
+            return self.search_page(self.get_queryset(), partial(SearchService.search_user_ids, params["q"]))
         return self.serialize_page(self.get_queryset(), self.get_serializer_class())
 
 

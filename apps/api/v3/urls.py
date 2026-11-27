@@ -1,7 +1,7 @@
 from django.urls import include, path
 from rest_framework.routers import SimpleRouter
 
-from . import account, catalog
+from . import account, batch, catalog
 
 router = SimpleRouter()
 router.register("apps", catalog.ApplicationViewSet, basename="v3-app")
@@ -12,6 +12,7 @@ router.register("platforms", catalog.PlatformViewSet, basename="v3-platform")
 router.register("users", catalog.UserViewSet, basename="v3-user")
 
 urlpatterns = [
+    path("batch/", batch.BatchView.as_view(), name="v3-batch"),
     path("auth/token/", account.TokenObtainView.as_view(), name="v3-token-obtain"),
     path("auth/token/refresh/", account.TokenRotateView.as_view(), name="v3-token-refresh"),
     path("auth/token/revoke/", account.TokenRevokeView.as_view(), name="v3-token-revoke"),
