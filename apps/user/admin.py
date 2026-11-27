@@ -8,7 +8,7 @@ from django.utils.html import format_html
 from unfold import admin as unfold_admin
 from unfold.contrib.forms.widgets import WysiwygWidget
 from unfold.decorators import action
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse
 from apps.core.tasks import send_notification
@@ -139,6 +139,10 @@ class UserAdmin(BaseUserAdmin, unfold_admin.ModelAdmin):
             host = host.replace(":8088", ":9088")
         frontend_url = f"{request.scheme}://{host}/index.php"
 
+        if request.headers.get("HX-Request") == "true":
+            response = HttpResponse()
+            response["HX-Redirect"] = frontend_url
+            return response
         return redirect(frontend_url)
 
     def save_model(self, request, obj, form, change):

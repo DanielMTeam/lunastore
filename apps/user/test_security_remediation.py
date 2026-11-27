@@ -3,7 +3,7 @@ from datetime import timedelta
 from concurrent.futures import ThreadPoolExecutor
 from threading import Barrier
 from types import SimpleNamespace
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 import pyotp
 from django.core.cache import cache
@@ -48,6 +48,26 @@ class LoginSecurityTests(SimpleTestCase):
             code = pyotp.TOTP(user.totp_secret).generate_otp(1_800_000_000 // 30)
             self.assertTrue(verify_totp(user, code))
             self.assertFalse(verify_totp(user, code))
+
+    def test_impersonation_dialog_returns_htmx_browser_redirect(self):
+        actor = Mock(id=1, is_superuser=True)
+        actor.get_session_auth_hash.return_value = "auth-hash"
+        target = SimpleNamespace(is_active=True, is_staff=False, is_superuser=False)
+        request = RequestFactory().post("/admin/user/user/2/login_as_user/", {"_form_submitted": "True"},
+                                        HTTP_HX_REQUEST="true")
+        request.user = actor
+        request.session = {"_auth_user_backend": "django.contrib.auth.backends.ModelBackend"}
+        model_admin = UserAdmin(User, None)
+        with patch.object(model_admin, "get_object", return_value=target), \
+                patch.object(model_admin, "log_change"), \
+                patch("apps.user.admin.active_bans") as bans, \
+                patch("django.contrib.auth.login") as login:
+            bans.return_value.filter.return_value.exists.return_value = False
+            response = model_admin.login_as_user(request, object_id="2")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["HX-Redirect"], "http://testserver/index.php")
+        self.assertEqual(request.session["impersonated_by"], actor.id)
+        login.assert_called_once()
 
 
 class AccountSecurityTests(TestCase):
@@ -111,6 +131,23 @@ class AccountSecurityTests(TestCase):
             model_admin.login_as_user.__wrapped__(model_admin, request, None, staff.pk)
         self.client.force_login(self.user)
         self.assertEqual(self.client.get(reverse("revert_impersonation")).status_code, 405)
+
+    @override_settings(ROOT_URLCONF="lunastore.urls_private", TELEGRAM_LOGGER_ENABLED=False)
+    def test_impersonation_dialog_redirects_browser_and_restores_admin(self):
+        actor = User.objects.create_superuser(username="admin", email="admin@example.test")
+        self.client.force_login(actor)
+        url = reverse("admin:user_user_login_as_user", args=[self.user.pk])
+        response = self.client.post(url, {"_form_submitted": "True"}, HTTP_HX_REQUEST="true")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["HX-Redirect"], "http://testserver/index.php")
+        self.assertEqual(int(self.client.session["_auth_user_id"]), self.user.pk)
+        self.assertEqual(self.client.session["impersonated_by"], actor.pk)
+
+        with self.settings(ROOT_URLCONF="lunastore.urls"):
+            response = self.client.post(reverse("revert_impersonation"))
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(int(self.client.session["_auth_user_id"]), actor.pk)
+        self.assertNotIn("impersonated_by", self.client.session)
 
     @patch("apps.user.views.process_login_notification")
     def test_web_totp_cannot_be_reused_for_jwt(self, notification_task):
