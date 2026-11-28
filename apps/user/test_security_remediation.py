@@ -6,10 +6,13 @@ from types import SimpleNamespace
 from unittest.mock import Mock, patch
 
 import pyotp
+from constance import config
+from django.conf import settings
+from django.contrib.auth.models import Group
 from django.core.cache import cache
-from django.core.exceptions import PermissionDenied, SuspiciousOperation
+from django.core.exceptions import SuspiciousOperation
 from django.db import close_old_connections, connections
-from django.test import RequestFactory, SimpleTestCase, TestCase, TransactionTestCase, override_settings
+from django.test import Client, RequestFactory, SimpleTestCase, TestCase, TransactionTestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
 from rest_framework.test import APIClient
@@ -49,25 +52,31 @@ class LoginSecurityTests(SimpleTestCase):
             self.assertTrue(verify_totp(user, code))
             self.assertFalse(verify_totp(user, code))
 
-    def test_impersonation_dialog_returns_htmx_browser_redirect(self):
+    @override_settings(ROOT_URLCONF="lunastore.urls_private", ALLOWED_HOSTS=["localhost", "admin.lunastore.app"])
+    def test_impersonation_redirects_from_dedicated_admin(self):
         actor = Mock(id=1, is_superuser=True)
         actor.get_session_auth_hash.return_value = "auth-hash"
         target = SimpleNamespace(is_active=True, is_staff=False, is_superuser=False)
-        request = RequestFactory().post("/admin/user/user/2/login_as_user/", {"_form_submitted": "True"},
-                                        HTTP_HX_REQUEST="true")
-        request.user = actor
-        request.session = {"_auth_user_backend": "django.contrib.auth.backends.ModelBackend"}
         model_admin = UserAdmin(User, None)
-        with patch.object(model_admin, "get_object", return_value=target), \
-                patch.object(model_admin, "log_change"), \
-                patch("apps.user.admin.active_bans") as bans, \
-                patch("django.contrib.auth.login") as login:
-            bans.return_value.filter.return_value.exists.return_value = False
-            response = model_admin.login_as_user(request, object_id="2")
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response["HX-Redirect"], "http://testserver/index.php")
-        self.assertEqual(request.session["impersonated_by"], actor.id)
-        login.assert_called_once()
+        changelist = reverse("admin:user_user_changelist")
+        for host, destination in (
+            ("localhost:8088", "//localhost:9088/index.php"),
+            ("admin.lunastore.app", "//lunastore.app/index.php"),
+        ):
+            with self.subTest(host=host):
+                request = RequestFactory().post("/", HTTP_HOST=host)
+                request.user = actor
+                request.session = {"_auth_user_backend": "django.contrib.auth.backends.ModelBackend"}
+                with patch.object(model_admin, "get_object", return_value=target), \
+                        patch.object(model_admin, "log_change"), \
+                        patch("apps.user.admin.active_bans") as bans, \
+                        patch("django.contrib.auth.login") as login:
+                    bans.return_value.filter.return_value.exists.return_value = False
+                    response = model_admin.login_as_user(request, object_id="2")
+                self.assertRedirects(response, destination, fetch_redirect_response=False)
+                self.assertEqual(request.session["impersonated_by"], actor.id)
+                self.assertEqual(request.session["impersonator_return_url"], f"//{host}{changelist}")
+                login.assert_called_once()
 
 
 class AccountSecurityTests(TestCase):
@@ -120,34 +129,71 @@ class AccountSecurityTests(TestCase):
         self.user.refresh_from_db()
         self.assertEqual(self.user.email, "alice@example.test")
 
+    @override_settings(ROOT_URLCONF="lunastore.urls_private", DEBUG=True, ALLOWED_HOSTS=["localhost", "testserver"])
     def test_impersonation_blocks_staff_target_and_get_return(self):
         actor = User.objects.create_superuser(username="admin", email="admin@example.test")
         staff = User.objects.create_user(username="staff", email="staff@example.test", is_staff=True)
-        model_admin = UserAdmin(User, None)
-        request = RequestFactory().post("/")
-        request.session = {}
-        request.user = actor
-        with self.assertRaises(PermissionDenied):
-            model_admin.login_as_user.__wrapped__(model_admin, request, None, staff.pk)
+        self.client.force_login(actor)
+        url = reverse("admin:user_user_login_as_user", args=[staff.pk])
+        for method in (self.client.get, self.client.post):
+            with self.subTest(method=method.__name__):
+                response = method(url, HTTP_HOST="localhost:8088")
+                self.assertTemplateUsed(response, "admin/403.html")
+                self.assertContains(response, "Вход от имени сотрудников и суперпользователей запрещён.", status_code=403)
+                self.assertEqual(int(self.client.session["_auth_user_id"]), actor.pk)
         self.client.force_login(self.user)
-        self.assertEqual(self.client.get(reverse("revert_impersonation")).status_code, 405)
+        with self.settings(ROOT_URLCONF="lunastore.urls"):
+            self.assertEqual(self.client.get(reverse("revert_impersonation")).status_code, 405)
 
     @override_settings(ROOT_URLCONF="lunastore.urls_private", TELEGRAM_LOGGER_ENABLED=False)
-    def test_impersonation_dialog_redirects_browser_and_restores_admin(self):
-        actor = User.objects.create_superuser(username="admin", email="admin@example.test")
-        self.client.force_login(actor)
-        url = reverse("admin:user_user_login_as_user", args=[self.user.pk])
-        response = self.client.post(url, {"_form_submitted": "True"}, HTTP_HX_REQUEST="true")
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response["HX-Redirect"], "http://testserver/index.php")
+    def test_moderator_switch_allows_only_regular_target(self):
+        moderator = User.objects.create_user(username="moderator", email="mod@example.test", is_staff=True)
+        moderator.groups.add(Group.objects.get(name="Модераторы"))
+        staff = User.objects.create_user(username="staff", email="staff@example.test", is_staff=True)
+        self.client.force_login(moderator)
+        regular_url = reverse("admin:user_user_login_as_user", args=[self.user.pk])
+        staff_url = reverse("admin:user_user_login_as_user", args=[staff.pk])
+
+        with patch("constance.config", wraps=config, ALLOW_MODERATOR_LOGIN_AS_USER=False):
+            self.assertRedirects(
+                self.client.get(regular_url), reverse("admin:user_user_change", args=[self.user.pk]),
+                fetch_redirect_response=False,
+            )
+
+        with patch("constance.config", wraps=config, ALLOW_MODERATOR_LOGIN_AS_USER=True):
+            self.assertEqual(self.client.get(staff_url).status_code, 403)
+            self.assertContains(self.client.get(regular_url), f"<strong>{self.user.username}</strong>", html=True)
+            self.assertRedirects(self.client.post(regular_url), "/index.php", fetch_redirect_response=False)
         self.assertEqual(int(self.client.session["_auth_user_id"]), self.user.pk)
-        self.assertEqual(self.client.session["impersonated_by"], actor.pk)
+
+    @override_settings(ROOT_URLCONF="lunastore.urls_private", TELEGRAM_LOGGER_ENABLED=False)
+    def test_impersonation_confirms_target_and_restores_admin(self):
+        actor = User.objects.create_superuser(username="admin", email="admin@example.test")
+        client = Client(enforce_csrf_checks=True)
+        client.force_login(actor)
+        url = reverse("admin:user_user_login_as_user", args=[self.user.pk])
+        changelist = reverse("admin:user_user_changelist")
+        response = client.get(url)
+        self.assertContains(response, f"<strong>{self.user.username}</strong>", html=True)
+        self.assertContains(response, 'name="csrfmiddlewaretoken"')
+        self.assertEqual(int(client.session["_auth_user_id"]), actor.pk)
+        self.assertEqual(client.post(url).status_code, 403)
+
+        response = client.post(url, {"csrfmiddlewaretoken": client.cookies[settings.CSRF_COOKIE_NAME].value})
+        self.assertRedirects(response, "/index.php", fetch_redirect_response=False)
+        self.assertEqual(int(client.session["_auth_user_id"]), self.user.pk)
+        self.assertEqual(client.session["impersonated_by"], actor.pk)
 
         with self.settings(ROOT_URLCONF="lunastore.urls"):
-            response = self.client.post(reverse("revert_impersonation"))
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(int(self.client.session["_auth_user_id"]), actor.pk)
-        self.assertNotIn("impersonated_by", self.client.session)
+            page = client.get(response.url)
+            self.assertEqual(page.status_code, 200)
+            self.assertEqual(page.wsgi_request.user.pk, self.user.pk)
+            response = client.post(reverse("revert_impersonation"), {
+                "csrfmiddlewaretoken": client.cookies[settings.CSRF_COOKIE_NAME].value,
+            })
+        self.assertRedirects(response, changelist, fetch_redirect_response=False)
+        self.assertEqual(int(client.session["_auth_user_id"]), actor.pk)
+        self.assertNotIn("impersonated_by", client.session)
 
     @patch("apps.user.views.process_login_notification")
     def test_web_totp_cannot_be_reused_for_jwt(self, notification_task):

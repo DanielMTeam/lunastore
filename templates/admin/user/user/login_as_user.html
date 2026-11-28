@@ -1,0 +1,17 @@
+{% extends "admin/base_site.html" %}
+{% load i18n unfold %}
+
+{% block content %}
+    <form method="post" class="flex flex-col gap-4 items-start">
+        {% csrf_token %}
+        <p>Войти от имени пользователя <strong>{{ target_user.get_username }}</strong>?</p>
+        <div class="flex flex-wrap gap-3">
+            {% component "unfold/components/button.html" with variant="default" href=change_url %}
+                {% trans "Cancel" %}
+            {% endcomponent %}
+            {% component "unfold/components/button.html" with submit=1 %}
+                Войти от имени пользователя
+            {% endcomponent %}
+        </div>
+    </form>
+{% endblock %}

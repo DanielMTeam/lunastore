@@ -999,11 +999,15 @@ def revert_impersonation(request):
             backend = request.session.pop("impersonator_backend", None)
             if backend not in settings.AUTHENTICATION_BACKENDS:
                 return HttpResponseForbidden()
+            return_url = request.session.pop("impersonator_return_url", None)
             dj_login(request, admin_user, backend=backend)
             if backend == "apps.user.auth.OIDCModel":
                 request.session["oidc_identity_bound"] = True
             request.session.pop("impersonated_by", None)
             request.session.pop("impersonator_auth_hash", None)
+
+            if return_url:
+                return redirect(return_url)
 
             host = request.get_host()
             if ":9088" in host:

@@ -3,12 +3,12 @@ from django.contrib import admin, messages
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
 from django.db import models
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.utils.html import format_html
 from unfold import admin as unfold_admin
 from unfold.contrib.forms.widgets import WysiwygWidget
 from unfold.decorators import action
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseNotAllowed, HttpResponseRedirect
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse
 from apps.core.tasks import send_notification
@@ -94,34 +94,56 @@ class UserAdmin(BaseUserAdmin, unfold_admin.ModelAdmin):
             request,
             f"2FA успешно отключен для {count} пользователей.")
 
-    @action(description="Войти от имени пользователя", icon="login", dialog={"title": "Войти от имени пользователя"},
+    @action(description="Войти от имени пользователя", icon="login",
             attrs={"class": "bg-primary-600 text-white"})
-    def login_as_user(self, request, form, object_id):
-        if request.method != "POST" or request.session.get("impersonated_by"):
-            raise PermissionDenied
+    def login_as_user(self, request, object_id):
+        if request.method not in ("GET", "POST"):
+            return HttpResponseNotAllowed(["GET", "POST"])
+        if request.session.get("impersonated_by"):
+            raise PermissionDenied("Сначала вернитесь в свой аккаунт.")
         from constance import config
-        is_moderator = request.user.groups.filter(name='Модераторы').exists()
 
-        if not request.user.is_superuser:
-            if not (is_moderator and config.ALLOW_MODERATOR_LOGIN_AS_USER):
-                self.message_user(
-                    request,
-                    "Только суперпользователи (или модераторы, если разрешено) могут входить от чужого имени.",
-                    messages.ERROR)
-                return redirect(
-                    reverse(
-                        "admin:user_user_change",
-                        args=[object_id]))
+        change_url = reverse("admin:user_user_change", args=[object_id])
+        if not request.user.is_superuser and not (
+            config.ALLOW_MODERATOR_LOGIN_AS_USER and request.user.groups.filter(name="Модераторы").exists()
+        ):
+            self.message_user(
+                request,
+                "Только суперпользователи (или модераторы, если разрешено) могут входить от чужого имени.",
+                messages.ERROR,
+            )
+            return redirect(change_url)
 
         user_to_impersonate = self.get_object(request, object_id)
-        if not user_to_impersonate or not user_to_impersonate.is_active or (
-            user_to_impersonate.is_staff or user_to_impersonate.is_superuser
-            or active_bans().filter(user=user_to_impersonate).exists()
-        ):
-            raise PermissionDenied
+        if not user_to_impersonate or not user_to_impersonate.is_active:
+            raise PermissionDenied("Этот аккаунт недоступен или отключён.")
+        if user_to_impersonate.is_staff or user_to_impersonate.is_superuser:
+            raise PermissionDenied("Вход от имени сотрудников и суперпользователей запрещён.")
+        if active_bans().filter(user=user_to_impersonate).exists():
+            raise PermissionDenied("Этот аккаунт заблокирован.")
+
+        if request.method == "GET":
+            request.current_app = self.admin_site.name
+            return render(request, "admin/user/user/login_as_user.html", {
+                **self.admin_site.each_context(request),
+                "title": "Войти от имени пользователя",
+                "target_user": user_to_impersonate,
+                "change_url": change_url,
+            })
+
         original_admin_id = request.user.id
         original_auth_hash = request.user.get_session_auth_hash()
         original_backend = request.session.get("_auth_user_backend")
+        host = request.get_host()
+        return_url = reverse("admin:user_user_changelist")
+        frontend_url = "/index.php"
+        if host.endswith(":8088"):
+            return_url = f"//{host}{return_url}"
+            frontend_url = f"//{host.removesuffix(':8088')}:9088{frontend_url}"
+        elif host == "admin.lunastore.app":
+            return_url = f"//{host}{return_url}"
+            frontend_url = f"//lunastore.app{frontend_url}"
+
         self.log_change(request, user_to_impersonate, "Начата имперсонация")
 
         from django.contrib.auth import login
@@ -133,16 +155,7 @@ class UserAdmin(BaseUserAdmin, unfold_admin.ModelAdmin):
         request.session["impersonated_by"] = original_admin_id
         request.session["impersonator_auth_hash"] = original_auth_hash
         request.session["impersonator_backend"] = original_backend
-
-        host = request.get_host()
-        if ":8088" in host:
-            host = host.replace(":8088", ":9088")
-        frontend_url = f"{request.scheme}://{host}/index.php"
-
-        if request.headers.get("HX-Request") == "true":
-            response = HttpResponse()
-            response["HX-Redirect"] = frontend_url
-            return response
+        request.session["impersonator_return_url"] = return_url
         return redirect(frontend_url)
 
     def save_model(self, request, obj, form, change):

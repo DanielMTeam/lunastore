@@ -1,0 +1,12 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "PAGE_403_BROWSER_TITLE" %}{% endblock %}
+
+{% block content %}
+    <div class="flex flex-col gap-3">
+        <h1 class="text-xl font-semibold">{% trans "PAGE_403_BROWSER_TITLE" %}</h1>
+        <p>{{ exception|default:_('PAGE_403_DEFAULT_MESSAGE') }}</p>
+        <p><a href="{% url 'admin:index' %}" class="underline">{% trans "Home" %}</a></p>
+    </div>
+{% endblock %}

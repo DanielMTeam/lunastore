@@ -760,7 +760,7 @@ CONSTANCE_CONFIG = {
     ),
     "ALLOW_MODERATOR_LOGIN_AS_USER": (
         os.getenv("ALLOW_MODERATOR_LOGIN_AS_USER", "False") == "True",
-        "Разрешить модераторам входить от имени других пользователей",
+        "Разрешить модераторам входить от имени пользователей без статуса сотрудника или суперпользователя",
         bool,
     ),
     # -- LunaPassport OAuth (runtime) --

@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.contrib.auth.models import AnonymousUser
 from django.urls import include, path
 from django.utils.translation import gettext_lazy as _
-from django.views.defaults import page_not_found, server_error
+from django.views.defaults import page_not_found, permission_denied, server_error
 from django.views.generic import RedirectView
 from dotenv import load_dotenv
 from apps.core.admin_views import admin_broadcast_notification
@@ -24,6 +24,10 @@ admin.site.index_title = _("PAGE_ADMIN_PANEL_DASHBOARD")
 admin_url_path = getattr(settings, "ADMIN_URL", "admin").strip("/")
 
 
+def admin_handler403(request, exception):
+    return permission_denied(request, exception, template_name="admin/403.html")
+
+
 def admin_handler404(request, exception=None):
     if not hasattr(request, "user"):
         request.user = AnonymousUser()
@@ -35,7 +39,7 @@ def admin_handler500(request):
 
 
 handler400 = "django.views.defaults.bad_request"
-handler403 = "django.views.defaults.permission_denied"
+handler403 = "lunastore.urls_private.admin_handler403"
 handler404 = "lunastore.urls_private.admin_handler404"
 handler500 = "lunastore.urls_private.admin_handler500"
 
