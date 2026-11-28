@@ -5,6 +5,7 @@ from django.conf import settings
 import json
 import logging
 from apps.core.utils import get_client_ip
+from apps.api.v3.contract import problem_response
 
 logger = logging.getLogger(__name__)
 
@@ -14,7 +15,11 @@ class RateLimitMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        if request.path.startswith(('/staticfiles/', '/media/')) or request.path.endswith('/heartbeat/'):
+        if (
+            request.path.startswith(('/staticfiles/', '/media/'))
+            or request.path.endswith('/heartbeat/')
+            or request.path_info == '/v3/health/'
+        ):
             return self.get_response(request)
 
         if request.path.lower().endswith(
@@ -44,8 +49,14 @@ class RateLimitMiddleware:
         try:
             requests = increment_window(cache_key, time_window)
         except Exception:
+            if request.path_info.startswith('/v3/'):
+                return problem_response(503, code="rate_limiter_unavailable", detail="Rate limiter unavailable.")
             return JsonResponse({"error": "Rate limiter unavailable."}, status=503)
         if requests > rate_limit:
+            if request.path_info.startswith('/v3/'):
+                response = problem_response(429, code="throttled", detail="Too many requests.")
+                response["Retry-After"] = str(time_window)
+                return response
             return JsonResponse({"error": "Too many requests. Please try again later."}, status=429)
 
         response = self.get_response(request)
@@ -65,7 +76,7 @@ class FallbackGeoRedirectMiddleware:
     def __call__(self, request):
         if getattr(config, 'GEO_DOMAIN_PYTHON_FALLBACK_REDIRECTS', False):
             if request.method in ('GET', 'HEAD') and not request.path.startswith(
-                ('/media/', '/staticfiles/', '/static/', '/method/', '/v2/')
+                ('/media/', '/staticfiles/', '/static/', '/method/', '/v2/', '/v3/', '/uploads/token/')
             ):
                 from apps.core.utils import get_geo_domains
                 geo_domains = get_geo_domains(request, allow_country_fallback=True)

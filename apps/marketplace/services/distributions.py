@@ -35,6 +35,6 @@ def community_request_is_current(req, app, target=None):
 def distribution_upload_context(request):
     spire_url = getattr(request, "geo_domains", {}).get("SPIRE_URL", settings.LUNASPIRE_URL)
     return {
-        "get_token_url": reverse("user-get-private-upload-token"),
+        "get_token_url": reverse("web-private-upload-token"),
         "cdn_upload_url": f"{spire_url.rstrip('/')}/cdn/upload",
     }

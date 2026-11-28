@@ -1,19 +1,14 @@
 from apps.marketplace.services.visibility import public_app_filter
-import time
-import uuid
 import json
 
-import jwt
 from django.conf import settings
 from django.db.models import Count, Prefetch, Q
 from apps.core.objects import get_integer_object_or_404
-from django.core.cache import cache
 from django.utils import timezone
-from rest_framework import serializers, viewsets, mixins
-from rest_framework.decorators import action, api_view, permission_classes
+from rest_framework import serializers, viewsets
+from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.views import APIView
 from rest_framework.exceptions import NotFound
 from django.shortcuts import get_object_or_404
@@ -23,12 +18,14 @@ from drf_spectacular.utils import (
     OpenApiResponse,
     OpenApiTypes,
     extend_schema,
+    extend_schema_field,
     extend_schema_view,
     inline_serializer,
 )
 from apps.marketplace.models import Application, Category, Collection, CollectionItem, Distribution, Platform
-from apps.marketplace.services.access import can_manage_app, application_role, accessible_app_ids
-from apps.marketplace.services.distributions import can_submit_community_distribution
+from apps.marketplace.services.access import can_manage_app
+from apps.api.upload_tokens import can_upload_distribution, issue_private_upload_token, issue_public_upload_token
+from apps.api.catalog import APILimitOffsetPagination, application_queryset, distribution_queryset, paginated_search
 from apps.marketplace.serializers import ApplicationSerializer as LegacyApplicationSerializer, CategorySerializer, CollectionSerializer, DistributionSerializer as LegacyDistributionSerializer, annotate_app_last_version
 from apps.user.models import User
 from apps.user.serializers import UserSerializer
@@ -41,11 +38,11 @@ from apps.core.search import (
     parse_is_free,
 )
 
-from apps.api.constants import ErrorCodes, PUB_UPLOAD_POLICIES, ALLOWED_MIMES
+from apps.api.constants import ErrorCodes, PUB_UPLOAD_POLICIES
 from apps.api.exceptions import LunaException
 
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from .serializers import CustomTokenObtainPairSerializer, CustomTokenRefreshSerializer
+from .serializers import CustomTokenObtainPairSerializer, CustomTokenRefreshSerializer, TokenPairSerializer
 
 
 class PlatformSerializer(serializers.ModelSerializer):
@@ -66,6 +63,7 @@ class DistributionSerializer(LegacyDistributionSerializer):
     platform = PlatformSerializer(read_only=True)
     platforms = serializers.SerializerMethodField()
 
+    @extend_schema_field(PlatformSerializer(many=True))
     def get_platforms(self, obj):
         return PlatformSerializer(obj.display_platforms, many=True).data
 
@@ -81,36 +79,20 @@ class PlatformViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 @extend_schema_view(
-    post=extend_schema(summary="get JWT access and refresh tokens (supports 2FA)"),
+    post=extend_schema(summary="get JWT access and refresh tokens (supports 2FA)", responses=TokenPairSerializer),
 )
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
 
 
 @extend_schema_view(
-    post=extend_schema(summary="refresh JWT access token"),
+    post=extend_schema(summary="rotate JWT refresh token", responses=TokenPairSerializer),
 )
 class CustomTokenRefreshView(TokenRefreshView):
     serializer_class = CustomTokenRefreshSerializer
 
 
-class V2Pagination(LimitOffsetPagination):
-    default_limit = 20
-    max_limit = 100
-
-
-def _meili_limit_offset_response(view, request, queryset, search_callable):
-    # meili ids -> orm hydrate -> limit/offset envelope
-    # set limit/offset explicitly: get_limit/get_offset alone do not assign them
-    paginator = V2Pagination()
-    paginator.limit = paginator.get_limit(request)
-    paginator.offset = paginator.get_offset(request)
-    ids, total = search_callable(limit=paginator.limit, offset=paginator.offset)
-    results = SearchService.order_queryset_by_ids(queryset, ids)
-    serializer = view.get_serializer(results, many=True)
-    paginator.request = request
-    paginator.count = total
-    return paginator.get_paginated_response(serializer.data)
+V2Pagination = APILimitOffsetPagination
 
 
 def _paginated_search_response_schema(item_serializer, name):
@@ -141,6 +123,16 @@ _SEARCH_ERROR_503 = OpenApiResponse(
 )
 
 
+class UploadTokenSerializer(serializers.Serializer):
+    upload_token = serializers.CharField()
+    guard = serializers.CharField()
+
+
+class NotificationTokenSerializer(serializers.Serializer):
+    token = serializers.CharField()
+    ws_url = serializers.CharField()
+
+
 @extend_schema_view(
     list=extend_schema(summary="get paginated list of users"),
     retrieve=extend_schema(summary="get detailed user profile"),
@@ -153,6 +145,7 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     @extend_schema(
         summary="get public upload token",
         description="Returns public upload token",
+        responses=UploadTokenSerializer,
         parameters=[
             OpenApiParameter(name="target", description="Target object (avatar, icon, screenshot)", required=True, type=str, location=OpenApiParameter.QUERY)
         ],
@@ -164,32 +157,12 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
         if not target or target not in PUB_UPLOAD_POLICIES:
             return Response({"error": "Invalid target"}, status=400)
 
-        policy = PUB_UPLOAD_POLICIES[target]
-        guard_phrase = uuid.uuid4().hex
-
-        cache_key = f"cdn_guard_{request.user.id}_{guard_phrase}"
-        cache.set(cache_key, {"object": policy["obj"], "mode": "public"}, timeout=3600)
-
-        current_time = int(time.time())
-
-        payload = {
-            "type": "cdn-upload",
-            "object": policy["obj"],
-            "user": str(request.user.id),
-            "guard": guard_phrase,
-            "mode": "public",
-            "accept": policy["mimes"],
-            "iat": current_time,
-            "exp": current_time + 3600,
-            "img_opts": {"mw": policy["mw"], "mh": policy["mh"]},
-        }
-
-        upload_token = jwt.encode(payload, settings.LUNASPIRE_SECRET_KEY, algorithm="HS256")
-        return Response({"upload_token": upload_token, "guard": guard_phrase})
+        return Response(issue_public_upload_token(request.user, target))
 
     @extend_schema(
         summary="get private upload token",
         description="Returns private upload token",
+        responses=UploadTokenSerializer,
         parameters=[
             OpenApiParameter(name="target", description="Target", required=False, type=str, location=OpenApiParameter.QUERY),
             OpenApiParameter(name="app_id", description="Application ID", required=True, type=int, location=OpenApiParameter.QUERY)
@@ -197,41 +170,17 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     )
     @action(detail=False, methods=["get"], url_path="getPrivateUploadToken", permission_classes=[IsAuthenticated])
     def get_private_upload_token(self, request):
-        target = request.query_params.get("target", "distribution")
         app_id = request.query_params.get("app_id")
 
         if not app_id or not app_id.isdigit():
             return Response({"error": "app_id is required and must be an integer"}, status=400)
 
         app_obj = get_integer_object_or_404(Application, id=app_id)
-        if (
-            not can_manage_app(app_obj, request.user, "files")
-            and not request.user.is_staff
-            and not (application_role(app_obj, request.user) is None and can_submit_community_distribution(app_obj, request.user))
-        ):
+        if not can_upload_distribution(request.user, app_obj):
             return Response({"error": "Not your app"}, status=403)
+        return Response(issue_private_upload_token(request.user, app_obj))
 
-        guard_phrase = uuid.uuid4().hex
-
-        cache_key = f"cdn_guard_{request.user.id}_{guard_phrase}"
-        cache.set(cache_key, {"object": str(app_obj.pk), "mode": "private"}, timeout=3600)
-
-        current_time = int(time.time())
-
-        payload = {
-            "type": "cdn-upload",
-            "object": str(app_obj.id),
-            "user": str(request.user.id),
-            "guard": guard_phrase,
-            "mode": "private",
-            "accept": ALLOWED_MIMES,
-            "iat": current_time,
-            "exp": current_time + 3600,
-        }
-
-        upload_token = jwt.encode(payload, settings.LUNASPIRE_SECRET_KEY, algorithm="HS256")
-        return Response({"upload_token": upload_token, "guard": guard_phrase})
-
+    @extend_schema(responses=NotificationTokenSerializer)
     @action(detail=False, methods=["get"], url_path="getNotificationToken", permission_classes=[IsAuthenticated])
     def get_notification_token(self, request):
         token = NotificationService.get_receive_token(request.user.id)
@@ -288,7 +237,7 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
             )
 
         try:
-            return _meili_limit_offset_response(
+            return paginated_search(
                 self, request, self.get_queryset(), _search
             )
         except SearchUnavailableError:
@@ -301,23 +250,13 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
 )
 class MarketplaceViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
-        qs = Application.objects.filter(is_under_dmca=False)
-        if self.action == "retrieve":
-            qs = qs.filter(Q(is_private=False) | Q(pk__in=accessible_app_ids(self.request.user)))
-        else:
-            qs = qs.filter(is_private=False)
+        qs = application_queryset(self.request.user, include_private=self.action == "retrieve")
         return annotate_app_last_version(qs.prefetch_related("platforms"))
     serializer_class = ApplicationSerializer
     pagination_class = V2Pagination
 
     def get_object(self):
         obj = super().get_object()
-        if obj.is_under_dmca:
-            raise LunaException(
-                code=ErrorCodes.APPLICATION_IS_UNDER_DMCA,
-                message=f"Application (id: {obj.id}) unavailable because his creators/uploaders received a DMCA strike",
-                status_code=403,
-            )
         if obj.is_private and not can_manage_app(obj, self.request.user, "view"):
             raise LunaException(
                 code=ErrorCodes.APPLICATION_PRIVATE,
@@ -406,7 +345,7 @@ class MarketplaceViewSet(viewsets.ReadOnlyModelViewSet):
             )
 
         try:
-            return _meili_limit_offset_response(
+            return paginated_search(
                 self, request, self.get_queryset(), _search
             )
         except SearchUnavailableError:
@@ -500,6 +439,7 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
     @extend_schema(
         summary="get apps by category",
         description="Returns paginated apps in a given category",
+        responses=ApplicationSerializer(many=True),
         parameters=[OpenApiParameter(name="platform", description="Platform code", required=False,
                                      type=OpenApiTypes.STR)],
     )
@@ -531,17 +471,11 @@ class DistributionViewSet(viewsets.ReadOnlyModelViewSet):
     pagination_class = V2Pagination
 
     def get_queryset(self):
-        # Private distributions are visible to the owner and current team members.
-        qs = Distribution.objects.select_related("app", "app__user", "platform").prefetch_related("platforms").filter(
-            app__deleted__isnull=True, app__is_under_dmca=False,
-        )
-        user = self.request.user
-        if user.is_authenticated:
-            return qs.filter(Q(app__is_private=False) | Q(app_id__in=accessible_app_ids(user)))
-        return qs.filter(app__is_private=False)
+        return distribution_queryset(self.request.user)
 
     @extend_schema(
         summary="get distributions by application",
+        responses=DistributionSerializer(many=True),
         parameters=[
             OpenApiParameter(name="app_id", description="Application ID", required=True, type=int, location=OpenApiParameter.QUERY)
         ],
@@ -578,12 +512,16 @@ class ServiceViewSet(viewsets.ViewSet):
             return []
         return super().get_throttles()
 
-    @extend_schema(summary="check API status")
+    @extend_schema(summary="check API status", responses=inline_serializer(
+        name="V2Heartbeat",
+        fields={"status": serializers.CharField(), "timestamp": serializers.DateTimeField(),
+                "version": serializers.CharField()},
+    ))
     @action(detail=False, methods=["get"], url_path="heartbeat")
     def heartbeat(self, request):
         return Response({"status": "ok", "timestamp": timezone.now(), "version": settings.VERSION})
 
-    @extend_schema(summary="returns list of LunaStore developers")
+    @extend_schema(summary="returns list of LunaStore developers", responses=OpenApiTypes.OBJECT)
     @action(detail=False, methods=["get"], url_path="developersList")
     def developers(self, request):
         return Response({
@@ -595,7 +533,9 @@ class ServiceViewSet(viewsets.ViewSet):
             "special_thanks": "MondySpartan (logo), nocha3 (native client of LunaStore for Windows XP)",
         })
 
-    @extend_schema(summary="returns one cool thing")
+    @extend_schema(summary="returns one cool thing", responses=inline_serializer(
+        name="V2ServiceAnswer", fields={"answer": serializers.CharField()},
+    ))
     @action(detail=False, methods=["get"], url_path="kunyakin")
     def kunyakin(self, request):
         return Response({"answer": "влад кунякин пробудил шаринган"})
@@ -644,6 +584,7 @@ class CollectionViewSet(viewsets.ReadOnlyModelViewSet):
     @extend_schema(
         summary="get apps in collection",
         description="Returns paginated apps in a given collection",
+        responses=ApplicationSerializer(many=True),
     )
     @action(detail=True, methods=["get"], url_path="apps")
     def apps(self, request, pk=None):
@@ -667,6 +608,7 @@ class CollectionViewSet(viewsets.ReadOnlyModelViewSet):
     @extend_schema(
         summary="get collections by user",
         description="Returns public collections owned by user_id",
+        responses=CollectionSerializer(many=True),
         parameters=[
             OpenApiParameter(
                 name="user_id",
@@ -700,9 +642,43 @@ class CollectionViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(serializer.data)
 
 
+class ExecuteCallSerializer(serializers.Serializer):
+    method = serializers.CharField()
+    params = serializers.DictField(required=False)
+
+
+class ExecuteRequestSerializer(serializers.Serializer):
+    code = ExecuteCallSerializer(many=True, max_length=25, required=False)
+
+
+class ExecuteResponseSerializer(serializers.Serializer):
+    responses = serializers.ListField(child=serializers.JSONField())
+
+
 class ExecuteView(APIView):
+    view_mapping = {
+        "user.list": (UserViewSet, "list"),
+        "user.retrieve": (UserViewSet, "retrieve"),
+        "user.search": (UserViewSet, "search"),
+        "marketplace.list": (MarketplaceViewSet, "list"),
+        "marketplace.retrieve": (MarketplaceViewSet, "retrieve"),
+        "marketplace.search": (MarketplaceViewSet, "search"),
+        "category.list": (CategoryViewSet, "list"),
+        "category.retrieve": (CategoryViewSet, "retrieve"),
+        "category.apps": (CategoryViewSet, "apps"),
+        "distribution.list": (DistributionViewSet, "list"),
+        "distribution.retrieve": (DistributionViewSet, "retrieve"),
+        "distribution.by_app": (DistributionViewSet, "by_app"),
+        "collection.list": (CollectionViewSet, "list"),
+        "collection.retrieve": (CollectionViewSet, "retrieve"),
+        "collection.apps": (CollectionViewSet, "apps"),
+        "collection.by_user": (CollectionViewSet, "by_user"),
+    }
+
     @extend_schema(
         summary="Batch API execution",
+        request=ExecuteRequestSerializer,
+        responses=ExecuteResponseSerializer,
         description="""
         VK-like execute method for batch API requests (～￣▽￣)～
 
@@ -757,31 +733,7 @@ class ExecuteView(APIView):
                 })
                 continue
 
-            # Internal mapping for V2 execute routing
-            # For simplicity in this implementation, we will explicitly route allowed methods
-            # user.retrieve, marketplace.retrieve, marketplace.search, category.apps, etc.
-
-            # Map method string to ViewSet and action
-            view_mapping = {
-                "user.list": (UserViewSet, "list"),
-                "user.retrieve": (UserViewSet, "retrieve"),
-                "user.search": (UserViewSet, "search"),
-                "marketplace.list": (MarketplaceViewSet, "list"),
-                "marketplace.retrieve": (MarketplaceViewSet, "retrieve"),
-                "marketplace.search": (MarketplaceViewSet, "search"),
-                "category.list": (CategoryViewSet, "list"),
-                "category.retrieve": (CategoryViewSet, "retrieve"),
-                "category.apps": (CategoryViewSet, "apps"),
-                "distribution.list": (DistributionViewSet, "list"),
-                "distribution.retrieve": (DistributionViewSet, "retrieve"),
-                "distribution.by_app": (DistributionViewSet, "by_app"),
-                "collection.list": (CollectionViewSet, "list"),
-                "collection.retrieve": (CollectionViewSet, "retrieve"),
-                "collection.apps": (CollectionViewSet, "apps"),
-                "collection.by_user": (CollectionViewSet, "by_user"),
-            }
-
-            if method_name not in view_mapping:
+            if method_name not in self.view_mapping:
                 responses.append({
                     "status": "error",
                     "message": f"Method {method_name} not allowed or unknown",
@@ -789,7 +741,7 @@ class ExecuteView(APIView):
                 })
                 continue
 
-            viewset_class, action_name = view_mapping[method_name]
+            viewset_class, action_name = self.view_mapping[method_name]
 
             # Create a mock request for the viewset
             mock_request = copy.copy(request._request)

@@ -178,35 +178,16 @@ class BaseApplicationInfo(SafeDeleteModel):
     @property
     def icon_url(self) -> str:
         if self.icon_path:
-            from apps.core.local import get_geo_spire_url
-            base_url = get_geo_spire_url(
-                getattr(
-                    settings,
-                    "LUNASPIRE_URL",
-                    "")).rstrip("/")
-            protocol_relative_url = base_url.replace(
-                "https:", "").replace("http:", "")
+            from apps.core.local import spire_media_url
 
-            path = self.icon_path.lstrip("/")
-            return f"{protocol_relative_url}/{path}"
+            return spire_media_url(self.icon_path)
         return "/staticfiles/img/noavatar_64.jpg"
 
     @property
     def screenshot_urls(self) -> list[str]:
-        from apps.core.local import get_geo_spire_url
-        base_url = get_geo_spire_url(
-            getattr(
-                settings,
-                "LUNASPIRE_URL",
-                "")).rstrip("/")
-        protocol_relative_url = base_url.replace(
-            "https:", "").replace("http:", "")
+        from apps.core.local import spire_media_url
 
-        urls = []
-        for path in self.screenshots or []:
-            clean_path = path.lstrip("/")
-            urls.append(f"{protocol_relative_url}/{clean_path}")
-        return urls
+        return [spire_media_url(path) for path in self.screenshots or []]
 
 
 class ApplicationQuerySet(SafeDeleteQueryset):

@@ -79,3 +79,14 @@ def rotate_tokens(raw_token):
     session.expires_at = datetime_from_epoch(refresh["exp"])
     session.save(update_fields=["refresh_jti", "expires_at"])
     return token_pair(refresh)
+
+
+@transaction.atomic
+def revoke_tokens(raw_token):
+    refresh = RefreshToken(raw_token)
+    session = get_api_session(refresh, lock=True)
+    validate_account(User.objects.filter(pk=session.user_id).first(), refresh)
+    if session.refresh_jti != refresh[api_settings.JTI_CLAIM]:
+        raise InvalidToken("Refresh token has already been used.")
+    session.revoked_at = timezone.now()
+    session.save(update_fields=["revoked_at"])

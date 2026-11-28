@@ -377,20 +377,19 @@ class ApplicationAccessTests(TestCase):
         with patch("apps.marketplace.services.moderation.send_notification"):
             self.assertIsNotNone(auto_approve_request(req))
 
-    def test_private_upload_tokens_v1_v2_respect_roles_and_revocation(self):
-        from apps.api.views import UserViewSet
-        from apps.api.v2.views import UserViewSet as UserViewSetV2
+    def test_private_upload_tokens_respect_roles_and_revocation(self):
+        from apps.api.v2.views import UserViewSet
         self.app.is_private = True
         self.app.save()
-        for viewset in (UserViewSet, UserViewSetV2):
-            for user, status in ((self.owner, 200), (self.admin, 200), (self.editor, 403), (self.other, 403)):
-                request = APIRequestFactory().get("/token", {"app_id": self.app.pk})
-                force_authenticate(request, user)
-                self.assertEqual(viewset.as_view({"get": "get_private_upload_token"})(request).status_code, status)
+        view = UserViewSet.as_view({"get": "get_private_upload_token"})
+        for user, status in ((self.owner, 200), (self.admin, 200), (self.editor, 403), (self.other, 403)):
+            request = APIRequestFactory().get("/token", {"app_id": self.app.pk})
+            force_authenticate(request, user)
+            self.assertEqual(view(request).status_code, status)
         set_application_access(self.app.pk, self.owner, self.admin, "none")
         request = APIRequestFactory().get("/token", {"app_id": self.app.pk})
         force_authenticate(request, self.admin)
-        self.assertEqual(UserViewSet.as_view({"get": "get_private_upload_token"})(request).status_code, 403)
+        self.assertEqual(view(request).status_code, 403)
 
     def test_all_locales_render_translated_rights_pages(self):
         for lang in ("ru", "en", "uk", "be", "kk"):
@@ -401,19 +400,21 @@ class ApplicationAccessTests(TestCase):
                     self.assertNotContains(response, "PAGE_ADMIN_APP_RIGHTS_")
                     self.assertNotContains(response, "FORM_APP_RIGHTS_")
 
-    def test_private_application_and_distributions_v1_v2(self):
-        from apps.api.views import MarketplaceViewSet, DistributionViewSet
+    @override_settings(ROOT_URLCONF="lunastore.urls_api")
+    def test_private_application_and_distributions_v2_v3(self):
         from apps.api.v2.views import MarketplaceViewSet as MarketplaceV2, DistributionViewSet as DistributionV2
+        from apps.api.v3.catalog import ApplicationViewSet as ApplicationV3, DistributionViewSet as DistributionV3
         self.app.is_private = True
         self.app.save()
         for user in (self.owner, self.admin, self.editor, self.other, AnonymousUser()):
             allowed = user in (self.owner, self.admin, self.editor)
             for viewset, action, data, kwargs in (
-                (MarketplaceViewSet, "get_app", {"id": self.app.pk}, {}),
-                (DistributionViewSet, "get_distributions_list", {"id": self.app.pk}, {}),
                 (MarketplaceV2, "retrieve", {}, {"pk": self.app.pk}),
                 (DistributionV2, "retrieve", {}, {"pk": self.dist.pk}),
                 (DistributionV2, "by_app", {"app_id": self.app.pk}, {}),
+                (ApplicationV3, "retrieve", {}, {"pk": self.app.pk}),
+                (ApplicationV3, "distributions", {}, {"pk": self.app.pk}),
+                (DistributionV3, "retrieve", {}, {"pk": self.dist.pk}),
             ):
                 with self.subTest(user=user, viewset=viewset, action=action):
                     request = APIRequestFactory().get("/resource", data)
@@ -502,7 +503,7 @@ class ApplicationAccessTests(TestCase):
         from django.conf import settings
 
         self.client.force_login(self.admin)
-        token_response = self.client.get(reverse("user-get-private-upload-token"), {"app_id": self.app.pk})
+        token_response = self.client.get(reverse("web-private-upload-token"), {"app_id": self.app.pk})
         claims = jwt.decode(token_response.json()["upload_token"], settings.LUNASPIRE_SECRET_KEY, algorithms=["HS256"])
         confirmation = jwt.encode({
             "type": "cdn-confirm", "file_id": 123, "guard": claims["guard"], "exp": claims["exp"],

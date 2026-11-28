@@ -11,7 +11,7 @@ apps/
 ├── core/           # Shared utils, banners, GeoIP, Telegram logging, Constance sync
 ├── user/           # Custom User, sessions, bans, TOTP 2FA, invites, noSpam engine
 ├── marketplace/    # Catalog, distributions, moderation, collections, reviews
-├── api/            # API v1 (RPC /method/) and API v2 (REST /v2/)
+├── api/            # REST API V2 and V3
 ├── terms/          # Legal documents (Privacy Policy, ToS) with multilanguage support
 └── analytics/      # Optional ClickHouse analytics (ANALYTICS_ENABLED)
 ```

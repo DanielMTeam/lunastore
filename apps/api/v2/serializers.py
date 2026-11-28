@@ -82,3 +82,8 @@ class CustomTokenRefreshSerializer(TokenRefreshSerializer):
         if request and is_ip_banned(get_client_ip(request)):
             raise LunaException(code=ErrorCodes.USER_IS_BLOCKED, message="Authentication unavailable.", status_code=403)
         return rotate_tokens(attrs["refresh"])
+
+
+class TokenPairSerializer(serializers.Serializer):
+    access = serializers.CharField()
+    refresh = serializers.CharField()

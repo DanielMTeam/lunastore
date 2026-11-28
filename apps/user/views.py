@@ -461,7 +461,6 @@ def profile_settings(request):
         "avatar_form": AvatarUpdateForm(instance=user),
         "del_acc_form": PasswordConfirmationForm(user=user),
         "cdn_base_url": getattr(request, 'geo_domains', {}).get('SPIRE_URL', settings.LUNASPIRE_URL),
-        "api_base_url": getattr(request, 'geo_domains', {}).get('API_URL', settings.API_URL),
         "is_developer": request.user.groups.filter(name="Разработчики").exists(),
         "dev_status_enabled": config.DEVELOPER_REGISTRATION_IS_ENABLED,
     }

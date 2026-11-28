@@ -156,7 +156,7 @@ document.addEventListener("DOMContentLoaded", function () {
             submitBtn.innerText = config.i18n.uploading;
             submitBtn.disabled = true;
             _context.p = 2;
-            tokenUrl = new URL(config.apiTokenUrl);
+            tokenUrl = new URL(config.apiTokenUrl, window.location.href);
             tokenUrl.searchParams.append("target", "avatar");
             _context.n = 3;
             return fetch(tokenUrl.toString(), {

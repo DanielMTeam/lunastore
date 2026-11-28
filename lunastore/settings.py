@@ -287,6 +287,10 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": "API Documentation for LunaStore",
     "VERSION": VERSION,
     "SERVE_INCLUDE_SCHEMA": False,
+    "POSTPROCESSING_HOOKS": [
+        "drf_spectacular.hooks.postprocess_schema_enums",
+        "apps.api.schema.document_v3_problems",
+    ],
 }
 
 
@@ -1321,6 +1325,8 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = "/staticfiles/"
+API_MEDIA_BASE_URL = os.getenv("API_MEDIA_BASE_URL", "https://lunastore.app").rstrip("/") + "/"
+API_PUBLIC_SCHEME = os.getenv("API_PUBLIC_SCHEME", "")
 STATICFILES_DIRS = [BASE_DIR / "staticfiles"]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

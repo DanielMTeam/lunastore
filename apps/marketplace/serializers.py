@@ -1,9 +1,12 @@
 from apps.marketplace.services.visibility import public_app_filter
 from django.db.models import OuterRef, Subquery
+from django.templatetags.static import static
+from drf_spectacular.utils import extend_schema_field
 
 from rest_framework import serializers
 
 from .models import Application, Category, Collection, Distribution
+from apps.api.media import absolute_media_url
 from apps.user.serializers import UserSerializer
 
 
@@ -40,7 +43,7 @@ class ApplicationSerializer(serializers.ModelSerializer):
             "version",
         ]
 
-    def get_version(self, obj):
+    def get_version(self, obj) -> str | None:
         if hasattr(obj, "last_dist_version"):
             return obj.last_dist_version
         last_dist = obj.distributions.order_by("-published").first()
@@ -48,9 +51,23 @@ class ApplicationSerializer(serializers.ModelSerializer):
 
 
 class CategorySerializer(serializers.ModelSerializer):
+    icon_url = serializers.SerializerMethodField()
+
+    ICONS = frozenset((
+        "myhome", "top", "updates", "entertainment", "util", "media", "office",
+        "internet", "other", "themes", "setup", "alert", "newbie", "notify",
+        "settings", "web", "mypc", "paint", "emuvm",
+    ))
+
     class Meta:
         model = Category
-        fields = ["id", "name", "description", "icon", "banner_url"]
+        fields = ["id", "name", "description", "icon", "icon_url", "banner_url"]
+
+    @extend_schema_field(serializers.URLField(allow_null=True))
+    def get_icon_url(self, obj):
+        if obj.icon in self.ICONS:
+            return absolute_media_url(static(f"img/category-icons/{obj.icon}.png"))
+        return None
 
 
 class DistributionSerializer(serializers.ModelSerializer):

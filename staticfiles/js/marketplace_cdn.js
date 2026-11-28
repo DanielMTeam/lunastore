@@ -133,10 +133,8 @@ function _asyncToGenerator(n) {
 document.addEventListener("DOMContentLoaded", function () {
   var form = document.getElementById("app-upload-form") || document.getElementById("application_form") || document.getElementById("distribution_form");
   if (!form) return;
-  var config = window.cdn_config || window.CDN_CONFIG || {
-    uploadUrl: "https://spire.lunastore.app/cdn/upload",
-    tokenBaseUrl: "https://api.lunastore.app/method/user/getPublicUploadToken/"
-  };
+  var config = window.cdn_config || window.CDN_CONFIG;
+  if (!config) return;
   var i18n = window.luna_i18n || window.LUNA_I18N || {
     uploading: "Загрузка...",
     error: "Ошибка: ",
@@ -220,7 +218,7 @@ document.addEventListener("DOMContentLoaded", function () {
                       upload_token = _yield$tokenRes$json.upload_token;
                       // send file with unique token
                       fd = new FormData();
-                      finalUrl = new URL(config.uploadUrl);
+                      finalUrl = new URL(config.uploadUrl, window.location.href);
                       finalUrl.searchParams.append("token", upload_token);
                       fd.append("file", file);
                       fd.append("mime_type", file.type);
